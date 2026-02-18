@@ -70,9 +70,14 @@ const Dashboard = ({ onNavigate }) => {
                 marginBottom: '40px',
                 display: 'flex',
                 alignItems: 'center',
-                gap: '15px'
+                gap: '20px'
             }}>
-                <div style={{ fontSize: '2rem' }}>👋</div>
+                <div style={{ flexShrink: 0, width: '160px', borderRadius: '8px', overflow: 'hidden', boxShadow: '0 4px 6px rgba(0,0,0,0.2)' }}>
+                    <video width="100%" autoPlay muted loop playsInline style={{ display: 'block' }}>
+                        <source src="/MTGuru_vids/MTG%20Wecome%20short.mp4" type="video/mp4" />
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
                 <div>
                     <h3 style={{ margin: '0 0 5px 0', color: 'var(--accent-blue)' }}>Welcome to the Music Tech Guru Revision App!</h3>
                     <p style={{ margin: 0, color: 'var(--text-secondary)', lineHeight: '1.5' }}>
