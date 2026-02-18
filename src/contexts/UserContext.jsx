@@ -43,21 +43,43 @@ export const UserProvider = ({ children }) => {
 
     const fetchUserProgress = async (userId) => {
         try {
-            const { data, error } = await supabase
+            // 1. Fetch Progress
+            const { data: progressData, error: progressError } = await supabase
                 .from('user_progress')
                 .select('progress')
                 .eq('id', userId)
                 .single();
 
-            if (error && error.code !== 'PGRST116') { // PGRST116 is "Row not found"
-                console.error("Error fetching progress:", error);
+            if (progressError && progressError.code !== 'PGRST116') {
+                console.error("Error fetching progress:", progressError);
             }
 
-            if (data?.progress) {
-                setUserProgress(data.progress);
+            if (progressData?.progress) {
+                setUserProgress(progressData.progress);
             }
+
+            // 2. Fetch Profile (Premium Status)
+            const { data: profileData, error: profileError } = await supabase
+                .from('profiles')
+                .select('is_premium')
+                .eq('id', userId)
+                .single();
+
+            if (profileError && profileError.code !== 'PGRST116') {
+                console.error("Error fetching profile:", profileError);
+            }
+
+            if (profileData) {
+                // We'll store this in a separate state or merged into currentUser
+                // For now, let's update currentUser to include is_premium
+                setCurrentUser(prev => {
+                    if (!prev) return prev; // Don't update if user logged out appropriately
+                    return { ...prev, is_premium: profileData.is_premium };
+                });
+            }
+
         } catch (err) {
-            console.error("Unexpected error fetching progress:", err);
+            console.error("Unexpected error fetching user data:", err);
         } finally {
             setLoading(false);
         }
@@ -67,6 +89,9 @@ export const UserProvider = ({ children }) => {
         const { data, error } = await supabase.auth.signUp({
             email,
             password,
+            options: {
+                emailRedirectTo: window.location.origin,
+            },
         });
         if (error) throw error;
         return data;

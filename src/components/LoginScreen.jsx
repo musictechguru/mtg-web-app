@@ -9,9 +9,14 @@ const LoginScreen = () => {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
 
+    const [isSubmitting, setIsSubmitting] = useState(false);
+
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (isSubmitting) return;
+
         setError('');
+        setIsSubmitting(true);
 
         try {
             if (isLogin) {
@@ -22,6 +27,8 @@ const LoginScreen = () => {
             }
         } catch (err) {
             setError(err.message);
+        } finally {
+            setIsSubmitting(false);
         }
     };
 
@@ -100,19 +107,20 @@ const LoginScreen = () => {
                             outline: 'none'
                         }}
                     />
-                    <button type="submit" disabled={loading} style={{
+                    <button type="submit" disabled={loading || isSubmitting} style={{
                         padding: '12px',
-                        backgroundColor: 'var(--accent-blue)',
+                        backgroundColor: (loading || isSubmitting) ? 'var(--bg-layer-2)' : 'var(--accent-blue)',
                         color: 'white',
                         border: 'none',
                         borderRadius: '8px',
                         fontSize: '1rem',
                         fontWeight: '600',
-                        cursor: 'pointer',
+                        cursor: (loading || isSubmitting) ? 'not-allowed' : 'pointer',
                         marginTop: '1rem',
-                        transition: 'opacity 0.2s'
+                        transition: 'opacity 0.2s',
+                        opacity: (loading || isSubmitting) ? 0.7 : 1
                     }}>
-                        {loading ? 'Processing...' : (isLogin ? 'Log In' : 'Sign Up')}
+                        {loading || isSubmitting ? 'Processing...' : (isLogin ? 'Log In' : 'Sign Up')}
                     </button>
                 </form>
 

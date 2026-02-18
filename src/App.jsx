@@ -19,6 +19,7 @@ import component3HeavyRockData from './data/component3_heavyrock_exam.json';
 import component3SoulData from './data/component3_soul_exam.json';
 import component3ReggaeData from './data/component3_reggae_exam.json';
 import component4EdmData from './data/component4_edm_exam.json';
+import PremiumLocked from './components/PremiumLocked';
 
 const EXAM_DATA_MAP = {
   'c3_funk': component3FunkData,
@@ -54,6 +55,13 @@ const MainApp = () => {
 
   // Normal App Logic
   const handleItemSelect = (item) => {
+    // Premium Check
+    if (item.isPremium && !currentUser?.is_premium) {
+      setActiveItem({ type: 'premium_locked', title: item.title });
+      window.scrollTo(0, 0);
+      return;
+    }
+
     setActiveItem(item);
     window.scrollTo(0, 0);
   };
@@ -134,6 +142,8 @@ const MainApp = () => {
             <SynthesizerQuiz onExit={goToDashboard} />
           ) : activeItem.type === 'effects_chain_quiz' ? (
             <EffectsChainQuiz onExit={goToDashboard} />
+          ) : activeItem.type === 'premium_locked' ? (
+            <PremiumLocked itemTitle={activeItem.title} />
           ) : (
             <LessonViewer lesson={activeItem} />
           )
