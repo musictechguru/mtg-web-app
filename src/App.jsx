@@ -37,6 +37,9 @@ const MainApp = () => {
   const { currentUser, logout, loading } = useUser();
   const [activeItem, setActiveItem] = useState(null);
   const [showTeacherView, setShowTeacherView] = useState(false);
+  // Mobile Menu Logic
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
 
   if (loading) {
     return <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', color: '#fff' }}>Loading...</div>;
@@ -70,8 +73,7 @@ const MainApp = () => {
     setActiveItem(null);
   };
 
-  // Mobile Menu Logic
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
 
   // Close menu when route changes or item selected
   const handleItemSelectWrapper = (item) => {
