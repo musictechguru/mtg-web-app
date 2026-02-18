@@ -61,6 +61,28 @@ const Dashboard = ({ onNavigate }) => {
                 </div>
             </header>
 
+            {/* Welcome Banner */}
+            <div style={{
+                background: 'linear-gradient(90deg, rgba(59, 130, 246, 0.15) 0%, rgba(37, 99, 235, 0.05) 100%)',
+                borderLeft: '4px solid var(--accent-blue)',
+                padding: '20px',
+                borderRadius: '8px',
+                marginBottom: '40px',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '15px'
+            }}>
+                <div style={{ fontSize: '2rem' }}>👋</div>
+                <div>
+                    <h3 style={{ margin: '0 0 5px 0', color: 'var(--accent-blue)' }}>Welcome to the Music Tech Guru Revision App!</h3>
+                    <p style={{ margin: 0, color: 'var(--text-secondary)', lineHeight: '1.5' }}>
+                        This is your central hub for mastering A-Level Music Technology.
+                        Track your progress, take quizzes, and level up your Guru status from <strong>Apprentice</strong> to <strong>Legend</strong>.
+                        Good luck with your revision!
+                    </p>
+                </div>
+            </div>
+
             {/* Guru Hero Section */}
             <div className="guru-hero" style={{
                 background: 'linear-gradient(135deg, var(--bg-panel) 0%, rgba(59, 130, 246, 0.1) 100%)',
