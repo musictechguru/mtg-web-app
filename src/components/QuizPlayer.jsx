@@ -516,12 +516,20 @@ const QuizPlayer = ({ quiz, onFinish }) => {
                                     fontStyle: 'italic',
                                     borderRadius: '0 8px 8px 0'
                                 }}>
-                                    <p style={{ margin: '0 0 10px 0', fontSize: '1.1rem', color: '#ffd700' }}>
-                                        "{currentQuestion.expert_quote.text}"
-                                    </p>
-                                    <footer style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', fontStyle: 'normal' }}>
-                                        — {currentQuestion.expert_quote.author}
-                                    </footer>
+                                    {typeof currentQuestion.expert_quote === 'string' ? (
+                                        <p style={{ margin: '0', fontSize: '1.1rem', color: '#ffd700' }}>
+                                            {currentQuestion.expert_quote}
+                                        </p>
+                                    ) : (
+                                        <>
+                                            <p style={{ margin: '0 0 10px 0', fontSize: '1.1rem', color: '#ffd700' }}>
+                                                "{currentQuestion.expert_quote.text}"
+                                            </p>
+                                            <footer style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', fontStyle: 'normal' }}>
+                                                — {currentQuestion.expert_quote.author}
+                                            </footer>
+                                        </>
+                                    )}
                                 </blockquote>
                             )}
 
@@ -537,8 +545,36 @@ const QuizPlayer = ({ quiz, onFinish }) => {
                         <div
                             key={`expl-${currentQuestion.id || currentQuestionIndex}-${isSubmitted}`}
                             className="explanation-content"
-                            dangerouslySetInnerHTML={{ __html: currentQuestion.explanation }}
-                        />
+                        >
+                            <div dangerouslySetInnerHTML={{ __html: currentQuestion.explanation }} />
+
+                            {/* Quote for Legacy Questions */}
+                            {currentQuestion.expert_quote && (
+                                <blockquote className="expert-quote" style={{
+                                    borderLeft: '4px solid var(--accent-gold)',
+                                    background: 'rgba(255, 215, 0, 0.05)',
+                                    margin: '20px 0 0 0',
+                                    padding: '15px 20px',
+                                    fontStyle: 'italic',
+                                    borderRadius: '0 8px 8px 0'
+                                }}>
+                                    {typeof currentQuestion.expert_quote === 'string' ? (
+                                        <p style={{ margin: '0', fontSize: '1.1rem', color: '#ffd700' }}>
+                                            {currentQuestion.expert_quote}
+                                        </p>
+                                    ) : (
+                                        <>
+                                            <p style={{ margin: '0 0 10px 0', fontSize: '1.1rem', color: '#ffd700' }}>
+                                                "{currentQuestion.expert_quote.text}"
+                                            </p>
+                                            <footer style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', fontStyle: 'normal' }}>
+                                                — {currentQuestion.expert_quote.author}
+                                            </footer>
+                                        </>
+                                    )}
+                                </blockquote>
+                            )}
+                        </div>
                     ) : (
                         <div className="explanation-placeholder">
                             <p>No explanation provided for this question.</p>

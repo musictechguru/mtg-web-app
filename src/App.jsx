@@ -70,12 +70,45 @@ const MainApp = () => {
     setActiveItem(null);
   };
 
+  // Mobile Menu Logic
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  // Close menu when route changes or item selected
+  const handleItemSelectWrapper = (item) => {
+    handleItemSelect(item);
+    setMobileMenuOpen(false);
+  };
+
+  const goToDashboardWrapper = () => {
+    goToDashboard();
+    setMobileMenuOpen(false);
+  };
+
   return (
     <div className="app-container">
+      {/* Mobile Menu Button */}
+      <button
+        className="mobile-menu-btn"
+        onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+        aria-label="Toggle Menu"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          {mobileMenuOpen ? <line x1="18" y1="6" x2="6" y2="18"></line> : <line x1="3" y1="12" x2="21" y2="12"></line>}
+          {mobileMenuOpen ? <line x1="6" y1="6" x2="18" y2="18"></line> : <line x1="3" y1="6" x2="21" y2="6"></line>}
+          {!mobileMenuOpen && <line x1="3" y1="18" x2="21" y2="18"></line>}
+        </svg>
+      </button>
+
+      {/* Overlay */}
+      <div
+        className={`sidebar-overlay ${mobileMenuOpen ? 'open' : ''}`}
+        onClick={() => setMobileMenuOpen(false)}
+      />
+
       {/* Sidebar Navigation */}
-      <aside className="sidebar">
+      <aside className={`sidebar ${mobileMenuOpen ? 'open' : ''}`}>
         <div className="sidebar-header" style={{ cursor: 'pointer' }}>
-          <div onClick={goToDashboard}>
+          <div onClick={goToDashboardWrapper}>
             <h1>Music Tech Guru</h1>
             <p style={{ fontSize: '0.8rem', color: 'var(--accent-blue)', marginTop: '5px' }}>
               Logged in as: {currentUser.email}
@@ -86,7 +119,7 @@ const MainApp = () => {
         <nav>
           <button
             className={`nav-item ${!activeItem ? 'active' : ''}`}
-            onClick={goToDashboard}
+            onClick={goToDashboardWrapper}
             style={{ marginBottom: '20px', fontWeight: 'bold', color: 'var(--accent-blue)' }}
           >
             Dashboard
@@ -94,7 +127,10 @@ const MainApp = () => {
 
           <button
             className={`nav-item ${activeItem?.type === 'dictionary_selector' ? 'active' : ''}`}
-            onClick={() => setActiveItem({ type: 'dictionary_selector', title: 'Dictionary Quizzes' })}
+            onClick={() => {
+              setActiveItem({ type: 'dictionary_selector', title: 'Dictionary Quizzes' });
+              setMobileMenuOpen(false);
+            }}
             style={{ marginBottom: '20px', fontWeight: 'bold', color: 'var(--accent-success)', border: '1px solid var(--accent-success)' }}
           >
             Dictionary Quizzes
@@ -107,7 +143,7 @@ const MainApp = () => {
                 <button
                   key={itemIdx}
                   className={`nav-item ${activeItem === item ? 'active' : ''}`}
-                  onClick={() => handleItemSelect(item)}
+                  onClick={() => handleItemSelectWrapper(item)}
                 >
                   {item.title}
                 </button>
@@ -123,25 +159,25 @@ const MainApp = () => {
       <main className="main-content">
         {activeItem ? (
           activeItem.type === 'lp_quiz' ? (
-            <QuizPlayer quiz={activeItem} onFinish={goToDashboard} />
+            <QuizPlayer quiz={activeItem} onFinish={goToDashboardWrapper} />
           ) : activeItem.type === 'lp_activity' ? (
-            <WorksheetPlayer activity={activeItem} onFinish={goToDashboard} />
+            <WorksheetPlayer activity={activeItem} onFinish={goToDashboardWrapper} />
           ) : activeItem.type === 'lp_fingerprints' ? (
-            <FingerprintsQuizPlayer onExit={goToDashboard} />
+            <FingerprintsQuizPlayer onExit={goToDashboardWrapper} />
           ) : activeItem.type === 'dictionary_selector' ? (
             <DictionaryQuizSelector
-              onSelectQuiz={(quiz) => handleItemSelect({ type: 'lp_quiz', ...quiz })}
-              onBack={goToDashboard}
+              onSelectQuiz={(quiz) => handleItemSelectWrapper({ type: 'lp_quiz', ...quiz })}
+              onBack={goToDashboardWrapper}
             />
           ) : activeItem.type === 'component3_exam' ? (
             <Component3ExamPlayer
               examData={EXAM_DATA_MAP[activeItem.id] || EXAM_DATA_MAP['default']}
-              onExit={goToDashboard}
+              onExit={goToDashboardWrapper}
             />
           ) : activeItem.type === 'lp_synth_quiz' ? (
-            <SynthesizerQuiz onExit={goToDashboard} />
+            <SynthesizerQuiz onExit={goToDashboardWrapper} />
           ) : activeItem.type === 'effects_chain_quiz' ? (
-            <EffectsChainQuiz onExit={goToDashboard} />
+            <EffectsChainQuiz onExit={goToDashboardWrapper} />
           ) : activeItem.type === 'premium_locked' ? (
             <PremiumLocked itemTitle={activeItem.title} />
           ) : (

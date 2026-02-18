@@ -81,7 +81,7 @@ const Dashboard = ({ onNavigate }) => {
                 <div>
                     <h3 style={{ margin: '0 0 5px 0', color: 'var(--accent-blue)' }}>Welcome to the Music Tech Guru Revision App!</h3>
                     <p style={{ margin: 0, color: 'var(--text-secondary)', lineHeight: '1.5' }}>
-                        This is your central hub for mastering A-Level Music Technology.
+                        This is your central hub for mastering Music Technology.
                         Track your progress, take quizzes, and level up your Guru status from <strong>Apprentice</strong> to <strong>Legend</strong>.
                         Good luck with your revision!
                     </p>

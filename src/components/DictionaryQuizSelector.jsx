@@ -74,8 +74,8 @@ const DictionaryQuizSelector = ({ onSelectQuiz, onBack }) => {
         const selectedQuestions = allQuestions.slice(0, 20);
 
         const titleMap = {
-            'basic': 'Foundation Roulette (Basic)',
-            'advanced': 'Pro Roulette (Intermediate+)',
+            'basic': 'Foundation Roulette',
+            'advanced': 'Pro Roulette',
             'all': 'Terminology Roulette'
         };
 
@@ -189,9 +189,9 @@ const DictionaryQuizSelector = ({ onSelectQuiz, onBack }) => {
                                         )}
                                         <h2 style={{ textTransform: 'capitalize', color: 'var(--accent-blue)', marginBottom: '10px' }}>{level}</h2>
                                         <div style={{ fontSize: '0.9rem', color: 'var(--text-secondary)' }}>
-                                            {level === 'basic' && 'GCSE Level Questions (Core Concepts)'}
-                                            {level === 'intermediate' && 'A Level Questions (Deep Dives)'}
-                                            {level === 'advanced' && 'Degree Level (Complex Theory)'}
+                                            {level === 'basic' && 'Basic Level Questions (Core Concepts)'}
+                                            {level === 'intermediate' && 'Intermediate & Advanced (Deep Dives)'}
+                                            {level === 'advanced' && 'Advanced Level (Complex Theory)'}
                                             {level === 'master' && 'Expert Level (Niche trivia)'}
                                         </div>
                                         <div style={{ marginTop: '15px', fontWeight: 'bold' }}>
@@ -252,14 +252,14 @@ const DictionaryQuizSelector = ({ onSelectQuiz, onBack }) => {
                                     <div>
                                         <h3 style={{ color: 'white', margin: '0 0 5px 0', fontSize: '1.4em' }}>Foundation Roulette</h3>
                                         <p style={{ color: 'rgba(255,255,255,0.9)', margin: 0, fontSize: '0.9em' }}>
-                                            20 random <strong>Basic</strong> questions. Perfect for GCSE revision.
+                                            20 random <strong>Basic</strong> questions.
                                         </p>
                                     </div>
                                 </div>
 
                                 {/* Intermediate / Advanced Card */}
                                 <div
-                                    onClick={() => handleRandomQuiz('advanced')}
+                                    onClick={() => startRoulette('advanced')}
                                     style={{
                                         background: 'linear-gradient(135deg, #ec4899 0%, #db2777 100%)',
                                         padding: '30px',
@@ -298,7 +298,7 @@ const DictionaryQuizSelector = ({ onSelectQuiz, onBack }) => {
                                     <div>
                                         <h3 style={{ color: 'white', margin: '0 0 5px 0', fontSize: '1.4em' }}>Pro Roulette</h3>
                                         <p style={{ color: 'rgba(255,255,255,0.9)', margin: 0, fontSize: '0.9em' }}>
-                                            20 random <strong>Intermediate & Advanced</strong> questions for A Level+.
+                                            20 random <strong>Intermediate & Advanced</strong> questions for deeper learning.
                                         </p>
                                     </div>
                                 </div>

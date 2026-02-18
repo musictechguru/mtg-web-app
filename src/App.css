@@ -31,8 +31,11 @@ body {
   display: flex;
   height: 100vh;
   overflow: hidden;
+  position: relative;
+  /* Needed for absolute positioning context on mobile */
 }
 
+/* Sidebar Defaults (Desktop) */
 .sidebar {
   width: 300px;
   background: var(--bg-panel);
@@ -41,14 +44,10 @@ body {
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-}
-
-.sidebar-header h1 {
-  font-size: 1.2rem;
-  background: linear-gradient(to right, var(--accent-blue), var(--accent-purple));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  margin-bottom: 2rem;
+  height: 100%;
+  transition: transform 0.3s ease;
+  z-index: 100;
+  /* Ensure above content on mobile */
 }
 
 .main-content {
@@ -56,6 +55,127 @@ body {
   padding: 40px;
   overflow-y: auto;
   position: relative;
+  width: 100%;
+  /* Ensure full width */
+}
+
+/* Mobile Navigation Toggle (Hidden on Desktop) */
+.mobile-menu-btn {
+  display: none;
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  z-index: 200;
+  background: var(--bg-panel);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 8px;
+  color: var(--text-primary);
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.sidebar-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 90;
+  backdrop-filter: blur(2px);
+}
+
+/* Mobile Responsive Styles */
+@media (max-width: 768px) {
+  .app-container {
+    flex-direction: column;
+    /* Actually keep row but use absolute positioning for sidebar to overlay */
+  }
+
+  .mobile-menu-btn {
+    display: flex;
+    /* Show hamburger */
+    align-items: center;
+    justify-content: center;
+  }
+
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 80%;
+    /* Takes up most of screen but leaves some context */
+    max-width: 300px;
+    transform: translateX(-100%);
+    /* Hidden by default */
+    box-shadow: 4px 0 15px rgba(0, 0, 0, 0.5);
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+    /* Slide in */
+  }
+
+  .sidebar-overlay.open {
+    display: block;
+  }
+
+  .main-content {
+    padding: 60px 20px 20px 20px;
+    /* Top padding for the fixed menu button */
+    width: 100%;
+  }
+
+  /* Adjust headers in sidebar */
+  .sidebar-header h1 {
+    font-size: 1.5rem;
+    /* Slightly larger for touch targets? No, keep reasonable */
+    margin-top: 40px;
+    /* Space for close button if we had one, or just general spacing */
+  }
+
+  /* Dashboard Mobile Overrides */
+  .dashboard-layout {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr !important;
+    /* Force single column for stats if needed, or keeping auto-fit is fine */
+  }
+
+  /* Dictionary Layout Overrides */
+  .dictionary-layout {
+    flex-direction: column !important;
+  }
+
+  .sidebar-region {
+    flex: none !important;
+    width: 100% !important;
+    border-right: none !important;
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 20px;
+  }
+
+  /* Quiz Player Mobile Overrides */
+  .quiz-player-layout {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Ensure video iframes adapt */
+  iframe {
+    max-width: 100%;
+  }
+
+  /* Worksheet Report Mobile Overrides */
+  .worksheet-report>div:nth-child(2) {
+    grid-template-columns: 1fr !important;
+  }
 }
 
 /* Navigation */
@@ -286,6 +406,7 @@ body {
   font-size: 2rem;
   background: linear-gradient(to right, var(--accent-success), var(--accent-blue));
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
