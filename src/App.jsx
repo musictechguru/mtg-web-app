@@ -5,6 +5,7 @@ import QuizPlayer from './components/QuizPlayer';
 import LessonViewer from './components/LessonViewer';
 import Dashboard from './components/Dashboard';
 import LoginScreen from './components/LoginScreen';
+// import LoginScreen from './components/LoginScreen';
 import TeacherDashboard from './components/TeacherDashboard';
 import { UserProvider, useUser } from './contexts/UserContext';
 import WorksheetPlayer from './components/WorksheetPlayer';
@@ -33,9 +34,17 @@ const EXAM_DATA_MAP = {
 
 // Logic Component
 const MainApp = () => {
-  const { currentUser, logout } = useUser();
+  const { currentUser, logout, loading } = useUser();
   const [activeItem, setActiveItem] = useState(null);
   const [showTeacherView, setShowTeacherView] = useState(false);
+
+  // if (!currentUser) {
+  //   return <LoginScreen />;
+  // }
+
+  if (loading) {
+    return <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', color: '#fff' }}>Loading...</div>;
+  }
 
   if (!currentUser) {
     return <LoginScreen />;
@@ -66,7 +75,7 @@ const MainApp = () => {
           <div onClick={goToDashboard}>
             <h1>Music Tech Guru</h1>
             <p style={{ fontSize: '0.8rem', color: 'var(--accent-blue)', marginTop: '5px' }}>
-              Logged in as: {currentUser.displayName || currentUser.email}
+              Logged in as: {currentUser.email}
             </p>
           </div>
         </div>
@@ -80,18 +89,6 @@ const MainApp = () => {
             Dashboard
           </button>
 
-          {/* Teacher Tools */}
-          {currentUser?.displayName === 'Teacher' && (
-            <button
-              className="nav-item"
-              onClick={() => setShowTeacherView(false)} // This logic is tricky if we returned early above. 
-              // Actually, let's treat "Teacher View" as a special mode
-              style={{ border: '1px solid var(--accent-purple)', color: 'var(--accent-purple)', marginBottom: '20px' }}
-            >
-              Class Overview
-            </button>
-          )}
-
           <button
             className={`nav-item ${activeItem?.type === 'dictionary_selector' ? 'active' : ''}`}
             onClick={() => setActiveItem({ type: 'dictionary_selector', title: 'Dictionary Quizzes' })}
@@ -99,8 +96,6 @@ const MainApp = () => {
           >
             Dictionary Quizzes
           </button>
-
-
 
           {courseData.sections.map((section, secIdx) => (
             <div key={secIdx} className="nav-section">
@@ -116,14 +111,6 @@ const MainApp = () => {
               ))}
             </div>
           ))}
-
-          <button
-            onClick={logout}
-            className="nav-item"
-            style={{ marginTop: '20px', color: 'var(--text-secondary)', borderTop: '1px solid #333' }}
-          >
-            Log Out
-          </button>
         </nav>
       </aside>
 

@@ -1,42 +1,27 @@
 import React, { useState } from 'react';
 import { useUser } from '../contexts/UserContext';
+import '../App.css'; // Ensure vars are available if not globally loaded yet
 
 const LoginScreen = () => {
-    const [isSignUp, setIsSignUp] = useState(false);
+    const { login, signup, loading } = useUser();
+    const [isLogin, setIsLogin] = useState(true);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [name, setName] = useState(''); // Only for sign up
     const [error, setError] = useState('');
-    const [loading, setLoading] = useState(false);
-
-    const { login, signup } = useUser();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError('');
-        setLoading(true);
 
         try {
-            if (isSignUp) {
-                if (!name.trim()) throw new Error("Name is required");
-                await signup(email, password, name.trim());
-            } else {
+            if (isLogin) {
                 await login(email, password);
+            } else {
+                await signup(email, password);
+                alert("Check your email for the confirmation link!");
             }
         } catch (err) {
-            console.error(err);
-            // Friendly error messages
-            if (err.code === 'auth/invalid-credential') {
-                setError('Invalid email or password.');
-            } else if (err.code === 'auth/email-already-in-use') {
-                setError('Email is already registered.');
-            } else if (err.code === 'auth/weak-password') {
-                setError('Password should be at least 6 characters.');
-            } else {
-                setError(err.message || 'Failed to sign in');
-            }
-        } finally {
-            setLoading(false);
+            setError(err.message);
         }
     };
 
@@ -46,121 +31,107 @@ const LoginScreen = () => {
             justifyContent: 'center',
             alignItems: 'center',
             height: '100vh',
-            textAlign: 'center'
+            backgroundColor: 'var(--bg-dark)',
+            color: 'var(--text-primary)',
+            backgroundImage: 'radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.1) 0%, transparent 50%)'
         }}>
             <div style={{
-                background: 'var(--bg-panel)',
-                padding: '40px',
-                borderRadius: '20px',
-                border: '1px solid rgba(255,255,255,0.1)',
+                padding: '2.5rem',
+                backgroundColor: 'var(--bg-panel)',
+                borderRadius: '16px',
+                width: '100%',
                 maxWidth: '400px',
-                width: '100%'
+                textAlign: 'center',
+                border: '1px solid rgba(255, 255, 255, 0.1)',
+                boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)'
             }}>
-                <h1 style={{ marginBottom: '10px' }}>Music Tech Guru</h1>
-                <p style={{ color: 'var(--text-secondary)', marginBottom: '30px' }}>
-                    {isSignUp ? 'Create your free account' : 'Sign in to continue'}
+                <h1 style={{
+                    marginBottom: '0.5rem',
+                    background: 'linear-gradient(to right, var(--accent-blue), var(--accent-purple))',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    fontSize: '2rem'
+                }}>Music Tech Guru</h1>
+
+                <p style={{ color: 'var(--text-secondary)', marginBottom: '2rem' }}>
+                    Please {isLogin ? 'log in' : 'sign up'} to continue
                 </p>
 
-                {error && (
-                    <div style={{
-                        background: 'rgba(255,50,50,0.2)',
-                        color: '#ff6b6b',
-                        padding: '10px',
-                        borderRadius: '5px',
-                        marginBottom: '15px',
-                        fontSize: '0.9rem'
-                    }}>
-                        {error}
-                    </div>
-                )}
+                {error && <div style={{
+                    padding: '10px',
+                    backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                    border: '1px solid var(--accent-error)',
+                    color: 'var(--accent-error)',
+                    borderRadius: '8px',
+                    marginBottom: '1rem',
+                    fontSize: '0.9rem'
+                }}>{error}</div>}
 
-                {useUser().isMock && (
-                    <div style={{
-                        background: 'rgba(255, 179, 0, 0.2)',
-                        color: '#ffb300',
-                        padding: '10px',
-                        borderRadius: '5px',
-                        marginBottom: '15px',
-                        fontSize: '0.8rem',
-                        border: '1px solid #ffb300'
-                    }}>
-                        <strong>Dev Mode Active:</strong> No Firebase keys found.<br />
-                        Login with any email/password.
-                    </div>
-                )}
-
-                <form onSubmit={handleSubmit}>
-                    {isSignUp && (
-                        <input
-                            type="text"
-                            placeholder="Full Name"
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
-                            style={inputStyle}
-                            required
-                        />
-                    )}
-
+                <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                     <input
                         type="email"
-                        placeholder="Email Address"
+                        placeholder="Email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        style={inputStyle}
                         required
+                        style={{
+                            padding: '12px',
+                            borderRadius: '8px',
+                            border: '1px solid rgba(255, 255, 255, 0.1)',
+                            backgroundColor: 'rgba(0, 0, 0, 0.2)',
+                            color: 'var(--text-primary)',
+                            fontSize: '1rem',
+                            outline: 'none'
+                        }}
                     />
-
                     <input
                         type="password"
                         placeholder="Password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        style={inputStyle}
                         required
+                        style={{
+                            padding: '12px',
+                            borderRadius: '8px',
+                            border: '1px solid rgba(255, 255, 255, 0.1)',
+                            backgroundColor: 'rgba(0, 0, 0, 0.2)',
+                            color: 'var(--text-primary)',
+                            fontSize: '1rem',
+                            outline: 'none'
+                        }}
                     />
-
-                    <button
-                        type="submit"
-                        className="btn-primary"
-                        style={{ width: '100%', padding: '12px' }}
-                        disabled={loading}
-                    >
-                        {loading ? 'Processing...' : (isSignUp ? 'Sign Up' : 'Log In')}
+                    <button type="submit" disabled={loading} style={{
+                        padding: '12px',
+                        backgroundColor: 'var(--accent-blue)',
+                        color: 'white',
+                        border: 'none',
+                        borderRadius: '8px',
+                        fontSize: '1rem',
+                        fontWeight: '600',
+                        cursor: 'pointer',
+                        marginTop: '1rem',
+                        transition: 'opacity 0.2s'
+                    }}>
+                        {loading ? 'Processing...' : (isLogin ? 'Log In' : 'Sign Up')}
                     </button>
                 </form>
 
-                <div style={{ marginTop: '20px', fontSize: '0.9rem', color: 'var(--text-secondary)' }}>
-                    {isSignUp ? 'Already have an account? ' : "Don't have an account? "}
-                    <button
-                        onClick={() => {
-                            setIsSignUp(!isSignUp);
-                            setError('');
-                        }}
+                <p style={{ marginTop: '1.5rem', fontSize: '0.9rem', color: 'var(--text-secondary)' }}>
+                    {isLogin ? "Don't have an account? " : "Already have an account? "}
+                    <span
+                        onClick={() => setIsLogin(!isLogin)}
                         style={{
-                            background: 'none',
-                            border: 'none',
                             color: 'var(--accent-blue)',
                             cursor: 'pointer',
-                            textDecoration: 'underline'
+                            fontWeight: '600'
                         }}
                     >
-                        {isSignUp ? 'Log In' : 'Sign Up Free'}
-                    </button>
-                </div>
+                        {isLogin ? 'Sign Up' : 'Log In'}
+                    </span>
+                </p>
             </div>
         </div>
     );
-};
-
-const inputStyle = {
-    width: '90%',
-    padding: '12px',
-    background: 'rgba(255,255,255,0.05)',
-    border: '1px solid #333',
-    borderRadius: '8px',
-    color: 'white',
-    fontSize: '1rem',
-    marginBottom: '15px'
 };
 
 export default LoginScreen;
