@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Play, Check, X, RotateCcw, Sparkles, Lightbulb, BookOpen, Volume2, Zap, Pause, ArrowRight, Settings } from 'lucide-react';
+import { Play, Check, X, Pause } from 'lucide-react';
 
 export default function SynthesizerQuiz({ onExit }) {
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -7,8 +7,8 @@ export default function SynthesizerQuiz({ onExit }) {
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [showFeedback, setShowFeedback] = useState(false);
   const [quizComplete, setQuizComplete] = useState(false);
-  const [aiExplanation, setAiExplanation] = useState('');
-  const [loadingExplanation, setLoadingExplanation] = useState(false);
+  // const [aiExplanation, setAiExplanation] = useState('');
+  // const [loadingExplanation, setLoadingExplanation] = useState(false);
   const [showIntro, setShowIntro] = useState(true);
   const [isPlayingUser, setIsPlayingUser] = useState(false);
   const [isPlayingTarget, setIsPlayingTarget] = useState(false);
@@ -242,7 +242,7 @@ export default function SynthesizerQuiz({ onExit }) {
     const impulseR = impulse.getChannelData(1);
 
     for (let i = 0; i < length; i++) {
-      const n = length - i;
+      // const n = length - i;
       const multi = Math.pow(1 - i / length, decay);
       impulseL[i] = (Math.random() * 2 - 1) * multi;
       impulseR[i] = (Math.random() * 2 - 1) * multi;
@@ -469,7 +469,7 @@ export default function SynthesizerQuiz({ onExit }) {
         setScore(score + 1);
       }
 
-      await getAIExplanation(q, isCorrect);
+      // await getAIExplanation(q, isCorrect);
     }
   };
 
@@ -484,32 +484,17 @@ export default function SynthesizerQuiz({ onExit }) {
       setScore(score + 1);
     }
 
-    await getAIExplanation(currentQ, isCorrect);
+    // await getAIExplanation(currentQ, isCorrect);
   };
 
-  const getAIExplanation = async (question, isCorrect) => {
-    setLoadingExplanation(true);
-    try {
-      const explanation = isCorrect
-        ? "Great sound design! You've matched the patch perfectly. " + question.explanation
-        : "Not quite there. " + question.explanation;
-      // Simulate delay
-      await new Promise(resolve => setTimeout(resolve, 800));
-      setAiExplanation(explanation);
-    } catch (error) {
-      console.error("AI explanation error:", error);
-      setAiExplanation("Great effort! " + question.explanation);
-    } finally {
-      setLoadingExplanation(false);
-    }
-  };
+
 
   const nextQuestion = () => {
     if (currentQuestion < questions.length - 1) {
       setCurrentQuestion(currentQuestion + 1);
       setSelectedAnswer(null);
       setShowFeedback(false);
-      setAiExplanation('');
+      // setAiExplanation('');
 
       // Reset synth to defaults
       setSynthParams({
@@ -532,7 +517,7 @@ export default function SynthesizerQuiz({ onExit }) {
     setSelectedAnswer(null);
     setShowFeedback(false);
     setQuizComplete(false);
-    setAiExplanation('');
+    // setAiExplanation('');
     setShowIntro(true);
     setSynthParams({
       waveform: 'sine',
@@ -547,49 +532,7 @@ export default function SynthesizerQuiz({ onExit }) {
     });
   };
 
-  const renderWaveform = (waveform) => {
-    const points = 100;
-    const width = 150;
-    const height = 60;
-    const path = [];
 
-    for (let i = 0; i <= points; i++) {
-      const x = (i / points) * width;
-      const t = (i / points) * Math.PI * 4;
-      let y;
-
-      switch (waveform) {
-        case 'sine':
-          y = Math.sin(t);
-          break;
-        case 'square':
-          y = Math.sin(t) > 0 ? 1 : -1;
-          break;
-        case 'sawtooth':
-          y = 2 * (t / (Math.PI * 2) - Math.floor(t / (Math.PI * 2) + 0.5));
-          break;
-        case 'triangle':
-          y = 2 * Math.abs(2 * (t / (Math.PI * 2) - Math.floor(t / (Math.PI * 2) + 0.5))) - 1;
-          break;
-        default:
-          y = Math.sin(t);
-      }
-
-      const py = height / 2 - (y * height / 2.5);
-      path.push(`${x},${py}`);
-    }
-
-    return (
-      <svg width={width} height={height} className="bg-slate-900 rounded">
-        <polyline
-          points={path.join(' ')}
-          fill="none"
-          stroke="#00ff88"
-          strokeWidth="2"
-        />
-      </svg>
-    );
-  };
 
   const renderADSREnvelope = (a, d, s, r, mini = false) => {
     const width = mini ? 120 : 200;

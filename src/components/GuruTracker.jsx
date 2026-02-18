@@ -21,7 +21,7 @@ const GuruTracker = ({ progress = 0, levelTitle = "Apprentice" }) => {
             >
                 {/* 1. Background (Empty/Grey) */}
                 <img
-                    src="/images/guru_logo.png"
+                    src={`${import.meta.env.BASE_URL}images/guru_logo.png`}
                     alt="Guru Outline"
                     style={{
                         width: '100%',
@@ -49,7 +49,7 @@ const GuruTracker = ({ progress = 0, levelTitle = "Apprentice" }) => {
                         So we position it 'bottom: 0' inside and give it full container height. 
                     */}
                     <img
-                        src="/images/guru_logo.png"
+                        src={`${import.meta.env.BASE_URL}images/guru_logo.png`}
                         alt="Guru Filled"
                         style={{
                             width: '120px', // Must match container width

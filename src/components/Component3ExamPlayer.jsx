@@ -214,23 +214,6 @@ const Component3ExamPlayer = ({ examData, onExit }) => {
                 return matchScore;
 
             case 'ordering':
-            // Exact match check
-            // userAnswer is simple array of strings.
-            // In a real scenario, there might be only one valid order.
-            // We assume part.items is NOT the answer, but the starting state. 
-            // Wait, data definition: use 'markScheme' or strict logic?
-            // For simplicity here: Let's assume the CORRECT order is not defined in the JSON yet?
-            // Actually the JSON for Q2(d) and Q4(c) lists items in correct order? 
-            // Usually ordering questions list the target order in 'answer' or 'markScheme'.
-            // Let's modify the check to assume the data provided in 'items' IS the correct order 
-            // (for the sake of the grading logic verifying against a known correct state).
-            // NOTE: In the JSON provided earlier, 'items' likely lists the correct sequence 
-            // meant to be scrambled.
-            // We'll check if userAnswer matches the original JSON order. 
-            // (assuming the UI scrambles them? No UI didn't scramble. We'll ignore strict check or assume linear).
-            // Let's implement a simple check: compare adjacent logic? 
-            // For this MVP, let's assume the User must match string-for-string the order in `items` 
-            case 'ordering':
                 // Supports Strings or Objects with IDs
                 if (!Array.isArray(userAnswer)) return 0;
                 let orderScore = 0;

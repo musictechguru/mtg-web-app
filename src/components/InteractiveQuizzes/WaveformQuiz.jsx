@@ -37,7 +37,7 @@ export default function WaveformQuiz({ audioSrc, options, correctOption, onResul
                     path += ` L ${x} ${y}`;
                 }
                 break;
-            case 'square':
+            case 'square': {
                 // Draw 2 cycles of square
                 // High from 0-25%, Low from 25-50%, etc.
                 const cycle = width / 2;
@@ -47,7 +47,8 @@ export default function WaveformQuiz({ audioSrc, options, correctOption, onResul
                         L ${cycle * 1.5} ${mid - amp} L ${cycle * 1.5} ${mid + amp}
                         L ${width} ${mid + amp}`;
                 break;
-            case 'sawtooth':
+            }
+            case 'sawtooth': {
                 // Draw 2 cycles of Saw
                 // Ramp up, Drop down
                 const half = width / 2;
@@ -55,13 +56,15 @@ export default function WaveformQuiz({ audioSrc, options, correctOption, onResul
                         L ${half} ${mid - amp} L ${half} ${mid + amp}
                         L ${width} ${mid - amp}`;
                 break;
-            case 'triangle':
+            }
+            case 'triangle': {
                 // Draw 2 cycles of Triangle
                 const q = width / 4;
                 path = `M 0 ${mid} 
                         L ${q} ${mid - amp} L ${q * 2} ${mid + amp} 
                         L ${q * 3} ${mid - amp} L ${width} ${mid}`;
                 break;
+            }
             default:
                 break;
         }

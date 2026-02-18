@@ -2,6 +2,8 @@ import React, { useMemo } from 'react';
 import { useUser } from '../contexts/UserContext';
 import GuruTracker from './GuruTracker';
 
+console.log('GuruTracker import:', GuruTracker);
+
 const Dashboard = ({ onNavigate }) => {
     const { userProgress, clearProgress } = useUser();
 

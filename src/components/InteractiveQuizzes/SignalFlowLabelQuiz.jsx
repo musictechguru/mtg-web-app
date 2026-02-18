@@ -147,6 +147,7 @@ export default function SignalFlowLabelQuiz({
     correctAnswers = {},
     initialAnswer = {},
     onAnswerChange,
+    onResult,
 }) {
     const [droppedTerms, setDroppedTerms] = useState(initialAnswer);
     const [availableTerms, setAvailableTerms] = useState(() => {
@@ -158,6 +159,7 @@ export default function SignalFlowLabelQuiz({
     const [activeId, setActiveId] = useState(null);
 
     useEffect(() => {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setDroppedTerms(initialAnswer);
         const placedTerms = Object.values(initialAnswer);
         setAvailableTerms(terms.filter(term => !placedTerms.includes(term)));

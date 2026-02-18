@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useUser } from '../contexts/UserContext';
+
 
 const WorksheetPlayer = ({ activity, onFinish }) => {
     // State
@@ -230,7 +230,7 @@ const WorksheetPlayer = ({ activity, onFinish }) => {
         const questionsToRender = selectedTrack.questions || activity.questions || [];
 
         // Generate the student's "essay" from their summaries (MCQ) or raw text
-        const studentSummary = questionsToRender.map((q, idx) => {
+        const studentSummary = questionsToRender.map(q => {
             const ans = answers[q.id];
             if (!ans) return null;
             // Use specific summary if available, otherwise just the value

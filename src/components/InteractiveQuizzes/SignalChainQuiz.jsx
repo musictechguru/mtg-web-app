@@ -81,6 +81,7 @@ export default function SignalChainQuiz({ items = [], correctOrder = [], onResul
 
     // Reset when inputs change
     useEffect(() => {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setListItems(items);
         setIsSubmitted(false);
         setIsCorrect(false);

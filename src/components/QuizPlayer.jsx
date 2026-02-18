@@ -70,6 +70,7 @@ const QuizPlayer = ({ quiz, onFinish }) => {
                 console.error("Shuffle failed:", error);
                 questions = quiz.questions?.slice(0, 20) || [];
             }
+            // eslint-disable-next-line react-hooks/set-state-in-effect
             setActiveQuestions(questions);
         } else {
             console.error("Quiz questions invalid:", quiz);
@@ -78,6 +79,48 @@ const QuizPlayer = ({ quiz, onFinish }) => {
         setCurrentQuestionIndex(0);
         setUserResponses({});
         setQuizFinished(false);
+    }, [quiz]);
+
+    // Calculate score derived from all responses (needed for effect)
+    const totalQuestions = activeQuestions.length;
+    const score = Object.values(userResponses).filter(r => r.submitted && r.isCorrect).length;
+    const percentage = totalQuestions > 0 ? Math.round((score / totalQuestions) * 100) : 0;
+
+    let grade = 'U';
+    let expl = 'Keep practicing.';
+    let color = 'var(--accent-error)';
+
+    if (percentage >= 80) {
+        grade = 'A';
+        expl = 'Excellent! You have a solid grasp of the foundation and advanced concepts.';
+        color = 'var(--accent-success)';
+    } else if (percentage >= 70) {
+        grade = 'B';
+        expl = 'Great work! You are secure in most areas but review the weaker topics.';
+        color = '#a3e635';
+    } else if (percentage >= 60) {
+        grade = 'C';
+        expl = 'Good effort. You know the basics well, but deeper technical understanding is needed.';
+        color = '#facc15';
+    } else if (percentage >= 50) {
+        grade = 'D';
+        expl = 'Passable, but significant gaps in your knowledge. Review Part 1 (Foundation).';
+        color = '#fb923c';
+    }
+
+    // Save result logic with Ref to prevent double-save
+    const resultsSavedRef = React.useRef(false);
+
+    useEffect(() => {
+        if (quizFinished && saveQuizResult && !resultsSavedRef.current) {
+            resultsSavedRef.current = true;
+            saveQuizResult(quiz.title, score, totalQuestions, grade);
+        }
+    }, [quizFinished, quiz, score, totalQuestions, grade, saveQuizResult]);
+
+    // Cleanup ref when quiz changes
+    useEffect(() => {
+        resultsSavedRef.current = false;
     }, [quiz]);
 
     // Handle external quiz files (like advanced-mic-placement-quiz.jsx)
@@ -132,36 +175,6 @@ const QuizPlayer = ({ quiz, onFinish }) => {
             </div>
         );
     }
-
-    // Calculate score derived from all responses (needed for effect)
-    const totalQuestions = activeQuestions.length;
-    const score = Object.values(userResponses).filter(r => r.submitted && r.isCorrect).length;
-    const percentage = totalQuestions > 0 ? Math.round((score / totalQuestions) * 100) : 0;
-
-    let grade = 'U';
-    let expl = 'Keep practicing.';
-    let color = 'var(--accent-error)';
-
-    if (percentage >= 80) {
-        grade = 'A';
-        expl = 'Excellent! You have a solid grasp of the foundation and advanced concepts.';
-        color = 'var(--accent-success)';
-    } else if (percentage >= 70) {
-        grade = 'B';
-        expl = 'Great work! You are secure in most areas but review the weaker topics.';
-        color = '#a3e635';
-    } else if (percentage >= 60) {
-        grade = 'C';
-        expl = 'Good effort. You know the basics well, but deeper technical understanding is needed.';
-        color = '#facc15';
-    } else if (percentage >= 50) {
-        grade = 'D';
-        expl = 'Passable, but significant gaps in your knowledge. Review Part 1 (Foundation).';
-        color = '#fb923c';
-    }
-
-    // Save result is now handled at the top level to avoid hook errors.
-
 
     // Safety checks / Logic
     if (!userContext) {

@@ -5,7 +5,6 @@ import QuizPlayer from './components/QuizPlayer';
 import LessonViewer from './components/LessonViewer';
 import Dashboard from './components/Dashboard';
 import LoginScreen from './components/LoginScreen';
-// import LoginScreen from './components/LoginScreen';
 import TeacherDashboard from './components/TeacherDashboard';
 import { UserProvider, useUser } from './contexts/UserContext';
 import WorksheetPlayer from './components/WorksheetPlayer';
@@ -37,10 +36,6 @@ const MainApp = () => {
   const { currentUser, logout, loading } = useUser();
   const [activeItem, setActiveItem] = useState(null);
   const [showTeacherView, setShowTeacherView] = useState(false);
-
-  // if (!currentUser) {
-  //   return <LoginScreen />;
-  // }
 
   if (loading) {
     return <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', color: '#fff' }}>Loading...</div>;
