@@ -1,0 +1,28 @@
+<svg width="400" height="300" xmlns="http://www.w3.org/2000/svg">
+  <rect width="100%" height="100%" fill="#111" />
+  
+  <!-- Low Density (Marbles) -->
+  <g transform="translate(50, 150)">
+      <text x="50" y="-80" fill="#fff" text-anchor="middle" font-weight="bold">Low Diffusion</text>
+      <circle cx="20" cy="0" r="3" fill="#fff"/>
+      <circle cx="40" cy="-20" r="3" fill="#fff"/>
+      <circle cx="60" cy="10" r="3" fill="#fff"/>
+      <circle cx="80" cy="-10" r="3" fill="#fff"/>
+      <text x="50" y="50" fill="#aaa" text-anchor="middle" font-size="10">Discrete Echoes</text>
+  </g>
+  
+  <!-- High Density (Cloud) -->
+  <g transform="translate(250, 150)">
+      <text x="50" y="-80" fill="#fff" text-anchor="middle" font-weight="bold">High Diffusion</text>
+      <defs>
+        <radialGradient id="grad1" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+          <stop offset="0%" style="stop-color:rgb(255,255,255);stop-opacity:0.8" />
+          <stop offset="100%" style="stop-color:rgb(255,255,255);stop-opacity:0" />
+        </radialGradient>
+      </defs>
+      <ellipse cx="50" cy="0" rx="60" ry="30" fill="url(#grad1)" />
+      <text x="50" y="50" fill="#aaa" text-anchor="middle" font-size="10">Smooth Wash</text>
+  </g>
+  
+  <text x="200" y="280" fill="#fff" text-anchor="middle" font-size="16" font-weight="bold">Reverb Diffusion</text>
+</svg>

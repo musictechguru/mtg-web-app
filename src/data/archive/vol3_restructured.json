@@ -1,0 +1,285 @@
+{
+  "id": "vol3",
+  "title": "Volume 3: Synthesis",
+  "parts": [
+    {
+      "id": "p1",
+      "title": "Part 1: Synthesis Fundamentals",
+      "topics": [
+        {
+          "title": "Basic Components",
+          "sections": [
+            {
+              "title": "Oscillator (VCO/DCO)",
+              "text": "The sound source that generates waveforms - the heart of any synthesizer.\n\n**VCO (Voltage Controlled Oscillator):**\n- Analog circuitry generating continuous waveform\n- Frequency controlled by input voltage\n- Temperature sensitive (can drift out of tune)\n- Warm, organic character\n- Found in: vintage analog synths\n\n**DCO (Digitally Controlled Oscillator):**\n- Digital control of analog oscillator\n- Stable tuning (doesn't drift)\n- Retains analog sound\n- Found in: 1980s analog synths (Roland Juno series)\n\n**Digital Oscillator:**\n- Completely digital waveform generation\n- Perfect stability\n- Can generate any waveform mathematically\n- Found in: modern digital/virtual analog synths\n\n**Key Parameters:**\n- **Pitch/Frequency:** Musical note being played (A4 = 440Hz)\n- **Octave:** Coarse tuning (doubling/halving frequency)\n- **Fine Tune:** Small pitch adjustments (cents, 100 cents = 1 semitone)\n- **Waveform:** Shape of wave (sine, saw, square, triangle, etc.)\n- **Pulse Width:** Width of pulse wave (10%-90%, 50% = square)\n\n**Multiple Oscillators:**\n- Most synths: 2-3 oscillators per voice\n- Detuning: Slight pitch differences create thickness\n- Layering: Different waveforms combined\n- Sync: One oscillator resets another (creates harmonic tones)\n\n**Oscillator Modes:**\n- **Free-running:** Continuous oscillation\n- **Hard sync:** Oscillator 1 resets oscillator 2 at its frequency\n- **Soft sync:** Partial reset, smoother\n- **FM (Frequency Modulation):** One oscillator modulates another's frequency\n\n**Famous Oscillator Designs:**\n- Moog ladder oscillator: Warm, fat, slightly detuned\n- Roland DCO: Stable, bright, precise\n- Oberheim SEM: Rich, complex waveforms\n- Sequential Circuits: Fat, analog warmth\n\n**Professional Understanding:** The oscillator is the raw material. Everything else (filter, envelope) shapes this raw sound. Choice of waveform and oscillator count determines basic character.\n\n---"
+            },
+            {
+              "title": "Filter (VCF/DCF)",
+              "text": "Removes or emphasizes specific frequencies from oscillator output - shapes the tone.\n\n**VCF (Voltage Controlled Filter):**\n- Analog filter circuit\n- Resonance can self-oscillate\n- Character varies by design\n- Can be \"warm,\" \"creamy,\" \"aggressive\"\n\n**DCF (Digitally Controlled Filter):**\n- Digital control of analog filter\n- Stable, recallable settings\n- Retains analog character\n\n**Filter Types:**\n- **Low-Pass (LP):** Removes highs, allows lows (most common)\n- **High-Pass (HP):** Removes lows, allows highs\n- **Band-Pass (BP):** Allows middle frequencies, removes highs and lows\n- **Band-Reject/Notch:** Removes middle frequencies, allows highs and lows\n- **Comb:** Multiple evenly-spaced notches (used for special effects)\n- **Formant:** Multiple band-pass filters (creates vocal-like tones)\n\n**Key Parameters:**\n- **Cutoff Frequency:** Where filter starts working (20Hz-20kHz)\n- **Resonance (Q or Emphasis):** Boost at cutoff frequency\n- **Slope:** How steep the filtering (6dB, 12dB, 18dB, 24dB per octave)\n- **Envelope Amount:** How much envelope affects cutoff\n- **Keyboard Tracking:** Filter follows played note (higher note = higher cutoff)\n\n**Filter Characteristics by Design:**\n\n**Moog Ladder (24dB/octave):**\n- Warm, fat, smooth\n- Can self-oscillate (creates sine wave at full resonance)\n- Found in: Minimoog, Moog Voyager\n- Character: Bass-heavy, analog warmth\n\n**Roland IR3109 (24dB/octave):**\n- Bright, aggressive, squelchy\n- Sharp resonance\n- Found in: Jupiter-8, Juno series\n- Character: Cutting, electronic\n\n**Oberheim SEM (12dB/octave):**\n- Smooth, musical\n- Multiple modes (LP, HP, BP, Notch)\n- Found in: Oberheim OB-X, OB-Xa\n- Character: Versatile, organic\n\n**Curtis/SSM (24dB/octave):**\n- Clean, precise\n- Found in: Prophet-5, many 80s synths\n- Character: Professional, reliable\n\n**Korg MS-20 (6dB and 12dB):**\n- Aggressive, screaming\n- Very high resonance possible\n- Character: Raw, wild, unpredictable\n\n**Self-Oscillation:**\n- Filter resonates at maximum\n- Creates pure sine wave at cutoff frequency\n- Can be played as additional oscillator\n- Useful for: bass tones, lead tones, special effects\n\n**Professional Practice:** Filter is primary tone-shaping tool. Low-pass most common (removes harshness from bright waveforms like saw). Resonance adds character and emphasis. Envelope modulation creates movement over time.\n\n---"
+            },
+            {
+              "title": "Amplifier (VCA/DCA)",
+              "text": "Controls volume/amplitude of signal - shapes loudness over time.\n\n**VCA (Voltage Controlled Amplifier):**\n- Analog circuit controlling gain\n- Voltage input controls output level\n- Typically controlled by envelope generator\n\n**DCA (Digitally Controlled Amplifier):**\n- Digital control of gain\n- Precise, recallable\n\n**Function:**\n- Gates signal on/off (when key pressed/released)\n- Shapes volume envelope (ADSR)\n- Can be modulated by LFO (tremolo effect)\n- Final stage before output\n\n**Control Sources:**\n- **Envelope Generator:** Primary control (ADSR shapes volume)\n- **LFO:** Creates tremolo/amplitude modulation\n- **Velocity:** Key velocity affects final level\n- **Aftertouch:** Pressure adds volume swell\n\n**In Signal Chain:**\nOscillator \u2192 Filter \u2192 VCA \u2192 Output\n\n**Why Needed:** Without VCA, sound would be continuous drone. VCA allows:\n- Notes to start and stop\n- Volume to change over time\n- Dynamic expression\n- Rhythmic effects\n\n**Professional Understanding:** VCA is controlled by envelope, which determines how sound evolves over time (attack, sustain, release). This is what makes synth sound musical rather than continuous tone.\n\n---"
+            },
+            {
+              "title": "Envelope Generator",
+              "text": "Creates control voltage that changes over time - defines how sound evolves.\n\n**Purpose:** Controls other parameters (VCA volume, filter cutoff, pitch, etc.) over time.\n\n**ADSR (Most Common):**\nFour stages defining how parameter changes:\n\n**Attack (A):**\n- Time from note-on to maximum level\n- Range: 0ms (instant) to 10+ seconds\n- Controls: how quickly sound reaches full volume/brightness\n- Fast attack (0-10ms): percussive, punchy (drums, plucks)\n- Slow attack (100ms-5s): swells, pads, strings\n\n**Decay (D):**\n- Time to fall from maximum to sustain level\n- Range: 0ms to 10+ seconds\n- Creates: initial brightness/volume that fades\n- Fast decay: plucky, percussive\n- Slow decay: smooth transition\n\n**Sustain (S):**\n- Level maintained while key held\n- NOT a time - it's a level (0-100%)\n- 100% sustain: holds at peak\n- 0% sustain: falls to silence (percussive)\n- 50% sustain: moderate level\n\n**Release (R):**\n- Time to fall to zero after key released\n- Range: 0ms to 10+ seconds\n- Fast release (0-50ms): abrupt stop\n- Slow release (1-10s): natural decay, piano-like\n\n**Common ADSR Settings:**\n\n**Pluck (Guitar/Synth Bass):**\n- A: 0-5ms (instant attack)\n- D: 100-500ms (quick decay)\n- S: 0% (no sustain)\n- R: 50-200ms (short release)\n\n**Pad (Strings/Atmosphere):**\n- A: 500ms-2s (slow swell)\n- D: 500ms-1s (gentle decay)\n- S: 60-80% (high sustain)\n- R: 2-5s (long release)\n\n**Lead (Synth Lead):**\n- A: 0-20ms (quick attack)\n- D: 100-300ms (moderate decay)\n- S: 50-70% (medium sustain)\n- R: 100-500ms (moderate release)\n\n**Brass:**\n- A: 50-100ms (slight attack)\n- D: 200-500ms (decay)\n- S: 70-90% (high sustain)\n- R: 100-300ms (moderate release)\n\n**Multiple Envelopes:**\nModern synths typically have:\n- **Envelope 1 (Amp):** Controls VCA (volume)\n- **Envelope 2 (Filter):** Controls filter cutoff (brightness)\n- **Envelope 3+ (Modulation):** Controls pitch, PWM, other parameters\n\n**Envelope Types Beyond ADSR:**\n\n**AD (Attack-Decay):**\n- No sustain stage\n- Always percussive\n- Found in: drum synths\n\n**ADSR + Delay:**\n- Delay before attack\n- Creates: rhythmic effects\n\n**Multi-Stage:**\n- 4, 6, or 8+ stages\n- Complex evolving sounds\n- Modern digital synths\n\n**Professional Practice:** Envelope settings define whether sound is percussive (fast attack, no sustain) or sustained (slow attack, high sustain). Filter envelope typically mirrors amp envelope but can create unique timbral movement.\n\n---"
+            },
+            {
+              "title": "LFO (Low Frequency Oscillator)",
+              "text": "Oscillator running below audible range (typically 0.1-20Hz) used for modulation.\n\n**Purpose:** Create repeating changes (vibrato, tremolo, filter sweeps, etc.)\n\n**Frequency Range:**\n- 0.1Hz: Very slow (6-second cycle)\n- 1Hz: One cycle per second\n- 10Hz: Fast modulation\n- 20Hz+: Can become audible (ring modulation territory)\n\n**Common LFO Waveforms:**\n- **Sine:** Smooth vibrato/tremolo (natural sounding)\n- **Triangle:** Similar to sine, slightly more linear\n- **Square:** On/off switching, abrupt changes\n- **Sawtooth:** Ramp up then sudden drop (or reverse)\n- **Sample & Hold (S&H):** Random stepped values (R2-D2 sounds)\n- **Random:** Smooth random values\n\n**LFO Destinations (What It Modulates):**\n\n**Pitch (Vibrato):**\n- Rate: 4-7Hz typical for musical vibrato\n- Depth: \u00b15-20 cents typical\n- Creates: singing quality, expressiveness\n- Use: leads, strings, brass\n\n**Amplitude (Tremolo):**\n- Rate: 2-8Hz typical\n- Depth: 10-50% volume variation\n- Creates: wavering, pulsing\n- Use: Rhodes piano, guitar, pads\n\n**Filter Cutoff (Wah Effect):**\n- Rate: 0.5-4Hz typical\n- Depth: varies by desired effect\n- Creates: rhythmic filter sweeps\n- Use: basses, pads, effects\n\n**Pulse Width (PWM - Pulse Width Modulation):**\n- Rate: 0.1-2Hz typical (slow)\n- Creates: chorus-like thickness\n- Classic analog sound\n\n**Pan (Auto-Pan):**\n- Rate: 0.5-4Hz\n- Creates: stereo movement\n- Use: pads, effects, atmosphere\n\n**LFO Parameters:**\n\n**Rate/Speed:**\n- How fast LFO cycles\n- Tempo sync: locked to song tempo (1/4, 1/8, 1/16 notes)\n- Free-running: independent of tempo\n\n**Depth/Amount:**\n- How much modulation is applied\n- 0%: no effect\n- 100%: maximum modulation\n\n**Delay:**\n- Time before LFO starts\n- Useful for: vibrato that fades in (realistic strings/brass)\n- Range: 0-5 seconds typical\n\n**Phase/Offset:**\n- Starting position in LFO cycle\n- Stereo: different phase left/right creates width\n\n**Sync:**\n- Reset: LFO restarts with each note\n- Free: LFO runs continuously\n\n**Multiple LFOs:**\nModern synths have 2-4+ LFOs:\n- LFO 1: Vibrato/tremolo\n- LFO 2: Filter modulation\n- LFO 3+: Complex modulation\n\n**Professional Applications:**\n\n**Vibrato (Pitch):**\n- Sine wave, 5-6Hz, \u00b110 cents\n- Delay: 500ms (fades in naturally)\n- Use: realistic instrument emulation\n\n**Trance Gate (Amplitude):**\n- Square wave, 1/16 note synced\n- 50-100% depth\n- Creates: rhythmic stuttering\n\n**Dubstep Wobble (Filter):**\n- Sine/square, 1/4 to 1/8 note synced\n- High resonance on filter\n- Extreme depth\n\n**Chorus (Pulse Width):**\n- Sine/triangle, 0.3-0.8Hz\n- Subtle depth\n- Creates: vintage analog thickness\n\n**Professional Understanding:** LFO adds movement and life to static sounds. Slow rates (0.1-2Hz) create evolving textures. Fast rates (4-10Hz) create vibrato and rhythmic effects. Tempo sync essential for rhythmic music.\n\n---"
+            }
+          ],
+          "original_file": "MT_Dictionary_Volume_3_Synthesis_Part1.md",
+          "id": "t1"
+        },
+        {
+          "title": "Oscillator Waveforms & Harmonics",
+          "sections": [
+            {
+              "title": "Sine Wave",
+              "text": "The purest waveform - fundamental frequency only, no harmonics.\n\n**Harmonic Content:**\n- Fundamental frequency only (1st harmonic)\n- No overtones whatsoever\n- Mathematically: A \u00d7 sin(2\u03c0ft)\n\n**Sound Character:**\n- Pure, smooth, hollow\n- Flute-like quality\n- Whistle-like\n- No brightness or edge\n\n**Frequency Response:**\n- Single frequency (pure tone)\n- No additional harmonics above fundamental\n\n**Applications:**\n- Sub-bass (clean low-end foundation)\n- FM synthesis (carrier and modulator)\n- Additive synthesis (building block)\n- Test tones and tuning\n- Pure bass tones\n\n**Why Important:** Sine waves are building blocks. All complex sounds can be built from sine waves (Fourier theorem). All other waveforms contain multiple sine waves at different frequencies (harmonics).\n\n**In Subtractive Synthesis:** Rarely used alone (too plain). Often mixed with other waveforms for sub-bass foundation.\n\n**Professional Use:** Add sine wave one octave below sawtooth/square for massive bass. Use as FM modulator. Starting point for additive synthesis.\n\n---"
+            },
+            {
+              "title": "Sawtooth Wave",
+              "text": "Brightest waveform - contains all harmonics at decreasing amplitude.\n\n**Harmonic Content:**\n- **Contains all harmonics** (1st, 2nd, 3rd, 4th, 5th, etc. to infinity)\n- Amplitude decreases as 1/n (fundamental is loudest, each harmonic half as loud as previous)\n- Odd and even harmonics present\n- Fundamental: 100%\n- 2nd harmonic: 50%\n- 3rd harmonic: 33%\n- 4th harmonic: 25%\n- And so on...\n\n**Sound Character:**\n- Very bright, buzzy, brassy\n- Cutting, aggressive\n- Full-bodied with filter\n- Most versatile for filtering\n\n**Frequency Response:**\n- Rich harmonic spectrum extending to Nyquist frequency\n- Slopes downward (higher harmonics quieter)\n\n**Applications:**\n- **String sounds:** Filtered sawtooth = strings, pads\n- **Brass sounds:** Bright, full spectrum\n- **Lead sounds:** Cuts through mix\n- **Bass sounds:** Full-bodied when filtered\n- **General purpose:** Most common starting waveform\n\n**Why So Useful:** Rich harmonic content gives filter something to work with. When low-pass filtered, can create vast range of timbres. Starting point for most classic analog sounds.\n\n**Detuned Saws:** Multiple sawtooth oscillators slightly detuned creates:\n- Massive \"supersaw\" lead sound\n- Classic trance/EDM leads\n- Thick pad sounds\n- Reason: slight pitch differences create beating and phasing\n\n**Professional Standard:** Sawtooth = workhorse waveform. Most filtered sounds start here. Too bright alone, perfect with filter. Used in: Prophet-5, Jupiter-8, most classic leads/strings/brass.\n\n---"
+            },
+            {
+              "title": "Square Wave",
+              "text": "Contains only odd harmonics - hollow, woody character.\n\n**Harmonic Content:**\n- **Odd harmonics only** (1st, 3rd, 5th, 7th, 9th, etc.)\n- Amplitude decreases as 1/n\n- No even harmonics (2nd, 4th, 6th missing)\n- Fundamental: 100%\n- 3rd harmonic: 33%\n- 5th harmonic: 20%\n- 7th harmonic: 14%\n- And so on...\n\n**Waveform Shape:**\n- 50% duty cycle (equal high and low time)\n- Symmetrical\n- Abrupt transitions (rise/fall)\n\n**Sound Character:**\n- Hollow, woody, clarinet-like\n- Thinner than sawtooth\n- Less bright than sawtooth\n- Nasal quality\n\n**Applications:**\n- **Clarinet sounds:** Natural hollow quality\n- **Hollow bass:** Video game bass sounds\n- **Reed instruments:** Oboe, bassoon approximations\n- **8-bit/chiptune:** Classic video game sounds (NES, C64)\n- **Leads:** Thinner, more focused than saw\n\n**Historical Significance:** Original video game consoles (Atari, NES, Game Boy) used primarily square waves. Defines \"8-bit\" sound aesthetic.\n\n**Versus Pulse Wave:** Square wave is special case of pulse wave at exactly 50% width. Pulse waves at other widths (10%, 25%, 75%) have different harmonic content.\n\n**Professional Use:** Great for bass (not as heavy as saw, but focused). Good for leads needing clarity without excessive brightness. Mix with sawtooth for complex timbres.\n\n---"
+            },
+            {
+              "title": "Triangle Wave",
+              "text": "Softest waveform - only odd harmonics, dropping off very quickly.\n\n**Harmonic Content:**\n- **Odd harmonics only** (like square, but much quieter)\n- Amplitude decreases as 1/n\u00b2 (much faster than square or saw)\n- Fundamental: 100%\n- 3rd harmonic: 11% (1/9 of fundamental)\n- 5th harmonic: 4% (1/25)\n- 7th harmonic: 2% (1/49)\n- Higher harmonics: essentially inaudible\n\n**Waveform Shape:**\n- Linear rise and fall\n- Symmetrical\n- Smooth transitions (not abrupt like square)\n\n**Sound Character:**\n- Soft, mellow, flute-like\n- Hollow (like square but softer)\n- Warm, gentle\n- Almost sine-like but slightly richer\n\n**Applications:**\n- **Flute sounds:** Soft, breathy quality\n- **Soft pads:** Gentle background textures\n- **Sub-bass:** Warmer than sine, still focused\n- **Mellow leads:** Soft, not aggressive\n- **FM synthesis:** As modulator for gentler FM tones\n\n**Frequency Response:**\n- Mostly fundamental\n- Very few audible harmonics\n- Similar to sine but slightly richer\n\n**Versus Sine:** Triangle has harmonics (sine doesn't), but so few that it's nearly as pure. Slightly warmer and richer than sine.\n\n**Versus Square:** Same odd-only harmonics, but triangle drops off much faster (softer, less hollow).\n\n**Professional Use:** When you need warmth but not brightness. Sub-bass between sine and square. Soft melodic lines. Starting point for gentle filter sweeps.\n\n---"
+            },
+            {
+              "title": "Pulse Wave / Variable Pulse",
+              "text": "Variation of square wave with adjustable duty cycle (width).\n\n**Duty Cycle (Pulse Width):**\n- Percentage of time waveform is high vs low\n- 10%: narrow pulse (mostly low)\n- 25%: narrow\n- 50%: square wave (symmetrical)\n- 75%: inverse of 25%\n- 90%: very narrow pulse (mostly high)\n\n**Harmonic Content (varies with width):**\n- **50% (square):** Odd harmonics only, no even\n- **25% or 75%:** Both odd and even, different pattern\n- **Very narrow (10%):** All harmonics present, bright\n- **Width affects:** which harmonics are present/absent\n\n**Sound Character by Width:**\n- **50%:** Hollow, woody (square wave)\n- **25%/75%:** Thin, reedy, nasal\n- **10%/90%:** Bright, buzzy, complex\n\n**PWM (Pulse Width Modulation):**\nModulating pulse width over time (typically with LFO):\n- Creates: chorus-like effect, movement, thickness\n- Classic analog sound\n- Width changes: harmonics shift, creates phasing\n- Slow modulation (0.2-0.8Hz): lush, evolving\n- Found in: Juno-106, Prophet-5, most classic analog synths\n\n**Applications:**\n- **PWM pads:** Classic analog strings, thick pads\n- **Bass:** Hollow bass tones (50%), funky bass (25%)\n- **Leads:** Nasal, biting quality\n- **Effects:** Movement and animation\n\n**Professional Wisdom:** PWM is secret to classic analog thickness. Slow triangle LFO modulating pulse width creates instant vintage character. Essential for authentic analog emulation.\n\n---\n\n*[Content continues in Part 2 with remaining waveforms, noise, and more]*"
+            }
+          ],
+          "original_file": "MT_Dictionary_Volume_3_Synthesis_Part1.md",
+          "id": "t2"
+        },
+        {
+          "title": "ADSR Envelope Complete",
+          "sections": [
+            {
+              "title": "Overview",
+              "text": "**Attack Time (A):**\nTime from key press to maximum level.\n\n**Range:** 0ms - 10 seconds (typical)\n\n**Settings by Sound:**\n- **Percussive (0-10ms):** Instant attack (drums, plucks, pizzicato)\n- **Fast (10-50ms):** Quick but not instant (piano, guitar)\n- **Medium (50-200ms):** Noticeable swell (brass, some strings)\n- **Slow (200ms-2s):** Gradual fade-in (pads, strings with bow)\n- **Very slow (2-10s):** Cinematic swells (sound design, atmospheres)\n\n**Controls:** How quickly sound speaks/starts\n\n---\n\n**Decay Time (D):**\nTime from peak to sustain level.\n\n**Range:** 0ms - 10 seconds\n\n**Only occurs:** If sustain level is below 100%\n\n**Settings:**\n- **Fast (10-100ms):** Percussive, immediate decay\n- **Medium (100-500ms):** Natural instrument decay\n- **Slow (500ms-2s):** Gradual fall to sustain\n- **Very slow (2-10s):** Long evolving sounds\n\n**Controls:** How long initial impact/brightness lasts before settling to sustained level\n\n---\n\n**Sustain Level (S):**\nLevel held while key is pressed.\n\n**IMPORTANT:** This is a LEVEL (0-100%), NOT a time value\n\n**Settings:**\n- **0%:** No sustain (fully percussive - falls to silence)\n- **25-50%:** Moderate sustain (guitar, soft sounds)\n- **60-80%:** High sustain (pads, strings, most sustained sounds)\n- **100%:** Maximum sustain (organ-style, no decay)\n\n**Controls:** How loud sound is while key held\n\n---\n\n**Release Time (R):**\nTime from key release to complete silence.\n\n**Range:** 0ms - 10 seconds (or more)\n\n**Settings:**\n- **Instant (0-10ms):** Abrupt stop (staccato)\n- **Fast (10-50ms):** Quick fade (short notes)\n- **Medium (50-200ms):** Natural release (piano)\n- **Slow (200ms-1s):** Noticeable tail (pads, reverberant sounds)\n- **Very slow (1-10s):** Long sustaining tail (ambient, orchestral)\n\n**Controls:** How sound fades after key release\n\n---"
+            }
+          ],
+          "original_file": "MT_Dictionary_Volume_3_Synthesis_Part2.md",
+          "id": "t3"
+        },
+        {
+          "title": "Common ADSR Presets",
+          "sections": [
+            {
+              "title": "Overview",
+              "text": "**Piano:**\n- A: 0-5ms (instant)\n- D: 500ms-1s (natural decay)\n- S: 30-50% (moderate)\n- R: 500ms-1s (natural)\n\n**Synth Bass:**\n- A: 0-3ms (instant)\n- D: 100-300ms (quick decay)\n- S: 60-80% (high)\n- R: 50-100ms (short)\n\n**Pad/String:**\n- A: 500ms-2s (slow swell)\n- D: 500ms-1s (gentle)\n- S: 70-90% (very high)\n- R: 2-5s (long tail)\n\n**Lead:**\n- A: 5-20ms (quick but not instant)\n- D: 100-300ms (moderate)\n- S: 50-70% (medium)\n- R: 100-500ms (moderate)\n\n**Pluck:**\n- A: 0-5ms (instant)\n- D: 200-800ms (natural decay)\n- S: 0% (no sustain)\n- R: 100-300ms (short)\n\n---\n\n# PART 4: MODULATION"
+            }
+          ],
+          "original_file": "MT_Dictionary_Volume_3_Synthesis_Part2.md",
+          "id": "t4"
+        }
+      ]
+    },
+    {
+      "id": "p2",
+      "title": "Part 2: Advanced Modulation & Filters",
+      "topics": [
+        {
+          "title": "Low-Pass Filter (LPF)",
+          "sections": [
+            {
+              "title": "Overview",
+              "text": "Allows frequencies below cutoff to pass, removes frequencies above.\n\n**Operation:**\n- Frequencies below cutoff: Pass through\n- Cutoff frequency: -3dB point\n- Frequencies above cutoff: Attenuated\n- Slope determines: how quickly highs removed\n\n**Slopes (Filter Order):**\n- **6dB/octave (1-pole):** Gentle, subtle\n- **12dB/octave (2-pole):** Moderate, musical\n- **18dB/octave (3-pole):** Steep, pronounced\n- **24dB/octave (4-pole):** Very steep, dramatic (most common)\n\n**Resonance (Q Factor):**\n- Boost at cutoff frequency\n- 0%: Natural roll-off, no emphasis\n- 30-50%: Musical emphasis\n- 70-90%: Strong resonance, character\n- 100%: Self-oscillation (filter becomes sine oscillator)\n\n**Self-Oscillation:**\n- Filter generates pure sine tone at cutoff\n- Can be played as additional oscillator\n- Useful for: bass tones, special effects\n- Classic analog behavior\n\n**Sound Character:**\n- Removes brightness (\"opens\" and \"closes\")\n- Creates warmth when closed\n- Classic \"wah\" filter sweep\n- Fundamental to subtractive synthesis\n\n**Applications:**\n- **Bass synthesis:** Cutoff 200-600Hz, high resonance, envelope opens on attack\n- **Pad sounds:** Cutoff 1-6kHz, gentle resonance, slow filter envelope\n- **Lead sounds:** Cutoff 1-4kHz, moderate resonance, envelope modulation\n- **String sounds:** Filtered sawtooth, cutoff 1-3kHz\n- **Classic analog:** Foundation of all subtractive sounds\n\n**Famous LPF Designs:**\n- **Moog Ladder (24dB):** Warm, fat, smooth (Minimoog, Voyager)\n- **Curtis/SSM (24dB):** Clean, punchy (Prophet-5, OB-X)\n- **Roland IR3109 (24dB):** Smooth, liquid (Juno-60, Jupiter-8)\n- **TB-303 Filter (24dB):** Squelchy, acid, screaming resonance\n- **Korg MS-20 (6dB/12dB):** Aggressive, raw\n\n**Professional Settings:**\n- **Fat bass:** Saw wave, cutoff 300Hz, resonance 40%, slow attack envelope\n- **Synth pad:** Multiple saws, cutoff 3kHz, resonance 15%, slow attack/release\n- **Lead:** Saw wave, cutoff 2kHz, resonance 50%, fast envelope attack opening filter\n\n---"
+            }
+          ],
+          "original_file": "MT_Dictionary_Volume_3_Synthesis_Part2.md",
+          "id": "t1"
+        },
+        {
+          "title": "High-Pass Filter (HPF)",
+          "sections": [
+            {
+              "title": "Overview",
+              "text": "Allows frequencies above cutoff to pass, removes frequencies below.\n\n**Operation:**\n- Opposite of low-pass\n- Frequencies above cutoff: Pass through\n- Frequencies below cutoff: Attenuated\n- Same slopes as LPF (6dB, 12dB, 18dB, 24dB per octave)\n\n**Sound Character:**\n- Removes bass and body\n- Thin, airy, bright\n- Can sound hollow\n- Emphasizes treble\n\n**Applications:**\n- **Hi-hats:** Remove low-end rumble (cutoff 200-800Hz)\n- **Thin leads:** Emphasize high frequencies\n- **Layering:** Remove bass from upper layer to avoid mud\n- **Special effects:** Filter sweeps (opposite direction from LPF)\n\n**Resonance:**\n- Emphasizes cutoff frequency\n- Less commonly used than LPF resonance\n- Can create resonant peak in highs\n\n**Professional Use:**\n- Clean up low-end on non-bass instruments\n- Create thin, bright textures\n- High-pass everything except bass and kick (mixing)\n- Opposite filter sweep from LPF\n\n---"
+            }
+          ],
+          "original_file": "MT_Dictionary_Volume_3_Synthesis_Part2.md",
+          "id": "t2"
+        },
+        {
+          "title": "Band-Pass Filter (BPF)",
+          "sections": [
+            {
+              "title": "Overview",
+              "text": "Allows frequencies around cutoff (band) to pass, removes highs and lows.\n\n**Operation:**\n- Center frequency (cutoff): Peak of pass-band\n- Q (resonance): Width of pass-band\n- High and low frequencies: Removed\n\n**Q Factor:**\n- Low Q (wide): Broader range passes (more musical)\n- High Q (narrow): Very focused, nasal\n- Very high Q: Almost pure tone (telephone-like)\n\n**Sound Character:**\n- Focused, nasal\n- Midrange-emphasized\n- Thin (lows and highs removed)\n- Vocal formant-like\n\n**Applications:**\n- **Vocal simulation:** Formant filtering (vowel sounds)\n- **Telephone effect:** Narrow band 300-3000Hz\n- **Wah-wah:** Sweeping band-pass filter\n- **Percussion:** Focused pitched percussion (congas, bongos)\n- **Special effects:** Resonant, hollow sounds\n\n**Bandwidth:**\n- Wide: Musical, rich character\n- Medium: Focused, clear tone\n- Narrow: Nasal, telephone-like\n- Very narrow: Almost sine wave\n\n**Professional Practice:**\n- Use for vocal formants (sweep 400-2000Hz)\n- Wah effect: LFO or envelope modulating cutoff\n- Percussion: Fixed band-pass for tom/conga character\n\n---"
+            }
+          ],
+          "original_file": "MT_Dictionary_Volume_3_Synthesis_Part2.md",
+          "id": "t3"
+        },
+        {
+          "title": "Notch Filter (Band-Reject)",
+          "sections": [
+            {
+              "title": "Overview",
+              "text": "Removes frequencies around cutoff, allows highs and lows to pass.\n\n**Operation:**\n- Opposite of band-pass\n- Center frequency: Point of maximum attenuation\n- Q determines: Width of notch\n- Frequencies above and below: Pass through\n\n**Sound Character:**\n- Scooped, hollow\n- Phaser-like when swept\n- Creates gap in spectrum\n\n**Applications:**\n- **Phaser effect:** Sweeping notches\n- **Problem-solving:** Remove resonances\n- **Special effects:** Unusual timbres\n- Less common in synthesis (more in mixing)\n\n---\n\n# PART 3: ENVELOPE GENERATORS"
+            }
+          ],
+          "original_file": "MT_Dictionary_Volume_3_Synthesis_Part2.md",
+          "id": "t4"
+        },
+        {
+          "title": "Vibrato (Pitch Modulation)",
+          "sections": [
+            {
+              "title": "Overview",
+              "text": "Cyclic pitch variation creating expressiveness.\n\n**Implementation:**\n- Source: LFO (sine or triangle wave)\n- Destination: Oscillator pitch\n- Typical rate: 4-7Hz (musical vibrato)\n- Typical depth: 5-30 cents\n\n**Rate Settings:**\n- **Slow (2-4Hz):** Gentle, classical (violin, cello)\n- **Medium (4-6Hz):** Standard vocal/string vibrato\n- **Fast (6-8Hz):** Expressive, emotional\n- **Very fast (8-10Hz):** Aggressive, unnatural\n\n**Depth Settings:**\n- **Subtle (3-10 cents):** Barely noticeable, natural\n- **Moderate (10-25 cents):** Standard musical vibrato\n- **Wide (25-50 cents):** Exaggerated, emotional\n- **Extreme (>50 cents):** Special effect, siren-like\n\n**Delay:**\n- Time before vibrato starts\n- 0ms: Vibrato present from note start\n- 200-500ms: Fades in naturally (realistic)\n- 1-2s: Late vibrato (expressive)\n\n**Applications:**\n- **Strings:** 5-6Hz, 15-20 cents, 300-500ms delay\n- **Brass:** 4-5Hz, 10-15 cents, 200-400ms delay\n- **Lead synth:** Wheel-controlled, 5-7Hz, 20-40 cents\n- **Vocal simulation:** 5-6Hz, 10-20 cents, variable delay\n\n---"
+            }
+          ],
+          "original_file": "MT_Dictionary_Volume_3_Synthesis_Part2.md",
+          "id": "t5"
+        },
+        {
+          "title": "Tremolo (Amplitude Modulation)",
+          "sections": [
+            {
+              "title": "Overview",
+              "text": "Cyclic volume variation.\n\n**Implementation:**\n- Source: LFO\n- Destination: Amplifier/VCA\n- Rate: 1-8Hz typical\n- Depth: 20-80%\n\n**Waveforms:**\n- **Sine:** Smooth pulsing (natural)\n- **Triangle:** Similar but more linear\n- **Square:** Abrupt on/off (trill, gating effect)\n\n**Applications:**\n- **Subtle movement:** 2-3Hz, 20-30% depth\n- **Obvious tremolo:** 4-6Hz, 50-70% depth\n- **Helicopter effect:** 8-12Hz square wave, 80-100% depth\n- **Retro sounds:** Electric piano (Rhodes), guitar amps\n\n**Tempo-Synced:**\n- Rate locked to BPM\n- 1/4 note, 1/8 note, 1/16 note\n- Creates rhythmic pulsing\n\n---"
+            }
+          ],
+          "original_file": "MT_Dictionary_Volume_3_Synthesis_Part2.md",
+          "id": "t6"
+        },
+        {
+          "title": "Filter Modulation",
+          "sections": [
+            {
+              "title": "Overview",
+              "text": "Modulating filter cutoff for timbral evolution.\n\n**Envelope to Filter:**\n- Most common modulation\n- Controls how brightness evolves over time\n- Amount: 0-100% (how much envelope affects cutoff)\n- Velocity: Harder key = brighter sound\n\n**Common Filter Envelopes:**\n- **Pluck:** Fast attack, fast decay (bright attack, quick close)\n- **Pad:** Slow attack, slow decay (gentle brightness evolution)\n- **Bass:** Medium attack, medium decay (punchy but controlled)\n\n**LFO to Filter:**\n- Auto-wah effect\n- Rate: 0.5-4Hz typical\n- Depth: Controls sweep range\n- Tempo-sync: Rhythmic filtering (dance music)\n\n**Keyboard Tracking:**\n- Higher notes = higher cutoff\n- 0%: No tracking (darker as you go higher)\n- 50%: Moderate tracking (natural)\n- 100%: Full tracking (maintains brightness)\n\n---"
+            }
+          ],
+          "original_file": "MT_Dictionary_Volume_3_Synthesis_Part2.md",
+          "id": "t7"
+        },
+        {
+          "title": "Pulse Width Modulation (PWM)",
+          "sections": [
+            {
+              "title": "Overview",
+              "text": "Modulating width of pulse wave.\n\n**Implementation:**\n- Source: LFO (triangle or sine)\n- Destination: Pulse width parameter\n- Rate: 0.2-2Hz (slow)\n- Depth: 10-40% width modulation\n\n**Effect:**\n- Creates chorus-like thickness\n- Sounds like multiple detuned oscillators\n- Classic analog character\n- Harmonic content shifts\n\n**Settings:**\n- **Slow (0.2-0.5Hz):** Gentle, evolving\n- **Medium (0.5-1Hz):** Classic analog movement\n- **Fast (1-2Hz):** Obvious modulation\n\n**Applications:**\n- **String sounds:** Essential (Juno-106 strings)\n- **Pads:** Depth without detuning\n- **Bass:** Timbral interest\n- **Classic analog:** Signature sound\n\n---\n\n*[Content continues in Parts 3 and 4]*"
+            }
+          ],
+          "original_file": "MT_Dictionary_Volume_3_Synthesis_Part2.md",
+          "id": "t8"
+        }
+      ]
+    },
+    {
+      "id": "p3",
+      "title": "Part 3: Synthesis Types & Performance",
+      "topics": [
+        {
+          "title": "Types of Synthesis",
+          "sections": [
+            {
+              "title": "Subtractive Synthesis",
+              "text": "**Most common synthesis method - starts with harmonically rich waveform, removes frequencies with filters.**\n\n**Process:**\n1. **Oscillators:** Generate harmonically rich waveforms (sawtooth, square, pulse)\n2. **Filter:** Removes unwanted frequencies (typically low-pass filter)\n3. **Amplifier:** Shapes volume over time (VCA with envelope)\n4. **Modulation:** LFOs and envelopes add movement\n\n**Principle:** \"Subtract\" harmonics from rich source to sculpt desired timbre.\n\n**Advantages:**\n- Intuitive workflow (generate \u2192 filter \u2192 shape)\n- Immediate, responsive control\n- Classic analog sound\n- Easy to understand\n- Most synthesizers use this method\n\n**Sound Character:**\n- Warm, organic (analog implementations)\n- Rich harmonics when filter open\n- Smooth filter sweeps\n- Classic \"synth\" sound\n\n**Famous Subtractive Synths:**\n- Minimoog (1970) - monophonic bass/lead legend\n- Prophet-5 (1978) - first polyphonic programmer\n- Jupiter-8 (1981) - lush pads and strings\n- Juno-106 (1984) - affordable classic\n- TB-303 (1982) - acid bass machine\n\n**Applications:** Bass, leads, pads, strings, brass - essentially all traditional synth sounds.\n\n**Modern Examples:** Virtually all analog synths, most soft synths include subtractive engines.\n\n---"
+            },
+            {
+              "title": "Additive Synthesis",
+              "text": "**Building sounds by adding together multiple sine waves at different frequencies and amplitudes.**\n\n**Process:**\n1. **Multiple sine oscillators:** Each generates pure sine wave\n2. **Frequency control:** Each sine at different pitch (harmonics)\n3. **Amplitude control:** Each sine at different volume\n4. **Envelope per sine:** Each sine can have independent envelope\n5. **Sum:** All sines combined create complex timbre\n\n**Principle:** Any sound can be recreated by summing enough sine waves (Fourier theorem).\n\n**Advantages:**\n- Precise control over harmonic content\n- Can recreate any sound theoretically\n- Smooth timbres possible\n- Bell-like, organ-like tones\n\n**Disadvantages:**\n- Complex to program (many parameters)\n- CPU-intensive (many oscillators)\n- Difficult to predict results\n- Not intuitive for most users\n\n**Parameters:**\n- Number of partials: 8-256+ (more = more complex)\n- Frequency of each partial\n- Amplitude of each partial\n- Envelope for each partial (advanced)\n\n**Sound Character:**\n- Smooth, pure tones\n- Organ-like\n- Bell-like\n- Glassy, crystalline\n- Electronic, precise\n\n**Famous Additive Synths:**\n- Hammond organ (tonewheel additive - drawbars control harmonics)\n- Kawai K5/K5000 series\n- Synclavier (partial additive)\n- Various software synths (Harmor, Razor)\n\n**Applications:** Organs, bells, electronic tones, precise sound design, experimental sounds.\n\n**Modern Use:** Mostly in software synths due to CPU requirements. Some hardware uses limited additive (drawbar organs).\n\n---"
+            },
+            {
+              "title": "FM Synthesis (Frequency Modulation)",
+              "text": "**Using one oscillator to modulate the frequency of another, creating complex harmonic sidebands.**\n\n**Process:**\n1. **Carrier oscillator:** Produces fundamental pitch (heard tone)\n2. **Modulator oscillator:** Modulates carrier frequency (usually not heard directly)\n3. **Modulation depth:** Controls intensity of modulation\n4. **Modulation rate:** Speed of modulation (usually in audio range)\n\n**Principle:** When modulator frequency is audio rate, creates new harmonics (sidebands). Sidebands = carrier \u00b1 (modulator \u00d7 integer).\n\n**Algorithms:**\n- Multiple operators (oscillators) arranged in configurations\n- Series: Carrier modulated by modulator modulated by another\n- Parallel: Multiple carriers with different modulators\n- Feedback: Operator modulates itself\n- Yamaha DX7: 6 operators, 32 algorithms\n\n**Advantages:**\n- Extremely wide range of timbres\n- Complex sounds from simple components\n- Bell-like, metallic tones easy\n- Bright, clear digital sound\n- Memory-efficient (few oscillators create rich sound)\n\n**Disadvantages:**\n- Difficult to program (non-intuitive)\n- Hard to predict results\n- Can sound harsh, digital\n- Requires understanding of algorithms\n\n**Parameters:**\n- **Carrier frequency:** Fundamental pitch\n- **Modulator frequency:** Ratio to carrier (1:1, 2:1, 3.5:1, etc.)\n- **Modulation index:** Depth of modulation (brightness)\n- **Envelope per operator:** Volume contour of each operator\n- **Algorithm:** Routing configuration\n\n**Sound Character:**\n- Bright, metallic\n- Bell-like, glassy\n- Electric piano (classic DX7)\n- Plucked strings\n- Brass (with right programming)\n- Digital, precise\n\n**Famous FM Synths:**\n- **Yamaha DX7 (1983):** Defined 1980s sound, 6-operator, most successful synth ever\n- **Yamaha DX100/DX27:** Compact, affordable FM\n- **Yamaha TX81Z:** 4-operator rack, popular\n- **Native Instruments FM8:** Software, modern FM\n\n**Applications:** Electric pianos (DX7 Rhodes), bells, bass (FM bass), brass, percussion, aggressive leads.\n\n**Modern Use:** Software implementations common. Hardware FM less popular but cult following.\n\n---"
+            },
+            {
+              "title": "Wavetable Synthesis",
+              "text": "**Smoothly transitioning between multiple sampled waveforms (wavetables) creating evolving timbres.**\n\n**Process:**\n1. **Wavetable:** Collection of single-cycle waveforms (64-256 waveforms)\n2. **Position control:** Selects which waveform from table\n3. **Scanning:** Smoothly interpolates between adjacent waveforms\n4. **Modulation:** Position modulated for timbral evolution\n\n**Principle:** Each position in wavetable contains different waveform. Scanning through creates smooth timbral changes impossible with basic waveforms.\n\n**Wavetable Contents:**\n- Single-cycle waveforms\n- Can be: drawn, sampled, mathematically generated\n- Arranged: to create smooth transitions\n- Example: Sine \u2192 triangle \u2192 sawtooth \u2192 square \u2192 pulse\n\n**Advantages:**\n- Smooth timbral evolution\n- Complex sounds from simple control\n- Wide range of textures\n- Morphing between different characters\n\n**Parameters:**\n- **Wave position:** Location in wavetable (0-100%)\n- **Position modulation:** LFO or envelope scanning table\n- **Wavetable selection:** Choose different wavetables\n- **All standard synthesis:** plus wavetable-specific controls\n\n**Sound Character:**\n- Smooth transitions\n- Evolving, organic (when modulated)\n- Digital, precise\n- Can be very complex and rich\n\n**Famous Wavetable Synths:**\n- **PPG Wave 2.x (1981):** First popular wavetable synth\n- **Waldorf Microwave/Wave:** Modern wavetable classics\n- **Serum (software):** Modern wavetable powerhouse\n- **Korg Wavestation:** Advanced vector synthesis with wavetables\n\n**Applications:** Pads (evolving textures), leads (movement and interest), soundscapes, digital textures, modern electronic music.\n\n**Modern Use:** Very popular in software synths. Serum, Massive, Pigments all use wavetables extensively.\n\n---"
+            },
+            {
+              "title": "Granular Synthesis",
+              "text": "**Splitting sound into tiny grains (1-100ms) and reassembling with different timing, pitch, position.**\n\n**Process:**\n1. **Source audio:** Sample or real-time input\n2. **Grain extraction:** Divide into tiny segments (grains)\n3. **Grain parameters:** Pitch, duration, position, density\n4. **Reassembly:** Grains played back (overlapping, scattered, modified)\n\n**Grain Parameters:**\n- **Grain size:** 1-100ms typical (shorter = more granular, textured)\n- **Grain density:** How many grains per second\n- **Position:** Where in source grains extracted\n- **Pitch:** Grain playback speed (independent of position)\n- **Spray/Randomization:** Random variation in parameters\n\n**Advantages:**\n- Time-stretching without pitch change\n- Pitch-shifting without time change\n- Textural, atmospheric sounds\n- Microscopic audio manipulation\n\n**Sound Character:**\n- Textured, grainy (at small grain sizes)\n- Smooth (at larger grain sizes)\n- Atmospheric, evolving\n- Glitchy (with high randomization)\n- Cloud-like, swarming\n\n**Applications:** Atmospheric pads, soundscapes, time/pitch manipulation, experimental sounds, textural layers.\n\n**Famous Granular Tools:**\n- **Granulator (Ableton Max device)**\n- **Borderlands (iOS granular app)**\n- **Granite (New Sonic Arts)**\n- **Various software synths** (Omnisphere, Pigments)\n\n**Modern Use:** Mainly software-based. Popular for sound design, film scoring, experimental music.\n\n---"
+            },
+            {
+              "title": "Physical Modeling",
+              "text": "**Mathematically modeling physical properties of real instruments.**\n\n**Process:**\n1. **Model physical components:** Strings, tubes, resonators, hammers\n2. **Calculate vibration:** Using physics equations\n3. **Synthesize sound:** Based on mathematical model\n4. **Control parameters:** Excitation, resonance, material properties\n\n**Modeled Components:**\n- **String:** Length, tension, material, pluck/bow position\n- **Tube/Pipe:** Length, diameter, bore shape, embouchure\n- **Resonator:** Size, shape, material, damping\n- **Excitation:** How instrument is \"played\"\n\n**Advantages:**\n- Realistic acoustic instrument sounds\n- Expressive, responsive\n- Can modify impossible parameters (titanium violin, 50-foot flute)\n- Small memory footprint (equations not samples)\n\n**Sound Character:**\n- Acoustic, realistic\n- Responsive to performance\n- Natural dynamics\n- Can be experimental (impossible instruments)\n\n**Famous Physical Modeling Synths:**\n- **Yamaha VL1 (1994):** First commercial physical modeling synth\n- **Applied Acoustics Systems:** Chromaphone, String Studio (software)\n- **Sculpture (Logic Pro):** Physical modeling synth\n- **Pianoteq:** Physically modeled piano\n\n**Applications:** Realistic acoustic instruments, experimental hybrid instruments, expressive performance, orchestral mockups.\n\n**Modern Use:** Software implementations. Very CPU-intensive but improving. Pianoteq considered one of best piano plugins.\n\n---"
+            },
+            {
+              "title": "Sample-Based Synthesis",
+              "text": "**Using recorded samples (real instruments) as oscillators, modified with synthesis parameters.**\n\n**Process:**\n1. **Sample playback:** Recorded audio played back at different pitches\n2. **Multisampling:** Different samples for different pitches/velocities\n3. **Looping:** Sustaining notes beyond sample length\n4. **Synthesis processing:** Filters, envelopes, effects applied\n\n**Sampling Techniques:**\n- **Single sample:** One recording pitched up/down\n- **Multisampled:** Sample every note or every few notes\n- **Velocity layers:** Different samples for different playing intensities\n- **Round robin:** Alternate samples for repeated notes (realism)\n\n**Advantages:**\n- Realistic acoustic instruments\n- Any sound can be sampled\n- Immediate recognition (real instruments)\n- Rich, complex timbres\n\n**Disadvantages:**\n- Large memory requirements\n- Can sound \"sampled\" (artificial)\n- Limited expressiveness (unless many layers)\n\n**Famous Samplers:**\n- **Mellotron (1963):** Tape-based sampling, strings/flutes\n- **Fairlight CMI (1979):** First digital sampler ($25,000+)\n- **E-mu Emulator:** Affordable sampling (1980s)\n- **Akai S-series:** MPC standard (S950, S1000, S3000)\n- **Modern:** Kontakt, EXS24, most soft synths include sampling\n\n**Applications:** Realistic instruments (orchestral libraries), drums (multisampled kits), any real sound, hip-hop production.\n\n**Modern Use:** Ubiquitous. Every DAW includes sampler. Kontakt industry standard for libraries.\n\n---"
+            },
+            {
+              "title": "Vector Synthesis",
+              "text": "**Morphing between four sound sources using joystick or envelope control.**\n\n**Process:**\n1. **Four sound sources:** Can be oscillators, samples, wavetables\n2. **X/Y control:** Joystick or automation controls mix\n3. **Real-time morphing:** Smooth transitions between sources\n4. **Recording movement:** Can record joystick movements\n\n**Control:**\n- **X-axis:** Morphs between two sources (left-right)\n- **Y-axis:** Morphs between two sources (up-down)\n- **Position:** Determines mix of all four sources\n- **Envelope:** Can automate X/Y position over time\n\n**Advantages:**\n- Expressive, dynamic sounds\n- Smooth timbral morphing\n- Performance-oriented\n- Complex evolving textures\n\n**Famous Vector Synths:**\n- **Sequential Prophet VS (1986):** First vector synthesis\n- **Korg Wavestation (1990):** Advanced vector + wavetables\n- **Yamaha SY series:** Vector control\n\n**Applications:** Evolving pads, morphing textures, expressive performance, soundscapes.\n\n**Modern Use:** Some software synths include vector features. Less common than other synthesis types.\n\n---"
+            },
+            {
+              "title": "Phase Distortion Synthesis",
+              "text": "**Casio's proprietary synthesis method - altering phase of waveform reading.**\n\n**Process:**\n1. **Sine wave:** Stored in memory\n2. **Phase alteration:** Reading rate varies during cycle\n3. **Creates:** Harmonics without filters\n4. **Similar to:** FM synthesis but different implementation\n\n**Advantages:**\n- Memory efficient\n- Wide range of timbres\n- Unique Casio CZ sound\n\n**Famous Phase Distortion Synths:**\n- **Casio CZ-101/1000/5000 series (1984-1987)**\n- Distinctive 1980s sound\n- Very affordable at the time\n\n**Sound Character:** Bell-like, digital, bright, similar to FM but distinct character.\n\n**Modern Use:** Mostly vintage instruments. Not widely used in modern synthesis.\n\n---"
+            }
+          ],
+          "original_file": "MT_Dictionary_Volume_3_Synthesis_Part3.md",
+          "id": "t1"
+        },
+        {
+          "title": "Performance Controls",
+          "sections": [
+            {
+              "title": "Keyboard",
+              "text": "**Piano-style keys controlling pitch and triggering notes.**\n\n**Parameters:**\n- **Velocity:** How hard key is struck (0-127)\n- **Aftertouch:** Pressure after initial strike\n- **Keybed quality:** Weighted, semi-weighted, synth action\n\n**Velocity Sensitivity:**\n- Controls: volume, filter brightness, modulation amount\n- 0-127 range (MIDI standard)\n- Soft touch: low velocity (quiet, dark)\n- Hard touch: high velocity (loud, bright)\n\n**Applications:** Primary performance interface. Expressive control essential for musical playing.\n\n---"
+            },
+            {
+              "title": "Pitch Bend Wheel",
+              "text": "**Wheel controlling continuous pitch change.**\n\n**Range:** Typically \u00b12 semitones (configurable \u00b11 to \u00b112 or more)\n\n**Behavior:**\n- Spring-loaded (returns to center)\n- Continuous control (14-bit MIDI resolution = 16,384 steps)\n- Affects all playing notes simultaneously\n\n**Applications:** Guitar-style bends, vibrato, portamento effects, expressive pitch control.\n\n---"
+            },
+            {
+              "title": "Modulation Wheel (Mod Wheel)",
+              "text": "**Wheel controlling modulation depth - typically vibrato or other assigned parameter.**\n\n**Characteristics:**\n- Not spring-loaded (stays where positioned)\n- 0-127 range\n- Usually controls: vibrato depth, LFO amount, filter modulation\n\n**Typical Assignments:**\n- Vibrato depth (most common)\n- Filter cutoff modulation\n- LFO to pitch/filter/PWM\n\n**Applications:** Adding expression after note start, gradual introduction of vibrato, real-time modulation control.\n\n---"
+            },
+            {
+              "title": "Aftertouch (Channel Pressure)",
+              "text": "**Pressure applied to keys after initial strike.**\n\n**Types:**\n- **Channel Aftertouch:** Single pressure value for all keys (most common, less expensive)\n- **Polyphonic Aftertouch:** Independent pressure per key (expensive, rare)\n\n**Range:** 0-127 (MIDI)\n\n**Typical Assignments:**\n- Vibrato depth\n- Filter cutoff\n- Volume swell\n- LFO amount\n\n**Applications:** Expressive playing, swells, vibrato, adding movement after note struck.\n\n---"
+            },
+            {
+              "title": "Velocity",
+              "text": "**How hard key is struck - primary dynamic control.**\n\n**Range:** 0-127 (MIDI standard)\n\n**Affects:**\n- **Volume:** Harder = louder (most common)\n- **Filter cutoff:** Harder = brighter\n- **Envelope times:** Harder = faster attack\n- **Sample selection:** Different samples at different velocities\n\n**Curve:**\n- Linear: Direct relationship\n- Exponential: More dynamic range\n- Fixed: Ignores velocity (organ-style)\n\n---"
+            }
+          ],
+          "original_file": "MT_Dictionary_Volume_3_Synthesis_Part3.md",
+          "id": "t2"
+        },
+        {
+          "title": "Classic Synthesizers",
+          "sections": [
+            {
+              "title": "Minimoog (1970)",
+              "text": "**Legendary monophonic analog synthesizer - defined bass and lead sounds.**\n\n**Specifications:**\n- **Architecture:** 3 VCOs, 24dB Moog ladder filter, 2 ADSR envelopes\n- **Monophonic:** 1 voice\n- **Features:** Pitch/mod wheels, oscillator sync, noise generator\n- **Sound:** Warm, fat, powerful bass and leads\n\n**Famous for:** Bass (Michael Jackson \"Thriller\"), leads (Kraftwerk, Parliament), defining analog sound.\n\n**Price:** $1,495 in 1970 ($10,000+ today inflation-adjusted). Vintage: $3,000-8,000 now.\n\n---"
+            },
+            {
+              "title": "Prophet-5 (1978)",
+              "text": "**First fully programmable polyphonic synthesizer - revolutionary.**\n\n**Specifications:**\n- **Architecture:** 2 VCOs per voice, Curtis filter, polyphonic\n- **Voices:** 5 voices (later 10-voice Prophet-10)\n- **Programmability:** 40 memory patches (revolutionary!)\n- **Sound:** Punchy, bright, versatile\n\n**Famous for:** Pads, strings, brass, leads. Defining 1970s-80s sound.\n\n**Price:** $3,995 in 1978. Vintage: $8,000-20,000 now. Modern reissue (Prophet-5 Rev 4): $3,999.\n\n---"
+            },
+            {
+              "title": "Yamaha DX7 (1983)",
+              "text": "**Best-selling synthesizer ever - defined 1980s digital sound.**\n\n**Specifications:**\n- **Architecture:** 6-operator FM synthesis, 32 algorithms\n- **Voices:** 16 voices (later 32-voice DX7 II)\n- **Programmability:** 32 patches internal\n- **Sound:** Bright, bell-like, electric pianos, digital\n\n**Famous for:** Electric piano (nearly every 80s song), bells, brass, bass.\n\n**Price:** $1,995 in 1983 (affordable!). Sold 200,000+ units.\n\n---"
+            },
+            {
+              "title": "Roland TB-303 (1982)",
+              "text": "**Bass synthesizer - created acid house genre.**\n\n**Specifications:**\n- **Architecture:** 1 VCO (sawtooth/square), 18dB resonant filter, monophonic\n- **Sequencer:** 16-step pattern programming\n- **Sound:** Screaming resonance, wet/squishy filter, iconic acid bass\n\n**Famous for:** Acid house (Phuture \"Acid Tracks\"), techno, electronic bass.\n\n**Price:** $395 in 1982 (failure initially). Vintage: $2,000-4,000+ now due to cult status.\n\n---"
+            },
+            {
+              "title": "Roland Jupiter-8 (1981)",
+              "text": "**Flagship polyphonic analog - lush pads and strings.**\n\n**Specifications:**\n- **Architecture:** 2 VCOs per voice, Roland IR3109 filter\n- **Voices:** 8 voices\n- **Features:** Arpeggiator, unison mode, cross-modulation\n- **Sound:** Lush, warm, smooth, Jupiter \"sound\"\n\n**Famous for:** Pads (Vangelis \"Blade Runner\"), strings, brass.\n\n**Price:** $5,295 in 1981. Vintage: $15,000-25,000+ (very collectible).\n\n---\n\n*[Additional synths in PDF: Oberheim OB-X, ARP 2600, Korg MS-20, Sequential Circuits Pro-One]*\n\n---"
+            }
+          ],
+          "original_file": "MT_Dictionary_Volume_3_Synthesis_Part3.md",
+          "id": "t3"
+        }
+      ]
+    }
+  ]
+}

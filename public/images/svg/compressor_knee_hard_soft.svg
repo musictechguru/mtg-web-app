@@ -1,0 +1,24 @@
+<svg width="400" height="300" xmlns="http://www.w3.org/2000/svg">
+  <rect width="100%" height="100%" fill="#1e1e1e" />
+  
+  <!-- Grid -->
+  <line x1="50" y1="250" x2="350" y2="250" stroke="#444" stroke-width="2"/> <!-- In -->
+  <line x1="50" y1="250" x2="50" y2="50" stroke="#444" stroke-width="2"/> <!-- Out -->
+  
+  <!-- 1:1 Line -->
+  <line x1="50" y1="250" x2="350" y2="50" stroke="#444" stroke-dasharray="2"/>
+  
+  <!-- Hard Knee (Sharp Turn) -->
+  <path d="M50,250 L200,150 L350,120" fill="none" stroke="#ef4444" stroke-width="3"/>
+  <text x="300" y="110" fill="#ef4444" font-weight="bold">Hard Knee</text>
+  <circle cx="200" cy="150" r="4" fill="#ef4444"/>
+  
+  <!-- Soft Knee (Curved) -->
+  <path d="M50,250 L150,183 Q200,150 250,140 L350,130" fill="none" stroke="#3b82f6" stroke-width="3" stroke-dasharray="0"/> <!-- Curve region -->
+  <text x="260" y="160" fill="#3b82f6" font-weight="bold">Soft Knee</text>
+  
+  <text x="50" y="40" fill="#fff" font-size="12">Output Level</text>
+  <text x="350" y="265" fill="#fff" font-size="12" text-anchor="end">Input Level</text>
+  
+  <text x="200" y="290" fill="#fff" text-anchor="middle" font-size="16" font-weight="bold">Compression Knee</text>
+</svg>

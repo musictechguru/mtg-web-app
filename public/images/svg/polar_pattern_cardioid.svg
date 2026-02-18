@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500">
+  <defs>
+    <style>
+      .grid { stroke: #e0e0e0; stroke-width: 1; fill: none; }
+      .axis { stroke: #cccccc; stroke-width: 1.5; }
+      .pattern { fill: rgba(0, 123, 255, 0.2); stroke: #007bff; stroke-width: 3; }
+      .label { font-family: Arial, sans-serif; font-size: 14px; fill: #666; text-anchor: middle; }
+    </style>
+  </defs>
+  
+  <!-- Grid Circles (dB) -->
+  <circle cx="250" cy="250" r="50" class="grid" />
+  <circle cx="250" cy="250" r="100" class="grid" />
+  <circle cx="250" cy="250" r="150" class="grid" />
+  <circle cx="250" cy="250" r="200" class="grid" />
+  
+  <!-- Axis Lines -->
+  <line x1="250" y1="50" x2="250" y2="450" class="axis" />
+  <line x1="50" y1="250" x2="450" y2="250" class="axis" />
+  
+  <!-- Cardioid Pattern (Approximate Heart Shape) -->
+  <path d="M 250 250 
+           C 250 250, 400 150, 250 50 
+           C 100 150, 250 250, 250 250 
+           Z" 
+        transform="translate(0, 30) scale(1, 0.9)" 
+        fill="none" /> 
+  <!-- Better Cardioid Path using polar coordinates converted to cubic bezier or points -->
+  <!-- Using a simplified path for visual representation -->
+  <path d="M 250,250 
+           m 0,-180
+           c 110,0 180,80 180,180
+           c 0,60 -30,120 -180,200
+           c -150,-80 -180,-140 -180,-200
+           c 0,-100 70,-180 180,-180 z" 
+        class="pattern" transform="translate(0, -20) scale(0.8) transform-origin: center" />
+
+  <!-- Labels -->
+  <text x="250" y="40" class="label">0°</text>
+  <text x="470" y="255" class="label">90°</text>
+  <text x="250" y="470" class="label">180°</text>
+  <text x="30" y="255" class="label">270°</text>
+  <text x="250" y="490" class="label" font-weight="bold">Cardioid</text>
+</svg>

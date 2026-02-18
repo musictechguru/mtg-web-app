@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" style="background-color: #1a1a1a; font-family: sans-serif;">
+  <!-- Before -->
+  <g transform="translate(50,50)">
+    <text x="150" y="0" fill="#fff" text-anchor="middle" font-size="18">BEFORE (Quiet)</text>
+    <rect x="0" y="20" width="300" height="200" fill="#222" stroke="#444"/>
+    <!-- Small waveform -->
+    <path d="M0 120 Q50 100 100 120 T200 120 T300 120" fill="none" stroke="#aaa" stroke-width="2"/>
+    <text x="150" y="180" fill="#aaa" text-anchor="middle">-12 dB Peak</text>
+  </g>
+
+  <!-- Arrow -->
+  <path d="M370 150 L430 150" stroke="#fff" stroke-width="4" marker-end="url(#arrow)"/>
+  <text x="400" y="130" fill="#00ccff" text-anchor="middle" font-weight="bold">NORMALIZE</text>
+
+  <!-- After -->
+  <g transform="translate(450,50)">
+    <text x="150" y="0" fill="#fff" text-anchor="middle" font-size="18">AFTER (Louder)</text>
+    <rect x="0" y="20" width="300" height="200" fill="#222" stroke="#444"/>
+    <!-- Big waveform (same shape, larger amplitude) -->
+    <path d="M0 120 Q50 50 100 120 T200 120 T300 120" fill="none" stroke="#00ccff" stroke-width="4"/>
+    <line x1="0" y1="40" x2="300" y2="40" stroke="#ff5555" stroke-dasharray="4,4"/>
+    <text x="150" y="35" fill="#ff5555" text-anchor="middle">0 dB Ceiling</text>
+    <text x="150" y="250" fill="#fff" text-anchor="middle" font-size="14">Shape is IDENTICAL. Only Volume changed.</text>
+  </g>
+
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#fff" />
+    </marker>
+  </defs>
+</svg>

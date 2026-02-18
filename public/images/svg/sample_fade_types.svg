@@ -1,0 +1,24 @@
+<svg width="400" height="300" xmlns="http://www.w3.org/2000/svg">
+  <rect width="100%" height="100%" fill="#1e1e1e" />
+  
+  <!-- Axes -->
+  <line x1="50" y1="250" x2="350" y2="250" stroke="#444" stroke-width="2"/> <!-- Time -->
+  <line x1="50" y1="250" x2="50" y2="50" stroke="#444" stroke-width="2"/> <!-- Vol -->
+  
+  <!-- Linear Fade -->
+  <line x1="50" y1="250" x2="350" y2="50" stroke="#3b82f6" stroke-width="3"/>
+  <text x="200" y="140" fill="#3b82f6" font-weight="bold" transform="rotate(-33 200,140)">Linear</text>
+  
+  <!-- Logarithmic Fade (Curve Up) -->
+  <path d="M50,250 Q100,50 350,50" fill="none" stroke="#10b981" stroke-width="3" stroke-dasharray="4"/>
+  <text x="120" y="100" fill="#10b981" font-weight="bold">Logarithmic (Natural)</text>
+  
+  <!-- Exponential Fade (Curve Down) -->
+  <path d="M50,250 Q300,250 350,50" fill="none" stroke="#ef4444" stroke-width="3" stroke-dasharray="2"/>
+  <text x="250" y="220" fill="#ef4444" font-weight="bold">Exponential</text>
+  
+  <text x="50" y="40" fill="#fff" font-size="12">Volume</text>
+  <text x="350" y="265" fill="#fff" font-size="12" text-anchor="end">Time</text>
+  
+  <text x="200" y="290" fill="#fff" text-anchor="middle" font-size="16" font-weight="bold">Fade Shapes</text>
+</svg>

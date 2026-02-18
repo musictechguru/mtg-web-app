@@ -1,0 +1,43 @@
+<svg width="500" height="150" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .box { fill: #333; stroke: #666; stroke-width: 2; rx: 5; }
+      .text { font-family: sans-serif; fill: #fff; font-size: 13px; text-anchor: middle; font-weight: bold; }
+      .arrow { stroke: #aaa; stroke-width: 2; marker-end: url(#arrowhead); }
+    </style>
+    <marker id="arrowhead" markerWidth="8" markerHeight="6" refX="0" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#aaa" />
+    </marker>
+  </defs>
+  
+  <rect width="100%" height="100%" fill="#111" />
+  
+  <!-- Source -->
+  <rect x="20" y="50" width="70" height="50" class="box" stroke="#3b82f6" />
+  <text x="55" y="80" class="text" fill="#3b82f6">Source</text>
+  
+  <line x1="90" y1="75" x2="110" y2="75" class="arrow" />
+  
+  <!-- Mic -->
+  <rect x="110" y="50" width="70" height="50" class="box" />
+  <text x="145" y="80" class="text">Mic</text>
+  
+  <line x1="180" y1="75" x2="200" y2="75" class="arrow" />
+  
+  <!-- Preamp -->
+  <rect x="200" y="50" width="70" height="50" class="box" stroke="#facc15" />
+  <text x="235" y="80" class="text">Preamp</text>
+  
+  <line x1="270" y1="75" x2="290" y2="75" class="arrow" />
+  
+  <!-- ADC -->
+  <rect x="290" y="50" width="70" height="50" class="box" />
+  <text x="325" y="80" class="text">A/D Conv</text>
+  
+  <line x1="360" y1="75" x2="380" y2="75" class="arrow" />
+  
+  <!-- DAW -->
+  <rect x="380" y="50" width="70" height="50" class="box" stroke="#10b981" />
+  <text x="415" y="80" class="text">DAW</text>
+
+</svg>

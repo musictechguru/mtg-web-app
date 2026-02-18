@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" style="background-color: #1e1e1e; font-family: sans-serif;">
+  <!-- Grid -->
+  <path d="M50 150 L750 150" stroke="#333"/>
+  <path d="M50 300 L750 300" stroke="#333"/>
+  <path d="M50 450 L750 450" stroke="#333"/>
+
+  <!-- 1. Original (Uncompressed) -->
+  <text x="50" y="30" fill="#aaa" font-size="16">1. Original Signal (Drum Hit)</text>
+  <path d="M100 150 L120 20 L140 150 L200 150" fill="none" stroke="#fff" stroke-width="2"/>
+  <text x="120" y="15" fill="#fff" text-anchor="middle">Transient</text>
+
+  <!-- 2. Fast Attack (Squashed) -->
+  <text x="50" y="180" fill="#aaa" font-size="16">2. Fast Attack (Squashed)</text>
+  <path d="M100 300 L110 230 L130 250 L200 300" fill="none" stroke="#ff5555" stroke-width="2"/>
+  <text x="120" y="220" fill="#ff5555" text-anchor="middle">Lost Punch</text>
+
+  <!-- 3. Slow Attack (Punchy) -->
+  <text x="50" y="330" fill="#aaa" font-size="16">3. Slow Attack (Punch Preserved)</text>
+  <path d="M100 450 L120 320 L140 400 L200 450" fill="none" stroke="#00ffcc" stroke-width="3"/>
+  <text x="120" y="310" fill="#00ffcc" text-anchor="middle" font-weight="bold">TRANSIENT PASSES THROUGH!</text>
+
+  <!-- Compressor engaging LATER -->
+  <rect x="140" y="380" width="60" height="70" fill="#00ffcc" opacity="0.2"/>
+  <text x="170" y="470" fill="#00ffcc" font-size="12" text-anchor="middle">Compression happens here</text>
+
+</svg>

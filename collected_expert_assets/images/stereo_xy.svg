@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <defs>
+    <style>
+      .mic { fill: #666; stroke: #333; stroke-width: 2; }
+      .axis { stroke: #ccc; stroke-dasharray: 4; }
+      .label { font-family: Arial; font-size: 14px; text-anchor: middle; fill: #555; }
+    </style>
+  </defs>
+  <rect width="400" height="300" fill="#f8f9fa"/>
+  
+  <!-- Center Line -->
+  <line x1="200" y1="20" x2="200" y2="280" class="axis"/>
+  
+  <!-- Mic Left (pointing right) -->
+  <g transform="translate(200, 150) rotate(-45)">
+    <rect x="-10" y="-60" width="20" height="60" class="mic" rx="5"/>
+    <circle cx="0" cy="-60" r="10" fill="#333"/> <!-- Capsule -->
+  </g>
+  
+  <!-- Mic Right (pointing left) -->
+  <g transform="translate(200, 150) rotate(45)">
+    <rect x="-10" y="-60" width="20" height="60" class="mic" rx="5"/>
+    <circle cx="0" cy="-60" r="10" fill="#333"/> <!-- Capsule -->
+  </g>
+  
+  <text x="200" y="250" class="label">XY Coincident Pair (90°)</text>
+  <text x="200" y="270" class="label" font-size="12">Phase Coherent</text>
+</svg>

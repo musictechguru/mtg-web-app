@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" preserveAspectRatio="xMidYMid meet">
+    <!-- Background -->
+    <rect width="800" height="400" fill="#1e293b" />
+    
+    <!-- Grid -->
+    <defs>
+        <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+            <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#334155" stroke-width="1"/>
+        </pattern>
+    </defs>
+    <rect width="800" height="400" fill="url(#grid)" />
+
+    <!-- Waveform Path -->
+    <!-- Removed comments from inside the d attribute -->
+    <path d="M 50 200 L 100 200 L 105 50 L 110 320 L 115 100 L 120 280 L 130 150 L 140 240 L 160 180 L 200 210 L 300 200 L 750 200" 
+          fill="none" stroke="#facc15" stroke-width="3" stroke-linejoin="round"/>
+          
+    <!-- Annotation Circle -->
+    <circle cx="107" cy="50" r="20" fill="none" stroke="#ef4444" stroke-width="3" stroke-dasharray="5,5"/>
+    <line x1="127" y1="50" x2="200" y2="50" stroke="#ef4444" stroke-width="1"/>
+    <text x="210" y="55" fill="#ef4444" font-size="20" font-weight="bold">Transient Integration</text>
+    <text x="210" y="75" fill="#ef4444" font-size="14">(Initial high energy peak)</text>
+
+    <!-- Labels -->
+    <text x="105" y="350" text-anchor="middle" fill="#aaa">Attack</text>
+    <text x="250" y="350" text-anchor="middle" fill="#aaa">Decay / Sustain</text>
+
+</svg>

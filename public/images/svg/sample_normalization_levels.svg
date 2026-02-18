@@ -1,0 +1,30 @@
+<svg width="400" height="300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto" fill="#fff">
+      <path d="M0,0 L0,6 L6,3 z" />
+    </marker>
+  </defs>
+  <rect width="100%" height="100%" fill="#1e1e1e" />
+  
+  <!-- Center -->
+  <line x1="50" y1="150" x2="350" y2="150" stroke="#666" stroke-width="1"/>
+  
+  <!-- Max Headroom (0dB) -->
+  <line x1="50" y1="50" x2="350" y2="50" stroke="#ef4444" stroke-width="2" stroke-dasharray="2"/>
+  <line x1="50" y1="250" x2="350" y2="250" stroke="#ef4444" stroke-width="2" stroke-dasharray="2"/>
+  <text x="360" y="55" fill="#ef4444" font-weight="bold">0dB (Max)</text>
+
+  <!-- Original Wave (Quiet) -->
+  <path d="M60,150 Q80,120 100,150 Q120,180 140,150 T200,150" fill="none" stroke="#666" stroke-width="2"/>
+  <text x="130" y="110" fill="#666">Original (-15dB)</text>
+  
+  <!-- Normalized Wave (Loud) -->
+  <path d="M220,150 Q240,50 260,150 Q280,250 300,150 T360,150" fill="none" stroke="#3b82f6" stroke-width="3"/>
+  <text x="290" y="40" fill="#3b82f6" font-weight="bold">Normalized (0dB)</text>
+  
+  <!-- Boost Arrow -->
+  <line x1="180" y1="120" x2="240" y2="70" stroke="#fff" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="170" y="90" fill="#fff" font-size="12">Gain Applied</text>
+  
+  <text x="200" y="290" fill="#fff" text-anchor="middle" font-size="16" font-weight="bold">Audio Normalization</text>
+</svg>

@@ -1,0 +1,24 @@
+<svg width="400" height="300" xmlns="http://www.w3.org/2000/svg">
+  <rect width="100%" height="100%" fill="#1e1e1e" />
+  
+  <line x1="50" y1="150" x2="350" y2="150" stroke="#666" stroke-width="1"/>
+  
+  <!-- Ceiling Line (-0.1dB) -->
+  <line x1="50" y1="50" x2="350" y2="50" stroke="#ef4444" stroke-width="3"/>
+  <text x="360" y="55" fill="#ef4444" font-weight="bold">Ceiling (Wall)</text>
+  
+  <!-- Signal Hitting Ceiling -->
+  <path d="M50,150 Q100,0 150,55 Q200,0 250,55 Q300,0 350,150" fill="none" stroke="#3b82f6" stroke-width="2"/>
+  <text x="100" y="20" fill="#3b82f6">Input Peaks</text>
+  
+  <!-- Flattened Peaks -->
+  <line x1="130" y1="55" x2="170" y2="55" stroke="#fff" stroke-width="2"/>
+  <line x1="230" y1="55" x2="270" y2="55" stroke="#fff" stroke-width="2"/>
+  <text x="200" y="75" fill="#fff" text-anchor="middle" font-size="10">Peaks Flattened</text>
+
+  <g transform="translate(300, 200)">
+      <text x="0" y="0" fill="#fff" text-anchor="middle">Ratio ∞:1</text>
+  </g>
+  
+  <text x="200" y="280" fill="#fff" text-anchor="middle" font-size="16" font-weight="bold">Limiter Ceiling</text>
+</svg>

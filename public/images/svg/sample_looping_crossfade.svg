@@ -1,0 +1,32 @@
+<svg width="400" height="300" xmlns="http://www.w3.org/2000/svg">
+  <rect width="100%" height="100%" fill="#1e1e1e" />
+  
+  <!-- Loop Block -->
+  <rect x="100" y="100" width="200" height="100" fill="#333" stroke="#fff"/>
+  <text x="200" y="80" fill="#fff" text-anchor="middle" font-weight="bold">Loop Region</text>
+  
+  <!-- Start Point -->
+  <line x1="100" y1="100" x2="100" y2="200" stroke="#10b981" stroke-width="4"/>
+  <text x="100" y="220" fill="#10b981" text-anchor="middle">Loop Start</text>
+  
+  <!-- End Point -->
+  <line x1="300" y1="100" x2="300" y2="200" stroke="#ef4444" stroke-width="4"/>
+  <text x="300" y="220" fill="#ef4444" text-anchor="middle">Loop End</text>
+  
+  <!-- Crossfade X -->
+  <g transform="translate(100, 150)">
+      <!-- Fade IN -->
+      <line x1="-30" y1="40" x2="30" y2="-40" stroke="#3b82f6" stroke-width="2"/>
+      <!-- Fade OUT -->
+      <line x1="-30" y1="-40" x2="30" y2="40" stroke="#3b82f6" stroke-width="2"/>
+      <text x="0" y="-50" fill="#3b82f6" text-anchor="middle" font-size="12">Crossfade Region</text>
+  </g>
+  <g transform="translate(300, 150)">
+      <!-- Fade IN -->
+      <line x1="-30" y1="40" x2="30" y2="-40" stroke="#3b82f6" stroke-width="2"/>
+      <!-- Fade OUT -->
+      <line x1="-30" y1="-40" x2="30" y2="40" stroke="#3b82f6" stroke-width="2"/>
+  </g>
+
+  <text x="200" y="280" fill="#fff" text-anchor="middle" font-size="16" font-weight="bold">Crossfade Looping</text>
+</svg>

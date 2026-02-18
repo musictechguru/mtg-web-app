@@ -1,0 +1,24 @@
+<svg width="400" height="300" xmlns="http://www.w3.org/2000/svg">
+  <rect width="100%" height="100%" fill="#1e1e1e" />
+  
+  <line x1="50" y1="150" x2="350" y2="150" stroke="#666" stroke-width="1"/>
+  
+  <!-- Static EQ (Reference) -->
+  <path d="M150,150 L200,220 L250,150" fill="none" stroke="#444" stroke-width="2" stroke-dasharray="4"/>
+  <text x="200" y="240" fill="#444" text-anchor="middle">Static Cut (Always On)</text>
+  
+  <!-- Dynamic Band (Active) -->
+  <path d="M150,150 Q200,150 250,150" fill="none" stroke="#10b981" stroke-width="3">
+    <animate attributeName="d" values="M150,150 Q200,150 250,150; M150,150 Q200,250 250,150; M150,150 Q200,150 250,150" dur="2s" repeatCount="indefinite" />
+  </path>
+  
+  <!-- Arrows indicating movement -->
+  <line x1="200" y1="150" x2="200" y2="200" stroke="#10b981" stroke-width="2"/>
+  <line x1="190" y1="190" x2="200" y2="200" stroke="#10b981" stroke-width="2"/>
+  <line x1="210" y1="190" x2="200" y2="200" stroke="#10b981" stroke-width="2"/>
+  
+  <text x="200" y="130" fill="#10b981" text-anchor="middle" font-weight="bold">Dynamic Cut</text>
+  <text x="200" y="115" fill="#10b981" text-anchor="middle" font-size="10">Reacts to Input Level</text>
+  
+  <text x="200" y="30" fill="#fff" text-anchor="middle" font-size="16" font-weight="bold">Dynamic EQ Action</text>
+</svg>

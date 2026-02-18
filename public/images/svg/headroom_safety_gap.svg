@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 600" style="background-color:#1e1e1e; font-family:sans-serif;">
+    
+    <!-- Title -->
+    <text x="200" y="40" text-anchor="middle" fill="#fff" font-size="24" font-weight="bold">Headroom Concept</text>
+
+    <!-- Meter Background -->
+    <rect x="150" y="80" width="100" height="450" rx="5" ry="5" fill="#111" stroke="#444" stroke-width="2"/>
+    
+    <!-- Clip Zone (Red) -->
+    <rect x="152" y="82" width="96" height="50" fill="#ef4444" opacity="0.3"/>
+    <line x1="150" y1="132" x2="250" y2="132" stroke="#ef4444" stroke-width="2"/>
+    <text x="260" y="136" fill="#ef4444" font-size="14" font-weight="bold">0dBFS (Clip)</text>
+
+    <!-- Peak Level (Yellow) -->
+    <rect x="160" y="200" width="80" height="320" fill="#eab308" opacity="0.8"/>
+    <line x1="150" y1="200" x2="250" y2="200" stroke="#eab308" stroke-width="2" stroke-dasharray="4"/>
+    <text x="260" y="205" fill="#eab308" font-size="14">-6dBFS (Peak)</text>
+
+    <!-- Headroom Brace -->
+    <path d="M 130 132 L 110 132 L 110 200 L 130 200" fill="none" stroke="#fff" stroke-width="2"/>
+    <text x="90" y="170" text-anchor="end" fill="#fff" font-size="18" font-weight="bold">HEADROOM</text>
+    <text x="90" y="190" text-anchor="end" fill="#aaa" font-size="12">Safety Margin</text>
+
+    <!-- Average Body (Green) -->
+    <rect x="160" y="300" width="80" height="220" fill="#22c55e" opacity="0.9"/>
+    <line x1="150" y1="300" x2="250" y2="300" stroke="#22c55e" stroke-width="2" stroke-dasharray="4"/>
+    <text x="260" y="305" fill="#22c55e" font-size="14">-18dBFS (Avg)</text>
+
+    <!-- Noise Floor -->
+    <rect x="160" y="500" width="80" height="28" fill="#555" opacity="0.5"/>
+    <text x="200" y="520" text-anchor="middle" fill="#888" font-size="10">Noise Floor</text>
+    
+</svg>

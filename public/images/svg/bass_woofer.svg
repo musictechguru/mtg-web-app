@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" style="background-color:#1e1e1e; font-family:sans-serif;">
+    <text x="400" y="40" text-anchor="middle" fill="#ffffff" font-size="24" font-weight="bold">Bass Frequencies</text>
+
+    <!-- Speaker Box -->
+    <rect x="300" y="100" width="200" height="200" fill="#333" stroke="#555" stroke-width="4"/>
+    
+    <!-- Woofer Cone -->
+    <circle cx="400" cy="200" r="80" fill="#111" stroke="#333" stroke-width="2"/>
+    <circle cx="400" cy="200" r="20" fill="#000"/>
+
+    <!-- Vibration Lines (Air movement) -->
+    <path d="M 280 180 Q 260 200 280 220" fill="none" stroke="#3b82f6" stroke-width="3" opacity="0.6">
+        <animate attributeName="d" values="M 280 180 Q 260 200 280 220; M 270 170 Q 240 200 270 230; M 280 180 Q 260 200 280 220" dur="0.5s" repeatCount="indefinite"/>
+    </path>
+    <path d="M 520 180 Q 540 200 520 220" fill="none" stroke="#3b82f6" stroke-width="3" opacity="0.6">
+        <animate attributeName="d" values="M 520 180 Q 540 200 520 220; M 530 170 Q 560 200 530 230; M 520 180 Q 540 200 520 220" dur="0.5s" repeatCount="indefinite"/>
+    </path>
+
+    <text x="400" y="350" text-anchor="middle" fill="#3b82f6" font-size="18">Physically Moving Large Amounts of Air</text>
+    <text x="400" y="380" text-anchor="middle" fill="#888" font-size="14">Low Frequency = Long Wavelength = Felt in body</text>
+</svg>

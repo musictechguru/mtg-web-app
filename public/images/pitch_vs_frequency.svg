@@ -1,0 +1,26 @@
+<svg width="400" height="250" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .text { font-family: sans-serif; fill: #e0e0e0; font-size: 14px; }
+      .label { font-family: sans-serif; fill: #a0a0a0; font-size: 12px; }
+      .axis { stroke: #666; stroke-width: 1; }
+      .wave { fill: none; stroke-width: 3; stroke-linecap: round; }
+    </style>
+  </defs>
+  
+  <rect width="100%" height="100%" fill="#1e1e1e" />
+  
+  <!-- Low Pitch -->
+  <g transform="translate(0, 20)">
+    <text x="200" y="20" text-anchor="middle" class="text">Low Frequency (Low Pitch)</text>
+    <path d="M50,70 Q125,0 200,70 T350,70" class="wave" stroke="#3b82f6" />
+    <text x="200" y="110" text-anchor="middle" class="label">Slower Cycles = Lower Pitch</text>
+  </g>
+  
+  <!-- High Pitch -->
+  <g transform="translate(0, 130)">
+    <text x="200" y="20" text-anchor="middle" class="text">High Frequency (High Pitch)</text>
+    <path d="M50,70 Q68.75,20 87.5,70 T125,70 T162.5,70 T200,70 T237.5,70 T275,70 T312.5,70 T350,70" class="wave" stroke="#ef4444" />
+    <text x="200" y="110" text-anchor="middle" class="label">Faster Cycles = Higher Pitch</text>
+  </g>
+</svg>

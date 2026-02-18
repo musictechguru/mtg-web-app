@@ -1,0 +1,47 @@
+<svg width="500" height="200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .box { fill: #333; stroke: #666; stroke-width: 2; rx: 5; }
+      .text { font-family: sans-serif; fill: #fff; font-size: 13px; text-anchor: middle; font-weight: bold; }
+      .arrow { stroke: #facc15; stroke-width: 2; marker-end: url(#arrowhead); }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="0" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#facc15" />
+    </marker>
+  </defs>
+  
+  <rect width="100%" height="100%" fill="#111" />
+  
+  <!-- OSC -->
+  <rect x="50" y="80" width="80" height="50" class="box" stroke="#3b82f6" />
+  <text x="90" y="110" class="text" fill="#3b82f6">OSC</text>
+  <text x="90" y="125" class="text" font-size="10" fill="#aaa">Generate</text>
+  
+  <line x1="130" y1="105" x2="170" y2="105" class="arrow" />
+  
+  <!-- FILTER -->
+  <rect x="170" y="80" width="80" height="50" class="box" stroke="#10b981" />
+  <text x="210" y="110" class="text" fill="#10b981">FILTER</text>
+  <text x="210" y="125" class="text" font-size="10" fill="#aaa">Timbre</text>
+  
+  <line x1="250" y1="105" x2="290" y2="105" class="arrow" />
+  
+  <!-- AMP -->
+  <rect x="290" y="80" width="80" height="50" class="box" stroke="#ef4444" />
+  <text x="330" y="110" class="text" fill="#ef4444">AMP</text>
+  <text x="330" y="125" class="text" font-size="10" fill="#aaa">Volume</text>
+  
+  <line x1="370" y1="105" x2="410" y2="105" class="arrow" />
+  
+  <!-- OUT -->
+  <circle cx="430" cy="105" r="5" fill="#fff" />
+  <text x="430" y="130" class="text">Out</text>
+  
+  <!-- LFO Modulating Param -->
+  <rect x="170" y="20" width="60" height="30" class="box" stroke="#facc15" stroke-dasharray="4"/>
+  <text x="200" y="40" class="text" fill="#facc15">LFO</text>
+  
+  <line x1="200" y1="50" x2="200" y2="80" stroke="#facc15" stroke-dasharray="2" marker-end="url(#arrowhead)" />
+  
+  <text x="250" y="170" class="text" font-size="16">Subtractive Synthesis Flow</text>
+</svg>

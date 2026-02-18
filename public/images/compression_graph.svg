@@ -1,0 +1,36 @@
+<svg width="400" height="400" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .text { font-family: sans-serif; fill: #ccc; font-size: 12px; }
+      .grid { stroke: #333; stroke-width: 1; stroke-dasharray: 4; }
+      .axis { stroke: #666; stroke-width: 2; }
+    </style>
+  </defs>
+  <rect width="100%" height="100%" fill="#1e1e1e" />
+  
+  <!-- Grid lines -->
+  <line x1="50" y1="350" x2="350" y2="350" class="axis" /> <!-- Input -->
+  <line x1="50" y1="350" x2="50" y2="50" class="axis" /> <!-- Output -->
+  
+  <text x="200" y="380" class="text">Input Level (dB)</text>
+  <text x="20" y="200" class="text" transform="rotate(-90 20,200)">Output Level (dB)</text>
+  
+  <!-- Linear Line (1:1) - Ghost -->
+  <line x1="50" y1="350" x2="350" y2="50" stroke="#444" stroke-width="2" stroke-dasharray="4" />
+  <text x="320" y="60" class="text" fill="#444">1:1 (No Comp)</text>
+  
+  <!-- Threshold Line -->
+  <line x1="200" y1="350" x2="200" y2="50" stroke="#666" stroke-dasharray="2" />
+  <text x="200" y="390" class="text" fill="#facc15" text-anchor="middle">Threshold</text>
+  
+  <!-- Compressed Curve -->
+  <path d="M50,350 L200,200 L350,170" fill="none" stroke="#ef4444" stroke-width="4" />
+  <circle cx="200" cy="200" r="6" fill="#facc15" /> <!-- Threshold Point -->
+  
+  <text x="280" y="160" class="text" fill="#ef4444">Ratio (Gain Reduction)</text>
+  
+  <!-- Arrows indicating GR -->
+  <line x1="350" y1="50" x2="350" y2="170" stroke="#facc15" stroke-width="2" marker-end="url(#arrow)" />
+  <text x="360" y="110" class="text" fill="#facc15">Gain Reduction</text>
+
+</svg>

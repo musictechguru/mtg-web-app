@@ -1,0 +1,28 @@
+<svg width="400" height="250" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .text { font-family: sans-serif; fill: #ccc; font-size: 11px; }
+      .grid { stroke: #333; stroke-width: 1; }
+    </style>
+  </defs>
+  <rect width="100%" height="100%" fill="#1e1e1e" />
+  
+  <!-- Axis -->
+  <line x1="50" y1="20" x2="50" y2="200" stroke="#888" />
+  <line x1="50" y1="200" x2="380" y2="200" stroke="#888" />
+  
+  <text x="200" y="220" text-anchor="middle" class="text">Frequency (Hz)</text>
+  <text x="30" y="100" class="text" transform="rotate(-90 30,100)">Sensitivity / Response</text>
+  
+  <!-- Dynamic Curve (Rolled off highs/lows) -->
+  <path d="M50,150 Q100,150 150,140 Q250,130 300,160 L380,180" stroke="#facc15" stroke-width="3" fill="none" />
+  <text x="300" y="150" class="text" fill="#facc15">Dynamic (SM57)</text>
+  
+  <!-- Condenser Curve (Extended, flat) -->
+  <path d="M50,140 Q60,60 350,60 L380,60" stroke="#3b82f6" stroke-width="3" fill="none" class="dash" />
+  <text x="300" y="50" class="text" fill="#3b82f6">Condenser (Flat/Ext)</text>
+  
+  <text x="50" y="235" class="text">20</text>
+  <text x="370" y="235" class="text">20k</text>
+  
+</svg>

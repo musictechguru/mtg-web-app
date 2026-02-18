@@ -1,0 +1,25 @@
+<svg width="400" height="200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .text { font-family: sans-serif; fill: #e0e0e0; font-size: 14px; }
+      .grid { stroke: #333; stroke-width: 1; }
+      .wave { fill: none; stroke: #10b981; stroke-width: 2; }
+    </style>
+  </defs>
+  <rect width="100%" height="100%" fill="#111" />
+  
+  <!-- Grid -->
+  <path d="M0,50 L400,50 M0,100 L400,100 M0,150 L400,150" class="grid" />
+  <path d="M50,0 L50,200 M100,0 L100,200 M150,0 L150,200 M200,0 L200,200 M250,0 L250,200 M300,0 L300,200 M350,0 L350,200" class="grid" />
+  
+  <!-- Complex Wave -->
+  <path d="M0,100 
+           C20,50 40,150 60,100 
+           S100,20 120,100 
+           S160,180 200,100 
+           S240,40 280,100 
+           S340,160 400,100" class="wave" />
+           
+  <text x="380" y="190" text-anchor="end" fill="#666" font-family="sans-serif" font-size="12">Time →</text>
+  <text x="10" y="20" fill="#666" font-family="sans-serif" font-size="12">Amplitude ↑</text>
+</svg>

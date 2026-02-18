@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 150">
+  <defs>
+    <style>
+      .grid-line { stroke: #ddd; stroke-width: 1; }
+      .beat { fill: none; stroke: #333; stroke-width: 2; }
+      .click { fill: #00d1b2; opacity: 0.2; }
+    </style>
+  </defs>
+  <rect width="400" height="150" fill="#fff"/>
+  
+  <!-- Grid -->
+  <line x1="100" y1="0" x2="100" y2="150" class="grid-line"/>
+  <line x1="200" y1="0" x2="200" y2="150" class="grid-line"/>
+  <line x1="300" y1="0" x2="300" y2="150" class="grid-line"/>
+  
+  <!-- Waveform -->
+  <path d="M20,75 Q40,25 60,75 T100,75" class="beat" stroke="red"/> <!-- Off Time -->
+  <path d="M120,75 Q160,25 200,75" class="beat" stroke="green"/> <!-- On Time -->
+  
+  <!-- Click Markers -->
+  <rect x="95" y="0" width="10" height="150" class="click"/>
+  <rect x="195" y="0" width="10" height="150" class="click"/>
+  <rect x="295" y="0" width="10" height="150" class="click"/>
+  
+  <text x="200" y="140" font-family="Arial" text-anchor="middle" font-size="12">Aligned to Grid</text>
+</svg>

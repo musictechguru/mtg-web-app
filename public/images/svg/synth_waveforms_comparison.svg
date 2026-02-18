@@ -1,0 +1,40 @@
+<svg width="400" height="300" xmlns="http://www.w3.org/2000/svg">
+  <rect width="100%" height="100%" fill="#1e1e1e" />
+  
+  <!-- Sine Wave -->
+  <g transform="translate(50, 40)">
+    <path d="M0,20 Q15,0 30,20 Q45,40 60,20 T120,20" fill="none" stroke="#3b82f6" stroke-width="2"/>
+    <text x="-10" y="25" fill="#3b82f6" font-size="12" text-anchor="end">Sine</text>
+    <text x="140" y="25" fill="#aaa" font-size="10">Pure (Fundamental Only)</text>
+  </g>
+  
+  <!-- Triangle Wave -->
+  <g transform="translate(50, 90)">
+    <path d="M0,20 L30,0 L90,40 L120,20" fill="none" stroke="#10b981" stroke-width="2"/>
+    <text x="-10" y="25" fill="#10b981" font-size="12" text-anchor="end">Triangle</text>
+    <text x="140" y="25" fill="#aaa" font-size="10">Odd Harmonics (Soft)</text>
+  </g>
+  
+  <!-- Square Wave -->
+  <g transform="translate(50, 140)">
+    <path d="M0,20 L0,0 L60,0 L60,40 L120,40 L120,20" fill="none" stroke="#ef4444" stroke-width="2"/>
+    <text x="-10" y="25" fill="#ef4444" font-size="12" text-anchor="end">Square</text>
+    <text x="140" y="25" fill="#aaa" font-size="10">Odd Harmonics (Hollow)</text>
+  </g>
+  
+  <!-- Sawtooth Wave -->
+  <g transform="translate(50, 190)">
+    <path d="M0,20 L60,0 L60,40 L120,20" fill="none" stroke="#facc15" stroke-width="2"/>
+    <text x="-10" y="25" fill="#facc15" font-size="12" text-anchor="end">Sawtooth</text>
+    <text x="140" y="25" fill="#aaa" font-size="10">All Harmonics (Bright)</text>
+  </g>
+  
+  <!-- Pulse Wave -->
+  <g transform="translate(50, 240)">
+    <path d="M0,20 L0,0 L30,0 L30,40 L120,40 L120,20" fill="none" stroke="#a855f7" stroke-width="2"/>
+    <text x="-10" y="25" fill="#a855f7" font-size="12" text-anchor="end">Pulse</text>
+    <text x="140" y="25" fill="#aaa" font-size="10">Variable Duty Cycle</text>
+  </g>
+  
+  <text x="200" y="290" fill="#fff" text-anchor="middle" font-size="16" font-weight="bold">Basic Synth Waveforms</text>
+</svg>

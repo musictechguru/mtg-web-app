@@ -1,0 +1,30 @@
+<svg width="400" height="250" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .text { font-family: sans-serif; fill: #eee; font-size: 12px; }
+      .line { fill: none; stroke-width: 2; }
+    </style>
+  </defs>
+  <rect width="100%" height="100%" fill="#1e1e1e" />
+  
+  <!-- Threshold Level -->
+  <line x1="20" y1="100" x2="380" y2="100" stroke="#facc15" stroke-dasharray="4" />
+  <text x="320" y="90" class="text" fill="#facc15">Threshold</text>
+  
+  <!-- Input Signal (Grey) -->
+  <path d="M20,180 L50,180 L60,50 L80,120 L300,120 L320,180 L380,180" class="line" stroke="#444" stroke-dasharray="2" />
+  
+  <!-- Compressed Signal (Blue) -->
+  <!-- Transient peaks through a bit (attack), then clamps, then lets go (release) -->
+  <path d="M20,180 L50,180 L55,60 L70,110 L300,110 L325,180 L380,180" class="line" stroke="#3b82f6" stroke-width="3" />
+  
+  <!-- Annotations -->
+  <circle cx="55" cy="60" r="4" fill="#ef4444" />
+  <text x="55" y="40" class="text" fill="#ef4444" text-anchor="middle">Attack (Reaction Time)</text>
+  
+  <text x="180" y="160" class="text" fill="#3b82f6" text-anchor="middle">Compressed / Sustain</text>
+  
+  <circle cx="310" cy="140" r="4" fill="#10b981" />
+  <text x="310" y="210" class="text" fill="#10b981" text-anchor="middle">Release (Recovery Time)</text>
+  
+</svg>

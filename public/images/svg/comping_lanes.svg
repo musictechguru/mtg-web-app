@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200">
+  <defs>
+    <style>
+      .take { fill: #eee; stroke: #ccc; rx: 5; }
+      .selected { fill: #00d1b2; stroke: #009e86; }
+      .master { fill: #ffdd57; stroke: #e0bb00; }
+    </style>
+  </defs>
+  <rect width="400" height="200" fill="#fff"/>
+  
+  <!-- Takes -->
+  <g transform="translate(10, 10)">
+    <rect width="380" height="30" class="take"/>
+    <rect x="0" y="0" width="120" height="30" class="selected"/>
+    <text x="10" y="20" font-family="Arial" font-size="12">Take 1 (Verse)</text>
+  </g>
+  
+  <g transform="translate(10, 50)">
+    <rect width="380" height="30" class="take"/>
+    <rect x="120" y="0" width="140" height="30" class="selected"/>
+    <text x="10" y="20" font-family="Arial" font-size="12">Take 2 (Chorus)</text>
+  </g>
+  
+  <g transform="translate(10, 90)">
+    <rect width="380" height="30" class="take"/>
+    <rect x="260" y="0" width="120" height="30" class="selected"/>
+    <text x="10" y="20" font-family="Arial" font-size="12">Take 3 (Outro)</text>
+  </g>
+  
+  <!-- MasterComp -->
+  <g transform="translate(10, 140)">
+    <text x="0" y="-5" font-family="Arial" font-size="12" font-weight="bold">Master Comp:</text>
+    <rect width="120" height="30" class="master" style="fill: #00d1b2"/>
+    <rect x="120" y="0" width="140" height="30" class="master" style="fill: #00d1b2"/>
+    <rect x="260" y="0" width="120" height="30" class="master" style="fill: #00d1b2"/>
+  </g>
+</svg>

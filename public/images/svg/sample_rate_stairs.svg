@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 150">
+  <defs>
+    <style>
+      .smooth { fill: none; stroke: #9ca3af; stroke-width: 1; stroke-dasharray: 4; }
+      .digital { fill: none; stroke: #3b82f6; stroke-width: 2; step-start: true; }
+      .sample { fill: #ef4444; }
+    </style>
+  </defs>
+
+  <!-- Smooth Analog Wave -->
+  <path d="M20 100 Q 80 0 140 100 T 260 100" class="smooth" />
+
+  <!-- Digital Steps -->
+  <path d="M20 100 H 40 V 80 H 60 V 60 H 80 V 50 H 100 V 60 H 120 V 80 H 140 V 100 H 160 V 120 H 180" stroke="#3b82f6" stroke-width="2" fill="none" />
+  
+  <!-- Sample Points -->
+  <circle cx="40" cy="80" r="3" class="sample" />
+  <circle cx="60" cy="60" r="3" class="sample" />
+  <circle cx="80" cy="50" r="3" class="sample" />
+  <circle cx="100" cy="60" r="3" class="sample" />
+  <circle cx="120" cy="80" r="3" class="sample" />
+
+  <text x="150" y="140" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#374151">44,100 Samples Per Second</text>
+  <text x="150" y="30" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#3b82f6">SAMPLE RATE</text>
+</svg>

@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200">
+  <defs>
+    <style>
+      .wind { stroke: #aaa; stroke-width: 2; fill: none; stroke-dasharray: 4; }
+      .filter { stroke: #333; stroke-width: 1; fill: url(#mesh); }
+      .mic { fill: #333; }
+      @keyframes blow { to { transform: translateX(20px); opacity: 0; } }
+    </style>
+    <pattern id="mesh" width="4" height="4" patternUnits="userSpaceOnUse">
+      <path d="M0,4 L4,0" stroke="#000" stroke-width="0.5"/>
+    </pattern>
+  </defs>
+  <rect width="400" height="200" fill="#fff"/>
+  
+  <!-- Head -->
+  <text x="50" y="100" font-size="40">🗣️</text>
+  
+  <!-- Wind -->
+  <path d="M80,90 L180,90" class="wind" style="animation: blow 1s infinite linear"/>
+  <path d="M80,100 L180,100" class="wind" style="animation: blow 1s infinite linear; animation-delay: 0.2s"/>
+  <path d="M80,110 L180,110" class="wind" style="animation: blow 1s infinite linear; animation-delay: 0.4s"/>
+  
+  <!-- Filter -->
+  <circle cx="200" cy="100" r="40" class="filter"/>
+  <line x1="200" y1="140" x2="200" y2="200" stroke="#333" stroke-width="4"/>
+  
+  <!-- Mic -->
+  <rect x="280" y="80" width="40" height="40" rx="10" class="mic"/>
+  <rect x="290" y="120" width="20" height="80" fill="#666"/>
+  
+  <text x="200" y="50" font-family="Arial" text-anchor="middle">Pop Shield Disperses Air</text>
+</svg>

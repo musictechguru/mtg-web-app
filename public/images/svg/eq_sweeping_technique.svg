@@ -1,0 +1,48 @@
+<svg width="400" height="300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="2" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+  <rect width="100%" height="100%" fill="#111" />
+  
+  <!-- Panel 1: The Sweep (Top) -->
+  <g transform="translate(0, 0)">
+      <text x="200" y="30" fill="#fff" text-anchor="middle" font-weight="bold">Step 1: Boost &amp; Sweep</text>
+      <text x="200" y="45" fill="#aaa" text-anchor="middle" font-size="10">Find the offensive resonant frequency</text>
+      
+      <!-- Graph Lines -->
+      <line x1="50" y1="130" x2="350" y2="130" stroke="#333" stroke-width="1"/>
+      
+      <!-- Ghost Curves (Showing movement) -->
+      <path d="M60,130 Q100,50 140,130" fill="none" stroke="#444" stroke-width="2" stroke-dasharray="2"/>
+      <path d="M260,130 Q300,50 340,130" fill="none" stroke="#444" stroke-width="2" stroke-dasharray="2"/>
+      
+      <!-- Active Sweep Curve -->
+      <path d="M160,130 Q200,10 240,130" fill="none" stroke="#facc15" stroke-width="3" filter="url(#glow)"/>
+      <circle cx="200" cy="70" r="5" fill="#facc15"/>
+      
+      <!-- Arrows -->
+      <path d="M170,90 L150,90 L155,85 M150,90 L155,95" stroke="#fff" stroke-width="2" fill="none"/>
+      <path d="M230,90 L250,90 L245,85 M250,90 L245,95" stroke="#fff" stroke-width="2" fill="none"/>
+  </g>
+  
+  <!-- Panel 2: The Cut (Bottom) -->
+  <g transform="translate(0, 150)">
+      <text x="200" y="30" fill="#fff" text-anchor="middle" font-weight="bold">Step 2: Cut It</text>
+      <text x="200" y="45" fill="#aaa" text-anchor="middle" font-size="10">Remove the problem (Subtractive EQ)</text>
+      
+      <!-- Graph Lines -->
+      <line x1="50" y1="80" x2="350" y2="80" stroke="#333" stroke-width="1"/>
+      
+      <!-- The Cut -->
+      <path d="M50,80 L180,80 Q200,180 220,80 L350,80" fill="none" stroke="#10b981" stroke-width="3"/>
+      <circle cx="200" cy="130" r="4" fill="#10b981"/>
+      
+      <text x="200" y="110" fill="#10b981" text-anchor="middle" font-size="12" font-weight="bold">-6dB</text>
+  </g>
+  
+  <!-- Divider -->
+  <line x1="20" y1="145" x2="380" y2="145" stroke="#333" stroke-dasharray="4"/>
+</svg>

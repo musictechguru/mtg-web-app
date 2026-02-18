@@ -1,0 +1,40 @@
+<svg width="400" height="300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto" fill="#fff">
+      <path d="M0,0 L0,6 L6,3 z" />
+    </marker>
+  </defs>
+  <rect width="100%" height="100%" fill="#1e1e1e" />
+  
+  <!-- Piano Curve -->
+  <path d="M50,50 L50,220 L150,220 Q300,180 340,120 L340,50 Z" 
+        fill="#111" stroke="#fff" stroke-width="2"/>
+        
+  <!-- Keyboard area -->
+  <rect x="45" y="220" width="110" height="30" fill="#fff"/>
+  <rect x="45" y="220" width="110" height="15" fill="#000" opacity="0.2"/> <!-- Black keys visual hint -->
+
+  <!-- Strings (Stylized) -->
+  <line x1="60" y1="60" x2="60" y2="210" stroke="#444"/>
+  <line x1="80" y1="60" x2="80" y2="210" stroke="#444"/>
+  <line x1="100" y1="60" x2="100" y2="210" stroke="#444"/>
+  <line x1="120" y1="60" x2="120" y2="210" stroke="#444"/>
+  <line x1="140" y1="60" x2="140" y2="210" stroke="#444"/>
+  
+  <!-- Classical Zone (Mics farther back) -->
+  <g transform="translate(200, 100)">
+    <circle cx="0" cy="0" r="30" fill="none" stroke="#3b82f6" stroke-width="2" stroke-dasharray="4"/>
+    <text x="40" y="5" fill="#3b82f6" font-size="12">Classical / Natural</text>
+    <text x="40" y="20" fill="#3b82f6" font-size="10">(8-12 inches up)</text>
+  </g>
+  
+  <!-- Pop/Rock Zone (Mics close to hammers) -->
+  <g transform="translate(100, 180)">
+    <circle cx="0" cy="0" r="25" fill="none" stroke="#ef4444" stroke-width="2" stroke-dasharray="4"/>
+    <text x="-80" y="5" fill="#ef4444" font-size="12" text-anchor="end">Pop/Rock</text>
+    <text x="-80" y="20" fill="#ef4444" font-size="10" text-anchor="end">(Close / Bright)</text>
+    <line x1="-10" y1="0" x2="-75" y2="0" stroke="#ef4444" stroke-width="1" marker-end="url(#arrow)"/>
+  </g>
+
+  <text x="200" y="280" fill="#fff" text-anchor="middle" font-size="16" font-weight="bold">Grand Piano Mic Zones</text>
+</svg>

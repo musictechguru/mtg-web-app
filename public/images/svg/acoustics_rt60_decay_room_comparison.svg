@@ -1,0 +1,19 @@
+<svg width="400" height="300" xmlns="http://www.w3.org/2000/svg">
+  <rect width="100%" height="100%" fill="#111" />
+  
+  <!-- Axes -->
+  <line x1="50" y1="250" x2="350" y2="250" stroke="#fff" stroke-width="2"/>
+  <line x1="50" y1="50" x2="50" y2="250" stroke="#fff" stroke-width="2"/>
+  
+  <!-- Live Room Curve (Slow Decay) -->
+  <path d="M50,50 Q150,100 350,150" fill="none" stroke="#facc15" stroke-width="3"/>
+  <text x="250" y="120" fill="#facc15" font-weight="bold">Live Room (~2.0s)</text>
+  <text x="250" y="135" fill="#aaa" font-size="10">(Concert Hall)</text>
+  
+  <!-- Dead Room Curve (Fast Decay) -->
+  <path d="M50,50 Q100,240 150,248" fill="none" stroke="#ef4444" stroke-width="3"/>
+  <text x="120" y="200" fill="#ef4444" font-weight="bold">Dead Room (~0.3s)</text>
+  <text x="120" y="215" fill="#aaa" font-size="10">(Studio Control)</text>
+  
+  <text x="200" y="280" fill="#fff" text-anchor="middle" font-size="16" font-weight="bold">RT60 Decay Curves</text>
+</svg>

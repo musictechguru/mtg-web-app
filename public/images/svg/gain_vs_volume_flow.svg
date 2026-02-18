@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 300" style="background-color:#1e1e1e; font-family:sans-serif;">
+    <!-- Arrow -->
+    <defs>
+        <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+            <path d="M0,0 L0,6 L9,3 z" fill="#666" />
+        </marker>
+    </defs>
+
+    <!-- Source -->
+    <path d="M 50 150 Q 80 150 100 150" stroke="#666" stroke-width="4" marker-end="url(#arrow)"/>
+    
+    <!-- Preamp / Gain Box -->
+    <rect x="100" y="100" width="150" height="100" rx="10" ry="10" fill="#db2777" stroke="#be185d" stroke-width="3"/>
+    <text x="175" y="140" text-anchor="middle" fill="#ffffff" font-weight="bold" font-size="20">GAIN</text>
+    <text x="175" y="170" text-anchor="middle" fill="#fce7f3" font-size="14">(Input Level)</text>
+    
+    <!-- Connect -->
+    <path d="M 250 150 L 350 150" stroke="#666" stroke-width="4" marker-end="url(#arrow)"/>
+
+    <!-- Processing / Insert -->
+    <rect x="350" y="120" width="100" height="60" rx="5" ry="5" fill="#333" stroke="#555" stroke-width="2"/>
+    <text x="400" y="155" text-anchor="middle" fill="#aaa" font-size="14">Processing</text>
+
+    <!-- Connect -->
+    <path d="M 450 150 L 550 150" stroke="#666" stroke-width="4" marker-end="url(#arrow)"/>
+
+    <!-- Fader / Volume Box -->
+    <rect x="550" y="100" width="150" height="100" rx="10" ry="10" fill="#2563eb" stroke="#1d4ed8" stroke-width="3"/>
+    <text x="625" y="140" text-anchor="middle" fill="#ffffff" font-weight="bold" font-size="20">VOLUME</text>
+    <text x="625" y="170" text-anchor="middle" fill="#dbeafe" font-size="14">(Output Level)</text>
+
+    <!-- Output -->
+    <path d="M 700 150 L 750 150" stroke="#666" stroke-width="4" marker-end="url(#arrow)"/>
+
+    <!-- Labels -->
+    <text x="175" y="230" text-anchor="middle" fill="#db2777" font-size="14">Sets Tone & Sensitivity</text>
+    <text x="625" y="230" text-anchor="middle" fill="#2563eb" font-size="14">Sets Loudness</text>
+
+</svg>

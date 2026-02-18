@@ -1,0 +1,614 @@
+Volume 3 found: Volume 3: Synthesis
+Part ID: v3_p1, Title: All Topics
+  Topic ID: v3_t1, Title: BASIC SYNTHESIS COMPONENTS
+    Q ID: v3_t1_b_1
+    Content: What is an oscillator in a synthesizer?
+    Explanation: Oscillator (VCO/DCO): The heart of the synth. It creates the raw sound wave (pitch and timbre) that flows into the rest of the synth.
+    Image: /images/svg/synth_signal_flow.svg
+--------------------
+    Q ID: v3_t1_b_2
+    Content: What does VCO stand for?
+    Explanation: VCO (Voltage Controlled Oscillator): An analog circuit where voltage determines pitch. Known for 'drift' and warmth.
+    Image: /images/svg/synth_signal_flow.svg
+--------------------
+    Q ID: v3_t1_b_3
+    Content: What is the main purpose of a filter in a synthesizer?
+    Explanation: Filter (VCF): The sculptor. It shapes the bright, raw oscillator sound by cutting out frequencies. It turns a buzz into a bass.
+    Image: /images/svg/eq_high_pass.svg
+--------------------
+    Q ID: v3_t1_b_4
+    Content: What does VCA stand for?
+    Explanation: VCA (Voltage Controlled Amplifier): The volume knob controlled by electricity. It determines how loud the sound is at any moment.
+    Image: /images/svg/synth_signal_flow.svg
+--------------------
+    Q ID: v3_t1_b_5
+    Content: What is the purpose of an envelope generator?
+    Explanation: Envelope Generator (EG): A robot hand that turns knobs for you. It shapes how a parameter (like volume or filter) changes over time (Start -> End).
+    Image: /images/explanations/explanation_adsr_envelope.png
+--------------------
+    Q ID: v3_t1_b_6
+    Content: What does ADSR stand for?
+    Explanation: ADSR: The four stages of a standard envelope. Attack (Start), Decay (Drop), Sustain (Hold), Release (End).
+    Image: /images/explanations/explanation_adsr_envelope.png
+--------------------
+    Q ID: v3_t1_b_7
+    Content: What is an LFO?
+    Explanation: LFO (Low Frequency Oscillator): An oscillator too slow to hear (<20Hz). Used to wiggle other parameters (like Pitch for Vibrato).
+    Image: /images/svg/lfo_shapes.svg
+--------------------
+    Q ID: v3_t1_b_8
+    Content: What is the typical frequency range of an LFO?
+    Explanation: Sub-Audio Rate: LFOs operate below 20Hz. If you speed them up into audio range, they become FM (Frequency Modulation) sources!
+    Image: /images/svg/lfo_shapes.svg
+--------------------
+    Q ID: v3_t1_b_9
+    Content: What is the basic signal flow in a subtractive synthesizer?
+    Explanation: Standard Flow: Source (Osc) -> Modifier (Filter) -> Output (Amp). This mimics how acoustic instruments work (Vibration -> Resonator).
+    Image: /images/svg/synth_signal_flow.svg
+--------------------
+    Q ID: v3_t1_b_10
+    Content: True or False: A VCF (Voltage Controlled Filter) can be modulated by envelopes and LFOs.
+    Explanation: Modulation Matrix: A VCF can be controlled by a Keyboard (higher notes = brighter), Envelopes (plucks), or LFOs (wobbles).
+    Image: /images/svg/synth_signal_flow.svg
+--------------------
+  Topic ID: v3_t2, Title: BASIC WAVEFORMS
+    Q ID: v3_t2_b_1
+    Content: Which waveform contains only the fundamental frequency with no harmonics?
+    Explanation: Equalization adjusts the balance of frequency components.
+    Image: /images/svg/eq_bell_q_factor.svg
+--------------------
+    Q ID: v3_t2_b_2
+    Content: Which waveform is the brightest and contains all harmonics?
+    Explanation: Waveforms like Sine, Saw, Square determine the basic timbre.
+    Image: /images/svg/synth_signal_flow.svg
+--------------------
+    Q ID: v3_t2_b_3
+    Content: Which waveform contains only odd harmonics and sounds hollow or woody?
+    Explanation: Waveforms like Sine, Saw, Square determine the basic timbre.
+    Image: /images/svg/synth_signal_flow.svg
+--------------------
+    Q ID: v3_t2_b_4
+    Content: What is the sound character of a sine wave?
+    Explanation: Waveforms like Sine, Saw, Square determine the basic timbre.
+    Image: /images/svg/synth_signal_flow.svg
+--------------------
+    Q ID: v3_t2_b_5
+    Content: Which waveform is best for creating string sounds when filtered?
+    Explanation: Filters remove specific frequencies from the spectrum.
+    Image: /images/svg/eq_high_pass.svg
+--------------------
+    Q ID: v3_t2_b_6
+    Content: What does a square wave sound like compared to a sawtooth?
+    Explanation: Waveforms like Sine, Saw, Square determine the basic timbre.
+    Image: /images/svg/synth_signal_flow.svg
+--------------------
+    Q ID: v3_t2_b_7
+    Content: Which waveform is the softest with very few harmonics?
+    Explanation: Waveforms like Sine, Saw, Square determine the basic timbre.
+    Image: /images/svg/synth_signal_flow.svg
+--------------------
+    Q ID: v3_t2_b_8
+    Content: True or False: A triangle wave has only odd harmonics like a square wave, but they drop off much faster.
+    Explanation: Waveforms like Sine, Saw, Square determine the basic timbre.
+    Image: /images/svg/synth_signal_flow.svg
+--------------------
+    Q ID: v3_t2_b_9
+    Content: What is a pulse wave?
+    Explanation: Waveforms like Sine, Saw, Square determine the basic timbre.
+    Image: /images/svg/synth_signal_flow.svg
+--------------------
+    Q ID: v3_t2_b_10
+    Content: At what duty cycle does a pulse wave become a square wave?
+    Explanation: Waveforms like Sine, Saw, Square determine the basic timbre.
+    Image: /images/svg/synth_signal_flow.svg
+--------------------
+  Topic ID: v3_t3, Title: SPECIAL WAVEFORMS & OSCILLATORS
+    Q ID: v3_t3_b_1
+    Content: What is white noise?
+    Explanation: LPF (Low Pass Filter): The most common filter. Cuts treble, lets bass pass. Closing it makes sound darker/muffled.
+    Image: /images/svg/eq_high_pass.svg
+--------------------
+    Q ID: v3_t3_b_2
+    Content: What is pink noise compared to white noise?
+    Explanation: Cutoff Frequency: The specific point where the filter starts working. For a Low Pass, frequencies above this point are reduced.
+    Image: /images/svg/eq_high_pass.svg
+--------------------
+    Q ID: v3_t3_b_3
+    Content: What is noise commonly used for in synthesis?
+    Explanation: Resonance (Q): A volume boost exactly at the cutoff point. It adds a whistling/nasal character to the sound.
+    Image: /images/svg/eq_bell_q_factor.svg
+--------------------
+    Q ID: v3_t3_b_4
+    Content: What is a sub-oscillator?
+    Explanation: Self-Oscillation: When resonance is maxed, the feedback loop resonates so hard it creates a sine wave, even with no input!
+    Image: /images/svg/eq_bell_q_factor.svg
+--------------------
+    Q ID: v3_t3_b_5
+    Content: What is the main purpose of a sub-oscillator?
+    Explanation: HPF (High Pass Filter): Cuts bass, lets treble pass. Thinning out a sound. Great for removing mud or creating wispy textures.
+    Image: /images/svg/eq_high_pass.svg
+--------------------
+    Q ID: v3_t3_b_6
+    Content: Can you detune a sub-oscillator separately from the main oscillator?
+    Explanation: Filter Slope (Poles): 24dB/oct (4-pole) is steep/punchy (Moog). 12dB/oct (2-pole) is bright/fizzy (Oberheim).
+    Image: /images/svg/eq_high_pass.svg
+--------------------
+    Q ID: v3_t3_b_7
+    Content: What is hard sync (oscillator sync)?
+    Explanation: BPF (Band Pass Filter): Rejects both high and low ends, keeping a narrow band in the middle. Sounds 'nasal' or like a telephone.
+    Image: /images/svg/eq_bell_q_factor.svg
+--------------------
+    Q ID: v3_t3_b_8
+    Content: What does hard sync sound like?
+    Explanation: Wah Effect: Created by sweeping a Band Pass (or resonant Low Pass) filter up and down the frequency spectrum.
+    Image: /images/svg/eq_bell_q_factor.svg
+--------------------
+    Q ID: v3_t3_b_9
+    Content: True or False: Noise oscillators can be run through filters to shape their sound.
+    Explanation: Acid Sound: Roland TB-303. A simple Saw/Square wave into a diode ladder Low Pass filter with high resonance and envelope modulation.
+    Image: /images/svg/synth_signal_flow.svg
+--------------------
+    Q ID: v3_t3_b_10
+    Content: Which waveform is typically used for sub-oscillators?
+    Explanation: Notch (Band Reject): The opposite of Band Pass. It removes a slice of frequencies. Phasers work by moving notch filters around.
+    Image: /images/svg/eq_bell_q_factor.svg
+--------------------
+  Topic ID: v3_t4, Title: FILTER TYPES
+    Q ID: v3_t4_b_1
+    Content: What does a low-pass filter do?
+    Explanation: Attack: The 'Fade In'. 0ms = Instant click (Organ). 1000ms = Slow swell (Orchestral Strings).
+    Image: /images/svg/compression_attack_release.svg
+--------------------
+    Q ID: v3_t4_b_2
+    Content: What is the cutoff frequency?
+    Explanation: Drum Envelope: Drums hit instantly. Attack must be 0 (or near zero). Any delay softens the impact.
+    Image: /images/svg/compression_attack_release.svg
+--------------------
+    Q ID: v3_t4_b_3
+    Content: What is resonance (Q factor) on a filter?
+    Explanation: Decay: The drop from full volume (Peak) down to the holding level (Sustain). Short decay = 'Pluck'. Long decay = 'Fade'.
+    Image: /images/svg/compression_attack_release.svg
+--------------------
+    Q ID: v3_t4_b_4
+    Content: What happens when you set resonance to 100% on an analog filter?
+    Explanation: Sustain: The ONLY parameter that sets a LEVEL (Volume), not a Time. It's the volume the note holds at while your finger is on the key.
+    Image: /images/explanations/explanation_adsr_envelope.png
+--------------------
+    Q ID: v3_t4_b_5
+    Content: What does a high-pass filter do?
+    Explanation: Sustain Logic: If Sustain is at 100%, the Decay stage is skipped (because there is no drop). If Sustain is 0%, the sound fades out even if you hold the key.
+    Image: /images/explanations/explanation_adsr_envelope.png
+--------------------
+    Q ID: v3_t4_b_6
+    Content: What is the most common filter slope in classic analog synthesizers?
+    Explanation: Release: The time it takes to fade to silence AFTER you let go of the key. Short = Staccato. Long = Ambience.
+    Image: /images/svg/compression_attack_release.svg
+--------------------
+    Q ID: v3_t4_b_7
+    Content: What does a band-pass filter do?
+    Explanation: Pad Tails: Pads need long release times to smooth the transition between chords, creating a continuous wash of sound.
+    Image: /images/svg/compression_attack_release.svg
+--------------------
+    Q ID: v3_t4_b_8
+    Content: Which filter creates a "wah-wah" effect when swept?
+    Explanation: Pluck Physics: A guitar string vibrates once then dies out. It has NO sustain stage (Sustain = 0). It only has Attack, Decay, and Release.
+    Image: /images/explanations/explanation_adsr_envelope.png
+--------------------
+    Q ID: v3_t4_b_9
+    Content: True or False: A low-pass filter with high resonance can create classic acid bass sounds.
+    Explanation: Reverse Envelope: Slow Attack + Full Sustain = A sound that grows out of nothing. Used for 'swell' effects or reversed tape sounds.
+    Image: /images/svg/compression_attack_release.svg
+--------------------
+    Q ID: v3_t4_b_10
+    Content: What does a notch filter (band-reject filter) do?
+    Explanation: Envelope Count: Usually two. One for Amplifier (Volume) and one for Filter (Timbre). Complex synths have many more.
+    Image: /images/explanations/explanation_adsr_envelope.png
+--------------------
+  Topic ID: v3_t5, Title: ADSR ENVELOPE
+    Q ID: v3_t5_b_1
+    Content: What does the Attack (A) parameter control?
+    Explanation: Vibrato: A variation in PITCH. Think of a violinist shaking their finger on the string. It adds humanity/warmth.
+    Image: /images/svg/lfo_shapes.svg
+--------------------
+    Q ID: v3_t5_b_2
+    Content: For a percussive, immediate sound (like a drum), what should the Attack time be?
+    Explanation: Creating Vibrato: Route an LFO to the Oscillator Pitch. Use a logic Triangle or Sine wave for smooth motion.
+    Image: /images/svg/synth_signal_flow.svg
+--------------------
+    Q ID: v3_t5_b_3
+    Content: What does the Decay (D) parameter control?
+    Explanation: LFO Rate: 4-7Hz is the 'human' range. Slower sounds like a siren; faster sounds like FM buzz.
+    Image: /images/svg/lfo_shapes.svg
+--------------------
+    Q ID: v3_t5_b_4
+    Content: What does the Sustain (S) parameter control?
+    Explanation: Tremolo: A variation in VOLUME (Amplitude). Think of a guitar amp 'Tremolo' channel pulsing loud and soft.
+    Image: /images/svg/lfo_shapes.svg
+--------------------
+    Q ID: v3_t5_b_5
+    Content: True or False: Sustain is the only ADSR parameter that is a LEVEL, not a time.
+    Explanation: Creating Tremolo: Route an LFO to the VCA (Amplifier). This turns the volume knob up and down automatically.
+    Image: /images/svg/synth_signal_flow.svg
+--------------------
+    Q ID: v3_t5_b_6
+    Content: What does the Release (R) parameter control?
+    Explanation: Filter Mod: The 'Wow' sound. Routing an envelope to the Filter Cutoff makes the sound start bright and get dark (or vice versa).
+    Image: /images/svg/eq_high_pass.svg
+--------------------
+    Q ID: v3_t5_b_7
+    Content: For a pad sound with a long tail after releasing the key, what should the Release time be?
+    Explanation: Envelope Amount: Controls HOW MUCH the envelope opens the filter. Low amount = subtle tonal change. High amount = aggressive sweep.
+    Image: /images/explanations/explanation_adsr_envelope.png
+--------------------
+    Q ID: v3_t5_b_8
+    Content: For a pluck sound (like a guitar), what should the Sustain level be?
+    Explanation: PWM (Pulse Width Modulation): Varying the duty cycle of a square wave (50% to 10% back and forth). Sounds thick, detuned, and phaser-like.
+    Image: /images/svg/lfo_shapes.svg
+--------------------
+    Q ID: v3_t5_b_9
+    Content: If you want a sound to fade in slowly like strings with a bow, what parameter should be increased?
+    Explanation: PWM Strings: The rich, swirling texture of PWM is perfect for single-oscillator string machines.
+    Image: /images/svg/lfo_shapes.svg
+--------------------
+    Q ID: v3_t5_b_10
+    Content: How many envelopes do typical modern synthesizers have?
+    Explanation: Juno Chorus: The Juno Series is famous for using PWM + a noisy Chorus circuit to make one oscillator sound like an orchestra.
+    Image: /images/svg/synth_signal_flow.svg
+--------------------
+  Topic ID: v3_t6, Title: MODULATION TYPES
+    Q ID: v3_t6_b_1
+    Content: What is vibrato?
+    Explanation: Concept: Like carving marble. You start with a block (Harmonically rich wave) and chisel away what you don't want (with the Filter).
+    Image: /images/svg/eq_high_pass.svg
+--------------------
+    Q ID: v3_t6_b_2
+    Content: What is typically used to create vibrato?
+    Explanation: The Holy Trinity: OSC -> FILTER -> AMP. This is the layout of 95% of analog synths.
+    Image: /images/svg/synth_signal_flow.svg
+--------------------
+    Q ID: v3_t6_b_3
+    Content: What is a typical vibrato rate for realistic string/vocal sounds?
+    Explanation: Rich Source: Sawtooth or Square. You need harmonics to subtract! A Sine wave has no harmonics, so a filter does nothing to it (except lower volume).
+    Image: /images/svg/synth_signal_flow.svg
+--------------------
+    Q ID: v3_t6_b_4
+    Content: What is tremolo?
+    Explanation: Analog Standard: 1960s-80s synths (Moog, Prophet, Roland) defined this architecture because it was cheap to build and easy to understand.
+    Image: /images/svg/synth_signal_flow.svg
+--------------------
+    Q ID: v3_t6_b_5
+    Content: What creates tremolo in a synthesizer?
+    Explanation: Workflow: It mimics nature. A voice is vocal cords (Osc) filtered by the mouth (Filter). It feels natural to design sounds this way.
+    Image: /images/svg/synth_signal_flow.svg
+--------------------
+    Q ID: v3_t6_b_6
+    Content: What is filter modulation?
+    Explanation: Minimoog: The archetype. 3 Oscs, 1 Ladder Filter, 2 Envelopes. The blueprint for all monosynths that followed.
+    Image: /images/svg/synth_signal_flow.svg
+--------------------
+    Q ID: v3_t6_b_7
+    Content: When an envelope modulates a filter, what does it control?
+    Explanation: The Character: In subtractive, the Filter is the star. The oscillator is just the fuel; the filter provides the flavor.
+    Image: /images/svg/eq_high_pass.svg
+--------------------
+    Q ID: v3_t6_b_8
+    Content: What is PWM (Pulse Width Modulation)?
+    Explanation: Palette: Great for Bass (Moog), Brass (Oberheim), and Strings (Arp). Less good for realistic Piano or Bells (FM is better).
+    Image: /images/svg/synth_signal_flow.svg
+--------------------
+    Q ID: v3_t6_b_9
+    Content: What effect does PWM create?
+    Explanation: Brightness: Raising cutoff reveals the upper harmonics. This mimics a sound getting louder or closer in nature.
+    Image: /images/svg/eq_high_pass.svg
+--------------------
+    Q ID: v3_t6_b_10
+    Content: True or False: PWM is essential for creating classic analog string sounds like those from the Roland Juno-106.
+    Explanation: The Classics: Jupiter-8, Prophet-5, OB-Xa. These huge poly-synths are all based on the subtractive principle.
+    Image: /images/svg/synth_signal_flow.svg
+--------------------
+  Topic ID: v3_t7, Title: SUBTRACTIVE SYNTHESIS
+    Q ID: v3_t7_b_1
+    Content: What is subtractive synthesis?
+    Explanation: Filters remove specific frequencies from the spectrum.
+    Image: /images/svg/eq_high_pass.svg
+--------------------
+    Q ID: v3_t7_b_2
+    Content: What is the typical signal flow in subtractive synthesis?
+    Explanation: An oscillator generates the raw repetitive waveform in a synthesizer.
+    Image: /images/svg/synth_signal_flow.svg
+--------------------
+    Q ID: v3_t7_b_3
+    Content: What waveform is most commonly used as the starting point in subtractive synthesis?
+    Explanation: Subtractive synthesis is sculpting sound by removing frequencies.
+    Image: /images/svg/synth_signal_flow.svg
+--------------------
+    Q ID: v3_t7_b_4
+    Content: True or False: Subtractive synthesis is the most common form of synthesis found in analog synthesizers.
+    Explanation: Subtractive synthesis is sculpting sound by removing frequencies.
+    Image: /images/svg/synth_signal_flow.svg
+--------------------
+    Q ID: v3_t7_b_5
+    Content: What is the main advantage of subtractive synthesis?
+    Explanation: An oscillator generates the raw repetitive waveform in a synthesizer.
+    Image: /images/svg/synth_signal_flow.svg
+--------------------
+    Q ID: v3_t7_b_6
+    Content: Which of these famous synthesizers uses subtractive synthesis?
+    Explanation: Subtractive synthesis is sculpting sound by removing frequencies.
+    Image: /images/svg/synth_signal_flow.svg
+--------------------
+    Q ID: v3_t7_b_7
+    Content: In subtractive synthesis, what role does the filter play?
+    Explanation: Filters remove specific frequencies from the spectrum.
+    Image: /images/svg/eq_high_pass.svg
+--------------------
+    Q ID: v3_t7_b_8
+    Content: Which sounds are typically created with subtractive synthesis?
+    Explanation: Subtractive synthesis is sculpting sound by removing frequencies.
+    Image: /images/svg/synth_signal_flow.svg
+--------------------
+    Q ID: v3_t7_b_9
+    Content: What happens when you "open" a low-pass filter in subtractive synthesis?
+    Explanation: Filters remove specific frequencies from the spectrum.
+    Image: /images/svg/eq_high_pass.svg
+--------------------
+    Q ID: v3_t7_b_10
+    Content: Which famous synthesizers are examples of subtractive synthesis?
+    Explanation: Subtractive synthesis is sculpting sound by removing frequencies.
+    Image: /images/svg/synth_signal_flow.svg
+--------------------
+  Topic ID: v3_t8, Title: ADDITIVE & FM SYNTHESIS
+    Q ID: v3_t8_b_1
+    Content: What is additive synthesis?
+    Explanation: Filters remove specific frequencies from the spectrum.
+    Image: /images/svg/eq_high_pass.svg
+--------------------
+    Q ID: v3_t8_b_2
+    Content: What is the building block of additive synthesis?
+    Explanation: FM synthesis uses frequency modulation for complex metallic tones.
+    Image: /images/svg/synth_signal_flow.svg
+--------------------
+    Q ID: v3_t8_b_3
+    Content: True or False: In theory, any sound can be recreated using enough sine waves added together.
+    Explanation: FM synthesis uses frequency modulation for complex metallic tones.
+    Image: /images/svg/synth_signal_flow.svg
+--------------------
+    Q ID: v3_t8_b_4
+    Content: What type of sounds does additive synthesis excel at creating?
+    Explanation: FM synthesis uses frequency modulation for complex metallic tones.
+    Image: /images/svg/synth_signal_flow.svg
+--------------------
+    Q ID: v3_t8_b_5
+    Content: What does FM stand for in FM synthesis?
+    Explanation: Filters remove specific frequencies from the spectrum.
+    Image: /images/svg/eq_high_pass.svg
+--------------------
+    Q ID: v3_t8_b_6
+    Content: What is FM synthesis?
+    Explanation: An oscillator generates the raw repetitive waveform in a synthesizer.
+    Image: /images/svg/synth_signal_flow.svg
+--------------------
+    Q ID: v3_t8_b_7
+    Content: What are the two main components in basic FM synthesis?
+    Explanation: Filters remove specific frequencies from the spectrum.
+    Image: /images/svg/eq_high_pass.svg
+--------------------
+    Q ID: v3_t8_b_8
+    Content: What is the most famous FM synthesizer?
+    Explanation: FM synthesis uses frequency modulation for complex metallic tones.
+    Image: /images/svg/synth_signal_flow.svg
+--------------------
+    Q ID: v3_t8_b_9
+    Content: What type of sounds is FM synthesis famous for?
+    Explanation: FM synthesis uses frequency modulation for complex metallic tones.
+    Image: /images/svg/synth_signal_flow.svg
+--------------------
+    Q ID: v3_t8_b_10
+    Content: True or False: FM synthesis can create very complex sounds from relatively few oscillators.
+    Explanation: An oscillator generates the raw repetitive waveform in a synthesizer.
+    Image: /images/svg/synth_signal_flow.svg
+--------------------
+  Topic ID: v3_t9, Title: WAVETABLE & GRANULAR SYNTHESIS
+    Q ID: v3_t9_b_1
+    Content: What is wavetable synthesis?
+    Explanation: Wavetable: Instead of a static Saw wave, you have a list of waves (a table). You can scan through them, changing the timbre smoothly over time.
+    Image: /images/svg/synth_signal_flow.svg
+--------------------
+    Q ID: v3_t9_b_2
+    Content: What is a wavetable?
+    Explanation: The Table: Think of it like a flip-book animation of waveforms. Frame 1 might be a Triangle, Frame 100 might be complex noise.
+    Image: /images/svg/synth_signal_flow.svg
+--------------------
+    Q ID: v3_t9_b_3
+    Content: What creates the evolving, morphing character in wavetable synthesis?
+    Explanation: Scanning: An LFO or Envelope moves the 'read head' through the table. This creates evolving, shifting textures that analog synths can't do.
+    Image: /images/svg/lfo_shapes.svg
+--------------------
+    Q ID: v3_t9_b_4
+    Content: Which modern software synthesizer is famous for wavetable synthesis?
+    Explanation: Modern Tools: Serum, Massive, Pigments. These synths visualized the wavetable, making this complex synthesis easy to understand.
+    Image: /images/svg/synth_signal_flow.svg
+--------------------
+    Q ID: v3_t9_b_5
+    Content: What type of sounds does wavetable synthesis excel at creating?
+    Explanation: Wavetable Strengths: Metallic basses, evolving pads, dubstep 'wubs' (changing formant shapes).
+    Image: /images/svg/synth_signal_flow.svg
+--------------------
+    Q ID: v3_t9_b_6
+    Content: What is granular synthesis?
+    Explanation: Granular: Takes an audio sample and chops it into thousands of tiny 'grains' (1-100ms). It plays them back in clouds or streams.
+    Image: /images/svg/synth_signal_flow.svg
+--------------------
+    Q ID: v3_t9_b_7
+    Content: How long is a typical "grain" in granular synthesis?
+    Explanation: Grain Length: Short grains (10ms) sound like buzz/noise. Long grains (100ms) sound like stuttering snippets of the original audio.
+    Image: /images/svg/synth_signal_flow.svg
+--------------------
+    Q ID: v3_t9_b_8
+    Content: What can granular synthesis do that other synthesis types can't easily do?
+    Explanation: Elasticity: You can play the grains slowly (time stretch) without lowering the pitch. Or play grains at higher pitch without speeding up.
+    Image: /images/svg/synth_signal_flow.svg
+--------------------
+    Q ID: v3_t9_b_9
+    Content: What type of sounds does granular synthesis excel at creating?
+    Explanation: Granular Strengths: Sci-fi textures, frozen moments in time, ghostly atmospheres. Not great for standard bass lines.
+    Image: /images/svg/synth_signal_flow.svg
+--------------------
+    Q ID: v3_t9_b_10
+    Content: True or False: Granular synthesis creates a grainy, textured quality, especially with small grain sizes.
+    Explanation: Clouds: Overlapping many grains creates a dense 'cloud' of sound. It smoothes out the transients into a wash.
+    Image: /images/svg/synth_signal_flow.svg
+--------------------
+  Topic ID: v3_t10, Title: PHYSICAL MODELING & SAMPLING
+    Q ID: v3_t10_b_1
+    Content: What is physical modeling synthesis?
+    Explanation: Physical Modeling: Using math equations to simulate real physics (mass, tension, air pressure) rather than playing back a recording.
+    Image: /images/svg/synth_signal_flow.svg
+--------------------
+    Q ID: v3_t10_b_2
+    Content: What does physical modeling simulate?
+    Explanation: Parameters: You control 'Material' (Wood/Metal), 'Force' (Blow/Strike), and 'Resonance'. You are building an instrument inside the CPU.
+    Image: /images/svg/synth_signal_flow.svg
+--------------------
+    Q ID: v3_t10_b_3
+    Content: What is sampling?
+    Explanation: Sampling: Digital recording. Analogue -> Digital Converter -> RAM. Playback triggers the file at different speeds for different pitches.
+    Image: /images/svg/ad_converter_process.svg
+--------------------
+    Q ID: v3_t10_b_4
+    Content: True or False: Sampling can recreate realistic acoustic instruments because it uses recordings of real instruments.
+    Explanation: Sampling Realism: Very high. Because it IS a recording. The challenge is making it expressive (velocity layers, round robins).
+    Image: /images/svg/synth_signal_flow.svg
+--------------------
+    Q ID: v3_t10_b_5
+    Content: What is multisampling?
+    Explanation: Multisampling: Recording every note of a piano at 10 different volumes. This prevents the 'chipmunk effect' of pitch-shifting one sample too far.
+    Image: /images/svg/synth_signal_flow.svg
+--------------------
+    Q ID: v3_t10_b_6
+    Content: What is a sample library?
+    Explanation: Libraries: Massive collections (hundreds of GBs) of orchestral recordings. The modern composer's orchestra.
+    Image: /images/svg/synth_signal_flow.svg
+--------------------
+    Q ID: v3_t10_b_7
+    Content: What advantage does sampling have over other synthesis methods?
+    Explanation: Advantage: Authenticity. It captures the room, the mic preamp, and the player's nuance.
+    Image: /images/svg/mic_condenser_construction.svg
+--------------------
+    Q ID: v3_t10_b_8
+    Content: What is Kontakt?
+    Explanation: Kontakt: The industry standard engine. It allows scripting (Legato scripts) to make samples behave like real instruments.
+    Image: /images/svg/synth_signal_flow.svg
+--------------------
+    Q ID: v3_t10_b_9
+    Content: What type of music heavily relies on sampling?
+    Explanation: Usage: Hip Hop (breakbeat looping), EDM (vocal chops), Cinema (Orchestral mockups).
+    Image: /images/svg/synth_signal_flow.svg
+--------------------
+    Q ID: v3_t10_b_10
+    Content: True or False: Physical modeling can simulate how an instrument behaves when played differently (like changing bow pressure on a violin).
+    Explanation: Sampling vs Synthesis: Sampling captures a moment. Synthesis creates a moment. Sampling is static; Synthesis is dynamic.
+    Image: /images/svg/synth_signal_flow.svg
+--------------------
+  Topic ID: v3_t11, Title: VECTOR & PHASE DISTORTION SYNTHESIS
+    Q ID: v3_t11_b_1
+    Content: What is vector synthesis?
+    Explanation: An oscillator generates the raw repetitive waveform in a synthesizer.
+    Image: /images/svg/synth_signal_flow.svg
+--------------------
+    Q ID: v3_t11_b_2
+    Content: How is vector synthesis typically controlled?
+    Explanation: Filters remove specific frequencies from the spectrum.
+    Image: /images/svg/eq_high_pass.svg
+--------------------
+    Q ID: v3_t11_b_3
+    Content: What was the first synthesizer to use vector synthesis?
+    Explanation: Equalization adjusts the balance of frequency components.
+    Image: /images/svg/eq_bell_q_factor.svg
+--------------------
+    Q ID: v3_t11_b_4
+    Content: What type of sounds does vector synthesis excel at creating?
+    Explanation: Advanced synthesis creates unique textures.
+    Image: /images/svg/synth_signal_flow.svg
+--------------------
+    Q ID: v3_t11_b_5
+    Content: True or False: In vector synthesis, you can smoothly transition between four different sound sources in real-time.
+    Explanation: Advanced synthesis creates unique textures.
+    Image: /images/svg/synth_signal_flow.svg
+--------------------
+    Q ID: v3_t11_b_6
+    Content: What is phase distortion synthesis?
+    Explanation: Advanced synthesis creates unique textures.
+    Image: /images/svg/synth_signal_flow.svg
+--------------------
+    Q ID: v3_t11_b_7
+    Content: Which company developed phase distortion synthesis?
+    Explanation: Advanced synthesis creates unique textures.
+    Image: /images/svg/synth_signal_flow.svg
+--------------------
+    Q ID: v3_t11_b_8
+    Content: What synthesizer series is famous for phase distortion?
+    Explanation: Advanced synthesis creates unique textures.
+    Image: /images/svg/synth_signal_flow.svg
+--------------------
+    Q ID: v3_t11_b_9
+    Content: What does phase distortion sound similar to?
+    Explanation: Advanced synthesis creates unique textures.
+    Image: /images/svg/synth_signal_flow.svg
+--------------------
+    Q ID: v3_t11_b_10
+    Content: True or False: Phase distortion synthesis was memory-efficient and could create a wide range of timbres.
+    Explanation: Advanced synthesis creates unique textures.
+    Image: /images/svg/synth_signal_flow.svg
+--------------------
+  Topic ID: v3_t12, Title: PERFORMANCE CONTROLS & CLASSIC SYNTHS
+    Q ID: v3_t12_b_1
+    Content: What does velocity measure on a synthesizer keyboard?
+    Explanation: MIDI Velocity represents the force with which a note is played.
+    Image: /images/svg/midi_velocity.svg
+--------------------
+    Q ID: v3_t12_b_2
+    Content: What is the pitch bend wheel used for?
+    Explanation: Filters remove specific frequencies from the spectrum.
+    Image: /images/svg/eq_high_pass.svg
+--------------------
+    Q ID: v3_t12_b_3
+    Content: What is the typical range of a pitch bend wheel?
+    Explanation: Performance controls make synths expressive.
+    Image: /images/svg/synth_signal_flow.svg
+--------------------
+    Q ID: v3_t12_b_4
+    Content: What does the modulation wheel typically control?
+    Explanation: An oscillator generates the raw repetitive waveform in a synthesizer.
+    Image: /images/svg/synth_signal_flow.svg
+--------------------
+    Q ID: v3_t12_b_5
+    Content: What is aftertouch?
+    Explanation: Release is the time it takes for the processor to return to a neutral state.
+    Image: /images/explanations/aftertouch_curve.svg
+--------------------
+    Q ID: v3_t12_b_6
+    Content: Which synthesizer is famous for warm, fat bass and was used on Michael Jackson's "Thriller"?
+    Explanation: Performance controls make synths expressive.
+    Image: /images/svg/synth_signal_flow.svg
+--------------------
+    Q ID: v3_t12_b_7
+    Content: What synthesis type does the Yamaha DX7 use?
+    Explanation: Performance controls make synths expressive.
+    Image: /images/svg/synth_signal_flow.svg
+--------------------
+    Q ID: v3_t12_b_8
+    Content: Which synthesizer created the acid house genre and has a screaming resonant filter?
+    Explanation: Filters remove specific frequencies from the spectrum.
+    Image: /images/svg/eq_high_pass.svg
+--------------------
+    Q ID: v3_t12_b_9
+    Content: What was revolutionary about the Prophet-5 when it was released in 1978?
+    Explanation: Release is the time it takes for the processor to return to a neutral state.
+    Image: /images/svg/compression_attack_release.svg
+--------------------
+    Q ID: v3_t12_b_10
+    Content: True or False: The Roland Jupiter-8 is famous for lush pads and string sounds and was used in "Blade Runner."
+    Explanation: The ADSR envelope shapes a sound's amplitude over time (Attack, Decay, Sustain, Release).
+    Image: /images/explanations/explanation_adsr_envelope.png
+--------------------

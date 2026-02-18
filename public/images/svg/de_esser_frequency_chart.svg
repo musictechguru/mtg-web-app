@@ -1,0 +1,21 @@
+<svg width="400" height="300" xmlns="http://www.w3.org/2000/svg">
+  <rect width="100%" height="100%" fill="#1e1e1e" />
+  
+  <!-- EQ Curve -->
+  <path d="M50,150 L150,150 Q250,150 280,100 T310,150 L350,150" fill="none" stroke="#444" stroke-width="2"/>
+  <text x="60" y="140" fill="#444">Original</text>
+
+  <!-- Sibilance Spike -->
+  <path d="M250,150 Q280,50 310,150" fill="none" stroke="#444" stroke-width="2" stroke-dasharray="2"/>
+  <text x="280" y="40" fill="#fff" text-anchor="middle">Sibilance ("Ess")</text>
+  
+  <!-- De-Essing (Reduction) -->
+  <path d="M250,150 Q280,100 310,150" fill="none" stroke="#ef4444" stroke-width="3"/>
+  <text x="280" y="110" fill="#ef4444" text-anchor="middle" font-weight="bold">Compressed</text>
+  
+  <!-- Band Focus -->
+  <line x1="250" y1="200" x2="310" y2="200" stroke="#ef4444" stroke-width="2"/>
+  <text x="280" y="220" fill="#ef4444" text-anchor="middle">5kHz - 8kHz Range</text>
+
+  <text x="200" y="280" fill="#fff" text-anchor="middle" font-size="16" font-weight="bold">De-Esser (Frequency Specific)</text>
+</svg>

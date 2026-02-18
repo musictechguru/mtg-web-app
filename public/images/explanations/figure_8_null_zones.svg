@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" style="background-color: #222; font-family: sans-serif;">
+  <!-- Polar Grid -->
+  <circle cx="300" cy="300" r="100" fill="none" stroke="#444"/>
+  <circle cx="300" cy="300" r="200" fill="none" stroke="#444"/>
+  <line x1="300" y1="50" x2="300" y2="550" stroke="#444"/>
+  <line x1="50" y1="300" x2="550" y2="300" stroke="#444"/>
+  
+  <!-- Figure 8 Pattern -->
+  <path d="M300 300 
+           C 300 300, 450 200, 300 100 
+           C 150 200, 300 300, 300 300
+           C 300 300, 450 400, 300 500
+           C 150 400, 300 300, 300 300" 
+           fill="#00cc00" opacity="0.4" stroke="#00ff00" stroke-width="3"/>
+           
+  <!-- Null Points -->
+  <circle cx="50" cy="300" r="20" fill="#ff0000" opacity="0.2"/>
+  <text x="50" y="305" fill="#ff0000" font-size="24" text-anchor="middle" font-weight="bold">X</text>
+  <text x="50" y="270" fill="#ff5555" font-size="16" text-anchor="middle">NULL (90°)</text>
+
+  <circle cx="550" cy="300" r="20" fill="#ff0000" opacity="0.2"/>
+  <text x="550" y="305" fill="#ff0000" font-size="24" text-anchor="middle" font-weight="bold">X</text>
+  <text x="550" y="270" fill="#ff5555" font-size="16" text-anchor="middle">NULL (270°)</text>
+  
+  <!-- Labels -->
+  <text x="300" y="40" fill="#fff" font-size="18" text-anchor="middle">FRONT (0°)</text>
+  <text x="300" y="580" fill="#fff" font-size="18" text-anchor="middle">BACK (180°)</text>
+  <text x="300" y="300" fill="#fff" font-size="12" text-anchor="middle" dy="5">MIC</text>
+  
+  <text x="300" y="530" fill="#fff" font-size="24" text-anchor="middle" font-weight="bold">FIGURE-8 POLAR PATTERN</text>
+</svg>

@@ -1,0 +1,27 @@
+<svg width="400" height="300" xmlns="http://www.w3.org/2000/svg">
+  <rect width="100%" height="100%" fill="#1e1e1e" />
+  
+  <!-- Grid Lines -->
+  <g stroke="#333" stroke-width="1">
+    <line x1="50" y1="50" x2="350" y2="50"/>
+    <line x1="50" y1="90" x2="350" y2="90"/>
+    <line x1="50" y1="130" x2="350" y2="130"/>
+    <line x1="50" y1="170" x2="350" y2="170"/>
+    <line x1="50" y1="210" x2="350" y2="210"/>
+    <line x1="50" y1="250" x2="350" y2="250"/>
+  </g>
+  
+  <!-- Analog Wave (Smooth) -->
+  <path d="M50,250 Q125,50 200,250 T350,250" fill="none" stroke="#3b82f6" stroke-width="2" opacity="0.5"/>
+  <text x="200" y="270" fill="#3b82f6" text-anchor="middle">Analog (Smooth)</text>
+  
+  <!-- Digital Steps (Quantized) -->
+  <path d="M50,250 L65,250 L65,210 L80,210 L80,170 L95,170 L95,130 L110,130 L110,90 L125,90 L125,50 
+           L140,50 L140,90 L155,90 L155,130 L170,130 L170,170 L185,170 L185,210 L200,210 L200,250" 
+        fill="none" stroke="#facc15" stroke-width="2"/>
+  <text x="200" y="30" fill="#facc15" text-anchor="middle" font-weight="bold">Digital Steps (Quantized)</text>
+  
+  <text x="300" y="150" fill="#ef4444" font-size="12">Gap = Error/Noise</text>
+  
+  <text x="200" y="290" fill="#fff" text-anchor="middle" font-size="16" font-weight="bold">Quantization Error (Bit Depth)</text>
+</svg>

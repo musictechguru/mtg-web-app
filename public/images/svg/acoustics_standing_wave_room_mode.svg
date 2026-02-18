@@ -1,0 +1,24 @@
+<svg width="400" height="300" xmlns="http://www.w3.org/2000/svg">
+  <rect width="100%" height="100%" fill="#111" />
+  
+  <!-- Walls -->
+  <rect x="50" y="50" width="10" height="150" fill="#666"/>
+  <rect x="340" y="50" width="10" height="150" fill="#666"/>
+  <text x="55" y="220" fill="#aaa" text-anchor="middle">Wall</text>
+  <text x="345" y="220" fill="#aaa" text-anchor="middle">Wall</text>
+  
+  <!-- Standing Wave (Fundamental Mode) -->
+  <path d="M60,125 Q200,25 340,125" fill="none" stroke="#ef4444" stroke-width="3"/>
+  <path d="M60,125 Q200,225 340,125" fill="none" stroke="#ef4444" stroke-width="3" stroke-dasharray="4"/>
+  
+  <!-- Nodes / Anti-Nodes -->
+  <circle cx="200" cy="125" r="5" fill="#10b981"/>
+  <text x="200" y="110" fill="#10b981" text-anchor="middle" font-weight="bold">Node</text>
+  <text x="200" y="145" fill="#10b981" text-anchor="middle" font-size="10">(Quiet)</text>
+  
+  <circle cx="60" cy="125" r="5" fill="#facc15"/>
+  <text x="80" y="90" fill="#facc15" font-weight="bold">Anti-Node</text>
+  <text x="80" y="105" fill="#facc15" font-size="10">(Loud/Pressure)</text>
+  
+  <text x="200" y="280" fill="#fff" text-anchor="middle" font-size="16" font-weight="bold">Standing Wave (Room Mode)</text>
+</svg>

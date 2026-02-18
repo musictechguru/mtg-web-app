@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200">
+  <defs>
+    <style>
+      .signal-small { stroke: #00d1b2; stroke-width: 1; fill: none; }
+      .signal-large { stroke: #00d1b2; stroke-width: 4; fill: none; }
+      .amp { fill: #333; }
+      .text { font-family: Arial; fill: #555; text-anchor: middle; }
+    </style>
+  </defs>
+  <rect width="400" height="200" fill="#f8f9fa"/>
+  
+  <text x="50" y="150" class="text" font-size="12">Mic Level</text>
+  <path d="M10,100 Q30,95 50,100 T90,100" class="signal-small"/>
+  
+  <polygon points="120,50 120,150 280,100" class="amp"/>
+  <text x="160" y="105" fill="white" font-weight="bold">PREAMP</text>
+  
+  <text x="350" y="150" class="text" font-size="12">Line Level</text>
+  <path d="M300,100 Q325,50 350,100 T400,100" class="signal-large"/>
+  
+  <text x="200" y="180" class="text" font-weight="bold">+60dB Gain</text>
+</svg>

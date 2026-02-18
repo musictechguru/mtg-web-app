@@ -1,0 +1,26 @@
+<svg width="400" height="250" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .text { font-family: sans-serif; fill: #eee; font-size: 12px; }
+      .grid { stroke: #444; stroke-width: 1; }
+    </style>
+  </defs>
+  <rect width="100%" height="100%" fill="#1e1e1e" />
+  
+  <!-- Grid -->
+  <line x1="20" y1="180" x2="380" y2="180" class="grid" />
+  <text x="380" y="200" class="text" text-anchor="end">Frequency</text>
+  
+  <!-- Wide Bell (Low Q) -->
+  <path d="M20,180 C100,180 150,80 200,80 S300,180 380,180" fill="none" stroke="#10b981" stroke-width="3" stroke-dasharray="8 4"/>
+  <text x="300" y="100" class="text" fill="#10b981">Low Q (Wide/Musical)</text>
+  
+  <!-- Narrow Bell (High Q) -->
+  <path d="M20,180 C150,180 180,40 200,40 S220,180 380,180" fill="none" stroke="#ef4444" stroke-width="3" />
+  <text x="250" y="40" class="text" fill="#ef4444">High Q (Narrow/Surgical)</text>
+  
+  <!-- Center Freq -->
+  <line x1="200" y1="40" x2="200" y2="180" stroke="#666" stroke-dasharray="2" />
+  <text x="200" y="200" class="text" text-anchor="middle" fill="#aaa">Center Freq</text>
+  
+</svg>

@@ -1,0 +1,25 @@
+<svg width="400" height="300" xmlns="http://www.w3.org/2000/svg">
+  <rect width="100%" height="100%" fill="#1e1e1e" />
+  
+  <!-- Bass Line (Ducked) -->
+  <path d="M50,100 L100,100 Q120,200 140,100 L200,100 Q220,200 240,100 L350,100" fill="none" stroke="#3b82f6" stroke-width="4"/>
+  <text x="300" y="90" fill="#3b82f6" font-weight="bold">Bass (Pad)</text>
+  
+  <!-- Kick Drum (Trigger) -->
+  <g transform="translate(0, 50)">
+      <path d="M120,200 L120,150" stroke="#ef4444" stroke-width="3"/> <!-- Kick Hit 1 -->
+      <circle cx="120" cy="150" r="5" fill="#ef4444"/>
+      
+      <path d="M220,200 L220,150" stroke="#ef4444" stroke-width="3"/> <!-- Kick Hit 2 -->
+      <circle cx="220" cy="150" r="5" fill="#ef4444"/>
+      
+      <text x="170" y="220" fill="#ef4444" text-anchor="middle">Kick Drum (Trigger)</text>
+  </g>
+  
+  <!-- Arrows showing ducking -->
+  <line x1="120" y1="140" x2="120" y2="110" stroke="#fff" stroke-width="2" stroke-dasharray="2"/>
+  <line x1="220" y1="140" x2="220" y2="110" stroke="#fff" stroke-width="2" stroke-dasharray="2"/>
+  
+  <text x="200" y="280" fill="#fff" text-anchor="middle" font-size="16" font-weight="bold">Sidechain Ducking</text>
+  <text x="200" y="295" fill="#aaa" text-anchor="middle" font-size="12">Bass ducks when Kick hits</text>
+</svg>

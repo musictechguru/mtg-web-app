@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 250" preserveAspectRatio="xMidYMid meet">
+    <!-- Background -->
+    <rect width="800" height="250" fill="#1e293b" />
+    
+    <!-- Title -->
+    <text x="400" y="30" text-anchor="middle" fill="#fff" font-size="20" font-family="sans-serif" font-weight="bold">Recording Signal Flow</text>
+
+    <!-- 1. Mic -->
+    <g transform="translate(50, 80)">
+        <rect width="80" height="100" rx="5" fill="#334155" stroke="#94a3b8" stroke-width="2"/>
+        <text x="40" y="55" text-anchor="middle" fill="#fff" font-size="14">Mic</text>
+        <circle cx="40" cy="30" r="10" fill="#3b82f6" opacity="0.8"/>
+    </g>
+
+    <!-- Arrow 1 -->
+    <line x1="130" y1="130" x2="180" y2="130" stroke="#fff" stroke-width="2" marker-end="url(#arrow)" />
+
+    <!-- 2. Preamp -->
+    <g transform="translate(180, 80)">
+        <rect width="100" height="100" rx="5" fill="#334155" stroke="#fbbf24" stroke-width="2"/>
+        <text x="50" y="55" text-anchor="middle" fill="#fbbf24" font-size="14" font-weight="bold">Preamp</text>
+        <text x="50" y="80" text-anchor="middle" fill="#94a3b8" font-size="10">Gain Stage</text>
+    </g>
+
+    <!-- Arrow 2 -->
+    <line x1="280" y1="130" x2="330" y2="130" stroke="#fff" stroke-width="2" marker-end="url(#arrow)" />
+
+    <!-- 3. ADC -->
+    <g transform="translate(330, 80)">
+        <rect width="100" height="100" rx="5" fill="#334155" stroke="#10b981" stroke-width="2"/>
+        <text x="50" y="55" text-anchor="middle" fill="#10b981" font-size="14" font-weight="bold">A/D</text>
+        <text x="50" y="80" text-anchor="middle" fill="#94a3b8" font-size="10">Converter</text>
+        <path d="M 20 20 Q 50 10 80 20" fill="none" stroke="#fff" stroke-width="1" opacity="0.5"/> <!-- analog wave -->
+        <text x="50" y="40" text-anchor="middle" fill="#fff" font-size="8">↓</text>
+        <text x="50" y="95" text-anchor="middle" fill="#fff" font-family="monospace" font-size="8">10101</text> <!-- digital bits -->
+    </g>
+
+    <!-- Arrow 3 -->
+    <line x1="430" y1="130" x2="480" y2="130" stroke="#fff" stroke-width="2" marker-end="url(#arrow)" />
+
+    <!-- 4. Interface/USB -->
+    <g transform="translate(480, 80)">
+         <rect width="80" height="100" rx="5" fill="#334155" stroke="#94a3b8" stroke-width="2"/>
+         <text x="40" y="55" text-anchor="middle" fill="#fff" font-size="14">USB/TB</text>
+    </g>
+
+    <!-- Arrow 4 -->
+    <line x1="560" y1="130" x2="610" y2="130" stroke="#fff" stroke-width="2" marker-end="url(#arrow)" />
+
+    <!-- 5. Computer/DAW -->
+    <g transform="translate(610, 80)">
+        <rect width="120" height="100" rx="5" fill="#334155" stroke="#a855f7" stroke-width="2"/>
+        <text x="60" y="55" text-anchor="middle" fill="#a855f7" font-size="14" font-weight="bold">Computer</text>
+        <text x="60" y="80" text-anchor="middle" fill="#94a3b8" font-size="10">(DAW)</text>
+    </g>
+
+    <defs>
+        <marker id="arrow" markerWidth="10" markerHeight="7" refX="0" refY="3.5" orient="auto">
+            <polygon points="0 0, 10 3.5, 0 7" fill="#fff" />
+        </marker>
+    </defs>
+</svg>

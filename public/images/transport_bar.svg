@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 80">
+  <defs>
+    <style>
+      .btn { fill: #374151; stroke: #4b5563; stroke-width: 2; rx: 4; }
+      .icon { fill: #e5e7eb; }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="300" height="80" fill="#1f2937" rx="8" />
+
+  <!-- Rewind -->
+  <g transform="translate(20, 15)">
+    <rect width="50" height="50" class="btn" />
+    <polygon points="35,15 15,25 35,35" class="icon" />
+    <polygon points="25,15 5,25 25,35" class="icon" transform="translate(15,0)" />
+  </g>
+
+  <!-- Stop -->
+  <g transform="translate(80, 15)">
+    <rect width="50" height="50" class="btn" />
+    <rect x="15" y="15" width="20" height="20" class="icon" />
+  </g>
+
+  <!-- Play -->
+  <g transform="translate(140, 15)">
+    <rect width="50" height="50" class="btn" />
+    <polygon points="18,12 18,38 40,25" class="icon" fill="#10b981" />
+  </g>
+
+  <!-- Record -->
+  <g transform="translate(200, 15)">
+    <rect width="50" height="50" class="btn" />
+    <circle cx="25" cy="25" r="12" fill="#ef4444" />
+  </g>
+</svg>

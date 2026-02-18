@@ -1,0 +1,37 @@
+<svg width="400" height="300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto" fill="#fff">
+      <path d="M0,0 L0,6 L6,3 z" />
+    </marker>
+  </defs>
+  <rect width="100%" height="100%" fill="#1e1e1e" />
+  
+  <!-- Samples -->
+  <g transform="translate(100, 80)">
+    <circle cx="0" cy="0" r="30" fill="#3b82f6" stroke="#fff" stroke-width="2"/>
+    <text x="0" y="5" fill="#fff" text-anchor="middle" font-weight="bold">A</text>
+  </g>
+  
+  <g transform="translate(200, 200)">
+    <circle cx="0" cy="0" r="30" fill="#10b981" stroke="#fff" stroke-width="2"/>
+    <text x="0" y="5" fill="#fff" text-anchor="middle" font-weight="bold">B</text>
+  </g>
+  
+  <g transform="translate(300, 80)">
+    <circle cx="0" cy="0" r="30" fill="#ef4444" stroke="#fff" stroke-width="2"/>
+    <text x="0" y="5" fill="#fff" text-anchor="middle" font-weight="bold">C</text>
+  </g>
+  
+  <!-- Cycle Arrows -->
+  <path d="M130,80 Q200,50 270,80" fill="none" stroke="#fff" stroke-width="2" marker-end="url(#arrow)"/> <!-- A to C (Oops, C should be next? Let's do circle) -->
+  
+  <!-- Correct Circle: A -> B -> C -> A -->
+  <line x1="120" y1="100" x2="170" y2="170" stroke="#fff" stroke-width="2" marker-end="url(#arrow)"/> <!-- A -> B -->
+  <line x1="230" y1="200" x2="280" y2="110" stroke="#fff" stroke-width="2" marker-end="url(#arrow)"/> <!-- B -> C -->
+  <line x1="270" y1="80" x2="135" y2="80" stroke="#fff" stroke-width="2" marker-end="url(#arrow)"/> <!-- C -> A (Back) -->
+
+  <text x="200" y="140" fill="#aaa" text-anchor="middle">Cyclic Playback</text>
+  <text x="200" y="155" fill="#aaa" text-anchor="middle" font-size="10">(Avoids Machine Gun Effect)</text>
+
+  <text x="200" y="30" fill="#fff" text-anchor="middle" font-size="16" font-weight="bold">Round Robin Sampling</text>
+</svg>

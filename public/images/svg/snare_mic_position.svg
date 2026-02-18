@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" style="background-color:#1e1e1e; font-family:sans-serif;">
+    <defs>
+        <linearGradient id="drumShell" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" style="stop-color:#b45309" />
+            <stop offset="50%" style="stop-color:#d97706" />
+            <stop offset="100%" style="stop-color:#b45309" />
+        </linearGradient>
+    </defs>
+    
+    <text x="200" y="40" text-anchor="middle" fill="#fff" font-size="20" font-weight="bold">Snare Mic Placement</text>
+    
+    <!-- Snare Drum Side View -->
+    <rect x="100" y="150" width="200" height="80" fill="url(#drumShell)" stroke="#ccc" stroke-width="2"/>
+    <rect x="95" y="145" width="210" height="10" fill="#ddd"/> <!-- Top Rim -->
+    <rect x="95" y="225" width="210" height="10" fill="#ddd"/> <!-- Bottom Rim -->
+    
+    <!-- Mic (SM57 style) -->
+    <g transform="translate(80, 110) rotate(45)">
+        <rect x="0" y="0" width="20" height="80" fill="#333" rx="2"/>
+        <rect x="2" y="-5" width="16" height="10" fill="#111"/> <!-- Grill -->
+        <rect x="0" y="80" width="15" height="40" fill="#111"/> <!-- Clip/Cable area -->
+    </g>
+    
+    <!-- Sound Waves -->
+    <path d="M 150 140 Q 160 120 180 130" stroke="#60a5fa" stroke-width="2" fill="none"/>
+    <path d="M 140 130 Q 150 110 170 120" stroke="#60a5fa" stroke-width="2" fill="none"/>
+
+    <text x="200" y="280" text-anchor="middle" fill="#aaa" font-size="14">Angle captures both attack &amp; body</text>
+</svg>

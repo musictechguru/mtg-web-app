@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 150">
+  <defs>
+    <style>
+      .curve { fill: none; stroke: #8b5cf6; stroke-width: 3; }
+      .grid { stroke: #e5e7eb; stroke-width: 1; }
+    </style>
+  </defs>
+
+  <!-- Axes -->
+  <line x1="20" y1="20" x2="20" y2="130" stroke="#374151" stroke-width="2" /> <!-- dB -->
+  <line x1="20" y1="130" x2="280" y2="130" stroke="#374151" stroke-width="2" /> <!-- Pan Position -->
+  
+  <text x="20" y="15" text-anchor="middle" font-family="sans-serif" font-size="10">0dB</text>
+  <text x="20" y="80" text-anchor="end" font-family="sans-serif" font-size="10">-3dB</text>
+
+  <!-- Curve -->
+  <path d="M20 20 Q 150 140 280 20" class="curve" />
+  
+  <!-- Center Mark -->
+  <line x1="150" y1="20" x2="150" y2="130" stroke="#9ca3af" stroke-dasharray="4" />
+  <text x="150" y="145" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold">Center</text>
+  
+  <text x="150" y="100" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#8b5cf6">Attenuated to Prevent Volume Boost</text>
+</svg>

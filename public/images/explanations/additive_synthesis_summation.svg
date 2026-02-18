@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" style="background-color: #1a1a1a; font-family: sans-serif;">
+  <!-- Component Waves -->
+  <text x="50" y="30" fill="#aaa" font-size="14">Fundamental (Sine)</text>
+  <path d="M50 80 Q150 20 250 80 T450 80 T650 80" fill="none" stroke="#00ccff" stroke-width="2" opacity="0.6"/>
+  
+  <text x="50" y="130" fill="#aaa" font-size="14">+ Harmonic 1 (Higher Freq)</text>
+  <path d="M50 160 Q100 130 150 160 T250 160 T350 160" fill="none" stroke="#00ccff" stroke-width="2" opacity="0.6"/>
+
+  <text x="50" y="210" fill="#aaa" font-size="14">+ Harmonic 2 (Even Higher)</text>
+  <path d="M50 240 Q75 220 100 240 T150 240" fill="none" stroke="#00ccff" stroke-width="2" opacity="0.6"/>
+
+  <!-- Summation Arrow -->
+  <text x="400" y="300" fill="#fff" text-anchor="middle" font-size="24" font-weight="bold">+</text>
+  <path d="M400 320 L400 360" stroke="#fff" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Resulting Complex Wave -->
+  <rect x="50" y="380" width="700" height="100" fill="#222" rx="10"/>
+  <text x="400" y="420" fill="#00ffcc" text-anchor="middle" font-weight="bold" font-size="18">COMPLEX TONE (e.g. Square/Saw)</text>
+  <!-- Approximate square wave shape built from sines -->
+  <path d="M100 450 L150 400 L250 400 L300 450 L350 500 L450 500 L500 450" fill="none" stroke="#00ffcc" stroke-width="4"/>
+
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#fff" />
+    </marker>
+  </defs>
+</svg>

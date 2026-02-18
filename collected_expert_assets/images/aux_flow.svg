@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200">
+  <defs>
+    <style>
+      .box { fill: #f3f4f6; stroke: #4b5563; stroke-width: 2; rx: 4; }
+      .main-path { fill: none; stroke: #374151; stroke-width: 3; marker-end: url(#arrowhead-black); }
+      .aux-path { fill: none; stroke: #10b981; stroke-width: 3; stroke-dasharray: 5 5; marker-end: url(#arrowhead-green); }
+      .text { font-family: sans-serif; font-size: 12px; text-anchor: middle; fill: #374151; }
+    </style>
+    <marker id="arrowhead-black" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#374151" />
+    </marker>
+    <marker id="arrowhead-green" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#10b981" />
+    </marker>
+  </defs>
+
+  <!-- Input -->
+  <rect x="20" y="80" width="60" height="40" class="box" />
+  <text x="50" y="105" class="text">Input</text>
+
+  <!-- Split Point -->
+  <circle cx="110" cy="100" r="4" fill="#374151" />
+
+  <!-- Main Path -->
+  <path d="M80 100 H 260" class="main-path" />
+  <text x="180" y="90" class="text">Dry Signal</text>
+
+  <!-- Aux Path -->
+  <path d="M110 100 V 150 H 150" class="aux-path" />
+  <rect x="150" y="130" width="80" height="40" class="box" fill="#d1fae5" stroke="#10b981" />
+  <text x="190" y="155" class="text">Reverb (Aux)</text>
+  
+  <rect x="300" y="80" width="60" height="40" class="box" />
+  <text x="330" y="105" class="text">Mix Bus</text>
+  
+  <!-- Return Path -->
+  <path d="M230 150 H 280 V 110" class="aux-path" />
+  <path d="M260 100 H 300" class="main-path" />
+
+  <text x="200" y="40" class="text" font-size="16" font-weight="bold" fill="#10b981">PARALLEL FLOW</text>
+</svg>

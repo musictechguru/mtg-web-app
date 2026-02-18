@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" style="background-color:#1e1e1e; font-family:sans-serif;">
+    <defs>
+        <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+            <path d="M0,0 L0,6 L9,3 z" fill="#fff" />
+        </marker>
+    </defs>
+    
+    <!-- Title -->
+    <text x="400" y="40" text-anchor="middle" fill="#ffffff" font-size="24" font-weight="bold">Sound vs Audio</text>
+
+    <!-- Source (Voice) -->
+    <g transform="translate(100, 150)">
+        <circle cx="50" cy="50" r="40" fill="#3b82f6" opacity="0.8"/>
+        <text x="50" y="55" text-anchor="middle" fill="#fff" font-size="14">Voice</text>
+        <text x="50" y="110" text-anchor="middle" fill="#aaa" font-size="12">Source</text>
+    </g>
+
+    <!-- Connection -->
+    <path d="M 200 200 Q 250 150 300 200" fill="none" stroke="#fff" stroke-width="2" marker-end="url(#arrow)"/>
+    <text x="250" y="140" text-anchor="middle" fill="#e0e0e0" font-size="14">Sound Waves</text>
+    <text x="250" y="160" text-anchor="middle" fill="#888" font-size="12">(Air Pressure)</text>
+
+    <!-- Microphone -->
+    <g transform="translate(350, 150)">
+        <rect x="20" y="10" width="60" height="80" rx="10" fill="#ec4899" opacity="0.8"/>
+        <text x="50" y="55" text-anchor="middle" fill="#fff" font-size="14">Mic</text>
+        <text x="50" y="110" text-anchor="middle" fill="#aaa" font-size="12">Transducer</text>
+    </g>
+
+    <!-- Connection -->
+    <path d="M 450 200 Q 500 250 550 200" fill="none" stroke="#fff" stroke-width="2" marker-end="url(#arrow)"/>
+    <text x="500" y="270" text-anchor="middle" fill="#e0e0e0" font-size="14">Audio Signal</text>
+    <text x="500" y="290" text-anchor="middle" fill="#888" font-size="12">(Voltage)</text>
+
+    <!-- Destination (Preamplifier) -->
+    <g transform="translate(600, 150)">
+        <rect x="10" y="20" width="80" height="60" fill="#facc15" opacity="0.8"/>
+        <text x="50" y="55" text-anchor="middle" fill="#000" font-size="14">Preamp</text>
+        <text x="50" y="110" text-anchor="middle" fill="#aaa" font-size="12">Amplifier</text>
+    </g>
+
+</svg>

@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" preserveAspectRatio="xMidYMid meet">
+    <!-- Background -->
+    <rect width="800" height="400" fill="#1e293b" />
+    
+    <!-- Title -->
+    <text x="400" y="40" text-anchor="middle" fill="#fff" font-size="24" font-family="sans-serif" font-weight="bold">D/A Conversion (Playback)</text>
+
+    <!-- 1. Digital Input -->
+    <!-- Binary Stream -->
+    <g transform="translate(100, 150)">
+        <text x="0" y="0"  fill="#10b981" font-family="monospace" font-size="20">10110</text>
+        <text x="0" y="30"  fill="#10b981" font-family="monospace" font-size="20">01101</text>
+        <text x="0" y="60"  fill="#10b981" font-family="monospace" font-size="20">11001</text>
+    </g>
+    <text x="130" y="350" text-anchor="middle" fill="#10b981" font-size="16">Digital Source</text>
+    <text x="130" y="370" text-anchor="middle" fill="#94a3b8" font-size="12">(From DAW)</text>
+
+    <!-- Arrow -->
+    <path d="M 220 200 L 260 200" stroke="#fff" stroke-width="2" marker-end="url(#arrow)" />
+
+    <!-- 2. The Converter (DAC Chip) -->
+    <rect x="280" y="100" width="140" height="200" fill="#334155" stroke="#cbd5e1" stroke-width="2" rx="5" />
+    <text x="350" y="150" text-anchor="middle" fill="#fff" font-size="18" font-weight="bold">DAC</text>
+    <text x="350" y="270" text-anchor="middle" fill="#94a3b8" font-size="12">Reconstruction</text>
+    
+    <!-- Staircase to smooth curve icon -->
+    <polyline points="310 220, 320 220, 320 200, 330 200" fill="none" stroke="#10b981" stroke-width="2"/>
+    <text x="350" y="220" text-anchor="middle" fill="#fff" font-size="14">→</text>
+    <path d="M 370 220 Q 380 200 390 220" fill="none" stroke="#f43f5e" stroke-width="2"/>
+
+    <!-- Arrow -->
+    <path d="M 440 200 L 480 200" stroke="#fff" stroke-width="2" marker-end="url(#arrow)" />
+
+    <!-- 3. Analog Output -->
+    <!-- Speaker & Waves -->
+    <g transform="translate(550, 150)">
+        <!-- Speaker Box -->
+        <rect x="0" y="0" width="80" height="100" fill="#475569" stroke="#94a3b8" stroke-width="2"/>
+        <circle cx="40" cy="50" r="30" fill="#1e293b" stroke="#f43f5e" stroke-width="2"/> <!-- Cone -->
+        
+        <!-- Sound Waves coming out -->
+        <path d="M 90 20 Q 110 50 90 80" fill="none" stroke="#fff" stroke-width="2" opacity="0.6"/>
+        <path d="M 100 10 Q 130 50 100 90" fill="none" stroke="#fff" stroke-width="2" opacity="0.8"/>
+    </g>
+    
+    <text x="600" y="350" text-anchor="middle" fill="#f43f5e" font-size="16">Analog Output</text>
+    <text x="600" y="370" text-anchor="middle" fill="#94a3b8" font-size="12">(To Speakers/Ears)</text>
+
+    <defs>
+        <marker id="arrow" markerWidth="10" markerHeight="7" refX="0" refY="3.5" orient="auto">
+            <polygon points="0 0, 10 3.5, 0 7" fill="#fff" />
+        </marker>
+    </defs>
+</svg>

@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" style="background-color:white;">
+  <style>
+    .label { font-family: sans-serif; font-size: 14px; text-anchor: middle; }
+    .mic { fill: #ccc; stroke: black; stroke-width: 2; }
+    .axis { stroke-width: 2; stroke-dasharray: 4,4; }
+  </style>
+
+  <!-- Mic Body -->
+  <rect x="190" y="230" width="20" height="60" class="mic" fill="#555"/>
+  <!-- Mic Head -->
+  <circle cx="200" cy="230" r="15" fill="#888" stroke="black" stroke-width="2"/>
+
+  <!-- On Axis Line (0 deg) -->
+  <line x1="200" y1="215" x2="200" y2="50" stroke="green" stroke-width="3" />
+  <text x="200" y="40" class="label" fill="green" font-weight="bold">On-Axis (0°)</text>
+
+  <!-- Off Axis Line (45 deg) -->
+  <!-- x = 200 + 170*sin(45) = 320. y = 230 - 170*cos(45) = 110 -->
+  <line x1="200" y1="215" x2="320" y2="100" stroke="red" stroke-width="3" />
+  <text x="340" y="90" class="label" fill="red" font-weight="bold">Off-Axis</text>
+  
+  <text x="200" y="280" class="label">Microphone</text>
+  
+  <!-- Arc -->
+  <path d="M 200,150 A 80,80 0 0 1 260,165" fill="none" stroke="#aaa" stroke-width="1" />
+  <text x="245" y="155" class="label" font-size="10" fill="#666">Coloration Zone</text>
+
+</svg>

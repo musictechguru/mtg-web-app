@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <defs>
+    <linearGradient id="meterGrad" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" style="stop-color:#00ff00;stop-opacity:1" />
+      <stop offset="60%" style="stop-color:#ffff00;stop-opacity:1" />
+      <stop offset="85%" style="stop-color:#ff9900;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ff0000;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="400" height="300" fill="#1a1a1a" rx="10"/>
+  
+  <!-- Meter Background -->
+  <rect x="100" y="30" width="60" height="240" fill="#333" rx="5" stroke="#555" stroke-width="2"/>
+  
+  <!-- Meter Level (Signal) -->
+  <rect x="105" y="100" width="50" height="165" fill="url(#meterGrad)" rx="3"/>
+  
+  <!-- Scale Markings -->
+  <line x1="95" y1="30" x2="100" y2="30" stroke="#fff" stroke-width="1"/>
+  <text x="85" y="35" fill="#fff" font-family="Arial" font-size="12" text-anchor="end">0dB (Clip)</text>
+  
+  <line x1="95" y1="100" x2="100" y2="100" stroke="#fff" stroke-width="1"/>
+  <text x="85" y="105" fill="#fff" font-family="Arial" font-size="12" text-anchor="end">-12dB (Peak)</text>
+  
+  <line x1="95" y1="270" x2="100" y2="270" stroke="#fff" stroke-width="1"/>
+  <text x="85" y="275" fill="#fff" font-family="Arial" font-size="12" text-anchor="end">-inf</text>
+
+  <!-- Headroom Arrow & Label -->
+  <line x1="180" y1="30" x2="180" y2="100" stroke="#00ccff" stroke-width="2" marker-end="url(#arrowhead)" marker-start="url(#arrowhead)"/>
+  <text x="190" y="70" fill="#00ccff" font-family="Arial" font-size="18" font-weight="bold">HEADROOM</text>
+  <text x="190" y="90" fill="#ccc" font-family="Arial" font-size="12">Safety Zone</text>
+  
+  <!-- Definitions -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="0" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#00ccff" />
+    </marker>
+  </defs>
+</svg>

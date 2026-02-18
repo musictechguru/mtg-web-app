@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 500" style="background-color: #222; font-family: sans-serif;">
+  <text x="300" y="40" fill="#fff" text-anchor="middle" font-size="20" font-weight="bold">MULTI-SAMPLING DIMENSIONS</text>
+
+  <!-- Base: Keys -->
+  <rect x="100" y="400" width="400" height="40" fill="#fff" stroke="#000"/>
+  <line x1="100" y1="400" x2="500" y2="400" stroke="#000" stroke-width="2"/>
+  <!-- Black keys pattern roughly -->
+  <g transform="translate(100, 400)">
+     <rect x="10" y="0" width="10" height="25" fill="#000"/>
+     <rect x="30" y="0" width="10" height="25" fill="#000"/>
+     <text x="200" y="30" fill="#000" text-anchor="middle" font-weight="bold">88 KEYS (Pitch)</text>
+  </g>
+
+  <!-- Vertical Stack: Velocity Layers -->
+  <g transform="translate(150, 200)">
+    <rect x="0" y="0" width="80" height="150" fill="#444" stroke="#888" opacity="0.8"/>
+    <rect x="0" y="120" width="80" height="30" fill="#00ccff" opacity="0.3"/><text x="40" y="140" fill="#fff" font-size="10" text-anchor="middle">Vel 1-20</text>
+    <rect x="0" y="90" width="80" height="30" fill="#00ccff" opacity="0.5"/><text x="40" y="110" fill="#fff" font-size="10" text-anchor="middle">Vel 21-60</text>
+    <rect x="0" y="60" width="80" height="30" fill="#00ccff" opacity="0.7"/><text x="40" y="80" fill="#fff" font-size="10" text-anchor="middle">Vel 61-100</text>
+    <rect x="0" y="30" width="80" height="30" fill="#00ccff" opacity="0.9"/><text x="40" y="50" fill="#fff" font-size="10" text-anchor="middle">Vel 101-127</text>
+    <text x="-20" y="80" fill="#00ccff" transform="rotate(-90 -20,80)">Velocity Layers</text>
+  </g>
+
+  <!-- Z-Axis: Round Robins -->
+  <g transform="translate(250, 220)">
+     <rect x="0" y="0" width="60" height="60" fill="#ff5555" stroke="#fff" stroke-width="2"/>
+     <text x="30" y="35" fill="#fff" text-anchor="middle" font-size="24">RR1</text>
+  </g>
+  <g transform="translate(270, 200)">
+     <rect x="0" y="0" width="60" height="60" fill="#ff5555" stroke="#fff" stroke-width="2"/>
+     <text x="30" y="35" fill="#fff" text-anchor="middle" font-size="24">RR2</text>
+  </g>
+  <g transform="translate(290, 180)">
+     <rect x="0" y="0" width="60" height="60" fill="#ff5555" stroke="#fff" stroke-width="2"/>
+     <text x="30" y="35" fill="#fff" text-anchor="middle" font-size="24">RR3</text>
+  </g>
+  <text x="370" y="220" fill="#ff5555">Round Robins</text>
+  <text x="370" y="240" fill="#aaa" font-size="12">(Variations per note)</text>
+</svg>

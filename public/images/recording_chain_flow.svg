@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 200">
+  <defs>
+    <style>
+      .box { fill: white; stroke: #333; stroke-width: 2; rx: 10; }
+      .arrow { stroke: #00d1b2; stroke-width: 3; fill: none; stroke-dasharray: 10; animation: flow 1s linear infinite; }
+      .text { font-family: Arial; font-size: 14px; text-anchor: middle; fill: #333; }
+      @keyframes flow { to { stroke-dashoffset: -20; } }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#00d1b2"/>
+    </marker>
+  </defs>
+  <rect width="800" height="200" fill="#f8f9fa"/>
+  
+  <!-- Step 1: Source -->
+  <g transform="translate(50, 75)">
+    <rect width="100" height="50" class="box"/>
+    <text x="50" y="30" class="text">Source</text>
+  </g>
+  
+  <!-- Arrow -->
+  <line x1="150" y1="100" x2="200" y2="100" class="arrow" marker-end="url(#arrowhead)"/>
+  
+  <!-- Step 2: Mic -->
+  <g transform="translate(200, 75)">
+    <rect width="100" height="50" class="box"/>
+    <text x="50" y="30" class="text">Microphone</text>
+  </g>
+  
+  <!-- Arrow -->
+  <line x1="300" y1="100" x2="350" y2="100" class="arrow" marker-end="url(#arrowhead)"/>
+  
+  <!-- Step 3: Preamp -->
+  <g transform="translate(350, 75)">
+    <rect width="100" height="50" class="box"/>
+    <text x="50" y="30" class="text">Preamp</text>
+  </g>
+  
+  <!-- Arrow -->
+  <line x1="450" y1="100" x2="500" y2="100" class="arrow" marker-end="url(#arrowhead)"/>
+  
+  <!-- Step 4: ADC -->
+  <g transform="translate(500, 75)">
+    <rect width="100" height="50" class="box"/>
+    <text x="50" y="30" class="text">A/D Converter</text>
+  </g>
+  
+  <!-- Arrow -->
+  <line x1="600" y1="100" x2="650" y2="100" class="arrow" marker-end="url(#arrowhead)"/>
+  
+  <!-- Step 5: DAW -->
+  <g transform="translate(650, 75)">
+    <rect width="100" height="50" class="box" stroke="#00d1b2"/>
+    <text x="50" y="30" class="text" font-weight="bold">DAW</text>
+  </g>
+</svg>

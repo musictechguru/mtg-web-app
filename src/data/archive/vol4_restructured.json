@@ -1,0 +1,310 @@
+{
+  "id": "vol4",
+  "title": "Volume 4: Sampling & Sequencing",
+  "parts": [
+    {
+      "id": "p1",
+      "title": "Part 1: Sampling Editing",
+      "topics": [
+        {
+          "title": "Sample Editing Techniques",
+          "sections": [
+            {
+              "title": "Cutting/Trimming",
+              "text": "**Removing unwanted portions from beginning or end of sample.**\n\n**Process:**\n1. Load sample into editor\n2. Identify desired section (zoom in for precision)\n3. Set start point (beginning of wanted audio)\n4. Set end point (end of wanted audio)\n5. Crop/trim to selection\n\n**Why Important:**\n- Removes silence (saves memory, faster loading)\n- Removes unwanted sounds (breaths, noise, bleed)\n- Creates clean sample boundaries\n- Reduces file size\n\n**Best Practices:**\n- Zoom in to sample level (see individual samples)\n- Don't cut too close (may create clicks)\n- Leave tiny bit of silence (3-10ms) before transient\n- Check fade-in/out needed after trim\n- Save original (non-destructive workflow)\n\n**Common Mistakes:**\n- Cutting too close to transient (creates click)\n- Removing natural decay (sample sounds unnatural)\n- Not checking for silence before first sound\n- Cutting in middle of waveform (creates DC offset)\n\n**Applications:** All sample editing, drum sample preparation, loop creation, vocal sample cleanup.\n\n---"
+            },
+            {
+              "title": "Zero-Crossing Edits",
+              "text": "**Making cuts only at zero-crossing points where waveform crosses zero amplitude.**\n\n**What are Zero Crossings:**\n- Points where waveform amplitude = 0\n- Crosses from positive to negative (or vice versa)\n- Natural points for clean cuts\n- Occur many times per second (frequency-dependent)\n\n**Why Zero Crossings:**\n- Prevents clicks (cutting mid-waveform creates discontinuity)\n- Clean edits (no pop or artifact)\n- Seamless transitions (when cutting and moving)\n- Professional standard\n\n**How to Find:**\n- Most editors: \"Snap to Zero Crossing\" option\n- Automatically finds nearest zero crossing to cursor\n- Visual: look for waveform crossing center line\n- Zoom in: verify exact zero point\n\n**When Essential:**\n- Cutting samples\n- Loop points (critical for seamless loops)\n- Editing percussive material\n- Any sample manipulation\n\n**When Less Critical:**\n- When using crossfades (fade smooths discontinuity)\n- Very short edits (<1ms)\n- Material with continuous sound\n\n**Professional Practice:** Always enable \"Snap to Zero Crossing\" when editing. Only disable for specific creative effects or when using crossfades.\n\n---"
+            },
+            {
+              "title": "Fades (In/Out)",
+              "text": "**Gradually increasing (fade in) or decreasing (fade out) volume at sample boundaries.**\n\n**Fade In:**\n- Start: 0% volume (silence)\n- End: 100% volume (full sample)\n- Duration: 1ms-5000ms depending on application\n- Prevents: clicks at sample start\n- Smooths: entry into sound\n\n**Fade Out:**\n- Start: 100% volume (full sample)\n- End: 0% volume (silence)\n- Duration: 10ms-10000ms depending on application\n- Creates: natural decay\n- Removes: abrupt ending\n\n**Fade Curves:**\n- **Linear:** Straight line volume change (mathematical, can sound unnatural)\n- **Exponential:** Curved (sounds more natural to human ear)\n- **Logarithmic:** Inverse curve\n- **S-Curve:** Slow start, fast middle, slow end\n\n**Fade Durations by Application:**\n- **Percussive (drums, hits):** 1-10ms (just removes click)\n- **Sustaining instruments:** 20-100ms in, 100-1000ms out\n- **Ambient/pads:** 500-3000ms (smooth, atmospheric)\n- **Crossfades between samples:** 20-50ms typical\n\n**Applications:**\n- Remove clicks at boundaries\n- Create smooth transitions\n- Natural decay simulation\n- Crossfading between samples\n- Loop points (crossfade loop end to start)\n\n**Best Practices:**\n- Shorter fades: percussive material (preserve attack)\n- Longer fades: sustained material (smooth and natural)\n- Exponential curves: usually sound more natural than linear\n- Test fade length: too long = loss of attack, too short = click\n- Crossfades: overlap region equal to fade length\n\n---"
+            },
+            {
+              "title": "Crossfade Looping",
+              "text": "**Creating seamless loop by crossfading loop end into loop start.**\n\n**Process:**\n1. Find loop start point (zero crossing)\n2. Find loop end point (zero crossing, compatible phase)\n3. Create overlap region (loop end overlaps start)\n4. Crossfade: end fades out while start fades in\n5. Result: seamless continuous loop\n\n**Crossfade Length:**\n- Short (10-50ms): percussive, rhythmic material\n- Medium (50-200ms): sustained tones, pads\n- Long (200-1000ms): ambient, atmospheric\n\n**Loop Point Selection:**\n- Similar waveform shapes at start/end (visual matching)\n- Same phase relationship (positive-to-positive or negative-to-negative)\n- Matching frequency content (spectral similarity)\n- Similar amplitude (level matching)\n\n**Why Crossfading:**\n- Prevents click/pop at loop point\n- Smooths timbral differences\n- Creates seamless sustain\n- Professional loop quality\n\n**Challenges:**\n- Pitched material: must loop at exact wavelength multiple\n- Evolving sounds: hard to find matching sections\n- Short samples: limited loop options\n\n**Applications:**\n- Sampler instruments (sustain portion of samples)\n- Pad sounds (continuous sustain)\n- Drones (infinite sustain)\n- Sound design (seamless textures)\n\n**Professional Tip:** Loop to exact wavelength multiples for pitched material (use tempo/BPM calculator). For example, at 440Hz A4, one wavelength = 109.4 samples at 48kHz.\n\n---"
+            },
+            {
+              "title": "Reverse Samples",
+              "text": "**Playing sample backwards creating reversed effect.**\n\n**Process:**\n1. Select sample or region\n2. Apply reverse function (flips sample end-to-start)\n3. Result: playback from end to beginning\n\n**Sound Characteristics:**\n- Reversed attack/decay (decay becomes attack, attack becomes decay)\n- Unnatural, ethereal quality\n- Smooth fade-in (from reversed decay)\n- Abrupt ending (reversed attack)\n\n**Applications:**\n- **Reverse cymbals:** Crash becomes rising whoosh (common in transitions)\n- **Reverse reverb:** Reverb tail before dry signal (psychedelic, special effect)\n- **Reverse vocals:** Unintelligible, textural (experimental, hip-hop)\n- **Reverse snare:** Rising snare (fill endings, drops)\n- **Creative effects:** Any reversed sound for unique textures\n\n**Techniques:**\n- Reverse cymbal before drop (EDM standard)\n- Reverse reverb on vocals (Beatles, psychedelic rock)\n- Reverse kick/snare in patterns (glitch, experimental)\n- Layer reversed with forward (thick, complex)\n\n**Famous Uses:**\n- \"Tomorrow Never Knows\" (Beatles - reversed guitar, vocals)\n- EDM builds (reversed crash cymbals)\n- Film sound design (reversed sounds create tension)\n\n**Processing Reversed Samples:**\n- Add reverb to reversed sample (becomes reversed reverb when played forward)\n- Time-stretch reversed samples (elongate whoosh effects)\n- Pitch-shift reversed material (change character)\n\n---"
+            },
+            {
+              "title": "Normalize",
+              "text": "**Increasing overall level of sample to maximum without clipping.**\n\n**Process:**\n1. Scan entire sample for highest peak\n2. Calculate gain needed to bring peak to 0dBFS (or target level)\n3. Apply equal gain to entire sample\n4. Result: loudest possible sample without distortion\n\n**Peak Normalization:**\n- Finds highest peak in sample\n- Brings peak to 0dBFS or specified level (e.g., -0.3dBFS, -1dBFS)\n- All samples increased by same amount\n- Preserves dynamic relationships\n\n**RMS Normalization:**\n- Normalizes based on average level (RMS) not peak\n- More consistent perceived loudness\n- Can create clipping if peaks much higher than average\n\n**When to Use:**\n- Samples too quiet (maximize signal)\n- Consistent level across sample library\n- Before further processing (optimal level)\n- Final export (maximum loudness)\n\n**When NOT to Use:**\n- Sample already at good level (unnecessary)\n- Want to preserve relative levels between samples\n- Peak is short transient with quiet body (RMS better)\n\n**Target Levels:**\n- **-0.3dBFS:** Safe maximum (leaves tiny headroom for interpolation)\n- **-1dBFS:** Conservative (leaves clear headroom)\n- **-6dBFS:** Processing headroom (leaves room for effects)\n\n**Alternatives:**\n- **Compression:** Makes quiet parts louder (changes dynamics)\n- **Limiting:** Prevents peaks, raises average level\n- **Manual gain:** Specific amount of gain\n\n**Professional Practice:** Normalize to -0.3dBFS or -1dBFS for final samples. Leave more headroom (-6dB) if further processing planned.\n\n---"
+            },
+            {
+              "title": "DC Offset Removal",
+              "text": "**Removing DC offset - unwanted shift of waveform above or below zero line.**\n\n**What is DC Offset:**\n- Waveform centered above or below 0V (zero line)\n- Should oscillate equally around zero\n- Offset = average value not zero\n- Visual: waveform appears shifted up or down\n\n**Causes:**\n- Poor A/D converter calibration\n- Recording hardware issues\n- Some audio processing\n- Asymmetrical waveforms\n\n**Problems Caused:**\n- Wasted headroom (limits maximum level)\n- Click at loop points (non-zero value)\n- Artifacts when processing (especially reversing)\n- Encoding errors (some formats)\n- Reduces effective bit depth\n\n**How to Fix:**\n1. Detect: Check waveform (should be centered)\n2. Measure: Tools show DC offset value\n3. Remove: High-pass filter at 5-10Hz OR DC offset removal tool\n4. Verify: Waveform now centered\n\n**Detection:**\n- Visual: Waveform shifted up/down\n- Meters: DC offset measurement tool\n- Audio: Click when looping\n\n**Removal Methods:**\n- **DC Offset Removal Filter:** Dedicated tool (best, preserves audio)\n- **High-Pass Filter:** 5-10Hz HPF (simple, effective)\n- **Fade In/Out:** From/to zero (crude but works)\n\n**Professional Practice:** Always check for and remove DC offset before normalization, export, or loop creation. Standard step in mastering.\n\n---"
+            },
+            {
+              "title": "Time-Stretching",
+              "text": "**Changing duration of sample without affecting pitch.**\n\n**Algorithms:**\n- **WSOLA (Waveform Similarity Overlap-Add):** Good quality, moderate CPU\n- **Phase Vocoder:** Classic algorithm, good for moderate changes\n- **\u00c9lastique:** High quality, professional (Pro Tools, Logic)\n- **Zplane:** Modern, excellent quality (Ableton)\n- **Paulstretch:** Extreme stretching (100x+), creates drones\n\n**Quality Factors:**\n- Amount of stretch (less = better quality)\n- Algorithm choice (modern = better)\n- Source material type (some stretch better)\n- Processing settings (formant preservation, etc.)\n\n**Stretch Amounts:**\n- **Subtle (90-110%):** Excellent quality, nearly transparent\n- **Moderate (75-125%):** Good quality, acceptable artifacts\n- **Significant (50-150%):** Noticeable artifacts, musical still\n- **Extreme (25-200%):** Obvious artifacts, creative use\n- **Ultra (10-1000%+):** Dramatic artifacts, sound design\n\n**Artifacts:**\n- Phasiness, chorusing (moderate stretching)\n- Warbling, metallic (significant stretching)\n- Granular texture (extreme stretching)\n- Formant shifting (pitch character changes)\n\n**Applications:**\n- **Beat matching:** Tempo sync without pitch change\n- **Vocal timing:** Fit vocals to track\n- **Sound design:** Create evolving textures\n- **Remix/mashup:** Match song tempos\n- **Paulstretch:** Create ambient drones from short sounds\n\n**Best Practices:**\n- Use highest quality algorithm available\n- Smaller changes sound better (chain multiple small changes)\n- Enable formant preservation for vocals\n- Render/bounce after stretching (save CPU)\n\n---"
+            },
+            {
+              "title": "Pitch-Shifting",
+              "text": "**Changing pitch of sample without affecting duration.**\n\n**Methods:**\n- **Resampling + Time-Stretch:** Change pitch via sample rate, time-stretch back to original duration\n- **Granular:** Granular synthesis-based (good for large shifts)\n- **Formant-Preserving:** Maintains vocal character (better for vocals)\n- **FFT-Based:** Frequency domain processing (modern, high quality)\n\n**Shift Amounts:**\n- **Subtle (\u00b11-3 semitones):** Excellent quality, tuning correction\n- **Moderate (\u00b15-7 semitones):** Good quality, noticeable but musical\n- **Large (\u00b112 semitones/1 octave):** Noticeable artifacts, still usable\n- **Extreme (\u00b124+ semitones):** Heavy artifacts, creative effect\n\n**Formant Preservation:**\n- Maintains vocal character when shifting\n- Essential for realistic vocal pitch correction\n- Prevents \"chipmunk\" (shifted up) or \"monster\" (shifted down) effect\n- Enable for: vocals, speech\n- Disable for: creative effects, instruments\n\n**Applications:**\n- **Pitch correction:** Fix out-of-tune notes (\u00b150 cents)\n- **Harmony creation:** Generate harmonies from single vocal\n- **Transposition:** Change key without re-recording\n- **Creative effects:** Extreme shifts for special effects\n- **Sound design:** Create variations from single sample\n\n**Quality Tips:**\n- Modern algorithms (Melodyne, \u00c9lastique) = best quality\n- Formant preservation ON for vocals\n- Multiple small shifts better than one large shift\n- Some sources shift better (sustained tones vs transients)\n\n---"
+            },
+            {
+              "title": "Destructive vs Non-Destructive Editing",
+              "text": "**Permanent changes to audio file vs. reversible edits.**\n\n**Destructive Editing:**\n- Permanently alters original audio file\n- Changes written to disk immediately\n- Cannot undo after saving\n- Original data lost forever\n- Faster (no real-time processing needed)\n- Less CPU (no processing during playback)\n\n**Non-Destructive Editing:**\n- Original file remains untouched\n- Edits stored as instructions/metadata\n- Unlimited undo (until close session)\n- Can revert to original anytime\n- Requires CPU (processing during playback)\n- More flexible\n\n**Modern Standard:** Non-destructive by default in all DAWs.\n\n**When Destructive Necessary:**\n- Rendering effects permanently (save CPU)\n- Preparing final files (sample libraries)\n- Editing in waveform editor (often destructive)\n- Certain batch processing\n\n**Professional Practice:**\n- Keep original files always (backup)\n- Use non-destructive when possible\n- Render destructively only when final\n- \"Bounce in place\" creates new file (keeps original)\n\n---"
+            }
+          ],
+          "original_file": "MT_Dictionary_Volume_4_Sampling_Part1.md",
+          "id": "t1"
+        }
+      ]
+    },
+    {
+      "id": "p2",
+      "title": "Part 2: Digital Audio Theory",
+      "topics": [
+        {
+          "title": "Digital Audio Theory",
+          "sections": [
+            {
+              "title": "Bit Depth (Complete)",
+              "text": "**Number of bits used to represent each sample's amplitude.**\n\n**Bit Depth Values:**\n- **8-bit:** 256 possible levels (2^8), 48dB dynamic range\n- **16-bit:** 65,536 levels (2^16), 96dB dynamic range (CD quality)\n- **24-bit:** 16,777,216 levels (2^24), 144dB dynamic range (professional)\n- **32-bit float:** ~16.7 million levels with floating point, ~1,680dB dynamic range\n\n**Formula:** Dynamic Range (dB) = Bit Depth \u00d7 6.02\n\n**Each Bit:**\n- Adds approximately 6dB of dynamic range\n- Doubles number of possible amplitude values\n- Lowers noise floor by 6dB\n\n**16-bit Characteristics:**\n- CD standard (Red Book audio)\n- 96dB dynamic range (adequate for listening)\n- Quantization noise audible in very quiet passages\n- Requires dithering when mastering\n- Limited headroom for processing\n\n**24-bit Characteristics:**\n- Professional recording/mixing standard\n- 144dB dynamic range (exceeds human hearing ~120dB)\n- Quantization noise inaudible\n- Ample headroom for processing\n- No dithering needed during recording/mixing\n- Only dither when converting to 16-bit\n\n**32-bit Float Characteristics:**\n- Virtually unlimited dynamic range\n- Cannot clip mathematically (values can exceed 0dBFS internally)\n- Automatic gain management\n- Perfect for recording (prevents clipping)\n- Large file sizes\n- Overkill for final delivery\n\n**Noise Floor by Bit Depth:**\n- 8-bit: -48dBFS (very audible hiss)\n- 16-bit: -96dBFS (audible in quiet passages)\n- 24-bit: -144dBFS (inaudible, below hearing threshold)\n- 32-bit float: >-1600dBFS (essentially zero noise)\n\n**Professional Standard:** Record at 24-bit minimum. Export at 16-bit for CD (with dithering). 32-bit float becoming standard for recording safety.\n\n---"
+            },
+            {
+              "title": "Sample Rate (Complete)",
+              "text": "**Number of times per second audio is sampled (measured in Hz or kHz).**\n\n**Common Sample Rates:**\n- **44,100Hz (44.1kHz):** CD standard, originated from video equipment\n- **48,000Hz (48kHz):** Professional audio/video standard, broadcasting\n- **88,200Hz (88.2kHz):** 2\u00d7 CD rate (44.1kHz \u00d7 2)\n- **96,000Hz (96kHz):** 2\u00d7 professional rate (48kHz \u00d7 2)\n- **176,400Hz (176.4kHz):** 4\u00d7 CD rate\n- **192,000Hz (192kHz):** 4\u00d7 professional rate, high resolution\n\n**Nyquist Theorem:**\n- Must sample at >2\u00d7 highest frequency to capture accurately\n- **Nyquist Frequency** = Sample Rate \u00f7 2\n- 44.1kHz captures up to 22.05kHz (exceeds human hearing 20kHz)\n- 48kHz captures up to 24kHz\n- 96kHz captures up to 48kHz\n\n**Higher Sample Rates:**\n**Advantages:**\n- Easier anti-aliasing filter design (gentler slope)\n- More headroom for digital processing (reduces aliasing in plugins)\n- Captures ultrasonic content (>20kHz)\n- Better for extreme pitch-shifting\n- Higher time resolution\n\n**Disadvantages:**\n- Larger file sizes (2\u00d7 rate = 2\u00d7 size)\n- More CPU usage (more samples to process)\n- No audible benefit above Nyquist for listening\n- Storage/bandwidth requirements\n\n**When to Use High Sample Rates:**\n- Recording for extensive pitch-shifting\n- Sound design with heavy processing\n- Archival purposes (future-proofing)\n- Extreme processing scenarios\n\n**Professional Standard:** 48kHz most common (video standard). 96kHz for high-resolution. 44.1kHz only when delivering to CD.\n\n**File Size Impact:**\n- 44.1kHz baseline: 100%\n- 48kHz: ~109% (slightly larger)\n- 88.2kHz: 200% (double)\n- 96kHz: ~218%\n- 192kHz: ~436%\n\n---\n\n*[Content continues in Part 2 with more Digital Audio Theory, Sample Playback, and Multi-Sampling]*"
+            }
+          ],
+          "original_file": "MT_Dictionary_Volume_4_Sampling_Part1.md",
+          "id": "t1"
+        }
+      ]
+    },
+    {
+      "id": "p3",
+      "title": "Part 3: Sampling Techniques",
+      "topics": [
+        {
+          "title": "Sample Playback Parameters",
+          "sections": [
+            {
+              "title": "Root Note/Key",
+              "text": "**Original pitch of sample (MIDI note number used for playback at original pitch).**\n\n**Definition:**\n- MIDI note number (0-127) where sample plays at recorded pitch\n- C4 (Middle C) = note 60 (common default)\n- Playing this note: sample at 100% original speed (1:1 playback)\n\n**Why Important:**\n- Determines pitch reference for transposition\n- Affects pitch-shifting calculations\n- Critical for realistic instrument samples\n- Sampler knows how much to pitch-shift\n\n**Setting Root Note:**\n- Auto-detect: Some samplers detect pitch\n- Manual: Set by ear or tuner\n- MIDI note: Assign specific note number\n- Percussion: Often C3 (note 48) or C4 (note 60)\n\n**Playback:**\n- Play root note: 100% speed (original pitch)\n- Play above root: faster playback (higher pitch)\n- Play below root: slower playback (lower pitch)\n- Transposition = (Played Note - Root Note) semitones\n\n---"
+            },
+            {
+              "title": "Pitch/Transpose",
+              "text": "**Playback speed adjustment creating pitch change.**\n\n**How It Works:**\n- Speed up playback: higher pitch\n- Slow down playback: lower pitch\n- 100% = original pitch (at root note)\n- 200% = one octave higher\n- 50% = one octave lower\n\n**Relationship:**\n- Semitone change \u2248 5.946% speed change\n- One octave = 12 semitones = 2\u00d7 or 0.5\u00d7 speed\n- Perfect fifth (7 semitones) = 1.498\u00d7 speed\n\n**Limitations:**\n- Large pitch shifts: sound unnatural (chipmunk/monster effect)\n- Timbre changes with pitch (formants shift)\n- Time/duration changes with pitch (linked)\n\n**Solutions:**\n- Multi-sampling (different samples for different pitches)\n- Formant preservation (advanced algorithms)\n- Time-stretching (independent time/pitch control)\n- Sample multiple velocities and pitches\n\n---"
+            },
+            {
+              "title": "Loop Start/End Points",
+              "text": "**Defining sustain portion of sample that repeats indefinitely.**\n\n**Loop Anatomy:**\n- **Attack:** Plays once (initial transient, 0 to loop start)\n- **Loop:** Repeats continuously (loop start to loop end)\n- **Release:** Plays once when note released (optional)\n\n**Setting Loop Points:**\n1. Find suitable loop region (similar waveform at start/end)\n2. Set loop start point (zero crossing)\n3. Set loop end point (zero crossing, matching phase)\n4. Test loop (listen for clicks, timbral changes)\n5. Adjust as needed (crossfade if necessary)\n\n**Loop Types:**\n- **Forward:** Plays loop start \u2192 end, repeats\n- **Forward-Backward (Ping-Pong):** Plays forward then backward\n- **Backward:** Plays loop end \u2192 start (rare)\n\n**Loop Length:**\n- **Short (1-10ms):** Can create pitched tone/resonance\n- **Medium (10-500ms):** Standard sustain loops\n- **Long (500ms+):** Natural, evolving loops\n\n**Successful Loops:**\n- Zero crossings at both points\n- Matching waveform shapes\n- Similar spectral content\n- Correct phase relationship\n- Crossfade if needed (20-50ms)\n\n**Applications:**\n- Sustaining samples (strings, pads, organs)\n- Reducing sample length (shorter files)\n- Creating infinite sustain from short samples\n\n---\n\n*[Content continues in Part 3 with Multi-Sampling, Time-Stretching, and MIDI fundamentals]*"
+            }
+          ],
+          "original_file": "MT_Dictionary_Volume_4_Sampling_Part2.md",
+          "id": "t1"
+        },
+        {
+          "title": "Multi-Sampling Advanced",
+          "sections": [
+            {
+              "title": "Velocity Layers",
+              "text": "**Multiple samples recorded at different playing intensities mapped to velocity ranges.**\n\n**Concept:**\n- Same note recorded at multiple dynamics\n- Soft hit: quiet sample\n- Medium hit: medium sample\n- Hard hit: loud sample\n- Velocity value (0-127) determines which sample plays\n\n**Typical Layers:**\n- **Basic:** 2 layers (soft/loud)\n- **Standard:** 3-4 layers (soft/medium/loud/very loud)\n- **Professional:** 5-8 layers (very detailed dynamics)\n- **Premium:** 12-16+ layers (extremely realistic, large library size)\n\n**Velocity Ranges:**\n- **2 layers:** 1-63 (soft), 64-127 (loud)\n- **3 layers:** 1-42 (soft), 43-85 (medium), 86-127 (loud)\n- **4 layers:** 1-31, 32-63, 64-95, 96-127\n\n**Why Needed:**\n- Realistic dynamics (not just volume change)\n- Timbral differences (soft hit sounds different than quiet loud hit)\n- Attack variation (soft = slower attack typically)\n- Harmonic content changes (loud = more harmonics)\n\n**Example - Piano:**\n- Soft (pp): Warm, mellow, fewer harmonics\n- Medium (mf): Balanced, natural\n- Loud (f): Bright, percussive, many harmonics\n- Very Loud (ff): Brilliant, full harmonic spectrum\n\n**Crossfading Between Layers:**\n- Smooth transition between velocity layers\n- Overlap region: 5-20 MIDI values\n- Both samples play simultaneously in overlap\n- Crossfade prevents abrupt switching\n- More realistic dynamic response\n\n**Memory vs Realism:**\n- More layers: more realistic, larger file size\n- Fewer layers: less realistic, smaller file size\n- Modern computers: handle many layers easily\n- Trade-off less critical than past\n\n---"
+            },
+            {
+              "title": "Velocity Crossfade",
+              "text": "**Smooth blending between velocity layers in overlap regions.**\n\n**Process:**\n1. Define overlap zone (e.g., velocity 60-70)\n2. Layer 1: full volume at velocity 60, fades out to velocity 70\n3. Layer 2: fades in from velocity 60, full volume at velocity 70\n4. In overlap: both layers play, crossfading\n\n**Crossfade Width:**\n- **Narrow (5-10 values):** More distinct layers, less smooth\n- **Medium (10-20 values):** Balanced, natural\n- **Wide (20-40 values):** Very smooth, less layer definition\n\n**Curves:**\n- **Linear:** Straight crossfade (can sound unnatural)\n- **Equal Power:** Maintains perceived loudness during crossfade\n- **Exponential:** More natural to human perception\n\n**Advantages:**\n- Eliminates abrupt switching between samples\n- More realistic dynamic response\n- Smoother playing experience\n- Professional sound quality\n\n**Applications:**\n- Piano (essential for realistic dynamics)\n- Strings (bow pressure variations)\n- Brass/Woodwinds (breath pressure)\n- Drums (stick velocity)\n\n---"
+            },
+            {
+              "title": "Round Robin",
+              "text": "**Alternating between multiple recordings of same note to avoid machine-gun effect.**\n\n**Problem Solved:**\n- Same sample repeated: sounds mechanical (\"machine-gun effect\")\n- Especially noticeable: repeated hits (hi-hats, snare, strummed guitars)\n- Unrealistic: real instruments vary slightly each hit\n\n**Solution:**\n- Record same note multiple times (3-8 takes typical)\n- Each recording slightly different (timing, tone, attack)\n- Sampler cycles through recordings\n- Each hit sounds unique\n\n**Round Robin Count:**\n- **2-3 samples:** Basic variation, reduces machine-gun effect\n- **4-6 samples:** Good variation, natural sound\n- **8-12 samples:** Excellent variation, very realistic\n- **16+ samples:** Ultimate realism (premium libraries)\n\n**Cycling Methods:**\n- **Sequential (Round Robin):** 1 \u2192 2 \u2192 3 \u2192 1 \u2192 2 \u2192 3... (most common)\n- **Random:** Computer randomly selects sample each hit\n- **Velocity-triggered:** Different samples at different velocities\n\n**Applications:**\n- **Drums:** Hi-hats, snares, toms (repeated hits)\n- **Guitar:** Strums, picks (each strum slightly different)\n- **Percussion:** Shakers, tambourine, claves\n- **Piano:** Soft repeated notes (subtle variation)\n- **Orchestral:** Staccato strings, woodwinds\n\n**Memory Impact:**\n- Round robin multiplies samples needed\n- 88 piano keys \u00d7 4 velocity layers \u00d7 6 round robins = 2,112 samples\n- Modern computers handle easily\n- Streaming from disk helps (not all in RAM)\n\n---"
+            },
+            {
+              "title": "Key Zones (Key Mapping)",
+              "text": "**Assigning samples to specific keyboard ranges.**\n\n**Concept:**\n- Each sample assigned to range of MIDI notes\n- Sample pitched up/down across zone\n- Multiple zones cover entire keyboard\n\n**Mapping Strategies:**\n\n**Single Sample Across Keyboard:**\n- One sample stretched across all keys\n- Extreme pitch-shifting (sounds unnatural)\n- Low quality, small file size\n- Acceptable for: sound effects, simple tones\n\n**Multi-Sample Every Octave:**\n- Sample every 12 notes (C, C, C...)\n- Each sample covers octave (\u00b16 semitones)\n- Good balance: quality vs file size\n- Piano: 8 samples cover 88 keys\n\n**Multi-Sample Every Few Notes:**\n- Sample every 3-6 notes (every minor 3rd to tritone)\n- Higher quality (less pitch-shifting)\n- Larger file size\n- Professional libraries\n\n**Multi-Sample Every Note:**\n- Every single note recorded (88 samples for piano)\n- No pitch-shifting needed\n- Maximum realism\n- Very large file size\n- Premium sample libraries\n\n**Crossfading Between Zones:**\n- Overlap zones with crossfade\n- Smooth transition between samples\n- Prevents abrupt timbre changes\n- Overlap: 2-6 semitones typical\n\n---"
+            },
+            {
+              "title": "Sample Start Offset",
+              "text": "**Beginning point of sample playback (skips attack portion).**\n\n**Purpose:**\n- Skip attack transient\n- Start from sustained portion\n- Create variations from single sample\n- Timing adjustment\n\n**Applications:**\n- **Legato playing:** Skip attack on overlapping notes\n- **Variation:** Different start points = different character\n- **Timing:** Fine-tune sample timing\n- **Loops:** Start from loop point immediately\n\n**Modulation:**\n- **Velocity:** Harder hit = earlier start (more attack)\n- **Random:** Slight randomization (variation)\n- **LFO:** Cyclic offset changes (experimental)\n\n---"
+            },
+            {
+              "title": "Release Samples",
+              "text": "**Dedicated sample for note release (key-off) sounds.**\n\n**Concept:**\n- Separate sample triggered when key released\n- Captures: string release noise, key click, resonance tail\n- More realistic: natural instrument behavior\n\n**Examples:**\n- **Piano:** Key release thunk, string resonance\n- **Guitar:** Fret noise, string release\n- **Organ:** Click of key release (Hammond organ essential)\n- **Electric Piano:** Release click (Rhodes, Wurlitzer)\n\n**Triggering:**\n- Plays when: MIDI note-off received\n- Volume: Often velocity-dependent\n- Duration: Usually short (50-500ms)\n\n**Professional Libraries:**\n- Premium piano libraries: include release samples\n- Adds: realism, organic quality\n- Subtle but important: for authentic sound\n\n---"
+            }
+          ],
+          "original_file": "MT_Dictionary_Volume_4_Sampling_Part3.md",
+          "id": "t2"
+        },
+        {
+          "title": "Time-Stretching Techniques",
+          "sections": [
+            {
+              "title": "WSOLA (Waveform Similarity Overlap-Add)",
+              "text": "**Time-stretching algorithm based on waveform matching.**\n\n**How It Works:**\n1. Divide audio into short segments (grains)\n2. Find similar waveforms in adjacent segments\n3. Overlap and crossfade similar sections\n4. Result: time-stretched without pitch change\n\n**Characteristics:**\n- Good quality for moderate stretching (75-150%)\n- Maintains transients reasonably well\n- Moderate CPU usage\n- Better for: rhythmic material, speech\n\n**Artifacts:**\n- Phasiness (moderate stretching)\n- Smearing (extreme stretching)\n- Transient blurring (significant stretching)\n\n**Best For:**\n- Beat matching (90-110% tempo changes)\n- Vocal timing correction\n- General time-stretching\n\n---"
+            },
+            {
+              "title": "Phase Vocoder",
+              "text": "**Frequency-domain time-stretching using FFT (Fast Fourier Transform).**\n\n**How It Works:**\n1. Convert audio to frequency domain (FFT)\n2. Adjust phase relationships between frequency bins\n3. Reconstruct audio at new duration\n4. Pitch remains constant\n\n**Characteristics:**\n- Excellent for sustained tones (pads, strings)\n- Good quality for moderate changes\n- CPU-intensive\n- Poor for: transients, percussive material\n\n**Artifacts:**\n- Phasiness (characteristic phase vocoder sound)\n- Transient smearing (percussive attacks blurred)\n- Pre-echo (energy before transients)\n\n**Best For:**\n- Pads and atmospheric sounds\n- Sustained tones\n- Moderate time changes (80-125%)\n- Non-percussive material\n\n---"
+            },
+            {
+              "title": "\u00c9lastique (Zplane)",
+              "text": "**Professional-grade time-stretching algorithm (industry standard).**\n\n**Characteristics:**\n- Highest quality commercially available\n- Handles wide range of stretching (25-400%)\n- Excellent transient preservation\n- Formant preservation options\n- Used in: Pro Tools, Logic Pro, Studio One\n\n**Modes:**\n- **Efficient:** Fast, good quality, moderate CPU\n- **Pro:** Best quality, more CPU\n- **Mobile:** Optimized for iOS devices\n- **Soloist:** Monophonic material (vocals, leads)\n\n**Advantages:**\n- Industry-leading quality\n- Minimal artifacts\n- Wide stretching range\n- Professional standard\n\n**Best For:**\n- All material types\n- Extreme time changes\n- Professional productions\n- Final masters\n\n---"
+            },
+            {
+              "title": "Paulstretch",
+              "text": "**Extreme time-stretching algorithm creating drone-like textures.**\n\n**How It Works:**\n1. Stretches audio to extreme lengths (100x to 1000x+)\n2. Phase randomization\n3. Creates smooth, evolving drones\n4. Completely transforms original\n\n**Characteristics:**\n- Extreme stretching only (100x-1000x+)\n- Creates ethereal, ambient textures\n- Original becomes unrecognizable\n- Smooth, evolving sound\n\n**Parameters:**\n- Stretch amount (100x typical minimum)\n- Window size (affects texture grain)\n\n**Applications:**\n- Ambient music (drones from any sound)\n- Sound design (create evolving pads)\n- Film scoring (atmospheric textures)\n- Experimental music\n\n**Famous Uses:**\n- Aphex Twin (ambient works)\n- Film sound design (tension, atmosphere)\n- Ambient producers worldwide\n\n---"
+            },
+            {
+              "title": "Time-Stretch Artifacts",
+              "text": "**Common problems and solutions in time-stretching.**\n\n**Phasiness/Chorusing:**\n- Cause: FFT processing, grain overlap\n- Sounds like: Slight chorus/flange effect\n- Reduce: Use transient-preserving algorithms, smaller stretch amounts\n\n**Transient Smearing:**\n- Cause: Algorithm averages attack transients\n- Sounds like: Blurred, soft attacks\n- Reduce: Transient-detection algorithms, manual transient preservation\n\n**Warbling/Modulation:**\n- Cause: Pitch inconsistencies during stretch\n- Sounds like: Pitch wobbling\n- Reduce: Better algorithms, formant preservation\n\n**Metallic Quality:**\n- Cause: Frequency bin artifacts\n- Sounds like: Digital, robotic\n- Reduce: Higher quality algorithms, smaller window sizes\n\n**Solutions:**\n- Use best algorithm for material type\n- Smaller stretches sound better (chain multiple small stretches)\n- Enable formant preservation (vocals)\n- Manual transient preservation\n- Accept artifacts as creative effect\n\n---\n\n*[Content continues in Part 4 with complete MIDI coverage]*"
+            }
+          ],
+          "original_file": "MT_Dictionary_Volume_4_Sampling_Part3.md",
+          "id": "t3"
+        }
+      ]
+    },
+    {
+      "id": "p4",
+      "title": "Part 4: MIDI & Sequencing",
+      "topics": [
+        {
+          "title": "MIDI Fundamentals",
+          "sections": [
+            {
+              "title": "MIDI Protocol (Musical Instrument Digital Interface)",
+              "text": "**Universal standard for electronic musical instruments to communicate.**\n\n**History:**\n- Introduced: 1983\n- Developers: Dave Smith (Sequential Circuits), Ikutaro Kakehashi (Roland)\n- Purpose: Standardize synthesizer communication\n- Revolutionary: Instruments from different manufacturers could communicate\n\n**What MIDI Is:**\n- **Performance data** (notes, velocity, controllers, etc.)\n- **NOT audio** (no sound transmitted, only instructions)\n- Digital protocol (binary data)\n- Serial communication (one byte at a time)\n\n**What MIDI Transmits:**\n- Note on/off messages\n- Note number (pitch)\n- Velocity (how hard key struck)\n- Controller data (mod wheel, sustain pedal, etc.)\n- Program changes (patch selection)\n- Pitch bend\n- Aftertouch (pressure)\n- System messages\n\n**MIDI Advantages:**\n- Tiny file sizes (just data, not audio)\n- Editable (change notes, timing, velocity after recording)\n- Non-destructive (original performance preserved)\n- Universal standard (works with all MIDI devices)\n\n**MIDI Speed:**\n- 31,250 bits per second (31.25 kbaud)\n- Fast enough for real-time performance\n- Occasional latency with many simultaneous events\n\n---"
+            },
+            {
+              "title": "MIDI Channels (1-16)",
+              "text": "**16 independent data streams allowing multi-timbral operation.**\n\n**Concept:**\n- 16 channels numbered 1-16\n- Each channel: independent instrument/sound\n- Like TV channels (different programs on different channels)\n- Single MIDI cable: carries all 16 channels simultaneously\n\n**Channel Assignment:**\n- **Channel 1:** Often default/main instrument\n- **Channel 10:** Drums (General MIDI standard)\n- **Channels 2-9, 11-16:** Melodic instruments\n\n**Multi-Timbral Synthesizers:**\n- Can play different sounds on different channels\n- Example: Piano on channel 1, strings on channel 2, bass on channel 3\n- Essentially 16 synthesizers in one\n\n**Channel Voice Messages:**\n- Note on/off\n- Program change\n- Control change\n- Pitch bend\n- Aftertouch\n- All include channel number (1-16)\n\n**Omni Mode:**\n- Responds to all channels (ignores channel number)\n- Rarely used (defeats purpose of channels)\n- Poly mode: Responds to assigned channel only (normal operation)\n\n**Professional Use:**\n- DAW tracks: assigned to specific MIDI channels\n- Multi-timbral instruments: receive on multiple channels\n- Drums: always channel 10 (General MIDI convention)\n\n---"
+            },
+            {
+              "title": "MIDI Hardware",
+              "text": "**MIDI Controller:**\n- Device that generates MIDI data (keyboard, pad controller, wind controller)\n- Sends: note messages, controller data\n- May or may not: produce sound itself\n- Examples: MIDI keyboard, Akai MPK, Novation Launchkey\n\n**Sound Module (Tone Generator):**\n- Device that receives MIDI, produces sound\n- No keyboard: controlled via MIDI only\n- Rack-mounted typical\n- Examples: Roland Integra-7, Yamaha MU series\n\n**MIDI Interface:**\n- Connects MIDI devices to computer\n- USB-MIDI interfaces most common\n- Converts: MIDI protocol \u2194 USB\n- Multiple ports: for complex setups\n- Examples: MOTU MIDI Express, iConnectivity mioXL\n\n---"
+            },
+            {
+              "title": "MIDI IN/OUT/THRU Ports",
+              "text": "**MIDI IN:**\n- Receives MIDI data from other devices\n- Input port (receives messages)\n- 5-pin DIN connector (traditional) or USB\n\n**MIDI OUT:**\n- Sends MIDI data to other devices\n- Output port (transmits messages)\n- One-way communication\n\n**MIDI THRU:**\n- Echoes exact copy of data received at MIDI IN\n- Allows daisy-chaining devices\n- No processing: just passes data through\n- Example: Controller \u2192 Synth 1 (THRU) \u2192 Synth 2 (THRU) \u2192 Synth 3\n\n**Signal Flow:**\n- Controller MIDI OUT \u2192 Synthesizer MIDI IN\n- Synthesizer MIDI THRU \u2192 Next device MIDI IN\n- Chain up to 3-4 devices (signal degrades after that)\n\n**Modern: USB-MIDI:**\n- USB connection carries MIDI\n- Bi-directional (no separate IN/OUT needed)\n- More stable (less latency, no signal degradation)\n- Most modern devices: USB-MIDI\n\n---"
+            },
+            {
+              "title": "MIDI Cable",
+              "text": "**5-pin DIN cable carrying MIDI data.**\n\n**Specifications:**\n- 5-pin DIN connectors (but only 3 pins used)\n- Maximum length: 50 feet (15 meters) recommended\n- Shielded cable (reduces interference)\n- One-directional (OUT to IN only)\n\n**Pin Configuration:**\n- Pin 1: Not used\n- Pin 2: Ground\n- Pin 3: Not used\n- Pin 4: Current source (+5V)\n- Pin 5: Current sink (return)\n\n**Modern Alternative:**\n- USB cables (USB-MIDI)\n- Ethernet cables (MIDI over Ethernet)\n- Wireless MIDI (Bluetooth LE)\n\n---"
+            },
+            {
+              "title": "General MIDI (GM)",
+              "text": "**Standardized sound set for MIDI devices ensuring compatibility.**\n\n**Purpose:**\n- Any GM MIDI file plays correctly on any GM device\n- Standardizes: program numbers, drum mapping, controllers\n- Ensures: consistent playback across devices\n\n**GM Standards:**\n- 128 melodic instruments (program numbers 1-128)\n- Drum kits on channel 10\n- Minimum 24-voice polyphony\n- 16 simultaneous channels\n\n**GM Instrument Categories:**\n- 1-8: Piano\n- 9-16: Chromatic Percussion\n- 17-24: Organ\n- 25-32: Guitar\n- 33-40: Bass\n- 41-48: Strings\n- 49-56: Ensemble\n- 57-64: Brass\n- 65-72: Reed\n- 73-80: Pipe\n- 81-88: Synth Lead\n- 89-96: Synth Pad\n- 97-104: Synth Effects\n- 105-112: Ethnic\n- 113-120: Percussive\n- 121-128: Sound Effects\n\n**GM Drum Map (Channel 10):**\n- Note 35: Acoustic Bass Drum\n- Note 36: Bass Drum 1\n- Note 38: Acoustic Snare\n- Note 42: Closed Hi-Hat\n- Note 46: Open Hi-Hat\n- Note 49: Crash Cymbal 1\n- Note 51: Ride Cymbal 1\n\n**GS and XG:**\n- Roland GS: Extended General MIDI\n- Yamaha XG: Further extended GM\n- Backward compatible with GM\n\n---"
+            }
+          ],
+          "original_file": "MT_Dictionary_Volume_4_Sampling_Part4.md",
+          "id": "t1"
+        },
+        {
+          "title": "MIDI Messages",
+          "sections": [
+            {
+              "title": "Status Byte",
+              "text": "**First byte of MIDI message indicating message type and channel.**\n\n**Format:** 1sss cccc (binary)\n- First bit (1): Always 1 (identifies as status byte)\n- Next 3 bits (sss): Message type\n- Last 4 bits (cccc): Channel number (0-15 = channels 1-16)\n\n**Message Types:**\n- 1000: Note Off\n- 1001: Note On\n- 1010: Polyphonic Key Pressure (Aftertouch)\n- 1011: Control Change\n- 1100: Program Change\n- 1101: Channel Pressure (Aftertouch)\n- 1110: Pitch Bend\n- 1111: System messages\n\n**Example:** 10010000 (binary) = Note On, Channel 1\n\n---"
+            },
+            {
+              "title": "Data Byte",
+              "text": "**Second and third bytes containing message value information.**\n\n**Format:** 0ddd dddd (binary)\n- First bit (0): Always 0 (identifies as data byte)\n- Remaining 7 bits: Value (0-127)\n\n**Range:** 0-127 (7-bit resolution)\n\n**Number of Data Bytes:**\n- Note On/Off: 2 data bytes (note number, velocity)\n- Control Change: 2 data bytes (controller number, value)\n- Program Change: 1 data byte (program number)\n- Pitch Bend: 2 data bytes (LSB, MSB for 14-bit resolution)\n\n---"
+            },
+            {
+              "title": "Note On/Off Messages",
+              "text": "**Messages indicating when note starts and stops.**\n\n**Note On:**\n- Status: 1001 cccc (channel)\n- Data 1: Note number (0-127)\n- Data 2: Velocity (1-127)\n- Example: Play middle C (60) on channel 1 at velocity 64\n\n**Note Off:**\n- Status: 1000 cccc (channel)\n- Data 1: Note number (0-127)\n- Data 2: Release velocity (0-127, often 64 or ignored)\n\n**Note On with Velocity 0:**\n- Alternative to Note Off message\n- More common (saves bandwidth)\n- Note On velocity 0 = Note Off\n\n**Stuck Notes:**\n- When Note Off not received (MIDI cable disconnected, software crash)\n- Note continues forever\n- Solution: \"All Notes Off\" message (CC 123)\n\n---"
+            },
+            {
+              "title": "Note Number (0-127, C-2 to G8)",
+              "text": "**MIDI note number representing pitch.**\n\n**Range:** 0-127 (128 possible notes, covering 10+ octaves)\n\n**Middle C (C4):**\n- Note number: 60\n- Reference pitch for MIDI\n- Different octave numbering systems (C3, C4, C5 all refer to same note depending on manufacturer)\n\n**Octave Numbering:**\n- C-2 (note 0) to G8 (note 127)\n- Each octave: 12 notes\n- A4 = note 69 = 440Hz (concert pitch)\n\n**Examples:**\n- C-2 = 0 (lowest)\n- C4 (Middle C) = 60\n- A4 (440Hz) = 69\n- C8 = 120\n- G8 = 127 (highest)\n\n**Drum Mapping:**\n- Each note: different drum sound\n- Note 36: Kick drum (typical)\n- Note 38: Snare\n- Note 42: Closed hi-hat\n\n---"
+            },
+            {
+              "title": "Velocity (0-127)",
+              "text": "**How hard key is struck (or released).**\n\n**Note On Velocity:**\n- Range: 1-127 (0 = Note Off)\n- 1: Softest possible\n- 64: Medium\n- 127: Hardest possible\n\n**Uses:**\n- Volume control (most common)\n- Filter brightness (harder = brighter)\n- Sample selection (velocity layers)\n- Attack time (harder = faster)\n- Multiple destinations simultaneously\n\n**Velocity Curve:**\n- Linear: Direct 1:1 mapping\n- Exponential: More dynamic range\n- Logarithmic: Compressed dynamic range\n- Fixed: Ignores velocity (organ-style)\n\n**Note Off Velocity (Release Velocity):**\n- Range: 0-127\n- How fast key released\n- Rarely implemented (most synths ignore)\n- Can control: release time, release sample selection\n\n---"
+            },
+            {
+              "title": "Polyphonic Key Pressure (Aftertouch)",
+              "text": "**Pressure applied to individual keys after initial strike.**\n\n**Polyphonic Aftertouch:**\n- Independent pressure per key\n- Each key sends own aftertouch value\n- Very rare (expensive to implement)\n- Examples: Yamaha CS80, Osmose\n\n**Message:**\n- Status: 1010 cccc\n- Data 1: Note number (0-127)\n- Data 2: Pressure value (0-127)\n\n**Applications:**\n- Vibrato per note\n- Filter modulation per note\n- Volume swell per note\n- Expressive lead playing\n\n---"
+            },
+            {
+              "title": "Channel Pressure (Aftertouch)",
+              "text": "**Single pressure value for entire keyboard (most common type).**\n\n**Channel Aftertouch:**\n- One pressure value for all keys\n- Less expensive to implement\n- Most MIDI keyboards with aftertouch use this\n\n**Message:**\n- Status: 1101 cccc\n- Data 1: Pressure value (0-127)\n\n**Typical Uses:**\n- Vibrato depth (pressure adds vibrato)\n- Filter modulation (pressure opens filter)\n- Volume swell\n- LFO amount\n\n---"
+            },
+            {
+              "title": "Program Change (0-127 Patches)",
+              "text": "**Selects preset sound/patch on receiving device.**\n\n**Message:**\n- Status: 1100 cccc\n- Data 1: Program number (0-127)\n\n**Range:** 0-127 (128 possible programs)\n\n**Numbering:**\n- MIDI: 0-127\n- User display: Often 1-128 (adds 1 for user friendliness)\n\n**Applications:**\n- Change synthesizer patch mid-song\n- Automate sound changes in DAW\n- Live performance (switch sounds)\n\n**Bank Select:**\n- For >128 sounds\n- CC 0 (MSB) and CC 32 (LSB)\n- Allows: 16,384 banks \u00d7 128 programs = 2,097,152 total sounds\n- Sent before Program Change\n\n---"
+            },
+            {
+              "title": "Pitch Bend (14-bit, \u00b12 Semitones Typical)",
+              "text": "**Continuous pitch control via pitch bend wheel.**\n\n**Resolution:** 14-bit (16,384 steps) - very smooth\n- Data 1: LSB (Least Significant Byte, fine control)\n- Data 2: MSB (Most Significant Byte, coarse control)\n\n**Range:**\n- Center: 8192 (no bend)\n- Down: 0-8191 (bend down)\n- Up: 8193-16383 (bend up)\n\n**Bend Range:**\n- Typical: \u00b12 semitones (configurable)\n- Can be set: \u00b11, \u00b12, \u00b17, \u00b112 semitones or more\n- Set via: synthesizer parameters or RPN (Registered Parameter Number)\n\n**Characteristics:**\n- Spring-loaded wheel (returns to center)\n- Affects: all sounding notes on channel\n- Smooth: 14-bit resolution provides smooth bends\n\n---"
+            },
+            {
+              "title": "System Exclusive (SysEx)",
+              "text": "**Manufacturer-specific messages for device configuration.**\n\n**Purpose:**\n- Parameter editing beyond standard MIDI\n- Patch dumps (backup/restore)\n- Firmware updates\n- Device-specific features\n\n**Format:**\n- Start: F0 (hex) - SysEx start byte\n- Manufacturer ID: One or three bytes\n- Data: Variable length (device-specific)\n- End: F7 (hex) - SysEx end byte\n\n**Uses:**\n- Save/load synthesizer patches\n- Edit parameters not available via CC\n- Bulk dumps (all presets)\n- Configuration backup\n\n**Example:** Sending synth patch to computer for backup.\n\n---"
+            }
+          ],
+          "original_file": "MT_Dictionary_Volume_4_Sampling_Part4.md",
+          "id": "t2"
+        },
+        {
+          "title": "MIDI Controllers (CC)",
+          "sections": [
+            {
+              "title": "CC#1: Modulation Wheel",
+              "text": "**Primary modulation control, typically controlling vibrato depth.**\n\n**MIDI:** CC 1\n**Range:** 0-127\n**Typical Use:** Vibrato depth (LFO to pitch)\n**Physical Control:** Modulation wheel (left of keyboard)\n**Stays positioned:** Not spring-loaded\n\n---"
+            },
+            {
+              "title": "CC#7: Volume",
+              "text": "**Channel volume (overall level).**\n\n**MIDI:** CC 7\n**Range:** 0-127 (0 = silence, 127 = maximum)\n**Use:** Mix balance between instruments\n**Different from:** Note velocity (affects individual notes)\n\n---"
+            },
+            {
+              "title": "CC#10: Pan",
+              "text": "**Stereo position control.**\n\n**MIDI:** CC 10\n**Range:** 0-127\n- 0: Hard left\n- 64: Center\n- 127: Hard right\n\n---"
+            },
+            {
+              "title": "CC#11: Expression",
+              "text": "**Real-time volume changes (like volume pedal).**\n\n**MIDI:** CC 11\n**Range:** 0-127\n**Use:** Swells, fade-ins, dynamics\n**Different from CC#7:** Expression = performance, Volume = mix\n\n---"
+            },
+            {
+              "title": "CC#64: Sustain Pedal (Damper)",
+              "text": "**Most commonly used controller - piano-style sustain.**\n\n**MIDI:** CC 64\n**Values:**\n- 0-63: Off (sustain released)\n- 64-127: On (sustain engaged)\n**Binary:** Effectively on/off (some synths support half-pedal)\n\n---"
+            },
+            {
+              "title": "CC#65: Portamento On/Off",
+              "text": "**Enables/disables portamento (glide between notes).**\n\n**MIDI:** CC 65\n**Values:** 0-63 = Off, 64-127 = On\n\n---"
+            },
+            {
+              "title": "CC#5: Portamento Time",
+              "text": "**Duration of glide between notes.**\n\n**MIDI:** CC 5\n**Range:** 0-127 (0 = instant, 127 = longest glide)\n\n---"
+            },
+            {
+              "title": "CC#71: Resonance (Filter Resonance)",
+              "text": "**Filter resonance/Q amount.**\n\n**MIDI:** CC 71\n**Range:** 0-127\n**Use:** Control filter emphasis at cutoff frequency\n\n---"
+            },
+            {
+              "title": "CC#74: Brightness/Filter Cutoff",
+              "text": "**Filter cutoff frequency control.**\n\n**MIDI:** CC 74\n**Range:** 0-127\n**Use:** Real-time filter sweeps, brightness control\n\n---"
+            },
+            {
+              "title": "CC#91: Reverb Send Level",
+              "text": "**Amount sent to reverb effect.**\n\n**MIDI:** CC 91\n**Range:** 0-127\n\n---"
+            },
+            {
+              "title": "CC#93: Chorus Send Level",
+              "text": "**Amount sent to chorus effect.**\n\n**MIDI:** CC 93\n**Range:** 0-127\n\n---"
+            },
+            {
+              "title": "CC#120: All Sound Off",
+              "text": "**Immediately silences all notes.**\n\n**MIDI:** CC 120\n**Use:** Emergency stop (stuck notes)\n\n---"
+            },
+            {
+              "title": "CC#121: Reset All Controllers",
+              "text": "**Resets all controllers to default values.**\n\n**MIDI:** CC 121\n**Resets:** Mod wheel, pitch bend, sustain, etc.\n\n---"
+            },
+            {
+              "title": "CC#123: All Notes Off",
+              "text": "**Sends Note Off for all notes.**\n\n**MIDI:** CC 123\n**Use:** Stop all sounding notes (respects release)\n\n---"
+            }
+          ],
+          "original_file": "MT_Dictionary_Volume_4_Sampling_Part4.md",
+          "id": "t3"
+        }
+      ]
+    }
+  ]
+}

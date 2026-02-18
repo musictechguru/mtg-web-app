@@ -1,0 +1,25 @@
+<svg width="400" height="300" xmlns="http://www.w3.org/2000/svg">
+  <rect width="100%" height="100%" fill="#1e1e1e" />
+  
+  <!-- Low Band -->
+  <path d="M50,150 Q100,150 120,250" fill="#3b82f6" fill-opacity="0.3" stroke="#3b82f6" stroke-width="2"/>
+  <text x="80" y="200" fill="#3b82f6" font-weight="bold">Low</text>
+  
+  <!-- Mid Band -->
+  <path d="M120,250 Q140,150 200,150 Q260,150 280,250" fill="#10b981" fill-opacity="0.3" stroke="#10b981" stroke-width="2"/>
+  <text x="200" y="140" fill="#10b981" font-weight="bold">Mid</text>
+  
+  <!-- High Band -->
+  <path d="M280,250 Q300,150 350,150" fill="#ef4444" fill-opacity="0.3" stroke="#ef4444" stroke-width="2"/>
+  <text x="320" y="200" fill="#ef4444" font-weight="bold">High</text>
+  
+  <!-- Crossover Points -->
+  <line x1="120" y1="50" x2="120" y2="250" stroke="#fff" stroke-dasharray="2" opacity="0.5"/>
+  <text x="120" y="40" fill="#fff" text-anchor="middle" font-size="10">200Hz</text>
+  
+  <line x1="280" y1="50" x2="280" y2="250" stroke="#fff" stroke-dasharray="2" opacity="0.5"/>
+  <text x="280" y="40" fill="#fff" text-anchor="middle" font-size="10">4kHz</text>
+  
+  <text x="200" y="280" fill="#fff" text-anchor="middle" font-size="16" font-weight="bold">Multiband Crossover</text>
+  <text x="200" y="295" fill="#aaa" text-anchor="middle" font-size="12">Independent Compression per Band</text>
+</svg>

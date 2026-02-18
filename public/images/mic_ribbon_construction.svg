@@ -1,0 +1,40 @@
+<svg width="400" height="250" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="ribbon" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#fef08a;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#facc15;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#b45309;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="100%" height="100%" fill="#1e1e1e" />
+  
+  <!-- Magnets -->
+  <rect x="100" y="40" width="40" height="150" fill="#333" stroke="#ef4444" stroke-width="2"/>
+  <text x="120" y="120" text-anchor="middle" fill="#ef4444" font-weight="bold" font-family="sans-serif">N</text>
+  
+  <rect x="260" y="40" width="40" height="150" fill="#333" stroke="#3b82f6" stroke-width="2"/>
+  <text x="280" y="120" text-anchor="middle" fill="#3b82f6" font-weight="bold" font-family="sans-serif">S</text>
+  
+  <!-- Ribbon Element (ZigZag for corrugation) -->
+  <path d="M200,40 L195,45 L205,50 L195,55 L205,60 L195,65 L205,70 L195,75 L205,80 
+           L195,85 L205,90 L195,95 L205,100 L195,105 L205,110 L195,115 L205,120 
+           L195,125 L205,130 L195,135 L205,140 L195,145 L205,150 L195,155 L205,160 
+           L195,165 L205,170 L195,175 L205,180 L195,185 L200,190" 
+           stroke="url(#ribbon)" stroke-width="3" fill="none" />
+           
+  <text x="200" y="30" text-anchor="middle" fill="#facc15" font-family="sans-serif" font-weight="bold">Corrugated Aluminum Ribbon</text>
+  
+  <!-- Step-Up Transformer (Essential for Ribbons) -->
+  <rect x="170" y="200" width="60" height="30" fill="#444" stroke="#888" rx="2" />
+  <text x="200" y="218" text-anchor="middle" fill="#fff" font-family="sans-serif" font-size="10">Transformer</text>
+  
+  <!-- Wiring -->
+  <line x1="200" y1="190" x2="200" y2="200" stroke="#facc15" stroke-width="1" />
+  <line x1="180" y1="230" x2="180" y2="245" stroke="#aaa" stroke-width="2" />
+  <line x1="220" y1="230" x2="220" y2="245" stroke="#aaa" stroke-width="2" />
+  
+  <!-- Sound Waves -->
+  <path d="M60,115 L90,115" stroke="#fff" stroke-width="2" marker-end="url(#arrow)" />
+  <path d="M340,115 L310,115" stroke="#fff" stroke-width="2" marker-end="url(#arrow)" />
+  <text x="200" y="240" text-anchor="middle" fill="#fff" font-family="sans-serif" font-weight="bold" font-size="12">Ribbon Motor Assembly</text>
+</svg>

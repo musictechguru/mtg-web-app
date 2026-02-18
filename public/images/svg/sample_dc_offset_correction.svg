@@ -1,0 +1,21 @@
+<svg width="400" height="300" xmlns="http://www.w3.org/2000/svg">
+  <rect width="100%" height="100%" fill="#1e1e1e" />
+  
+  <!-- True Zero (Center) -->
+  <line x1="50" y1="150" x2="350" y2="150" stroke="#fff" stroke-width="1" stroke-dasharray="4"/>
+  <text x="360" y="155" fill="#fff" font-size="12">0V (Center)</text>
+  
+  <!-- DC Offset Wave (Shifted Up) -->
+  <g transform="translate(0, -50)">
+    <line x1="50" y1="150" x2="350" y2="150" stroke="#ef4444" stroke-width="1" stroke-dasharray="2"/> <!-- Bad Axis -->
+    <path d="M50,150 Q75,100 100,150 Q125,200 150,150 T250,150 T350,150" fill="none" stroke="#ef4444" stroke-width="3"/>
+    <text x="200" y="90" fill="#ef4444" font-weight="bold">DC Offset (Shifted Up)</text>
+    <text x="250" y="110" fill="#ef4444" font-size="10">Reduces Headroom!</text>
+  </g>
+  
+  <!-- Correct Wave (Centered) -->
+  <path d="M50,250 Q75,200 100,250 Q125,300 150,250 T250,250 T350,250" fill="none" stroke="#10b981" stroke-width="3" opacity="0.3"/>
+  <text x="200" y="280" fill="#10b981" opacity="0.5">Correct Position</text>
+
+  <text x="200" y="30" fill="#fff" text-anchor="middle" font-size="16" font-weight="bold">DC Offset Error</text>
+</svg>

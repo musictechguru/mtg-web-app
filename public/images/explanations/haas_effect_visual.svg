@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" style="background-color: #111; font-family: sans-serif;">
+  <!-- Head -->
+  <circle cx="400" cy="250" r="50" fill="#333" stroke="#555"/>
+  <path d="M380 240 Q400 270 420 240" fill="none" stroke="#000" stroke-width="2"/> <!-- Smile -->
+  
+  <!-- Ears -->
+  <ellipse cx="345" cy="250" rx="10" ry="20" fill="#444"/>
+  <ellipse cx="455" cy="250" rx="10" ry="20" fill="#444"/>
+
+  <!-- Speaker Left (Direct) -->
+  <rect x="100" y="100" width="80" height="120" fill="#222" stroke="#00ffcc" stroke-width="2"/>
+  <circle cx="140" cy="140" r="20" fill="#00ffcc" opacity="0.3"/>
+  <text x="140" y="250" fill="#00ffcc" text-anchor="middle">LEFT (Direct)</text>
+  <path d="M140 160 L330 240" stroke="#00ffcc" stroke-width="2" stroke-dasharray="0"/>
+
+  <!-- Speaker Right (Delayed) -->
+  <rect x="620" y="100" width="80" height="120" fill="#222" stroke="#ff5555" stroke-width="2"/>
+  <circle cx="660" cy="140" r="20" fill="#ff5555" opacity="0.3"/>
+  <text x="660" y="250" fill="#ff5555" text-anchor="middle">RIGHT (Delayed 15ms)</text>
+  <path d="M660 160 L470 240" stroke="#ff5555" stroke-width="2" stroke-dasharray="5,5"/>
+
+  <!-- Width Perception Arc -->
+  <path d="M200 250 Q400 -50 600 250" fill="none" stroke="#fff" stroke-width="4" opacity="0.5"/>
+  <text x="400" y="50" fill="#fff" font-size="24" text-anchor="middle" font-weight="bold">PERCEIVED WIDTH</text>
+  <!-- Fixed text below with escaped entity -->
+  <text x="400" y="80" fill="#aaa" font-size="16" text-anchor="middle">HAAS EFFECT (Delay &lt; 30ms)</text>
+
+</svg>

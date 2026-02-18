@@ -1,0 +1,758 @@
+{
+    "id": "comp4_edm_2026",
+    "title": "Component 4: Producing and Analysing - EDM",
+    "totalMarks": 113,
+    "timeLimitMinutes": 60,
+    "description": "This exam tests your production knowledge in the EDM genre. It includes a practical mixing task and a written analysis section.",
+    "sections": [
+        {
+            "id": "A",
+            "title": "Section A: Practical Mixing",
+            "marks": 53,
+            "questions": [
+                {
+                    "id": "q0_setup",
+                    "title": "Task 0: Pre-Exam Setup (10 mins)",
+                    "totalMarks": 0,
+                    "parts": [
+                        {
+                            "id": "p0_setup",
+                            "type": "self_mark",
+                            "question": "<h3>Project Setup</h3><ul><li>Open your DAW and create a new project.</li><li>Set the project tempo to <b>126 BPM</b>.</li><li>Import the 1st audio file from the assets folder.</li></ul>",
+                            "marks": 0,
+                            "markScheme": [
+                                "Tempo set to 126 BPM",
+                                "Audio imported"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "id": "q1_drums",
+                    "title": "Task 1: Drums (8 marks)",
+                    "totalMarks": 8,
+                    "track": {
+                        "artist": "EDM Practical",
+                        "title": "Drum Production",
+                        "year": 2026,
+                        "filename": "C4_EDM_Audio_Assets/C4_EDM_Drum_Stem_EXAMPLE.mp3",
+                        "compareFilename": "C4_EDM_Audio_Assets/C4_EDM_Snare_Roll&Crash_EXAMPLE.wav",
+                        "audioLabel": "Full Drum Stem Example",
+                        "compareLabel": "B: Snare Roll Example",
+                        "assets": [
+                            {
+                                "name": "Kick",
+                                "filename": "C4_EDM_Audio_Assets/C4_EDM_Kick.wav"
+                            },
+                            {
+                                "name": "Snare",
+                                "filename": "C4_EDM_Audio_Assets/C4_EDM_Snare.wav"
+                            },
+                            {
+                                "name": "Hats",
+                                "filename": "C4_EDM_Audio_Assets/C4_EDM_Hats.wav"
+                            },
+                            {
+                                "name": "Snare Roll",
+                                "filename": "C4_EDM_Audio_Assets/C4_EDM_Snare_Roll&Crash.wav"
+                            }
+                        ]
+                    },
+                    "parts": [
+                        {
+                            "id": "p1_setup",
+                            "type": "self_mark",
+                            "question": "<h3>Part A: Drum Arrangement</h3><ul><li>Import <b>C4_EDM_Kick</b>, <b>C4_EDM_Snare</b>, and <b>C4_EDM_Hats</b> and place them at <b>Bar 1</b>.</li><li>Fix the timing issue with the <b>Hats</b>.</li><li>Copy the Kick, Snare, and Hats to <b>Bar 12</b>, then continue copying from <b>Bar 13 to 21</b>.</li><li>Start copying again from <b>Bar 29 to 37</b>.</li><li>Add a <b>2 second reverb</b> to the snare.</li></ul><br/><i>It should sound like the <b>Full Drum Stem Example</b> above.</i>",
+                            "marks": 6,
+                            "answerImage": "C4_EDM_Logic_Pics/C4_EDM_Drumsarr.png",
+                            "markScheme": [
+                                "Correct Hi-Hats timing",
+                                "2 second reverb on snare",
+                                "Break in drums at Bar 13",
+                                "Break at Bar 21",
+                                "End at Bar 37",
+                                "Correct balance of drums"
+                            ]
+                        },
+                        {
+                            "id": "p1_roll",
+                            "type": "self_mark",
+                            "question": "<h3>Part B: Snare Roll</h3><ul><li>Import <b>C4_EDM_Snare_Roll&Crash</b> and place at <b>Bar 25</b>.</li><li>Recreate the sound of the snare roll heard in the <b>Snare Roll Example</b> above.</li><li>Filter the snare roll correctly.</li></ul>",
+                            "marks": 2,
+                            "answerImage": "C4_EDM_Logic_Pics/C4_EDM_Snarefilter.png",
+                            "markScheme": [
+                                "Snare roll placed correctly at Bar 25",
+                                "Snare roll filtered correctly (Low Pass Filter opening)"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "id": "q2_bass",
+                    "title": "Task 2: Bassline (10 marks)",
+                    "totalMarks": 10,
+                    "track": {
+                        "artist": "EDM Practical",
+                        "title": "Bass Synthesis",
+                        "year": 2026,
+                        "filename": "C4_EDM_Audio_Assets/C4_EDM_Bass_Stem_EXAMPLE.mp3",
+                        "audioLabel": "Bass Example",
+                        "assets": [
+                            {
+                                "name": "Bass MIDI",
+                                "filename": "C4_EDM_Audio_Assets/C4_EDM_Bass.mid"
+                            }
+                        ]
+                    },
+                    "parts": [
+                        {
+                            "id": "p2_midi",
+                            "type": "self_mark",
+                            "question": "<h3>Bass Synthesis & Arrangement</h3><ul><li>Import <b>C4_EDM_Bass.mid</b> into an empty MIDI track.</li><li>Copy the MIDI clips to <b>Bar 21</b>.</li><li>Copy the MIDI from <b>Bar 29 to 37</b>.</li><li>Recreate the bass sound heard in the <b>Bass Example</b>.</li></ul><br/><b>Synthesis Instructions:</b><ul><li>Use 2 oscillators (One should be a Square wave).</li><li>Match the Filter settings.</li><li>Match the Amplitude Attack and Release settings.</li><li>Tune the 2nd Oscillator to a 5th (+7 semitones).</li><li>Match the Fine Tune (Detune) amount.</li></ul>",
+                            "marks": 10,
+                            "answerImage": "C4_EDM_Logic_Pics/C4_EDM_RetroBasssynth.png",
+                            "markScheme": [
+                                "Correctly imported MIDI",
+                                "Correctly copied to Bar 21",
+                                "Correctly copied to Bar 29-37",
+                                "Oscillator 1: Square Wave",
+                                "Oscillator 2: Tuned to a 5th",
+                                "Oscillator 2: Fine Tune / Detune applied",
+                                "Filter: Low Pass Type selected",
+                                "Filter: Cutoff lowered appropriately",
+                                "Amp Envelope: Attack increased (slower attack)",
+                                "Amp Envelope: Release increased (longer tail)",
+                                "Overall sound matches example"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "id": "q3_pads",
+                    "title": "Task 3: Pads (10 marks)",
+                    "totalMarks": 10,
+                    "track": {
+                        "artist": "EDM Practical",
+                        "title": "Pad Gating",
+                        "year": 2026,
+                        "filename": "C4_EDM_Audio_Assets/C4_EDM_pad_gate_EXAMPLE.wav",
+                        "audioLabel": "Pad Gate Example",
+                        "assets": [
+                            {
+                                "name": "Pad",
+                                "filename": "C4_EDM_Audio_Assets/C4_EDM_pad.wav"
+                            }
+                        ]
+                    },
+                    "parts": [
+                        {
+                            "id": "p3_gate",
+                            "type": "self_mark",
+                            "question": "<h3>Pad Gating Effect</h3><ul><li>Import <b>C4_EDM_Pad</b>.</li><li>Start the pad at <b>Bar 5</b> and continue until <b>Bar 37</b>.</li><li>Put a <b>Gated Effect</b> on the pad that sounds like the <b>Pad Gate Example</b>.</li><li>Use automation to turn <b>OFF</b> the gate effect at <b>Bar 21</b> and turn it back <b>ON</b> at <b>Bar 29</b>.</li></ul>",
+                            "marks": 10,
+                            "answerImage": [
+                                "C4_EDM_Logic_Pics/C4_EDM_Tremolo.png",
+                                "C4_EDM_Logic_Pics/C4_EDM_bypassedpad.png"
+                            ],
+                            "markScheme": [
+                                "Imported correctly at Bar 5",
+                                "Plays continuously to Bar 37",
+                                "Gated/Tremolo Effect applied",
+                                "Effect Rate set to 1/16th notes",
+                                "Effect Depth/Mix is audible (pulsing)",
+                                "Effect sound matches example character",
+                                "Automation: Effect Active at start",
+                                "Automation: Bypassed/Off at Bar 21 exactly",
+                                "Automation: Re-enabled at Bar 29 exactly",
+                                "No clicking or glitches in automation points"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "id": "q4_lead",
+                    "title": "Task 4: Lead (10 marks)",
+                    "totalMarks": 10,
+                    "track": {
+                        "artist": "EDM Practical",
+                        "title": "Lead FX & Unison",
+                        "year": 2026,
+                        "filename": "C4_EDM_Audio_Assets/C4_EDM_Lead_Reverb_EXAMPLE_.mp3",
+                        "audioLabel": "Lead Example",
+                        "assets": [
+                            {
+                                "name": "Lead",
+                                "filename": "C4_EDM_Audio_Assets/C4_EDM_Lead.wav"
+                            }
+                        ]
+                    },
+                    "parts": [
+                        {
+                            "id": "p4_fx",
+                            "type": "self_mark",
+                            "question": "<h3>Lead FX Recreation</h3><ul><li>Import <b>C4_EDM_lead</b> to start at <b>Bar 1</b>.</li><li>Recreate the effects used in the <b>Lead Example</b> below.</li><li>At <b>Bar 28</b>, add a <b>+12 transpose</b> to the lead line to play in unison with the original sound.</li></ul>",
+                            "marks": 10,
+                            "answerImage": [
+                                "C4_EDM_Logic_Pics/C4_EDM_pitchbend.png",
+                                "C4_EDM_Logic_Pics/C4_EDM_pitchshift.png"
+                            ],
+                            "markScheme": [
+                                "Imported lead audio to Bar 1",
+                                "Insert Delay/Echo plugin",
+                                "Delay time set to 1/2 note (or matching example)",
+                                "Feedback set correctly (repeats)",
+                                "Delay Mix/Wet level appropriate",
+                                "Reverb applied (Space/Depth)",
+                                "Reverb length/decay matches example",
+                                "Second track/clip created for Unison (or automation)",
+                                "Transpose +12 semitones applied",
+                                "Transposition occurs precisely at Bar 28"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "id": "q5_vocals",
+                    "title": "Task 5: Vocals (10 marks)",
+                    "totalMarks": 10,
+                    "track": {
+                        "artist": "EDM Practical",
+                        "title": "Vocal Processing",
+                        "year": 2026,
+                        "filename": "C4_EDM_Audio_Assets/C4_EDM_Vocals_EXAMPLE.wav",
+                        "compareFilename": "C4_EDM_Audio_Assets/C4_EDM_Vocals_Pan_Example.wav",
+                        "audioLabel": "Main Vocal FX Example",
+                        "compareLabel": "Vocal Pan Example",
+                        "assets": [
+                            {
+                                "name": "Vocals",
+                                "filename": "C4_EDM_Audio_Assets/C4_EDM_Vocals.wav"
+                            }
+                        ]
+                    },
+                    "parts": [
+                        {
+                            "id": "p5_eq",
+                            "type": "self_mark",
+                            "question": "<h3>Vocal FX & Panning</h3><ul><li>Import <b>C4_EDM_Vocals</b> and place at <b>Bar 21</b>.</li><li>Replicate the EQ and FX settings heard in the <b>Main Vocal FX Example</b>.</li><li>Copy the Vocal Part to <b>Bar 29</b> and replicate the processing heard in the <b>Vocal Pan Example</b>.</li></ul><br/><b>Processing Requirements:</b><ul><li>Add extra 'Oh No' at Bar 37.</li><li>Remove plosive with EQ.</li><li>Apply Bandpass filter effect.</li><li>Delay on the last 'Oh No'.</li><li><b>Panning Pattern:</b> Right (29), Left (30), Centre (31), Left (33), Right (34), Centre (35).</li></ul>",
+                            "marks": 10,
+                            "answerImage": [
+                                "C4_EDM_Logic_Pics/Logic_Echo_Plugin.png",
+                                "C4_EDM_Logic_Pics/C4_EDM_vocalpandelay.png"
+                            ],
+                            "markScheme": [
+                                "Import to Bar 21",
+                                "Remove plosive on first phrase (EQ/Edit)",
+                                "Apply Bandpass Filter",
+                                "Filter frequency matches example (telephone/radio effect)",
+                                "Vocal level balanced",
+                                "Copy vocal to Bar 29",
+                                "Correct Panning Sequence (R, L, C, L, R, C)",
+                                "Extra 'Oh No' added at Bar 37",
+                                "Delay effect on final 'Oh No'",
+                                "Delay timing/feedback matches ending"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "id": "q6_mix",
+                    "title": "Task 6: Mixing and Balance (5 marks)",
+                    "totalMarks": 5,
+                    "track": {
+                        "artist": "EDM Practical",
+                        "title": "Final Mix Reference",
+                        "year": 2026,
+                        "filename": "C4_EDM_Audio_Assets/C4_EDM_Stereo_Mix_EXAMPLE.mp3",
+                        "audioLabel": "Full Mix Example"
+                    },
+                    "parts": [
+                        {
+                            "id": "p6_balance",
+                            "type": "self_mark",
+                            "question": "<h3>Final Mix Balance</h3><ul><li>Ensure all tracks (Drums, Bass, Pads, Lead, Vocals) are audible and balanced relative to one another.</li><li>Check the Master Output is not clipping (red).</li><li>Ensure the mix matches the reference track's overall balance.</li></ul>",
+                            "marks": 5,
+                            "answerImage": "C4_EDM_Logic_Pics/C4_EDM_WholeArr.png",
+                            "markScheme": [
+                                "Drums correctly balanced",
+                                "Bass line correctly balanced",
+                                "Pads correctly balanced",
+                                "Lead synth correctly balanced",
+                                "Vocals correctly balanced"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "B",
+            "title": "Section B: Production Knowledge (Short Answer)",
+            "marks": 30,
+            "questions": [
+                {
+                    "id": "q1",
+                    "title": "Question 1: Kick Drum Mixing",
+                    "totalMarks": 3,
+                    "parts": [
+                        {
+                            "id": "a",
+                            "type": "matching",
+                            "marks": 3,
+                            "question": "Match the Frequency Range to the correct EQ action for a standard EDM Kick.",
+                            "pairs": [
+                                {
+                                    "item": "20Hz - 40Hz",
+                                    "match": "Cut (High Pass) to remove rumble"
+                                },
+                                {
+                                    "item": "60Hz - 80Hz",
+                                    "match": "Boost for Body/Thump"
+                                },
+                                {
+                                    "item": "200Hz - 400Hz",
+                                    "match": "Cut to remove boxiness/mud"
+                                }
+                            ],
+                            "options": [
+                                "Cut (High Pass) to remove rumble",
+                                "Boost for Body/Thump",
+                                "Cut to remove boxiness/mud",
+                                "Boost for Air/Sizzle"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "id": "q2",
+                    "title": "Question 2: Bass Recording Chain",
+                    "totalMarks": 6,
+                    "parts": [
+                        {
+                            "id": "a",
+                            "type": "ordering",
+                            "marks": 6,
+                            "question": "Order the correct signal chain for recording a Bass Guitar with an amplifier.",
+                            "items": [
+                                "Bass Guitar",
+                                "Amplifier",
+                                "Microphone",
+                                "Pre Amp",
+                                "Audio Interface",
+                                "DAW"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "id": "q3",
+                    "title": "Question 3: Pad Synthesis",
+                    "totalMarks": 1,
+                    "parts": [
+                        {
+                            "id": "a",
+                            "type": "multiple_choice",
+                            "marks": 1,
+                            "question": "Which ADSR envelope settings are most characteristic of a lush, atmospheric Pad sound?",
+                            "options": [
+                                "Fast Attack, Short Decay",
+                                "Slow Attack, Long Release",
+                                "Zero Sustain, Fast Release",
+                                "Fast Attack, Sustain 0%"
+                            ],
+                            "answer": "Slow Attack, Long Release",
+                            "rationale": "Pads need a slow attack to fade in gently and a long release to sustain the atmosphere after the key is released."
+                        }
+                    ]
+                },
+                {
+                    "id": "q4",
+                    "title": "Question 4: Supersaw Lead",
+                    "totalMarks": 4,
+                    "parts": [
+                        {
+                            "id": "a",
+                            "type": "multi_select",
+                            "marks": 2,
+                            "question": "A supersaw lead sounds thin. Select TWO synthesis parameters to increase width and thickness.",
+                            "options": [
+                                "Increase Unison Voice Count",
+                                "Increase Detune Amount",
+                                "Increase Filter Resonance",
+                                "Increase Amp Attack",
+                                "Decrease Master Volume"
+                            ],
+                            "answer": [
+                                "Increase Unison Voice Count",
+                                "Increase Detune Amount"
+                            ],
+                            "rationale": "Unison stacks multiple voices, and Detune spreads their pitch to create the massive 'Supersaw' width."
+                        },
+                        {
+                            "id": "b",
+                            "type": "multiple_choice",
+                            "marks": 2,
+                            "question": "Which effect processor would best further enhance the width of this lead?",
+                            "options": [
+                                "Mono Chorus",
+                                "Dimension Expander / Stereo Chorus",
+                                "Gate",
+                                "Limiter"
+                            ],
+                            "answer": "Dimension Expander / Stereo Chorus",
+                            "rationale": "Chorus and Dimension Expanders create phase differences between L/R channels to widen the image."
+                        }
+                    ]
+                },
+                {
+                    "id": "q5",
+                    "title": "Question 5: Vocal Mixing",
+                    "totalMarks": 2,
+                    "parts": [
+                        {
+                            "id": "a",
+                            "type": "multiple_choice",
+                            "marks": 1,
+                            "question": "You hear harsh 'S' sounds (sibilance) in the vocal recording. Which processor should you use?",
+                            "options": [
+                                "Expander",
+                                "De-esser",
+                                "Gate",
+                                "Limiter"
+                            ],
+                            "answer": "De-esser",
+                            "rationale": "A De-esser is a frequency-dependent compressor specifically designed to reduce sibilance."
+                        },
+                        {
+                            "id": "b",
+                            "type": "multiple_choice",
+                            "marks": 1,
+                            "question": "In which frequency range does sibilance typically occur?",
+                            "options": [
+                                "100Hz - 300Hz",
+                                "1kHz - 2kHz",
+                                "5kHz - 8kHz",
+                                "15kHz+"
+                            ],
+                            "answer": "5kHz - 8kHz",
+                            "rationale": "Sibilance usually sits between 5kHz and 8kHz (sometimes higher for 'air', but the harshness is here)."
+                        }
+                    ]
+                },
+                {
+                    "id": "q6",
+                    "title": "Question 6: Mastering",
+                    "totalMarks": 3,
+                    "parts": [
+                        {
+                            "id": "a",
+                            "type": "multiple_choice",
+                            "marks": 1,
+                            "question": "What is a typical target Integrated Loudness for a heavy EDM track?",
+                            "options": [
+                                "-14 LUFS",
+                                "-23 LUFS",
+                                "-8 to -6 LUFS",
+                                "0 LUFS"
+                            ],
+                            "answer": "-8 to -6 LUFS",
+                            "rationale": "EDM is mastered effectively loud for club play, typically between -8 and -6 LUFS."
+                        },
+                        {
+                            "id": "b",
+                            "type": "multiple_choice",
+                            "marks": 1,
+                            "question": "Which processor is the final plugin in the chain to prevent clipping?",
+                            "options": [
+                                "Compressor",
+                                "Limiter / Maximizer",
+                                "EQ",
+                                "Saturator"
+                            ],
+                            "answer": "Limiter / Maximizer",
+                            "rationale": "A Limiter (Brickwall) stops the signal exceeding the ceiling (0dB)."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "C",
+            "title": "Section C: Extended Response",
+            "marks": 30,
+            "questions": [
+                {
+                    "id": "q11",
+                    "title": "Q11: Production Knowledge & Workflow",
+                    "totalMarks": 10,
+                    "parts": [
+                        {
+                            "id": "a",
+                            "type": "cloze",
+                            "marks": 10,
+                            "question": "Complete the production workflow analysis for a Progressive House track.",
+                            "text": "The standard tempo range for Progressive House is typically {0} BPM. The foundation of the groove is a {1} pattern played by the kick drum. To ensure the kick cuts through, the bassline is usually {2} to the kick. The main hook is often played by a stacked {3} synthesizer. Atmospheric texture is provided by {4} sounds with slow attacks. Tension in the build-up is created using {5} risers. Stereo width is often enhanced using {6} or Chorus effects. Vocal clarity is maintained by cutting low frequencies with a {7}. The 'Drop' is the section with maximum {8}. The final stage of the signal chain on the master bus is a {9}.",
+                            "options": [
+                                [
+                                    "110",
+                                    "140",
+                                    "128",
+                                    "174",
+                                    "90"
+                                ],
+                                [
+                                    "Breakbeat",
+                                    "Four-on-the-Floor",
+                                    "Waltz",
+                                    "Reggaeton",
+                                    "Swing"
+                                ],
+                                [
+                                    "Gated",
+                                    "Expanded",
+                                    "Sidechained",
+                                    "Phased",
+                                    "Limited"
+                                ],
+                                [
+                                    "Sine Wave",
+                                    "Sub Bass",
+                                    "Supersaw",
+                                    "Pluck",
+                                    "Organ"
+                                ],
+                                [
+                                    "Pluck",
+                                    "Stab",
+                                    "Pad",
+                                    "Arpeggio",
+                                    "Lead"
+                                ],
+                                [
+                                    "Pink Noise",
+                                    "Brown Noise",
+                                    "White Noise",
+                                    "Sine Sweep",
+                                    "Triangle Wave"
+                                ],
+                                [
+                                    "Mono",
+                                    "Panning",
+                                    "Tremolo",
+                                    "Unison",
+                                    "Ring Mod"
+                                ],
+                                [
+                                    "Low Pass Filter",
+                                    "Band Pass Filter",
+                                    "High Pass Filter",
+                                    "Notch Filter",
+                                    "Shelf EQ"
+                                ],
+                                [
+                                    "Quietness",
+                                    "Minimalism",
+                                    "Energy",
+                                    "Silence",
+                                    "Acoustic-ness"
+                                ],
+                                [
+                                    "Compressor",
+                                    "EQ",
+                                    "Flanger",
+                                    "Limiter",
+                                    "Distortion"
+                                ]
+                            ],
+                            "answer": [
+                                "128",
+                                "Four-on-the-Floor",
+                                "Sidechained",
+                                "Supersaw",
+                                "Pad",
+                                "White Noise",
+                                "Unison",
+                                "High Pass Filter",
+                                "Energy",
+                                "Limiter"
+                            ],
+                            "rationale": "This workflow covers the essential elements of EDM production: Tempo, Rhythm, Dynamics, Sound Design, FX, and Mastering."
+                        }
+                    ]
+                },
+                {
+                    "id": "q12",
+                    "title": "Q12: EDM Mixing Workflow & Techniques",
+                    "totalMarks": 10,
+                    "parts": [
+                        {
+                            "id": "a",
+                            "type": "cloze",
+                            "marks": 4,
+                            "question": "Complete the analysis of EDM frequency management.",
+                            "text": "In EDM production, the kick drum typically occupies the {0} frequency range (60-80Hz). To prevent masking, the bassline is often {1} to the kick using sidechain compression. Lead synthesizers are given clarity by cutting {2} frequencies with a High Pass Filter. The 'air' and 'sparkle' in the mix comes from boosting frequencies above {3}.",
+                            "options": [
+                                [
+                                    "sub-bass",
+                                    "mid-range",
+                                    "high-end"
+                                ],
+                                [
+                                    "ducked",
+                                    "boosted",
+                                    "filtered"
+                                ],
+                                [
+                                    "low",
+                                    "mid",
+                                    "high"
+                                ],
+                                [
+                                    "1kHz",
+                                    "8kHz",
+                                    "20kHz"
+                                ]
+                            ],
+                            "answer": [
+                                "sub-bass",
+                                "ducked",
+                                "low",
+                                "8kHz"
+                            ],
+                            "rationale": "Proper frequency management is essential for clarity in EDM: kick in sub-bass, sidechain ducking prevents masking, HPF on leads removes mud, and air frequencies add sparkle."
+                        },
+                        {
+                            "id": "b",
+                            "type": "sorting",
+                            "marks": 6,
+                            "question": "Categorise these mixing techniques into Mono or Stereo processing.",
+                            "groups": [
+                                "Mono",
+                                "Stereo"
+                            ],
+                            "items": [
+                                {
+                                    "id": "1",
+                                    "content": "Sub Bass (below 100Hz)",
+                                    "group": "Mono"
+                                },
+                                {
+                                    "id": "2",
+                                    "content": "Kick Drum",
+                                    "group": "Mono"
+                                },
+                                {
+                                    "id": "3",
+                                    "content": "Supersaw Lead",
+                                    "group": "Stereo"
+                                },
+                                {
+                                    "id": "4",
+                                    "content": "Pad Synths",
+                                    "group": "Stereo"
+                                },
+                                {
+                                    "id": "5",
+                                    "content": "Vocal Reverb",
+                                    "group": "Stereo"
+                                },
+                                {
+                                    "id": "6",
+                                    "content": "808 Bass",
+                                    "group": "Mono"
+                                },
+                                {
+                                    "id": "7",
+                                    "content": "Snare Drum",
+                                    "group": "Mono"
+                                },
+                                {
+                                    "id": "8",
+                                    "content": "Hi-Hat (Stereo Spread)",
+                                    "group": "Stereo"
+                                },
+                                {
+                                    "id": "9",
+                                    "content": "Delay Effect",
+                                    "group": "Stereo"
+                                },
+                                {
+                                    "id": "10",
+                                    "content": "Mono Vocal (Center)",
+                                    "group": "Mono"
+                                },
+                                {
+                                    "id": "11",
+                                    "content": "Chorus Effect",
+                                    "group": "Stereo"
+                                },
+                                {
+                                    "id": "12",
+                                    "content": "Clap (Centered)",
+                                    "group": "Mono"
+                                }
+                            ],
+                            "rationale": "Low-frequency elements (sub bass, kick, 808) should be mono for power and focus. High-frequency elements (leads, pads, reverb) benefit from stereo width."
+                        }
+                    ]
+                },
+                {
+                    "id": "q13",
+                    "title": "Q13: Supersaw Signal Chain",
+                    "totalMarks": 10,
+                    "parts": [
+                        {
+                            "id": "a",
+                            "type": "signal-flow-label",
+                            "marks": 10,
+                            "question": "Complete the signal flow for a Supersaw synthesizer by dragging the correct terms into each box.",
+                            "flowSteps": [
+                                {
+                                    "id": "step1",
+                                    "label": "Input"
+                                },
+                                {
+                                    "id": "step2",
+                                    "label": "Amplitude Shaping"
+                                },
+                                {
+                                    "id": "step3",
+                                    "label": "Tone Shaping"
+                                },
+                                {
+                                    "id": "step4",
+                                    "label": "Width"
+                                },
+                                {
+                                    "id": "step5",
+                                    "label": "Space"
+                                },
+                                {
+                                    "id": "step6",
+                                    "label": "Dynamics"
+                                }
+                            ],
+                            "terms": [
+                                "MIDI Note",
+                                "Filter (VCF)",
+                                "Envelope (ADSR)",
+                                "Unison/Chorus",
+                                "Reverb",
+                                "Limiter"
+                            ],
+                            "correctAnswers": {
+                                "step1": "MIDI Note",
+                                "step2": "Envelope (ADSR)",
+                                "step3": "Filter (VCF)",
+                                "step4": "Unison/Chorus",
+                                "step5": "Reverb",
+                                "step6": "Limiter"
+                            },
+                            "rationale": "The signal flow for a Supersaw lead: MIDI triggers the oscillator, ADSR shapes dynamics, VCF shapes tone, Unison creates width, Reverb adds space, and a Limiter controls peaks."
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

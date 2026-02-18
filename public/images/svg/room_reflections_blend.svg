@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" style="background-color:#1e1e1e; font-family:sans-serif;">
+    <text x="200" y="30" text-anchor="middle" fill="#fff" font-size="20">Natural Room Reverb</text>
+    
+    <!-- Room Outline -->
+    <rect x="50" y="50" width="300" height="200" fill="none" stroke="#444" stroke-width="2"/>
+    
+    <!-- Source -->
+    <circle cx="100" cy="150" r="10" fill="#eab308"/>
+    
+    <!-- Mic (Distant) -->
+    <rect x="300" y="140" width="10" height="20" fill="#fff"/>
+    
+    <!-- Direct Path -->
+    <line x1="110" y1="150" x2="300" y2="150" stroke="#fff" stroke-width="3"/>
+    <text x="200" y="140" text-anchor="middle" fill="#fff" font-size="10">Direct</text>
+    
+    <!-- Reflections -->
+    <path d="M 110 150 L 200 50 L 300 150" fill="none" stroke="#666" stroke-width="1" stroke-dasharray="4"/>
+    <path d="M 110 150 L 200 250 L 300 150" fill="none" stroke="#666" stroke-width="1" stroke-dasharray="4"/>
+    
+    <text x="200" y="280" text-anchor="middle" fill="#aaa">Distance = More Reflections blend</text>
+</svg>

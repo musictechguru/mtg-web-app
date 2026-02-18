@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" style="background-color:#1e1e1e; font-family:sans-serif;">
+    <defs>
+        <radialGradient id="speakerCone" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" style="stop-color:#333" />
+            <stop offset="90%" style="stop-color:#111" />
+            <stop offset="100%" style="stop-color:#333" />
+        </radialGradient>
+    </defs>
+    
+    <text x="200" y="40" text-anchor="middle" fill="#fff" font-size="20" font-weight="bold">Amp Speaker Zones</text>
+    
+    <!-- Speaker -->
+    <circle cx="200" cy="160" r="100" fill="url(#speakerCone)" stroke="#555" stroke-width="5"/>
+    <circle cx="200" cy="160" r="20" fill="#222" stroke="#444"/> <!-- Dust Cap -->
+    
+    <!-- Zones -->
+    <circle cx="200" cy="160" r="25" fill="none" stroke="#f59e0b" stroke-width="2" stroke-dasharray="5"/>
+    <text x="200" y="165" text-anchor="middle" fill="#f59e0b" font-weight="bold" font-size="12">Bright</text>
+    
+    <circle cx="200" cy="160" r="70" fill="none" stroke="#3b82f6" stroke-width="2" stroke-dasharray="5"/>
+    <text x="200" y="110" text-anchor="middle" fill="#3b82f6" font-weight="bold" font-size="12">Warm / Dark</text>
+    
+    <!-- Mic Arrows -->
+    <path d="M 230 160 L 280 160" stroke="#fff" stroke-width="2" marker-end="url(#arrow)"/>
+    <text x="320" y="165" fill="#aaa" font-size="12">Smoother Tone</text>
+</svg>

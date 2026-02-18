@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400">
+    <rect width="800" height="400" fill="#1e1e1e" rx="10" />
+    <style>
+        .title { font-family: sans-serif; font-size: 24px; fill: #e0e0e0; font-weight: bold; text-anchor: middle; }
+        .label { font-family: sans-serif; font-size: 16px; fill: #90a4ae; text-anchor: middle; }
+        .path { fill: none; stroke: #4CAF50; stroke-width: 3; stroke-linecap: round; }
+        .axis { stroke: #90a4ae; stroke-width: 2; }
+    </style>
+    
+    <text x="400" y="40" class="title">3:1 Rule (Phase Coherence)</text>
+    <!-- Source -->
+    <circle cx="200" cy="200" r="20" fill="white" />
+    <text x="200" y="240" class="label">Source</text>
+    
+    <!-- Mic 1 -->
+    <rect x="300" y="180" width="20" height="40" fill="#4CAF50" />
+    <text x="310" y="160" class="label">Mic 1</text>
+    
+    <!-- Mic 2 -->
+    <rect x="600" y="180" width="20" height="40" fill="#4CAF50" />
+    <text x="610" y="160" class="label">Mic 2</text>
+    
+    <!-- Distances -->
+    <line x1="220" y1="200" x2="300" y2="200" stroke="white" stroke-dasharray="5" />
+    <text x="260" y="190" class="label">D</text>
+    
+    <line x1="320" y1="200" x2="600" y2="200" stroke="white" stroke-dasharray="5" />
+    <text x="460" y="190" class="label">3 x D (Minimum)</text>
+    
+    <text x="400" y="320" class="label">Prevents Phase Cancellation</text>
+
+</svg>

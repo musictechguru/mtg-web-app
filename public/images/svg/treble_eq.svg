@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" style="background-color:#1e1e1e; font-family:sans-serif;">
+    <text x="400" y="40" text-anchor="middle" fill="#ffffff" font-size="24" font-weight="bold">Treble / High Frequency</text>
+
+    <!-- Graph Grid -->
+    <line x1="100" y1="300" x2="700" y2="300" stroke="#666" stroke-width="2"/>
+    <line x1="100" y1="300" x2="100" y2="100" stroke="#666" stroke-width="2"/>
+
+    <!-- Flat Line (Low/Mid) -->
+    <path d="M 100 250 L 400 250" fill="none" stroke="#444" stroke-width="2" stroke-dasharray="5,5"/>
+    
+    <!-- Boosted Highs -->
+    <path d="M 100 250 Q 400 250 500 200 T 700 150" fill="none" stroke="#ec4899" stroke-width="5"/>
+
+    <!-- Labels -->
+    <text x="100" y="320" text-anchor="middle" fill="#aaa">20Hz</text>
+    <text x="700" y="320" text-anchor="middle" fill="#aaa">20kHz</text>
+    
+    <!-- Highlight Zone -->
+    <rect x="500" y="100" width="200" height="200" fill="#ec4899" opacity="0.1"/>
+    <text x="600" y="130" text-anchor="middle" fill="#ec4899" font-size="18" font-weight="bold">Air &amp; Detail</text>
+    <text x="600" y="280" text-anchor="middle" fill="#ec4899" font-size="14">Treble Range</text>
+
+</svg>

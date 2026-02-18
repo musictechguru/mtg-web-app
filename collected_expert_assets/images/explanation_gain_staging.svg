@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400">
+    <rect width="800" height="400" fill="#1e1e1e" rx="10" />
+    <style>
+        .title { font-family: sans-serif; font-size: 24px; fill: #e0e0e0; font-weight: bold; text-anchor: middle; }
+        .label { font-family: sans-serif; font-size: 16px; fill: #90a4ae; text-anchor: middle; }
+        .path { fill: none; stroke: #4CAF50; stroke-width: 3; stroke-linecap: round; }
+        .axis { stroke: #90a4ae; stroke-width: 2; }
+    </style>
+    
+    <text x="400" y="40" class="title">Gain Staging & Headroom</text>
+    <!-- Meter -->
+    <rect x="200" y="100" width="400" height="40" fill="#333" stroke="#90a4ae" rx="5" />
+    <rect x="202" y="102" width="280" height="36" fill="#4CAF50" opacity="0.8" />
+    <rect x="482" y="102" width="80" height="36" fill="#FFC107" opacity="0.8" />
+    <rect x="562" y="102" width="36" height="36" fill="#FF5252" opacity="0.8" />
+    
+    <!-- Labels -->
+    <line x1="200" y1="150" x2="600" y2="150" class="axis" />
+    <text x="200" y="170" class="label">-60dB</text>
+    <text x="480" y="170" class="label">-18dB (Nominal)</text>
+    <text x="560" y="170" class="label">0dB (Clip)</text>
+    <text x="400" y="250" class="label" fill="white">Signal-to-Noise Ratio vs Headroom</text>
+
+</svg>

@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" preserveAspectRatio="xMidYMid meet">
+    <!-- Background -->
+    <rect width="800" height="400" fill="#1e293b" />
+    
+    <!-- Title -->
+    <text x="400" y="40" text-anchor="middle" fill="#fff" font-size="24" font-family="sans-serif" font-weight="bold">The Role of the Preamp</text>
+
+    <!-- Input Signal (Weak) -->
+    <path d="M 50 200 Q 75 190 100 200 Q 125 210 150 200" fill="none" stroke="#3b82f6" stroke-width="2" />
+    <text x="100" y="170" text-anchor="middle" fill="#3b82f6" font-size="14">Mic Level Input</text>
+    <text x="100" y="240" text-anchor="middle" fill="#94a3b8" font-size="12">(Weak Signal)</text>
+
+    <!-- The Preamp Unit -->
+    <rect x="250" y="100" width="300" height="200" rx="10" fill="#334155" stroke="#cbd5e1" stroke-width="3" />
+    <text x="400" y="140" text-anchor="middle" fill="#fbbf24" font-size="20" font-weight="bold">PREAMP</text>
+    
+    <!-- Gain Knob -->
+    <circle cx="340" cy="200" r="30" fill="#1e293b" stroke="#cbd5e1" stroke-width="2" />
+    <line x1="340" y1="200" x2="360" y2="180" stroke="#fbbf24" stroke-width="3" stroke-linecap="round" /> <!-- Knob marker -->
+    <text x="340" y="250" text-anchor="middle" fill="#fff" font-size="12">GAIN</text>
+    
+    <!-- +48V Button -->
+    <rect x="420" y="180" width="40" height="20" rx="2" fill="#ef4444" />
+    <text x="440" y="220" text-anchor="middle" fill="#fff" font-size="12">+48V</text>
+
+    <!-- Output Signal (Strong) -->
+    <path d="M 600 200 Q 650 100 700 200 Q 750 300 800 200" fill="none" stroke="#10b981" stroke-width="4" />
+    <text x="700" y="90" text-anchor="middle" fill="#10b981" font-size="14">Line Level Output</text>
+    <text x="700" y="320" text-anchor="middle" fill="#94a3b8" font-size="12">(Strong Signal)</text>
+
+    <!-- Arrows -->
+    <line x1="160" y1="200" x2="240" y2="200" stroke="#fff" stroke-width="2" marker-end="url(#arrow)" />
+    <line x1="560" y1="200" x2="590" y2="200" stroke="#fff" stroke-width="2" marker-end="url(#arrow)" />
+
+    <defs>
+        <marker id="arrow" markerWidth="10" markerHeight="7" refX="0" refY="3.5" orient="auto">
+            <polygon points="0 0, 10 3.5, 0 7" fill="#fff" />
+        </marker>
+    </defs>
+</svg>

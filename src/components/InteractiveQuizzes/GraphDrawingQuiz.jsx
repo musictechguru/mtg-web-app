@@ -1,0 +1,662 @@
+import React, { useState, useRef, useEffect } from 'react';
+import { Eraser } from 'lucide-react';
+
+const GraphDrawingQuiz = ({ question, targetPoints, hint, onResult }) => {
+    const [drawnPath, setDrawnPath] = useState([]);
+    const [isDrawing, setIsDrawing] = useState(false);
+    const [submitted, setSubmitted] = useState(false);
+
+    const canvasRef = useRef(null);
+    const [canvasContext, setCanvasContext] = useState(null);
+
+    // State for sliders
+    const [sliderValues, setSliderValues] = useState({});
+    const [correctValues, setCorrectValues] = useState(null);
+
+    // Initialize sliders and correct values based on question type
+    useEffect(() => {
+        const type = getQuestionType();
+        const text = question.toLowerCase();
+
+        let init = {};
+        let correct = {};
+
+        if (type === 'adsr') {
+            if (text.includes('fast attack')) {
+                init = { attack: 50, decay: 50, sustain: 50, release: 50 };
+                correct = { attack: 10, decay: 30, sustain: 70, release: 80 };
+            } else {
+                init = { attack: 50, decay: 50, sustain: 50, release: 50 };
+                correct = { attack: 80, decay: 0, sustain: 100, release: 50 };
+            }
+        } else if (type === 'eq') {
+            init = { frequency: 632, gain: 0 };
+            correct = { frequency: 3000, gain: 6 };
+        } else if (type === 'compression') {
+            init = { threshold: 0, ratio: 1 };
+            correct = { threshold: -12, ratio: 4 };
+        } else if (type === 'filter') {
+            if (text.includes('high')) {
+                init = { cutoff: 20, slope: 12 };
+                correct = { cutoff: 100, slope: 12 };
+            } else {
+                init = { cutoff: 20000, slope: 12 };
+                correct = { cutoff: 2000, slope: 12 };
+            }
+        }
+
+        setSliderValues(init);
+        setCorrectValues(correct);
+    }, [question]);
+
+    useEffect(() => {
+        if (canvasRef.current) {
+            const ctx = canvasRef.current.getContext('2d');
+            setCanvasContext(ctx);
+            drawGrid(ctx);
+        }
+    }, []);
+
+    const getQuestionType = () => {
+        if (question.toLowerCase().includes('adsr') || question.toLowerCase().includes('envelope')) return 'adsr';
+        if (question.toLowerCase().includes('eq')) return 'eq';
+        if (question.toLowerCase().includes('compression')) return 'compression';
+        if (question.toLowerCase().includes('filter')) return 'filter';
+        return 'unknown';
+    };
+
+    const handleSliderChange = (param, value) => {
+        const newValues = { ...sliderValues, [param]: parseFloat(value) };
+        setSliderValues(newValues);
+        updateGraphFromSliders(newValues);
+    };
+
+    const updateGraphFromSliders = (values) => {
+        const canvas = canvasRef.current;
+        if (!canvas) return;
+
+        const points = calculatePoints(values, canvas.width, canvas.height);
+        setDrawnPath(points);
+        drawPath(points);
+    };
+
+    const calculatePoints = (values, width, height) => {
+        const type = getQuestionType();
+        let points = [];
+
+        if (type === 'adsr') {
+            // Calculate ADSR points
+            const attackTime = (values.attack / 100) * (width * 0.25);
+            const decayTime = (values.decay / 100) * (width * 0.25);
+            const sustainLevel = (values.sustain / 100) * height;
+            const releaseTime = (values.release / 100) * (width * 0.25);
+
+            points = [
+                { x: 0, y: height },
+                { x: attackTime, y: 0 },
+                { x: attackTime + decayTime, y: height - sustainLevel },
+                { x: width - releaseTime, y: height - sustainLevel },
+                { x: width, y: height }
+            ];
+        } else if (type === 'eq') {
+            // Calculate EQ bell curve
+            const freqX = getLogX(values.frequency, 20, 20000, width);
+
+            for (let x = 0; x <= width; x += 5) {
+                const dist = Math.abs(x - freqX);
+                const bell = Math.exp(-(dist * dist) / (2 * 1000)); // Simple bell shape
+                const y = (height / 2) - (bell * (values.gain / 48) * height); // Updated divisor for +/-24 range
+                points.push({ x, y });
+            }
+        } else if (type === 'compression') {
+            // Calculate Compression knee
+            const threshX = ((values.threshold + 80) / 80) * width; // Updated for -80 range
+            const threshY = height - ((values.threshold + 80) / 80) * height;
+
+            // Calculate end point based on ratio
+            const inputRangeAboveThresh = 80 + values.threshold;
+            const outputRise = inputRangeAboveThresh / values.ratio;
+            const endY = threshY - (outputRise / 80) * height;
+
+            points = [
+                { x: 0, y: height },
+                { x: threshX, y: threshY },
+                { x: width, y: endY }
+            ];
+        } else if (type === 'filter') {
+            // Filter
+            points = [];
+            for (let x = 0; x <= width; x += 5) {
+                const t = x / width;
+                const freq = 20 * Math.pow(1000, t);
+                let gain = 0;
+
+                const isHighPass = question.toLowerCase().includes('high-pass') || question.toLowerCase().includes('high pass');
+
+                if (isHighPass) {
+                    if (freq < values.cutoff) {
+                        const octaves = Math.log2(values.cutoff / freq);
+                        gain = -Math.abs(values.slope) * octaves;
+                    }
+                } else {
+                    if (freq > values.cutoff) {
+                        const octaves = Math.log2(freq / values.cutoff);
+                        gain = -Math.abs(values.slope) * octaves;
+                    }
+                }
+
+                // Convert gain to Y pixels. Range +12 to -36dB (48dB range)
+                const y = 75 - (gain / 48) * height;
+                const clampedY = Math.min(Math.max(y, 0), height);
+                points.push({ x, y: clampedY });
+            }
+        }
+        return points;
+    };
+
+    const getLogX = (freq, minFreq, maxFreq, width) => {
+        const minLog = Math.log10(minFreq);
+        const maxLog = Math.log10(maxFreq);
+        const freqLog = Math.log10(freq);
+        return ((freqLog - minLog) / (maxLog - minLog)) * width;
+    };
+
+    const drawPath = (points) => {
+        if (!canvasContext || points.length < 2) return;
+
+        drawGrid(canvasContext); // Clear and redraw grid
+
+        canvasContext.strokeStyle = '#8b5cf6';
+        canvasContext.lineWidth = 3;
+        canvasContext.lineCap = 'round';
+        canvasContext.lineJoin = 'round';
+
+        canvasContext.beginPath();
+        canvasContext.moveTo(points[0].x, points[0].y);
+        for (let i = 1; i < points.length; i++) {
+            canvasContext.lineTo(points[i].x, points[i].y);
+        }
+        canvasContext.stroke();
+    };
+
+    const drawGrid = (ctx) => {
+        if (!ctx) return;
+
+        const canvas = canvasRef.current;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Draw grid
+        ctx.strokeStyle = '#e5e7eb';
+        ctx.lineWidth = 1;
+
+        // Vertical lines
+        for (let x = 0; x <= canvas.width; x += 40) {
+            ctx.beginPath();
+            ctx.moveTo(x, 0);
+            ctx.lineTo(x, canvas.height);
+            ctx.stroke();
+        }
+
+        // Horizontal lines
+        for (let y = 0; y <= canvas.height; y += 40) {
+            ctx.beginPath();
+            ctx.moveTo(0, y);
+            ctx.lineTo(canvas.width, y);
+            ctx.stroke();
+        }
+
+        // Draw axes
+        ctx.strokeStyle = '#9ca3af';
+        ctx.lineWidth = 2;
+
+        // X-axis (bottom)
+        ctx.beginPath();
+        ctx.moveTo(0, canvas.height);
+        ctx.lineTo(canvas.width, canvas.height);
+        ctx.stroke();
+
+        // Y-axis (left)
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.lineTo(0, canvas.height);
+        ctx.stroke();
+
+        // Add axis labels
+        ctx.fillStyle = '#6b7280';
+        ctx.font = 'bold 12px sans-serif';
+        ctx.textAlign = 'center';
+
+        // Determine labels based on question type
+        let xLabel = 'Time';
+        let yLabel = 'Level';
+        const isFrequencyGraph = question.toLowerCase().includes('eq') || question.toLowerCase().includes('filter');
+
+        if (isFrequencyGraph) {
+            xLabel = 'Frequency';
+            yLabel = 'Gain (dB)';
+        } else if (question.toLowerCase().includes('compression')) {
+            xLabel = 'Input Level (dB)';
+            yLabel = 'Output Level (dB)';
+        } else if (question.toLowerCase().includes('adsr') || question.toLowerCase().includes('envelope')) {
+            xLabel = 'Time';
+            yLabel = 'Level';
+        }
+
+        // X-axis label (bottom center)
+        ctx.fillText(xLabel, canvas.width / 2, canvas.height - 5);
+
+        // Y-axis label (left side, rotated)
+        ctx.save();
+        ctx.translate(15, canvas.height / 2);
+        ctx.rotate(-Math.PI / 2);
+        ctx.fillText(yLabel, 0, 0);
+        ctx.restore();
+
+        // Add tick marks and values
+        ctx.font = '10px sans-serif';
+        ctx.fillStyle = '#9ca3af';
+
+        if (isFrequencyGraph) {
+            // Logarithmic frequency scale: 20Hz to 20kHz
+            ctx.textAlign = 'center';
+
+            // Key frequency points on logarithmic scale
+            const freqPoints = [
+                { freq: '20Hz', pos: 0 },
+                { freq: '100Hz', pos: 0.15 },
+                { freq: '1kHz', pos: 0.40 },
+                { freq: '5kHz', pos: 0.65 },
+                { freq: '10kHz', pos: 0.80 },
+                { freq: '20kHz', pos: 1.0 }
+            ];
+
+            freqPoints.forEach(point => {
+                const x = point.pos * canvas.width;
+                ctx.fillText(point.freq, x, canvas.height - 5);
+
+                // Draw small tick mark
+                ctx.beginPath();
+                ctx.moveTo(x, canvas.height - 15);
+                ctx.lineTo(x, canvas.height - 10);
+                ctx.strokeStyle = '#9ca3af';
+                ctx.lineWidth = 1;
+                ctx.stroke();
+            });
+
+            // Y-axis for dB (gain)
+            ctx.textAlign = 'right';
+            ctx.fillText('+12dB', 40, 15);
+            ctx.fillText('0dB', 40, canvas.height / 2 + 4);
+            ctx.fillText('-12dB', 40, canvas.height - 5);
+        } else if (question.toLowerCase().includes('compression')) {
+            // Compression graph: Input/Output in dB
+            ctx.textAlign = 'center';
+
+            // X-axis (Input Level)
+            ctx.fillText('-40dB', 10, canvas.height - 5);
+            ctx.fillText('-20dB', canvas.width / 3, canvas.height - 5);
+            ctx.fillText('-12dB', canvas.width * 0.55, canvas.height - 5);
+            ctx.fillText('0dB', canvas.width - 10, canvas.height - 5);
+
+            // Y-axis (Output Level)
+            ctx.textAlign = 'right';
+            ctx.fillText('0dB', 40, 15);
+            ctx.fillText('-6dB', 40, canvas.height / 3 + 4);
+            ctx.fillText('-12dB', 40, canvas.height * 0.6 + 4);
+            ctx.fillText('-24dB', 40, canvas.height - 5);
+
+        } else if (question.toLowerCase().includes('adsr') || question.toLowerCase().includes('envelope')) {
+            // ADSR envelope: Time in milliseconds
+            ctx.textAlign = 'center';
+
+            // X-axis (Time)
+            ctx.fillText('0ms', 10, canvas.height - 5);
+            ctx.fillText('250ms', canvas.width / 4, canvas.height - 5);
+            ctx.fillText('500ms', canvas.width / 2, canvas.height - 5);
+            ctx.fillText('750ms', canvas.width * 0.75, canvas.height - 5);
+            ctx.fillText('1000ms', canvas.width - 15, canvas.height - 5);
+
+            // Y-axis (Amplitude)
+            ctx.textAlign = 'right';
+            ctx.fillText('100%', 40, 15);
+            ctx.fillText('75%', 40, canvas.height / 4 + 4);
+            ctx.fillText('50%', 40, canvas.height / 2 + 4);
+            ctx.fillText('25%', 40, canvas.height * 0.75 + 4);
+            ctx.fillText('0%', 40, canvas.height - 5);
+
+        } else {
+            // Fallback: Standard percentage scale
+            ctx.textAlign = 'right';
+
+            // Top (max)
+            ctx.fillText('Max', 35, 15);
+
+            // Middle
+            ctx.fillText('50%', 35, canvas.height / 2 + 4);
+
+            // Bottom (min)
+            ctx.fillText('Min', 35, canvas.height - 5);
+
+            // Add tick marks on X-axis
+            ctx.textAlign = 'center';
+            ctx.fillText('0%', 5, canvas.height - 5);
+            ctx.fillText('50%', canvas.width / 2, canvas.height - 5);
+            ctx.fillText('100%', canvas.width - 10, canvas.height - 5);
+        }
+    };
+
+    const startDrawing = (e) => {
+        if (submitted) return;
+        setIsDrawing(true);
+        const rect = canvasRef.current.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        setDrawnPath([{ x, y }]);
+    };
+
+    const draw = (e) => {
+        if (!isDrawing || submitted) return;
+
+        const rect = canvasRef.current.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        const newPath = [...drawnPath, { x, y }];
+        setDrawnPath(newPath);
+
+        // Draw the path
+        if (canvasContext && newPath.length > 1) {
+            canvasContext.strokeStyle = '#8b5cf6';
+            canvasContext.lineWidth = 3;
+            canvasContext.lineCap = 'round';
+            canvasContext.lineJoin = 'round';
+
+            canvasContext.beginPath();
+            canvasContext.moveTo(newPath[newPath.length - 2].x, newPath[newPath.length - 2].y);
+            canvasContext.lineTo(x, y);
+            canvasContext.stroke();
+        }
+    };
+
+    const stopDrawing = () => {
+        setIsDrawing(false);
+    };
+
+    const clearCanvas = () => {
+        setDrawnPath([]);
+        drawGrid(canvasContext);
+    };
+
+    const checkAnswer = () => {
+        const canvas = canvasRef.current;
+
+        // Normalize drawn path to percentage coordinates
+        const normalizedDrawn = drawnPath.map(p => ({
+            x: (p.x / canvas.width) * 100,
+            y: (p.y / canvas.height) * 100
+        }));
+
+        let referencePath = targetPoints;
+
+        // If we have exact correct values, generate the ideal path for validation
+        if (correctValues) {
+            const idealPoints = calculatePoints(correctValues, canvas.width, canvas.height);
+            referencePath = idealPoints.map(p => ({
+                x: (p.x / canvas.width) * 100,
+                y: (p.y / canvas.height) * 100
+            }));
+        }
+
+        // Validate path
+        const isCorrect = validatePath(normalizedDrawn, referencePath);
+
+        setSubmitted(true);
+        onResult(isCorrect);
+
+        // Draw target path overlay
+        drawTargetPath(referencePath);
+    };
+
+    const validatePath = (drawn, target) => {
+        if (drawn.length < 10) return false; // Too short
+
+        // Check if path covers similar x-range
+        const drawnMinX = Math.min(...drawn.map(p => p.x));
+        const drawnMaxX = Math.max(...drawn.map(p => p.x));
+        const coverage = drawnMaxX - drawnMinX;
+
+        if (coverage < 60) return false; // Didn't draw across enough of the canvas
+
+        // Sample points along the drawn path and compare to target
+        const samples = 10;
+        let matchCount = 0;
+
+        for (let i = 0; i < samples; i++) {
+            const targetX = (i / samples) * 100;
+            const targetPoint = interpolateTarget(target, targetX);
+            const drawnPoint = interpolateDrawn(drawn, targetX);
+
+            if (drawnPoint && Math.abs(drawnPoint.y - targetPoint.y) < 20) {
+                matchCount++;
+            }
+        }
+
+        return matchCount >= 6; // At least 60% match
+    };
+
+    const interpolateTarget = (points, x) => {
+        for (let i = 0; i < points.length - 1; i++) {
+            if (x >= points[i].x && x <= points[i + 1].x) {
+                const t = (x - points[i].x) / (points[i + 1].x - points[i].x);
+                return {
+                    x,
+                    y: points[i].y + t * (points[i + 1].y - points[i].y)
+                };
+            }
+        }
+        return points[points.length - 1];
+    };
+
+    const interpolateDrawn = (drawn, targetX) => {
+        const closest = drawn.reduce((prev, curr) => {
+            return Math.abs(curr.x - targetX) < Math.abs(prev.x - targetX) ? curr : prev;
+        }, drawn[0]);
+        return closest;
+    };
+
+    const drawTargetPath = (referencePath) => {
+        if (!canvasContext || !referencePath || referencePath.length < 2) return;
+
+        const canvas = canvasRef.current;
+        canvasContext.strokeStyle = '#22c55e'; // Green
+        canvasContext.lineWidth = 3;
+        canvasContext.setLineDash([5, 5]);
+
+        canvasContext.beginPath();
+        referencePath.forEach((point, i) => {
+            // Points are normalized 0-100
+            const x = (point.x / 100) * canvas.width;
+            const y = (point.y / 100) * canvas.height;
+
+            if (i === 0) {
+                canvasContext.moveTo(x, y);
+            } else {
+                canvasContext.lineTo(x, y);
+            }
+        });
+        canvasContext.stroke();
+        canvasContext.setLineDash([]);
+    };
+
+    const isCorrect = submitted && validatePath(
+        drawnPath.map(p => ({
+            x: (p.x / (canvasRef.current?.width || 1)) * 100,
+            y: (p.y / (canvasRef.current?.height || 1)) * 100
+        })),
+        targetPoints
+    );
+
+    return (
+        <div style={{ width: '100%' }}>
+            {/* Hint */}
+            {hint && !submitted && (
+                <div style={{
+                    background: 'rgba(251, 191, 36, 0.1)',
+                    border: '1px solid rgba(251, 191, 36, 0.3)',
+                    borderRadius: '8px',
+                    padding: '12px',
+                    marginBottom: '20px',
+                    fontSize: '0.9rem',
+                    color: 'var(--text-secondary)'
+                }}>
+                    <strong style={{ color: '#fbbf24' }}>💡 Hint:</strong> {hint}
+                </div>
+            )}
+
+            {/* Drawing Canvas */}
+            <div style={{
+                background: 'white',
+                border: '4px solid rgba(168, 85, 247, 0.3)',
+                borderRadius: '12px',
+                padding: '16px',
+                marginBottom: '16px'
+            }}>
+                <canvas
+                    ref={canvasRef}
+                    width={600}
+                    height={300}
+                    onMouseDown={startDrawing}
+                    onMouseMove={draw}
+                    onMouseUp={stopDrawing}
+                    onMouseLeave={stopDrawing}
+                    style={{
+                        width: '100%',
+                        cursor: submitted ? 'not-allowed' : 'crosshair',
+                        background: '#f9fafb',
+                        borderRadius: '8px',
+                        touchAction: 'none'
+                    }}
+                />
+            </div>
+
+            {/* Sliders Control Panel */}
+            {!submitted && (
+                <div style={{
+                    background: '#f3f4f6',
+                    padding: '15px',
+                    borderRadius: '8px',
+                    marginBottom: '20px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '20px'
+                }}>
+                    {Object.entries(sliderValues).map(([param, value]) => (
+                        <div key={param} style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.9rem', fontWeight: '600', color: '#4b5563' }}>
+                                <span style={{ textTransform: 'capitalize' }}>{param}</span>
+                                {/* Value hidden for difficulty */}
+                            </div>
+                            <input
+                                type="range"
+                                min={(param === 'frequency' || param === 'cutoff') ? Math.log10(20) : param === 'threshold' ? -80 : param === 'gain' ? -36 : param === 'ratio' ? 1 : 0}
+                                max={(param === 'frequency' || param === 'cutoff') ? Math.log10(20000) : param === 'gain' ? 36 : param === 'threshold' ? 0 : param === 'ratio' ? 10 : 100}
+                                step={param === 'ratio' ? 0.1 : 0.01}
+                                value={(param === 'frequency' || param === 'cutoff') ? Math.log10(value) : value}
+                                onChange={(e) => {
+                                    let val = parseFloat(e.target.value);
+                                    if (param === 'frequency' || param === 'cutoff') {
+                                        val = Math.pow(10, val);
+                                    }
+                                    handleSliderChange(param, val);
+                                }}
+                                style={{
+                                    width: '100%',
+                                    accentColor: '#8b5cf6',
+                                    height: '6px',
+                                    borderRadius: '3px'
+                                }}
+                            />
+                        </div>
+                    ))}
+                </div>
+            )}
+
+            {/* Drawing Controls */}
+            <div style={{ display: 'flex', gap: '12px', marginBottom: '20px' }}>
+                <button
+                    onClick={clearCanvas}
+                    disabled={submitted}
+                    style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '8px',
+                        padding: '10px 16px',
+                        background: 'rgba(156, 163, 175, 0.2)',
+                        color: '#4b5563',
+                        border: '2px solid rgba(156, 163, 175, 0.3)',
+                        borderRadius: '8px',
+                        cursor: submitted ? 'not-allowed' : 'pointer',
+                        opacity: submitted ? 0.5 : 1,
+                        fontSize: '0.9rem',
+                        fontWeight: '600'
+                    }}
+                >
+                    <Eraser size={18} />
+                    Clear
+                </button>
+
+                {!submitted && (drawnPath.length > 2 || Object.keys(sliderValues).length > 0) && (
+                    <button
+                        onClick={checkAnswer}
+                        style={{
+                            flex: 1,
+                            padding: '10px 16px',
+                            background: 'var(--accent-purple)',
+                            color: 'white',
+                            border: 'none',
+                            borderRadius: '8px',
+                            cursor: 'pointer',
+                            fontSize: '0.9rem',
+                            fontWeight: '600'
+                        }}
+                    >
+                        Check Answer
+                    </button>
+                )}
+            </div>
+
+            {/* Feedback */}
+            {submitted && (
+                <div style={{
+                    padding: '15px',
+                    borderRadius: '8px',
+                    border: `2px solid ${isCorrect ? 'var(--accent-success)' : 'var(--accent-warning)'}`,
+                    background: isCorrect
+                        ? 'rgba(34, 197, 94, 0.1)'
+                        : 'rgba(251, 191, 36, 0.1)',
+                    marginTop: '20px'
+                }}>
+                    <div style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '10px',
+                        marginBottom: '10px'
+                    }}>
+                        <span style={{ fontSize: '1.5rem' }}>
+                            {isCorrect ? '✅' : '💡'}
+                        </span>
+                        <span style={{
+                            fontWeight: 'bold',
+                            fontSize: '1.1rem',
+                            color: isCorrect ? 'var(--accent-success)' : 'var(--accent-warning)'
+                        }}>
+                            {isCorrect ? 'Great job! 🎨' : 'Good try! See the correct answer in green.'}
+                        </span>
+                    </div>
+                </div>
+            )}
+        </div>
+    );
+};
+
+export default GraphDrawingQuiz;

@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" style="background-color: #222; font-family: sans-serif;">
+  <!-- Axes -->
+  <line x1="50" y1="450" x2="450" y2="450" stroke="#888" stroke-width="2"/> <!-- In -->
+  <line x1="50" y1="450" x2="50" y2="50" stroke="#888" stroke-width="2"/> <!-- Out -->
+  <text x="250" y="480" fill="#888" text-anchor="middle">INPUT LEVEL (dB)</text>
+  <text x="20" y="250" fill="#888" text-anchor="middle" transform="rotate(-90 20,250)">OUTPUT LEVEL (dB)</text>
+
+  <!-- Threshold Line -->
+  <line x1="50" y1="150" x2="450" y2="150" stroke="#555" stroke-dasharray="4,4"/>
+  <text x="460" y="155" fill="#aaa" font-size="12">Threshold / Ceiling</text>
+
+  <!-- Ratio Curve -->
+  <!-- Linear up to threshold -->
+  <line x1="50" y1="450" x2="350" y2="150" stroke="#fff" stroke-width="2" opacity="0.5"/> 
+  <!-- Brickwall after -->
+  <line x1="350" y1="150" x2="450" y2="150" stroke="#ff5555" stroke-width="4"/>
+  
+  <text x="300" y="130" fill="#ff5555" text-anchor="middle" font-weight="bold" font-size="18">∞:1 RATIO</text>
+  <text x="300" y="100" fill="#ff5555" text-anchor="middle" font-size="14">(Brickwall Limiting)</text>
+  <text x="300" y="80" fill="#aaa" text-anchor="middle" font-size="12">Signal cannot exceed ceiling</text>
+</svg>

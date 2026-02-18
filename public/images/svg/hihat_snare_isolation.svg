@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" style="background-color:#1e1e1e; font-family:sans-serif;">
+    <text x="200" y="40" text-anchor="middle" fill="#fff" font-size="20" font-weight="bold">Hi-Hat Isolation</text>
+    
+    <!-- Hi Hat -->
+    <circle cx="100" cy="150" r="30" fill="#f59e0b" opacity="0.8"/>
+    <text x="100" y="155" text-anchor="middle" fill="#000" font-weight="bold">HH</text>
+    
+    <!-- Snare -->
+    <circle cx="220" cy="150" r="50" fill="#ccc" opacity="0.3"/>
+    <text x="220" y="155" text-anchor="middle" fill="#fff">Snare</text>
+    
+    <!-- Mic -->
+    <g transform="translate(190, 130) rotate(-20)">
+        <rect x="0" y="0" width="40" height="15" rx="2" fill="#3b82f6"/>
+        <!-- Null Point indicator -->
+        <path d="M 0 7 L -20 7" stroke="#ef4444" stroke-width="2" marker-end="url(#arrow)"/>
+        <text x="-40" y="10" fill="#ef4444" font-size="10">Null Point</text>
+    </g>
+    
+    <text x="200" y="250" text-anchor="middle" fill="#aaa" font-size="14">Point the back (null) of the mic at the Hat</text>
+</svg>

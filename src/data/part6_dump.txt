@@ -1,0 +1,854 @@
+TOPIC: 14. Gain Staging Basics
+  LEVEL: basic
+    ID: v1_p6_t14_b_1
+    Q: What is 'Gain Staging'?
+      [TRUE] Managing signal levels at every point in the audio chain to maximize quality and minimize noise/distortion
+      [FAIL] Setting up a stage for a band
+      [FAIL] Making everything as loud as possible
+      [FAIL] Turning up the bass
+
+    ID: v1_p6_t14_b_2
+    Q: What happens if your signal level is too high at the input stage?
+      [TRUE] Digital Clipping (Distortion) that cannot be fixed later
+      [FAIL] The computer crashes
+      [FAIL] It sounds better
+      [FAIL] Nothing
+
+    ID: v1_p6_t14_b_3
+    Q: What happens if your signal level is too low?
+      [TRUE] The signal competes with the Noise Floor (hiss), resulting in a noisy recording when turned up later
+      [FAIL] It becomes clearer
+      [FAIL] It loses bass
+      [FAIL] Nothing
+
+    ID: v1_p6_t14_b_4
+    Q: What is the goal of 'Unity Gain' through a plugin chain?
+      [TRUE] The output level should equal the input level, so bypassing the plugin doesn't result in a volume jump
+      [FAIL] Everything should be louder
+      [FAIL] The plugin should do nothing
+      [FAIL] To add distortion
+
+    ID: v1_p6_t14_b_5
+    Q: A common rule of thumb for digital recording levels is to aim for:
+      [TRUE] Yellow meters (approx -18dBFS to -12dBFS average)
+      [FAIL] Red meters (0dBFS)
+      [FAIL] Blue meters (-60dBFS)
+      [FAIL] Max volume
+
+    ID: v1_p6_t14_b_6
+    Q: If your Master Fader is clipping, what is the correct fix?
+      [TRUE] Turn down all the individual channel faders
+      [FAIL] Turn down the Master Fader
+      [FAIL] Put a limiter on it
+      [FAIL] Turn up the speakers
+
+    ID: v1_p6_t14_b_7
+    Q: Why does input gain matter for analog-modeled plugins (like a vintage compressor)?
+      [TRUE] They are designed to react to a specific 'Sweet Spot' (usually -18dBFS). Driving them too hot causes unwanted muddy distortion
+      [FAIL] It doesn't matter for digital
+      [FAIL] Louder works better
+      [FAIL] They break
+
+    ID: v1_p6_t14_b_8
+    Q: Why should you use Pre-Fader Metering when gain staging?
+      [TRUE] To see the actual signal level on the track, regardless of where the fader is set
+      [FAIL] To see the post-fader level
+      [FAIL] It looks nicer
+      [FAIL] To save CPU
+
+    ID: v1_p6_t14_b_9
+    Q: What is 'Headroom'?
+      [TRUE] The gap (in dB) between your average signal level and the point where clipping occurs
+      [FAIL] The room above your head
+      [FAIL] The noise floor
+      [FAIL] Max volume
+
+    ID: v1_p6_t14_b_10
+    Q: Which control adjusts the initial Gain Staging?
+      [TRUE] Input Gain / Trim knob (Top of channel)
+      [FAIL] Output Fader (Bottom of channel)
+      [FAIL] Pan knob
+      [FAIL] Aux Send
+
+  LEVEL: intermediate
+    ID: v1_p6_t14_i_1
+    Q: What is the standard digital equivalent of 0VU on professional analog gear?
+      [TRUE] -18dBFS (sometimes -20dBFS)
+      [FAIL] 0dBFS
+      [FAIL] -6dBFS
+      [FAIL] -60dBFS
+
+    ID: v1_p6_t14_i_2
+    Q: If signal is -20dB and noise floor is -100dB, what is the SNR?
+      [TRUE] 80dB
+      [FAIL] 120dB
+      [FAIL] -80dB
+      [FAIL] 20dB
+
+    ID: v1_p6_t14_i_3
+    Q: When should you use 'Clip Gain' in your DAW instead of Fader automation?
+      [TRUE] To level out a performance BEFORE it hits the compressor plugin (Pre-FX gain staging)
+      [FAIL] To fade out the song
+      [FAIL] At the very end of the mix
+      [FAIL] Never
+
+    ID: v1_p6_t14_i_4
+    Q: Why use a -18dBFS sine wave test tone?
+      [TRUE] To calibrate meters and ensure all plugins/outboard gear are operating at Unity Gain
+      [FAIL] To test the subwoofer
+      [FAIL] It sounds nice
+      [FAIL] To tune guitars
+
+    ID: v1_p6_t14_i_5
+    Q: Can you fix a clipped file if it was recorded in 32-bit Float?
+      [TRUE] Yes, by using Clip Gain to turn it down, assuming the clipping didn't happen at the mic/preamp stage
+      [FAIL] No, clipping is permanent
+      [FAIL] Yes, but only with EQ
+      [FAIL] No, 32-bit makes it worse
+
+    ID: v1_p6_t14_i_6
+    Q: How do you avoid 'Mix Creep' (running out of headroom on the master)?
+      [TRUE] By starting the mix with faders low (e.g. Kick/Snare at -10dB), leaving room for other instruments
+      [FAIL] By putting a limiter on the master first
+      [FAIL] By mixing with speakers very quiet
+      [FAIL] By only using 4 tracks
+
+    ID: v1_p6_t14_i_7
+    Q: Why is subtractive EQ better for gain staging than additive EQ?
+      [TRUE] Cutting frequencies reclaims headroom, whereas boosting eats headroom and risks clipping
+      [FAIL] Cutting sounds better
+      [FAIL] Boosting adds noise
+      [FAIL] It isn't better
+
+    ID: v1_p6_t14_i_8
+    Q: What is the purpose of 'Makeup Gain' on a compressor?
+      [TRUE] To restore the volume lost due to compression (gain reduction) back to the original input level
+      [FAIL] To make it louder than before
+      [FAIL] To add distortion
+      [FAIL] To compress more
+
+    ID: v1_p6_t14_i_9
+    Q: When automating volume, why use a 'Trim' plugin rather than the Fader?
+      [TRUE] To keep the Fader free for overall balancing, while the Trim handles specific section level changes
+      [FAIL] Trim sounds better
+      [FAIL] Faders cause latency
+      [FAIL] Trim is faster
+
+    ID: v1_p6_t14_i_10
+    Q: Even if individual channels aren't clipping, the Master Bus can clip. Why?
+      [TRUE] Summing increases level. 10 channels playing at -6dB will sum to well over 0dB
+      [FAIL] The master fader adds gain
+      [FAIL] Plugins add gain
+      [FAIL] It's a bug
+
+  LEVEL: advanced
+    ID: v1_p6_t14_a_1
+    Q: What is 'Crest Factor'?
+      [TRUE] The difference (gap) between the Peak level and the RMS (Average) level of a signal
+      [FAIL] The shape of the wave
+      [FAIL] The quality of the toothpaste
+      [FAIL] The loudness
+
+    ID: v1_p6_t14_a_2
+    Q: Why place a Dither plugin in a Post-Fader insert slot (if available)?
+      [TRUE] Dither must be the very last process before export. The Fader changes bit-depth, so dither must happen AFTER the fader
+      [FAIL] It sounds warmer
+      [FAIL] To prevent clipping
+      [FAIL] It doesn't matter
+
+    ID: v1_p6_t14_a_3
+    Q: Why should you leave -1.0dBTP headroom instead of -0.1dB?
+      [TRUE] To account for 'Intersample Peaks' that occur when the digital signal is converted back to analog waveforms
+      [FAIL] To be safe
+      [FAIL] Streaming services require it
+      [FAIL] It saves space
+
+    ID: v1_p6_t14_a_4
+    Q: How does recording at 24-bit improve gain staging compared to 16-bit?
+      [TRUE] It creates a vastly lower noise floor (-144dB vs -96dB), allowing for safer, lower recording levels without hiss risk
+      [FAIL] It offers more headroom above 0dB
+      [FAIL] It makes it louder
+      [FAIL] It adds treble
+
+    ID: v1_p6_t14_a_5
+    Q: How does input level affect a Saturation/Distortion plugin?
+      [TRUE] Crucially. Higher input drive pushes the plugin past its threshold, creating more grit. Lower input cleans it up
+      [FAIL] It only changes volume
+      [FAIL] It changes pitch
+      [FAIL] It does nothing
+
+    ID: v1_p6_t14_a_6
+    Q: Why does a mix sound 'better' when simply turned up 3dB?
+      [TRUE] The Fletcher-Munson effect: we perceive more bass and treble at higher volumes, making it sound fuller
+      [FAIL] It reveals details
+      [FAIL] Compresion kicks in
+      [FAIL] It doesn't
+
+    ID: v1_p6_t14_a_7
+    Q: Why is 'Mastering to -14 LUFS' a common recommendation?
+      [TRUE] Because streaming services (Spotify/Apple) turn down loud tracks to approx -14 LUFS anyway
+      [FAIL] It is the law
+      [FAIL] It is the CD standard
+      [FAIL] It saves battery
+
+    ID: v1_p6_t14_a_8
+    Q: What is the typical noise floor of professional analog gear?
+      [TRUE] Around -80dBu to -90dBu
+      [FAIL] -144dBu
+      [FAIL] -20dBu
+      [FAIL] 0dBu
+
+    ID: v1_p6_t14_a_9
+    Q: When DOES 32-bit float clip?
+      [TRUE] Only at the D/A Converter (Output) or when saving to a fixed-point file (24/16-bit)
+      [FAIL] At +0dBFS
+      [FAIL] At +6dBFS
+      [FAIL] Never
+
+    ID: v1_p6_t14_a_10
+    Q: Why is RMS (Average) level more important than Peak level for gain staging analog emulations?
+      [TRUE] Analog gear reacts to the continuous heat/energy (RMS) rather than split-second transients
+      [FAIL] Peak is inaccurate
+      [FAIL] RMS is louder
+      [FAIL] It isn't
+
+  LEVEL: master
+    ID: v1_p6_t14_m_1
+    Q: How can Pan Law affect your gain staging on the Master Bus?
+      [TRUE] If using a 0dB Pan Law, panning center boosts level by +3dB, potentially clipping a bus that was safe when panned
+      [FAIL] It cuts level
+      [FAIL] It adds noise
+      [FAIL] It affects mono only
+
+    ID: v1_p6_t14_m_2
+    Q: How does 'Noise Shaping' in dither improve perceived dynamic range?
+      [TRUE] It shifts the quantization noise energy into ultra-high frequencies (above 15kHz) where the human ear is less sensitive
+      [FAIL] It removes noise completely
+      [FAIL] It boosts the bass
+      [FAIL] It compresses the signal
+
+    ID: v1_p6_t14_m_3
+    Q: Friis Formula for Noise states that the noise figure of the FIRST stage is most critical. Why?
+      [TRUE] Because noise introduced at stage 1 is amplified by stage 2, 3, and 4. Noise introduced at stage 4 is not amplified further
+      [FAIL] First stage is analog
+      [FAIL] Last stage is digital
+      [FAIL] It isn't critical
+
+    ID: v1_p6_t14_m_4
+    Q: What is the theoretical dynamic range of a 64-bit floating point system?
+      [TRUE] Over 1000 dB (Essentially infinite for audio purposes)
+      [FAIL] 144 dB
+      [FAIL] 96 dB
+      [FAIL] 24 dB
+
+    ID: v1_p6_t14_m_5
+    Q: How can gain staging mitigate Aliasing in non-oversampled plugins?
+      [TRUE] High gain generates upper harmonics. If these exceed Nyquist, they fold back. Keeping gain moderate reduces harmonic generation range
+      [FAIL] It can't
+      [FAIL] Gain removes harmonics
+      [FAIL] By adding bass
+
+    ID: v1_p6_t14_m_6
+    Q: What voltage does +4dBu represent?
+      [TRUE] 1.228 Volts RMS
+      [FAIL] 0.775 Volts
+      [FAIL] 1 Volt
+      [FAIL] 4 Volts
+
+    ID: v1_p6_t14_m_7
+    Q: What happens to the audio signal at levels below the Least Significant Bit (without dither)?
+      [TRUE] It is truncated to zero (Digital Black) or toggles randomly, creating square-wave 'Quantization Distortion'
+      [FAIL] It fades out smoothly
+      [FAIL] It becomes analog
+      [FAIL] The bass increases
+
+    ID: v1_p6_t14_m_8
+    Q: How does DC Offset negatively affect Gain Staging?
+      [TRUE] It shifts the waveform off-center, reducing the available headroom on one side (e.g. clips at +2dB positive but has room on negative)
+      [FAIL] It adds noise
+      [FAIL] It lowers volume
+      [FAIL] It adds reverb
+
+    ID: v1_p6_t14_m_9
+    Q: In a 16-channel analog summing mixer, volume builds up. Why might you drive the channels hard but turn the Master Output down?
+      [TRUE] To saturate the channel transformers for color, while keeping the final output at a safe A/D conversion level
+      [FAIL] To fix noise
+      [FAIL] To clear buffers
+      [FAIL] To save power
+
+    ID: v1_p6_t14_m_10
+    Q: What is the integration time (window) for 'Short Term' LUFS metering?
+      [TRUE] 3 seconds (sliding window)
+      [FAIL] 400ms
+      [FAIL] Infinite (Integrated)
+      [FAIL] Instant
+
+TOPIC: 15. Metering & Loudness
+  LEVEL: basic
+    ID: v1_p6_t15_b_1
+    Q: What does dBFS stand for?
+      [TRUE] Decibels Full Scale (Digital Metering)
+      [FAIL] Decibels For Sound
+      [FAIL] Decibels Frequency Scale
+      [FAIL] Digital Bass Frequency
+
+    ID: v1_p6_t15_b_2
+    Q: On a standard digital meter, what does the red indicator usually mean?
+      [TRUE] The signal has clipped (hit 0dBFS or above)
+      [FAIL] The signal is too quiet
+      [FAIL] The recording is finished
+      [FAIL] The microphone is off
+
+    ID: v1_p6_t15_b_3
+    Q: Is a VU (Volume Unit) meter fast or slow?
+      [TRUE] Slow (averaging approx 300ms)
+      [FAIL] Instant (0ms)
+      [FAIL] Super fast (1ms)
+      [FAIL] It varies
+
+    ID: v1_p6_t15_b_4
+    Q: What is LUFS (Loudness Units Full Scale) primarily used for?
+      [TRUE] Measuring perceived loudness for broadcast and streaming standards (e.g. Netflix, Spotify)
+      [FAIL] Measuring peak distortion
+      [FAIL] Tuning guitars
+      [FAIL] Measuring cable length
+
+    ID: v1_p6_t15_b_5
+    Q: Which meter helps you avoid digital clipping?
+      [TRUE] Peak Meter (Sample Peak)
+      [FAIL] RMS Meter
+      [FAIL] VU Meter
+      [FAIL] Thermometer
+
+    ID: v1_p6_t15_b_6
+    Q: What does RMS stand for?
+      [TRUE] Root Mean Square (Mathematical Average)
+      [FAIL] Real Music Sound
+      [FAIL] Random Mono Signal
+      [FAIL] Right Mid Side
+
+    ID: v1_p6_t15_b_7
+    Q: On most digital meters, what does the color Yellow indicate?
+      [TRUE] A healthy, strong signal level (approaching but not hitting the danger zone)
+      [FAIL] Clipping
+      [FAIL] Silence
+      [FAIL] Mono
+
+    ID: v1_p6_t15_b_8
+    Q: If a meter shows Peak at -2dB and RMS at -20dB, is the track dynamic or squashed?
+      [TRUE] Dynamic (There is an 18dB gap/crest factor, meaning lots of punch)
+      [FAIL] Squashed/limited
+      [FAIL] Silent
+      [FAIL] Broken
+
+    ID: v1_p6_t15_b_9
+    Q: What does a Frequency Analyzer / Spectrum meter show?
+      [TRUE] Amplitude (volume) across the Frequency spectrum (Bass to Treble)
+      [FAIL] Volume over time
+      [FAIL] Stereo width
+      [FAIL] Phase
+
+    ID: v1_p6_t15_b_10
+    Q: What does a Correlation Meter measure?
+      [TRUE] Phase relationship between Left and Right channels (+1 is Mono, -1 is Out of Phase)
+      [FAIL] Volume
+      [FAIL] Pitch
+      [FAIL] Temperature
+
+  LEVEL: intermediate
+    ID: v1_p6_t15_i_1
+    Q: What is the typical Integrated LUFS target for streaming services like Spotify?
+      [TRUE] -14 LUFS
+      [FAIL] 0 LUFS
+      [FAIL] -23 LUFS
+      [FAIL] -100 LUFS
+
+    ID: v1_p6_t15_i_2
+    Q: What characterizes a PPM (Peak Programme Meter)?
+      [TRUE] Super fast attack (10ms) but slow decay, designed to let broadcasters see peaks before they distorted transmitters
+      [FAIL] It is exactly like a VU meter
+      [FAIL] It is digital
+      [FAIL] It measures bass only
+
+    ID: v1_p6_t15_i_3
+    Q: What is Bob Katz's 'K-System' (K-20, K-14, K-12)?
+      [TRUE] A standard calibrating 0dB on the meter to different monitor SPL levels (-20dBFS, -14dBFS) to encourage dynamic range
+      [FAIL] A keyboard shortcut
+      [FAIL] A type of synthesizer
+      [FAIL] A fast mixing trick
+
+    ID: v1_p6_t15_i_4
+    Q: Why might a Sample Peak meter read -0.1dB but a True Peak meter read +2.0dB?
+      [TRUE] The sample meter only checks the dots; the True Peak meter calculates the curve between dots (Intersample Peaks)
+      [FAIL] The True peak meter is broken
+      [FAIL] The sample meter takes an average
+      [FAIL] Magic
+
+    ID: v1_p6_t15_i_5
+    Q: What does LRA measure in LUFS metering?
+      [TRUE] The variation in loudness over the track (Macrodynamics) in LU
+      [FAIL] The peak level
+      [FAIL] The noise floor
+      [FAIL] Stereo width
+
+    ID: v1_p6_t15_i_6
+    Q: What does a Goniometer (Lissajous figure) visualize?
+      [TRUE] Stereo Width and Phase. A vertical line is Mono; a flat horizontal line is Out of Phase
+      [FAIL] Frequency
+      [FAIL] Distortion
+      [FAIL] Reverb time
+
+    ID: v1_p6_t15_i_7
+    Q: What does a 'Sausage' or 'Brick' waveform indicate visually?
+      [TRUE] Heavy limiting/clipping with almost zero dynamic range - looks like a solid block
+      [FAIL] A great recording
+      [FAIL] A quiet recording
+      [FAIL] Lots of bass
+
+    ID: v1_p6_t15_i_8
+    Q: Why does a VU meter 'undershoot' on a snare drum hit?
+      [TRUE] Because the mechanical needle is too heavy to move instantly; it misses the initial transient spike
+      [FAIL] It is broken
+      [FAIL] Snare drums are quiet
+      [FAIL] It filters high frequencies
+
+    ID: v1_p6_t15_i_9
+    Q: What is the purpose of 'Peak Hold' on a digital meter?
+      [TRUE] The indicator stays at the highest reached value for a few seconds so you can see what the transient was after it vanished
+      [FAIL] To freeze the audio
+      [FAIL] To crash the computer
+      [FAIL] To look pretty
+
+    ID: v1_p6_t15_i_10
+    Q: What is 'A-Weighting' in metering (dBA)?
+      [TRUE] A filter curve that mimics human hearing by ignoring sub-bass and ultra-highs, focusing on the midrange
+      [FAIL] Measuring distortion
+      [FAIL] Measuring only bass
+      [FAIL] Measuring peak voltage
+
+  LEVEL: advanced
+    ID: v1_p6_t15_a_1
+    Q: What is EBU R128?
+      [TRUE] The European Broadcasting Union standard for loudness normalization (Target -23 LUFS) for TV
+      [FAIL] A synthesizer
+      [FAIL] A type of cable
+      [FAIL] An internet protocol
+
+    ID: v1_p6_t15_a_2
+    Q: How does K-Weighting (used in LUFS) differ from A-Weighting?
+      [TRUE] K-Weighting models the head's acoustic effect (shelf boost above 2kHz) to better estimate perceived loudness for broadcast
+      [FAIL] It works underwater
+      [FAIL] It cuts mids
+      [FAIL] It is linear
+
+    ID: v1_p6_t15_a_3
+    Q: In 5.1 surround metering, which channel is typically the LFE?
+      [TRUE] Channel 4 (L R C LFE Ls Rs) in SMPTE order, though it varies
+      [FAIL] Channel 1
+      [FAIL] Channel 2
+      [FAIL] Channel 6
+
+    ID: v1_p6_t15_a_4
+    Q: What does meter 'Ballistics' refer to?
+      [TRUE] The speed at which the meter rises (Attack) and falls (Decay/Release)
+      [FAIL] How heavy it is
+      [FAIL] Whether it uses bullets
+      [FAIL] The color accuracy
+
+    ID: v1_p6_t15_a_5
+    Q: Why check Momentary Max LUFS during a mix?
+      [TRUE] To spot specific loud sections (like a chorus explosion) that might be too jarring compared to the verse
+      [FAIL] To check the noise floor
+      [FAIL] To check the end of the song
+      [FAIL] To check panning
+
+    ID: v1_p6_t15_a_6
+    Q: How much can Intersample Peaks exceed 0dBFS?
+      [TRUE] Usually up to +3dB, sometimes more in extreme cases, causing distortion in the D/A chip
+      [FAIL] Never
+      [FAIL] 0.1dB max
+      [FAIL] Infinite
+
+    ID: v1_p6_t15_a_7
+    Q: In a Spectrum Analyzer, what does increasing the FFT Block Size (e.g. 4096 to 16384) do?
+      [TRUE] Increases frequency resolution (better bass detail) but decreases time resolution (slower/blurrier visual response)
+      [FAIL] Makes it faster
+      [FAIL] Makes it louder
+      [FAIL] Decreases CPU usage
+
+    ID: v1_p6_t15_a_8
+    Q: What does a Spectrogram show that a standard Analyzer doesn't?
+      [TRUE] A history of frequency over time (resembling a heat map), allowing you to see the duration of notes or noise tails
+      [FAIL] Peak levels
+      [FAIL] Stereo width
+      [FAIL] Reverb settings
+
+    ID: v1_p6_t15_a_9
+    Q: What is the typical 'Slope' setting on a Spectrum Analyzer (e.g. 3dB/oct or 4.5dB/oct)?
+      [TRUE] It tilts the visual display to approximate Pink Noise (flat line) instead of White Noise (rising line), matching human hearing better
+      [FAIL] It tilts the speakers
+      [FAIL] It adds EQ
+      [FAIL] It removes bass
+
+    ID: v1_p6_t15_a_10
+    Q: What is the 'Dialog Gating' feature in some LUFS meters?
+      [TRUE] The meter pauses measurement during silence to prevent silent gaps from dragging down the average loudness score
+      [FAIL] It mutes the dialog
+      [FAIL] It boosts the dialog
+      [FAIL] It adds reverb
+
+  LEVEL: master
+    ID: v1_p6_t15_m_1
+    Q: What does the AES17 standard specify regarding RMS metering?
+      [TRUE] It adds a +3dB offset so that a sine wave reads the same level on both RMS and Peak meters (-20dB RMS = -20dB Peak)
+      [FAIL] It removes bass
+      [FAIL] It defines XLR pinouts
+      [FAIL] It sets the sample rate
+
+    ID: v1_p6_t15_m_2
+    Q: What is Leq(m) measurement used for?
+      [TRUE] Measuring loudness for Cinema film trailers (focusing on mid-range annoyance frequencies) to prevent ear fatigue
+      [FAIL] Measuring liquid volume
+      [FAIL] Measuring strictly bass
+      [FAIL] Music streaming
+
+    ID: v1_p6_t15_m_3
+    Q: If calibrating monitors to 83dB SPL using -20dBFS Pink Noise, where should 0VU sit?
+      [TRUE] 0VU (+4dBu) should output 83dB SPL (C-weighted slow) at the listening position
+      [FAIL] At 100dB SPL
+      [FAIL] At 60dB SPL
+      [FAIL] It doesn't matter
+
+    ID: v1_p6_t15_m_4
+    Q: On a Phase Scope, what does a perfect circle indicate?
+      [TRUE] A stereo signal with 90-degree phase shift between L and R
+      [FAIL] Mono
+      [FAIL] Silence
+      [FAIL] Hard panned left
+
+    ID: v1_p6_t15_m_5
+    Q: Why do high-end limiters use 4x or 8x upsampling for detection?
+      [TRUE] To increase the time-domain resolution, allowing the limiter to catch intersample peaks that would slip between sample points at 44.1kHz
+      [FAIL] To sound analog
+      [FAIL] To use more CPU
+      [FAIL] To reduce latency
+
+    ID: v1_p6_t15_m_6
+    Q: What is unique about the Dorrough 40-A meter scale?
+      [TRUE] It allows viewing Peak and Average simultaneously on an arc, showing the 'Crest Factor' visually
+      [FAIL] It is blue
+      [FAIL] It measures voltage only
+      [FAIL] It is inverted
+
+    ID: v1_p6_t15_m_7
+    Q: In FFT analysis, what does the Window Function (Hann, Hamming, Blackman) do?
+      [TRUE] It reduces spectral leakage (smearing) by tapering the edges of the analysis block, improving frequency precision at the cost of amplitude accuracy
+      [FAIL] It closes the window
+      [FAIL] It changes the color
+      [FAIL] It reduces bass
+
+    ID: v1_p6_t15_m_8
+    Q: When tuning a room, why use 1/12 or 1/24 octave RTA smoothing?
+      [TRUE] To see specific narrow resonant room modes (standing waves) that 1/3 octave smoothing would smudge and hide
+      [FAIL] It's faster
+      [FAIL] 1/3 is better for room modes
+      [FAIL] To look pro
+
+    ID: v1_p6_t15_m_9
+    Q: The DIN scale PPM (Germany) has a different integration time to the Nordic scale. What is it?
+      [TRUE] 10ms vs 5ms. The DIN scale is slightly slower/more forgiving of ultra-fast transients
+      [FAIL] 1 second
+      [FAIL] It is instant
+      [FAIL] It is backwards
+
+    ID: v1_p6_t15_m_10
+    Q: In transfer function measurement (SMAART), what does the 'Coherence' trace show?
+      [TRUE] The reliability of the measurement. Low coherence means the mic is measuring reflections/noise, not the direct speaker signal
+      [FAIL] The volume
+      [FAIL] The phase
+      [FAIL] The pitch
+
+TOPIC: 16. Dynamic Range & Noise
+  LEVEL: basic
+    ID: v1_p6_t16_b_1
+    Q: What is 'Dynamic Range'?
+      [TRUE] The difference (in dB) between the quietest audible sound (Noise Floor) and the loudest possible sound (Clipping Point)
+      [FAIL] How loud a speaker is
+      [FAIL] The frequency range (20Hz-20kHz)
+      [FAIL] The distance of the mic
+
+    ID: v1_p6_t16_b_2
+    Q: What is 'System Noise'?
+      [TRUE] The inherent hiss/hum generated by the equipment itself (preamps, cables, converters) even when no music is playing
+      [FAIL] The noise of the fans
+      [FAIL] Traffic noise
+      [FAIL] Distortion
+
+    ID: v1_p6_t16_b_3
+    Q: What is the theoretical dynamic range of a 16-bit CD?
+      [TRUE] 96 dB
+      [FAIL] 144 dB
+      [FAIL] 60 dB
+      [FAIL] 24 dB
+
+    ID: v1_p6_t16_b_4
+    Q: Why do we add Dither (Low level noise) when lowering bit-depth?
+      [TRUE] To trade 'Quantization Distortion' (nasty grit) for 'Broadband Hiss' (pleasant/ignorable)
+      [FAIL] To make it louder
+      [FAIL] To add bass
+      [FAIL] To remove reverb
+
+    ID: v1_p6_t16_b_5
+    Q: What tool helps remove background noise between musical phrases?
+      [TRUE] Noise Gate / Expander
+      [FAIL] Compressor
+      [FAIL] Limiter
+      [FAIL] Reverb
+
+    ID: v1_p6_t16_b_6
+    Q: Is a High SNR (e.g. 100dB) better or worse than a Low SNR (e.g. 50dB)?
+      [TRUE] High SNR is better (The signal is much louder than the noise)
+      [FAIL] Low SNR is better
+      [FAIL] They are the same
+      [FAIL] 50dB is ideal
+
+    ID: v1_p6_t16_b_7
+    Q: Which is usually the loudest noise floor component in a home studio?
+      [TRUE] Ambient Room Noise (Traffic, Computer Fans, Air Con) - typically around 30-40dB SPL
+      [FAIL] The preamp hiss
+      [FAIL] The cable noise
+      [FAIL] Dither
+
+    ID: v1_p6_t16_b_8
+    Q: Why should you fade out a track BEFORE the clip ends?
+      [TRUE] To smoothly lower the noise floor to silence, avoiding a sudden 'click' or 'drop' in room tone when the region ends
+      [FAIL] To save disk space
+      [FAIL] To change the pitch
+      [FAIL] It isn't necessary
+
+    ID: v1_p6_t16_b_9
+    Q: Which format has a lower noise floor?
+      [TRUE] 24-bit (-144dB floor)
+      [FAIL] 16-bit (-96dB floor)
+      [FAIL] They are the same
+      [FAIL] 8-bit
+
+    ID: v1_p6_t16_b_10
+    Q: What causes Quantization Noise?
+      [TRUE] The mismatch between the smooth analog voltage and the nearest available digital 'snapshot' value
+      [FAIL] Bad cables
+      [FAIL] Loud speakers
+      [FAIL] Too much bass
+
+  LEVEL: intermediate
+    ID: v1_p6_t16_i_1
+    Q: How much dynamic range does 1 bit of resolution provide?
+      [TRUE] 6 dB (approx)
+      [FAIL] 1 dB
+      [FAIL] 10 dB
+      [FAIL] 3 dB
+
+    ID: v1_p6_t16_i_2
+    Q: Does Noise Shaping lower the overall total energy of the noise?
+      [TRUE] No, it actually INCREASES the total noise energy, but moves it to frequencies we can't hear well
+      [FAIL] Yes, it lowers it
+      [FAIL] It keeps it the same
+      [FAIL] It mutes it
+
+    ID: v1_p6_t16_i_3
+    Q: Why does heavy compression raise the noise floor?
+      [TRUE] Compression lowers loud peaks (Gain Reduction) but Makeup Gain turns EVERYTHING up, including the quiet hiss
+      [FAIL] It doesn't
+      [FAIL] Compressors add electrical noise
+      [FAIL] It adds dither
+
+    ID: v1_p6_t16_i_4
+    Q: Do MP3s have the same dynamic range as WAVs?
+      [TRUE] Technically yes (they decode to PCM), but the 'Data compression' artifacts introduce noise and warbling at low bitrates
+      [FAIL] No, MP3s limit volume
+      [FAIL] MP3s have more range
+      [FAIL] MP3s are 8-bit
+
+    ID: v1_p6_t16_i_5
+    Q: What is the physical limit of noise in an electrical resistor at room temperature (Johnson Noise)?
+      [TRUE] Approx -130 dBV (depending on impedance/bandwidth)
+      [FAIL] -96 dBV
+      [FAIL] -200 dBV
+      [FAIL] 0 dBV
+
+    ID: v1_p6_t16_i_6
+    Q: How does an Expander differ from a Gate for noise?
+      [TRUE] A Gate mutes fully (hard cut). An Expander gently pushes quiet sounds down further (soft attenuation), sounding more natural
+      [FAIL] An expander makes it louder
+      [FAIL] A gate is for drums only
+      [FAIL] They are the same
+
+    ID: v1_p6_t16_i_7
+    Q: Why are High Impedance (Hi-Z) guitar cables more susceptible to noise?
+      [TRUE] High impedance signals are weak current sources, making them easily overpowered by electrostatic interference (buzz)
+      [FAIL] They are digital
+      [FAIL] They are thicker
+      [FAIL] They have no ground
+
+    ID: v1_p6_t16_i_8
+    Q: What happens if you export 24-bit to 16-bit WITHOUT dither?
+      [TRUE] Truncation Distortion: The bottom 8 bits are just chopped off, causing gritty, correlated noise on reverb tails
+      [FAIL] Information loss is hidden
+      [FAIL] The file gets bigger
+      [FAIL] Nothing audible
+
+    ID: v1_p6_t16_i_9
+    Q: What frequency is Ground Loop Hum in the UK/Europe vs USA?
+      [TRUE] 50Hz (UK/EU) vs 60Hz (USA) - matching the AC Mains frequency
+      [FAIL] 100Hz vs 120Hz
+      [FAIL] 1kHz mostly
+      [FAIL] Random
+
+    ID: v1_p6_t16_i_10
+    Q: Do dynamic mics (SM58) have 'Self Noise'?
+      [TRUE] Technically yes (thermal resistance), but they have no active electronics to generate hiss, so they are considered very quiet
+      [FAIL] Yes, lots of hiss
+      [FAIL] No, zero noise
+      [FAIL] Only when phantom power is on
+
+  LEVEL: advanced
+    ID: v1_p6_t16_a_1
+    Q: Why is TPDF (Triangular Probability Density Function) dither preferred over Rectangular (RPDF)?
+      [TRUE] RPDF eliminates distortion but modulates the noise floor (noise pumps with signal). TPDF has a constant steady noise floor
+      [FAIL] Triangular is louder
+      [FAIL] Rectangular adds bass
+      [FAIL] They are identical
+
+    ID: v1_p6_t16_a_2
+    Q: Do high dynamic range converters (cleaner) generally have higher latency?
+      [TRUE] Often yes, because steeper linear-phase anti-aliasing filters (required for ultra-low noise) incur more processing delay
+      [FAIL] No, they are faster
+      [FAIL] They are same
+      [FAIL] Latency depends on cable
+
+    ID: v1_p6_t16_a_3
+    Q: How does Sample Rate relate to Dynamic Range?
+      [TRUE] It doesn't directly. Sample Rate dictates Frequency response (Bandwidth). Bit Depth dictates Dynamic Range
+      [FAIL] Higher sample rate = more dynamic range
+      [FAIL] Lower sample rate = more dynamic range
+      [FAIL] They are the same thing
+
+    ID: v1_p6_t16_a_4
+    Q: What happens when you reduce bit depth to 8-bit or 4-bit intentionally (Bit Crushing)?
+      [TRUE] The noise floor rises dramatically, and quantization error becomes correlated to the signal, creating a 'fizzing' distortion
+      [FAIL] It becomes mono
+      [FAIL] The pitch drops
+      [FAIL] It acts like a filter
+
+    ID: v1_p6_t16_a_5
+    Q: White Noise is Broadband. What is 50Hz Hum?
+      [TRUE] Narrowband / Tonal Noise (It occupies a specific frequency)
+      [FAIL] Broadband
+      [FAIL] Pink Noise
+      [FAIL] Random
+
+    ID: v1_p6_t16_a_6
+    Q: How can Upward Expansion increase dynamic range?
+      [TRUE] It makes loud sounds louder (or quiet sounds quieter), effectively stretching the distance between peaks and floor
+      [FAIL] It compresses peaks
+      [FAIL] It adds noise
+      [FAIL] It keeps level constant
+
+    ID: v1_p6_t16_a_7
+    Q: Why did analog tape have high noise floors?
+      [TRUE] Magnetic particles are randomly distributed. This randomness creates a physical 'grain' noise (hiss) when read by the head
+      [FAIL] The tape was cheap
+      [FAIL] The motors were loud
+      [FAIL] Digital is worse
+
+    ID: v1_p6_t16_a_8
+    Q: How did Dolby B/C work on tape decks?
+      [TRUE] Compansion: It boosted highs during recording (to sit above the hiss) and cut them back during playback (taking the hiss down with them)
+      [FAIL] It was a filter
+      [FAIL] It used digital removal
+      [FAIL] It slowed the tape down
+
+    ID: v1_p6_t16_a_9
+    Q: How does oversampling affect the quantization noise floor?
+      [TRUE] It spreads the quantization noise energy over a wider bandwidth (e.g. up to 88kHz), lowering the noise density in the audible band
+      [FAIL] It increases noise
+      [FAIL] It does nothing
+      [FAIL] It adds distortion
+
+    ID: v1_p6_t16_a_10
+    Q: How does Spectral Noise Reduction (De-noise) work?
+      [TRUE] It takes a 'Noise Profile' (fingerprint) of the silence, then mathematically subtracts those specific frequencies from the audio
+      [FAIL] It uses a gate
+      [FAIL] It cuts treble
+      [FAIL] It reverses phase
+
+  LEVEL: master
+    ID: v1_p6_t16_m_1
+    Q: Why is a 24-bit converter usually only accurate to about 20-21 bits (ENOB)?
+      [TRUE] Because the analog front-end thermal noise swamps the lowest 3-4 bits. The theoretical quietness of 24-bit is louder than physics allows
+      [FAIL] Marketing lies
+      [FAIL] Digital errors
+      [FAIL] Jitter
+
+    ID: v1_p6_t16_m_2
+    Q: How do 1-bit Sigma-Delta converters achieve high dynamic range?
+      [TRUE] Massive Oversampling (e.g. 64x) combined with steep Noise Shaping to push quantization noise way into the MHz range
+      [FAIL] They don't
+      [FAIL] By using tubes
+      [FAIL] By using 32-bit
+
+    ID: v1_p6_t16_m_3
+    Q: In 32-bit Float, how many bits are actually used for the audio precision (Mantissa) vs the volume scaling (Exponent)?
+      [TRUE] 23 bits for audio (Mantissa), 8 bits for exponent, 1 for sign. Effectively 24-bit precision that slides up and down in volume
+      [FAIL] 32 bits for audio
+      [FAIL] 16 bits audio
+      [FAIL] 5 bits exponent
+
+    ID: v1_p6_t16_m_4
+    Q: How does Clock Jitter manifest in the noise floor?
+      [TRUE] It creates 'Sidebands' (ghost frequencies) either side of a loud tone, reducing detail and widening the stereo image incorrectly
+      [FAIL] It raises the floor evenly
+      [FAIL] It adds white noise
+      [FAIL] It clips peaks
+
+    ID: v1_p6_t16_m_5
+    Q: What is the primary noise risk when downsampling (e.g. 96kHz to 44.1kHz) without proper filtering?
+      [TRUE] Aliasing: Ultrasonic frequencies fold back into the audible spectrum as dissonant noise
+      [FAIL] Loss of bass
+      [FAIL] Jitter
+      [FAIL] Quantization error
+
+    ID: v1_p6_t16_m_6
+    Q: If you Null Test two files and the result is -140dB, are they identical?
+      [TRUE] Functionally yes (below noise floor), but mathematically no. True identity is -Infinity dB (Digital Silence)
+      [FAIL] Yes perfectly
+      [FAIL] No, massive difference
+      [FAIL] It depends on volume
+
+    ID: v1_p6_t16_m_7
+    Q: Why is dither typically applied at the amplitude of 0.5 or 1 LSB?
+      [TRUE] It needs to be just loud enough to randomize the transition between the lowest bit states (0 and 1)
+      [FAIL] To be audible
+      [FAIL] To fill headroom
+      [FAIL] Arbitrary choice
+
+    ID: v1_p6_t16_m_8
+    Q: What is POW-r (Psychoacoustically Optimized Wordlength Reduction) dither?
+      [TRUE] A specialized noise-shaping algorithm curve designed to be invisible to the human ear, often used in final mastering
+      [FAIL] Power dither
+      [FAIL] Rectangular dither
+      [FAIL] No dither
+
+    ID: v1_p6_t16_m_9
+    Q: If you have a SNR of 60dB and amplify the signal by 20dB, what happens to SNR?
+      [TRUE] It remains 60dB (Signal and Noise both went up). However, Dynamic Range might resultantly decrease if you hit the ceiling
+      [FAIL] It improves
+      [FAIL] It drops to 40dB
+      [FAIL] It doubles
+
+    ID: v1_p6_t16_m_10
+    Q: Why edit digital audio at 'Zero Crossings'?
+      [TRUE] To prevent clicks caused by the waveform instantly jumping from a high voltage value to silence (a step impulse)
+      [FAIL] It sounds better
+      [FAIL] It is faster
+      [FAIL] To save bits

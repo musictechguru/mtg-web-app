@@ -1,0 +1,34 @@
+<svg width="400" height="300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto" fill="#fff">
+      <path d="M0,0 L0,6 L6,3 z" />
+    </marker>
+  </defs>
+  <rect width="100%" height="100%" fill="#1e1e1e" />
+  
+  <!-- Input -->
+  <text x="50" y="150" fill="#fff" font-weight="bold">Input</text>
+  
+  <!-- Split -->
+  <line x1="80" y1="145" x2="120" y2="100" stroke="#fff" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="80" y1="145" x2="120" y2="200" stroke="#fff" stroke-width="2" marker-end="url(#arrow)"/>
+  
+  <!-- Dry Path -->
+  <rect x="120" y="80" width="100" height="40" fill="#3b82f6" stroke="#fff"/>
+  <text x="170" y="105" fill="#fff" text-anchor="middle">Dry (Unprocessed)</text>
+  <text x="170" y="65" fill="#3b82f6" text-anchor="middle">"Dynamics"</text>
+  
+  <!-- Wet Path -->
+  <rect x="120" y="180" width="100" height="40" fill="#ef4444" stroke="#fff"/>
+  <text x="170" y="205" fill="#fff" text-anchor="middle">Wet (Compressed)</text>
+  <text x="170" y="170" fill="#ef4444" text-anchor="middle">"Power/Sustain"</text>
+  
+  <!-- Sum -->
+  <line x1="220" y1="100" x2="300" y2="140" stroke="#fff" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="220" y1="200" x2="300" y2="140" stroke="#fff" stroke-width="2" marker-end="url(#arrow)"/>
+  
+  <text x="330" y="150" fill="#10b981" font-weight="bold">Output Mix</text>
+  <text x="330" y="170" fill="#10b981" font-size="10">"Best of Both"</text>
+  
+  <text x="200" y="280" fill="#fff" text-anchor="middle" font-size="16" font-weight="bold">Parallel Compression</text>
+</svg>

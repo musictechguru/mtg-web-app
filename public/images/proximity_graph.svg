@@ -1,0 +1,32 @@
+<svg width="400" height="250" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .text { font-family: sans-serif; fill: #ccc; font-size: 12px; }
+      .axis { stroke: #666; stroke-width: 1; }
+      .curve { fill: none; stroke-width: 3; }
+    </style>
+  </defs>
+  <rect width="100%" height="100%" fill="#1e1e1e" />
+  
+  <!-- Axes -->
+  <line x1="50" y1="200" x2="350" y2="200" class="axis" /> <!-- Freq -->
+  <line x1="50" y1="200" x2="50" y2="20" class="axis" /> <!-- Level -->
+  
+  <text x="340" y="220" class="text">Frequency</text>
+  <text x="20" y="30" class="text" transform="rotate(-90 20,30)">Bass Boost</text>
+  
+  <!-- Far Curve -->
+  <path d="M50,150 L350,150" stroke="#888" stroke-width="2" stroke-dasharray="4" />
+  <text x="300" y="140" class="text" fill="#888">Distance (Flat)</text>
+  
+  <!-- Mid Curve -->
+  <path d="M50,100 Q150,100 350,150" stroke="#facc15" stroke-width="2" />
+  <text x="100" y="90" class="text" fill="#facc15">6 inches</text>
+  
+  <!-- Close Curve -->
+  <path d="M50,40 Q150,40 350,150" stroke="#ef4444" stroke-width="3" />
+  <text x="100" y="30" class="text" fill="#ef4444">1 inch (Huge Bass)</text>
+  
+  <rect x="50" y="20" width="100" height="200" fill="url(#grad)" opacity="0.1"/>
+  <text x="100" y="190" text-anchor="middle" class="text" font-weight="bold">Bass Frequencies</text>
+</svg>
