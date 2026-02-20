@@ -18,8 +18,8 @@ const Dashboard = ({ onNavigate }) => {
         const masteryMap = userProgress.mastery;
         const masteredCount = Object.values(masteryMap).filter(score => score >= 80).length;
 
-        // Target: 50 Skills for 'Legend' status
-        const targetSkills = 50;
+        // Target: 289 Skills (50 Course Topics + 239 Dictionary Quiz Levels) for 'Legend' status
+        const targetSkills = 289;
         const percent = Math.min(100, Math.round((masteredCount / targetSkills) * 100));
 
         let title = "Apprentice";
