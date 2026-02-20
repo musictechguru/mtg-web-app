@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" style="background-color: #1a1a1a; font-family: sans-serif;">
+  <!-- Wall -->
+  <rect x="700" y="50" width="50" height="300" fill="#444" stroke="#666"/>
+  <text x="725" y="380" fill="#888" text-anchor="middle" transform="rotate(-90 725,380)">WALL</text>
+
+  <!-- Absorber Material (Porous) -->
+  <rect x="500" y="50" width="200" height="300" fill="url(#fiberPattern)" stroke="#00ccff" stroke-width="2"/>
+  <text x="600" y="40" fill="#00ccff" text-anchor="middle" font-weight="bold">POROUS ABSORBER (e.g. Rockwool)</text>
+
+  <defs>
+    <pattern id="fiberPattern" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+      <circle cx="10" cy="10" r="1.5" fill="#555" opacity="0.5"/>
+      <path d="M0 10 L20 10 M10 0 L10 20" stroke="#334155" stroke-width="0.5" opacity="0.3"/>
+    </pattern>
+  </defs>
+
+  <!-- Sound Waves Entering -->
+  <path d="M50 150 Q150 100 250 150 T450 150" fill="none" stroke="#fff" stroke-width="4"/>
+  <path d="M50 250 Q150 300 250 250 T450 250" fill="none" stroke="#fff" stroke-width="4"/>
+  <text x="250" y="200" fill="#fff" text-anchor="middle" font-size="20">SOUND ENERGY</text>
+
+  <!-- Energy Dissipation (Heat) inside Absorber -->
+  <path d="M500 150 L550 155 L600 145 L650 152" fill="none" stroke="#ff5555" stroke-width="2" stroke-dasharray="2,2"/>
+  <path d="M500 250 L550 245 L600 255 L650 248" fill="none" stroke="#ff5555" stroke-width="2" stroke-dasharray="2,2"/>
+  
+  <text x="600" y="200" fill="#ff5555" text-anchor="middle" font-size="16">Friction -> Heat</text>
+  <text x="600" y="220" fill="#ff5555" text-anchor="middle" font-size="12">(Energy Absorbed)</text>
+
+</svg>

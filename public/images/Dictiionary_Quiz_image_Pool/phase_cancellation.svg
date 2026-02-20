@@ -1,0 +1,20 @@
+<svg width="400" height="250" xmlns="http://www.w3.org/2000/svg">
+  <rect width="100%" height="100%" fill="#1e1e1e" />
+  
+  <!-- Axis -->
+  <line x1="20" y1="125" x2="380" y2="125" stroke="#444" stroke-dasharray="2" />
+
+  <!-- Wave A (Blue) -->
+  <path d="M20,125 Q65,25 110,125 T200,125 T290,125 T380,125" stroke="#3b82f6" stroke-width="3" fill="none" opacity="0.8"/>
+  <text x="30" y="30" fill="#3b82f6" font-family="sans-serif">Wave A</text>
+
+  <!-- Wave B (Red - Inverted) -->
+  <path d="M20,125 Q65,225 110,125 T200,125 T290,125 T380,125" stroke="#ef4444" stroke-width="3" fill="none" opacity="0.8"/>
+  <text x="30" y="230" fill="#ef4444" font-family="sans-serif">Wave B (180° Offset)</text>
+
+  <!-- Sum (Flat Line) -->
+  <line x1="20" y1="125" x2="380" y2="125" stroke="#fff" stroke-width="4" stroke-dasharray="5 5" />
+  <text x="320" y="110" fill="#fff" font-family="sans-serif" font-weight="bold">SUM = SILENCE</text>
+  
+  <text x="200" y="20" text-anchor="middle" fill="#ccc" font-family="sans-serif">Phase Cancellation</text>
+</svg>

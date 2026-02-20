@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" style="background-color: #1a1a1a; font-family: sans-serif;">
+  <!-- Ceiling Line -->
+  <line x1="50" y1="100" x2="750" y2="100" stroke="#ff0000" stroke-width="2" stroke-dasharray="5,5"/>
+  <text x="60" y="90" fill="#ff0000" font-size="14">CEILING (0dB)</text>
+  
+  <!-- Audio Waveform -->
+  <path d="M50 200 
+           L100 150 L120 250 L150 50 L180 280 L200 120 
+           L250 30 L280 320 L300 100 L350 10 L380 350 
+           L400 200 L450 100 L480 300 L500 150 L550 50 
+           L600 250 L650 120 L700 200" 
+           fill="none" stroke="#555" stroke-width="2" opacity="0.5"/>
+           
+  <!-- Limited Waveform (Brickwalled) -->
+  <path d="M50 200 
+           L100 150 L120 250 L150 100 L180 280 L200 120 
+           L250 100 L280 320 L300 100 L350 100 L380 350 
+           L400 200 L450 100 L480 300 L500 150 L550 100 
+           L600 250 L650 120 L700 200" 
+           fill="none" stroke="#00ccff" stroke-width="3"/>
+           
+  <!-- Distortion Indicators -->
+  <rect x="145" y="98" width="10" height="4" fill="#ff0000"/>
+  <rect x="245" y="98" width="10" height="4" fill="#ff0000"/>
+  <rect x="340" y="98" width="20" height="4" fill="#ff0000"/>
+  <rect x="545" y="98" width="10" height="4" fill="#ff0000"/>
+  
+  <text x="400" y="50" fill="#ff5555" font-size="20" text-anchor="middle" font-weight="bold">DISTORTION / ARTIFACTS</text>
+  <text x="400" y="380" fill="#fff" font-size="24" text-anchor="middle" font-weight="bold">BRICKWALL LIMITING</text>
+  <text x="400" y="350" fill="#aaa" font-size="16" text-anchor="middle">Peaks are chopped off flat, losing punch and adding distortion</text>
+</svg>

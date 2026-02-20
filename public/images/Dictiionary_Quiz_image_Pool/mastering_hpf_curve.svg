@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" style="background-color: #1e1e1e; font-family: sans-serif;">
+  <!-- Grid -->
+  <line x1="50" y1="350" x2="750" y2="350" stroke="#444" stroke-width="2"/>
+  <line x1="50" y1="350" x2="50" y2="50" stroke="#444" stroke-width="2"/>
+  
+  <!-- Freq Labels -->
+  <text x="50" y="370" fill="#888" text-anchor="middle">10Hz</text>
+  <text x="150" y="370" fill="#888" text-anchor="middle">30Hz</text>
+  <text x="300" y="370" fill="#888" text-anchor="middle">100Hz</text>
+  <text x="600" y="370" fill="#888" text-anchor="middle">1kHz</text>
+
+  <!-- Spectrum Fill -->
+  <path d="M50 350 L750 350 L750 200 L50 200 Z" fill="#222"/>
+
+  <!-- HPF Curve -->
+  <path d="M50 350 Q120 350 150 200 L750 200" fill="none" stroke="#00ffcc" stroke-width="4"/>
+  
+  <line x1="150" y1="350" x2="150" y2="200" stroke="#00ffcc" stroke-dasharray="4,4"/>
+  <text x="150" y="180" fill="#00ffcc" text-anchor="middle" font-weight="bold">HPF @ 30Hz</text>
+  
+  <text x="400" y="100" fill="#fff" font-size="24" text-anchor="middle">MASTERING LOW CUT</text>
+  <!-- FIX: Escaped Ampersand -->
+  <text x="400" y="130" fill="#aaa" text-anchor="middle">Removes invisible DC offset &amp; Sub-rumble</text>
+  <text x="400" y="150" fill="#aaa" text-anchor="middle">Preserves headroom without losing bass perception</text>
+</svg>

@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200">
+  <defs>
+    <style>
+      .wave-hot { fill: none; stroke: #ef4444; stroke-width: 2; }
+      .wave-cold { fill: none; stroke: #3b82f6; stroke-width: 2; }
+      .noise { fill: none; stroke: #10b981; stroke-width: 2; stroke-dasharray: 4; }
+      .label { font-family: sans-serif; font-size: 12px; fill: #374151; }
+    </style>
+  </defs>
+
+  <!-- Hot (+ve) -->
+  <g transform="translate(50, 50)">
+    <path d="M0 0 Q20 -20 40 0 T80 0" class="wave-hot" />
+    <text x="-10" y="5" class="label">Hot (+)</text>
+  </g>
+
+  <!-- Cold (-ve) -->
+  <g transform="translate(50, 100)">
+    <path d="M0 0 Q20 20 40 0 T80 0" class="wave-cold" /> <!-- Inverted -->
+    <text x="-10" y="5" class="label">Cold (-)</text>
+  </g>
+
+  <!-- Noise Interference -->
+  <path d="M100 40 Q110 30 120 40 T140 40" class="noise" />
+  <path d="M100 90 Q110 80 120 90 T140 90" class="noise" />
+  <text x="120" y="20" class="label" fill="#10b981">Noise</text>
+
+  <!-- Result (Summing) -->
+  <g transform="translate(250, 75)">
+    <path d="M0 0 Q20 -30 40 0 T80 0" stroke="#8b5cf6" stroke-width="3" fill="none" />
+    <text x="40" y="40" text-anchor="middle" class="label">= Signal x2 (Noise Cancelled)</text>
+  </g>
+  
+  <line x1="180" y1="50" x2="220" y2="75" stroke="#9ca3af" marker-end="url(#arrow)" />
+  <line x1="180" y1="100" x2="220" y2="75" stroke="#9ca3af" />
+</svg>

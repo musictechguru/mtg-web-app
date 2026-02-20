@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" style="background-color: #1e1e1e; font-family: sans-serif;">
+  <!-- Compressor Box -->
+  <rect x="300" y="150" width="200" height="200" rx="10" fill="#333" stroke="#aaa" stroke-width="2"/>
+  <text x="400" y="250" fill="#fff" font-size="24" text-anchor="middle" font-weight="bold">COMPRESSOR</text>
+
+  <!-- Input Signal (Pad/Bass) -->
+  <path d="M50 250 L300 250" stroke="#00ffcc" stroke-width="4" marker-end="url(#arrow)"/>
+  <text x="150" y="240" fill="#00ffcc" text-anchor="middle" font-size="18">AUDIO INPUT (Pad/Bass)</text>
+
+  <!-- Output Signal -->
+  <path d="M500 250 L750 250" stroke="#00ffcc" stroke-width="4" marker-end="url(#arrow)"/>
+  <text x="650" y="240" fill="#00ffcc" text-anchor="middle" font-size="18">COMPRESSED OUTPUT</text>
+
+  <!-- Key Input (Kick) -->
+  <path d="M400 50 L400 150" stroke="#ff5555" stroke-width="4" stroke-dasharray="5,5" marker-end="url(#arrowRed)"/>
+  <text x="400" y="40" fill="#ff5555" text-anchor="middle" font-size="18" font-weight="bold">KEY INPUT (Sidechain)</text>
+  <text x="400" y="80" fill="#ff5555" text-anchor="middle" font-size="14">(e.g. Kick Drum)</text>
+
+  <!-- Internal Control Path -->
+  <path d="M400 150 L400 200" stroke="#ff5555" stroke-width="2"/>
+  <circle cx="400" cy="200" r="5" fill="#ff5555"/>
+  <text x="400" y="220" fill="#aaa" font-size="12" text-anchor="middle">Triggers Gain Reduction</text>
+
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#00ffcc" />
+    </marker>
+    <marker id="arrowRed" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#ff5555" />
+    </marker>
+  </defs>
+</svg>

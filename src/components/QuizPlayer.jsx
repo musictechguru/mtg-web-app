@@ -230,6 +230,16 @@ const QuizPlayer = ({ quiz, onFinish }) => {
             ...prev,
             [currentQuestionIndex]: { selected: selectedAnswer, submitted: true, isCorrect }
         }));
+
+        // Mobile: Scroll to explanation
+        if (window.innerWidth <= 768) {
+            setTimeout(() => {
+                const explanationEl = document.querySelector('.quiz-right-col');
+                if (explanationEl) {
+                    explanationEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }, 100);
+        }
     };
 
     const handleInteractiveResult = (isCorrect) => {

@@ -7,10 +7,10 @@
 # SUBJECT 1: AUDIO FUNDAMENTALS (10 Questions)
 
 ### Question 1
-What is audio?
-- A) Only electricity
+What is sound?
+- A) Only electricity (Audio)
 - B) Only light
-- C) Vibrations traveling through air
+- C) Physical movement of pressure in air
 - D) Only silence
 
 **Answer: C**

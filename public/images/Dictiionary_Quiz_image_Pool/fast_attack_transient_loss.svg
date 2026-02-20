@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" style="background-color: #1e1e1e; font-family: sans-serif;">
+  <!-- Left: Original -->
+  <g transform="translate(50, 50)">
+    <text x="150" y="0" fill="#fff" text-anchor="middle" font-size="18">ORIGINAL</text>
+    <path d="M0 200 L50 200 L60 50 L70 200 L100 220 L300 200" fill="none" stroke="#00ffcc" stroke-width="2"/>
+    <text x="60" y="40" fill="#00ffcc" text-anchor="middle">Sharp Transient</text>
+  </g>
+
+  <!-- Right: Fast Attack -->
+  <g transform="translate(450, 50)">
+    <text x="150" y="0" fill="#fff" text-anchor="middle" font-size="18">FAST ATTACK</text>
+    <!-- The "Ghost" of the original transient -->
+    <path d="M0 200 L50 200 L60 50 L70 200 L100 220 L300 200" fill="none" stroke="#555" stroke-width="2" stroke-dasharray="2,2"/>
+    
+    <!-- The Compressed signal -->
+    <path d="M0 200 L50 200 L60 150 L70 200 L100 210 L300 200" fill="none" stroke="#ff5555" stroke-width="3"/>
+    <text x="60" y="140" fill="#ff5555" text-anchor="middle" font-weight="bold">TRANSIENT CRUSHED</text>
+    <!-- FIX: Escaped Ampersand -->
+    <text x="150" y="250" fill="#aaa" text-anchor="middle" font-size="14">Sound becomes "small" &amp; back in the mix</text>
+  </g>
+</svg>

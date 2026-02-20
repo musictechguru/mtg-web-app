@@ -1,0 +1,29 @@
+<svg width="400" height="250" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .text { font-family: sans-serif; fill: #eee; font-size: 12px; }
+      .grid { stroke: #444; stroke-width: 1; }
+    </style>
+  </defs>
+  <rect width="100%" height="100%" fill="#1e1e1e" />
+  
+  <!-- Grid -->
+  <line x1="50" y1="20" x2="50" y2="230" class="grid" />
+  <line x1="50" y1="125" x2="380" y2="125" class="grid" stroke-dasharray="4" />
+  
+  <text x="50" y="245" class="text" text-anchor="middle">Freq</text>
+  <text x="30" y="30" class="text">Gain</text>
+  <text x="30" y="130" class="text">0dB</text>
+  
+  <!-- HPF Curve -->
+  <!-- Starts at -inf, rises to 0dB -->
+  <path d="M50,230 Q100,230 150,125 L380,125" fill="none" stroke="#3b82f6" stroke-width="4" />
+  
+  <!-- Cut Area -->
+  <path d="M50,230 Q100,230 150,125 L150,230 L50,230 Z" fill="#3b82f6" opacity="0.2" />
+  
+  <text x="100" y="200" class="text" fill="#3b82f6" font-weight="bold">Low Frequencies Cut</text>
+  <text x="300" y="115" class="text" fill="#ccc">Passes Highs</text>
+  
+  <text x="200" y="30" text-anchor="middle" class="text" font-size="14" fill="#fff">High-Pass Filter (Low Cut)</text>
+</svg>

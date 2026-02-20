@@ -436,7 +436,7 @@ const Component3ExamPlayer = ({ examData, onExit }) => {
             <div className="exam-results-container" style={{ padding: '40px', maxWidth: '800px', margin: '0 auto', color: 'white' }}>
                 <h1 style={{ fontSize: '2.5rem', marginBottom: '30px' }}>Exam Results</h1>
 
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '40px' }}>
+                <div className="exam-results-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '40px' }}>
                     <div style={{ background: 'var(--bg-panel)', padding: '30px', borderRadius: '15px', textAlign: 'center', border: '1px solid var(--accent-blue)' }}>
                         <h3 style={{ color: '#aaa', margin: 0 }}>Total Score</h3>
                         <div style={{ fontSize: '4rem', fontWeight: 'bold', color: 'var(--accent-blue)' }}>{resultStats.earnedScore} <span style={{ fontSize: '1.5rem', color: '#666' }}>/ {resultStats.totalScore}</span></div>
@@ -503,7 +503,7 @@ const Component3ExamPlayer = ({ examData, onExit }) => {
 
     return (
         <div className="exam-player-container" style={{ display: 'flex', height: '100vh', overflow: 'hidden' }}>
-            <aside style={{ width: '250px', background: 'var(--bg-panel)', borderRight: '1px solid #333', padding: '20px', overflowY: 'auto' }}>
+            <aside className="exam-sidebar" style={{ width: '250px', background: 'var(--bg-panel)', borderRight: '1px solid #333', padding: '20px', overflowY: 'auto' }}>
                 <button onClick={onExit} style={{ marginBottom: '20px', background: 'transparent', border: '1px solid #555', color: '#888', padding: '5px 10px', borderRadius: '5px', cursor: 'pointer' }}>&larr; Exit</button>
                 <div style={{ marginBottom: '20px' }}>
                     <h3 style={{ color: 'var(--accent-blue)' }}>{currentSection.title}</h3>
@@ -566,19 +566,19 @@ const Component3ExamPlayer = ({ examData, onExit }) => {
                 ))}
             </aside>
 
-            <main style={{ flex: 1, display: 'flex', flexDirection: 'column', height: '100%', overflow: 'hidden' }}>
+            <main className="exam-main" style={{ flex: 1, display: 'flex', flexDirection: 'column', height: '100%', overflow: 'hidden' }}>
                 {/* Audio Bar */}
                 {/* Audio Bar (Conditional) */}
                 {currentQuestion.track && (
-                    <div style={{ padding: '15px 30px', background: '#111', borderBottom: '1px solid #333', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+                    <div className="exam-audio-bar" style={{ padding: '15px 30px', background: '#111', borderBottom: '1px solid #333', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                        <div className="exam-audio-info" style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
                             <div style={{ width: '50px', height: '50px', background: '#333', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '5px' }}>🎵</div>
                             <div>
                                 <div style={{ fontWeight: 'bold' }}>{currentQuestion.track.title}</div>
                                 <div style={{ fontSize: '0.9rem', color: '#888' }}>{currentQuestion.track.artist} ({currentQuestion.track.year})</div>
                             </div>
                         </div>
-                        <div style={{ background: '#222', padding: '10px', borderRadius: '15px', minWidth: '350px', textAlign: 'center', color: '#666', fontSize: '0.8rem' }}>
+                        <div className="exam-audio-controls" style={{ background: '#222', padding: '10px', borderRadius: '15px', minWidth: '350px', textAlign: 'center', color: '#666', fontSize: '0.8rem' }}>
                             <div style={{ marginBottom: currentQuestion.track.compareFilename ? '10px' : '0' }}>
                                 {currentQuestion.track.compareFilename && <div style={{ color: '#aaa', marginBottom: '5px', fontSize: '0.75rem' }}>{currentQuestion.track.audioLabel || 'Original (1973)'}</div>}
                                 <audio
@@ -603,7 +603,7 @@ const Component3ExamPlayer = ({ examData, onExit }) => {
 
                 <div style={{ flex: 1, padding: '40px', overflowY: 'auto' }}>
                     <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: '20px' }}>
+                        <div className="exam-question-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: '20px' }}>
                             <h2 style={{ fontSize: '2rem' }}>{currentQuestion.title}</h2>
                             <span style={{ fontSize: '1.2rem', color: 'var(--accent-purple)' }}>{currentQuestion.totalMarks} Marks</span>
                         </div>
@@ -613,15 +613,15 @@ const Component3ExamPlayer = ({ examData, onExit }) => {
                                 <h3 style={{ marginTop: 0, marginBottom: '15px', color: 'var(--accent-blue)', fontSize: '1rem', textTransform: 'uppercase', letterSpacing: '1px', display: 'flex', alignItems: 'center', gap: '10px' }}>
                                     <Download size={18} /> Source Assets
                                 </h3>
-                                <div style={{ display: 'grid', gap: '10px' }}>
+                                <div className="exam-assets-grid" style={{ display: 'grid', gap: '10px' }}>
                                     {currentQuestion.track.assets.map((asset, i) => (
-                                        <div key={i} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: 'rgba(0,0,0,0.3)', padding: '12px 15px', borderRadius: '6px' }}>
-                                            <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+                                        <div key={i} className="exam-asset-item" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: 'rgba(0,0,0,0.3)', padding: '12px 15px', borderRadius: '6px' }}>
+                                            <div className="exam-asset-info" style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
                                                 <div style={{ width: '32px', height: '32px', background: '#334155', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                                                     <Play size={14} fill="white" />
                                                 </div>
                                                 <span style={{ fontWeight: 'bold', color: '#e2e8f0', minWidth: '100px' }}>{asset.name}</span>
-                                                <audio src={`/${asset.filename}`} controls style={{ height: '30px', width: '250px', opacity: 0.9 }} />
+                                                <audio className="exam-asset-audio" src={`/${asset.filename}`} controls style={{ height: '30px', width: '250px', opacity: 0.9 }} />
                                             </div>
                                             <div>
                                                 {currentUser ? (
