@@ -93,27 +93,55 @@ function main() {
 
         const topicTitle = `Topic ${i + 1}: ${name}`;
 
-        let allBasic = [];
-        let allIntermediate = [];
-
+        const volumeTopics = [];
         (vol.parts || []).forEach(part => {
             (part.topics || []).forEach(t => {
-                if (t.levels) {
-                    allBasic = allBasic.concat(t.levels.basic || []);
-                    allIntermediate = allIntermediate.concat(t.levels.intermediate || []);
-                }
+                volumeTopics.push(t);
             });
         });
 
-        const bestBasic = processQuestions(allBasic).slice(0, 10);
-        const bestIntermediate = processQuestions(allIntermediate).slice(0, 10);
+        const sortedBasicByTopic = volumeTopics.map(t => processQuestions((t.levels && t.levels.basic) || []));
+        const sortedIntermediateByTopic = volumeTopics.map(t => processQuestions((t.levels && t.levels.intermediate) || []));
+
+        const bestBasic = [];
+        const bestIntermediate = [];
+
+        let topicIdx = 0;
+        while (bestBasic.length < 10) {
+            let added = false;
+            for (let j = 0; j < sortedBasicByTopic.length; j++) {
+                const idx = (topicIdx + j) % sortedBasicByTopic.length;
+                if (sortedBasicByTopic[idx].length > 0) {
+                    bestBasic.push(sortedBasicByTopic[idx].shift());
+                    added = true;
+                    topicIdx = idx + 1;
+                    break;
+                }
+            }
+            if (!added) break;
+        }
+
+        topicIdx = 0;
+        while (bestIntermediate.length < 10) {
+            let added = false;
+            for (let j = 0; j < sortedIntermediateByTopic.length; j++) {
+                const idx = (topicIdx + j) % sortedIntermediateByTopic.length;
+                if (sortedIntermediateByTopic[idx].length > 0) {
+                    bestIntermediate.push(sortedIntermediateByTopic[idx].shift());
+                    added = true;
+                    topicIdx = idx + 1;
+                    break;
+                }
+            }
+            if (!added) break;
+        }
 
         const selectedQuestions = [...bestBasic, ...bestIntermediate];
 
         const formattedQuestions = selectedQuestions.map((q, idx) => convertToCourseQuestion(q, idx));
 
         // Use isPremium logic
-        const isPremium = (i + 1) > 3;
+        const isPremium = false;
 
         const newQuiz = {
             id: `quiz-topic-${i + 1}`,
