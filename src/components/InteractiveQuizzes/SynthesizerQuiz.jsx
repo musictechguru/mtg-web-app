@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Play, Check, X, Pause } from 'lucide-react';
+import { Play, Check, X, Pause, Zap, Volume2, Settings, ArrowRight, RotateCcw, Lightbulb } from 'lucide-react';
+import { useUser } from '../../contexts/UserContext';
 
 export default function SynthesizerQuiz({ onExit }) {
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -302,6 +303,26 @@ export default function SynthesizerQuiz({ onExit }) {
     };
   }, []);
 
+  // Save quiz result
+  const userContext = useUser();
+  const saveQuizResult = userContext ? userContext.saveQuizResult : null;
+  const resultsSavedRef = useRef(false);
+
+  useEffect(() => {
+    if (quizComplete && saveQuizResult && !resultsSavedRef.current) {
+      resultsSavedRef.current = true;
+
+      const percentage = Math.round((score / questions.length) * 100);
+      let grade = 'U';
+      if (percentage >= 80) grade = 'A';
+      else if (percentage >= 70) grade = 'B';
+      else if (percentage >= 60) grade = 'C';
+      else if (percentage >= 50) grade = 'D';
+
+      saveQuizResult("Topic 34: Synthesizer Fundamentals", score, questions.length, grade);
+    }
+  }, [quizComplete, score, questions.length, saveQuizResult]);
+
   const playSound = (params, isTarget = false) => {
     const ctx = audioContextRef.current;
     if (!ctx) return;
@@ -519,6 +540,7 @@ export default function SynthesizerQuiz({ onExit }) {
     setQuizComplete(false);
     // setAiExplanation('');
     setShowIntro(true);
+    resultsSavedRef.current = false;
     setSynthParams({
       waveform: 'sine',
       filterCutoff: 10000,

@@ -223,9 +223,43 @@ const QuizPlayer = ({ quiz, onFinish }) => {
         }));
     };
 
+    const handleClozeChange = (blankId, value) => {
+        if (isSubmitted) return;
+        setUserResponses(prev => {
+            const currentObj = prev[currentQuestionIndex]?.selected || {};
+            return {
+                ...prev,
+                [currentQuestionIndex]: {
+                    selected: { ...currentObj, [blankId]: value },
+                    submitted: false,
+                    isCorrect: false
+                }
+            };
+        });
+    };
+
     const handleSubmit = () => {
-        if (!currentQuestion || !currentQuestion.answers) return;
-        const isCorrect = currentQuestion.answers[selectedAnswer]?.is_true === 'yes';
+        if (!currentQuestion) return;
+
+        let isCorrect = false;
+        if (currentQuestion.type === 'cloze') {
+            if (currentQuestion.answer && typeof selectedAnswer === 'object' && selectedAnswer !== null) {
+                isCorrect = true;
+                for (let i = 0; i < currentQuestion.answer.length; i++) {
+                    if (selectedAnswer[i] !== currentQuestion.answer[i]) {
+                        isCorrect = false;
+                        break;
+                    }
+                }
+                if (Object.keys(selectedAnswer).length !== currentQuestion.answer.length) {
+                    isCorrect = false;
+                }
+            }
+        } else {
+            if (!currentQuestion.answers) return;
+            isCorrect = currentQuestion.answers[selectedAnswer]?.is_true === 'yes';
+        }
+
         setUserResponses(prev => ({
             ...prev,
             [currentQuestionIndex]: { selected: selectedAnswer, submitted: true, isCorrect }
@@ -411,6 +445,78 @@ const QuizPlayer = ({ quiz, onFinish }) => {
                                 questionText={currentQuestion.question_text} // passed from content usually, but optional prop
                                 onResult={handleInteractiveResult}
                             />
+                        ) : currentQuestion.type === 'cloze' ? (
+                            <div key={currentQuestionIndex + "-cloze"} className="cloze-quiz-container" style={{ lineHeight: '2.5', fontSize: '1.1rem', background: 'var(--bg-secondary)', padding: '20px', borderRadius: '8px' }}>
+                                {Array.isArray(currentQuestion.text) ? (
+                                    <ul style={{ paddingLeft: '20px', margin: 0 }}>
+                                        {currentQuestion.text.map((line, lineIdx) => (
+                                            <li key={lineIdx} style={{ marginBottom: '15px' }}>
+                                                {line.split(/\{(\d+)\}/g).map((fragment, idx) => {
+                                                    if (idx % 2 === 0) return <span key={idx}>{fragment}</span>;
+                                                    const blankId = parseInt(fragment);
+                                                    const currentBlanks = selectedAnswer || {};
+
+                                                    let selectStyle = { margin: '0 5px', padding: '5px', background: 'var(--bg-primary)', color: 'var(--text-primary)', border: '1px solid var(--border-color)', borderRadius: '4px', appearance: 'auto', minWidth: '150px' };
+                                                    if (isSubmitted) {
+                                                        if (currentBlanks[blankId] === currentQuestion.answer[blankId]) {
+                                                            selectStyle.border = '2px solid var(--accent-success)';
+                                                            selectStyle.background = 'rgba(34, 197, 94, 0.1)';
+                                                        } else {
+                                                            selectStyle.border = '2px solid var(--accent-error)';
+                                                            selectStyle.background = 'rgba(239, 68, 68, 0.1)';
+                                                        }
+                                                    }
+
+                                                    return (
+                                                        <select
+                                                            key={idx}
+                                                            style={selectStyle}
+                                                            value={currentBlanks[blankId] || ''}
+                                                            onChange={(e) => handleClozeChange(blankId, e.target.value)}
+                                                            disabled={isSubmitted}
+                                                        >
+                                                            <option value="">...</option>
+                                                            {currentQuestion.options[blankId] && currentQuestion.options[blankId].map((opt, oIdx) => <option key={oIdx} value={opt}>{opt}</option>)}
+                                                        </select>
+                                                    );
+                                                })}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                ) : (
+                                    <div style={{ marginBottom: '15px' }}>
+                                        {currentQuestion.text.split(/\{(\d+)\}/g).map((fragment, idx) => {
+                                            if (idx % 2 === 0) return <span key={idx}>{fragment}</span>;
+                                            const blankId = parseInt(fragment);
+                                            const currentBlanks = selectedAnswer || {};
+
+                                            let selectStyle = { margin: '0 5px', padding: '5px', background: 'var(--bg-primary)', color: 'var(--text-primary)', border: '1px solid var(--border-color)', borderRadius: '4px', appearance: 'auto', minWidth: '150px' };
+                                            if (isSubmitted) {
+                                                if (currentBlanks[blankId] === currentQuestion.answer[blankId]) {
+                                                    selectStyle.border = '2px solid var(--accent-success)';
+                                                    selectStyle.background = 'rgba(34, 197, 94, 0.1)';
+                                                } else {
+                                                    selectStyle.border = '2px solid var(--accent-error)';
+                                                    selectStyle.background = 'rgba(239, 68, 68, 0.1)';
+                                                }
+                                            }
+
+                                            return (
+                                                <select
+                                                    key={idx}
+                                                    style={selectStyle}
+                                                    value={currentBlanks[blankId] || ''}
+                                                    onChange={(e) => handleClozeChange(blankId, e.target.value)}
+                                                    disabled={isSubmitted}
+                                                >
+                                                    <option value="">...</option>
+                                                    {currentQuestion.options[blankId] && currentQuestion.options[blankId].map((opt, oIdx) => <option key={oIdx} value={opt}>{opt}</option>)}
+                                                </select>
+                                            );
+                                        })}
+                                    </div>
+                                )}
+                            </div>
                         ) : currentQuestion.type === 'binary-diagram' ? (
                             <BinaryDiagramQuiz
                                 key={currentQuestionIndex}
@@ -474,8 +580,8 @@ const QuizPlayer = ({ quiz, onFinish }) => {
                                 <button
                                     className="btn-primary"
                                     onClick={handleSubmit}
-                                    disabled={selectedAnswer === null}
-                                    style={{ flex: 1, opacity: selectedAnswer === null ? 0.5 : 1 }}
+                                    disabled={currentQuestion.type === 'cloze' ? (!selectedAnswer || Object.keys(selectedAnswer).length < (currentQuestion.answer?.length || 0)) : selectedAnswer === null}
+                                    style={{ flex: 1, opacity: (currentQuestion.type === 'cloze' ? (!selectedAnswer || Object.keys(selectedAnswer).length < (currentQuestion.answer?.length || 0)) : selectedAnswer === null) ? 0.5 : 1 }}
                                 >
                                     Submit Answer
                                 </button>

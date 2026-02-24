@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Play, Check, X, RotateCcw, Lightbulb, Volume2, Settings, ArrowDown, Pause, GripVertical, Info } from 'lucide-react';
+import { useUser } from '../../contexts/UserContext';
 
 export default function EffectsChainQuiz({ onExit }) {
     const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -9,7 +10,6 @@ export default function EffectsChainQuiz({ onExit }) {
     const [quizComplete, setQuizComplete] = useState(false);
     const [aiExplanation, setAiExplanation] = useState('');
     const [loadingExplanation, setLoadingExplanation] = useState(false);
-    const [showIntro, setShowIntro] = useState(true);
     const [effectsOrder, setEffectsOrder] = useState([]);
     const [draggedEffect, setDraggedEffect] = useState(null);
     const [parameters, setParameters] = useState({});
@@ -156,8 +156,42 @@ export default function EffectsChainQuiz({ onExit }) {
         }
     ];
 
+    // Save quiz result
+    const userContext = useUser();
+    const saveQuizResult = userContext ? userContext.saveQuizResult : null;
+    const resultsSavedRef = useRef(false);
+
+    useEffect(() => {
+        if (quizComplete && saveQuizResult && !resultsSavedRef.current) {
+            resultsSavedRef.current = true;
+
+            const percentage = Math.round((score / questions.length) * 100);
+            let grade = 'U';
+            if (percentage >= 80) grade = 'A';
+            else if (percentage >= 70) grade = 'B';
+            else if (percentage >= 60) grade = 'C';
+            else if (percentage >= 50) grade = 'D';
+
+            saveQuizResult("Topic 35: Audio Effects Processing", score, questions.length, grade);
+        }
+    }, [quizComplete, score, questions.length, saveQuizResult]);
+
     useEffect(() => {
         audioContextRef.current = new (window.AudioContext || window.webkitAudioContext)();
+
+        // Initialize first question
+        const firstQ = questions[0];
+        if (firstQ.type === 'order-chain') {
+            const shuffled = [...firstQ.effects].sort(() => Math.random() - 0.5);
+            setEffectsOrder(shuffled);
+        } else if (firstQ.type === 'set-parameters') {
+            const defaults = {};
+            firstQ.effect.parameters.forEach(param => {
+                defaults[param.id] = param.min;
+            });
+            setParameters(defaults);
+        }
+
         return () => {
             if (audioContextRef.current) {
                 audioContextRef.current.close();
@@ -306,9 +340,21 @@ export default function EffectsChainQuiz({ onExit }) {
         setShowFeedback(false);
         setQuizComplete(false);
         setAiExplanation('');
-        setShowIntro(true);
         setEffectsOrder([]);
         setParameters({});
+        resultsSavedRef.current = false;
+
+        const firstQ = questions[0];
+        if (firstQ.type === 'order-chain') {
+            const shuffled = [...firstQ.effects].sort(() => Math.random() - 0.5);
+            setEffectsOrder(shuffled);
+        } else if (firstQ.type === 'set-parameters') {
+            const defaults = {};
+            firstQ.effect.parameters.forEach(param => {
+                defaults[param.id] = param.min;
+            });
+            setParameters(defaults);
+        }
     };
 
     const renderEffectBox = (effect, index, showIndex = false) => {
@@ -373,8 +419,8 @@ export default function EffectsChainQuiz({ onExit }) {
                         } bg-slate-800`}></div>
                     <div
                         className={`absolute inset-1 rounded-full ${isCorrect ? 'bg-gradient-to-br from-green-500 to-green-700'
-                                : isWrong ? 'bg-gradient-to-br from-red-500 to-red-700'
-                                    : 'bg-gradient-to-br from-blue-500 to-blue-700'
+                            : isWrong ? 'bg-gradient-to-br from-red-500 to-red-700'
+                                : 'bg-gradient-to-br from-blue-500 to-blue-700'
                             } cursor-pointer shadow-lg`}
                         style={{ transform: `rotate(${rotation}deg)` }}
                     >
@@ -417,7 +463,7 @@ export default function EffectsChainQuiz({ onExit }) {
                         </div>
                     </div>
 
-                    {!showFeedback ? (
+                    {!showFeedback && (
                         <div className="flex gap-2">
                             <button
                                 onClick={playWithEffects}
@@ -431,24 +477,14 @@ export default function EffectsChainQuiz({ onExit }) {
                                 onClick={checkAnswer}
                                 className="btn-primary flex-1 py-3 flex items-center justify-center gap-2 text-lg shadow-lg"
                             >
-                                Check Order
+                                Submit Answer
                             </button>
                         </div>
-                    ) : (
-                        <div className={`p-4 rounded-lg border flex items-start gap-3 ${isCorrect ? 'bg-green-500/10 border-green-500/50' : 'bg-red-500/10 border-red-500/50'
-                            }`}>
-                            {isCorrect ? <Check className="text-green-500 mt-1" size={24} /> : <X className="text-red-500 mt-1" size={24} />}
-                            <div>
-                                <h4 className={`font-bold text-lg ${isCorrect ? 'text-green-400' : 'text-red-400'}`}>
-                                    {isCorrect ? 'Perfect Signal Flow!' : 'Broken Chain'}
-                                </h4>
-                                <p className="text-slate-300 text-sm mt-1">{q.explanation}</p>
-                                {!isCorrect && (
-                                    <div className="mt-2 text-xs text-slate-400 bg-black/20 p-2 rounded">
-                                        <strong>Correct:</strong> {q.correctOrder.map(id => q.effects.find(e => e.id === id).name).join(' → ')}
-                                    </div>
-                                )}
-                            </div>
+                    )}
+
+                    {showFeedback && !isCorrect && (
+                        <div className="mt-2 text-xs text-red-400 bg-red-900/20 border border-red-500/50 p-2 rounded">
+                            <strong>Correct Order:</strong> {q.correctOrder.map(id => q.effects.find(e => e.id === id).name).join(' → ')}
                         </div>
                     )}
                 </div>
@@ -474,18 +510,10 @@ export default function EffectsChainQuiz({ onExit }) {
                         </div>
                     </div>
 
-                    {!showFeedback ? (
+                    {!showFeedback && (
                         <button onClick={checkAnswer} className="btn-primary w-full py-3 text-lg">
-                            Check Settings
+                            Submit Answer
                         </button>
-                    ) : (
-                        <div className={`p-4 rounded-lg border flex items-center gap-3 ${allCorrect ? 'bg-green-500/10 border-green-500/50' : 'bg-red-500/10 border-red-500/50'
-                            }`}>
-                            {allCorrect ? <Check className="text-green-500" /> : <X className="text-red-500" />}
-                            <div>
-                                <p className="text-slate-300">{q.explanation}</p>
-                            </div>
-                        </div>
                     )}
                 </div>
             );
@@ -500,22 +528,24 @@ export default function EffectsChainQuiz({ onExit }) {
                         const showCorrect = showFeedback && isCorrect;
                         const showIncorrect = showFeedback && isSelected && !isCorrect;
 
+                        let className = "option-btn";
+                        if (isSelected) className += " selected";
+                        if (showFeedback) {
+                            if (isCorrect) className += " correct";
+                            else if (isSelected) className += " incorrect";
+                        }
+
                         return (
                             <button
                                 key={index}
                                 onClick={() => !showFeedback && handleMultipleChoice(index)}
                                 disabled={showFeedback}
-                                className={`w-full p-4 text-left rounded-lg border transition-all ${showCorrect ? 'border-green-500 bg-green-900/20 text-green-300'
-                                        : showIncorrect ? 'border-red-500 bg-red-900/20 text-red-300'
-                                            : isSelected ? 'border-blue-500 bg-blue-900/20 text-blue-300'
-                                                : 'border-slate-700 hover:border-slate-500 bg-slate-800/50 text-slate-300'
-                                    }`}
+                                className={className}
+                                style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
                             >
-                                <div className="flex items-center justify-between">
-                                    <span className="font-medium">{option}</span>
-                                    {showCorrect && <Check className="text-green-500" size={20} />}
-                                    {showIncorrect && <X className="text-red-500" size={20} />}
-                                </div>
+                                <span className="font-medium">{option}</span>
+                                {showCorrect && <Check className="text-green-500" size={20} />}
+                                {showIncorrect && <X className="text-red-500" size={20} />}
                             </button>
                         );
                     })}
@@ -524,92 +554,110 @@ export default function EffectsChainQuiz({ onExit }) {
         }
     };
 
-    if (showIntro) {
-        return (
-            <div className="quiz-container">
-                <div className="question-card text-center p-8" style={{ background: 'rgba(0,0,0,0.2)' }}>
-                    <div className="text-6xl mb-4">🎛️</div>
-                    <h1 className="text-3xl font-bold text-white mb-2">Effects Chain Challenge</h1>
-                    <p className="text-lg text-slate-400 mb-8">Master the art of signal flow and processing.</p>
-
-                    <button
-                        onClick={() => {
-                            setShowIntro(false);
-                            const firstQ = questions[0];
-                            if (firstQ.type === 'order-chain') {
-                                const shuffled = [...firstQ.effects].sort(() => Math.random() - 0.5);
-                                setEffectsOrder(shuffled);
-                            } else if (firstQ.type === 'set-parameters') {
-                                const defaults = {};
-                                firstQ.effect.parameters.forEach(param => {
-                                    defaults[param.id] = param.min;
-                                });
-                                setParameters(defaults);
-                            }
-                        }}
-                        className="btn-primary px-8 py-3 text-lg flex items-center gap-2 mx-auto"
-                    >
-                        Start Processing <Play size={20} />
-                    </button>
-                    <button onClick={onExit} className="block mx-auto mt-4 text-slate-500 hover:text-slate-300">
-                        Exit to Dashboard
-                    </button>
-                </div>
-            </div>
-        );
-    }
-
     if (quizComplete) {
         const percentage = Math.round((score / questions.length) * 100);
+
+        let grade = 'U';
+        let expl = 'Keep practicing.';
+        let color = 'var(--accent-error)';
+
+        if (percentage >= 80) {
+            grade = 'A';
+            expl = 'Excellent! You have a solid grasp of the foundation and advanced concepts.';
+            color = 'var(--accent-success)';
+        } else if (percentage >= 70) {
+            grade = 'B';
+            expl = 'Great work! You are secure in most areas but review the weaker topics.';
+            color = '#a3e635';
+        } else if (percentage >= 60) {
+            grade = 'C';
+            expl = 'Good effort. You know the basics well, but deeper technical understanding is needed.';
+            color = '#facc15';
+        } else if (percentage >= 50) {
+            grade = 'D';
+            expl = 'Passable, but significant gaps in your knowledge. Review Part 1 (Foundation).';
+            color = '#fb923c';
+        }
+
         return (
             <div className="quiz-container results-screen">
-                <div className="score-circle" style={{
-                    borderColor: percentage >= 70 ? 'var(--accent-success)' : percentage >= 50 ? '#fb923c' : 'var(--accent-error)',
-                    color: percentage >= 70 ? 'var(--accent-success)' : percentage >= 50 ? '#fb923c' : 'var(--accent-error)'
-                }}>
-                    {percentage >= 80 ? 'A' : percentage >= 70 ? 'B' : percentage >= 60 ? 'C' : percentage >= 50 ? 'D' : 'U'}
+                <div className="score-circle" style={{ borderColor: color, color: color }}>
+                    {grade}
                 </div>
-                <h2 className="text-3xl font-bold text-white mb-2">{percentage}% Score</h2>
-                <p className="text-slate-400 mb-8">You got {score} out of {questions.length} correct.</p>
-                <div className="flex gap-4 justify-center">
-                    <button onClick={resetQuiz} className="btn-primary flex items-center gap-2">
-                        <RotateCcw size={18} /> Retry
-                    </button>
-                    <button onClick={onExit} className="px-6 py-2 rounded-lg border border-slate-600 text-slate-300 hover:bg-slate-800">
-                        Finish
-                    </button>
+                <h2 style={{ fontSize: '2rem' }}>{percentage}%</h2>
+                <p style={{ color: 'var(--text-secondary)', marginBottom: '30px' }}>
+                    You scored {score} out of {questions.length}.
+                </p>
+                <div style={{ background: 'rgba(255,255,255,0.05)', padding: '20px', borderRadius: '10px', marginBottom: '30px' }}>
+                    <p style={{ fontSize: '1.1rem', margin: 0 }}>{expl}</p>
                 </div>
+                <button
+                    className="btn-primary"
+                    onClick={onExit}
+                >
+                    Return to Dashboard
+                </button>
             </div>
         );
     }
 
     return (
-        <div className="quiz-container">
-            <div className="mb-4 text-sm text-slate-400 flex justify-between items-center">
-                <span><Settings size={14} className="inline mr-1" /> Audio Effects</span>
-                <span>Question {currentQuestion + 1} of {questions.length}</span>
-            </div>
+        <div className="quiz-player-layout">
+            <div className="quiz-left-col">
+                <div style={{ marginBottom: '20px', fontSize: '0.9rem', color: 'var(--text-secondary)' }}>
+                    Topic 35: Audio Effects Processing • Question {currentQuestion + 1} of {questions.length}
+                </div>
 
-            <div className="intro-card p-6 rounded-xl" style={{ background: 'rgba(0,0,0,0.2)' }}>
-                <h2 className="text-xl font-bold text-white mb-4">{questions[currentQuestion].question}</h2>
+                <div className="question-card">
+                    <div className="question-header">
+                        <span>{questions[currentQuestion].question}</span>
+                    </div>
 
-                {questions[currentQuestion].hint && (
-                    <div className="bg-amber-500/10 border-l-4 border-amber-500 p-3 mb-6 flex gap-3">
-                        <Lightbulb className="text-amber-500 flex-shrink-0" size={20} />
-                        <div>
-                            <p className="text-xs font-bold text-amber-500 uppercase">Hint</p>
-                            <p className="text-sm text-amber-200">{questions[currentQuestion].hint}</p>
+                    <div className="question-text">
+
+                        {questions[currentQuestion].hint && (
+                            <div className="bg-amber-500/10 border-l-4 border-amber-500 p-3 mb-6 flex gap-3">
+                                <Lightbulb className="text-amber-500 flex-shrink-0" size={20} />
+                                <div>
+                                    <p className="text-xs font-bold text-amber-500 uppercase">Hint</p>
+                                    <p className="text-sm text-amber-200">{questions[currentQuestion].hint}</p>
+                                </div>
+                            </div>
+                        )}
+
+                        <div className="options-grid" style={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            gap: '15px'
+                        }}>
+                            {renderQuestion()}
                         </div>
                     </div>
-                )}
 
-                {renderQuestion()}
+                    {showFeedback && (
+                        <div className="controls" style={{ display: 'flex', gap: '10px', marginTop: '20px' }}>
+                            <button onClick={nextQuestion} className="btn-primary" style={{ flex: 1 }}>
+                                {currentQuestion < questions.length - 1 ? 'Next Question' : 'Finish Quiz'}
+                            </button>
+                        </div>
+                    )}
+                </div>
+            </div>
 
-                {showFeedback && (
-                    <div className="flex justify-end mt-6 pt-4 border-t border-slate-700/50">
-                        <button onClick={nextQuestion} className="btn-primary flex items-center gap-2">
-                            {currentQuestion < questions.length - 1 ? 'Next' : 'Finish'} <ArrowDown className="rotate-[-90deg]" size={18} />
-                        </button>
+            <div className={`quiz-right-col ${showFeedback ? 'visible' : ''}`}>
+                <h3 style={{ marginTop: 0, marginBottom: '20px', color: 'var(--accent-purple)' }}>
+                    Expert Explanation
+                </h3>
+
+                {showFeedback ? (
+                    <div className="expert-explanation-container">
+                        <div className="expert-text" style={{ marginBottom: '20px', fontSize: '1.05rem', lineHeight: '1.6' }}>
+                            {aiExplanation || questions[currentQuestion].explanation}
+                        </div>
+                    </div>
+                ) : (
+                    <div className="explanation-placeholder">
+                        <p>Submit your answer to reveal the explanation.</p>
                     </div>
                 )}
             </div>
