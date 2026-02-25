@@ -39,47 +39,96 @@ def main():
     
     node_counter = 1
     
-    def get_cyclical(lst, index):
-        if not lst:
-            return {"id": "placeholder", "title": "Placeholder"}
-        return lst[index % len(lst)]
+    def distribute_sequential(items, n_buckets):
+        if not items:
+            return [[] for _ in range(n_buckets)]
+        if len(items) < n_buckets:
+            # If fewer items than buckets, cycle them so every bucket gets 1
+            return [[items[i % len(items)]] for i in range(n_buckets)]
+        
+        buckets = [[] for _ in range(n_buckets)]
+        base_count = len(items) // n_buckets
+        remainder = len(items) % n_buckets
+        
+        idx = 0
+        for b in range(n_buckets):
+            count = base_count + (1 if b < remainder else 0)
+            for _ in range(count):
+                buckets[b].append(items[idx])
+                idx += 1
+        return buckets
+
+    # Manual mapping of Practical Quizzes to Rounds (Volumes)
+    # Vol 1: Topic 1: Fundamentals & Recording
+    # Vol 2: Topic 2: Microphones
+    # Vol 3: Topic 3: Synthesis
+    # Vol 4: Topic 4: Sampling
+    # Vol 5: Topic 5: Dynamic Processing
+    # Vol 6: Topic 6: EQ & Stereo
+    # Vol 7: Topic 7: FX & Processors
+    # Vol 8: Topic 8: Mastering
+    # Vol 9: Topic 9: Acoustics
+    # Vol 10: Topic 10: Equipment
+
+    practical_mapping = {
+        1: ["Practical Quiz 27: Recording Signal Chain", "Practical Quiz 29: Recording Workflow"],
+        2: ["Practical Quiz 28: Microphone Techniques", "Practical Quiz 33: Advanced Microphone Placement"],
+        3: ["Practical Quiz 22: Subtractive Synthesis Flow", "Practical Quiz 34: Synthesizer Fundamentals", "Practical Quiz 25: Waveform Wizard"],
+        4: ["Practical Quiz 32: Sequencing & Piano Roll", "Practical Quiz 30: Binary & MIDI"],
+        5: ["Practical Quiz 31: Graph Drawing", "Practical Quiz 36: EDM Production Techniques"],
+        6: ["Practical Quiz 24: EQ Parameter Mastery"],
+        7: ["Practical Quiz 23: FX Ear Training", "Practical Quiz 35: Audio Effects Processing"],
+        8: ["Practical Quiz 37: Rock Production Techniques"],
+        9: ["Practical Quiz 11: Studio Equipment & Acoustics"],
+        10: ["Practical Quiz 21: Signal Flow Challenge", "Practical Quiz 26: Hardware Anatomy"]
+    }
+
+    mastery_buckets = distribute_sequential(mastery_quizzes, 10)
+    comparison_buckets = distribute_sequential(comparison_quizzes, 5)
+    case_study_buckets = distribute_sequential(case_study_quizzes, 5)
+    historical_buckets = distribute_sequential(historical_quizzes, 10)
 
     for round_index in range(1, 11):
         round_nodes = []
         i = round_index - 1
         
-        # Step 1: Mastery Quiz
-        mq = get_cyclical(mastery_quizzes, i)
-        round_nodes.append({
-            "id": f"node_{node_counter}", "round": round_index, "step": 1,
-            "quizId": mq["id"], "type": "course", "title": mq["title"]
-        })
-        node_counter += 1
+        # Step 1: Mastery Quizzes (can be >1 if more than 10)
+        for mq in mastery_buckets[i]:
+            round_nodes.append({
+                "id": f"node_{node_counter}", "round": round_index, "step": 1,
+                "quizId": mq["id"], "type": "course", "title": mq["title"]
+            })
+            node_counter += 1
         
-        # Step 2: Practical Quiz
-        pq = get_cyclical(practical_quizzes, i)
-        round_nodes.append({
-            "id": f"node_{node_counter}", "round": round_index, "step": 2,
-            "quizId": pq["id"], "type": "course", "title": pq["title"]
-        })
-        node_counter += 1
+        # Step 2: Practical Quizzes (Mapped specifically by relevance)
+        round_pq_titles = practical_mapping.get(round_index, [])
+        for pq_title in round_pq_titles:
+            # Find the full quiz object by matching the title string
+            pq_match = next((q for q in practical_quizzes if q["title"] == pq_title), None)
+            if pq_match:
+                round_nodes.append({
+                    "id": f"node_{node_counter}", "round": round_index, "step": 2,
+                    "quizId": pq_match["id"], "type": "course", "title": pq_match["title"]
+                })
+                node_counter += 1
 
         # Step 3: Comparison OR Case Study
         if round_index % 2 != 0:
             # Odd round -> Comparison
-            cq = get_cyclical(comparison_quizzes, i // 2)
-            round_nodes.append({
-                "id": f"node_{node_counter}", "round": round_index, "step": 3,
-                "quizId": cq["id"], "type": "course", "title": cq["title"]
-            })
+            for cq in comparison_buckets[i // 2]:
+                round_nodes.append({
+                    "id": f"node_{node_counter}", "round": round_index, "step": 3,
+                    "quizId": cq["id"], "type": "course", "title": cq["title"]
+                })
+                node_counter += 1
         else:
             # Even round -> Case Study
-            cs = get_cyclical(case_study_quizzes, (i - 1) // 2)
-            round_nodes.append({
-                "id": f"node_{node_counter}", "round": round_index, "step": 3,
-                "quizId": cs["id"], "type": "course", "title": cs["title"]
-            })
-        node_counter += 1
+            for cs in case_study_buckets[(i - 1) // 2]:
+                round_nodes.append({
+                    "id": f"node_{node_counter}", "round": round_index, "step": 3,
+                    "quizId": cs["id"], "type": "course", "title": cs["title"]
+                })
+                node_counter += 1
         
         # Step 4: Dictionary Quiz
         round_nodes.append({
@@ -89,13 +138,13 @@ def main():
         })
         node_counter += 1
         
-        # Step 5: Historical Quiz
-        hq = get_cyclical(historical_quizzes, i)
-        round_nodes.append({
-            "id": f"node_{node_counter}", "round": round_index, "step": 5,
-            "quizId": hq["id"], "type": "course", "title": hq["title"]
-        })
-        node_counter += 1
+        # Step 5: Historical Quizzes
+        for hq in historical_buckets[i]:
+            round_nodes.append({
+                "id": f"node_{node_counter}", "round": round_index, "step": 5,
+                "quizId": hq["id"], "type": "course", "title": hq["title"]
+            })
+            node_counter += 1
         
         rounds.append({
             "round": round_index,
