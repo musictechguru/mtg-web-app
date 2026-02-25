@@ -1,0 +1,256 @@
+/* EffectsChainQuiz.css - Custom styling for the Audio Effects Processing Quiz */
+
+/* --- Main Layout --- */
+.fx-panel-container {
+    background: linear-gradient(160deg, #1e293b 0%, #0f172a 100%);
+    border-radius: 1.5rem;
+    padding: 1.5rem;
+    border-top: 6px solid #475569;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+    margin-bottom: 2rem;
+    position: relative;
+    overflow: hidden;
+}
+
+@media (min-width: 768px) {
+    .fx-panel-container {
+        padding: 2.5rem;
+    }
+}
+
+.fx-panel-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: #94a3b8;
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+/* --- Drag & Drop Flow --- */
+.fx-flow-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.fx-draggable-box {
+    display: flex;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    border-radius: 0.75rem;
+    background-color: rgba(30, 41, 59, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: white;
+    font-weight: 500;
+    cursor: grab;
+    transition: all 0.2s;
+    box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.05), 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+}
+
+.fx-draggable-box:active {
+    cursor: grabbing;
+}
+
+.fx-draggable-box:hover:not(.disabled) {
+    background-color: rgba(51, 65, 85, 0.9);
+    transform: translateY(-2px);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.fx-draggable-box.disabled {
+    cursor: default;
+}
+
+.fx-draggable-box.dragging {
+    opacity: 0.5;
+    transform: scale(0.98);
+}
+
+.fx-draggable-box.correct {
+    background-color: rgba(34, 197, 94, 0.1);
+    border-color: #22c55e;
+}
+
+.fx-draggable-box.incorrect {
+    border-color: #ef4444;
+}
+
+.fx-grip-icon {
+    margin-right: 0.75rem;
+    color: #64748b;
+    opacity: 0.5;
+}
+
+.fx-arrow-connector {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 1.5rem;
+    color: #64748b;
+    opacity: 0.5;
+}
+
+/* --- Parameter Grid --- */
+.fx-knob-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 2rem 1rem;
+    justify-items: center;
+}
+
+/* --- Knobs (Reused from Synth but namespaced) --- */
+.fx-knob-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+.fx-knob-wrapper {
+    position: relative;
+    width: 5rem;
+    height: 5rem;
+    margin-bottom: 0.75rem;
+    transition: transform 0.2s;
+}
+
+@media (min-width: 768px) {
+    .fx-knob-wrapper {
+        width: 6rem;
+        height: 6rem;
+    }
+}
+
+.fx-knob-container:hover .fx-knob-wrapper {
+    transform: scale(1.05);
+}
+
+.fx-knob-shadow {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background-color: #0f172a;
+    border: 2px solid #334155;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+}
+
+.fx-ghost-knob {
+    position: absolute;
+    inset: 6px;
+    border-radius: 50%;
+    border: 2px dashed rgba(255, 255, 255, 0.3);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.fx-ghost-marker {
+    position: absolute;
+    top: 2px;
+    left: 50%;
+    width: 3px;
+    height: 16px;
+    transform: translateX(-50%);
+    border-radius: 9999px;
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.fx-knob-cap {
+    position: absolute;
+    inset: 6px;
+    border-radius: 50%;
+    border: 2px solid;
+    cursor: pointer;
+    transition: transform 0.075s ease-out;
+    box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.1), 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+    z-index: 10;
+    /* Metallic gradient */
+    background: linear-gradient(135deg, #334155 0%, #1e293b 100%);
+}
+
+.fx-knob-cap.neutral {
+    border-color: #475569;
+}
+
+.fx-knob-cap.neutral:hover {
+    border-color: #60a5fa;
+}
+
+.fx-knob-cap.correct {
+    border-color: #22c55e;
+}
+
+.fx-knob-cap.incorrect {
+    border-color: #ef4444;
+}
+
+.fx-knob-marker {
+    position: absolute;
+    top: 4px;
+    left: 50%;
+    width: 4px;
+    height: 14px;
+    transform: translateX(-50%);
+    border-radius: 9999px;
+}
+
+.fx-knob-marker.neutral {
+    background-color: #cbd5e1;
+}
+
+.fx-knob-marker.correct {
+    background-color: #22c55e;
+    box-shadow: 0 0 8px #22c55e;
+}
+
+.fx-knob-marker.incorrect {
+    background-color: #ef4444;
+    box-shadow: 0 0 8px #ef4444;
+}
+
+.fx-knob-label-box {
+    text-align: center;
+}
+
+.fx-knob-label {
+    display: block;
+    font-size: 11px;
+    font-weight: 900;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 4px;
+}
+
+.fx-knob-value {
+    font-size: 12px;
+    font-family: monospace;
+    font-weight: 700;
+    color: #38bdf8;
+    background-color: rgba(15, 23, 42, 0.5);
+    padding: 2px 8px;
+    border-radius: 4px;
+    border: 1px solid rgba(56, 189, 248, 0.3);
+    display: inline-block;
+}
+
+.fx-knob-target-label {
+    display: block;
+    color: #ef4444;
+    font-size: 10px;
+    margin-top: 4px;
+    font-weight: bold;
+}
+
+/* --- Feedback Info Box --- */
+.fx-correct-order-box {
+    margin-top: 1rem;
+    font-size: 0.875rem;
+    color: #fca5a5;
+    background-color: rgba(127, 29, 29, 0.2);
+    border: 1px solid rgba(239, 68, 68, 0.5);
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+}

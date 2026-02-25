@@ -1,6 +1,103 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Play, Check, X, RotateCcw, Lightbulb, Volume2, Settings, ArrowDown, Pause, GripVertical, Info } from 'lucide-react';
 import { useUser } from '../../contexts/UserContext';
+import './EffectsChainQuiz.css';
+
+const DRAG_SCALE = 200;
+
+const KnobComponent = ({ label, value, min, max, step, onChange, unit = '', isCorrect = null, targetValue = null, isLogScale = false, showFeedback = false }) => {
+    const valMin = isLogScale ? Math.log10(min) : min;
+    const valMax = isLogScale ? Math.log10(max) : max;
+    const valRange = valMax - valMin;
+
+    const displayVal = isLogScale ? Math.log10(value) : value;
+    const percentage = Math.max(0, Math.min(1, (displayVal - valMin) / valRange));
+    const rotation = percentage * 270 - 135;
+
+    const handlePointerDown = (e) => {
+        if (showFeedback) return;
+        e.preventDefault();
+
+        const startY = e.clientY;
+        const startValue = isLogScale ? Math.log10(value) : value;
+
+        const handlePointerMove = (moveEvent) => {
+            const deltaY = startY - moveEvent.clientY;
+            let newVal = startValue + (deltaY / DRAG_SCALE) * valRange;
+
+            newVal = Math.max(valMin, Math.min(valMax, newVal));
+
+            if (isLogScale) {
+                onChange(Math.pow(10, newVal));
+            } else {
+                if (step) {
+                    newVal = Math.round(newVal / step) * step;
+                }
+                onChange(newVal);
+            }
+        };
+
+        const handlePointerUp = () => {
+            window.removeEventListener('pointermove', handlePointerMove);
+            window.removeEventListener('pointerup', handlePointerUp);
+        };
+
+        window.addEventListener('pointermove', handlePointerMove);
+        window.addEventListener('pointerup', handlePointerUp);
+    };
+
+    let markerClass = 'neutral';
+    let capClass = 'neutral';
+    if (showFeedback) {
+        if (isCorrect) {
+            markerClass = 'correct';
+            capClass = 'correct';
+        } else if (isCorrect === false) {
+            markerClass = 'incorrect';
+            capClass = 'incorrect';
+        }
+    }
+
+    let targetRotation = null;
+    if (showFeedback && isCorrect === false && targetValue !== null) {
+        const targetDisplayVal = isLogScale ? Math.log10(targetValue) : targetValue;
+        const targetPercentage = Math.max(0, Math.min(1, (targetDisplayVal - valMin) / valRange));
+        targetRotation = targetPercentage * 270 - 135;
+    }
+
+    return (
+        <div className="fx-knob-container">
+            <div
+                className="fx-knob-wrapper"
+                onPointerDown={handlePointerDown}
+                style={{ touchAction: 'none', cursor: showFeedback ? 'default' : 'ns-resize' }}
+            >
+                <div className="fx-knob-shadow"></div>
+
+                {targetRotation !== null && (
+                    <>
+                        <div className="fx-ghost-knob" style={{ transform: `rotate(${targetRotation}deg)` }}>
+                            <div className="fx-ghost-marker"></div>
+                        </div>
+                    </>
+                )}
+
+                <div className={`fx-knob-cap ${capClass}`} style={{ transform: `rotate(${rotation}deg)` }}>
+                    <div className={`fx-knob-marker ${markerClass}`}></div>
+                </div>
+            </div>
+            <div className="fx-knob-label-box">
+                <span className="fx-knob-label">{label}</span>
+                <span className="fx-knob-value">{value.toFixed(value >= 10 ? 0 : 1)}{unit}</span>
+                {showFeedback && isCorrect === false && targetValue !== null && (
+                    <span className="fx-knob-target-label">
+                        TARGET:<br />{targetValue.toFixed(targetValue >= 10 ? 0 : 1)}{unit}
+                    </span>
+                )}
+            </div>
+        </div>
+    );
+};
 
 export default function EffectsChainQuiz({ onExit }) {
     const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -20,8 +117,8 @@ export default function EffectsChainQuiz({ onExit }) {
         {
             type: 'order-chain',
             scenario: 'vocal-recording',
-            question: 'Arrange these effects in the correct order for a vocal recording chain',
-            hint: 'Order: EQ (fix problems) → Compressor (control dynamics) → Reverb (add space)',
+            question: 'You are mixing a dynamic lead vocal that has some low-end rumble from the mic stand. Build a professional signal chain to clean it up, level it out, and put it in a virtual space.',
+            hint: 'Think: Do you want a compressor reacting to rumble, or compressing the echoes of a room?',
             effects: [
                 { id: 'reverb', name: 'Reverb' },
                 { id: 'eq', name: 'EQ' },
@@ -33,14 +130,15 @@ export default function EffectsChainQuiz({ onExit }) {
         {
             type: 'set-parameters',
             scenario: 'compressor-vocal',
-            question: 'Set the compressor for gentle vocal compression',
-            hint: 'Ratio around 3:1 to 4:1, medium attack (10ms), medium-fast release (100ms)',
+            question: 'You need to lightly control the dynamics of a lead vocal without squashing the life out of it. Dial in the compressor settings.',
+            hint: 'Gentle compression needs a low Ratio and a Threshold that only catches the peaks.',
             effect: {
                 name: 'Compressor',
                 parameters: [
-                    { id: 'ratio', name: 'Ratio', min: 1, max: 20, target: 4, unit: ':1', tolerance: 1 },
-                    { id: 'attack', name: 'Attack', min: 0, max: 100, target: 10, unit: 'ms', tolerance: 5 },
-                    { id: 'release', name: 'Release', min: 10, max: 500, target: 100, unit: 'ms', tolerance: 30 }
+                    { id: 'threshold', name: 'Threshold', min: -40, max: 0, target: -18, unit: 'dB', tolerance: 6, step: 1 },
+                    { id: 'ratio', name: 'Ratio', min: 1, max: 20, target: 4, unit: ':1', tolerance: 3, step: 0.1 },
+                    { id: 'attack', name: 'Attack', min: 0, max: 100, target: 10, unit: 'ms', tolerance: 20, step: 1 },
+                    { id: 'release', name: 'Release', min: 10, max: 500, target: 100, unit: 'ms', tolerance: 100, step: 5 }
                 ]
             },
             explanation: '3:1 to 4:1 ratio provides gentle compression. 10ms attack lets transients through for natural sound. 100ms release lets the compressor recover between phrases.'
@@ -48,8 +146,8 @@ export default function EffectsChainQuiz({ onExit }) {
         {
             type: 'order-chain',
             scenario: 'guitar-distortion',
-            question: 'Order these guitar pedal effects correctly',
-            hint: 'Guitar → Distortion → EQ → Delay → Reverb',
+            question: 'You are setting up a pedalboard for an electric guitar. You want to heavily distort the signal, shape the tone of that distortion, and then add a spacious echo.',
+            hint: 'Create the core tone first, then shape it, then add space at the very end.',
             effects: [
                 { id: 'delay', name: 'Delay' },
                 { id: 'reverb', name: 'Reverb' },
@@ -62,14 +160,14 @@ export default function EffectsChainQuiz({ onExit }) {
         {
             type: 'set-parameters',
             scenario: 'eq-remove-mud',
-            question: 'Set the EQ to remove muddiness from a vocal',
-            hint: 'Frequency: 250-300 Hz, Gain: -3 to -6 dB, Q: 1.5-2.5',
+            question: 'A vocal recording sounds very "muddy" and "boxy" because the singer was standing too close to the microphone foam. Use the EQ to hollow out the mud.',
+            hint: 'Mud lives in the lower-mids. Use a moderate width (Q) so you don\'t gut the root notes.',
             effect: {
                 name: 'Parametric EQ',
                 parameters: [
-                    { id: 'frequency', name: 'Frequency', min: 20, max: 20000, target: 275, unit: 'Hz', tolerance: 50 },
-                    { id: 'gain', name: 'Gain', min: -12, max: 12, target: -4, unit: 'dB', tolerance: 2 },
-                    { id: 'q', name: 'Q', min: 0.5, max: 5, target: 2, unit: '', tolerance: 0.7 }
+                    { id: 'frequency', name: 'Frequency', min: 20, max: 5000, target: 275, unit: 'Hz', tolerance: 150, isLogScale: true },
+                    { id: 'gain', name: 'Gain', min: -12, max: 12, target: -4, unit: 'dB', tolerance: 4, step: 0.5 },
+                    { id: 'q', name: 'Q', min: 0.5, max: 5, target: 2, unit: '', tolerance: 1.5, step: 0.1 }
                 ]
             },
             explanation: 'Cutting 250-300 Hz removes muddiness and boxiness in vocals. Use moderate Q (1.5-2.5) for a natural sound. Too narrow sounds surgical, too wide affects too much.'
@@ -77,8 +175,8 @@ export default function EffectsChainQuiz({ onExit }) {
         {
             type: 'order-chain',
             scenario: 'mastering-chain',
-            question: 'Arrange a basic mastering chain',
-            hint: 'EQ → Compressor → Limiter (always last!)',
+            question: 'You are mastering a final stereo mixdown of a track. It needs slight tonal balancing, some "glue" to hold the instruments together, and finally, a hard ceiling to ensure it doesn\'t clip at 0dB.',
+            hint: 'A Limiter is a brick wall. Never put anything after a brick wall.',
             effects: [
                 { id: 'limiter', name: 'Limiter' },
                 { id: 'compressor', name: 'Compressor' },
@@ -89,12 +187,13 @@ export default function EffectsChainQuiz({ onExit }) {
         },
         {
             type: 'identify-problem',
-            question: 'What\'s wrong with this effects chain: Reverb → Compressor → EQ?',
-            hint: 'Think about the signal flow and what each effect does',
+            scenario: 'identify-vocal',
+            question: 'An amateur producer shows you their vocal chain: Reverb → Compressor → EQ. What is fundamentally wrong with this order?',
+            hint: 'What happens to the volume tail of an echo when you smash it with a Compressor?',
             options: [
-                'Nothing, this is correct',
-                'Reverb should be last (after compression)',
-                'EQ should be first',
+                'Nothing, this is an acceptable creative choice',
+                'Reverb should be last because compressing a reverb tail ruins its natural fade',
+                'EQ should be first to fix problems before anything else',
                 'Both B and C are correct'
             ],
             correct: 3,
@@ -103,27 +202,28 @@ export default function EffectsChainQuiz({ onExit }) {
         {
             type: 'set-parameters',
             scenario: 'reverb-vocal',
-            question: 'Set a subtle vocal reverb',
-            hint: 'Small-medium room, short decay (1-2s), low mix (10-25%)',
+            question: 'Set up a subtle Reverb for a vocal. It needs to sound like they are in a small studio room, not a massive cathedral, and it shouldn\'t wash out the dry signal.',
+            hint: 'Keep the room small, the decay under 2 seconds, and the mix very low.',
             effect: {
                 name: 'Reverb',
                 parameters: [
-                    { id: 'roomSize', name: 'Room Size', min: 0, max: 100, target: 35, unit: '%', tolerance: 15 },
-                    { id: 'decay', name: 'Decay Time', min: 0.1, max: 10, target: 1.5, unit: 's', tolerance: 0.5 },
-                    { id: 'mix', name: 'Wet/Dry Mix', min: 0, max: 100, target: 20, unit: '%', tolerance: 10 }
+                    { id: 'roomSize', name: 'Room Size', min: 0, max: 100, target: 35, unit: '%', tolerance: 30, step: 1 },
+                    { id: 'decay', name: 'Decay Time', min: 0.1, max: 10, target: 1.5, unit: 's', tolerance: 1.0, step: 0.1 },
+                    { id: 'mix', name: 'Wet/Dry Mix', min: 0, max: 100, target: 20, unit: '%', tolerance: 15, step: 1 }
                 ]
             },
             explanation: 'Subtle vocal reverb: small-medium room (30-40%), short decay (1-2s), and low mix (15-25%). This adds depth without making vocals sound distant or washed out.'
         },
         {
             type: 'multiple-choice',
-            question: 'Why usually place EQ before compression?',
-            hint: 'Think about what happens when you compress problem frequencies',
+            scenario: 'identify-vocal',
+            question: 'Why is it standard industry practice to place your EQ *before* your Compressor in a vocal chain?',
+            hint: 'What happens if a compressor reacts to a massive bass rumble that you haven\'t removed yet?',
             options: [
-                'EQ is always first, it\'s a rule',
-                'So the compressor doesn\'t emphasize frequency problems',
-                'It doesn\'t matter what order they\'re in',
-                'To make the compressor work harder'
+                'It is just an old habit from the analog mixing console days',
+                'If you compress first, the compressor will react to bad frequencies, making them louder and harder to EQ out later',
+                'Because compressors require a perfectly flat EQ curve to function mathematically',
+                'To make the compressor work harder and achieve more saturation'
             ],
             correct: 1,
             explanation: 'EQ before compression means you fix frequency problems first. If you compress first, you\'ll make those problems louder and harder to fix. Remove mud before controlling dynamics!'
@@ -131,8 +231,8 @@ export default function EffectsChainQuiz({ onExit }) {
         {
             type: 'order-chain',
             scenario: 'parallel-compression',
-            question: 'Order a parallel compression setup for drums',
-            hint: 'Split → Heavy Compressor → Mix back with original',
+            question: 'You want to add extreme punch to a Drum Bus without losing the transients. Set up a "Parallel Compression" chain (often called New York Compression).',
+            hint: 'Crush a copy of the drums, EQ the crushed version, then mix it back with the dry drums.',
             effects: [
                 { id: 'heavy-comp', name: 'Heavy Compressor' },
                 { id: 'eq', name: 'EQ (on compressed)' },
@@ -143,13 +243,14 @@ export default function EffectsChainQuiz({ onExit }) {
         },
         {
             type: 'multiple-choice',
-            question: 'When should reverb/delay come in an FX chain?',
-            hint: 'Think about what happens to the reverb tail',
+            scenario: 'identify-guitar',
+            question: 'When placing time-based effects like Delay or Reverb on a distorted guitar lead, where should they go in the signal chain?',
+            hint: 'What happens if you run a beautiful, fading echo directly into a fuzz pedal?',
             options: [
-                'At the very beginning',
-                'Before distortion and compression',
-                'After all dynamic and frequency effects',
-                'It doesn\'t matter'
+                'At the very beginning, before the amp simulator',
+                'Before distortion and compression, but after EQ',
+                'At the very end of the chain, after all dynamic, distortion, and frequency effects',
+                'It doesn\'t matter, digital audio workstations calculate them simultaneously'
             ],
             correct: 2,
             explanation: 'Time-based effects (reverb, delay) come LAST! If you compress or distort after reverb, you\'ll affect the reverb tails in weird ways. Process the sound first, add space last.'
@@ -205,30 +306,164 @@ export default function EffectsChainQuiz({ onExit }) {
 
         setIsPlaying(true);
         const now = ctx.currentTime;
+        const q = questions[currentQuestion];
 
-        const notes = [262, 330, 392, 330];
-        const duration = 0.4;
-
-        notes.forEach((freq, i) => {
-            const noteTime = now + i * duration;
+        if (q.scenario.includes('vocal')) {
+            // Simulate a voice: Sawtooth with a tight bandpass filter and vibrato
+            const duration = 1.5;
             const osc = ctx.createOscillator();
+            const lfo = ctx.createOscillator();
+            const lfoGain = ctx.createGain();
+            const filter = ctx.createBiquadFilter();
             const gain = ctx.createGain();
 
-            osc.frequency.value = freq;
-            osc.type = 'sine';
+            osc.type = 'sawtooth';
+            osc.frequency.value = 220; // A3
 
-            gain.gain.setValueAtTime(0, noteTime);
-            gain.gain.linearRampToValueAtTime(0.2, noteTime + 0.01);
-            gain.gain.exponentialRampToValueAtTime(0.01, noteTime + duration);
+            // Vibrato
+            lfo.type = 'sine';
+            lfo.frequency.value = 5.5; // 5.5Hz vibrato
+            lfoGain.gain.value = 5; // Pitch modulation depth
+            lfo.connect(lfoGain);
+            lfoGain.connect(osc.frequency);
 
-            osc.connect(gain);
+            // Formant/Voice Filter
+            filter.type = 'bandpass';
+            filter.frequency.value = 1200;
+            filter.Q.value = 2;
+
+            gain.gain.setValueAtTime(0, now);
+            gain.gain.linearRampToValueAtTime(0.3, now + 0.2); // Slow vocal attack
+            gain.gain.linearRampToValueAtTime(0.2, now + duration - 0.2);
+            gain.gain.linearRampToValueAtTime(0, now + duration);
+
+            osc.connect(filter);
+            filter.connect(gain);
             gain.connect(ctx.destination);
 
-            osc.start(noteTime);
-            osc.stop(noteTime + duration);
-        });
+            osc.start(now);
+            lfo.start(now);
+            osc.stop(now + duration);
+            lfo.stop(now + duration);
 
-        setTimeout(() => setIsPlaying(false), notes.length * duration * 1000);
+            setTimeout(() => setIsPlaying(false), duration * 1000);
+
+        } else if (q.scenario.includes('guitar')) {
+            // Simulate distorted guitar: Power chord (Root, Fifth, Octave)
+            const duration = 1.0;
+            const root = 146.83; // D3
+
+            const osc1 = ctx.createOscillator();
+            const osc2 = ctx.createOscillator();
+            const osc3 = ctx.createOscillator();
+            const filter = ctx.createBiquadFilter();
+            const gain = ctx.createGain();
+
+            osc1.type = 'square';
+            osc2.type = 'square';
+            osc3.type = 'square';
+
+            osc1.frequency.value = root;
+            osc2.frequency.value = root * 1.5; // Perfect 5th
+            osc3.frequency.value = root * 2;   // Octave
+
+            // Filter out harsh highs
+            filter.type = 'lowpass';
+            filter.frequency.value = 4000;
+
+            gain.gain.setValueAtTime(0, now);
+            gain.gain.linearRampToValueAtTime(0.15, now + 0.05); // Fast attack
+            gain.gain.exponentialRampToValueAtTime(0.01, now + duration);
+
+            osc1.connect(filter);
+            osc2.connect(filter);
+            osc3.connect(filter);
+            filter.connect(gain);
+            gain.connect(ctx.destination);
+
+            osc1.start(now);
+            osc2.start(now);
+            osc3.start(now);
+            osc1.stop(now + duration);
+            osc2.stop(now + duration);
+            osc3.stop(now + duration);
+
+            setTimeout(() => setIsPlaying(false), duration * 1000);
+
+        } else if (q.scenario.includes('drums') || q.scenario.includes('parallel')) {
+            // Simulate Kick and Snare
+            const duration = 0.8;
+
+            // Kick
+            const kickOsc = ctx.createOscillator();
+            const kickGain = ctx.createGain();
+            kickOsc.type = 'sine';
+
+            // Pitch drop for kick
+            kickOsc.frequency.setValueAtTime(150, now);
+            kickOsc.frequency.exponentialRampToValueAtTime(40, now + 0.1);
+
+            kickGain.gain.setValueAtTime(0.6, now);
+            kickGain.gain.exponentialRampToValueAtTime(0.01, now + 0.2);
+
+            kickOsc.connect(kickGain);
+            kickGain.connect(ctx.destination);
+
+            kickOsc.start(now);
+            kickOsc.stop(now + 0.3);
+
+            // Snare (offset by 0.4s)
+            const snareTime = now + 0.4;
+            const bufferSize = ctx.sampleRate * 0.2; // 0.2 seconds of noise
+            const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+            const data = buffer.getChannelData(0);
+            for (let i = 0; i < bufferSize; i++) {
+                data[i] = Math.random() * 2 - 1;
+            }
+            const noise = ctx.createBufferSource();
+            noise.buffer = buffer;
+            const noiseFilter = ctx.createBiquadFilter();
+            const snareGain = ctx.createGain();
+
+            noiseFilter.type = 'bandpass';
+            noiseFilter.frequency.value = 2500;
+            noiseFilter.Q.value = 1;
+
+            snareGain.gain.setValueAtTime(0.4, snareTime);
+            snareGain.gain.exponentialRampToValueAtTime(0.01, snareTime + 0.2);
+
+            noise.connect(noiseFilter);
+            noiseFilter.connect(snareGain);
+            snareGain.connect(ctx.destination);
+
+            noise.start(snareTime);
+
+            setTimeout(() => setIsPlaying(false), duration * 1000);
+
+        } else {
+            // Default / Mastering (Rich synth chord)
+            const duration = 2.0;
+            const root = 261.63; // C4
+
+            [1, 1.25, 1.5, 2].forEach(ratio => {
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.type = 'triangle';
+                osc.frequency.value = root * ratio;
+
+                gain.gain.setValueAtTime(0, now);
+                gain.gain.linearRampToValueAtTime(0.1, now + 0.1);
+                gain.gain.exponentialRampToValueAtTime(0.01, now + duration);
+
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+
+                osc.start(now);
+                osc.stop(now + duration);
+            });
+
+            setTimeout(() => setIsPlaying(false), duration * 1000);
+        }
     };
 
     const handleDragStart = (effect, index) => {
@@ -357,89 +592,42 @@ export default function EffectsChainQuiz({ onExit }) {
         }
     };
 
+    const retryPatch = () => {
+        setSelectedAnswer(null);
+        setShowFeedback(false);
+    };
+
     const renderEffectBox = (effect, index, showIndex = false) => {
         const isDragSource = draggedEffect && draggedEffect.effect.id === effect.id;
-
-        // Dynamic styling state
-        let borderColor = 'rgba(255,255,255,0.1)';
-        let bg = 'rgba(30, 41, 59, 0.7)';
 
         const isCorrect = showFeedback && selectedAnswer;
         const isIncorrect = showFeedback && !selectedAnswer;
 
-        if (isCorrect) {
-            borderColor = 'var(--accent-success, #22c55e)';
-            bg = 'rgba(34, 197, 94, 0.1)';
-        } else if (isIncorrect) {
-            borderColor = 'var(--accent-error, #991b1b)';
-        }
+        let statusClass = '';
+        if (isCorrect) statusClass = 'correct';
+        else if (isIncorrect) statusClass = 'incorrect';
 
         return (
-            <div key={effect.id} className="relative">
+            <div key={effect.id} className="relative w-full">
                 <div
                     draggable={!showFeedback}
                     onDragStart={() => handleDragStart(effect, index)}
                     onDragOver={handleDragOver}
                     onDrop={() => handleDrop(index)}
-                    className={`flex items-center p-4 rounded-lg cursor-move transition-all ${showFeedback ? 'cursor-default' : 'hover:bg-slate-700/80'
-                        } ${isDragSource ? 'opacity-50' : ''}`}
-                    style={{
-                        background: bg,
-                        border: `1px solid ${borderColor}`,
-                        marginBottom: '10px'
-                    }}
+                    className={`fx-draggable-box ${showFeedback ? 'disabled' : ''} ${isDragSource ? 'dragging' : ''} ${statusClass}`}
                 >
-                    <div className="mr-3 text-slate-400 opacity-50">
+                    <div className="fx-grip-icon">
                         <GripVertical size={20} />
                     </div>
-                    <span className="text-base font-medium text-white">{effect.name}</span>
+                    <span>{effect.name}</span>
                 </div>
 
                 {/* Arrow Connector */}
                 {index < effectsOrder.length - 1 && (
-                    <div className="flex justify-center h-[10px] mb-[10px] text-slate-500 opacity-30">
+                    <div className="fx-arrow-connector">
                         <ArrowDown size={14} />
                     </div>
                 )}
-            </div>
-        );
-    };
-
-    const renderKnob = (param, value) => {
-        const percentage = ((value - param.min) / (param.max - param.min)) * 100;
-        const rotation = (percentage / 100) * 270 - 135;
-        const isCorrect = showFeedback && Math.abs(value - param.target) <= param.tolerance;
-        const isWrong = showFeedback && !isCorrect;
-
-        return (
-            <div className="flex flex-col items-center">
-                <label className="text-sm font-semibold text-gray-300 mb-2">{param.name}</label>
-                <div className="relative w-20 h-20 mb-2">
-                    <div className={`absolute inset-0 rounded-full border-4 ${isCorrect ? 'border-green-500' : isWrong ? 'border-red-500' : 'border-slate-600'
-                        } bg-slate-800`}></div>
-                    <div
-                        className={`absolute inset-1 rounded-full ${isCorrect ? 'bg-gradient-to-br from-green-500 to-green-700'
-                            : isWrong ? 'bg-gradient-to-br from-red-500 to-red-700'
-                                : 'bg-gradient-to-br from-blue-500 to-blue-700'
-                            } cursor-pointer shadow-lg`}
-                        style={{ transform: `rotate(${rotation}deg)` }}
-                    >
-                        <div className="absolute top-1 left-1/2 w-1 h-4 bg-white/80 rounded-full transform -translate-x-1/2"></div>
-                    </div>
-                </div>
-                <input
-                    type="range"
-                    min={param.min}
-                    max={param.max}
-                    step={(param.max - param.min) / 100}
-                    value={value}
-                    onChange={(e) => updateParameter(param.id, parseFloat(e.target.value))}
-                    disabled={showFeedback}
-                    className="w-full opacity-50 hover:opacity-100 cursor-pointer"
-                />
-                <div className={`text-sm font-bold mt-1 ${isCorrect ? 'text-green-400' : isWrong ? 'text-red-400' : 'text-blue-300'}`}>
-                    {value.toFixed(1)} {param.unit}
-                </div>
             </div>
         );
     };
@@ -451,11 +639,11 @@ export default function EffectsChainQuiz({ onExit }) {
             const isCorrect = showFeedback && JSON.stringify(effectsOrder.map(e => e.id)) === JSON.stringify(q.correctOrder);
 
             return (
-                <div className="space-y-4">
+                <div className="space-y-4 w-full">
                     {/* Signal Flow Container */}
-                    <div className="rounded-xl p-6 border border-slate-700/50" style={{ background: 'rgba(0,0,0,0.2)' }}>
-                        <p className="text-slate-400 mb-4 text-sm flex items-center gap-2">
-                            <ArrowDown size={14} /> Drag items to reorder Signal Flow (Top = First)
+                    <div className="fx-panel-container fx-flow-container">
+                        <p className="fx-panel-label">
+                            <ArrowDown size={14} /> Drag to Reorder Signal Flow
                         </p>
 
                         <div className="flex flex-col">
@@ -483,8 +671,8 @@ export default function EffectsChainQuiz({ onExit }) {
                     )}
 
                     {showFeedback && !isCorrect && (
-                        <div className="mt-2 text-xs text-red-400 bg-red-900/20 border border-red-500/50 p-2 rounded">
-                            <strong>Correct Order:</strong> {q.correctOrder.map(id => q.effects.find(e => e.id === id).name).join(' → ')}
+                        <div className="fx-correct-order-box">
+                            <strong>Correct Order:</strong><br />{q.correctOrder.map(id => q.effects.find(e => e.id === id).name).join(' → ')}
                         </div>
                     )}
                 </div>
@@ -492,27 +680,42 @@ export default function EffectsChainQuiz({ onExit }) {
         }
 
         if (q.type === 'set-parameters') {
-            // Keep existing layout but update container style
-            const allCorrect = showFeedback && q.effect.parameters.every(param => {
-                const userValue = parameters[param.id] || param.min;
-                return Math.abs(userValue - param.target) <= param.tolerance;
-            });
+            const allCorrect = showFeedback && selectedAnswer;
 
             return (
-                <div className="space-y-6">
-                    <div className="rounded-xl p-8 border border-slate-700/50" style={{ background: 'rgba(0,0,0,0.2)' }}>
-                        <div className="grid grid-cols-3 gap-4">
-                            {q.effect.parameters.map(param => (
-                                <div key={param.id}>
-                                    {renderKnob(param, parameters[param.id] || param.min)}
-                                </div>
-                            ))}
+                <div className="space-y-6 w-full">
+                    <div className="fx-panel-container">
+                        <p className="fx-panel-label text-center w-full justify-center">
+                            <Settings size={14} /> {q.effect.name} Parameters
+                        </p>
+                        <div className="fx-knob-grid">
+                            {q.effect.parameters.map(param => {
+                                const val = parameters[param.id] !== undefined ? parameters[param.id] : param.min;
+                                const isCorrectParam = showFeedback ? Math.abs(val - param.target) <= param.tolerance : null;
+                                return (
+                                    <div key={param.id}>
+                                        <KnobComponent
+                                            label={param.name}
+                                            value={val}
+                                            min={param.min}
+                                            max={param.max}
+                                            step={param.step}
+                                            onChange={(v) => updateParameter(param.id, v)}
+                                            unit={param.unit}
+                                            isCorrect={isCorrectParam}
+                                            targetValue={param.target}
+                                            isLogScale={param.isLogScale || false}
+                                            showFeedback={showFeedback}
+                                        />
+                                    </div>
+                                );
+                            })}
                         </div>
                     </div>
 
                     {!showFeedback && (
                         <button onClick={checkAnswer} className="btn-primary w-full py-3 text-lg">
-                            Submit Answer
+                            Submit Patch
                         </button>
                     )}
                 </div>
@@ -636,6 +839,11 @@ export default function EffectsChainQuiz({ onExit }) {
 
                     {showFeedback && (
                         <div className="controls" style={{ display: 'flex', gap: '10px', marginTop: '20px' }}>
+                            {selectedAnswer === false && (q.type === 'order-chain' || q.type === 'set-parameters') && (
+                                <button onClick={retryPatch} className="btn-secondary" style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', border: '1px solid #475569', color: 'white' }}>
+                                    <RotateCcw size={18} /> Try Again
+                                </button>
+                            )}
                             <button onClick={nextQuestion} className="btn-primary" style={{ flex: 1 }}>
                                 {currentQuestion < questions.length - 1 ? 'Next Question' : 'Finish Quiz'}
                             </button>
