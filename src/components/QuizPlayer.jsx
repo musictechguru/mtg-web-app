@@ -9,6 +9,7 @@ import HotspotQuiz from './InteractiveQuizzes/HotspotQuiz';
 import BinaryDiagramQuiz from './InteractiveQuizzes/BinaryDiagramQuiz';
 import GraphDrawingQuiz from './InteractiveQuizzes/GraphDrawingQuiz';
 import PianoRollQuiz from './InteractiveQuizzes/PianoRollQuiz';
+import TimelineQuiz from './InteractiveQuizzes/TimelineQuiz';
 
 const QuizPlayer = ({ quiz, onFinish }) => {
     // FORCE CACHE BUST: V3
@@ -21,6 +22,7 @@ const QuizPlayer = ({ quiz, onFinish }) => {
 
     const userContext = useUser();
     const saveQuizResult = userContext ? userContext.saveQuizResult : null;
+    const completeCampaignNode = userContext ? userContext.completeCampaignNode : null;
 
     // Reset state and randomize questions when quiz changes
     useEffect(() => {
@@ -115,8 +117,15 @@ const QuizPlayer = ({ quiz, onFinish }) => {
         if (quizFinished && saveQuizResult && !resultsSavedRef.current) {
             resultsSavedRef.current = true;
             saveQuizResult(quiz.title, score, totalQuestions, grade);
+
+            // Advance campaign map if >60%
+            if (quiz.campaignNodeId && completeCampaignNode) {
+                if (percentage >= 60) {
+                    completeCampaignNode(quiz.campaignNodeId);
+                }
+            }
         }
-    }, [quizFinished, quiz, score, totalQuestions, grade, saveQuizResult]);
+    }, [quizFinished, quiz, score, totalQuestions, grade, saveQuizResult, completeCampaignNode, percentage]);
 
     // Cleanup ref when quiz changes
     useEffect(() => {
@@ -315,7 +324,7 @@ const QuizPlayer = ({ quiz, onFinish }) => {
                     className="btn-primary"
                     onClick={onFinish}
                 >
-                    Return to Dashboard
+                    {quiz.campaignNodeId ? 'Return to Campaign Map' : 'Return to Dashboard'}
                 </button>
             </div>
         );
@@ -530,6 +539,14 @@ const QuizPlayer = ({ quiz, onFinish }) => {
                                 question={currentQuestion.question}
                                 targetPoints={currentQuestion.targetPoints}
                                 hint={currentQuestion.hint}
+                                initValues={currentQuestion.initValues}
+                                correctValues={currentQuestion.correctValues}
+                                onResult={handleInteractiveResult}
+                            />
+                        ) : currentQuestion.type === 'timeline' ? (
+                            <TimelineQuiz
+                                key={currentQuestionIndex}
+                                question={currentQuestion}
                                 onResult={handleInteractiveResult}
                             />
                         ) : (
@@ -576,7 +593,7 @@ const QuizPlayer = ({ quiz, onFinish }) => {
                         </button>
 
                         {!isSubmitted ? (
-                            currentQuestion.type !== 'drag_drop' && currentQuestion.type !== 'audio_comparison' && currentQuestion.type !== 'parameter_matching' && currentQuestion.type !== 'binary-diagram' && currentQuestion.type !== 'graph-drawing' && currentQuestion.type !== 'piano-roll' && (
+                            currentQuestion.type !== 'drag_drop' && currentQuestion.type !== 'audio_comparison' && currentQuestion.type !== 'parameter_matching' && currentQuestion.type !== 'binary-diagram' && currentQuestion.type !== 'graph-drawing' && currentQuestion.type !== 'piano-roll' && currentQuestion.type !== 'timeline' && (
                                 <button
                                     className="btn-primary"
                                     onClick={handleSubmit}

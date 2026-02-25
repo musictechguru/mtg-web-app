@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Eraser } from 'lucide-react';
 
-const GraphDrawingQuiz = ({ question, targetPoints, hint, onResult }) => {
+const GraphDrawingQuiz = ({ question, targetPoints, hint, initValues, correctValues: correctValuesProp, onResult }) => {
     const [drawnPath, setDrawnPath] = useState([]);
     const [isDrawing, setIsDrawing] = useState(false);
     const [submitted, setSubmitted] = useState(false);
@@ -15,6 +15,12 @@ const GraphDrawingQuiz = ({ question, targetPoints, hint, onResult }) => {
 
     // Initialize sliders and correct values based on question type
     useEffect(() => {
+        if (initValues && correctValuesProp) {
+            setSliderValues(initValues);
+            setCorrectValues(correctValuesProp);
+            return;
+        }
+
         const type = getQuestionType();
         const text = question.toLowerCase();
 
@@ -23,14 +29,15 @@ const GraphDrawingQuiz = ({ question, targetPoints, hint, onResult }) => {
 
         if (type === 'adsr') {
             if (text.includes('fast attack')) {
-                init = { attack: 50, decay: 50, sustain: 50, release: 50 };
-                correct = { attack: 10, decay: 30, sustain: 70, release: 80 };
-            } else {
-                init = { attack: 50, decay: 50, sustain: 50, release: 50 };
-                correct = { attack: 80, decay: 0, sustain: 100, release: 50 };
+                // target 15% attack, 20% decay, 70% sustain, 30% release. Using width * 0.33 scale
+                init = { attack: 20, decay: 20, sustain: 50, release: 50 };
+                correct = { attack: 45, decay: 60, sustain: 70, release: 90 };
+            } else { // Pad
+                init = { attack: 50, decay: 20, sustain: 50, release: 50 };
+                correct = { attack: 90, decay: 0, sustain: 100, release: 90 };
             }
         } else if (type === 'eq') {
-            init = { frequency: 632, gain: 0 };
+            init = { frequency: 1000, gain: 0 };
             correct = { frequency: 3000, gain: 6 };
         } else if (type === 'compression') {
             init = { threshold: 0, ratio: 1 };
@@ -47,7 +54,7 @@ const GraphDrawingQuiz = ({ question, targetPoints, hint, onResult }) => {
 
         setSliderValues(init);
         setCorrectValues(correct);
-    }, [question]);
+    }, [question, initValues, correctValuesProp]);
 
     useEffect(() => {
         if (canvasRef.current) {
@@ -55,7 +62,7 @@ const GraphDrawingQuiz = ({ question, targetPoints, hint, onResult }) => {
             setCanvasContext(ctx);
             drawGrid(ctx);
         }
-    }, []);
+    }, [question]); // Re-draw grid if question type changes
 
     const getQuestionType = () => {
         if (question.toLowerCase().includes('adsr') || question.toLowerCase().includes('envelope')) return 'adsr';
@@ -85,17 +92,17 @@ const GraphDrawingQuiz = ({ question, targetPoints, hint, onResult }) => {
         let points = [];
 
         if (type === 'adsr') {
-            // Calculate ADSR points
-            const attackTime = (values.attack / 100) * (width * 0.25);
-            const decayTime = (values.decay / 100) * (width * 0.25);
+            // Calculate ADSR points using max 33% of width for stages
+            const attackTime = (values.attack / 100) * (width * 0.33);
+            const decayTime = (values.decay / 100) * (width * 0.33);
             const sustainLevel = (values.sustain / 100) * height;
-            const releaseTime = (values.release / 100) * (width * 0.25);
+            const releaseTime = (values.release / 100) * (width * 0.33);
 
             points = [
                 { x: 0, y: height },
-                { x: attackTime, y: 0 },
-                { x: attackTime + decayTime, y: height - sustainLevel },
-                { x: width - releaseTime, y: height - sustainLevel },
+                { x: Math.min(attackTime, width), y: 0 },
+                { x: Math.min(attackTime + decayTime, width), y: height - sustainLevel },
+                { x: Math.max(attackTime + decayTime, width - releaseTime), y: height - sustainLevel },
                 { x: width, y: height }
             ];
         } else if (type === 'eq') {
@@ -104,19 +111,21 @@ const GraphDrawingQuiz = ({ question, targetPoints, hint, onResult }) => {
 
             for (let x = 0; x <= width; x += 5) {
                 const dist = Math.abs(x - freqX);
-                const bell = Math.exp(-(dist * dist) / (2 * 1000)); // Simple bell shape
-                const y = (height / 2) - (bell * (values.gain / 48) * height); // Updated divisor for +/-24 range
+                const bell = Math.exp(-(dist * dist) / (2 * 1000)); // Simple bell shape width is fixed
+                // 24dB range max. 100% / 24 = 4.16% per dB
+                const y = (height / 2) - (bell * (values.gain / 24) * height);
                 points.push({ x, y });
             }
         } else if (type === 'compression') {
             // Calculate Compression knee
-            const threshX = ((values.threshold + 80) / 80) * width; // Updated for -80 range
-            const threshY = height - ((values.threshold + 80) / 80) * height;
+            const normalizeDb = (db) => Math.max(0, Math.min(1, (db + 40) / 40));
+            const threshX = normalizeDb(values.threshold) * width;
+            const threshY = height - normalizeDb(values.threshold) * height; // 0db is top, -40 is bottom
 
             // Calculate end point based on ratio
-            const inputRangeAboveThresh = 80 + values.threshold;
-            const outputRise = inputRangeAboveThresh / values.ratio;
-            const endY = threshY - (outputRise / 80) * height;
+            const inputRemaining = 0 - values.threshold;
+            const outputRise = inputRemaining / values.ratio;
+            const endY = threshY - (outputRise / 40) * height;
 
             points = [
                 { x: 0, y: height },
@@ -293,17 +302,19 @@ const GraphDrawingQuiz = ({ question, targetPoints, hint, onResult }) => {
             ctx.textAlign = 'center';
 
             // X-axis (Input Level)
-            ctx.fillText('-40dB', 10, canvas.height - 5);
-            ctx.fillText('-20dB', canvas.width / 3, canvas.height - 5);
-            ctx.fillText('-12dB', canvas.width * 0.55, canvas.height - 5);
+            ctx.fillText('-40dB', 15, canvas.height - 5);
+            ctx.fillText('-30dB', canvas.width * 0.25, canvas.height - 5);
+            ctx.fillText('-20dB', canvas.width * 0.5, canvas.height - 5);
+            ctx.fillText('-10dB', canvas.width * 0.75, canvas.height - 5);
             ctx.fillText('0dB', canvas.width - 10, canvas.height - 5);
 
             // Y-axis (Output Level)
             ctx.textAlign = 'right';
             ctx.fillText('0dB', 40, 15);
-            ctx.fillText('-6dB', 40, canvas.height / 3 + 4);
-            ctx.fillText('-12dB', 40, canvas.height * 0.6 + 4);
-            ctx.fillText('-24dB', 40, canvas.height - 5);
+            ctx.fillText('-10dB', 40, canvas.height * 0.25 + 4);
+            ctx.fillText('-20dB', 40, canvas.height * 0.5 + 4);
+            ctx.fillText('-30dB', 40, canvas.height * 0.75 + 4);
+            ctx.fillText('-40dB', 40, canvas.height - 5);
 
         } else if (question.toLowerCase().includes('adsr') || question.toLowerCase().includes('envelope')) {
             // ADSR envelope: Time in milliseconds
@@ -554,18 +565,36 @@ const GraphDrawingQuiz = ({ question, targetPoints, hint, onResult }) => {
                         <div key={param} style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
                             <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.9rem', fontWeight: '600', color: '#4b5563' }}>
                                 <span style={{ textTransform: 'capitalize' }}>{param}</span>
-                                {/* Value hidden for difficulty */}
+                                <span style={{ color: 'var(--accent-purple)' }}>
+                                    {param === 'frequency' || param === 'cutoff' ? `${Math.round(value)} Hz` :
+                                        param === 'gain' || param === 'threshold' ? `${Math.round(value)} dB` :
+                                            param === 'ratio' ? `${value.toFixed(1)}:1` :
+                                                `${Math.round(value)}${param === 'attack' || param === 'decay' || param === 'release' ? '' : '%'}`}
+                                </span>
                             </div>
                             <input
                                 type="range"
-                                min={(param === 'frequency' || param === 'cutoff') ? Math.log10(20) : param === 'threshold' ? -80 : param === 'gain' ? -36 : param === 'ratio' ? 1 : 0}
-                                max={(param === 'frequency' || param === 'cutoff') ? Math.log10(20000) : param === 'gain' ? 36 : param === 'threshold' ? 0 : param === 'ratio' ? 10 : 100}
-                                step={param === 'ratio' ? 0.1 : 0.01}
+                                min={(param === 'frequency' || param === 'cutoff') ? Math.log10(20) : param === 'threshold' ? -40 : param === 'gain' ? -24 : param === 'ratio' ? 1 : 0}
+                                max={(param === 'frequency' || param === 'cutoff') ? Math.log10(20000) : param === 'gain' ? 24 : param === 'threshold' ? 0 : param === 'ratio' ? 10 : 100}
+                                step={(param === 'frequency' || param === 'cutoff') ? 0.01 : param === 'ratio' ? 0.1 : 1}
                                 value={(param === 'frequency' || param === 'cutoff') ? Math.log10(value) : value}
                                 onChange={(e) => {
                                     let val = parseFloat(e.target.value);
                                     if (param === 'frequency' || param === 'cutoff') {
                                         val = Math.pow(10, val);
+                                        // Auto-snap log values to logical rounded numbers
+                                        if (val >= 1000) val = Math.round(val / 100) * 100;
+                                        else if (val >= 100) val = Math.round(val / 10) * 10;
+                                        else val = Math.round(val);
+                                        // Make hitting correct targets very easy
+                                        if (Math.abs(val - 3000) < 300) val = 3000;
+                                        if (Math.abs(val - 2000) < 200) val = 2000;
+                                    } else if (param === 'gain' || param === 'threshold' || param === 'attack' || param === 'decay' || param === 'sustain' || param === 'release') {
+                                        val = Math.round(val);
+                                    } else if (param === 'ratio') {
+                                        val = Math.round(val * 10) / 10;
+                                    } else {
+                                        val = Math.round(val);
                                     }
                                     handleSliderChange(param, val);
                                 }}

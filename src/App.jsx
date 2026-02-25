@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import courseData from './data/course_data.json';
 import QuizPlayer from './components/QuizPlayer';
@@ -24,6 +24,8 @@ import component3ReggaeData from './data/component3_reggae_exam.json';
 import component4EdmData from './data/component4_edm_exam.json';
 import PremiumLocked from './components/PremiumLocked';
 
+import WelcomeVideoModal from './components/WelcomeVideoModal';
+
 const EXAM_DATA_MAP = {
   'c3_funk': component3FunkData,
   'c3_synthpop': component3SynthPopData,
@@ -42,6 +44,24 @@ const MainApp = () => {
   const [showTeacherView, setShowTeacherView] = useState(false);
   // Mobile Menu Logic
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  // Welcome Video Logic
+  const [showWelcomeVideo, setShowWelcomeVideo] = useState(false);
+
+  useEffect(() => {
+    // Check if the user has seen the welcome video.
+    // If we're logged in, check localStorage.
+    if (currentUser) {
+      const hasSeen = localStorage.getItem('hasSeenWelcomeVideo');
+      if (!hasSeen) {
+        setShowWelcomeVideo(true);
+      }
+    }
+  }, [currentUser]);
+
+  const handleWelcomeVideoClose = () => {
+    localStorage.setItem('hasSeenWelcomeVideo', 'true');
+    setShowWelcomeVideo(false);
+  };
 
 
   if (loading) {
@@ -176,7 +196,7 @@ const MainApp = () => {
             />
           ) : activeItem.type === 'component3_exam' ? (
             <Component3ExamPlayer
-              examData={EXAM_DATA_MAP[activeItem.id] || EXAM_DATA_MAP['default']}
+              examData={{ ...(EXAM_DATA_MAP[activeItem.id] || EXAM_DATA_MAP['default']), campaignNodeId: activeItem.campaignNodeId }}
               onExit={goToDashboardWrapper}
             />
           ) : activeItem.type === 'lp_synth_quiz' ? (
@@ -195,9 +215,14 @@ const MainApp = () => {
             <LessonViewer lesson={activeItem} />
           )
         ) : (
-          <Dashboard />
+          <Dashboard onNavigate={handleItemSelectWrapper} />
         )}
       </main>
+
+      {/* Full-screen Welcome Video */}
+      {showWelcomeVideo && (
+        <WelcomeVideoModal onClose={handleWelcomeVideoClose} />
+      )}
     </div>
   );
 };

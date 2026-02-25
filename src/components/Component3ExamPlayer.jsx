@@ -90,14 +90,22 @@ function DroppableBucket({ id, title, children }) {
 }
 
 const Component3ExamPlayer = ({ examData, onExit }) => {
-    const { currentUser } = useUser();
+    const { currentUser, saveQuizResult, completeCampaignNode } = useUser();
     const [currentSectionIndex, setCurrentSectionIndex] = useState(-1); // -1 = Intro
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [answers, setAnswers] = useState({});
     const [manualScores, setManualScores] = useState({}); // For self-marked questions
     const [showMarkScheme, setShowMarkScheme] = useState(false);
     const [examFinished, setExamFinished] = useState(false);
-    const [shuffledOptions, setShuffledOptions] = useState({}); // Stores randomized options for matching questions
+    const [shuffledOptions, setShuffledOptions] = useState({});
+
+    // Trigger campaign map progression when exam finishes
+    useEffect(() => {
+        if (examFinished && examData.campaignNodeId && completeCampaignNode) {
+            // For mock exams, finishing is enough to unlock next node
+            completeCampaignNode(examData.campaignNodeId);
+        }
+    }, [examFinished, examData.campaignNodeId, completeCampaignNode]);
     const [timeRemaining, setTimeRemaining] = useState(60 * 60); // 60 minutes in seconds
     const [timerActive, setTimerActive] = useState(false);
     const [timerStarted, setTimerStarted] = useState(false); // Track if timer has been started at least once
@@ -469,7 +477,7 @@ const Component3ExamPlayer = ({ examData, onExit }) => {
                         onClick={onExit}
                         style={{ flex: 1, padding: '15px', background: 'var(--accent-success)', color: 'black', border: 'none', borderRadius: '5px', cursor: 'pointer', fontWeight: 'bold' }}
                     >
-                        Finish & Exit
+                        {examData?.campaignNodeId ? 'Return to Campaign Map' : 'Finish & Exit'}
                     </button>
                 </div>
             </div>

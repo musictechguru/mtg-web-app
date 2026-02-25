@@ -49,7 +49,7 @@ const KnobComponent = ({ label, value, min, max, step, onChange, unit = '', isCo
     let markerClass = 'neutral';
     let capClass = 'neutral';
     if (showFeedback) {
-        if (isCorrect) {
+        if (isCorrect === true) {
             markerClass = 'correct';
             capClass = 'correct';
         } else if (isCorrect === false) {
@@ -59,7 +59,7 @@ const KnobComponent = ({ label, value, min, max, step, onChange, unit = '', isCo
     }
 
     let targetRotation = null;
-    if (showFeedback && isCorrect === false && targetValue !== null) {
+    if (showFeedback && isCorrect === false && targetValue !== null && targetValue !== undefined) {
         const targetDisplayVal = isLogScale ? Math.log10(targetValue) : targetValue;
         const targetPercentage = Math.max(0, Math.min(1, (targetDisplayVal - valMin) / valRange));
         targetRotation = targetPercentage * 270 - 135;
@@ -121,152 +121,160 @@ export default function EffectsChainQuiz({ onExit }) {
     // Configurations for the 8 available Mini-DAW plugins
     const effectConfigs = {
         'eq': { name: 'EQ', parameters: [{ id: 'eq_cutoff', name: 'Cutoff', min: 20, max: 500, target: 120, unit: 'Hz', step: 1, init: 20 }] },
-        'compressor': { name: 'Compressor', parameters: [{ id: 'comp_thresh', name: 'Threshold', min: -40, max: 0, target: -18, unit: 'dB', step: 1, init: 0 }, { id: 'comp_ratio', name: 'Ratio', min: 1, max: 20, target: 4, unit: ':1', step: 1, init: 1 }] },
+        'compressor': {
+            name: 'Compressor', parameters: [
+                { id: 'comp_thresh', name: 'Threshold', min: -40, max: 0, target: -18, unit: 'dB', step: 1, init: 0 },
+                { id: 'comp_ratio', name: 'Ratio', min: 1, max: 20, target: 4, unit: ':1', step: 1, init: 1 },
+                { id: 'comp_attack', name: 'Attack', min: 0, max: 100, target: 10, unit: 'ms', step: 1, init: 10 },
+                { id: 'comp_release', name: 'Release', min: 10, max: 500, target: 100, unit: 'ms', step: 5, init: 100 }
+            ]
+        },
         'gate': { name: 'Noise Gate', parameters: [{ id: 'gate_thresh', name: 'Threshold', min: -60, max: 0, target: -40, unit: 'dB', step: 1, init: -60 }] },
         'reverb': { name: 'Reverb', parameters: [{ id: 'rev_time', name: 'Time', min: 0.1, max: 5.0, target: 1.5, unit: 's', step: 0.1, init: 1.5 }, { id: 'rev_mix', name: 'Mix', min: 0, max: 100, target: 20, unit: '%', step: 1, init: 20 }] },
         'delay': { name: 'Delay', parameters: [{ id: 'del_time', name: 'Time', min: 0.1, max: 1.0, target: 0.3, unit: 's', step: 0.05, init: 0.3 }, { id: 'del_fb', name: 'Feedback', min: 0, max: 90, target: 30, unit: '%', step: 1, init: 30 }] },
         'chorus': { name: 'Chorus', parameters: [{ id: 'cho_rate', name: 'Rate', min: 0.1, max: 5.0, target: 1.0, unit: 'Hz', step: 0.1, init: 1.0 }, { id: 'cho_depth', name: 'Depth', min: 0, max: 100, target: 50, unit: '%', step: 1, init: 50 }] },
         'distortion': { name: 'Distortion', parameters: [{ id: 'dist_drive', name: 'Drive', min: 0, max: 100, target: 50, unit: '%', step: 1, init: 50 }] },
-        'flanger': { name: 'Flanger', parameters: [{ id: 'flan_rate', name: 'Rate', min: 0.1, max: 5.0, target: 0.5, unit: 'Hz', step: 0.1, init: 0.5 }, { id: 'flan_fb', name: 'Feedback', min: 0, max: 90, target: 50, unit: '%', step: 1, init: 50 }] }
+        'flanger': { name: 'Flanger', parameters: [{ id: 'flan_rate', name: 'Rate', min: 0.1, max: 5.0, target: 0.5, unit: 'Hz', step: 0.1, init: 0.5 }, { id: 'flan_fb', name: 'Feedback', min: 0, max: 90, target: 50, unit: '%', step: 1, init: 50 }] },
+        'limiter': { name: 'Limiter', parameters: [{ id: 'lim_thresh', name: 'Threshold', min: -20, max: 0, target: -3, unit: 'dB', step: 0.5, init: 0 }] }
     };
 
     const questions = [
         {
             type: 'build-chain',
             scenario: 'vocal-recording',
-            question: 'You are mixing a dynamic lead vocal that has some low-end rumble from the mic stand. Build a professional signal chain to clean it up, level it out, and put it in a virtual space.',
+            question: 'You are mixing a dynamic lead vocal that has some low-end rumble from the mic stand. Build a professional signal chain to clean it up (cut 80Hz), level it out (Threshold -15dB), and put it in a subtle virtual space (Reverb Mix 15%).',
             hint: 'Think: Do you want a compressor reacting to rumble, or compressing the echoes of a room?',
-            availableEffects: ['eq', 'compressor', 'gate', 'reverb', 'delay', 'chorus', 'distortion', 'flanger'],
+            availableEffects: ['eq', 'compressor', 'gate', 'reverb', 'delay', 'chorus', 'distortion', 'flanger', 'limiter'],
             correctOrder: ['eq', 'compressor', 'reverb'],
+            targetParameters: [
+                { effectId: 'eq', id: 'eq_cutoff', value: 80, tolerance: 40 },
+                { effectId: 'compressor', id: 'comp_thresh', value: -15, tolerance: 10 },
+                { effectId: 'reverb', id: 'rev_mix', value: 15, tolerance: 20 }
+            ],
             explanation: 'Vocal chain: EQ first to fix frequency issues, Compressor to even out levels, then Reverb for space. Never compress before fixing EQ problems, and reverb always comes last!'
         },
         {
-            type: 'set-parameters',
+            type: 'build-chain',
             scenario: 'compressor-vocal',
-            question: 'You need to lightly control the dynamics of a lead vocal without squashing the life out of it. Dial in the compressor settings.',
-            hint: 'Gentle compression needs a low Ratio and a Threshold that only catches the peaks.',
-            effect: {
-                name: 'Compressor',
-                parameters: [
-                    { id: 'threshold', name: 'Threshold', min: -40, max: 0, target: -18, unit: 'dB', tolerance: 6, step: 1 },
-                    { id: 'ratio', name: 'Ratio', min: 1, max: 20, target: 4, unit: ':1', tolerance: 3, step: 0.1 },
-                    { id: 'attack', name: 'Attack', min: 0, max: 100, target: 10, unit: 'ms', tolerance: 20, step: 1 },
-                    { id: 'release', name: 'Release', min: 10, max: 500, target: 100, unit: 'ms', tolerance: 100, step: 5 }
-                ]
-            },
-            explanation: '3:1 to 4:1 ratio provides gentle compression. 10ms attack lets transients through for natural sound. 100ms release lets the compressor recover between phrases.'
+            question: 'You need to lightly control the dynamics of a lead vocal without squashing the life out of it. Add a compressor to the rack and dial it in for gentle vocal smoothing.',
+            hint: 'Gentle vocal compression usually needs a low Ratio (like 3:1 or 4:1) and a Threshold that only catches the peaks (-15dB to -20dB).',
+            availableEffects: ['eq', 'compressor', 'gate', 'reverb', 'delay', 'chorus', 'distortion', 'flanger', 'limiter'],
+            correctOrder: ['compressor'],
+            targetParameters: [
+                { effectId: 'compressor', id: 'comp_thresh', value: -18, tolerance: 12 },
+                { effectId: 'compressor', id: 'comp_ratio', value: 4, tolerance: 6 },
+                { effectId: 'compressor', id: 'comp_attack', value: 10, tolerance: 40 },
+                { effectId: 'compressor', id: 'comp_release', value: 100, tolerance: 200 }
+            ],
+            explanation: '3:1 to 4:1 ratio provides gentle compression. A threshold around -18dB usually catches the vocal peaks nicely. 10ms attack lets transients through, and 100ms release recovers properly.'
         },
         {
-            type: 'order-chain',
+            type: 'build-chain',
             scenario: 'guitar-distortion',
-            question: 'You are setting up a pedalboard for an electric guitar. You want to heavily distort the signal, shape the tone of that distortion, and then add a spacious echo.',
-            hint: 'Create the core tone first, then shape it, then add space at the very end.',
-            effects: [
-                { id: 'delay', name: 'Delay' },
-                { id: 'reverb', name: 'Reverb' },
-                { id: 'distortion', name: 'Distortion' },
-                { id: 'eq', name: 'EQ' }
-            ],
+            question: 'Set up an electric guitar pedalboard. Squeeze it with 80% drive distortion, carve out the low mud with a 150Hz EQ cut, add a fast 0.2s slapback delay (20% feedback), and a 2.0s reverb.',
+            hint: 'Create the core tone first (Distortion), shape it with EQ, then add space (Delay, Reverb) at the very end.',
+            availableEffects: ['eq', 'compressor', 'gate', 'reverb', 'delay', 'chorus', 'distortion', 'flanger', 'limiter'],
             correctOrder: ['distortion', 'eq', 'delay', 'reverb'],
+            targetParameters: [
+                { effectId: 'distortion', id: 'dist_drive', value: 80, tolerance: 30 },
+                { effectId: 'eq', id: 'eq_cutoff', value: 150, tolerance: 80 },
+                { effectId: 'delay', id: 'del_time', value: 0.2, tolerance: 0.2 },
+                { effectId: 'delay', id: 'del_fb', value: 20, tolerance: 20 },
+                { effectId: 'reverb', id: 'rev_time', value: 2.0, tolerance: 1.0 }
+            ],
             explanation: 'Distortion first to create the tone, EQ to shape it, then time-based effects (Delay, Reverb) at the end. Reversing this order sounds muddy!'
         },
         {
-            type: 'set-parameters',
+            type: 'build-chain',
             scenario: 'eq-remove-mud',
-            question: 'A vocal recording sounds very "muddy" and "boxy" because the singer was standing too close to the microphone foam. Use the EQ to hollow out the mud.',
-            hint: 'Mud lives in the lower-mids. Use a moderate width (Q) so you don\'t gut the root notes.',
-            effect: {
-                name: 'Parametric EQ',
-                parameters: [
-                    { id: 'frequency', name: 'Frequency', min: 20, max: 5000, target: 275, unit: 'Hz', tolerance: 150, isLogScale: true },
-                    { id: 'gain', name: 'Gain', min: -12, max: 12, target: -4, unit: 'dB', tolerance: 4, step: 0.5 },
-                    { id: 'q', name: 'Q', min: 0.5, max: 5, target: 2, unit: '', tolerance: 1.5, step: 0.1 }
-                ]
-            },
-            explanation: 'Cutting 250-300 Hz removes muddiness and boxiness in vocals. Use moderate Q (1.5-2.5) for a natural sound. Too narrow sounds surgical, too wide affects too much.'
+            question: 'A vocal recording sounds very "muddy" and "boxy" because the singer was standing too close to the microphone. Place an EQ in the rack and use it to hollow out the mud.',
+            hint: 'Mud lives in the lower-mids. A highpass filter cutoff set around 200-300Hz helps clear this up.',
+            availableEffects: ['eq', 'compressor', 'gate', 'reverb', 'delay', 'chorus', 'distortion', 'flanger', 'limiter'],
+            correctOrder: ['eq'],
+            targetParameters: [
+                { effectId: 'eq', id: 'eq_cutoff', value: 250, tolerance: 100 }
+            ],
+            explanation: 'Cutting out the low frequencies below 250Hz removes muddiness and boxiness in vocals caused by the proximity effect.'
         },
         {
-            type: 'order-chain',
+            type: 'build-chain',
             scenario: 'mastering-chain',
-            question: 'You are mastering a final stereo mixdown of a track. It needs slight tonal balancing, some "glue" to hold the instruments together, and finally, a hard ceiling to ensure it doesn\'t clip at 0dB.',
+            question: 'Master a mix bus. It needs slight tonal balancing (40Hz cut), glue (Compressor Threshold -10dB, Ratio 2:1), and a hard ceiling (Limiter Threshold -1dB) to stop clipping.',
             hint: 'A Limiter is a brick wall. Never put anything after a brick wall.',
-            effects: [
-                { id: 'limiter', name: 'Limiter' },
-                { id: 'compressor', name: 'Compressor' },
-                { id: 'eq', name: 'EQ' }
-            ],
+            availableEffects: ['eq', 'compressor', 'gate', 'reverb', 'delay', 'chorus', 'distortion', 'flanger', 'limiter'],
             correctOrder: ['eq', 'compressor', 'limiter'],
+            targetParameters: [
+                { effectId: 'eq', id: 'eq_cutoff', value: 40, tolerance: 40 },
+                { effectId: 'compressor', id: 'comp_thresh', value: -10, tolerance: 10 },
+                { effectId: 'compressor', id: 'comp_ratio', value: 2, tolerance: 3 },
+                { effectId: 'limiter', id: 'lim_thresh', value: -1, tolerance: 3 }
+            ],
             explanation: 'Mastering chain: EQ for tonal balance, gentle Compressor for glue, Limiter last to catch peaks and maximize loudness. Limiter ALWAYS comes last in mastering!'
         },
         {
-            type: 'identify-problem',
+            type: 'build-chain',
             scenario: 'identify-vocal',
-            question: 'An amateur producer shows you their vocal chain: Reverb → Compressor → EQ. What is fundamentally wrong with this order?',
-            hint: 'What happens to the volume tail of an echo when you smash it with a Compressor?',
-            options: [
-                'Nothing, this is an acceptable creative choice',
-                'Reverb should be last because compressing a reverb tail ruins its natural fade',
-                'EQ should be first to fix problems before anything else',
-                'Both B and C are correct'
+            question: 'An amateur shows you their terrible vocal chain: Reverb → Compressor → EQ. Build this awful chain in the rack using a massive 3.0s Reverb and a heavy 8:1 Compressor to hear why it fails.',
+            hint: 'Place the Reverb first, then the Compressor, then the EQ.',
+            availableEffects: ['eq', 'compressor', 'gate', 'reverb', 'delay', 'chorus', 'distortion', 'flanger', 'limiter'],
+            correctOrder: ['reverb', 'compressor', 'eq'],
+            targetParameters: [
+                { effectId: 'reverb', id: 'rev_time', value: 3.0, tolerance: 2.0 },
+                { effectId: 'compressor', id: 'comp_ratio', value: 8, tolerance: 12 }
             ],
-            correct: 3,
-            explanation: 'This chain is backwards! EQ should be first to fix problems, Compressor second to control dynamics, and Reverb last to add space. Compressing reverb tails sounds unnatural!'
+            explanation: 'This chain is backwards! Compressing reverb tails ruins their natural fade, and EQing last means you spent CPU processing mud. Listen to how pumping and muddy the audio sounds!'
         },
         {
-            type: 'set-parameters',
+            type: 'build-chain',
             scenario: 'reverb-vocal',
             question: 'Set up a subtle Reverb for a vocal. It needs to sound like they are in a small studio room, not a massive cathedral, and it shouldn\'t wash out the dry signal.',
-            hint: 'Keep the room small, the decay under 2 seconds, and the mix very low.',
-            effect: {
-                name: 'Reverb',
-                parameters: [
-                    { id: 'roomSize', name: 'Room Size', min: 0, max: 100, target: 35, unit: '%', tolerance: 30, step: 1 },
-                    { id: 'decay', name: 'Decay Time', min: 0.1, max: 10, target: 1.5, unit: 's', tolerance: 1.0, step: 0.1 },
-                    { id: 'mix', name: 'Wet/Dry Mix', min: 0, max: 100, target: 20, unit: '%', tolerance: 15, step: 1 }
-                ]
-            },
-            explanation: 'Subtle vocal reverb: small-medium room (30-40%), short decay (1-2s), and low mix (15-25%). This adds depth without making vocals sound distant or washed out.'
+            hint: 'Add the Reverb plugin. Keep the decay time under 2 seconds, and the mix very low.',
+            availableEffects: ['eq', 'compressor', 'gate', 'reverb', 'delay', 'chorus', 'distortion', 'flanger', 'limiter'],
+            correctOrder: ['reverb'],
+            targetParameters: [
+                { effectId: 'reverb', id: 'rev_time', value: 1.5, tolerance: 2.0 },
+                { effectId: 'reverb', id: 'rev_mix', value: 20, tolerance: 30 }
+            ],
+            explanation: 'Subtle vocal reverb: medium decay (1-2s), and low mix (15-25%). This adds depth without making vocals sound distant.'
         },
         {
-            type: 'multiple-choice',
+            type: 'build-chain',
             scenario: 'identify-vocal',
-            question: 'Why is it standard industry practice to place your EQ *before* your Compressor in a vocal chain?',
-            hint: 'What happens if a compressor reacts to a massive bass rumble that you haven\'t removed yet?',
-            options: [
-                'It is just an old habit from the analog mixing console days',
-                'If you compress first, the compressor will react to bad frequencies, making them louder and harder to EQ out later',
-                'Because compressors require a perfectly flat EQ curve to function mathematically',
-                'To make the compressor work harder and achieve more saturation'
+            question: 'It is standard industry practice to place your EQ *before* your Compressor in a vocal chain. Build this 2-plugin chain, cutting out 150Hz of mud and setting a gentle 3:1 compression.',
+            hint: 'Put the EQ first, then the Compressor. This lets you EQ out the mud *before* it hits the compressor.',
+            availableEffects: ['eq', 'compressor', 'gate', 'reverb', 'delay', 'chorus', 'distortion', 'flanger', 'limiter'],
+            correctOrder: ['eq', 'compressor'],
+            targetParameters: [
+                { effectId: 'eq', id: 'eq_cutoff', value: 150, tolerance: 100 },
+                { effectId: 'compressor', id: 'comp_ratio', value: 3, tolerance: 3 }
             ],
-            correct: 1,
-            explanation: 'EQ before compression means you fix frequency problems first. If you compress first, you\'ll make those problems louder and harder to fix. Remove mud before controlling dynamics!'
+            explanation: 'EQ before compression means you fix frequency problems first. If you compress first, you\'ll make those problems louder and harder to fix.'
         },
         {
-            type: 'order-chain',
+            type: 'build-chain',
             scenario: 'parallel-compression',
-            question: 'You want to add extreme punch to a Drum Bus without losing the transients. Set up a "Parallel Compression" chain (often called New York Compression).',
-            hint: 'Crush a copy of the drums, EQ the crushed version, then mix it back with the dry drums.',
-            effects: [
-                { id: 'heavy-comp', name: 'Heavy Compressor' },
-                { id: 'eq', name: 'EQ (on compressed)' },
-                { id: 'blend', name: 'Blend with Original' }
+            question: 'You want to add extreme punch to a Drum Bus. Create a "Parallel Compression" chain by aggressively crushing the dynamics, then adding an EQ to shape the tone.',
+            hint: 'Put the Compressor first, then the EQ.',
+            availableEffects: ['eq', 'compressor', 'gate', 'reverb', 'delay', 'chorus', 'distortion', 'flanger', 'limiter'],
+            correctOrder: ['compressor', 'eq'],
+            targetParameters: [
+                { effectId: 'compressor', id: 'comp_ratio', value: 10, tolerance: 15 },
+                { effectId: 'compressor', id: 'comp_thresh', value: -30, tolerance: 20 }
             ],
-            correctOrder: ['heavy-comp', 'eq', 'blend'],
-            explanation: 'Parallel compression: crush the signal with heavy compression, EQ the compressed version if needed, then blend it back with the clean signal. This adds punch while keeping dynamics!'
+            explanation: 'In parallel compression you crush the signal with a heavy compressor (high ratio, low threshold) and EQ it before blending it back with the dry signal.'
         },
         {
-            type: 'multiple-choice',
+            type: 'build-chain',
             scenario: 'identify-guitar',
-            question: 'When placing time-based effects like Delay or Reverb on a distorted guitar lead, where should they go in the signal chain?',
-            hint: 'What happens if you run a beautiful, fading echo directly into a fuzz pedal?',
-            options: [
-                'At the very beginning, before the amp simulator',
-                'Before distortion and compression, but after EQ',
-                'At the very end of the chain, after all dynamic, distortion, and frequency effects',
-                'It doesn\'t matter, digital audio workstations calculate them simultaneously'
+            question: 'When placing time-based effects on a distorted guitar lead, where should they go in the signal chain? Build a chain with Distortion (Drive 60%), Flanger (Rate 1.0Hz), and a Delay.',
+            hint: 'What happens if you run a beautiful, fading echo directly into a fuzz pedal? It sounds terrible! Fuzz first, time last.',
+            availableEffects: ['eq', 'compressor', 'gate', 'reverb', 'delay', 'chorus', 'distortion', 'flanger', 'limiter'],
+            correctOrder: ['distortion', 'flanger', 'delay'],
+            targetParameters: [
+                { effectId: 'distortion', id: 'dist_drive', value: 60, tolerance: 40 },
+                { effectId: 'flanger', id: 'flan_rate', value: 1.0, tolerance: 1.0 }
             ],
-            correct: 2,
-            explanation: 'Time-based effects (reverb, delay) come LAST! If you compress or distort after reverb, you\'ll affect the reverb tails in weird ways. Process the sound first, add space last.'
+            explanation: 'Time-based effects (reverb, delay, flanger) come LAST! If you compress or distort after an echo, you\'ll destroy the fading tail.'
         }
     ];
 
@@ -274,6 +282,7 @@ export default function EffectsChainQuiz({ onExit }) {
     const userContext = useUser();
     const saveQuizResult = userContext ? userContext.saveQuizResult : null;
     const resultsSavedRef = useRef(false);
+    const activeNodesRef = useRef([]);
 
     useEffect(() => {
         if (quizComplete && saveQuizResult && !resultsSavedRef.current) {
@@ -293,18 +302,9 @@ export default function EffectsChainQuiz({ onExit }) {
     useEffect(() => {
         // Initialize first question
         const firstQ = questions[0];
-        if (firstQ.type === 'order-chain') {
-            const shuffled = [...firstQ.effects].sort(() => Math.random() - 0.5);
-            setEffectsOrder(shuffled);
-        } else if (firstQ.type === 'build-chain') {
+        if (firstQ.type === 'build-chain') {
             setEffectsOrder([]);
             setParameters({});
-        } else if (firstQ.type === 'set-parameters') {
-            const defaults = {};
-            firstQ.effect.parameters.forEach(param => {
-                defaults[param.id] = param.min;
-            });
-            setParameters(defaults);
         }
     }, []);
 
@@ -334,6 +334,16 @@ export default function EffectsChainQuiz({ onExit }) {
             }
             sourceRef.current = null;
         }
+
+        // Stop any active LFOs
+        activeNodesRef.current.forEach(node => {
+            try {
+                if (node.stop) node.stop();
+                node.disconnect();
+            } catch (e) { }
+        });
+        activeNodesRef.current = [];
+
         setIsPlaying(false);
     };
 
@@ -356,7 +366,7 @@ export default function EffectsChainQuiz({ onExit }) {
             let fileSuffix = 'mastering';
             if (q.scenario.includes('vocal') || q.scenario.includes('eq-remove')) fileSuffix = 'vocal';
             else if (q.scenario.includes('guitar')) fileSuffix = 'guitar';
-            else if (q.scenario.includes('drums') || q.scenario.includes('parallel')) fileSuffix = 'drums';
+            else if (q.scenario.includes('parallel') || q.scenario.includes('drum')) fileSuffix = 'drums';
 
             // 1. Fetch and decode the pure audio file (with caching)
             const mp3Path = `/Audio/Audio_effect_quiz_audio/${fileSuffix}-dry.mp3`;
@@ -397,6 +407,15 @@ export default function EffectsChainQuiz({ onExit }) {
                     node = ctx.createDynamicsCompressor();
                     node.threshold.value = getParam('comp_thresh') || -18;
                     node.ratio.value = getParam('comp_ratio') || 4;
+                    // Web Audio API expects Attack and Release in Seconds, our UI uses milliseconds.
+                    node.attack.value = (getParam('comp_attack') !== undefined ? getParam('comp_attack') : 10) / 1000;
+                    node.release.value = (getParam('comp_release') !== undefined ? getParam('comp_release') : 100) / 1000;
+                } else if (effectId === 'limiter') {
+                    node = ctx.createDynamicsCompressor();
+                    node.threshold.value = getParam('lim_thresh') || 0;
+                    node.ratio.value = 20; // Hard limiting ratio
+                    node.attack.value = 0.001; // 1ms attack
+                    node.release.value = 0.1; // 100ms release
                 } else if (effectId === 'gate') {
                     // Simulated Noise Gate using a WaveShaper curve for downward expansion
                     node = ctx.createWaveShaper();
@@ -446,6 +465,7 @@ export default function EffectsChainQuiz({ onExit }) {
                     lfo.connect(lfoGain);
                     lfoGain.connect(node.delayTime);
                     lfo.start();
+                    activeNodesRef.current.push(lfo);
 
                     const wet = ctx.createGain();
                     const dry = ctx.createGain();
@@ -558,6 +578,7 @@ export default function EffectsChainQuiz({ onExit }) {
 
         } catch (error) {
             console.error("Audio engine failed:", error);
+            alert("Error playing audio: " + (error.message || error));
             setIsPlaying(false);
         }
     };
@@ -584,7 +605,9 @@ export default function EffectsChainQuiz({ onExit }) {
     };
 
     const addEffectToRack = (effectId) => {
-        if (showFeedback || effectsOrder.length >= 3) return;
+        const q = questions[currentQuestion];
+        const maxPlugins = q.correctOrder ? q.correctOrder.length : 3;
+        if (showFeedback || effectsOrder.length >= maxPlugins) return;
         const cfg = effectConfigs[effectId];
         setEffectsOrder([...effectsOrder, { id: effectId, name: cfg.name }]);
         setParameters(prev => {
@@ -645,6 +668,16 @@ export default function EffectsChainQuiz({ onExit }) {
         if (q.type === 'order-chain' || q.type === 'build-chain') {
             const currentIds = effectsOrder.map(e => e.id);
             isCorrect = JSON.stringify(currentIds) === JSON.stringify(q.correctOrder);
+
+            // For build-chain, also verify specific knob settings if targetParameters exist in the question
+            if (isCorrect && q.type === 'build-chain' && q.targetParameters) {
+                isCorrect = q.targetParameters.every(target => {
+                    const userValue = parameters[target.id];
+                    // If they haven't touched it (undefined) but the target allows the init value
+                    const actualValue = userValue !== undefined ? userValue : (effectConfigs[target.effectId]?.parameters.find(p => p.id === target.id)?.init || 0);
+                    return Math.abs(actualValue - target.value) <= target.tolerance;
+                });
+            }
         } else if (q.type === 'set-parameters') {
             isCorrect = q.effect.parameters.every(param => {
                 const userValue = parameters[param.id] || param.min;
@@ -661,21 +694,6 @@ export default function EffectsChainQuiz({ onExit }) {
 
         stopAudio();
         await getAIExplanation(q, isCorrect);
-    };
-
-    const handleMultipleChoice = async (answer) => {
-        setSelectedAnswer(answer);
-        setShowFeedback(true);
-        stopAudio();
-
-        const currentQ = questions[currentQuestion];
-        const isCorrect = answer === currentQ.correct;
-
-        if (isCorrect) {
-            setScore(score + 1);
-        }
-
-        await getAIExplanation(currentQ, isCorrect);
     };
 
     const getAIExplanation = async (question, isCorrect) => {
@@ -703,18 +721,9 @@ export default function EffectsChainQuiz({ onExit }) {
             setAiExplanation('');
 
             const nextQ = questions[currentQuestion + 1];
-            if (nextQ.type === 'order-chain') {
-                const shuffled = [...nextQ.effects].sort(() => Math.random() - 0.5);
-                setEffectsOrder(shuffled);
-            } else if (nextQ.type === 'build-chain') {
+            if (nextQ.type === 'build-chain') {
                 setEffectsOrder([]);
                 setParameters({});
-            } else if (nextQ.type === 'set-parameters') {
-                const defaults = {};
-                nextQ.effect.parameters.forEach(param => {
-                    defaults[param.id] = param.min;
-                });
-                setParameters(defaults);
             }
         } else {
             setQuizComplete(true);
@@ -735,15 +744,9 @@ export default function EffectsChainQuiz({ onExit }) {
         resultsSavedRef.current = false;
 
         const firstQ = questions[0];
-        if (firstQ.type === 'order-chain') {
-            const shuffled = [...firstQ.effects].sort(() => Math.random() - 0.5);
-            setEffectsOrder(shuffled);
-        } else if (firstQ.type === 'set-parameters') {
-            const defaults = {};
-            firstQ.effect.parameters.forEach(param => {
-                defaults[param.id] = param.min;
-            });
-            setParameters(defaults);
+        if (firstQ.type === 'build-chain') {
+            setEffectsOrder([]);
+            setParameters({});
         }
     };
 
@@ -842,6 +845,19 @@ export default function EffectsChainQuiz({ onExit }) {
                     <div className="fx-knob-grid px-3 py-3">
                         {cfg.parameters.map(param => {
                             const val = parameters[param.id] !== undefined ? parameters[param.id] : param.init;
+                            let isCorrectParam = null;
+                            let paramTarget = null;
+                            let isTracked = false;
+
+                            if (showFeedback && q.targetParameters) {
+                                const targetDef = q.targetParameters.find(t => t.id === param.id && t.effectId === effectItem.id);
+                                if (targetDef) {
+                                    isTracked = true;
+                                    paramTarget = targetDef.value;
+                                    isCorrectParam = Math.abs(val - targetDef.value) <= targetDef.tolerance;
+                                }
+                            }
+
                             return (
                                 <div key={param.id}>
                                     <KnobComponent
@@ -852,7 +868,9 @@ export default function EffectsChainQuiz({ onExit }) {
                                         step={param.step}
                                         unit={param.unit}
                                         onChange={(v) => updateParameter(param.id, v)}
-                                        showFeedback={false}
+                                        showFeedback={showFeedback && isTracked}
+                                        isCorrect={isCorrectParam}
+                                        targetValue={paramTarget}
                                     />
                                 </div>
                             );
@@ -864,6 +882,7 @@ export default function EffectsChainQuiz({ onExit }) {
 
         if (q.type === 'build-chain') {
             const isCorrect = showFeedback && selectedAnswer;
+            const maxPlugins = q.correctOrder ? q.correctOrder.length : 3;
 
             return (
                 <div className="space-y-6 w-full">
@@ -880,10 +899,12 @@ export default function EffectsChainQuiz({ onExit }) {
                                     <button
                                         key={`pool-${effectId}`}
                                         onClick={() => addEffectToRack(effectId)}
-                                        disabled={showFeedback || effectsOrder.length >= 3 || isAdded}
-                                        className={`px-3 py-2 rounded border text-sm font-medium transition-colors
-                                            ${isAdded ? 'bg-indigo-900/50 border-indigo-500/30 text-indigo-300' : 'bg-slate-800 border-slate-600 text-slate-200 hover:bg-slate-700'}
-                                            disabled:opacity-50
+                                        disabled={showFeedback || effectsOrder.length >= maxPlugins || isAdded}
+                                        className={`px-4 py-2.5 rounded-lg border text-sm font-semibold tracking-wide shadow-sm transition-all duration-200
+                                            ${isAdded
+                                                ? 'bg-slate-900 border-indigo-500/20 text-indigo-400/50 shadow-inner'
+                                                : 'bg-gradient-to-b from-slate-700 to-slate-800 border-slate-600 text-slate-200 hover:from-slate-600 hover:to-slate-700 hover:border-slate-500 hover:shadow-md hover:-translate-y-0.5'}
+                                            disabled:opacity-40
                                         `}
                                     >
                                         {cfg.name}
@@ -892,15 +913,15 @@ export default function EffectsChainQuiz({ onExit }) {
                             })}
                         </div>
                         <p className="text-xs text-amber-500/70 mt-3 flex items-center gap-1">
-                            <Info size={12} /> Add up to 3 plugins to the rack below.
+                            <Info size={12} /> Add up to {maxPlugins} plugin{maxPlugins !== 1 ? 's' : ''} to the rack below.
                         </p>
                     </div>
 
                     {/* Active Rack */}
                     <div className="bg-slate-900 border border-slate-700 rounded-xl p-4 min-h-[300px]">
                         <p className="text-sm text-slate-400 uppercase font-bold mb-4 flex justify-between items-center">
-                            <span><Settings size={14} className="inline mr-2" /> Active Signal Chain (Max 3)</span>
-                            <span className="text-amber-500 bg-amber-500/10 px-2 py-1 rounded">{effectsOrder.length} / 3</span>
+                            <span><Settings size={14} className="inline mr-2" /> Active Signal Chain (Max {maxPlugins})</span>
+                            <span className="text-amber-500 bg-amber-500/10 px-2 py-1 rounded">{effectsOrder.length} / {maxPlugins}</span>
                         </p>
 
                         {effectsOrder.length === 0 ? (
@@ -927,7 +948,7 @@ export default function EffectsChainQuiz({ onExit }) {
                             </button>
                             <button
                                 onClick={checkAnswer}
-                                disabled={effectsOrder.length !== 3}
+                                disabled={effectsOrder.length !== maxPlugins}
                                 className="btn-primary flex-1 py-3 flex items-center justify-center gap-2 text-lg shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
                             >
                                 Submit Answer
@@ -936,135 +957,28 @@ export default function EffectsChainQuiz({ onExit }) {
                     )}
 
                     {showFeedback && !isCorrect && (
-                        <div className="fx-correct-order-box mt-4">
-                            <strong>Correct Sequence:</strong><br />
-                            {q.correctOrder.map(id => effectConfigs[id].name).join(' → ')}
-                        </div>
-                    )}
-                </div>
-            );
-        }
-
-        if (q.type === 'order-chain') {
-            const isCorrect = showFeedback && JSON.stringify(effectsOrder.map(e => e.id)) === JSON.stringify(q.correctOrder);
-
-            return (
-                <div className="space-y-4 w-full">
-                    {/* Signal Flow Container */}
-                    <div className="fx-panel-container fx-flow-container">
-                        <p className="fx-panel-label">
-                            <ArrowDown size={14} /> Drag to Reorder Signal Flow
-                        </p>
-
-                        <div className="flex flex-col">
-                            {effectsOrder.map((effect, index) => renderEffectBox(effect, index))}
-                        </div>
-                    </div>
-
-                    {!showFeedback && (
-                        <div className="flex gap-2">
+                        <div className="fx-correct-order-box mt-4 space-y-4">
+                            <div>
+                                <strong>Correct Sequence:</strong><br />
+                                {q.correctOrder.map(id => effectConfigs[id].name).join(' → ')}
+                            </div>
                             <button
-                                onClick={playWithEffects}
-                                disabled={isPlaying}
-                                className="px-4 py-3 bg-slate-800 text-white rounded-lg hover:bg-slate-700 border border-slate-600 disabled:opacity-50 flex items-center gap-2 text-sm"
+                                onClick={() => {
+                                    setShowFeedback(false);
+                                    setSelectedAnswer(null);
+                                    setAiExplanation('');
+                                }}
+                                className="px-4 py-2 bg-amber-500/20 text-amber-500 border border-amber-500/50 rounded-lg hover:bg-amber-500/30 transition-colors flex items-center gap-2 text-sm"
                             >
-                                {isPlaying ? <Pause size={16} /> : <Volume2 size={16} />}
-                                {isPlaying ? 'Playing...' : 'Test'}
-                            </button>
-                            <button
-                                onClick={checkAnswer}
-                                className="btn-primary flex-1 py-3 flex items-center justify-center gap-2 text-lg shadow-lg"
-                            >
-                                Submit Answer
+                                <RotateCcw size={14} /> Retry Question
                             </button>
                         </div>
                     )}
-
-                    {showFeedback && !isCorrect && q.effects && (
-                        <div className="fx-correct-order-box">
-                            <strong>Correct Order:</strong><br />{q.correctOrder.map(id => q.effects.find(e => e.id === id).name).join(' → ')}
-                        </div>
-                    )}
                 </div>
             );
         }
 
-        if (q.type === 'set-parameters') {
-            const allCorrect = showFeedback && selectedAnswer;
-
-            return (
-                <div className="space-y-6 w-full">
-                    <div className="fx-panel-container">
-                        <p className="fx-panel-label text-center w-full justify-center">
-                            <Settings size={14} /> {q.effect.name} Parameters
-                        </p>
-                        <div className="fx-knob-grid">
-                            {q.effect.parameters.map(param => {
-                                const val = parameters[param.id] !== undefined ? parameters[param.id] : param.min;
-                                const isCorrectParam = showFeedback ? Math.abs(val - param.target) <= param.tolerance : null;
-                                return (
-                                    <div key={param.id}>
-                                        <KnobComponent
-                                            label={param.name}
-                                            value={val}
-                                            min={param.min}
-                                            max={param.max}
-                                            step={param.step}
-                                            onChange={(v) => updateParameter(param.id, v)}
-                                            unit={param.unit}
-                                            isCorrect={isCorrectParam}
-                                            targetValue={param.target}
-                                            isLogScale={param.isLogScale || false}
-                                            showFeedback={showFeedback}
-                                        />
-                                    </div>
-                                );
-                            })}
-                        </div>
-                    </div>
-
-                    {!showFeedback && (
-                        <button onClick={checkAnswer} className="btn-primary w-full py-3 text-lg">
-                            Submit Patch
-                        </button>
-                    )}
-                </div>
-            );
-        }
-
-        if (q.type === 'multiple-choice' || q.type === 'identify-problem') {
-            return (
-                <div className="space-y-3">
-                    {q.options.map((option, index) => {
-                        const isSelected = selectedAnswer === index;
-                        const isCorrect = index === q.correct;
-                        const showCorrect = showFeedback && isCorrect;
-                        const showIncorrect = showFeedback && isSelected && !isCorrect;
-
-                        let className = "option-btn";
-                        if (isSelected) className += " selected";
-                        if (showFeedback) {
-                            if (isCorrect) className += " correct";
-                            else if (isSelected) className += " incorrect";
-                        }
-
-                        return (
-                            <button
-                                key={index}
-                                onClick={() => !showFeedback && handleMultipleChoice(index)}
-                                disabled={showFeedback}
-                                className={className}
-                                style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
-                            >
-                                <span className="font-medium">{option}</span>
-                                {showCorrect && <Check className="text-green-500" size={20} />}
-                                {showIncorrect && <X className="text-red-500" size={20} />}
-                            </button>
-                        );
-                    })}
-                </div>
-            );
-        }
+        return null;
     };
 
     if (quizComplete) {
@@ -1161,11 +1075,7 @@ export default function EffectsChainQuiz({ onExit }) {
 
                     {showFeedback && (
                         <div className="controls" style={{ display: 'flex', gap: '10px', marginTop: '20px' }}>
-                            {selectedAnswer === false && (q.type === 'order-chain' || q.type === 'set-parameters') && (
-                                <button onClick={retryPatch} className="btn-secondary" style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', border: '1px solid #475569', color: 'white' }}>
-                                    <RotateCcw size={18} /> Try Again
-                                </button>
-                            )}
+                            {/* Legacy retry button removed */}
                             <button onClick={nextQuestion} className="btn-primary" style={{ flex: 1 }}>
                                 {currentQuestion < questions.length - 1 ? 'Next Question' : 'Finish Quiz'}
                             </button>

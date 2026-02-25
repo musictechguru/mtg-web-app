@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { supabase } from '../config/supabase';
+import campaignData from '../data/campaign_route.json';
 
 const UserContext = createContext();
 
@@ -13,7 +14,8 @@ export const UserProvider = ({ children }) => {
         totalScore: 0,
         quizzesCompleted: 0,
         history: [],
-        mastery: {}
+        mastery: {},
+        campaignCompleted: []
     });
 
     // Initialize Auth Listener
@@ -33,7 +35,7 @@ export const UserProvider = ({ children }) => {
             if (session?.user) {
                 fetchUserProgress(session.user.id);
             } else {
-                setUserProgress({ totalScore: 0, quizzesCompleted: 0, history: [], mastery: {} });
+                setUserProgress({ totalScore: 0, quizzesCompleted: 0, history: [], mastery: {}, campaignCompleted: [] });
                 setLoading(false);
             }
         });
@@ -133,6 +135,19 @@ export const UserProvider = ({ children }) => {
 
         const percentage = Math.round((score / total) * 100);
 
+        // Check against Campaign Route to see if this quiz unlocks a node
+        let newCampaignCompleted = [...(userProgress.campaignCompleted || [])];
+        for (const round of campaignData.rounds) {
+            for (const node of round.nodes) {
+                // Exact match, or for dictionary quizzes it might be "Title - Level"
+                if (node.title === quizTitle || quizTitle.startsWith(node.title + " - ") || (node.type === 'exam' && quizTitle.includes(node.title))) {
+                    if (!newCampaignCompleted.includes(node.id)) {
+                        newCampaignCompleted.push(node.id);
+                    }
+                }
+            }
+        }
+
         const updatedProgress = {
             ...userProgress,
             totalScore: (userProgress.totalScore || 0) + score,
@@ -141,7 +156,8 @@ export const UserProvider = ({ children }) => {
             mastery: {
                 ...userProgress.mastery,
                 [topicName]: percentage
-            }
+            },
+            campaignCompleted: newCampaignCompleted
         };
 
         setUserProgress(updatedProgress);
@@ -169,7 +185,8 @@ export const UserProvider = ({ children }) => {
             totalScore: 0,
             quizzesCompleted: 0,
             history: [],
-            mastery: {}
+            mastery: {},
+            campaignCompleted: []
         };
 
         setUserProgress(emptyProgress);
@@ -189,6 +206,34 @@ export const UserProvider = ({ children }) => {
         }
     };
 
+    const completeCampaignNode = async (nodeId) => {
+        if (!currentUser) return;
+
+        const currentCampaign = userProgress.campaignCompleted || [];
+        if (currentCampaign.includes(nodeId)) return;
+
+        const updatedProgress = {
+            ...userProgress,
+            campaignCompleted: [...currentCampaign, nodeId]
+        };
+
+        setUserProgress(updatedProgress);
+
+        try {
+            const { error } = await supabase
+                .from('user_progress')
+                .upsert({
+                    id: currentUser.id,
+                    progress: updatedProgress,
+                    updated_at: new Date().toISOString()
+                });
+
+            if (error) console.error("Error syncing campaign progress:", error);
+        } catch (err) {
+            console.error("Unexpected error syncing campaign progress:", err);
+        }
+    };
+
     const value = {
         currentUser,
         userProgress,
@@ -197,6 +242,7 @@ export const UserProvider = ({ children }) => {
         logout,
         saveQuizResult,
         clearProgress,
+        completeCampaignNode,
         loading
     };
 

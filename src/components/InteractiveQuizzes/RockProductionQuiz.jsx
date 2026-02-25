@@ -126,10 +126,43 @@ const RockProductionQuiz = ({ onExit }) => {
     const audioContextRef = useRef(null);
     const activeSources = useRef([]);
 
+
+    const [isLoadingAudio, setIsLoadingAudio] = useState(true);
+    const audioBuffers = useRef({});
+
     // Initialize AudioContext
     useEffect(() => {
         const AudioCtor = window.AudioContext || window.webkitAudioContext;
         audioContextRef.current = new AudioCtor();
+
+        const loadAudio = async () => {
+            const ctx = audioContextRef.current;
+            const files = {
+                bass: '/Audio/rock_raw/bass_di.mp3',
+                drums: '/Audio/rock_raw/drum_loop_clean.mp3',
+                guitar_riff: '/Audio/rock_raw/guitar_di_riff.mp3',
+                guitar_solo: '/Audio/rock_raw/guitar_di_solo.mp3',
+                snare: '/Audio/rock_raw/single_snare_dry.mp3',
+                vocal: '/Audio/rock_raw/vocal_dry_verse.mp3'
+            };
+
+            const buffers = {};
+            for (const [key, path] of Object.entries(files)) {
+                try {
+                    const response = await fetch(path);
+                    const arrayBuffer = await response.arrayBuffer();
+                    const decodedData = await ctx.decodeAudioData(arrayBuffer);
+                    buffers[key] = decodedData;
+                } catch (e) {
+                    console.error('Failed to load audio:', path, e);
+                }
+            }
+            audioBuffers.current = buffers;
+            setIsLoadingAudio(false);
+        };
+
+        loadAudio();
+
         return () => {
             if (audioContextRef.current) {
                 audioContextRef.current.close();
@@ -145,8 +178,8 @@ const RockProductionQuiz = ({ onExit }) => {
         setIsPlaying(false);
     };
 
-    const playAudioExample = () => {
-        if (isPlaying) {
+    const playAudioExample = (isProcessed = true) => {
+        if (isPlaying || isLoadingAudio) {
             stopAudio();
             return;
         }
@@ -160,7 +193,7 @@ const RockProductionQuiz = ({ onExit }) => {
 
         setIsPlaying(true);
         const now = ctx.currentTime;
-        let playDuration = 4; // Default duration
+        let playDuration = 6.0; // Default duration slightly longer for real audio
 
         const addSource = (src) => activeSources.current.push(src);
 
@@ -169,95 +202,20 @@ const RockProductionQuiz = ({ onExit }) => {
         masterGain.gain.value = 0.5;
         masterGain.connect(ctx.destination);
 
-        // Custom noise buffer for snare modeling
-        const noiseBuffer = ctx.createBuffer(1, ctx.sampleRate * 2, ctx.sampleRate);
-        const output = noiseBuffer.getChannelData(0);
-        for (let i = 0; i < ctx.sampleRate * 2; i++) {
-            output[i] = Math.random() * 2 - 1;
-        }
-
-        const createKick = (time, dest) => {
-            const osc = ctx.createOscillator();
-            osc.type = 'sine';
-            osc.frequency.setValueAtTime(120, time);
-            osc.frequency.exponentialRampToValueAtTime(40, time + 0.1);
-
-            const click = ctx.createOscillator();
-            click.type = 'square';
-            click.frequency.setValueAtTime(2000, time);
-            click.frequency.exponentialRampToValueAtTime(100, time + 0.05);
-
-            const gain = ctx.createGain();
-            gain.gain.setValueAtTime(0, time);
-            gain.gain.linearRampToValueAtTime(1, time + 0.01);
-            gain.gain.exponentialRampToValueAtTime(0.01, time + 0.3);
-
-            const clickGain = ctx.createGain();
-            clickGain.gain.setValueAtTime(0, time);
-            clickGain.gain.linearRampToValueAtTime(0.2, time + 0.005);
-            clickGain.gain.exponentialRampToValueAtTime(0.01, time + 0.05);
-
-            osc.connect(gain);
-            click.connect(clickGain);
-            gain.connect(dest);
-            clickGain.connect(dest);
-
-            osc.start(time);
-            click.start(time);
-            osc.stop(time + 0.5);
-            click.stop(time + 0.5);
-            addSource(osc);
-            addSource(click);
+        const playBuffer = (bufferKey, time, dest, loop = false, playbackRate = 1.0) => {
+            if (!audioBuffers.current[bufferKey]) return null;
+            const src = ctx.createBufferSource();
+            src.buffer = audioBuffers.current[bufferKey];
+            src.loop = loop;
+            src.playbackRate.value = playbackRate;
+            src.connect(dest);
+            src.start(time);
+            addSource(src);
+            return src;
         };
 
-        const createSnare = (time, dest, tone = 'good') => {
-            const osc = ctx.createOscillator();
-            osc.type = 'triangle';
-            osc.frequency.setValueAtTime(200, time);
-            osc.frequency.exponentialRampToValueAtTime(100, time + 0.1);
-
-            const bodyGain = ctx.createGain();
-            bodyGain.gain.setValueAtTime(0, time);
-            bodyGain.gain.linearRampToValueAtTime(1, time + 0.01);
-            bodyGain.gain.exponentialRampToValueAtTime(0.01, time + 0.2);
-
-            osc.connect(bodyGain);
-            bodyGain.connect(dest);
-
-            if (tone === 'good' || tone === 'snappy') {
-                const noise = ctx.createBufferSource();
-                noise.buffer = noiseBuffer;
-
-                const noiseFilter = ctx.createBiquadFilter();
-                noiseFilter.type = 'highpass';
-                noiseFilter.frequency.value = (tone === 'snappy') ? 2000 : 800;
-
-                const noiseGain = ctx.createGain();
-                noiseGain.gain.setValueAtTime(0, time);
-                noiseGain.gain.linearRampToValueAtTime(tone === 'snappy' ? 0.8 : 0.5, time + 0.01);
-                noiseGain.gain.exponentialRampToValueAtTime(0.01, time + (tone === 'snappy' ? 0.1 : 0.25));
-
-                noise.connect(noiseFilter);
-                noiseFilter.connect(noiseGain);
-                noiseGain.connect(dest);
-
-                noise.start(time);
-                noise.stop(time + 0.5);
-                addSource(noise);
-            }
-
-            osc.start(time);
-            osc.stop(time + 0.5);
-            addSource(osc);
-        };
-
-        const createPowerChord = (rootFreq, time, duration, dest, distAmount = 20) => {
-            const gain = ctx.createGain();
-            gain.gain.setValueAtTime(0, time);
-            gain.gain.linearRampToValueAtTime(0.6, time + 0.02);
-            gain.gain.setValueAtTime(0.6, time + duration - 0.05);
-            gain.gain.linearRampToValueAtTime(0, time + duration);
-
+        // Shared Amp Sim Function
+        const createAmpSim = (dest, distAmount = 20) => {
             const dist = ctx.createWaveShaper();
             const curve = new Float32Array(400);
             for (let i = 0; i < 400; i++) {
@@ -273,248 +231,234 @@ const RockProductionQuiz = ({ onExit }) => {
             cabFilter2.type = 'highpass';
             cabFilter2.frequency.value = 100;
 
-            gain.connect(cabFilter2);
             cabFilter2.connect(dist);
             dist.connect(cabFilter);
             cabFilter.connect(dest);
-
-            [rootFreq, rootFreq * 1.498, rootFreq * 2].forEach(freq => {
-                const osc = ctx.createOscillator();
-                osc.type = 'sawtooth';
-                osc.frequency.value = freq;
-                osc.detune.value = (Math.random() - 0.5) * 15;
-                osc.connect(gain);
-                osc.start(time);
-                osc.stop(time + duration + 0.1);
-                addSource(osc);
-            });
+            return cabFilter2; // Input node
         };
 
-        const createVocal = (freq, time, duration, dest, amp = 1.0) => {
+        const createSynthSnare = (time, dest, tone = 'bad') => {
             const osc = ctx.createOscillator();
-            osc.type = 'sawtooth';
-            osc.frequency.setValueAtTime(freq, time);
+            osc.type = 'triangle';
+            osc.frequency.setValueAtTime(200, time);
+            osc.frequency.exponentialRampToValueAtTime(100, time + 0.1);
 
-            const vib = ctx.createOscillator();
-            vib.frequency.value = 5;
-            const vibGain = ctx.createGain();
-            vibGain.gain.value = 15;
-            vib.connect(vibGain);
-            vibGain.connect(osc.frequency);
-            vib.start(time);
-            vib.stop(time + duration);
-            addSource(vib);
+            const bodyGain = ctx.createGain();
+            bodyGain.gain.setValueAtTime(0, time);
+            bodyGain.gain.linearRampToValueAtTime(0.8, time + 0.01);
+            bodyGain.gain.exponentialRampToValueAtTime(0.01, time + 0.2);
 
-            const gain = ctx.createGain();
-            gain.gain.setValueAtTime(0, time);
-            gain.gain.linearRampToValueAtTime(amp * 0.4, time + 0.1);
-            gain.gain.setValueAtTime(amp * 0.4, time + duration - 0.1);
-            gain.gain.linearRampToValueAtTime(0, time + duration);
-
-            const f1 = ctx.createBiquadFilter(); f1.type = 'bandpass'; f1.frequency.value = 700; f1.Q.value = 3;
-            const f2 = ctx.createBiquadFilter(); f2.type = 'bandpass'; f2.frequency.value = 1100; f2.Q.value = 3;
-
-            const outGain = ctx.createGain();
-            outGain.connect(dest);
-
-            osc.connect(gain);
-            gain.connect(f1);
-            gain.connect(f2);
-            f1.connect(outGain);
-            f2.connect(outGain);
-
+            osc.connect(bodyGain);
+            bodyGain.connect(dest);
             osc.start(time);
-            osc.stop(time + duration + 0.1);
+            osc.stop(time + 0.5);
             addSource(osc);
         };
 
         switch (currentQuestionIndex) {
             case 0: // Gated Reverb
                 {
-                    playDuration = 3;
-                    const drySnareGain = ctx.createGain();
-                    drySnareGain.connect(masterGain);
-                    createSnare(now + 0.5, drySnareGain, 'good');
+                    playDuration = 2.5;
+                    const snareGain = ctx.createGain();
+                    snareGain.connect(masterGain);
 
-                    const revNoise = ctx.createBufferSource();
-                    revNoise.buffer = noiseBuffer;
-                    const revFilter = ctx.createBiquadFilter();
-                    revFilter.type = 'lowpass';
-                    revFilter.frequency.value = 2500;
-                    const revGain = ctx.createGain();
+                    playBuffer('snare', now, snareGain);
 
-                    revGain.gain.setValueAtTime(0, now);
-                    revGain.gain.setValueAtTime(0, now + 0.5);
-                    revGain.gain.linearRampToValueAtTime(0.5, now + 0.51);
-                    revGain.gain.setValueAtTime(0.5, now + 0.8);
-                    revGain.gain.linearRampToValueAtTime(0, now + 0.85);
+                    if (isProcessed) {
+                        // Reverb emulation using a real ConvolverNode and generated impulse response
+                        const createReverbImpulse = (context, duration = 3.0, decay = 2.0) => {
+                            const sampleRate = context.sampleRate;
+                            const length = sampleRate * duration;
+                            const impulse = context.createBuffer(2, length, sampleRate);
+                            const left = impulse.getChannelData(0);
+                            const right = impulse.getChannelData(1);
 
-                    revNoise.connect(revFilter);
-                    revFilter.connect(revGain);
-                    revGain.connect(masterGain);
-                    revNoise.start(now);
-                    revNoise.stop(now + 2);
-                    addSource(revNoise);
+                            for (let i = 0; i < length; i++) {
+                                left[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / length, decay);
+                                right[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / length, decay);
+                            }
+                            return impulse;
+                        };
+
+                        const convolver = ctx.createConvolver();
+                        convolver.buffer = createReverbImpulse(ctx, 2.0, 2.0);
+
+                        const revEnv = ctx.createGain();
+                        revEnv.gain.setValueAtTime(0, now);
+                        revEnv.gain.linearRampToValueAtTime(0.8, now + 0.01);
+                        // The "Gate" snapping shut abruptly
+                        revEnv.gain.setValueAtTime(0.8, now + 0.35);
+                        if (isProcessed) {
+                            convolver.connect(revEnv);
+                            revEnv.connect(masterGain);
+                            playBuffer('snare', now, convolver);
+                        }
+                    }
                 }
                 break;
 
             case 1: // Parallel Compression (Drums)
                 {
-                    playDuration = 3;
+                    playDuration = 4;
                     const cleanKitGain = ctx.createGain();
                     cleanKitGain.gain.value = 0.8;
                     cleanKitGain.connect(masterGain);
 
-                    const smashComp = ctx.createDynamicsCompressor();
-                    smashComp.threshold.value = -40;
-                    smashComp.ratio.value = 20;
-                    smashComp.attack.value = 0.002;
-                    smashComp.release.value = 0.4;
-                    const smashGain = ctx.createGain();
-                    smashGain.gain.value = 2.0;
-                    smashComp.connect(smashGain);
-                    smashGain.connect(masterGain);
+                    playBuffer('drums', now, cleanKitGain);
 
-                    for (let i = 0; i < 4; i++) {
-                        const hitTime = now + (i * 0.5);
-                        if (i % 2 === 0) {
-                            createKick(hitTime, cleanKitGain);
-                            createKick(hitTime, smashComp);
-                        } else {
-                            createSnare(hitTime, cleanKitGain, 'good');
-                            createSnare(hitTime, smashComp, 'good');
-                        }
+                    if (isProcessed) {
+                        const smashComp = ctx.createDynamicsCompressor();
+                        smashComp.threshold.value = -35;
+                        smashComp.ratio.value = 15;
+                        smashComp.attack.value = 0.005;
+                        smashComp.release.value = 0.3;
+                        const smashGain = ctx.createGain();
+                        smashGain.gain.value = 1.8;
+                        smashComp.connect(smashGain);
+                        smashGain.connect(masterGain);
+                        playBuffer('drums', now, smashComp);
                     }
                 }
                 break;
 
             case 2: // Double-Tracking Guitars
                 {
-                    playDuration = 4;
-                    const riffPattern = [{ t: 0.5, f: 82.41 }, { t: 0.9, f: 82.41 }, { t: 1.3, f: 110.00 }, { t: 1.7, f: 98.00 }, { t: 2.1, f: 82.41 }];
+                    playDuration = 5;
 
-                    const createTake = (pan, timeOffset, distAmt) => {
-                        const panner = ctx.createStereoPanner();
-                        panner.pan.value = pan;
-                        panner.connect(masterGain);
+                    if (!isProcessed) {
+                        const monoGain = ctx.createGain();
+                        monoGain.connect(masterGain);
+                        playBuffer('guitar_riff', now, monoGain);
+                    } else {
+                        const pannerL = ctx.createStereoPanner();
+                        pannerL.pan.value = -1;
+                        const ampL = createAmpSim(pannerL, 12);
+                        pannerL.connect(masterGain);
 
-                        riffPattern.forEach(note => {
-                            createPowerChord(note.f, now + note.t + timeOffset, 0.35, panner, distAmt);
-                        });
-                    };
+                        const pannerR = ctx.createStereoPanner();
+                        pannerR.pan.value = 1;
+                        const ampR = createAmpSim(pannerR, 15); // Slightly different distortion
+                        pannerR.connect(masterGain);
 
-                    createTake(-1, 0, 10);
-                    createTake(1, 0.02, 12);
+                        // Left take
+                        playBuffer('guitar_riff', now, ampL);
+
+                        // Right take: simulate a different take by slightly delaying and detuning the playback rate
+                        playBuffer('guitar_riff', now + 0.015, ampR, false, 0.995);
+                    }
                 }
                 break;
 
             case 3: // Amp Simulation
                 {
-                    playDuration = 4;
-                    const root = 110;
+                    playDuration = 5;
                     const diGain = ctx.createGain();
-                    diGain.gain.value = 1.2;
+                    diGain.gain.value = 1.5;
                     diGain.connect(masterGain);
 
-                    const diOsc = ctx.createOscillator();
-                    diOsc.type = 'triangle';
-                    diOsc.frequency.value = root;
-                    diOsc.connect(diGain);
-                    diOsc.start(now + 0.5);
-                    diOsc.stop(now + 1.5);
-                    addSource(diOsc);
+                    if (!isProcessed) {
+                        playBuffer('guitar_solo', now, diGain);
+                    } else {
+                        // Play clean DI for 2.5 seconds
+                        const src1 = playBuffer('guitar_solo', now, diGain);
+                        if (src1) {
+                            src1.stop(now + 2.5);
+                        }
 
-                    const ampGain = ctx.createGain();
-                    ampGain.gain.value = 0.8;
-                    ampGain.connect(masterGain);
-                    createPowerChord(root, now + 2.0, 1.5, ampGain, 15);
+                        // Then blast the amp simulation for the rest
+                        const ampOut = ctx.createGain();
+                        ampOut.gain.value = 1.0;
+                        ampOut.connect(masterGain);
+                        const ampSimInput = createAmpSim(ampOut, 20);
+
+                        playBuffer('guitar_solo', now + 2.5, ampSimInput);
+                    }
                 }
                 break;
 
             case 4: // Bass/Guitar Masking Fix
                 {
-                    playDuration = 5;
-                    const mudGain = ctx.createGain();
-                    mudGain.gain.value = 0.8;
-                    mudGain.connect(masterGain);
+                    playDuration = 6;
+                    const mixGain = ctx.createGain();
+                    mixGain.gain.value = 0.8;
+                    mixGain.connect(masterGain);
 
-                    const pattern = [0, 0.5, 1, 1.5, 2.5, 3.0, 3.5, 4.0];
+                    if (isProcessed) {
+                        // Bass with EQ carving
+                        const bassEq = ctx.createBiquadFilter();
+                        bassEq.type = 'peaking';
+                        bassEq.frequency.setValueAtTime(200, now);
+                        bassEq.gain.setValueAtTime(0, now);
+                        bassEq.gain.setValueAtTime(-8, now + 3.0); // Scoops the mud out halfway through
+                        bassEq.connect(mixGain);
+                        playBuffer('bass', now, bassEq);
 
-                    const bassFilter = ctx.createBiquadFilter();
-                    bassFilter.type = 'peaking';
-                    bassFilter.frequency.setValueAtTime(150, now);
-                    bassFilter.Q.value = 1.0;
-                    bassFilter.gain.setValueAtTime(0, now);
-                    bassFilter.gain.setValueAtTime(-12, now + 2.4);
-                    bassFilter.connect(mudGain);
-
-                    const guiFilter = ctx.createBiquadFilter();
-                    guiFilter.type = 'bandpass';
-                    guiFilter.frequency.setValueAtTime(180, now);
-                    guiFilter.frequency.linearRampToValueAtTime(350, now + 2.5);
-                    guiFilter.Q.setValueAtTime(1.5, now);
-                    guiFilter.Q.linearRampToValueAtTime(0.8, now + 2.5);
-                    guiFilter.connect(mudGain);
-
-                    pattern.forEach(t => {
-                        const bOsc = ctx.createOscillator();
-                        bOsc.type = 'sawtooth';
-                        bOsc.frequency.value = 73.42;
-                        const bEnv = ctx.createGain();
-                        bEnv.gain.setValueAtTime(0, now + t);
-                        bEnv.gain.linearRampToValueAtTime(0.8, now + t + 0.05);
-                        bEnv.gain.exponentialRampToValueAtTime(0.01, now + t + 0.4);
-                        bOsc.connect(bEnv); bEnv.connect(bassFilter);
-                        bOsc.start(now + t); bOsc.stop(now + t + 0.5); addSource(bOsc);
-
-                        createPowerChord(146.83, now + t, 0.35, guiFilter, 8);
-                    });
+                        // Guitar with complementary EQ
+                        const guiEq = ctx.createBiquadFilter();
+                        guiEq.type = 'peaking';
+                        guiEq.frequency.setValueAtTime(200, now);
+                        guiEq.gain.setValueAtTime(0, now);
+                        guiEq.gain.setValueAtTime(4, now + 3.0); // Fills the space
+                        const guiAmp = createAmpSim(guiEq, 8); // Light crunch
+                        guiEq.connect(mixGain);
+                        playBuffer('guitar_riff', now, guiAmp);
+                    } else {
+                        playBuffer('bass', now, mixGain);
+                        playBuffer('guitar_riff', now, mixGain);
+                    }
                 }
                 break;
 
             case 5: // Slapback Vocal
                 {
-                    playDuration = 3;
-                    const dryVocal = ctx.createGain();
+                    playDuration = 5;
+                    const vocalDry = ctx.createGain();
+                    vocalDry.connect(masterGain);
 
-                    const delay = ctx.createDelay();
-                    delay.delayTime.value = 0.12;
-                    const delayLevel = ctx.createGain();
-                    delayLevel.gain.value = 0.6;
+                    const vocalSrc = playBuffer('vocal', now, vocalDry);
 
-                    dryVocal.connect(masterGain);
-                    dryVocal.connect(delay);
-                    delay.connect(delayLevel);
-                    delayLevel.connect(masterGain);
+                    if (isProcessed && vocalSrc) {
+                        const delay = ctx.createDelay();
+                        delay.delayTime.value = 0.13; // 130ms slap
+                        const delayLevel = ctx.createGain();
+                        delayLevel.gain.value = 0.6; // No feedback = single slap
 
-                    createVocal(300, now + 0.5, 0.4, dryVocal, 1.0);
-                    createVocal(250, now + 0.9, 0.3, dryVocal, 0.8);
+                        delay.connect(delayLevel);
+                        delayLevel.connect(masterGain);
+
+                        vocalSrc.connect(delay); // Send to slapback
+                    }
                 }
                 break;
 
             case 6: // Vocal Riding
                 {
                     playDuration = 5;
-                    const faderGain = ctx.createGain();
-                    faderGain.connect(masterGain);
+                    const riderGain = ctx.createGain();
+                    riderGain.connect(masterGain);
 
-                    createVocal(200, now + 0.5, 1.5, faderGain, 0.1);
-                    faderGain.gain.setValueAtTime(6.0, now);
+                    if (isProcessed) {
+                        // Assuming vocal file has natural dynamics, we exaggerate them then "ride" them
+                        riderGain.gain.setValueAtTime(1.0, now);
+                        riderGain.gain.linearRampToValueAtTime(0.3, now + 2.5); // Bring down the loud part to keep it even
+                    } else {
+                        riderGain.gain.setValueAtTime(1.0, now);
+                    }
 
-                    createVocal(400, now + 2.5, 1.5, faderGain, 1.0);
-                    faderGain.gain.setValueAtTime(0.6, now + 2.4);
+                    playBuffer('vocal', now, riderGain);
                 }
                 break;
 
             case 7: // Phase Alignment
                 {
-                    playDuration = 4;
+                    playDuration = 5;
                     const closeMic = ctx.createGain();
                     closeMic.connect(masterGain);
 
                     const ohMic = ctx.createGain();
                     const ohDelay = ctx.createDelay();
-                    ohDelay.delayTime.value = 0.003;
+                    ohDelay.delayTime.value = 0.005; // 5ms gap representing air distance
+
                     const phaseInvert = ctx.createGain();
                     phaseInvert.gain.value = -1; // Initially out-of-phase
 
@@ -522,53 +466,67 @@ const RockProductionQuiz = ({ onExit }) => {
                     ohDelay.connect(phaseInvert);
                     phaseInvert.connect(masterGain);
 
-                    createSnare(now + 0.5, closeMic, 'good');
-                    createSnare(now + 0.5, ohMic, 'good');
+                    // Snare hits repeatedly
+                    for (let i = 0; i < 4; i++) {
+                        const hitTime = now + (i * 1.0);
+                        playBuffer('snare', hitTime, closeMic);
+                        playBuffer('snare', hitTime, ohMic);
+                    }
 
-                    phaseInvert.gain.setValueAtTime(-1, now);
-                    phaseInvert.gain.setValueAtTime(1, now + 1.8);
-
-                    createSnare(now + 2.0, closeMic, 'good');
-                    createSnare(now + 2.0, ohMic, 'good');
+                    if (isProcessed) {
+                        // Flip the phase alignment automatically at 2 seconds
+                        phaseInvert.gain.setValueAtTime(-1, now);
+                        phaseInvert.gain.setValueAtTime(1, now + 2.0);
+                    } else {
+                        // Keep out of phase
+                        phaseInvert.gain.setValueAtTime(-1, now);
+                    }
                 }
                 break;
 
             case 8: // Sample Augmentation
                 {
-                    playDuration = 4;
-                    const badSnareDest = ctx.createGain();
-                    badSnareDest.connect(masterGain);
-                    createSnare(now + 0.5, badSnareDest, 'bad');
+                    playDuration = 5;
+                    const badSnareMix = ctx.createGain();
+                    badSnareMix.connect(masterGain);
 
-                    createSnare(now + 2.0, badSnareDest, 'bad');
-                    const goodSnareDest = ctx.createGain();
-                    goodSnareDest.connect(masterGain);
-                    createSnare(now + 2.0, goodSnareDest, 'snappy');
+                    const goodSnareMix = ctx.createGain();
+                    goodSnareMix.gain.value = 0.8;
+                    goodSnareMix.connect(masterGain);
+
+                    for (let i = 0; i < 4; i++) {
+                        const hitTime = now + (i * 1.0);
+                        // The cardboard box snare (always playing)
+                        createSynthSnare(hitTime, badSnareMix, 'bad');
+
+                        // Drum replacement triggered (only on hits 3 and 4)
+                        if (i >= 2) {
+                            playBuffer('snare', hitTime + 0.02, goodSnareMix); // The high-quality sample blended in
+                        }
+                    }
                 }
                 break;
 
             case 9: // The Glue
                 {
-                    playDuration = 4;
+                    playDuration = 6;
                     const busComp = ctx.createDynamicsCompressor();
-                    busComp.threshold.value = -35;
-                    busComp.ratio.value = 5;
-                    busComp.attack.value = 0.02;
+                    busComp.threshold.value = -25;
+                    busComp.ratio.value = 4;
+                    busComp.attack.value = 0.01;
                     busComp.release.value = 0.15;
 
                     const makeup = ctx.createGain();
-                    makeup.gain.value = 1.8;
+                    makeup.gain.value = 1.5;
 
                     busComp.connect(makeup);
                     makeup.connect(masterGain);
 
-                    for (let i = 0; i < 8; i++) {
-                        const time = now + 0.5 + (i * 0.3);
-                        if (i % 4 === 0) createKick(time, busComp);
-                        else if (i % 2 === 0) createSnare(time, busComp, 'good');
+                    playBuffer('drums', now, busComp);
+                    playBuffer('bass', now, busComp);
 
-                        createPowerChord(110, time, 0.15, busComp, 8);
-                    }
+                    const guiAmp = createAmpSim(busComp, 15);
+                    playBuffer('guitar_riff', now, guiAmp);
                 }
                 break;
 
@@ -582,6 +540,7 @@ const RockProductionQuiz = ({ onExit }) => {
             activeSources.current = [];
         }, playDuration * 1000);
     };
+
 
     // Shuffle options when a new question loads
     const [currentOptions, setCurrentOptions] = useState([]);
@@ -690,11 +649,26 @@ const RockProductionQuiz = ({ onExit }) => {
 
                     <div className="rock-audio-widget">
                         <button
-                            className={`rock-play-btn ${isPlaying ? 'playing' : ''}`}
-                            onClick={playAudioExample}
+                            className={`rock-play-btn ${isPlaying ? 'playing' : ''} ${isLoadingAudio ? 'loading' : ''}`}
+                            onClick={() => playAudioExample(false)}  // The main button now plays the DRY stem initially
+                            disabled={isLoadingAudio}
                         >
-                            {isPlaying ? <Square size={20} className="fill-current" /> : <Play size={20} className="fill-current" />}
-                            <span>{isPlaying ? 'Stop Studio Feed' : 'Play Studio Feed'}</span>
+                            {isLoadingAudio ? (
+                                <>
+                                    <Square size={20} className="fill-current" style={{ opacity: 0.5 }} />
+                                    <span>Loading Audio...</span>
+                                </>
+                            ) : isPlaying ? (
+                                <>
+                                    <Square size={20} className="fill-current" />
+                                    <span>Stop Studio Feed</span>
+                                </>
+                            ) : (
+                                <>
+                                    <Play size={20} className="fill-current" />
+                                    <span>Play Studio Feed (Dry)</span>
+                                </>
+                            )}
                         </button>
                         {isPlaying && <div className="rock-audio-waves">
                             <span className="rock-wave-bar"></span>
@@ -737,6 +711,38 @@ const RockProductionQuiz = ({ onExit }) => {
                             <div className="rock-feedback-text">
                                 {currentQ.explanation}
                             </div>
+
+                            <div className="rock-audio-widget" style={{ marginBottom: '1rem', marginTop: '1rem', padding: '1rem', background: 'rgba(0,0,0,0.2)', borderRadius: '8px' }}>
+                                <div style={{ fontSize: '0.9rem', marginBottom: '0.5rem', opacity: 0.8 }}>Hear the processed technique in action:</div>
+                                <button
+                                    className={`rock-play-btn ${isPlaying ? 'playing' : ''} ${isLoadingAudio ? 'loading' : ''}`}
+                                    onClick={playAudioExample}
+                                    disabled={isLoadingAudio}
+                                >
+                                    {isLoadingAudio ? (
+                                        <>
+                                            <Square size={20} className="fill-current" style={{ opacity: 0.5 }} />
+                                            <span>Loading Audio...</span>
+                                        </>
+                                    ) : isPlaying ? (
+                                        <>
+                                            <Square size={20} className="fill-current" />
+                                            <span>Stop Processed Example</span>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <Play size={20} className="fill-current" />
+                                            <span>Play Processed Example</span>
+                                        </>
+                                    )}
+                                </button>
+                                {isPlaying && <div className="rock-audio-waves" style={{ marginTop: '0.5rem' }}>
+                                    <span className="rock-wave-bar"></span>
+                                    <span className="rock-wave-bar"></span>
+                                    <span className="rock-wave-bar"></span>
+                                </div>}
+                            </div>
+
                             <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
                                 <button className="rock-next-btn" onClick={handleNextQuestion}>
                                     {currentQuestionIndex < quizData.length - 1 ? 'Next Scenario \u2192' : 'View Results'}
