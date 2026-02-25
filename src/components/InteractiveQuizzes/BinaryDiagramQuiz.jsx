@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
 
-const BinaryDiagramQuiz = ({ targetNumber, hint, onResult }) => {
+const BinaryDiagramQuiz = ({ hint, onResult }) => {
     const [binaryBoxes, setBinaryBoxes] = useState([0, 0, 0, 0, 0, 0, 0]); // 7 bits for MIDI
     const [submitted, setSubmitted] = useState(false);
+    const [revealHint, setRevealHint] = useState(false);
+
+    // Generate a random target number between 1 and 127 when the component mounts
+    const [randomTarget] = useState(() => Math.floor(Math.random() * 127) + 1);
 
     const positions = [64, 32, 16, 8, 4, 2, 1]; // 7-bit MIDI values
 
@@ -20,14 +24,14 @@ const BinaryDiagramQuiz = ({ targetNumber, hint, onResult }) => {
 
     const checkBinaryAnswer = () => {
         const currentValue = calculateBinaryValue();
-        const isCorrect = currentValue === targetNumber;
+        const isCorrect = currentValue === randomTarget;
 
         setSubmitted(true);
         onResult(isCorrect);
     };
 
     const currentValue = calculateBinaryValue();
-    const isCorrect = currentValue === targetNumber;
+    const isCorrect = currentValue === randomTarget;
 
     return (
         <div style={{ width: '100%' }}>
@@ -132,7 +136,7 @@ const BinaryDiagramQuiz = ({ targetNumber, hint, onResult }) => {
                             color: 'var(--accent-blue)',
                             margin: 0
                         }}>
-                            {targetNumber}
+                            {randomTarget}
                         </p>
                     </div>
                 </div>
@@ -140,16 +144,42 @@ const BinaryDiagramQuiz = ({ targetNumber, hint, onResult }) => {
 
             {/* Hint */}
             {hint && !submitted && (
-                <div style={{
-                    background: 'rgba(251, 191, 36, 0.1)',
-                    border: '1px solid rgba(251, 191, 36, 0.3)',
-                    borderRadius: '8px',
-                    padding: '12px',
-                    marginBottom: '20px',
-                    fontSize: '0.9rem',
-                    color: 'var(--text-secondary)'
-                }}>
-                    <strong style={{ color: '#fbbf24' }}>💡 Hint:</strong> {hint}
+                <div style={{ marginBottom: '20px' }}>
+                    {!revealHint ? (
+                        <button
+                            onClick={() => setRevealHint(true)}
+                            style={{
+                                background: 'transparent',
+                                border: '1px solid rgba(251, 191, 36, 0.5)',
+                                color: '#fbbf24',
+                                borderRadius: '8px',
+                                padding: '8px 16px',
+                                cursor: 'pointer',
+                                fontSize: '0.9rem',
+                                fontWeight: 'bold',
+                                transition: 'all 0.2s'
+                            }}
+                            onMouseOver={(e) => {
+                                e.currentTarget.style.background = 'rgba(251, 191, 36, 0.1)';
+                            }}
+                            onMouseOut={(e) => {
+                                e.currentTarget.style.background = 'transparent';
+                            }}
+                        >
+                            💡 Need a hint?
+                        </button>
+                    ) : (
+                        <div style={{
+                            background: 'rgba(251, 191, 36, 0.1)',
+                            border: '1px solid rgba(251, 191, 36, 0.3)',
+                            borderRadius: '8px',
+                            padding: '12px',
+                            fontSize: '0.9rem',
+                            color: 'var(--text-secondary)'
+                        }}>
+                            <strong style={{ color: '#fbbf24' }}>💡 Hint:</strong> {hint}
+                        </div>
+                    )}
                 </div>
             )}
 

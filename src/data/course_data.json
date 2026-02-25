@@ -9847,7 +9847,9 @@
                                         "dynamic": "Perfect! A dynamic mic inside the kick drum, pointed at the beater, captures the tight punch and attack needed.",
                                         "condenser": "A condenser here might distort from the high sound pressure level (SPL). You need something more robust.",
                                         "ribbon": "Warning! The blast of air from the kick drum would immediately destroy a delicate ribbon mic!"
-                                    }
+                                    },
+                                    "targetAngle": 270,
+                                    "angleTolerance": 45
                                 },
                                 {
                                     "id": "outside_kick",
@@ -9912,7 +9914,9 @@
                                         "dynamic": "Spot on! Miking the center (cap) of the speaker cone gives the brightest, most aggressive tone.",
                                         "condenser": "Spot on! Miking the center gives a bright tone, and the condenser captures all the crisp high-end detail.",
                                         "ribbon": "A ribbon mic works here, but it's naturally darker. For the absolute brightest sound, dynamic or condenser is better here."
-                                    }
+                                    },
+                                    "targetAngle": 0,
+                                    "angleTolerance": 30
                                 },
                                 {
                                     "id": "edge_cone",
@@ -9941,7 +9945,9 @@
                                     ],
                                     "feedback": {
                                         "default": "Angling the mic off-axis smooths out the high frequencies. It's a great sound, but we wanted the brightest, most biting tone possible!"
-                                    }
+                                    },
+                                    "targetAngle": 45,
+                                    "angleTolerance": 30
                                 },
                                 {
                                     "id": "room_amp",
@@ -9977,7 +9983,9 @@
                                         "condenser": "Excellent! A large diaphragm condenser placed a few inches away captures intimate detail and utilizes the proximity effect for warmth.",
                                         "dynamic": "A dynamic mic is sturdy but lacks the high-end clarity and sensitive detail needed for an intimate studio vocal.",
                                         "ribbon": "A ribbon mic sounds beautifully smooth, but might lack the modern high-end clarity requested."
-                                    }
+                                    },
+                                    "targetAngle": 0,
+                                    "angleTolerance": 45
                                 },
                                 {
                                     "id": "room_mic",
@@ -10007,6 +10015,266 @@
                                     }
                                 }
                             ]
+                        },
+                        {
+                            "id": "s4",
+                            "title": "Snare Drum Articulation",
+                            "instruction": "The Snare drum needs to cut through the mix with a sharp \"crack\" but also some body. Find the right spot.",
+                            "background_image": "/images/snare_drum_3d_stage.png",
+                            "hotspots": [
+                                {
+                                    "id": "top_snare",
+                                    "x": 30,
+                                    "y": 30,
+                                    "radius": 27,
+                                    "isCorrectSpot": true,
+                                    "bestMicTypes": [
+                                        "dynamic"
+                                    ],
+                                    "feedback": {
+                                        "dynamic": "Perfect! A dynamic mic (like an SM57) pointing at the batter head captures the punch, crack, and body. It handles the high SPL effortlessly.",
+                                        "condenser": "A condenser will capture great detail and high frequencies, but might distort from the extremely high sound pressure level of a snare hit.",
+                                        "ribbon": "Danger! A ribbon mic placed this close to a snare drum will likely tear its fragile ribbon due to the blast of air."
+                                    },
+                                    "targetAngle": 135,
+                                    "angleTolerance": 40
+                                },
+                                {
+                                    "id": "bottom_snare",
+                                    "x": 50,
+                                    "y": 80,
+                                    "radius": 27,
+                                    "isCorrectSpot": false,
+                                    "bestMicTypes": [
+                                        "condenser",
+                                        "dynamic"
+                                    ],
+                                    "feedback": {
+                                        "default": "Miking the bottom snare captures the rattle of the snare wires, which is great for blending, but lacks the \"thump\" and body of the batter head."
+                                    }
+                                },
+                                {
+                                    "id": "rim_snare",
+                                    "x": 80,
+                                    "y": 45,
+                                    "radius": 27,
+                                    "isCorrectSpot": false,
+                                    "bestMicTypes": [
+                                        "dynamic"
+                                    ],
+                                    "feedback": {
+                                        "default": "Pointing the mic at the rim instead of the center head results in a thin, \"pingy\" sound without enough fundamental tone."
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "id": "s5",
+                            "title": "Acoustic Guitar Detail",
+                            "instruction": "We need a perfectly balanced acoustic guitar tone—warm body, but crisp string articulation for fingerpicking.",
+                            "background_image": "/images/acoustic_guitar_3d_stage.png",
+                            "hotspots": [
+                                {
+                                    "id": "12th_fret",
+                                    "x": 44,
+                                    "y": 48,
+                                    "radius": 27,
+                                    "isCorrectSpot": true,
+                                    "bestMicTypes": [
+                                        "condenser",
+                                        "ribbon"
+                                    ],
+                                    "feedback": {
+                                        "condenser": "Spot on! The 12th fret area balances string detail with the body's resonance, and a condenser captures all that beautiful high-end clarity.",
+                                        "ribbon": "Spot on! The 12th fret balances the tone, and a ribbon mic gives it a beautifully smooth, natural, and vintage warmth.",
+                                        "dynamic": "A dynamic mic placed here might sound a little too dull and lack the sensitive high-end detail needed for fingerpicking."
+                                    },
+                                    "targetAngle": 45,
+                                    "angleTolerance": 50
+                                },
+                                {
+                                    "id": "soundhole",
+                                    "x": 50,
+                                    "y": 58,
+                                    "radius": 27,
+                                    "isCorrectSpot": false,
+                                    "bestMicTypes": [
+                                        "condenser"
+                                    ],
+                                    "feedback": {
+                                        "default": "Miking directly over the soundhole usually sounds way too \"boomy\" and muddy due to excessive low-end buildup."
+                                    }
+                                },
+                                {
+                                    "id": "bridge",
+                                    "x": 50,
+                                    "y": 68,
+                                    "radius": 27,
+                                    "isCorrectSpot": false,
+                                    "bestMicTypes": [
+                                        "condenser"
+                                    ],
+                                    "feedback": {
+                                        "default": "Miking the bridge captures a very bright, sometimes harsh tone with less body resonance."
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "id": "s6",
+                            "title": "Grand Piano Blend",
+                            "instruction": "Record a classical grand piano performance. We want a rich, blended sound that captures the whole instrument, not just the hammers.",
+                            "background_image": "/images/grand_piano_3d_stage.png",
+                            "hotspots": [
+                                {
+                                    "id": "over_strings",
+                                    "x": 60,
+                                    "y": 55,
+                                    "radius": 36,
+                                    "isCorrectSpot": true,
+                                    "bestMicTypes": [
+                                        "condenser"
+                                    ],
+                                    "feedback": {
+                                        "condenser": "Excellent! Placing a condenser (or pair) over the strings but slightly back blends the attack of the hammers with the sustained resonance of the soundboard.",
+                                        "dynamic": "Dynamic mics are rarely used for classical piano because they lack the wide frequency response and transient detail of condensers.",
+                                        "ribbon": "A ribbon mic sounds fantastic here for a darker, vintage jazz tone! However, for standard classical recordings, the clarity of a condenser is usually preferred."
+                                    },
+                                    "targetAngle": 180,
+                                    "angleTolerance": 60
+                                },
+                                {
+                                    "id": "close_hammers",
+                                    "x": 30,
+                                    "y": 40,
+                                    "radius": 36,
+                                    "isCorrectSpot": false,
+                                    "bestMicTypes": [
+                                        "condenser"
+                                    ],
+                                    "feedback": {
+                                        "default": "Too close to the hammers! This results in a very percussive, attacking sound common in pop/rock, but not appropriate for a blended classical recording."
+                                    }
+                                },
+                                {
+                                    "id": "tail",
+                                    "x": 80,
+                                    "y": 80,
+                                    "radius": 36,
+                                    "isCorrectSpot": false,
+                                    "bestMicTypes": [
+                                        "condenser"
+                                    ],
+                                    "feedback": {
+                                        "default": "Miking from the tail of the piano sounds extremely bass-heavy and muddy."
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "id": "s7",
+                            "title": "Jazz Double Bass",
+                            "instruction": "Capture the deep fundamental tone and the slight finger \"pluck\" articulation of an upright bass playing walking jazz lines.",
+                            "background_image": "/images/double_bass_3d_stage.png",
+                            "hotspots": [
+                                {
+                                    "id": "bridge_fhole",
+                                    "x": 55,
+                                    "y": 55,
+                                    "radius": 27,
+                                    "isCorrectSpot": true,
+                                    "bestMicTypes": [
+                                        "condenser",
+                                        "dynamic"
+                                    ],
+                                    "feedback": {
+                                        "condenser": "Perfect! Aiming between the bridge and the f-hole (a few inches away) captures both the deep resonance of the body and the attack from the strings.",
+                                        "dynamic": "A large-diaphragm dynamic mic here works well for a punchier, robust live jazz sound!",
+                                        "ribbon": "Ribbon mics sound lush on bass, but due to their Figure-8 pattern, they might pick up too much room or bleed from the drum kit in a live jazz setting."
+                                    },
+                                    "targetAngle": 0,
+                                    "angleTolerance": 45
+                                },
+                                {
+                                    "id": "neck",
+                                    "x": 80,
+                                    "y": 65,
+                                    "radius": 27,
+                                    "isCorrectSpot": false,
+                                    "bestMicTypes": [
+                                        "condenser"
+                                    ],
+                                    "feedback": {
+                                        "default": "Miking up by the neck mostly captures finger noise and string clicks, lacking the deep bass frequencies required."
+                                    }
+                                },
+                                {
+                                    "id": "direct_fhole",
+                                    "x": 40,
+                                    "y": 45,
+                                    "radius": 22,
+                                    "isCorrectSpot": false,
+                                    "bestMicTypes": [
+                                        "condenser"
+                                    ],
+                                    "feedback": {
+                                        "default": "Pointing a mic directly *into* the f-hole creates a very boomy, \"woofy\" sound due to trapped resonance."
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "id": "s8",
+                            "title": "Bright Brass Trumpet",
+                            "instruction": "We need a bright, piercing trumpet sound for a funk track. Find the most direct point of projection.",
+                            "background_image": "/images/trumpet_3d_stage.png",
+                            "hotspots": [
+                                {
+                                    "id": "on_axis_bell",
+                                    "x": 25,
+                                    "y": 50,
+                                    "radius": 32,
+                                    "isCorrectSpot": true,
+                                    "bestMicTypes": [
+                                        "dynamic",
+                                        "condenser"
+                                    ],
+                                    "feedback": {
+                                        "dynamic": "Perfect! Placing a dynamic mic directly on-axis with the bell captures the piercing, bright projection necessary for funk.",
+                                        "condenser": "A condenser placed slightly back but on-axis captures immense detail and slicing high-end. Just be careful it doesn't distort!",
+                                        "ribbon": "Ribbon mics are actually the *most* common choice for brass, but they smooth out the high-end. If we want maximum piercing brightness, dynamic or condenser is the aggressive choice."
+                                    },
+                                    "targetAngle": 90,
+                                    "angleTolerance": 30
+                                },
+                                {
+                                    "id": "off_axis",
+                                    "x": 45,
+                                    "y": 25,
+                                    "radius": 36,
+                                    "isCorrectSpot": false,
+                                    "bestMicTypes": [
+                                        "ribbon",
+                                        "dynamic"
+                                    ],
+                                    "feedback": {
+                                        "default": "Miking off-axis (pointing at the bell from an angle) rolls off the harshest high frequencies. It's a great technique for classical or jazz, but not for piercing funk!"
+                                    }
+                                },
+                                {
+                                    "id": "valves",
+                                    "x": 60,
+                                    "y": 45,
+                                    "radius": 27,
+                                    "isCorrectSpot": false,
+                                    "bestMicTypes": [
+                                        "condenser"
+                                    ],
+                                    "feedback": {
+                                        "default": "Miking the valves primarily captures the clicking mechanics of the player's fingers rather than the brass tone."
+                                    }
+                                }
+                            ]
                         }
                     ]
                 },
@@ -10026,9 +10294,16 @@
                 },
                 {
                     "id": "quiz-topic-36",
-                    "title": "Practical Quiz 36: Production Techniques",
+                    "title": "Practical Quiz 36: EDM Production Techniques",
                     "type": "production_technique_quiz",
                     "description": "Interactive masterclass testing your knowledge of EQ, compression, sidechain, automation, and synthesis.",
+                    "questions": []
+                },
+                {
+                    "id": "quiz-topic-37",
+                    "title": "Practical Quiz 37: Rock Production Techniques",
+                    "type": "rock_production_quiz",
+                    "description": "Interactive masterclass testing your knowledge of drum gating, parallel compression, guitar reamping, and mix bus gluing.",
                     "questions": []
                 }
             ]

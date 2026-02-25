@@ -152,7 +152,9 @@
     position: absolute;
     width: 60px;
     height: 120px;
-    transform: translate(-50%, -100%);
+    transform: translate(-50%, -100%) rotate(var(--mic-rotation, 0deg));
+    transform-origin: bottom center;
+    /* Rotate around the base of the mic body */
     cursor: grab;
     z-index: 100;
     display: flex;
@@ -160,7 +162,8 @@
     align-items: center;
     justify-content: flex-end;
     filter: drop-shadow(0 20px 10px rgba(0, 0, 0, 0.5));
-    transition: filter 0.2s ease, transform 0.1s linear;
+    /* Removed transform transition so rotation is snappy during drag */
+    transition: filter 0.2s ease;
 }
 
 .draggable-mic:active {
@@ -202,6 +205,37 @@
     width: 20px;
     border-radius: 4px;
     background: repeating-linear-gradient(0deg, #888, #888 2px, #333 2px, #333 4px);
+}
+
+/* Rotation Handle */
+.rotate-handle {
+    position: absolute;
+    top: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 24px;
+    height: 24px;
+    background-color: var(--bg-card);
+    border: 2px solid var(--accent-blue);
+    border-radius: 50%;
+    cursor: grab;
+    display: none;
+    /* Only show when active/hovering */
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}
+
+.draggable-mic:hover .rotate-handle,
+.draggable-mic.rotating .rotate-handle {
+    display: flex;
+}
+
+.rotate-handle::after {
+    content: "↻";
+    color: var(--accent-blue);
+    font-size: 14px;
+    font-weight: bold;
 }
 
 .feedback-panel {

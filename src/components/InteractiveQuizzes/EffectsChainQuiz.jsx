@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Play, Check, X, RotateCcw, Lightbulb, Volume2, Settings, ArrowDown, Pause, GripVertical, Info } from 'lucide-react';
+import { Play, Check, X, RotateCcw, Lightbulb, Volume2, Settings, ArrowDown, Pause, GripVertical, ChevronUp, ChevronDown, Info, PlusCircle } from 'lucide-react';
 import { useUser } from '../../contexts/UserContext';
 import './EffectsChainQuiz.css';
 
@@ -112,18 +112,31 @@ export default function EffectsChainQuiz({ onExit }) {
     const [parameters, setParameters] = useState({});
     const [isPlaying, setIsPlaying] = useState(false);
     const audioContextRef = useRef(null);
+    const sourceRef = useRef(null);
+    const [showHint, setShowHint] = useState(false);
+
+    // Cache to prevent re-fetching the MP3 every time a knob is dragged
+    const bufferCacheRef = useRef({});
+
+    // Configurations for the 8 available Mini-DAW plugins
+    const effectConfigs = {
+        'eq': { name: 'EQ', parameters: [{ id: 'eq_cutoff', name: 'Cutoff', min: 20, max: 500, target: 120, unit: 'Hz', step: 1, init: 20 }] },
+        'compressor': { name: 'Compressor', parameters: [{ id: 'comp_thresh', name: 'Threshold', min: -40, max: 0, target: -18, unit: 'dB', step: 1, init: 0 }, { id: 'comp_ratio', name: 'Ratio', min: 1, max: 20, target: 4, unit: ':1', step: 1, init: 1 }] },
+        'gate': { name: 'Noise Gate', parameters: [{ id: 'gate_thresh', name: 'Threshold', min: -60, max: 0, target: -40, unit: 'dB', step: 1, init: -60 }] },
+        'reverb': { name: 'Reverb', parameters: [{ id: 'rev_time', name: 'Time', min: 0.1, max: 5.0, target: 1.5, unit: 's', step: 0.1, init: 1.5 }, { id: 'rev_mix', name: 'Mix', min: 0, max: 100, target: 20, unit: '%', step: 1, init: 20 }] },
+        'delay': { name: 'Delay', parameters: [{ id: 'del_time', name: 'Time', min: 0.1, max: 1.0, target: 0.3, unit: 's', step: 0.05, init: 0.3 }, { id: 'del_fb', name: 'Feedback', min: 0, max: 90, target: 30, unit: '%', step: 1, init: 30 }] },
+        'chorus': { name: 'Chorus', parameters: [{ id: 'cho_rate', name: 'Rate', min: 0.1, max: 5.0, target: 1.0, unit: 'Hz', step: 0.1, init: 1.0 }, { id: 'cho_depth', name: 'Depth', min: 0, max: 100, target: 50, unit: '%', step: 1, init: 50 }] },
+        'distortion': { name: 'Distortion', parameters: [{ id: 'dist_drive', name: 'Drive', min: 0, max: 100, target: 50, unit: '%', step: 1, init: 50 }] },
+        'flanger': { name: 'Flanger', parameters: [{ id: 'flan_rate', name: 'Rate', min: 0.1, max: 5.0, target: 0.5, unit: 'Hz', step: 0.1, init: 0.5 }, { id: 'flan_fb', name: 'Feedback', min: 0, max: 90, target: 50, unit: '%', step: 1, init: 50 }] }
+    };
 
     const questions = [
         {
-            type: 'order-chain',
+            type: 'build-chain',
             scenario: 'vocal-recording',
             question: 'You are mixing a dynamic lead vocal that has some low-end rumble from the mic stand. Build a professional signal chain to clean it up, level it out, and put it in a virtual space.',
             hint: 'Think: Do you want a compressor reacting to rumble, or compressing the echoes of a room?',
-            effects: [
-                { id: 'reverb', name: 'Reverb' },
-                { id: 'eq', name: 'EQ' },
-                { id: 'compressor', name: 'Compressor' }
-            ],
+            availableEffects: ['eq', 'compressor', 'gate', 'reverb', 'delay', 'chorus', 'distortion', 'flanger'],
             correctOrder: ['eq', 'compressor', 'reverb'],
             explanation: 'Vocal chain: EQ first to fix frequency issues, Compressor to even out levels, then Reverb for space. Never compress before fixing EQ problems, and reverb always comes last!'
         },
@@ -278,13 +291,14 @@ export default function EffectsChainQuiz({ onExit }) {
     }, [quizComplete, score, questions.length, saveQuizResult]);
 
     useEffect(() => {
-        audioContextRef.current = new (window.AudioContext || window.webkitAudioContext)();
-
         // Initialize first question
         const firstQ = questions[0];
         if (firstQ.type === 'order-chain') {
             const shuffled = [...firstQ.effects].sort(() => Math.random() - 0.5);
             setEffectsOrder(shuffled);
+        } else if (firstQ.type === 'build-chain') {
+            setEffectsOrder([]);
+            setParameters({});
         } else if (firstQ.type === 'set-parameters') {
             const defaults = {};
             firstQ.effect.parameters.forEach(param => {
@@ -292,177 +306,259 @@ export default function EffectsChainQuiz({ onExit }) {
             });
             setParameters(defaults);
         }
-
-        return () => {
-            if (audioContextRef.current) {
-                audioContextRef.current.close();
-            }
-        };
     }, []);
 
-    const playWithEffects = () => {
-        const ctx = audioContextRef.current;
-        if (!ctx || isPlaying) return;
+    // Add a helper for reverb impulse response generation
+    const createReverbImpulse = (ctx, duration = 2.0, decay = 2.0) => {
+        const sampleRate = ctx.sampleRate;
+        const length = sampleRate * duration;
+        const impulse = ctx.createBuffer(2, length, sampleRate);
+        const left = impulse.getChannelData(0);
+        const right = impulse.getChannelData(1);
+
+        for (let i = 0; i < length; i++) {
+            const n = i === 0 ? 1 : 0;
+            left[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / length, decay);
+            right[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / length, decay);
+        }
+        return impulse;
+    };
+
+    const stopAudio = () => {
+        if (sourceRef.current) {
+            try {
+                sourceRef.current.stop();
+                sourceRef.current.disconnect();
+            } catch (e) {
+                // Ignore if already stopped
+            }
+            sourceRef.current = null;
+        }
+        setIsPlaying(false);
+    };
+
+    const playWithEffects = async () => {
+        // Debounce/restart logic
+        stopAudio();
 
         setIsPlaying(true);
-        const now = ctx.currentTime;
-        const q = questions[currentQuestion];
 
-        if (q.scenario.includes('vocal')) {
-            // Simulate a voice: Sawtooth with a tight bandpass filter and vibrato
-            const duration = 1.5;
-            const osc = ctx.createOscillator();
-            const lfo = ctx.createOscillator();
-            const lfoGain = ctx.createGain();
-            const filter = ctx.createBiquadFilter();
-            const gain = ctx.createGain();
-
-            osc.type = 'sawtooth';
-            osc.frequency.value = 220; // A3
-
-            // Vibrato
-            lfo.type = 'sine';
-            lfo.frequency.value = 5.5; // 5.5Hz vibrato
-            lfoGain.gain.value = 5; // Pitch modulation depth
-            lfo.connect(lfoGain);
-            lfoGain.connect(osc.frequency);
-
-            // Formant/Voice Filter
-            filter.type = 'bandpass';
-            filter.frequency.value = 1200;
-            filter.Q.value = 2;
-
-            gain.gain.setValueAtTime(0, now);
-            gain.gain.linearRampToValueAtTime(0.3, now + 0.2); // Slow vocal attack
-            gain.gain.linearRampToValueAtTime(0.2, now + duration - 0.2);
-            gain.gain.linearRampToValueAtTime(0, now + duration);
-
-            osc.connect(filter);
-            filter.connect(gain);
-            gain.connect(ctx.destination);
-
-            osc.start(now);
-            lfo.start(now);
-            osc.stop(now + duration);
-            lfo.stop(now + duration);
-
-            setTimeout(() => setIsPlaying(false), duration * 1000);
-
-        } else if (q.scenario.includes('guitar')) {
-            // Simulate distorted guitar: Power chord (Root, Fifth, Octave)
-            const duration = 1.0;
-            const root = 146.83; // D3
-
-            const osc1 = ctx.createOscillator();
-            const osc2 = ctx.createOscillator();
-            const osc3 = ctx.createOscillator();
-            const filter = ctx.createBiquadFilter();
-            const gain = ctx.createGain();
-
-            osc1.type = 'square';
-            osc2.type = 'square';
-            osc3.type = 'square';
-
-            osc1.frequency.value = root;
-            osc2.frequency.value = root * 1.5; // Perfect 5th
-            osc3.frequency.value = root * 2;   // Octave
-
-            // Filter out harsh highs
-            filter.type = 'lowpass';
-            filter.frequency.value = 4000;
-
-            gain.gain.setValueAtTime(0, now);
-            gain.gain.linearRampToValueAtTime(0.15, now + 0.05); // Fast attack
-            gain.gain.exponentialRampToValueAtTime(0.01, now + duration);
-
-            osc1.connect(filter);
-            osc2.connect(filter);
-            osc3.connect(filter);
-            filter.connect(gain);
-            gain.connect(ctx.destination);
-
-            osc1.start(now);
-            osc2.start(now);
-            osc3.start(now);
-            osc1.stop(now + duration);
-            osc2.stop(now + duration);
-            osc3.stop(now + duration);
-
-            setTimeout(() => setIsPlaying(false), duration * 1000);
-
-        } else if (q.scenario.includes('drums') || q.scenario.includes('parallel')) {
-            // Simulate Kick and Snare
-            const duration = 0.8;
-
-            // Kick
-            const kickOsc = ctx.createOscillator();
-            const kickGain = ctx.createGain();
-            kickOsc.type = 'sine';
-
-            // Pitch drop for kick
-            kickOsc.frequency.setValueAtTime(150, now);
-            kickOsc.frequency.exponentialRampToValueAtTime(40, now + 0.1);
-
-            kickGain.gain.setValueAtTime(0.6, now);
-            kickGain.gain.exponentialRampToValueAtTime(0.01, now + 0.2);
-
-            kickOsc.connect(kickGain);
-            kickGain.connect(ctx.destination);
-
-            kickOsc.start(now);
-            kickOsc.stop(now + 0.3);
-
-            // Snare (offset by 0.4s)
-            const snareTime = now + 0.4;
-            const bufferSize = ctx.sampleRate * 0.2; // 0.2 seconds of noise
-            const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
-            const data = buffer.getChannelData(0);
-            for (let i = 0; i < bufferSize; i++) {
-                data[i] = Math.random() * 2 - 1;
+        try {
+            // Lazy-init AudioContext so it only starts on user gesture
+            if (!audioContextRef.current) {
+                audioContextRef.current = new (window.AudioContext || window.webkitAudioContext)();
+            } else if (audioContextRef.current.state === 'suspended') {
+                await audioContextRef.current.resume();
             }
-            const noise = ctx.createBufferSource();
-            noise.buffer = buffer;
-            const noiseFilter = ctx.createBiquadFilter();
-            const snareGain = ctx.createGain();
+            const ctx = audioContextRef.current;
 
-            noiseFilter.type = 'bandpass';
-            noiseFilter.frequency.value = 2500;
-            noiseFilter.Q.value = 1;
+            const q = questions[currentQuestion];
+            let fileSuffix = 'mastering';
+            if (q.scenario.includes('vocal') || q.scenario.includes('eq-remove')) fileSuffix = 'vocal';
+            else if (q.scenario.includes('guitar')) fileSuffix = 'guitar';
+            else if (q.scenario.includes('drums') || q.scenario.includes('parallel')) fileSuffix = 'drums';
 
-            snareGain.gain.setValueAtTime(0.4, snareTime);
-            snareGain.gain.exponentialRampToValueAtTime(0.01, snareTime + 0.2);
+            // 1. Fetch and decode the pure audio file (with caching)
+            const mp3Path = `/Audio/Audio_effect_quiz_audio/${fileSuffix}-dry.mp3`;
+            let audioBuffer = bufferCacheRef.current[mp3Path];
 
-            noise.connect(noiseFilter);
-            noiseFilter.connect(snareGain);
-            snareGain.connect(ctx.destination);
+            if (!audioBuffer) {
+                const response = await fetch(mp3Path);
+                const arrayBuffer = await response.arrayBuffer();
+                audioBuffer = await ctx.decodeAudioData(arrayBuffer);
+                bufferCacheRef.current[mp3Path] = audioBuffer;
+            }
 
-            noise.start(snareTime);
+            // 2. Set up the source
+            const source = ctx.createBufferSource();
+            source.buffer = audioBuffer;
+            sourceRef.current = source; // Store for stopAudio()
 
-            setTimeout(() => setIsPlaying(false), duration * 1000);
+            // 3. Build the dynamic node graph based on UI state
+            const nodes = [];
 
-        } else {
-            // Default / Mastering (Rich synth chord)
-            const duration = 2.0;
-            const root = 261.63; // C4
+            // Helpful local function to generate a specific node based on an ID
+            const createNodeForEffect = (effectId) => {
+                let node;
 
-            [1, 1.25, 1.5, 2].forEach(ratio => {
-                const osc = ctx.createOscillator();
-                const gain = ctx.createGain();
-                osc.type = 'triangle';
-                osc.frequency.value = root * ratio;
+                // Helper to get current parameter value or fallback to init
+                const getParam = (paramId) => {
+                    if (parameters[paramId] !== undefined) return parameters[paramId];
+                    if (!effectConfigs[effectId]) return 0;
+                    const cfg = effectConfigs[effectId].parameters.find(p => p.id === paramId);
+                    return cfg ? cfg.init : 0;
+                };
 
-                gain.gain.setValueAtTime(0, now);
-                gain.gain.linearRampToValueAtTime(0.1, now + 0.1);
-                gain.gain.exponentialRampToValueAtTime(0.01, now + duration);
+                if (effectId === 'eq') {
+                    node = ctx.createBiquadFilter();
+                    node.type = 'highpass';
+                    node.frequency.value = getParam('eq_cutoff') || 120;
+                } else if (effectId === 'compressor') {
+                    node = ctx.createDynamicsCompressor();
+                    node.threshold.value = getParam('comp_thresh') || -18;
+                    node.ratio.value = getParam('comp_ratio') || 4;
+                } else if (effectId === 'gate') {
+                    // Simulated Noise Gate using a WaveShaper curve for downward expansion
+                    node = ctx.createWaveShaper();
+                    const thresholdDB = getParam('gate_thresh') || -40;
+                    const thresholdLinear = Math.pow(10, thresholdDB / 20);
+                    const curve = new Float32Array(256);
+                    for (let i = 0; i < 256; i++) {
+                        const x = (i * 2 / 255) - 1;
+                        curve[i] = Math.abs(x) < thresholdLinear ? 0 : x;
+                    }
+                    node.curve = curve;
+                } else if (effectId === 'reverb') {
+                    node = ctx.createConvolver();
+                    const time = getParam('rev_time') || 1.5;
+                    node.buffer = createReverbImpulse(ctx, time, 2.0);
+                    const wet = ctx.createGain();
+                    const dry = ctx.createGain();
+                    const mix = getParam('rev_mix') || 20;
+                    wet.gain.value = mix / 100;
+                    dry.gain.value = 1 - (mix / 100);
+                    return { isMixer: true, effect: node, wet, dry };
+                } else if (effectId === 'delay') {
+                    node = ctx.createDelay(2.0);
+                    node.delayTime.value = getParam('del_time') || 0.3;
+                    const feedback = ctx.createGain();
+                    feedback.gain.value = (getParam('del_fb') || 30) / 100;
+                    node.connect(feedback);
+                    feedback.connect(node);
 
-                osc.connect(gain);
-                gain.connect(ctx.destination);
+                    const wet = ctx.createGain();
+                    const dry = ctx.createGain();
+                    wet.gain.value = 0.5; // Fixed 50% wet signal path
+                    dry.gain.value = 1.0;
+                    return { ...{ isMixer: true, effect: node, wet, dry, fb: feedback } };
+                } else if (effectId === 'chorus' || effectId === 'flanger') {
+                    const isFlanger = effectId === 'flanger';
+                    node = ctx.createDelay(0.1);
+                    node.delayTime.value = isFlanger ? 0.005 : 0.02; // Flanger=5ms base, Chorus=20ms base
 
-                osc.start(now);
-                osc.stop(now + duration);
+                    const lfo = ctx.createOscillator();
+                    lfo.type = 'sine';
+                    lfo.frequency.value = getParam(isFlanger ? 'flan_rate' : 'cho_rate') || 1.0;
+
+                    const lfoGain = ctx.createGain();
+                    lfoGain.gain.value = isFlanger ? 0.002 : 0.005;
+
+                    lfo.connect(lfoGain);
+                    lfoGain.connect(node.delayTime);
+                    lfo.start();
+
+                    const wet = ctx.createGain();
+                    const dry = ctx.createGain();
+
+                    if (isFlanger) {
+                        const feedback = ctx.createGain();
+                        feedback.gain.value = (getParam('flan_fb') || 50) / 100;
+                        node.connect(feedback);
+                        feedback.connect(node);
+                        wet.gain.value = 0.5;
+                    } else {
+                        wet.gain.value = (getParam('cho_depth') || 50) / 100;
+                    }
+
+                    return { ...{ isMixer: true, effect: node, wet, dry, lfo } };
+                } else if (effectId === 'distortion') {
+                    node = ctx.createWaveShaper();
+                    const drive = getParam('dist_drive') || 50;
+                    const amount = drive * 10;
+                    const curve = new Float32Array(ctx.sampleRate);
+                    const step = 2 / ctx.sampleRate;
+                    for (let i = 0; i < ctx.sampleRate; i++) {
+                        const x = i * step - 1;
+                        curve[i] = amount === 0 ? x : (3 + amount) * x * 20 * (Math.PI / 180) / (Math.PI + amount * Math.abs(x));
+                    }
+                    node.curve = curve;
+                    node.oversample = '4x';
+                } else {
+                    node = ctx.createGain(); // Fallback null-op
+                }
+                return node;
+            };
+
+            // Order-Chain logic: string the nodes together in the exact visual order
+            if (q.type === 'order-chain' || q.type === 'build-chain') {
+                effectsOrder.forEach(effect => {
+                    nodes.push(createNodeForEffect(effect.id));
+                });
+            }
+            // Knob-Parameter logic: create the single effect and map the live React state to it
+            else if (q.type === 'set-parameters') {
+                if (q.effect.name.toLowerCase().includes('compressor')) {
+                    const comp = ctx.createDynamicsCompressor();
+                    comp.threshold.value = parameters['threshold'] || -18;
+                    comp.ratio.value = parameters['ratio'] || 4;
+                    comp.attack.value = (parameters['attack'] || 10) / 1000; // ms to s
+                    comp.release.value = (parameters['release'] || 100) / 1000; // ms to s
+                    nodes.push(comp);
+                } else if (q.effect.name.toLowerCase().includes('eq')) {
+                    const eq = ctx.createBiquadFilter();
+                    eq.type = 'peaking';
+                    eq.frequency.value = parameters['frequency'] || 250;
+                    eq.Q.value = parameters['q'] || 1;
+                    eq.gain.value = parameters['gain'] || 0;
+                    nodes.push(eq);
+                } else if (q.effect.name.toLowerCase().includes('reverb')) {
+                    const rev = ctx.createConvolver();
+                    const time = parameters['time'] || 1.5;
+                    rev.buffer = createReverbImpulse(ctx, time, 2.0);
+
+                    // Simple wet/dry mix setup
+                    const wet = ctx.createGain();
+                    const dry = ctx.createGain();
+                    const mix = parameters['mix'] || 20;
+                    wet.gain.value = mix / 100;
+                    dry.gain.value = 1 - (mix / 100);
+
+                    // Wrap in an array wrapper for custom routing below
+                    nodes.push({ isMixer: true, effect: rev, wet, dry });
+                }
+            }
+
+            // 4. Wire everything together!
+            let currentNode = source;
+
+            nodes.forEach(nodeObj => {
+                if (nodeObj.isMixer) {
+                    // Custom parallel routing (e.g. for Reverb wet/dry)
+                    currentNode.connect(nodeObj.dry);
+                    currentNode.connect(nodeObj.effect);
+                    nodeObj.effect.connect(nodeObj.wet);
+
+                    // Merge back into a master bus
+                    const bus = ctx.createGain();
+                    nodeObj.dry.connect(bus);
+                    nodeObj.wet.connect(bus);
+                    currentNode = bus;
+                } else {
+                    // Standard serial routing
+                    currentNode.connect(nodeObj);
+                    currentNode = nodeObj;
+                }
             });
 
-            setTimeout(() => setIsPlaying(false), duration * 1000);
+            // Master volume to prevent clipping
+            const masterVol = ctx.createGain();
+            masterVol.gain.value = 0.7;
+            currentNode.connect(masterVol);
+            masterVol.connect(ctx.destination);
+
+            // 5. Play!
+            source.start(0);
+
+            source.onended = () => {
+                if (sourceRef.current === source) {
+                    setIsPlaying(false);
+                    sourceRef.current = null;
+                }
+            };
+
+        } catch (error) {
+            console.error("Audio engine failed:", error);
+            setIsPlaying(false);
         }
     };
 
@@ -487,16 +583,66 @@ export default function EffectsChainQuiz({ onExit }) {
         setDraggedEffect(null);
     };
 
+    const addEffectToRack = (effectId) => {
+        if (showFeedback || effectsOrder.length >= 3) return;
+        const cfg = effectConfigs[effectId];
+        setEffectsOrder([...effectsOrder, { id: effectId, name: cfg.name }]);
+        setParameters(prev => {
+            const newParams = { ...prev };
+            cfg.parameters.forEach(p => {
+                newParams[p.id] = p.init;
+            });
+            return newParams;
+        });
+        if (isPlaying) {
+            playWithEffects();
+        }
+    };
+
+    const removeEffectFromRack = (index) => {
+        if (showFeedback) return;
+        const newOrder = [...effectsOrder];
+        newOrder.splice(index, 1);
+        setEffectsOrder(newOrder);
+        if (isPlaying) {
+            playWithEffects();
+        }
+    };
+
+    const moveEffectUp = (index) => {
+        if (showFeedback || index === 0) return;
+        const newOrder = [...effectsOrder];
+        const temp = newOrder[index - 1];
+        newOrder[index - 1] = newOrder[index];
+        newOrder[index] = temp;
+        setEffectsOrder(newOrder);
+        if (isPlaying) playWithEffects();
+    };
+
+    const moveEffectDown = (index) => {
+        if (showFeedback || index === effectsOrder.length - 1) return;
+        const newOrder = [...effectsOrder];
+        const temp = newOrder[index + 1];
+        newOrder[index + 1] = newOrder[index];
+        newOrder[index] = temp;
+        setEffectsOrder(newOrder);
+        if (isPlaying) playWithEffects();
+    };
+
     const updateParameter = (paramId, value) => {
         if (showFeedback) return;
         setParameters(prev => ({ ...prev, [paramId]: value }));
+        // If they tweak a knob while audio is playing, instantly recalculate the graph
+        if (isPlaying) {
+            playWithEffects();
+        }
     };
 
     const checkAnswer = async () => {
         const q = questions[currentQuestion];
         let isCorrect = false;
 
-        if (q.type === 'order-chain') {
+        if (q.type === 'order-chain' || q.type === 'build-chain') {
             const currentIds = effectsOrder.map(e => e.id);
             isCorrect = JSON.stringify(currentIds) === JSON.stringify(q.correctOrder);
         } else if (q.type === 'set-parameters') {
@@ -513,12 +659,14 @@ export default function EffectsChainQuiz({ onExit }) {
             setScore(score + 1);
         }
 
+        stopAudio();
         await getAIExplanation(q, isCorrect);
     };
 
     const handleMultipleChoice = async (answer) => {
         setSelectedAnswer(answer);
         setShowFeedback(true);
+        stopAudio();
 
         const currentQ = questions[currentQuestion];
         const isCorrect = answer === currentQ.correct;
@@ -546,16 +694,21 @@ export default function EffectsChainQuiz({ onExit }) {
     };
 
     const nextQuestion = () => {
+        stopAudio();
         if (currentQuestion < questions.length - 1) {
             setCurrentQuestion(currentQuestion + 1);
             setSelectedAnswer(null);
             setShowFeedback(false);
+            setShowHint(false);
             setAiExplanation('');
 
             const nextQ = questions[currentQuestion + 1];
             if (nextQ.type === 'order-chain') {
                 const shuffled = [...nextQ.effects].sort(() => Math.random() - 0.5);
                 setEffectsOrder(shuffled);
+            } else if (nextQ.type === 'build-chain') {
+                setEffectsOrder([]);
+                setParameters({});
             } else if (nextQ.type === 'set-parameters') {
                 const defaults = {};
                 nextQ.effect.parameters.forEach(param => {
@@ -569,11 +722,13 @@ export default function EffectsChainQuiz({ onExit }) {
     };
 
     const resetQuiz = () => {
+        stopAudio();
         setCurrentQuestion(0);
         setScore(0);
         setSelectedAnswer(null);
         setShowFeedback(false);
         setQuizComplete(false);
+        setShowHint(false);
         setAiExplanation('');
         setEffectsOrder([]);
         setParameters({});
@@ -616,8 +771,23 @@ export default function EffectsChainQuiz({ onExit }) {
                     onDrop={() => handleDrop(index)}
                     className={`fx-draggable-box ${showFeedback ? 'disabled' : ''} ${isDragSource ? 'dragging' : ''} ${statusClass}`}
                 >
-                    <div className="fx-grip-icon">
-                        <GripVertical size={20} />
+                    <div className="fx-grip-icon" style={{ display: 'flex', flexDirection: 'column', marginRight: '1rem', opacity: showFeedback ? 0.2 : 0.8 }}>
+                        <button
+                            onClick={(e) => { e.stopPropagation(); moveEffectUp(index); }}
+                            disabled={index === 0 || showFeedback}
+                            className={`hover:text-white transition-colors ${index === 0 ? 'opacity-20 cursor-not-allowed' : 'cursor-pointer'}`}
+                            title="Move Up"
+                        >
+                            <ChevronUp size={20} />
+                        </button>
+                        <button
+                            onClick={(e) => { e.stopPropagation(); moveEffectDown(index); }}
+                            disabled={index === effectsOrder.length - 1 || showFeedback}
+                            className={`hover:text-white transition-colors ${index === effectsOrder.length - 1 ? 'opacity-20 cursor-not-allowed' : 'cursor-pointer'}`}
+                            title="Move Down"
+                        >
+                            <ChevronDown size={20} />
+                        </button>
                     </div>
                     <span>{effect.name}</span>
                 </div>
@@ -634,6 +804,146 @@ export default function EffectsChainQuiz({ onExit }) {
 
     const renderQuestion = () => {
         const q = questions[currentQuestion];
+
+        // Local render method for build-chain rack effect
+        const renderRackEffect = (effectItem, index) => {
+            const isCorrectOrder = showFeedback && selectedAnswer && q.correctOrder && q.correctOrder[index] === effectItem.id;
+            const cfg = effectConfigs[effectItem.id];
+            const isDragSource = draggedEffect && draggedEffect.effect.id === effectItem.id;
+
+            return (
+                <div
+                    key={`${effectItem.id}-${index}`}
+                    className={`bg-slate-800/80 border border-slate-700/50 rounded-xl mb-2 relative transition-all duration-200 ${isDragSource ? 'opacity-50 scale-[0.98]' : 'hover:border-slate-500/50'} ${showFeedback ? 'pointer-events-none' : ''}`}
+                    style={{ borderColor: showFeedback && !selectedAnswer ? 'rgba(239, 68, 68, 0.5)' : '' }}
+                    draggable={!showFeedback}
+                    onDragStart={() => handleDragStart(effectItem, index)}
+                    onDragOver={handleDragOver}
+                    onDrop={() => handleDrop(index)}
+                >
+                    {/* Header with name and controls */}
+                    <div className="flex justify-between items-center px-4 py-2 border-b border-black/20 bg-black/10 rounded-t-xl">
+                        <div className="flex items-center gap-3">
+                            <div className="cursor-grab hover:text-amber-500 transition-colors opacity-60 hover:opacity-100 flex items-center justify-center py-1">
+                                <GripVertical size={16} />
+                            </div>
+                            <span className="font-bold text-md text-white/90">{cfg.name}</span>
+                        </div>
+                        <button
+                            onClick={(e) => { e.stopPropagation(); removeEffectFromRack(index); }}
+                            className="text-red-400/70 hover:text-red-400 hover:bg-red-400/10 p-1 rounded-md transition-colors"
+                            title="Remove Plugin"
+                        >
+                            <X size={16} />
+                        </button>
+                    </div>
+
+                    {/* Knobs */}
+                    <div className="fx-knob-grid px-3 py-3">
+                        {cfg.parameters.map(param => {
+                            const val = parameters[param.id] !== undefined ? parameters[param.id] : param.init;
+                            return (
+                                <div key={param.id}>
+                                    <KnobComponent
+                                        label={param.name}
+                                        value={val}
+                                        min={param.min}
+                                        max={param.max}
+                                        step={param.step}
+                                        unit={param.unit}
+                                        onChange={(v) => updateParameter(param.id, v)}
+                                        showFeedback={false}
+                                    />
+                                </div>
+                            );
+                        })}
+                    </div>
+                </div>
+            );
+        };
+
+        if (q.type === 'build-chain') {
+            const isCorrect = showFeedback && selectedAnswer;
+
+            return (
+                <div className="space-y-6 w-full">
+                    {/* Available Plugins Pool */}
+                    <div className="bg-slate-800/50 border border-white/10 rounded-xl p-4">
+                        <p className="text-sm text-slate-400 uppercase font-bold mb-3 flex items-center gap-2">
+                            <PlusCircle size={14} /> Available Plugins
+                        </p>
+                        <div className="flex flex-wrap gap-2">
+                            {q.availableEffects.map(effectId => {
+                                const cfg = effectConfigs[effectId];
+                                const isAdded = effectsOrder.some(e => e.id === effectId);
+                                return (
+                                    <button
+                                        key={`pool-${effectId}`}
+                                        onClick={() => addEffectToRack(effectId)}
+                                        disabled={showFeedback || effectsOrder.length >= 3 || isAdded}
+                                        className={`px-3 py-2 rounded border text-sm font-medium transition-colors
+                                            ${isAdded ? 'bg-indigo-900/50 border-indigo-500/30 text-indigo-300' : 'bg-slate-800 border-slate-600 text-slate-200 hover:bg-slate-700'}
+                                            disabled:opacity-50
+                                        `}
+                                    >
+                                        {cfg.name}
+                                    </button>
+                                );
+                            })}
+                        </div>
+                        <p className="text-xs text-amber-500/70 mt-3 flex items-center gap-1">
+                            <Info size={12} /> Add up to 3 plugins to the rack below.
+                        </p>
+                    </div>
+
+                    {/* Active Rack */}
+                    <div className="bg-slate-900 border border-slate-700 rounded-xl p-4 min-h-[300px]">
+                        <p className="text-sm text-slate-400 uppercase font-bold mb-4 flex justify-between items-center">
+                            <span><Settings size={14} className="inline mr-2" /> Active Signal Chain (Max 3)</span>
+                            <span className="text-amber-500 bg-amber-500/10 px-2 py-1 rounded">{effectsOrder.length} / 3</span>
+                        </p>
+
+                        {effectsOrder.length === 0 ? (
+                            <div className="flex flex-col items-center justify-center h-40 text-slate-500 border-2 border-dashed border-slate-700 rounded-lg">
+                                <PlusCircle size={32} className="mb-2 opacity-50" />
+                                <p>Click plugins above to add them to your chain</p>
+                            </div>
+                        ) : (
+                            <div className="flex flex-col gap-2">
+                                {effectsOrder.map((effect, index) => renderRackEffect(effect, index))}
+                            </div>
+                        )}
+                    </div>
+
+                    {!showFeedback && (
+                        <div className="flex gap-2 mt-6">
+                            <button
+                                onClick={playWithEffects}
+                                disabled={isPlaying}
+                                className="px-4 py-3 bg-slate-800 text-white rounded-lg hover:bg-slate-700 border border-slate-600 disabled:opacity-50 flex items-center gap-2 text-sm"
+                            >
+                                {isPlaying ? <Pause size={16} /> : <Volume2 size={16} />}
+                                {isPlaying ? 'Playing...' : 'Test AUDIO'}
+                            </button>
+                            <button
+                                onClick={checkAnswer}
+                                disabled={effectsOrder.length !== 3}
+                                className="btn-primary flex-1 py-3 flex items-center justify-center gap-2 text-lg shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                            >
+                                Submit Answer
+                            </button>
+                        </div>
+                    )}
+
+                    {showFeedback && !isCorrect && (
+                        <div className="fx-correct-order-box mt-4">
+                            <strong>Correct Sequence:</strong><br />
+                            {q.correctOrder.map(id => effectConfigs[id].name).join(' → ')}
+                        </div>
+                    )}
+                </div>
+            );
+        }
 
         if (q.type === 'order-chain') {
             const isCorrect = showFeedback && JSON.stringify(effectsOrder.map(e => e.id)) === JSON.stringify(q.correctOrder);
@@ -670,7 +980,7 @@ export default function EffectsChainQuiz({ onExit }) {
                         </div>
                     )}
 
-                    {showFeedback && !isCorrect && (
+                    {showFeedback && !isCorrect && q.effects && (
                         <div className="fx-correct-order-box">
                             <strong>Correct Order:</strong><br />{q.correctOrder.map(id => q.effects.find(e => e.id === id).name).join(' → ')}
                         </div>
@@ -813,18 +1123,30 @@ export default function EffectsChainQuiz({ onExit }) {
 
                 <div className="question-card">
                     <div className="question-header">
-                        <span>{questions[currentQuestion].question}</span>
+                        <span className="fx-question-text">{questions[currentQuestion].question}</span>
                     </div>
 
                     <div className="question-text">
 
                         {questions[currentQuestion].hint && (
-                            <div className="bg-amber-500/10 border-l-4 border-amber-500 p-3 mb-6 flex gap-3">
-                                <Lightbulb className="text-amber-500 flex-shrink-0" size={20} />
-                                <div>
-                                    <p className="text-xs font-bold text-amber-500 uppercase">Hint</p>
-                                    <p className="text-sm text-amber-200">{questions[currentQuestion].hint}</p>
+                            <div className="bg-amber-500/10 border-l-4 border-amber-500 p-3 mb-6 flex flex-col gap-2">
+                                <div className="flex gap-3 items-center">
+                                    <Lightbulb className="text-amber-500 flex-shrink-0" size={20} />
+                                    <div className="flex-grow">
+                                        <p className="text-xs font-bold text-amber-500 uppercase">Hint</p>
+                                    </div>
+                                    {!showHint && (
+                                        <button
+                                            onClick={() => setShowHint(true)}
+                                            className="fx-hint-toggle-btn"
+                                        >
+                                            Reveal Hint
+                                        </button>
+                                    )}
                                 </div>
+                                {showHint && (
+                                    <p className="text-sm text-amber-200 mt-2 ml-[32px]">{questions[currentQuestion].hint}</p>
+                                )}
                             </div>
                         )}
 

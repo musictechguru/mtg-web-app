@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Play, Square } from 'lucide-react';
 import './ProductionTechniqueQuiz.css';
 
 const quizData = [
@@ -120,6 +121,455 @@ const ProductionTechniqueQuiz = ({ onExit }) => {
     const [isAnswered, setIsAnswered] = useState(false);
     const [score, setScore] = useState(0);
     const [quizFinished, setQuizFinished] = useState(false);
+    const [isPlaying, setIsPlaying] = useState(false);
+
+    const audioContextRef = useRef(null);
+    const activeSources = useRef([]);
+
+    // Initialize AudioContext
+    useEffect(() => {
+        const AudioCtor = window.AudioContext || window.webkitAudioContext;
+        audioContextRef.current = new AudioCtor();
+        return () => {
+            if (audioContextRef.current) {
+                audioContextRef.current.close();
+            }
+        };
+    }, []);
+
+    const stopAudio = () => {
+        activeSources.current.forEach(source => {
+            try { source.stop(); } catch (e) { }
+        });
+        activeSources.current = [];
+        setIsPlaying(false);
+    };
+
+    const playAudioExample = () => {
+        if (isPlaying) {
+            stopAudio();
+            return;
+        }
+
+        const ctx = audioContextRef.current;
+        if (!ctx) return;
+
+        if (ctx.state === 'suspended') {
+            ctx.resume();
+        }
+
+        setIsPlaying(true);
+        const now = ctx.currentTime;
+        let playDuration = 4; // Default duration
+
+        // Helper to add active sources
+        const addSource = (src) => activeSources.current.push(src);
+
+        // --- Master Out ---
+        const masterGain = ctx.createGain();
+        masterGain.gain.value = 0.5;
+        masterGain.connect(ctx.destination);
+
+        // Audio Generation Logic based on current question
+        switch (currentQuestionIndex) {
+            case 0: // Pumping Sidechain Compression
+                {
+                    playDuration = 4;
+                    // Synth chord
+                    const chordGain = ctx.createGain();
+                    chordGain.connect(masterGain);
+
+                    // Simple Sidechain Envelope (Ducking on quarter notes)
+                    for (let i = 0; i < 8; i++) {
+                        const hitTime = now + (i * 0.5);
+                        chordGain.gain.setValueAtTime(0.1, hitTime);
+                        chordGain.gain.setTargetAtTime(0.8, hitTime + 0.1, 0.1);
+
+                        // Kick
+                        const kick = ctx.createOscillator();
+                        const kickGain = ctx.createGain();
+                        kick.connect(kickGain);
+                        kickGain.connect(masterGain);
+
+                        kick.frequency.setValueAtTime(150, hitTime);
+                        kick.frequency.exponentialRampToValueAtTime(0.01, hitTime + 0.1);
+
+                        kickGain.gain.setValueAtTime(1, hitTime);
+                        kickGain.gain.exponentialRampToValueAtTime(0.01, hitTime + 0.1);
+
+                        kick.start(hitTime);
+                        kick.stop(hitTime + 0.2);
+                        addSource(kick);
+                    }
+
+                    [261.63, 329.63, 392.00].forEach(freq => { // C Major
+                        const osc = ctx.createOscillator();
+                        osc.type = 'sawtooth';
+                        osc.frequency.value = freq;
+                        osc.connect(chordGain);
+                        osc.start(now);
+                        osc.stop(now + playDuration);
+                        addSource(osc);
+                    });
+                }
+                break;
+
+            case 1: // Multiband Sidechain
+                {
+                    playDuration = 4;
+                    // Mid Bass (No ducking)
+                    const midBassGain = ctx.createGain();
+                    midBassGain.gain.value = 0.4;
+                    midBassGain.connect(masterGain);
+                    const midOsc = ctx.createOscillator();
+                    midOsc.type = 'sawtooth';
+                    midOsc.frequency.value = 110; // A2
+                    midOsc.connect(midBassGain);
+                    midOsc.start(now);
+                    midOsc.stop(now + playDuration);
+                    addSource(midOsc);
+
+                    // Sub Bass (Ducking)
+                    const subBassGain = ctx.createGain();
+                    subBassGain.connect(masterGain);
+                    const subOsc = ctx.createOscillator();
+                    subOsc.type = 'sine';
+                    subOsc.frequency.value = 55; // A1
+                    subOsc.connect(subBassGain);
+                    subOsc.start(now);
+                    subOsc.stop(now + playDuration);
+                    addSource(subOsc);
+
+                    for (let i = 0; i < 8; i++) {
+                        const hitTime = now + (i * 0.5);
+                        subBassGain.gain.setValueAtTime(0.0, hitTime);
+                        subBassGain.gain.setTargetAtTime(1.0, hitTime + 0.1, 0.1); // Ducks!
+
+                        // Kick
+                        const kick = ctx.createOscillator();
+                        const kickGain = ctx.createGain();
+                        kick.connect(kickGain);
+                        kickGain.connect(masterGain);
+                        kick.frequency.setValueAtTime(150, hitTime);
+                        kick.frequency.exponentialRampToValueAtTime(0.01, hitTime + 0.1);
+                        kickGain.gain.setValueAtTime(1, hitTime);
+                        kickGain.gain.exponentialRampToValueAtTime(0.01, hitTime + 0.1);
+                        kick.start(hitTime);
+                        kick.stop(hitTime + 0.2);
+                        addSource(kick);
+                    }
+                }
+                break;
+
+            case 2: // Filter Automation (Low-pass opening)
+                {
+                    playDuration = 5;
+                    const chordGain = ctx.createGain();
+                    const filter = ctx.createBiquadFilter();
+                    filter.type = 'lowpass';
+                    filter.frequency.setValueAtTime(200, now);
+                    filter.frequency.exponentialRampToValueAtTime(5000, now + 4);
+                    filter.connect(masterGain);
+                    chordGain.connect(filter);
+
+                    [440, 554.37, 659.25].forEach(freq => { // A Major
+                        const osc = ctx.createOscillator();
+                        osc.type = 'sawtooth';
+                        osc.frequency.value = freq;
+                        osc.connect(chordGain);
+                        osc.start(now);
+                        osc.stop(now + playDuration);
+                        addSource(osc);
+                    });
+                }
+                break;
+
+            case 3: // White noise riser sweeps
+                {
+                    playDuration = 4;
+                    const bufferSize = ctx.sampleRate * playDuration;
+                    const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+                    const data = buffer.getChannelData(0);
+                    for (let i = 0; i < bufferSize; i++) {
+                        data[i] = Math.random() * 2 - 1;
+                    }
+                    const noise = ctx.createBufferSource();
+                    noise.buffer = buffer;
+
+                    const filter = ctx.createBiquadFilter();
+                    filter.type = 'bandpass';
+                    filter.frequency.setValueAtTime(100, now);
+                    filter.frequency.exponentialRampToValueAtTime(10000, now + playDuration);
+                    filter.Q.value = 2; // Slight resonance
+
+                    const gain = ctx.createGain();
+                    gain.gain.setValueAtTime(0.01, now);
+                    gain.gain.linearRampToValueAtTime(0.5, now + playDuration);
+
+                    noise.connect(filter);
+                    filter.connect(gain);
+                    gain.connect(masterGain);
+
+                    noise.start(now);
+                    addSource(noise);
+                }
+                break;
+
+            case 4: // Supersaw lead stack
+                {
+                    playDuration = 3;
+                    const leadGain = ctx.createGain();
+                    leadGain.gain.value = 0.6 / 5; // Prevent clipping
+                    leadGain.connect(masterGain);
+
+                    const baseFreq = 440;
+                    const detunes = [-15, -7, 0, 7, 15]; // Cents
+                    detunes.forEach(detune => {
+                        const osc = ctx.createOscillator();
+                        osc.type = 'sawtooth';
+                        osc.frequency.value = baseFreq;
+                        osc.detune.value = detune;
+                        osc.connect(leadGain);
+                        osc.start(now);
+                        osc.stop(now + playDuration);
+                        addSource(osc);
+                    });
+                }
+                break;
+
+            case 5: // Wobble/LFO bass
+                {
+                    playDuration = 4;
+                    const osc = ctx.createOscillator();
+                    osc.type = 'sawtooth';
+                    osc.frequency.value = 55; // A1
+
+                    const filter = ctx.createBiquadFilter();
+                    filter.type = 'lowpass';
+                    filter.Q.value = 5;
+
+                    // LFO attached to filter freq
+                    const lfo = ctx.createOscillator();
+                    lfo.type = 'sine';
+                    lfo.frequency.setValueAtTime(1, now); // 1 Hz wobble
+                    lfo.frequency.linearRampToValueAtTime(8, now + 3); // Speed up
+
+                    const lfoGain = ctx.createGain();
+                    lfoGain.gain.value = 1500; // Modulation depth
+
+                    // Base frequency is 200, swings from 200 to 1700
+                    filter.frequency.value = 200;
+
+                    lfo.connect(lfoGain);
+                    lfoGain.connect(filter.frequency);
+
+                    osc.connect(filter);
+                    filter.connect(masterGain);
+
+                    osc.start(now);
+                    lfo.start(now);
+                    osc.stop(now + playDuration);
+                    lfo.stop(now + playDuration);
+                    addSource(osc);
+                    addSource(lfo);
+                }
+                break;
+
+            case 6: // Bass split processing
+                {
+                    playDuration = 3;
+                    // Sub
+                    const subOsc = ctx.createOscillator();
+                    subOsc.type = 'sine';
+                    subOsc.frequency.value = 55;
+
+                    const subGain = ctx.createGain();
+                    subGain.gain.value = 0.6;
+                    subOsc.connect(subGain);
+                    subGain.connect(masterGain);
+
+                    // Mid (distorted)
+                    const midOsc = ctx.createOscillator();
+                    midOsc.type = 'sawtooth';
+                    midOsc.frequency.value = 110;
+
+                    const distortion = ctx.createWaveShaper();
+                    const curve = new Float32Array(400);
+                    for (let i = 0; i < 400; i++) {
+                        const x = i * 2 / 400 - 1;
+                        curve[i] = (3 + 5) * x * 20 * Math.PI / (Math.PI + 5 * Math.abs(x));
+                    }
+                    distortion.curve = curve;
+
+                    // High-pass filter for mid to keep sub clean
+                    const filter = ctx.createBiquadFilter();
+                    filter.type = 'highpass';
+                    filter.frequency.value = 200;
+
+                    const midGain = ctx.createGain();
+                    midGain.gain.value = 0.3;
+
+                    midOsc.connect(filter);
+                    filter.connect(distortion);
+                    distortion.connect(midGain);
+                    midGain.connect(masterGain);
+
+                    subOsc.start(now);
+                    midOsc.start(now);
+                    subOsc.stop(now + playDuration);
+                    midOsc.stop(now + playDuration);
+                    addSource(subOsc);
+                    addSource(midOsc);
+                }
+                break;
+
+            case 7: // Reverb/Delay throw
+                {
+                    playDuration = 4;
+                    // Simulate a vocal phrase with two notes, second goes to huge delay
+                    const osc = ctx.createOscillator();
+                    osc.type = 'triangle';
+                    const oscGain = ctx.createGain();
+
+                    // Note 1 (Dry)
+                    osc.frequency.setValueAtTime(440, now);
+                    oscGain.gain.setValueAtTime(0, now);
+                    oscGain.gain.linearRampToValueAtTime(0.5, now + 0.1);
+                    oscGain.gain.setValueAtTime(0.5, now + 0.8);
+                    oscGain.gain.linearRampToValueAtTime(0, now + 0.9);
+
+                    // Note 2 (Throw)
+                    osc.frequency.setValueAtTime(523.25, now + 1.0); // C5
+                    oscGain.gain.setValueAtTime(0, now + 1.0);
+                    oscGain.gain.linearRampToValueAtTime(0.6, now + 1.1);
+                    oscGain.gain.setValueAtTime(0.6, now + 1.6);
+                    oscGain.gain.linearRampToValueAtTime(0, now + 1.7);
+
+                    // Send to delay only for note 2
+                    const throwSend = ctx.createGain();
+                    throwSend.gain.setValueAtTime(0, now);
+                    throwSend.gain.setValueAtTime(1, now + 1.0);
+                    throwSend.gain.setValueAtTime(0, now + 1.7);
+
+                    const delay = ctx.createDelay();
+                    delay.delayTime.value = 0.4;
+
+                    const feedback = ctx.createGain();
+                    feedback.gain.value = 0.6;
+
+                    delay.connect(feedback);
+                    feedback.connect(delay);
+
+                    osc.connect(oscGain);
+                    oscGain.connect(masterGain); // Dry
+
+                    oscGain.connect(throwSend);
+                    throwSend.connect(delay);
+                    delay.connect(masterGain); // Wet
+
+                    osc.start(now);
+                    osc.stop(now + playDuration);
+                    addSource(osc);
+                }
+                break;
+
+            case 8: // Layered kick drum
+                {
+                    playDuration = 2;
+                    for (let i = 0; i < 4; i++) {
+                        const hitTime = now + (i * 0.5);
+
+                        // Sub Kick
+                        const sub = ctx.createOscillator();
+                        sub.frequency.setValueAtTime(100, hitTime);
+                        sub.frequency.exponentialRampToValueAtTime(40, hitTime + 0.3);
+                        const subGain = ctx.createGain();
+                        subGain.gain.setValueAtTime(1, hitTime);
+                        subGain.gain.exponentialRampToValueAtTime(0.01, hitTime + 0.3);
+                        sub.connect(subGain);
+                        subGain.connect(masterGain);
+
+                        // Punch Kick
+                        const punch = ctx.createOscillator();
+                        punch.type = 'triangle';
+                        punch.frequency.setValueAtTime(300, hitTime);
+                        punch.frequency.exponentialRampToValueAtTime(60, hitTime + 0.1);
+                        const punchGain = ctx.createGain();
+                        punchGain.gain.setValueAtTime(0.8, hitTime);
+                        punchGain.gain.exponentialRampToValueAtTime(0.01, hitTime + 0.1);
+                        punch.connect(punchGain);
+                        punchGain.connect(masterGain);
+
+                        // Click
+                        const clickBuffer = ctx.createBuffer(1, ctx.sampleRate * 0.05, ctx.sampleRate);
+                        const data = clickBuffer.getChannelData(0);
+                        for (let j = 0; j < data.length; j++) data[j] = Math.random() * 2 - 1;
+                        const click = ctx.createBufferSource();
+                        click.buffer = clickBuffer;
+                        const clickFilter = ctx.createBiquadFilter();
+                        clickFilter.type = 'highpass';
+                        clickFilter.frequency.value = 5000;
+                        const clickGain = ctx.createGain();
+                        clickGain.gain.setValueAtTime(0.3, hitTime);
+                        clickGain.gain.exponentialRampToValueAtTime(0.01, hitTime + 0.05);
+                        click.connect(clickFilter);
+                        clickFilter.connect(clickGain);
+                        clickGain.connect(masterGain);
+
+                        sub.start(hitTime);
+                        punch.start(hitTime);
+                        click.start(hitTime);
+                        sub.stop(hitTime + 0.3);
+                        punch.stop(hitTime + 0.1);
+                        addSource(sub);
+                        addSource(punch);
+                        addSource(click);
+                    }
+                }
+                break;
+
+            case 9: // Reverse cymbal impact
+                {
+                    playDuration = 3.5;
+                    // White noise sweeping up for 3 seconds then stop
+                    const bufferSize = ctx.sampleRate * 3;
+                    const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+                    const data = buffer.getChannelData(0);
+                    for (let i = 0; i < bufferSize; i++) {
+                        data[i] = (Math.random() * 2 - 1) * (i / bufferSize); // Reverse envelope naturally
+                    }
+                    const noise = ctx.createBufferSource();
+                    noise.buffer = buffer;
+                    noise.connect(masterGain);
+                    noise.start(now);
+                    addSource(noise);
+
+                    // Downbeat kick exactly at 3 seconds
+                    const hitTime = now + 3;
+                    const kick = ctx.createOscillator();
+                    const kickGain = ctx.createGain();
+                    kick.frequency.setValueAtTime(150, hitTime);
+                    kick.frequency.exponentialRampToValueAtTime(0.01, hitTime + 0.3);
+                    kickGain.gain.setValueAtTime(1, hitTime);
+                    kickGain.gain.exponentialRampToValueAtTime(0.01, hitTime + 0.3);
+                    kick.connect(kickGain);
+                    kickGain.connect(masterGain);
+                    kick.start(hitTime);
+                    kick.stop(hitTime + 0.4);
+                    addSource(kick);
+                }
+                break;
+
+            default:
+                playDuration = 1;
+                break;
+        }
+
+        setTimeout(() => {
+            setIsPlaying(false);
+            activeSources.current = [];
+        }, playDuration * 1000);
+    };
 
     // Shuffle options when a new question loads to prevent memorizing positions
     const [currentOptions, setCurrentOptions] = useState([]);
@@ -158,10 +608,21 @@ const ProductionTechniqueQuiz = ({ onExit }) => {
     };
 
     const handleRestart = () => {
+        stopAudio();
         setCurrentQuestionIndex(0);
         setScore(0);
         setQuizFinished(false);
     };
+
+    // Ensure audio stops when navigating away or unmounting
+    useEffect(() => {
+        return () => stopAudio();
+    }, []);
+
+    // Stop audio when changing questions
+    useEffect(() => {
+        stopAudio();
+    }, [currentQuestionIndex]);
 
     if (quizFinished) {
         const percentage = Math.round((score / quizData.length) * 100);
@@ -174,7 +635,7 @@ const ProductionTechniqueQuiz = ({ onExit }) => {
         return (
             <div className="pt-quiz-container">
                 <div className="pt-header">
-                    <h1>Production Techniques Quiz</h1>
+                    <h1>EDM Production Techniques Quiz</h1>
                     <button className="pt-exit-btn" onClick={onExit}>Exit Session</button>
                 </div>
                 <div className="pt-content" style={{ justifyContent: 'center' }}>
@@ -198,8 +659,8 @@ const ProductionTechniqueQuiz = ({ onExit }) => {
     return (
         <div className="pt-quiz-container">
             <div className="pt-header">
-                <h1>Production Techniques Masterclass</h1>
-                <button className="pt-exit-btn" onClick={onExit}>End Session</button>
+                <h1>EDM Production Techniques Masterclass</h1>
+                <button className="pt-exit-btn" onClick={() => { stopAudio(); onExit(); }}>End Session</button>
             </div>
 
             <div className="pt-content">
@@ -215,6 +676,22 @@ const ProductionTechniqueQuiz = ({ onExit }) => {
                     <div className="pt-scenario-title">Scenario Goal:</div>
                     <div className="pt-scenario-text">
                         "{currentQ.scenario}"
+                    </div>
+
+                    <div className="pt-audio-widget">
+                        <button
+                            className={`pt-play-btn ${isPlaying ? 'playing' : ''}`}
+                            onClick={playAudioExample}
+                        >
+                            {isPlaying ? <Square size={20} className="fill-current" /> : <Play size={20} className="fill-current" />}
+                            <span>{isPlaying ? 'Stop Audio Example' : 'Play Audio Example'}</span>
+                        </button>
+                        {isPlaying && <div className="pt-audio-waves">
+                            <span className="pt-wave-bar"></span>
+                            <span className="pt-wave-bar"></span>
+                            <span className="pt-wave-bar"></span>
+                            <span className="pt-wave-bar"></span>
+                        </div>}
                     </div>
 
                     <div className="pt-options-grid">

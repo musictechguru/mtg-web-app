@@ -15,6 +15,7 @@ import EffectsChainQuiz from './components/InteractiveQuizzes/EffectsChainQuiz';
 import SynthesizerQuiz from './components/InteractiveQuizzes/SynthesizerQuiz';
 import MicrophonePlacementQuiz from './components/InteractiveQuizzes/MicrophonePlacementQuiz';
 import ProductionTechniqueQuiz from './components/InteractiveQuizzes/ProductionTechniqueQuiz';
+import RockProductionQuiz from './components/InteractiveQuizzes/RockProductionQuiz';
 import component3FunkData from './data/component3_funk_exam.json';
 import component3SynthPopData from './data/component3_synthpop_exam.json';
 import component3HeavyRockData from './data/component3_heavyrock_exam.json';
@@ -186,6 +187,8 @@ const MainApp = () => {
             <MicrophonePlacementQuiz quiz={activeItem} onExit={goToDashboardWrapper} />
           ) : activeItem.type === 'production_technique_quiz' ? (
             <ProductionTechniqueQuiz onExit={goToDashboardWrapper} />
+          ) : activeItem.type === 'rock_production_quiz' ? (
+            <RockProductionQuiz onExit={goToDashboardWrapper} />
           ) : activeItem.type === 'premium_locked' ? (
             <PremiumLocked itemTitle={activeItem.title} />
           ) : (

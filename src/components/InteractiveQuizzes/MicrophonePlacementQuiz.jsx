@@ -14,7 +14,9 @@ const MicrophonePlacementQuiz = ({ quiz, onExit }) => {
 
     // Dragging state
     const [isDragging, setIsDragging] = useState(false);
+    const [isRotating, setIsRotating] = useState(false);
     const [micPos, setMicPos] = useState({ x: 50, y: 80 }); // Percentages
+    const [micAngle, setMicAngle] = useState(0); // Degrees
 
     // Interaction state
     const [feedback, setFeedback] = useState(null); // { type: 'success'|'error'|'warning', text: '' }
@@ -29,6 +31,7 @@ const MicrophonePlacementQuiz = ({ quiz, onExit }) => {
     // Reset mic position when scenario changes
     useEffect(() => {
         setMicPos({ x: 50, y: 80 });
+        setMicAngle(0);
         setFeedback(null);
         setSelectedMicType('condenser');
     }, [currentScenarioIndex]);
@@ -40,41 +43,66 @@ const MicrophonePlacementQuiz = ({ quiz, onExit }) => {
     // Handle Dragging
     const handlePointerDown = (e) => {
         e.preventDefault();
+        e.stopPropagation();
         setIsDragging(true);
         setFeedback(null);
     };
 
+    const handleRotatePointerDown = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        setIsRotating(true);
+        setFeedback(null);
+    };
+
     const handlePointerMove = (e) => {
-        if (!isDragging || !stageRef.current) return;
+        if (!stageRef.current) return;
 
-        // Calculate position relative to stage
         const rect = stageRef.current.getBoundingClientRect();
-        let x = ((e.clientX - rect.left) / rect.width) * 100;
-        let y = ((e.clientY - rect.top) / rect.height) * 100;
 
-        // Clamp to bounds
-        x = Math.max(5, Math.min(95, x));
-        y = Math.max(5, Math.min(95, y));
+        if (isRotating) {
+            // Calculate angle based on mouse position relative to mic center
+            // The mic's center in pixel coordinates on the stage:
+            const micCenterX = rect.left + (micPos.x / 100) * rect.width;
+            const micCenterY = rect.top + (micPos.y / 100) * rect.height;
 
-        setMicPos({ x, y });
+            // Calculate angle in degrees
+            const dx = e.clientX - micCenterX;
+            const dy = e.clientY - micCenterY;
+            // atan2 gives angle from X axis. We want angle from Y axis (up is 0, right is 90)
+            let angle = Math.atan2(dy, dx) * (180 / Math.PI) + 90;
+
+            setMicAngle(angle);
+            return;
+        }
+
+        if (isDragging) {
+            // Calculate position relative to stage
+            let x = ((e.clientX - rect.left) / rect.width) * 100;
+            let y = ((e.clientY - rect.top) / rect.height) * 100;
+
+            // Clamp to bounds
+            x = Math.max(5, Math.min(95, x));
+            y = Math.max(5, Math.min(95, y));
+
+            setMicPos({ x, y });
+        }
     };
 
     const handlePointerUp = () => {
-        if (!isDragging) return;
-        setIsDragging(false);
-        evaluatePlacement();
+        if (isDragging || isRotating) {
+            setIsDragging(false);
+            setIsRotating(false);
+            evaluatePlacement();
+        }
     };
 
-    const evaluatePlacement = () => {
-        // Check if micPos is within any hotspot of the current scenario
+    const evaluatePlacement = (evalAngle = micAngle, evalPos = micPos) => {
+        // Check if evalPos is within any hotspot of the current scenario
         const h = currentScenario.hotspots.find(spot => {
-            // Simple distance check (circular hotspots)
-            // Since CSS percentages aren't perfectly square, we adjust for aspect ratio roughly if needed, 
-            // but a simple 2D distance usually works okay for teaching tools.
-            const dx = spot.x - micPos.x;
-            const dy = spot.y - micPos.y;
+            const dx = spot.x - evalPos.x;
+            const dy = spot.y - evalPos.y;
             const distance = Math.sqrt(dx * dx + dy * dy);
-            // spot.radius is in percentage 
             return distance <= spot.radius;
         });
 
@@ -82,10 +110,37 @@ const MicrophonePlacementQuiz = ({ quiz, onExit }) => {
             // Evaluate Mic Type for this hotspot
             const isCorrectType = h.bestMicTypes.includes(selectedMicType);
 
-            if (h.isCorrectSpot && isCorrectType) {
+            // Evaluate Angle if the hotspot specifies one
+            let isCorrectAngle = true;
+            let angleFeedback = "";
+            let distanceToTargetAngle = 0;
+
+            if (h.targetAngle !== undefined && h.angleTolerance !== undefined) {
+                // Normalize angles to 0-360 for comparison
+                let normTarget = ((h.targetAngle % 360) + 360) % 360;
+                let normCurrent = ((evalAngle % 360) + 360) % 360;
+
+                // Calculate shortest angular distance
+                distanceToTargetAngle = Math.abs(normTarget - normCurrent);
+                if (distanceToTargetAngle > 180) {
+                    distanceToTargetAngle = 360 - distanceToTargetAngle;
+                }
+
+                if (distanceToTargetAngle > h.angleTolerance) {
+                    isCorrectAngle = false;
+                    angleFeedback = " You're in the right spot, but the mic is pointed the wrong way! Rotate it to face the source properly.";
+                }
+            }
+
+            if (h.isCorrectSpot && isCorrectType && isCorrectAngle) {
                 setFeedback({
                     type: 'success',
                     text: `Perfect! ${h.feedback[selectedMicType] || "You found the sweet spot with the right microphone."}`
+                });
+            } else if (h.isCorrectSpot && isCorrectType && !isCorrectAngle) {
+                setFeedback({
+                    type: 'warning',
+                    text: angleFeedback
                 });
             } else if (h.isCorrectSpot && !isCorrectType) {
                 setFeedback({
@@ -105,6 +160,40 @@ const MicrophonePlacementQuiz = ({ quiz, onExit }) => {
                 text: "You placed the microphone in an indeterminate area. Try getting closer to the source."
             });
         }
+    };
+
+    // Keyboard controls for rotation
+    useEffect(() => {
+        const handleKeyDown = (e) => {
+            if (isDragging || isRotating) return;
+
+            if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                setMicAngle(prev => {
+                    const newAngle = prev - 15;
+                    evaluatePlacement(newAngle, micPos);
+                    return newAngle;
+                });
+            } else if (e.key === 'ArrowRight') {
+                e.preventDefault();
+                setMicAngle(prev => {
+                    const newAngle = prev + 15;
+                    evaluatePlacement(newAngle, micPos);
+                    return newAngle;
+                });
+            }
+        };
+
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, [isDragging, isRotating, micPos, currentScenario, selectedMicType]); // Re-bind if dependencies of evaluatePlacement change
+
+    const handleRotateButton = (delta) => {
+        setMicAngle(prev => {
+            const newAngle = prev + delta;
+            evaluatePlacement(newAngle, micPos);
+            return newAngle;
+        });
     };
 
     const handleNext = () => {
@@ -145,20 +234,30 @@ const MicrophonePlacementQuiz = ({ quiz, onExit }) => {
             </div>
 
             <div className="controls-panel">
-                {MIC_TYPES.map(mic => (
-                    <div
-                        key={mic.id}
-                        className={`mic-selector ${selectedMicType === mic.id ? 'active' : ''}`}
-                        onClick={() => {
-                            setSelectedMicType(mic.id);
-                            setFeedback(null); // Clear feedback when switching mic
-                        }}
-                    >
-                        <div className="icon">{mic.icon}</div>
-                        <div className="name">{mic.name}</div>
-                        <div className="pattern">{mic.pattern}</div>
+                <div className="mic-selectors-group" style={{ display: 'flex', gap: '15px' }}>
+                    {MIC_TYPES.map(mic => (
+                        <div
+                            key={mic.id}
+                            className={`mic-selector ${selectedMicType === mic.id ? 'active' : ''}`}
+                            onClick={() => {
+                                setSelectedMicType(mic.id);
+                                setFeedback(null); // Clear feedback when switching mic
+                            }}
+                        >
+                            <div className="icon">{mic.icon}</div>
+                            <div className="name">{mic.name}</div>
+                            <div className="pattern">{mic.pattern}</div>
+                        </div>
+                    ))}
+                </div>
+
+                <div className="rotation-controls-group" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', background: 'var(--bg-card)', padding: '10px 20px', borderRadius: '8px' }}>
+                    <div style={{ fontSize: '0.9rem', marginBottom: '8px', color: 'var(--text-muted)' }}>Rotate Mic</div>
+                    <div style={{ display: 'flex', gap: '10px' }}>
+                        <button className="action-btn btn-secondary" style={{ padding: '8px 12px', fontSize: '1rem' }} onClick={() => handleRotateButton(-15)}>↺ Left</button>
+                        <button className="action-btn btn-secondary" style={{ padding: '8px 12px', fontSize: '1rem' }} onClick={() => handleRotateButton(15)}>Right ↻</button>
                     </div>
-                ))}
+                </div>
             </div>
 
             <div
@@ -194,13 +293,19 @@ const MicrophonePlacementQuiz = ({ quiz, onExit }) => {
 
                 {/* Draggable Mic */}
                 <div
-                    className={`draggable-mic ${selectedMicType}`}
+                    className={`draggable-mic ${selectedMicType} ${isRotating ? 'rotating' : ''}`}
                     style={{
                         left: `${micPos.x}%`,
                         top: `${micPos.y}%`,
+                        '--mic-rotation': `${micAngle}deg`
                     }}
                     onPointerDown={handlePointerDown}
                 >
+                    <div
+                        className="rotate-handle"
+                        onPointerDown={handleRotatePointerDown}
+                        title="Drag to rotate"
+                    ></div>
                     <div className="mic-head"></div>
                     <div className="mic-body"></div>
                 </div>
