@@ -9,7 +9,8 @@ def find_quizzes(data, title_keyword):
     quizzes = []
     for section in data.get('sections', []):
         for item in section.get('items', []):
-            if item.get('type') == 'lp_quiz' and title_keyword.lower() in item.get('title', '').lower():
+            # Allow any item type, filter just by keyword in title
+            if title_keyword.lower() in item.get('title', '').lower():
                 quizzes.append({
                     'id': item.get('id'),
                     'title': item.get('title')
@@ -33,6 +34,9 @@ def main():
     practical_quizzes = find_quizzes(data, "Practical Quiz")
     comparison_quizzes = find_quizzes(data, "Comparison ")
     historical_quizzes = find_quizzes(data, "Historical Context")
+    timeline_quiz = find_quizzes(data, "Timeline")
+    # Combine historical and timeline
+    historical_quizzes = timeline_quiz + historical_quizzes
     case_study_quizzes = find_quizzes(data, "Music Technology Analysis")
 
     rounds = []

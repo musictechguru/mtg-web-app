@@ -48,21 +48,103 @@ const Dashboard = ({ onNavigate }) => {
     };
 
     return (
-        <div className="dashboard-container">
-            <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '40px' }}>
-                <div>
-                    <h1 style={{ fontSize: '2.5rem', marginBottom: '10px' }}>Student Dashboard</h1>
-                    <p style={{ color: 'var(--text-secondary)' }}>Welcome back to your revision hub.</p>
+        <div className="dashboard-container" style={{ padding: '20px', maxWidth: '1200px', margin: '0 auto' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '30px' }}>
+                <h1 style={{ margin: 0, color: 'var(--text-primary)', fontSize: '2.5rem' }}>
+                    Welcome back, <span style={{ color: 'var(--accent-blue)' }}>Creator!</span>
+                </h1>
+            </div>
+
+            {/* Permanent Guru Hero Section at Top */}
+            <div className="guru-hero" style={{
+                background: 'linear-gradient(135deg, var(--bg-panel) 0%, rgba(59, 130, 246, 0.1) 100%)',
+                borderRadius: '20px',
+                padding: '30px',
+                marginBottom: '40px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-around',
+                border: '1px solid var(--border-color)',
+                boxShadow: '0 10px 30px rgba(0,0,0,0.2)',
+                flexWrap: 'wrap',
+                gap: '20px'
+            }}>
+                <div style={{ textAlign: 'center' }}>
+                    <GuruTracker progress={guruStats.progress} levelTitle={guruStats.level} />
                 </div>
-                <div style={{ textAlign: 'right' }}>
-                    <button
-                        onClick={clearProgress}
-                        style={{ background: 'transparent', border: '1px solid #333', padding: '5px 10px', borderRadius: '4px', fontSize: '0.8rem', color: '#666' }}
-                    >
-                        Reset Data
-                    </button>
+                <div style={{ maxWidth: '600px', flex: '1 1 300px' }}>
+                    <h2 style={{ fontSize: '1.8rem', marginBottom: '10px', color: 'var(--accent-blue)' }}>
+                        Path to Legend
+                    </h2>
+                    <p style={{ color: 'var(--text-secondary)', lineHeight: '1.6' }}>
+                        You have completed <strong>{guruStats.count}</strong> out of <strong>{guruStats.target}</strong> campaign nodes.
+                        Keep progressing through the map to charge the Guru!
+                    </p>
+                    <div style={{ marginTop: '20px', position: 'relative' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px', fontSize: '0.75rem', color: 'var(--text-secondary)' }}>
+                            <span>Apprentice</span>
+                            {guruStats.progress >= 50 ? <span style={{ color: 'var(--accent-blue)', fontWeight: 'bold' }}>{guruStats.level}</span> : <span>...</span>}
+                            <span>Legend</span>
+                        </div>
+                        <div style={{ height: '14px', background: 'rgba(255,255,255,0.1)', borderRadius: '7px', position: 'relative' }}>
+                            {/* The filled section */}
+                            <div style={{
+                                position: 'absolute',
+                                top: 0, left: 0,
+                                width: `${guruStats.progress}%`,
+                                height: '100%',
+                                background: 'linear-gradient(90deg, var(--accent-blue) 0%, var(--accent-success) 100%)',
+                                borderRadius: '7px',
+                                transition: 'width 1s cubic-bezier(0.4, 0, 0.2, 1)'
+                            }} />
+
+                            {/* Level Markers */}
+                            {[0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100].map(threshold => (
+                                <div key={threshold} style={{
+                                    position: 'absolute',
+                                    left: `${threshold}%`,
+                                    top: '50%',
+                                    transform: 'translate(-50%, -50%)',
+                                    width: '4px',
+                                    height: '14px',
+                                    background: guruStats.progress >= threshold ? 'rgba(255,255,255,0.8)' : 'rgba(255,255,255,0.2)',
+                                    borderRadius: '2px'
+                                }} />
+                            ))}
+                        </div>
+
+                        {/* Current Level Indicator */}
+                        <div style={{
+                            position: 'absolute',
+                            left: `${Math.min(95, guruStats.progress)}%`,
+                            top: '40px',
+                            transform: 'translateX(-50%)',
+                            background: 'var(--bg-panel)',
+                            padding: '4px 10px',
+                            borderRadius: '10px',
+                            fontSize: '0.8rem',
+                            fontWeight: 'bold',
+                            color: 'var(--text-primary)',
+                            border: '1px solid var(--accent-blue)',
+                            whiteSpace: 'nowrap',
+                            boxShadow: '0 4px 6px rgba(0,0,0,0.3)',
+                            transition: 'left 1s cubic-bezier(0.4, 0, 0.2, 1)'
+                        }}>
+                            {guruStats.progress}%
+                        </div>
+                    </div>
                 </div>
-            </header>
+            </div>
+
+            {/* Welcome Video Text Banner */}
+            <div className="welcome-banner" style={{ textAlign: 'right' }}>
+                <button
+                    onClick={clearProgress}
+                    style={{ background: 'transparent', border: '1px solid #333', padding: '5px 10px', borderRadius: '4px', fontSize: '0.8rem', color: '#666' }}
+                >
+                    Reset Data
+                </button>
+            </div>
 
             {/* Welcome Banner */}
             <div style={{
@@ -153,40 +235,6 @@ const Dashboard = ({ onNavigate }) => {
 
             {showProgress && (
                 <div className="progress-dropdown" style={{ animation: 'fadeIn 0.5s ease-out' }}>
-                    {/* Guru Hero Section */}
-                    <div className="guru-hero" style={{
-                        background: 'linear-gradient(135deg, var(--bg-panel) 0%, rgba(59, 130, 246, 0.1) 100%)',
-                        borderRadius: '20px',
-                        padding: '30px',
-                        marginBottom: '40px',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'space-around',
-                        border: '1px solid var(--border-color)',
-                        boxShadow: '0 10px 30px rgba(0,0,0,0.2)'
-                    }}>
-                        <div style={{ textAlign: 'center' }}>
-                            <GuruTracker progress={guruStats.progress} levelTitle={guruStats.level} />
-                        </div>
-                        <div style={{ maxWidth: '400px' }}>
-                            <h2 style={{ fontSize: '1.8rem', marginBottom: '10px', color: 'var(--accent-blue)' }}>
-                                Path to Legend
-                            </h2>
-                            <p style={{ color: 'var(--text-secondary)', lineHeight: '1.6' }}>
-                                You have completed <strong>{guruStats.count}</strong> out of <strong>{guruStats.target}</strong> campaign nodes.
-                                Keep progressing through the map to charge the Guru!
-                            </p>
-                            <div style={{ marginTop: '20px', height: '10px', background: 'rgba(255,255,255,0.1)', borderRadius: '5px', overflow: 'hidden' }}>
-                                <div style={{
-                                    width: `${guruStats.progress}%`,
-                                    height: '100%',
-                                    background: 'var(--accent-success)',
-                                    transition: 'width 1s ease'
-                                }} />
-                            </div>
-                        </div>
-                    </div>
-
                     <div className="stats-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '20px', marginBottom: '40px' }}>
                         <div className="stat-card" style={{ background: 'var(--bg-panel)', padding: '25px', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.05)' }}>
                             <h3 style={{ color: 'var(--accent-purple)', margin: '0 0 10px 0', fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '1px' }}>Current Grade</h3>
