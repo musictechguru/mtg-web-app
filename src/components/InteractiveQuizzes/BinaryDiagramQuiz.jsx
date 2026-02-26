@@ -1,12 +1,9 @@
 import React, { useState } from 'react';
 
-const BinaryDiagramQuiz = ({ hint, onResult }) => {
+const BinaryDiagramQuiz = ({ targetNumber, hint, onResult }) => {
     const [binaryBoxes, setBinaryBoxes] = useState([0, 0, 0, 0, 0, 0, 0]); // 7 bits for MIDI
     const [submitted, setSubmitted] = useState(false);
     const [revealHint, setRevealHint] = useState(false);
-
-    // Generate a random target number between 1 and 127 when the component mounts
-    const [randomTarget] = useState(() => Math.floor(Math.random() * 127) + 1);
 
     const positions = [64, 32, 16, 8, 4, 2, 1]; // 7-bit MIDI values
 
@@ -24,14 +21,14 @@ const BinaryDiagramQuiz = ({ hint, onResult }) => {
 
     const checkBinaryAnswer = () => {
         const currentValue = calculateBinaryValue();
-        const isCorrect = currentValue === randomTarget;
+        const isCorrect = currentValue === targetNumber;
 
         setSubmitted(true);
         onResult(isCorrect);
     };
 
     const currentValue = calculateBinaryValue();
-    const isCorrect = currentValue === randomTarget;
+    const isCorrect = currentValue === targetNumber;
 
     return (
         <div style={{ width: '100%' }}>
@@ -136,7 +133,7 @@ const BinaryDiagramQuiz = ({ hint, onResult }) => {
                             color: 'var(--accent-blue)',
                             margin: 0
                         }}>
-                            {randomTarget}
+                            {targetNumber}
                         </p>
                     </div>
                 </div>

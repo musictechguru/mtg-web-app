@@ -52,6 +52,45 @@ const QuizPlayer = ({ quiz, onFinish }) => {
                     // NOW SHUFFLE ANSWERS for each selected question
                     // We need to map over questions and shuffle their answers array
                     questions = questions.map(q => {
+                        if (q.type === 'binary-diagram') {
+                            const newTarget = Math.floor(Math.random() * 128); // 0 to 127
+
+                            const positions = [64, 32, 16, 8, 4, 2, 1];
+                            let remainder = newTarget;
+                            let powers = [];
+                            let binaryStr = "";
+                            for (let p of positions) {
+                                if (remainder >= p) {
+                                    powers.push(p);
+                                    remainder -= p;
+                                    binaryStr += "1";
+                                } else {
+                                    binaryStr += "0";
+                                }
+                            }
+
+                            let hintText = `You need to add up to ${newTarget}. Which boxes should have a 1?`;
+                            if (powers.length > 0) {
+                                hintText += ` (Hint: ${powers.join(" + ")} = ${newTarget})`;
+                            } else {
+                                hintText = `Zero means no boxes are clicked. Leave them all at 0!`;
+                            }
+
+                            let explanationText = `To make ${newTarget}, you need the boxes: ${powers.join(" + ")} = ${newTarget}. In binary, this is ${binaryStr}.`;
+                            if (newTarget === 0) {
+                                explanationText = `To make 0, you don't click any boxes! All bits are 0. In binary, this is 0000000.`;
+                            }
+
+                            return {
+                                ...q,
+                                title: `Make ${newTarget} in Binary`,
+                                content: `Click the boxes to make the number ${newTarget} in binary`,
+                                targetNumber: newTarget,
+                                hint: hintText,
+                                explanation: explanationText
+                            };
+                        }
+
                         if (!q.answers || q.answers.length < 2) return q;
 
                         // Create a copy of answers

@@ -176,7 +176,8 @@ export default function PianoRollQuiz({ question, onResult }) {
     };
 
     // Interaction Handlers
-    const handleMouseDown = (row, col) => {
+    const handlePointerDown = (e, row, col) => {
+        e.preventDefault();
         if (submitted) return;
 
         const existingIdx = userNotes.findIndex(n => n.row === row && col >= n.col && col < n.col + (n.length || 1));
@@ -195,7 +196,8 @@ export default function PianoRollQuiz({ question, onResult }) {
         }
     };
 
-    const handleMouseEnter = (row, col) => {
+    const handlePointerEnter = (e, row, col) => {
+        e.preventDefault();
         if (!isDragging || !dragStart || submitted) return;
         if (row !== dragStart.row) return;
 
@@ -217,14 +219,14 @@ export default function PianoRollQuiz({ question, onResult }) {
         });
     };
 
-    const handleMouseUp = () => {
+    const handlePointerUp = () => {
         setIsDragging(false);
         setDragStart(null);
     };
 
     useEffect(() => {
-        document.addEventListener('mouseup', handleMouseUp);
-        return () => document.removeEventListener('mouseup', handleMouseUp);
+        document.addEventListener('pointerup', handlePointerUp);
+        return () => document.removeEventListener('pointerup', handlePointerUp);
     }, []);
 
 
@@ -291,7 +293,7 @@ export default function PianoRollQuiz({ question, onResult }) {
             paddingRight: '8px', fontSize: '0.75rem', fontWeight: 'bold', color: '#9ca3af',
             userSelect: 'none'
         },
-        grid: { display: 'flex', position: 'relative', flex: 1, backgroundColor: '#1f2937' },
+        grid: { display: 'flex', position: 'relative', flex: 1, backgroundColor: '#1f2937', userSelect: 'none', touchAction: 'none' },
         cell: (isBeatValues) => ({
             width: '30px', height: '100%',
             borderRight: '1px solid #374151',
@@ -382,8 +384,8 @@ export default function PianoRollQuiz({ question, onResult }) {
                                 {Array.from({ length: question.columns || 16 }).map((_, c) => (
                                     <div
                                         key={c}
-                                        onMouseDown={() => handleMouseDown(r, c)}
-                                        onMouseEnter={() => handleMouseEnter(r, c)}
+                                        onPointerDown={(e) => handlePointerDown(e, r, c)}
+                                        onPointerEnter={(e) => handlePointerEnter(e, r, c)}
                                         style={{
                                             ...styles.cell(c % 4 === 0),
                                             backgroundColor: (playingCol === c) ? 'rgba(255, 255, 255, 0.1)' : ((dragStart && dragStart.row === r && c >= Math.min(dragStart.col, c) && c < Math.min(dragStart.col, c) + 1) ? '#374151' : 'transparent'),
