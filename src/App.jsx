@@ -39,13 +39,11 @@ const EXAM_DATA_MAP = {
 
 // Logic Component
 const MainApp = () => {
-  const { currentUser, logout, loading } = useUser();
+  const { currentUser, userProgress, logout, loading } = useUser();
   const [activeItem, setActiveItem] = useState(null);
-  const [showTeacherView, setShowTeacherView] = useState(false);
-  // Mobile Menu Logic
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  // Welcome Video Logic
   const [showWelcomeVideo, setShowWelcomeVideo] = useState(false);
+  const [expandedTopic, setExpandedTopic] = useState(null);
 
   useEffect(() => {
     // Check if the user has seen the welcome video.
@@ -161,20 +159,102 @@ const MainApp = () => {
             Dictionary Quizzes
           </button>
 
-          {courseData.sections.map((section, secIdx) => (
-            <div key={secIdx} className="nav-section">
-              <h2>{section.title}</h2>
-              {section.items.map((item, itemIdx) => (
-                <button
-                  key={itemIdx}
-                  className={`nav-item ${activeItem === item ? 'active' : ''}`}
-                  onClick={() => handleItemSelectWrapper(item)}
-                >
-                  {item.title}
-                </button>
-              ))}
-            </div>
-          ))}
+          {courseData.sections.map((section, secIdx) => {
+            // Group items by base Topic name if they are Topic Mastery Quizzes
+            const isTopicSection = section.title.includes("Topic Mastery");
+            let groupedItems = [];
+
+            if (isTopicSection) {
+              const topicGroups = {};
+              section.items.forEach(item => {
+                if (item.title.includes("Topic") && item.title.includes("(Part")) {
+                  const baseTitle = item.title.split(" (Part")[0];
+                  if (!topicGroups[baseTitle]) topicGroups[baseTitle] = [];
+                  topicGroups[baseTitle].push(item);
+                } else {
+                  groupedItems.push(item);
+                }
+              });
+
+              Object.keys(topicGroups).forEach(baseTitle => {
+                groupedItems.push({
+                  isGroup: true,
+                  title: baseTitle,
+                  items: topicGroups[baseTitle]
+                });
+              });
+            } else {
+              groupedItems = section.items;
+            }
+
+            return (
+              <div key={secIdx} className="nav-section">
+                <h2>{section.title}</h2>
+                {groupedItems.map((item, itemIdx) => {
+                  if (item.isGroup) {
+                    const isExpanded = expandedTopic === item.title;
+                    return (
+                      <div key={itemIdx} style={{ marginBottom: '10px' }}>
+                        <div
+                          onClick={() => setExpandedTopic(isExpanded ? null : item.title)}
+                          style={{
+                            padding: '10px 15px',
+                            color: isExpanded ? 'var(--accent-blue)' : 'var(--text-secondary)',
+                            fontSize: '0.85rem',
+                            fontWeight: 'bold',
+                            textTransform: 'uppercase',
+                            letterSpacing: '0.5px',
+                            cursor: 'pointer',
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            alignItems: 'center',
+                            background: isExpanded ? 'rgba(59, 130, 246, 0.1)' : 'transparent',
+                            borderRadius: '8px',
+                            transition: 'all 0.2s ease'
+                          }}
+                        >
+                          {item.title}
+                          <svg
+                            width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+                            style={{
+                              transform: isExpanded ? 'rotate(180deg)' : 'rotate(0deg)',
+                              transition: 'transform 0.3s ease'
+                            }}
+                          >
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                          </svg>
+                        </div>
+
+                        {isExpanded && (
+                          <div style={{ display: 'flex', flexDirection: 'column', gap: '5px', paddingLeft: '15px', marginTop: '5px', animation: 'fadeIn 0.2s ease-out' }}>
+                            {item.items.map((subItem, subIdx) => (
+                              <button
+                                key={subIdx}
+                                className={`nav-item ${activeItem === subItem ? 'active' : ''}`}
+                                onClick={() => handleItemSelectWrapper(subItem)}
+                                style={{ padding: '8px 15px', fontSize: '0.9rem' }}
+                              >
+                                {subItem.title.includes('(Part 1)') ? 'Part 1' : 'Part 2'}
+                              </button>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    );
+                  }
+                  return (
+                    <button
+                      key={itemIdx}
+                      className={`nav-item ${activeItem === item ? 'active' : ''}`}
+                      onClick={() => handleItemSelectWrapper(item)}
+                    >
+                      {item.title}
+                    </button>
+                  );
+                })}
+              </div>
+            );
+          })}
         </nav>
       </aside>
 

@@ -111,14 +111,30 @@ const GraphDrawingQuiz = ({ question, targetPoints, hint, initValues, correctVal
                 { x: width, y: height }
             ];
         } else if (type === 'eq') {
-            // Calculate EQ bell curve
             const freqX = getLogX(values.frequency, 20, 20000, width);
+            const questionText = (question || '').toLowerCase();
+            const isHighShelf = questionText.includes('high shelf') || questionText.includes('high-shelf');
+            const isLowShelf = questionText.includes('low shelf') || questionText.includes('low-shelf');
 
             for (let x = 0; x <= width; x += 5) {
-                const dist = Math.abs(x - freqX);
-                const bell = Math.exp(-(dist * dist) / (2 * 1000)); // Simple bell shape width is fixed
+                let gainFactor = 0;
+
+                if (isHighShelf) {
+                    // Sigmoid transition for high shelf
+                    const dist = (x - freqX) / 30; // 30px transition width
+                    gainFactor = 1 / (1 + Math.exp(-dist));
+                } else if (isLowShelf) {
+                    // Sigmoid transition for low shelf
+                    const dist = (freqX - x) / 30;
+                    gainFactor = 1 / (1 + Math.exp(-dist));
+                } else {
+                    // Calculate EQ bell curve
+                    const dist = Math.abs(x - freqX);
+                    gainFactor = Math.exp(-(dist * dist) / (2 * 1000)); // Simple bell shape width is fixed
+                }
+
                 // 24dB range max. 100% / 24 = 4.16% per dB
-                const y = (height / 2) - (bell * (values.gain / 24) * height);
+                const y = (height / 2) - (gainFactor * (values.gain / 24) * height);
                 points.push({ x, y });
             }
         } else if (type === 'compression') {
@@ -601,14 +617,15 @@ const GraphDrawingQuiz = ({ question, targetPoints, hint, initValues, correctVal
                                         {param === 'frequency' || param === 'cutoff' ? `${Math.round(value)} Hz` :
                                             param === 'gain' || param === 'threshold' ? `${Math.round(value)} dB` :
                                                 param === 'ratio' ? (value >= 10 ? 'Inf:1' : `${value.toFixed(1)}:1`) :
-                                                    `${Math.round(value)}${param === 'attack' || param === 'decay' || param === 'release' ? '' : '%'}`}
+                                                    param === 'slope' ? `${value} dB/oct` :
+                                                        `${Math.round(value)}${param === 'attack' || param === 'decay' || param === 'release' ? '' : '%'}`}
                                     </span>
                                 </div>
                                 <input
                                     type="range"
-                                    min={(param === 'frequency' || param === 'cutoff') ? Math.log10(20) : param === 'threshold' ? -40 : param === 'gain' ? -24 : param === 'ratio' ? 1 : 0}
-                                    max={(param === 'frequency' || param === 'cutoff') ? Math.log10(20000) : param === 'gain' ? 24 : param === 'threshold' ? 0 : param === 'ratio' ? 10 : 100}
-                                    step={(param === 'frequency' || param === 'cutoff') ? 0.01 : param === 'ratio' ? 0.1 : 1}
+                                    min={(param === 'frequency' || param === 'cutoff') ? Math.log10(20) : param === 'threshold' ? -40 : param === 'gain' ? -24 : param === 'ratio' ? 1 : param === 'slope' ? 12 : 0}
+                                    max={(param === 'frequency' || param === 'cutoff') ? Math.log10(20000) : param === 'gain' ? 24 : param === 'threshold' ? 0 : param === 'ratio' ? 10 : param === 'slope' ? 24 : 100}
+                                    step={(param === 'frequency' || param === 'cutoff') ? 0.01 : param === 'ratio' ? 0.1 : param === 'slope' ? 12 : 1}
                                     value={(param === 'frequency' || param === 'cutoff') ? Math.log10(value) : value}
                                     onChange={(e) => {
                                         let val = parseFloat(e.target.value);
@@ -621,7 +638,7 @@ const GraphDrawingQuiz = ({ question, targetPoints, hint, initValues, correctVal
                                             // Make hitting correct targets very easy
                                             if (Math.abs(val - 3000) < 300) val = 3000;
                                             if (Math.abs(val - 2000) < 200) val = 2000;
-                                        } else if (param === 'gain' || param === 'threshold' || param === 'attack' || param === 'decay' || param === 'sustain' || param === 'release') {
+                                        } else if (param === 'gain' || param === 'threshold' || param === 'attack' || param === 'decay' || param === 'sustain' || param === 'release' || param === 'slope') {
                                             val = Math.round(val);
                                         } else if (param === 'ratio') {
                                             val = Math.round(val * 10) / 10;

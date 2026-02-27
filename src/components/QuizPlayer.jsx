@@ -10,6 +10,7 @@ import BinaryDiagramQuiz from './InteractiveQuizzes/BinaryDiagramQuiz';
 import GraphDrawingQuiz from './InteractiveQuizzes/GraphDrawingQuiz';
 import PianoRollQuiz from './InteractiveQuizzes/PianoRollQuiz';
 import TimelineQuiz from './InteractiveQuizzes/TimelineQuiz';
+import MidiPracticalQuiz from './InteractiveQuizzes/MidiPracticalQuiz';
 
 const QuizPlayer = ({ quiz, onFinish }) => {
     // FORCE CACHE BUST: V3
@@ -305,7 +306,7 @@ const QuizPlayer = ({ quiz, onFinish }) => {
             }
         } else {
             if (!currentQuestion.answers) return;
-            isCorrect = currentQuestion.answers[selectedAnswer]?.is_true === 'yes';
+            isCorrect = currentQuestion.answers[selectedAnswer]?.is_true === 'yes' || currentQuestion.answers[selectedAnswer]?.is_true === true;
         }
 
         setUserResponses(prev => ({
@@ -588,6 +589,17 @@ const QuizPlayer = ({ quiz, onFinish }) => {
                                 question={currentQuestion}
                                 onResult={handleInteractiveResult}
                             />
+                        ) : currentQuestion.type === 'midi_practical' ? (
+                            <MidiPracticalQuiz
+                                key={currentQuestionIndex}
+                                controlType={currentQuestion.control_type}
+                                min={currentQuestion.min}
+                                max={currentQuestion.max}
+                                step={currentQuestion.step}
+                                targetValue={currentQuestion.target_value}
+                                unit={currentQuestion.unit}
+                                onResult={handleInteractiveResult}
+                            />
                         ) : (
                             currentQuestion.answers && currentQuestion.answers.map((ans, idx) => {
                                 let className = "option-btn";
@@ -632,7 +644,7 @@ const QuizPlayer = ({ quiz, onFinish }) => {
                         </button>
 
                         {!isSubmitted ? (
-                            currentQuestion.type !== 'drag_drop' && currentQuestion.type !== 'audio_comparison' && currentQuestion.type !== 'parameter_matching' && currentQuestion.type !== 'binary-diagram' && currentQuestion.type !== 'graph-drawing' && currentQuestion.type !== 'piano-roll' && currentQuestion.type !== 'timeline' && (
+                            currentQuestion.type !== 'drag_drop' && currentQuestion.type !== 'audio_comparison' && currentQuestion.type !== 'parameter_matching' && currentQuestion.type !== 'binary-diagram' && currentQuestion.type !== 'graph-drawing' && currentQuestion.type !== 'piano-roll' && currentQuestion.type !== 'timeline' && currentQuestion.type !== 'midi_practical' && (
                                 <button
                                     className="btn-primary"
                                     onClick={handleSubmit}

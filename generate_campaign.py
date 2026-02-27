@@ -26,10 +26,14 @@ def main():
     data = load_json(course_data_path)
     
     # Extract existing quizzes
-    mastery_quizzes = find_quizzes(data, "Topic ")  # Captures Topic 1, Topic 2, etc.
+    all_mastery_quizzes = find_quizzes(data, "Topic ")  # Captures Topic 1, Topic 2, etc.
     # Filter only the exact "Topic X:"
-    mastery_quizzes = [q for q in mastery_quizzes if "Topic " in q['title'] and ":" in q['title']]
-    mastery_quizzes.sort(key=lambda x: int(x['title'].split(' ')[1].replace(':', '')))
+    all_mastery_quizzes = [q for q in all_mastery_quizzes if "Topic " in q['title'] and ":" in q['title']]
+    mastery_p1_quizzes = [q for q in all_mastery_quizzes if "(Part 1)" in q['title']]
+    mastery_p2_quizzes = [q for q in all_mastery_quizzes if "(Part 2)" in q['title']]
+
+    mastery_p1_quizzes.sort(key=lambda x: int(x['title'].split(' ')[1].replace(':', '')))
+    mastery_p2_quizzes.sort(key=lambda x: int(x['title'].split(' ')[1].replace(':', '')))
     
     practical_quizzes = find_quizzes(data, "Practical Quiz")
     comparison_quizzes = find_quizzes(data, "Comparison ")
@@ -87,7 +91,8 @@ def main():
         10: ["Practical Quiz 21: Signal Flow Challenge", "Practical Quiz 26: Hardware Anatomy"]
     }
 
-    mastery_buckets = distribute_sequential(mastery_quizzes, 10)
+    mastery_p1_buckets = distribute_sequential(mastery_p1_quizzes, 10)
+    mastery_p2_buckets = distribute_sequential(mastery_p2_quizzes, 10)
     comparison_buckets = distribute_sequential(comparison_quizzes, 5)
     case_study_buckets = distribute_sequential(case_study_quizzes, 5)
     historical_buckets = distribute_sequential(historical_quizzes, 10)
@@ -96,8 +101,8 @@ def main():
         round_nodes = []
         i = round_index - 1
         
-        # Step 1: Mastery Quizzes (can be >1 if more than 10)
-        for mq in mastery_buckets[i]:
+        # Step 1: Mastery Quizzes Part 1 (can be >1 if more than 10)
+        for mq in mastery_p1_buckets[i]:
             round_nodes.append({
                 "id": f"node_{node_counter}", "round": round_index, "step": 1,
                 "quizId": mq["id"], "type": "course", "title": mq["title"]
@@ -134,13 +139,13 @@ def main():
                 })
                 node_counter += 1
         
-        # Step 4: Dictionary Quiz
-        round_nodes.append({
-            "id": f"node_{node_counter}", "round": round_index, "step": 4,
-            "quizId": f"vol{round_index}", "topicId": f"v{round_index}_t1", "level": "intermediate",
-            "type": "dictionary", "title": f"Volume {round_index} Dictionary"
-        })
-        node_counter += 1
+        # Step 4: Mastery Quizzes Part 2 (Replacing Dictionary Quiz)
+        for mq in mastery_p2_buckets[i]:
+            round_nodes.append({
+                "id": f"node_{node_counter}", "round": round_index, "step": 4,
+                "quizId": mq["id"], "type": "course", "title": mq["title"]
+            })
+            node_counter += 1
         
         # Step 5: Historical Quizzes
         for hq in historical_buckets[i]:
