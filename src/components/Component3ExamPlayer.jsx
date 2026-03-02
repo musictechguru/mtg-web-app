@@ -5,6 +5,9 @@ import { CSS } from '@dnd-kit/utilities';
 import { GripVertical, ArrowDown, Lock, Download, Play } from 'lucide-react';
 import { useUser } from '../contexts/UserContext';
 import SignalFlowLabelQuiz from './InteractiveQuizzes/SignalFlowLabelQuiz';
+import PianoRollQuiz from './InteractiveQuizzes/PianoRollQuiz';
+import PanningQuiz from './InteractiveQuizzes/PanningQuiz';
+import GraphDrawingQuiz from './InteractiveQuizzes/GraphDrawingQuiz';
 
 // --- Sortable Item Component (For// SortableItem component
 function SortableItem({ id, item, onItemChange }) {
@@ -303,6 +306,22 @@ const Component3ExamPlayer = ({ examData, onExit }) => {
                 const marksPerBox = part.marks / Object.keys(part.correctAnswers).length;
                 return Math.round(flowScore * marksPerBox);
 
+            case 'piano_roll':
+                if (!userAnswer || !part.targetPattern) return 0;
+                const target = part.targetPattern;
+                const isCorrectPiano = userAnswer.length === target.length && target.every(t => userAnswer.some(u => u.row === t.row && u.col === t.col));
+                return isCorrectPiano ? part.marks : 0;
+
+            case 'panning':
+                if (!userAnswer || !part.elements) return 0;
+                let panningScore = 0;
+                part.elements.forEach(el => {
+                    if (userAnswer[el.id] === el.targetZone) {
+                        panningScore++;
+                    }
+                });
+                return panningScore;
+
             default:
                 return 0; // Manual marking required
         }
@@ -313,7 +332,7 @@ const Component3ExamPlayer = ({ examData, onExit }) => {
         if (part.type === 'self_mark') {
             return Array.isArray(userAnswer) ? userAnswer.length : 0;
         }
-        if (['short_answer', 'essay_short', 'essay_long', 'list', 'drawing'].includes(part.type)) {
+        if (['short_answer', 'essay_short', 'essay_long', 'list', 'drawing', 'graph_drawing'].includes(part.type)) {
             return manualScores[`${qId}_${part.id}`] || 0;
         } else {
             return calculateAutoScore(part, userAnswer);
@@ -790,6 +809,43 @@ const Component3ExamPlayer = ({ examData, onExit }) => {
                                         })()}
                                     </div>
                                 )}
+                                {part.type === 'piano_roll' && (
+                                    <div style={{ marginTop: '20px', marginBottom: '20px' }}>
+                                        <PianoRollQuiz
+                                            question={part}
+                                            examMode={true}
+                                            showAnswers={showMarkScheme}
+                                            initialNotes={answers[`${currentQuestion.id}_${part.id}`] || part.prefilledNotes || []}
+                                            onNotesChange={(newNotes) => handleAnswerChange(currentQuestion.id, part.id, newNotes)}
+                                        />
+                                    </div>
+                                )}
+                                {part.type === 'panning' && (
+                                    <div style={{ marginTop: '20px', marginBottom: '20px' }}>
+                                        <PanningQuiz
+                                            question={part}
+                                            examMode={true}
+                                            showAnswers={showMarkScheme}
+                                            initialAnswers={answers[`${currentQuestion.id}_${part.id}`] || {}}
+                                            onAnswersChange={(newAnswers) => handleAnswerChange(currentQuestion.id, part.id, newAnswers)}
+                                        />
+                                    </div>
+                                )}
+                                {part.type === 'graph_drawing' && (
+                                    <div style={{ marginTop: '20px', marginBottom: '20px' }}>
+                                        <GraphDrawingQuiz
+                                            question={part}
+                                            hint={part.hint}
+                                            targetPoints={part.config?.points || []}
+                                            correctValues={part.config?.correctValues || part.correctValues}
+                                            examMode={true}
+                                            showAnswers={showMarkScheme}
+                                            initialAnswers={answers[`${currentQuestion.id}_${part.id}`] || {}}
+                                            onValuesChange={(newValues) => handleAnswerChange(currentQuestion.id, part.id, newValues)}
+                                            onResult={() => { }}
+                                        />
+                                    </div>
+                                )}
                                 {part.type === 'cloze' && (
                                     <div style={{ lineHeight: '2.5', fontSize: '1.1rem' }}>
                                         {Array.isArray(part.text) ? (
@@ -1042,7 +1098,7 @@ const Component3ExamPlayer = ({ examData, onExit }) => {
                                                         Score: <span style={{ color: 'var(--accent-success)', fontSize: '1.2rem' }}>{(answers[`${currentQuestion.id}_${part.id}`] || []).length}</span> / {part.marks}
                                                     </div>
                                                 </div>
-                                            ) : ['short_answer', 'essay_short', 'essay_long', 'list', 'drawing'].includes(part.type) ? (
+                                            ) : ['short_answer', 'essay_short', 'essay_long', 'list', 'drawing', 'graph_drawing'].includes(part.type) ? (
                                                 <div>
                                                     <label style={{ display: 'block', marginBottom: '10px', color: '#facc15', fontWeight: 'bold' }}>Self Mark This Question:</label>
                                                     <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>

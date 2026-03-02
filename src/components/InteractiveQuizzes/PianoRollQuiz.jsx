@@ -1,8 +1,15 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Play, Pause, Volume2, Check, X, RotateCcw } from 'lucide-react';
 
-export default function PianoRollQuiz({ question, onResult }) {
-    const [userNotes, setUserNotes] = useState([]);
+export default function PianoRollQuiz({ question, onResult, initialNotes, onNotesChange, examMode, showAnswers }) {
+    const [internalNotes, setInternalNotes] = useState([]);
+    const userNotes = initialNotes !== undefined ? initialNotes : internalNotes;
+
+    const setUserNotes = (updater) => {
+        const nextNotes = typeof updater === 'function' ? updater(userNotes) : updater;
+        if (onNotesChange) onNotesChange(nextNotes);
+        else setInternalNotes(nextNotes);
+    };
     const [isPlayingTarget, setIsPlayingTarget] = useState(false);
     const [isPlayingUser, setIsPlayingUser] = useState(false);
     const [isDragging, setIsDragging] = useState(false);
@@ -17,9 +24,13 @@ export default function PianoRollQuiz({ question, onResult }) {
 
     // Initialize state from question
     useEffect(() => {
-        if (question.prefilledNotes) {
+        if (initialNotes !== undefined) {
+            // Respect controlled state if provided
+            return;
+        }
+        if (question?.prefilledNotes) {
             setUserNotes(question.prefilledNotes);
-        } else if (question.initialPattern) {
+        } else if (question?.initialPattern) {
             setUserNotes(question.initialPattern);
         } else {
             setUserNotes([]);
@@ -28,7 +39,7 @@ export default function PianoRollQuiz({ question, onResult }) {
         setFeedback(null);
         setPlayingCol(null);
         if (playbackRef.current) cancelAnimationFrame(playbackRef.current);
-    }, [question]);
+    }, [question, initialNotes]);
 
     // Initialize Audio Context
     useEffect(() => {
@@ -402,8 +413,8 @@ export default function PianoRollQuiz({ question, onResult }) {
                                     />
                                 ))}
 
-                                {/* Target Overlay (Ghost) - Show if submitted and wrong */}
-                                {submitted && feedback && !feedback.isCorrect && question.targetPattern.filter(t => t.row === r).map((t, i) => (
+                                {/* Target Overlay (Ghost) - Show if submitted and wrong, or if showAnswers is true */}
+                                {(showAnswers || (submitted && feedback && !feedback.isCorrect)) && question?.targetPattern && question.targetPattern.filter(t => t.row === r).map((t, i) => (
                                     <div
                                         key={`target-${i}`}
                                         style={styles.note(t.col, t.length, true)}
@@ -416,7 +427,7 @@ export default function PianoRollQuiz({ question, onResult }) {
             </div>
 
             {/* Check Button */}
-            {!submitted && (
+            {!submitted && !examMode && (
                 <button
                     onClick={checkAnswer}
                     style={{ ...styles.button, ...styles.btnPurple }}
@@ -426,7 +437,7 @@ export default function PianoRollQuiz({ question, onResult }) {
             )}
 
             {/* Feedback */}
-            {submitted && (
+            {submitted && !examMode && (
                 <div style={styles.feedback(feedback.isCorrect)}>
                     {feedback.isCorrect ? <Check size={20} /> : <X size={20} />}
                     <span>

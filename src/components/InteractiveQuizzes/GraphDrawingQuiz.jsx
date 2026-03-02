@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Eraser } from 'lucide-react';
 
-const GraphDrawingQuiz = ({ question, targetPoints, hint, initValues, correctValues: correctValuesProp, onResult }) => {
+const GraphDrawingQuiz = ({ question, targetPoints, hint, initValues, correctValues: correctValuesProp, onResult, examMode = false, showAnswers = false, initialAnswers, onValuesChange }) => {
     const [drawnPath, setDrawnPath] = useState([]);
     const [isDrawing, setIsDrawing] = useState(false);
     const [submitted, setSubmitted] = useState(false);
@@ -15,6 +15,13 @@ const GraphDrawingQuiz = ({ question, targetPoints, hint, initValues, correctVal
 
     // Initialize sliders and correct values based on question type
     useEffect(() => {
+        if (examMode && initialAnswers && Object.keys(initialAnswers).length > 0) {
+            setSliderValues(initialAnswers);
+            if (correctValuesProp) setCorrectValues(correctValuesProp);
+            // In exam mode, the graph update happens when canvas ref is ready or sliders change
+            return;
+        }
+
         if (initValues && correctValuesProp) {
             setSliderValues(initValues);
             setCorrectValues(correctValuesProp);
@@ -22,7 +29,7 @@ const GraphDrawingQuiz = ({ question, targetPoints, hint, initValues, correctVal
         }
 
         const type = getQuestionType();
-        const text = question.toLowerCase();
+        const text = (typeof question === 'string' ? question : question?.question || '').toLowerCase();
 
         let init = {};
         let correct = {};
@@ -65,7 +72,7 @@ const GraphDrawingQuiz = ({ question, targetPoints, hint, initValues, correctVal
     }, [question]); // Re-draw grid if question type changes
 
     const getQuestionType = () => {
-        const text = (question || '').toLowerCase();
+        const text = (typeof question === 'string' ? question : question?.question || '').toLowerCase();
         if (text.includes('adsr') || text.includes('envelope')) return 'adsr';
         if (text.includes('eq')) return 'eq';
         if (text.includes('compression') || text.includes('limiter')) return 'compression';
@@ -77,7 +84,30 @@ const GraphDrawingQuiz = ({ question, targetPoints, hint, initValues, correctVal
         const newValues = { ...sliderValues, [param]: parseFloat(value) };
         setSliderValues(newValues);
         updateGraphFromSliders(newValues);
+        if (examMode && onValuesChange) {
+            onValuesChange(newValues);
+        }
     };
+
+    // Initialize graph state properly on load if examMode restores initialAnswers
+    useEffect(() => {
+        if (examMode && initialAnswers && Object.keys(initialAnswers).length > 0 && canvasContext) {
+            updateGraphFromSliders(initialAnswers);
+        }
+    }, [canvasContext, examMode]);
+
+    // Draw correct answers if toggled in exam mode
+    useEffect(() => {
+        if (examMode && showAnswers && correctValues && canvasContext) {
+            const canvas = canvasRef.current;
+            const idealPoints = calculatePoints(correctValues, canvas.width, canvas.height);
+            const referencePath = idealPoints.map(p => ({
+                x: (p.x / canvas.width) * 100,
+                y: (p.y / canvas.height) * 100
+            }));
+            drawTargetPath(referencePath);
+        }
+    }, [showAnswers, examMode, correctValues, canvasContext]);
 
     const updateGraphFromSliders = (values) => {
         const canvas = canvasRef.current;
@@ -437,25 +467,33 @@ const GraphDrawingQuiz = ({ question, targetPoints, hint, initValues, correctVal
             for (const [key, targetVal] of Object.entries(correctValues)) {
                 const userVal = sliderValues[key];
 
-                // Define tolerance based on parameter type
-                let tolerance = 0;
-                if (key === 'frequency' || key === 'cutoff') {
-                    // Logarithmic tolerance (e.g., within 20% of target)
-                    tolerance = targetVal * 0.20;
-                } else if (key === 'gain' || key === 'threshold') {
-                    // +/- 2dB
-                    tolerance = 2;
-                } else if (key === 'ratio') {
-                    // +/- 1.0 ratio
-                    tolerance = 1.0;
-                } else if (['attack', 'decay', 'sustain', 'release'].includes(key)) {
-                    // +/- 10%
-                    tolerance = 10;
-                }
+                // Check if targetVal is an array representing an acceptable range [min, max]
+                if (Array.isArray(targetVal) && targetVal.length === 2) {
+                    if (userVal < targetVal[0] || userVal > targetVal[1]) {
+                        currentIsCorrect = false;
+                        break;
+                    }
+                } else {
+                    // Define tolerance based on parameter type (fallback for single values)
+                    let tolerance = 0;
+                    if (key === 'frequency' || key === 'cutoff') {
+                        // Logarithmic tolerance (e.g., within 20% of target)
+                        tolerance = targetVal * 0.20;
+                    } else if (key === 'gain' || key === 'threshold') {
+                        // +/- 2dB
+                        tolerance = 2;
+                    } else if (key === 'ratio') {
+                        // +/- 1.0 ratio
+                        tolerance = 1.0;
+                    } else if (['attack', 'decay', 'sustain', 'release'].includes(key)) {
+                        // +/- 10%
+                        tolerance = 10;
+                    }
 
-                if (Math.abs(userVal - targetVal) > tolerance) {
-                    currentIsCorrect = false;
-                    break;
+                    if (Math.abs(userVal - targetVal) > tolerance) {
+                        currentIsCorrect = false;
+                        break;
+                    }
                 }
             }
         } else if (drawnPath.length > 0) {
@@ -470,7 +508,12 @@ const GraphDrawingQuiz = ({ question, targetPoints, hint, initValues, correctVal
         // Draw target path overlay
         let referencePath = targetPoints;
         if (correctValues) {
-            const idealPoints = calculatePoints(correctValues, canvas.width, canvas.height);
+            // Re-calculate ideal points using the midpoint of the range (or the exact value) for drawing the overlay
+            const displayValues = {};
+            for (const [key, val] of Object.entries(correctValues)) {
+                displayValues[key] = Array.isArray(val) ? (val[0] + val[1]) / 2 : val;
+            }
+            const idealPoints = calculatePoints(displayValues, canvas.width, canvas.height);
             referencePath = idealPoints.map(p => ({
                 x: (p.x / canvas.width) * 100,
                 y: (p.y / canvas.height) * 100
@@ -557,7 +600,7 @@ const GraphDrawingQuiz = ({ question, targetPoints, hint, initValues, correctVal
     return (
         <div style={{ width: '100%' }}>
             {/* Hint */}
-            {hint && !submitted && (
+            {hint && !submitted && !examMode && (
                 <div style={{
                     background: 'rgba(251, 191, 36, 0.1)',
                     border: '1px solid rgba(251, 191, 36, 0.3)',
@@ -684,7 +727,7 @@ const GraphDrawingQuiz = ({ question, targetPoints, hint, initValues, correctVal
                     Clear
                 </button>
 
-                {!submitted && (drawnPath.length > 2 || Object.keys(sliderValues).length > 0) && (
+                {!submitted && !examMode && (drawnPath.length > 2 || Object.keys(sliderValues).length > 0) && (
                     <button
                         onClick={checkAnswer}
                         style={{

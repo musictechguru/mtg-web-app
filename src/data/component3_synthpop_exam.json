@@ -18,28 +18,28 @@
                         "artist": "The Human League",
                         "title": "Don't You Want Me",
                         "year": 1981,
-                        "filename": "Music/C3_SYNTHPOP/Q1_C3_DontYouWantMe.mp3"
+                        "filename": "Music/C3_SYNTH_POP/Don't you want me.mp3"
                     },
                     "parts": [
                         {
                             "id": "a_i",
                             "type": "multiple_choice",
                             "marks": 1,
-                            "question": "The track opens with a distinctive drum machine beat. Identify the drum machine used.",
+                            "question": "The track opens with a distinctive drum machine beat. Which early 1980s technological development allowed drum machines to sound much closer to real acoustic kits?",
                             "options": [
-                                "Roland TR-808",
-                                "Linn LM-1",
-                                "Oberheim DMX",
-                                "Roland CR-78"
+                                "Digital Sampling",
+                                "Analogue Subtractive Synthesis",
+                                "Frequency Modulation (FM)",
+                                "Tape Loops"
                             ],
-                            "answer": "Linn LM-1",
-                            "rationale": "The Linn LM-1 was the first drum machine to use digital samples of acoustic drums, a defining sound of The Human League's 'Dare' album."
+                            "answer": "Digital Sampling",
+                            "rationale": "The use of digital sampling for acoustic drum sounds was a major innovation for high-end early 1980s drum machines, providing a more realistic character than earlier analogue models."
                         },
                         {
                             "id": "a_ii",
                             "type": "multi_select",
                             "marks": 3,
-                            "question": "Select THREE characteristics of the Linn LM-1 that define its sound in this track.",
+                            "question": "Select THREE features typical of high-end early digital drum machines that defined their sound and studio workflow in this era.",
                             "options": [
                                 "Analogue Synthesis",
                                 "Digital Samples",
@@ -54,7 +54,7 @@
                                 "Tunable Pitch",
                                 "Individual Outputs"
                             ],
-                            "rationale": "The LM-1 used 8-bit digital samples, allowed individual tuning of sounds (heard on the toms), and had individual outs for mixer processing."
+                            "rationale": "They used low bit-depth digital samples, allowed individual tuning of percussion sounds (evident on the toms in this track), and provided individual audio outputs for independent mixing and processing."
                         },
                         {
                             "id": "b",
@@ -110,7 +110,7 @@
                         "artist": "Eurythmics",
                         "title": "Sweet Dreams (Are Made of This)",
                         "year": 1983,
-                        "filename": "Music/C3_SYNTHPOP/Q2_C3_SweetDreams.mp3"
+                        "filename": "Music/C3_SYNTH_POP/Sweet dreams.MP3"
                     },
                     "parts": [
                         {
@@ -130,28 +130,38 @@
                         {
                             "id": "a_ii",
                             "type": "matching",
-                            "marks": 3,
+                            "marks": 4,
                             "question": "Match the synthesizer component to its function.",
                             "pairs": [
                                 {
-                                    "item": "VCO",
+                                    "item": "VCO (Voltage Controlled Oscillator)",
                                     "match": "Generates the raw waveform"
                                 },
                                 {
-                                    "item": "VCF",
+                                    "item": "VCF (Voltage Controlled Filter)",
                                     "match": "Controls brightness/timbre"
                                 },
                                 {
-                                    "item": "LFO",
+                                    "item": "VCA (Voltage Controlled Amplifier)",
+                                    "match": "Controls volume over time"
+                                },
+                                {
+                                    "item": "LFO (Low Frequency Oscillator)",
                                     "match": "Modulates parameters cyclically"
                                 }
                             ],
                             "options": [
                                 "Generates the raw waveform",
                                 "Controls brightness/timbre",
+                                "Controls volume over time",
                                 "Modulates parameters cyclically",
-                                "Controls volume envelope",
                                 "Adds delay"
+                            ],
+                            "markScheme": [
+                                "VCO = Generates the raw waveform",
+                                "VCF = Controls brightness/timbre",
+                                "VCA = Controls volume over time",
+                                "LFO = Modulates parameters cyclically"
                             ]
                         },
                         {
@@ -179,51 +189,179 @@
                                 "Heavy Reverb / Distant",
                                 "Vocoder",
                                 "Telephone EQ"
+                            ],
+                            "markScheme": [
+                                "Intro / Verse = Close mic, dry presence",
+                                "Chorus = Multi-layered harmonies",
+                                "Middle 8 = Heavy Reverb / Distant"
                             ]
                         },
                         {
                             "id": "c",
-                            "type": "drawing",
-                            "subtype": "filter_2band",
-                            "marks": 2,
-                            "question": "The synthesizer riff has a strong mid-range presence. Draw an EQ curve that might have been used to boost the 'bite' around 2kHz while cutting muddy low frequencies.",
-                            "defaultValues": [
-                                20,
-                                20000
+                            "type": "piano_roll",
+                            "marks": 4,
+                            "question": "Complete the missing notes in the musical phrase for the main 'Sweet Dreams' lead synth riff.",
+                            "hint": "The first bar plays: C, C, Eb, C, G, G, Ab, G. The first 4 notes are provided.",
+                            "columns": 16,
+                            "rows": [
+                                {
+                                    "name": "Ab4",
+                                    "note": "Ab4"
+                                },
+                                {
+                                    "name": "G4",
+                                    "note": "G4"
+                                },
+                                {
+                                    "name": "F4",
+                                    "note": "F4"
+                                },
+                                {
+                                    "name": "Eb4",
+                                    "note": "Eb4"
+                                },
+                                {
+                                    "name": "D4",
+                                    "note": "D4"
+                                },
+                                {
+                                    "name": "C4",
+                                    "note": "C4"
+                                }
                             ],
-                            "markScheme": [
-                                "Low Cut (HPF) around 100-200Hz",
-                                "High Cut (LPF) open or slight roll-off"
+                            "prefilledNotes": [
+                                {
+                                    "row": 5,
+                                    "col": 0,
+                                    "length": 1
+                                },
+                                {
+                                    "row": 5,
+                                    "col": 2,
+                                    "length": 1
+                                },
+                                {
+                                    "row": 3,
+                                    "col": 4,
+                                    "length": 1
+                                },
+                                {
+                                    "row": 5,
+                                    "col": 6,
+                                    "length": 1
+                                }
                             ],
-                            "answer": [
-                                200,
-                                20000
+                            "targetPattern": [
+                                {
+                                    "row": 5,
+                                    "col": 0,
+                                    "length": 1
+                                },
+                                {
+                                    "row": 5,
+                                    "col": 2,
+                                    "length": 1
+                                },
+                                {
+                                    "row": 3,
+                                    "col": 4,
+                                    "length": 1
+                                },
+                                {
+                                    "row": 5,
+                                    "col": 6,
+                                    "length": 1
+                                },
+                                {
+                                    "row": 1,
+                                    "col": 8,
+                                    "length": 1
+                                },
+                                {
+                                    "row": 1,
+                                    "col": 10,
+                                    "length": 1
+                                },
+                                {
+                                    "row": 0,
+                                    "col": 12,
+                                    "length": 1
+                                },
+                                {
+                                    "row": 1,
+                                    "col": 14,
+                                    "length": 1
+                                }
                             ],
-                            "rationale": "Cutting lows clears mud; the prompt asks for Low Cut."
+                            "rationale": "The riff descends and accents on the syncopated hits."
                         },
                         {
                             "id": "d",
-                            "type": "ordering",
-                            "marks": 4,
-                            "question": "Place the steps of a Subtractive Synthesis signal path in the correct order.",
-                            "items": [
+                            "type": "panning",
+                            "marks": 3,
+                            "question": "At 16 seconds there is a vocal ooh. Place the vocal ooh in the stereo field along with the other elements below.",
+                            "hint": "Drag the elements to the correct position in the stereo field (Left/Right) and depth (Front/Back).",
+                            "elements": [
                                 {
-                                    "id": "osc",
-                                    "content": "Oscillator (Source)"
+                                    "id": "vocal_ooh",
+                                    "content": "Vocal Ooh",
+                                    "targetZone": "zone_mid_right"
                                 },
                                 {
-                                    "id": "mix",
-                                    "content": "Mixer (Combine waveforms)"
+                                    "id": "vocal_ahh",
+                                    "content": "Vocal Ahh",
+                                    "targetZone": "zone_mid_left"
                                 },
                                 {
-                                    "id": "filter",
-                                    "content": "Filter (Remove harmonics)"
+                                    "id": "snare",
+                                    "content": "Snare",
+                                    "targetZone": "zone_center_back"
                                 },
                                 {
-                                    "id": "amp",
-                                    "content": "Amplifier (Shape volume)"
+                                    "id": "main_vocal",
+                                    "content": "Main Vocal",
+                                    "targetZone": "zone_center_front"
                                 }
-                            ]
+                            ],
+                            "zones": [
+                                {
+                                    "id": "zone_mid_right",
+                                    "angle": 135,
+                                    "distance": 0.5,
+                                    "label": "Medium Right"
+                                },
+                                {
+                                    "id": "zone_mid_left",
+                                    "angle": 45,
+                                    "distance": 0.5,
+                                    "label": "Medium Left"
+                                },
+                                {
+                                    "id": "zone_center_back",
+                                    "angle": 90,
+                                    "distance": 1.0,
+                                    "label": "Center Back"
+                                },
+                                {
+                                    "id": "zone_hard_left",
+                                    "angle": 0,
+                                    "distance": 0.8,
+                                    "label": "Hard Left"
+                                },
+                                {
+                                    "id": "zone_hard_right",
+                                    "angle": 180,
+                                    "distance": 0.8,
+                                    "label": "Hard Right"
+                                },
+                                {
+                                    "id": "zone_center_front",
+                                    "angle": 90,
+                                    "distance": 0.2,
+                                    "label": "Center Front"
+                                }
+                            ],
+                            "rationale": "The Vocal Ooh is panned medium right, the Vocal Ahh is panned medium left, the Snare is placed center but pushed back with reverb, and the Main Vocal sits front and center."
                         }
                     ]
                 },
@@ -235,28 +373,28 @@
                         "artist": "New Order",
                         "title": "Blue Monday",
                         "year": 1983,
-                        "filename": "Music/C3_SYNTHPOP/Q3_C3_BlueMonday.mp3"
+                        "filename": "Music/C3_SYNTH_POP/Blue Monday.mp3"
                     },
                     "parts": [
                         {
                             "id": "a",
                             "type": "multiple_choice",
                             "marks": 1,
-                            "question": "The kick drum intro was created using which method?",
+                            "question": "At 1.00 min there is a drum fill consisting of which 2 sounds?",
                             "options": [
-                                "Live Drummer",
-                                "Tape Loops",
-                                "Step Sequenced Drum Machine",
-                                "Sampled Breakbeat"
+                                "Snare and Open Hat",
+                                "Kick and Crash Cymbal",
+                                "Toms and Closed Hat",
+                                "Clap and Cowbell"
                             ],
-                            "answer": "Step Sequenced Drum Machine",
-                            "rationale": "It was programmed on an Oberheim DMX using a 16th note step sequence."
+                            "answer": "Snare and Open Hat",
+                            "rationale": "The fill uses a snare roll combined with an open hi-hat on the off-beats."
                         },
                         {
                             "id": "b",
                             "type": "multi_select",
                             "marks": 2,
-                            "question": "Select TWO limitations of early samplers (like the Emulator I used here) that affected the sound.",
+                            "question": "There is a sampled choir pad that occurs at 1.36. Select 2 limitations of early samplers.",
                             "options": [
                                 "Low Bit Depth (8-bit)",
                                 "Limited Sampling Time",
@@ -274,15 +412,15 @@
                             "id": "c",
                             "type": "multiple_choice",
                             "marks": 1,
-                            "question": "What is the time signature of this track?",
+                            "question": "What is the effect used on the guitar riff at 1.18?",
                             "options": [
-                                "3/4",
-                                "4/4",
-                                "5/4",
-                                "12/8"
+                                "Flange",
+                                "Chorus",
+                                "Phaser",
+                                "Delay"
                             ],
-                            "answer": "4/4",
-                            "rationale": "Standard 4/4 dance beat."
+                            "answer": "Flange",
+                            "rationale": "A flanger creates a sweeping, jet-plane like effect which is prominent on the guitar riff."
                         },
                         {
                             "id": "d",
@@ -311,7 +449,7 @@
                         "artist": "Depeche Mode",
                         "title": "Just Can't Get Enough",
                         "year": 1981,
-                        "filename": "Music/C3_SYNTHPOP/Q4_C3_JustCantGetEnough.mp3"
+                        "filename": "Music/C3_SYNTH_POP/I Just Can't Gert Enough.mp3"
                     },
                     "parts": [
                         {
@@ -401,129 +539,161 @@
                     "totalMarks": 15,
                     "track": {
                         "artist": "Comparison",
-                        "title": "Tainted Love (1964) vs Tainted Love (1981)",
-                        "year": "1964/1981",
-                        "filename": "Music/C3_SYNTHPOP/Q5_C3_TaintedLove_Synth.mp3",
-                        "compareFilename": "Music/C3_SYNTHPOP/Q5_C3_TaintedLove_Soul.mp3"
+                        "title": "Cars (1979) vs Cars (1999)",
+                        "year": "1979/1999",
+                        "filename": "Music/C3_SYNTH_POP/Cars (Fear Factory).mp3",
+                        "compareFilename": "Music/C3_SYNTH_POP/Gary Newman - Cars.mp3.mp3",
+                        "audioLabel": "Fear Factory (1999 Metal Cover)",
+                        "compareLabel": "Gary Numan (1979 Original)"
                     },
                     "parts": [
                         {
                             "id": "a",
                             "type": "cloze",
                             "marks": 15,
-                            "question": "Complete the comparison analysis. Choose the correct terms to describe the production differences.",
+                            "question": "Complete the comparison analysis. Choose the correct terms to describe the production differences between Gary Numan's original (1979) and Fear Factory's Industrial Metal cover (1999).",
                             "text": [
-                                "The 1964 original features a {0} drum kit driving a fast Northern Soul tempo.",
-                                "In contrast, the 1981 version uses a programmable {1} with a slower, stomping beat.",
-                                "The bassline in the original is played on an {2} guitar with a warm, round tone.",
-                                "Soft Cell replaces this with a distinctive {3} synth bass sound.",
-                                "The original vocal is {4} and full-bodied, typical of 60s Soul.",
-                                "Marc Almond's 1981 vocal performance is more {5}, reflecting the Synth Pop aesthetic.",
-                                "Instrumentation in 1964 includes a {6} section providing stabs and swells.",
-                                "The 1981 cover replaces these organic elements with {7} lines and electronic pads.",
-                                "Rhythmically, the original has a natural {8} and swing.",
-                                "The 1981 version is rigid and {9} to a machine grid.",
-                                "The recording environment for the original was likely a large {10} with spill between mics.",
-                                "The 1981 track was recorded using distinct {11}, allowing total isolation.",
-                                "Overall, the original focuses on {12} energy and performance.",
-                                "The cover focuses on {13} texture and technological precision.",
-                                "The 1964 version uses {14} reverb, while the 1981 version uses Gated reverb effects."
+                                "The 1979 original features a {0} drum kit playing a very rigid, simplistic beat.",
+                                "In contrast, the 1999 version uses heavy, sampled, and {1} metal drums with double-kick patterns.",
+                                "The bassline in the original is played on a dry, analog {2} synthesizer, providing a low, throbbing foundation.",
+                                "Fear Factory reinforces this with a heavily distorted, downtuned {3} bass guitar.",
+                                "Gary Numan's vocal performance is famously cold, alienating, and {4}.",
+                                "Burton C. Bell's 1999 vocal performance is gritty, forceful, and occasionally {5}.",
+                                "Instrumentation in 1979 features sweeping, icy {6} string sounds (Polymoog).",
+                                "The 1999 cover replaces some of the organic/analog warmth with aggressive, chugging {7}.",
+                                "Rhythmically, the original has a robotic but entirely human {8} groove.",
+                                "The 1999 version is strictly {9} to a digital grid, standard for 90s industrial metal.",
+                                "The recording environment for the original was likely a deadened {10} typical of the late 70s.",
+                                "The 1999 track relies on massive, modern {11} and artificial space.",
+                                "Overall, the original focuses on eerie {12} alienation and pioneering analog synth use.",
+                                "The cover focuses on aggressive {13} weight and wall-of-sound production.",
+                                "The 1979 version uses {14} reverb on the vocal, while the 1999 version uses longer, dense digital delays and reverbs."
                             ],
                             "options": [
                                 [
                                     "Live",
                                     "Electronic",
-                                    "Sequenced"
+                                    "Overdubbed",
+                                    "Sampled",
+                                    "Programmed"
                                 ],
                                 [
-                                    "Drum Machine",
-                                    "Sampler",
-                                    "Synthesizer"
+                                    "Triggered",
+                                    "Acoustic",
+                                    "Lo-Fi",
+                                    "Synthesized",
+                                    "Brushed"
+                                ],
+                                [
+                                    "Moog",
+                                    "Upright",
+                                    "Digital",
+                                    "Fretless",
+                                    "Wavetable"
                                 ],
                                 [
                                     "Electric",
-                                    "Upright",
-                                    "Acoustic"
-                                ],
-                                [
-                                    "Sawtooth",
+                                    "Sub",
                                     "Sine",
-                                    "Square"
-                                ],
-                                [
-                                    "Powerful",
-                                    "Weak",
-                                    "Whispered"
+                                    "Acoustic",
+                                    "FM Synth"
                                 ],
                                 [
                                     "Deadpan",
                                     "Operatic",
-                                    "Aggressive"
+                                    "Expressive",
+                                    "Screamed",
+                                    "Whispered"
                                 ],
                                 [
-                                    "Brass",
-                                    "String",
-                                    "Woodwind"
+                                    "Aggressive",
+                                    "Whispered",
+                                    "Monotone",
+                                    "Spoken",
+                                    "Melodic"
                                 ],
                                 [
                                     "Synthesizer",
-                                    "Guitar",
-                                    "Piano"
+                                    "Brass",
+                                    "Woodwind",
+                                    "Orchestral",
+                                    "Choir"
                                 ],
                                 [
-                                    "Groove",
-                                    "Click",
-                                    "Silence"
+                                    "Guitars",
+                                    "Pianos",
+                                    "Samplers",
+                                    "Drum Machines",
+                                    "Turntables"
+                                ],
+                                [
+                                    "Live",
+                                    "Rigidity",
+                                    "Delay",
+                                    "Swing",
+                                    "Syncopation"
                                 ],
                                 [
                                     "Quantized",
-                                    "Random",
-                                    "Loose"
+                                    "Swung",
+                                    "Humanized",
+                                    "Randomized",
+                                    "Triplet"
                                 ],
                                 [
                                     "Live Room",
                                     "Vocal Booth",
-                                    "Bathroom"
+                                    "Cathedral",
+                                    "Bathroom",
+                                    "Closet"
                                 ],
                                 [
-                                    "Overdubs",
-                                    "Live Takes",
-                                    "Field Recordings"
+                                    "Reverb",
+                                    "Acoustics",
+                                    "Tape Delay",
+                                    "Compression",
+                                    "Phasing"
                                 ],
                                 [
-                                    "Emotional",
-                                    "Visual",
-                                    "Calculated"
+                                    "Organic",
+                                    "Machine",
+                                    "Electronic",
+                                    "Acoustic",
+                                    "Digital"
                                 ],
                                 [
-                                    "Sonic",
-                                    "Lyrical",
-                                    "Melodic"
+                                    "Industrial",
+                                    "Acoustic",
+                                    "Lo-Fi",
+                                    "Classical",
+                                    "Jazz"
                                 ],
                                 [
                                     "Plate",
-                                    "Hall",
-                                    "Spring"
+                                    "Spring",
+                                    "Digital",
+                                    "Chamber",
+                                    "Convolution"
                                 ]
                             ],
                             "answer": [
                                 "Live",
-                                "Drum Machine",
+                                "Triggered",
+                                "Moog",
                                 "Electric",
-                                "Sawtooth",
-                                "Powerful",
                                 "Deadpan",
-                                "Brass",
+                                "Aggressive",
                                 "Synthesizer",
-                                "Groove",
+                                "Guitars",
+                                "Live",
                                 "Quantized",
                                 "Live Room",
-                                "Overdubs",
-                                "Emotional",
-                                "Sonic",
+                                "Reverb",
+                                "Electronic",
+                                "Industrial",
                                 "Plate"
                             ],
-                            "rationale": "The comparison highlights the shift from organic, live soul performance to the constructed, synthetic nature of Synth Pop."
+                            "rationale": "The comparison highlights the shift from cold, analog, early Synth Pop to aggressive, heavily processed, quantized Industrial Metal."
                         }
                     ]
                 },
@@ -535,32 +705,114 @@
                         "artist": "Kraftwerk",
                         "title": "The Model",
                         "year": 1978,
-                        "filename": "Music/C3_SYNTHPOP/Q6_C3_TheModel.mp3"
+                        "filename": "Music/C3_SYNTH_POP/The Model.mp3"
                     },
                     "parts": [
                         {
                             "id": "a",
-                            "type": "ordering",
+                            "type": "graph_drawing",
                             "marks": 4,
-                            "question": "Reconstruct the signal path of a Vocoder.",
-                            "items": [
-                                {
-                                    "id": "mic",
-                                    "content": "Microphone (Modulator Signal)"
+                            "question": "Draw the ADSR filter envelope for the main lead riff heard from the start.",
+                            "hint": "The lead synth has a medium attack (swells slightly), medium decay, holds at 70% sustain, and has a long release (fades out).",
+                            "graphType": "adsr",
+                            "yAxisLabel": "Amplitude / Filter Cutoff",
+                            "xAxisLabel": "Time",
+                            "config": {
+                                "correctValues": {
+                                    "attack": [
+                                        5,
+                                        30
+                                    ],
+                                    "decay": [
+                                        20,
+                                        50
+                                    ],
+                                    "sustain": [
+                                        50,
+                                        75
+                                    ],
+                                    "release": [
+                                        80,
+                                        100
+                                    ]
                                 },
-                                {
-                                    "id": "synth",
-                                    "content": "Synthesizer (Carrier Signal)"
-                                },
-                                {
-                                    "id": "filter",
-                                    "content": "Filter Bank (Analysis & Synthesis)"
-                                },
-                                {
-                                    "id": "out",
-                                    "content": "Output (Vocoded Sound)"
+                                "points": [
+                                    {
+                                        "id": "start",
+                                        "label": "Start",
+                                        "locked": true,
+                                        "x": 0,
+                                        "y": 0
+                                    },
+                                    {
+                                        "id": "attack",
+                                        "label": "Attack",
+                                        "x": 25,
+                                        "y": 100
+                                    },
+                                    {
+                                        "id": "decay",
+                                        "label": "Decay",
+                                        "x": 45,
+                                        "y": 70
+                                    },
+                                    {
+                                        "id": "sustain",
+                                        "label": "Sustain",
+                                        "x": 75,
+                                        "y": 70
+                                    },
+                                    {
+                                        "id": "release",
+                                        "label": "Release",
+                                        "x": 100,
+                                        "y": 0,
+                                        "lockedY": true
+                                    }
+                                ],
+                                "targetValues": {
+                                    "attack": {
+                                        "x": [
+                                            15,
+                                            35
+                                        ],
+                                        "y": [
+                                            90,
+                                            100
+                                        ]
+                                    },
+                                    "decay": {
+                                        "x": [
+                                            35,
+                                            55
+                                        ],
+                                        "y": [
+                                            60,
+                                            80
+                                        ]
+                                    },
+                                    "sustain": {
+                                        "x": [
+                                            65,
+                                            85
+                                        ],
+                                        "y": [
+                                            60,
+                                            80
+                                        ]
+                                    },
+                                    "release": {
+                                        "x": [
+                                            90,
+                                            100
+                                        ],
+                                        "y": [
+                                            0,
+                                            10
+                                        ]
+                                    }
                                 }
-                            ]
+                            }
                         },
                         {
                             "id": "b",
@@ -612,11 +864,67 @@
                         },
                         {
                             "id": "c",
-                            "type": "essay_short",
+                            "type": "sorting",
                             "marks": 10,
-                            "question": "Compare the workflow of Analogue Tape recording (1970s) vs Emerging Digital Sequencing (1980s). Discuss linear recording vs pattern-based composition.",
-                            "answer": "Answer should discuss: \n1. Tape: Linear workflow, destructive editing, performance capture.\n2. Digital/Sequencing: Pattern based, non-destructive editing (MIDI), separation of performance (data) and sound.\n3. Corrections: Punch-in on tape vs Quantise/Edit on sequencer.\n4. Recall: Manual recall of desk vs Digital save/load.",
-                            "rationale": "Correctly identifies fundamental shifts in production workflow."
+                            "question": "Categorise these Synthesis and Production Workflows into their correct historical era.",
+                            "groups": [
+                                "Late 1970s (Analogue & CV/Gate)",
+                                "1980s (Digital Hardware & MIDI)",
+                                "Modern (DAW & Virtual Instruments)"
+                            ],
+                            "items": [
+                                {
+                                    "id": "1",
+                                    "content": "Splicing 2-inch tape with a razor",
+                                    "group": "Late 1970s (Analogue & CV/Gate)"
+                                },
+                                {
+                                    "id": "2",
+                                    "content": "Minimoog monophonic bassline",
+                                    "group": "Late 1970s (Analogue & CV/Gate)"
+                                },
+                                {
+                                    "id": "3",
+                                    "content": "Moog Modular CV Step Sequencer",
+                                    "group": "Late 1970s (Analogue & CV/Gate)"
+                                },
+                                {
+                                    "id": "4",
+                                    "content": "Yamaha DX7 (FM Synthesis)",
+                                    "group": "1980s (Digital Hardware & MIDI)"
+                                },
+                                {
+                                    "id": "5",
+                                    "content": "Connecting synths via 5-pin MIDI",
+                                    "group": "1980s (Digital Hardware & MIDI)"
+                                },
+                                {
+                                    "id": "6",
+                                    "content": "Fairlight CMI (Early Sampling)",
+                                    "group": "1980s (Digital Hardware & MIDI)"
+                                },
+                                {
+                                    "id": "7",
+                                    "content": "LinnDrum sample-based drum machine",
+                                    "group": "1980s (Digital Hardware & MIDI)"
+                                },
+                                {
+                                    "id": "8",
+                                    "content": "Serum (Wavetable VST Plugin)",
+                                    "group": "Modern (DAW & Virtual Instruments)"
+                                },
+                                {
+                                    "id": "9",
+                                    "content": "Drawing notes on a Piano Roll with a mouse",
+                                    "group": "Modern (DAW & Virtual Instruments)"
+                                },
+                                {
+                                    "id": "10",
+                                    "content": "Analog Equipment Emulation Plugins",
+                                    "group": "Modern (DAW & Virtual Instruments)"
+                                }
+                            ],
+                            "rationale": "Tracks the evolution from voltage-controlled analog hardware to digital MIDI networks, ending with total 'in-the-box' software production."
                         }
                     ]
                 }
