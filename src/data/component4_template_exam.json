@@ -1,9 +1,9 @@
 {
     "id": "comp4_template",
-    "title": "Component 4: Producing and Analysing - Rock",
+    "title": "Component 4: Producing and Analysing - Rock (2019 Style)",
     "totalMarks": 113,
     "timeLimitMinutes": 60,
-    "description": "This exam tests your production knowledge in the Rock genre. It includes a practical mixing task and a written analysis section.",
+    "description": "This exam tests your production knowledge based on a Rock track, mirroring the structure of the 2019 Edexcel Component 4 exam.",
     "sections": [
         {
             "id": "A",
@@ -29,101 +29,106 @@
                 },
                 {
                     "id": "q1_drums",
-                    "title": "Task 1: Drums ([MARKS] marks)",
+                    "title": "Task 1: Acoustic Drums ([MARKS] marks)",
                     "totalMarks": 8,
                     "track": {
                         "artist": "Rock Practical",
-                        "title": "Drum Production",
+                        "title": "Drum Editing & Reverb",
                         "year": 2026,
                         "filename": "[PATH_TO_DRUM_STEM_EXAMPLE.mp3]",
                         "compareFilename": "[PATH_TO_DRUM_COMPARE_EXAMPLE.wav]",
                         "audioLabel": "Full Drum Stem Example",
-                        "compareLabel": "B: [COMPARE_LABEL] Example",
+                        "compareLabel": "B: Snare Reverb Example",
                         "assets": [
                             {
-                                "name": "[DRUM_ASSET_1]",
-                                "filename": "[PATH_TO_DRUM_ASSET_1.wav]"
+                                "name": "Kick",
+                                "filename": "[PATH_TO_KICK_ASSET.wav]"
                             },
                             {
-                                "name": "[DRUM_ASSET_2]",
-                                "filename": "[PATH_TO_DRUM_ASSET_2.wav]"
+                                "name": "Snare",
+                                "filename": "[PATH_TO_SNARE_ASSET.wav]"
                             },
                             {
-                                "name": "[DRUM_ASSET_3]",
-                                "filename": "[PATH_TO_DRUM_ASSET_3.wav]"
+                                "name": "Overheads",
+                                "filename": "[PATH_TO_OH_ASSET.wav]"
                             }
                         ]
                     },
                     "parts": [
                         {
-                            "id": "p1_setup",
+                            "id": "p1_editing",
                             "type": "self_mark",
-                            "question": "<h3>Part A: Drum Arrangement</h3><ul><li>Import <b>[DRUM_ASSET_1]</b>, <b>[DRUM_ASSET_2]</b>, and <b>[DRUM_ASSET_3]</b> and place them at <b>Bar [BAR_NUM]</b>.</li><li>[INSERT_INSTRUCTION_1]</li><li>[INSERT_INSTRUCTION_2]</li></ul><br/><i>It should sound like the <b>Full Drum Stem Example</b> above.</i>",
+                            "question": "<h3>Part A: Drum Fill Editing</h3><ul><li>Import all drum assets and place them at <b>Bar 1</b>.</li><li>The drummer fell out of time on the fill leading into <b>Bar [BAR_NUM]</b>. Edit the audio to snap the hits tightly to the grid.</li><li>Tune the snare drum down slightly to remove the unwanted ringing harmonic.</li></ul>",
                             "marks": 6,
                             "answerImage": "[PATH_TO_DRUM_ANSWER_IMAGE.png]",
                             "markScheme": [
-                                "[INSERT_MARK_SCHEME_POINT_1]",
-                                "[INSERT_MARK_SCHEME_POINT_2]"
+                                "Drum fill timing corrected at Bar [BAR_NUM]",
+                                "Snare pitch shifted down (approx -2 semitones or specific Hz cut)"
                             ]
                         },
                         {
-                            "id": "p1_roll",
+                            "id": "p1_reverb",
                             "type": "self_mark",
-                            "question": "<h3>Part B: [DRUM_TECHNIQUE]</h3><ul><li>[INSERT_INSTRUCTION_1]</li><li>[INSERT_INSTRUCTION_2]</li></ul>",
+                            "question": "<h3>Part B: Snare Plate Reverb</h3><ul><li>Add a Plate Reverb to the Snare drum matching the character of the <b>Snare Reverb Example</b>.</li><li>Ensure the reverb tail cuts off quickly and does not wash out the mix.</li></ul>",
                             "marks": 2,
-                            "answerImage": "[PATH_TO_DRUM_TECHNIQUE_ANSWER_IMAGE.png]",
+                            "answerImage": "[PATH_TO_SNARE_VERB_ANSWER_IMAGE.png]",
                             "markScheme": [
-                                "[INSERT_MARK_SCHEME_POINT_1]",
-                                "[INSERT_MARK_SCHEME_POINT_2]"
+                                "Plate-style reverb applied to snare",
+                                "Decay time appropriately short (e.g. < 1.0s)"
                             ]
                         }
                     ]
                 },
                 {
                     "id": "q2_bass",
-                    "title": "Task 2: Bassline ([MARKS] marks)",
+                    "title": "Task 2: Bass Guitar ([MARKS] marks)",
                     "totalMarks": 10,
                     "track": {
                         "artist": "Rock Practical",
-                        "title": "Bass Synthesis",
+                        "title": "Bass Re-Amping",
                         "year": 2026,
                         "filename": "[PATH_TO_BASS_STEM_EXAMPLE.mp3]",
                         "audioLabel": "Bass Example",
                         "assets": [
                             {
-                                "name": "Bass MIDI",
-                                "filename": "[PATH_TO_BASS_MIDI.mid]"
+                                "name": "Bass DI",
+                                "filename": "[PATH_TO_BASS_DI.wav]"
                             }
                         ]
                     },
                     "parts": [
                         {
-                            "id": "p2_midi",
+                            "id": "p2_amp",
                             "type": "self_mark",
-                            "question": "<h3>Bass Synthesis & Arrangement</h3><ul><li>Import <b>[BASS_MIDI_FILE].mid</b> into an empty MIDI track.</li><li>[INSERT_INSTRUCTION_1]</li><li>Recreate the bass sound heard in the <b>Bass Example</b>.</li></ul><br/><b>Synthesis Instructions:</b><ul><li>[INSERT_SYNTHESIS_INSTRUCTION_1]</li><li>[INSERT_SYNTHESIS_INSTRUCTION_2]</li></ul>",
+                            "question": "<h3>Bass Amp Simulation & EQ</h3><ul><li>Import <b>[BASS_DI_FILE].wav</b>.</li><li>Apply an Amp Simulator to give the bass a gritty, overdriven rock tone matching the <b>Bass Example</b>.</li><li>Apply EQ to ensure the low-end fits with the kick drum.</li></ul><br/><b>Processing Instructions:</b><ul><li>Choose an appropriate cabinet size (e.g., 8x10).</li><li>Add mild overdrive/saturation.</li><li>Cut frequencies below [e.g. 40Hz] to remove sub rumble.</li></ul>",
                             "marks": 10,
                             "answerImage": "[PATH_TO_BASS_ANSWER_IMAGE.png]",
                             "markScheme": [
-                                "[INSERT_MARK_SCHEME_POINT_1]",
-                                "[INSERT_MARK_SCHEME_POINT_2]"
+                                "Amp simulator engaged",
+                                "Overdrive/grit applied matching example",
+                                "High-pass filter (cut) below ~40Hz"
                             ]
                         }
                     ]
                 },
                 {
                     "id": "q3_inst1",
-                    "title": "Task 3: [INSTRUMENT_1] ([MARKS] marks)",
+                    "title": "Task 3: Rhythm Guitars ([MARKS] marks)",
                     "totalMarks": 10,
                     "track": {
                         "artist": "Rock Practical",
-                        "title": "[INSTRUMENT_1] Effect",
+                        "title": "Guitar Modulation",
                         "year": 2026,
                         "filename": "[PATH_TO_INST1_EXAMPLE.wav]",
-                        "audioLabel": "[INSTRUMENT_1] Example",
+                        "audioLabel": "Guitar Example",
                         "assets": [
                             {
-                                "name": "[INSTRUMENT_1]",
-                                "filename": "[PATH_TO_INST1_ASSET.wav]"
+                                "name": "Rhythm Guitar 1",
+                                "filename": "[PATH_TO_GTR1_ASSET.wav]"
+                            },
+                            {
+                                "name": "Rhythm Guitar 2",
+                                "filename": "[PATH_TO_GTR2_ASSET.wav]"
                             }
                         ]
                     },
@@ -131,33 +136,39 @@
                         {
                             "id": "p3_effect",
                             "type": "self_mark",
-                            "question": "<h3>[INSTRUMENT_1] Effect</h3><ul><li>Import <b>[INSTRUMENT_1_ASSET]</b>.</li><li>[INSERT_INSTRUCTION_1]</li><li>Put a <b>[EFFECT_NAME] Effect</b> on the track that sounds like the <b>[INSTRUMENT_1] Example</b>.</li></ul>",
+                            "question": "<h3>Chorus Effect & Panning</h3><ul><li>Import both Rhythm Guitar assets.</li><li>Hard pan the guitars Left and Right to create width.</li><li>During the chorus section (Bar [BAR_NUM] to [BAR_NUM]), apply a <b>Chorus Effect</b> that sounds like the <b>Guitar Example</b>.</li></ul>",
                             "marks": 10,
                             "answerImage": [
                                 "[PATH_TO_INST1_ANSWER_IMAGE_1.png]",
                                 "[PATH_TO_INST1_ANSWER_IMAGE_2.png]"
                             ],
                             "markScheme": [
-                                "[INSERT_MARK_SCHEME_POINT_1]",
-                                "[INSERT_MARK_SCHEME_POINT_2]"
+                                "Guitars panned Hard L and Hard R",
+                                "Chorus effect engaged correctly",
+                                "Chorus rate/depth matches example",
+                                "Automation: Chorus only active during the bridge/chorus section"
                             ]
                         }
                     ]
                 },
                 {
                     "id": "q4_inst2",
-                    "title": "Task 4: [INSTRUMENT_2] ([MARKS] marks)",
+                    "title": "Task 4: Lead Guitar Solo ([MARKS] marks)",
                     "totalMarks": 10,
                     "track": {
                         "artist": "Rock Practical",
-                        "title": "[INSTRUMENT_2] FX",
+                        "title": "Solo Comping & FX",
                         "year": 2026,
                         "filename": "[PATH_TO_INST2_EXAMPLE.mp3]",
-                        "audioLabel": "[INSTRUMENT_2] Example",
+                        "audioLabel": "Lead Solo Example",
                         "assets": [
                             {
-                                "name": "[INSTRUMENT_2]",
-                                "filename": "[PATH_TO_INST2_ASSET.wav]"
+                                "name": "Solo Take 1",
+                                "filename": "[PATH_TO_TAKE1_ASSET.wav]"
+                            },
+                            {
+                                "name": "Solo Take 2",
+                                "filename": "[PATH_TO_TAKE2_ASSET.wav]"
                             }
                         ]
                     },
@@ -165,34 +176,37 @@
                         {
                             "id": "p4_fx",
                             "type": "self_mark",
-                            "question": "<h3>[INSTRUMENT_2] FX Recreation</h3><ul><li>Import <b>[INSTRUMENT_2_ASSET]</b>.</li><li>Recreate the effects used in the <b>[INSTRUMENT_2] Example</b> below.</li><li>[INSERT_INSTRUCTION_1]</li></ul>",
+                            "question": "<h3>Solo Comping & Echo</h3><ul><li>Import both Lead Guitar Takes.</li><li>'Comp' (edit together) a perfect solo: Use Take 1 for the first half, and Take 2 for the second half, creating a seamless crossfade at Bar [BAR_NUM].</li><li>Apply a Delay/Echo matching the <b>Lead Solo Example</b> below to seat the solo in the mix.</li></ul>",
                             "marks": 10,
                             "answerImage": [
                                 "[PATH_TO_INST2_ANSWER_IMAGE_1.png]",
                                 "[PATH_TO_INST2_ANSWER_IMAGE_2.png]"
                             ],
                             "markScheme": [
-                                "[INSERT_MARK_SCHEME_POINT_1]",
-                                "[INSERT_MARK_SCHEME_POINT_2]"
+                                "Take 1 used for the first half",
+                                "Take 2 used for the second half",
+                                "Smooth crossfade applied at edit point (no clicks)",
+                                "Delay effect inserted",
+                                "Delay time synced correctly (e.g. 1/4 note)"
                             ]
                         }
                     ]
                 },
                 {
                     "id": "q5_vocals",
-                    "title": "Task 5: Vocals ([MARKS] marks)",
+                    "title": "Task 5: Rock Vocals ([MARKS] marks)",
                     "totalMarks": 10,
                     "track": {
                         "artist": "Rock Practical",
-                        "title": "Vocal Processing",
+                        "title": "Vocal Compression",
                         "year": 2026,
                         "filename": "[PATH_TO_VOCAL_EXAMPLE.wav]",
                         "compareFilename": "[PATH_TO_VOCAL_COMPARE_EXAMPLE.wav]",
                         "audioLabel": "Main Vocal FX Example",
-                        "compareLabel": "Vocal [COMPARE] Example",
+                        "compareLabel": "Vocal Radio Example",
                         "assets": [
                             {
-                                "name": "Vocals",
+                                "name": "Lead Vocal",
                                 "filename": "[PATH_TO_VOCAL_ASSET.wav]"
                             }
                         ]
@@ -201,15 +215,18 @@
                         {
                             "id": "p5_eq",
                             "type": "self_mark",
-                            "question": "<h3>Vocal FX</h3><ul><li>Import <b>[VOCAL_ASSET]</b> and place at <b>Bar [BAR_NUM]</b>.</li><li>Replicate the EQ and FX settings heard in the <b>Main Vocal FX Example</b>.</li></ul><br/><b>Processing Requirements:</b><ul><li>[INSERT_INSTRUCTION_1]</li><li>[INSERT_INSTRUCTION_2]</li></ul>",
+                            "question": "<h3>Heavy Compression & Bridge Effect</h3><ul><li>Import <b>[VOCAL_ASSET]</b>.</li><li>Apply heavy compression to control the aggressive dynamics, ensuring the vocal stays upfront in the rock mix (matching <b>Main Vocal FX Example</b>).</li><li>During the bridge section (Bar [BAR]), automate an EQ to create a 'Telephone/Radio' effect (matching <b>Vocal Radio Example</b>).</li></ul>",
                             "marks": 10,
                             "answerImage": [
                                 "[PATH_TO_VOCAL_ANSWER_IMAGE_1.png]",
                                 "[PATH_TO_VOCAL_ANSWER_IMAGE_2.png]"
                             ],
                             "markScheme": [
-                                "[INSERT_MARK_SCHEME_POINT_1]",
-                                "[INSERT_MARK_SCHEME_POINT_2]"
+                                "Compressor applied",
+                                "High ratio (e.g. 4:1 or higher) used for aggressive control",
+                                "Gain reduction visible/audible",
+                                "Telephone EQ (Bandpass / severe High and Low cuts) applied in the bridge",
+                                "EQ correctly automated to turn on/off at precise bar markers"
                             ]
                         }
                     ]
@@ -229,15 +246,15 @@
                         {
                             "id": "p6_balance",
                             "type": "self_mark",
-                            "question": "<h3>Final Mix Balance</h3><ul><li>Ensure all tracks are audible and balanced relative to one another.</li><li>Check the Master Output is not clipping (red).</li><li>Ensure the mix matches the reference track's overall balance.</li></ul>",
+                            "question": "<h3>Final Mix Balance</h3><ul><li>Ensure all tracks are audible and the guitars are wide.</li><li>Check the Master Output is not clipping (red).</li><li>Ensure the mix matches the reference track's overall aggressive rock balance.</li></ul>",
                             "marks": 5,
                             "answerImage": "[PATH_TO_MIX_ANSWER_IMAGE.png]",
                             "markScheme": [
-                                "[INSERT_MARK_SCHEME_POINT_1]",
-                                "[INSERT_MARK_SCHEME_POINT_2]",
-                                "[INSERT_MARK_SCHEME_POINT_3]",
-                                "[INSERT_MARK_SCHEME_POINT_4]",
-                                "[INSERT_MARK_SCHEME_POINT_5]"
+                                "Drums sit robustly in the mix",
+                                "Bass is anchored in the center",
+                                "Rhythm guitars are panned wide and clear",
+                                "Lead guitar is upfront during solo",
+                                "Vocals cut through the heavy instrumentation"
                             ]
                         }
                     ]
@@ -251,185 +268,184 @@
             "questions": [
                 {
                     "id": "q1",
-                    "title": "Question 1: [TOPIC_1]",
+                    "title": "Question 1: Microphone Selection",
                     "totalMarks": 3,
                     "parts": [
                         {
                             "id": "a",
                             "type": "matching",
                             "marks": 3,
-                            "question": "[INSERT_MATCHING_QUESTION_HERE]",
+                            "question": "Match the microphone type to its most common application in a standard rock recording session.",
                             "pairs": [
                                 {
-                                    "item": "[ITEM_1]",
-                                    "match": "[MATCH_1]"
+                                    "item": "Dynamic Mic (e.g., Shure SM57)",
+                                    "match": "Snare Drum Top & Guitar Cabs"
                                 },
                                 {
-                                    "item": "[ITEM_2]",
-                                    "match": "[MATCH_2]"
+                                    "item": "Large Diaphragm Condenser",
+                                    "match": "Studio Lead Vocals & Room Mics"
                                 },
                                 {
-                                    "item": "[ITEM_3]",
-                                    "match": "[MATCH_3]"
+                                    "item": "Small Diaphragm Condenser",
+                                    "match": "Drum Overheads & Acoustic Guitars"
                                 }
                             ],
                             "options": [
-                                "[OPTION_1]",
-                                "[OPTION_2]",
-                                "[OPTION_3]",
-                                "[OPTION_4]"
+                                "Snare Drum Top & Guitar Cabs",
+                                "Studio Lead Vocals & Room Mics",
+                                "Drum Overheads & Acoustic Guitars",
+                                "Inside the Kick Drum Shell"
                             ]
                         }
                     ]
                 },
                 {
                     "id": "q2",
-                    "title": "Question 2: [TOPIC_2]",
+                    "title": "Question 2: Electric Guitar Signal Chain",
                     "totalMarks": 6,
                     "parts": [
                         {
                             "id": "a",
                             "type": "ordering",
                             "marks": 6,
-                            "question": "[INSERT_ORDERING_QUESTION_HERE]",
+                            "question": "Order the correct signal chain for recording a distorted electric guitar into a DAW using a physical amplifier.",
                             "items": [
-                                "[ITEM_1]",
-                                "[ITEM_2]",
-                                "[ITEM_3]",
-                                "[ITEM_4]",
-                                "[ITEM_5]",
-                                "[ITEM_6]"
+                                "Electric Guitar Output",
+                                "Distortion Pedal",
+                                "Guitar Amplifier Input",
+                                "Dynamic Microphone (Close Miced)",
+                                "Audio Interface Preamp",
+                                "DAW Audio Track"
                             ]
                         }
                     ]
                 },
                 {
                     "id": "q3",
-                    "title": "Question 3: [TOPIC_3]",
+                    "title": "Question 3: Analog Recording",
                     "totalMarks": 1,
                     "parts": [
                         {
                             "id": "a",
                             "type": "multiple_choice",
                             "marks": 1,
-                            "question": "[INSERT_MULTIPLE_CHOICE_QUESTION_HERE]",
+                            "question": "When recording to analog magnetic tape (common in classic rock), driving the input signal 'into the red' produces what desirable effect?",
                             "options": [
-                                "[OPTION_1]",
-                                "[OPTION_2]",
-                                "[OPTION_3]",
-                                "[OPTION_4]"
+                                "Digital clipping and glitching",
+                                "Harmonic distortion (Tape Saturation)",
+                                "Phase cancellation",
+                                "An automatic noise gate"
                             ],
-                            "answer": "[OPTION_1]",
-                            "rationale": "[INSERT_RATIONALE_HERE]"
+                            "answer": "Harmonic distortion (Tape Saturation)",
+                            "rationale": "Unlike digital clipping (which sounds harsh), analog tape responds to hot signals by gently compressing and adding warm harmonic saturation."
                         }
                     ]
                 },
                 {
                     "id": "q4",
-                    "title": "Question 4: [TOPIC_4]",
+                    "title": "Question 4: Hardware Processing",
                     "totalMarks": 4,
                     "parts": [
                         {
                             "id": "a",
                             "type": "multi_select",
                             "marks": 2,
-                            "question": "[INSERT_MULTI_SELECT_QUESTION_HERE]",
+                            "question": "A producer wants to remove the sound of the hi-hat bleeding into the snare drum microphone. Which processor and setting should they use?",
                             "options": [
-                                "[OPTION_1]",
-                                "[OPTION_2]",
-                                "[OPTION_3]",
-                                "[OPTION_4]",
-                                "[OPTION_5]"
+                                "Noise Gate",
+                                "Chorus Pedal",
+                                "Set Threshold below snare hits but above hi-hat bleed",
+                                "Fast attack, long release"
                             ],
                             "answer": [
-                                "[OPTION_1]",
-                                "[OPTION_2]"
+                                "Noise Gate",
+                                "Set Threshold below snare hits but above hi-hat bleed"
                             ],
-                            "rationale": "[INSERT_RATIONALE_HERE]"
+                            "rationale": "A noise gate silences the channel when the signal drops below a threshold, removing background bleed between snare hits."
                         },
                         {
                             "id": "b",
                             "type": "multiple_choice",
                             "marks": 2,
-                            "question": "[INSERT_MULTIPLE_CHOICE_QUESTION_HERE]",
+                            "question": "Which dynamic processor is used to catch only the loudest, sharpest peaks of a snare transient without affecting the body of the sound?",
                             "options": [
-                                "[OPTION_1]",
-                                "[OPTION_2]",
-                                "[OPTION_3]",
-                                "[OPTION_4]"
+                                "Limiter",
+                                "Expander",
+                                "Compressor with slow attack",
+                                "Compressor with very fast attack and high ratio"
                             ],
-                            "answer": "[OPTION_1]",
-                            "rationale": "[INSERT_RATIONALE_HERE]"
+                            "answer": "Compressor with very fast attack and high ratio",
+                            "rationale": "A fast attack catches the initial transient spike, and a high ratio turns it down aggressively (acting almost like a limiter)."
                         }
                     ]
                 },
                 {
                     "id": "q5",
-                    "title": "Question 5: [TOPIC_5]",
+                    "title": "Question 5: Compressor Parameters",
                     "totalMarks": 2,
                     "parts": [
                         {
                             "id": "a",
                             "type": "multiple_choice",
                             "marks": 1,
-                            "question": "[INSERT_MULTIPLE_CHOICE_QUESTION_HERE]",
+                            "question": "Which compressor parameter determines how much the volume is reduced once the signal crosses the threshold?",
                             "options": [
-                                "[OPTION_1]",
-                                "[OPTION_2]",
-                                "[OPTION_3]",
-                                "[OPTION_4]"
+                                "Attack",
+                                "Release",
+                                "Ratio",
+                                "Makeup Gain"
                             ],
-                            "answer": "[OPTION_1]",
-                            "rationale": "[INSERT_RATIONALE_HERE]"
+                            "answer": "Ratio",
+                            "rationale": "Ratio (e.g. 4:1) dictates that for every 4dB over the threshold, only 1dB is allowed out."
                         },
                         {
                             "id": "b",
                             "type": "multiple_choice",
                             "marks": 1,
-                            "question": "[INSERT_MULTIPLE_CHOICE_QUESTION_HERE]",
+                            "question": "If you want the initial 'crack' or transient of a kick drum to pass through the compressor unaffected before the volume is reduced, how should you set the attack time?",
                             "options": [
-                                "[OPTION_1]",
-                                "[OPTION_2]",
-                                "[OPTION_3]",
-                                "[OPTION_4]"
+                                "Extremely Fast (0.1ms)",
+                                "Medium-Slow (~10-30ms)",
+                                "Attack time does not affect transients",
+                                "Zero"
                             ],
-                            "answer": "[OPTION_2]",
-                            "rationale": "[INSERT_RATIONALE_HERE]"
+                            "answer": "Medium-Slow (~10-30ms)",
+                            "rationale": "A slower attack time lets the punchy transient sneak past the compressor before it clamps down."
                         }
                     ]
                 },
                 {
                     "id": "q6",
-                    "title": "Question 6: [TOPIC_6]",
+                    "title": "Question 6: Mastering for Streaming",
                     "totalMarks": 3,
                     "parts": [
                         {
                             "id": "a",
                             "type": "multiple_choice",
                             "marks": 1,
-                            "question": "[INSERT_MULTIPLE_CHOICE_QUESTION_HERE]",
+                            "question": "What is the industry standard (Spotify/Apple Music) Integrated Loudness target for mastering a track?",
                             "options": [
-                                "[OPTION_1]",
-                                "[OPTION_2]",
-                                "[OPTION_3]",
-                                "[OPTION_4]"
+                                "-6 LUFS",
+                                "-14 LUFS",
+                                "0 LUFS",
+                                "-23 dBFS"
                             ],
-                            "answer": "[OPTION_1]",
-                            "rationale": "[INSERT_RATIONALE_HERE]"
+                            "answer": "-14 LUFS",
+                            "rationale": "Streaming platforms normalize audio. Aiming for -14 LUFS is the current standard to prevent the platform from turning your track down and crushing its dynamics."
                         },
                         {
                             "id": "b",
                             "type": "multiple_choice",
                             "marks": 1,
-                            "question": "[INSERT_MULTIPLE_CHOICE_QUESTION_HERE]",
+                            "question": "To prevent inter-sample clipping when a digital file is converted to analog (or MP3), what should True Peak limiters be set to?",
                             "options": [
-                                "[OPTION_1]",
-                                "[OPTION_2]",
-                                "[OPTION_3]",
-                                "[OPTION_4]"
+                                "0 dBTP",
+                                "+1 dBTP",
+                                "-1 dBTP",
+                                "-14 dBTP"
                             ],
-                            "answer": "[OPTION_2]",
-                            "rationale": "[INSERT_RATIONALE_HERE]"
+                            "answer": "-1 dBTP",
+                            "rationale": "Leaving 1 decibel of headroom (-1 dB True Peak) ensures the conversion process doesn't cause clipping distortion."
                         }
                     ]
                 }
@@ -442,272 +458,232 @@
             "questions": [
                 {
                     "id": "q11",
-                    "title": "Q11: Production Knowledge & Workflow",
+                    "title": "Q11: The Evolution of Rock Recording",
                     "totalMarks": 10,
                     "parts": [
                         {
                             "id": "a",
                             "type": "cloze",
                             "marks": 10,
-                            "question": "[INSERT_CLOZE_QUESTION_HERE]",
-                            "text": "The standard tempo range for Rock is typically {0} BPM. The foundation of the groove is a {1} pattern played by the kick drum. [CONTINUE_TEXT_HERE]. The final stage of the signal chain on the master bus is a {9}.",
+                            "question": "Complete the passage on the history of rock production workflows.",
+                            "text": "Early 1960s rock bands often recorded playing live together in one room, bleeding into drum {0} microphones. As technology evolved, 4-track and 8-track {1} machines allowed producers to isolate instruments and record them one by one, a process known as {2}. In the 1980s, large analog {3} became the centerpieces of high-end studios, routing dozens of microphones through outboard compressors. Today, the entire process has moved 'in the box', utilizing powerful {4} to record digitally. While modern producers still use physical {5} to capture acoustic sound, the processing is largely done using software {6}. To achieve classic rock warmth digitally, engineers often apply {7} plugins. To fix small mistakes, producers can non-destructively {8} multiple takes together, or fix slightly out-of-time guitar chunks using {9} tools.",
                             "options": [
                                 [
-                                    "[OPTION_1_1]",
-                                    "[OPTION_1_2]",
-                                    "[OPTION_1_3]",
-                                    "[OPTION_1_4]",
-                                    "[OPTION_1_5]"
+                                    "Dynamic",
+                                    "Overhead",
+                                    "Ribbon",
+                                    "Boundary"
                                 ],
                                 [
-                                    "[OPTION_2_1]",
-                                    "[OPTION_2_2]",
-                                    "[OPTION_2_3]",
-                                    "[OPTION_2_4]",
-                                    "[OPTION_2_5]"
+                                    "Tape",
+                                    "Vinyl",
+                                    "Digital",
+                                    "Cassette"
                                 ],
                                 [
-                                    "[OPTION_3_1]",
-                                    "[OPTION_3_2]",
-                                    "[OPTION_3_3]",
-                                    "[OPTION_3_4]",
-                                    "[OPTION_3_5]"
+                                    "Sampling",
+                                    "Sequencing",
+                                    "Overdubbing",
+                                    "Bouncing"
                                 ],
                                 [
-                                    "[OPTION_4_1]",
-                                    "[OPTION_4_2]",
-                                    "[OPTION_4_3]",
-                                    "[OPTION_4_4]",
-                                    "[OPTION_4_5]"
+                                    "Amplifiers",
+                                    "Synthesizers",
+                                    "Consoles",
+                                    "Patchbays"
                                 ],
                                 [
-                                    "[OPTION_5_1]",
-                                    "[OPTION_5_2]",
-                                    "[OPTION_5_3]",
-                                    "[OPTION_5_4]",
-                                    "[OPTION_5_5]"
+                                    "MIDI Controllers",
+                                    "DAWs",
+                                    "Samplers",
+                                    "Trackers"
                                 ],
                                 [
-                                    "[OPTION_6_1]",
-                                    "[OPTION_6_2]",
-                                    "[OPTION_6_3]",
-                                    "[OPTION_6_4]",
-                                    "[OPTION_6_5]"
+                                    "Microphones",
+                                    "Speakers",
+                                    "Cables",
+                                    "Headphones"
                                 ],
                                 [
-                                    "[OPTION_7_1]",
-                                    "[OPTION_7_2]",
-                                    "[OPTION_7_3]",
-                                    "[OPTION_7_4]",
-                                    "[OPTION_7_5]"
+                                    "Hardware",
+                                    "VST Plugins",
+                                    "Pedals",
+                                    "Macros"
                                 ],
                                 [
-                                    "[OPTION_8_1]",
-                                    "[OPTION_8_2]",
-                                    "[OPTION_8_3]",
-                                    "[OPTION_8_4]",
-                                    "[OPTION_8_5]"
+                                    "Reverb",
+                                    "Delay",
+                                    "Tape Saturation",
+                                    "Limiter"
                                 ],
                                 [
-                                    "[OPTION_9_1]",
-                                    "[OPTION_9_2]",
-                                    "[OPTION_9_3]",
-                                    "[OPTION_9_4]",
-                                    "[OPTION_9_5]"
+                                    "Comp",
+                                    "Stretch",
+                                    "Pitch",
+                                    "Delete"
                                 ],
                                 [
-                                    "[OPTION_10_1]",
-                                    "[OPTION_10_2]",
-                                    "[OPTION_10_3]",
-                                    "[OPTION_10_4]",
-                                    "[OPTION_10_5]"
+                                    "MIDI",
+                                    "Time-stretching / Flex Time",
+                                    "Quantization",
+                                    "Automation"
                                 ]
                             ],
                             "answer": [
-                                "[OPTION_1_1]",
-                                "[OPTION_2_1]",
-                                "[OPTION_3_1]",
-                                "[OPTION_4_1]",
-                                "[OPTION_5_1]",
-                                "[OPTION_6_1]",
-                                "[OPTION_7_1]",
-                                "[OPTION_8_1]",
-                                "[OPTION_9_1]",
-                                "[OPTION_10_1]"
+                                "Overhead",
+                                "Tape",
+                                "Overdubbing",
+                                "Consoles",
+                                "DAWs",
+                                "Microphones",
+                                "VST Plugins",
+                                "Tape Saturation",
+                                "Comp",
+                                "Time-stretching / Flex Time"
                             ],
-                            "rationale": "[INSERT_RATIONALE_HERE]"
+                            "rationale": "This sequence tracks the progression from live room recording to multi-track tape (overdubbing), analog consoles, to modern digital DAW workflows with non-destructive editing and plugin emulation."
                         }
                     ]
                 },
                 {
                     "id": "q12",
-                    "title": "Q12: Rock Mixing Workflow & Techniques",
+                    "title": "Q12: Rock Drum Mixing Workflow",
                     "totalMarks": 10,
                     "parts": [
                         {
                             "id": "a",
                             "type": "cloze",
                             "marks": 4,
-                            "question": "[INSERT_CLOZE_QUESTION_HERE]",
-                            "text": "In Rock production, [INSERT_TEXT_HERE] {0} frequency range. [CONTINUE_TEXT_HERE] {1} to the kick. [CONTINUE_TEXT_HERE] {2} frequencies. [CONTINUE_TEXT_HERE] {3}.",
+                            "question": "Complete the analysis of treating a multi-mic rock drum kit.",
+                            "text": "When mixing a rock drum kit, phase alignment between the close mics and the {0} is critical. To add punch, the kick drum is often boosted around {1} for 'click' or 'beater' presence. To add weight to the snare without making it muddy, a small boost around {2} is common. To make the entire kit sound cohesive and glued together in the studio space, {3} compression is frequently applied to the drum bus.",
                             "options": [
                                 [
-                                    "[OPTION_1_1]",
-                                    "[OPTION_1_2]",
-                                    "[OPTION_1_3]"
+                                    "Vocals",
+                                    "Overheads",
+                                    "Bass Guitar"
                                 ],
                                 [
-                                    "[OPTION_2_1]",
-                                    "[OPTION_2_2]",
-                                    "[OPTION_2_3]"
+                                    "100Hz",
+                                    "500Hz",
+                                    "3kHz - 5kHz"
                                 ],
                                 [
-                                    "[OPTION_3_1]",
-                                    "[OPTION_3_2]",
-                                    "[OPTION_3_3]"
+                                    "200Hz",
+                                    "1kHz",
+                                    "10kHz"
                                 ],
                                 [
-                                    "[OPTION_4_1]",
-                                    "[OPTION_4_2]",
-                                    "[OPTION_4_3]"
+                                    "Sidechain",
+                                    "Parallel / Bus",
+                                    "Multiband"
                                 ]
                             ],
                             "answer": [
-                                "[OPTION_1_1]",
-                                "[OPTION_2_1]",
-                                "[OPTION_3_1]",
-                                "[OPTION_4_1]"
+                                "Overheads",
+                                "3kHz - 5kHz",
+                                "200Hz",
+                                "Parallel / Bus"
                             ],
-                            "rationale": "[INSERT_RATIONALE_HERE]"
+                            "rationale": "Standard drum mixing: Overheads guide phase, 3-5k adds beater click to cut through guitars, 200Hz adds fundamental 'thwack' to the snare, and parallel bus compression glues the kit into one massive instrument."
                         },
                         {
                             "id": "b",
                             "type": "sorting",
                             "marks": 6,
-                            "question": "[INSERT_SORTING_QUESTION_HERE]",
+                            "question": "Categorise these microphone characteristics and techniques as primarily applicable to Dynamic or Condenser microphones in a rock session.",
                             "groups": [
-                                "[GROUP_1]",
-                                "[GROUP_2]"
+                                "Dynamic Mics",
+                                "Condenser Mics"
                             ],
                             "items": [
                                 {
                                     "id": "1",
-                                    "content": "[ITEM_1]",
-                                    "group": "[GROUP_1]"
+                                    "content": "Can withstand extremely high SPL (Sound Pressure Levels)",
+                                    "group": "Dynamic Mics"
                                 },
                                 {
                                     "id": "2",
-                                    "content": "[ITEM_2]",
-                                    "group": "[GROUP_1]"
+                                    "content": "Requires 48v Phantom Power",
+                                    "group": "Condenser Mics"
                                 },
                                 {
                                     "id": "3",
-                                    "content": "[ITEM_3]",
-                                    "group": "[GROUP_2]"
+                                    "content": "Typically used for close-micing a loud guitar cabinet",
+                                    "group": "Dynamic Mics"
                                 },
                                 {
                                     "id": "4",
-                                    "content": "[ITEM_4]",
-                                    "group": "[GROUP_2]"
+                                    "content": "Highly sensitive to delicate high-frequency details",
+                                    "group": "Condenser Mics"
                                 },
                                 {
                                     "id": "5",
-                                    "content": "[ITEM_5]",
-                                    "group": "[GROUP_2]"
+                                    "content": "Often used as Room Mics to capture studio ambiance",
+                                    "group": "Condenser Mics"
                                 },
                                 {
                                     "id": "6",
-                                    "content": "[ITEM_6]",
-                                    "group": "[GROUP_1]"
-                                },
-                                {
-                                    "id": "7",
-                                    "content": "[ITEM_7]",
-                                    "group": "[GROUP_1]"
-                                },
-                                {
-                                    "id": "8",
-                                    "content": "[ITEM_8]",
-                                    "group": "[GROUP_2]"
-                                },
-                                {
-                                    "id": "9",
-                                    "content": "[ITEM_9]",
-                                    "group": "[GROUP_2]"
-                                },
-                                {
-                                    "id": "10",
-                                    "content": "[ITEM_10]",
-                                    "group": "[GROUP_1]"
-                                },
-                                {
-                                    "id": "11",
-                                    "content": "[ITEM_11]",
-                                    "group": "[GROUP_2]"
-                                },
-                                {
-                                    "id": "12",
-                                    "content": "[ITEM_12]",
-                                    "group": "[GROUP_1]"
+                                    "content": "The Shure SM57 is an industry standard example",
+                                    "group": "Dynamic Mics"
                                 }
                             ],
-                            "rationale": "[INSERT_RATIONALE_HERE]"
+                            "rationale": "Dynamics are rugged, handle loud sources well, and don't require power. Condensers are sensitive, require phantom power, and capture detailed highs, making them ideal for overheads, vocals, and room mics."
                         }
                     ]
                 },
                 {
                     "id": "q13",
-                    "title": "Q13: [SIGNAL_CHAIN_TOPIC]",
+                    "title": "Q13: Typical Vocal Recording Chain",
                     "totalMarks": 10,
                     "parts": [
                         {
                             "id": "a",
                             "type": "signal-flow-label",
                             "marks": 10,
-                            "question": "Complete the signal flow for [TOPIC] by dragging the correct terms into each box.",
+                            "question": "Complete the signal flow for recording a studio rock vocal, from the singer to the final mastered track, by dragging the correct terms into each box.",
                             "flowSteps": [
                                 {
                                     "id": "step1",
-                                    "label": "Input"
+                                    "label": "Capture"
                                 },
                                 {
                                     "id": "step2",
-                                    "label": "[SHAPING_STEP_1]"
+                                    "label": "Gain/Conversion"
                                 },
                                 {
                                     "id": "step3",
-                                    "label": "[SHAPING_STEP_2]"
+                                    "label": "Fixing Plosives/Rumble"
                                 },
                                 {
                                     "id": "step4",
-                                    "label": "[FX_STEP_1]"
+                                    "label": "Dynamic Control"
                                 },
                                 {
                                     "id": "step5",
-                                    "label": "[FX_STEP_2]"
+                                    "label": "Sibilance Control"
                                 },
                                 {
                                     "id": "step6",
-                                    "label": "Dynamics"
+                                    "label": "Ambience/Space"
                                 }
                             ],
                             "terms": [
-                                "[TERM_1]",
-                                "[TERM_2]",
-                                "[TERM_3]",
-                                "[TERM_4]",
-                                "[TERM_5]",
-                                "[TERM_6]"
+                                "Large Diaphragm Condenser",
+                                "High Pass Filter (EQ)",
+                                "De-Esser",
+                                "Compressor",
+                                "Audio Interface",
+                                "Reverb / Delay"
                             ],
                             "correctAnswers": {
-                                "step1": "[TERM_1]",
-                                "step2": "[TERM_2]",
-                                "step3": "[TERM_3]",
-                                "step4": "[TERM_4]",
-                                "step5": "[TERM_5]",
-                                "step6": "[TERM_6]"
+                                "step1": "Large Diaphragm Condenser",
+                                "step2": "Audio Interface",
+                                "step3": "High Pass Filter (EQ)",
+                                "step4": "Compressor",
+                                "step5": "De-Esser",
+                                "step6": "Reverb / Delay"
                             },
-                            "rationale": "[INSERT_RATIONALE_HERE]"
+                            "rationale": "A standard vocal chain: Condenser mic captures sound > Interface converts it > HPF removes lowest rumbles/plosives > Compressor smooths rock dynamics > De-esser removes harsh 'S' sounds > Reverb seats it in the mix."
                         }
                     ]
                 }
