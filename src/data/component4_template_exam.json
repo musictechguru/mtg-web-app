@@ -18,10 +18,10 @@
                         {
                             "id": "p0_setup",
                             "type": "self_mark",
-                            "question": "<h3>Project Setup</h3><ul><li>Open your DAW and create a new project.</li><li>Set the project tempo to <b>[BPM] BPM</b>.</li><li>Import the 1st audio file from the assets folder.</li></ul>",
+                            "question": "<h3>Project Setup</h3><ul><li>Open your DAW and create a new project.</li><li>Set the project tempo to <b>132 BPM</b>.</li><li>Import the 1st audio file from the assets folder.</li></ul>",
                             "marks": 0,
                             "markScheme": [
-                                "Tempo set to [BPM] BPM",
+                                "Tempo set to 132 BPM",
                                 "Audio imported"
                             ]
                         }
@@ -29,11 +29,11 @@
                 },
                 {
                     "id": "q1_drums",
-                    "title": "Task 1: Acoustic Drums ([MARKS] marks)",
+                    "title": "Task 1: MIDI Drums (8 marks)",
                     "totalMarks": 8,
                     "track": {
                         "artist": "Rock Practical",
-                        "title": "Drum Editing & Reverb",
+                        "title": "Drum Programming & Reverb",
                         "year": 2026,
                         "filename": "[PATH_TO_DRUM_STEM_EXAMPLE.mp3]",
                         "compareFilename": "[PATH_TO_DRUM_COMPARE_EXAMPLE.wav]",
@@ -41,16 +41,8 @@
                         "compareLabel": "B: Snare Reverb Example",
                         "assets": [
                             {
-                                "name": "Kick",
-                                "filename": "[PATH_TO_KICK_ASSET.wav]"
-                            },
-                            {
-                                "name": "Snare",
-                                "filename": "[PATH_TO_SNARE_ASSET.wav]"
-                            },
-                            {
-                                "name": "Overheads",
-                                "filename": "[PATH_TO_OH_ASSET.wav]"
+                                "name": "MIDI Drums",
+                                "filename": "/C4_Rock_AssetsMP3/C4_ROCK_Drums.mid"
                             }
                         ]
                     },
@@ -58,22 +50,22 @@
                         {
                             "id": "p1_editing",
                             "type": "self_mark",
-                            "question": "<h3>Part A: Drum Fill Editing</h3><ul><li>Import all drum assets and place them at <b>Bar 1</b>.</li><li>The drummer fell out of time on the fill leading into <b>Bar [BAR_NUM]</b>. Edit the audio to snap the hits tightly to the grid.</li><li>Tune the snare drum down slightly to remove the unwanted ringing harmonic.</li></ul>",
+                            "question": "<h3>Part A: Drum Programming and Timing</h3><ul><li>Import <b>C4_ROCK_Drums.mid</b> onto a standard drum kit software instrument of your choice.</li><li>The tom roll goes out of time at <b>Bar 8</b>. Edit the MIDI notes to snap the hits tightly to the grid.</li></ul>",
                             "marks": 6,
                             "answerImage": "[PATH_TO_DRUM_ANSWER_IMAGE.png]",
                             "markScheme": [
-                                "Drum fill timing corrected at Bar [BAR_NUM]",
-                                "Snare pitch shifted down (approx -2 semitones or specific Hz cut)"
+                                "MIDI imported onto a suitable drum kit instrument",
+                                "Drum fill timing correctly snapped to the grid at Bar 8"
                             ]
                         },
                         {
                             "id": "p1_reverb",
                             "type": "self_mark",
-                            "question": "<h3>Part B: Snare Plate Reverb</h3><ul><li>Add a Plate Reverb to the Snare drum matching the character of the <b>Snare Reverb Example</b>.</li><li>Ensure the reverb tail cuts off quickly and does not wash out the mix.</li></ul>",
+                            "question": "<h3>Part B: Snare Plate Reverb</h3><ul><li>Add a Plate Reverb exclusively to the Snare drum (via a send or isolated output) matching the character of the <b>Snare Reverb Example</b>.</li><li>Ensure the reverb tail cuts off quickly and does not wash out the mix.</li></ul>",
                             "marks": 2,
                             "answerImage": "[PATH_TO_SNARE_VERB_ANSWER_IMAGE.png]",
                             "markScheme": [
-                                "Plate-style reverb applied to snare",
+                                "Plate-style reverb applied specifically to the snare",
                                 "Decay time appropriately short (e.g. < 1.0s)"
                             ]
                         }
@@ -81,18 +73,18 @@
                 },
                 {
                     "id": "q2_bass",
-                    "title": "Task 2: Bass Guitar ([MARKS] marks)",
+                    "title": "Task 2: Bass Guitar (10 marks)",
                     "totalMarks": 10,
                     "track": {
                         "artist": "Rock Practical",
-                        "title": "Bass Re-Amping",
+                        "title": "Bass Processing",
                         "year": 2026,
                         "filename": "[PATH_TO_BASS_STEM_EXAMPLE.mp3]",
                         "audioLabel": "Bass Example",
                         "assets": [
                             {
-                                "name": "Bass DI",
-                                "filename": "[PATH_TO_BASS_DI.wav]"
+                                "name": "Bass Audio",
+                                "filename": "/C4_Rock_AssetsMP3/C4_ROCK_Bass.mp3"
                             }
                         ]
                     },
@@ -100,35 +92,32 @@
                         {
                             "id": "p2_amp",
                             "type": "self_mark",
-                            "question": "<h3>Bass Amp Simulation & EQ</h3><ul><li>Import <b>[BASS_DI_FILE].wav</b>.</li><li>Apply an Amp Simulator to give the bass a gritty, overdriven rock tone matching the <b>Bass Example</b>.</li><li>Apply EQ to ensure the low-end fits with the kick drum.</li></ul><br/><b>Processing Instructions:</b><ul><li>Choose an appropriate cabinet size (e.g., 8x10).</li><li>Add mild overdrive/saturation.</li><li>Cut frequencies below [e.g. 40Hz] to remove sub rumble.</li></ul>",
+                            "question": "<h3>Bass Distortion & Sidechaining</h3><ul><li>Import <b>C4_ROCK_Bass.mp3</b>.</li><li>Apply a distortion effect (e.g. overdrive or amp simulation) to give the bass a gritty rock tone matching the <b>Bass Example</b>.</li><li>Insert a Noise Gate onto the bass track. Set the gate to be <b>sidechained</b> (key input) from the drum kit, so the bass is rhythmically chopped/gated by the drum hits.</li><li>Automate the Noise Gate to only be active between <b>Bar 17 and Bar 25</b>.</li></ul>",
                             "marks": 10,
                             "answerImage": "[PATH_TO_BASS_ANSWER_IMAGE.png]",
                             "markScheme": [
-                                "Amp simulator engaged",
-                                "Overdrive/grit applied matching example",
-                                "High-pass filter (cut) below ~40Hz"
+                                "Distortion/overdrive effect engaged on bass track",
+                                "Noise Gate inserted on bass track with sidechain input set to the drum kit",
+                                "Noise Gate threshold/release set to rhythmically gate the bass",
+                                "Automation applied so the sidechained gate is only active from Bar 17 to Bar 25"
                             ]
                         }
                     ]
                 },
                 {
                     "id": "q3_inst1",
-                    "title": "Task 3: Rhythm Guitars ([MARKS] marks)",
+                    "title": "Task 3: Guitars (10 marks)",
                     "totalMarks": 10,
                     "track": {
                         "artist": "Rock Practical",
-                        "title": "Guitar Modulation",
+                        "title": "Guitar Widening",
                         "year": 2026,
                         "filename": "[PATH_TO_INST1_EXAMPLE.wav]",
                         "audioLabel": "Guitar Example",
                         "assets": [
                             {
-                                "name": "Rhythm Guitar 1",
-                                "filename": "[PATH_TO_GTR1_ASSET.wav]"
-                            },
-                            {
-                                "name": "Rhythm Guitar 2",
-                                "filename": "[PATH_TO_GTR2_ASSET.wav]"
+                                "name": "Guitar Stem",
+                                "filename": "/C4_Rock_AssetsMP3/C4_ROCK_Guitar.mp3"
                             }
                         ]
                     },
@@ -136,39 +125,36 @@
                         {
                             "id": "p3_effect",
                             "type": "self_mark",
-                            "question": "<h3>Chorus Effect & Panning</h3><ul><li>Import both Rhythm Guitar assets.</li><li>Hard pan the guitars Left and Right to create width.</li><li>During the chorus section (Bar [BAR_NUM] to [BAR_NUM]), apply a <b>Chorus Effect</b> that sounds like the <b>Guitar Example</b>.</li></ul>",
+                            "question": "<h3>Guitar Effects & Automation</h3><ul><li>Import <b>C4_ROCK_Guitar.mp3</b>.</li><li>Apply a double-tracked effect (e.g. a stereo spreader, chorus, or short Haas delay) to widen the mono guitar stem.</li><li>Add a <b>1/8 note Delay</b> effect.</li><li>During the solo section (<b>Bars 9 to 17</b>), automate the track volume to increase by <b>+4 dB</b>.</li><li>Add a <b>Phaser</b> effect to the guitar and automate it to only be active from <b>Bar 17 to Bar 25</b>.</li></ul>",
                             "marks": 10,
                             "answerImage": [
                                 "[PATH_TO_INST1_ANSWER_IMAGE_1.png]",
                                 "[PATH_TO_INST1_ANSWER_IMAGE_2.png]"
                             ],
                             "markScheme": [
-                                "Guitars panned Hard L and Hard R",
-                                "Chorus effect engaged correctly",
-                                "Chorus rate/depth matches example",
-                                "Automation: Chorus only active during the bridge/chorus section"
+                                "Double-tracking/stereo spreading technique applied",
+                                "1/8 note delay effect engaged on the guitar track",
+                                "Track volume automated to +4 dB exclusively between Bars 9 and 17",
+                                "Phaser effect applied to the guitar",
+                                "Phaser automated to only be active between Bars 17 and 25"
                             ]
                         }
                     ]
                 },
                 {
                     "id": "q4_inst2",
-                    "title": "Task 4: Lead Guitar Solo ([MARKS] marks)",
+                    "title": "Task 4: Synthesizer (10 marks)",
                     "totalMarks": 10,
                     "track": {
                         "artist": "Rock Practical",
-                        "title": "Solo Comping & FX",
+                        "title": "Synth Programming & Filters",
                         "year": 2026,
                         "filename": "[PATH_TO_INST2_EXAMPLE.mp3]",
-                        "audioLabel": "Lead Solo Example",
+                        "audioLabel": "Synth Target Example",
                         "assets": [
                             {
-                                "name": "Solo Take 1",
-                                "filename": "[PATH_TO_TAKE1_ASSET.wav]"
-                            },
-                            {
-                                "name": "Solo Take 2",
-                                "filename": "[PATH_TO_TAKE2_ASSET.wav]"
+                                "name": "MIDI Synth",
+                                "filename": "/C4_Rock_AssetsMP3/C4_ROCK_Synth.mid"
                             }
                         ]
                     },
@@ -176,38 +162,41 @@
                         {
                             "id": "p4_fx",
                             "type": "self_mark",
-                            "question": "<h3>Solo Comping & Echo</h3><ul><li>Import both Lead Guitar Takes.</li><li>'Comp' (edit together) a perfect solo: Use Take 1 for the first half, and Take 2 for the second half, creating a seamless crossfade at Bar [BAR_NUM].</li><li>Apply a Delay/Echo matching the <b>Lead Solo Example</b> below to seat the solo in the mix.</li></ul>",
+                            "question": "<h3>Synth Programming & Automation</h3><ul><li>Import <b>C4_ROCK_Synth.mid</b>.</li><li>Program a rock-appropriate synthesizer patch (e.g., a gritty sawtooth pad or lead) that matches the timbre of the <b>Synth Target Example</b>.</li><li>Automate a Low-Pass Filter (LPF) so that the sound starts muffled/dark and completely opens up during the chorus section.</li></ul>",
                             "marks": 10,
                             "answerImage": [
                                 "[PATH_TO_INST2_ANSWER_IMAGE_1.png]",
                                 "[PATH_TO_INST2_ANSWER_IMAGE_2.png]"
                             ],
                             "markScheme": [
-                                "Take 1 used for the first half",
-                                "Take 2 used for the second half",
-                                "Smooth crossfade applied at edit point (no clicks)",
-                                "Delay effect inserted",
-                                "Delay time synced correctly (e.g. 1/4 note)"
+                                "MIDI imported to a software synthesizer",
+                                "Patch successfully programmed to a gritty/sawtooth rock sound",
+                                "Low-Pass Filter inserted and active",
+                                "Automation drawn correctly: LPF cutoff frequency rises (opens) leading into/during the chorus"
                             ]
                         }
                     ]
                 },
                 {
                     "id": "q5_vocals",
-                    "title": "Task 5: Rock Vocals ([MARKS] marks)",
+                    "title": "Task 5: Rock Vocals (10 marks)",
                     "totalMarks": 10,
                     "track": {
                         "artist": "Rock Practical",
-                        "title": "Vocal Compression",
+                        "title": "Vocal Mixing",
                         "year": 2026,
                         "filename": "[PATH_TO_VOCAL_EXAMPLE.wav]",
                         "compareFilename": "[PATH_TO_VOCAL_COMPARE_EXAMPLE.wav]",
-                        "audioLabel": "Main Vocal FX Example",
-                        "compareLabel": "Vocal Radio Example",
+                        "audioLabel": "Lead & Harmony Mix Example",
+                        "compareLabel": "De-Esser Example",
                         "assets": [
                             {
                                 "name": "Lead Vocal",
-                                "filename": "[PATH_TO_VOCAL_ASSET.wav]"
+                                "filename": "/C4_Rock_AssetsMP3/C4_ROCK_Lead_Vocal.mp3"
+                            },
+                            {
+                                "name": "Harmony Vocal",
+                                "filename": "/C4_Rock_AssetsMP3/C4_ROCK_Harmony_Vocal.mp3"
                             }
                         ]
                     },
@@ -215,18 +204,17 @@
                         {
                             "id": "p5_eq",
                             "type": "self_mark",
-                            "question": "<h3>Heavy Compression & Bridge Effect</h3><ul><li>Import <b>[VOCAL_ASSET]</b>.</li><li>Apply heavy compression to control the aggressive dynamics, ensuring the vocal stays upfront in the rock mix (matching <b>Main Vocal FX Example</b>).</li><li>During the bridge section (Bar [BAR]), automate an EQ to create a 'Telephone/Radio' effect (matching <b>Vocal Radio Example</b>).</li></ul>",
+                            "question": "<h3>Compression, De-Essing & Leveling</h3><ul><li>Import both vocal stems.</li><li>Apply aggressive Rock compression to the <b>Lead Vocal</b> to control extreme dynamics and keep the vocal upfront.</li><li>Apply a De-Esser to the Lead Vocal to tame harsh sibilance ('S' sounds).</li><li>Pan the <b>Harmony Vocal</b> slightly off-center (e.g. 15-25% Left or Right) and balance its level so it supports but does not overpower the Lead Vocal.</li></ul>",
                             "marks": 10,
                             "answerImage": [
                                 "[PATH_TO_VOCAL_ANSWER_IMAGE_1.png]",
                                 "[PATH_TO_VOCAL_ANSWER_IMAGE_2.png]"
                             ],
                             "markScheme": [
-                                "Compressor applied",
-                                "High ratio (e.g. 4:1 or higher) used for aggressive control",
-                                "Gain reduction visible/audible",
-                                "Telephone EQ (Bandpass / severe High and Low cuts) applied in the bridge",
-                                "EQ correctly automated to turn on/off at precise bar markers"
+                                "Compressor applied heavily to Lead Vocal (High Ratio / High Gain Reduction)",
+                                "De-Esser applied to Lead Vocal",
+                                "Harmony Vocal panned correctly off-center",
+                                "Harmony Vocal level balanced appropriately below Lead Vocal"
                             ]
                         }
                     ]
@@ -239,22 +227,21 @@
                         "artist": "Rock Practical",
                         "title": "Final Mix Reference",
                         "year": 2026,
-                        "filename": "[PATH_TO_FULL_MIX_EXAMPLE.mp3]",
-                        "audioLabel": "Full Mix Example"
+                        "filename": "/C4_Rock_AssetsMP3/C4_Rock_Assets_Song.mp3",
+                        "audioLabel": "Full Mix Target"
                     },
                     "parts": [
                         {
                             "id": "p6_balance",
                             "type": "self_mark",
-                            "question": "<h3>Final Mix Balance</h3><ul><li>Ensure all tracks are audible and the guitars are wide.</li><li>Check the Master Output is not clipping (red).</li><li>Ensure the mix matches the reference track's overall aggressive rock balance.</li></ul>",
+                            "question": "<h3>Final Mix Balance</h3><ul><li>Ensure all tracks are audible and the guitars/synths fill the space.</li><li>Check the Master Output is not clipping (red).</li><li>Ensure the mix matches the reference track's overall aggressive rock balance.</li></ul>",
                             "marks": 5,
                             "answerImage": "[PATH_TO_MIX_ANSWER_IMAGE.png]",
                             "markScheme": [
                                 "Drums sit robustly in the mix",
-                                "Bass is anchored in the center",
-                                "Rhythm guitars are panned wide and clear",
-                                "Lead guitar is upfront during solo",
-                                "Vocals cut through the heavy instrumentation"
+                                "Bass is anchored in the center alongside the kick",
+                                "Guitars and Synths are wide and clear",
+                                "Vocals cut through the heavy instrumentation without harshness"
                             ]
                         }
                     ]
