@@ -345,214 +345,228 @@
             "questions": [
                 {
                     "id": "q1",
-                    "title": "Question 1: Microphone Selection",
+                    "title": "Question 1: Early Drum Machines",
                     "totalMarks": 3,
                     "parts": [
                         {
                             "id": "a",
                             "type": "matching",
                             "marks": 3,
-                            "question": "Match the microphone type to its most common application in a standard rock recording session.",
+                            "question": "Match the early drum machine characteristic to its description, typical of early Synth Pop like Kraftwerk and Depeche Mode.",
                             "pairs": [
                                 {
-                                    "item": "Dynamic Mic (e.g., Shure SM57)",
-                                    "match": "Snare Drum Top & Guitar Cabs"
+                                    "item": "Preset-only Rhythm Boxes (e.g. Minipops)",
+                                    "match": "Could only play built-in waltz/bossa nova patterns; no custom programming."
                                 },
                                 {
-                                    "item": "Large Diaphragm Condenser",
-                                    "match": "Studio Lead Vocals & Room Mics"
+                                    "item": "Analog Programmable (e.g. Roland TR-808)",
+                                    "match": "Allowed custom step-programming but used analog synthesis to generate drum sounds."
                                 },
                                 {
-                                    "item": "Small Diaphragm Condenser",
-                                    "match": "Drum Overheads & Acoustic Guitars"
+                                    "item": "Digital Sample-based (e.g. LinnDrum)",
+                                    "match": "Used low-bitrate digital recordings of real acoustic drums for playback."
                                 }
                             ],
                             "options": [
-                                "Snare Drum Top & Guitar Cabs",
-                                "Studio Lead Vocals & Room Mics",
-                                "Drum Overheads & Acoustic Guitars",
-                                "Inside the Kick Drum Shell"
+                                "Could only play built-in waltz/bossa nova patterns; no custom programming.",
+                                "Allowed custom step-programming but used analog synthesis to generate drum sounds.",
+                                "Used low-bitrate digital recordings of real acoustic drums for playback.",
+                                "Used magnetic tape loops to generate infinite rhythmic patterns."
                             ],
-                            "rationale": "Dynamic mics are tough and handle loud sound like snare and amps. Large Condensers capture warm, detailed vocals. Small Condensers are fast and bright, ideal for cymbals and acoustic guitars."
+                            "rationale": "Early electronic bands relied on preset boxes. The late 70s/early 80s introduced programmable analog machines (like the 808), which were later superseded by expensive digital sampling machines like the LinnDrum."
                         }
                     ]
                 },
                 {
                     "id": "q2",
-                    "title": "Question 2: Electric Guitar Signal Chain",
+                    "title": "Question 2: Vocoder Signal Chain",
                     "totalMarks": 6,
                     "parts": [
                         {
                             "id": "a",
                             "type": "ordering",
                             "marks": 6,
-                            "question": "Order the correct signal chain for recording a distorted electric guitar into a DAW using a physical amplifier.",
+                            "question": "Order the correct analog signal chain for a classic Kraftwerk-style live Vocoder performance.",
                             "items": [
-                                "Electric Guitar Output",
-                                "Distortion Pedal",
-                                "Guitar Amplifier Input",
-                                "Dynamic Microphone (Close Miced)",
-                                "Audio Interface Preamp",
-                                "DAW Audio Track"
+                                "Vocalist singing/speaking into a Dynamic Microphone",
+                                "Microphone Preamp (Boosting signal to line level)",
+                                "Vocoder Module - Modulator Input",
+                                "Analog Synthesizer playing chords (Carrier Signal)",
+                                "Vocoder Module - Carrier Input",
+                                "Vocoder Output blending the voice articulation with the synth pitch"
                             ],
-                            "rationale": "The signal goes from guitar, to pedals, to amp. A microphone catches the sound, goes to a preamp for boost, and lastly is recorded in the DAW."
+                            "rationale": "A vocoder requires two signals: The Modulator (typically a human voice via a mic -> preamp) which provides the articulation/formants, and the Carrier (typically a rich synth wave) which gives the sound its pitch."
                         }
                     ]
                 },
                 {
                     "id": "q3",
-                    "title": "Question 3: Analog Recording",
+                    "title": "Question 3: Pre-MIDI Control",
                     "totalMarks": 1,
                     "parts": [
                         {
                             "id": "a",
                             "type": "multiple_choice",
                             "marks": 1,
-                            "question": "When recording to analog magnetic tape (common in classic rock), driving the input signal 'into the red' produces what desirable effect?",
+                            "question": "Before the invention of MIDI in 1983, how did early Synth Pop pioneers (like Kraftwerk) tell multiple analog synthesizers what pitch to play?",
                             "options": [
-                                "Digital clipping and glitching",
-                                "Harmonic distortion (Tape Saturation)",
-                                "Phase cancellation",
-                                "An automatic noise gate"
+                                "Using SMPTE Timecode",
+                                "Using Control Voltage (CV) and Gate signals",
+                                "Through analog physical modeling",
+                                "Via USB serial connections"
                             ],
-                            "answer": "Harmonic distortion (Tape Saturation)",
-                            "rationale": "Unlike digital clipping (which sounds harsh), analog tape responds to hot signals by gently compressing and adding warm harmonic saturation."
+                            "answer": "Using Control Voltage (CV) and Gate signals",
+                            "rationale": "CV (Control Voltage) dictated the pitch (e.g. 1 Volt per Octave), while Gate signals told the synthesizer envelope when to start and stop the note."
                         }
                     ]
                 },
                 {
                     "id": "q4",
-                    "title": "Question 4: Hardware Processing",
+                    "title": "Question 4: Synthesis & Electronic Processing",
                     "totalMarks": 6,
                     "parts": [
                         {
                             "id": "a",
                             "type": "multi_select",
                             "marks": 2,
-                            "question": "A producer wants to remove the sound of the hi-hat bleeding into the snare drum microphone. Which processor and setting should they use?",
+                            "question": "Which TWO of the following are characteristics of \"Subtractive Synthesis\", heavily used in 80s Synth Pop?",
                             "options": [
-                                "Noise Gate",
-                                "Chorus Pedal",
-                                "Set Threshold below snare hits but above hi-hat bleed",
-                                "Fast attack, long release"
+                                "Starts with a complex, harmonically rich waveform (like a Sawtooth or Square)",
+                                "Builds sounds by adding pure sine waves together",
+                                "Uses a Filter to remove unwanted frequencies and shape the tone",
+                                "Relies entirely on manipulating short audio recordings"
                             ],
                             "answer": [
-                                "Noise Gate",
-                                "Set Threshold below snare hits but above hi-hat bleed"
+                                "Starts with a complex, harmonically rich waveform (like a Sawtooth or Square)",
+                                "Uses a Filter to remove unwanted frequencies and shape the tone"
                             ],
-                            "rationale": "A noise gate silences the channel when the signal drops below a threshold, removing background bleed between snare hits."
+                            "rationale": "Subtractive synthesis starts with a rich oscillator wave (Oscillator) and \"subtracts\" harmonics using a Filter (VCF)."
                         },
                         {
                             "id": "b",
                             "type": "multiple_choice",
                             "marks": 2,
-                            "question": "Which dynamic processor is used to catch only the loudest, sharpest peaks of a snare transient without affecting the body of the sound?",
+                            "question": "Kraftwerk famously used a \"Phaser\" effect on their string synth pads. What does a Phaser physically do to the audio signal?",
                             "options": [
-                                "Limiter",
-                                "Expander",
-                                "Compressor with slow attack",
-                                "Compressor with very fast attack and high ratio"
+                                "Creates a series of sweeping notch filters using all-pass phase shift networks",
+                                "Adds a short, modulated delay under 20ms to create a pitch-wobbling effect",
+                                "Multiplies two signals together to create harsh, metallic bell tones",
+                                "Automatically reduces the volume of the synth when the kick drum hits"
                             ],
-                            "answer": "Compressor with very fast attack and high ratio",
-                            "rationale": "A fast attack catches the initial transient spike, and a high ratio turns it down aggressively (acting almost like a limiter)."
+                            "answer": "Creates a series of sweeping notch filters using all-pass phase shift networks",
+                            "rationale": "A phaser passes the signal through all-pass filters to create phase differences, which, when mixed back with the dry signal, creates sweeping frequency notches."
                         },
                         {
                             "id": "c",
                             "type": "multiple_choice",
                             "marks": 1,
-                            "question": "Which dynamic processor is most commonly used to automatically reduce the level of a bass track whenever the kick drum hits?",
+                            "question": "When generating a classic \"laser zap\" synth percussion sound (or a synth tom), which parameter must be modulated by an Envelope Generator with a fast decay?",
                             "options": [
-                                "Sidechain Compressor",
-                                "De-esser",
-                                "Multiband Compressor",
-                                "Limiter"
+                                "Oscillator Pitch (Frequency)",
+                                "Filter Resonance",
+                                "Master Volume (Amplitude)",
+                                "LFO Rate"
                             ],
-                            "answer": "Sidechain Compressor",
-                            "rationale": "By feeding the kick drum signal into the compressor's key input, the compressor turns down (ducks) the bass only when the kick hits, making room in the mix."
+                            "answer": "Oscillator Pitch (Frequency)",
+                            "rationale": "Applying a fast-decaying envelope to the oscillator pitch causes the pitch to drop rapidly, creating the classic \"pew\" or \"zap\" percussion sound."
                         },
                         {
                             "id": "d",
                             "type": "multiple_choice",
                             "marks": 1,
-                            "question": "What is a De-esser primarily designed to do during vocal processing?",
+                            "question": "If a Synth Pop producer wants to make a lead synth sound \"wider\" in the stereo field using Chorus, what is the Chorus plugin actually doing?",
                             "options": [
-                                "Reduce harsh 'S' and 'T' consonant sounds",
-                                "Add analog-style saturation to the vocal",
-                                "Widen the stereo image of the lead vocal",
-                                "Remove background noise between vocal phrases"
+                                "Duplicating the signal, slightly delaying it, and slowly modulating the pitch of the delay",
+                                "Flipping the phase of the left channel 180 degrees",
+                                "Hard panning the high frequencies right and low frequencies left",
+                                "Applying a fast tremolo to the volume"
                             ],
-                            "answer": "Reduce harsh 'S' and 'T' consonant sounds",
-                            "rationale": "A De-esser is a specific frequency-dependent compressor that quickly tames harsh high-frequency sibilance."
+                            "answer": "Duplicating the signal, slightly delaying it, and slowly modulating the pitch of the delay",
+                            "rationale": "Chorus creates a thick, ensemble effect by duplicating the sound, adding a tiny delay, and using an LFO to constantly shift the pitch of that delayed signal."
                         }
                     ]
                 },
                 {
                     "id": "q5",
-                    "title": "Question 5: Compressor Parameters",
+                    "title": "Question 5: Envelope Generators",
                     "totalMarks": 2,
                     "parts": [
                         {
                             "id": "a",
                             "type": "multiple_choice",
                             "marks": 1,
-                            "question": "Which compressor parameter determines how much the volume is reduced once the signal crosses the threshold?",
+                            "question": "When programming a tight, punchy Synth Pop bassline, how should the ADSR Envelope controlling the Amplifier (VCA) be set?",
                             "options": [
-                                "Attack",
-                                "Release",
-                                "Ratio",
-                                "Makeup Gain"
+                                "Fast Attack, Fast Decay, No Sustain, Short Release",
+                                "Slow Attack, Long Decay, Full Sustain, Long Release",
+                                "Fast Attack, Full Sustain, Infinite Release",
+                                "Slow Attack, Fast Decay, No Sustain"
                             ],
-                            "answer": "Ratio",
-                            "rationale": "Ratio (e.g. 4:1) dictates that for every 4dB over the threshold, only 1dB is allowed out."
+                            "answer": "Fast Attack, Fast Decay, No Sustain, Short Release",
+                            "rationale": "A plucky, punchy bass needs to start instantly (Fast Attack) and die away quickly (Fast Decay/No Sustain/Short Release) to keep the rhythm tight without sustaining over the gaps."
                         },
                         {
                             "id": "b",
                             "type": "multiple_choice",
                             "marks": 1,
-                            "question": "If you want the initial 'crack' or transient of a kick drum to pass through the compressor unaffected before the volume is reduced, how should you set the attack time?",
+                            "question": "What does the \"Resonance\" (sometimes called \"Q\") control on a synthesizer low-pass filter do?",
                             "options": [
-                                "Extremely Fast (0.1ms)",
-                                "Medium-Slow (~10-30ms)",
-                                "Attack time does not affect transients",
-                                "Zero"
+                                "Boosts the frequencies immediately surrounding the cutoff point",
+                                "Determines how quickly the filter closes after a key is pressed",
+                                "Changes the shape of the oscillator waveform",
+                                "Adds distortion to the overall output of the synth"
                             ],
-                            "answer": "Medium-Slow (~10-30ms)",
-                            "rationale": "A slower attack time lets the punchy transient sneak past the compressor before it clamps down."
+                            "answer": "Boosts the frequencies immediately surrounding the cutoff point",
+                            "rationale": "Resonance creates a feedback loop in the filter circuit, boosting the frequencies right at the cutoff point, creating the classic \"squelchy\" synth sound."
                         }
                     ]
                 },
                 {
                     "id": "q6",
-                    "title": "Question 6: Mastering for Streaming",
+                    "title": "Question 6: 1980s Reverb & Digital Technology",
                     "totalMarks": 3,
                     "parts": [
                         {
                             "id": "a",
                             "type": "multiple_choice",
                             "marks": 1,
-                            "question": "What is the industry standard (Spotify/Apple Music) Integrated Loudness target for mastering a track?",
+                            "question": "The aggressive \"Gated Snare\" sound became the defining drum sound of 1980s Synth Pop and Rock. How is it achieved?",
                             "options": [
-                                "-6 LUFS",
-                                "-14 LUFS",
-                                "0 LUFS",
-                                "-23 dBFS"
+                                "Applying a massive digital reverb to a snare, then abruptly cutting off the reverb tail with a Noise Gate",
+                                "Recording the snare drum outside and heavily compressing it",
+                                "Using a vocoder on the snare drum track",
+                                "Reversing a snare sample and applying chorus"
                             ],
-                            "answer": "-14 LUFS",
-                            "rationale": "Streaming platforms normalize audio. Aiming for -14 LUFS is the current standard to prevent the platform from turning your track down and crushing its dynamics."
+                            "answer": "Applying a massive digital reverb to a snare, then abruptly cutting off the reverb tail with a Noise Gate",
+                            "rationale": "The gated snare (popularized by Phil Collins) relies on an explosive blast of reverb that is instantly silenced by a noise gate, creating artificial \"size\" without muddying the mix."
                         },
                         {
                             "id": "b",
                             "type": "multiple_choice",
                             "marks": 1,
-                            "question": "To prevent inter-sample clipping when a digital file is converted to analog (or MP3), what should True Peak limiters be set to?",
+                            "question": "Early digital synthesizers of the 1980s (like the Yamaha DX7) used a new method of sound generation that was notoriously difficult to program. What was it called?",
                             "options": [
-                                "0 dBTP",
-                                "+1 dBTP",
-                                "-1 dBTP",
-                                "-14 dBTP"
+                                "Frequency Modulation (FM) Synthesis",
+                                "Granular Synthesis",
+                                "Additive Synthesis",
+                                "Analog Modeling"
                             ],
-                            "answer": "-1 dBTP",
-                            "rationale": "Leaving 1 decibel of headroom (-1 dB True Peak) ensures the conversion process doesn't cause clipping distortion."
+                            "answer": "Frequency Modulation (FM) Synthesis",
+                            "rationale": "FM Synthesis uses one digital oscillator (modulator) to modulate the frequency of another (carrier), creating complex, bell-like, metallic sounds that defined 80s pop."
+                        },
+                        {
+                            "id": "c",
+                            "type": "multiple_choice",
+                            "marks": 1,
+                            "question": "Which digital connection standard, introduced primarily by Dave Smith and Ikutaro Kakehashi in 1983, revolutionized Synth Pop by allowing sequencers, drum machines, and synths from different manufacturers to finally \"talk\" to each other?",
+                            "options": [
+                                "MIDI (Musical Instrument Digital Interface)",
+                                "ADAT (Alesis Digital Audio Tape)",
+                                "S/PDIF",
+                                "USB (Universal Serial Bus)"
+                            ],
+                            "answer": "MIDI (Musical Instrument Digital Interface)",
+                            "rationale": "MIDI established a universal digital language for note data, velocity, and clock sync, allowing complex synth-pop rigs to perform in perfect time."
                         }
                     ]
                 }
