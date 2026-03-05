@@ -59,10 +59,23 @@ export default function PianoRollQuiz({ question, onResult, initialNotes, onNote
         if (!ctx) return;
 
         const now = time !== null ? time : ctx.currentTime;
-        // Basic frequencies
-        const frequencies = {
-            'C4': 261.63, 'D4': 293.66, 'E4': 329.63, 'F4': 349.23,
-            'G4': 392.00, 'A4': 440.00, 'B4': 493.88, 'C5': 523.25
+
+        // Dynamic frequency calculation
+        const getFreq = (noteStr) => {
+            const noteMapping = { 'C': -9, 'Db': -8, 'D': -7, 'Eb': -6, 'E': -5, 'F': -4, 'Gb': -3, 'G': -2, 'Ab': -1, 'A': 0, 'Bb': 1, 'B': 2 };
+            const match = noteStr.match(/^([A-Ga-g]+[b#]?)(-?\d+)$/);
+            if (match) {
+                const noteValue = noteMapping[match[1]] || 0;
+                const octave = parseInt(match[2], 10);
+                const semitonesFromA4 = noteValue + (octave - 4) * 12;
+                return 440 * Math.pow(2, semitonesFromA4 / 12);
+            }
+            // Fallback hardcoded if regex fails
+            const frequencies = {
+                'C4': 261.63, 'D4': 293.66, 'E4': 329.63, 'F4': 349.23,
+                'G4': 392.00, 'A4': 440.00, 'B4': 493.88, 'C5': 523.25
+            };
+            return frequencies[noteStr] || 440;
         };
 
         if (type === 'KK') {
@@ -108,16 +121,43 @@ export default function PianoRollQuiz({ question, onResult, initialNotes, onNote
             filter.connect(gain);
             gain.connect(ctx.destination);
             noise.start(now);
+        } else if (type === 'CLICK') {
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.frequency.setValueAtTime(pitch === 'C6' ? 1200 : 800, now);
+            osc.frequency.exponentialRampToValueAtTime(100, now + 0.05);
+            gain.gain.setValueAtTime(0.3, now);
+            gain.gain.exponentialRampToValueAtTime(0.01, now + 0.05);
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.start(now);
+            osc.stop(now + 0.05);
         } else {
             // Synth
             const osc = ctx.createOscillator();
             const gain = ctx.createGain();
-            osc.type = 'triangle';
-            osc.frequency.value = frequencies[pitch] || 440;
+
+            // To make lower notes have more presence, use sawtooth instead of triangle
+            osc.type = 'sawtooth';
+
+            osc.frequency.value = getFreq(pitch);
             gain.gain.setValueAtTime(0, now);
             gain.gain.linearRampToValueAtTime(0.3, now + 0.05);
             gain.gain.exponentialRampToValueAtTime(0.01, now + duration);
-            osc.connect(gain);
+
+            // For lower synth, add a simple lowpass filter to remove harshness
+            if (osc.type === 'sawtooth') {
+                const filter = ctx.createBiquadFilter();
+                filter.type = 'lowpass';
+                filter.frequency.setValueAtTime(1500, now);
+                filter.frequency.exponentialRampToValueAtTime(200, now + duration);
+
+                osc.connect(filter);
+                filter.connect(gain);
+            } else {
+                osc.connect(gain);
+            }
+
             gain.connect(ctx.destination);
             osc.start(now);
             osc.stop(now + duration);
@@ -140,6 +180,15 @@ export default function PianoRollQuiz({ question, onResult, initialNotes, onNote
         const ctx = audioContextRef.current;
         const startTime = ctx.currentTime + 0.1; // Schedule slightly in future
 
+        const totalCols = question.columns || 16;
+
+        // Schedule metronome clicks
+        for (let i = 0; i < totalCols; i += 4) {
+            const timeOffset = i * stepTime;
+            const playTime = startTime + timeOffset;
+            playSound('CLICK', i % 16 === 0 ? 'C6' : 'C5', 0.05, playTime);
+        }
+
         pattern.forEach(note => {
             const timeOffset = note.col * stepTime;
             const playTime = startTime + timeOffset;
@@ -160,7 +209,6 @@ export default function PianoRollQuiz({ question, onResult, initialNotes, onNote
         const finishTime = (loopDuration * 1000) + 100; // + buffer
 
         // Visual Animation Loop
-        const totalCols = question.columns || 16;
         const animate = () => {
             const now = ctx.currentTime;
             const elapsed = now - startTime;
@@ -274,6 +322,8 @@ export default function PianoRollQuiz({ question, onResult, initialNotes, onNote
             width: '100%',
             maxWidth: '900px',
             margin: '0 auto',
+            boxSizing: 'border-box',
+            overflow: 'hidden',
             boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)'
         },
         header: { marginBottom: '16px' },

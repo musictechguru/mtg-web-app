@@ -8,6 +8,7 @@ import SignalFlowLabelQuiz from './InteractiveQuizzes/SignalFlowLabelQuiz';
 import PianoRollQuiz from './InteractiveQuizzes/PianoRollQuiz';
 import PanningQuiz from './InteractiveQuizzes/PanningQuiz';
 import GraphDrawingQuiz from './InteractiveQuizzes/GraphDrawingQuiz';
+import TimelineQuiz from './InteractiveQuizzes/TimelineQuiz';
 
 // --- Sortable Item Component (For// SortableItem component
 function SortableItem({ id, item, onItemChange }) {
@@ -165,18 +166,27 @@ const Component3ExamPlayer = ({ examData, onExit }) => {
             return modified ? next : prev;
         });
 
-        // Separate Shuffle for Matching Options
+        // Separate Shuffle for Matching Options and Cloze Dropdowns
         setShuffledOptions(prev => {
             const next = { ...prev };
             let modified = false;
             examData.sections?.forEach(sec => {
                 sec.questions?.forEach(q => {
                     q.parts?.forEach(p => {
+                        const key = `${q.id}_${p.id}`;
                         if (p.type === 'matching' && Array.isArray(p.options)) {
-                            const key = `${q.id}_${p.id}`;
                             if (!next[key]) {
                                 const shuffled = [...p.options].sort(() => Math.random() - 0.5);
                                 next[key] = shuffled;
+                                modified = true;
+                            }
+                        } else if (p.type === 'cloze' && Array.isArray(p.options)) {
+                            // cloze options is an array of arrays (one for each dropdown)
+                            if (!next[key]) {
+                                const shuffledArrays = p.options.map(optGroup =>
+                                    [...optGroup].sort(() => Math.random() - 0.5)
+                                );
+                                next[key] = shuffledArrays;
                                 modified = true;
                             }
                         }
@@ -815,7 +825,7 @@ const Component3ExamPlayer = ({ examData, onExit }) => {
                                             question={part}
                                             examMode={true}
                                             showAnswers={showMarkScheme}
-                                            initialNotes={answers[`${currentQuestion.id}_${part.id}`] || part.prefilledNotes || []}
+                                            initialNotes={answers[`${currentQuestion.id}_${part.id}`] || part.prefilledNotes}
                                             onNotesChange={(newNotes) => handleAnswerChange(currentQuestion.id, part.id, newNotes)}
                                         />
                                     </div>
@@ -846,6 +856,18 @@ const Component3ExamPlayer = ({ examData, onExit }) => {
                                         />
                                     </div>
                                 )}
+                                {part.type === 'timeline' && (
+                                    <div style={{ marginTop: '20px', marginBottom: '20px' }}>
+                                        <TimelineQuiz
+                                            question={part}
+                                            examMode={true}
+                                            showAnswers={showMarkScheme}
+                                            initialAnswers={answers[`${currentQuestion.id}_${part.id}`] || (window.__emptyTimelineObj = window.__emptyTimelineObj || {})}
+                                            onValuesChange={(newValues) => handleAnswerChange(currentQuestion.id, part.id, newValues)}
+                                            onResult={() => { }}
+                                        />
+                                    </div>
+                                )}
                                 {part.type === 'cloze' && (
                                     <div style={{ lineHeight: '2.5', fontSize: '1.1rem' }}>
                                         {Array.isArray(part.text) ? (
@@ -859,7 +881,12 @@ const Component3ExamPlayer = ({ examData, onExit }) => {
                                                             return (
                                                                 <select key={idx} style={{ margin: '0 5px', padding: '5px', background: '#333', color: 'white', border: '1px solid var(--accent-blue)', borderRadius: '4px' }} value={currentBlanks[blankId] || ''} onChange={(e) => handleAnswerChange(currentQuestion.id, part.id, { ...currentBlanks, [blankId]: e.target.value })}>
                                                                     <option value="">...</option>
-                                                                    {part.options[blankId] && part.options[blankId].map((opt, oIdx) => <option key={oIdx} value={opt}>{opt}</option>)}
+                                                                    {(() => {
+                                                                        const optionsArray = (shuffledOptions[`${currentQuestion.id}_${part.id}`] && shuffledOptions[`${currentQuestion.id}_${part.id}`][blankId]) || (part.options && part.options[blankId]) || [];
+                                                                        return optionsArray.map((opt, i) => (
+                                                                            <option key={i} value={opt}>{opt}</option>
+                                                                        ));
+                                                                    })()}
                                                                 </select>
                                                             );
                                                         })}

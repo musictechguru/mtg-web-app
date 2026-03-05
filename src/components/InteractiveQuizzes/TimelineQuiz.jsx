@@ -18,7 +18,7 @@ function DraggableItem({ item, isDragging, isSubmitted, isCorrect }) {
         id: item.id,
     });
 
-    const style = transform
+    const style = transform && !isDragging
         ? { transform: `translate3d(${transform.x}px, ${transform.y}px, 0)` }
         : undefined;
 
@@ -38,7 +38,12 @@ function DraggableItem({ item, isDragging, isSubmitted, isCorrect }) {
             title={item.text}
         >
             {item.img && (
-                <img src={item.img} alt={item.text} className="timeline-item-img" draggable="false" />
+                <img
+                    src={`/${item.img}`}
+                    alt={item.text}
+                    className="timeline-item-img"
+                    draggable="false"
+                />
             )}
             <div className="timeline-item-text">{item.text}</div>
 
@@ -52,7 +57,7 @@ function DraggableItem({ item, isDragging, isSubmitted, isCorrect }) {
 }
 
 // --- Droppable Decade Component ---
-function DroppableDecade({ decade, items, isSubmitted, checkItemCorrectness }) {
+function DroppableDecade({ decade, items, isSubmitted, checkItemCorrectness, activeId }) {
     const { isOver, setNodeRef } = useDroppable({
         id: decade,
     });
@@ -68,7 +73,7 @@ function DroppableDecade({ decade, items, isSubmitted, checkItemCorrectness }) {
                     <DraggableItem
                         key={item.id}
                         item={item}
-                        isDragging={false}
+                        isDragging={activeId === item.id}
                         isSubmitted={isSubmitted}
                         isCorrect={checkItemCorrectness(item.id)}
                     />
@@ -84,15 +89,26 @@ function DroppableDecade({ decade, items, isSubmitted, checkItemCorrectness }) {
 }
 
 // --- Main Timeline Quiz Component ---
-export default function TimelineQuiz({ question, onResult }) {
-    const [placedItems, setPlacedItems] = useState({}); // { itemId: decadeId }
+export default function TimelineQuiz({ question, onResult, examMode = false, showAnswers = false, initialAnswers = {}, onValuesChange = null }) {
+    const [placedItems, setPlacedItems] = useState(examMode ? initialAnswers : {}); // { itemId: decadeId }
     const [shuffledItems, setShuffledItems] = useState([]);
-    const [isSubmitted, setIsSubmitted] = useState(false);
+    const [isSubmitted, setIsSubmitted] = useState(examMode ? showAnswers : false);
     const [activeId, setActiveId] = useState(null);
 
     useEffect(() => {
-        setPlacedItems({});
-        setIsSubmitted(false);
+        if (!examMode) {
+            setPlacedItems({});
+            setIsSubmitted(false);
+        } else {
+            setPlacedItems(prev => {
+                // Only update if the answers stringified are different, avoiding infinite re-renders
+                if (JSON.stringify(prev) !== JSON.stringify(initialAnswers)) {
+                    return initialAnswers || {};
+                }
+                return prev;
+            });
+            setIsSubmitted(showAnswers);
+        }
 
         // Fisher-Yates Shuffle for the items
         if (question && question.items) {
@@ -101,9 +117,15 @@ export default function TimelineQuiz({ question, onResult }) {
                 const j = Math.floor(Math.random() * (i + 1));
                 [itemsCopy[i], itemsCopy[j]] = [itemsCopy[j], itemsCopy[i]];
             }
-            setShuffledItems(itemsCopy);
+            // Only shuffle if we don't already have exactly these items
+            setShuffledItems(prev => {
+                if (prev.length === itemsCopy.length && prev.every(item => itemsCopy.find(i => i.id === item.id))) {
+                    return prev;
+                }
+                return itemsCopy;
+            });
         }
-    }, [question]);
+    }, [question, examMode, showAnswers, JSON.stringify(initialAnswers)]);
 
     // Adjust distance constraint so clicks still work easily
     const sensors = useSensors(
@@ -112,14 +134,17 @@ export default function TimelineQuiz({ question, onResult }) {
     );
 
     const handleDragStart = (event) => {
-        if (isSubmitted) return;
+        if (isSubmitted && !examMode) return;
+        if (examMode && showAnswers) return; // Cannot drag if showAnswers in exam mode
         setActiveId(event.active.id);
     };
 
     const handleDragEnd = (event) => {
         setActiveId(null);
         const { active, over } = event;
-        if (!over || isSubmitted) return;
+        if (!over) return;
+        if (isSubmitted && !examMode) return;
+        if (examMode && showAnswers) return;
 
         setPlacedItems(prev => {
             const newPlaced = { ...prev };
@@ -127,6 +152,9 @@ export default function TimelineQuiz({ question, onResult }) {
                 delete newPlaced[active.id];
             } else {
                 newPlaced[active.id] = over.id;
+            }
+            if (examMode && onValuesChange) {
+                onValuesChange(newPlaced);
             }
             return newPlaced;
         });
@@ -142,7 +170,7 @@ export default function TimelineQuiz({ question, onResult }) {
 
     const handleReset = () => {
         setPlacedItems({});
-        setIsSubmitted(false);
+        setIsSubmitted({});
     };
 
     const checkItemCorrectness = (itemId) => {
@@ -151,7 +179,9 @@ export default function TimelineQuiz({ question, onResult }) {
         return placedItems[itemId] === item.targetDecade;
     };
 
-    const unplacedItems = shuffledItems.filter(item => !placedItems[item.id]);
+    const unplacedItems = shuffledItems.filter(item =>
+        !placedItems[item.id] || (activeId === item.id && !placedItems[item.id])
+    );
     const activeItem = question.items.find(i => i.id === activeId);
 
     // Set up the Bank as a droppable area to return items
@@ -162,9 +192,11 @@ export default function TimelineQuiz({ question, onResult }) {
 
     return (
         <div className="timeline-quiz-container">
-            <p style={{ margin: 0, color: '#94a3b8' }}>
-                {question.content}
-            </p>
+            {!examMode && (question.content || question.question) && (
+                <p style={{ margin: 0, color: '#94a3b8' }}>
+                    {question.content || question.question}
+                </p>
+            )}
 
             <DndContext
                 sensors={sensors}
@@ -197,18 +229,26 @@ export default function TimelineQuiz({ question, onResult }) {
                         <DroppableDecade
                             key={decade}
                             decade={decade}
-                            items={question.items.filter(i => placedItems[i.id] === decade && activeId !== i.id)}
+                            items={question.items.filter(i =>
+                                placedItems[i.id] === decade || (activeId === i.id && placedItems[i.id] === decade)
+                            )}
                             isSubmitted={isSubmitted}
                             checkItemCorrectness={checkItemCorrectness}
+                            activeId={activeId}
                         />
                     ))}
                 </div>
 
                 <DragOverlay>
                     {activeItem ? (
-                        <div className="drag-overlay-item">
+                        <div className="drag-overlay-item" style={{ width: '140px', boxSizing: 'border-box' }}>
                             {activeItem.img && (
-                                <img src={activeItem.img} alt={activeItem.text} className="timeline-item-img" style={{ maxWidth: '80px', maxHeight: '80px', pointerEvents: 'none' }} />
+                                <img
+                                    src={`/${activeItem.img}`}
+                                    alt={activeItem.text}
+                                    className="timeline-item-img"
+                                    style={{ maxWidth: '90px', maxHeight: '90px', minHeight: '90px', pointerEvents: 'none', objectFit: 'contain' }}
+                                />
                             )}
                             <div className="timeline-item-text">{activeItem.text}</div>
                         </div>
@@ -216,24 +256,26 @@ export default function TimelineQuiz({ question, onResult }) {
                 </DragOverlay>
             </DndContext>
 
-            <div className="timeline-controls">
-                {!isSubmitted ? (
-                    <button
-                        className="btn-primary"
-                        style={{ flex: 1 }}
-                        onClick={handleCheck}
-                        disabled={!allItemsPlaced}
-                    >
-                        Check Answers
-                    </button>
-                ) : (
-                    <button className="btn-secondary" style={{ flex: 1 }} onClick={handleReset}>
-                        Try Again
-                    </button>
-                )}
-            </div>
+            {!examMode && (
+                <div className="timeline-controls">
+                    {!isSubmitted ? (
+                        <button
+                            className="btn-primary"
+                            style={{ flex: 1 }}
+                            onClick={handleCheck}
+                            disabled={!allItemsPlaced}
+                        >
+                            Check Answers
+                        </button>
+                    ) : (
+                        <button className="btn-secondary" style={{ flex: 1 }} onClick={handleReset}>
+                            Try Again
+                        </button>
+                    )}
+                </div>
+            )}
 
-            {isSubmitted && (
+            {!examMode && isSubmitted && (
                 <div style={{
                     padding: '15px',
                     borderRadius: '8px',
@@ -252,7 +294,7 @@ export default function TimelineQuiz({ question, onResult }) {
                 </div>
             )}
 
-            {isSubmitted && allCorrect && (
+            {((isSubmitted && allCorrect) || (examMode && showAnswers)) && (
                 <div className="timeline-explanations">
                     <h3 style={{ color: '#e2e8f0', borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '10px', marginTop: '10px' }}>
                         Timeline Explanations

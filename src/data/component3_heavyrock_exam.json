@@ -1,14 +1,14 @@
 {
     "id": "c3_heavyrock",
     "title": "Component 3: Listening and Analysing - HEAVY ROCK",
-    "totalMarks": 75,
+    "totalMarks": 90,
     "timeLimitMinutes": 90,
     "description": "Examination of Heavy Rock production techniques (1970-1990). You will need headphones.",
     "sections": [
         {
             "id": "A",
             "title": "Section A: Listening and Analysing",
-            "marks": 40,
+            "marks": 50,
             "questions": [
                 {
                     "id": "q1",
@@ -105,7 +105,7 @@
                 {
                     "id": "q2",
                     "title": "Question 2",
-                    "totalMarks": 13,
+                    "totalMarks": 16,
                     "track": {
                         "artist": "Black Sabbath",
                         "title": "Paranoid",
@@ -115,17 +115,22 @@
                     "parts": [
                         {
                             "id": "a_i",
-                            "type": "multiple_choice",
-                            "marks": 1,
-                            "question": "The guitar solo features a specific type of distortion. Identify the pedal used.",
+                            "type": "multi_select",
+                            "marks": 2,
+                            "question": "The guitar solo (1:23) features specific effects. Identify TWO pedals used.",
                             "options": [
+                                "Tape Echo",
                                 "Ring Modulator",
-                                "Treble Booster (Rangemaster)",
                                 "Digital Distortion",
+                                "Chorus Pedal",
+                                "Treble Booster (Rangemaster)",
                                 "Bit Crusher"
                             ],
-                            "answer": "Treble Booster (Rangemaster)",
-                            "rationale": "Tony Iommi used a Dallas Rangemaster Treble Booster to drive his Laney amps into heavy saturation."
+                            "answer": [
+                                "Treble Booster (Rangemaster)",
+                                "Ring Modulator"
+                            ],
+                            "rationale": "Tony Iommi used a Dallas Rangemaster Treble Booster to drive his Laney amps into heavy saturation, and famously used a Ring Modulator for the guitar solo."
                         },
                         {
                             "id": "a_ii",
@@ -183,22 +188,82 @@
                         },
                         {
                             "id": "c",
-                            "type": "drawing",
-                            "subtype": "filter_2band",
-                            "marks": 2,
-                            "question": "The bass guitar is slightly muddy. Draw a filter curve to clean up the low-end rumble while keeping the punch.",
-                            "defaultValues": [
-                                20,
-                                20000
+                            "type": "panning",
+                            "marks": 4,
+                            "question": "Place the following Heavy Rock instruments in their typical 1970s stereo field positions.",
+                            "hint": "Drag the elements to the correct position in the stereo field (Left/Right) and depth (Front/Back).",
+                            "elements": [
+                                {
+                                    "id": "lead_vocal",
+                                    "content": "Lead Vocal",
+                                    "targetZone": "zone_center_front"
+                                },
+                                {
+                                    "id": "rhythm_guitar_l",
+                                    "content": "Double-tracked Rhythm Guitar (L)",
+                                    "targetZone": "zone_hard_left"
+                                },
+                                {
+                                    "id": "rhythm_guitar_r",
+                                    "content": "Double-tracked Rhythm Guitar (R)",
+                                    "targetZone": "zone_hard_right"
+                                },
+                                {
+                                    "id": "bass_guitar",
+                                    "content": "Bass Guitar",
+                                    "targetZone": "zone_center_mid"
+                                },
+                                {
+                                    "id": "drum_kit",
+                                    "content": "Drum Kit",
+                                    "targetZone": "zone_center_back"
+                                }
                             ],
-                            "markScheme": [
-                                "High Pass Filter (Low Cut) typically around 40-80Hz"
+                            "zones": [
+                                {
+                                    "id": "zone_mid_right",
+                                    "angle": 135,
+                                    "distance": 0.5,
+                                    "label": "Medium Right"
+                                },
+                                {
+                                    "id": "zone_mid_left",
+                                    "angle": 45,
+                                    "distance": 0.5,
+                                    "label": "Medium Left"
+                                },
+                                {
+                                    "id": "zone_center_back",
+                                    "angle": 90,
+                                    "distance": 1.0,
+                                    "label": "Center Back"
+                                },
+                                {
+                                    "id": "zone_center_mid",
+                                    "angle": 90,
+                                    "distance": 0.6,
+                                    "label": "Center Mid"
+                                },
+                                {
+                                    "id": "zone_hard_left",
+                                    "angle": 0,
+                                    "distance": 0.8,
+                                    "label": "Hard Left"
+                                },
+                                {
+                                    "id": "zone_hard_right",
+                                    "angle": 180,
+                                    "distance": 0.8,
+                                    "label": "Hard Right"
+                                },
+                                {
+                                    "id": "zone_center_front",
+                                    "angle": 90,
+                                    "distance": 0.2,
+                                    "label": "Center Front"
+                                }
                             ],
-                            "answer": [
-                                60,
-                                20000
-                            ],
-                            "rationale": "Rolling off below 60Hz removes rumble without killing the note fundamental."
+                            "rationale": "In classic 70s rock, rhythm guitars are typically hard-panned left and right, while the bass, drums, and lead vocals form the solid center core."
                         },
                         {
                             "id": "d",
@@ -229,7 +294,7 @@
                 {
                     "id": "q3",
                     "title": "Question 3",
-                    "totalMarks": 10,
+                    "totalMarks": 14,
                     "track": {
                         "artist": "Deep Purple",
                         "title": "Smoke on the Water",
@@ -255,7 +320,7 @@
                             "id": "b",
                             "type": "multi_select",
                             "marks": 2,
-                            "question": "Select TWO reasons for the gritty texture of the organ.",
+                            "question": "Select TWO reasons for the gritty texture of this keyboard sound.",
                             "options": [
                                 "Running through a Guitar Amp (Marshall)",
                                 "Overdriving the Leslie Speaker",
@@ -267,21 +332,100 @@
                                 "Running through a Guitar Amp (Marshall)",
                                 "Overdriving the Leslie Speaker"
                             ],
-                            "rationale": "The grit comes from gain staging the organ into guitar amplifiers."
+                            "rationale": "The grit comes from gain staging the keyboard into guitar amplifiers."
                         },
                         {
                             "id": "c",
-                            "type": "multiple_choice",
-                            "marks": 1,
-                            "question": "The main riff is played in which intervallic harmony?",
-                            "options": [
-                                "Major 3rds",
-                                "Perfect 4ths",
-                                "Perfect 5ths (Power Chords)",
-                                "Octaves"
+                            "type": "piano_roll",
+                            "marks": 6,
+                            "question": "Complete the missing notes for the main 'Smoke on the Water' riff.",
+                            "hint": "The iconic riff plays G, Bb, C, and Db. Complete the visual sequencing pattern across the grid.",
+                            "columns": 32,
+                            "rows": [
+                                {
+                                    "name": "Db3",
+                                    "note": "Db3"
+                                },
+                                {
+                                    "name": "C3",
+                                    "note": "C3"
+                                },
+                                {
+                                    "name": "B2",
+                                    "note": "B2"
+                                },
+                                {
+                                    "name": "Bb2",
+                                    "note": "Bb2"
+                                },
+                                {
+                                    "name": "A2",
+                                    "note": "A2"
+                                },
+                                {
+                                    "name": "Ab2",
+                                    "note": "Ab2"
+                                },
+                                {
+                                    "name": "G2",
+                                    "note": "G2"
+                                }
                             ],
-                            "answer": "Perfect 4ths",
-                            "rationale": "Ritchie Blackmore plucked the strings with his fingers in 4ths (inverted 5ths) to create the iconic sound."
+                            "prefilledNotes": [
+                                {
+                                    "row": 6,
+                                    "col": 0,
+                                    "length": 2
+                                },
+                                {
+                                    "row": 3,
+                                    "col": 4,
+                                    "length": 2
+                                },
+                                {
+                                    "row": 1,
+                                    "col": 8,
+                                    "length": 4
+                                }
+                            ],
+                            "targetPattern": [
+                                {
+                                    "row": 6,
+                                    "col": 0,
+                                    "length": 2
+                                },
+                                {
+                                    "row": 3,
+                                    "col": 4,
+                                    "length": 2
+                                },
+                                {
+                                    "row": 1,
+                                    "col": 8,
+                                    "length": 4
+                                },
+                                {
+                                    "row": 6,
+                                    "col": 14,
+                                    "length": 2
+                                },
+                                {
+                                    "row": 3,
+                                    "col": 18,
+                                    "length": 2
+                                },
+                                {
+                                    "row": 0,
+                                    "col": 22,
+                                    "length": 1
+                                },
+                                {
+                                    "row": 1,
+                                    "col": 24,
+                                    "length": 4
+                                }
+                            ],
+                            "rationale": "The famous riff is highly syncopated. It plays G, Bb, C in the first measure; and G, Bb, Db, C in the second. The low octaves give it that iconic heaviness."
                         },
                         {
                             "id": "d",
@@ -334,14 +478,14 @@
                             "type": "list",
                             "items": 3,
                             "marks": 3,
-                            "question": "Identify THREE components of the 'Brown Sound' guitar tone.",
+                            "question": "Identify THREE generic components or characteristics of the guitar tone used here.",
                             "markScheme": [
-                                "Marshall Super Lead Amp (Plexi)",
-                                "Variac (Voltage reduction)",
-                                "Humbucker pickup (Frankenstrat)",
-                                "Phaser (MXR Phase 90)",
-                                "Maintained Echo / Reverb",
-                                "JBL Speakers"
+                                "Overdriven tube amplifier",
+                                "Voltage reduction techniques",
+                                "Humbucker pickups",
+                                "Phaser effect",
+                                "Reverb / Echo",
+                                "Close-miked speaker cabinets"
                             ]
                         },
                         {
@@ -400,7 +544,7 @@
         {
             "id": "B",
             "title": "Section B: Extended Response",
-            "marks": 35,
+            "marks": 40,
             "questions": [
                 {
                     "id": "q5",
@@ -408,164 +552,198 @@
                     "totalMarks": 15,
                     "track": {
                         "artist": "Comparison",
-                        "title": "War Pigs: Original (1970) vs Metal Cover (1989)",
-                        "year": "1970/1989",
-                        "filename": "Music/C3_ROCK/Q5_C3_WarPigs_Orig.mp3",
-                        "compareFilename": "Music/C3_ROCK/Q5_C3_WarPigs_Cover.mp3"
+                        "title": "Walk This Way: Aerosmith (1975) vs Run DMC (1986)",
+                        "year": "1975/1986",
+                        "filename": "Music/C3_ROCK/Q5_C3_WalkThisWay_Orig.mp3",
+                        "compareFilename": "Music/C3_ROCK/Q5_C3_WalkThisWay_RunDMC.mp3"
                     },
                     "parts": [
                         {
                             "id": "a",
                             "type": "cloze",
                             "marks": 15,
-                            "question": "Complete the comparison analysis between the 1970 original and the modern metal cover.",
+                            "question": "Complete the comparison analysis between the 1975 original Walk This Way and the 1986 Hip-Hop crossover.",
                             "text": [
-                                "The 1970 original drums have a {0} sound, capturing the natural ambience.",
-                                "The 1989 cover features {1} drums with gated reverb for a tighter, artificial sound.",
-                                "Tony Iommi's guitar tone is dark and {2}, relying on amp volume.",
-                                "The cover's guitars are {3} and aggressive, with scooped mids.",
-                                "The bass in the original is mixed {4} and warm, blending with the kick.",
-                                "In the cover, the bass is Clanky and {5} to cut through the mix.",
-                                "Original vocals are {6} and dry, sitting 'inside' the band mix.",
-                                "The cover vocals are more {7}, with pronounced delay/reverb.",
-                                "Dynamic range in 1970 is {8}, allowing the track to breathe.",
-                                "The 1989 master is {9} and loud, typical of the loudness war.",
-                                "Overall, the original feels {10} and loose.",
-                                "The cover feels {11} and precise.",
-                                "The original uses {12} tracking for guitars.",
-                                "The cover uses {13} tracking (quad-tracking) for a Wall of Sound.",
-                                "Stereo width in the original is often extreme (LCR), while the cover is more {14}."
+                                "The 1975 original drums are a live performance, capturing a natural {0} sound.",
+                                "The 1986 version uses a drum {1} created by extending the original intro breakbeat.",
+                                "Aerosmith's original guitars feature a classic {2} tone using tube amplifiers.",
+                                "In the crossover, the guitar riff is re-recorded to sound more {3} and aggressive.",
+                                "The bass in the 1975 track is melodic and played {4}.",
+                                "Run DMC's version focuses heavily on the {5} frequency range to emphasize the beat.",
+                                "Steven Tyler's original vocals have a rhythmic, almost {6} delivery.",
+                                "Run DMC's vocals are aggressive, shouted, and heavily {7} for a staccato effect.",
+                                "The 1975 mix uses simple {8} panning, typical of 70s console limitations.",
+                                "The 1986 mix is much more {9}, focusing the impact directly in the center.",
+                                "Dynamic range in the original is {10}, maintaining the band's natural ebb and flow.",
+                                "The hip-hop version is highly {11}, reducing dynamics for maximum radio punch.",
+                                "The original track was recorded on analog {12}.",
+                                "The crossover represents early digital sampling and {13} sequencing.",
+                                "Overall, the original feels like a live band, while the cover feels like a constructed {14}."
                             ],
                             "options": [
                                 [
-                                    "Roomy",
-                                    "Electronic",
+                                    "Room",
+                                    "Synthesized",
+                                    "Gated",
+                                    "Sampled",
                                     "Dead"
                                 ],
                                 [
-                                    "Sampled/Triggered",
-                                    "Acoustic",
-                                    "Jazz"
+                                    "Loop",
+                                    "Solo",
+                                    "Fill",
+                                    "Overdub",
+                                    "Trigger"
                                 ],
                                 [
-                                    "Fuzzy",
+                                    "Crunch",
                                     "Clean",
-                                    "Acoustic"
+                                    "Acoustic",
+                                    "Fuzz",
+                                    "Modulated"
                                 ],
                                 [
-                                    "High Gain",
-                                    "Indie",
-                                    "Silent"
+                                    "Biting",
+                                    "Muffled",
+                                    "Distant",
+                                    "Clean",
+                                    "Phased"
                                 ],
                                 [
-                                    "Prominent",
-                                    "Invisible",
-                                    "Stereo"
+                                    "Live",
+                                    "Sequenced",
+                                    "Synthesized",
+                                    "Programmed",
+                                    "Sampled"
                                 ],
                                 [
-                                    "Scooped",
-                                    "Bright",
-                                    "Distorted"
+                                    "Low",
+                                    "High",
+                                    "Mid",
+                                    "Sub",
+                                    "Presence"
                                 ],
                                 [
-                                    "Natural",
-                                    "Autotuned",
-                                    "Whispered"
-                                ],
-                                [
-                                    "Theatrical",
-                                    "Plain",
+                                    "Scat",
+                                    "Operatic",
+                                    "Whispered",
+                                    "Growled",
                                     "Spoken"
                                 ],
                                 [
-                                    "Wide",
+                                    "Layered",
+                                    "Reverbed",
+                                    "Autotuned",
+                                    "Whispered",
+                                    "Delayed"
+                                ],
+                                [
+                                    "LCR",
+                                    "Auto",
+                                    "Surround",
                                     "Narrow",
-                                    "Compromised"
+                                    "Animated"
+                                ],
+                                [
+                                    "Centralised",
+                                    "Scattered",
+                                    "Silent",
+                                    "Panned",
+                                    "Floating"
+                                ],
+                                [
+                                    "Wide",
+                                    "Crushed",
+                                    "Zero",
+                                    "Narrow",
+                                    "Squashed"
                                 ],
                                 [
                                     "Compressed",
-                                    "Quiet",
-                                    "Expanded"
+                                    "Expanded",
+                                    "Acoustic",
+                                    "Dynamic",
+                                    "Open"
                                 ],
                                 [
-                                    "Organic",
-                                    "Robotic",
-                                    "Digital"
+                                    "Tape",
+                                    "Hard Drive",
+                                    "Vinyl",
+                                    "Cassette",
+                                    "DAT"
                                 ],
                                 [
-                                    "Mechanical",
-                                    "Sloppy",
+                                    "MIDI",
+                                    "Analog",
+                                    "Acoustic",
+                                    "Tape",
                                     "Live"
                                 ],
                                 [
-                                    "Double",
-                                    "Single",
-                                    "No"
-                                ],
-                                [
-                                    "Multi",
-                                    "Mono",
-                                    "Less"
-                                ],
-                                [
-                                    "Balanced",
-                                    "Left-only",
-                                    "Right-only"
+                                    "Production",
+                                    "Improvisation",
+                                    "Jam",
+                                    "Rehearsal",
+                                    "Take"
                                 ]
                             ],
                             "answer": [
-                                "Roomy",
-                                "Sampled/Triggered",
-                                "Fuzzy",
-                                "High Gain",
-                                "Prominent",
-                                "Bright",
-                                "Natural",
-                                "Theatrical",
+                                "Room",
+                                "Loop",
+                                "Crunch",
+                                "Biting",
+                                "Live",
+                                "Low",
+                                "Scat",
+                                "Layered",
+                                "LCR",
+                                "Centralised",
                                 "Wide",
                                 "Compressed",
-                                "Organic",
-                                "Mechanical",
-                                "Double",
-                                "Multi",
-                                "Balanced"
+                                "Tape",
+                                "MIDI",
+                                "Production"
                             ],
-                            "rationale": "Contrasts the raw, room-based 70s production with the polished, triggered, and compressed 80s/90s Metal production."
+                            "rationale": "Contrasts the live, analog 70s rock production of Aerosmith with the loop-based, heavily compressed, early-MIDI hip-hop production of Run DMC."
                         }
                     ]
                 },
                 {
                     "id": "q6",
                     "title": "Question 6",
-                    "totalMarks": 20,
+                    "totalMarks": 25,
                     "track": {
-                        "artist": "Queen",
-                        "title": "Bohemian Rhapsody",
-                        "year": 1975,
-                        "filename": "Music/C3_ROCK/Q6_C3_BohemianRhapsody.mp3"
+                        "artist": "Jimi Hendrix",
+                        "title": "Voodoo Child (Slight Return)",
+                        "year": 1968,
+                        "filename": "Music/C3_ROCK/Q6_C3_VoodooChild.mp3"
                     },
                     "parts": [
                         {
                             "id": "a",
                             "type": "ordering",
-                            "marks": 4,
-                            "question": "Reconstruct the signal path for recording an Overdubbed Vocal Harmony.",
+                            "marks": 5,
+                            "question": "Reconstruct Jimi Hendrix's typical live recording signal path.",
                             "items": [
                                 {
+                                    "id": "guitar",
+                                    "content": "Stratocaster Guitar"
+                                },
+                                {
+                                    "id": "wah",
+                                    "content": "Wah-Wah Pedal"
+                                },
+                                {
+                                    "id": "amp",
+                                    "content": "100W Marshall Super Lead Stack"
+                                },
+                                {
                                     "id": "mic",
-                                    "content": "Condenser Microphone"
+                                    "content": "Microphone"
                                 },
                                 {
-                                    "id": "tape_in",
-                                    "content": "Multitrack Tape Record Content"
-                                },
-                                {
-                                    "id": "tape_rep",
-                                    "content": "Tape Audio Repro (Playback head)"
-                                },
-                                {
-                                    "id": "mix",
-                                    "content": "Mixer (Bounce to new track)"
+                                    "id": "console",
+                                    "content": "Mixing Console"
                                 }
                             ]
                         },
@@ -573,57 +751,163 @@
                             "id": "b",
                             "type": "cloze",
                             "marks": 6,
-                            "question": "Analyse the use of Multitrack Recording in this track.",
-                            "text": "Queen utilized a {0}-track tape machine to create the massive operatic section. Because they ran out of tracks, they had to perform multiple {1}, merging several vocal tracks onto one. This process involves a generation loss, adding {2} and reducing high frequencies. The tape machine also allowed for creative effects like {3} (flipping the tape). The sheer number of vocal layers created a natural {4} effect due to slight timing variances. The final mix required {5} hands on the desk to perform the complex automation.",
+                            "question": "Analyse the production techniques used by Hendrix and Chas Chandler.",
+                            "text": "Hendrix revolutionized the use of the studio, moving beyond mere documentation to use the mixing desk as an {0}. Because early tape machines were limited to usually 4 or {1} tracks, engineers had to rely on extreme LCR {2} to keep the mixes clear. Hendrix famously manipulated his amplifier volume to create controlled, musical {3}. He also utilized stereo movement, mechanically panning the sound from left to right using a {4} control on the mixing desk. The iconic swirling sound on many of his tracks was achieved using a {5} or rotary speaker effect, mimicking the doppler effect.",
                             "options": [
                                 [
+                                    "Instrument",
+                                    "Obstacle",
+                                    "Archive",
+                                    "Amplifier",
+                                    "Audience"
+                                ],
+                                [
+                                    "8",
+                                    "16",
+                                    "2",
                                     "24",
-                                    "4",
-                                    "8"
+                                    "128"
                                 ],
                                 [
-                                    "Bounces",
-                                    "Delete",
-                                    "Takes"
+                                    "Panning",
+                                    "Compression",
+                                    "Noise Gating",
+                                    "Filtering",
+                                    "Limiting"
                                 ],
                                 [
-                                    "Hiss/Noise",
-                                    "Clarity",
-                                    "Volume"
+                                    "Feedback",
+                                    "Hiss",
+                                    "Crosstalk",
+                                    "Sibilance",
+                                    "Silence"
                                 ],
                                 [
-                                    "Reverse",
-                                    "Delay",
-                                    "Echo"
+                                    "Joystick",
+                                    "Fader",
+                                    "Mouse",
+                                    "Modwheel",
+                                    "Keyboard"
                                 ],
                                 [
+                                    "Leslie",
                                     "Chorus",
-                                    "Flanger",
-                                    "Phaser"
-                                ],
-                                [
-                                    "Multiple",
-                                    "Robotic",
-                                    "Zero"
+                                    "Reverb",
+                                    "Delay",
+                                    "Compressor"
                                 ]
                             ],
                             "answer": [
-                                "24",
-                                "Bounces",
-                                "Hiss/Noise",
-                                "Reverse",
-                                "Chorus",
-                                "Multiple"
+                                "Instrument",
+                                "8",
+                                "Panning",
+                                "Feedback",
+                                "Joystick",
+                                "Leslie"
                             ],
-                            "rationale": "Bohemian Rhapsody is the pinnacle of 24-track analogue production, maximizing the technology through extensive bouncing."
+                            "rationale": "Answers highlight Hendrix's paradigm-shifting studio approaches: 'playing' the studio gear, mastering 4/8 track limits, structural panning, and inventing controlled feedback."
                         },
                         {
                             "id": "c",
-                            "type": "essay_short",
+                            "type": "timeline",
+                            "marks": 4,
+                            "question": "Drag the guitar and amplifier innovations to the correct decade in which they became prominent.",
+                            "decades": [
+                                "1950s",
+                                "1960s",
+                                "1970s",
+                                "1980s"
+                            ],
+                            "items": [
+                                {
+                                    "id": "t1",
+                                    "text": "Clean tube amps and slapback tape echo (Rockabilly style)",
+                                    "targetDecade": "1950s",
+                                    "img": "images/hq_del_slapback_tape_1772046716561.png"
+                                },
+                                {
+                                    "id": "t2",
+                                    "text": "Introduction of Fuzz Face and Wah-Wah expressive pedals",
+                                    "targetDecade": "1960s",
+                                    "img": "images/hq_dist_fuzz_pedal_1772046188746.png"
+                                },
+                                {
+                                    "id": "t3",
+                                    "text": "High-wattage master volume Marshall stacks dominate Hard Rock",
+                                    "targetDecade": "1970s",
+                                    "img": "images/hq_dist_marshall_stack_1772046322562.png"
+                                },
+                                {
+                                    "id": "t4",
+                                    "text": "Rack-mounted digital effects and high-gain preamps (Mesa Boogie)",
+                                    "targetDecade": "1980s",
+                                    "img": "images/hq_del_digital_rack_1772047048596.png"
+                                }
+                            ]
+                        },
+                        {
+                            "id": "d",
+                            "type": "sorting",
                             "marks": 10,
-                            "question": "Discuss the evolution of the Electric Guitar tone from the 1950s to the 1980s. Refer to amplification and effects.",
-                            "answer": "Answer should discuss: \n1. 50s: Clean/Cranky amps, slapback echo (Rockabilly).\n2. 60s: Fuzz pedals, higher volume amps (Hendrix/Clapton).\n3. 70s: Master Volume amps (Marshall), Hard Rock distortion.\n4. 80s: High Gain cascading preamps (Mesa Boogie), Rack effects (Chorus/Delay), Active Pickups.",
-                            "rationale": "Traces the journey from clean tube saturation to modern high-gain processing."
+                            "question": "Categorise these guitar technologies and techniques into their primary era of influence.",
+                            "groups": [
+                                "1950s & Early 1960s (Rockabilly / Surf)",
+                                "Late 1960s & 1970s (Psychedelia / Hard Rock)",
+                                "1980s (Arena Rock / Heavy Metal)"
+                            ],
+                            "items": [
+                                {
+                                    "id": "1",
+                                    "content": "Clean combos with slapback tape echo",
+                                    "group": "1950s & Early 1960s (Rockabilly / Surf)"
+                                },
+                                {
+                                    "id": "2",
+                                    "content": "Spring reverb tanks built into amplifiers",
+                                    "group": "1950s & Early 1960s (Rockabilly / Surf)"
+                                },
+                                {
+                                    "id": "3",
+                                    "content": "Hollowbody electric guitars (prone to unwanted feedback)",
+                                    "group": "1950s & Early 1960s (Rockabilly / Surf)"
+                                },
+                                {
+                                    "id": "4",
+                                    "content": "High-wattage Marshall stacks pushing natural overdrive",
+                                    "group": "Late 1960s & 1970s (Psychedelia / Hard Rock)"
+                                },
+                                {
+                                    "id": "5",
+                                    "content": "Germanium transistor Fuzz Face pedals",
+                                    "group": "Late 1960s & 1970s (Psychedelia / Hard Rock)"
+                                },
+                                {
+                                    "id": "6",
+                                    "content": "Expressive Wah-Wah pedal frequency sweeps",
+                                    "group": "Late 1960s & 1970s (Psychedelia / Hard Rock)"
+                                },
+                                {
+                                    "id": "7",
+                                    "content": "Intentional use of proximity feedback",
+                                    "group": "Late 1960s & 1970s (Psychedelia / Hard Rock)"
+                                },
+                                {
+                                    "id": "8",
+                                    "content": "Digital rack-mounted delay and chorus units",
+                                    "group": "1980s (Arena Rock / Heavy Metal)"
+                                },
+                                {
+                                    "id": "9",
+                                    "content": "High-gain preamps with cascading distortion stages",
+                                    "group": "1980s (Arena Rock / Heavy Metal)"
+                                },
+                                {
+                                    "id": "10",
+                                    "content": "'Superstrats' featuring locking tremolo systems",
+                                    "group": "1980s (Arena Rock / Heavy Metal)"
+                                }
+                            ],
+                            "rationale": "Traces the journey of electric guitar tone from clean, reverberant 50s setups to the high-volume, fuzz-driven 70s, and finally into heavily processed 80s high-gain rigs."
                         }
                     ]
                 }
