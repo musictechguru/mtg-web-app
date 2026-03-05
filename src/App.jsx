@@ -23,6 +23,7 @@ import component3SoulData from './data/component3_soul_exam.json';
 import component3ReggaeData from './data/component3_reggae_exam.json';
 import component4EdmData from './data/component4_edm_exam.json';
 import component4TemplateData from './data/component4_template_exam.json';
+import component4SpopData from './data/component4_spop_exam.json';
 import PremiumLocked from './components/PremiumLocked';
 
 import WelcomeVideoModal from './components/WelcomeVideoModal';
@@ -35,6 +36,7 @@ const EXAM_DATA_MAP = {
   'c3_reggae': component3ReggaeData,
   'c4_edm': component4EdmData,
   'c4_template': component4TemplateData,
+  'c4_spop': component4SpopData,
   // Fallback for legacy course_data entries that might not have ID yet
   'default': component3FunkData
 };
