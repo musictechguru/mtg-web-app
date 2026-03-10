@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import { supabase } from '../config/supabase';
 
 const PremiumLocked = ({ itemTitle }) => {
-    const [loading, setLoading] = useState(false);
+    const [loadingPlan, setLoadingPlan] = useState(null);
 
-    const handleUpgrade = async () => {
+    const handleUpgrade = async (priceId) => {
         try {
-            setLoading(true);
+            setLoadingPlan(priceId);
             const { data, error } = await supabase.functions.invoke('create-checkout-session', {
-                body: { priceId: 'price_1T92ULPo3MN15zGMJUkBWgZN' },
+                body: { priceId: priceId },
             });
 
             if (error) {
@@ -24,7 +24,7 @@ const PremiumLocked = ({ itemTitle }) => {
             console.error("Unexpected error:", err);
             alert("An unexpected error occurred.");
         } finally {
-            setLoading(false);
+            setLoadingPlan(null);
         }
     };
 
@@ -103,64 +103,136 @@ const PremiumLocked = ({ itemTitle }) => {
 
                 {/* Upgrade Button Area */}
                 <div style={{
-                    background: 'rgba(15, 23, 42, 0.6)',
-                    padding: '30px',
-                    borderRadius: '16px',
-                    border: '1px solid rgba(59, 130, 246, 0.3)',
+                    display: 'flex',
+                    flexDirection: 'row',
+                    gap: '20px',
                     width: '100%',
-                    maxWidth: '500px'
+                    justifyContent: 'center',
+                    flexWrap: 'wrap',
+                    maxWidth: '900px'
                 }}>
-                    <div style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '20px', color: '#e2e8f0' }}>
-                        £12.99 <span style={{ fontSize: '1rem', color: '#94a3b8', fontWeight: 'normal' }}>/ 3 Months</span>
+                    {/* Student Plan */}
+                    <div style={{
+                        background: 'rgba(15, 23, 42, 0.6)',
+                        padding: '30px',
+                        borderRadius: '16px',
+                        border: '1px solid rgba(59, 130, 246, 0.3)',
+                        flex: '1',
+                        minWidth: '280px',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'space-between'
+                    }}>
+                        <div>
+                            <h3 style={{ fontSize: '1.2rem', color: '#94a3b8', marginBottom: '10px' }}>Student Plan</h3>
+                            <div style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '20px', color: '#e2e8f0' }}>
+                                £12.99 <span style={{ fontSize: '1rem', color: '#94a3b8', fontWeight: 'normal' }}>/ 3 Months</span>
+                            </div>
+                        </div>
+
+                        <button
+                            style={{
+                                width: '100%',
+                                padding: '16px',
+                                fontSize: '1.1rem',
+                                fontWeight: 'bold',
+                                color: '#ffffff',
+                                background: 'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)',
+                                border: 'none',
+                                borderRadius: '8px',
+                                cursor: loadingPlan ? 'not-allowed' : 'pointer',
+                                opacity: loadingPlan ? 0.7 : 1,
+                                transition: 'all 0.2s ease',
+                                boxShadow: '0 4px 15px rgba(37, 99, 235, 0.4)',
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                gap: '10px'
+                            }}
+                            onMouseOver={(e) => { if (!loadingPlan) { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 6px 20px rgba(37, 99, 235, 0.6)'; } }}
+                            onMouseOut={(e) => { if (!loadingPlan) { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 4px 15px rgba(37, 99, 235, 0.4)'; } }}
+                            onClick={() => handleUpgrade('price_1T9TUwLxDAAultYKsA9ZV4q1')}
+                            disabled={loadingPlan !== null}
+                        >
+                            {loadingPlan === 'price_1T9TUwLxDAAultYKsA9ZV4q1' ? (
+                                <>
+                                    <svg className="animate-spin" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ animation: 'spin 1s linear infinite' }}>
+                                        <path d="M21 12a9 9 0 1 1-6.219-8.56"></path>
+                                    </svg>
+                                    Preparing Checkout...
+                                </>
+                            ) : (
+                                <>
+                                    <span>Get Student Plan</span>
+                                </>
+                            )}
+                        </button>
                     </div>
 
-                    <button
-                        style={{
-                            width: '100%',
-                            padding: '16px',
-                            fontSize: '1.1rem',
-                            fontWeight: 'bold',
-                            color: '#ffffff',
-                            background: 'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)',
-                            border: 'none',
-                            borderRadius: '8px',
-                            cursor: loading ? 'not-allowed' : 'pointer',
-                            opacity: loading ? 0.7 : 1,
-                            transition: 'all 0.2s ease',
-                            boxShadow: '0 4px 15px rgba(37, 99, 235, 0.4)',
-                            display: 'flex',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            gap: '10px'
-                        }}
-                        onMouseOver={(e) => { if (!loading) { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 6px 20px rgba(37, 99, 235, 0.6)'; } }}
-                        onMouseOut={(e) => { if (!loading) { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 4px 15px rgba(37, 99, 235, 0.4)'; } }}
-                        onClick={handleUpgrade}
-                        disabled={loading}
-                    >
-                        {loading ? (
-                            <>
-                                <svg className="animate-spin" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ animation: 'spin 1s linear infinite' }}>
-                                    <path d="M21 12a9 9 0 1 1-6.219-8.56"></path>
-                                </svg>
-                                Preparing Checkout...
-                            </>
-                        ) : (
-                            <>
-                                <span>Go Premium Now</span>
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                                    <polyline points="12 5 19 12 12 19"></polyline>
-                                </svg>
-                            </>
-                        )}
-                    </button>
+                    {/* Classroom Plan */}
+                    <div style={{
+                        background: 'rgba(15, 23, 42, 0.6)',
+                        padding: '30px',
+                        borderRadius: '16px',
+                        border: '1px solid rgba(139, 92, 246, 0.3)',
+                        flex: '1',
+                        minWidth: '280px',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'space-between'
+                    }}>
+                        <div>
+                            <h3 style={{ fontSize: '1.2rem', color: '#94a3b8', marginBottom: '10px' }}>Classroom Plan</h3>
+                            <div style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '20px', color: '#e2e8f0' }}>
+                                School License
+                            </div>
+                        </div>
 
-                    <p style={{ marginTop: '20px', fontSize: '0.85rem', color: '#64748b' }}>
-                        Secure payment powered by Stripe. Cancel anytime. <br />
-                        Already a member? <span style={{ textDecoration: 'underline', color: '#94a3b8', cursor: 'pointer' }} onClick={() => window.location.reload()}>Refresh page</span>
-                    </p>
+                        <button
+                            style={{
+                                width: '100%',
+                                padding: '16px',
+                                fontSize: '1.1rem',
+                                fontWeight: 'bold',
+                                color: '#ffffff',
+                                background: 'linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%)',
+                                border: 'none',
+                                borderRadius: '8px',
+                                cursor: loadingPlan ? 'not-allowed' : 'pointer',
+                                opacity: loadingPlan ? 0.7 : 1,
+                                transition: 'all 0.2s ease',
+                                boxShadow: '0 4px 15px rgba(139, 92, 246, 0.4)',
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                gap: '10px'
+                            }}
+                            onMouseOver={(e) => { if (!loadingPlan) { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 6px 20px rgba(139, 92, 246, 0.6)'; } }}
+                            onMouseOut={(e) => { if (!loadingPlan) { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 4px 15px rgba(139, 92, 246, 0.4)'; } }}
+                            onClick={() => handleUpgrade('price_1T9TUvLxDAAultYKPmTvNQh5')}
+                            disabled={loadingPlan !== null}
+                        >
+                            {loadingPlan === 'price_1T9TUvLxDAAultYKPmTvNQh5' ? (
+                                <>
+                                    <svg className="animate-spin" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ animation: 'spin 1s linear infinite' }}>
+                                        <path d="M21 12a9 9 0 1 1-6.219-8.56"></path>
+                                    </svg>
+                                    Preparing Checkout...
+                                </>
+                            ) : (
+                                <>
+                                    <span>Get Classroom Plan</span>
+                                </>
+                            )}
+                        </button>
+                    </div>
+
                 </div>
+                
+                <p style={{ marginTop: '30px', fontSize: '0.85rem', color: '#64748b' }}>
+                    Secure payment powered by Stripe. Cancel anytime. <br />
+                    Already a member? <span style={{ textDecoration: 'underline', color: '#94a3b8', cursor: 'pointer' }} onClick={() => window.location.reload()}>Refresh page</span>
+                </p>
             </div>
             <style>
                 {`

@@ -3,7 +3,7 @@ import { useUser } from '../contexts/UserContext';
 import GuruTracker from './GuruTracker';
 
 const DictionarySidebar = ({ data, selectedTopicId, onSelectTopic }) => {
-    const { userProgress } = useUser();
+    const { userProgress, currentUser } = useUser();
 
     // State to track expanded sections.
     // We ideally want the section containing the selected topic to be open.
@@ -155,10 +155,15 @@ const DictionarySidebar = ({ data, selectedTopicId, onSelectTopic }) => {
                                                                 alignItems: 'center'
                                                             }}
                                                         >
-                                                            <span>{topic.title}</span>
-                                                            {status === 'mastered' && (
-                                                                <span style={{ color: 'var(--accent-success)', fontSize: '0.8em' }}>✓</span>
-                                                            )}
+                                                                <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                                                                    {topic.title}
+                                                                    {topic.isPremium && !currentUser?.is_premium && (
+                                                                        <span style={{ color: '#ef4444', fontSize: '1em' }}>🔒</span>
+                                                                    )}
+                                                                </span>
+                                                                {status === 'mastered' && (
+                                                                    <span style={{ color: 'var(--accent-success)', fontSize: '0.8em', marginLeft: 'auto' }}>✓</span>
+                                                                )}
                                                             {status === 'in-progress' && (
                                                                 <span style={{ color: '#facc15', fontSize: '1.2em', lineHeight: 0.5 }}>•</span>
                                                             )}
@@ -210,9 +215,14 @@ const DictionarySidebar = ({ data, selectedTopicId, onSelectTopic }) => {
                                                                     alignItems: 'center'
                                                                 }}
                                                             >
-                                                                <span>{topic.title}</span>
+                                                                <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                                                                    {topic.title}
+                                                                    {topic.isPremium && !currentUser?.is_premium && (
+                                                                        <span style={{ color: '#ef4444', fontSize: '1em' }}>🔒</span>
+                                                                    )}
+                                                                </span>
                                                                 {status === 'mastered' && (
-                                                                    <span style={{ color: 'var(--accent-success)', fontSize: '0.8em' }}>✓</span>
+                                                                    <span style={{ color: 'var(--accent-success)', fontSize: '0.8em', marginLeft: 'auto' }}>✓</span>
                                                                 )}
                                                                 {status === 'in-progress' && (
                                                                     <span style={{ color: '#facc15', fontSize: '1.2em', lineHeight: 0.5 }}>•</span>

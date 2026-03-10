@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useUser } from '../contexts/UserContext';
 import dictionaryData from '../data/dictionary_quizzes.json';
 import DictionarySidebar from './DictionarySidebar';
+import PremiumLocked from './PremiumLocked';
 
 const DictionaryQuizSelector = ({ onSelectQuiz, onBack }) => {
     // We now track the full selection path.
@@ -10,7 +11,7 @@ const DictionaryQuizSelector = ({ onSelectQuiz, onBack }) => {
     const [selectedVolume, setSelectedVolume] = useState(null);
     const [selectedPart, setSelectedPart] = useState(null);
     const [selectedTopic, setSelectedTopic] = useState(null);
-    const { userProgress } = useUser(); // Access progress to show scores
+    const { userProgress, currentUser } = useUser(); // Access progress to show scores
 
     // Effect to auto-expand sidebar or manage mobile view could go here.
 
@@ -49,6 +50,8 @@ const DictionaryQuizSelector = ({ onSelectQuiz, onBack }) => {
                         if (mode === 'basic' && isBasic) shouldInclude = true;
                         if (mode === 'advanced' && isAdvanced) shouldInclude = true;
                         if (mode === 'all') shouldInclude = true; // Legacy support or "Chaos Mode" if we want
+
+                        if (topic.isPremium && !currentUser?.is_premium) shouldInclude = false;
 
                         if (shouldInclude && topic.levels[level]) {
                             // Add metadata
@@ -144,6 +147,11 @@ const DictionaryQuizSelector = ({ onSelectQuiz, onBack }) => {
                 </div>
 
                 {selectedTopic ? (
+                    selectedTopic.isPremium && !currentUser?.is_premium ? (
+                        <div style={{ marginTop: '20px' }}>
+                            <PremiumLocked itemTitle={selectedTopic.title} />
+                        </div>
+                    ) : (
                     <div className="level-selection">
                         <h3 style={{ marginBottom: '20px' }}>Select Difficulty Level</h3>
                         <div className="level-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '20px' }}>
@@ -202,6 +210,7 @@ const DictionaryQuizSelector = ({ onSelectQuiz, onBack }) => {
                             })}
                         </div>
                     </div>
+                    )
                 ) : (
                     <div className="welcome-state">
                         <div style={{ textAlign: 'center', padding: '40px 20px', maxWidth: '800px', margin: '0 auto' }}>
