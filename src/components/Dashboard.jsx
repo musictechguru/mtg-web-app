@@ -8,7 +8,7 @@ import campaignData from '../data/campaign_route.json';
 console.log('GuruTracker import:', GuruTracker);
 
 const Dashboard = ({ onNavigate }) => {
-    const { userProgress, clearProgress } = useUser();
+    const { userProgress, clearProgress, logout } = useUser();
     const [showWelcomeModal, setShowWelcomeModal] = React.useState(false);
     const [showProgress, setShowProgress] = React.useState(false);
 
@@ -137,12 +137,18 @@ const Dashboard = ({ onNavigate }) => {
             </div>
 
             {/* Welcome Video Text Banner */}
-            <div className="welcome-banner" style={{ textAlign: 'right' }}>
+            <div className="welcome-banner" style={{ textAlign: 'right', display: 'flex', justifyContent: 'flex-end', gap: '10px' }}>
                 <button
                     onClick={clearProgress}
-                    style={{ background: 'transparent', border: '1px solid #333', padding: '5px 10px', borderRadius: '4px', fontSize: '0.8rem', color: '#666' }}
+                    style={{ background: 'transparent', border: '1px solid #333', padding: '5px 10px', borderRadius: '4px', fontSize: '0.8rem', color: '#666', cursor: 'pointer' }}
                 >
                     Reset Data
+                </button>
+                <button
+                    onClick={logout}
+                    style={{ background: 'transparent', border: '1px solid #e11d48', padding: '5px 10px', borderRadius: '4px', fontSize: '0.8rem', color: '#e11d48', cursor: 'pointer' }}
+                >
+                    Log Out
                 </button>
             </div>
 

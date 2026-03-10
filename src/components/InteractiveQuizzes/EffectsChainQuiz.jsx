@@ -99,7 +99,7 @@ const KnobComponent = ({ label, value, min, max, step, onChange, unit = '', isCo
     );
 };
 
-export default function EffectsChainQuiz({ onExit }) {
+export default function EffectsChainQuiz({ quiz, onExit }) {
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const [score, setScore] = useState(0);
     const [selectedAnswer, setSelectedAnswer] = useState(null);
@@ -295,9 +295,9 @@ export default function EffectsChainQuiz({ onExit }) {
             else if (percentage >= 60) grade = 'C';
             else if (percentage >= 50) grade = 'D';
 
-            saveQuizResult("Topic 35: Audio Effects Processing", score, questions.length, grade);
+            saveQuizResult(quiz?.title || "Topic 35: Audio Effects Processing", score, questions.length, grade);
         }
-    }, [quizComplete, score, questions.length, saveQuizResult]);
+    }, [quizComplete, score, questions.length, saveQuizResult, quiz?.title]);
 
     useEffect(() => {
         // Initialize first question

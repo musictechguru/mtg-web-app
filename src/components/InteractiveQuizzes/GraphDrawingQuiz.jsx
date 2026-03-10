@@ -626,10 +626,10 @@ const GraphDrawingQuiz = ({ question, targetPoints, hint, initValues, correctVal
                     ref={canvasRef}
                     width={600}
                     height={300}
-                    onMouseDown={startDrawing}
-                    onMouseMove={draw}
-                    onMouseUp={stopDrawing}
-                    onMouseLeave={stopDrawing}
+                    onPointerDown={startDrawing}
+                    onPointerMove={draw}
+                    onPointerUp={stopDrawing}
+                    onPointerLeave={stopDrawing}
                     style={{
                         width: '100%',
                         cursor: submitted ? 'not-allowed' : 'crosshair',

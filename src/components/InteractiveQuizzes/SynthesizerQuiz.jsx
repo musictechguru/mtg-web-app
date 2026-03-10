@@ -108,7 +108,7 @@ const KnobComponent = ({ label, value, min, max, step, onChange, unit = '', isCo
   );
 };
 
-export default function SynthesizerQuiz({ onExit }) {
+export default function SynthesizerQuiz({ quiz, onExit }) {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [score, setScore] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
@@ -465,9 +465,9 @@ export default function SynthesizerQuiz({ onExit }) {
       else if (percentage >= 60) grade = 'C';
       else if (percentage >= 50) grade = 'D';
 
-      saveQuizResult("Topic 34: Synthesizer Fundamentals", score, questions.length, grade);
+      saveQuizResult(quiz?.title || "Topic 34: Synthesizer Fundamentals", score, questions.length, grade);
     }
-  }, [quizComplete, score, questions.length, saveQuizResult]);
+  }, [quizComplete, score, questions.length, saveQuizResult, quiz?.title]);
 
   const playSound = (params, isTarget = false) => {
     const ctx = audioContextRef.current;

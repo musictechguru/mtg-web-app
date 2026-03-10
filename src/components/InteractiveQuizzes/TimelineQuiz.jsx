@@ -39,7 +39,7 @@ function DraggableItem({ item, isDragging, isSubmitted, isCorrect }) {
         >
             {item.img && (
                 <img
-                    src={`/${item.img}`}
+                    src={item.img.startsWith('/') ? item.img : `/${item.img}`}
                     alt={item.text}
                     className="timeline-item-img"
                     draggable="false"
@@ -244,7 +244,7 @@ export default function TimelineQuiz({ question, onResult, examMode = false, sho
                         <div className="drag-overlay-item" style={{ width: '140px', boxSizing: 'border-box' }}>
                             {activeItem.img && (
                                 <img
-                                    src={`/${activeItem.img}`}
+                                    src={activeItem.img.startsWith('/') ? activeItem.img : `/${activeItem.img}`}
                                     alt={activeItem.text}
                                     className="timeline-item-img"
                                     style={{ maxWidth: '90px', maxHeight: '90px', minHeight: '90px', pointerEvents: 'none', objectFit: 'contain' }}

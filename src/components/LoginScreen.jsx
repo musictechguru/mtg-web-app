@@ -37,7 +37,8 @@ const LoginScreen = () => {
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            height: '100vh',
+            minHeight: '100dvh',
+            height: '100vh', // Fallback for browsers that do not support dvh
             backgroundColor: 'var(--bg-dark)',
             color: 'var(--text-primary)',
             backgroundImage: 'radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.1) 0%, transparent 50%)'

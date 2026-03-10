@@ -730,6 +730,17 @@ const QuizPlayer = ({ quiz, onFinish }) => {
                             key={`expl-${currentQuestion.id || currentQuestionIndex}-${isSubmitted}`}
                             className="explanation-content"
                         >
+                            {/* Image for Legacy Questions */}
+                            {(currentQuestion.explanation_image || currentQuestion.img) && (
+                                <div className="expert-image" style={{ marginBottom: '20px', borderRadius: '8px', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.1)' }}>
+                                    <img
+                                        src={currentQuestion.explanation_image?.src || currentQuestion.img}
+                                        alt={currentQuestion.explanation_image?.alt || 'Explanation Diagram'}
+                                        style={{ width: '100%', maxHeight: '400px', objectFit: 'contain', display: 'block', background: '#fff' }}
+                                    />
+                                </div>
+                            )}
+
                             <div dangerouslySetInnerHTML={{ __html: currentQuestion.explanation }} />
 
                             {/* Quote for Legacy Questions */}

@@ -60,10 +60,10 @@ export const UserProvider = ({ children }) => {
                 setUserProgress(progressData.progress);
             }
 
-            // 2. Fetch Profile (Premium Status)
+            // 2. Fetch Profile (Premium Status & Teacher Metadata)
             const { data: profileData, error: profileError } = await supabase
                 .from('profiles')
-                .select('is_premium')
+                .select('is_premium, role, licenses_total, licenses_used, teacher_id')
                 .eq('id', userId)
                 .single();
 
@@ -73,10 +73,17 @@ export const UserProvider = ({ children }) => {
 
             if (profileData) {
                 // We'll store this in a separate state or merged into currentUser
-                // For now, let's update currentUser to include is_premium
+                // For now, let's update currentUser to include is_premium and teacher flags
                 setCurrentUser(prev => {
                     if (!prev) return prev; // Don't update if user logged out appropriately
-                    return { ...prev, is_premium: profileData.is_premium };
+                    return {
+                        ...prev,
+                        is_premium: profileData.is_premium,
+                        role: profileData.role || 'student',
+                        licenses_total: profileData.licenses_total || 0,
+                        licenses_used: profileData.licenses_used || 0,
+                        teacher_id: profileData.teacher_id || null
+                    };
                 });
             }
 
@@ -234,6 +241,39 @@ export const UserProvider = ({ children }) => {
         }
     };
 
+    const fetchClassProgress = async () => {
+        if (!currentUser || currentUser.role !== 'teacher') return [];
+
+        try {
+            const { data, error } = await supabase.rpc('get_teacher_class_progress');
+            if (error) throw error;
+            return data;
+        } catch (err) {
+            console.error("Error fetching class progress:", err);
+            return [];
+        }
+    };
+
+    const redeemInvite = async (teacherId) => {
+        if (!currentUser) throw new Error("Must be logged in to redeem");
+
+        const { data, error } = await supabase.functions.invoke('redeem-invite', {
+            body: { teacherId }
+        });
+
+        if (error) {
+            console.error("Edge Function error:", error);
+            throw new Error(error.message);
+        }
+
+        // Wait a small moment to let the database settle
+        await new Promise(resolve => setTimeout(resolve, 500));
+        // Refresh the user data to reflect premium status immediately
+        await fetchUserProgress(currentUser.id);
+
+        return data;
+    };
+
     const value = {
         currentUser,
         userProgress,
@@ -243,6 +283,8 @@ export const UserProvider = ({ children }) => {
         saveQuizResult,
         clearProgress,
         completeCampaignNode,
+        fetchClassProgress,
+        redeemInvite,
         loading
     };
 

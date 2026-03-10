@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Mic, CheckCircle, AlertCircle, RefreshCw } from 'lucide-react';
+import { useUser } from '../../contexts/UserContext';
 import './MicrophonePlacementQuiz.css';
 
 const MIC_TYPES = [
@@ -11,6 +12,10 @@ const MIC_TYPES = [
 const MicrophonePlacementQuiz = ({ quiz, onExit }) => {
     const [currentScenarioIndex, setCurrentScenarioIndex] = useState(0);
     const [selectedMicType, setSelectedMicType] = useState('condenser');
+
+    const userContext = useUser();
+    const saveQuizResult = userContext ? userContext.saveQuizResult : null;
+    const resultsSavedRef = useRef(false);
 
     // Dragging state
     const [isDragging, setIsDragging] = useState(false);
@@ -35,6 +40,15 @@ const MicrophonePlacementQuiz = ({ quiz, onExit }) => {
         setFeedback(null);
         setSelectedMicType('condenser');
     }, [currentScenarioIndex]);
+
+    useEffect(() => {
+        if (isComplete && saveQuizResult && !resultsSavedRef.current) {
+            resultsSavedRef.current = true;
+            const score = scenarios.length;
+            const total = scenarios.length;
+            saveQuizResult(quiz?.title || "Practical Quiz 33: Advanced Microphone Placement", score, total, 'A');
+        }
+    }, [isComplete, saveQuizResult, quiz?.title, scenarios.length]);
 
     if (!currentScenario) {
         return <div className="mic-placement-container"><p style={{ padding: '20px' }}>No scenarios found for this quiz.</p></div>;

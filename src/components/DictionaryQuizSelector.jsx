@@ -139,7 +139,7 @@ const DictionaryQuizSelector = ({ onSelectQuiz, onBack }) => {
                             <h1 style={{ margin: '5px 0' }}>{selectedTopic.title}</h1>
                         </div>
                     ) : (
-                        <h1>Dictionary Quizzes</h1>
+                        <h1 style={{ fontSize: 'clamp(1.8rem, 5vw, 2.5rem)', margin: 0 }}>Dictionary Quizzes</h1>
                     )}
                 </div>
 
@@ -204,13 +204,12 @@ const DictionaryQuizSelector = ({ onSelectQuiz, onBack }) => {
                     </div>
                 ) : (
                     <div className="welcome-state">
-                        <div style={{ textAlign: 'center', padding: '40px', maxWidth: '800px', margin: '0 auto' }}>
-                            <h2 style={{ fontSize: '2em', marginBottom: '10px', color: 'var(--text-primary)' }}>Dictionary Quizzes</h2>
+                        <div style={{ textAlign: 'center', padding: '40px 20px', maxWidth: '800px', margin: '0 auto' }}>
                             <p style={{ fontSize: '1.1em', color: 'var(--text-secondary)', marginBottom: '40px' }}>
                                 Select a topic from the sidebar to revise specific terms, or test your overall knowledge with a random mix.
                             </p>
 
-                            <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 1fr)', gap: '20px', placeItems: 'stretch' }}>
+                            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '20px', placeItems: 'stretch' }}>
                                 {/* Basic / Foundation Card */}
                                 <div
                                     onClick={() => handleRandomQuiz('basic')}
@@ -259,7 +258,7 @@ const DictionaryQuizSelector = ({ onSelectQuiz, onBack }) => {
 
                                 {/* Intermediate / Advanced Card */}
                                 <div
-                                    onClick={() => startRoulette('advanced')}
+                                    onClick={() => handleRandomQuiz('advanced')}
                                     style={{
                                         background: 'linear-gradient(135deg, #ec4899 0%, #db2777 100%)',
                                         padding: '30px',

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Play, Square } from 'lucide-react';
+import { useUser } from '../../contexts/UserContext';
 import './ProductionTechniqueQuiz.css';
 
 const quizData = [
@@ -115,13 +116,31 @@ const quizData = [
     }
 ];
 
-const ProductionTechniqueQuiz = ({ onExit }) => {
+const ProductionTechniqueQuiz = ({ quiz, onExit }) => {
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [selectedOptionIndex, setSelectedOptionIndex] = useState(null);
     const [isAnswered, setIsAnswered] = useState(false);
     const [score, setScore] = useState(0);
     const [quizFinished, setQuizFinished] = useState(false);
     const [isPlaying, setIsPlaying] = useState(false);
+
+    const userContext = useUser();
+    const saveQuizResult = userContext ? userContext.saveQuizResult : null;
+    const resultsSavedRef = useRef(false);
+
+    useEffect(() => {
+        if (quizFinished && saveQuizResult && !resultsSavedRef.current) {
+            resultsSavedRef.current = true;
+            const percentage = Math.round((score / quizData.length) * 100);
+            let grade = 'U';
+            if (percentage >= 80) grade = 'A';
+            else if (percentage >= 70) grade = 'B';
+            else if (percentage >= 60) grade = 'C';
+            else if (percentage >= 50) grade = 'D';
+
+            saveQuizResult(quiz?.title || "Practical Quiz 36: EDM Production Techniques", score, quizData.length, grade);
+        }
+    }, [quizFinished, score, saveQuizResult, quiz?.title]);
 
     const audioContextRef = useRef(null);
     const activeSources = useRef([]);

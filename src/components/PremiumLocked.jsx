@@ -1,50 +1,175 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { supabase } from '../config/supabase';
 
-const PremiumLocked = ({ onUnlock, itemTitle }) => {
+const PremiumLocked = ({ itemTitle }) => {
+    const [loading, setLoading] = useState(false);
+
+    const handleUpgrade = async () => {
+        try {
+            setLoading(true);
+            const { data, error } = await supabase.functions.invoke('create-checkout-session', {
+                body: { priceId: 'price_1T92ULPo3MN15zGMJUkBWgZN' },
+            });
+
+            if (error) {
+                console.error("Error creating checkout session:", error);
+                alert("Could not initialize checkout. Please try again.");
+                return;
+            }
+
+            if (data?.url) {
+                window.location.href = data.url; // Redirect to Stripe Checkout
+            }
+        } catch (err) {
+            console.error("Unexpected error:", err);
+            alert("An unexpected error occurred.");
+        } finally {
+            setLoading(false);
+        }
+    };
+
     return (
-        <div className="premium-locked-container" style={{
+        <div style={{
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'center',
             alignItems: 'center',
-            height: '100%',
-            padding: '40px',
+            minHeight: '80vh',
+            padding: '40px 20px',
             textAlign: 'center',
-            background: 'linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)',
+            background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)',
             color: 'white',
-            borderRadius: '12px',
-            boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.37)'
+            borderRadius: '16px',
+            boxShadow: '0 20px 50px rgba(0,0,0,0.5)',
+            position: 'relative',
+            overflow: 'hidden'
         }}>
-            <div style={{ fontSize: '4rem', marginBottom: '20px' }}>🔒</div>
-            <h2 style={{ fontSize: '2.5rem', marginBottom: '10px', background: 'linear-gradient(to right, #ffd700, #ffa500)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Premium Content</h2>
-            <p style={{ fontSize: '1.2rem', maxWidth: '600px', marginBottom: '30px', lineHeight: '1.6' }}>
-                The item <strong>"{itemTitle}"</strong> is available exclusively to premium members.
-                Unlock full access to all quizzes, exams, and detailed analytics.
-            </p>
+            {/* Background decorative elements */}
+            <div style={{ position: 'absolute', top: '-10%', left: '-10%', width: '40%', height: '40%', background: 'radial-gradient(circle, rgba(59,130,246,0.15) 0%, transparent 70%)', filter: 'blur(40px)', zIndex: 0 }}></div>
+            <div style={{ position: 'absolute', bottom: '-10%', right: '-10%', width: '40%', height: '40%', background: 'radial-gradient(circle, rgba(234,179,8,0.1) 0%, transparent 70%)', filter: 'blur(40px)', zIndex: 0 }}></div>
 
-            <button
-                style={{
-                    padding: '15px 40px',
-                    fontSize: '1.2rem',
-                    fontWeight: 'bold',
-                    color: '#1a1a2e',
-                    background: 'linear-gradient(to right, #ffd700, #ffa500)',
-                    border: 'none',
-                    borderRadius: '30px',
-                    cursor: 'pointer',
-                    transition: 'transform 0.2s',
-                    boxShadow: '0 4px 15px rgba(255, 215, 0, 0.3)'
-                }}
-                onMouseOver={(e) => e.target.style.transform = 'scale(1.05)'}
-                onMouseOut={(e) => e.target.style.transform = 'scale(1)'}
-                onClick={() => alert("This checks out! Integration with Stripe/Payment Gateway would happen here.")}
-            >
-                Upgrade to Premium
-            </button>
+            <div style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', maxWidth: '800px' }}>
 
-            <p style={{ marginTop: '20px', fontSize: '0.9rem', opacity: 0.7 }}>
-                Already a member? <span style={{ textDecoration: 'underline', cursor: 'pointer' }} onClick={() => window.location.reload()}>Refresh</span>
-            </p>
+                {/* Guru Image */}
+                <div style={{
+                    marginBottom: '30px',
+                    borderRadius: '50%',
+                    padding: '8px',
+                    background: 'linear-gradient(135deg, #3b82f6, #8b5cf6)',
+                    boxShadow: '0 10px 25px rgba(59, 130, 246, 0.4)'
+                }}>
+                    <img
+                        src={`${import.meta.env.BASE_URL}images/guru_logo.png`}
+                        alt="MTG Guru"
+                        style={{ width: '120px', height: '120px', borderRadius: '50%', objectFit: 'cover', display: 'block' }}
+                        onError={(e) => { e.target.style.display = 'none'; e.target.nextSibling.style.display = 'flex'; }}
+                    />
+                    <div style={{ display: 'none', width: '120px', height: '120px', borderRadius: '50%', backgroundColor: '#1e293b', justifyContent: 'center', alignItems: 'center', fontSize: '3rem' }}>🧙‍♂️</div>
+                </div>
+
+                <h1 style={{ fontSize: '2.5rem', marginBottom: '15px', fontWeight: '800', letterSpacing: '-0.5px' }}>
+                    Unlock Your Full Potential
+                </h1>
+
+                <p style={{ fontSize: '1.2rem', marginBottom: '40px', color: '#94a3b8', maxWidth: '600px', lineHeight: '1.6' }}>
+                    {itemTitle ? `The item "${itemTitle}" is reserved for Premium Members.` : "You've discovered premium content."} Upgrade now to master the Edexcel Music Technology A-Level with the Guru's complete toolkit.
+                </p>
+
+                {/* Features Grid */}
+                <div style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+                    gap: '20px',
+                    width: '100%',
+                    marginBottom: '40px',
+                    textAlign: 'left'
+                }}>
+                    <div style={{ background: 'rgba(255,255,255,0.05)', padding: '25px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.1)' }}>
+                        <div style={{ fontSize: '2rem', marginBottom: '15px' }}>📚</div>
+                        <h3 style={{ fontSize: '1.2rem', marginBottom: '10px', color: '#f8fafc' }}>Complete Exam Access</h3>
+                        <p style={{ color: '#94a3b8', fontSize: '0.95rem', lineHeight: '1.5' }}>Unlock every Component 3 and Component 4 practice exam across all genres.</p>
+                    </div>
+                    <div style={{ background: 'rgba(255,255,255,0.05)', padding: '25px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.1)' }}>
+                        <div style={{ fontSize: '2rem', marginBottom: '15px' }}>🎯</div>
+                        <h3 style={{ fontSize: '1.2rem', marginBottom: '10px', color: '#f8fafc' }}>Advanced Quizzes</h3>
+                        <p style={{ color: '#94a3b8', fontSize: '0.95rem', lineHeight: '1.5' }}>Access stage 3 and 4 intensive practical quizzes like Synthesizer and Effects Chains.</p>
+                    </div>
+                    <div style={{ background: 'rgba(255,255,255,0.05)', padding: '25px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.1)' }}>
+                        <div style={{ fontSize: '2rem', marginBottom: '15px' }}>📈</div>
+                        <h3 style={{ fontSize: '1.2rem', marginBottom: '10px', color: '#f8fafc' }}>Detailed Analytics</h3>
+                        <p style={{ color: '#94a3b8', fontSize: '0.95rem', lineHeight: '1.5' }}>Track your mastery progress comprehensively across every topic to guarantee top marks.</p>
+                    </div>
+                </div>
+
+                {/* Upgrade Button Area */}
+                <div style={{
+                    background: 'rgba(15, 23, 42, 0.6)',
+                    padding: '30px',
+                    borderRadius: '16px',
+                    border: '1px solid rgba(59, 130, 246, 0.3)',
+                    width: '100%',
+                    maxWidth: '500px'
+                }}>
+                    <div style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '20px', color: '#e2e8f0' }}>
+                        £12.99 <span style={{ fontSize: '1rem', color: '#94a3b8', fontWeight: 'normal' }}>/ 3 Months</span>
+                    </div>
+
+                    <button
+                        style={{
+                            width: '100%',
+                            padding: '16px',
+                            fontSize: '1.1rem',
+                            fontWeight: 'bold',
+                            color: '#ffffff',
+                            background: 'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)',
+                            border: 'none',
+                            borderRadius: '8px',
+                            cursor: loading ? 'not-allowed' : 'pointer',
+                            opacity: loading ? 0.7 : 1,
+                            transition: 'all 0.2s ease',
+                            boxShadow: '0 4px 15px rgba(37, 99, 235, 0.4)',
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            gap: '10px'
+                        }}
+                        onMouseOver={(e) => { if (!loading) { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 6px 20px rgba(37, 99, 235, 0.6)'; } }}
+                        onMouseOut={(e) => { if (!loading) { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 4px 15px rgba(37, 99, 235, 0.4)'; } }}
+                        onClick={handleUpgrade}
+                        disabled={loading}
+                    >
+                        {loading ? (
+                            <>
+                                <svg className="animate-spin" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ animation: 'spin 1s linear infinite' }}>
+                                    <path d="M21 12a9 9 0 1 1-6.219-8.56"></path>
+                                </svg>
+                                Preparing Checkout...
+                            </>
+                        ) : (
+                            <>
+                                <span>Go Premium Now</span>
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                    <polyline points="12 5 19 12 12 19"></polyline>
+                                </svg>
+                            </>
+                        )}
+                    </button>
+
+                    <p style={{ marginTop: '20px', fontSize: '0.85rem', color: '#64748b' }}>
+                        Secure payment powered by Stripe. Cancel anytime. <br />
+                        Already a member? <span style={{ textDecoration: 'underline', color: '#94a3b8', cursor: 'pointer' }} onClick={() => window.location.reload()}>Refresh page</span>
+                    </p>
+                </div>
+            </div>
+            <style>
+                {`
+                @keyframes spin {
+                    from { transform: rotate(0deg); }
+                    to { transform: rotate(360deg); }
+                }
+                `}
+            </style>
         </div>
     );
 };

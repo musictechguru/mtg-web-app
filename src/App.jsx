@@ -6,6 +6,7 @@ import LessonViewer from './components/LessonViewer';
 import Dashboard from './components/Dashboard';
 import LoginScreen from './components/LoginScreen';
 import TeacherDashboard from './components/TeacherDashboard';
+import InviteLanding from './components/InviteLanding';
 import { UserProvider, useUser } from './contexts/UserContext';
 import WorksheetPlayer from './components/WorksheetPlayer';
 import FingerprintsQuizPlayer from './components/FingerprintsQuiz/FingerprintsQuizPlayer';
@@ -48,17 +49,35 @@ const MainApp = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showWelcomeVideo, setShowWelcomeVideo] = useState(false);
   const [expandedTopic, setExpandedTopic] = useState(null);
+  const [appView, setAppView] = useState('student');
+  const [inviteTeacherId, setInviteTeacherId] = useState(null);
+
+  useEffect(() => {
+    // Check for invite route on load
+    const path = window.location.pathname;
+    if (path.startsWith('/invite/')) {
+      const parts = path.split('/');
+      if (parts.length > 2 && parts[2]) {
+        setInviteTeacherId(parts[2]);
+        setAppView('invite');
+      }
+    }
+  }, []);
 
   useEffect(() => {
     // Check if the user has seen the welcome video.
-    // If we're logged in, check localStorage.
     if (currentUser) {
       const hasSeen = localStorage.getItem('hasSeenWelcomeVideo');
       if (!hasSeen) {
         setShowWelcomeVideo(true);
       }
+
+      // Default to teacher dashboard if they log in as a teacher and aren't on an invite link
+      if (currentUser.role === 'teacher' && appView === 'student' && !inviteTeacherId) {
+        setAppView('teacher');
+      }
     }
-  }, [currentUser]);
+  }, [currentUser, appView, inviteTeacherId]);
 
   const handleWelcomeVideoClose = () => {
     localStorage.setItem('hasSeenWelcomeVideo', 'true');
@@ -70,15 +89,21 @@ const MainApp = () => {
     return <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', color: '#fff' }}>Loading...</div>;
   }
 
+  // Invite routing takes precedence, handles its own unauthenticated state
+  if (appView === 'invite') {
+    return <InviteLanding teacherId={inviteTeacherId} onComplete={() => {
+      window.history.replaceState({}, '', '/');
+      setInviteTeacherId(null);
+      setAppView('student');
+    }} />;
+  }
+
   if (!currentUser) {
     return <LoginScreen />;
   }
 
-  if (currentUser?.displayName === 'Teacher' && !showTeacherView) {
-    // Auto-redirect teacher to dashboard initially, but allow them to use the app too?
-    // For now, let's just default to the dashboard for teachers, or give them a toggle.
-    // Let's force a decision: Default to Teacher View
-    return <TeacherDashboard onBack={() => logout()} />;
+  if (appView === 'teacher') {
+    return <TeacherDashboard onBack={() => setAppView('student')} />;
   }
 
   // Normal App Logic
@@ -144,8 +169,21 @@ const MainApp = () => {
         </div>
 
         <nav>
+          {currentUser?.role === 'teacher' && (
+            <button
+              className={`nav-item ${appView === 'teacher' ? 'active' : ''}`}
+              onClick={() => {
+                setAppView('teacher');
+                setMobileMenuOpen(false);
+              }}
+              style={{ marginBottom: '20px', fontWeight: 'bold', color: 'var(--accent-purple)', border: '1px solid var(--accent-purple)' }}
+            >
+              Teacher Dashboard
+            </button>
+          )}
+
           <button
-            className={`nav-item ${!activeItem ? 'active' : ''}`}
+            className={`nav-item ${!activeItem && appView === 'student' ? 'active' : ''}`}
             onClick={goToDashboardWrapper}
             style={{ marginBottom: '20px', fontWeight: 'bold', color: 'var(--accent-blue)' }}
           >
@@ -284,15 +322,15 @@ const MainApp = () => {
               onExit={goToDashboardWrapper}
             />
           ) : activeItem.type === 'lp_synth_quiz' ? (
-            <SynthesizerQuiz onExit={goToDashboardWrapper} />
+            <SynthesizerQuiz quiz={activeItem} onExit={goToDashboardWrapper} />
           ) : activeItem.type === 'effects_chain_quiz' ? (
-            <EffectsChainQuiz onExit={goToDashboardWrapper} />
+            <EffectsChainQuiz quiz={activeItem} onExit={goToDashboardWrapper} />
           ) : activeItem.type === 'microphone_placement_quiz' ? (
             <MicrophonePlacementQuiz quiz={activeItem} onExit={goToDashboardWrapper} />
           ) : activeItem.type === 'production_technique_quiz' ? (
-            <ProductionTechniqueQuiz onExit={goToDashboardWrapper} />
+            <ProductionTechniqueQuiz quiz={activeItem} onExit={goToDashboardWrapper} />
           ) : activeItem.type === 'rock_production_quiz' ? (
-            <RockProductionQuiz onExit={goToDashboardWrapper} />
+            <RockProductionQuiz quiz={activeItem} onExit={goToDashboardWrapper} />
           ) : activeItem.type === 'premium_locked' ? (
             <PremiumLocked itemTitle={activeItem.title} />
           ) : (
