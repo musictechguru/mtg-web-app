@@ -138,7 +138,7 @@ const ProductionTechniqueQuiz = ({ quiz, onExit }) => {
             else if (percentage >= 60) grade = 'C';
             else if (percentage >= 50) grade = 'D';
 
-            saveQuizResult(quiz?.title || "Practical Quiz 36: EDM Production Techniques", score, quizData.length, grade);
+            saveQuizResult(quiz?.title || "Practical Quiz 17: EDM Production Techniques", score, quizData.length, grade);
         }
     }, [quizFinished, score, saveQuizResult, quiz?.title]);
 

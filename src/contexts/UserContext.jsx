@@ -63,7 +63,7 @@ export const UserProvider = ({ children }) => {
             // 2. Fetch Profile (Premium Status & Teacher Metadata)
             const { data: profileData, error: profileError } = await supabase
                 .from('profiles')
-                .select('is_premium, role, licenses_total, licenses_used, teacher_id')
+                .select('is_premium, role, licenses_total, licenses_used, teacher_id, full_name')
                 .eq('id', userId)
                 .single();
 
@@ -82,7 +82,8 @@ export const UserProvider = ({ children }) => {
                         role: profileData.role || 'student',
                         licenses_total: profileData.licenses_total || 0,
                         licenses_used: profileData.licenses_used || 0,
-                        teacher_id: profileData.teacher_id || null
+                        teacher_id: profileData.teacher_id || null,
+                        full_name: profileData.full_name || ''
                     };
                 });
             }

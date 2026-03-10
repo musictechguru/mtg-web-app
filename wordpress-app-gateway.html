@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gateway Block Preview</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        /* This wrapper ensures our styles don't bleed into the rest of the WP site */
+        #mtg-app-gateway-wrapper {
+            /* Reset basic elements to avoid theme conflicts */
+            font-family: 'Roboto', sans-serif;
+            box-sizing: border-box;
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        #mtg-app-gateway-wrapper *,
+        #mtg-app-gateway-wrapper *::before,
+        #mtg-app-gateway-wrapper *::after {
+            box-sizing: inherit;
+        }
+
+        /* The main container */
+        .mtg-gateway-container {
+            position: relative;
+            width: 100%;
+            max-width: 1200px; /* Aligns with most WP containers */
+            margin: 40px auto;
+            padding: 60px 40px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, #111827 0%, #1f2937 100%);
+            color: #ffffff;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4), 
+                        0 0 0 1px rgba(255, 255, 255, 0.05);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        /* Background decorative elements */
+        .mtg-gateway-bg-blur {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: #00C1F0;
+            filter: blur(150px);
+            opacity: 0.2;
+            border-radius: 50%;
+            top: -100px;
+            right: -100px;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .mtg-gateway-bg-blur-2 {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: #4ade80; /* A soft green to complement cyan */
+            filter: blur(150px);
+            opacity: 0.1;
+            border-radius: 50%;
+            bottom: -150px;
+            left: -150px;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .mtg-gateway-grid {
+            position: absolute;
+            inset: 0;
+            background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 30px 30px;
+            opacity: 0.5;
+            z-index: 1;
+            mask-image: linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0));
+            -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0));
+        }
+
+        /* Content area */
+        .mtg-gateway-content {
+            position: relative;
+            z-index: 10;
+            max-width: 800px;
+        }
+
+        .mtg-badge {
+            display: inline-block;
+            background: rgba(0, 193, 240, 0.15);
+            color: #00C1F0;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            border: 1px solid rgba(0, 193, 240, 0.3);
+            animation: mtg-pulse 3s infinite alternate;
+        }
+
+        @keyframes mtg-pulse {
+            0% { box-shadow: 0 0 0 0 rgba(0, 193, 240, 0.4); }
+            100% { box-shadow: 0 0 0 10px rgba(0, 193, 240, 0); }
+        }
+
+        .mtg-gateway-title {
+            font-size: 3rem;
+            font-weight: 900;
+            margin: 0 0 20px 0;
+            line-height: 1.1;
+            background: linear-gradient(to right, #ffffff, #e2e8f0);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-wrap: balance;
+        }
+
+        .mtg-gateway-title span {
+            color: #00C1F0;
+            background: none;
+            -webkit-background-clip: unset;
+            background-clip: unset;
+            -webkit-text-fill-color: initial;
+            position: relative;
+            display: inline-block;
+        }
+        
+        /* Subtle underline for the highlighted word */
+        .mtg-gateway-title span::after {
+            content: '';
+            position: absolute;
+            bottom: 4px;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: #00C1F0;
+            border-radius: 2px;
+            opacity: 0.5;
+            z-index: -1;
+        }
+
+        .mtg-gateway-desc {
+            font-size: 1.25rem;
+            color: #9ca3af;
+            margin: 0 0 40px 0;
+            line-height: 1.6;
+            text-wrap: balance;
+            font-weight: 400;
+        }
+
+        /* Features row */
+        .mtg-features-row {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-bottom: 45px;
+            flex-wrap: wrap;
+        }
+
+        .mtg-feature {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 12px 20px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            font-size: 0.95rem;
+            font-weight: 700;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease, background 0.3s ease;
+        }
+
+        .mtg-feature:hover {
+            transform: translateY(-2px);
+            background: rgba(255, 255, 255, 0.08); border-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .mtg-feature svg {
+            color: #00C1F0;
+            width: 20px;
+            height: 20px;
+        }
+
+        /* Button */
+        .mtg-cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: #00C1F0;
+            color: #111827;
+            text-decoration: none;
+            padding: 16px 36px;
+            border-radius: 50px;
+            font-size: 1.125rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 25px -5px rgba(0, 193, 240, 0.4);
+            border: none;
+            cursor: pointer;
+        }
+
+        .mtg-cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(255,255,255,0.2), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .mtg-cta-button:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 20px 35px -5px rgba(0, 193, 240, 0.5);
+            color: #000;
+        }
+
+        .mtg-cta-button:hover::before {
+            opacity: 1;
+        }
+
+        .mtg-cta-button svg {
+            transition: transform 0.3s ease;
+            width: 20px;
+            height: 20px;
+        }
+
+        .mtg-cta-button:hover svg {
+            transform: translateX(4px);
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 768px) {
+            .mtg-gateway-container {
+                margin: 20px;
+                padding: 40px 20px;
+                width: auto;
+            }
+            .mtg-gateway-title {
+                font-size: 2.2rem;
+            }
+            .mtg-gateway-desc {
+                font-size: 1.1rem;
+            }
+            .mtg-features-row {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 12px;
+            }
+            .mtg-feature {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body style="background: #f4f4f4; margin: 0; padding: 20px;"> <!-- Body style just for previewing -->
+
+<!-- COPY FROM HERE down to the end comment for your WordPress Custom HTML Block -->
+<div id="mtg-app-gateway-wrapper">
+    <div class="mtg-gateway-container">
+        <!-- Visual Backgrounds -->
+        <div class="mtg-gateway-grid"></div>
+        <div class="mtg-gateway-bg-blur"></div>
+        <div class="mtg-gateway-bg-blur-2"></div>
+
+        <!-- Content -->
+        <div class="mtg-gateway-content">
+            <div class="mtg-badge">New Interactive App</div>
+            
+            <h2 class="mtg-gateway-title">Become a <span>Music Tech Guru</span> and master A level Music Technology</h2>
+            
+            <p class="mtg-gateway-desc">
+                Log in to the official Music Tech Guru app. Track your progress with interactive quizzes, Component 3 & 4 mock exams, and premium teacher tools.
+            </p>
+
+            <div class="mtg-features-row">
+                <div class="mtg-feature">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                    Topic Mastery Quizzes
+                </div>
+                <div class="mtg-feature">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
+                    Component 3 Exams
+                </div>
+                <div class="mtg-feature">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                    Teacher Dashboard
+                </div>
+            </div>
+
+            <!-- Button linking to your live app -->
+            <a href="https://app.musictechguru.com" class="mtg-cta-button">
+                Launch Revision App
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </a>
+        </div>
+    </div>
+</div>
+<!-- END COPY -->
+
+</body>
+</html>

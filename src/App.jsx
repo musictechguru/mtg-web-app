@@ -12,6 +12,7 @@ import WorksheetPlayer from './components/WorksheetPlayer';
 import FingerprintsQuizPlayer from './components/FingerprintsQuiz/FingerprintsQuizPlayer';
 import DictionaryQuizSelector from './components/DictionaryQuizSelector';
 import Component3ExamPlayer from './components/Component3ExamPlayer';
+import ProfileSettings from './components/ProfileSettings';
 import EffectsChainQuiz from './components/InteractiveQuizzes/EffectsChainQuiz';
 import SynthesizerQuiz from './components/InteractiveQuizzes/SynthesizerQuiz';
 import MicrophonePlacementQuiz from './components/InteractiveQuizzes/MicrophonePlacementQuiz';
@@ -51,6 +52,7 @@ const MainApp = () => {
   const [expandedTopic, setExpandedTopic] = useState(null);
   const [appView, setAppView] = useState('student');
   const [inviteTeacherId, setInviteTeacherId] = useState(null);
+  const [showProfileSettings, setShowProfileSettings] = useState(false);
 
   useEffect(() => {
     // Check for invite route on load
@@ -71,13 +73,8 @@ const MainApp = () => {
       if (!hasSeen) {
         setShowWelcomeVideo(true);
       }
-
-      // Default to teacher dashboard if they log in as a teacher and aren't on an invite link
-      if (currentUser.role === 'teacher' && appView === 'student' && !inviteTeacherId) {
-        setAppView('teacher');
-      }
     }
-  }, [currentUser, appView, inviteTeacherId]);
+  }, [currentUser]);
 
   const handleWelcomeVideoClose = () => {
     localStorage.setItem('hasSeenWelcomeVideo', 'true');
@@ -159,28 +156,37 @@ const MainApp = () => {
 
       {/* Sidebar Navigation */}
       <aside className={`sidebar ${mobileMenuOpen ? 'open' : ''}`}>
-        <div className="sidebar-header" style={{ cursor: 'pointer' }}>
+        <div className="sidebar-header" style={{ cursor: 'pointer', display: 'flex', flexDirection: 'column' }}>
           <div onClick={goToDashboardWrapper}>
             <h1>Music Tech Guru</h1>
-            <p style={{ fontSize: '0.8rem', color: 'var(--accent-blue)', marginTop: '5px' }}>
-              Logged in as: {currentUser.email}
-            </p>
           </div>
+          <button 
+                onClick={() => {
+                  setShowProfileSettings(true);
+                  setMobileMenuOpen(false);
+                }}
+                style={{
+                    background: 'transparent', border: '1px solid rgba(255,255,255,0.2)', padding: '5px 10px',
+                    borderRadius: '8px', color: 'var(--text-secondary)', fontSize: '0.8rem',
+                    textAlign: 'left', marginTop: '10px', display: 'flex', justifyContent: 'space-between', alignItems: 'center'
+                }}
+          >
+              <span>{currentUser.email}</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+          </button>
         </div>
 
         <nav>
-          {currentUser?.role === 'teacher' && (
-            <button
-              className={`nav-item ${appView === 'teacher' ? 'active' : ''}`}
-              onClick={() => {
-                setAppView('teacher');
-                setMobileMenuOpen(false);
-              }}
-              style={{ marginBottom: '20px', fontWeight: 'bold', color: 'var(--accent-purple)', border: '1px solid var(--accent-purple)' }}
-            >
-              Teacher Dashboard
-            </button>
-          )}
+          <button
+            className={`nav-item ${appView === 'teacher' ? 'active' : ''}`}
+            onClick={() => {
+              setAppView('teacher');
+              setMobileMenuOpen(false);
+            }}
+            style={{ marginBottom: '20px', fontWeight: 'bold', color: 'var(--accent-purple)', border: '1px solid var(--accent-purple)' }}
+          >
+            Teacher Dashboard
+          </button>
 
           <button
             className={`nav-item ${!activeItem && appView === 'student' ? 'active' : ''}`}
@@ -344,6 +350,11 @@ const MainApp = () => {
       {/* Full-screen Welcome Video */}
       {showWelcomeVideo && (
         <WelcomeVideoModal onClose={handleWelcomeVideoClose} />
+      )}
+
+      {/* Profile Settings Modal */}
+      {showProfileSettings && (
+        <ProfileSettings onClose={() => setShowProfileSettings(false)} />
       )}
     </div>
   );

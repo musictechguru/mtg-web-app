@@ -46,7 +46,7 @@ const MicrophonePlacementQuiz = ({ quiz, onExit }) => {
             resultsSavedRef.current = true;
             const score = scenarios.length;
             const total = scenarios.length;
-            saveQuizResult(quiz?.title || "Practical Quiz 33: Advanced Microphone Placement", score, total, 'A');
+            saveQuizResult(quiz?.title || "Practical Quiz 14: Advanced Microphone Placement", score, total, 'A');
         }
     }, [isComplete, saveQuizResult, quiz?.title, scenarios.length]);
 

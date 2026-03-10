@@ -69,7 +69,19 @@ serve(async (req) => {
       await supabase.from('profiles').update({ stripe_customer_id: customerId }).eq('id', user.id)
     }
 
-    const { priceId, checkoutType = 'standard', quantity = 1 } = await req.json()
+    let body;
+    try {
+        body = await req.json()
+    } catch (e) {
+        body = {}
+    }
+    
+    const { priceId, checkoutType = 'standard', quantity = 1 } = body
+    const parsedQuantity = parseInt(quantity, 10) || 1
+
+    if (!priceId) {
+        throw new Error('Missing priceId in request body')
+    }
 
     // Create a checkout session
     // Provide a fallback URL in case the origin header is missing during server-to-server invocation
@@ -80,7 +92,7 @@ serve(async (req) => {
       line_items: [
         {
           price: priceId,
-          quantity: quantity,
+          quantity: parsedQuantity,
         },
       ],
       mode: 'subscription',

@@ -8,7 +8,7 @@ import campaignData from '../data/campaign_route.json';
 console.log('GuruTracker import:', GuruTracker);
 
 const Dashboard = ({ onNavigate }) => {
-    const { userProgress, clearProgress, logout } = useUser();
+    const { currentUser, userProgress, clearProgress, logout } = useUser();
     const [showWelcomeModal, setShowWelcomeModal] = React.useState(false);
     const [showProgress, setShowProgress] = React.useState(false);
 
@@ -51,7 +51,7 @@ const Dashboard = ({ onNavigate }) => {
         <div className="dashboard-container" style={{ padding: '20px', maxWidth: '1200px', margin: '0 auto' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '30px' }}>
                 <h1 style={{ margin: 0, color: 'var(--text-primary)', fontSize: '2.5rem' }}>
-                    Welcome back, <span style={{ color: 'var(--accent-blue)' }}>Creator!</span>
+                    Welcome back, <span style={{ color: 'var(--accent-blue)' }}>{currentUser?.full_name || 'Creator'}!</span>
                 </h1>
             </div>
 

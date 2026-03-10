@@ -79,16 +79,16 @@ def main():
     # Vol 10: Topic 10: Equipment
 
     practical_mapping = {
-        1: ["Practical Quiz 27: Recording Signal Chain", "Practical Quiz 29: Recording Workflow"],
-        2: ["Practical Quiz 28: Microphone Techniques", "Practical Quiz 33: Advanced Microphone Placement"],
-        3: ["Practical Quiz 22: Subtractive Synthesis Flow", "Practical Quiz 34: Synthesizer Fundamentals", "Practical Quiz 25: Waveform Wizard"],
-        4: ["Practical Quiz 32: Sequencing & Piano Roll", "Practical Quiz 30: Binary & MIDI"],
-        5: ["Practical Quiz 31: Graph Drawing", "Practical Quiz 36: EDM Production Techniques"],
-        6: ["Practical Quiz 24: EQ Parameter Mastery"],
-        7: ["Practical Quiz 23: FX Ear Training", "Practical Quiz 35: Audio Effects Processing"],
-        8: ["Practical Quiz 37: Rock Production Techniques"],
-        9: ["Practical Quiz 11: Studio Equipment & Acoustics"],
-        10: ["Practical Quiz 21: Signal Flow Challenge", "Practical Quiz 26: Hardware Anatomy"]
+        1: ["Practical Quiz 8: Recording Signal Chain", "Practical Quiz 10: Recording Workflow"],
+        2: ["Practical Quiz 9: Microphone Techniques", "Practical Quiz 14: Advanced Microphone Placement"],
+        3: ["Practical Quiz 3: Subtractive Synthesis Flow", "Practical Quiz 15: Synthesizer Fundamentals", "Practical Quiz 6: Waveform Wizard"],
+        4: ["Practical Quiz 13: Sequencing & Piano Roll", "Practical Quiz 11: Binary & MIDI"],
+        5: ["Practical Quiz 12: Graph Drawing", "Practical Quiz 17: EDM Production Techniques"],
+        6: ["Practical Quiz 5: EQ Parameter Mastery"],
+        7: ["Practical Quiz 4: FX Ear Training", "Practical Quiz 16: Audio Effects Processing"],
+        8: ["Practical Quiz 18: Rock Production Techniques"],
+        9: ["Practical Quiz 1: Studio Equipment & Acoustics"],
+        10: ["Practical Quiz 2: Signal Flow Challenge", "Practical Quiz 7: Hardware Anatomy"]
     }
 
     mastery_p1_buckets = distribute_sequential(mastery_p1_quizzes, 10)

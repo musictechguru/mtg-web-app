@@ -28,7 +28,7 @@ const TeacherDashboard = ({ onBack }) => {
             setBuying(true);
             const { data, error } = await supabase.functions.invoke('create-checkout-session', {
                 body: {
-                    priceId: 'price_classroom_placeholder',
+                    priceId: 'price_1T9NACPo3MN15zGMlbW4BU31',
                     checkoutType: 'classroom',
                     quantity: 1 // Can be adjusted if you want variable quantities
                 },
@@ -155,7 +155,6 @@ const TeacherDashboard = ({ onBack }) => {
                         <thead>
                             <tr style={{ background: 'rgba(255,255,255,0.05)', textAlign: 'left' }}>
                                 <th style={{ padding: '20px' }}>Student Name</th>
-                                <th style={{ padding: '20px' }}>Email</th>
                                 <th style={{ padding: '20px' }}>Quizzes Taken</th>
                                 <th style={{ padding: '20px' }}>Total Questions Correct</th>
                                 <th style={{ padding: '20px' }}>Latest Grade</th>
@@ -171,8 +170,7 @@ const TeacherDashboard = ({ onBack }) => {
 
                                     return (
                                         <tr key={student.student_id} style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
-                                            <td style={{ padding: '20px', fontWeight: 'bold' }}>{student.full_name || 'Anonymous'}</td>
-                                            <td style={{ padding: '20px', color: 'var(--text-secondary)' }}>{student.email}</td>
+                                            <td style={{ padding: '20px', fontWeight: 'bold' }}>{student.full_name || 'Anonymous Student'}</td>
                                             <td style={{ padding: '20px' }}>{quizzesCompleted}</td>
                                             <td style={{ padding: '20px' }}>{totalScore}</td>
                                             <td style={{ padding: '20px' }}>

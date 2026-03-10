@@ -9,6 +9,7 @@ import PianoRollQuiz from './InteractiveQuizzes/PianoRollQuiz';
 import PanningQuiz from './InteractiveQuizzes/PanningQuiz';
 import GraphDrawingQuiz from './InteractiveQuizzes/GraphDrawingQuiz';
 import TimelineQuiz from './InteractiveQuizzes/TimelineQuiz';
+import PremiumLocked from './PremiumLocked';
 
 // --- Sortable Item Component (For// SortableItem component
 function SortableItem({ id, item, onItemChange }) {
@@ -201,6 +202,34 @@ const Component3ExamPlayer = ({ examData, onExit }) => {
     if (!examData) return <div>Loading Exam...</div>;
 
     const sections = examData.sections;
+
+    // --- Premium Lock Logic ---
+    let globalQuestionIndex = 0;
+    if (currentSectionIndex >= 0) {
+        for (let i = 0; i < currentSectionIndex; i++) {
+            globalQuestionIndex += sections[i]?.questions?.length || 0;
+        }
+        globalQuestionIndex += currentQuestionIndex;
+    }
+
+    if (!currentUser?.is_premium && globalQuestionIndex >= 3 && !examFinished) {
+        return (
+            <div style={{ position: 'relative', width: '100vw', minHeight: '100vh', background: 'var(--bg-main)' }}>
+                 <button 
+                     onClick={onExit} 
+                     style={{ 
+                         position: 'absolute', top: 20, left: 20, zIndex: 10, 
+                         background: 'rgba(0,0,0,0.5)', border: '1px solid #555', color: '#fff', 
+                         padding: '8px 16px', borderRadius: '5px', cursor: 'pointer', fontWeight: 'bold' 
+                     }}
+                 >
+                     &larr; Exit Exam
+                 </button>
+                 <PremiumLocked itemTitle={examData?.title} />
+            </div>
+        );
+    }
+
     const currentSection = currentSectionIndex >= 0 && currentSectionIndex < sections.length ? sections[currentSectionIndex] : null;
     const currentQuestion = currentSection ? currentSection.questions[currentQuestionIndex] : null;
 
