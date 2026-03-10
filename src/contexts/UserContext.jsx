@@ -10,6 +10,7 @@ export const useUser = () => useContext(UserContext);
 export const UserProvider = ({ children }) => {
     const [currentUser, setCurrentUser] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [needsPasswordReset, setNeedsPasswordReset] = useState(false);
     const [userProgress, setUserProgress] = useState({
         totalScore: 0,
         quizzesCompleted: 0,
@@ -30,7 +31,10 @@ export const UserProvider = ({ children }) => {
             }
         });
 
-        const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+        const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+            if (event === 'PASSWORD_RECOVERY') {
+                setNeedsPasswordReset(true);
+            }
             setCurrentUser(session?.user ?? null);
             if (session?.user) {
                 fetchUserProgress(session.user.id);
@@ -119,6 +123,27 @@ export const UserProvider = ({ children }) => {
     const logout = async () => {
         const { error } = await supabase.auth.signOut();
         if (error) throw error;
+    };
+
+    const resetPassword = async (email) => {
+        const { error } = await supabase.auth.resetPasswordForEmail(email, {
+            redirectTo: `${window.location.origin}/`,
+        });
+        if (error) throw error;
+    };
+
+    const resendVerification = async (email) => {
+        const { error } = await supabase.auth.resend({
+            type: 'signup',
+            email,
+        });
+        if (error) throw error;
+    };
+
+    const updatePassword = async (newPassword) => {
+        const { error } = await supabase.auth.updateUser({ password: newPassword });
+        if (error) throw error;
+        setNeedsPasswordReset(false);
     };
 
     const saveQuizResult = async (quizTitle, score, total, grade) => {
@@ -281,6 +306,10 @@ export const UserProvider = ({ children }) => {
         signup,
         login,
         logout,
+        resetPassword,
+        resendVerification,
+        updatePassword,
+        needsPasswordReset,
         saveQuizResult,
         clearProgress,
         completeCampaignNode,

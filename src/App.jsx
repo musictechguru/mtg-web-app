@@ -29,6 +29,7 @@ import component4SpopData from './data/component4_spop_exam.json';
 import PremiumLocked from './components/PremiumLocked';
 
 import WelcomeVideoModal from './components/WelcomeVideoModal';
+import UpdatePasswordModal from './components/UpdatePasswordModal';
 
 const EXAM_DATA_MAP = {
   'c3_funk': component3FunkData,
@@ -45,7 +46,7 @@ const EXAM_DATA_MAP = {
 
 // Logic Component
 const MainApp = () => {
-  const { currentUser, userProgress, logout, loading } = useUser();
+  const { currentUser, userProgress, logout, loading, needsPasswordReset } = useUser();
   const [activeItem, setActiveItem] = useState(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showWelcomeVideo, setShowWelcomeVideo] = useState(false);
@@ -355,6 +356,11 @@ const MainApp = () => {
       {/* Profile Settings Modal */}
       {showProfileSettings && (
         <ProfileSettings onClose={() => setShowProfileSettings(false)} />
+      )}
+
+      {/* Update Password Modal */}
+      {needsPasswordReset && (
+        <UpdatePasswordModal />
       )}
     </div>
   );
