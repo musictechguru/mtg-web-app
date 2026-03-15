@@ -3,7 +3,7 @@ import { useUser } from '../contexts/UserContext';
 import { supabase } from '../config/supabase';
 
 const ProfileSettings = ({ onClose }) => {
-    const { currentUser, logout } = useUser();
+    const { currentUser, logout, updateProfileName } = useUser();
     const [fullName, setFullName] = useState('');
     const [saving, setSaving] = useState(false);
     const [message, setMessage] = useState('');
@@ -26,6 +26,7 @@ const ProfileSettings = ({ onClose }) => {
         try {
             const { error } = await supabase.from('profiles').update({ full_name: fullName }).eq('id', currentUser.id);
             if (error) throw error;
+            updateProfileName(fullName);
             setMessage('Profile updated successfully!');
             setTimeout(() => {
                 onClose();

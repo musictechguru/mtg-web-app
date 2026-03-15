@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
 import { supabase } from '../config/supabase';
+import { useUser } from '../contexts/UserContext';
 
 const PremiumLocked = ({ itemTitle }) => {
+    const { redeemPromoCode } = useUser();
     const [loadingPlan, setLoadingPlan] = useState(null);
+    const [promoCode, setPromoCode] = useState('');
+    const [promoMessage, setPromoMessage] = useState(null);
+    const [redeeming, setRedeeming] = useState(false);
 
     const handleUpgrade = async (priceId) => {
         try {
@@ -227,6 +232,67 @@ const PremiumLocked = ({ itemTitle }) => {
                         </button>
                     </div>
 
+                </div>
+
+                {/* Promo Code Section */}
+                <div style={{
+                    marginTop: '40px',
+                    padding: '20px',
+                    background: 'rgba(255,255,255,0.03)',
+                    borderRadius: '12px',
+                    border: '1px solid rgba(255,255,255,0.1)',
+                    width: '100%',
+                    maxWidth: '500px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center'
+                }}>
+                    <h4 style={{ color: '#cbd5e1', marginBottom: '15px' }}>Have a Promo Code?</h4>
+                    <div style={{ display: 'flex', width: '100%', gap: '10px' }}>
+                        <input 
+                            type="text" 
+                            placeholder="Enter Code"
+                            value={promoCode}
+                            onChange={(e) => setPromoCode(e.target.value.toUpperCase())}
+                            style={{
+                                flex: 1, padding: '12px', borderRadius: '8px', 
+                                border: '1px solid rgba(255,255,255,0.2)', background: 'rgba(0,0,0,0.3)', 
+                                color: 'white', fontSize: '1rem', textTransform: 'uppercase'
+                            }}
+                        />
+                        <button 
+                            onClick={async () => {
+                                if (!promoCode.trim()) return;
+                                setRedeeming(true);
+                                setPromoMessage(null);
+                                try {
+                                    await redeemPromoCode(promoCode.trim());
+                                    setPromoMessage({ type: 'success', text: 'Premium Unlocked! Refreshing...' });
+                                    setTimeout(() => window.location.reload(), 2000);
+                                } catch (err) {
+                                    setPromoMessage({ type: 'error', text: err.message || 'Invalid code' });
+                                } finally {
+                                    setRedeeming(false);
+                                }
+                            }}
+                            disabled={redeeming || !promoCode.trim()}
+                            style={{
+                                padding: '0 20px', borderRadius: '8px', background: 'var(--accent-success)', 
+                                color: 'white', border: 'none', fontWeight: 'bold', cursor: (redeeming || !promoCode.trim()) ? 'not-allowed' : 'pointer',
+                                opacity: (redeeming || !promoCode.trim()) ? 0.5 : 1
+                            }}
+                        >
+                            {redeeming ? 'Checking...' : 'Apply'}
+                        </button>
+                    </div>
+                    {promoMessage && (
+                        <div style={{ 
+                            marginTop: '10px', fontSize: '0.9rem', 
+                            color: promoMessage.type === 'error' ? 'var(--accent-error)' : 'var(--accent-success)' 
+                        }}>
+                            {promoMessage.text}
+                        </div>
+                    )}
                 </div>
                 
                 <p style={{ marginTop: '30px', fontSize: '0.85rem', color: '#64748b' }}>

@@ -140,6 +140,11 @@ export const UserProvider = ({ children }) => {
         if (error) throw error;
     };
 
+    const updateProfileName = (newName) => {
+        if (!currentUser) return;
+        setCurrentUser({ ...currentUser, full_name: newName });
+    };
+
     const updatePassword = async (newPassword) => {
         const { error } = await supabase.auth.updateUser({ password: newPassword });
         if (error) throw error;
@@ -300,6 +305,26 @@ export const UserProvider = ({ children }) => {
         return data;
     };
 
+    const redeemPromoCode = async (promoCode) => {
+        if (!currentUser) throw new Error("Must be logged in to redeem");
+
+        const { data, error } = await supabase.functions.invoke('redeem-promo', {
+            body: { promoCode }
+        });
+
+        if (error) {
+            console.error("Edge Function error:", error);
+            throw new Error(error.message);
+        }
+
+        // Wait a small moment to let the database settle
+        await new Promise(resolve => setTimeout(resolve, 500));
+        // Refresh the user data to reflect premium status immediately
+        await fetchUserProgress(currentUser.id);
+
+        return data;
+    };
+
     const value = {
         currentUser,
         userProgress,
@@ -309,12 +334,14 @@ export const UserProvider = ({ children }) => {
         resetPassword,
         resendVerification,
         updatePassword,
+        updateProfileName,
         needsPasswordReset,
         saveQuizResult,
         clearProgress,
         completeCampaignNode,
         fetchClassProgress,
         redeemInvite,
+        redeemPromoCode,
         loading
     };
 

@@ -7,7 +7,7 @@ import campaignData from '../data/campaign_route.json';
 
 console.log('GuruTracker import:', GuruTracker);
 
-const Dashboard = ({ onNavigate }) => {
+const Dashboard = ({ onNavigate, onOpenProfile }) => {
     const { currentUser, userProgress, clearProgress, logout } = useUser();
     const [showWelcomeModal, setShowWelcomeModal] = React.useState(false);
     const [showProgress, setShowProgress] = React.useState(false);
@@ -49,10 +49,37 @@ const Dashboard = ({ onNavigate }) => {
 
     return (
         <div className="dashboard-container" style={{ padding: '20px', maxWidth: '1200px', margin: '0 auto' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '30px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '30px', flexWrap: 'wrap', gap: '15px' }}>
                 <h1 style={{ margin: 0, color: 'var(--text-primary)', fontSize: '2.5rem' }}>
                     Welcome back, <span style={{ color: 'var(--accent-blue)' }}>{currentUser?.full_name || 'Creator'}!</span>
                 </h1>
+                
+                {!currentUser?.full_name ? (
+                    <button 
+                        onClick={onOpenProfile}
+                        className="pulse-button"
+                        style={{
+                            padding: '12px 24px', borderRadius: '12px', fontSize: '1.1rem',
+                            display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer',
+                            boxShadow: '0 4px 15px rgba(16, 185, 129, 0.4)'
+                        }}
+                    >
+                        <span style={{ fontSize: '1.3rem' }}>📝</span>
+                        Set Your Name
+                    </button>
+                ) : (
+                    <button 
+                        onClick={onOpenProfile}
+                        style={{
+                            padding: '8px 16px', borderRadius: '8px', fontSize: '0.9rem',
+                            background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)',
+                            color: 'var(--text-secondary)', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px'
+                        }}
+                    >
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                        Edit Profile
+                    </button>
+                )}
             </div>
 
             {/* Permanent Guru Hero Section at Top */}
