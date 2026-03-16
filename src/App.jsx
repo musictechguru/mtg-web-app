@@ -56,6 +56,10 @@ const MainApp = () => {
   const [showProfileSettings, setShowProfileSettings] = useState(false);
 
   useEffect(() => {
+    // Diagnostic: Log Supabase URL to ensure correct environment
+    if (import.meta.env.DEV) {
+      console.log('Connect to Supabase:', import.meta.env.VITE_SUPABASE_URL);
+    }
     // Check for invite route on load
     const path = window.location.pathname;
     if (path.startsWith('/invite/')) {
