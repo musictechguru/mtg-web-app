@@ -59,16 +59,24 @@ const TeacherDashboard = ({ onBack }) => {
                 <p style={{ color: 'var(--text-secondary)', marginBottom: '30px' }}>
                     You need a Classroom Pack to access the teacher features.
                 </p>
-                <div style={{ background: 'var(--bg-panel)', padding: '30px', borderRadius: '16px', maxWidth: '500px', margin: '0 auto' }}>
+                <div style={{ background: 'var(--bg-panel)', padding: '30px', borderRadius: '16px', maxWidth: '500px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '15px' }}>
                     <h2>Get Started as a Teacher</h2>
-                    <p style={{ color: 'var(--text-secondary)', marginBottom: '20px' }}>Unlock the dashboard and invite your students with a Classroom Pack.</p>
+                    <p style={{ color: 'var(--text-secondary)', marginBottom: '10px' }}>Unlock the dashboard and invite your students with a Classroom Pack.</p>
                         <button
                             onClick={() => handleBuyLicenses('price_1TBY9LLxDAAultYKd6OrgvvY', 5)}
                             disabled={buying}
                             className="btn-primary"
                             style={{ width: '100%', padding: '15px', fontSize: '1.1rem' }}
                         >
-                            {buying ? 'Preparing Checkout...' : 'Buy 5 Logins'}
+                            {buying ? 'Preparing Checkout...' : 'Buy 5 Logins (£50)'}
+                        </button>
+                        <button
+                            onClick={() => handleBuyLicenses('price_1T9TUvLxDAAultYKPmTvNQh5', 10)}
+                            disabled={buying}
+                            className="btn-primary"
+                            style={{ width: '100%', padding: '15px', fontSize: '1.1rem', background: 'linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%)', border: 'none' }}
+                        >
+                            {buying ? 'Preparing Checkout...' : 'Buy 10 Logins (£100)'}
                         </button>
                 </div>
                 <button onClick={onBack} style={{ marginTop: '30px', background: 'transparent', color: 'var(--accent-blue)', border: 'none', cursor: 'pointer' }}>
