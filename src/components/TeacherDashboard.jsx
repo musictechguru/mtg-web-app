@@ -60,8 +60,8 @@ const TeacherDashboard = ({ onBack }) => {
                     You need a Classroom Pack to access the teacher features.
                 </p>
                 <div style={{ background: 'var(--bg-panel)', padding: '30px', borderRadius: '16px', maxWidth: '500px', margin: '0 auto' }}>
-                    <h2>Buy 10 Student Logins</h2>
-                    <p style={{ color: 'var(--text-secondary)', marginBottom: '20px' }}>Unlock the dashboard and invite your students.</p>
+                    <h2>Get Started as a Teacher</h2>
+                    <p style={{ color: 'var(--text-secondary)', marginBottom: '20px' }}>Unlock the dashboard and invite your students with a Classroom Pack.</p>
                         <button
                             onClick={() => handleBuyLicenses('price_1TBY9LLxDAAultYKd6OrgvvY', 5)}
                             disabled={buying}
