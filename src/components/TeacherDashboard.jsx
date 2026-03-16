@@ -23,14 +23,15 @@ const TeacherDashboard = ({ onBack }) => {
         }
     }, [currentUser, fetchClassProgress]);
 
-    const handleBuyLicenses = async () => {
+    const handleBuyLicenses = async (priceId, seats) => {
         try {
             setBuying(true);
             const { data, error } = await supabase.functions.invoke('create-checkout-session', {
                 body: {
-                    priceId: 'price_1T9NACPo3MN15zGMlbW4BU31',
+                    priceId: priceId,
                     checkoutType: 'classroom',
-                    quantity: 1 // Can be adjusted if you want variable quantities
+                    quantity: 1,
+                    seats: seats
                 },
             });
 
@@ -61,14 +62,14 @@ const TeacherDashboard = ({ onBack }) => {
                 <div style={{ background: 'var(--bg-panel)', padding: '30px', borderRadius: '16px', maxWidth: '500px', margin: '0 auto' }}>
                     <h2>Buy 10 Student Logins</h2>
                     <p style={{ color: 'var(--text-secondary)', marginBottom: '20px' }}>Unlock the dashboard and invite your students.</p>
-                    <button
-                        onClick={handleBuyLicenses}
-                        disabled={buying}
-                        className="btn-primary"
-                        style={{ width: '100%', padding: '15px', fontSize: '1.1rem' }}
-                    >
-                        {buying ? 'Preparing Checkout...' : 'Purchase Classroom Pack'}
-                    </button>
+                        <button
+                            onClick={() => handleBuyLicenses('price_1TBY9LLxDAAultYKd6OrgvvY', 5)}
+                            disabled={buying}
+                            className="btn-primary"
+                            style={{ width: '100%', padding: '15px', fontSize: '1.1rem' }}
+                        >
+                            {buying ? 'Preparing Checkout...' : 'Buy 5 Logins'}
+                        </button>
                 </div>
                 <button onClick={onBack} style={{ marginTop: '30px', background: 'transparent', color: 'var(--accent-blue)', border: 'none', cursor: 'pointer' }}>
                     Return to App
@@ -102,12 +103,20 @@ const TeacherDashboard = ({ onBack }) => {
                 </div>
                 <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
                     <button
-                        onClick={handleBuyLicenses}
+                        onClick={() => handleBuyLicenses('price_1TBY9LLxDAAultYKd6OrgvvY', 5)}
                         disabled={buying}
                         className="btn-primary"
                         style={{ padding: '10px 20px' }}
                     >
-                        {buying ? 'Loading...' : 'Buy More Licenses'}
+                        {buying ? 'Loading...' : '+5 Licenses (£50)'}
+                    </button>
+                    <button
+                        onClick={() => handleBuyLicenses('price_1T9TUvLxDAAultYKPmTvNQh5', 10)}
+                        disabled={buying}
+                        className="btn-primary"
+                        style={{ padding: '10px 20px', background: 'linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%)', border: 'none' }}
+                    >
+                        {buying ? 'Loading...' : '+10 Licenses (£100)'}
                     </button>
                     <button
                         onClick={onBack}

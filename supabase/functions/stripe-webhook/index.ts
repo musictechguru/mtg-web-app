@@ -34,9 +34,12 @@ serve(async (req) => {
     }
 
     // Initialize regular suabase client using Service Role to bypass RLS and update tables
+    const supabaseUrl = Deno.env.get('SUPABASE_URL') ?? Deno.env.get('PROJECT_URL') ?? ''
+    const supabaseKey = Deno.env.get('SERVICE_ROLE_KEY') ?? ''
+
     const supabase = createClient(
-      Deno.env.get('PROJECT_URL') ?? '',
-      Deno.env.get('SERVICE_ROLE_KEY') ?? ''
+      supabaseUrl,
+      supabaseKey
     )
 
     if (event.type === 'checkout.session.completed') {
@@ -57,9 +60,11 @@ serve(async (req) => {
          // Classroom Pack Handling
          if (checkoutType === 'classroom') {
             updates.role = 'teacher'
-            // We assume 10 logins per purchase for this MVP
+            // Get seats from metadata (quantity field was used to store it)
+            const seatsToAdd = parseInt(session.metadata?.quantity || '10', 10)
             const { data: profile } = await supabase.from('profiles').select('licenses_total').eq('id', uuid).single()
-            updates.licenses_total = (profile?.licenses_total || 0) + 10
+            updates.licenses_total = (profile?.licenses_total || 0) + seatsToAdd
+            console.log(`Adding ${seatsToAdd} licenses to teacher ${uuid}. New total: ${updates.licenses_total}`)
          }
 
          await supabase.from('profiles').update(updates).eq('id', uuid)

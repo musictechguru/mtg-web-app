@@ -19,9 +19,12 @@ serve(async (req) => {
     }
     const token = authHeader.replace('Bearer ', '')
 
+    const supabaseUrl = Deno.env.get('SUPABASE_URL') ?? Deno.env.get('PROJECT_URL') ?? ''
+    const supabaseKey = Deno.env.get('SUPABASE_ANON_KEY') ?? Deno.env.get('ANON_KEY') ?? ''
+
     const supabase = createClient(
-      Deno.env.get('PROJECT_URL') ?? '',
-      Deno.env.get('ANON_KEY') ?? '',
+      supabaseUrl,
+      supabaseKey,
       { global: { headers: { Authorization: authHeader } } }
     )
 
@@ -76,8 +79,9 @@ serve(async (req) => {
         body = {}
     }
     
-    const { priceId, checkoutType = 'standard', quantity = 1 } = body
-    const parsedQuantity = parseInt(quantity, 10) || 1
+    const { priceId, checkoutType = 'standard', quantity = 1, seats } = body
+    const parsedQuantity = parseInt(quantity.toString(), 10) || 1
+    const parsedSeats = seats ? parseInt(seats.toString(), 10) : parsedQuantity
 
     if (!priceId) {
         throw new Error('Missing priceId in request body')
@@ -100,7 +104,8 @@ serve(async (req) => {
       cancel_url: `${originUrl}/`,
       metadata: {
         supabase_uuid: user.id,
-        checkout_type: checkoutType
+        checkout_type: checkoutType,
+        quantity: parsedSeats.toString() // Map seats to quantity string in metadata
       }
     })
 

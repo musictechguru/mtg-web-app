@@ -9,11 +9,16 @@ const PremiumLocked = ({ itemTitle }) => {
     const [promoMessage, setPromoMessage] = useState(null);
     const [redeeming, setRedeeming] = useState(false);
 
-    const handleUpgrade = async (priceId) => {
+    const handleUpgrade = async (priceId, seats = 1, planType = 'classroom') => {
         try {
             setLoadingPlan(priceId);
             const { data, error } = await supabase.functions.invoke('create-checkout-session', {
-                body: { priceId: priceId },
+                body: { 
+                    priceId: priceId, 
+                    checkoutType: planType, 
+                    quantity: 1, 
+                    seats: seats 
+                },
             });
 
             if (error) {
@@ -156,7 +161,7 @@ const PremiumLocked = ({ itemTitle }) => {
                             }}
                             onMouseOver={(e) => { if (!loadingPlan) { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 6px 20px rgba(37, 99, 235, 0.6)'; } }}
                             onMouseOut={(e) => { if (!loadingPlan) { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 4px 15px rgba(37, 99, 235, 0.4)'; } }}
-                            onClick={() => handleUpgrade('price_1T9TUwLxDAAultYKsA9ZV4q1')}
+                            onClick={() => handleUpgrade('price_1T9TUwLxDAAultYKsA9ZV4q1', 1, 'standard')}
                             disabled={loadingPlan !== null}
                         >
                             {loadingPlan === 'price_1T9TUwLxDAAultYKsA9ZV4q1' ? (
@@ -174,7 +179,7 @@ const PremiumLocked = ({ itemTitle }) => {
                         </button>
                     </div>
 
-                    {/* Classroom Plan */}
+                    {/* 5 Student Pack */}
                     <div style={{
                         background: 'rgba(15, 23, 42, 0.6)',
                         padding: '30px',
@@ -187,9 +192,9 @@ const PremiumLocked = ({ itemTitle }) => {
                         justifyContent: 'space-between'
                     }}>
                         <div>
-                            <h3 style={{ fontSize: '1.2rem', color: '#94a3b8', marginBottom: '10px' }}>Classroom Plan</h3>
+                            <h3 style={{ fontSize: '1.2rem', color: '#94a3b8', marginBottom: '10px' }}>5 Student Pack</h3>
                             <div style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '20px', color: '#e2e8f0' }}>
-                                School License
+                                £50 <span style={{ fontSize: '1rem', color: '#94a3b8', fontWeight: 'normal' }}>/ Year</span>
                             </div>
                         </div>
 
@@ -214,7 +219,65 @@ const PremiumLocked = ({ itemTitle }) => {
                             }}
                             onMouseOver={(e) => { if (!loadingPlan) { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 6px 20px rgba(139, 92, 246, 0.6)'; } }}
                             onMouseOut={(e) => { if (!loadingPlan) { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 4px 15px rgba(139, 92, 246, 0.4)'; } }}
-                            onClick={() => handleUpgrade('price_1T9TUvLxDAAultYKPmTvNQh5')}
+                            onClick={() => handleUpgrade('price_1TBY9LLxDAAultYKd6OrgvvY', 5, 'classroom')}
+                            disabled={loadingPlan !== null}
+                        >
+                            {loadingPlan === 'price_1TBY9LLxDAAultYKd6OrgvvY' ? (
+                                <>
+                                    <svg className="animate-spin" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ animation: 'spin 1s linear infinite' }}>
+                                        <path d="M21 12a9 9 0 1 1-6.219-8.56"></path>
+                                    </svg>
+                                    Preparing Checkout...
+                                </>
+                            ) : (
+                                <>
+                                    <span>Get 5 Student Pack</span>
+                                </>
+                            )}
+                        </button>
+                    </div>
+
+                    {/* 10 Student Plan */}
+                    <div style={{
+                        background: 'rgba(15, 23, 42, 0.6)',
+                        padding: '30px',
+                        borderRadius: '16px',
+                        border: '1px solid rgba(139, 92, 246, 0.3)',
+                        flex: '1',
+                        minWidth: '280px',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'space-between'
+                    }}>
+                        <div>
+                            <h3 style={{ fontSize: '1.2rem', color: '#94a3b8', marginBottom: '10px' }}>10 Student Pack</h3>
+                            <div style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '20px', color: '#e2e8f0' }}>
+                                £100 <span style={{ fontSize: '1rem', color: '#94a3b8', fontWeight: 'normal' }}>/ Year</span>
+                            </div>
+                        </div>
+
+                        <button
+                            style={{
+                                width: '100%',
+                                padding: '16px',
+                                fontSize: '1.1rem',
+                                fontWeight: 'bold',
+                                color: '#ffffff',
+                                background: 'linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%)',
+                                border: 'none',
+                                borderRadius: '8px',
+                                cursor: loadingPlan ? 'not-allowed' : 'pointer',
+                                opacity: loadingPlan ? 0.7 : 1,
+                                transition: 'all 0.2s ease',
+                                boxShadow: '0 4px 15px rgba(139, 92, 246, 0.4)',
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                gap: '10px'
+                            }}
+                            onMouseOver={(e) => { if (!loadingPlan) { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 6px 20px rgba(139, 92, 246, 0.6)'; } }}
+                            onMouseOut={(e) => { if (!loadingPlan) { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 4px 15px rgba(139, 92, 246, 0.4)'; } }}
+                            onClick={() => handleUpgrade('price_1T9TUvLxDAAultYKPmTvNQh5', 10, 'classroom')}
                             disabled={loadingPlan !== null}
                         >
                             {loadingPlan === 'price_1T9TUvLxDAAultYKPmTvNQh5' ? (
@@ -226,7 +289,7 @@ const PremiumLocked = ({ itemTitle }) => {
                                 </>
                             ) : (
                                 <>
-                                    <span>Get Classroom Plan</span>
+                                    <span>Get 10 Student Pack</span>
                                 </>
                             )}
                         </button>
