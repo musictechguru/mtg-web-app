@@ -605,7 +605,8 @@ const QuizPlayer = ({ quiz, onFinish }) => {
                                 let className = "option-btn";
                                 if (selectedAnswer === idx) className += " selected";
                                 if (isSubmitted) {
-                                    if (ans.is_true === 'yes') className += " correct";
+                                    const isThisCorrect = ans.is_true === 'yes' || ans.is_true === true;
+                                    if (isThisCorrect) className += " correct";
                                     else if (selectedAnswer === idx) className += " incorrect";
                                 }
 
