@@ -56,12 +56,28 @@ const TeacherDashboard = ({ onBack }) => {
         return (
             <div className="dashboard-container" style={{ textAlign: 'center', padding: '50px 20px' }}>
                 <h1 style={{ fontSize: '2.5rem', marginBottom: '20px' }}>Teacher Dashboard</h1>
-                <p style={{ color: 'var(--text-secondary)', marginBottom: '30px' }}>
+                <p style={{ color: 'var(--text-secondary)', marginBottom: '10px' }}>
                     You need a Classroom Pack to access the teacher features.
                 </p>
+                <div style={{ marginBottom: '30px', fontSize: '0.9rem', color: 'var(--text-secondary)' }}>
+                    Logged in as: <strong>{currentUser?.email}</strong>
+                </div>
+
                 <div style={{ background: 'var(--bg-panel)', padding: '30px', borderRadius: '16px', maxWidth: '500px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '15px' }}>
                     <h2>Get Started as a Teacher</h2>
                     <p style={{ color: 'var(--text-secondary)', marginBottom: '10px' }}>Unlock the dashboard and invite your students with a Classroom Pack.</p>
+                        
+                        <div style={{ border: '1px solid rgba(255,255,255,0.1)', padding: '15px', borderRadius: '12px', marginBottom: '10px' }}>
+                             <p style={{ marginBottom: '10px', fontSize: '0.9rem' }}>Already purchased a pack?</p> 
+                             <button 
+                                onClick={() => window.location.reload()}
+                                className="btn-primary"
+                                style={{ background: 'transparent', border: '1px solid var(--accent-success)', color: 'var(--accent-success)', padding: '8px 15px', fontSize: '0.9rem' }}
+                             >
+                                🔄 Refresh Status
+                             </button>
+                        </div>
+
                         <button
                             onClick={() => handleBuyLicenses('price_1TBY9LLxDAAultYKd6OrgvvY', 5)}
                             disabled={buying}

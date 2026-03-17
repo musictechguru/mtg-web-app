@@ -45,11 +45,29 @@ serve(async (req) => {
     if (event.type === 'checkout.session.completed') {
       const session = event.data.object
       const uuid = session.metadata?.supabase_uuid
-      const checkoutType = session.metadata?.checkout_type || 'standard'
+      let checkoutType = session.metadata?.checkout_type || 'standard'
       const customerId = session.customer
       const subscriptionId = session.subscription
+
+      // Safety check: If Price ID matches a known classroom price, force checkoutType to classroom
+      // This protects against metadata being lost or incorrectly passed
+      const lineItems = await stripe.checkout.sessions.listLineItems(session.id);
+      const firstPriceId = lineItems.data[0]?.price?.id;
+      
+      const CLASSROOM_PRICES = [
+        'price_1TBY9LLxDAAultYKd6OrgvvY', // 5 seats
+        'price_1T9TUvLxDAAultYKPmTvNQh5'  // 10 seats
+      ];
+
+      if (CLASSROOM_PRICES.includes(firstPriceId)) {
+        console.log(`Force-setting checkoutType to classroom based on Price ID: ${firstPriceId}`);
+        checkoutType = 'classroom';
+      }
       
       if (uuid) {
+         console.log(`Processing update for user: ${uuid}`);
+         console.log(`Checkout type: ${checkoutType}`);
+         
          // Default updates for all purchases
          const updates: any = {
             is_premium: true,
@@ -59,15 +77,38 @@ serve(async (req) => {
 
          // Classroom Pack Handling
          if (checkoutType === 'classroom') {
+            console.log("Detected Classroom Pack purchase. Upgrading to Teacher role.");
             updates.role = 'teacher'
+            
             // Get seats from metadata (quantity field was used to store it)
-            const seatsToAdd = parseInt(session.metadata?.quantity || '10', 10)
-            const { data: profile } = await supabase.from('profiles').select('licenses_total').eq('id', uuid).single()
+            const quantityFromMetadata = session.metadata?.quantity;
+            console.log(`Metadata Quantity/Seats: ${quantityFromMetadata}`);
+            
+            const seatsToAdd = parseInt(quantityFromMetadata || '10', 10)
+            
+            // Fetch current licenses to increment
+            const { data: profile, error: profileError } = await supabase
+              .from('profiles')
+              .select('licenses_total')
+              .eq('id', uuid)
+              .single()
+            
+            if (profileError) {
+              console.error(`Error fetching profile for licenses: ${profileError.message}`);
+            }
+
             updates.licenses_total = (profile?.licenses_total || 0) + seatsToAdd
-            console.log(`Adding ${seatsToAdd} licenses to teacher ${uuid}. New total: ${updates.licenses_total}`)
+            console.log(`Adding ${seatsToAdd} licenses. New total will be: ${updates.licenses_total}`);
          }
 
-         await supabase.from('profiles').update(updates).eq('id', uuid)
+         const { error: updateError } = await supabase.from('profiles').update(updates).eq('id', uuid)
+         if (updateError) {
+           console.error(`Error updating profile: ${updateError.message}`);
+         } else {
+           console.log(`Successfully updated profile for ${uuid}`);
+         }
+      } else {
+        console.warn("No supabase_uuid found in session metadata. Cannot update profile.");
       }
     } else if (event.type === 'customer.subscription.deleted') {
       const subscription = event.data.object
