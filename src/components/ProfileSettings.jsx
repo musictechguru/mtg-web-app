@@ -38,6 +38,23 @@ const ProfileSettings = ({ onClose }) => {
         }
     };
 
+    const handleManageSubscription = async () => {
+        setSaving(true);
+        setMessage('');
+        try {
+            const { data, error } = await supabase.functions.invoke('create-portal-session');
+            if (error) throw error;
+            if (data?.url) {
+                window.location.href = data.url;
+            } else {
+                throw new Error('Could not generate portal link');
+            }
+        } catch (err) {
+            setMessage('Error: ' + err.message);
+            setSaving(false);
+        }
+    };
+
     const handleLogout = async () => {
         try {
             await logout();
@@ -104,6 +121,27 @@ const ProfileSettings = ({ onClose }) => {
                 </div>
 
                 <hr style={{ border: 'none', borderTop: '1px solid rgba(255,255,255,0.1)', margin: '25px 0' }} />
+
+                {currentUser?.is_premium && !currentUser?.teacher_id && (
+                    <div style={{ marginBottom: '25px' }}>
+                        <h3 style={{ fontSize: '1rem', color: 'var(--text-secondary)', marginBottom: '12px' }}>Subscription Management</h3>
+                        <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginBottom: '15px' }}>
+                            You have an active premium subscription. Use the portal below to update your payment method or cancel your subscription.
+                        </p>
+                        <button 
+                            onClick={handleManageSubscription}
+                            disabled={saving}
+                            style={{ 
+                                width: '100%', padding: '12px', background: 'rgba(59, 130, 246, 0.1)', 
+                                border: '1px solid rgba(59, 130, 246, 0.3)', color: '#3b82f6', 
+                                borderRadius: '8px', cursor: 'pointer', fontWeight: '600' 
+                            }}
+                        >
+                            {saving ? 'Connecting...' : 'Manage Subscription'}
+                        </button>
+                        <hr style={{ border: 'none', borderTop: '1px solid rgba(255,255,255,0.1)', margin: '25px 0' }} />
+                    </div>
+                )}
                 
                 <button 
                     onClick={handleLogout}

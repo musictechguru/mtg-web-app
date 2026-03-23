@@ -67,7 +67,7 @@ export const UserProvider = ({ children }) => {
             // 2. Fetch Profile (Premium Status & Teacher Metadata)
             const { data: profileData, error: profileError } = await supabase
                 .from('profiles')
-                .select('is_premium, role, licenses_total, licenses_used, teacher_id, full_name')
+                .select('is_premium, role, licenses_total, licenses_used, teacher_id, full_name, stripe_customer_id')
                 .eq('id', userId)
                 .single();
 
@@ -87,7 +87,8 @@ export const UserProvider = ({ children }) => {
                         licenses_total: profileData.licenses_total || 0,
                         licenses_used: profileData.licenses_used || 0,
                         teacher_id: profileData.teacher_id || null,
-                        full_name: profileData.full_name || ''
+                        full_name: profileData.full_name || '',
+                        stripe_customer_id: profileData.stripe_customer_id || null
                     };
                 });
             }

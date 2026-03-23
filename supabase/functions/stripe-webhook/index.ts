@@ -110,27 +110,47 @@ serve(async (req) => {
       } else {
         console.warn("No supabase_uuid found in session metadata. Cannot update profile.");
       }
-    } else if (event.type === 'customer.subscription.deleted') {
+    } else if (event.type === 'customer.subscription.updated' || event.type === 'customer.subscription.deleted') {
       const subscription = event.data.object
       const customerId = subscription.customer
+      const status = subscription.status
+      const cancelAtPeriodEnd = subscription.cancel_at_period_end
       
-      // Find the user to handle potential teacher revocations
+      // Get the profile linked to this customer
       const { data: profile } = await supabase.from('profiles').select('id, role').eq('stripe_customer_id', customerId).single()
       
-      const updates: any = {
-        is_premium: false,
-        stripe_subscription_id: null
+      if (!profile) {
+        console.warn(`No profile found for customer ${customerId}`);
+        return new Response(JSON.stringify({ received: true }), { headers: corsHeaders })
       }
 
-      if (profile?.role === 'teacher') {
+      // Check if access should be revoked
+      // Access is revoked ONLY if:
+      // 1. Event is 'deleted'
+      // 2. OR status is 'unpaid' or 'canceled'
+      // Note: 'past_due' status still allows access in many models, but you can change it here.
+      const shouldRevoke = event.type === 'customer.subscription.deleted' || status === 'unpaid' || status === 'canceled'
+      
+      const updates: any = {
+        is_premium: !shouldRevoke,
+        stripe_subscription_id: shouldRevoke ? null : subscription.id
+      }
+
+      // If it's a teacher, handle their classroom pack revocation
+      if (shouldRevoke && profile.role === 'teacher') {
          updates.role = 'student'
          updates.licenses_total = 0
          // Revoke premium access for all students of this teacher
          await supabase.from('profiles').update({ is_premium: false, teacher_id: null }).eq('teacher_id', profile.id)
       }
 
-      // Remove premium from user with this customer ID
+      // Add cancellation info if the user isn't cancelled
+      // Note: You might need to add these columns to your profiles table later
+      // updates.cancel_at_period_end = cancelAtPeriodEnd;
+      // updates.subscription_end = new Date(subscription.current_period_end * 1000).toISOString();
+
       await supabase.from('profiles').update(updates).eq('stripe_customer_id', customerId)
+      console.log(`Updated profile for customer ${customerId}. Premium status: ${!shouldRevoke}`);
     }
 
     return new Response(JSON.stringify({ received: true }), { headers: corsHeaders })
