@@ -163,8 +163,7 @@ const Dashboard = ({ onNavigate, onOpenProfile }) => {
                 </div>
             </div>
 
-            {/* Welcome Video Text Banner */}
-            <div className="welcome-banner" style={{ textAlign: 'right', display: 'flex', justifyContent: 'flex-end', gap: '10px' }}>
+            <div className="welcome-banner" style={{ textAlign: 'right', display: 'flex', justifyContent: 'flex-end', gap: '10px', marginBottom: '20px' }}>
                 <button
                     onClick={clearProgress}
                     style={{ background: 'transparent', border: '1px solid #333', padding: '5px 10px', borderRadius: '4px', fontSize: '0.8rem', color: '#666', cursor: 'pointer' }}
@@ -180,7 +179,7 @@ const Dashboard = ({ onNavigate, onOpenProfile }) => {
             </div>
 
             {/* Welcome Banner */}
-            <div style={{
+            <div className="guru-hero" style={{
                 background: 'linear-gradient(90deg, rgba(59, 130, 246, 0.15) 0%, rgba(37, 99, 235, 0.05) 100%)',
                 borderLeft: '4px solid var(--accent-blue)',
                 padding: '20px',

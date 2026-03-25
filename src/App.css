@@ -129,24 +129,21 @@ body {
   }
 
   .main-content {
-    padding: 60px 15px 20px 15px;
-    /* Reduced side padding */
+    padding: 85px 15px 40px 15px;
     width: 100%;
     max-width: 100vw;
-    /* Hard limit */
     overflow-x: hidden;
-    /* Ensure no scroll */
   }
 
-  /* Adjust headers in sidebar */
   .sidebar-header h1 {
-    font-size: 1.5rem;
-    /* Slightly larger for touch targets? No, keep reasonable */
-    margin-top: 40px;
-    /* Space for close button if we had one, or just general spacing */
+    font-size: 1.3rem;
+    margin-top: 20px;
   }
 
-  /* Dashboard Mobile Overrides */
+  .dashboard-container {
+    padding: 10px !important;
+  }
+
   .dashboard-layout {
     grid-template-columns: 1fr !important;
     gap: 20px !important;
@@ -154,7 +151,95 @@ body {
 
   .stats-grid {
     grid-template-columns: 1fr !important;
-    /* Force single column for stats if needed, or keeping auto-fit is fine */
+  }
+
+  .guru-hero {
+    padding: 15px !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    text-align: center !important;
+  }
+
+  .guru-hero h2 {
+    font-size: 1.5rem !important;
+  }
+
+  .welcome-banner {
+    flex-direction: column-reverse !important;
+    align-items: center !important;
+    text-align: center !important;
+    gap: 10px !important;
+    padding-top: 10px;
+    border-top: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .welcome-banner > div:first-child {
+    width: 200px !important;
+  }
+
+  .welcome-banner > div:last-child {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .welcome-banner button {
+     flex: 1;
+     max-width: 150px;
+  }
+
+  /* Nodes & Blocks */
+  .round-block {
+    flex-direction: column !important;
+    padding: 20px !important;
+    gap: 20px !important;
+  }
+
+  .round-nodes-container {
+    max-width: 100% !important;
+    gap: 15px !important;
+  }
+
+  .campaign-node-item {
+    width: 100% !important;
+    max-width: 300px;
+  }
+
+  /* Quiz Overrides */
+  .quiz-container {
+    padding: 0;
+  }
+
+  .quiz-container h1 {
+    margin-top: 20px;
+    font-size: 1.5rem;
+  }
+
+  .question-card {
+    padding: 15px;
+    border-radius: 12px;
+  }
+
+  .options-grid {
+    gap: 8px;
+  }
+
+  .option-btn {
+    padding: 10px 12px;
+    font-size: 0.9rem;
+  }
+
+  .controls {
+    flex-direction: column-reverse;
+    gap: 10px;
+  }
+
+  .btn-primary {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
   }
 
   /* Dictionary Layout Overrides */
@@ -176,9 +261,15 @@ body {
     flex-direction: column;
   }
 
+  .quiz-left-col > div:first-child {
+      margin-top: 10px;
+      font-weight: 600;
+  }
+
   /* Ensure video iframes adapt */
   iframe {
     max-width: 100%;
+    height: 200px !important;
   }
 
   /* Worksheet Report Mobile Overrides */

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useUser } from '../contexts/UserContext';
+import LegalModals from './LegalModals';
 import '../App.css'; 
 
 const LoginScreen = () => {
@@ -13,6 +14,9 @@ const LoginScreen = () => {
     const [error, setError] = useState('');
     const [message, setMessage] = useState('');
     const [isSubmitting, setIsSubmitting] = useState(false);
+    
+    // Legal Modals State
+    const [legalType, setLegalType] = useState(null);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -89,46 +93,48 @@ const LoginScreen = () => {
             }}>
                 {/* Marketing Panel */}
                 <div style={{
-                    flex: '1 1 400px',
-                    padding: '3rem 2.5rem',
+                    flex: '1 1 350px',
+                    padding: '2rem 1.5rem',
                     background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%)',
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'center',
-                    borderRight: '1px solid rgba(255,255,255,0.05)'
+                    borderRight: '1px solid rgba(255,255,255,0.05)',
+                    boxSizing: 'border-box'
                 }}>
                     <h1 style={{
                         marginBottom: '1rem',
                         background: 'linear-gradient(to right, var(--accent-blue), var(--accent-purple))',
                         WebkitBackgroundClip: 'text',
                         WebkitTextFillColor: 'transparent',
-                        fontSize: '2.5rem',
+                        fontSize: 'clamp(1.8rem, 5vw, 2.5rem)',
                         lineHeight: '1.2'
                     }}>Music Tech Guru<br/>Revision App</h1>
                     
-                    <p style={{ color: 'var(--text-secondary)', marginBottom: '2rem', fontSize: '1.1rem', lineHeight: '1.6' }}>
+                    <p style={{ color: 'var(--text-secondary)', marginBottom: '2rem', fontSize: '1rem', lineHeight: '1.6' }}>
                         Your ultimate companion for mastering music technology. Ace your Edexcel exams with our premium tools and resources.
                     </p>
 
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '1.2rem' }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                         {[
                             { icon: '📝', text: 'Interactive Quizzes for Comp 3 & 4' },
                             { icon: '💡', text: 'Expert Explanations & Rationale' },
                             { icon: '🗣️', text: 'Famous Quotes & Real-World Examples' },
                             { icon: '🎯', text: 'Track Your Progress to Mastery' }
                         ].map((feature, i) => (
-                            <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+                            <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                                 <div style={{ 
                                     background: 'rgba(255,255,255,0.05)', 
                                     borderRadius: '50%', 
-                                    width: '40px', 
-                                    height: '40px', 
+                                    width: '36px', 
+                                    height: '36px', 
                                     display: 'flex', 
                                     alignItems: 'center', 
                                     justifyContent: 'center',
-                                    fontSize: '1.2rem'
+                                    fontSize: '1rem',
+                                    flexShrink: 0
                                 }}>{feature.icon}</div>
-                                <span style={{ fontWeight: '500', color: 'var(--text-primary)' }}>{feature.text}</span>
+                                <span style={{ fontWeight: '500', color: 'var(--text-primary)', fontSize: '0.9rem' }}>{feature.text}</span>
                             </div>
                         ))}
                     </div>
@@ -136,16 +142,17 @@ const LoginScreen = () => {
 
                 {/* Login Form Panel */}
                 <div style={{
-                    flex: '1 1 350px',
-                    padding: '3rem 2.5rem',
+                    flex: '1 1 300px',
+                    padding: '2rem 1.5rem',
                     display: 'flex',
                     flexDirection: 'column',
-                    justifyContent: 'center'
+                    justifyContent: 'center',
+                    boxSizing: 'border-box'
                 }}>
-                    <h2 style={{ marginBottom: '0.5rem', fontSize: '1.8rem' }}>
+                    <h2 style={{ marginBottom: '0.5rem', fontSize: '1.5rem' }}>
                         {view === 'login' ? 'Welcome Back' : view === 'signup' ? 'Create Account' : 'Reset Password'}
                     </h2>
-                    <p style={{ color: 'var(--text-secondary)', marginBottom: '2rem' }}>
+                    <p style={{ color: 'var(--text-secondary)', marginBottom: '1.5rem', fontSize: '0.9rem' }}>
                         {view === 'login' ? 'Please log in to continue' : view === 'signup' ? 'Sign up to get started' : 'Enter your email to reset your password'}
                     </p>
 
@@ -199,7 +206,7 @@ const LoginScreen = () => {
 
                     <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
-                            <label style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>Email</label>
+                            <label style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>Email</label>
                             <input
                                 type="email"
                                 placeholder="you@example.com"
@@ -207,30 +214,29 @@ const LoginScreen = () => {
                                 onChange={(e) => setEmail(e.target.value)}
                                 required
                                 style={{
-                                    padding: '12px',
+                                    padding: '10px',
                                     borderRadius: '8px',
                                     border: '1px solid rgba(255, 255, 255, 0.1)',
                                     backgroundColor: 'rgba(0, 0, 0, 0.2)',
                                     color: 'var(--text-primary)',
-                                    fontSize: '1rem',
+                                    fontSize: '0.95rem',
                                     outline: 'none',
-                                    transition: 'border-color 0.2s'
+                                    width: '100%',
+                                    boxSizing: 'border-box'
                                 }}
-                                onFocus={(e) => e.target.style.borderColor = 'var(--accent-blue)'}
-                                onBlur={(e) => e.target.style.borderColor = 'rgba(255, 255, 255, 0.1)'}
                             />
                         </div>
 
                         {view !== 'forgot' && (
                             <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
                                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                    <label style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>Password</label>
+                                    <label style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>Password</label>
                                     {view === 'login' && (
                                         <span 
                                             onClick={() => { setView('forgot'); setError(''); setMessage(''); }}
-                                            style={{ fontSize: '0.8rem', color: 'var(--accent-blue)', cursor: 'pointer' }}
+                                            style={{ fontSize: '0.75rem', color: 'var(--accent-blue)', cursor: 'pointer' }}
                                         >
-                                            Forgot password?
+                                            Forgot?
                                         </span>
                                     )}
                                 </div>
@@ -241,17 +247,16 @@ const LoginScreen = () => {
                                     onChange={(e) => setPassword(e.target.value)}
                                     required
                                     style={{
-                                        padding: '12px',
+                                        padding: '10px',
                                         borderRadius: '8px',
                                         border: '1px solid rgba(255, 255, 255, 0.1)',
                                         backgroundColor: 'rgba(0, 0, 0, 0.2)',
                                         color: 'var(--text-primary)',
-                                        fontSize: '1rem',
+                                        fontSize: '0.95rem',
                                         outline: 'none',
-                                        transition: 'border-color 0.2s'
+                                        width: '100%',
+                                        boxSizing: 'border-box'
                                     }}
-                                    onFocus={(e) => e.target.style.borderColor = 'var(--accent-blue)'}
-                                    onBlur={(e) => e.target.style.borderColor = 'rgba(255, 255, 255, 0.1)'}
                                 />
                             </div>
                         )}
@@ -274,7 +279,8 @@ const LoginScreen = () => {
                         </button>
                     </form>
 
-                    <p style={{ marginTop: '2rem', fontSize: '0.9rem', color: 'var(--text-secondary)', textAlign: 'center' }}>
+
+                    <p style={{ marginTop: '1.5rem', fontSize: '0.85rem', color: 'var(--text-secondary)', textAlign: 'center' }}>
                         {view === 'login' ? "Don't have an account? " : view === 'signup' ? "Already have an account? " : "Remember your password? "}
                         <span
                             onClick={() => { setView(view === 'login' ? 'signup' : 'login'); setError(''); setMessage(''); }}
@@ -287,8 +293,26 @@ const LoginScreen = () => {
                             {view === 'login' ? 'Sign Up' : 'Log In'}
                         </span>
                     </p>
+
+                    <p style={{ marginTop: '1.5rem', fontSize: '0.75rem', color: 'rgba(255,255,255,0.3)', textAlign: 'center' }}>
+                        By creating an account, you agree to our <br/>
+                        <span 
+                            onClick={() => setLegalType('terms')} 
+                            style={{ color: 'var(--accent-blue)', cursor: 'pointer', textDecoration: 'underline' }}
+                        >Terms</span> and <span
+                             onClick={() => setLegalType('privacy')}
+                             style={{ color: 'var(--accent-blue)', cursor: 'pointer', textDecoration: 'underline' }}
+                        >Privacy Policy</span>.
+                    </p>
                 </div>
             </div>
+
+            {/* Legal Modals */}
+            <LegalModals 
+                isOpen={!!legalType} 
+                type={legalType} 
+                onClose={() => setLegalType(null)} 
+            />
         </div>
     );
 };

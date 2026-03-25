@@ -165,7 +165,7 @@ const CampaignMap = ({ onNavigate }) => {
                 }}
             >
                 {blocks.map((block, bIdx) => (
-                    <div key={bIdx} style={{
+                    <div key={bIdx} className="round-block" style={{
                         display: 'flex',
                         flexDirection: 'row',
                         flexWrap: 'wrap',
@@ -200,7 +200,7 @@ const CampaignMap = ({ onNavigate }) => {
                                     </div>
 
                                     {/* Circle Layout for Nodes within a Round */}
-                                    <div style={{
+                                    <div className="round-nodes-container" style={{
                                         display: 'flex',
                                         flexWrap: 'wrap',
                                         justifyContent: 'center',
@@ -228,7 +228,7 @@ const CampaignMap = ({ onNavigate }) => {
                                             const nodeSize = isExam ? 90 : 65;
 
                                             return (
-                                                <div key={node.id} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '120px' }}>
+                                                <div key={node.id} className="campaign-node-item" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '120px' }}>
                                                     <div
                                                         id={`campaign-node-${node.id}`}
                                                         onClick={() => handleNodeClick(node, isActive, isCompleted)}

@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { useUser } from '../contexts/UserContext';
 import { supabase } from '../config/supabase';
+import LegalModals from './LegalModals';
 
 const ProfileSettings = ({ onClose }) => {
     const { currentUser, logout, updateProfileName } = useUser();
     const [fullName, setFullName] = useState('');
     const [saving, setSaving] = useState(false);
     const [message, setMessage] = useState('');
+    
+    // Legal Modals State
+    const [legalType, setLegalType] = useState(null);
 
     useEffect(() => {
         // Fetch current profile name
@@ -149,7 +153,19 @@ const ProfileSettings = ({ onClose }) => {
                 >
                     Log Out
                 </button>
+
+                <div style={{ marginTop: '20px', textAlign: 'center', fontSize: '0.8rem', color: 'rgba(255,255,255,0.2)', display: 'flex', justifyContent: 'center', gap: '15px' }}>
+                    <span onClick={() => setLegalType('privacy')} style={{ cursor: 'pointer' }}>Privacy Policy</span>
+                    <span onClick={() => setLegalType('terms')} style={{ cursor: 'pointer' }}>Terms of Service</span>
+                </div>
             </div>
+
+            {/* Legal Modals */}
+             <LegalModals 
+                isOpen={!!legalType} 
+                type={legalType} 
+                onClose={() => setLegalType(null)} 
+            />
         </div>
     );
 };

@@ -119,7 +119,7 @@ const TeacherDashboard = ({ onBack }) => {
     const classAverageScore = activeStudentCount === 0 ? 0 : Math.round((totalAverageSum / activeStudentCount) * 100);
 
     return (
-        <div className="dashboard-container">
+        <div className="dashboard-container teacher-dashboard">
             <header style={{ display: 'flex', flexWrap: 'wrap', gap: '20px', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '40px' }}>
                 <div>
                     <h1 style={{ fontSize: '2.5rem', marginBottom: '10px' }}>Teacher Overview</h1>
@@ -153,7 +153,7 @@ const TeacherDashboard = ({ onBack }) => {
             </header>
 
             {/* Class Stats Row */}
-            <div className="stats-grid" style={{ marginBottom: '40px', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '20px' }}>
+            <div className="stats-grid" style={{ marginBottom: '40px', gap: '20px' }}>
                 <div className="stat-card" style={{ background: 'var(--bg-panel)', padding: '25px', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.05)' }}>
                     <h3 style={{ color: 'var(--accent-purple)', margin: '0 0 10px 0' }}>Class Average Accuracy</h3>
                     <div style={{ fontSize: '3rem', fontWeight: '800' }}>{classAverageScore}%</div>
