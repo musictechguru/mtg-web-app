@@ -336,7 +336,7 @@ const MainApp = () => {
               onSelectQuiz={(quiz) => handleItemSelectWrapper({ type: 'lp_quiz', ...quiz })}
               onBack={goToDashboardWrapper}
             />
-          ) : activeItem.type === 'component3_exam' ? (
+          ) : (activeItem.type === 'component3_exam' || activeItem.type === 'component4_exam') ? (
             <Component3ExamPlayer
               examData={{ ...(EXAM_DATA_MAP[activeItem.id] || EXAM_DATA_MAP['default']), campaignNodeId: activeItem.campaignNodeId }}
               onExit={goToDashboardWrapper}

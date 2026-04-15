@@ -98,15 +98,27 @@ const CampaignMap = ({ onNavigate }) => {
                 };
             }
         } else if (node.type === 'exam') {
-            if (node.title.includes('Component 3')) {
-                const examNum = node.quizId === 'exam_1' ? 'c3_funk' : node.quizId === 'exam_3' ? 'c3_heavyrock' : 'c3_funk';
-                targetItem = { type: 'component3_exam', id: examNum, title: node.title, campaignNodeId: node.id };
-            } else if (node.title.includes('Component 4')) {
-                // Placeholder - We'll map to c4_edm or something later
-                targetItem = { type: 'component4_exam', id: 'c4_edm', title: node.title, campaignNodeId: node.id };
-            } else {
-                targetItem = { type: 'component3_exam', id: 'c3_funk', title: node.title, campaignNodeId: node.id };
+            let examId = 'c3_funk'; 
+            let examType = 'component3_exam';
+
+            if (node.quizId === 'exam_1') {
+                examId = 'c3_funk';
+                examType = 'component3_exam';
+            } else if (node.quizId === 'exam_2') {
+                examId = 'c4_edm';
+                examType = 'component4_exam';
+            } else if (node.quizId === 'exam_3') {
+                examId = 'c3_heavyrock';
+                examType = 'component3_exam';
+            } else if (node.quizId === 'exam_4') {
+                examId = 'c4_spop';
+                examType = 'component4_exam';
+            } else if (node.quizId === 'exam_5') {
+                examId = 'c3_synthpop';
+                examType = 'component3_exam';
             }
+
+            targetItem = { type: examType, id: examId, title: node.title, campaignNodeId: node.id };
         }
 
         if (targetItem) {
