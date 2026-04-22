@@ -170,7 +170,7 @@ export default function TimelineQuiz({ question, onResult, examMode = false, sho
 
     const handleReset = () => {
         setPlacedItems({});
-        setIsSubmitted({});
+        setIsSubmitted(false);
     };
 
     const checkItemCorrectness = (itemId) => {
