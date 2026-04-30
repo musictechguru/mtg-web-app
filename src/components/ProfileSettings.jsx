@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useUser } from '../contexts/UserContext';
+import UpdatePasswordModal from './UpdatePasswordModal';
 import { supabase } from '../config/supabase';
 import LegalModals from './LegalModals';
 
@@ -11,6 +12,8 @@ const ProfileSettings = ({ onClose }) => {
     
     // Legal Modals State
     const [legalType, setLegalType] = useState(null);
+    
+    const [showUpdatePassword, setShowUpdatePassword] = useState(false);
 
     useEffect(() => {
         // Fetch current profile name
@@ -147,6 +150,21 @@ const ProfileSettings = ({ onClose }) => {
                     </div>
                 )}
                 
+                <div style={{ marginBottom: '25px' }}>
+                    <h3 style={{ fontSize: '1rem', color: 'var(--text-secondary)', marginBottom: '12px' }}>Security</h3>
+                    <button 
+                        onClick={() => setShowUpdatePassword(true)}
+                        style={{ 
+                            width: '100%', padding: '12px', background: 'rgba(255, 255, 255, 0.05)', 
+                            border: '1px solid rgba(255, 255, 255, 0.2)', color: 'white', 
+                            borderRadius: '8px', cursor: 'pointer', fontWeight: '600' 
+                        }}
+                    >
+                        Change Password
+                    </button>
+                    <hr style={{ border: 'none', borderTop: '1px solid rgba(255,255,255,0.1)', margin: '25px 0' }} />
+                </div>
+
                 <button 
                     onClick={handleLogout}
                     style={{ width: '100%', padding: '12px', background: 'rgba(239, 68, 68, 0.1)', border: '1px solid rgba(239, 68, 68, 0.3)', color: '#ef4444', borderRadius: '8px', cursor: 'pointer', fontWeight: 'bold' }}
@@ -166,6 +184,10 @@ const ProfileSettings = ({ onClose }) => {
                 type={legalType} 
                 onClose={() => setLegalType(null)} 
             />
+
+            {showUpdatePassword && (
+                <UpdatePasswordModal onClose={() => setShowUpdatePassword(false)} />
+            )}
         </div>
     );
 };

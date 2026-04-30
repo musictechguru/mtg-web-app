@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useUser } from '../contexts/UserContext';
 
-const UpdatePasswordModal = () => {
+const UpdatePasswordModal = ({ onClose }) => {
     const { updatePassword } = useUser();
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
@@ -80,6 +80,18 @@ const UpdatePasswordModal = () => {
                         <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>
                             You can now continue to your dashboard.
                         </p>
+                        {onClose && (
+                            <button 
+                                onClick={onClose}
+                                style={{ 
+                                    width: '100%', padding: '12px', marginTop: '15px',
+                                    background: 'transparent', color: 'white', border: '1px solid rgba(255,255,255,0.2)', borderRadius: '8px',
+                                    fontWeight: '600', fontSize: '1rem', cursor: 'pointer'
+                                }}
+                            >
+                                Close
+                            </button>
+                        )}
                     </div>
                 ) : (
                     <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
@@ -114,18 +126,35 @@ const UpdatePasswordModal = () => {
                             />
                         </div>
 
-                        <button 
-                            type="submit"
-                            disabled={isSubmitting}
-                            style={{ 
-                                width: '100%', padding: '12px', marginTop: '10px',
-                                background: 'var(--accent-blue)', color: 'white', border: 'none', borderRadius: '8px',
-                                fontWeight: '600', fontSize: '1rem',
-                                opacity: isSubmitting ? 0.7 : 1, cursor: isSubmitting ? 'not-allowed' : 'pointer'
-                            }}
-                        >
-                            {isSubmitting ? 'Updating...' : 'Update Password'}
-                        </button>
+                        <div style={{ display: 'flex', gap: '10px', marginTop: '10px' }}>
+                            <button 
+                                type="submit"
+                                disabled={isSubmitting}
+                                style={{ 
+                                    flex: 1, padding: '12px',
+                                    background: 'var(--accent-blue)', color: 'white', border: 'none', borderRadius: '8px',
+                                    fontWeight: '600', fontSize: '1rem',
+                                    opacity: isSubmitting ? 0.7 : 1, cursor: isSubmitting ? 'not-allowed' : 'pointer'
+                                }}
+                            >
+                                {isSubmitting ? 'Updating...' : 'Update Password'}
+                            </button>
+                            {onClose && (
+                                <button 
+                                    type="button"
+                                    onClick={onClose}
+                                    disabled={isSubmitting}
+                                    style={{ 
+                                        flex: 1, padding: '12px',
+                                        background: 'transparent', color: 'white', border: '1px solid rgba(255,255,255,0.2)', borderRadius: '8px',
+                                        fontWeight: '600', fontSize: '1rem', cursor: 'pointer',
+                                        opacity: isSubmitting ? 0.7 : 1
+                                    }}
+                                >
+                                    Cancel
+                                </button>
+                            )}
+                        </div>
                     </form>
                 )}
             </div>
