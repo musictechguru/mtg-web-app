@@ -55,8 +55,10 @@ serve(async (req) => {
       const firstPriceId = lineItems.data[0]?.price?.id;
       
       const CLASSROOM_PRICES = [
-        'price_1TBY9LLxDAAultYKd6OrgvvY', // 5 seats
-        'price_1T9TUvLxDAAultYKPmTvNQh5'  // 10 seats
+        'price_1UD0U9LxDAAultYK3m7LkYHI', // 5 seats (new)
+        'price_1UD0UYLxDAAultYKzuhuzFdx', // 10 seats (new)
+        'price_1TBY9LLxDAAultYKd6OrgvvY', // 5 seats (legacy)
+        'price_1T9TUvLxDAAultYKPmTvNQh5'  // 10 seats (legacy)
       ];
 
       if (CLASSROOM_PRICES.includes(firstPriceId)) {

@@ -136,7 +136,7 @@ const PremiumLocked = ({ itemTitle }) => {
                         <div>
                             <h3 style={{ fontSize: '1.2rem', color: '#94a3b8', marginBottom: '10px' }}>Student Plan</h3>
                             <div style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '20px', color: '#e2e8f0' }}>
-                                £12.99 <span style={{ fontSize: '1rem', color: '#94a3b8', fontWeight: 'normal' }}>/ 3 Months</span>
+                                £12.99 <span style={{ fontSize: '1rem', color: '#94a3b8', fontWeight: 'normal' }}>/ Year</span>
                             </div>
                         </div>
 
@@ -161,10 +161,10 @@ const PremiumLocked = ({ itemTitle }) => {
                             }}
                             onMouseOver={(e) => { if (!loadingPlan) { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 6px 20px rgba(37, 99, 235, 0.6)'; } }}
                             onMouseOut={(e) => { if (!loadingPlan) { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 4px 15px rgba(37, 99, 235, 0.4)'; } }}
-                            onClick={() => handleUpgrade('price_1T9TUwLxDAAultYKsA9ZV4q1', 1, 'standard')}
+                            onClick={() => handleUpgrade('price_1UCgIwLxDAAultYKqyui6Qvv', 1, 'standard')}
                             disabled={loadingPlan !== null}
                         >
-                            {loadingPlan === 'price_1T9TUwLxDAAultYKsA9ZV4q1' ? (
+                            {loadingPlan === 'price_1UCgIwLxDAAultYKqyui6Qvv' ? (
                                 <>
                                     <svg className="animate-spin" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ animation: 'spin 1s linear infinite' }}>
                                         <path d="M21 12a9 9 0 1 1-6.219-8.56"></path>
@@ -219,10 +219,10 @@ const PremiumLocked = ({ itemTitle }) => {
                             }}
                             onMouseOver={(e) => { if (!loadingPlan) { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 6px 20px rgba(139, 92, 246, 0.6)'; } }}
                             onMouseOut={(e) => { if (!loadingPlan) { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 4px 15px rgba(139, 92, 246, 0.4)'; } }}
-                            onClick={() => handleUpgrade('price_1TBY9LLxDAAultYKd6OrgvvY', 5, 'classroom')}
+                            onClick={() => handleUpgrade('price_1UD0U9LxDAAultYK3m7LkYHI', 5, 'classroom')}
                             disabled={loadingPlan !== null}
                         >
-                            {loadingPlan === 'price_1TBY9LLxDAAultYKd6OrgvvY' ? (
+                            {loadingPlan === 'price_1UD0U9LxDAAultYK3m7LkYHI' ? (
                                 <>
                                     <svg className="animate-spin" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ animation: 'spin 1s linear infinite' }}>
                                         <path d="M21 12a9 9 0 1 1-6.219-8.56"></path>
@@ -277,10 +277,10 @@ const PremiumLocked = ({ itemTitle }) => {
                             }}
                             onMouseOver={(e) => { if (!loadingPlan) { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 6px 20px rgba(139, 92, 246, 0.6)'; } }}
                             onMouseOut={(e) => { if (!loadingPlan) { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 4px 15px rgba(139, 92, 246, 0.4)'; } }}
-                            onClick={() => handleUpgrade('price_1T9TUvLxDAAultYKPmTvNQh5', 10, 'classroom')}
+                            onClick={() => handleUpgrade('price_1UD0UYLxDAAultYKzuhuzFdx', 10, 'classroom')}
                             disabled={loadingPlan !== null}
                         >
-                            {loadingPlan === 'price_1T9TUvLxDAAultYKPmTvNQh5' ? (
+                            {loadingPlan === 'price_1UD0UYLxDAAultYKzuhuzFdx' ? (
                                 <>
                                     <svg className="animate-spin" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ animation: 'spin 1s linear infinite' }}>
                                         <path d="M21 12a9 9 0 1 1-6.219-8.56"></path>

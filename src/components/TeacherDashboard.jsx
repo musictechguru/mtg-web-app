@@ -79,7 +79,7 @@ const TeacherDashboard = ({ onBack }) => {
                         </div>
 
                         <button
-                            onClick={() => handleBuyLicenses('price_1TBY9LLxDAAultYKd6OrgvvY', 5)}
+                            onClick={() => handleBuyLicenses('price_1UD0U9LxDAAultYK3m7LkYHI', 5)}
                             disabled={buying}
                             className="btn-primary"
                             style={{ width: '100%', padding: '15px', fontSize: '1.1rem' }}
@@ -87,7 +87,7 @@ const TeacherDashboard = ({ onBack }) => {
                             {buying ? 'Preparing Checkout...' : 'Buy 5 Logins (£50)'}
                         </button>
                         <button
-                            onClick={() => handleBuyLicenses('price_1T9TUvLxDAAultYKPmTvNQh5', 10)}
+                            onClick={() => handleBuyLicenses('price_1UD0UYLxDAAultYKzuhuzFdx', 10)}
                             disabled={buying}
                             className="btn-primary"
                             style={{ width: '100%', padding: '15px', fontSize: '1.1rem', background: 'linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%)', border: 'none' }}
@@ -127,7 +127,7 @@ const TeacherDashboard = ({ onBack }) => {
                 </div>
                 <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
                     <button
-                        onClick={() => handleBuyLicenses('price_1TBY9LLxDAAultYKd6OrgvvY', 5)}
+                        onClick={() => handleBuyLicenses('price_1UD0U9LxDAAultYK3m7LkYHI', 5)}
                         disabled={buying}
                         className="btn-primary"
                         style={{ padding: '10px 20px' }}
@@ -135,7 +135,7 @@ const TeacherDashboard = ({ onBack }) => {
                         {buying ? 'Loading...' : '+5 Licenses (£50)'}
                     </button>
                     <button
-                        onClick={() => handleBuyLicenses('price_1T9TUvLxDAAultYKPmTvNQh5', 10)}
+                        onClick={() => handleBuyLicenses('price_1UD0UYLxDAAultYKzuhuzFdx', 10)}
                         disabled={buying}
                         className="btn-primary"
                         style={{ padding: '10px 20px', background: 'linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%)', border: 'none' }}
