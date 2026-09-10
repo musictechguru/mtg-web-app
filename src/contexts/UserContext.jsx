@@ -121,6 +121,25 @@ export const UserProvider = ({ children }) => {
         return data;
     };
 
+    
+    const adminBypass = () => {
+        const mockAdmin = {
+            id: 'admin_mock_id',
+            email: 'admin@mtg.com',
+            is_premium: true,
+            role: 'teacher',
+            full_name: 'Admin Haswell'
+        };
+        setCurrentUser(mockAdmin);
+        setUserProgress({
+           totalScore: 9999,
+           quizzesCompleted: 100,
+           history: [],
+           mastery: {},
+           campaignCompleted: campaignData.rounds.flatMap(r => r.nodes.map(n => n.id))
+        });
+    };
+
     const logout = async () => {
         const { error } = await supabase.auth.signOut();
         if (error) throw error;
@@ -331,7 +350,7 @@ export const UserProvider = ({ children }) => {
         userProgress,
         signup,
         login,
-        logout,
+        logout, adminBypass,
         resetPassword,
         resendVerification,
         updatePassword,

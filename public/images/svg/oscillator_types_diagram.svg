@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 640" width="100%" height="100%" style="background-color: #0b1120; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+  <rect width="960" height="640" fill="#0b1120"/>
+
+  <!-- Title & Header -->
+  <text x="480" y="44" fill="#f8fafc" font-size="24" font-weight="bold" text-anchor="middle" letter-spacing="1.5">SYNTHESIZER OSCILLATOR TYPES</text>
+  <text x="480" y="70" fill="#94a3b8" font-size="13.5" text-anchor="middle">Comparing how pitch stability, waveform generation, and circuit design differ</text>
+
+  <!-- Card 1: VCO (Voltage Controlled Oscillator) -->
+  <g transform="translate(45, 95)">
+    <rect width="270" height="420" rx="10" fill="#131e36" stroke="#3b82f6" stroke-width="1.8"/>
+    <rect width="270" height="40" rx="10" fill="#1d4ed8"/>
+    <text x="135" y="26" fill="#ffffff" font-size="15" font-weight="bold" text-anchor="middle">VCO</text>
+    <text x="135" y="62" fill="#93c5fd" font-size="12" font-weight="600" text-anchor="middle">Voltage Controlled Oscillator</text>
+
+    <!-- Visual schematic box -->
+    <rect x="20" y="75" width="230" height="100" rx="6" fill="#0f172a" stroke="#1e293b"/>
+    <text x="135" y="98" fill="#38bdf8" font-size="11" font-weight="bold" text-anchor="middle">PURE ANALOG CIRCUIT</text>
+    <path d="M 35 140 Q 60 115 85 140 T 135 140 T 185 140 T 235 140" fill="none" stroke="#38bdf8" stroke-width="2.5"/>
+    <text x="135" y="163" fill="#f59e0b" font-size="10.5" text-anchor="middle">Subject to temperature pitch drift</text>
+
+    <!-- Specs List -->
+    <g transform="translate(20, 195)">
+      <text x="0" y="0" fill="#38bdf8" font-size="11.5" font-weight="bold">Core Architecture:</text>
+      <text x="0" y="18" fill="#cbd5e1" font-size="11">100% analog discrete circuitry</text>
+
+      <text x="0" y="45" fill="#38bdf8" font-size="11.5" font-weight="bold">Pitch Control:</text>
+      <text x="0" y="63" fill="#cbd5e1" font-size="11">Analog Control Voltage (1V/Oct)</text>
+
+      <text x="0" y="90" fill="#38bdf8" font-size="11.5" font-weight="bold">Tuning Behavior:</text>
+      <text x="0" y="108" fill="#cbd5e1" font-size="11">Slight pitch instability &amp; drift</text>
+      <text x="0" y="124" fill="#94a3b8" font-size="10.5">Creates "organic warmth" / phasing</text>
+
+      <text x="0" y="152" fill="#38bdf8" font-size="11.5" font-weight="bold">Classic Examples:</text>
+      <text x="0" y="170" fill="#f8fafc" font-size="11">Minimoog, Prophet-5, Jupiter-8</text>
+    </g>
+  </g>
+
+  <!-- Card 2: DCO (Digitally Controlled Oscillator) -->
+  <g transform="translate(345, 95)">
+    <rect width="270" height="420" rx="10" fill="#131e36" stroke="#10b981" stroke-width="1.8"/>
+    <rect width="270" height="40" rx="10" fill="#047857"/>
+    <text x="135" y="26" fill="#ffffff" font-size="15" font-weight="bold" text-anchor="middle">DCO</text>
+    <text x="135" y="62" fill="#6ee7b7" font-size="12" font-weight="600" text-anchor="middle">Digitally Controlled Oscillator</text>
+
+    <!-- Visual schematic box -->
+    <rect x="20" y="75" width="230" height="100" rx="6" fill="#0f172a" stroke="#1e293b"/>
+    <text x="135" y="98" fill="#34d399" font-size="11" font-weight="bold" text-anchor="middle">ANALOG SOUND, DIGITAL CLOCK</text>
+    <path d="M 35 140 L 60 115 L 60 140 L 110 115 L 110 140 L 160 115 L 160 140 L 210 115 L 210 140 L 235 125" fill="none" stroke="#34d399" stroke-width="2.5"/>
+    <text x="135" y="163" fill="#34d399" font-size="10.5" text-anchor="middle">Rock-solid pitch stability</text>
+
+    <!-- Specs List -->
+    <g transform="translate(20, 195)">
+      <text x="0" y="0" fill="#34d399" font-size="11.5" font-weight="bold">Core Architecture:</text>
+      <text x="0" y="18" fill="#cbd5e1" font-size="11">Analog waveshaper with digital clock</text>
+
+      <text x="0" y="45" fill="#34d399" font-size="11.5" font-weight="bold">Pitch Control:</text>
+      <text x="0" y="63" fill="#cbd5e1" font-size="11">Microprocessor digital master clock</text>
+
+      <text x="0" y="90" fill="#34d399" font-size="11.5" font-weight="bold">Tuning Behavior:</text>
+      <text x="0" y="108" fill="#cbd5e1" font-size="11">Never drifts out of tune</text>
+      <text x="0" y="124" fill="#94a3b8" font-size="10.5">Analog tone without tuning hassle</text>
+
+      <text x="0" y="152" fill="#34d399" font-size="11.5" font-weight="bold">Classic Examples:</text>
+      <text x="0" y="170" fill="#f8fafc" font-size="11">Roland Juno-106, Juno-60</text>
+    </g>
+  </g>
+
+  <!-- Card 3: Digital / Wavetable / Algorithmic -->
+  <g transform="translate(645, 95)">
+    <rect width="270" height="420" rx="10" fill="#131e36" stroke="#a855f7" stroke-width="1.8"/>
+    <rect width="270" height="40" rx="10" fill="#7e22ce"/>
+    <text x="135" y="26" fill="#ffffff" font-size="15" font-weight="bold" text-anchor="middle">DIGITAL / DSP</text>
+    <text x="135" y="62" fill="#d8b4fe" font-size="12" font-weight="600" text-anchor="middle">DSP / Wavetable / FM Operators</text>
+
+    <!-- Visual schematic box -->
+    <rect x="20" y="75" width="230" height="100" rx="6" fill="#0f172a" stroke="#1e293b"/>
+    <text x="135" y="98" fill="#c084fc" font-size="11" font-weight="bold" text-anchor="middle">MATHEMATICAL CALCULATION</text>
+    <path d="M 35 140 L 48 118 L 62 145 L 78 122 L 95 138 L 115 115 L 140 148 L 170 120 L 200 142 L 235 125" fill="none" stroke="#c084fc" stroke-width="2"/>
+    <text x="135" y="163" fill="#c084fc" font-size="10.5" text-anchor="middle">Numbers computed by processor / DAC</text>
+
+    <!-- Specs List -->
+    <g transform="translate(20, 195)">
+      <text x="0" y="0" fill="#c084fc" font-size="11.5" font-weight="bold">Core Architecture:</text>
+      <text x="0" y="18" fill="#cbd5e1" font-size="11">Pure digital code &amp; lookup tables</text>
+
+      <text x="0" y="45" fill="#c084fc" font-size="11.5" font-weight="bold">Pitch Control:</text>
+      <text x="0" y="63" fill="#cbd5e1" font-size="11">Exact sample-rate math / phase accumulator</text>
+
+      <text x="0" y="90" fill="#c084fc" font-size="11.5" font-weight="bold">Tuning Behavior:</text>
+      <text x="0" y="108" fill="#cbd5e1" font-size="11">Absolute pitch precision</text>
+      <text x="0" y="124" fill="#94a3b8" font-size="10.5">Can scan evolving multi-wave tables</text>
+
+      <text x="0" y="152" fill="#c084fc" font-size="11.5" font-weight="bold">Classic Examples:</text>
+      <text x="0" y="170" fill="#f8fafc" font-size="11">Yamaha DX7, PPG Wave, Serum</text>
+    </g>
+  </g>
+
+  <!-- Footer Key Distinction -->
+  <g transform="translate(45, 530)">
+    <rect width="870" height="75" rx="8" fill="#172339" stroke="#334155" stroke-width="1.2"/>
+    <text x="25" y="27" fill="#38bdf8" font-size="13" font-weight="bold">Key Distinction (VCO vs DCO):</text>
+    <text x="25" y="47" fill="#cbd5e1" font-size="12">A <tspan fill="#34d399" font-weight="bold">DCO</tspan> is NOT a digital synth! It generates authentic analog audio waveforms, but uses a high-frequency digital clock</text>
+    <text x="25" y="63" fill="#cbd5e1" font-size="12">to reset the ramp circuit, providing rock-solid tuning stability while eliminating analog pitch drift.</text>
+  </g>
+</svg>

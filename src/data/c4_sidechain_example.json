@@ -1,0 +1,55 @@
+[
+  {
+    "type": "lesson",
+    "title": "Module: Sidechain Compression - Explanation",
+    "content": "<h1>Understanding Sidechain Compression</h1><p>In standard compression, the compressor monitors the volume of the audio track it is placed on. In <strong>Sidechain Compression</strong>, the compressor reacts to the volume of a <em>different</em> track (the key input).</p> <h2>Key Parameters</h2><ul><li><strong>Threshold:</strong> The level the key input must reach to trigger gain reduction.</li><li><strong>Ratio:</strong> How intensely the audio is reduced once triggered.</li><li><strong>Attack:</strong> How quickly the compressor reacts to the key input.</li><li><strong>Release:</strong> How quickly the audio returns to normal volume after the key input stops.</li></ul> <h3>Edexcel Context (AO4)</h3><p>Edexcel frequently tests sidechain gating and compression. In EDM, it is heavily used to 'duck' a bass or synth track whenever the kick drum hits, preventing low-frequency masking and creating a rhythmic 'pumping' effect.</p> <div class='video-placeholder' style='padding: 20px; background: rgba(255,255,255,0.05); text-align: center; border: 1px dashed rgba(255,255,255,0.2); margin: 20px 0;'>[Placeholder: Insert YouTube embed or Presentation iframe here]</div>"
+  },
+  {
+    "type": "lesson",
+    "title": "Practical Task: Sidechain Compression",
+    "content": "<h2>Your DAW Mission</h2><p>Download the provided stems below and complete the following task inside your DAW.</p><p><strong>Task:</strong> Apply sidechain compression to the Synth Chords track, using the Kick Drum as the key input. The chords must duck rhythmically with the kick.</p><ul><li>Step 1: Import the Kick and Synth Chords stems into your DAW.</li><li>Step 2: Place a compressor on the Synth Chords track.</li><li>Step 3: Route the Kick Drum track to the sidechain (key) input of the compressor.</li><li>Step 4: Adjust the threshold, ratio, and release time until you achieve a clear, rhythmic pumping effect without unnatural clicks.</li></ul> <h3>Marking Criteria (Levels-Based)</h3><ul><li><strong>Level 3 (3 marks):</strong> Synth chords duck cleanly exactly when the kick hits. Release time is musical and matches the tempo. No audio glitches.</li><li><strong>Level 2 (2 marks):</strong> Rhythm is generally correct but the ducking is too extreme/too subtle, or release time is slightly too long.</li><li><strong>Level 1 (1 mark):</strong> Sidechain is present but other bars are affected or incorrect rhythm.</li></ul> <div style='padding: 15px; background: rgba(59, 130, 246, 0.1); border-radius: 8px; margin-top: 20px;'><p><strong>Assets Required (Teacher Prep):</strong> <code>kick_drum.wav</code>, <code>synth_chords.wav</code> (120 BPM)</p></div>"
+  },
+  {
+    "type": "lp_quiz",
+    "title": "Knowledge Check: Sidechain Compression",
+    "description": "A quick test to verify your Component 4 knowledge on dynamic processing before advancing.",
+    "questions": [
+      {
+        "title": "Q1: Release Time Analysis",
+        "content": "When configuring a sidechain compressor to create a 'pumping' effect on a synth bass, what is the most likely result of setting the release time too fast?",
+        "type": "multi_choice",
+        "answers": [
+          {"text": "The bass will sound distorted and produce unnatural clicking (artefacts).", "is_true": "yes"},
+          {"text": "The bass will remain permanently quiet and not return to its original volume.", "is_true": "no"},
+          {"text": "The kick drum will become louder in the mix.", "is_true": "no"},
+          {"text": "The compressor will stop reacting to the key input entirely.", "is_true": "no"}
+        ],
+        "expert_explanation": "AO4: If the release time is too fast, the compressor stops reducing gain before the low-frequency waveform of the bass has completed a cycle, causing waveform distortion and audible clicking."
+      },
+      {
+        "title": "Q2: Signal Routing",
+        "content": "In a DAW, how is sidechain compression fundamentally different from standard compression?",
+        "type": "multi_choice",
+        "answers": [
+          {"text": "It uses an external audio signal to trigger the gain reduction on the target track.", "is_true": "yes"},
+          {"text": "It only compresses the high frequencies of a signal.", "is_true": "no"},
+          {"text": "It requires a ratio of infinity:1 to function correctly.", "is_true": "no"},
+          {"text": "It is applied directly to the master bus rather than individual tracks.", "is_true": "no"}
+        ],
+        "expert_explanation": "AO3: Sidechaining relies on routing a 'key input' (an external signal) into the detector circuit of the compressor, rather than having the compressor react to the track it is placed on."
+      },
+      {
+        "title": "Q3: Purpose in Mixing",
+        "content": "Which of the following is a primary mixing reason to use sidechain compression between a kick drum and a bass guitar?",
+        "type": "multi_choice",
+        "answers": [
+          {"text": "To prevent low-frequency masking and ensure the kick transient cuts through.", "is_true": "yes"},
+          {"text": "To add harmonic saturation and warmth to the bass guitar.", "is_true": "no"},
+          {"text": "To increase the overall dynamic range of the rhythm section.", "is_true": "no"},
+          {"text": "To artificially lengthen the decay of the kick drum.", "is_true": "no"}
+        ],
+        "expert_explanation": "AO4: Because the kick and bass share the same low-frequency range, they often mask each other. Sidechaining ducks the bass for a fraction of a second when the kick hits, creating space for the kick's transient."
+      }
+    ]
+  }
+]

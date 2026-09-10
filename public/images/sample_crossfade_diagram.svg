@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 420" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#1e293b" />
+    </linearGradient>
+    <linearGradient id="fadeInGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#22c55e" stop-opacity="0" />
+      <stop offset="100%" stop-color="#22c55e" stop-opacity="0.8" />
+    </linearGradient>
+    <linearGradient id="fadeOutGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.8" />
+      <stop offset="100%" stop-color="#38bdf8" stop-opacity="0" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="420" rx="14" fill="url(#bgGrad)" stroke="#334155" stroke-width="2" />
+
+  <!-- Badge Header -->
+  <rect x="30" y="24" width="240" height="32" rx="6" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5" />
+  <text x="150" y="45" fill="#38bdf8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="700" text-anchor="middle" letter-spacing="1">SAMPLE CROSSFADING</text>
+  <text x="290" y="46" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="500">Eliminating clicks and smoothing loop transitions across boundary edits</text>
+
+  <!-- TOP PANEL: Without Crossfade (Problem - Click/Pop) -->
+  <g transform="translate(50, 75)">
+    <rect x="0" y="0" width="700" height="105" rx="6" fill="#0b1120" stroke="#ef4444" stroke-width="1" stroke-opacity="0.6" />
+    <text x="15" y="20" fill="#ef4444" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="700">WITHOUT CROSSFADE: Phase Discontinuity (Audible Click)</text>
+    <line x1="0" y1="60" x2="700" y2="60" stroke="#1e293b" stroke-width="1" />
+    
+    <!-- Wave 1 ending high -->
+    <path d="M 10,60 C 50,20 90,100 130,60 C 170,20 210,100 250,60 C 290,20 320,30 350,25" fill="none" stroke="#38bdf8" stroke-width="2" />
+    
+    <!-- Splice Line -->
+    <line x1="350" y1="10" x2="350" y2="100" stroke="#ef4444" stroke-width="2" stroke-dasharray="3,3" />
+    
+    <!-- Sudden Discontinuity Step (Click!) -->
+    <line x1="350" y1="25" x2="350" y2="85" stroke="#ef4444" stroke-width="3.5" />
+    <circle cx="350" cy="55" r="16" fill="#ef4444" fill-opacity="0.2" stroke="#ef4444" stroke-width="1.5" />
+    <text x="350" y="59" fill="#f87171" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" font-weight="800" text-anchor="middle">CLICK!</text>
+
+    <!-- Wave 2 starting low -->
+    <path d="M 350,85 C 380,95 420,20 460,60 C 500,100 540,20 580,60 C 620,100 660,20 690,60" fill="none" stroke="#22c55e" stroke-width="2" />
+  </g>
+
+  <!-- BOTTOM PANEL: With Crossfade (Solution - Smooth Transition) -->
+  <g transform="translate(50, 195)">
+    <rect x="0" y="0" width="700" height="120" rx="6" fill="#0b1120" stroke="#22c55e" stroke-width="1" stroke-opacity="0.6" />
+    <text x="15" y="20" fill="#22c55e" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="700">WITH EQUAL-POWER CROSSFADE: Seamless Blended Transition</text>
+    <line x1="0" y1="70" x2="700" y2="70" stroke="#1e293b" stroke-width="1" />
+
+    <!-- Crossfade Zone Highlight -->
+    <rect x="250" y="5" width="200" height="110" fill="#22c55e" fill-opacity="0.08" stroke="#334155" stroke-dasharray="2,2" />
+    <text x="350" y="22" fill="#e2e8f0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" font-weight="600" text-anchor="middle">CROSSFADE REGION</text>
+
+    <!-- Fade Out Curve (Blue Wave Fading Down) -->
+    <path d="M 250,40 Q 330,50 450,70" fill="none" stroke="#38bdf8" stroke-width="2.5" />
+    <!-- Fade In Curve (Green Wave Fading Up) -->
+    <path d="M 250,70 Q 370,50 450,40" fill="none" stroke="#22c55e" stroke-width="2.5" />
+
+    <!-- Pre-crossfade audio -->
+    <path d="M 10,70 C 50,30 90,110 130,70 C 170,30 210,110 250,70" fill="none" stroke="#38bdf8" stroke-width="2" />
+    <!-- Post-crossfade audio -->
+    <path d="M 450,70 C 490,110 530,30 570,70 C 610,110 650,30 690,70" fill="none" stroke="#22c55e" stroke-width="2" />
+
+    <!-- Fade curve arrows -->
+    <text x="275" y="52" fill="#38bdf8" font-size="10" font-weight="600">Fade-Out ↘</text>
+    <text x="400" y="52" fill="#22c55e" font-size="10" font-weight="600">↗ Fade-In</text>
+    <text x="350" y="105" fill="#4ade80" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" font-weight="700" text-anchor="middle">✓ Constant Volume • 0 Clicks / Pops</text>
+  </g>
+
+  <!-- Footer Information Strip -->
+  <rect x="50" y="330" width="700" height="68" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1" />
+  <text x="70" y="354" fill="#38bdf8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="700">PRIMARY STUDIO APPLICATIONS OF CROSSFADING:</text>
+  <text x="70" y="374" fill="#e2e8f0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11">1. <strong style="fill:#38bdf8;">Sample Looping:</strong> Blends loop tail into loop head for infinite smooth sustain on strings, flutes, and synths.</text>
+  <text x="70" y="390" fill="#e2e8f0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11">2. <strong style="fill:#38bdf8;">Audio Comping &amp; Splicing:</strong> Seamlessly joins two different takes without abrupt phase clashes or clicks.</text>
+</svg>

@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 460" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#1e293b" />
+    </linearGradient>
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="460" rx="14" fill="url(#bgGrad)" stroke="#334155" stroke-width="2" />
+
+  <!-- Header Badge -->
+  <rect x="30" y="20" width="315" height="32" rx="6" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5" />
+  <text x="187" y="41" fill="#38bdf8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="700" text-anchor="middle" letter-spacing="1">EXPANSION: UPWARD vs DOWNWARD</text>
+  <text x="360" y="41" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="500">How expanders increase dynamic range above or below the threshold</text>
+
+  <!-- Left Panel: Downward Expansion -->
+  <g transform="translate(30, 68)">
+    <rect width="355" height="288" rx="10" fill="url(#cardGrad)" stroke="#334155" stroke-width="1.5" />
+    
+    <!-- Title Badge -->
+    <rect x="16" y="16" width="165" height="24" rx="4" fill="#38bdf8" fill-opacity="0.15" stroke="#38bdf8" stroke-width="1" />
+    <text x="98" y="32" fill="#38bdf8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="700" text-anchor="middle">DOWNWARD EXPANSION</text>
+    <text x="195" y="32" fill="#cbd5e1" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11.5" font-weight="600">Lowers Quiet Sounds</text>
+
+    <!-- Transfer Graph Box -->
+    <rect x="16" y="48" width="323" height="136" rx="6" fill="#0b1120" stroke="#1e293b" />
+
+    <!-- Grid lines -->
+    <line x1="45" y1="165" x2="315" y2="165" stroke="#334155" stroke-width="1" /> <!-- In Axis -->
+    <line x1="45" y1="65" x2="45" y2="165" stroke="#334155" stroke-width="1" /> <!-- Out Axis -->
+    <text x="315" y="177" fill="#64748b" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8" text-anchor="end">INPUT</text>
+    <text x="40" y="65" fill="#64748b" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8" text-anchor="end">OUTPUT</text>
+
+    <!-- 1:1 Reference Line (Dashed) -->
+    <line x1="45" y1="165" x2="280" y2="65" stroke="#475569" stroke-width="1" stroke-dasharray="3" />
+    <text x="282" y="70" fill="#64748b" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="7.5">1:1 Unity</text>
+
+    <!-- Threshold Point (-20 dB) -->
+    <line x1="160" y1="60" x2="160" y2="165" stroke="#facc15" stroke-width="1.2" stroke-dasharray="3" />
+    <text x="160" y="58" fill="#facc15" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8" font-weight="700" text-anchor="middle">THRESHOLD</text>
+    <circle cx="160" cy="116" r="4" fill="#facc15" />
+
+    <!-- Downward Expander Curve -->
+    <!-- Above threshold: 1:1 linear slope (uncompressed peaks untouched) -->
+    <line x1="160" y1="116" x2="270" y2="69" stroke="#10b981" stroke-width="3" />
+    <text x="220" y="85" fill="#34d399" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" font-weight="700">Peaks Untouched</text>
+
+    <!-- Below threshold: Steeper downward slope (attenuating quiet sounds) -->
+    <line x1="45" y1="165" x2="160" y2="116" stroke="#ef4444" stroke-width="3" />
+    <path d="M 45,165 L 160,116 L 160,165 Z" fill="#ef4444" fill-opacity="0.15" />
+    
+    <!-- Downward Action Arrow -->
+    <text x="95" y="135" fill="#f87171" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9" font-weight="800">Pushed Down!</text>
+    <text x="95" y="147" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="7.5">Quiet bleed attenuated</text>
+
+    <!-- Result Banner -->
+    <rect x="16" y="194" width="323" height="42" rx="4" fill="#0f172a" stroke="#1e293b" />
+    <text x="26" y="211" fill="#38bdf8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10.5" font-weight="700">• Operates on signals BELOW the threshold level</text>
+    <text x="26" y="226" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9.5">• Attenuates noise, hum, and bleed smoothly (gentler than a gate)</text>
+
+    <!-- Primary Application Tag -->
+    <text x="177" y="258" fill="#e2e8f0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10.5" font-weight="600" text-anchor="middle">Primary Use: <tspan fill="#38bdf8" font-weight="700">Noise reduction &amp; decay cleanup</tspan></text>
+    <text x="177" y="272" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9" text-anchor="middle">Silences tom bleed and vocal breath noise naturally</text>
+  </g>
+
+  <!-- Right Panel: Upward Expansion -->
+  <g transform="translate(415, 68)">
+    <rect width="355" height="288" rx="10" fill="url(#cardGrad)" stroke="#10b981" stroke-width="1.5" />
+    
+    <!-- Title Badge -->
+    <rect x="16" y="16" width="155" height="24" rx="4" fill="#10b981" fill-opacity="0.15" stroke="#10b981" stroke-width="1" />
+    <text x="93" y="32" fill="#34d399" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="700" text-anchor="middle">UPWARD EXPANSION</text>
+    <text x="182" y="32" fill="#cbd5e1" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11.5" font-weight="600">Boosts Loud Peaks</text>
+
+    <!-- Transfer Graph Box -->
+    <rect x="16" y="48" width="323" height="136" rx="6" fill="#0b1120" stroke="#1e293b" />
+
+    <!-- Grid lines -->
+    <line x1="45" y1="165" x2="315" y2="165" stroke="#334155" stroke-width="1" /> <!-- In Axis -->
+    <line x1="45" y1="65" x2="45" y2="165" stroke="#334155" stroke-width="1" /> <!-- Out Axis -->
+    <text x="315" y="177" fill="#64748b" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8" text-anchor="end">INPUT</text>
+    <text x="40" y="65" fill="#64748b" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8" text-anchor="end">OUTPUT</text>
+
+    <!-- 1:1 Reference Line (Dashed) -->
+    <line x1="45" y1="165" x2="280" y2="65" stroke="#475569" stroke-width="1" stroke-dasharray="3" />
+    <text x="282" y="75" fill="#64748b" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="7.5">1:1 Unity</text>
+
+    <!-- Threshold Point (-10 dB) -->
+    <line x1="160" y1="60" x2="160" y2="165" stroke="#facc15" stroke-width="1.2" stroke-dasharray="3" />
+    <text x="160" y="58" fill="#facc15" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8" font-weight="700" text-anchor="middle">THRESHOLD</text>
+    <circle cx="160" cy="116" r="4" fill="#facc15" />
+
+    <!-- Upward Expander Curve -->
+    <!-- Below threshold: 1:1 linear slope (quiet parts pass through untouched) -->
+    <line x1="45" y1="165" x2="160" y2="116" stroke="#94a3b8" stroke-width="2.5" />
+    <text x="90" y="148" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5">Quiet Sounds Untouched</text>
+
+    <!-- Above threshold: STEEPER upward curve (boosting signals that cross threshold) -->
+    <path d="M 160,116 Q 210,80 270,54" fill="none" stroke="#34d399" stroke-width="3" />
+    <path d="M 160,116 L 270,69 L 270,54 Z" fill="#34d399" fill-opacity="0.25" />
+
+    <!-- Upward Action Arrow -->
+    <text x="235" y="85" fill="#34d399" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9" font-weight="800">Boosted UP!</text>
+    <text x="235" y="96" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="7.5">+4 dB to +6 dB Peak Snap</text>
+
+    <!-- Result Banner -->
+    <rect x="16" y="194" width="323" height="42" rx="4" fill="#0f172a" stroke="#1e293b" />
+    <text x="26" y="211" fill="#34d399" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10.5" font-weight="700">• Operates on signals ABOVE the threshold level</text>
+    <text x="26" y="226" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9.5">• Amplifies transients to exaggerate impact and restore lost punch</text>
+
+    <!-- Primary Application Tag -->
+    <text x="177" y="258" fill="#e2e8f0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10.5" font-weight="600" text-anchor="middle">Primary Use: <tspan fill="#34d399" font-weight="700">Transient punch &amp; impact enhancement</tspan></text>
+    <text x="177" y="272" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9" text-anchor="middle">Restores dynamics to squashed or lifeless drum tracks</text>
+  </g>
+
+  <!-- Bottom Exam Summary Bar -->
+  <g transform="translate(30, 374)">
+    <rect width="740" height="66" rx="8" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5" />
+    <circle cx="36" cy="33" r="14" fill="#38bdf8" fill-opacity="0.2" stroke="#38bdf8" stroke-width="1.5" />
+    <text x="36" y="38" fill="#38bdf8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="900" text-anchor="middle">i</text>
+    
+    <text x="64" y="26" fill="#f8fafc" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="700">Edexcel Exam Tip: Both Processors INCREASE Dynamic Range</text>
+    <text x="64" y="44" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10.5">Unlike compressors (which reduce dynamic range), all expanders widen the gap between loud and quiet.</text>
+    <text x="64" y="58" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10.5">Downward expansion lowers signals below threshold; Upward expansion boosts peaks above threshold.</text>
+  </g>
+</svg>

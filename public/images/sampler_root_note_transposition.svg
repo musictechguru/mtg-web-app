@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 420" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#1e293b" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="420" rx="14" fill="url(#bgGrad)" stroke="#334155" stroke-width="2" />
+
+  <!-- Badge Header -->
+  <rect x="30" y="20" width="280" height="30" rx="6" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5" />
+  <text x="170" y="40" fill="#38bdf8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="700" text-anchor="middle" letter-spacing="1">ROOT NOTE &amp; KEY TRACKING</text>
+  <text x="330" y="41" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="500">Transposing a sample by altering its playback speed</text>
+
+  <!-- PIANO KEYBOARD DISPLAY (One Octave C4 to C5) -->
+  <g transform="translate(160, 100)">
+    <rect x="-10" y="-8" width="495" height="110" rx="8" fill="#0b1120" stroke="#475569" stroke-width="1.5" />
+
+    <!-- 8 White Keys: C4, D4, E4, F4, G4, A4, B4, C5 -->
+    <!-- C4 (Root Key 60) - Highlighted in Blue -->
+    <rect x="0" y="0" width="58" height="95" rx="4" fill="#bae6fd" stroke="#0284c7" stroke-width="2.5" />
+    <text x="29" y="80" fill="#0369a1" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="800" text-anchor="middle">C4</text>
+    <text x="29" y="91" fill="#0284c7" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9" font-weight="700" text-anchor="middle">(60)</text>
+
+    <!-- D4 (62) -->
+    <rect x="60" y="0" width="58" height="95" rx="4" fill="#f8fafc" stroke="#334155" stroke-width="1" />
+    <text x="89" y="80" fill="#64748b" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="700" text-anchor="middle">D4</text>
+
+    <!-- E4 (Target Key 64) - Highlighted in Amber -->
+    <rect x="120" y="0" width="58" height="95" rx="4" fill="#fef3c7" stroke="#f59e0b" stroke-width="2.5" />
+    <text x="149" y="80" fill="#b45309" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="800" text-anchor="middle">E4</text>
+    <text x="149" y="91" fill="#d97706" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9" font-weight="700" text-anchor="middle">(64)</text>
+
+    <!-- F4 (65) -->
+    <rect x="180" y="0" width="58" height="95" rx="4" fill="#f8fafc" stroke="#334155" stroke-width="1" />
+    <text x="209" y="80" fill="#64748b" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="700" text-anchor="middle">F4</text>
+
+    <!-- G4 (67) -->
+    <rect x="240" y="0" width="58" height="95" rx="4" fill="#f8fafc" stroke="#334155" stroke-width="1" />
+    <text x="269" y="80" fill="#64748b" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="700" text-anchor="middle">G4</text>
+
+    <!-- A4 (69) -->
+    <rect x="300" y="0" width="58" height="95" rx="4" fill="#f8fafc" stroke="#334155" stroke-width="1" />
+    <text x="329" y="80" fill="#64748b" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="700" text-anchor="middle">A4</text>
+
+    <!-- B4 (71) -->
+    <rect x="360" y="0" width="58" height="95" rx="4" fill="#f8fafc" stroke="#334155" stroke-width="1" />
+    <text x="389" y="80" fill="#64748b" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="700" text-anchor="middle">B4</text>
+
+    <!-- C5 (72) -->
+    <rect x="420" y="0" width="55" height="95" rx="4" fill="#f8fafc" stroke="#334155" stroke-width="1" />
+    <text x="447" y="80" fill="#64748b" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="700" text-anchor="middle">C5</text>
+
+    <!-- Black Keys -->
+    <g fill="#1e293b" stroke="#0f172a" stroke-width="1">
+      <rect x="42" y="0" width="34" height="55" rx="3" />  <!-- C#4 -->
+      <rect x="102" y="0" width="34" height="55" rx="3" /> <!-- D#4 -->
+      <rect x="222" y="0" width="34" height="55" rx="3" /> <!-- F#4 -->
+      <rect x="282" y="0" width="34" height="55" rx="3" /> <!-- G#4 -->
+      <rect x="342" y="0" width="34" height="55" rx="3" /> <!-- A#4 -->
+    </g>
+
+    <!-- Transposition Curved Arc from C4 to E4 -->
+    <path d="M 29,-10 Q 89,-30 149,-10" fill="none" stroke="#f59e0b" stroke-width="2.5" />
+    <polygon points="151,-8 142,-15 145,-5" fill="#f59e0b" />
+    
+    <!-- Arc Tag -->
+    <rect x="42" y="-38" width="95" height="20" rx="4" fill="#78350f" stroke="#f59e0b" stroke-width="1" />
+    <text x="89" y="-24" fill="#fde68a" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" font-weight="800" text-anchor="middle">+4 SEMITONES</text>
+  </g>
+
+  <!-- TWO COMPARISON PANELS: Root Key vs Triggered Key -->
+  <!-- LEFT PANEL: Root Key C4 (Native Speed) -->
+  <g transform="translate(50, 222)">
+    <rect x="0" y="0" width="335" height="100" rx="8" fill="#0b1120" stroke="#0284c7" stroke-width="1.5" />
+    <rect x="15" y="10" width="160" height="20" rx="4" fill="#0369a1" />
+    <text x="95" y="24" fill="#ffffff" font-size="11" font-weight="700" text-anchor="middle">ROOT KEY: C4 (Note 60)</text>
+
+    <!-- Waveform Representation (Normal length) -->
+    <rect x="15" y="36" width="200" height="24" rx="3" fill="#082f49" stroke="#38bdf8" stroke-width="1" />
+    <path d="M 18,48 Q 30,38 42,48 T 66,48 T 90,48 T 114,48 T 138,48 T 162,48 T 186,48 L 212,48" fill="none" stroke="#38bdf8" stroke-width="2" />
+    <text x="225" y="52" fill="#38bdf8" font-size="10" font-weight="700">1.0x Speed</text>
+
+    <text x="15" y="76" fill="#cbd5e1" font-size="11">• Pitch: <tspan fill="#38bdf8" font-weight="700">Native 261.6 Hz (Original)</tspan></text>
+    <text x="15" y="91" fill="#cbd5e1" font-size="11">• Duration: <tspan fill="#38bdf8" font-weight="700">Natural Original Length (100%)</tspan></text>
+  </g>
+
+  <!-- RIGHT PANEL: Triggered Key E4 (Faster / Shorter) -->
+  <g transform="translate(415, 222)">
+    <rect x="0" y="0" width="335" height="100" rx="8" fill="#0b1120" stroke="#f59e0b" stroke-width="1.5" />
+    <rect x="15" y="10" width="180" height="20" rx="4" fill="#78350f" />
+    <text x="105" y="24" fill="#fde68a" font-size="11" font-weight="700" text-anchor="middle">TRIGGERED KEY: E4 (Note 64)</text>
+
+    <!-- Waveform Representation (Compressed / Shorter length) -->
+    <rect x="15" y="36" width="155" height="24" rx="3" fill="#451a03" stroke="#f59e0b" stroke-width="1" />
+    <path d="M 18,48 Q 26,38 34,48 T 50,48 T 66,48 T 82,48 T 98,48 T 114,48 T 130,48 T 146,48 L 167,48" fill="none" stroke="#f59e0b" stroke-width="2" />
+    <text x="180" y="52" fill="#f59e0b" font-size="10" font-weight="700">1.26x Speed</text>
+
+    <text x="15" y="76" fill="#cbd5e1" font-size="11">• Pitch: <tspan fill="#f59e0b" font-weight="700">Transposed Up (+4 Semitones)</tspan></text>
+    <text x="15" y="91" fill="#cbd5e1" font-size="11">• Duration: <tspan fill="#f59e0b" font-weight="700">Shorter (Played Back Faster)</tspan></text>
+  </g>
+
+  <!-- Footer Information Strip -->
+  <rect x="50" y="332" width="700" height="70" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1" />
+  <text x="70" y="354" fill="#38bdf8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="700">VARISPEED TRANSPOSITION PRINCIPLE:</text>
+  <text x="70" y="373" fill="#cbd5e1" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11">To raise pitch, the sampler clocks audio out of memory faster (2^(4/12) ≈ 1.26x speed for +4 semitones).</text>
+  <text x="70" y="390" fill="#cbd5e1" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11">This shifts the pitch up to E4, but naturally shortens the sample's duration unless time-stretched.</text>
+</svg>

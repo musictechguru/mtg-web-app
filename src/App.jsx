@@ -44,16 +44,71 @@ const EXAM_DATA_MAP = {
   'default': component3FunkData
 };
 
+const isDev = Boolean(
+  import.meta.env.DEV ||
+  (typeof window !== 'undefined' && (
+    window.location.search.includes('dev=true') ||
+    localStorage.getItem('dev_mode') === 'true'
+  ))
+);
+
+const findCourseItem = (idOrTitle) => {
+  if (!idOrTitle) return null;
+  for (const section of courseData.sections || []) {
+    for (const item of section.items || []) {
+      if (item.id === idOrTitle || item.title === idOrTitle) {
+        return item;
+      }
+    }
+  }
+  return null;
+};
+
 // Logic Component
 const MainApp = () => {
   const { currentUser, userProgress, logout, loading, needsPasswordReset } = useUser();
-  const [activeItem, setActiveItem] = useState(null);
+  const [activeItem, setActiveItem] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      const quizParam = params.get('quiz') || (isDev ? sessionStorage.getItem('mtg_dev_quiz') : null);
+      if (quizParam) {
+        if (quizParam === 'dictionary_selector') {
+          return { type: 'dictionary_selector', title: 'Dictionary Quizzes' };
+        }
+        const found = findCourseItem(quizParam);
+        if (found) return found;
+      }
+    }
+    return null;
+  });
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showWelcomeVideo, setShowWelcomeVideo] = useState(false);
-  const [expandedTopic, setExpandedTopic] = useState(null);
+  const [expandedTopic, setExpandedTopic] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      const quizParam = params.get('quiz') || (isDev ? sessionStorage.getItem('mtg_dev_quiz') : null);
+      if (quizParam) {
+        const found = findCourseItem(quizParam);
+        if (found && found.title && found.title.includes("Topic")) {
+          return found.title.split(" (Part")[0];
+        }
+      }
+    }
+    return null;
+  });
   const [appView, setAppView] = useState('student');
   const [inviteTeacherId, setInviteTeacherId] = useState(null);
   const [showProfileSettings, setShowProfileSettings] = useState(false);
+
+  // When courseData updates via Vite HMR, keep the currently active item updated with the new questions
+  useEffect(() => {
+    if (activeItem && (activeItem.id || activeItem.title)) {
+      const refreshed = findCourseItem(activeItem.id || activeItem.title);
+      if (refreshed && refreshed !== activeItem) {
+        setActiveItem(refreshed);
+      }
+    }
+  }, [courseData]);
 
   useEffect(() => {
     // Diagnostic: Log Supabase URL to ensure correct environment
@@ -119,10 +174,29 @@ const MainApp = () => {
 
     setActiveItem(item);
     window.scrollTo(0, 0);
+
+    if (typeof window !== 'undefined') {
+      const url = new URL(window.location.href);
+      const quizId = item.id || item.title || (item.type === 'dictionary_selector' ? 'dictionary_selector' : null);
+      if (quizId) {
+        url.searchParams.set('quiz', quizId);
+        if (isDev) {
+          sessionStorage.setItem('mtg_dev_quiz', quizId);
+        }
+      }
+      window.history.replaceState({}, '', url.toString());
+    }
   };
 
   const goToDashboard = () => {
     setActiveItem(null);
+    if (typeof window !== 'undefined') {
+      const url = new URL(window.location.href);
+      url.searchParams.delete('quiz');
+      url.searchParams.delete('q');
+      sessionStorage.removeItem('mtg_dev_quiz');
+      window.history.replaceState({}, '', url.toString());
+    }
   };
 
 
@@ -213,8 +287,7 @@ const MainApp = () => {
           <button
             className={`nav-item ${activeItem?.type === 'dictionary_selector' ? 'active' : ''}`}
             onClick={() => {
-              setActiveItem({ type: 'dictionary_selector', title: 'Dictionary Quizzes' });
-              setMobileMenuOpen(false);
+              handleItemSelectWrapper({ type: 'dictionary_selector', title: 'Dictionary Quizzes' });
             }}
             style={{ marginBottom: '20px', fontWeight: 'bold', color: 'var(--accent-success)', border: '1px solid var(--accent-success)' }}
           >

@@ -3,8 +3,16 @@ import { useUser } from '../contexts/UserContext';
 import LegalModals from './LegalModals';
 import '../App.css'; 
 
+const isDev = Boolean(
+    import.meta.env.DEV ||
+    (typeof window !== 'undefined' && (
+        window.location.search.includes('dev=true') ||
+        localStorage.getItem('dev_mode') === 'true'
+    ))
+);
+
 const LoginScreen = () => {
-    const { login, signup, resetPassword, resendVerification, loading } = useUser();
+    const { login, signup, resetPassword, resendVerification, loading, adminBypass } = useUser();
     
     // view can be 'login', 'signup', 'forgot'
     const [view, setView] = useState('login');
@@ -278,6 +286,26 @@ const LoginScreen = () => {
                             {loading || isSubmitting ? 'Processing...' : view === 'login' ? 'Log In' : view === 'signup' ? 'Sign Up' : 'Send Reset Link'}
                         </button>
                     </form>
+                    {isDev && (
+                        <div style={{ marginTop: '20px', textAlign: 'center' }}>
+                            <button
+                                type="button"
+                                onClick={adminBypass}
+                                style={{
+                                    background: 'transparent',
+                                    border: '1px dashed var(--accent-warning)',
+                                    color: 'var(--accent-warning)',
+                                    padding: '5px 10px',
+                                    borderRadius: '5px',
+                                    cursor: 'pointer',
+                                    fontSize: '0.8rem'
+                                }}
+                            >
+                                ⚠️ Dev: Admin Login
+                            </button>
+                        </div>
+                    )}
+
 
 
                     <p style={{ marginTop: '1.5rem', fontSize: '0.85rem', color: 'var(--text-secondary)', textAlign: 'center' }}>

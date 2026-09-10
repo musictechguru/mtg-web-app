@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" style="background-color: #0f172a; font-family: 'Inter', system-ui, -apple-system, sans-serif;">
+  <!-- Title Header -->
+  <text x="400" y="45" fill="#f8fafc" font-size="22" font-weight="700" text-anchor="middle">ADAT Lightpipe (Optical Digital Connection)</text>
+  <text x="400" y="72" fill="#94a3b8" font-size="14" text-anchor="middle">8 Channels of 24-bit Digital Audio via Pulses of Light (Toslink)</text>
+
+  <!-- Fiber Optic Cable Body -->
+  <path d="M 60 225 C 180 225, 220 225, 340 225" fill="none" stroke="#334155" stroke-width="28" stroke-linecap="round"/>
+  <path d="M 60 225 C 180 225, 220 225, 340 225" fill="none" stroke="#1e293b" stroke-width="20" stroke-linecap="round"/>
+
+  <!-- Optical Glow in Cable -->
+  <path d="M 60 225 C 180 225, 220 225, 340 225" fill="none" stroke="#ef4444" stroke-width="6" opacity="0.8"/>
+  <path d="M 60 225 C 180 225, 220 225, 340 225" fill="none" stroke="#fca5a5" stroke-width="2" opacity="0.9"/>
+
+  <!-- Toslink Connector Shell -->
+  <g transform="translate(340, 165)">
+    <!-- Strain Relief -->
+    <rect x="0" y="45" width="25" height="30" rx="3" fill="#1e293b" stroke="#475569" stroke-width="2"/>
+    <!-- Metal/Plastic Plug Body -->
+    <rect x="25" y="30" width="80" height="60" rx="6" fill="#1e293b" stroke="#64748b" stroke-width="2"/>
+    <!-- Grip ridges -->
+    <line x1="45" y1="36" x2="45" y2="84" stroke="#475569" stroke-width="3"/>
+    <line x1="55" y1="36" x2="55" y2="84" stroke="#475569" stroke-width="3"/>
+    <line x1="65" y1="36" x2="65" y2="84" stroke="#475569" stroke-width="3"/>
+    <text x="65" y="70" fill="#94a3b8" font-size="10" font-weight="600" text-anchor="middle">ADAT</text>
+
+    <!-- Ferrule Nose (Toslink tip) -->
+    <path d="M 105 38 L 140 45 L 140 75 L 105 82 Z" fill="#0f172a" stroke="#cbd5e1" stroke-width="2"/>
+    <!-- Optical Fiber Core Pin -->
+    <rect x="140" y="54" width="16" height="12" rx="2" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.5"/>
+    
+    <!-- Red Light Beam Emitter -->
+    <circle cx="156" cy="60" r="5" fill="#ff0044" />
+    <circle cx="156" cy="60" r="10" fill="#ff0044" opacity="0.4" />
+    <circle cx="156" cy="60" r="18" fill="#ff0044" opacity="0.15" />
+  </g>
+
+  <!-- Optical Light Transmission / Data Pulses -->
+  <g transform="translate(520, 225)">
+    <!-- Light Beam Cones -->
+    <path d="M 0 0 L 160 -45 L 160 45 Z" fill="url(#redGlow)" opacity="0.45"/>
+    <line x1="0" y1="0" x2="160" y2="0" stroke="#ff0055" stroke-width="4"/>
+    <line x1="0" y1="0" x2="160" y2="0" stroke="#fff" stroke-width="1.5" opacity="0.8"/>
+
+    <!-- Data Bits Floating -->
+    <text x="30" y="-12" fill="#fca5a5" font-size="11" font-family="monospace">1 0 1 1 0</text>
+    <text x="80" y="20" fill="#fca5a5" font-size="11" font-family="monospace">0 1 0 0 1</text>
+    <text x="70" y="-22" fill="#ffedd5" font-size="10" font-weight="600">PULSES OF LIGHT</text>
+
+    <!-- Target Audio Interface Optical Port -->
+    <rect x="160" y="-45" width="40" height="90" rx="4" fill="#1e293b" stroke="#38bdf8" stroke-width="2"/>
+    <rect x="165" y="-20" width="15" height="40" rx="2" fill="#020617" stroke="#64748b" stroke-width="1.5"/>
+    <text x="180" y="62" fill="#38bdf8" font-size="11" font-weight="700" text-anchor="middle">OPTICAL IN</text>
+  </g>
+
+  <!-- Gradients -->
+  <defs>
+    <linearGradient id="redGlow" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ff0044" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#ff0044" stop-opacity="0.05"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Key Features Box -->
+  <g transform="translate(80, 320)">
+    <rect x="0" y="0" width="640" height="95" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    
+    <circle cx="35" cy="32" r="10" fill="#22c55e" opacity="0.2"/>
+    <text x="35" y="36" fill="#22c55e" font-size="14" font-weight="bold" text-anchor="middle">✓</text>
+    <text x="55" y="37" fill="#f1f5f9" font-size="13" font-weight="600">Uses Optical Fiber &amp; Light:</text>
+    <text x="245" y="37" fill="#cbd5e1" font-size="13">Carries digital signals as red light pulses via Toslink connectors.</text>
+
+    <circle cx="35" cy="65" r="10" fill="#22c55e" opacity="0.2"/>
+    <text x="35" y="69" fill="#22c55e" font-size="14" font-weight="bold" text-anchor="middle">✓</text>
+    <text x="55" y="70" fill="#f1f5f9" font-size="13" font-weight="600">Zero Ground Loops &amp; Hum:</text>
+    <text x="245" y="70" fill="#cbd5e1" font-size="13">Non-conductive fiber is 100% immune to electrical ground hum &amp; EMI.</text>
+  </g>
+</svg>

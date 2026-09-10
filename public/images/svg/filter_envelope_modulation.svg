@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480" width="800" height="480">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b1120"/>
+      <stop offset="100%" stop-color="#020617"/>
+    </linearGradient>
+
+    <linearGradient id="envFill" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#38bdf8" stop-opacity="0.0"/>
+    </linearGradient>
+
+    <linearGradient id="cutoffGlow" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="50%" stop-color="#f59e0b"/>
+      <stop offset="100%" stop-color="#ef4444"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="480" rx="14" fill="url(#bgGrad)"/>
+  <rect x="2" y="2" width="796" height="476" rx="12" fill="none" stroke="#1e293b" stroke-width="2"/>
+
+  <!-- Title & Subtitle -->
+  <text x="400" y="38" fill="#f8fafc" font-size="20" font-weight="bold" font-family="system-ui, -apple-system, sans-serif" text-anchor="middle">
+    Filter Envelope Modulation (EG to VCF Cutoff)
+  </text>
+  <text x="400" y="62" fill="#94a3b8" font-size="13" font-family="system-ui, -apple-system, sans-serif" text-anchor="middle">
+    Dynamic Timbre Shaping: Cutoff frequency moves over time following an ADSR curve
+  </text>
+
+  <!-- Main Graph Area -->
+  <g id="main-graph">
+    <!-- Grid frame -->
+    <rect x="70" y="90" width="670" height="240" rx="8" fill="#0f172a" stroke="#334155" stroke-width="1.5"/>
+
+    <!-- Horizontal Grid Lines (Cutoff Freq) -->
+    <line x1="70" y1="130" x2="740" y2="130" stroke="#1e293b" stroke-width="1" stroke-dasharray="4,4"/>
+    <text x="62" y="134" fill="#64748b" font-size="10" font-family="monospace" text-anchor="end">12 kHz (Peak)</text>
+
+    <line x1="70" y1="190" x2="740" y2="190" stroke="#1e293b" stroke-width="1" stroke-dasharray="4,4"/>
+    <text x="62" y="194" fill="#64748b" font-size="10" font-family="monospace" text-anchor="end">4 kHz (Sustain)</text>
+
+    <line x1="70" y1="280" x2="740" y2="280" stroke="#1e293b" stroke-width="1" stroke-dasharray="4,4"/>
+    <text x="62" y="284" fill="#64748b" font-size="10" font-family="monospace" text-anchor="end">300 Hz (Base)</text>
+
+    <!-- Vertical Key markers -->
+    <line x1="120" y1="90" x2="120" y2="330" stroke="#10b981" stroke-width="1.5" stroke-dasharray="4,4"/>
+    <text x="120" y="110" fill="#34d399" font-size="11" font-family="system-ui, sans-serif" font-weight="600" text-anchor="middle">Key Down</text>
+
+    <line x1="520" y1="90" x2="520" y2="330" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="4,4"/>
+    <text x="520" y="110" fill="#f87171" font-size="11" font-family="system-ui, sans-serif" font-weight="600" text-anchor="middle">Key Released</text>
+
+    <!-- Shaded Envelope Area -->
+    <path d="M 70 280 L 120 280 L 220 130 L 340 190 L 520 190 L 680 280 L 740 280 L 740 330 L 70 330 Z" fill="url(#envFill)"/>
+
+    <!-- Cutoff Contour Curve -->
+    <path d="M 70 280 L 120 280 L 220 130 L 340 190 L 520 190 L 680 280 L 740 280" fill="none" stroke="#38bdf8" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <!-- Stage Indicators & Annotations -->
+    <!-- ATTACK -->
+    <circle cx="220" cy="130" r="5" fill="#f59e0b"/>
+    <line x1="120" y1="315" x2="220" y2="315" stroke="#f59e0b" stroke-width="2"/>
+    <text x="170" y="305" fill="#fbbf24" font-size="11" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">ATTACK</text>
+    <text x="170" y="150" fill="#38bdf8" font-size="11" font-weight="600" font-family="system-ui, sans-serif" text-anchor="middle">Filter Opens</text>
+    <text x="170" y="165" fill="#94a3b8" font-size="9" font-family="system-ui, sans-serif" text-anchor="middle">(Bright brass swell)</text>
+
+    <!-- DECAY -->
+    <line x1="220" y1="315" x2="340" y2="315" stroke="#3b82f6" stroke-width="2"/>
+    <text x="280" y="305" fill="#60a5fa" font-size="11" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">DECAY</text>
+    <text x="285" y="215" fill="#94a3b8" font-size="10" font-family="system-ui, sans-serif" text-anchor="middle">Cutoff falls to sustain</text>
+
+    <!-- SUSTAIN -->
+    <line x1="340" y1="315" x2="520" y2="315" stroke="#10b981" stroke-width="2"/>
+    <text x="430" y="305" fill="#34d399" font-size="11" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">SUSTAIN</text>
+    <text x="430" y="175" fill="#34d399" font-size="11" font-weight="600" font-family="system-ui, sans-serif" text-anchor="middle">Held Cutoff Level</text>
+    <text x="430" y="215" fill="#94a3b8" font-size="10" font-family="system-ui, sans-serif" text-anchor="middle">Steady tone while key held</text>
+
+    <!-- RELEASE -->
+    <circle cx="520" cy="190" r="5" fill="#ef4444"/>
+    <circle cx="680" cy="280" r="5" fill="#ef4444"/>
+    <line x1="520" y1="315" x2="680" y2="315" stroke="#ef4444" stroke-width="2"/>
+    <text x="600" y="305" fill="#f87171" font-size="11" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">RELEASE</text>
+    <text x="615" y="235" fill="#f87171" font-size="11" font-weight="600" font-family="system-ui, sans-serif" text-anchor="middle">Filter Closes</text>
+    <text x="615" y="250" fill="#94a3b8" font-size="9" font-family="system-ui, sans-serif" text-anchor="middle">(Decays to dark silence)</text>
+  </g>
+
+  <!-- Bottom Explanatory Panels -->
+  <g id="bottom-cards">
+    <!-- Card 1: Envelope to Cutoff Amount -->
+    <rect x="70" y="348" width="325" height="110" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+    <text x="85" y="372" fill="#38bdf8" font-size="13" font-weight="bold" font-family="system-ui, sans-serif">
+      Modulation Depth (Env Amount)
+    </text>
+    <text x="85" y="393" fill="#cbd5e1" font-size="11" font-family="system-ui, sans-serif">
+      • Governs how far the cutoff sweeps above the base cutoff.
+    </text>
+    <text x="85" y="413" fill="#cbd5e1" font-size="11" font-family="system-ui, sans-serif">
+      • <tspan fill="#f59e0b" font-weight="600">High Amount:</tspan> Dramatic brass swells &amp; snappy stabs.
+    </text>
+    <text x="85" y="433" fill="#cbd5e1" font-size="11" font-family="system-ui, sans-serif">
+      • <tspan fill="#94a3b8" font-weight="600">Zero Amount:</tspan> Static cutoff; timbre does not evolve.
+    </text>
+
+    <!-- Card 2: Musical Applications -->
+    <rect x="415" y="348" width="325" height="110" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+    <text x="430" y="372" fill="#34d399" font-size="13" font-weight="bold" font-family="system-ui, sans-serif">
+      Classic Musical Examples
+    </text>
+    <text x="430" y="393" fill="#cbd5e1" font-size="11" font-family="system-ui, sans-serif">
+      • <tspan fill="#fbbf24" font-weight="600">Synth Bass Pluck:</tspan> Fast attack, short decay, low sustain.
+    </text>
+    <text x="430" y="413" fill="#cbd5e1" font-size="11" font-family="system-ui, sans-serif">
+      • <tspan fill="#38bdf8" font-weight="600">Synth Brass / Horns:</tspan> Moderate attack swell, high sustain.
+    </text>
+    <text x="430" y="433" fill="#cbd5e1" font-size="11" font-family="system-ui, sans-serif">
+      • <tspan fill="#f87171" font-weight="600">Percussion / Zap:</tspan> Instant 0ms attack, ultra-fast decay.
+    </text>
+  </g>
+</svg>

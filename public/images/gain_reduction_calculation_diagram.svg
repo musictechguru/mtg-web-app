@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 440" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#1e293b" />
+    </linearGradient>
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+    <linearGradient id="meterGrad" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#10b981" />
+      <stop offset="65%" stop-color="#f59e0b" />
+      <stop offset="100%" stop-color="#ef4444" />
+    </linearGradient>
+    <linearGradient id="grMeterGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ef4444" />
+      <stop offset="100%" stop-color="#b91c1c" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="440" rx="14" fill="url(#bgGrad)" stroke="#334155" stroke-width="2" />
+
+  <!-- Header Badge -->
+  <rect x="30" y="22" width="275" height="32" rx="6" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5" />
+  <text x="167" y="43" fill="#38bdf8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="700" text-anchor="middle" letter-spacing="1">GAIN REDUCTION CALCULATION</text>
+  <text x="320" y="43" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="500">Threshold: -5 dB | Ratio: 2:1 | Input Peak: -2 dB</text>
+
+  <!-- Left Panel: Visual Level Meters Comparison -->
+  <g transform="translate(30, 74)">
+    <rect width="365" height="268" rx="10" fill="url(#cardGrad)" stroke="#334155" stroke-width="1.5" />
+    
+    <!-- Title -->
+    <text x="182" y="28" fill="#f8fafc" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="700" text-anchor="middle">Decibel Meter Comparison</text>
+
+    <!-- Scale reference lines (Horizontal) -->
+    <!-- 0 dB -->
+    <line x1="45" y1="55" x2="345" y2="55" stroke="#475569" stroke-width="1" stroke-dasharray="2" />
+    <text x="40" y="59" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" text-anchor="end">0 dB</text>
+
+    <!-- -2 dB (Input Peak) -->
+    <line x1="45" y1="85" x2="345" y2="85" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="3" />
+    <text x="40" y="89" fill="#f87171" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="700" text-anchor="end">-2 dB</text>
+
+    <!-- -3.5 dB (Output Peak) -->
+    <line x1="45" y1="108" x2="345" y2="108" stroke="#38bdf8" stroke-width="1.5" stroke-dasharray="3" />
+    <text x="40" y="112" fill="#38bdf8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" font-weight="700" text-anchor="end">-3.5 dB</text>
+
+    <!-- -5 dB (Threshold) -->
+    <line x1="45" y1="130" x2="345" y2="130" stroke="#facc15" stroke-width="2" />
+    <text x="40" y="134" fill="#facc15" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="700" text-anchor="end">-5 dB</text>
+
+    <!-- -10 dB -->
+    <line x1="45" y1="205" x2="345" y2="205" stroke="#334155" stroke-width="1" stroke-dasharray="2" />
+    <text x="40" y="209" fill="#64748b" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" text-anchor="end">-10 dB</text>
+
+    <!-- Meter 1: Input -->
+    <rect x="70" y="85" width="34" height="120" rx="3" fill="url(#meterGrad)" />
+    <text x="87" y="222" fill="#e2e8f0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="700" text-anchor="middle">INPUT</text>
+    <text x="87" y="237" fill="#f87171" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="700" text-anchor="middle">-2 dB</text>
+
+    <!-- Bracket: 3 dB overshoot -->
+    <line x1="110" y1="85" x2="116" y2="85" stroke="#f87171" stroke-width="1.5" />
+    <line x1="116" y1="85" x2="116" y2="130" stroke="#f87171" stroke-width="1.5" />
+    <line x1="110" y1="130" x2="116" y2="130" stroke="#f87171" stroke-width="1.5" />
+    <text x="122" y="104" fill="#f87171" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" font-weight="700">+3 dB</text>
+    <text x="122" y="116" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8">overshoot</text>
+
+    <!-- Meter 2: Output (clamped to -3.5 dB) -->
+    <rect x="150" y="108" width="34" height="97" rx="3" fill="url(#meterGrad)" />
+    <rect x="150" y="85" width="34" height="23" rx="2" fill="#ef4444" fill-opacity="0.2" stroke="#ef4444" stroke-width="1" stroke-dasharray="2" />
+    <text x="167" y="222" fill="#e2e8f0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="700" text-anchor="middle">OUTPUT</text>
+    <text x="167" y="237" fill="#38bdf8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="700" text-anchor="middle">-3.5 dB</text>
+
+    <!-- Bracket: 1.5 dB output rise -->
+    <line x1="190" y1="108" x2="196" y2="108" stroke="#38bdf8" stroke-width="1.5" />
+    <line x1="196" y1="108" x2="196" y2="130" stroke="#38bdf8" stroke-width="1.5" />
+    <line x1="190" y1="130" x2="196" y2="130" stroke="#38bdf8" stroke-width="1.5" />
+    <text x="202" y="122" fill="#38bdf8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" font-weight="700">+1.5 dB</text>
+
+    <!-- Meter 3: Gain Reduction (GR) Meter (downward) -->
+    <g transform="translate(248, 80)">
+      <rect x="0" y="0" width="30" height="125" rx="3" fill="#0f172a" stroke="#334155" stroke-width="1.2" />
+      <!-- Red bar from top showing 1.5 dB attenuation -->
+      <rect x="3" y="3" width="24" height="24" rx="2" fill="url(#grMeterGrad)" />
+      <text x="15" y="142" fill="#e2e8f0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="700" text-anchor="middle">GR</text>
+      <text x="15" y="157" fill="#ef4444" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="700" text-anchor="middle">-1.5 dB</text>
+    </g>
+
+    <!-- Clean Threshold Pill at right -->
+    <rect x="286" y="121" width="60" height="18" rx="4" fill="#1e293b" stroke="#facc15" stroke-width="1.2" />
+    <text x="316" y="134" fill="#facc15" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9" font-weight="800" text-anchor="middle">THRESHOLD</text>
+  </g>
+
+  <!-- Right Panel: Step-by-Step Formula & Math Walkthrough -->
+  <g transform="translate(415, 74)">
+    <rect width="355" height="268" rx="10" fill="url(#cardGrad)" stroke="#334155" stroke-width="1.5" />
+    
+    <text x="177" y="28" fill="#f8fafc" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="700" text-anchor="middle">Step-by-Step Solution</text>
+
+    <!-- Step 1 Card -->
+    <rect x="16" y="44" width="323" height="58" rx="6" fill="#0f172a" stroke="#334155" />
+    <text x="26" y="62" fill="#f87171" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="700">STEP 1: Find Overshoot Above Threshold</text>
+    <text x="26" y="81" fill="#cbd5e1" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12">(-2 dB) - (-5 dB) = <tspan fill="#f87171" font-weight="700">+3 dB overshoot</tspan></text>
+    <text x="26" y="95" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9.5">The signal exceeds the threshold by 3 dB.</text>
+
+    <!-- Step 2 Card -->
+    <rect x="16" y="110" width="323" height="58" rx="6" fill="#0f172a" stroke="#334155" />
+    <text x="26" y="128" fill="#38bdf8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="700">STEP 2: Apply Compression Ratio (2:1)</text>
+    <text x="26" y="147" fill="#cbd5e1" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12">3 dB ÷ 2 (ratio) = <tspan fill="#38bdf8" font-weight="700">+1.5 dB above threshold</tspan></text>
+    <text x="26" y="161" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9.5">Output level reaches -5 dB + 1.5 dB = -3.5 dB.</text>
+
+    <!-- Step 3 Card -->
+    <rect x="16" y="176" width="323" height="62" rx="6" fill="#0f172a" stroke="#10b981" stroke-width="1.2" />
+    <text x="26" y="194" fill="#34d399" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="700">STEP 3: Calculate Gain Reduction (GR)</text>
+    <text x="26" y="214" fill="#cbd5e1" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12">3 dB - 1.5 dB = <tspan fill="#34d399" font-weight="900" font-size="14">1.5 dB Gain Reduction</tspan></text>
+    <text x="26" y="230" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9.5">The gain reduction meter reads -1.5 dB.</text>
+  </g>
+
+  <!-- Bottom Formula Summary Bar -->
+  <g transform="translate(30, 356)">
+    <rect width="740" height="64" rx="8" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5" />
+    <circle cx="36" cy="32" r="14" fill="#38bdf8" fill-opacity="0.2" stroke="#38bdf8" stroke-width="1.5" />
+    <text x="36" y="37" fill="#38bdf8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="900" text-anchor="middle">i</text>
+    
+    <text x="64" y="27" fill="#f8fafc" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="700">Universal Exam Formula: Gain Reduction = Overshoot × (1 - 1/Ratio)</text>
+    <text x="64" y="47" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11">With 3 dB overshoot and 2:1 ratio: GR = 3 dB × (1 - 1/2) = 3 dB × 0.5 = 1.5 dB.</text>
+  </g>
+</svg>

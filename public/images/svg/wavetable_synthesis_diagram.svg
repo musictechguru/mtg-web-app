@@ -1,0 +1,149 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480" width="800" height="480">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b1120"/>
+      <stop offset="100%" stop-color="#020617"/>
+    </linearGradient>
+
+    <linearGradient id="scanGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="50%" stop-color="#818cf8"/>
+      <stop offset="100%" stop-color="#c084fc"/>
+    </linearGradient>
+
+    <linearGradient id="waveGlow" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#38bdf8" stop-opacity="0.0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="480" rx="14" fill="url(#bgGrad)"/>
+  <rect x="2" y="2" width="796" height="476" rx="12" fill="none" stroke="#1e293b" stroke-width="2"/>
+
+  <!-- Title & Subtitle -->
+  <text x="400" y="38" fill="#f8fafc" font-size="20" font-weight="bold" font-family="system-ui, -apple-system, sans-serif" text-anchor="middle">
+    Wavetable Synthesis: Position Scanning &amp; Morphing
+  </text>
+  <text x="400" y="62" fill="#94a3b8" font-size="13" font-family="system-ui, -apple-system, sans-serif" text-anchor="middle">
+    A modulation source scans through an array of single-cycle waveforms with real-time interpolation
+  </text>
+
+  <!-- Left: Wavetable 2D Array / Stack -->
+  <g id="wavetable-array">
+    <rect x="40" y="88" width="410" height="248" rx="8" fill="#0f172a" stroke="#334155" stroke-width="1.5"/>
+    <text x="55" y="112" fill="#f8fafc" font-size="13" font-weight="bold" font-family="system-ui, sans-serif">
+      Sequential Wavetable Array (Frames 1 to 64)
+    </text>
+
+    <!-- Waveform Rows (Isometric / Stacked representations) -->
+    <!-- Row 1: Sine (Frame 1) -->
+    <rect x="55" y="125" width="380" height="34" rx="5" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+    <text x="65" y="147" fill="#64748b" font-size="11" font-family="monospace">Frame 01: Sine</text>
+    <path d="M 230 142 Q 255 128 280 142 T 330 142 T 380 142 T 420 142" fill="none" stroke="#64748b" stroke-width="1.8"/>
+
+    <!-- Row 2: Triangle (Frame 16) -->
+    <rect x="55" y="165" width="380" height="34" rx="5" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+    <text x="65" y="187" fill="#64748b" font-size="11" font-family="monospace">Frame 16: Triangle</text>
+    <path d="M 230 182 L 255 170 L 280 194 L 305 170 L 330 194 L 355 170 L 380 194 L 405 170 L 420 182" fill="none" stroke="#64748b" stroke-width="1.8"/>
+
+    <!-- Row 3: Current Morph / Interpolation (Frame 33) ACTIVE -->
+    <rect x="55" y="205" width="380" height="42" rx="6" fill="#1e1b4b" stroke="#818cf8" stroke-width="2"/>
+    <text x="65" y="230" fill="#a5b4fc" font-size="11" font-family="monospace" font-weight="bold">Frame 33: Morph (Current)</text>
+    <!-- Morph wave: hybrid saw/pulse -->
+    <path d="M 230 226 L 255 212 L 255 238 L 280 226 L 280 238 L 305 212 L 305 238 L 330 226 L 355 212 L 380 238 L 405 212 L 420 226" fill="none" stroke="#38bdf8" stroke-width="2.5"/>
+    <circle cx="215" cy="226" r="4" fill="#38bdf8"/>
+
+    <!-- Row 4: Sawtooth (Frame 48) -->
+    <rect x="55" y="253" width="380" height="34" rx="5" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+    <text x="65" y="275" fill="#64748b" font-size="11" font-family="monospace">Frame 48: Sawtooth</text>
+    <path d="M 230 270 L 260 258 L 260 282 L 290 258 L 290 282 L 320 258 L 320 282 L 350 258 L 350 282 L 380 258 L 380 282 L 420 270" fill="none" stroke="#64748b" stroke-width="1.8"/>
+
+    <!-- Row 5: Square / Pulse (Frame 64) -->
+    <rect x="55" y="293" width="380" height="34" rx="5" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+    <text x="65" y="315" fill="#64748b" font-size="11" font-family="monospace">Frame 64: Pulse / Metallic</text>
+    <path d="M 230 310 L 245 310 L 245 298 L 270 298 L 270 322 L 295 322 L 295 298 L 320 298 L 320 322 L 345 322 L 345 298 L 370 298 L 370 322 L 420 310" fill="none" stroke="#64748b" stroke-width="1.8"/>
+
+    <!-- Position Scan Arrow on the Left -->
+    <line x1="47" y1="130" x2="47" y2="310" stroke="#a855f7" stroke-width="3" stroke-linecap="round"/>
+    <!-- Position pointer triangle -->
+    <polygon points="43,226 52,221 52,231" fill="#38bdf8"/>
+    <text x="32" y="222" fill="#c084fc" font-size="9" font-family="system-ui, sans-serif" font-weight="bold" transform="rotate(-90 32 222)" text-anchor="middle">SCAN POSITION</text>
+  </g>
+
+  <!-- Right: Playback Output & Modulation Sources -->
+  <g id="right-panel">
+    <!-- Active Sound Output Box -->
+    <rect x="470" y="88" width="290" height="150" rx="8" fill="#0f172a" stroke="#38bdf8" stroke-width="1.5"/>
+    <text x="485" y="112" fill="#38bdf8" font-size="13" font-weight="bold" font-family="system-ui, sans-serif">
+      Audible Waveform Output
+    </text>
+    <text x="485" y="128" fill="#94a3b8" font-size="11" font-family="system-ui, sans-serif">
+      Continuous smooth crossfade (interpolation)
+    </text>
+
+    <!-- Scope Display Area -->
+    <rect x="485" y="136" width="260" height="88" rx="6" fill="#020617" stroke="#1e293b" stroke-width="1"/>
+    <!-- Center gridline -->
+    <line x1="485" y1="180" x2="745" y2="180" stroke="#1e293b" stroke-width="1" stroke-dasharray="3,3"/>
+    <!-- Large Morphed Active Cycle -->
+    <path d="M 495 180 Q 520 145 545 180 L 545 210 L 580 180 L 610 150 L 610 215 L 640 180 Q 675 145 700 180 L 735 180" fill="none" stroke="#38bdf8" stroke-width="3"/>
+    <text x="735" y="215" fill="#34d399" font-size="10" font-family="monospace" text-anchor="end">MORPHING TIMBRE</text>
+
+    <!-- Modulation Routing Section -->
+    <rect x="470" y="250" width="290" height="86" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+    <text x="485" y="272" fill="#f8fafc" font-size="12" font-weight="bold" font-family="system-ui, sans-serif">
+      Position Modulators (Sweep Controls)
+    </text>
+    
+    <g transform="translate(485, 285)">
+      <!-- Pill 1: LFO -->
+      <rect x="0" y="0" width="75" height="36" rx="4" fill="#0f172a" stroke="#818cf8" stroke-width="1"/>
+      <text x="37" y="16" fill="#818cf8" font-size="10" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">LFO</text>
+      <text x="37" y="29" fill="#94a3b8" font-size="8" font-family="system-ui, sans-serif" text-anchor="middle">Cyclic sweep</text>
+
+      <!-- Pill 2: Envelope -->
+      <rect x="85" y="0" width="85" height="36" rx="4" fill="#0f172a" stroke="#fbbf24" stroke-width="1"/>
+      <text x="127" y="16" fill="#fbbf24" font-size="10" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">Envelope</text>
+      <text x="127" y="29" fill="#94a3b8" font-size="8" font-family="system-ui, sans-serif" text-anchor="middle">Key-triggered</text>
+
+      <!-- Pill 3: Mod Wheel -->
+      <rect x="180" y="0" width="80" height="36" rx="4" fill="#0f172a" stroke="#34d399" stroke-width="1"/>
+      <text x="220" y="16" fill="#34d399" font-size="10" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">Mod Wheel</text>
+      <text x="220" y="29" fill="#94a3b8" font-size="8" font-family="system-ui, sans-serif" text-anchor="middle">Manual control</text>
+    </g>
+  </g>
+
+  <!-- Bottom Explanatory Panels -->
+  <g id="bottom-cards">
+    <!-- Card 1: Technical Principle -->
+    <rect x="40" y="348" width="350" height="110" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+    <text x="55" y="372" fill="#38bdf8" font-size="13" font-weight="bold" font-family="system-ui, sans-serif">
+      Core Principle: Interpolation
+    </text>
+    <text x="55" y="393" fill="#cbd5e1" font-size="11" font-family="system-ui, sans-serif">
+      • A wavetable contains an array of static single-cycle waves.
+    </text>
+    <text x="55" y="413" fill="#cbd5e1" font-size="11" font-family="system-ui, sans-serif">
+      • As the position scans, DSP <tspan fill="#38bdf8" font-weight="600">interpolates (crossfades)</tspan> smoothly.
+    </text>
+    <text x="55" y="433" fill="#cbd5e1" font-size="11" font-family="system-ui, sans-serif">
+      • Produces dynamic harmonic shifts <tspan fill="#f59e0b" font-weight="600">without filter sweeping</tspan>.
+    </text>
+
+    <!-- Card 2: Iconic Synths & Evolution -->
+    <rect x="410" y="348" width="350" height="110" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+    <text x="425" y="372" fill="#34d399" font-size="13" font-weight="bold" font-family="system-ui, sans-serif">
+      Iconic Synths &amp; Musical Sound
+    </text>
+    <text x="425" y="393" fill="#cbd5e1" font-size="11" font-family="system-ui, sans-serif">
+      • <tspan fill="#a5b4fc" font-weight="600">PPG Wave (1981):</tspan> Pioneered digital wavetable synthesis.
+    </text>
+    <text x="425" y="413" fill="#cbd5e1" font-size="11" font-family="system-ui, sans-serif">
+      • <tspan fill="#34d399" font-weight="600">Waldorf &amp; Serum:</tspan> Modern benchmarks for wavetable EDM.
+    </text>
+    <text x="425" y="433" fill="#cbd5e1" font-size="11" font-family="system-ui, sans-serif">
+      • Famous for glassy pads, robotic vocal morphs &amp; modern growls.
+    </text>
+  </g>
+</svg>

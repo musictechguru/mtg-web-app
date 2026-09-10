@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 620" width="100%" height="100%" style="background-color: #0d1322; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+  <rect width="960" height="620" fill="#0d1322"/>
+
+  <!-- Title Header -->
+  <text x="480" y="44" fill="#f8fafc" font-size="24" font-weight="bold" text-anchor="middle" letter-spacing="1.5">PULSE WAVE &amp; DUTY CYCLE</text>
+  <text x="480" y="72" fill="#94a3b8" font-size="13.5" text-anchor="middle">Duty cycle is the percentage of one full cycle that the waveform remains in the high state</text>
+
+  <!-- Row 1: 50% Duty Cycle (Square Wave) -->
+  <g transform="translate(45, 95)">
+    <rect width="870" height="110" rx="8" fill="#131e36" stroke="#3b82f6" stroke-width="1.5"/>
+    <rect x="15" y="15" width="200" height="80" rx="6" fill="#0f172a"/>
+    <text x="115" y="45" fill="#38bdf8" font-size="20" font-weight="bold" text-anchor="middle">50% DUTY</text>
+    <text x="115" y="68" fill="#cbd5e1" font-size="13" font-weight="600" text-anchor="middle">SQUARE WAVE</text>
+    <text x="115" y="86" fill="#94a3b8" font-size="11" text-anchor="middle">Hollow, woody, clarinet-like</text>
+
+    <!-- Waveform Display -->
+    <!-- Period = 200px: High for 100px, Low for 100px -->
+    <!-- Center baseline y=55, High y=25, Low y=85 -->
+    <path d="M 250 85 L 250 25 L 350 25 L 350 85 L 450 85 L 450 25 L 550 25 L 550 85 L 650 85" fill="none" stroke="#38bdf8" stroke-width="3" stroke-linejoin="round"/>
+
+    <!-- Harmonic Description -->
+    <rect x="675" y="20" width="180" height="70" rx="6" fill="#0f172a" stroke="#1e293b"/>
+    <text x="765" y="45" fill="#38bdf8" font-size="12" font-weight="bold" text-anchor="middle">HARMONIC CONTENT</text>
+    <text x="765" y="65" fill="#e2e8f0" font-size="11.5" text-anchor="middle">ODD HARMONICS ONLY</text>
+    <text x="765" y="80" fill="#94a3b8" font-size="10.5" text-anchor="middle">(1st, 3rd, 5th, 7th...)</text>
+  </g>
+
+  <!-- Row 2: 25% Duty Cycle (Narrow Pulse) -->
+  <g transform="translate(45, 220)">
+    <rect width="870" height="110" rx="8" fill="#131e36" stroke="#10b981" stroke-width="1.2"/>
+    <rect x="15" y="15" width="200" height="80" rx="6" fill="#0f172a"/>
+    <text x="115" y="45" fill="#34d399" font-size="20" font-weight="bold" text-anchor="middle">25% DUTY</text>
+    <text x="115" y="68" fill="#cbd5e1" font-size="13" font-weight="600" text-anchor="middle">PULSE WAVE</text>
+    <text x="115" y="86" fill="#94a3b8" font-size="11" text-anchor="middle">Nasal, reed-like, oboe timbre</text>
+
+    <!-- Waveform Display: Period = 200px: High for 50px, Low for 150px -->
+    <path d="M 250 85 L 250 25 L 300 25 L 300 85 L 450 85 L 450 25 L 500 25 L 500 85 L 650 85" fill="none" stroke="#34d399" stroke-width="3" stroke-linejoin="round"/>
+
+    <!-- Harmonic Description -->
+    <rect x="675" y="20" width="180" height="70" rx="6" fill="#0f172a" stroke="#1e293b"/>
+    <text x="765" y="45" fill="#34d399" font-size="12" font-weight="bold" text-anchor="middle">HARMONIC CONTENT</text>
+    <text x="765" y="65" fill="#e2e8f0" font-size="11.5" text-anchor="middle">ALL HARMONICS</text>
+    <text x="765" y="80" fill="#94a3b8" font-size="10.5" text-anchor="middle">(Every 4th harmonic null)</text>
+  </g>
+
+  <!-- Row 3: 10% Duty Cycle (Very Narrow Pulse) -->
+  <g transform="translate(45, 345)">
+    <rect width="870" height="110" rx="8" fill="#131e36" stroke="#f59e0b" stroke-width="1.2"/>
+    <rect x="15" y="15" width="200" height="80" rx="6" fill="#0f172a"/>
+    <text x="115" y="45" fill="#fbbf24" font-size="20" font-weight="bold" text-anchor="middle">10% DUTY</text>
+    <text x="115" y="68" fill="#cbd5e1" font-size="13" font-weight="600" text-anchor="middle">NARROW PULSE</text>
+    <text x="115" y="86" fill="#94a3b8" font-size="11" text-anchor="middle">Thin, bright, buzzing, harpsichord</text>
+
+    <!-- Waveform Display: Period = 200px: High for 20px, Low for 180px -->
+    <path d="M 250 85 L 250 25 L 270 25 L 270 85 L 450 85 L 450 25 L 470 25 L 470 85 L 650 85" fill="none" stroke="#fbbf24" stroke-width="3" stroke-linejoin="round"/>
+
+    <!-- Harmonic Description -->
+    <rect x="675" y="20" width="180" height="70" rx="6" fill="#0f172a" stroke="#1e293b"/>
+    <text x="765" y="45" fill="#fbbf24" font-size="12" font-weight="bold" text-anchor="middle">HARMONIC CONTENT</text>
+    <text x="765" y="65" fill="#e2e8f0" font-size="11.5" text-anchor="middle">ALL HARMONICS</text>
+    <text x="765" y="80" fill="#94a3b8" font-size="10.5" text-anchor="middle">(High bright overtones)</text>
+  </g>
+
+  <!-- Bottom Summary / PWM Bar -->
+  <g transform="translate(45, 470)">
+    <rect width="870" height="120" rx="8" fill="#172339" stroke="#334155" stroke-width="1.5"/>
+    <text x="25" y="32" fill="#38bdf8" font-size="14" font-weight="bold">Core Specification Concept: Pulse Width Modulation (PWM)</text>
+    <text x="25" y="58" fill="#cbd5e1" font-size="12">When the duty cycle is continuously modulated with an LFO, the changing harmonic series produces a rich, shimmering chorus effect known as <tspan fill="#f59e0b" font-weight="bold">Pulse Width Modulation (PWM)</tspan>.</text>
+    <text x="25" y="82" fill="#94a3b8" font-size="11.5">A square wave is simply the symmetrical special case of a pulse wave where high time equals low time (exactly 50% duty cycle).</text>
+  </g>
+</svg>

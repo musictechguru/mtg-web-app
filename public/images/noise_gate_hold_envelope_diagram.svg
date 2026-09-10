@@ -1,0 +1,136 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#1e293b" />
+    </linearGradient>
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+    <linearGradient id="holdGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#f59e0b" />
+      <stop offset="100%" stop-color="#d97706" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="450" rx="14" fill="url(#bgGrad)" stroke="#334155" stroke-width="2" />
+
+  <!-- Header Badge -->
+  <rect x="30" y="20" width="280" height="32" rx="6" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5" />
+  <text x="170" y="41" fill="#fbbf24" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="700" text-anchor="middle" letter-spacing="1">NOISE GATE HOLD CONTROL</text>
+  <text x="325" y="41" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="500">How the Hold parameter prevents premature cutoff of decaying audio</text>
+
+  <!-- Left Panel: Without Hold / Hold Set to 0ms -->
+  <g transform="translate(30, 68)">
+    <rect width="355" height="280" rx="10" fill="url(#cardGrad)" stroke="#334155" stroke-width="1.5" />
+    
+    <!-- Title Badge -->
+    <rect x="16" y="16" width="135" height="24" rx="4" fill="#ef4444" fill-opacity="0.15" stroke="#ef4444" stroke-width="1" />
+    <text x="83" y="32" fill="#f87171" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="700" text-anchor="middle">NO HOLD (0ms)</text>
+    <text x="165" y="32" fill="#cbd5e1" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11.5" font-weight="600">Premature Drum Choking</text>
+
+    <!-- Threshold Reference Line -->
+    <line x1="20" y1="110" x2="335" y2="110" stroke="#facc15" stroke-width="1.5" stroke-dasharray="4" />
+    <text x="330" y="104" fill="#facc15" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9.5" font-weight="700" text-anchor="end">THRESHOLD LEVEL</text>
+
+    <!-- Natural Drum Decay Waveform (Ghost dashed line) -->
+    <path d="M 30,190 L 50,190 L 60,60 Q 80,110 110,125 Q 160,150 220,175 L 330,190" fill="none" stroke="#475569" stroke-width="1.5" stroke-dasharray="3" />
+    <text x="220" y="172" fill="#64748b" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9">Natural tom decay</text>
+
+    <!-- Actual Gated Output Waveform (Blue: abruptly cut off right after crossing threshold) -->
+    <path d="M 30,190 L 50,190 L 60,60 Q 80,110 110,125 L 125,190 L 330,190" fill="none" stroke="#38bdf8" stroke-width="2.5" />
+
+    <!-- Choked Cutoff Marker -->
+    <line x1="110" y1="95" x2="110" y2="190" stroke="#ef4444" stroke-width="2" stroke-dasharray="2" />
+    <circle cx="110" cy="125" r="5" fill="#ef4444" />
+    
+    <!-- Warning Box -->
+    <rect x="116" y="125" width="130" height="32" rx="4" fill="#0f172a" stroke="#ef4444" stroke-width="1" />
+    <text x="181" y="139" fill="#f87171" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9" font-weight="700" text-anchor="middle">CHOKED CUTOFF!</text>
+    <text x="181" y="150" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8" text-anchor="middle">Closes instantly below threshold</text>
+
+    <!-- Gate State Bar at bottom -->
+    <g transform="translate(20, 205)">
+      <rect width="315" height="24" rx="4" fill="#0b1120" stroke="#1e293b" />
+      <rect x="30" y="0" width="60" height="24" fill="#10b981" fill-opacity="0.25" />
+      <text x="60" y="16" fill="#34d399" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9.5" font-weight="700" text-anchor="middle">GATE OPEN</text>
+      
+      <rect x="90" y="0" width="225" height="24" fill="#ef4444" fill-opacity="0.2" />
+      <text x="200" y="16" fill="#f87171" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9.5" font-weight="700" text-anchor="middle">CLOSED (Muted Too Early)</text>
+    </g>
+
+    <!-- Explanatory text -->
+    <text x="20" y="252" fill="#e2e8f0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10.5" font-weight="600">• Gate shuts the instant audio drops below threshold</text>
+    <text x="20" y="267" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9.5">• Chokes off natural decay and causes clicks or chatter</text>
+  </g>
+
+  <!-- Right Panel: With Hold Time Applied -->
+  <g transform="translate(415, 68)">
+    <rect width="355" height="280" rx="10" fill="url(#cardGrad)" stroke="#10b981" stroke-width="1.5" />
+    
+    <!-- Title Badge -->
+    <rect x="16" y="16" width="145" height="24" rx="4" fill="#10b981" fill-opacity="0.15" stroke="#10b981" stroke-width="1" />
+    <text x="88" y="32" fill="#34d399" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="700" text-anchor="middle">WITH HOLD (120ms)</text>
+    <text x="175" y="32" fill="#cbd5e1" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11.5" font-weight="600">Full Natural Sustain</text>
+
+    <!-- Threshold Reference Line -->
+    <line x1="20" y1="110" x2="335" y2="110" stroke="#facc15" stroke-width="1.5" stroke-dasharray="4" />
+    <text x="330" y="104" fill="#facc15" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9.5" font-weight="700" text-anchor="end">THRESHOLD LEVEL</text>
+
+    <!-- Waveform with Hold applied: lets the ring continue even below threshold -->
+    <path d="M 30,190 L 50,190 L 60,60 Q 80,110 110,125 Q 160,150 200,165 Q 225,185 245,190 L 330,190" fill="none" stroke="#38bdf8" stroke-width="2.5" />
+
+    <!-- Shaded Hold Region -->
+    <rect x="110" y="80" width="90" height="110" fill="#f59e0b" fill-opacity="0.12" />
+    <line x1="110" y1="80" x2="110" y2="190" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="3" />
+    <line x1="200" y1="80" x2="200" y2="190" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="3" />
+
+    <!-- Hold Bracket & Label -->
+    <line x1="110" y1="70" x2="200" y2="70" stroke="#fbbf24" stroke-width="2" />
+    <line x1="110" y1="65" x2="110" y2="75" stroke="#fbbf24" stroke-width="2" />
+    <line x1="200" y1="65" x2="200" y2="75" stroke="#fbbf24" stroke-width="2" />
+    <text x="155" y="63" fill="#fbbf24" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" font-weight="800" text-anchor="middle">HOLD TIME (120ms)</text>
+
+    <!-- Release Region -->
+    <line x1="200" y1="170" x2="245" y2="170" stroke="#34d399" stroke-width="1.5" />
+    <text x="222" y="164" fill="#34d399" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" font-weight="700" text-anchor="middle">Release</text>
+
+    <!-- Status Marker inside Hold -->
+    <rect x="115" y="125" width="80" height="20" rx="3" fill="#0f172a" stroke="#f59e0b" stroke-width="1" />
+    <text x="155" y="139" fill="#fbbf24" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8" font-weight="700" text-anchor="middle">HELD OPEN!</text>
+
+    <!-- Gate State Bar at bottom -->
+    <g transform="translate(20, 205)">
+      <rect width="315" height="24" rx="4" fill="#0b1120" stroke="#1e293b" />
+      <!-- Open -->
+      <rect x="30" y="0" width="60" height="24" fill="#10b981" fill-opacity="0.25" />
+      <text x="60" y="16" fill="#34d399" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9" font-weight="700" text-anchor="middle">OPEN</text>
+      <!-- Held Open -->
+      <rect x="90" y="0" width="90" height="24" fill="#f59e0b" fill-opacity="0.3" />
+      <text x="135" y="16" fill="#fbbf24" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9" font-weight="800" text-anchor="middle">HOLD (STAYS OPEN)</text>
+      <!-- Releasing -->
+      <rect x="180" y="0" width="45" height="24" fill="#38bdf8" fill-opacity="0.25" />
+      <text x="202" y="16" fill="#38bdf8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" font-weight="700" text-anchor="middle">RELEASE</text>
+      <!-- Closed -->
+      <rect x="225" y="0" width="90" height="24" fill="#475569" fill-opacity="0.2" />
+      <text x="270" y="16" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9" font-weight="700" text-anchor="middle">CLOSED</text>
+    </g>
+
+    <!-- Explanatory text -->
+    <text x="20" y="252" fill="#e2e8f0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10.5" font-weight="600">• Keeps gate 100% open even after dropping below threshold</text>
+    <text x="20" y="267" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9.5">• Lets natural drum resonance ring out before smooth release</text>
+  </g>
+
+  <!-- Bottom Callout -->
+  <g transform="translate(30, 366)">
+    <rect width="740" height="66" rx="8" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5" />
+    <circle cx="36" cy="33" r="14" fill="#f59e0b" fill-opacity="0.2" stroke="#f59e0b" stroke-width="1.5" />
+    <text x="36" y="38" fill="#fbbf24" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="900" text-anchor="middle">i</text>
+    
+    <text x="64" y="26" fill="#f8fafc" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="700">Edexcel Exam Concept: Why the Hold Parameter is Essential</text>
+    <text x="64" y="44" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10.5">Without hold, a gate closes the instant audio drops below threshold, chopping off natural drum rings and causing chattering.</text>
+    <text x="64" y="58" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10.5">Hold acts as a countdown timer keeping the door open, letting the note ring before the release envelope fades to silence.</text>
+  </g>
+</svg>
