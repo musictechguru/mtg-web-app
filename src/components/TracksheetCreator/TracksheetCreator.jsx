@@ -29,16 +29,14 @@ const DAW_OPTIONS = [
 ];
 
 const SUGGESTED_TRACKS = [
-  { track: 'Fame', artist: 'David Bowie' },
-  { track: 'Bohemian Rhapsody', artist: 'Queen' },
-  { track: 'A Day in the Life', artist: 'The Beatles' },
-  { track: 'Superstition', artist: 'Stevie Wonder' },
-  { track: 'When The Levee Breaks', artist: 'Led Zeppelin' },
-  { track: 'Dreams', artist: 'Fleetwood Mac' },
-  { track: 'Money', artist: 'Pink Floyd' },
-  { track: 'Peg', artist: 'Steely Dan' },
-  { track: 'Billie Jean', artist: 'Michael Jackson' },
-  { track: 'Roxanne', artist: 'The Police' }
+  { track: 'Fame', artist: 'David Bowie', id: 1 },
+  { track: 'Bohemian Rhapsody', artist: 'Queen', id: 16 },
+  { track: 'Superstition', artist: 'Stevie Wonder', id: 34 },
+  { track: 'Whole Lotta Love', artist: 'Led Zeppelin', id: 200 },
+  { track: 'Taxman', artist: 'The Beatles', id: 37 },
+  { track: 'Hey Jude', artist: 'The Beatles', id: 168 },
+  { track: 'Hotel California', artist: 'The Eagles', id: 5 },
+  { track: 'Yesterday', artist: 'The Beatles', id: 189 }
 ];
 
 const C1_2027_TRACKS = [
@@ -180,6 +178,24 @@ function ActivityTypewriter({ phrases, shuffle = false, getFreshPhrases = null }
   );
 }
 
+let cachedArchive = null;
+async function getArchiveData() {
+  if (cachedArchive && cachedArchive.length > 0) return cachedArchive;
+  try {
+    const res = await fetch('/data/tracksheet_archive.json');
+    if (res.ok) {
+      const data = await res.json();
+      if (Array.isArray(data) && data.length > 0) {
+        cachedArchive = data;
+        return data;
+      }
+    }
+  } catch (e) {
+    console.warn('Could not load /data/tracksheet_archive.json:', e);
+  }
+  return [];
+}
+
 export default function TracksheetCreator({ onBack }) {
   const [trackName, setTrackName] = useState('');
   const [artistName, setArtistName] = useState('');
@@ -210,14 +226,29 @@ export default function TracksheetCreator({ onBack }) {
   const c1ActivityRef = useRef(null);
 
   const fetchHistory = async () => {
-    try {
-      const res = await fetch(`${API_BASE}/api/tracksheets`);
-      if (res.ok) {
-        const data = await res.json();
-        setHistory(data);
+    // 1. If backend API URL is configured or running locally in dev, try live API
+    if (API_BASE || import.meta.env.DEV) {
+      try {
+        const res = await fetch(`${API_BASE}/api/tracksheets`);
+        if (res.ok) {
+          const cType = res.headers.get('content-type') || '';
+          if (cType.includes('application/json')) {
+            const data = await res.json();
+            if (Array.isArray(data) && data.length > 0) {
+              setHistory(data);
+              return;
+            }
+          }
+        }
+      } catch (e) {
+        // Backend not running or unreachable
       }
-    } catch (e) {
-      console.warn('Could not fetch tracksheet archive:', e);
+    }
+
+    // 2. Load pre-generated static archive (works 100% on the internet, production Vercel, offline, mobile)
+    const staticData = await getArchiveData();
+    if (staticData && staticData.length > 0) {
+      setHistory(staticData);
     }
   };
 
@@ -248,38 +279,48 @@ export default function TracksheetCreator({ onBack }) {
     setActiveTab('tracksheet');
 
     const startTime = Date.now();
-    const MIN_ANIMATION_MS = 3200;
+    const MIN_ANIMATION_MS = 2200;
 
     try {
       let data = null;
 
+      // 1. Check local client history & static archive first if not forcing regeneration
       if (!forceRegenerate) {
-        const archivedMatch = findArchivedTrack(reqTrackName, reqArtistName, history);
-        if (archivedMatch) {
-          const res = await fetch(`${API_BASE}/api/tracksheets/${archivedMatch.id}`);
-          if (res.ok) {
-            data = await res.json();
+        let archivedMatch = findArchivedTrack(reqTrackName, reqArtistName, history);
+        if (!archivedMatch) {
+          const staticData = await getArchiveData();
+          archivedMatch = findArchivedTrack(reqTrackName, reqArtistName, staticData);
+          if (archivedMatch && history.length === 0) {
+            setHistory(staticData);
           }
+        }
+        if (archivedMatch && archivedMatch.content) {
+          data = archivedMatch;
         }
       }
 
-      if (!data) {
-        const res = await fetch(`${API_BASE}/api/tracksheets/generate`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            track_name: reqTrackName,
-            artist_name: reqArtistName,
-            force_regenerate: forceRegenerate,
-            existing_id: targetTrackId || undefined
-          })
-        });
+      // 2. If not found in archive or forcing regeneration, call live backend if configured
+      if (!data && (API_BASE || import.meta.env.DEV)) {
+        try {
+          const res = await fetch(`${API_BASE}/api/tracksheets/generate`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              track_name: reqTrackName,
+              artist_name: reqArtistName,
+              force_regenerate: forceRegenerate,
+              existing_id: targetTrackId || undefined
+            })
+          });
 
-        if (res.ok) {
-          data = await res.json();
-        } else {
-          setResult('Error generating tracksheet. Please check that the Tracksheet server backend is running on port 3001.');
-          return;
+          if (res.ok) {
+            const cType = res.headers.get('content-type') || '';
+            if (cType.includes('application/json')) {
+              data = await res.json();
+            }
+          }
+        } catch (apiErr) {
+          console.warn('Live API generation call failed:', apiErr);
         }
       }
 
@@ -288,20 +329,28 @@ export default function TracksheetCreator({ onBack }) {
         await new Promise((resolve) => setTimeout(resolve, MIN_ANIMATION_MS - elapsed));
       }
 
-      setResult(data.content);
-      setCurrentTrackId(data.id);
-      setTrackName(data.track_name);
-      setArtistName(data.artist_name || '');
-      setC1Solutions(dedupeSolutions(data.c1_solutions));
-      fetchHistory();
+      if (data && data.content) {
+        setResult(data.content);
+        setCurrentTrackId(data.id);
+        setTrackName(data.track_name);
+        setArtistName(data.artist_name || '');
+        setC1Solutions(dedupeSolutions(data.c1_solutions));
+        fetchHistory();
 
-      if (data.kept_existing_highest) {
-        setCopyNotification(`Retained historical tracksheet with highest score (${data.score}%)`);
-        setTimeout(() => setCopyNotification(''), 4000);
+        if (data.kept_existing_highest) {
+          setCopyNotification(`Retained historical tracksheet with highest score (${data.score}%)`);
+          setTimeout(() => setCopyNotification(''), 4000);
+        }
+      } else {
+        setResult(
+          `### Track Not Yet in Archive\n\n"${reqTrackName}" was not found in the pre-generated library.\n\n` +
+          `Live AI generation of new unarchived tracks requires the backend server to be connected.\n\n` +
+          `**Tip:** Choose any of the **194 pre-generated tracks** from the Archive or the **2027 C1 Example track choices** above to view complete multi-track session sheets and logbooks immediately!`
+        );
       }
     } catch (error) {
       console.error('Generation failed', error);
-      setResult('Could not connect to the Tracksheet intelligence engine. Ensure the server backend is running on port 3001.');
+      setResult('Could not load track information. Please select a track from the 2027 C1 Example track choices or the Archive.');
     } finally {
       setSearchActive(false);
       setLoading(false);
@@ -312,64 +361,115 @@ export default function TracksheetCreator({ onBack }) {
     const dawToUse = dawOverride || selectedDaw;
     if (!currentTrackId && !result) return;
 
-    const freshPhrases = getSolutionEngineeringPhrases(dawToUse, { trackName, artistName });
-    setC1Phrases(freshPhrases);
-    setC1Loading(true);
-
-    try {
-      const res = await fetch(`${API_BASE}/api/tracksheets/${currentTrackId || 0}/c1`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ 
-          daw: dawToUse,
-          track_name: trackName,
-          artist_name: artistName,
-          content: result
-        })
-      });
-
-      if (res.ok) {
-        const data = await res.json();
-        setC1Solutions((prev) => {
-          const filtered = prev.filter(item => item.daw.toLowerCase() !== data.daw.toLowerCase());
-          const updated = [...filtered, data];
-          return dedupeSolutions(updated);
-        });
-        setActiveTab(data.daw);
-        setSelectedDaw(data.daw);
-      } else {
-        const errData = await res.json().catch(() => null);
-        const errMsg = errData?.error || `Server returned error (${res.status})`;
-        alert(`Error generating Component 1 solution: ${errMsg}`);
-      }
-    } catch (error) {
-      console.error('C1 generation failed', error);
-      alert('Error connecting to the server for Component 1 generation.');
-    } finally {
-      setC1Loading(false);
+    // Check if solution already exists in c1Solutions
+    const existingSol = c1Solutions.find(s => s.daw.toLowerCase() === dawToUse.toLowerCase());
+    if (existingSol) {
+      setActiveTab(existingSol.daw);
+      setSelectedDaw(existingSol.daw);
+      return;
     }
+
+    // Try live API if configured or in DEV
+    if (API_BASE || import.meta.env.DEV) {
+      const freshPhrases = getSolutionEngineeringPhrases(dawToUse, { trackName, artistName });
+      setC1Phrases(freshPhrases);
+      setC1Loading(true);
+
+      try {
+        const res = await fetch(`${API_BASE}/api/tracksheets/${currentTrackId || 0}/c1`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ 
+            daw: dawToUse,
+            track_name: trackName,
+            artist_name: artistName,
+            content: result
+          })
+        });
+
+        if (res.ok) {
+          const cType = res.headers.get('content-type') || '';
+          if (cType.includes('application/json')) {
+            const data = await res.json();
+            setC1Solutions((prev) => {
+              const filtered = prev.filter(item => item.daw.toLowerCase() !== data.daw.toLowerCase());
+              const updated = [...filtered, data];
+              return dedupeSolutions(updated);
+            });
+            setActiveTab(data.daw);
+            setSelectedDaw(data.daw);
+            setC1Loading(false);
+            return;
+          }
+        }
+      } catch (error) {
+        console.error('C1 generation failed', error);
+      } finally {
+        setC1Loading(false);
+      }
+    }
+
+    const availableDaws = c1Solutions.map(s => s.daw).join(', ');
+    alert(`Pre-generated Component 1 solution is currently available in: ${availableDaws || 'Logic Pro'}.\n\nGenerating on-demand solutions for additional DAWs (${dawToUse}) requires the live Tracksheet AI server.`);
   };
 
-  const loadHistoryItem = async (id) => {
+  const loadHistoryItem = async (id, fallbackTrack = null) => {
     setLoading(true);
     setSearchActive(false);
-    try {
-      const res = await fetch(`${API_BASE}/api/tracksheets/${id}`);
-      if (res.ok) {
-        const data = await res.json();
-        setResult(data.content);
-        setCurrentTrackId(data.id);
-        setTrackName(data.track_name);
-        setArtistName(data.artist_name || '');
-        setC1Solutions(dedupeSolutions(data.c1_solutions));
-        setActiveTab('tracksheet');
-        setHistoryOpen(false);
+
+    // 1. Check in loaded state history
+    let found = history.find(h => h.id === id || h.id === Number(id));
+
+    // 2. If not found in state, check cached static archive
+    if (!found) {
+      const staticData = await getArchiveData();
+      found = staticData.find(h => h.id === id || h.id === Number(id));
+      if (!found && fallbackTrack) {
+        found = findArchivedTrack(fallbackTrack.track, fallbackTrack.artist, staticData);
       }
-    } catch (e) {
-      console.error('Error loading history item:', e);
-    } finally {
-      setLoading(false);
+      if (found && history.length === 0) {
+        setHistory(staticData);
+      }
     }
+
+    if (found && found.content) {
+      setResult(found.content);
+      setCurrentTrackId(found.id);
+      setTrackName(found.track_name);
+      setArtistName(found.artist_name || '');
+      setC1Solutions(dedupeSolutions(found.c1_solutions));
+      setActiveTab('tracksheet');
+      setHistoryOpen(false);
+      setLoading(false);
+      return;
+    }
+
+    // 3. Fallback to API if configured
+    if (API_BASE || import.meta.env.DEV) {
+      try {
+        const res = await fetch(`${API_BASE}/api/tracksheets/${id}`);
+        if (res.ok) {
+          const cType = res.headers.get('content-type') || '';
+          if (cType.includes('application/json')) {
+            const data = await res.json();
+            setResult(data.content);
+            setCurrentTrackId(data.id);
+            setTrackName(data.track_name);
+            setArtistName(data.artist_name || '');
+            setC1Solutions(dedupeSolutions(data.c1_solutions));
+            setActiveTab('tracksheet');
+            setHistoryOpen(false);
+            setLoading(false);
+            return;
+          }
+        }
+      } catch (e) {
+        console.error('Error loading history item from API:', e);
+      }
+    }
+
+    setLoading(false);
+    alert(`Could not load track #${id}. Please check your connection.`);
   };
 
   const handleCopy = (contentToCopy) => {
@@ -541,7 +641,11 @@ export default function TracksheetCreator({ onBack }) {
                   onClick={() => {
                     setTrackName(t.track);
                     setArtistName(t.artist);
+                    if (t.id) {
+                      loadHistoryItem(t.id, t);
+                    }
                   }}
+                  title={`Load ${t.track} by ${t.artist} (#${t.id})`}
                 >
                   {t.track} <span className="pill-artist">({t.artist})</span>
                 </button>
