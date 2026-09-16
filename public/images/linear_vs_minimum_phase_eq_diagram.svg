@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 520" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgPhase" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b1120" />
+      <stop offset="100%" stop-color="#020617" />
+    </linearGradient>
+
+    <filter id="glowCyan" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3.5" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+    <filter id="glowPurple" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3.5" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="880" height="520" rx="14" fill="url(#bgPhase)" stroke="#1e293b" stroke-width="2" />
+
+  <!-- Header -->
+  <g transform="translate(40, 24)">
+    <rect x="0" y="0" width="180" height="24" rx="6" fill="#4c1d95" fill-opacity="0.4" stroke="#a855f7" stroke-width="1.2" />
+    <text x="90" y="16" fill="#c084fc" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="700" text-anchor="middle" letter-spacing="1">ADVANCED DSP THEORY</text>
+    
+    <text x="195" y="18" fill="#f8fafc" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="800" letter-spacing="-0.5">Minimum Phase vs. Linear Phase EQ</text>
+    <text x="0" y="44" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13">
+      Understanding the core trade-off between phase-smearing (Minimum Phase) and pre-ringing artifacts (Linear Phase).
+    </text>
+  </g>
+
+  <!-- Split Viewport Cards -->
+  <!-- 1. LEFT CARD: MINIMUM PHASE EQ -->
+  <g transform="translate(50, 80)">
+    <rect width="375" height="325" rx="10" fill="#0f172a" stroke="#0284c7" stroke-width="1.5" />
+
+    <!-- Card Header -->
+    <rect x="15" y="12" width="345" height="28" rx="6" fill="#0369a1" fill-opacity="0.4" stroke="#0ea5e9" stroke-width="1.2" />
+    <text x="187" y="31" fill="#38bdf8" font-family="-apple-system, sans-serif" font-size="12" font-weight="800" text-anchor="middle">MINIMUM PHASE EQ (Standard / Analog)</text>
+
+    <!-- Waveform Scope Area -->
+    <rect x="15" y="50" width="345" height="120" rx="6" fill="#020617" stroke="#1e293b" />
+    <line x1="15" y1="110" x2="360" y2="110" stroke="#334155" stroke-dasharray="3 3" />
+    <text x="25" y="68" fill="#64748b" font-family="monospace" font-size="9.5">Impulse Response</text>
+    <text x="187" y="68" fill="#f43f5e" font-family="-apple-system, sans-serif" font-size="9.5" font-weight="700" text-anchor="middle">Phase Shift (&#916;&#952;) at boost</text>
+
+    <!-- Clean Sharp Transient followed by normal post-ringing tail -->
+    <path d="M 30,110 L 140,110 L 145,110 L 150,45 L 155,155 L 165,85 L 180,130 L 205,102 L 240,113 L 340,110" 
+          fill="none" stroke="#38bdf8" stroke-width="2.5" filter="url(#glowCyan)" />
+
+    <!-- Key Bullet Points -->
+    <g transform="translate(20, 185)">
+      <text x="0" y="16" fill="#34d399" font-family="-apple-system, sans-serif" font-size="11" font-weight="700">&#10003; Zero / Low Latency:</text>
+      <text x="130" y="16" fill="#cbd5e1" font-family="-apple-system, sans-serif" font-size="10.5">Instant response for tracking</text>
+
+      <text x="0" y="36" fill="#34d399" font-family="-apple-system, sans-serif" font-size="11" font-weight="700">&#10003; Natural Transient:</text>
+      <text x="125" y="36" fill="#cbd5e1" font-family="-apple-system, sans-serif" font-size="10.5">No unnatural pre-ringing</text>
+
+      <text x="0" y="58" fill="#f43f5e" font-family="-apple-system, sans-serif" font-size="11" font-weight="700">&#10007; Phase Smearing:</text>
+      <text x="115" y="58" fill="#cbd5e1" font-family="-apple-system, sans-serif" font-size="10.5">Shifts phase around boost/cut</text>
+
+      <text x="0" y="80" fill="#f43f5e" font-family="-apple-system, sans-serif" font-size="11" font-weight="700">&#10007; Multi-Mic Risk:</text>
+      <text x="115" y="80" fill="#cbd5e1" font-family="-apple-system, sans-serif" font-size="10.5">Can comb filter drum mics</text>
+    </g>
+
+    <!-- Best For Badge -->
+    <rect x="15" y="282" width="345" height="26" rx="5" fill="#082f49" />
+    <text x="187" y="299" fill="#7dd3fc" font-family="-apple-system, sans-serif" font-size="10.5" font-weight="700" text-anchor="middle">Best For: Individual tracks, vocals, tracking, and mixing</text>
+  </g>
+
+  <!-- 2. RIGHT CARD: LINEAR PHASE EQ -->
+  <g transform="translate(455, 80)">
+    <rect width="375" height="325" rx="10" fill="#0f172a" stroke="#9333ea" stroke-width="1.5" />
+
+    <!-- Card Header -->
+    <rect x="15" y="12" width="345" height="28" rx="6" fill="#581c87" fill-opacity="0.4" stroke="#a855f7" stroke-width="1.2" />
+    <text x="187" y="31" fill="#c084fc" font-family="-apple-system, sans-serif" font-size="12" font-weight="800" text-anchor="middle">LINEAR PHASE EQ (Precision FIR Filter)</text>
+
+    <!-- Waveform Scope Area -->
+    <rect x="15" y="50" width="345" height="120" rx="6" fill="#020617" stroke="#1e293b" />
+    <line x1="15" y1="110" x2="360" y2="110" stroke="#334155" stroke-dasharray="3 3" />
+    <text x="25" y="68" fill="#64748b" font-family="monospace" font-size="9.5">Impulse Response</text>
+    <text x="290" y="68" fill="#f87171" font-family="-apple-system, sans-serif" font-size="9.5" font-weight="700" text-anchor="end">Pre-Ringing Artifact</text>
+
+    <!-- Symmetrical impulse response showing PRE-RINGING before transient -->
+    <path d="M 30,110 L 75,110 L 90,113 L 105,103 L 120,125 L 135,85 L 150,150 L 160,45 L 170,150 L 185,85 L 200,125 L 215,103 L 230,113 L 340,110" 
+          fill="none" stroke="#c084fc" stroke-width="2.5" filter="url(#glowPurple)" />
+    
+    <!-- Pre-Ringing Highlight -->
+    <rect x="80" y="80" width="70" height="55" rx="4" fill="#ef4444" fill-opacity="0.15" stroke="#ef4444" stroke-width="1" stroke-dasharray="3 2" />
+
+    <!-- Key Bullet Points -->
+    <g transform="translate(20, 185)">
+      <text x="0" y="16" fill="#34d399" font-family="-apple-system, sans-serif" font-size="11" font-weight="700">&#10003; Zero Phase Shift:</text>
+      <text x="125" y="16" fill="#cbd5e1" font-family="-apple-system, sans-serif" font-size="10.5">Perfect phase alignment across bands</text>
+
+      <text x="0" y="36" fill="#34d399" font-family="-apple-system, sans-serif" font-size="11" font-weight="700">&#10003; Multi-Mic Coherence:</text>
+      <text x="145" y="36" fill="#cbd5e1" font-family="-apple-system, sans-serif" font-size="10.5">Preserves drum overhead phase</text>
+
+      <text x="0" y="58" fill="#f43f5e" font-family="-apple-system, sans-serif" font-size="11" font-weight="700">&#10007; Pre-Ringing Artifact:</text>
+      <text x="140" y="58" fill="#cbd5e1" font-family="-apple-system, sans-serif" font-size="10.5">Can soften sharp transient hits</text>
+
+      <text x="0" y="80" fill="#f43f5e" font-family="-apple-system, sans-serif" font-size="11" font-weight="700">&#10007; High Latency &amp; CPU:</text>
+      <text x="140" y="80" fill="#cbd5e1" font-family="-apple-system, sans-serif" font-size="10.5">Unusable for real-time monitoring</text>
+    </g>
+
+    <!-- Best For Badge -->
+    <rect x="15" y="282" width="345" height="26" rx="5" fill="#3b0764" />
+    <text x="187" y="299" fill="#e9d5ff" font-family="-apple-system, sans-serif" font-size="10.5" font-weight="700" text-anchor="middle">Best For: Mastering, multi-mic drum bus, and parallel stems</text>
+  </g>
+
+  <!-- Bottom Panel -->
+  <g transform="translate(50, 424)">
+    <rect width="780" height="80" rx="8" fill="#1e293b" fill-opacity="0.9" stroke="#475569" stroke-width="1.2" />
+
+    <text x="20" y="24" fill="#f8fafc" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12.5" font-weight="700">Exam &amp; Mixing Takeaway:</text>
+    <text x="20" y="44" fill="#cbd5e1" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11">
+      • Standard (Minimum Phase) EQ is punchy and natural on transients but introduces frequency-dependent phase shift.
+    </text>
+    <text x="20" y="64" fill="#cbd5e1" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11">
+      • Linear Phase EQ prevents phase cancellation on multi-mic kits, but its FIR processing can create audible pre-ringing.
+    </text>
+  </g>
+</svg>

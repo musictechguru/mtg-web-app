@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 460" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#0b1120" /><stop offset="50%" stop-color="#0f172a" /><stop offset="100%" stop-color="#020617" /></linearGradient>
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#1e293b" /><stop offset="100%" stop-color="#0f172a" /></linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%"><feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.5" /></filter>
+  </defs>
+  <rect width="800" height="460" fill="url(#bgGrad)" />
+
+  <!-- Header -->
+  <g transform="translate(30, 16)">
+    <rect width="250" height="32" rx="6" fill="#ec4899" fill-opacity="0.15" stroke="#ec4899" stroke-width="1.2" />
+    <text x="125" y="21" fill="#f472b6" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="800" text-anchor="middle">GATED REVERB (1980s SNARE)</text>
+    <rect x="262" y="0" width="370" height="32" rx="6" fill="#0f172a" stroke="#334155" stroke-width="1.2" />
+    <text x="447" y="21" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="600" text-anchor="middle">Massive Ambient Wash Abruptly Clamped by Noise Gate</text>
+  </g>
+
+  <!-- Main Comparison Container -->
+  <g transform="translate(30, 60)">
+    <rect width="740" height="315" rx="8" fill="url(#cardGrad)" stroke="#334155" stroke-width="1.4" filter="url(#shadow)" />
+
+    <!-- Left Box: Natural Acoustic Reverb Decay -->
+    <g transform="translate(20, 20)">
+      <rect width="335" height="275" rx="6" fill="#0b1120" stroke="#64748b" stroke-width="1" />
+      <g transform="translate(15, 12)">
+        <rect width="190" height="24" rx="4" fill="#1e293b" />
+        <text x="95" y="16" fill="#94a3b8" font-family="-apple-system, sans-serif" font-size="10" font-weight="800" text-anchor="middle">NATURAL REVERB DECAY</text>
+      </g>
+      <!-- Plot -->
+      <g transform="translate(20, 50)">
+        <rect width="295" height="140" rx="4" fill="#0f172a" stroke="#1e293b" />
+        <line x1="15" y1="120" x2="280" y2="120" stroke="#334155" stroke-width="1" />
+        <!-- Snare spike -->
+        <line x1="30" y1="120" x2="30" y2="20" stroke="#38bdf8" stroke-width="3" />
+        <!-- Natural exponential decay curve -->
+        <path d="M 30,25 Q 70,35 120,65 Q 180,95 270,118" fill="none" stroke="#38bdf8" stroke-width="2" />
+        <path d="M 30,25 Q 70,35 120,65 Q 180,95 270,118 L 270,120 L 30,120 Z" fill="#38bdf8" fill-opacity="0.1" />
+        <!-- Tag -->
+        <g transform="translate(110, 30)">
+          <rect width="145" height="20" rx="3" fill="#0f172a" stroke="#334155" />
+          <text x="72" y="14" fill="#94a3b8" font-family="-apple-system, sans-serif" font-size="8.5" font-weight="700" text-anchor="middle">Long Exponential Decay Tail</text>
+        </g>
+      </g>
+      <g transform="translate(15, 205)">
+        <rect width="305" height="55" rx="4" fill="#0f172a" stroke="#1e293b" />
+        <text x="152" y="22" fill="#e2e8f0" font-family="-apple-system, sans-serif" font-size="9.5" font-weight="600" text-anchor="middle">Soft, gradual exponential fade</text>
+        <text x="152" y="40" fill="#94a3b8" font-family="-apple-system, sans-serif" font-size="9" text-anchor="middle">Can clutter fast rhythmic drum grooves</text>
+      </g>
+    </g>
+
+    <!-- Right Box: Gated Reverb Cut -->
+    <g transform="translate(385, 20)">
+      <rect width="335" height="275" rx="6" fill="#0b1120" stroke="#ec4899" stroke-width="1.2" />
+      <g transform="translate(15, 12)">
+        <rect width="210" height="24" rx="4" fill="#831843" stroke="#ec4899" stroke-width="0.8" />
+        <text x="105" y="16" fill="#f472b6" font-family="-apple-system, sans-serif" font-size="10" font-weight="800" text-anchor="middle">GATED REVERB (ABRUPT CUT)</text>
+      </g>
+      <!-- Plot -->
+      <g transform="translate(20, 50)">
+        <rect width="295" height="140" rx="4" fill="#0f172a" stroke="#1e293b" />
+        <line x1="15" y1="120" x2="280" y2="120" stroke="#334155" stroke-width="1" />
+        <!-- Snare spike -->
+        <line x1="30" y1="120" x2="30" y2="20" stroke="#f472b6" stroke-width="3" />
+        <!-- Sustained huge wash -->
+        <line x1="30" y1="30" x2="160" y2="30" stroke="#ec4899" stroke-width="2.5" />
+        <!-- Gate Cliff Drop -->
+        <line x1="160" y1="30" x2="160" y2="120" stroke="#ef4444" stroke-width="3" stroke-dasharray="3 1" />
+        <!-- Dead silence after drop -->
+        <line x1="160" y1="120" x2="270" y2="120" stroke="#64748b" stroke-width="2" />
+        <!-- Shaded active wash -->
+        <rect x="30" y="30" width="130" height="90" fill="#ec4899" fill-opacity="0.18" />
+
+        <!-- Gate Action Badge -->
+        <g transform="translate(170, 45)">
+          <rect width="115" height="22" rx="3" fill="#450a0a" stroke="#ef4444" stroke-width="1" />
+          <text x="57" y="15" fill="#fca5a5" font-family="-apple-system, sans-serif" font-size="8.5" font-weight="800" text-anchor="middle">GATE SHUTS INSTANTLY</text>
+        </g>
+        <!-- Hold Time Badge -->
+        <g transform="translate(45, 75)">
+          <rect width="100" height="20" rx="3" fill="#0f172a" stroke="#ec4899" stroke-width="0.8" />
+          <text x="50" y="14" fill="#f472b6" font-family="-apple-system, sans-serif" font-size="8.5" font-weight="700" text-anchor="middle">~200 ms WASH</text>
+        </g>
+      </g>
+      <g transform="translate(15, 205)">
+        <rect width="305" height="55" rx="4" fill="#0f172a" stroke="#ec4899" stroke-width="0.8" />
+        <text x="152" y="22" fill="#fbcfe8" font-family="-apple-system, sans-serif" font-size="9.5" font-weight="600" text-anchor="middle">Explosive, huge drum punch</text>
+        <text x="152" y="40" fill="#f472b6" font-family="-apple-system, sans-serif" font-size="9" text-anchor="middle">Noise gate clamps to silence before next beat</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Bottom Takeaway -->
+  <g transform="translate(30, 390)">
+    <rect width="740" height="52" rx="6" fill="#0f172a" stroke="#ec4899" stroke-width="1.2" />
+    <g transform="translate(12, 16)">
+      <rect width="80" height="20" rx="3" fill="#be185d" />
+      <text x="40" y="14" fill="#ffffff" font-family="-apple-system, sans-serif" font-size="10" font-weight="800" text-anchor="middle">TAKEAWAY</text>
+    </g>
+    <text x="104" y="32" fill="#f1f5f9" font-family="-apple-system, sans-serif" font-size="11" font-weight="600">Gated reverb feeds huge ambient wash into a noise gate, snapping shut abruptly for a punchy 80s hit.</text>
+  </g>
+</svg>

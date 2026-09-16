@@ -1,0 +1,179 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b1120" />
+      <stop offset="50%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#020617" />
+    </linearGradient>
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.5" />
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="480" fill="url(#bgGrad)" />
+
+  <!-- Header Badges -->
+  <g transform="translate(30, 16)">
+    <rect width="180" height="32" rx="6" fill="#a855f7" fill-opacity="0.15" stroke="#a855f7" stroke-width="1.2" />
+    <text x="90" y="21" fill="#d8b4fe" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="800" text-anchor="middle">WHAT IS LUFS?</text>
+    <rect x="192" y="0" width="460" height="32" rx="6" fill="#0f172a" stroke="#334155" stroke-width="1.2" />
+    <text x="422" y="21" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="600" text-anchor="middle">Loudness Units Full Scale: Human Perceived Hearing Standard</text>
+  </g>
+
+  <!-- Main Comparison Container -->
+  <g transform="translate(30, 60)">
+    <rect width="740" height="340" rx="8" fill="url(#cardGrad)" stroke="#334155" stroke-width="1.4" filter="url(#shadow)" />
+
+    <!-- Left Column: What is LUFS & K-Weighting -->
+    <g transform="translate(20, 18)">
+      <rect width="360" height="304" rx="6" fill="#0b1120" stroke="#a855f7" stroke-width="1.2" />
+      
+      <!-- Title Badge -->
+      <g transform="translate(15, 12)">
+        <rect width="330" height="26" rx="4" fill="#3b0764" stroke="#a855f7" stroke-width="0.8" />
+        <text x="165" y="17" fill="#f3e8ff" font-family="-apple-system, sans-serif" font-size="10.5" font-weight="800" text-anchor="middle">PERCEPTUAL K-WEIGHTING CURVE</text>
+      </g>
+
+      <!-- Curve Plot Container -->
+      <g transform="translate(15, 48)">
+        <rect width="330" height="135" rx="4" fill="#0f172a" stroke="#1e293b" />
+        
+        <!-- 0 dB reference line -->
+        <line x1="20" y1="85" x2="310" y2="85" stroke="#334155" stroke-width="1" stroke-dasharray="3 3" />
+        <g transform="translate(20, 75)">
+          <rect width="35" height="16" rx="2" fill="#0b1120" stroke="#334155" />
+          <text x="17" y="11" fill="#94a3b8" font-family="-apple-system, sans-serif" font-size="7.5" text-anchor="middle">0 dB</text>
+        </g>
+
+        <!-- K-Weighting Curve Path -->
+        <path d="M 25,125 C 50,125 75,115 105,85 L 195,85 C 220,85 240,55 275,50 L 310,50" fill="none" stroke="#c084fc" stroke-width="3" />
+
+        <!-- Sub-Bass Cut Label -->
+        <g transform="translate(45, 100)">
+          <rect width="85" height="18" rx="2" fill="#450a0a" stroke="#ef4444" stroke-width="0.8" />
+          <text x="42" y="12" fill="#fca5a5" font-family="-apple-system, sans-serif" font-size="7.5" font-weight="800" text-anchor="middle">SUB-BASS CUT</text>
+        </g>
+
+        <!-- High Shelf Boost Label -->
+        <g transform="translate(205, 24)">
+          <rect width="95" height="18" rx="2" fill="#064e3b" stroke="#10b981" stroke-width="0.8" />
+          <text x="47" y="12" fill="#34d399" font-family="-apple-system, sans-serif" font-size="7.5" font-weight="800" text-anchor="middle">+4 dB HIGH SHELF</text>
+        </g>
+      </g>
+
+      <!-- Frequency Axis Badges -->
+      <g transform="translate(25, 192)">
+        <g transform="translate(0, 0)">
+          <rect width="45" height="18" rx="2" fill="#0f172a" stroke="#334155" />
+          <text x="22" y="12" fill="#94a3b8" font-family="-apple-system, sans-serif" font-size="8" text-anchor="middle">20 Hz</text>
+        </g>
+        <g transform="translate(75, 0)">
+          <rect width="50" height="18" rx="2" fill="#0f172a" stroke="#334155" />
+          <text x="25" y="12" fill="#94a3b8" font-family="-apple-system, sans-serif" font-size="8" text-anchor="middle">100 Hz</text>
+        </g>
+        <g transform="translate(160, 0)">
+          <rect width="45" height="18" rx="2" fill="#0f172a" stroke="#334155" />
+          <text x="22" y="12" fill="#94a3b8" font-family="-apple-system, sans-serif" font-size="8" text-anchor="middle">1 kHz</text>
+        </g>
+        <g transform="translate(245, 0)">
+          <rect width="50" height="18" rx="2" fill="#0f172a" stroke="#334155" />
+          <text x="25" y="12" fill="#94a3b8" font-family="-apple-system, sans-serif" font-size="8" text-anchor="middle">10 kHz</text>
+        </g>
+      </g>
+
+      <!-- Explanation Badges -->
+      <g transform="translate(15, 222)">
+        <rect width="330" height="26" rx="3" fill="#0f172a" stroke="#1e293b" />
+        <text x="165" y="17" fill="#e2e8f0" font-family="-apple-system, sans-serif" font-size="8.5" font-weight="600" text-anchor="middle">Simulates human ear sensitivity (ITU-R BS.1770)</text>
+      </g>
+      <g transform="translate(15, 256)">
+        <rect width="330" height="26" rx="3" fill="#3b0764" stroke="#a855f7" stroke-width="0.8" />
+        <text x="165" y="17" fill="#f3e8ff" font-family="-apple-system, sans-serif" font-size="8.5" font-weight="700" text-anchor="middle">Measures perceived energy, not electrical peaks</text>
+      </g>
+    </g>
+
+    <!-- Right Column: The 3 LUFS Measurement Windows -->
+    <g transform="translate(395, 18)">
+      <rect width="325" height="304" rx="6" fill="#0b1120" stroke="#38bdf8" stroke-width="1.2" />
+
+      <!-- Title Badge -->
+      <g transform="translate(15, 12)">
+        <rect width="295" height="26" rx="4" fill="#0c4a6e" stroke="#0284c7" stroke-width="0.8" />
+        <text x="147" y="17" fill="#38bdf8" font-family="-apple-system, sans-serif" font-size="10.5" font-weight="800" text-anchor="middle">3 LUFS TIME WINDOWS</text>
+      </g>
+
+      <!-- Window 1: Momentary -->
+      <g transform="translate(15, 48)">
+        <rect width="295" height="58" rx="4" fill="#0f172a" stroke="#38bdf8" stroke-width="0.8" />
+        <g transform="translate(10, 8)">
+          <rect width="120" height="18" rx="2" fill="#0c4a6e" />
+          <text x="60" y="13" fill="#38bdf8" font-family="-apple-system, sans-serif" font-size="8.5" font-weight="800" text-anchor="middle">MOMENTARY (M)</text>
+        </g>
+        <g transform="translate(205, 8)">
+          <rect width="80" height="18" rx="2" fill="#1e293b" />
+          <text x="40" y="13" fill="#94a3b8" font-family="-apple-system, sans-serif" font-size="8" text-anchor="middle">400 ms window</text>
+        </g>
+        <g transform="translate(10, 32)">
+          <rect width="275" height="18" rx="2" fill="#0b1120" />
+          <text x="137" y="13" fill="#e2e8f0" font-family="-apple-system, sans-serif" font-size="8" font-weight="600" text-anchor="middle">Tracks immediate volume peaks &amp; transient spikes</text>
+        </g>
+      </g>
+
+      <!-- Window 2: Short-Term -->
+      <g transform="translate(15, 114)">
+        <rect width="295" height="58" rx="4" fill="#0f172a" stroke="#10b981" stroke-width="0.8" />
+        <g transform="translate(10, 8)">
+          <rect width="120" height="18" rx="2" fill="#064e3b" />
+          <text x="60" y="13" fill="#34d399" font-family="-apple-system, sans-serif" font-size="8.5" font-weight="800" text-anchor="middle">SHORT-TERM (S)</text>
+        </g>
+        <g transform="translate(205, 8)">
+          <rect width="80" height="18" rx="2" fill="#1e293b" />
+          <text x="40" y="13" fill="#94a3b8" font-family="-apple-system, sans-serif" font-size="8" text-anchor="middle">3-second window</text>
+        </g>
+        <g transform="translate(10, 32)">
+          <rect width="275" height="18" rx="2" fill="#0b1120" />
+          <text x="137" y="13" fill="#e2e8f0" font-family="-apple-system, sans-serif" font-size="8" font-weight="600" text-anchor="middle">Measures musical sections (verse vs chorus energy)</text>
+        </g>
+      </g>
+
+      <!-- Window 3: Integrated -->
+      <g transform="translate(15, 180)">
+        <rect width="295" height="80" rx="4" fill="#0f172a" stroke="#a855f7" stroke-width="1.2" />
+        <g transform="translate(10, 8)">
+          <rect width="120" height="18" rx="2" fill="#3b0764" />
+          <text x="60" y="13" fill="#d8b4fe" font-family="-apple-system, sans-serif" font-size="8.5" font-weight="800" text-anchor="middle">INTEGRATED (I)</text>
+        </g>
+        <g transform="translate(205, 8)">
+          <rect width="80" height="18" rx="2" fill="#1e293b" />
+          <text x="40" y="13" fill="#94a3b8" font-family="-apple-system, sans-serif" font-size="8" text-anchor="middle">Entire Song</text>
+        </g>
+        <g transform="translate(10, 32)">
+          <rect width="275" height="18" rx="2" fill="#0b1120" />
+          <text x="137" y="13" fill="#f3e8ff" font-family="-apple-system, sans-serif" font-size="8" font-weight="700" text-anchor="middle">Global standard used by Spotify, Apple &amp; YouTube</text>
+        </g>
+        <g transform="translate(10, 54)">
+          <rect width="275" height="18" rx="2" fill="#3b0764" stroke="#a855f7" stroke-width="0.6" />
+          <text x="137" y="13" fill="#d8b4fe" font-family="-apple-system, sans-serif" font-size="8" font-weight="600" text-anchor="middle">Applies gating to ignore silence &amp; pauses</text>
+        </g>
+      </g>
+    </g>
+  </g>
+
+  <!-- Bottom Takeaway Bar with Enclosed Badge -->
+  <g transform="translate(30, 412)">
+    <rect width="740" height="48" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.2" />
+    <g transform="translate(12, 14)">
+      <rect width="80" height="20" rx="3" fill="#0284c7" />
+      <text x="40" y="14" fill="#ffffff" font-family="-apple-system, sans-serif" font-size="9" font-weight="800" text-anchor="middle">TAKEAWAY</text>
+    </g>
+    <g transform="translate(98, 12)">
+      <rect width="630" height="24" rx="4" fill="#0f172a" stroke="#334155" stroke-width="0.8" />
+      <text x="315" y="16" fill="#e2e8f0" font-family="-apple-system, sans-serif" font-size="10.5" font-weight="600" text-anchor="middle">LUFS measures perceived audio loudness over time using human hearing K-weighting curves.</text>
+    </g>
+  </g>
+</svg>

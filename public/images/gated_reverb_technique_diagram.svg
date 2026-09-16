@@ -1,0 +1,195 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b1120" />
+      <stop offset="50%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#020617" />
+    </linearGradient>
+
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+
+    <linearGradient id="glowNatural" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#38bdf8" />
+      <stop offset="40%" stop-color="#818cf8" />
+      <stop offset="100%" stop-color="#64748b" stop-opacity="0.1" />
+    </linearGradient>
+
+    <linearGradient id="glowGated" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ec4899" />
+      <stop offset="70%" stop-color="#f43f5e" />
+      <stop offset="71%" stop-color="#ef4444" />
+      <stop offset="72%" stop-color="#475569" stop-opacity="0.2" />
+    </linearGradient>
+
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.5" />
+    </filter>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect width="800" height="480" fill="url(#bgGrad)" />
+
+  <!-- Outer Title Banner -->
+  <g transform="translate(30, 20)">
+    <rect width="320" height="30" rx="6" fill="#ec4899" fill-opacity="0.15" stroke="#ec4899" stroke-width="1.2" />
+    <text x="160" y="20" fill="#f472b6" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="800" text-anchor="middle" letter-spacing="1">1980s GATED REVERB TECHNIQUE</text>
+    <text x="335" y="21" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="500">Huge ambiance abruptly truncated into silence</text>
+  </g>
+
+  <!-- Left Panel: Natural Reverb Decay -->
+  <g transform="translate(30, 62)">
+    <rect width="355" height="230" rx="8" fill="url(#cardGrad)" stroke="#334155" stroke-width="1.5" filter="url(#shadow)" />
+    
+    <!-- Header Badge -->
+    <rect x="14" y="12" width="165" height="22" rx="4" fill="#334155" fill-opacity="0.5" />
+    <text x="96" y="27" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" font-weight="800" text-anchor="middle">STANDARD REVERB</text>
+    <text x="188" y="27" fill="#cbd5e1" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="600">Natural Exponential Decay</text>
+
+    <!-- Waveform Display Box -->
+    <rect x="14" y="42" width="327" height="110" rx="6" fill="#0b1120" stroke="#1e293b" />
+    
+    <!-- Time axis zero line -->
+    <line x1="14" y1="97" x2="341" y2="97" stroke="#1e293b" stroke-width="1" />
+
+    <!-- Waveform: Snare transient + long smooth exponential reverb tail -->
+    <!-- Direct Snare transient -->
+    <path d="M 22,97 L 28,97 L 34,50 L 40,144 L 46,62 L 52,132 L 58,74 L 64,120 L 70,84 L 76,110 L 82,97" fill="none" stroke="#38bdf8" stroke-width="2" />
+    <text x="34" y="45" fill="#38bdf8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8" font-weight="800">DRY SNARE</text>
+
+    <!-- Natural Reverb Tail Decay (Smooth exponential drop over time) -->
+    <path d="M 82,97 
+             L 88,68 L 94,126 L 100,74 L 106,120 L 112,78 L 118,116 
+             L 126,82 L 134,112 L 142,85 L 150,109 L 160,88 L 170,106 
+             L 185,90 L 200,104 L 220,92 L 240,102 L 265,94 L 290,100 
+             L 315,96 L 335,97" fill="none" stroke="#818cf8" stroke-width="1.6" />
+
+    <!-- Decay Envelope Line (Dashed) -->
+    <path d="M 82,68 Q 140,78 335,95" fill="none" stroke="#64748b" stroke-width="1.2" stroke-dasharray="3" />
+    <path d="M 82,126 Q 140,116 335,99" fill="none" stroke="#64748b" stroke-width="1.2" stroke-dasharray="3" />
+    <text x="210" y="80" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" font-style="italic">Gradual exponential fade</text>
+
+    <!-- Descriptor underneath waveform -->
+    <text x="177" y="174" fill="#cbd5e1" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10.5" font-weight="600" text-anchor="middle">Long acoustic tail gently dies away</text>
+    <text x="177" y="190" fill="#64748b" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9.5" text-anchor="middle">Can wash out fast tempos and blur the drum kit mix</text>
+    
+    <rect x="14" y="200" width="327" height="20" rx="3" fill="#0f172a" />
+    <text x="177" y="214" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" font-weight="700" text-anchor="middle">REVERB TAIL: 2.5 SECONDS NATURAL DECAY</text>
+  </g>
+
+  <!-- Right Panel: The 1980s Gated Reverb Sound -->
+  <g transform="translate(415, 62)">
+    <rect width="355" height="230" rx="8" fill="url(#cardGrad)" stroke="#ec4899" stroke-width="1.5" filter="url(#shadow)" />
+    
+    <!-- Header Badge -->
+    <rect x="14" y="12" width="165" height="22" rx="4" fill="#ec4899" fill-opacity="0.2" stroke="#ec4899" stroke-width="1" />
+    <text x="96" y="27" fill="#f472b6" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" font-weight="800" text-anchor="middle">1980s GATED REVERB</text>
+    <text x="188" y="27" fill="#fbcfe8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="700">Explosive Wall of Sound</text>
+
+    <!-- Waveform Display Box -->
+    <rect x="14" y="42" width="327" height="110" rx="6" fill="#0b1120" stroke="#1e293b" />
+    
+    <!-- Time axis zero line -->
+    <line x1="14" y1="97" x2="341" y2="97" stroke="#1e293b" stroke-width="1" />
+
+    <!-- Direct Snare transient -->
+    <path d="M 22,97 L 28,97 L 34,50 L 40,144 L 46,62 L 52,132 L 58,74 L 64,120 L 70,84 L 76,110 L 82,97" fill="none" stroke="#38bdf8" stroke-width="2" />
+    <text x="34" y="45" fill="#38bdf8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8" font-weight="800">DRY SNARE</text>
+
+    <!-- Massive Reverb Burst (Compressed room / dense plate) -->
+    <path d="M 82,97 
+             L 88,56 L 94,138 L 100,58 L 106,136 L 112,56 L 118,138 
+             L 126,58 L 134,136 L 142,56 L 150,138 L 158,58 L 166,136 
+             L 174,56 L 182,138 L 190,58 L 198,136 L 206,56 L 214,138 L 220,97" fill="none" stroke="#ec4899" stroke-width="2" />
+
+    <!-- ABRUPT GATE SHUT LINE (The Brick Wall Cutoff) -->
+    <line x1="220" y1="46" x2="220" y2="148" stroke="#f43f5e" stroke-width="3" stroke-dasharray="2" />
+    
+    <!-- Truncated Flat Silence -->
+    <line x1="220" y1="97" x2="335" y2="97" stroke="#64748b" stroke-width="2.5" />
+    <text x="278" y="92" fill="#64748b" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8" font-weight="800" text-anchor="middle">DEAD SILENCE</text>
+
+    <!-- Callout Box above cut -->
+    <rect x="140" y="46" width="76" height="22" rx="3" fill="#0f172a" stroke="#f43f5e" stroke-width="1" />
+    <text x="178" y="60" fill="#f43f5e" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8" font-weight="900" text-anchor="middle">GATE SNAPS SHUT!</text>
+
+    <!-- Descriptor underneath waveform -->
+    <text x="177" y="174" fill="#fbcfe8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10.5" font-weight="700" text-anchor="middle">Massive ambiance abruptly cut off by noise gate</text>
+    <text x="177" y="190" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9.5" text-anchor="middle">Massive punch and space without cluttering the rhythm</text>
+
+    <!-- State Bar: Open vs Closed -->
+    <g transform="translate(14, 200)">
+      <rect width="206" height="20" rx="3" fill="#10b981" fill-opacity="0.3" />
+      <text x="103" y="14" fill="#34d399" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8" font-weight="800" text-anchor="middle">GATE OPEN: HUGE REVERB (350ms)</text>
+      <rect x="206" y="0" width="121" height="20" rx="3" fill="#ef4444" fill-opacity="0.3" />
+      <text x="266" y="14" fill="#f87171" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8" font-weight="800" text-anchor="middle">GATE SHUT: DEAD MUTE</text>
+    </g>
+  </g>
+
+  <!-- Middle Signal Flow Chain -->
+  <g transform="translate(30, 302)">
+    <rect width="740" height="66" rx="8" fill="#1e293b" stroke="#475569" stroke-width="1.2" />
+    
+    <!-- Stage 1: Snare -->
+    <g transform="translate(15, 13)">
+      <rect width="105" height="40" rx="5" fill="#0f172a" stroke="#38bdf8" stroke-width="1.2" />
+      <text x="52" y="20" fill="#38bdf8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9.5" font-weight="800" text-anchor="middle">DRY SNARE</text>
+      <text x="52" y="32" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8" text-anchor="middle">Acoustic mic strike</text>
+    </g>
+
+    <!-- Arrow 1 -->
+    <path d="M 125,33 L 140,33" stroke="#94a3b8" stroke-width="1.8" marker-end="url(#arrow)" />
+    <text x="133" y="27" fill="#64748b" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" text-anchor="middle">→</text>
+
+    <!-- Stage 2: Huge Reverb -->
+    <g transform="translate(145, 13)">
+      <rect width="130" height="40" rx="5" fill="#0f172a" stroke="#818cf8" stroke-width="1.2" />
+      <text x="65" y="20" fill="#a5b4fc" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9.5" font-weight="800" text-anchor="middle">NON-LINEAR REVERB</text>
+      <text x="65" y="32" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8" text-anchor="middle">Stone room / AMS RMX16</text>
+    </g>
+
+    <!-- Arrow 2 -->
+    <text x="283" y="36" fill="#64748b" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" text-anchor="middle">→</text>
+
+    <!-- Stage 3: SSL Compressor -->
+    <g transform="translate(295, 13)">
+      <rect width="135" height="40" rx="5" fill="#0f172a" stroke="#fbbf24" stroke-width="1.2" />
+      <text x="67" y="20" fill="#fcd34d" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9.5" font-weight="800" text-anchor="middle">HEAVY COMPRESSION</text>
+      <text x="67" y="32" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8" text-anchor="middle">SSL Listen Mic Compressor</text>
+    </g>
+
+    <!-- Arrow 3 -->
+    <text x="438" y="36" fill="#64748b" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" text-anchor="middle">→</text>
+
+    <!-- Stage 4: Noise Gate -->
+    <g transform="translate(450, 13)">
+      <rect width="125" height="40" rx="5" fill="#0f172a" stroke="#ec4899" stroke-width="1.5" />
+      <text x="62" y="20" fill="#f472b6" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9.5" font-weight="800" text-anchor="middle">NOISE GATE</text>
+      <text x="62" y="32" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8" text-anchor="middle">Fast release cut-off</text>
+    </g>
+
+    <!-- Arrow 4 -->
+    <text x="583" y="36" fill="#64748b" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" text-anchor="middle">→</text>
+
+    <!-- Stage 5: Final Iconic Sound -->
+    <g transform="translate(595, 13)">
+      <rect width="130" height="40" rx="5" fill="#0f172a" stroke="#10b981" stroke-width="1.5" />
+      <text x="65" y="20" fill="#34d399" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9.5" font-weight="900" text-anchor="middle">"IN THE AIR TONIGHT"</text>
+      <text x="65" y="32" fill="#cbd5e1" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8" text-anchor="middle">Phil Collins (1981)</text>
+    </g>
+  </g>
+
+  <!-- Bottom Key Exam Takeaway -->
+  <g transform="translate(30, 378)">
+    <rect width="740" height="88" rx="8" fill="#1e293b" stroke="#ec4899" stroke-width="1.5" />
+    <circle cx="36" cy="44" r="14" fill="#ec4899" fill-opacity="0.2" stroke="#ec4899" stroke-width="1.5" />
+    <text x="36" y="49" fill="#f472b6" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="900" text-anchor="middle">i</text>
+    
+    <text x="64" y="26" fill="#f8fafc" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="700">Edexcel Exam Concept: How Gated Reverb Works</text>
+    <text x="64" y="44" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10.5">1. A snare hit triggers an expansive plate or room reverb that is heavily compressed to keep the volume intense.</text>
+    <text x="64" y="58" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10.5">2. Instead of fading out naturally over several seconds, a <tspan fill="#f472b6" font-weight="bold">noise gate abruptly chops off the reverb tail</tspan> after 200–400ms.</text>
+    <text x="64" y="72" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10.5">3. This delivers the sensation of enormous room size while leaving complete silence between drum strikes so mixes remain tight.</text>
+  </g>
+</svg>

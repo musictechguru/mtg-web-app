@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 460" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#0b1120" /><stop offset="50%" stop-color="#0f172a" /><stop offset="100%" stop-color="#020617" /></linearGradient>
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#1e293b" /><stop offset="100%" stop-color="#0f172a" /></linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%"><feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.5" /></filter>
+  </defs>
+  <rect width="800" height="460" fill="url(#bgGrad)" />
+
+  <!-- Header -->
+  <g transform="translate(30, 16)">
+    <rect width="260" height="32" rx="6" fill="#10b981" fill-opacity="0.15" stroke="#10b981" stroke-width="1.2" />
+    <text x="130" y="21" fill="#34d399" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="800" text-anchor="middle">CONVOLUTION REVERB (IR)</text>
+    <rect x="272" y="0" width="380" height="32" rx="6" fill="#0f172a" stroke="#334155" stroke-width="1.2" />
+    <text x="462" y="21" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="600" text-anchor="middle">Impulse Response Sampling &amp; DSP Mathematical Multiplication</text>
+  </g>
+
+  <!-- Main Workflow Container -->
+  <g transform="translate(30, 60)">
+    <rect width="740" height="315" rx="8" fill="url(#cardGrad)" stroke="#334155" stroke-width="1.4" filter="url(#shadow)" />
+
+    <!-- Step 1: Acoustic Capture -->
+    <g transform="translate(20, 20)">
+      <rect width="215" height="275" rx="6" fill="#0b1120" stroke="#38bdf8" stroke-width="1.2" />
+      <g transform="translate(12, 12)">
+        <rect width="191" height="24" rx="4" fill="#0c4a6e" />
+        <text x="95" y="16" fill="#38bdf8" font-family="-apple-system, sans-serif" font-size="10" font-weight="800" text-anchor="middle">1. ACOUSTIC CAPTURE</text>
+      </g>
+      <!-- Diagram inside Step 1 -->
+      <g transform="translate(20, 50)">
+        <rect width="175" height="110" rx="4" fill="#0f172a" stroke="#1e293b" />
+        <!-- Room arch icon -->
+        <path d="M 25,95 L 25,50 Q 87,15 150,50 L 150,95 Z" fill="none" stroke="#64748b" stroke-width="1.5" />
+        <!-- Starter pistol / click source -->
+        <circle cx="50" cy="70" r="8" fill="#f59e0b" />
+        <path d="M 50,60 L 50,50 M 58,64 L 68,58 M 60,72 L 72,72 M 58,80 L 68,86" stroke="#f59e0b" stroke-width="1.5" />
+        <!-- Measurement mic -->
+        <line x1="125" y1="70" x2="125" y2="90" stroke="#38bdf8" stroke-width="2" />
+        <circle cx="125" cy="65" r="5" fill="#38bdf8" />
+        <rect x="25" y="10" width="125" height="18" rx="3" fill="#0b1120" stroke="#64748b" stroke-width="0.8" />
+        <text x="87" y="22" fill="#cbd5e1" font-family="-apple-system, sans-serif" font-size="8.5" font-weight="700" text-anchor="middle">REAL SPACE / HALL</text>
+      </g>
+      <g transform="translate(12, 175)">
+        <rect width="191" height="85" rx="4" fill="#0f172a" stroke="#1e293b" />
+        <text x="95" y="24" fill="#38bdf8" font-family="-apple-system, sans-serif" font-size="10" font-weight="700" text-anchor="middle">Sine Sweep or Starter Gun</text>
+        <text x="95" y="44" fill="#94a3b8" font-family="-apple-system, sans-serif" font-size="9" text-anchor="middle">Fires broad spectrum pulse</text>
+        <text x="95" y="64" fill="#94a3b8" font-family="-apple-system, sans-serif" font-size="9" text-anchor="middle">Stereo mics record reflection</text>
+      </g>
+    </g>
+
+    <!-- Arrow 1 -->
+    <g transform="translate(242, 140)">
+      <circle cx="12" cy="12" r="12" fill="#1e293b" stroke="#38bdf8" stroke-width="1" />
+      <path d="M 8,12 L 16,12 M 13,8 L 17,12 L 13,16" stroke="#38bdf8" stroke-width="2" fill="none" />
+    </g>
+
+    <!-- Step 2: Impulse Response File -->
+    <g transform="translate(262, 20)">
+      <rect width="215" height="275" rx="6" fill="#0b1120" stroke="#10b981" stroke-width="1.2" />
+      <g transform="translate(12, 12)">
+        <rect width="191" height="24" rx="4" fill="#064e3b" />
+        <text x="95" y="16" fill="#34d399" font-family="-apple-system, sans-serif" font-size="10" font-weight="800" text-anchor="middle">2. IMPULSE RESPONSE (IR)</text>
+      </g>
+      <!-- Diagram inside Step 2 -->
+      <g transform="translate(20, 50)">
+        <rect width="175" height="110" rx="4" fill="#0f172a" stroke="#1e293b" />
+        <!-- Waveform file visual -->
+        <rect x="15" y="15" width="145" height="80" rx="3" fill="#0b1120" stroke="#10b981" stroke-width="0.8" />
+        <line x1="20" y1="55" x2="155" y2="55" stroke="#334155" stroke-width="1" />
+        <path d="M 25,55 L 28,25 L 32,75 L 36,38 L 40,68 L 48,45 L 56,62 L 70,50 L 85,58 L 105,53 L 130,56 L 150,55" fill="none" stroke="#10b981" stroke-width="1.8" />
+        <rect x="45" y="80" width="85" height="16" rx="2" fill="#064e3b" />
+        <text x="87" y="91" fill="#34d399" font-family="-apple-system, sans-serif" font-size="8" font-weight="700" text-anchor="middle">hall_sample.wav</text>
+      </g>
+      <g transform="translate(12, 175)">
+        <rect width="191" height="85" rx="4" fill="#0f172a" stroke="#1e293b" />
+        <text x="95" y="24" fill="#34d399" font-family="-apple-system, sans-serif" font-size="10" font-weight="700" text-anchor="middle">Acoustic Audio Signature</text>
+        <text x="95" y="44" fill="#94a3b8" font-family="-apple-system, sans-serif" font-size="9" text-anchor="middle">Exact frequency response</text>
+        <text x="95" y="64" fill="#94a3b8" font-family="-apple-system, sans-serif" font-size="9" text-anchor="middle">Exact decay &amp; spatial cues</text>
+      </g>
+    </g>
+
+    <!-- Arrow 2 -->
+    <g transform="translate(484, 140)">
+      <circle cx="12" cy="12" r="12" fill="#1e293b" stroke="#10b981" stroke-width="1" />
+      <path d="M 8,12 L 16,12 M 13,8 L 17,12 L 13,16" stroke="#10b981" stroke-width="2" fill="none" />
+    </g>
+
+    <!-- Step 3: DSP Convolution Engine -->
+    <g transform="translate(504, 20)">
+      <rect width="215" height="275" rx="6" fill="#0b1120" stroke="#a855f7" stroke-width="1.2" />
+      <g transform="translate(12, 12)">
+        <rect width="191" height="24" rx="4" fill="#3b0764" />
+        <text x="95" y="16" fill="#d8b4fe" font-family="-apple-system, sans-serif" font-size="10" font-weight="800" text-anchor="middle">3. CONVOLUTION DSP</text>
+      </g>
+      <!-- Diagram inside Step 3 -->
+      <g transform="translate(20, 50)">
+        <rect width="175" height="110" rx="4" fill="#0f172a" stroke="#1e293b" />
+        <g transform="translate(15, 20)">
+          <rect width="60" height="28" rx="3" fill="#0f172a" stroke="#38bdf8" />
+          <text x="30" y="18" fill="#38bdf8" font-family="-apple-system, sans-serif" font-size="9" font-weight="700" text-anchor="middle">Dry Audio</text>
+        </g>
+        <text x="88" y="38" fill="#f43f5e" font-family="-apple-system, sans-serif" font-size="16" font-weight="800" text-anchor="middle">*</text>
+        <g transform="translate(100, 20)">
+          <rect width="60" height="28" rx="3" fill="#0f172a" stroke="#10b981" />
+          <text x="30" y="18" fill="#34d399" font-family="-apple-system, sans-serif" font-size="9" font-weight="700" text-anchor="middle">Room IR</text>
+        </g>
+        <line x1="88" y1="55" x2="88" y2="70" stroke="#a855f7" stroke-width="2" />
+        <g transform="translate(15, 75)">
+          <rect width="145" height="24" rx="3" fill="#3b0764" stroke="#a855f7" stroke-width="1" />
+          <text x="72" y="16" fill="#f3e8ff" font-family="-apple-system, sans-serif" font-size="9" font-weight="700" text-anchor="middle">Authentic Space Output</text>
+        </g>
+      </g>
+      <g transform="translate(12, 175)">
+        <rect width="191" height="85" rx="4" fill="#0f172a" stroke="#1e293b" />
+        <text x="95" y="24" fill="#d8b4fe" font-family="-apple-system, sans-serif" font-size="10" font-weight="700" text-anchor="middle">Mathematical Multiplication</text>
+        <text x="95" y="44" fill="#94a3b8" font-family="-apple-system, sans-serif" font-size="9" text-anchor="middle">Multiplies samples with IR</text>
+        <text x="95" y="64" fill="#94a3b8" font-family="-apple-system, sans-serif" font-size="9" text-anchor="middle">100% authentic physical space</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Bottom Takeaway -->
+  <g transform="translate(30, 390)">
+    <rect width="740" height="52" rx="6" fill="#0f172a" stroke="#10b981" stroke-width="1.2" />
+    <g transform="translate(12, 16)">
+      <rect width="80" height="20" rx="3" fill="#064e3b" />
+      <text x="40" y="14" fill="#34d399" font-family="-apple-system, sans-serif" font-size="10" font-weight="800" text-anchor="middle">TAKEAWAY</text>
+    </g>
+    <text x="104" y="32" fill="#f1f5f9" font-family="-apple-system, sans-serif" font-size="11" font-weight="600">Convolution reverb uses recorded Impulse Responses (IR) to replicate real physical acoustic environments.</text>
+  </g>
+</svg>

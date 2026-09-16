@@ -1,0 +1,248 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b1120" />
+      <stop offset="50%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#020617" />
+    </linearGradient>
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.5" />
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="480" fill="url(#bgGrad)" />
+
+  <!-- Header Badges -->
+  <g transform="translate(30, 16)">
+    <rect width="200" height="32" rx="6" fill="#38bdf8" fill-opacity="0.15" stroke="#38bdf8" stroke-width="1.2" />
+    <text x="100" y="21" fill="#38bdf8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="800" text-anchor="middle">MONO COMPATIBILITY</text>
+    <rect x="212" y="0" width="450" height="32" rx="6" fill="#0f172a" stroke="#334155" stroke-width="1.2" />
+    <text x="437" y="21" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="600" text-anchor="middle">Stereo Summing (L + R), Phase Cancellation &amp; Playback Devices</text>
+  </g>
+
+  <!-- Main Comparison Container -->
+  <g transform="translate(30, 60)">
+    <rect width="740" height="340" rx="8" fill="url(#cardGrad)" stroke="#334155" stroke-width="1.4" filter="url(#shadow)" />
+
+    <!-- Left Column: Mechanics of Mono Summing -->
+    <g transform="translate(20, 18)">
+      <rect width="345" height="304" rx="6" fill="#0b1120" stroke="#38bdf8" stroke-width="1.2" />
+      
+      <!-- Title Badge -->
+      <g transform="translate(15, 12)">
+        <rect width="315" height="26" rx="4" fill="#0c4a6e" stroke="#38bdf8" stroke-width="0.8" />
+        <text x="157" y="17" fill="#38bdf8" font-family="-apple-system, sans-serif" font-size="10.5" font-weight="800" text-anchor="middle">PHASE INTERACTION (L + R SUM)</text>
+      </g>
+
+      <!-- Case 1: In-Phase Elements (Green) -->
+      <g transform="translate(15, 46)">
+        <rect width="315" height="84" rx="4" fill="#0f172a" stroke="#10b981" stroke-width="1" />
+        
+        <g transform="translate(10, 8)">
+          <rect width="130" height="18" rx="2" fill="#064e3b" />
+          <text x="65" y="13" fill="#34d399" font-family="-apple-system, sans-serif" font-size="8" font-weight="800" text-anchor="middle">IN-PHASE SIGNALS</text>
+        </g>
+        <g transform="translate(150, 8)">
+          <rect width="155" height="18" rx="2" fill="#0b1120" />
+          <text x="77" y="13" fill="#6ee7b7" font-family="-apple-system, sans-serif" font-size="7.5" font-weight="700" text-anchor="middle">Lead Vocal, Kick, Bassline</text>
+        </g>
+
+        <!-- Wave Chips -->
+        <g transform="translate(10, 34)">
+          <rect width="45" height="14" rx="2" fill="#0b1120" />
+          <text x="22" y="10" fill="#38bdf8" font-family="-apple-system, sans-serif" font-size="7" font-weight="700" text-anchor="middle">L WAVE</text>
+        </g>
+        <g transform="translate(68, 34)">
+          <rect width="45" height="14" rx="2" fill="#0b1120" />
+          <text x="22" y="10" fill="#a855f7" font-family="-apple-system, sans-serif" font-size="7" font-weight="700" text-anchor="middle">R WAVE</text>
+        </g>
+        <g transform="translate(135, 34)">
+          <rect width="70" height="14" rx="2" fill="#064e3b" />
+          <text x="35" y="10" fill="#34d399" font-family="-apple-system, sans-serif" font-size="7" font-weight="800" text-anchor="middle">SUMMED</text>
+        </g>
+
+        <!-- Waveforms -->
+        <path d="M 12,54 Q 25,40 37,54 T 52,54" fill="none" stroke="#38bdf8" stroke-width="1.8" />
+        <path d="M 70,54 Q 83,40 95,54 T 110,54" fill="none" stroke="#a855f7" stroke-width="1.8" />
+        <path d="M 140,54 Q 165,30 185,54 T 205,54" fill="none" stroke="#10b981" stroke-width="2.5" />
+
+        <g transform="translate(220, 36)">
+          <rect width="85" height="22" rx="3" fill="#064e3b" stroke="#10b981" stroke-width="0.8" />
+          <text x="42" y="15" fill="#a7f3d0" font-family="-apple-system, sans-serif" font-size="8" font-weight="800" text-anchor="middle">+6 dB REINFORCE</text>
+        </g>
+        <g transform="translate(10, 64)">
+          <rect width="295" height="15" rx="2" fill="#0b1120" />
+          <text x="147" y="11" fill="#cbd5e1" font-family="-apple-system, sans-serif" font-size="7.5" font-weight="600" text-anchor="middle">Peaks align perfectly, boosting power when summed</text>
+        </g>
+      </g>
+
+      <!-- Case 2: Out-of-Phase Elements (Red) -->
+      <g transform="translate(15, 136)">
+        <rect width="315" height="84" rx="4" fill="#0f172a" stroke="#ef4444" stroke-width="1" />
+        
+        <g transform="translate(10, 8)">
+          <rect width="130" height="18" rx="2" fill="#450a0a" />
+          <text x="65" y="13" fill="#f87171" font-family="-apple-system, sans-serif" font-size="8" font-weight="800" text-anchor="middle">OUT-OF-PHASE SIGNALS</text>
+        </g>
+        <g transform="translate(150, 8)">
+          <rect width="155" height="18" rx="2" fill="#0b1120" />
+          <text x="77" y="13" fill="#fca5a5" font-family="-apple-system, sans-serif" font-size="7.5" font-weight="700" text-anchor="middle">Bad Widening, Chorus Flares</text>
+        </g>
+
+        <!-- Wave Chips -->
+        <g transform="translate(10, 34)">
+          <rect width="45" height="14" rx="2" fill="#0b1120" />
+          <text x="22" y="10" fill="#38bdf8" font-family="-apple-system, sans-serif" font-size="7" font-weight="700" text-anchor="middle">L WAVE</text>
+        </g>
+        <g transform="translate(68, 34)">
+          <rect width="45" height="14" rx="2" fill="#0b1120" />
+          <text x="22" y="10" fill="#f87171" font-family="-apple-system, sans-serif" font-size="7" font-weight="700" text-anchor="middle">R INVERT</text>
+        </g>
+        <g transform="translate(135, 34)">
+          <rect width="70" height="14" rx="2" fill="#450a0a" />
+          <text x="35" y="10" fill="#fca5a5" font-family="-apple-system, sans-serif" font-size="7" font-weight="800" text-anchor="middle">CANCEL</text>
+        </g>
+
+        <!-- Waveforms -->
+        <path d="M 12,54 Q 25,40 37,54 T 52,54" fill="none" stroke="#38bdf8" stroke-width="1.8" />
+        <path d="M 70,54 Q 83,68 95,54 T 110,54" fill="none" stroke="#f87171" stroke-width="1.8" />
+        <line x1="140" y1="54" x2="205" y2="54" stroke="#ef4444" stroke-width="2.5" />
+
+        <g transform="translate(220, 36)">
+          <rect width="85" height="22" rx="3" fill="#450a0a" stroke="#ef4444" stroke-width="0.8" />
+          <text x="42" y="15" fill="#fca5a5" font-family="-apple-system, sans-serif" font-size="8" font-weight="800" text-anchor="middle">TOTAL SILENCE</text>
+        </g>
+        <g transform="translate(10, 64)">
+          <rect width="295" height="15" rx="2" fill="#0b1120" />
+          <text x="147" y="11" fill="#fca5a5" font-family="-apple-system, sans-serif" font-size="7.5" font-weight="600" text-anchor="middle">Opposing waveforms cancel out, making vocals vanish</text>
+        </g>
+      </g>
+
+      <!-- Phase Correlation Meter Chip with 3 Sub-Boxes -->
+      <g transform="translate(15, 226)">
+        <rect width="315" height="66" rx="4" fill="#0f172a" stroke="#334155" />
+        
+        <g transform="translate(8, 8)">
+          <g transform="translate(0, 0)">
+            <rect width="95" height="22" rx="3" fill="#064e3b" stroke="#10b981" stroke-width="0.6" />
+            <text x="47" y="15" fill="#a7f3d0" font-family="-apple-system, sans-serif" font-size="8" font-weight="800" text-anchor="middle">+1.0 (Mono Safe)</text>
+          </g>
+          <g transform="translate(102, 0)">
+            <rect width="95" height="22" rx="3" fill="#0c4a6e" stroke="#38bdf8" stroke-width="0.6" />
+            <text x="47" y="15" fill="#7dd3fc" font-family="-apple-system, sans-serif" font-size="8" font-weight="800" text-anchor="middle">0.0 (Wide Stereo)</text>
+          </g>
+          <g transform="translate(204, 0)">
+            <rect width="95" height="22" rx="3" fill="#450a0a" stroke="#ef4444" stroke-width="0.6" />
+            <text x="47" y="15" fill="#fca5a5" font-family="-apple-system, sans-serif" font-size="8" font-weight="800" text-anchor="middle">-1.0 (Phase Out)</text>
+          </g>
+        </g>
+        
+        <g transform="translate(8, 36)">
+          <rect width="299" height="22" rx="3" fill="#0b1120" stroke="#10b981" stroke-width="0.6" />
+          <text x="149" y="15" fill="#6ee7b7" font-family="-apple-system, sans-serif" font-size="8" font-weight="700" text-anchor="middle">Target: Always keep correlation positive (+0.5 to +1.0)</text>
+        </g>
+      </g>
+    </g>
+
+    <!-- Right Column: Real-World Mono Playback Environments -->
+    <g transform="translate(380, 18)">
+      <rect width="340" height="304" rx="6" fill="#0b1120" stroke="#f59e0b" stroke-width="1.2" />
+
+      <!-- Title Badge -->
+      <g transform="translate(15, 12)">
+        <rect width="310" height="26" rx="4" fill="#451a03" stroke="#f59e0b" stroke-width="0.8" />
+        <text x="155" y="17" fill="#fde68a" font-family="-apple-system, sans-serif" font-size="10.5" font-weight="800" text-anchor="middle">REAL-WORLD CONSUMER MONO PLAYBACK</text>
+      </g>
+
+      <!-- 4 Device Cards -->
+      <g transform="translate(15, 46)">
+        <!-- Device 1: Smartphones & Tablets -->
+        <g transform="translate(0, 0)">
+          <rect width="310" height="52" rx="3" fill="#0f172a" stroke="#1e293b" />
+          <g transform="translate(8, 6)">
+            <rect width="135" height="18" rx="2" fill="#1e293b" />
+            <text x="67" y="13" fill="#38bdf8" font-family="-apple-system, sans-serif" font-size="8" font-weight="800" text-anchor="middle">SMARTPHONES &amp; TIKTOK</text>
+          </g>
+          <g transform="translate(150, 6)">
+            <rect width="152" height="18" rx="2" fill="#0b1120" />
+            <text x="76" y="13" fill="#94a3b8" font-family="-apple-system, sans-serif" font-size="7.5" font-weight="600" text-anchor="middle">Single bottom speaker unit</text>
+          </g>
+          <g transform="translate(8, 28)">
+            <rect width="294" height="18" rx="2" fill="#0b1120" />
+            <text x="147" y="13" fill="#cbd5e1" font-family="-apple-system, sans-serif" font-size="7.5" font-weight="600" text-anchor="middle">Millions stream music via single handheld micro-speakers</text>
+          </g>
+        </g>
+
+        <!-- Device 2: Bluetooth & Smart Speakers -->
+        <g transform="translate(0, 58)">
+          <rect width="310" height="52" rx="3" fill="#0f172a" stroke="#1e293b" />
+          <g transform="translate(8, 6)">
+            <rect width="135" height="18" rx="2" fill="#1e293b" />
+            <text x="67" y="13" fill="#fbbf24" font-family="-apple-system, sans-serif" font-size="8" font-weight="800" text-anchor="middle">BLUETOOTH &amp; ECHO UNITS</text>
+          </g>
+          <g transform="translate(150, 6)">
+            <rect width="152" height="18" rx="2" fill="#0b1120" />
+            <text x="76" y="13" fill="#94a3b8" font-family="-apple-system, sans-serif" font-size="7.5" font-weight="600" text-anchor="middle">Cylindrical mono chassis</text>
+          </g>
+          <g transform="translate(8, 28)">
+            <rect width="294" height="18" rx="2" fill="#0b1120" />
+            <text x="147" y="13" fill="#cbd5e1" font-family="-apple-system, sans-serif" font-size="7.5" font-weight="600" text-anchor="middle">Smart home devices sum stereo streams directly to mono</text>
+          </g>
+        </g>
+
+        <!-- Device 3: Club & Festival Sound Systems -->
+        <g transform="translate(0, 116)">
+          <rect width="310" height="52" rx="3" fill="#0f172a" stroke="#1e293b" />
+          <g transform="translate(8, 6)">
+            <rect width="135" height="18" rx="2" fill="#1e293b" />
+            <text x="67" y="13" fill="#34d399" font-family="-apple-system, sans-serif" font-size="8" font-weight="800" text-anchor="middle">CLUB PAs &amp; FESTIVALS</text>
+          </g>
+          <g transform="translate(150, 6)">
+            <rect width="152" height="18" rx="2" fill="#0b1120" />
+            <text x="76" y="13" fill="#94a3b8" font-family="-apple-system, sans-serif" font-size="7.5" font-weight="600" text-anchor="middle">Mono subwoofers &amp; arrays</text>
+          </g>
+          <g transform="translate(8, 28)">
+            <rect width="294" height="18" rx="2" fill="#0b1120" />
+            <text x="147" y="13" fill="#cbd5e1" font-family="-apple-system, sans-serif" font-size="7.5" font-weight="600" text-anchor="middle">Summed sub-bass ensures identical punch across the dancefloor</text>
+          </g>
+        </g>
+
+        <!-- Device 4: FM Radio & Broadcast -->
+        <g transform="translate(0, 174)">
+          <rect width="310" height="66" rx="3" fill="#0f172a" stroke="#334155" />
+          <g transform="translate(8, 6)">
+            <rect width="135" height="18" rx="2" fill="#1e293b" />
+            <text x="67" y="13" fill="#f87171" font-family="-apple-system, sans-serif" font-size="8" font-weight="800" text-anchor="middle">FM RADIO BROADCAST</text>
+          </g>
+          <g transform="translate(150, 6)">
+            <rect width="152" height="18" rx="2" fill="#0b1120" />
+            <text x="76" y="13" fill="#94a3b8" font-family="-apple-system, sans-serif" font-size="7.5" font-weight="600" text-anchor="middle">Automatic mono fallback</text>
+          </g>
+          <g transform="translate(8, 28)">
+            <rect width="294" height="30" rx="2" fill="#0b1120" />
+            <text x="147" y="14" fill="#fca5a5" font-family="-apple-system, sans-serif" font-size="7.5" font-weight="700" text-anchor="middle">Car radios fold weak stereo signals into mono to reduce noise</text>
+            <text x="147" y="25" fill="#e2e8f0" font-family="-apple-system, sans-serif" font-size="7" text-anchor="middle">Phased vocals disappear completely during broadcast drive</text>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+
+  <!-- Bottom Takeaway Bar with Enclosed Badge -->
+  <g transform="translate(30, 412)">
+    <rect width="740" height="48" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.2" />
+    <g transform="translate(12, 14)">
+      <rect width="80" height="20" rx="3" fill="#0284c7" />
+      <text x="40" y="14" fill="#ffffff" font-family="-apple-system, sans-serif" font-size="9" font-weight="800" text-anchor="middle">TAKEAWAY</text>
+    </g>
+    <g transform="translate(100, 12)">
+      <rect width="628" height="24" rx="4" fill="#0f172a" stroke="#334155" stroke-width="0.8" />
+      <text x="314" y="16" fill="#e2e8f0" font-family="-apple-system, sans-serif" font-size="9.5" font-weight="600" text-anchor="middle">Mono compatibility prevents destructive phase cancellation on smartphones, Bluetooth speakers, and club PAs.</text>
+    </g>
+  </g>
+</svg>

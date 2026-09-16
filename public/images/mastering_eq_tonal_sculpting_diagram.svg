@@ -1,0 +1,189 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b1120" />
+      <stop offset="50%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#020617" />
+    </linearGradient>
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.5" />
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="480" fill="url(#bgGrad)" />
+
+  <!-- Header Badges -->
+  <g transform="translate(30, 16)">
+    <rect width="180" height="32" rx="6" fill="#0284c7" fill-opacity="0.15" stroke="#0284c7" stroke-width="1.2" />
+    <text x="90" y="21" fill="#38bdf8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="800" text-anchor="middle">MASTERING EQ</text>
+    <rect x="192" y="0" width="460" height="32" rx="6" fill="#0f172a" stroke="#334155" stroke-width="1.2" />
+    <text x="422" y="21" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="600" text-anchor="middle">Why Equalization is Applied to the Master Stereo Bus</text>
+  </g>
+
+  <!-- Main Comparison Container -->
+  <g transform="translate(30, 60)">
+    <rect width="740" height="340" rx="8" fill="url(#cardGrad)" stroke="#334155" stroke-width="1.4" filter="url(#shadow)" />
+
+    <!-- Left Column: Mixing EQ vs Mastering EQ Curves -->
+    <g transform="translate(20, 18)">
+      <rect width="345" height="304" rx="6" fill="#0b1120" stroke="#38bdf8" stroke-width="1.2" />
+      
+      <!-- Title Badge -->
+      <g transform="translate(15, 12)">
+        <rect width="315" height="26" rx="4" fill="#0c4a6e" stroke="#38bdf8" stroke-width="0.8" />
+        <text x="157" y="17" fill="#38bdf8" font-family="-apple-system, sans-serif" font-size="10.5" font-weight="800" text-anchor="middle">MIXING EQ VS MASTERING EQ</text>
+      </g>
+
+      <!-- Curve Plot -->
+      <g transform="translate(15, 46)">
+        <rect width="315" height="110" rx="4" fill="#030712" stroke="#1e293b" />
+        
+        <!-- 0 dB reference line -->
+        <line x1="15" y1="55" x2="300" y2="55" stroke="#334155" stroke-width="1" stroke-dasharray="3 3" />
+
+        <!-- Surgical Mixing Notch (Dotted Red) -->
+        <path d="M 15,55 L 70,55 Q 85,95 100,55 L 140,55" fill="none" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="2 2" />
+        
+        <!-- Broad Mastering Curve (Solid Cyan +1 dB shelf & -0.8 dB dip) -->
+        <path d="M 15,75 Q 30,55 60,55 Q 110,65 160,55 Q 210,42 270,38 L 300,38" fill="none" stroke="#38bdf8" stroke-width="2.5" />
+
+        <!-- Badges on graph -->
+        <g transform="translate(15, 8)">
+          <rect width="135" height="18" rx="2" fill="#0c4a6e" stroke="#38bdf8" stroke-width="0.6" />
+          <text x="67" y="13" fill="#7dd3fc" font-family="-apple-system, sans-serif" font-size="7.5" font-weight="800" text-anchor="middle">BROAD MASTERING CURVE</text>
+        </g>
+        <g transform="translate(170, 8)">
+          <rect width="130" height="18" rx="2" fill="#450a0a" stroke="#ef4444" stroke-width="0.6" />
+          <text x="65" y="13" fill="#fca5a5" font-family="-apple-system, sans-serif" font-size="7.5" font-weight="800" text-anchor="middle">SURGICAL MIXING NOTCH</text>
+        </g>
+      </g>
+
+      <!-- Characteristics Badges -->
+      <g transform="translate(15, 164)">
+        <g transform="translate(0, 0)">
+          <rect width="315" height="42" rx="3" fill="#0f172a" stroke="#1e293b" />
+          <g transform="translate(8, 10)">
+            <rect width="100" height="22" rx="2" fill="#1e293b" />
+            <text x="50" y="15" fill="#f87171" font-family="-apple-system, sans-serif" font-size="8" font-weight="800" text-anchor="middle">MIXING EQ (TRACKS)</text>
+          </g>
+          <g transform="translate(115, 10)">
+            <rect width="192" height="22" rx="2" fill="#0b1120" />
+            <text x="96" y="15" fill="#cbd5e1" font-family="-apple-system, sans-serif" font-size="7.5" font-weight="600" text-anchor="middle">Narrow Q, aggressive cuts (±4 to 10 dB)</text>
+          </g>
+        </g>
+
+        <g transform="translate(0, 48)">
+          <rect width="315" height="42" rx="3" fill="#0f172a" stroke="#38bdf8" stroke-width="0.8" />
+          <g transform="translate(8, 10)">
+            <rect width="100" height="22" rx="2" fill="#0c4a6e" />
+            <text x="50" y="15" fill="#38bdf8" font-family="-apple-system, sans-serif" font-size="8" font-weight="800" text-anchor="middle">MASTERING EQ (BUS)</text>
+          </g>
+          <g transform="translate(115, 10)">
+            <rect width="192" height="22" rx="2" fill="#0b1120" />
+            <text x="96" y="15" fill="#7dd3fc" font-family="-apple-system, sans-serif" font-size="7.5" font-weight="700" text-anchor="middle">Broad Q, ultra-subtle moves (±0.5 to 1.5 dB)</text>
+          </g>
+        </g>
+      </g>
+    </g>
+
+    <!-- Right Column: 4 Core Reasons to Use Mastering EQ -->
+    <g transform="translate(380, 18)">
+      <rect width="340" height="304" rx="6" fill="#0b1120" stroke="#10b981" stroke-width="1.2" />
+
+      <!-- Title Badge -->
+      <g transform="translate(15, 12)">
+        <rect width="310" height="26" rx="4" fill="#064e3b" stroke="#10b981" stroke-width="0.8" />
+        <text x="155" y="17" fill="#34d399" font-family="-apple-system, sans-serif" font-size="10.5" font-weight="800" text-anchor="middle">WHY USE MASTERING EQ? (CORE ROLES)</text>
+      </g>
+
+      <!-- 4 Core Reasons Cards -->
+      <g transform="translate(15, 46)">
+        <!-- Reason 1: Global Tonal Balance -->
+        <g transform="translate(0, 0)">
+          <rect width="310" height="52" rx="3" fill="#0f172a" stroke="#1e293b" />
+          <g transform="translate(8, 6)">
+            <rect width="145" height="18" rx="2" fill="#064e3b" />
+            <text x="72" y="13" fill="#34d399" font-family="-apple-system, sans-serif" font-size="8" font-weight="800" text-anchor="middle">1. GLOBAL TONAL BALANCE</text>
+          </g>
+          <g transform="translate(160, 6)">
+            <rect width="142" height="18" rx="2" fill="#0b1120" />
+            <text x="71" y="13" fill="#6ee7b7" font-family="-apple-system, sans-serif" font-size="7.5" font-weight="700" text-anchor="middle">+1 dB Air / Warmth</text>
+          </g>
+          <g transform="translate(8, 28)">
+            <rect width="294" height="18" rx="2" fill="#0b1120" />
+            <text x="147" y="13" fill="#cbd5e1" font-family="-apple-system, sans-serif" font-size="7.5" font-weight="600" text-anchor="middle">Polishes mix brightness, presence, and bottom-end weight</text>
+          </g>
+        </g>
+
+        <!-- Reason 2: Album Cohesion -->
+        <g transform="translate(0, 58)">
+          <rect width="310" height="52" rx="3" fill="#0f172a" stroke="#1e293b" />
+          <g transform="translate(8, 6)">
+            <rect width="145" height="18" rx="2" fill="#0c4a6e" />
+            <text x="72" y="13" fill="#38bdf8" font-family="-apple-system, sans-serif" font-size="8" font-weight="800" text-anchor="middle">2. ALBUM TRACK COHESION</text>
+          </g>
+          <g transform="translate(160, 6)">
+            <rect width="142" height="18" rx="2" fill="#0b1120" />
+            <text x="71" y="13" fill="#38bdf8" font-family="-apple-system, sans-serif" font-size="7.5" font-weight="700" text-anchor="middle">Unified Soundstage</text>
+          </g>
+          <g transform="translate(8, 28)">
+            <rect width="294" height="18" rx="2" fill="#0b1120" />
+            <text x="147" y="13" fill="#cbd5e1" font-family="-apple-system, sans-serif" font-size="7.5" font-weight="600" text-anchor="middle">Ensures songs recorded in different studios match tonally</text>
+          </g>
+        </g>
+
+        <!-- Reason 3: Infrasonic Rumble Cut -->
+        <g transform="translate(0, 116)">
+          <rect width="310" height="52" rx="3" fill="#0f172a" stroke="#1e293b" />
+          <g transform="translate(8, 6)">
+            <rect width="145" height="18" rx="2" fill="#451a03" />
+            <text x="72" y="13" fill="#fde68a" font-family="-apple-system, sans-serif" font-size="8" font-weight="800" text-anchor="middle">3. INFRASONIC HIGH-PASS</text>
+          </g>
+          <g transform="translate(160, 6)">
+            <rect width="142" height="18" rx="2" fill="#0b1120" />
+            <text x="71" y="13" fill="#fbbf24" font-family="-apple-system, sans-serif" font-size="7.5" font-weight="700" text-anchor="middle">Reclaims Limiter Headroom</text>
+          </g>
+          <g transform="translate(8, 28)">
+            <rect width="294" height="18" rx="2" fill="#0b1120" />
+            <text x="147" y="13" fill="#cbd5e1" font-family="-apple-system, sans-serif" font-size="7.5" font-weight="600" text-anchor="middle">Filters inaudible rumble below 25 Hz to stop limiter choking</text>
+          </g>
+        </g>
+
+        <!-- Reason 4: Low-Mid Decoupling -->
+        <g transform="translate(0, 174)">
+          <rect width="310" height="52" rx="3" fill="#0f172a" stroke="#1e293b" />
+          <g transform="translate(8, 6)">
+            <rect width="145" height="18" rx="2" fill="#3b0764" />
+            <text x="72" y="13" fill="#d8b4fe" font-family="-apple-system, sans-serif" font-size="8" font-weight="800" text-anchor="middle">4. CLEARS LOW-MID MUD</text>
+          </g>
+          <g transform="translate(160, 6)">
+            <rect width="142" height="18" rx="2" fill="#0b1120" />
+            <text x="71" y="13" fill="#d8b4fe" font-family="-apple-system, sans-serif" font-size="7.5" font-weight="700" text-anchor="middle">250 – 400 Hz Cleanup</text>
+          </g>
+          <g transform="translate(8, 28)">
+            <rect width="294" height="18" rx="2" fill="#0b1120" />
+            <text x="147" y="13" fill="#cbd5e1" font-family="-apple-system, sans-serif" font-size="7.5" font-weight="600" text-anchor="middle">Gentle wide dip unmasks vocal articulation and bass clarity</text>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+
+  <!-- Bottom Takeaway Bar with Enclosed Badge -->
+  <g transform="translate(30, 412)">
+    <rect width="740" height="48" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.2" />
+    <g transform="translate(12, 14)">
+      <rect width="80" height="20" rx="3" fill="#0284c7" />
+      <text x="40" y="14" fill="#ffffff" font-family="-apple-system, sans-serif" font-size="9" font-weight="800" text-anchor="middle">TAKEAWAY</text>
+    </g>
+    <g transform="translate(100, 12)">
+      <rect width="628" height="24" rx="4" fill="#0f172a" stroke="#334155" stroke-width="0.8" />
+      <text x="314" y="16" fill="#e2e8f0" font-family="-apple-system, sans-serif" font-size="9.5" font-weight="600" text-anchor="middle">Mastering EQ applies subtle broad curves to balance overall tone and ensure album-wide spectral continuity.</text>
+    </g>
+  </g>
+</svg>

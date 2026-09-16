@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 460" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#0b1120" /><stop offset="50%" stop-color="#0f172a" /><stop offset="100%" stop-color="#020617" /></linearGradient>
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#1e293b" /><stop offset="100%" stop-color="#0f172a" /></linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%"><feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.5" /></filter>
+  </defs>
+  <rect width="800" height="460" fill="url(#bgGrad)" />
+
+  <!-- Header -->
+  <g transform="translate(30, 16)">
+    <rect width="260" height="32" rx="6" fill="#38bdf8" fill-opacity="0.15" stroke="#38bdf8" stroke-width="1.2" />
+    <text x="130" y="21" fill="#38bdf8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="800" text-anchor="middle">REVERB SIDECHAIN DUCKING</text>
+    <rect x="272" y="0" width="370" height="32" rx="6" fill="#0f172a" stroke="#334155" stroke-width="1.2" />
+    <text x="457" y="21" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="600" text-anchor="middle">Dry Vocal Sidechain Triggers Compressor on Wet Reverb Return</text>
+  </g>
+
+  <!-- Main Container -->
+  <g transform="translate(30, 60)">
+    <rect width="740" height="315" rx="8" fill="url(#cardGrad)" stroke="#334155" stroke-width="1.4" filter="url(#shadow)" />
+
+    <!-- Signal Flow Diagram -->
+    <g transform="translate(20, 15)">
+      <rect width="700" height="135" rx="6" fill="#0b1120" stroke="#1e293b" />
+
+      <!-- Vocal Track Box -->
+      <g transform="translate(25, 20)">
+        <rect width="130" height="40" rx="4" fill="#0c4a6e" stroke="#0284c7" stroke-width="1" />
+        <text x="65" y="25" fill="#38bdf8" font-family="-apple-system, sans-serif" font-size="11" font-weight="800" text-anchor="middle">LEAD VOCAL</text>
+      </g>
+
+      <!-- Reverb Unit Box -->
+      <g transform="translate(250, 20)">
+        <rect width="130" height="40" rx="4" fill="#3b0764" stroke="#9333ea" stroke-width="1" />
+        <text x="65" y="25" fill="#d8b4fe" font-family="-apple-system, sans-serif" font-size="11" font-weight="800" text-anchor="middle">REVERB AUX</text>
+      </g>
+
+      <!-- Compressor Box with Sidechain -->
+      <g transform="translate(450, 20)">
+        <rect width="130" height="40" rx="4" fill="#064e3b" stroke="#10b981" stroke-width="1" />
+        <text x="65" y="25" fill="#34d399" font-family="-apple-system, sans-serif" font-size="11" font-weight="800" text-anchor="middle">COMPRESSOR</text>
+      </g>
+
+      <!-- Stereo Master Box -->
+      <g transform="translate(605, 50)">
+        <rect width="80" height="40" rx="4" fill="#0f172a" stroke="#64748b" stroke-width="1" />
+        <text x="40" y="25" fill="#e2e8f0" font-family="-apple-system, sans-serif" font-size="10" font-weight="800" text-anchor="middle">MIX BUS</text>
+      </g>
+
+      <!-- Audio Send Line from Vocal to Reverb -->
+      <line x1="155" y1="40" x2="250" y2="40" stroke="#38bdf8" stroke-width="2" />
+      <!-- Line from Reverb to Compressor -->
+      <line x1="380" y1="40" x2="450" y2="40" stroke="#d8b4fe" stroke-width="2" />
+      <!-- Line from Compressor to Mix Bus -->
+      <line x1="580" y1="40" x2="605" y2="60" stroke="#10b981" stroke-width="2" />
+      <!-- Line from Direct Vocal to Mix Bus -->
+      <path d="M 90,60 L 90,105 L 605,105 L 605,80" fill="none" stroke="#38bdf8" stroke-width="2" />
+
+      <!-- Sidechain Key Trigger (Dotted Amber Line) -->
+      <path d="M 120,60 L 120,80 L 515,80 L 515,60" fill="none" stroke="#f59e0b" stroke-width="2" stroke-dasharray="4 3" />
+
+      <!-- Sidechain Label Box -->
+      <g transform="translate(260, 70)">
+        <rect width="180" height="20" rx="3" fill="#451a03" stroke="#f59e0b" stroke-width="1" />
+        <text x="90" y="14" fill="#fbbf24" font-family="-apple-system, sans-serif" font-size="9" font-weight="800" text-anchor="middle">SIDECHAIN KEY TRIGGER</text>
+      </g>
+    </g>
+
+    <!-- Lower Graph: Timing Behaviour (Vocal Singing vs Reverb Ducking) -->
+    <g transform="translate(20, 160)">
+      <rect width="700" height="140" rx="6" fill="#0b1120" stroke="#1e293b" />
+
+      <!-- Left Column: Vocal Phrase Status -->
+      <g transform="translate(20, 15)">
+        <rect width="150" height="22" rx="3" fill="#0c4a6e" />
+        <text x="75" y="15" fill="#38bdf8" font-family="-apple-system, sans-serif" font-size="9.5" font-weight="800" text-anchor="middle">VOCAL AUDIO LEVEL</text>
+        <path d="M 10,75 L 40,75 L 45,45 L 55,95 L 65,50 L 75,90 L 85,75 L 140,75" fill="none" stroke="#38bdf8" stroke-width="2.5" />
+        <g transform="translate(45, 95)">
+          <rect width="75" height="16" rx="2" fill="#0f172a" stroke="#38bdf8" stroke-width="0.8" />
+          <text x="37" y="12" fill="#38bdf8" font-family="-apple-system, sans-serif" font-size="8" font-weight="700" text-anchor="middle">SINGING...</text>
+        </g>
+      </g>
+
+      <!-- Middle: Dynamic Ducking Action -->
+      <g transform="translate(220, 15)">
+        <rect width="210" height="22" rx="3" fill="#450a0a" />
+        <text x="105" y="15" fill="#f87171" font-family="-apple-system, sans-serif" font-size="9.5" font-weight="800" text-anchor="middle">REVERB DUCKS (-6 dB TO -10 dB)</text>
+        <line x1="10" y1="45" x2="60" y2="45" stroke="#10b981" stroke-width="2" />
+        <path d="M 60,45 L 75,85 L 150,85 L 175,45 L 200,45" fill="none" stroke="#f43f5e" stroke-width="2.5" />
+        <g transform="translate(75, 95)">
+          <rect width="80" height="16" rx="2" fill="#0f172a" stroke="#ef4444" stroke-width="0.8" />
+          <text x="40" y="12" fill="#fca5a5" font-family="-apple-system, sans-serif" font-size="8" font-weight="700" text-anchor="middle">DUCKED -8 dB</text>
+        </g>
+      </g>
+
+      <!-- Right: Reverb Blooms into Gap -->
+      <g transform="translate(480, 15)">
+        <rect width="190" height="22" rx="3" fill="#064e3b" />
+        <text x="95" y="15" fill="#34d399" font-family="-apple-system, sans-serif" font-size="9.5" font-weight="800" text-anchor="middle">VOCAL PAUSES: REVERB BLOOMS</text>
+        <path d="M 20,85 Q 50,45 80,45 L 140,55 L 180,85" fill="none" stroke="#10b981" stroke-width="2.5" />
+        <g transform="translate(50, 95)">
+          <rect width="90" height="16" rx="2" fill="#0f172a" stroke="#10b981" stroke-width="0.8" />
+          <text x="45" y="12" fill="#34d399" font-family="-apple-system, sans-serif" font-size="8" font-weight="700" text-anchor="middle">LUSH REVERB TAIL</text>
+        </g>
+      </g>
+    </g>
+  </g>
+
+  <!-- Bottom Takeaway -->
+  <g transform="translate(30, 390)">
+    <rect width="740" height="52" rx="6" fill="#0f172a" stroke="#38bdf8" stroke-width="1.2" />
+    <g transform="translate(12, 16)">
+      <rect width="80" height="20" rx="3" fill="#0284c7" />
+      <text x="40" y="14" fill="#ffffff" font-family="-apple-system, sans-serif" font-size="10" font-weight="800" text-anchor="middle">TAKEAWAY</text>
+    </g>
+    <text x="104" y="32" fill="#f1f5f9" font-family="-apple-system, sans-serif" font-size="11" font-weight="600">Sidechain ducking automatically suppresses reverb wash during singing and blooms during pauses.</text>
+  </g>
+</svg>

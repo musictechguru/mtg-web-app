@@ -1,0 +1,155 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b1120" />
+      <stop offset="50%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#020617" />
+    </linearGradient>
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.5" />
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="480" fill="url(#bgGrad)" />
+
+  <!-- Header Badges -->
+  <g transform="translate(30, 16)">
+    <rect width="210" height="32" rx="6" fill="#f59e0b" fill-opacity="0.15" stroke="#f59e0b" stroke-width="1.2" />
+    <text x="105" y="21" fill="#fbbf24" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="800" text-anchor="middle">REFERENCE MATERIAL</text>
+    <rect x="222" y="0" width="440" height="32" rx="6" fill="#0f172a" stroke="#334155" stroke-width="1.2" />
+    <text x="442" y="21" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="600" text-anchor="middle">Why Commercial References are Essential in Audio Mastering</text>
+  </g>
+
+  <!-- Main Comparison Container -->
+  <g transform="translate(30, 60)">
+    <rect width="740" height="340" rx="8" fill="url(#cardGrad)" stroke="#334155" stroke-width="1.4" filter="url(#shadow)" />
+
+    <!-- Top: Signal Flow Diagram -->
+    <g transform="translate(20, 16)">
+      <rect width="700" height="135" rx="6" fill="#0b1120" stroke="#1e293b" />
+
+      <!-- Track A: Your Master -->
+      <g transform="translate(20, 18)">
+        <rect width="165" height="42" rx="4" fill="#0c4a6e" stroke="#0284c7" stroke-width="1" />
+        <text x="82" y="18" fill="#38bdf8" font-family="-apple-system, sans-serif" font-size="10" font-weight="800" text-anchor="middle">YOUR MASTER (A)</text>
+        <text x="82" y="32" fill="#94a3b8" font-family="-apple-system, sans-serif" font-size="8.5" text-anchor="middle">Current Mix (-14 LUFS)</text>
+      </g>
+
+      <!-- Track B: Commercial Reference -->
+      <g transform="translate(20, 75)">
+        <rect width="165" height="42" rx="4" fill="#451a03" stroke="#f59e0b" stroke-width="1" />
+        <text x="82" y="18" fill="#fbbf24" font-family="-apple-system, sans-serif" font-size="10" font-weight="800" text-anchor="middle">PRO REFERENCE (B)</text>
+        <text x="82" y="32" fill="#94a3b8" font-family="-apple-system, sans-serif" font-size="8.5" text-anchor="middle">Commercial Master (-8 LUFS)</text>
+      </g>
+
+      <!-- Line A directly to Switch -->
+      <line x1="185" y1="39" x2="375" y2="39" stroke="#38bdf8" stroke-width="2" />
+
+      <!-- Line B into Gain Trim Pad -->
+      <line x1="185" y1="96" x2="225" y2="96" stroke="#f59e0b" stroke-width="2" />
+      <g transform="translate(225, 78)">
+        <rect width="120" height="36" rx="4" fill="#450a0a" stroke="#ef4444" stroke-width="1" />
+        <text x="60" y="15" fill="#fca5a5" font-family="-apple-system, sans-serif" font-size="8.5" font-weight="800" text-anchor="middle">GAIN TRIM OFFSET</text>
+        <text x="60" y="29" fill="#ffffff" font-family="-apple-system, sans-serif" font-size="9" font-weight="900" text-anchor="middle">-6 dB LEVEL MATCH</text>
+      </g>
+      <!-- Line from Trim Pad to Switch -->
+      <line x1="345" y1="96" x2="375" y2="96" stroke="#f59e0b" stroke-width="2" />
+
+      <!-- A/B Switch Unit -->
+      <g transform="translate(375, 22)">
+        <rect width="130" height="90" rx="6" fill="#0f172a" stroke="#10b981" stroke-width="1.2" />
+        <g transform="translate(10, 8)">
+          <rect width="110" height="20" rx="3" fill="#064e3b" />
+          <text x="55" y="14" fill="#34d399" font-family="-apple-system, sans-serif" font-size="9" font-weight="800" text-anchor="middle">A/B SELECTOR</text>
+        </g>
+        <!-- Toggle switch graphic -->
+        <circle cx="65" cy="52" r="14" fill="#1e293b" stroke="#10b981" stroke-width="1.5" />
+        <line x1="65" y1="52" x2="65" y2="42" stroke="#34d399" stroke-width="3" />
+        <g transform="translate(12, 70)">
+          <rect width="106" height="15" rx="2" fill="#0b1120" />
+          <text x="53" y="11" fill="#38bdf8" font-family="-apple-system, sans-serif" font-size="7.5" font-weight="700" text-anchor="middle">INSTANT SWITCH</text>
+        </g>
+      </g>
+
+      <!-- Line from Switch to Monitor Output -->
+      <line x1="505" y1="67" x2="550" y2="67" stroke="#10b981" stroke-width="2.5" />
+
+      <!-- Output Monitor Box -->
+      <g transform="translate(550, 42)">
+        <rect width="130" height="50" rx="4" fill="#064e3b" stroke="#10b981" stroke-width="1" />
+        <text x="65" y="20" fill="#34d399" font-family="-apple-system, sans-serif" font-size="10" font-weight="800" text-anchor="middle">STUDIO MONITORS</text>
+        <text x="65" y="38" fill="#ffffff" font-family="-apple-system, sans-serif" font-size="9" font-weight="700" text-anchor="middle">Matched -14 LUFS</text>
+      </g>
+    </g>
+
+    <!-- Bottom: 2 Comparative Fact Cards -->
+    <g transform="translate(20, 160)">
+      
+      <!-- Card 1: Why Use Reference Tracks -->
+      <g transform="translate(0, 0)">
+        <rect width="340" height="130" rx="6" fill="#0b1120" stroke="#10b981" stroke-width="1.2" />
+        <g transform="translate(12, 10)">
+          <rect width="190" height="22" rx="3" fill="#064e3b" stroke="#10b981" stroke-width="0.8" />
+          <text x="95" y="15" fill="#34d399" font-family="-apple-system, sans-serif" font-size="9" font-weight="800" text-anchor="middle">WHY USE REFERENCES? (BENEFITS)</text>
+        </g>
+        
+        <g transform="translate(12, 38)">
+          <g transform="translate(0, 0)">
+            <rect width="316" height="26" rx="3" fill="#0f172a" stroke="#1e293b" />
+            <text x="158" y="17" fill="#e2e8f0" font-family="-apple-system, sans-serif" font-size="8.5" font-weight="600" text-anchor="middle">1. Reality Check: Calibrates ears against room acoustics</text>
+          </g>
+          <g transform="translate(0, 30)">
+            <rect width="316" height="26" rx="3" fill="#0f172a" stroke="#1e293b" />
+            <text x="158" y="17" fill="#cbd5e1" font-family="-apple-system, sans-serif" font-size="8.5" font-weight="600" text-anchor="middle">2. Spectral Anchor: Objectively judges bass &amp; top end</text>
+          </g>
+          <g transform="translate(0, 60)">
+            <rect width="316" height="26" rx="3" fill="#064e3b" stroke="#10b981" stroke-width="0.8" />
+            <text x="158" y="17" fill="#6ee7b7" font-family="-apple-system, sans-serif" font-size="8.5" font-weight="800" text-anchor="middle">3. Translation: Ensures mix competes on all systems</text>
+          </g>
+        </g>
+      </g>
+
+      <!-- Card 2: Why Level-Matching is Crucial -->
+      <g transform="translate(360, 0)">
+        <rect width="340" height="130" rx="6" fill="#0b1120" stroke="#f59e0b" stroke-width="1.2" />
+        <g transform="translate(12, 10)">
+          <rect width="210" height="22" rx="3" fill="#451a03" stroke="#f59e0b" stroke-width="0.8" />
+          <text x="105" y="15" fill="#fde68a" font-family="-apple-system, sans-serif" font-size="9" font-weight="800" text-anchor="middle">CRITICAL RULE: LOUDNESS MATCH</text>
+        </g>
+
+        <g transform="translate(12, 38)">
+          <g transform="translate(0, 0)">
+            <rect width="316" height="26" rx="3" fill="#0f172a" stroke="#1e293b" />
+            <text x="158" y="17" fill="#fca5a5" font-family="-apple-system, sans-serif" font-size="8.5" font-weight="600" text-anchor="middle">1. Hearing Bias: Louder tracks trick ears as 'superior'</text>
+          </g>
+          <g transform="translate(0, 30)">
+            <rect width="316" height="26" rx="3" fill="#0f172a" stroke="#1e293b" />
+            <text x="158" y="17" fill="#cbd5e1" font-family="-apple-system, sans-serif" font-size="8.5" font-weight="600" text-anchor="middle">2. Fletcher-Munson: Volume boosts bass &amp; treble perception</text>
+          </g>
+          <g transform="translate(0, 60)">
+            <rect width="316" height="26" rx="3" fill="#451a03" stroke="#f59e0b" stroke-width="0.8" />
+            <text x="158" y="17" fill="#fde68a" font-family="-apple-system, sans-serif" font-size="8.5" font-weight="800" text-anchor="middle">3. Gain Trim: Level matching reveals true tonal balance</text>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+
+  <!-- Bottom Takeaway Bar with Enclosed Badge -->
+  <g transform="translate(30, 412)">
+    <rect width="740" height="48" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.2" />
+    <g transform="translate(12, 14)">
+      <rect width="80" height="20" rx="3" fill="#0284c7" />
+      <text x="40" y="14" fill="#ffffff" font-family="-apple-system, sans-serif" font-size="9" font-weight="800" text-anchor="middle">TAKEAWAY</text>
+    </g>
+    <g transform="translate(100, 12)">
+      <rect width="628" height="24" rx="4" fill="#0f172a" stroke="#334155" stroke-width="0.8" />
+      <text x="314" y="16" fill="#e2e8f0" font-family="-apple-system, sans-serif" font-size="9.5" font-weight="600" text-anchor="middle">Reference tracks provide an objective tonal benchmark and reality check, ensuring masters translate across all systems.</text>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 460" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#0b1120" /><stop offset="50%" stop-color="#0f172a" /><stop offset="100%" stop-color="#020617" /></linearGradient>
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#1e293b" /><stop offset="100%" stop-color="#0f172a" /></linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%"><feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.5" /></filter>
+  </defs>
+  <rect width="800" height="460" fill="url(#bgGrad)" />
+  <g transform="translate(30, 16)">
+    <rect width="250" height="32" rx="6" fill="#38bdf8" fill-opacity="0.15" stroke="#38bdf8" stroke-width="1.2" />
+    <text x="125" y="21" fill="#38bdf8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="800" text-anchor="middle">DELAY TIME PARAMETER</text>
+    <rect x="262" y="0" width="310" height="32" rx="6" fill="#0f172a" stroke="#334155" stroke-width="1.2" />
+    <text x="417" y="21" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="600" text-anchor="middle">Time Gap Between Original &amp; Repeat</text>
+  </g>
+
+  <!-- Main Timeline Stage Card -->
+  <g transform="translate(30, 60)">
+    <rect width="740" height="315" rx="8" fill="url(#cardGrad)" stroke="#38bdf8" stroke-width="1.4" filter="url(#shadow)" />
+    
+    <!-- Timeline Axis -->
+    <line x1="60" y1="210" x2="680" y2="210" stroke="#475569" stroke-width="2" />
+    <polygon points="685,210 675,205 675,215" fill="#475569" />
+
+    <!-- Time ticks & badges -->
+    <line x1="120" y1="205" x2="120" y2="215" stroke="#38bdf8" stroke-width="2" />
+    <rect x="90" y="225" width="60" height="20" rx="3" fill="#0f172a" stroke="#38bdf8" stroke-width="1" />
+    <text x="120" y="239" fill="#38bdf8" font-family="-apple-system, sans-serif" font-size="9" font-weight="800" text-anchor="middle">0 ms</text>
+
+    <line x1="380" y1="205" x2="380" y2="215" stroke="#10b981" stroke-width="2" />
+    <rect x="350" y="225" width="60" height="20" rx="3" fill="#0f172a" stroke="#10b981" stroke-width="1" />
+    <text x="380" y="239" fill="#34d399" font-family="-apple-system, sans-serif" font-size="9" font-weight="800" text-anchor="middle">250 ms</text>
+
+    <line x1="640" y1="205" x2="640" y2="215" stroke="#334155" stroke-width="2" />
+    <rect x="610" y="225" width="60" height="20" rx="3" fill="#0f172a" stroke="#334155" stroke-width="1" />
+    <text x="640" y="239" fill="#64748b" font-family="-apple-system, sans-serif" font-size="9" font-weight="800" text-anchor="middle">500 ms</text>
+
+    <!-- Dry Audio Signal Pulse (t = 0 ms) -->
+    <g transform="translate(120, 210)">
+      <path d="M 0,0 L 0,-130 Q 15,-130 15,0 Q -15,0 -15,-130 Z" fill="#38bdf8" fill-opacity="0.25" stroke="#38bdf8" stroke-width="2.5" />
+      <circle cx="0" cy="-130" r="4.5" fill="#38bdf8" stroke="#ffffff" stroke-width="1.5" />
+      <rect x="-65" y="-170" width="130" height="26" rx="4" fill="#0f172a" stroke="#38bdf8" stroke-width="1.2" />
+      <text x="0" y="-153" fill="#38bdf8" font-family="-apple-system, sans-serif" font-size="10" font-weight="800" text-anchor="middle">ORIGINAL (DRY)</text>
+    </g>
+
+    <!-- Delay Gap Arrow Span -->
+    <g transform="translate(130, 95)">
+      <line x1="0" y1="0" x2="240" y2="0" stroke="#fbbf24" stroke-width="2" stroke-dasharray="4 3" />
+      <circle cx="0" cy="0" r="3" fill="#fbbf24" />
+      <circle cx="240" cy="0" r="3" fill="#fbbf24" />
+      <rect x="40" y="-14" width="160" height="26" rx="4" fill="#0f172a" stroke="#fbbf24" stroke-width="1.2" />
+      <text x="120" y="3" fill="#fbbf24" font-family="-apple-system, sans-serif" font-size="10" font-weight="900" text-anchor="middle">DELAY TIME = 250 ms</text>
+    </g>
+
+    <!-- Wet Delayed Signal Pulse (t = 250 ms) -->
+    <g transform="translate(380, 210)">
+      <path d="M 0,0 L 0,-100 Q 15,-100 15,0 Q -15,0 -15,-100 Z" fill="#10b981" fill-opacity="0.25" stroke="#10b981" stroke-width="2.5" />
+      <circle cx="0" cy="-100" r="4.5" fill="#10b981" stroke="#ffffff" stroke-width="1.5" />
+      <rect x="-65" y="-140" width="130" height="26" rx="4" fill="#0f172a" stroke="#10b981" stroke-width="1.2" />
+      <text x="0" y="-123" fill="#34d399" font-family="-apple-system, sans-serif" font-size="10" font-weight="800" text-anchor="middle">ECHO REPEAT (WET)</text>
+    </g>
+
+    <!-- Bottom Legend Chips -->
+    <g transform="translate(210, 268)">
+      <rect x="0" y="0" width="150" height="24" rx="4" fill="#0b1120" stroke="#38bdf8" stroke-width="0.8" />
+      <text x="75" y="16" fill="#38bdf8" font-family="-apple-system, sans-serif" font-size="9" font-weight="700" text-anchor="middle">Milliseconds (ms)</text>
+
+      <rect x="170" y="0" width="150" height="24" rx="4" fill="#0b1120" stroke="#10b981" stroke-width="0.8" />
+      <text x="245" y="16" fill="#34d399" font-family="-apple-system, sans-serif" font-size="9" font-weight="700" text-anchor="middle">BPM Tempo Sync (1/4)</text>
+    </g>
+  </g>
+
+  <!-- Bottom Takeaway Bar -->
+  <g transform="translate(30, 396)">
+    <rect width="740" height="44" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.2" />
+    <circle cx="24" cy="22" r="10" fill="#38bdf8" fill-opacity="0.15" stroke="#38bdf8" stroke-width="1.2" />
+    <text x="24" y="26" fill="#38bdf8" font-family="-apple-system, sans-serif" font-size="11" font-weight="900" text-anchor="middle">i</text>
+    <text x="44" y="26" fill="#e2e8f0" font-family="-apple-system, sans-serif" font-size="11.5" font-weight="600">Definition: Delay Time sets the exact duration between the direct sound and its audible repeat.</text>
+  </g>
+</svg>

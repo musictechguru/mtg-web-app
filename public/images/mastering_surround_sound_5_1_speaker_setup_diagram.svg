@@ -1,0 +1,193 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#070d18" />
+      <stop offset="50%" stop-color="#0b1326" />
+      <stop offset="100%" stop-color="#030712" />
+    </linearGradient>
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#17223b" />
+      <stop offset="100%" stop-color="#0d1527" />
+    </linearGradient>
+    <linearGradient id="panelGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.5" />
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="960" height="540" fill="url(#bgGrad)" />
+
+  <!-- Outer Header -->
+  <g transform="translate(30, 16)">
+    <rect width="250" height="34" rx="7" fill="#38bdf8" fill-opacity="0.15" stroke="#38bdf8" stroke-width="1.3" />
+    <text x="125" y="22" fill="#38bdf8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="800" text-anchor="middle" letter-spacing="1">SURROUND SOUND 5.1</text>
+
+    <rect x="262" y="0" width="668" height="34" rx="7" fill="#0f172a" stroke="#334155" stroke-width="1.3" />
+    <text x="596" y="22" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="600" text-anchor="middle">Standard Speaker Configuration: 5 Satellite Channels + 1 LFE Subwoofer</text>
+  </g>
+
+  <!-- Main Container -->
+  <g transform="translate(30, 60)">
+    <rect width="900" height="396" rx="10" fill="url(#cardGrad)" stroke="#334155" stroke-width="1.4" filter="url(#shadow)" />
+
+    <!-- LEFT COLUMN: 5.1 Studio Layout Diagram -->
+    <g transform="translate(24, 18)">
+      <rect width="420" height="360" rx="8" fill="url(#panelGrad)" stroke="#38bdf8" stroke-width="1.3" />
+
+      <!-- Left Header Badge -->
+      <g transform="translate(18, 12)">
+        <rect width="384" height="28" rx="6" fill="#0284c7" fill-opacity="0.25" stroke="#38bdf8" stroke-width="1.1" />
+        <text x="192" y="19" fill="#38bdf8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="800" text-anchor="middle" letter-spacing="0.8">ITU-R BS.775 SURROUND GEOMETRY (TOP-DOWN)</text>
+      </g>
+
+      <!-- Geometry Circle & Positioning Area -->
+      <g transform="translate(20, 48)">
+        <rect width="380" height="298" rx="6" fill="#090f1d" stroke="#1e293b" stroke-width="1" />
+
+        <!-- Circular Positioning Grid -->
+        <circle cx="190" cy="154" r="105" fill="none" stroke="#334155" stroke-width="1.2" stroke-dasharray="4,4" />
+        <circle cx="190" cy="154" r="55" fill="none" stroke="#1e293b" stroke-width="1" />
+
+        <!-- Listener Sweet Spot Badge -->
+        <circle cx="190" cy="154" r="14" fill="#3b82f6" fill-opacity="0.3" stroke="#60a5fa" stroke-width="1.5" />
+        <circle cx="190" cy="154" r="4" fill="#60a5fa" />
+        <rect x="146" y="174" width="88" height="18" rx="4" fill="#1e293b" stroke="#334155" stroke-width="1" />
+        <text x="190" y="186" fill="#93c5fd" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8" font-weight="700" text-anchor="middle">SWEET SPOT</text>
+
+        <!-- Speaker 1: CENTER (0°) -->
+        <g transform="translate(150, 10)">
+          <rect width="80" height="32" rx="5" fill="#1e293b" stroke="#38bdf8" stroke-width="1.3" />
+          <text x="40" y="15" fill="#38bdf8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9" font-weight="800" text-anchor="middle">CENTER (C)</text>
+          <text x="40" y="26" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="7.5" font-weight="700" text-anchor="middle">0° (Dialogue)</text>
+        </g>
+        <line x1="190" y1="42" x2="190" y2="140" stroke="#38bdf8" stroke-width="1" stroke-dasharray="2,2" />
+
+        <!-- Speaker 2: LEFT FRONT (30°) -->
+        <g transform="translate(34, 42)">
+          <rect width="82" height="32" rx="5" fill="#1e293b" stroke="#10b981" stroke-width="1.3" />
+          <text x="41" y="15" fill="#34d399" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9" font-weight="800" text-anchor="middle">LEFT (L)</text>
+          <text x="41" y="26" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="7.5" font-weight="700" text-anchor="middle">30° Front-Left</text>
+        </g>
+        <line x1="116" y1="68" x2="178" y2="142" stroke="#10b981" stroke-width="1" stroke-dasharray="2,2" />
+
+        <!-- Speaker 3: RIGHT FRONT (30°) -->
+        <g transform="translate(264, 42)">
+          <rect width="82" height="32" rx="5" fill="#1e293b" stroke="#10b981" stroke-width="1.3" />
+          <text x="41" y="15" fill="#34d399" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9" font-weight="800" text-anchor="middle">RIGHT (R)</text>
+          <text x="41" y="26" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="7.5" font-weight="700" text-anchor="middle">30° Front-Right</text>
+        </g>
+        <line x1="264" y1="68" x2="202" y2="142" stroke="#10b981" stroke-width="1" stroke-dasharray="2,2" />
+
+        <!-- Speaker 4: LEFT SURROUND (110° - 120°) -->
+        <g transform="translate(24, 218)">
+          <rect width="90" height="32" rx="5" fill="#1e293b" stroke="#818cf8" stroke-width="1.3" />
+          <text x="45" y="15" fill="#a5b4fc" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9" font-weight="800" text-anchor="middle">SURROUND L</text>
+          <text x="45" y="26" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="7.5" font-weight="700" text-anchor="middle">110° - 120° Side/Rear</text>
+        </g>
+        <line x1="114" y1="228" x2="178" y2="166" stroke="#818cf8" stroke-width="1" stroke-dasharray="2,2" />
+
+        <!-- Speaker 5: RIGHT SURROUND (110° - 120°) -->
+        <g transform="translate(266, 218)">
+          <rect width="90" height="32" rx="5" fill="#1e293b" stroke="#818cf8" stroke-width="1.3" />
+          <text x="45" y="15" fill="#a5b4fc" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9" font-weight="800" text-anchor="middle">SURROUND R</text>
+          <text x="45" y="26" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="7.5" font-weight="700" text-anchor="middle">110° - 120° Side/Rear</text>
+        </g>
+        <line x1="266" y1="228" x2="202" y2="166" stroke="#818cf8" stroke-width="1" stroke-dasharray="2,2" />
+
+        <!-- Speaker 6: SUBWOOFER (LFE .1) -->
+        <g transform="translate(136, 102)">
+          <rect width="108" height="28" rx="5" fill="#78350f" fill-opacity="0.4" stroke="#f59e0b" stroke-width="1.3" />
+          <text x="54" y="14" fill="#fbbf24" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" font-weight="800" text-anchor="middle">SUBWOOFER (.1)</text>
+          <text x="54" y="24" fill="#fde68a" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="7.5" font-weight="700" text-anchor="middle">LFE (20 - 120 Hz)</text>
+        </g>
+        <line x1="190" y1="130" x2="190" y2="140" stroke="#f59e0b" stroke-width="1" stroke-dasharray="2,2" />
+
+        <!-- Bottom Total Badge inside Diagram -->
+        <g transform="translate(50, 264)">
+          <rect width="280" height="22" rx="4" fill="#1e293b" stroke="#334155" stroke-width="1" />
+          <text x="140" y="15" fill="#e2e8f0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" font-weight="700" text-anchor="middle">Total Count: 5 Satellites + 1 Subwoofer = 6 Speakers</text>
+        </g>
+      </g>
+    </g>
+
+    <!-- RIGHT COLUMN: Channel Breakdown & Technical Purpose -->
+    <g transform="translate(460, 18)">
+      <rect width="416" height="360" rx="8" fill="url(#panelGrad)" stroke="#10b981" stroke-width="1.3" />
+
+      <!-- Right Header Badge -->
+      <g transform="translate(16, 12)">
+        <rect width="384" height="28" rx="6" fill="#059669" fill-opacity="0.25" stroke="#10b981" stroke-width="1.1" />
+        <text x="192" y="19" fill="#34d399" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="800" text-anchor="middle" letter-spacing="0.8">5.1 CHANNEL BREAKDOWN (6 SPEAKERS TOTAL)</text>
+      </g>
+
+      <!-- Channel Breakdown Cards -->
+      <g transform="translate(16, 48)">
+        <!-- Card 1: 5 Full Range Satellites -->
+        <g transform="translate(0, 0)">
+          <rect width="384" height="92" rx="6" fill="#090f1d" stroke="#1e293b" stroke-width="1" />
+          <rect x="10" y="8" width="170" height="22" rx="4" fill="#0284c7" fill-opacity="0.2" stroke="#38bdf8" stroke-width="1" />
+          <text x="95" y="22" fill="#38bdf8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9" font-weight="800" text-anchor="middle">5 SATELLITE SPEAKERS</text>
+
+          <rect x="188" y="8" width="186" height="22" rx="4" fill="#1e293b" stroke="#334155" stroke-width="1" />
+          <text x="281" y="22" fill="#f1f5f9" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9" font-weight="700" text-anchor="middle">Full-Range (20 Hz - 20 kHz)</text>
+
+          <rect x="10" y="36" width="364" height="24" rx="4" fill="#0f172a" stroke="#1e293b" stroke-width="1" />
+          <text x="192" y="52" fill="#cbd5e1" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.8" font-weight="600" text-anchor="middle">Left, Center, Right, Left Surround, Right Surround</text>
+
+          <rect x="10" y="64" width="364" height="22" rx="4" fill="#1e293b" stroke="#334155" stroke-width="1" />
+          <text x="192" y="79" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.2" font-weight="500" text-anchor="middle">Center anchors dialogue; L/R provide front soundstage; Surrounds provide ambiance</text>
+        </g>
+
+        <!-- Card 2: 1 LFE Subwoofer -->
+        <g transform="translate(0, 102)">
+          <rect width="384" height="92" rx="6" fill="#090f1d" stroke="#1e293b" stroke-width="1" />
+          <rect x="10" y="8" width="170" height="22" rx="4" fill="#f59e0b" fill-opacity="0.2" stroke="#f59e0b" stroke-width="1" />
+          <text x="95" y="22" fill="#fbbf24" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9" font-weight="800" text-anchor="middle">1 SUBWOOFER (THE ".1")</text>
+
+          <rect x="188" y="8" width="186" height="22" rx="4" fill="#1e293b" stroke="#334155" stroke-width="1" />
+          <text x="281" y="22" fill="#f1f5f9" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9" font-weight="700" text-anchor="middle">LFE Band (20 Hz - 120 Hz)</text>
+
+          <rect x="10" y="36" width="364" height="24" rx="4" fill="#0f172a" stroke="#1e293b" stroke-width="1" />
+          <text x="192" y="52" fill="#cbd5e1" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.8" font-weight="600" text-anchor="middle">Why '.1'? Requires only ~1/10th audio bandwidth of satellites</text>
+
+          <rect x="10" y="64" width="364" height="22" rx="4" fill="#1e293b" stroke="#334155" stroke-width="1" />
+          <text x="192" y="79" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.2" font-weight="500" text-anchor="middle">Dedicated to deep sub-bass explosions, cinematic rumbles, and bass management</text>
+        </g>
+
+        <!-- Card 3: Common Exam Misconceptions -->
+        <g transform="translate(0, 204)">
+          <rect width="384" height="92" rx="6" fill="#090f1d" stroke="#1e293b" stroke-width="1" />
+          <rect x="10" y="8" width="170" height="22" rx="4" fill="#10b981" fill-opacity="0.2" stroke="#10b981" stroke-width="1" />
+          <text x="95" y="22" fill="#34d399" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9" font-weight="800" text-anchor="middle">TOTAL SPEAKER COUNT</text>
+
+          <rect x="188" y="8" width="186" height="22" rx="4" fill="#1e293b" stroke="#334155" stroke-width="1" />
+          <text x="281" y="22" fill="#38bdf8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9" font-weight="800" text-anchor="middle">5 + 1 = 6 Physical Units</text>
+
+          <rect x="10" y="36" width="364" height="24" rx="4" fill="#0f172a" stroke="#1e293b" stroke-width="1" />
+          <text x="192" y="52" fill="#cbd5e1" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.8" font-weight="600" text-anchor="middle">Do not confuse channel nomenclature (5.1) with unit count (6)</text>
+
+          <rect x="10" y="64" width="364" height="22" rx="4" fill="#1e293b" stroke="#334155" stroke-width="1" />
+          <text x="192" y="79" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.2" font-weight="500" text-anchor="middle">A 7.1 system uses 8 speakers; standard stereo 2.1 uses 3 speakers</text>
+        </g>
+      </g>
+    </g>
+  </g>
+
+  <!-- Bottom Takeaway Container -->
+  <g transform="translate(30, 466)">
+    <rect width="900" height="58" rx="8" fill="#0f172a" stroke="#334155" stroke-width="1.3" />
+
+    <!-- Takeaway Tag Badge -->
+    <rect x="14" y="11" width="106" height="36" rx="6" fill="#38bdf8" />
+    <text x="67" y="33" fill="#0b1326" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="800" text-anchor="middle" letter-spacing="0.8">TAKEAWAY</text>
+
+    <!-- Takeaway Content Box -->
+    <rect x="128" y="9" width="758" height="40" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1" />
+    <text x="507" y="24" fill="#f8fafc" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10.5" font-weight="700" text-anchor="middle">A standard 5.1 surround sound system uses exactly six physical speakers.</text>
+    <text x="507" y="39" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" font-weight="600" text-anchor="middle">It comprises 5 full-range satellite speakers (L, C, R, Ls, Rs) plus 1 dedicated LFE subwoofer (.1).</text>
+  </g>
+</svg>

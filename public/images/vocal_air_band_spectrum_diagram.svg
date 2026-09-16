@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b1120" />
+      <stop offset="50%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#020617" />
+    </linearGradient>
+
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+
+    <linearGradient id="airGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ec4899" stop-opacity="0.35" />
+      <stop offset="100%" stop-color="#ec4899" stop-opacity="0.0" />
+    </linearGradient>
+
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.5" />
+    </filter>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect width="800" height="480" fill="url(#bgGrad)" />
+
+  <!-- Outer Header -->
+  <g transform="translate(30, 20)">
+    <rect width="280" height="30" rx="6" fill="#ec4899" fill-opacity="0.15" stroke="#ec4899" stroke-width="1.2" />
+    <text x="140" y="20" fill="#f472b6" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="800" text-anchor="middle" letter-spacing="1">VOCAL FREQUENCY SPECTRUM</text>
+    <text x="295" y="21" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="500">The "Air &amp; Sparkle" Band (10 kHz – 16 kHz) vs Core Vocal Regions</text>
+  </g>
+
+  <!-- Main Frequency Spectrum Card -->
+  <g transform="translate(30, 62)">
+    <rect width="740" height="304" rx="8" fill="url(#cardGrad)" stroke="#334155" stroke-width="1.5" filter="url(#shadow)" />
+
+    <!-- Graph Screen -->
+    <!-- X=50 (100Hz), X=170 (250Hz), X=270 (500Hz), X=380 (1kHz), X=480 (2.5kHz), X=560 (5kHz), X=640 (10kHz), X=720 (20kHz) -->
+    <rect x="50" y="30" width="670" height="180" rx="4" fill="#0b1120" stroke="#1e293b" />
+
+    <!-- Grid lines -->
+    <line x1="50" y1="65" x2="720" y2="65" stroke="#1e293b" stroke-width="1" stroke-dasharray="2" />
+    <line x1="50" y1="110" x2="720" y2="110" stroke="#1e293b" stroke-width="1" stroke-dasharray="2" />
+    <line x1="50" y1="155" x2="720" y2="155" stroke="#1e293b" stroke-width="1" stroke-dasharray="2" />
+
+    <!-- Vertical dividers for 4 Main Vocal Bands -->
+    <!-- Band 1: 100 - 300 Hz (Chest / Mud) -->
+    <rect x="50" y="30" width="150" height="180" fill="#64748b" fill-opacity="0.06" />
+    
+    <!-- Band 2: 300 - 2 kHz (Vowel Body / Nasal) -->
+    <rect x="200" y="30" width="220" height="180" fill="#3b82f6" fill-opacity="0.06" />
+
+    <!-- Band 3: 2 kHz - 8 kHz (Presence / Sibilance) -->
+    <rect x="420" y="30" width="160" height="180" fill="#eab308" fill-opacity="0.06" />
+
+    <!-- Band 4: 8 kHz - 20 kHz (THE AIR BAND - HIGHLIGHTED) -->
+    <rect x="580" y="30" width="140" height="180" fill="url(#airGrad)" />
+
+    <!-- Frequency Axis Text -->
+    <text x="50" y="226" fill="#64748b" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" text-anchor="middle">100 Hz</text>
+    <text x="120" y="226" fill="#64748b" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" text-anchor="middle">200 Hz</text>
+    <text x="200" y="226" fill="#64748b" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" text-anchor="middle">500 Hz</text>
+    <text x="310" y="226" fill="#64748b" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" text-anchor="middle">1 kHz</text>
+    <text x="420" y="226" fill="#64748b" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" text-anchor="middle">2.5 kHz</text>
+    <text x="500" y="226" fill="#64748b" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" text-anchor="middle">5 kHz</text>
+    <text x="580" y="226" fill="#ec4899" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9" font-weight="700" text-anchor="middle">8 kHz</text>
+    <text x="640" y="226" fill="#ec4899" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9" font-weight="800" text-anchor="middle">12 kHz</text>
+    <text x="720" y="226" fill="#64748b" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" text-anchor="middle">20 kHz</text>
+
+    <!-- Natural Vocal Energy Curve (Fades off in the extreme highs) -->
+    <path d="M 50,160 Q 80,80 130,85 Q 180,90 230,110 Q 320,120 420,130 Q 480,135 530,145 Q 580,158 640,172 L 720,178" fill="none" stroke="#64748b" stroke-width="2" stroke-dasharray="3" />
+    <text x="280" y="118" fill="#64748b" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" font-style="italic">Natural Vocal Acoustic Energy</text>
+
+    <!-- High-Shelf "Air Band" Boost Curve (+4.5 dB above 10 kHz) -->
+    <path d="M 50,160 Q 80,80 130,85 Q 180,90 230,110 Q 320,120 420,130 Q 480,135 530,135 Q 580,115 630,90 L 720,90" fill="none" stroke="#ec4899" stroke-width="3" />
+
+    <!-- AIR BAND HIGHLIGHT CALLOUT -->
+    <rect x="585" y="42" width="130" height="38" rx="4" fill="#0f172a" stroke="#ec4899" stroke-width="1.5" />
+    <text x="650" y="57" fill="#f472b6" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9.5" font-weight="900" text-anchor="middle">"AIR &amp; SPARKLE" BOOST</text>
+    <text x="650" y="70" fill="#cbd5e1" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8" text-anchor="middle">High shelf at 10 kHz – 16 kHz</text>
+
+    <!-- Sparkle icons -->
+    <circle cx="600" cy="98" r="3" fill="#f472b6" />
+    <circle cx="645" cy="85" r="4" fill="#f472b6" />
+    <circle cx="690" cy="92" r="3" fill="#f472b6" />
+
+    <!-- 4 Spectrum Sector Pillars -->
+    <g transform="translate(50, 245)">
+      <!-- Sector 1 -->
+      <rect width="145" height="48" rx="4" fill="#0f172a" stroke="#334155" stroke-width="1" />
+      <text x="72" y="18" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9.5" font-weight="700" text-anchor="middle">100 Hz – 300 Hz</text>
+      <text x="72" y="32" fill="#cbd5e1" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" text-anchor="middle">Chest Resonance &amp; Mud</text>
+      <text x="72" y="42" fill="#64748b" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="7.5" text-anchor="middle">Cut to remove boominess</text>
+
+      <!-- Sector 2 -->
+      <g transform="translate(155, 0)">
+        <rect width="145" height="48" rx="4" fill="#0f172a" stroke="#334155" stroke-width="1" />
+        <text x="72" y="18" fill="#60a5fa" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9.5" font-weight="700" text-anchor="middle">1 kHz – 3 kHz</text>
+        <text x="72" y="32" fill="#cbd5e1" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" text-anchor="middle">Nasal Honk / Core Body</text>
+        <text x="72" y="42" fill="#64748b" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="7.5" text-anchor="middle">Vowel articulation</text>
+      </g>
+
+      <!-- Sector 3 -->
+      <g transform="translate(310, 0)">
+        <rect width="170" height="48" rx="4" fill="#0f172a" stroke="#334155" stroke-width="1" />
+        <text x="85" y="18" fill="#fbbf24" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9.5" font-weight="700" text-anchor="middle">4 kHz – 7 kHz</text>
+        <text x="85" y="32" fill="#cbd5e1" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" text-anchor="middle">Presence &amp; Sibilance</text>
+        <text x="85" y="42" fill="#64748b" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="7.5" text-anchor="middle">Harsh "s" and "t" sounds</text>
+      </g>
+
+      <!-- Sector 4: Air -->
+      <g transform="translate(490, 0)">
+        <rect width="180" height="48" rx="4" fill="#0f172a" stroke="#ec4899" stroke-width="1.5" />
+        <text x="90" y="18" fill="#f472b6" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" font-weight="900" text-anchor="middle">10 kHz – 16 kHz (AIR)</text>
+        <text x="90" y="32" fill="#cbd5e1" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" font-weight="600" text-anchor="middle">Breath, Openness &amp; Sheen</text>
+        <text x="90" y="42" fill="#34d399" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="7.5" text-anchor="middle">Expensive, high-end studio gloss</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Bottom Key Exam Takeaway -->
+  <g transform="translate(30, 380)">
+    <rect width="740" height="82" rx="8" fill="#1e293b" stroke="#ec4899" stroke-width="1.5" />
+    <circle cx="36" cy="41" r="14" fill="#ec4899" fill-opacity="0.2" stroke="#ec4899" stroke-width="1.5" />
+    <text x="36" y="46" fill="#f472b6" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="900" text-anchor="middle">i</text>
+    
+    <text x="64" y="26" fill="#f8fafc" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="700">Edexcel Vocal Frequency Guide: Adding "Air" &amp; "Sparkle"</text>
+    <text x="64" y="44" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10.5">• In modern pop mixing, boosting with a high-shelf around <tspan fill="#f472b6" font-weight="bold">10 kHz to 16 kHz</tspan> injects "air", "sparkle", and delicate breath.</text>
+    <text x="64" y="58" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10.5">• Unlike the <tspan fill="#fbbf24" font-weight="bold">4 kHz – 7 kHz</tspan> region (which risks painful sibilance and harshness), the air band sits above speech consonants.</text>
+    <text x="64" y="72" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10.5">• Popularised by vintage hardware like the Maag Audio EQ4 "Air Band", adding expensive top-end gloss without biting ears.</text>
+  </g>
+</svg>

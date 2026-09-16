@@ -1,0 +1,197 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#070d18" />
+      <stop offset="50%" stop-color="#0b1326" />
+      <stop offset="100%" stop-color="#030712" />
+    </linearGradient>
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#17223b" />
+      <stop offset="100%" stop-color="#0d1527" />
+    </linearGradient>
+    <linearGradient id="panelGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.5" />
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="960" height="540" fill="url(#bgGrad)" />
+
+  <!-- Outer Header -->
+  <g transform="translate(30, 16)">
+    <rect width="250" height="34" rx="7" fill="#818cf8" fill-opacity="0.15" stroke="#818cf8" stroke-width="1.3" />
+    <text x="125" y="22" fill="#a5b4fc" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="800" text-anchor="middle" letter-spacing="1">MASTERING REVERB</text>
+
+    <rect x="262" y="0" width="668" height="34" rx="7" fill="#0f172a" stroke="#334155" stroke-width="1.3" />
+    <text x="596" y="22" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="600" text-anchor="middle">Acoustic Unification &amp; Spatial Front-to-Back Depth on the Master Bus</text>
+  </g>
+
+  <!-- Main Container -->
+  <g transform="translate(30, 60)">
+    <rect width="900" height="396" rx="10" fill="url(#cardGrad)" stroke="#334155" stroke-width="1.4" filter="url(#shadow)" />
+
+    <!-- LEFT COLUMN: Parallel Mastering Reverb Architecture -->
+    <g transform="translate(24, 18)">
+      <rect width="420" height="360" rx="8" fill="url(#panelGrad)" stroke="#38bdf8" stroke-width="1.3" />
+
+      <!-- Left Header Badge -->
+      <g transform="translate(18, 12)">
+        <rect width="384" height="28" rx="6" fill="#0284c7" fill-opacity="0.25" stroke="#38bdf8" stroke-width="1.1" />
+        <text x="192" y="19" fill="#38bdf8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="800" text-anchor="middle" letter-spacing="0.8">PARALLEL MASTERING REVERB ROUTING</text>
+      </g>
+
+      <!-- Architecture Flow Diagram -->
+      <!-- Input Master Mix -->
+      <g transform="translate(18, 52)">
+        <rect width="166" height="36" rx="6" fill="#0f172a" stroke="#64748b" stroke-width="1.2" />
+        <text x="83" y="22" fill="#e2e8f0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10.5" font-weight="700" text-anchor="middle">Stereo Mix Pre-Master</text>
+
+        <!-- Split Routing Lines -->
+        <!-- To Dry Path -->
+        <path d="M 166 18 L 198 18 L 198 0 L 226 0" fill="none" stroke="#64748b" stroke-width="1.6" stroke-dasharray="3,3" />
+        <circle cx="226" cy="0" r="2.5" fill="#64748b" />
+
+        <!-- To Wet Path -->
+        <path d="M 166 18 L 198 18 L 198 52 L 226 52" fill="none" stroke="#818cf8" stroke-width="1.8" />
+        <circle cx="226" cy="52" r="2.5" fill="#818cf8" />
+      </g>
+
+      <!-- Dry Path Box -->
+      <g transform="translate(246, 38)">
+        <rect width="156" height="28" rx="5" fill="#1e293b" stroke="#64748b" stroke-width="1" />
+        <text x="78" y="18" fill="#cbd5e1" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" font-weight="700" text-anchor="middle">Dry Master (95% - 98%)</text>
+      </g>
+
+      <!-- Wet Reverb Aux Box -->
+      <g transform="translate(246, 90)">
+        <rect width="156" height="28" rx="5" fill="#312e81" stroke="#818cf8" stroke-width="1.2" />
+        <text x="78" y="18" fill="#c7d2fe" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" font-weight="800" text-anchor="middle">Wet Aux Send (2% - 5%)</text>
+      </g>
+
+      <!-- Processing Steps inside Wet Path -->
+      <g transform="translate(18, 130)">
+        <rect width="384" height="214" rx="7" fill="#090f1d" stroke="#1e293b" stroke-width="1.2" />
+
+        <!-- Step 1: Pre-Filtering HPF/LPF -->
+        <g transform="translate(12, 10)">
+          <rect width="128" height="24" rx="4" fill="#f59e0b" fill-opacity="0.2" stroke="#f59e0b" stroke-width="1" />
+          <text x="64" y="16" fill="#fbbf24" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9" font-weight="800" text-anchor="middle">1. BANDPASS FILTER</text>
+
+          <rect x="136" y="0" width="224" height="24" rx="4" fill="#1e293b" stroke="#334155" stroke-width="1" />
+          <text x="248" y="16" fill="#f1f5f9" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9" font-weight="700" text-anchor="middle">HPF @ 250 Hz  |  LPF @ 7 kHz</text>
+
+          <rect x="0" y="29" width="360" height="28" rx="4" fill="#0f172a" stroke="#1e293b" stroke-width="1" />
+          <text x="180" y="46" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9" font-weight="500" text-anchor="middle">Stops low bass mud &amp; keeps cymbals from splashing</text>
+        </g>
+
+        <!-- Step 2: Spatial Algorithm / Decay -->
+        <g transform="translate(12, 78)">
+          <rect width="128" height="24" rx="4" fill="#818cf8" fill-opacity="0.2" stroke="#818cf8" stroke-width="1" />
+          <text x="64" y="16" fill="#c7d2fe" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9" font-weight="800" text-anchor="middle">2. SHORT AMBIENCE</text>
+
+          <rect x="136" y="0" width="224" height="24" rx="4" fill="#1e293b" stroke="#334155" stroke-width="1" />
+          <text x="248" y="16" fill="#f1f5f9" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9" font-weight="700" text-anchor="middle">Decay: 0.6 - 1.2s  |  Pre-Delay: 25ms</text>
+
+          <rect x="0" y="29" width="360" height="28" rx="4" fill="#0f172a" stroke="#1e293b" stroke-width="1" />
+          <text x="180" y="46" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9" font-weight="500" text-anchor="middle">Convolution room impulse or clean algorithmic hall</text>
+        </g>
+
+        <!-- Step 3: Mid/Side Focus -->
+        <g transform="translate(12, 146)">
+          <rect width="128" height="24" rx="4" fill="#10b981" fill-opacity="0.2" stroke="#10b981" stroke-width="1" />
+          <text x="64" y="16" fill="#34d399" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9" font-weight="800" text-anchor="middle">3. M/S SPATIAL FOCUS</text>
+
+          <rect x="136" y="0" width="224" height="24" rx="4" fill="#1e293b" stroke="#334155" stroke-width="1" />
+          <text x="248" y="16" fill="#f1f5f9" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9" font-weight="700" text-anchor="middle">Applied to Sides &gt; Mid</text>
+
+          <rect x="0" y="29" width="360" height="28" rx="4" fill="#0f172a" stroke="#1e293b" stroke-width="1" />
+          <text x="180" y="46" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9" font-weight="500" text-anchor="middle">Preserves phantom center punch (kick, snare, vocal)</text>
+        </g>
+      </g>
+    </g>
+
+    <!-- RIGHT COLUMN: Core Reasons for Mastering Reverb -->
+    <g transform="translate(460, 18)">
+      <rect width="416" height="360" rx="8" fill="url(#panelGrad)" stroke="#10b981" stroke-width="1.3" />
+
+      <!-- Right Header Badge -->
+      <g transform="translate(16, 12)">
+        <rect width="384" height="28" rx="6" fill="#059669" fill-opacity="0.25" stroke="#10b981" stroke-width="1.1" />
+        <text x="192" y="19" fill="#34d399" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="800" text-anchor="middle" letter-spacing="0.8">WHY ADD REVERB IN MASTERING? (CORE ROLES)</text>
+      </g>
+
+      <!-- Reasons Stack -->
+      <g transform="translate(16, 48)">
+        <!-- Reason 1: Acoustic Glue -->
+        <g transform="translate(0, 0)">
+          <rect width="384" height="68" rx="6" fill="#090f1d" stroke="#1e293b" stroke-width="1" />
+          <rect x="10" y="8" width="156" height="22" rx="4" fill="#0284c7" fill-opacity="0.2" stroke="#38bdf8" stroke-width="1" />
+          <text x="88" y="22" fill="#38bdf8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9" font-weight="800" text-anchor="middle">1. ACOUSTIC GLUE</text>
+
+          <rect x="174" y="8" width="200" height="22" rx="4" fill="#1e293b" stroke="#334155" stroke-width="1" />
+          <text x="274" y="22" fill="#f1f5f9" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9" font-weight="700" text-anchor="middle">Shared Acoustic Environment</text>
+
+          <rect x="10" y="36" width="364" height="24" rx="4" fill="#0f172a" stroke="#1e293b" stroke-width="1" />
+          <text x="192" y="52" fill="#cbd5e1" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9" font-weight="500" text-anchor="middle">Blends disparate dry tracks into a single cohesive physical space</text>
+        </g>
+
+        <!-- Reason 2: Softens Sterile Mixes -->
+        <g transform="translate(0, 76)">
+          <rect width="384" height="68" rx="6" fill="#090f1d" stroke="#1e293b" stroke-width="1" />
+          <rect x="10" y="8" width="156" height="22" rx="4" fill="#818cf8" fill-opacity="0.2" stroke="#818cf8" stroke-width="1" />
+          <text x="88" y="22" fill="#c7d2fe" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9" font-weight="800" text-anchor="middle">2. RESTORES 3D DEPTH</text>
+
+          <rect x="174" y="8" width="200" height="22" rx="4" fill="#1e293b" stroke="#334155" stroke-width="1" />
+          <text x="274" y="22" fill="#f1f5f9" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9" font-weight="700" text-anchor="middle">Softens Harshness &amp; Sterile Tracks</text>
+
+          <rect x="10" y="36" width="364" height="24" rx="4" fill="#0f172a" stroke="#1e293b" stroke-width="1" />
+          <text x="192" y="52" fill="#cbd5e1" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9" font-weight="500" text-anchor="middle">Adds front-to-back perspective to sterile, flat, direct DI recordings</text>
+        </g>
+
+        <!-- Reason 3: Album Continuity -->
+        <g transform="translate(0, 152)">
+          <rect width="384" height="68" rx="6" fill="#090f1d" stroke="#1e293b" stroke-width="1" />
+          <rect x="10" y="8" width="156" height="22" rx="4" fill="#10b981" fill-opacity="0.2" stroke="#10b981" stroke-width="1" />
+          <text x="88" y="22" fill="#34d399" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9" font-weight="800" text-anchor="middle">3. ALBUM CONTINUITY</text>
+
+          <rect x="174" y="8" width="200" height="22" rx="4" fill="#1e293b" stroke="#334155" stroke-width="1" />
+          <text x="274" y="22" fill="#f1f5f9" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9" font-weight="700" text-anchor="middle">Cross-Track Soundstage Match</text>
+
+          <rect x="10" y="36" width="364" height="24" rx="4" fill="#0f172a" stroke="#1e293b" stroke-width="1" />
+          <text x="192" y="52" fill="#cbd5e1" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9" font-weight="500" text-anchor="middle">Unifies songs tracked in different studio rooms into one record</text>
+        </g>
+
+        <!-- Reason 4: Natural Decay Smoothing -->
+        <g transform="translate(0, 228)">
+          <rect width="384" height="68" rx="6" fill="#090f1d" stroke="#1e293b" stroke-width="1" />
+          <rect x="10" y="8" width="156" height="22" rx="4" fill="#f59e0b" fill-opacity="0.2" stroke="#f59e0b" stroke-width="1" />
+          <text x="88" y="22" fill="#fbbf24" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9" font-weight="800" text-anchor="middle">4. NATURAL DECAYS</text>
+
+          <rect x="174" y="8" width="200" height="22" rx="4" fill="#1e293b" stroke="#334155" stroke-width="1" />
+          <text x="274" y="22" fill="#f1f5f9" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9" font-weight="700" text-anchor="middle">Extends Abrupt Track Endings</text>
+
+          <rect x="10" y="36" width="364" height="24" rx="4" fill="#0f172a" stroke="#1e293b" stroke-width="1" />
+          <text x="192" y="52" fill="#cbd5e1" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9" font-weight="500" text-anchor="middle">Smooths dry song endings and fadeouts without artificial artifacts</text>
+        </g>
+      </g>
+    </g>
+  </g>
+
+  <!-- Bottom Takeaway Container (Two-tier clean padded badge) -->
+  <g transform="translate(30, 466)">
+    <rect width="900" height="58" rx="8" fill="#0f172a" stroke="#334155" stroke-width="1.3" />
+
+    <!-- Takeaway Tag Badge -->
+    <rect x="14" y="11" width="106" height="36" rx="6" fill="#818cf8" />
+    <text x="67" y="33" fill="#ffffff" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="800" text-anchor="middle" letter-spacing="0.8">TAKEAWAY</text>
+
+    <!-- Takeaway Content Box -->
+    <rect x="128" y="9" width="758" height="40" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1" />
+    <text x="507" y="24" fill="#f8fafc" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10.5" font-weight="700" text-anchor="middle">Mastering reverb is applied in parallel (2–5% wet, high-passed &gt;250 Hz) to avoid muddying bass frequencies.</text>
+    <text x="507" y="39" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" font-weight="600" text-anchor="middle">It unifies disparate dry elements into a cohesive shared acoustic space while enhancing front-to-back depth.</text>
+  </g>
+</svg>

@@ -242,6 +242,76 @@ const Dashboard = ({ onNavigate, onOpenProfile }) => {
                 </div>
             </div>
 
+            {/* Component 1 Track Sheet & Logbook Feature Card */}
+            <div style={{
+                background: 'linear-gradient(135deg, rgba(168, 85, 247, 0.12) 0%, rgba(99, 102, 241, 0.08) 100%)',
+                border: '1px solid rgba(168, 85, 247, 0.3)',
+                borderRadius: '16px',
+                padding: '24px',
+                marginBottom: '35px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                flexWrap: 'wrap',
+                gap: '20px',
+                boxShadow: '0 8px 24px rgba(0,0,0,0.2)'
+            }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '18px' }}>
+                    <div style={{
+                        width: '56px',
+                        height: '56px',
+                        borderRadius: '12px',
+                        background: 'linear-gradient(135deg, #8b5cf6, #ec4899)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        fontSize: '1.8rem',
+                        boxShadow: '0 4px 15px rgba(139, 92, 246, 0.4)'
+                    }}>
+                        🎚️
+                    </div>
+                    <div>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
+                            <span style={{ fontSize: '0.75rem', fontWeight: 'bold', background: 'rgba(168, 85, 247, 0.25)', color: '#c084fc', padding: '2px 8px', borderRadius: '6px' }}>
+                                PEARSON EDEXCEL (9MT0/01)
+                            </span>
+                            <span style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>
+                                Component 1 Recording
+                            </span>
+                        </div>
+                        <h3 style={{ margin: '0 0 6px 0', color: '#fff', fontSize: '1.3rem' }}>
+                            Component 1 Track Sheet & Logbook Creator
+                        </h3>
+                        <p style={{ margin: 0, color: 'var(--text-secondary)', fontSize: '0.92rem', maxWidth: '650px', lineHeight: '1.4' }}>
+                            Generate authentic multi-track session sheets, mic setups, and complete DAW-specific submission logbooks (Logic, Pro Tools, Ableton, Cubase, etc.) with marking rationale and PDF downloads.
+                        </p>
+                    </div>
+                </div>
+                <button
+                    onClick={() => onNavigate({ type: 'tracksheet_creator', title: 'Component 1: Track Sheet & Logbook' })}
+                    style={{
+                        background: 'linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%)',
+                        color: '#fff',
+                        border: 'none',
+                        padding: '12px 24px',
+                        borderRadius: '10px',
+                        cursor: 'pointer',
+                        fontWeight: 'bold',
+                        fontSize: '1rem',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '8px',
+                        boxShadow: '0 4px 15px rgba(139, 92, 246, 0.4)',
+                        transition: 'all 0.2s',
+                        whiteSpace: 'nowrap'
+                    }}
+                    onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.04)'}
+                    onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
+                >
+                    Open Track Sheet Creator →
+                </button>
+            </div>
+
             <div id="campaign-map-section">
                 <CampaignMap onNavigate={onNavigate} />
             </div>

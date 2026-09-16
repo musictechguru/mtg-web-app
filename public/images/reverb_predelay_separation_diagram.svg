@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 460" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#0b1120" /><stop offset="50%" stop-color="#0f172a" /><stop offset="100%" stop-color="#020617" /></linearGradient>
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#1e293b" /><stop offset="100%" stop-color="#0f172a" /></linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%"><feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.5" /></filter>
+  </defs>
+  <rect width="800" height="460" fill="url(#bgGrad)" />
+  <g transform="translate(30, 16)">
+    <rect width="250" height="32" rx="6" fill="#38bdf8" fill-opacity="0.15" stroke="#38bdf8" stroke-width="1.2" />
+    <text x="125" y="21" fill="#38bdf8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="800" text-anchor="middle">REVERB PRE-DELAY</text>
+    <rect x="262" y="0" width="310" height="32" rx="6" fill="#0f172a" stroke="#334155" stroke-width="1.2" />
+    <text x="417" y="21" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="600" text-anchor="middle">Time Offset Separating Direct Sound &amp; Tail</text>
+  </g>
+
+  <g transform="translate(30, 60)">
+    <rect width="740" height="315" rx="8" fill="url(#cardGrad)" stroke="#38bdf8" stroke-width="1.4" filter="url(#shadow)" />
+    
+    <!-- Timeline Axis -->
+    <line x1="50" y1="180" x2="690" y2="180" stroke="#475569" stroke-width="2" />
+    <polygon points="695,180 685,175 685,185" fill="#475569" />
+
+    <!-- Direct Sound (Dry Vocal) at t=0 -->
+    <g transform="translate(100, 180)">
+      <rect x="-12" y="-120" width="24" height="120" rx="3" fill="#38bdf8" stroke="#ffffff" stroke-width="1.5" />
+      <rect x="-65" y="-160" width="130" height="26" rx="4" fill="#0f172a" stroke="#38bdf8" stroke-width="1.2" />
+      <text x="0" y="-143" fill="#38bdf8" font-family="-apple-system, sans-serif" font-size="10" font-weight="800" text-anchor="middle">DRY DIRECT SOUND</text>
+    </g>
+
+    <!-- Pre-delay Gap Span -->
+    <g transform="translate(112, 100)">
+      <line x1="0" y1="0" x2="160" y2="0" stroke="#fbbf24" stroke-width="2.5" stroke-dasharray="4 3" />
+      <circle cx="0" cy="0" r="3.5" fill="#fbbf24" />
+      <circle cx="160" cy="0" r="3.5" fill="#fbbf24" />
+      <rect x="20" y="-14" width="120" height="26" rx="4" fill="#0f172a" stroke="#fbbf24" stroke-width="1.2" />
+      <text x="80" y="3" fill="#fbbf24" font-family="-apple-system, sans-serif" font-size="10" font-weight="900" text-anchor="middle">PRE-DELAY (40 ms)</text>
+    </g>
+
+    <!-- Early Reflections -->
+    <g transform="translate(280, 180)">
+      <line x1="10" y1="0" x2="10" y2="-75" stroke="#10b981" stroke-width="2" />
+      <line x1="25" y1="0" x2="25" y2="-60" stroke="#10b981" stroke-width="2" />
+      <line x1="40" y1="0" x2="40" y2="-48" stroke="#10b981" stroke-width="2" />
+      <rect x="-5" y="-115" width="120" height="24" rx="4" fill="#0f172a" stroke="#10b981" stroke-width="1" />
+      <text x="55" y="-99" fill="#34d399" font-family="-apple-system, sans-serif" font-size="9" font-weight="800" text-anchor="middle">EARLY REFLECTIONS</text>
+    </g>
+
+    <!-- Late Reverb Tail Wash -->
+    <g transform="translate(380, 180)">
+      <path d="M 0,0 Q 80,-80 180,-30 T 280,0 Z" fill="#818cf8" fill-opacity="0.25" stroke="#818cf8" stroke-width="2" />
+      <rect x="80" y="-115" width="120" height="24" rx="4" fill="#0f172a" stroke="#818cf8" stroke-width="1" />
+      <text x="140" y="-99" fill="#a5b4fc" font-family="-apple-system, sans-serif" font-size="9" font-weight="800" text-anchor="middle">DIFFUSE REVERB TAIL</text>
+    </g>
+
+    <!-- Bottom Status Cards -->
+    <g transform="translate(140, 245)">
+      <rect x="0" y="0" width="220" height="42" rx="4" fill="#0b1120" stroke="#38bdf8" stroke-width="1" />
+      <text x="110" y="18" fill="#38bdf8" font-family="-apple-system, sans-serif" font-size="10" font-weight="800" text-anchor="middle">WITH PRE-DELAY (20-60 ms)</text>
+      <text x="110" y="32" fill="#cbd5e1" font-family="-apple-system, sans-serif" font-size="9" text-anchor="middle">Vocal stays upfront and intelligible</text>
+
+      <rect x="240" y="0" width="220" height="42" rx="4" fill="#0b1120" stroke="#ef4444" stroke-width="1" />
+      <text x="350" y="18" fill="#f87171" font-family="-apple-system, sans-serif" font-size="10" font-weight="800" text-anchor="middle">WITHOUT PRE-DELAY (0 ms)</text>
+      <text x="350" y="32" fill="#cbd5e1" font-family="-apple-system, sans-serif" font-size="9" text-anchor="middle">Vocal is pushed back and washed out</text>
+    </g>
+  </g>
+
+  <!-- Bottom Takeaway Bar -->
+  <g transform="translate(30, 396)">
+    <rect width="740" height="44" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.2" />
+    <circle cx="24" cy="22" r="10" fill="#38bdf8" fill-opacity="0.15" stroke="#38bdf8" stroke-width="1.2" />
+    <text x="24" y="26" fill="#38bdf8" font-family="-apple-system, sans-serif" font-size="11" font-weight="900" text-anchor="middle">i</text>
+    <text x="44" y="26" fill="#e2e8f0" font-family="-apple-system, sans-serif" font-size="11.5" font-weight="600">Rule: Pre-delay preserves vocal intelligibility by delaying the reverb wash so transients speak first.</text>
+  </g>
+</svg>

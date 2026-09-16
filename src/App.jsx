@@ -27,6 +27,7 @@ import component4EdmData from './data/component4_edm_exam.json';
 import component4TemplateData from './data/component4_template_exam.json';
 import component4SpopData from './data/component4_spop_exam.json';
 import PremiumLocked from './components/PremiumLocked';
+import TracksheetCreator from './components/TracksheetCreator/TracksheetCreator';
 
 import WelcomeVideoModal from './components/WelcomeVideoModal';
 import UpdatePasswordModal from './components/UpdatePasswordModal';
@@ -74,6 +75,9 @@ const MainApp = () => {
       if (quizParam) {
         if (quizParam === 'dictionary_selector') {
           return { type: 'dictionary_selector', title: 'Dictionary Quizzes' };
+        }
+        if (quizParam === 'tracksheet_creator') {
+          return { type: 'tracksheet_creator', title: 'Component 1: Track Sheet & Logbook' };
         }
         const found = findCourseItem(quizParam);
         if (found) return found;
@@ -289,9 +293,28 @@ const MainApp = () => {
             onClick={() => {
               handleItemSelectWrapper({ type: 'dictionary_selector', title: 'Dictionary Quizzes' });
             }}
-            style={{ marginBottom: '20px', fontWeight: 'bold', color: 'var(--accent-success)', border: '1px solid var(--accent-success)' }}
+            style={{ marginBottom: '10px', fontWeight: 'bold', color: 'var(--accent-success)', border: '1px solid var(--accent-success)' }}
           >
             Dictionary Quizzes
+          </button>
+
+          <button
+            className={`nav-item ${activeItem?.type === 'tracksheet_creator' ? 'active' : ''}`}
+            onClick={() => {
+              handleItemSelectWrapper({ type: 'tracksheet_creator', title: 'Component 1: Track Sheet & Logbook' });
+            }}
+            style={{ 
+              marginBottom: '20px', 
+              fontWeight: 'bold', 
+              color: '#c084fc', 
+              border: '1px solid rgba(192, 132, 252, 0.4)',
+              background: activeItem?.type === 'tracksheet_creator' ? 'rgba(192, 132, 252, 0.15)' : 'transparent',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px'
+            }}
+          >
+            <span>🎚️</span> Component 1 Track Sheet
           </button>
 
           {courseData.sections.map((section, secIdx) => {
@@ -398,7 +421,9 @@ const MainApp = () => {
       {/* Main Content Area */}
       <main className="main-content">
         {activeItem ? (
-          activeItem.type === 'lp_quiz' ? (
+          activeItem.type === 'tracksheet_creator' ? (
+            <TracksheetCreator onBack={goToDashboardWrapper} />
+          ) : activeItem.type === 'lp_quiz' ? (
             <QuizPlayer quiz={activeItem} onFinish={goToDashboardWrapper} />
           ) : activeItem.type === 'lp_activity' ? (
             <WorksheetPlayer activity={activeItem} onFinish={goToDashboardWrapper} />

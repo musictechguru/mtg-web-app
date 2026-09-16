@@ -1,0 +1,163 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b1120" />
+      <stop offset="50%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#020617" />
+    </linearGradient>
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.5" />
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="480" fill="url(#bgGrad)" />
+
+  <!-- Header Badges -->
+  <g transform="translate(30, 16)">
+    <rect width="200" height="32" rx="6" fill="#ef4444" fill-opacity="0.15" stroke="#ef4444" stroke-width="1.2" />
+    <text x="100" y="21" fill="#f87171" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="800" text-anchor="middle">THE LOUDNESS WARS</text>
+    <rect x="212" y="0" width="440" height="32" rx="6" fill="#0f172a" stroke="#334155" stroke-width="1.2" />
+    <text x="432" y="21" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="600" text-anchor="middle">Hyper-Compression Race vs Modern Streaming Normalization</text>
+  </g>
+
+  <!-- Main Comparison Container -->
+  <g transform="translate(30, 60)">
+    <rect width="740" height="340" rx="8" fill="url(#cardGrad)" stroke="#334155" stroke-width="1.4" filter="url(#shadow)" />
+
+    <!-- Left Column: Dynamic Master (Healthy) -->
+    <g transform="translate(20, 18)">
+      <rect width="340" height="304" rx="6" fill="#0b1120" stroke="#10b981" stroke-width="1.2" />
+      
+      <!-- Title Badge -->
+      <g transform="translate(15, 12)">
+        <rect width="310" height="26" rx="4" fill="#064e3b" stroke="#10b981" stroke-width="0.8" />
+        <text x="155" y="17" fill="#34d399" font-family="-apple-system, sans-serif" font-size="10.5" font-weight="800" text-anchor="middle">DYNAMIC MASTER (1980s / MODERN)</text>
+      </g>
+
+      <!-- Waveform Box: Dynamic with deep peaks and valleys -->
+      <g transform="translate(15, 46)">
+        <rect width="310" height="95" rx="4" fill="#030712" stroke="#1e293b" />
+        <line x1="10" y1="18" x2="300" y2="18" stroke="#ef4444" stroke-width="1" stroke-dasharray="2 2" />
+        <line x1="10" y1="52" x2="300" y2="52" stroke="#334155" stroke-width="0.8" />
+        <line x1="10" y1="84" x2="300" y2="84" stroke="#ef4444" stroke-width="1" stroke-dasharray="2 2" />
+
+        <!-- 0 dBFS ceiling badge -->
+        <g transform="translate(210, 4)">
+          <rect width="85" height="15" rx="2" fill="#450a0a" stroke="#ef4444" stroke-width="0.6" />
+          <text x="42" y="11" fill="#fca5a5" font-family="-apple-system, sans-serif" font-size="7.5" font-weight="700" text-anchor="middle">0 dBFS CEILING</text>
+        </g>
+
+        <!-- Dynamic waveform path with high peaks and low valleys -->
+        <path d="M 15,52 L 25,26 L 35,76 L 45,35 L 55,60 L 65,22 L 75,80 L 85,38 L 95,58 L 105,28 L 115,74 L 125,40 L 135,56 L 145,24 L 155,80 L 165,34 L 175,62 L 185,28 L 195,72 L 205,42 L 215,55 L 225,25 L 235,78 L 245,36 L 255,60 L 265,30 L 275,72 L 285,45 L 295,52" fill="none" stroke="#10b981" stroke-width="2" />
+      </g>
+
+      <!-- Metrics Badges -->
+      <g transform="translate(15, 148)">
+        <g transform="translate(0, 0)">
+          <rect width="150" height="38" rx="3" fill="#0f172a" stroke="#1e293b" />
+          <text x="75" y="14" fill="#38bdf8" font-family="-apple-system, sans-serif" font-size="8" font-weight="800" text-anchor="middle">CREST FACTOR</text>
+          <text x="75" y="28" fill="#e2e8f0" font-family="-apple-system, sans-serif" font-size="8.5" font-weight="600" text-anchor="middle">14 – 18 dB (High Punch)</text>
+        </g>
+        <g transform="translate(160, 0)">
+          <rect width="150" height="38" rx="3" fill="#0f172a" stroke="#1e293b" />
+          <text x="75" y="14" fill="#34d399" font-family="-apple-system, sans-serif" font-size="8" font-weight="800" text-anchor="middle">LOUDNESS TARGET</text>
+          <text x="75" y="28" fill="#e2e8f0" font-family="-apple-system, sans-serif" font-size="8.5" font-weight="600" text-anchor="middle">-14 to -16 LUFS</text>
+        </g>
+      </g>
+
+      <!-- Bullet Chips -->
+      <g transform="translate(15, 194)">
+        <g transform="translate(0, 0)">
+          <rect width="310" height="24" rx="3" fill="#0f172a" stroke="#1e293b" />
+          <text x="155" y="16" fill="#e2e8f0" font-family="-apple-system, sans-serif" font-size="8" font-weight="600" text-anchor="middle">Pristine drum transients and natural punch intact</text>
+        </g>
+        <g transform="translate(0, 28)">
+          <rect width="310" height="24" rx="3" fill="#0f172a" stroke="#1e293b" />
+          <text x="155" y="16" fill="#cbd5e1" font-family="-apple-system, sans-serif" font-size="8" font-weight="600" text-anchor="middle">Zero listener ear fatigue over extended listening</text>
+        </g>
+        <g transform="translate(0, 56)">
+          <rect width="310" height="24" rx="3" fill="#064e3b" stroke="#10b981" stroke-width="0.8" />
+          <text x="155" y="16" fill="#6ee7b7" font-family="-apple-system, sans-serif" font-size="8" font-weight="800" text-anchor="middle">STREAMING: Kept at 0 dB gain reduction (Full Impact)</text>
+        </g>
+      </g>
+    </g>
+
+    <!-- Right Column: Hyper-Compressed Master (Loudness War) -->
+    <g transform="translate(380, 18)">
+      <rect width="340" height="304" rx="6" fill="#0b1120" stroke="#ef4444" stroke-width="1.2" />
+
+      <!-- Title Badge -->
+      <g transform="translate(15, 12)">
+        <rect width="310" height="26" rx="4" fill="#450a0a" stroke="#ef4444" stroke-width="0.8" />
+        <text x="155" y="17" fill="#fca5a5" font-family="-apple-system, sans-serif" font-size="10.5" font-weight="800" text-anchor="middle">SQUASHED "SAUSAGE" (2000s WARS)</text>
+      </g>
+
+      <!-- Waveform Box: Flat-topped block solid brick -->
+      <g transform="translate(15, 46)">
+        <rect width="310" height="95" rx="4" fill="#030712" stroke="#1e293b" />
+        <line x1="10" y1="24" x2="300" y2="24" stroke="#ef4444" stroke-width="1.5" />
+        <line x1="10" y1="56" x2="300" y2="56" stroke="#334155" stroke-width="0.8" />
+        <line x1="10" y1="84" x2="300" y2="84" stroke="#ef4444" stroke-width="1.5" />
+
+        <!-- 0 dBFS clipped chips in clear position -->
+        <g transform="translate(180, 4)">
+          <rect width="115" height="16" rx="2" fill="#7f1d1d" stroke="#ef4444" stroke-width="0.6" />
+          <text x="57" y="12" fill="#fca5a5" font-family="-apple-system, sans-serif" font-size="7.5" font-weight="800" text-anchor="middle">FLAT-TOPPED CLIPS</text>
+        </g>
+
+        <!-- Hyper-compressed solid block waveform -->
+        <rect x="15" y="24" width="280" height="60" fill="#ef4444" fill-opacity="0.35" />
+        <path d="M 15,24 L 295,24 M 15,84 L 295,84" stroke="#ef4444" stroke-width="3" />
+        <path d="M 15,56 L 25,24 L 35,84 L 45,24 L 55,84 L 65,24 L 75,84 L 85,24 L 95,84 L 105,24 L 115,84 L 125,24 L 135,84 L 145,24 L 155,84 L 165,24 L 175,84 L 185,24 L 195,84 L 205,24 L 215,84 L 225,24 L 235,84 L 245,24 L 255,84 L 265,24 L 275,84 L 285,24 L 295,56" fill="none" stroke="#f87171" stroke-width="1.5" />
+      </g>
+
+      <!-- Metrics Badges -->
+      <g transform="translate(15, 148)">
+        <g transform="translate(0, 0)">
+          <rect width="150" height="38" rx="3" fill="#0f172a" stroke="#1e293b" />
+          <text x="75" y="14" fill="#f87171" font-family="-apple-system, sans-serif" font-size="8" font-weight="800" text-anchor="middle">CREST FACTOR</text>
+          <text x="75" y="28" fill="#e2e8f0" font-family="-apple-system, sans-serif" font-size="8.5" font-weight="600" text-anchor="middle">3 – 5 dB (Squashed Dynamics)</text>
+        </g>
+        <g transform="translate(160, 0)">
+          <rect width="150" height="38" rx="3" fill="#0f172a" stroke="#1e293b" />
+          <text x="75" y="14" fill="#f87171" font-family="-apple-system, sans-serif" font-size="8" font-weight="800" text-anchor="middle">LOUDNESS TARGET</text>
+          <text x="75" y="28" fill="#e2e8f0" font-family="-apple-system, sans-serif" font-size="8.5" font-weight="600" text-anchor="middle">-8 to -5 LUFS (Extreme)</text>
+        </g>
+      </g>
+
+      <!-- Bullet Chips -->
+      <g transform="translate(15, 194)">
+        <g transform="translate(0, 0)">
+          <rect width="310" height="24" rx="3" fill="#0f172a" stroke="#1e293b" />
+          <text x="155" y="16" fill="#e2e8f0" font-family="-apple-system, sans-serif" font-size="8" font-weight="600" text-anchor="middle">Heavy distortion, crushed punch, and ear fatigue</text>
+        </g>
+        <g transform="translate(0, 28)">
+          <rect width="310" height="24" rx="3" fill="#0f172a" stroke="#1e293b" />
+          <text x="155" y="16" fill="#cbd5e1" font-family="-apple-system, sans-serif" font-size="8" font-weight="600" text-anchor="middle">Brickwall limiters push transients into digital flat-tops</text>
+        </g>
+        <g transform="translate(0, 56)">
+          <rect width="310" height="24" rx="3" fill="#450a0a" stroke="#ef4444" stroke-width="0.8" />
+          <text x="155" y="16" fill="#fca5a5" font-family="-apple-system, sans-serif" font-size="8" font-weight="800" text-anchor="middle">STREAMING: Turned down -8 dB (Sounds quiet &amp; small)</text>
+        </g>
+      </g>
+    </g>
+  </g>
+
+  <!-- Bottom Takeaway Bar with Enclosed Badge -->
+  <g transform="translate(30, 412)">
+    <rect width="740" height="48" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.2" />
+    <g transform="translate(12, 14)">
+      <rect width="80" height="20" rx="3" fill="#0284c7" />
+      <text x="40" y="14" fill="#ffffff" font-family="-apple-system, sans-serif" font-size="9" font-weight="800" text-anchor="middle">TAKEAWAY</text>
+    </g>
+    <g transform="translate(100, 12)">
+      <rect width="628" height="24" rx="4" fill="#0f172a" stroke="#334155" stroke-width="0.8" />
+      <text x="314" y="16" fill="#e2e8f0" font-family="-apple-system, sans-serif" font-size="9.5" font-weight="600" text-anchor="middle">The Loudness Wars sacrificed dynamic punch for raw volume; streaming normalization ended this by attenuating loud tracks.</text>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 460" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#0b1120" /><stop offset="50%" stop-color="#0f172a" /><stop offset="100%" stop-color="#020617" /></linearGradient>
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#1e293b" /><stop offset="100%" stop-color="#0f172a" /></linearGradient>
+    <linearGradient id="plateGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#334155" /><stop offset="50%" stop-color="#475569" /><stop offset="100%" stop-color="#1e293b" /></linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%"><feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.5" /></filter>
+  </defs>
+  <rect width="800" height="460" fill="url(#bgGrad)" />
+  <g transform="translate(30, 16)">
+    <rect width="250" height="32" rx="6" fill="#38bdf8" fill-opacity="0.15" stroke="#38bdf8" stroke-width="1.2" />
+    <text x="125" y="21" fill="#38bdf8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="800" text-anchor="middle">PLATE REVERB (EMT 140)</text>
+    <rect x="262" y="0" width="310" height="32" rx="6" fill="#0f172a" stroke="#334155" stroke-width="1.2" />
+    <text x="417" y="21" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="600" text-anchor="middle">Suspended Vibrating Steel Sheet</text>
+  </g>
+
+  <g transform="translate(30, 60)">
+    <rect width="740" height="315" rx="8" fill="url(#cardGrad)" stroke="#38bdf8" stroke-width="1.4" filter="url(#shadow)" />
+    
+    <!-- Outer Heavy Wooden/Metal Frame -->
+    <g transform="translate(50, 25)">
+      <rect width="640" height="225" rx="6" fill="#0b1120" stroke="#64748b" stroke-width="2.5" />
+
+      <!-- Tension Springs around perimeter -->
+      <line x1="25" y1="20" x2="50" y2="40" stroke="#fbbf24" stroke-width="2" />
+      <line x1="615" y1="20" x2="590" y2="40" stroke="#fbbf24" stroke-width="2" />
+      <line x1="25" y1="205" x2="50" y2="185" stroke="#fbbf24" stroke-width="2" />
+      <line x1="615" y1="205" x2="590" y2="185" stroke="#fbbf24" stroke-width="2" />
+
+      <!-- Tensioned Steel Plate -->
+      <rect x="50" y="40" width="540" height="145" rx="2" fill="url(#plateGrad)" stroke="#94a3b8" stroke-width="1.5" />
+      
+      <!-- Vibration Ripples across plate -->
+      <circle cx="320" cy="112" r="30" fill="none" stroke="#38bdf8" stroke-width="1" stroke-dasharray="3 3" opacity="0.6" />
+      <circle cx="320" cy="112" r="60" fill="none" stroke="#38bdf8" stroke-width="1" stroke-dasharray="4 3" opacity="0.4" />
+      <circle cx="320" cy="112" r="95" fill="none" stroke="#38bdf8" stroke-width="1" stroke-dasharray="5 4" opacity="0.25" />
+
+      <!-- Center Driver Transducer -->
+      <g transform="translate(320, 112)">
+        <circle cx="0" cy="0" r="18" fill="#0f172a" stroke="#ef4444" stroke-width="2" />
+        <circle cx="0" cy="0" r="5" fill="#ef4444" />
+        <rect x="-65" y="-45" width="130" height="22" rx="3" fill="#0f172a" stroke="#ef4444" stroke-width="1" />
+        <text x="0" y="-30" fill="#f87171" font-family="-apple-system, sans-serif" font-size="9" font-weight="800" text-anchor="middle">DRIVER TRANSDUCER</text>
+      </g>
+
+      <!-- Stereo Pickup Contact Microphones -->
+      <!-- Pickup L -->
+      <g transform="translate(140, 112)">
+        <rect x="-15" y="-15" width="30" height="30" rx="4" fill="#0f172a" stroke="#10b981" stroke-width="1.5" />
+        <circle cx="0" cy="0" r="4" fill="#10b981" />
+        <rect x="-55" y="24" width="110" height="20" rx="3" fill="#0f172a" stroke="#10b981" stroke-width="0.8" />
+        <text x="0" y="37" fill="#34d399" font-family="-apple-system, sans-serif" font-size="8.5" font-weight="800" text-anchor="middle">PICKUP (LEFT)</text>
+      </g>
+
+      <!-- Pickup R -->
+      <g transform="translate(500, 112)">
+        <rect x="-15" y="-15" width="30" height="30" rx="4" fill="#0f172a" stroke="#10b981" stroke-width="1.5" />
+        <circle cx="0" cy="0" r="4" fill="#10b981" />
+        <rect x="-55" y="24" width="110" height="20" rx="3" fill="#0f172a" stroke="#10b981" stroke-width="0.8" />
+        <text x="0" y="37" fill="#34d399" font-family="-apple-system, sans-serif" font-size="8.5" font-weight="800" text-anchor="middle">PICKUP (RIGHT)</text>
+      </g>
+    </g>
+
+    <!-- Characteristics Strip -->
+    <g transform="translate(130, 265)">
+      <rect x="0" y="0" width="150" height="26" rx="4" fill="#0b1120" stroke="#38bdf8" stroke-width="0.8" />
+      <text x="75" y="17" fill="#38bdf8" font-family="-apple-system, sans-serif" font-size="9.5" font-weight="700" text-anchor="middle">Dense &amp; Bright Diffusion</text>
+
+      <rect x="165" y="0" width="150" height="26" rx="4" fill="#0b1120" stroke="#fbbf24" stroke-width="0.8" />
+      <text x="240" y="17" fill="#fbbf24" font-family="-apple-system, sans-serif" font-size="9.5" font-weight="700" text-anchor="middle">No Discrete Echoes</text>
+
+      <rect x="330" y="0" width="150" height="26" rx="4" fill="#0b1120" stroke="#10b981" stroke-width="0.8" />
+      <text x="405" y="17" fill="#34d399" font-family="-apple-system, sans-serif" font-size="9.5" font-weight="700" text-anchor="middle">Ideal for Vocals &amp; Snare</text>
+    </g>
+  </g>
+
+  <!-- Bottom Takeaway Bar -->
+  <g transform="translate(30, 396)">
+    <rect width="740" height="44" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.2" />
+    <circle cx="24" cy="22" r="10" fill="#38bdf8" fill-opacity="0.15" stroke="#38bdf8" stroke-width="1.2" />
+    <text x="24" y="26" fill="#38bdf8" font-family="-apple-system, sans-serif" font-size="11" font-weight="900" text-anchor="middle">i</text>
+    <text x="44" y="26" fill="#e2e8f0" font-family="-apple-system, sans-serif" font-size="11.5" font-weight="600">Architecture: Audio vibrates a large suspended sheet of steel, picked up by contact mics for smooth, lush diffusion.</text>
+  </g>
+</svg>

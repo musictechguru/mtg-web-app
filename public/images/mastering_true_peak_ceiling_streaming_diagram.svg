@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 460" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#0b1120" /><stop offset="50%" stop-color="#0f172a" /><stop offset="100%" stop-color="#020617" /></linearGradient>
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#1e293b" /><stop offset="100%" stop-color="#0f172a" /></linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%"><feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.5" /></filter>
+  </defs>
+  <rect width="800" height="460" fill="url(#bgGrad)" />
+
+  <!-- Header -->
+  <g transform="translate(30, 16)">
+    <rect width="270" height="32" rx="6" fill="#38bdf8" fill-opacity="0.15" stroke="#38bdf8" stroke-width="1.2" />
+    <text x="135" y="21" fill="#38bdf8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="800" text-anchor="middle">STREAMING TRUE PEAK CEILING</text>
+    <rect x="282" y="0" width="370" height="32" rx="6" fill="#0f172a" stroke="#334155" stroke-width="1.2" />
+    <text x="467" y="21" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="600" text-anchor="middle">-1.0 dBTP Margin Prevents Lossy Codec Inter-Clipping</text>
+  </g>
+
+  <!-- Main Comparison Container -->
+  <g transform="translate(30, 60)">
+    <rect width="740" height="315" rx="8" fill="url(#cardGrad)" stroke="#334155" stroke-width="1.4" filter="url(#shadow)" />
+
+    <!-- Bad Practice: 0.0 dBTP Ceiling -->
+    <g transform="translate(20, 20)">
+      <rect width="335" height="275" rx="6" fill="#0b1120" stroke="#ef4444" stroke-width="1.2" />
+      <g transform="translate(15, 12)">
+        <rect width="210" height="24" rx="4" fill="#450a0a" />
+        <text x="105" y="16" fill="#f87171" font-family="-apple-system, sans-serif" font-size="9.5" font-weight="800" text-anchor="middle">0.0 dBTP CEILING (CLIPPING)</text>
+      </g>
+
+      <!-- Meter & Waveform -->
+      <g transform="translate(15, 48)">
+        <rect width="305" height="125" rx="4" fill="#0f172a" stroke="#1e293b" />
+        <!-- 0 dBFS ceiling -->
+        <line x1="15" y1="40" x2="290" y2="40" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="3 2" />
+        <g transform="translate(15, 15)">
+          <rect width="110" height="18" rx="2" fill="#450a0a" stroke="#ef4444" stroke-width="0.8" />
+          <text x="55" y="13" fill="#fca5a5" font-family="-apple-system, sans-serif" font-size="8" font-weight="800" text-anchor="middle">0.0 dBFS CEILING</text>
+        </g>
+        <!-- Lossy Transcode overshoot -->
+        <path d="M 20,90 L 60,90 L 90,40 L 120,20 L 150,40 L 180,90 L 220,90 L 250,22 L 280,90" fill="none" stroke="#ef4444" stroke-width="2.5" />
+        <!-- Clip overshoot shade -->
+        <path d="M 90,40 Q 120,10 150,40 Z" fill="#ef4444" fill-opacity="0.4" />
+        <g transform="translate(170, 15)">
+          <rect width="120" height="20" rx="3" fill="#450a0a" stroke="#ef4444" stroke-width="1" />
+          <text x="60" y="14" fill="#fca5a5" font-family="-apple-system, sans-serif" font-size="8" font-weight="900" text-anchor="middle">+0.7 dB ENCODE CLIP!</text>
+        </g>
+      </g>
+
+      <g transform="translate(15, 185)">
+        <rect width="305" height="75" rx="4" fill="#0f172a" stroke="#ef4444" stroke-width="0.8" />
+        <text x="12" y="22" fill="#fca5a5" font-family="-apple-system, sans-serif" font-size="9" font-weight="700">Encoding to AAC / MP3 / Ogg</text>
+        <text x="12" y="40" fill="#94a3b8" font-family="-apple-system, sans-serif" font-size="8.5">• Lossy compression alters peak curves</text>
+        <text x="12" y="56" fill="#ef4444" font-family="-apple-system, sans-serif" font-size="8.5">• Introduces harsh digital distortion</text>
+      </g>
+    </g>
+
+    <!-- Recommended: -1.0 dBTP Ceiling -->
+    <g transform="translate(385, 20)">
+      <rect width="335" height="275" rx="6" fill="#0b1120" stroke="#10b981" stroke-width="1.2" />
+      <g transform="translate(15, 12)">
+        <rect width="210" height="24" rx="4" fill="#064e3b" />
+        <text x="105" y="16" fill="#34d399" font-family="-apple-system, sans-serif" font-size="9.5" font-weight="800" text-anchor="middle">-1.0 dBTP CEILING (RECOMMENDED)</text>
+      </g>
+
+      <!-- Meter & Waveform -->
+      <g transform="translate(15, 48)">
+        <rect width="305" height="125" rx="4" fill="#0f172a" stroke="#1e293b" />
+        <!-- 0 dBFS ceiling -->
+        <line x1="15" y1="30" x2="290" y2="30" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="3 2" />
+        <line x1="15" y1="52" x2="290" y2="52" stroke="#10b981" stroke-width="1.5" stroke-dasharray="2 2" />
+        <g transform="translate(15, 12)">
+          <rect width="105" height="16" rx="2" fill="#450a0a" />
+          <text x="52" y="12" fill="#fca5a5" font-family="-apple-system, sans-serif" font-size="7.5" font-weight="800" text-anchor="middle">0.0 dBFS CEILING</text>
+        </g>
+        <!-- Peak waveform bounded safely below 0 dBFS -->
+        <path d="M 20,95 L 60,95 L 90,52 L 120,38 L 150,52 L 180,95 L 220,95 L 250,42 L 280,95" fill="none" stroke="#10b981" stroke-width="2.5" />
+        <g transform="translate(170, 15)">
+          <rect width="120" height="20" rx="3" fill="#064e3b" stroke="#10b981" stroke-width="1" />
+          <text x="60" y="14" fill="#34d399" font-family="-apple-system, sans-serif" font-size="8" font-weight="900" text-anchor="middle">PEAK REACHES -0.3 dB</text>
+        </g>
+      </g>
+
+      <g transform="translate(15, 185)">
+        <rect width="305" height="75" rx="4" fill="#0f172a" stroke="#10b981" stroke-width="0.8" />
+        <text x="12" y="22" fill="#34d399" font-family="-apple-system, sans-serif" font-size="9" font-weight="700">Safety Buffer Absorbs Codec Ripple</text>
+        <text x="12" y="40" fill="#94a3b8" font-family="-apple-system, sans-serif" font-size="8.5">• 1.0 dB buffer absorbs encoder peaks</text>
+        <text x="12" y="56" fill="#a7f3d0" font-family="-apple-system, sans-serif" font-size="8.5">• Zero audible clipping on any streaming app</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Bottom Takeaway Bar -->
+  <g transform="translate(30, 396)">
+    <rect width="740" height="44" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.2" />
+    <g transform="translate(12, 12)">
+      <rect width="75" height="20" rx="3" fill="#0284c7" />
+      <text x="37" y="14" fill="#ffffff" font-family="-apple-system, sans-serif" font-size="9.5" font-weight="800" text-anchor="middle">TAKEAWAY</text>
+    </g>
+    <text x="98" y="27" fill="#e2e8f0" font-family="-apple-system, sans-serif" font-size="11" font-weight="600">A -1.0 dBTP ceiling provides the essential safety margin to prevent lossy streaming transcoding distortion.</text>
+  </g>
+</svg>

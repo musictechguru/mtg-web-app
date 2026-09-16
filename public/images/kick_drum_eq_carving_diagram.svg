@@ -1,0 +1,169 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b1120" />
+      <stop offset="50%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#020617" />
+    </linearGradient>
+
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+
+    <linearGradient id="subGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.3" />
+      <stop offset="100%" stop-color="#38bdf8" stop-opacity="0.0" />
+    </linearGradient>
+
+    <linearGradient id="cutGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ef4444" stop-opacity="0.0" />
+      <stop offset="100%" stop-color="#ef4444" stop-opacity="0.3" />
+    </linearGradient>
+
+    <linearGradient id="clickGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#10b981" stop-opacity="0.3" />
+      <stop offset="100%" stop-color="#10b981" stop-opacity="0.0" />
+    </linearGradient>
+
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.5" />
+    </filter>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect width="800" height="480" fill="url(#bgGrad)" />
+
+  <!-- Outer Header -->
+  <g transform="translate(30, 20)">
+    <rect width="270" height="30" rx="6" fill="#38bdf8" fill-opacity="0.15" stroke="#38bdf8" stroke-width="1.2" />
+    <text x="135" y="20" fill="#38bdf8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="800" text-anchor="middle" letter-spacing="1">KICK DRUM EQ FREQUENCY CARVING</text>
+    <text x="285" y="21" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="500">Sub weight, boxy midrange scoop, and transient beater attack</text>
+  </g>
+
+  <!-- Main EQ Display Card -->
+  <g transform="translate(30, 62)">
+    <rect width="740" height="304" rx="8" fill="url(#cardGrad)" stroke="#334155" stroke-width="1.5" filter="url(#shadow)" />
+
+    <!-- EQ Graph Window -->
+    <rect x="50" y="28" width="670" height="186" rx="4" fill="#0b1120" stroke="#1e293b" />
+
+    <!-- Gain Grid Lines (dB) -->
+    <!-- +6 dB -->
+    <line x1="50" y1="55" x2="720" y2="55" stroke="#1e293b" stroke-width="1" stroke-dasharray="2" />
+    <text x="44" y="58" fill="#64748b" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" text-anchor="end">+6 dB</text>
+
+    <!-- 0 dB Unity -->
+    <line x1="50" y1="105" x2="720" y2="105" stroke="#475569" stroke-width="1.2" />
+    <text x="44" y="108" fill="#cbd5e1" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9" font-weight="800" text-anchor="end">0 dB</text>
+
+    <!-- -6 dB -->
+    <line x1="50" y1="155" x2="720" y2="155" stroke="#1e293b" stroke-width="1" stroke-dasharray="2" />
+    <text x="44" y="158" fill="#64748b" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" text-anchor="end">-6 dB</text>
+
+    <!-- Frequency Grid Lines -->
+    <!-- 20 Hz -->
+    <line x1="50" y1="28" x2="50" y2="214" stroke="#1e293b" stroke-width="1" />
+    <text x="50" y="228" fill="#64748b" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" text-anchor="middle">20 Hz</text>
+
+    <!-- 60 Hz (Sub Weight Peak) -->
+    <line x1="160" y1="28" x2="160" y2="214" stroke="#38bdf8" stroke-width="1" stroke-dasharray="3" />
+    <text x="160" y="228" fill="#38bdf8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9.5" font-weight="800" text-anchor="middle">60 Hz</text>
+
+    <!-- 100 Hz -->
+    <line x1="220" y1="28" x2="220" y2="214" stroke="#1e293b" stroke-width="1" />
+    <text x="220" y="228" fill="#64748b" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" text-anchor="middle">100 Hz</text>
+
+    <!-- 350 Hz (Boxiness Scoop) -->
+    <line x1="360" y1="28" x2="360" y2="214" stroke="#f43f5e" stroke-width="1" stroke-dasharray="3" />
+    <text x="360" y="228" fill="#f87171" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9.5" font-weight="800" text-anchor="middle">350 Hz</text>
+
+    <!-- 1 kHz -->
+    <line x1="470" y1="28" x2="470" y2="214" stroke="#1e293b" stroke-width="1" />
+    <text x="470" y="228" fill="#64748b" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" text-anchor="middle">1 kHz</text>
+
+    <!-- 4 kHz (Beater Click Peak) -->
+    <line x1="590" y1="28" x2="590" y2="214" stroke="#10b981" stroke-width="1" stroke-dasharray="3" />
+    <text x="590" y="228" fill="#34d399" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9.5" font-weight="800" text-anchor="middle">4 kHz</text>
+
+    <!-- 10 kHz -->
+    <line x1="720" y1="28" x2="720" y2="214" stroke="#1e293b" stroke-width="1" />
+    <text x="720" y="228" fill="#64748b" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" text-anchor="middle">10 kHz</text>
+
+    <!-- Zone Shading Under EQ Curve -->
+    <!-- 1. Sub-bass boost shading (50Hz to 120Hz) -->
+    <path d="M 80,105 Q 120,105 140,75 Q 160,50 180,75 Q 200,105 230,105 Z" fill="url(#subGrad)" />
+
+    <!-- 2. Mid cut shading (200Hz to 600Hz) -->
+    <path d="M 240,105 Q 290,105 320,140 Q 360,170 400,140 Q 430,105 470,105 Z" fill="url(#cutGrad)" />
+
+    <!-- 3. Beater click boost shading (2kHz to 6kHz) -->
+    <path d="M 480,105 Q 520,105 550,78 Q 590,56 630,78 Q 660,105 700,105 Z" fill="url(#clickGrad)" />
+
+    <!-- THE CLASSIC 'SMILEY FACE' KICK DRUM EQ CURVE -->
+    <path d="M 50,140 
+             Q 70,120 90,105 
+             Q 125,100 140,70 
+             Q 160,50 180,70 
+             Q 200,95 230,105 
+             Q 280,105 310,135 
+             Q 360,172 410,135 
+             Q 440,105 480,105 
+             Q 525,105 555,75 
+             Q 590,56 625,75 
+             Q 660,100 720,110" 
+          fill="none" stroke="#f8fafc" stroke-width="3" />
+
+    <!-- CALLOUT 1: SUB FUNDAMENTAL WEIGHT (20 Hz - 80 Hz) -->
+    <circle cx="160" cy="50" r="5" fill="#38bdf8" stroke="#ffffff" stroke-width="1.5" />
+    <rect x="70" y="34" width="155" height="40" rx="4" fill="#0f172a" stroke="#38bdf8" stroke-width="1.2" />
+    <text x="147" y="49" fill="#38bdf8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9.5" font-weight="900" text-anchor="middle">WEIGHT &amp; POWER (50–80 Hz)</text>
+    <text x="147" y="63" fill="#cbd5e1" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" text-anchor="middle">Fundamental chest-thump punch</text>
+
+    <!-- CALLOUT 2: BOXY CARVE (250 Hz - 500 Hz) -->
+    <circle cx="360" cy="172" r="5" fill="#f43f5e" stroke="#ffffff" stroke-width="1.5" />
+    <rect x="290" y="145" width="145" height="40" rx="4" fill="#0f172a" stroke="#f43f5e" stroke-width="1.2" />
+    <text x="362" y="160" fill="#f87171" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9.5" font-weight="900" text-anchor="middle">BOXY CARVE (250–500 Hz)</text>
+    <text x="362" y="174" fill="#cbd5e1" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" text-anchor="middle">Removes cardboard mud</text>
+
+    <!-- CALLOUT 3: BEATER CLICK (2.5 kHz - 5 kHz) -->
+    <circle cx="590" cy="56" r="5" fill="#10b981" stroke="#ffffff" stroke-width="1.5" />
+    <rect x="520" y="34" width="155" height="40" rx="4" fill="#0f172a" stroke="#10b981" stroke-width="1.2" />
+    <text x="597" y="49" fill="#34d399" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9.5" font-weight="900" text-anchor="middle">BEATER CLICK (3–5 kHz)</text>
+    <text x="597" y="63" fill="#cbd5e1" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" text-anchor="middle">Beater attack cuts through mix</text>
+
+    <!-- 3 Core Action Pillar Cards -->
+    <g transform="translate(50, 245)">
+      <!-- Pillar 1: Low End Weight -->
+      <rect width="210" height="46" rx="4" fill="#0f172a" stroke="#38bdf8" stroke-width="1" />
+      <text x="105" y="18" fill="#38bdf8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9.5" font-weight="800" text-anchor="middle">1. FUNDAMENTAL (50–80 Hz)</text>
+      <text x="105" y="34" fill="#cbd5e1" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" text-anchor="middle">Boost for low sub weight and chest thump</text>
+
+      <!-- Pillar 2: Mud Removal -->
+      <g transform="translate(230, 0)">
+        <rect width="210" height="46" rx="4" fill="#0f172a" stroke="#f43f5e" stroke-width="1" />
+        <text x="105" y="18" fill="#f87171" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9.5" font-weight="800" text-anchor="middle">2. BOXINESS CUT (300–500 Hz)</text>
+        <text x="105" y="34" fill="#cbd5e1" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" text-anchor="middle">Scoop out mud to create room for bass</text>
+      </g>
+
+      <!-- Pillar 3: Click Attack -->
+      <g transform="translate(460, 0)">
+        <rect width="210" height="46" rx="4" fill="#0f172a" stroke="#10b981" stroke-width="1" />
+        <text x="105" y="18" fill="#34d399" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9.5" font-weight="800" text-anchor="middle">3. BEATER CLICK (3–5 kHz)</text>
+        <text x="105" y="34" fill="#cbd5e1" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" text-anchor="middle">Boost transient snap so kick cuts through</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Bottom Key Exam Takeaway -->
+  <g transform="translate(30, 380)">
+    <rect width="740" height="82" rx="8" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5" />
+    <circle cx="36" cy="41" r="14" fill="#38bdf8" fill-opacity="0.2" stroke="#38bdf8" stroke-width="1.5" />
+    <text x="36" y="46" fill="#38bdf8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="900" text-anchor="middle">i</text>
+    
+    <text x="64" y="26" fill="#f8fafc" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="700">Edexcel Drum Equalization: The Three Kick Drum Zones</text>
+    <text x="64" y="44" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10.5">• <tspan fill="#38bdf8" font-weight="bold">50 Hz – 80 Hz (Fundamental):</tspan> Provides physical low-end weight, sub resonance, and chest-thumping power.</text>
+    <text x="64" y="58" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10.5">• <tspan fill="#f87171" font-weight="bold">250 Hz – 500 Hz (Boxiness / Cardboard):</tspan> Cutting here removes hollow mud and clears vital spectral space for the bass guitar.</text>
+    <text x="64" y="72" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10.5">• <tspan fill="#34d399" font-weight="bold">3 kHz – 5 kHz (Beater Transient Click):</tspan> Boosting here provides the sharp attack necessary for the kick to cut through dense guitars.</text>
+  </g>
+</svg>

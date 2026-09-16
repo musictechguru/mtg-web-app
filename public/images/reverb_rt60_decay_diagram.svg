@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 460" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#0b1120" /><stop offset="50%" stop-color="#0f172a" /><stop offset="100%" stop-color="#020617" /></linearGradient>
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#1e293b" /><stop offset="100%" stop-color="#0f172a" /></linearGradient>
+    <linearGradient id="decayGrad" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#38bdf8" stop-opacity="0.3" /><stop offset="100%" stop-color="#38bdf8" stop-opacity="0.01" /></linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%"><feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.5" /></filter>
+  </defs>
+  <rect width="800" height="460" fill="url(#bgGrad)" />
+  <g transform="translate(30, 16)">
+    <rect width="250" height="32" rx="6" fill="#38bdf8" fill-opacity="0.15" stroke="#38bdf8" stroke-width="1.2" />
+    <text x="125" y="21" fill="#38bdf8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="800" text-anchor="middle">REVERB RT60 DECAY TIME</text>
+    <rect x="262" y="0" width="310" height="32" rx="6" fill="#0f172a" stroke="#334155" stroke-width="1.2" />
+    <text x="417" y="21" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="600" text-anchor="middle">Time Required to Decay by 60 Decibels</text>
+  </g>
+
+  <g transform="translate(30, 60)">
+    <rect width="740" height="315" rx="8" fill="url(#cardGrad)" stroke="#38bdf8" stroke-width="1.4" filter="url(#shadow)" />
+    
+    <!-- Graph Screen -->
+    <g transform="translate(50, 25)">
+      <rect width="640" height="220" rx="6" fill="#0b1120" stroke="#1e293b" />
+
+      <!-- Horizontal dB lines -->
+      <line x1="60" y1="40" x2="620" y2="40" stroke="#38bdf8" stroke-width="1.2" />
+      <rect x="10" y="32" width="46" height="16" rx="2" fill="#0f172a" stroke="#38bdf8" stroke-width="0.8" />
+      <text x="33" y="44" fill="#38bdf8" font-family="-apple-system, sans-serif" font-size="8.5" font-weight="800" text-anchor="middle">0 dB</text>
+
+      <line x1="60" y1="180" x2="620" y2="180" stroke="#ef4444" stroke-width="1.2" stroke-dasharray="4 3" />
+      <rect x="10" y="172" width="46" height="16" rx="2" fill="#0f172a" stroke="#ef4444" stroke-width="0.8" />
+      <text x="33" y="184" fill="#f87171" font-family="-apple-system, sans-serif" font-size="8.5" font-weight="800" text-anchor="middle">-60 dB</text>
+
+      <!-- Decaying Reverb Tail Shading -->
+      <path d="M 90,40 Q 200,45 320,110 T 560,180 L 90,180 Z" fill="url(#decayGrad)" />
+
+      <!-- Exponential Decay Curve -->
+      <path d="M 90,40 Q 200,45 320,110 T 560,180" fill="none" stroke="#38bdf8" stroke-width="3" />
+      <circle cx="90" cy="40" r="5" fill="#38bdf8" stroke="#ffffff" stroke-width="1.5" />
+      <circle cx="560" cy="180" r="5" fill="#ef4444" stroke="#ffffff" stroke-width="1.5" />
+
+      <!-- RT60 Measurement Span Arrow -->
+      <g transform="translate(90, 195)">
+        <line x1="0" y1="0" x2="470" y2="0" stroke="#fbbf24" stroke-width="2" stroke-dasharray="4 3" />
+        <circle cx="0" cy="0" r="3" fill="#fbbf24" />
+        <circle cx="470" cy="0" r="3" fill="#fbbf24" />
+        <rect x="160" y="-12" width="150" height="24" rx="4" fill="#0f172a" stroke="#fbbf24" stroke-width="1.2" />
+        <text x="235" y="4" fill="#fbbf24" font-family="-apple-system, sans-serif" font-size="10" font-weight="900" text-anchor="middle">RT60 DECAY TIME</text>
+      </g>
+    </g>
+
+    <!-- Bottom Badges -->
+    <g transform="translate(180, 260)">
+      <rect x="0" y="0" width="180" height="26" rx="4" fill="#0b1120" stroke="#38bdf8" stroke-width="1" />
+      <text x="90" y="17" fill="#38bdf8" font-family="-apple-system, sans-serif" font-size="10" font-weight="700" text-anchor="middle">Drop = -60 dB (1/1,000,000)</text>
+
+      <rect x="200" y="0" width="180" height="26" rx="4" fill="#0b1120" stroke="#10b981" stroke-width="1" />
+      <text x="290" y="17" fill="#34d399" font-family="-apple-system, sans-serif" font-size="10" font-weight="700" text-anchor="middle">Concert Hall: ~2.0 Seconds</text>
+    </g>
+  </g>
+
+  <!-- Bottom Takeaway Bar -->
+  <g transform="translate(30, 396)">
+    <rect width="740" height="44" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.2" />
+    <circle cx="24" cy="22" r="10" fill="#38bdf8" fill-opacity="0.15" stroke="#38bdf8" stroke-width="1.2" />
+    <text x="24" y="26" fill="#38bdf8" font-family="-apple-system, sans-serif" font-size="11" font-weight="900" text-anchor="middle">i</text>
+    <text x="44" y="26" fill="#e2e8f0" font-family="-apple-system, sans-serif" font-size="11.5" font-weight="600">Standard: RT60 measures the exact time needed for reverberation to drop by 60 dB to inaudibility.</text>
+  </g>
+</svg>

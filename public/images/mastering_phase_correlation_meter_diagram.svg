@@ -1,0 +1,212 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#070d18" />
+      <stop offset="50%" stop-color="#0b1326" />
+      <stop offset="100%" stop-color="#030712" />
+    </linearGradient>
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#17223b" />
+      <stop offset="100%" stop-color="#0d1527" />
+    </linearGradient>
+    <linearGradient id="panelGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.5" />
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="960" height="540" fill="url(#bgGrad)" />
+
+  <!-- Outer Header -->
+  <g transform="translate(30, 16)">
+    <rect width="250" height="34" rx="7" fill="#38bdf8" fill-opacity="0.15" stroke="#38bdf8" stroke-width="1.3" />
+    <text x="125" y="22" fill="#38bdf8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="800" text-anchor="middle" letter-spacing="1">STEREO PHASE INTEGRITY</text>
+
+    <rect x="262" y="0" width="668" height="34" rx="7" fill="#0f172a" stroke="#334155" stroke-width="1.3" />
+    <text x="596" y="22" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="600" text-anchor="middle">Phase Correlation Scale (-1.0 to +1.0) &amp; Mono Sum Cancellation</text>
+  </g>
+
+  <!-- Main Container -->
+  <g transform="translate(30, 60)">
+    <rect width="900" height="396" rx="10" fill="url(#cardGrad)" stroke="#334155" stroke-width="1.4" filter="url(#shadow)" />
+
+    <!-- TOP: Phase Correlation Meter Display -->
+    <g transform="translate(24, 18)">
+      <rect width="852" height="96" rx="8" fill="url(#panelGrad)" stroke="#38bdf8" stroke-width="1.2" />
+
+      <!-- Meter Header Badge -->
+      <g transform="translate(18, 10)">
+        <rect width="220" height="22" rx="4" fill="#0284c7" fill-opacity="0.25" stroke="#38bdf8" stroke-width="1" />
+        <text x="110" y="15" fill="#38bdf8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9.5" font-weight="800" text-anchor="middle">STEREO CORRELATION METER</text>
+
+        <rect x="228" y="0" width="588" height="22" rx="4" fill="#0f172a" stroke="#334155" stroke-width="1" />
+        <text x="522" y="15" fill="#cbd5e1" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9" font-weight="600" text-anchor="middle">Left / Right Phase Alignment Measurement: Negative = Cancellation | Positive = Cohesion</text>
+      </g>
+
+      <!-- The Physical Meter Bar -->
+      <g transform="translate(18, 40)">
+        <!-- Outer Track -->
+        <rect width="816" height="24" rx="5" fill="#090f1d" stroke="#334155" stroke-width="1.2" />
+
+        <!-- Negative Zone (-1.0 to 0.0) -->
+        <rect x="2" y="2" width="406" height="20" rx="3" fill="#f43f5e" fill-opacity="0.2" />
+
+        <!-- Positive Zone (0.0 to +1.0) -->
+        <rect x="408" y="2" width="406" height="20" rx="3" fill="#10b981" fill-opacity="0.2" />
+
+        <!-- Center Divider (0.0) -->
+        <line x1="408" y1="0" x2="408" y2="24" stroke="#ffffff" stroke-width="2.5" />
+
+        <!-- Ideal Target Range (+0.3 to +0.8) -->
+        <rect x="530" y="2" width="204" height="20" fill="#10b981" fill-opacity="0.35" stroke="#34d399" stroke-width="1" />
+
+        <!-- Meter Needle at +0.6 -->
+        <rect x="652" y="0" width="16" height="24" rx="3" fill="#34d399" stroke="#ffffff" stroke-width="1.4" />
+      </g>
+
+      <!-- Meter Legend Badges -->
+      <g transform="translate(18, 68)">
+        <!-- -1.0 Badge -->
+        <rect x="0" y="0" width="170" height="20" rx="4" fill="#881337" stroke="#f43f5e" stroke-width="1" />
+        <text x="85" y="14" fill="#fecdd3" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" font-weight="800" text-anchor="middle">-1.0 (180° Inverted Polarity)</text>
+
+        <!-- 0.0 Badge -->
+        <rect x="338" y="0" width="140" height="20" rx="4" fill="#1e293b" stroke="#64748b" stroke-width="1" />
+        <text x="408" y="14" fill="#cbd5e1" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" font-weight="800" text-anchor="middle">0.0 (Independent L/R)</text>
+
+        <!-- +0.6 Ideal Target Badge -->
+        <rect x="566" y="0" width="130" height="20" rx="4" fill="#065f46" stroke="#34d399" stroke-width="1" />
+        <text x="631" y="14" fill="#a7f3d0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" font-weight="800" text-anchor="middle">+0.6 (Optimal Stereo)</text>
+
+        <!-- +1.0 Badge -->
+        <rect x="710" y="0" width="106" height="20" rx="4" fill="#0284c7" fill-opacity="0.3" stroke="#38bdf8" stroke-width="1" />
+        <text x="763" y="14" fill="#bae6fd" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" font-weight="800" text-anchor="middle">+1.0 (Pure Mono)</text>
+      </g>
+    </g>
+
+    <!-- BOTTOM SPLIT: Negative Risks vs Positive Best Practices -->
+    <g transform="translate(24, 126)">
+      <!-- LEFT: Negative Correlation Risks (< 0) -->
+      <g transform="translate(0, 0)">
+        <rect width="420" height="254" rx="8" fill="url(#panelGrad)" stroke="#f43f5e" stroke-width="1.3" />
+
+        <g transform="translate(16, 12)">
+          <rect width="388" height="26" rx="5" fill="#be123c" fill-opacity="0.25" stroke="#f43f5e" stroke-width="1.1" />
+          <text x="194" y="18" fill="#fb7185" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10.5" font-weight="800" text-anchor="middle">NEGATIVE CORRELATION RISKS (&lt; 0.0)</text>
+        </g>
+
+        <!-- 3 Problem Cards -->
+        <g transform="translate(16, 46)">
+          <!-- Card 1: Mono Cancellation -->
+          <g transform="translate(0, 0)">
+            <rect width="388" height="60" rx="6" fill="#090f1d" stroke="#1e293b" stroke-width="1" />
+            <rect x="8" y="8" width="160" height="20" rx="3" fill="#be123c" fill-opacity="0.2" stroke="#f43f5e" stroke-width="1" />
+            <text x="88" y="21" fill="#fb7185" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" font-weight="800" text-anchor="middle">MONO CANCELLATION</text>
+
+            <rect x="174" y="8" width="206" height="20" rx="3" fill="#1e293b" stroke="#334155" stroke-width="1" />
+            <text x="277" y="21" fill="#f1f5f9" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" font-weight="700" text-anchor="middle">180° Inverted Polarity Waves</text>
+
+            <rect x="8" y="32" width="372" height="20" rx="3" fill="#0f172a" stroke="#1e293b" stroke-width="1" />
+            <text x="194" y="46" fill="#cbd5e1" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.2" font-weight="500" text-anchor="middle">Lead vocals, guitars, or bass completely vanish when summed to mono</text>
+          </g>
+
+          <!-- Card 2: Hollow Comb Filtering -->
+          <g transform="translate(0, 68)">
+            <rect width="388" height="60" rx="6" fill="#090f1d" stroke="#1e293b" stroke-width="1" />
+            <rect x="8" y="8" width="160" height="20" rx="3" fill="#be123c" fill-opacity="0.2" stroke="#f43f5e" stroke-width="1" />
+            <text x="88" y="21" fill="#fb7185" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" font-weight="800" text-anchor="middle">COMB FILTERING</text>
+
+            <rect x="174" y="8" width="206" height="20" rx="3" fill="#1e293b" stroke="#334155" stroke-width="1" />
+            <text x="277" y="21" fill="#f1f5f9" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" font-weight="700" text-anchor="middle">Frequency Notch Gaps</text>
+
+            <rect x="8" y="32" width="372" height="20" rx="3" fill="#0f172a" stroke="#1e293b" stroke-width="1" />
+            <text x="194" y="46" fill="#cbd5e1" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.2" font-weight="500" text-anchor="middle">Slight time delays create hollow notch series that ruin vocal body</text>
+          </g>
+
+          <!-- Card 3: Vinyl & Club PA Failure -->
+          <g transform="translate(0, 136)">
+            <rect width="388" height="60" rx="6" fill="#090f1d" stroke="#1e293b" stroke-width="1" />
+            <rect x="8" y="8" width="160" height="20" rx="3" fill="#be123c" fill-opacity="0.2" stroke="#f43f5e" stroke-width="1" />
+            <text x="88" y="21" fill="#fb7185" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" font-weight="800" text-anchor="middle">BASS CANCEL IN CLUBS</text>
+
+            <rect x="174" y="8" width="206" height="20" rx="3" fill="#1e293b" stroke="#334155" stroke-width="1" />
+            <text x="277" y="21" fill="#f1f5f9" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" font-weight="700" text-anchor="middle">Subwoofer Destructive Loss</text>
+
+            <rect x="8" y="32" width="372" height="20" rx="3" fill="#0f172a" stroke="#1e293b" stroke-width="1" />
+            <text x="194" y="46" fill="#cbd5e1" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.2" font-weight="500" text-anchor="middle">Club subwoofers sum mono; out-of-phase bass destroys dancefloor impact</text>
+          </g>
+        </g>
+      </g>
+
+      <!-- RIGHT: Positive Correlation Benefits (0 to +1) -->
+      <g transform="translate(436, 0)">
+        <rect width="416" height="254" rx="8" fill="url(#panelGrad)" stroke="#10b981" stroke-width="1.3" />
+
+        <g transform="translate(14, 12)">
+          <rect width="388" height="26" rx="5" fill="#059669" fill-opacity="0.25" stroke="#10b981" stroke-width="1.1" />
+          <text x="194" y="18" fill="#34d399" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10.5" font-weight="800" text-anchor="middle">POSITIVE CORRELATION GOALS (+0.3 TO +0.8)</text>
+        </g>
+
+        <!-- 3 Benefit Cards -->
+        <g transform="translate(14, 46)">
+          <!-- Card 1: Healthy Stereo Spread -->
+          <g transform="translate(0, 0)">
+            <rect width="388" height="60" rx="6" fill="#090f1d" stroke="#1e293b" stroke-width="1" />
+            <rect x="8" y="8" width="160" height="20" rx="3" fill="#059669" fill-opacity="0.2" stroke="#10b981" stroke-width="1" />
+            <text x="88" y="21" fill="#34d399" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" font-weight="800" text-anchor="middle">IMMERSIVE STEREO</text>
+
+            <rect x="174" y="8" width="206" height="20" rx="3" fill="#1e293b" stroke="#334155" stroke-width="1" />
+            <text x="277" y="21" fill="#f1f5f9" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" font-weight="700" text-anchor="middle">Cohesive Stage Width</text>
+
+            <rect x="8" y="32" width="372" height="20" rx="3" fill="#0f172a" stroke="#1e293b" stroke-width="1" />
+            <text x="194" y="46" fill="#cbd5e1" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.2" font-weight="500" text-anchor="middle">Delivers wide spatial soundstage while maintaining full mono safety</text>
+          </g>
+
+          <!-- Card 2: Solid Phantom Center -->
+          <g transform="translate(0, 68)">
+            <rect width="388" height="60" rx="6" fill="#090f1d" stroke="#1e293b" stroke-width="1" />
+            <rect x="8" y="8" width="160" height="20" rx="3" fill="#059669" fill-opacity="0.2" stroke="#10b981" stroke-width="1" />
+            <text x="88" y="21" fill="#34d399" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" font-weight="800" text-anchor="middle">SOLID PHANTOM CENTER</text>
+
+            <rect x="174" y="8" width="206" height="20" rx="3" fill="#1e293b" stroke="#334155" stroke-width="1" />
+            <text x="277" y="21" fill="#f1f5f9" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" font-weight="700" text-anchor="middle">Anchored Lead Vocal &amp; Kick</text>
+
+            <rect x="8" y="32" width="372" height="20" rx="3" fill="#0f172a" stroke="#1e293b" stroke-width="1" />
+            <text x="194" y="46" fill="#cbd5e1" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.2" font-weight="500" text-anchor="middle">Center elements reinforce cleanly (+6 dB) instead of cancelling in mono</text>
+          </g>
+
+          <!-- Card 3: Universal Playback Translation -->
+          <g transform="translate(0, 136)">
+            <rect width="388" height="60" rx="6" fill="#090f1d" stroke="#1e293b" stroke-width="1" />
+            <rect x="8" y="8" width="160" height="20" rx="3" fill="#059669" fill-opacity="0.2" stroke="#10b981" stroke-width="1" />
+            <text x="88" y="21" fill="#34d399" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" font-weight="800" text-anchor="middle">FLAWLESS TRANSLATION</text>
+
+            <rect x="174" y="8" width="206" height="20" rx="3" fill="#1e293b" stroke="#334155" stroke-width="1" />
+            <text x="277" y="21" fill="#f1f5f9" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" font-weight="700" text-anchor="middle">Smartphones &amp; Club PAs</text>
+
+            <rect x="8" y="32" width="372" height="20" rx="3" fill="#0f172a" stroke="#1e293b" stroke-width="1" />
+            <text x="194" y="46" fill="#cbd5e1" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.2" font-weight="500" text-anchor="middle">Tracks sound rich and powerful on single-speaker phones, radios, and vinyl</text>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+
+  <!-- Bottom Takeaway Container -->
+  <g transform="translate(30, 466)">
+    <rect width="900" height="58" rx="8" fill="#0f172a" stroke="#334155" stroke-width="1.3" />
+
+    <!-- Takeaway Tag Badge -->
+    <rect x="14" y="11" width="106" height="36" rx="6" fill="#38bdf8" />
+    <text x="67" y="33" fill="#0b1326" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="800" text-anchor="middle" letter-spacing="0.8">TAKEAWAY</text>
+
+    <!-- Takeaway Content Box -->
+    <rect x="128" y="9" width="758" height="40" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1" />
+    <text x="507" y="24" fill="#f8fafc" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10.5" font-weight="700" text-anchor="middle">Phase correlation below zero indicates out-of-phase signals that cancel completely in mono.</text>
+    <text x="507" y="39" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" font-weight="600" text-anchor="middle">Mastering engineers maintain +0.3 to +0.8 to ensure wide stereo with 100% mono compatibility on phones and club PAs.</text>
+  </g>
+</svg>

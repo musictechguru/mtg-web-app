@@ -1202,10 +1202,11 @@ const QuizPlayer = ({ quiz, onFinish }) => {
                                 <div
                                     className="expert-image"
                                     style={{
+                                        width: '100%',
                                         marginBottom: '20px',
                                         borderRadius: '8px',
                                         overflow: 'hidden',
-                                        border: '1px solid rgba(255,255,255,0.1)',
+                                        border: '1px solid rgba(255,255,255,0.15)',
                                         cursor: 'zoom-in',
                                         position: 'relative'
                                     }}
@@ -1218,7 +1219,11 @@ const QuizPlayer = ({ quiz, onFinish }) => {
                                     <img
                                         src={currentQuestion.explanation_image?.src || currentQuestion.img}
                                         alt={currentQuestion.explanation_image?.alt || 'Explanation Diagram'}
-                                        style={{ width: '100%', maxHeight: '400px', objectFit: 'contain', display: 'block', background: '#fff' }}
+                                        style={{
+                                            width: '100%',
+                                            height: 'auto',
+                                            display: 'block'
+                                        }}
                                     />
                                     <div className="expert-image-expand-hint">
                                         <Maximize2 size={13} />
@@ -1294,10 +1299,11 @@ const QuizPlayer = ({ quiz, onFinish }) => {
                                 <div
                                     className="expert-image"
                                     style={{
+                                        width: '100%',
                                         marginBottom: '20px',
                                         borderRadius: '8px',
                                         overflow: 'hidden',
-                                        border: '1px solid rgba(255,255,255,0.1)',
+                                        border: '1px solid rgba(255,255,255,0.15)',
                                         cursor: 'zoom-in',
                                         position: 'relative'
                                     }}
@@ -1310,7 +1316,11 @@ const QuizPlayer = ({ quiz, onFinish }) => {
                                     <img
                                         src={currentQuestion.explanation_image?.src || currentQuestion.img}
                                         alt={currentQuestion.explanation_image?.alt || 'Explanation Diagram'}
-                                        style={{ width: '100%', maxHeight: '400px', objectFit: 'contain', display: 'block', background: '#fff' }}
+                                        style={{
+                                            width: '100%',
+                                            height: 'auto',
+                                            display: 'block'
+                                        }}
                                     />
                                     <div className="expert-image-expand-hint">
                                         <Maximize2 size={13} />
@@ -1517,7 +1527,8 @@ const QuizPlayer = ({ quiz, onFinish }) => {
                             style={{
                                 width: 'min(92vw, 1100px)',
                                 height: 'min(74vh, 720px)',
-                                backgroundColor: '#ffffff',
+                                backgroundColor: 'rgba(15, 23, 42, 0.85)',
+                                border: '1px solid rgba(255, 255, 255, 0.1)',
                                 borderRadius: '12px',
                                 overflow: 'hidden',
                                 boxShadow: '0 20px 60px rgba(0, 0, 0, 0.8)',

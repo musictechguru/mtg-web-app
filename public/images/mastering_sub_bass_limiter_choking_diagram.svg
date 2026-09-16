@@ -1,0 +1,195 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#070d18" />
+      <stop offset="50%" stop-color="#0b1326" />
+      <stop offset="100%" stop-color="#030712" />
+    </linearGradient>
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#17223b" />
+      <stop offset="100%" stop-color="#0d1527" />
+    </linearGradient>
+    <linearGradient id="panelGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.5" />
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="960" height="540" fill="url(#bgGrad)" />
+
+  <!-- Outer Header -->
+  <g transform="translate(30, 16)">
+    <rect width="260" height="34" rx="7" fill="#f43f5e" fill-opacity="0.15" stroke="#f43f5e" stroke-width="1.3" />
+    <text x="130" y="22" fill="#fb7185" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="800" text-anchor="middle" letter-spacing="1">SUB-BASS &amp; LIMITER CHOKING</text>
+
+    <rect x="272" y="0" width="658" height="34" rx="7" fill="#0f172a" stroke="#334155" stroke-width="1.3" />
+    <text x="601" y="22" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="600" text-anchor="middle">Why Inaudible Low-End Rumble Destroys Dynamic Headroom &amp; Causes Pumping</text>
+  </g>
+
+  <!-- Main Container -->
+  <g transform="translate(30, 60)">
+    <rect width="900" height="396" rx="10" fill="url(#cardGrad)" stroke="#334155" stroke-width="1.4" filter="url(#shadow)" />
+
+    <!-- LEFT COLUMN: Uncontrolled Sub-Bass (Limiter Choking) -->
+    <g transform="translate(24, 18)">
+      <rect width="420" height="360" rx="8" fill="url(#panelGrad)" stroke="#f43f5e" stroke-width="1.3" />
+
+      <!-- Left Header Badge -->
+      <g transform="translate(18, 12)">
+        <rect width="384" height="28" rx="6" fill="#be123c" fill-opacity="0.25" stroke="#f43f5e" stroke-width="1.1" />
+        <text x="192" y="19" fill="#fb7185" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="800" text-anchor="middle" letter-spacing="0.8">UNCHECKED SUB-BASS (&lt; 30 Hz RUMBLE)</text>
+      </g>
+
+      <!-- Waveform Simulation Display -->
+      <g transform="translate(18, 48)">
+        <rect width="384" height="126" rx="6" fill="#090f1d" stroke="#1e293b" stroke-width="1" />
+
+        <!-- Limiter Ceiling Line -->
+        <line x1="16" y1="42" x2="368" y2="42" stroke="#f43f5e" stroke-width="1.6" stroke-dasharray="3,3" />
+        <rect x="236" y="26" width="132" height="20" rx="4" fill="#881337" stroke="#f43f5e" stroke-width="1" />
+        <text x="302" y="39" fill="#fecdd3" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" font-weight="800" text-anchor="middle">LIMITER CHOKING (-5 dB)</text>
+
+        <!-- Huge Low Frequency Sine Wave exceeding ceiling -->
+        <path d="M 24 88 Q 70 12 116 88 T 208 88 T 300 88 T 368 88" fill="none" stroke="#f43f5e" stroke-width="2.6" />
+
+        <!-- DC Energy Label Badge -->
+        <g transform="translate(24, 92)">
+          <rect width="180" height="20" rx="4" fill="#1e293b" stroke="#334155" stroke-width="1" />
+          <text x="90" y="14" fill="#fda4af" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" font-weight="700" text-anchor="middle">Inaudible DC Rumble (20 - 30 Hz)</text>
+        </g>
+      </g>
+
+      <!-- 3 Container Badges for Drawbacks -->
+      <g transform="translate(18, 184)">
+        <!-- Box 1 -->
+        <g transform="translate(0, 0)">
+          <rect width="384" height="50" rx="6" fill="#090f1d" stroke="#1e293b" stroke-width="1" />
+          <rect x="8" y="7" width="144" height="18" rx="3" fill="#be123c" fill-opacity="0.2" stroke="#f43f5e" stroke-width="1" />
+          <text x="80" y="19" fill="#fb7185" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" font-weight="800" text-anchor="middle">MASSIVE VOLTAGE</text>
+
+          <rect x="158" y="7" width="218" height="18" rx="3" fill="#1e293b" stroke="#334155" stroke-width="1" />
+          <text x="267" y="19" fill="#f1f5f9" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8" font-weight="700" text-anchor="middle">Sub waves require extreme excursion</text>
+
+          <rect x="8" y="28" width="368" height="16" rx="3" fill="#0f172a" />
+          <text x="192" y="39" fill="#cbd5e1" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8" font-weight="500" text-anchor="middle">Eats amplifier power and headroom without audible loudness benefit</text>
+        </g>
+
+        <!-- Box 2 -->
+        <g transform="translate(0, 56)">
+          <rect width="384" height="50" rx="6" fill="#090f1d" stroke="#1e293b" stroke-width="1" />
+          <rect x="8" y="7" width="144" height="18" rx="3" fill="#be123c" fill-opacity="0.2" stroke="#f43f5e" stroke-width="1" />
+          <text x="80" y="19" fill="#fb7185" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" font-weight="800" text-anchor="middle">PREMATURE TRIGGER</text>
+
+          <rect x="158" y="7" width="218" height="18" rx="3" fill="#1e293b" stroke="#334155" stroke-width="1" />
+          <text x="267" y="19" fill="#f1f5f9" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8" font-weight="700" text-anchor="middle">Slams limiter ahead of transients</text>
+
+          <rect x="8" y="28" width="368" height="16" rx="3" fill="#0f172a" />
+          <text x="192" y="39" fill="#cbd5e1" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8" font-weight="500" text-anchor="middle">Limiter clamps down on sub rumble, dragging down lead vocals and punch</text>
+        </g>
+
+        <!-- Box 3 -->
+        <g transform="translate(0, 112)">
+          <rect width="384" height="50" rx="6" fill="#090f1d" stroke="#1e293b" stroke-width="1" />
+          <rect x="8" y="7" width="144" height="18" rx="3" fill="#be123c" fill-opacity="0.2" stroke="#f43f5e" stroke-width="1" />
+          <text x="80" y="19" fill="#fb7185" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" font-weight="800" text-anchor="middle">AUDIBLE PUMPING</text>
+
+          <rect x="158" y="7" width="218" height="18" rx="3" fill="#1e293b" stroke="#334155" stroke-width="1" />
+          <text x="267" y="19" fill="#f1f5f9" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8" font-weight="700" text-anchor="middle">Creates muddy breathing artifacts</text>
+
+          <rect x="8" y="28" width="368" height="16" rx="3" fill="#0f172a" />
+          <text x="192" y="39" fill="#cbd5e1" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8" font-weight="500" text-anchor="middle">Clobbers overall master punch and distorts small consumer speakers</text>
+        </g>
+      </g>
+    </g>
+
+    <!-- RIGHT COLUMN: Controlled Low-End (HPF Filtered & Tight) -->
+    <g transform="translate(460, 18)">
+      <rect width="416" height="360" rx="8" fill="url(#panelGrad)" stroke="#10b981" stroke-width="1.3" />
+
+      <!-- Right Header Badge -->
+      <g transform="translate(16, 12)">
+        <rect width="384" height="28" rx="6" fill="#059669" fill-opacity="0.25" stroke="#10b981" stroke-width="1.1" />
+        <text x="192" y="19" fill="#34d399" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="800" text-anchor="middle" letter-spacing="0.8">HPF FILTERED @ 30 Hz (TIGHT MASTER)</text>
+      </g>
+
+      <!-- Waveform Simulation Display -->
+      <g transform="translate(16, 48)">
+        <rect width="384" height="126" rx="6" fill="#090f1d" stroke="#1e293b" stroke-width="1" />
+
+        <!-- Limiter Ceiling Line -->
+        <line x1="16" y1="42" x2="368" y2="42" stroke="#10b981" stroke-width="1.6" stroke-dasharray="3,3" />
+        <rect x="236" y="26" width="132" height="20" rx="4" fill="#064e3b" stroke="#10b981" stroke-width="1" />
+        <text x="302" y="39" fill="#a7f3d0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" font-weight="800" text-anchor="middle">CLEAN -1 dB LIMITING</text>
+
+        <!-- Controlled Punchy Transients kissing the ceiling cleanly -->
+        <path d="M 24 88 L 50 88 L 65 42 L 80 88 L 110 88 L 125 58 L 140 88 L 180 88 L 195 42 L 210 88 L 250 88 L 265 54 L 280 88 L 320 88 L 335 42 L 350 88 L 368 88" fill="none" stroke="#10b981" stroke-width="2.2" />
+
+        <!-- Clean Bass Punch Label Badge -->
+        <g transform="translate(24, 92)">
+          <rect width="180" height="20" rx="4" fill="#1e293b" stroke="#334155" stroke-width="1" />
+          <text x="90" y="14" fill="#6ee7b7" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" font-weight="700" text-anchor="middle">Audible Punch (50 - 90 Hz Kick)</text>
+        </g>
+      </g>
+
+      <!-- 3 Container Badges for Solutions -->
+      <g transform="translate(16, 184)">
+        <!-- Box 1 -->
+        <g transform="translate(0, 0)">
+          <rect width="384" height="50" rx="6" fill="#090f1d" stroke="#1e293b" stroke-width="1" />
+          <rect x="8" y="7" width="144" height="18" rx="3" fill="#059669" fill-opacity="0.2" stroke="#10b981" stroke-width="1" />
+          <text x="80" y="19" fill="#34d399" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" font-weight="800" text-anchor="middle">RECLAIMS HEADROOM</text>
+
+          <rect x="158" y="7" width="218" height="18" rx="3" fill="#1e293b" stroke="#334155" stroke-width="1" />
+          <text x="267" y="19" fill="#f1f5f9" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8" font-weight="700" text-anchor="middle">Frees up 2 to 3 dB peak margin</text>
+
+          <rect x="8" y="28" width="368" height="16" rx="3" fill="#0f172a" />
+          <text x="192" y="39" fill="#cbd5e1" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8" font-weight="500" text-anchor="middle">Cutting below 30 Hz eliminates parasitic power draw with zero tone loss</text>
+        </g>
+
+        <!-- Box 2 -->
+        <g transform="translate(0, 56)">
+          <rect width="384" height="50" rx="6" fill="#090f1d" stroke="#1e293b" stroke-width="1" />
+          <rect x="8" y="7" width="144" height="18" rx="3" fill="#059669" fill-opacity="0.2" stroke="#10b981" stroke-width="1" />
+          <text x="80" y="19" fill="#34d399" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" font-weight="800" text-anchor="middle">TRANSIENT CLARITY</text>
+
+          <rect x="158" y="7" width="218" height="18" rx="3" fill="#1e293b" stroke="#334155" stroke-width="1" />
+          <text x="267" y="19" fill="#f1f5f9" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8" font-weight="700" text-anchor="middle">Limiter acts on musical peaks</text>
+
+          <rect x="8" y="28" width="368" height="16" rx="3" fill="#0f172a" />
+          <text x="192" y="39" fill="#cbd5e1" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8" font-weight="500" text-anchor="middle">Snare, kick attack, and lead vocals stay transparent without ducking</text>
+        </g>
+
+        <!-- Box 3 -->
+        <g transform="translate(0, 112)">
+          <rect width="384" height="50" rx="6" fill="#090f1d" stroke="#1e293b" stroke-width="1" />
+          <rect x="8" y="7" width="144" height="18" rx="3" fill="#059669" fill-opacity="0.2" stroke="#10b981" stroke-width="1" />
+          <text x="80" y="19" fill="#34d399" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" font-weight="800" text-anchor="middle">CONSUMER TRANSLATION</text>
+
+          <rect x="158" y="7" width="218" height="18" rx="3" fill="#1e293b" stroke="#334155" stroke-width="1" />
+          <text x="267" y="19" fill="#f1f5f9" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8" font-weight="700" text-anchor="middle">Translates to small speaker systems</text>
+
+          <rect x="8" y="28" width="368" height="16" rx="3" fill="#0f172a" />
+          <text x="192" y="39" fill="#cbd5e1" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8" font-weight="500" text-anchor="middle">Prevents distorted excursion on smartphones, earbuds, and club sound systems</text>
+        </g>
+      </g>
+    </g>
+  </g>
+
+  <!-- Bottom Takeaway Container -->
+  <g transform="translate(30, 466)">
+    <rect width="900" height="58" rx="8" fill="#0f172a" stroke="#334155" stroke-width="1.3" />
+
+    <!-- Takeaway Tag Badge -->
+    <rect x="14" y="11" width="106" height="36" rx="6" fill="#f43f5e" />
+    <text x="67" y="33" fill="#ffffff" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="800" text-anchor="middle" letter-spacing="0.8">TAKEAWAY</text>
+
+    <!-- Takeaway Content Box -->
+    <rect x="128" y="9" width="758" height="40" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1" />
+    <text x="507" y="24" fill="#f8fafc" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10.5" font-weight="700" text-anchor="middle">Inaudible sub-bass (&lt; 30 Hz) carries huge voltage waveforms that trigger premature limiter choking.</text>
+    <text x="507" y="39" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" font-weight="600" text-anchor="middle">Applying a clean steep high-pass filter reclaims 2 to 3 dB of headroom, restoring punch and preventing pumping.</text>
+  </g>
+</svg>
