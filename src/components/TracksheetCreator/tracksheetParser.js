@@ -28,6 +28,110 @@ export function extractScoreAndSource(text) {
   return { value, score, scoreNum, source };
 }
 
+// Helper to infer functional category for outboard gear
+export function inferOutboardCategory(str) {
+  const s = (str || '').toLowerCase();
+  if (/(mpc|sampler|sampling|drum machine|sp-1200|s950|tr-808|tr-909|sequenc)/i.test(s)) return 'Samplers & Drum Machines';
+  if (/(compress|limit|tube-tech|la-2a|1176|fairchild|distressor|dbx|sta-level|33609|cl 1b|optical|vari-mu|vca)/i.test(s)) return 'Dynamics & Compression';
+  if (/(reverb|delay|lexicon|emt|space echo|pcm|480l|224|bricasti|plate|chamber|echo)/i.test(s)) return 'Time-Based FX & Reverbs';
+  if (/(\beq\b|equaliz|equaliser|equalizer|pultec|1073|gml|massive passive|api 550|parametric|inductor)/i.test(s)) return 'Equalization & Tone Shaping';
+  if (/(preamp|pre-amp|mic pre|di box|direct box|avalon|red 7)/i.test(s)) return 'Preamps & Channel Strips';
+  return 'Studio Outboard Processing';
+}
+
+// Helper to unpack Section 3 outboard lines into structured items
+export function parseOutboardLine(rawLine) {
+  if (!rawLine) return [];
+  const parsed = extractScoreAndSource(rawLine);
+  const cleanLine = parsed.value.replace(/^\s*\*\s*/, '').trim();
+  if (!cleanLine) return [];
+
+  // Format 1: Bold title with optional circuit in paren, e.g. **Tube-Tech CL 1B (Optical Tube Compressor):** Description
+  const boldMatch = cleanLine.match(/^\*\*([^*:]+)(?:\s*\(([^)]+)\))?\s*:\*\*\s*(.*)$/);
+  if (boldMatch) {
+    const rawTitle = boldMatch[1].trim();
+    const paren = rawTitle.match(/^([^(]+?)\s*\(([^)]+)\)$/);
+    const name = paren ? paren[1].trim() : rawTitle;
+    const circuit = paren ? paren[2].trim() : (boldMatch[2] ? boldMatch[2].trim() : '');
+    const desc = boldMatch[3] ? boldMatch[3].trim() : '';
+    const category = inferOutboardCategory(circuit || rawTitle || desc);
+    return [{
+      name,
+      circuit: circuit || category,
+      category,
+      role: desc || circuit || `${name} hardware unit utilised in tracking/mixing.`,
+      gear: circuit ? `${name} (${circuit})` : name,
+      score: parsed.score,
+      source: parsed.source,
+      scoreNum: parsed.scoreNum
+    }];
+  }
+
+  // Format 2: Category-first header e.g. **Compressors & Dynamics:** Gear 1, Gear 2
+  const categoryHeaderMatch = cleanLine.match(/^\*\*([^*]+)\*\*\s*(.*)$/);
+  if (categoryHeaderMatch) {
+    const headerTitle = categoryHeaderMatch[1].replace(/:$/, '').trim();
+    const rest = categoryHeaderMatch[2].replace(/^:\s*/, '').trim();
+    if (rest) {
+      const parts = rest.split(/,\s*(?![^()]*\))/);
+      return parts.map(p => {
+        const paren = p.match(/^([^(]+?)\s*\(([^)]+)\)$/);
+        const name = (paren ? paren[1] : p).trim();
+        const circuit = paren ? paren[2].trim() : '';
+        const cat = inferOutboardCategory(headerTitle || circuit || name);
+        return {
+          name,
+          circuit: circuit || headerTitle,
+          category: cat,
+          role: circuit ? `Hardware ${circuit.toLowerCase()} utilized in session.` : `Hardware processing unit utilized in session.`,
+          gear: p.trim(),
+          score: parsed.score,
+          source: parsed.source,
+          scoreNum: parsed.scoreNum
+        };
+      });
+    }
+  }
+
+  // Format 3: Sub-bullet with colon e.g. * Processor (Circuit): Description
+  const colonMatch = cleanLine.match(/^([^:()]+)(?:\s*\(([^)]+)\))?\s*:\s*(.*)$/);
+  if (colonMatch && !colonMatch[1].toLowerCase().includes('score')) {
+    const name = colonMatch[1].trim();
+    const circuit = colonMatch[2] ? colonMatch[2].trim() : '';
+    const desc = colonMatch[3] ? colonMatch[3].trim() : '';
+    const category = inferOutboardCategory(circuit || name || desc);
+    return [{
+      name,
+      circuit: circuit || category,
+      category,
+      role: desc || circuit || `${name} hardware unit utilised in session.`,
+      gear: circuit ? `${name} (${circuit})` : name,
+      score: parsed.score,
+      source: parsed.source,
+      scoreNum: parsed.scoreNum
+    }];
+  }
+
+  // Format 4: Comma-separated list e.g. Akai MPC3000 (Drum Sampling), Tube-Tech CL 1B, Neve 1073 ...
+  const parts = cleanLine.split(/,\s*(?![^()]*\))/);
+  return parts.map(p => {
+    const paren = p.match(/^([^(]+?)\s*\(([^)]+)\)$/);
+    const name = (paren ? paren[1] : p).trim();
+    const circuit = paren ? paren[2].trim() : '';
+    const category = inferOutboardCategory(circuit || name);
+    return {
+      name,
+      circuit: circuit || category,
+      category,
+      role: circuit ? `Hardware ${circuit.toLowerCase()} utilized during session tracking/mixing.` : `Documented studio outboard processor utilized in tracking or mixdown.`,
+      gear: p.trim(),
+      score: parsed.score,
+      source: parsed.source,
+      scoreNum: parsed.scoreNum
+    };
+  });
+}
+
 export function parseHistoricalTracksheet(markdown) {
   if (!markdown) return null;
 
@@ -228,7 +332,6 @@ export function parseHistoricalTracksheet(markdown) {
     // SECTION 3: Location & Studio Technology
     else if (currentSection === 3) {
       const bulletMatch = trimmed.match(/^\*\s+\*\*([^:]+):\*\*\s*(.*)$/);
-      const subBullet = trimmed.match(/^\s*\*\s+([^:]+):\s*(.*)$/);
 
       if (bulletMatch) {
         const key = bulletMatch[1].trim().toLowerCase();
@@ -246,26 +349,30 @@ export function parseHistoricalTracksheet(markdown) {
           result.studio.tapeMachine = parsed.value;
         } else if (key.includes('monitor')) {
           result.studio.monitors = parsed.value;
-        } else if (parsed.value) {
-          result.studio.outboard.push({
-            category: bulletMatch[1].trim(),
-            gear: parsed.value,
-            score: parsed.score,
-            source: parsed.source
-          });
+        } else if (key.includes('outboard') || key.includes('processor') || key.includes('hardware unit')) {
+          // If equipment is listed on the same line as the header
+          if (parsed.value) {
+            const items = parseOutboardLine(parsed.value);
+            for (const item of items) {
+              if (item.scoreNum) scoresCollected.push(item.scoreNum);
+              result.studio.outboard.push(item);
+            }
+          }
+        } else if (parsed.value || bulletMatch[1]) {
+          // Specific outboard unit bullet e.g. * **Tube-Tech CL 1B (Optical Compressor):** ...
+          const items = parseOutboardLine(trimmed);
+          for (const item of items) {
+            if (item.scoreNum) scoresCollected.push(item.scoreNum);
+            result.studio.outboard.push(item);
+          }
         }
-      } else if (subBullet && currentSection === 3) {
-        const category = subBullet[1].trim();
-        const rawVal = subBullet[2].trim();
-        const parsed = extractScoreAndSource(rawVal);
-        if (parsed.scoreNum) scoresCollected.push(parsed.scoreNum);
-
-        result.studio.outboard.push({
-          category,
-          gear: parsed.value,
-          score: parsed.score,
-          source: parsed.source
-        });
+      } else if (trimmed.startsWith('*') && currentSection === 3) {
+        // Sub-bullet or unbolded line under Section 3
+        const items = parseOutboardLine(trimmed);
+        for (const item of items) {
+          if (item.scoreNum) scoresCollected.push(item.scoreNum);
+          result.studio.outboard.push(item);
+        }
       }
     }
 

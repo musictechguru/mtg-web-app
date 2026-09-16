@@ -1754,6 +1754,13 @@
   gap: 0.45rem;
 }
 
+.dossier-box-text {
+  margin: 0.5rem 0 0 0;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: #CBD5E1;
+}
+
 .dossier-form-step.has-detail {
   border-left: 3px solid #38BDF8;
 }
@@ -1849,6 +1856,33 @@
   color: #CBD5E1;
 }
 
+.dossier-section-subcard-selected {
+  background: rgba(15, 23, 42, 0.75);
+  border: 1px solid rgba(56, 189, 248, 0.45);
+  box-shadow: 0 4px 20px rgba(56, 189, 248, 0.12);
+  border-left: 3px solid #38BDF8;
+  padding: 1.1rem 1.35rem;
+  animation: fadeIn 0.2s ease-out;
+}
+
+.dossier-toggle-pill-btn {
+  background: rgba(56, 189, 248, 0.1);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  color: #38BDF8;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.22rem 0.65rem;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.dossier-toggle-pill-btn:hover {
+  background: rgba(56, 189, 248, 0.22);
+  border-color: #38BDF8;
+  color: #F8FAFC;
+}
+
 /* Arrangement Grid */
 .dossier-arrangement-grid {
   display: grid;
@@ -1924,6 +1958,140 @@
   color: #FBBF24 !important;
 }
 
+/* Outboard Processors - Option 1: Categorized Forensic Cards */
+.dossier-outboard-wrap {
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.dossier-outboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 0.85rem;
+}
+
+.dossier-outboard-card {
+  background: rgba(15, 23, 42, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 1rem 1.15rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.dossier-outboard-card:hover {
+  background: rgba(15, 23, 42, 0.85);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.dossier-outboard-card.cat-dynamics {
+  border-left: 3px solid #38BDF8;
+}
+.dossier-outboard-card.cat-dynamics .dossier-outboard-cat-badge {
+  background: rgba(56, 189, 248, 0.15);
+  color: #38BDF8;
+  border: 1px solid rgba(56, 189, 248, 0.3);
+}
+
+.dossier-outboard-card.cat-eq {
+  border-left: 3px solid #C084FC;
+}
+.dossier-outboard-card.cat-eq .dossier-outboard-cat-badge {
+  background: rgba(192, 132, 252, 0.15);
+  color: #C084FC;
+  border: 1px solid rgba(192, 132, 252, 0.3);
+}
+
+.dossier-outboard-card.cat-time {
+  border-left: 3px solid #F472B6;
+}
+.dossier-outboard-card.cat-time .dossier-outboard-cat-badge {
+  background: rgba(244, 114, 182, 0.15);
+  color: #F472B6;
+  border: 1px solid rgba(244, 114, 182, 0.3);
+}
+
+.dossier-outboard-card.cat-sample {
+  border-left: 3px solid #34D399;
+}
+.dossier-outboard-card.cat-sample .dossier-outboard-cat-badge {
+  background: rgba(52, 211, 153, 0.15);
+  color: #34D399;
+  border: 1px solid rgba(52, 211, 153, 0.3);
+}
+
+.dossier-outboard-card.cat-preamp {
+  border-left: 3px solid #FBBF24;
+}
+.dossier-outboard-card.cat-preamp .dossier-outboard-cat-badge {
+  background: rgba(251, 191, 36, 0.15);
+  color: #FBBF24;
+  border: 1px solid rgba(251, 191, 36, 0.3);
+}
+
+.dossier-outboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.dossier-outboard-title-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.dossier-outboard-cat-badge {
+  font-size: 0.65rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.15rem 0.5rem;
+  border-radius: 5px;
+  width: fit-content;
+}
+
+.dossier-outboard-title {
+  margin: 0;
+  font-size: 0.96rem;
+  font-weight: 700;
+  color: #F8FAFC;
+}
+
+.dossier-outboard-circuit {
+  font-size: 0.78rem;
+  color: #94A3B8;
+  margin-bottom: 0.45rem;
+}
+
+.dossier-circuit-label {
+  color: #64748B;
+  font-weight: 600;
+  margin-right: 0.25rem;
+}
+
+.dossier-outboard-circuit strong {
+  color: #CBD5E1;
+  font-weight: 600;
+}
+
+.dossier-outboard-body {
+  margin: 0 0 0.5rem 0;
+  font-size: 0.84rem;
+  line-height: 1.5;
+  color: #CBD5E1;
+  flex-grow: 1;
+}
+
+/* Legacy outboard fallback classes */
 .dossier-outboard-cards {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));

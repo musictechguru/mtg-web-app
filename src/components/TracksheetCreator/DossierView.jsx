@@ -1,15 +1,16 @@
 import { useState } from 'react';
 import { 
-  Music, Disc, Mic2, Radio, Play, ExternalLink, Sliders, ShieldCheck, 
+  Disc, Mic2, Radio, Play, ExternalLink, Sliders, ShieldCheck, 
   Layers, Volume2, Cpu, FileText, CheckCircle2, ChevronRight, ChevronDown, ChevronUp, User, Award
 } from 'lucide-react';
 
 export default function DossierView({ data }) {
-  if (!data) return null;
-
   const [activeInstIdx, setActiveInstIdx] = useState(0);
-  const [selectedSectionIdx, setSelectedSectionIdx] = useState(null);
+  const [selectedSectionIdx, setSelectedSectionIdx] = useState(0);
   const [showExtendedNotes, setShowExtendedNotes] = useState(false);
+  const [showAllSections, setShowAllSections] = useState(false);
+
+  if (!data) return null;
 
   const {
     song,
@@ -217,13 +218,17 @@ export default function DossierView({ data }) {
           {musicology.formBreakdown && musicology.formBreakdown.length > 0 && (
             <div className="dossier-form-timeline">
               {musicology.formBreakdown.map((sec, idx) => {
+                const isSelected = (selectedSectionIdx ?? 0) === idx;
                 const secDetail = musicology.formSections && musicology.formSections[idx];
                 const hasDetail = secDetail && secDetail.description;
                 return (
                   <div 
                     key={idx} 
-                    className={`dossier-form-step ${selectedSectionIdx === idx ? 'active' : ''} ${hasDetail ? 'has-detail' : ''}`}
-                    onClick={() => setSelectedSectionIdx(selectedSectionIdx === idx ? null : idx)}
+                    className={`dossier-form-step ${isSelected ? 'active' : ''} ${hasDetail ? 'has-detail' : ''}`}
+                    onClick={() => {
+                      setSelectedSectionIdx(idx);
+                      setShowAllSections(false);
+                    }}
                     title={hasDetail ? "Click to view musical analysis & timing breakdown" : undefined}
                   >
                     <span className="dossier-form-step-num">0{idx + 1}</span>
@@ -237,51 +242,68 @@ export default function DossierView({ data }) {
             </div>
           )}
 
-          {/* Selected Section Forensic Detail Card (Revealed on click) */}
-          {selectedSectionIdx !== null && musicology.formSections && musicology.formSections[selectedSectionIdx] && (
-            <div className="dossier-section-detail-box">
-              <div className="dossier-section-detail-head">
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                  <span className="dossier-step-pill">SECTION 0{selectedSectionIdx + 1}</span>
-                  <h4 className="dossier-step-title">{musicology.formSections[selectedSectionIdx].title}</h4>
-                </div>
-                {musicology.formSections[selectedSectionIdx].score && (
-                  <span className="dossier-score-badge">Reliability: {musicology.formSections[selectedSectionIdx].score}</span>
+          {/* Section Arrangement Forensics */}
+          {musicology.formSections && musicology.formSections.length > 0 && (
+            <div className="dossier-all-sections-grid" style={{ marginTop: '1rem', paddingTop: '0.75rem' }}>
+              <div className="dossier-box-label" style={{ marginBottom: '0.75rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
+                <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.45rem' }}>
+                  <Layers size={14} color="#38BDF8" /> SECTION-BY-SECTION ARRANGEMENT FORENSICS & TIMINGS
+                </span>
+                {musicology.formSections.length > 1 && (
+                  <button 
+                    type="button"
+                    className="dossier-toggle-pill-btn"
+                    onClick={() => setShowAllSections(!showAllSections)}
+                    title={showAllSections ? "Focus on selected section card" : "View all sections in grid"}
+                  >
+                    {showAllSections ? `Focus Selected (${(selectedSectionIdx ?? 0) + 1}/${musicology.formSections.length})` : `View All (${musicology.formSections.length})`}
+                  </button>
                 )}
               </div>
-              {musicology.formSections[selectedSectionIdx].description ? (
-                <p className="dossier-step-desc">{musicology.formSections[selectedSectionIdx].description}</p>
-              ) : (
-                <p className="dossier-step-desc" style={{ color: '#94A3B8', fontStyle: 'italic' }}>
-                  Form section documented as part of the commercial master arrangement timeline.
-                </p>
-              )}
-              {musicology.formSections[selectedSectionIdx].source && (
-                <span className="dossier-spec-source">Source: {musicology.formSections[selectedSectionIdx].source}</span>
-              )}
-            </div>
-          )}
 
-          {/* Complete Breakdown of All Sections */}
-          {musicology.formSections && musicology.formSections.length > 0 && (
-            <div className="dossier-all-sections-grid">
-              <div className="dossier-box-label" style={{ marginBottom: '0.65rem' }}>
-                <Layers size={14} color="#38BDF8" /> SECTION-BY-SECTION ARRANGEMENT FORENSICS & TIMINGS
-              </div>
-              <div className="dossier-section-cards-list">
-                {musicology.formSections.map((sec, idx) => (
-                  <div key={idx} className="dossier-section-subcard">
-                    <div className="dossier-subcard-head">
-                      <strong className="dossier-subcard-title">{sec.title}</strong>
-                      {sec.score && <span className="dossier-score-badge">{sec.score}</span>}
+              {showAllSections ? (
+                /* Complete Breakdown of All Sections in Grid */
+                <div className="dossier-section-cards-list">
+                  {musicology.formSections.map((sec, idx) => (
+                    <div 
+                      key={idx} 
+                      className={`dossier-section-subcard ${(selectedSectionIdx ?? 0) === idx ? 'dossier-section-subcard-selected' : ''}`}
+                      onClick={() => setSelectedSectionIdx(idx)}
+                      style={{ cursor: 'pointer' }}
+                    >
+                      <div className="dossier-subcard-head">
+                        <strong className="dossier-subcard-title">{sec.title}</strong>
+                        {sec.score && <span className="dossier-score-badge">{sec.score}</span>}
+                      </div>
+                      <p className="dossier-subcard-body">
+                        {sec.description || `Form section ${idx + 1} (${sec.title}) documented in commercial master arrangement timeline.`}
+                      </p>
+                      {sec.source && <span className="dossier-spec-source">Source: {sec.source}</span>}
                     </div>
-                    <p className="dossier-subcard-body">
-                      {sec.description || `Form section ${idx + 1} (${sec.title}) documented in commercial master arrangement timeline.`}
-                    </p>
-                    {sec.source && <span className="dossier-spec-source">Source: {sec.source}</span>}
-                  </div>
-                ))}
-              </div>
+                  ))}
+                </div>
+              ) : (
+                /* Single Equivalent Information Card for Selected Section */
+                (() => {
+                  const currentIdx = (selectedSectionIdx !== null && selectedSectionIdx >= 0 && selectedSectionIdx < musicology.formSections.length)
+                    ? selectedSectionIdx
+                    : 0;
+                  const sec = musicology.formSections[currentIdx];
+                  if (!sec) return null;
+                  return (
+                    <div className="dossier-section-subcard dossier-section-subcard-selected">
+                      <div className="dossier-subcard-head">
+                        <strong className="dossier-subcard-title" style={{ fontSize: '1rem' }}>{sec.title}</strong>
+                        {sec.score && <span className="dossier-score-badge" style={{ fontSize: '0.75rem', padding: '0.15rem 0.5rem' }}>{sec.score}</span>}
+                      </div>
+                      <p className="dossier-subcard-body" style={{ fontSize: '0.9rem', lineHeight: '1.6' }}>
+                        {sec.description || `Form section ${currentIdx + 1} (${sec.title}) documented in commercial master arrangement timeline.`}
+                      </p>
+                      {sec.source && <span className="dossier-spec-source" style={{ fontSize: '0.8rem' }}>Source: {sec.source}</span>}
+                    </div>
+                  );
+                })()
+              )}
             </div>
           )}
 
@@ -362,21 +384,50 @@ export default function DossierView({ data }) {
           )}
         </div>
 
+        {/* Key Outboard Hardware Processors - Option 1: Categorized Forensic Cards */}
         {studio.outboard && studio.outboard.length > 0 && (
           <div className="dossier-outboard-wrap">
-            <div className="dossier-box-label" style={{ marginBottom: '0.75rem' }}>
-              <Cpu size={14} color="#34D399" /> KEY OUTBOARD HARDWARE PROCESSORS
+            <div className="dossier-box-label" style={{ marginBottom: '0.85rem' }}>
+              <Cpu size={14} color="#34D399" /> KEY OUTBOARD HARDWARE PROCESSORS & RACK UNITS ({studio.outboard.length})
             </div>
-            <div className="dossier-outboard-cards">
-              {studio.outboard.map((item, idx) => (
-                <div key={idx} className="dossier-outboard-chip">
-                  <div className="dossier-outboard-cat">{item.category}</div>
-                  <div className="dossier-outboard-gear">{item.gear}</div>
-                  {item.score && (
-                    <span className="dossier-score-badge">Score: {item.score}</span>
-                  )}
-                </div>
-              ))}
+            <div className="dossier-outboard-grid">
+              {studio.outboard.map((item, idx) => {
+                const catLower = (item.category || '').toLowerCase();
+                let catClass = 'cat-dynamics';
+                if (catLower.includes('reverb') || catLower.includes('time') || catLower.includes('delay')) catClass = 'cat-time';
+                else if (catLower.includes('eq') || catLower.includes('equaliz')) catClass = 'cat-eq';
+                else if (catLower.includes('sampl') || catLower.includes('sequenc') || catLower.includes('drum')) catClass = 'cat-sample';
+                else if (catLower.includes('preamp') || catLower.includes('di') || catLower.includes('channel')) catClass = 'cat-preamp';
+
+                return (
+                  <div key={idx} className={`dossier-outboard-card ${catClass}`}>
+                    <div className="dossier-outboard-header">
+                      <div className="dossier-outboard-title-wrap">
+                        <span className="dossier-outboard-cat-badge">
+                          {item.category || 'Outboard Processor'}
+                        </span>
+                        <h4 className="dossier-outboard-title">
+                          {item.name || item.gear || 'Hardware Processor'}
+                        </h4>
+                      </div>
+                      {item.score && (
+                        <span className="dossier-score-badge">{item.score}</span>
+                      )}
+                    </div>
+                    {item.circuit && (
+                      <div className="dossier-outboard-circuit">
+                        <span className="dossier-circuit-label">Circuit / Architecture:</span> <strong>{item.circuit}</strong>
+                      </div>
+                    )}
+                    <p className="dossier-outboard-body">
+                      {item.role || item.gear || 'Documented studio outboard processor utilised in session.'}
+                    </p>
+                    {item.source && (
+                      <div className="dossier-spec-source">Source: {item.source}</div>
+                    )}
+                  </div>
+                );
+              })}
             </div>
           </div>
         )}
