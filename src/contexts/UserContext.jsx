@@ -80,9 +80,20 @@ export const UserProvider = ({ children }) => {
                 // For now, let's update currentUser to include is_premium and teacher flags
                 setCurrentUser(prev => {
                     if (!prev) return prev; // Don't update if user logged out appropriately
+
+                    let isPremium = profileData.is_premium;
+                    // Student access expiry check (e.g. August 2027 cutoff)
+                    // Teachers (like Thor) and non-student accounts are not subject to this cutoff
+                    const expiresAt = prev.user_metadata?.expires_at;
+                    if (isPremium && profileData.role === 'student' && expiresAt) {
+                        if (new Date() > new Date(expiresAt)) {
+                            isPremium = false;
+                        }
+                    }
+
                     return {
                         ...prev,
-                        is_premium: profileData.is_premium,
+                        is_premium: isPremium,
                         role: profileData.role || 'student',
                         licenses_total: profileData.licenses_total || 0,
                         licenses_used: profileData.licenses_used || 0,

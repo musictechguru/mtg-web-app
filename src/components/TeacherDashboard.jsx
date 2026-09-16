@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useUser } from '../contexts/UserContext';
 import { supabase } from '../config/supabase';
+import StudentProgressModal from './StudentProgressModal';
 
 const TeacherDashboard = ({ onBack }) => {
     const { currentUser, fetchClassProgress } = useUser();
     const [students, setStudents] = useState([]);
+    const [selectedStudent, setSelectedStudent] = useState(null);
     const [loadingStats, setLoadingStats] = useState(true);
     const [buying, setBuying] = useState(false);
     const [copied, setCopied] = useState(false);
@@ -191,6 +193,7 @@ const TeacherDashboard = ({ onBack }) => {
                                 <th style={{ padding: '20px' }}>Quizzes Taken</th>
                                 <th style={{ padding: '20px' }}>Total Questions Correct</th>
                                 <th style={{ padding: '20px' }}>Latest Grade</th>
+                                <th style={{ padding: '20px', textAlign: 'right' }}>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -202,8 +205,46 @@ const TeacherDashboard = ({ onBack }) => {
                                     const totalScore = student.progress?.totalScore || 0;
 
                                     return (
-                                        <tr key={student.student_id} style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
-                                            <td style={{ padding: '20px', fontWeight: 'bold' }}>{student.full_name || 'Anonymous Student'}</td>
+                                        <tr 
+                                            key={student.student_id} 
+                                            style={{ 
+                                                borderBottom: '1px solid rgba(255,255,255,0.05)',
+                                                transition: 'background 0.2s ease'
+                                            }}
+                                            onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.02)'}
+                                            onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
+                                        >
+                                            <td style={{ padding: '20px' }}>
+                                                <button
+                                                    onClick={() => setSelectedStudent(student)}
+                                                    style={{
+                                                        background: 'none',
+                                                        border: 'none',
+                                                        padding: 0,
+                                                        color: 'var(--text-primary)',
+                                                        fontWeight: 'bold',
+                                                        fontSize: '1rem',
+                                                        cursor: 'pointer',
+                                                        textAlign: 'left',
+                                                        display: 'inline-flex',
+                                                        alignItems: 'center',
+                                                        gap: '8px',
+                                                        textDecoration: 'none'
+                                                    }}
+                                                    onMouseEnter={(e) => {
+                                                        e.currentTarget.style.color = 'var(--accent-blue, #3b82f6)';
+                                                        e.currentTarget.style.textDecoration = 'underline';
+                                                    }}
+                                                    onMouseLeave={(e) => {
+                                                        e.currentTarget.style.color = 'var(--text-primary)';
+                                                        e.currentTarget.style.textDecoration = 'none';
+                                                    }}
+                                                    title="Click to view full progress breakdown"
+                                                >
+                                                    <span>{student.full_name || 'Anonymous Student'}</span>
+                                                    <span style={{ fontSize: '0.85rem', opacity: 0.6 }}>📊</span>
+                                                </button>
+                                            </td>
                                             <td style={{ padding: '20px' }}>{quizzesCompleted}</td>
                                             <td style={{ padding: '20px' }}>{totalScore}</td>
                                             <td style={{ padding: '20px' }}>
@@ -219,6 +260,32 @@ const TeacherDashboard = ({ onBack }) => {
                                                     </span>
                                                 ) : '-'}
                                             </td>
+                                            <td style={{ padding: '20px', textAlign: 'right' }}>
+                                                <button
+                                                    onClick={() => setSelectedStudent(student)}
+                                                    style={{
+                                                        background: 'rgba(59, 130, 246, 0.1)',
+                                                        border: '1px solid rgba(59, 130, 246, 0.25)',
+                                                        color: 'var(--accent-blue, #3b82f6)',
+                                                        padding: '6px 14px',
+                                                        borderRadius: '8px',
+                                                        fontSize: '0.85rem',
+                                                        fontWeight: '600',
+                                                        cursor: 'pointer',
+                                                        transition: 'all 0.2s ease'
+                                                    }}
+                                                    onMouseEnter={(e) => {
+                                                        e.currentTarget.style.background = 'var(--accent-blue, #3b82f6)';
+                                                        e.currentTarget.style.color = '#ffffff';
+                                                    }}
+                                                    onMouseLeave={(e) => {
+                                                        e.currentTarget.style.background = 'rgba(59, 130, 246, 0.1)';
+                                                        e.currentTarget.style.color = 'var(--accent-blue, #3b82f6)';
+                                                    }}
+                                                >
+                                                    View Details →
+                                                </button>
+                                            </td>
                                         </tr>
                                     )
                                 })
@@ -233,6 +300,14 @@ const TeacherDashboard = ({ onBack }) => {
                     </table>
                 )}
             </div>
+
+            {/* Expanded Student Progress Modal */}
+            {selectedStudent && (
+                <StudentProgressModal 
+                    student={selectedStudent} 
+                    onClose={() => setSelectedStudent(null)} 
+                />
+            )}
         </div>
     );
 };
