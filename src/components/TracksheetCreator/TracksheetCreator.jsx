@@ -3,7 +3,7 @@ import {
   Sparkles, Music, Mic2, Database, History, Sliders, 
   FileText, Copy, Check, Disc,
   Search, ArrowLeft, RefreshCw, LayoutTemplate,
-  FileDown, Loader2, X
+  FileDown, Loader2, X, Radio
 } from 'lucide-react';
 
 import ReactMarkdown from 'react-markdown';
@@ -12,6 +12,7 @@ import './TracksheetCreator.css';
 import { getTracksheetActivityPhrases, getSolutionEngineeringPhrases } from './activityPhrases';
 import DossierView from './DossierView';
 import LogbookDossierView from './LogbookDossierView';
+import VideoCompanionModal from './VideoCompanionModal';
 import { parseHistoricalTracksheet } from './tracksheetParser';
 import { parseLogbook } from './logbookParser';
 import { downloadGoodLookingPdf } from './pdfExporter';
@@ -526,6 +527,26 @@ export default function TracksheetCreator({ onBack }) {
     );
   }, [history, historySearch]);
 
+  // Studio Video Companion State (Pop-up video + Synchronized Studio Text Monitor)
+  const [videoCompanionOpen, setVideoCompanionOpen] = useState(false);
+  const [videoCompanionTrack, setVideoCompanionTrack] = useState(null);
+
+  const handleOpenVideoCompanion = (customTrack = null) => {
+    if (customTrack) {
+      setVideoCompanionTrack(customTrack);
+    } else {
+      setVideoCompanionTrack({
+        id: currentTrackId,
+        trackName: trackName,
+        artistName: artistName,
+        parsedTracksheet: parsedTracksheetData,
+        rawMarkdown: result,
+        youtubeUrl: parsedTracksheetData?.youtubeUrl || ''
+      });
+    }
+    setVideoCompanionOpen(true);
+  };
+
   return (
     <div className="tracksheet-wrapper">
       {/* Background Gradients */}
@@ -863,6 +884,23 @@ export default function TracksheetCreator({ onBack }) {
                 )}
 
                 {isTracksheetTab && (
+                  <button
+                    type="button"
+                    className="btn-toolbar btn-video-companion"
+                    onClick={() => handleOpenVideoCompanion()}
+                    title="Watch session video with synchronized Studio Text Monitor"
+                    style={{
+                      background: 'linear-gradient(135deg, rgba(168, 85, 247, 0.22), rgba(56, 189, 248, 0.22))',
+                      borderColor: 'rgba(192, 132, 252, 0.45)',
+                      color: '#F8FAFC',
+                      fontWeight: 600
+                    }}
+                  >
+                    <Radio size={15} color="#34D399" /> Video Companion (BETA)
+                  </button>
+                )}
+
+                {isTracksheetTab && (
                   <button 
                     type="button" 
                     className="btn-toolbar btn-regenerate" 
@@ -907,7 +945,7 @@ export default function TracksheetCreator({ onBack }) {
             <div className={`markdown-body ${(isTracksheetTab || currentC1) && tracksheetLayout !== 'text' ? 'custom-layout-active' : ''}`}>
               {isTracksheetTab ? (
                 tracksheetLayout === 'dossier' && parsedTracksheetData ? (
-                  <DossierView data={parsedTracksheetData} />
+                  <DossierView data={parsedTracksheetData} onOpenVideoCompanion={() => handleOpenVideoCompanion()} />
                 ) : (
                   <ReactMarkdown remarkPlugins={[remarkGfm]}>
                     {normalizeMarkdown(result)}
@@ -996,6 +1034,21 @@ export default function TracksheetCreator({ onBack }) {
           </div>
         </div>
       )}
+
+      {/* Studio Video Companion & Synchronized Studio Text Monitor */}
+      <VideoCompanionModal
+        isOpen={videoCompanionOpen}
+        onClose={() => {
+          setVideoCompanionOpen(false);
+          setVideoCompanionTrack(null);
+        }}
+        trackId={videoCompanionTrack ? videoCompanionTrack.id : currentTrackId}
+        trackName={videoCompanionTrack ? videoCompanionTrack.trackName : trackName}
+        artistName={videoCompanionTrack ? videoCompanionTrack.artistName : artistName}
+        parsedTracksheet={videoCompanionTrack ? videoCompanionTrack.parsedTracksheet : parsedTracksheetData}
+        rawMarkdown={videoCompanionTrack ? videoCompanionTrack.rawMarkdown : result}
+        youtubeUrl={videoCompanionTrack ? videoCompanionTrack.youtubeUrl : (parsedTracksheetData?.youtubeUrl || '')}
+      />
     </div>
   );
 }

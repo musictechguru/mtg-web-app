@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { 
-  Disc, Mic2, Radio, Play, ExternalLink, Sliders, ShieldCheck, 
+  Disc, Mic2, Radio, ExternalLink, Sliders, ShieldCheck, 
   Layers, Volume2, Cpu, FileText, CheckCircle2, ChevronRight, ChevronDown, ChevronUp, User, Award
 } from 'lucide-react';
 
-export default function DossierView({ data }) {
+export default function DossierView({ data, onOpenVideoCompanion }) {
   const [activeInstIdx, setActiveInstIdx] = useState(0);
   const [selectedSectionIdx, setSelectedSectionIdx] = useState(0);
   const [showExtendedNotes, setShowExtendedNotes] = useState(false);
@@ -80,14 +80,171 @@ export default function DossierView({ data }) {
 
     // If microphone is known and not mentioned in the first node, prepend it as node 1
     if (micStr && cleaned.length > 0) {
-      const cleanMic = micStr.replace(/\s*\(.*?\)/g, '').trim();
+      const cleanMic = micStr.split(/[.;]/)[0].replace(/\s*\(.*?\)/g, '').replace(/[-:]\s*$/, '').trim();
       const firstNode = cleaned[0].toLowerCase();
-      if (cleanMic.length > 3 && !firstNode.includes(cleanMic.toLowerCase()) && !firstNode.includes('mic')) {
+      if (cleanMic.length > 2 && cleanMic.length < 80 && !firstNode.includes(cleanMic.toLowerCase()) && !firstNode.includes('mic')) {
         cleaned.unshift(cleanMic);
       }
     }
 
     return cleaned.length > 0 ? cleaned : ['Direct / Console Tracking', 'Multitrack Tape'];
+  };
+
+  // Sanitize instrument mics and signal chain in case chains were bundled with mics
+  const sanitizeInstrumentMicsAndChain = (instrument) => {
+    if (!instrument) return { cleanMics: '', cleanChain: '' };
+    let mics = instrument.mics || '';
+    let chain = instrument.signalChain || '';
+
+    if (mics && (/->|→/.test(mics))) {
+      const parts = mics.split(/\s*\|\s*/);
+      const cleanMicParts = [];
+      const extractedChains = [];
+      for (const p of parts) {
+        if (/->|→/.test(p)) {
+          const cleanP = p.replace(/^[\s*–—-]+([^*:]+)[*:\s]+/, '$1: ').trim();
+          extractedChains.push(cleanP);
+        } else {
+          cleanMicParts.push(p);
+        }
+      }
+      if (extractedChains.length > 0) {
+        const extractedStr = extractedChains.join(' | ');
+        if (!chain) {
+          chain = extractedStr;
+        } else if (!chain.includes(extractedChains[0])) {
+          chain = chain + ' | ' + extractedStr;
+        }
+        mics = cleanMicParts.join('; ').replace(/^;\s*|;\s*$/g, '').trim();
+      }
+    }
+
+    return {
+      cleanMics: mics.replace(/\*\*([^*]+)\*\*/g, '$1').replace(/\*([^*]+)\*/g, '$1').trim(),
+      cleanChain: chain.replace(/\*\*([^*]+)\*\*/g, '$1').replace(/\*([^*]+)\*/g, '$1').trim()
+    };
+  };
+
+  // Parse structured microphones from text
+  const parseMicrophones = (rawStr) => {
+    if (!rawStr) return [];
+
+    let str = rawStr.replace(/^[–—\-\s*]+/, '').trim();
+    str = str.replace(/\s*-\s*Score:\s*\[?[0-9/]+\]?.*$/i, '').trim();
+    str = str.replace(/\(Source:[^)]+\)/gi, '').trim();
+
+    let rawChunks = [];
+    if (str.includes(';')) {
+      rawChunks = str.split(';').map(s => s.trim()).filter(Boolean);
+    } else if (str.includes(' | ')) {
+      rawChunks = str.split(' | ').map(s => s.trim()).filter(Boolean);
+    } else if (/\.\s+(?=[A-Za-z0-9\s/&#_-]+:\s*)/.test(str)) {
+      rawChunks = str.split(/\.\s+(?=[A-Za-z0-9\s/&#_-]+:\s*)/).map(s => s.trim()).filter(Boolean);
+    } else if (/\b(?:OR|or)\b\s+(?=[A-Z])/.test(str)) {
+      const orParts = str.split(/\s+\b(?:OR|or)\b\s+/);
+      if (orParts.length > 1) {
+        rawChunks = [orParts[0], `Alternate: ${orParts.slice(1).join(' / ')}`];
+      }
+    }
+
+    if (rawChunks.length === 0) {
+      rawChunks = [str];
+    }
+
+    const results = [];
+
+    for (const chunk of rawChunks) {
+      let text = chunk.replace(/\.$/, '').trim();
+      if (!text) continue;
+
+      let role = '';
+      const roleMatch = text.match(/^([A-Za-z0-9\s/&#_-]+):\s*(.*)$/);
+      if (roleMatch && !roleMatch[1].toLowerCase().includes('neuma') && !roleMatch[1].toLowerCase().includes('shure') && !roleMatch[1].toLowerCase().includes('akg')) {
+        role = roleMatch[1].trim();
+        text = roleMatch[2].trim();
+      }
+
+      // Detect polar pattern
+      let polarPattern = '';
+      if (/figure[- ]?8|bidirectional/i.test(text)) polarPattern = 'Figure-8';
+      else if (/hyper[- ]?cardioid/i.test(text)) polarPattern = 'Hypercardioid';
+      else if (/super[- ]?cardioid/i.test(text)) polarPattern = 'Supercardioid';
+      else if (/omni(?:directional)?/i.test(text)) polarPattern = 'Omni';
+      else if (/cardioid/i.test(text)) polarPattern = 'Cardioid';
+
+      // Detect transducer type
+      let transducerType = '';
+      let typeClass = 'dynamic';
+      if (/valve|tube/i.test(text)) {
+        transducerType = 'Valve / Tube Condenser';
+        typeClass = 'tube';
+      } else if (/ribbon/i.test(text)) {
+        transducerType = 'Ribbon Transducer';
+        typeClass = 'ribbon';
+      } else if (/di\b|direct injection|line[- ]level/i.test(text)) {
+        transducerType = 'Direct Injection (DI)';
+        typeClass = 'di';
+      } else if (/small diaphragm|pencil|sdc|km84|km54|km56|c451/i.test(text)) {
+        transducerType = 'Small Diaphragm Condenser';
+        typeClass = 'condenser';
+      } else if (/condenser|ldc|u47|u67|u87|c12|c414|elam 251/i.test(text)) {
+        transducerType = 'Large Diaphragm Condenser';
+        typeClass = 'condenser';
+      } else if (/dynamic|moving[- ]coil|sm57|sm58|sm7|md421|md441|d12|d112|re20/i.test(text)) {
+        transducerType = 'Moving-Coil Dynamic';
+        typeClass = 'dynamic';
+      }
+
+      // Default polar pattern if standard known mic
+      if (!polarPattern) {
+        if (/sm57|sm58|re20|d12|d112|km84/i.test(text)) polarPattern = 'Cardioid';
+        else if (/md441/i.test(text)) polarPattern = 'Supercardioid';
+        else if (/md421/i.test(text)) polarPattern = 'Cardioid';
+        else if (/4038|44-bx/i.test(text)) polarPattern = 'Figure-8';
+      }
+
+      // Clean model name
+      let model = text;
+      let notes = '';
+
+      const parenMatch = text.match(/\(([^)]+)\)/);
+      if (parenMatch) {
+        const insideParen = parenMatch[1];
+        const filteredParen = insideParen
+          .replace(/tube|valve|condenser|dynamic|moving[- ]coil|ribbon|cardioid|omni|figure[- ]?8|large diaphragm|small diaphragm|pattern/gi, '')
+          .replace(/[,;\s]+/g, ' ')
+          .trim();
+        if (filteredParen.length > 2) {
+          notes = filteredParen;
+        }
+        model = model.replace(/\s*\([^)]+\)/g, '').trim();
+      }
+
+      model = model.replace(/\b(?:moving[- ]coil\s+)?(?:dynamic|condenser|ribbon|tube|valve|cardioid|pattern)\b/gi, '').trim();
+      model = model.replace(/\s{2,}/g, ' ').replace(/[-:,]+$/, '').trim();
+
+      if (!model && text) model = text;
+
+      let effectiveRole = role;
+      if (!effectiveRole) {
+        if (rawChunks.length === 1) {
+          effectiveRole = typeClass === 'di' ? 'Direct Capture' : 'Primary Transducer';
+        } else {
+          effectiveRole = `Transducer 0${results.length + 1}`;
+        }
+      }
+
+      results.push({
+        role: effectiveRole,
+        model,
+        transducerType: transducerType || 'Studio Transducer',
+        typeClass,
+        polarPattern,
+        notes
+      });
+    }
+
+    return results;
   };
 
   return (
@@ -158,15 +315,16 @@ export default function DossierView({ data }) {
                   </span>
                 </div>
               )}
-              {youtubeUrl && (
-                <a 
-                  href={youtubeUrl} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="dossier-youtube-btn"
+              {onOpenVideoCompanion && (
+                <button 
+                  type="button" 
+                  onClick={onOpenVideoCompanion} 
+                  className="dossier-video-companion-btn" 
+                  title="Watch session video with synchronized Studio Text Monitor"
                 >
-                  <Play size={14} fill="currentColor" /> Listen on YouTube
-                </a>
+                  <span className="live-companion-dot"></span>
+                  <Radio size={14} /> Studio Video Companion <span className="companion-beta-tag">(BETA)</span>
+                </button>
               )}
             </div>
           </div>
@@ -463,143 +621,250 @@ export default function DossierView({ data }) {
           </div>
 
           {/* Active Instrument Detail View */}
-          {activeInstrument && (
-            <div className="dossier-inst-detail-card">
-              <div className="dossier-inst-header">
-                <div>
-                  <h4 className="dossier-inst-title">{activeInstrument.name}</h4>
-                  {activeInstrument.pathway && (
-                    <span className="dossier-inst-pathway">
-                      Input Pathway: <strong>{activeInstrument.pathway}</strong>
-                    </span>
+          {activeInstrument && (() => {
+            const { cleanMics: effectiveMics, cleanChain: effectiveChain } = sanitizeInstrumentMicsAndChain(activeInstrument);
+            const parsedMics = parseMicrophones(effectiveMics, activeInstrument.name);
+
+            return (
+              <div className="dossier-inst-detail-card">
+                <div className="dossier-inst-header">
+                  <div>
+                    <h4 className="dossier-inst-title">{activeInstrument.name}</h4>
+                    {(activeInstrument.pathway || effectiveMics) && (() => {
+                      const pathwayText = activeInstrument.pathway ? activeInstrument.pathway.replace(/\.$/, '') : 'Acoustic Microphone Capture';
+                      const isGenericCapture = /^acoustic\s+(?:microphone\s+)?capture$/i.test(pathwayText.trim()) ||
+                                              /^microphone\s+capture$/i.test(pathwayText.trim()) ||
+                                              /^(?:acoustic\s+)?mic\s+capture$/i.test(pathwayText.trim()) ||
+                                              /^acoustic$/i.test(pathwayText.trim());
+                      const cleanMic = effectiveMics ? effectiveMics.split(/[.;]/)[0].replace(/\s*\(.*?\)/g, '').replace(/[-:]\s*$/, '').trim() : '';
+                      const hasMicInPathway = cleanMic && pathwayText.toLowerCase().includes(cleanMic.toLowerCase());
+
+                      return (
+                        <span className="dossier-inst-pathway">
+                          Input Pathway: <strong>{pathwayText}</strong>
+                          {isGenericCapture && cleanMic && !hasMicInPathway && (
+                            <span className="dossier-inst-pathway-mic">
+                              {' '}— Mic: <strong>{cleanMic}</strong>
+                            </span>
+                          )}
+                        </span>
+                      );
+                    })()}
+                  </div>
+                  {activeInstrument.score && (
+                    <div className="dossier-verified-badge">
+                      <CheckCircle2 size={16} color="#34D399" />
+                      <span>Reliability: {activeInstrument.score}</span>
+                    </div>
                   )}
                 </div>
-                {activeInstrument.score && (
-                  <div className="dossier-verified-badge">
-                    <CheckCircle2 size={16} color="#34D399" />
-                    <span>Reliability: {activeInstrument.score}</span>
-                  </div>
-                )}
-              </div>
 
-              {/* Spec Blocks Grid */}
-              <div className="dossier-specs-grid">
-                {activeInstrument.backline && (
-                  <div className="dossier-spec-card">
-                    <div className="dossier-spec-header">
-                      <span className="dossier-spec-title">🎸 Historical Backline & Instrument Details</span>
-                      {activeInstrument.backlineScore && (
-                        <span className="dossier-spec-score">{activeInstrument.backlineScore}</span>
+                {/* Spec Blocks Grid */}
+                <div className="dossier-specs-grid">
+                  {activeInstrument.backline && (
+                    <div className="dossier-spec-card">
+                      <div className="dossier-spec-header">
+                        <span className="dossier-spec-title">🎸 Historical Backline & Instrument Details</span>
+                        {activeInstrument.backlineScore && (
+                          <span className="dossier-spec-score">{activeInstrument.backlineScore}</span>
+                        )}
+                      </div>
+                      <p className="dossier-spec-body">{activeInstrument.backline}</p>
+                      {activeInstrument.backlineSource && (
+                        <span className="dossier-spec-source">Source: {activeInstrument.backlineSource}</span>
                       )}
                     </div>
-                    <p className="dossier-spec-body">{activeInstrument.backline}</p>
-                    {activeInstrument.backlineSource && (
-                      <span className="dossier-spec-source">Source: {activeInstrument.backlineSource}</span>
-                    )}
-                  </div>
-                )}
+                  )}
 
-                {activeInstrument.mics && (
-                  <div className="dossier-spec-card">
-                    <div className="dossier-spec-header">
-                      <span className="dossier-spec-title">🎙️ Microphone(s) & Transducer Setup</span>
-                      {activeInstrument.micScore && (
-                        <span className="dossier-spec-score">{activeInstrument.micScore}</span>
-                      )}
-                    </div>
-                    <p className="dossier-spec-body">{activeInstrument.mics}</p>
-                    {activeInstrument.micSource && (
-                      <span className="dossier-spec-source">Source: {activeInstrument.micSource}</span>
-                    )}
-                  </div>
-                )}
-
-                {activeInstrument.placement && (
-                  <div className="dossier-spec-card">
-                    <div className="dossier-spec-header">
-                      <span className="dossier-spec-title">📐 Mic Placement, Distance & Acoustic Baffling</span>
-                    </div>
-                    <p className="dossier-spec-body">{activeInstrument.placement}</p>
-                  </div>
-                )}
-
-                {activeInstrument.stereoArray && (
-                  <div className="dossier-spec-card">
-                    <div className="dossier-spec-header">
-                      <span className="dossier-spec-title">🎧 Stereo / Multi-Mic Array Configuration</span>
-                    </div>
-                    <p className="dossier-spec-body">{activeInstrument.stereoArray}</p>
-                  </div>
-                )}
-              </div>
-
-              {/* Visual Analog Signal Chain Ribbon */}
-              {activeInstrument.signalChain && (
-                <div className="dossier-chain-section">
-                  <div className="dossier-box-label" style={{ marginBottom: '0.75rem' }}>
-                    <Sliders size={14} color="#F59E0B" /> ANALOG TRACKING SIGNAL CHAIN & CONSOLE INSERTS
-                  </div>
-                  <div className="dossier-chain-ribbon">
-                    {parseSignalNodes(activeInstrument.signalChain, activeInstrument.mics, activeInstrument.tapeAllocation).map((node, nIdx, arr) => (
-                      <div key={nIdx} className="dossier-chain-node-wrap">
-                        <div className="dossier-chain-node">
-                          <span className="dossier-node-idx">{nIdx + 1}</span>
-                          <span className="dossier-node-text">{node}</span>
+                  {effectiveMics && (
+                    <div className="dossier-spec-card dossier-mics-spec-card">
+                      <div className="dossier-spec-header">
+                        <div className="dossier-mics-header-info">
+                          <span className="dossier-spec-title">🎙️ Microphone(s) & Transducer Setup</span>
+                          {parsedMics.length > 1 && (
+                            <span className="dossier-mics-count-pill">{parsedMics.length} Transducers</span>
+                          )}
                         </div>
-                        {nIdx < arr.length - 1 && (
-                          <div className="dossier-chain-connector">➔</div>
+                        {activeInstrument.micScore && (
+                          <span className="dossier-spec-score">{activeInstrument.micScore}</span>
                         )}
                       </div>
-                    ))}
-                  </div>
-                  {activeInstrument.chainSource && (
-                    <div className="dossier-chain-citation">
-                      Verified from: {activeInstrument.chainSource}
+
+                      <div className="dossier-mics-grid">
+                        {parsedMics.map((m, mIdx) => (
+                          <div key={mIdx} className={`dossier-mic-chip-card mic-cat-${m.typeClass}`}>
+                            <div className="dossier-mic-chip-top">
+                              <span className="dossier-mic-role-pill">{m.role}</span>
+                              {m.transducerType && (
+                                <span className={`dossier-mic-tech-pill tech-${m.typeClass}`}>
+                                  {m.transducerType}
+                                </span>
+                              )}
+                              {m.polarPattern && (
+                                <span className="dossier-mic-pattern-pill" title={`Polar Pattern: ${m.polarPattern}`}>
+                                  <Radio size={10} /> {m.polarPattern}
+                                </span>
+                              )}
+                            </div>
+
+                            <div className="dossier-mic-model-wrap">
+                              <h5 className="dossier-mic-model-name">{m.model}</h5>
+                            </div>
+
+                            {m.notes && (
+                              <p className="dossier-mic-notes">{m.notes}</p>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+
+                      {activeInstrument.micSource && (
+                        <span className="dossier-spec-source">Source: {activeInstrument.micSource}</span>
+                      )}
+                    </div>
+                  )}
+
+                  {activeInstrument.placement && (
+                    <div className="dossier-spec-card">
+                      <div className="dossier-spec-header">
+                        <span className="dossier-spec-title">📐 Mic Placement, Distance & Acoustic Baffling</span>
+                        {activeInstrument.placementScore && (
+                          <span className="dossier-spec-score">{activeInstrument.placementScore}</span>
+                        )}
+                      </div>
+                      <p className="dossier-spec-body">{activeInstrument.placement}</p>
+                      {activeInstrument.placementSource && (
+                        <span className="dossier-spec-source">Source: {activeInstrument.placementSource}</span>
+                      )}
+                    </div>
+                  )}
+
+                  {activeInstrument.stereoArray && (
+                    <div className="dossier-spec-card">
+                      <div className="dossier-spec-header">
+                        <span className="dossier-spec-title">🎧 Stereo / Multi-Mic Array Configuration</span>
+                        {activeInstrument.stereoArrayScore && (
+                          <span className="dossier-spec-score">{activeInstrument.stereoArrayScore}</span>
+                        )}
+                      </div>
+                      <p className="dossier-spec-body">{activeInstrument.stereoArray}</p>
+                      {activeInstrument.stereoArraySource && (
+                        <span className="dossier-spec-source">Source: {activeInstrument.stereoArraySource}</span>
+                      )}
                     </div>
                   )}
                 </div>
-              )}
 
-              {/* Multitrack Tape Allocation */}
-              {activeInstrument.tapeAllocation && (
-                <div className="dossier-tape-allocation-box">
-                  <div className="dossier-box-label">
-                    <Volume2 size={14} color="#EC4899" /> MULTITRACK TAPE ALLOCATION & BOUNCING HISTORY
-                  </div>
-                  <p className="dossier-tape-text">{activeInstrument.tapeAllocation}</p>
-                </div>
-              )}
+                {/* Visual Analog Signal Chain Ribbon */}
+                {effectiveChain && (() => {
+                  const chainParts = effectiveChain.split(/\s*\|\s*/).filter(Boolean);
+                  const hasMultipleChannels = chainParts.length > 1 && chainParts.some(p => /^[A-Za-z0-9\s/&#_-]+:/.test(p));
 
-              {/* Historical Mix Balance, Panning & Spatial FX */}
-              {(activeInstrument.mixBalance || activeInstrument.mixProcessing) && (
-                <div className="dossier-mix-stage-box">
-                  <div className="dossier-box-label" style={{ color: '#38BDF8' }}>
-                    <Sliders size={14} color="#38BDF8" /> HISTORICAL MIX BALANCE, PANNING & SPATIAL FX
-                  </div>
-                  <div className="dossier-mix-grid">
-                    {activeInstrument.mixBalance && (
-                      <div className="dossier-mix-card">
-                        <span className="dossier-mix-subtitle">Stereo Panning & Soundstage:</span>
-                        <p className="dossier-mix-text">{activeInstrument.mixBalance}</p>
-                        {activeInstrument.mixBalanceSource && (
-                          <span className="dossier-spec-source">Source: {activeInstrument.mixBalanceSource}</span>
+                  return (
+                    <div className="dossier-chain-section">
+                      <div className="dossier-box-label" style={{ marginBottom: '0.75rem' }}>
+                        <Sliders size={14} color="#F59E0B" /> ANALOG TRACKING SIGNAL CHAIN & CONSOLE INSERTS
+                        {hasMultipleChannels && (
+                          <span style={{ marginLeft: '0.5rem', color: '#CBD5E1', fontSize: '0.7rem', fontWeight: 'normal' }}>
+                            ({chainParts.length} Discrete Channels)
+                          </span>
                         )}
                       </div>
-                    )}
-                    {activeInstrument.mixProcessing && (
-                      <div className="dossier-mix-card">
-                        <span className="dossier-mix-subtitle">Mixdown Console EQ & Outboard FX:</span>
-                        <p className="dossier-mix-text">{activeInstrument.mixProcessing}</p>
-                        {activeInstrument.mixProcessingSource && (
-                          <span className="dossier-spec-source">Source: {activeInstrument.mixProcessingSource}</span>
-                        )}
-                      </div>
-                    )}
+
+                      {hasMultipleChannels ? (
+                        chainParts.map((part, pIdx) => {
+                          const colonMatch = part.match(/^([A-Za-z0-9\s/&#_-]+):\s*(.*)$/);
+                          const chLabel = colonMatch ? colonMatch[1].trim() : `Channel ${pIdx + 1}`;
+                          const chChain = colonMatch ? colonMatch[2].trim() : part;
+                          const nodes = parseSignalNodes(chChain, effectiveMics, activeInstrument.tapeAllocation);
+
+                          return (
+                            <div key={pIdx} className="dossier-chain-channel-block">
+                              <div className="dossier-chain-channel-title">
+                                <span style={{ color: '#F59E0B' }}>●</span> {chLabel.toUpperCase()} SIGNAL PATH:
+                              </div>
+                              <div className="dossier-chain-ribbon">
+                                {nodes.map((node, nIdx, arr) => (
+                                  <div key={nIdx} className="dossier-chain-node-wrap">
+                                    <div className="dossier-chain-node">
+                                      <span className="dossier-node-idx">{nIdx + 1}</span>
+                                      <span className="dossier-node-text">{node}</span>
+                                    </div>
+                                    {nIdx < arr.length - 1 && (
+                                      <div className="dossier-chain-connector">➔</div>
+                                    )}
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                          );
+                        })
+                      ) : (
+                        <div className="dossier-chain-ribbon">
+                          {parseSignalNodes(effectiveChain, effectiveMics, activeInstrument.tapeAllocation).map((node, nIdx, arr) => (
+                            <div key={nIdx} className="dossier-chain-node-wrap">
+                              <div className="dossier-chain-node">
+                                <span className="dossier-node-idx">{nIdx + 1}</span>
+                                <span className="dossier-node-text">{node}</span>
+                              </div>
+                              {nIdx < arr.length - 1 && (
+                                <div className="dossier-chain-connector">➔</div>
+                              )}
+                            </div>
+                          ))}
+                        </div>
+                      )}
+
+                      {activeInstrument.chainSource && (
+                        <div className="dossier-chain-citation">
+                          Verified from: {activeInstrument.chainSource}
+                        </div>
+                      )}
+                    </div>
+                  );
+                })()}
+
+                {/* Multitrack Tape Allocation */}
+                {activeInstrument.tapeAllocation && (
+                  <div className="dossier-tape-allocation-box">
+                    <div className="dossier-box-label">
+                      <Volume2 size={14} color="#EC4899" /> MULTITRACK TAPE ALLOCATION & BOUNCING HISTORY
+                    </div>
+                    <p className="dossier-tape-text">{activeInstrument.tapeAllocation}</p>
                   </div>
-                </div>
-              )}
-            </div>
-          )}
+                )}
+
+                {/* Historical Mix Balance, Panning & Spatial FX */}
+                {(activeInstrument.mixBalance || activeInstrument.mixProcessing) && (
+                  <div className="dossier-mix-stage-box">
+                    <div className="dossier-box-label" style={{ color: '#38BDF8' }}>
+                      <Sliders size={14} color="#38BDF8" /> HISTORICAL MIX BALANCE, PANNING & SPATIAL FX
+                    </div>
+                    <div className="dossier-mix-grid">
+                      {activeInstrument.mixBalance && (
+                        <div className="dossier-mix-card">
+                          <span className="dossier-mix-subtitle">Stereo Panning & Soundstage:</span>
+                          <p className="dossier-mix-text">{activeInstrument.mixBalance}</p>
+                          {activeInstrument.mixBalanceSource && (
+                            <span className="dossier-spec-source">Source: {activeInstrument.mixBalanceSource}</span>
+                          )}
+                        </div>
+                      )}
+                      {activeInstrument.mixProcessing && (
+                        <div className="dossier-mix-card">
+                          <span className="dossier-mix-subtitle">Mixdown Console EQ & Outboard FX:</span>
+                          <p className="dossier-mix-text">{activeInstrument.mixProcessing}</p>
+                          {activeInstrument.mixProcessingSource && (
+                            <span className="dossier-spec-source">Source: {activeInstrument.mixProcessingSource}</span>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                )}
+              </div>
+            );
+          })()}
         </div>
       )}
 

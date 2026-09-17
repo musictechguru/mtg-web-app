@@ -18,6 +18,14 @@ export default defineConfig({
       '/api/c1-solutions': {
         target: 'http://localhost:3001',
         changeOrigin: true
+      },
+      '/api/youtube': {
+        target: 'http://localhost:3001',
+        changeOrigin: true
+      },
+      '/api/commentary': {
+        target: 'http://localhost:3001',
+        changeOrigin: true
       }
     }
   }
