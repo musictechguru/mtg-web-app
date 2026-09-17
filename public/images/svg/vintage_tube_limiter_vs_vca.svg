@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 400" width="100%" height="100%">
+  <rect width="720" height="400" rx="12" fill="#090d16" stroke="#334155" stroke-width="1.5" />
+  <text x="360" y="32" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="16" font-weight="800" text-anchor="middle">COMPRESSOR TYPES: 1950s TUBE vs 1970s VCA</text>
+  <text x="360" y="52" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="11" text-anchor="middle">Historical Progression of Dynamics Processing in Music Technology</text>
+
+  <!-- Left: Vari-Mu Tube (1950s) -->
+  <g transform="translate(40, 75)">
+    <rect width="310" height="225" rx="8" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5" />
+    <rect width="310" height="28" rx="8" fill="#78350f" />
+    <text x="155" y="19" fill="#fef3c7" font-family="system-ui, sans-serif" font-size="11" font-weight="800" text-anchor="middle">1950s: VARI-MU TUBE LIMITER</text>
+
+    <!-- Curve Graph -->
+    <g transform="translate(25, 45)">
+      <line x1="20" y1="120" x2="240" y2="120" stroke="#475569" stroke-width="1" />
+      <line x1="20" y1="20" x2="20" y2="120" stroke="#475569" stroke-width="1" />
+      
+      <!-- Linear line -->
+      <line x1="20" y1="120" x2="180" y2="20" stroke="#64748b" stroke-dasharray="2 2" />
+
+      <!-- Very soft tube curve -->
+      <path d="M 20 120 Q 80 80 140 60 Q 200 48 240 45" fill="none" stroke="#f59e0b" stroke-width="3" />
+      <text x="170" y="75" fill="#fde68a" font-family="system-ui, sans-serif" font-size="8.5" font-weight="700">Soft Progressive Ratio</text>
+    </g>
+
+    <rect x="15" y="170" width="280" height="42" rx="4" fill="#0f172a" />
+    <text x="155" y="186" fill="#fbbf24" font-family="system-ui, sans-serif" font-size="9" font-weight="700" text-anchor="middle">Vacuum Tube Bias alters gain naturally</text>
+    <text x="155" y="200" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="8" text-anchor="middle">Smooth, musical saturation; no aggressive fixed ratios</text>
+  </g>
+
+  <!-- Right: VCA Compressor (1970s) -->
+  <g transform="translate(370, 75)">
+    <rect width="310" height="225" rx="8" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5" />
+    <rect width="310" height="28" rx="8" fill="#0369a1" />
+    <text x="155" y="19" fill="#e0f2fe" font-family="system-ui, sans-serif" font-size="11" font-weight="800" text-anchor="middle">1970s+: VCA COMPRESSOR (dbx / SSL)</text>
+
+    <!-- Curve Graph -->
+    <g transform="translate(25, 45)">
+      <line x1="20" y1="120" x2="240" y2="120" stroke="#475569" stroke-width="1" />
+      <line x1="20" y1="20" x2="20" y2="120" stroke="#475569" stroke-width="1" />
+
+      <!-- Linear line -->
+      <line x1="20" y1="120" x2="180" y2="20" stroke="#64748b" stroke-dasharray="2 2" />
+
+      <!-- Sharp Hard Knee curve -->
+      <path d="M 20 120 L 100 70 L 240 40" fill="none" stroke="#38bdf8" stroke-width="3" />
+      <circle cx="100" cy="70" r="3" fill="#ef4444" />
+      <text x="110" y="85" fill="#7dd3fc" font-family="system-ui, sans-serif" font-size="8.5" font-weight="700">Hard Knee (Fixed 10:1)</text>
+    </g>
+
+    <rect x="15" y="170" width="280" height="42" rx="4" fill="#0f172a" />
+    <text x="155" y="186" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="9" font-weight="700" text-anchor="middle">Solid-State Voltage Controlled Amplifier</text>
+    <text x="155" y="200" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="8" text-anchor="middle">Lightning-fast response, punchy, aggressive transient grip</text>
+  </g>
+
+  <!-- Bottom Explanatory Bar -->
+  <g transform="translate(40, 315)">
+    <rect width="640" height="65" rx="6" fill="#0b1329" stroke="#334155" stroke-width="1" />
+    <text x="16" y="22" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="10.5" font-weight="800">EDEXCEL EXAM CHRONOLOGY: DYNAMICS PROCESSING</text>
+    <text x="16" y="42" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="9.5">Questions test knowledge of technology timelines. VCA compressors (like the dbx 160 or SSL G-Master Bus) did not exist in the 1950s. Elvis's recordings were treated with vacuum tube limiters (like the RCA BA-6A or Fairchild) for natural, gentle control.</text>
+  </g>
+</svg>
