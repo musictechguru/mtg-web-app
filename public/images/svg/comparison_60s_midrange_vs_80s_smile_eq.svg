@@ -1,0 +1,138 @@
+<svg width="720" height="420" viewBox="0 0 720 420" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg-grad-eqcomp" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#090d16" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+
+    <!-- EQ Curve Gradients -->
+    <linearGradient id="gloria-eq-fill" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.35" />
+      <stop offset="100%" stop-color="#f59e0b" stop-opacity="0.0" />
+    </linearGradient>
+
+    <linearGradient id="softcell-eq-fill" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.35" />
+      <stop offset="100%" stop-color="#38bdf8" stop-opacity="0.0" />
+    </linearGradient>
+
+    <filter id="glow-badge-eqcomp" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="2" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background Panel -->
+  <rect width="720" height="420" rx="14" fill="url(#bg-grad-eqcomp)" />
+  <rect x="1" y="1" width="718" height="418" rx="13" stroke="#334155" stroke-width="1.5" />
+
+  <!-- Top Title Bar -->
+  <g transform="translate(24, 16)">
+    <rect x="0" y="0" width="672" height="34" rx="7" fill="#1e293b" stroke="#f59e0b" stroke-width="1.2" />
+    <circle cx="18" cy="17" r="5" fill="#f59e0b" filter="url(#glow-badge-eqcomp)" />
+    <text x="32" y="22" fill="#f8fafc" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" letter-spacing="0.8">FREQUENCY SPECTRUM: 1960s MIDRANGE-FOCUSED vs 1980s SYNTH-POP "SMILE" EQ</text>
+    <rect x="526" y="6" width="134" height="22" rx="4" fill="#78350f" fill-opacity="0.4" stroke="#f59e0b" stroke-width="0.8" />
+    <text x="593" y="21" fill="#fde68a" font-family="system-ui, -apple-system, sans-serif" font-size="10.5" font-weight="800" text-anchor="middle">VERSION A: MID-FOCUSED</text>
+  </g>
+
+  <!-- ==================== MAIN FREQUENCY RESPONSE GRAPH ==================== -->
+  <g transform="translate(24, 60)">
+    <rect x="0" y="0" width="672" height="248" rx="10" fill="#0b1329" stroke="#1e293b" stroke-width="1.2" />
+
+    <!-- Frequency Spectrum Grid (20Hz to 20kHz) -->
+    <!-- X-Coordinates: 20Hz=50, 100Hz=150, 500Hz=270, 1kHz=350, 5kHz=490, 10kHz=560, 20kHz=630 -->
+    <g transform="translate(18, 16)">
+      <!-- Inner graph box -->
+      <rect x="0" y="0" width="636" height="170" rx="6" fill="#070c18" stroke="#1e293b" />
+
+      <!-- Vertical Frequency Grid Lines -->
+      <line x1="60" y1="0" x2="60" y2="170" stroke="#1e293b" stroke-width="1" />
+      <line x1="160" y1="0" x2="160" y2="170" stroke="#1e293b" stroke-width="1" />
+      <line x1="280" y1="0" x2="280" y2="170" stroke="#1e293b" stroke-width="1" />
+      <line x1="380" y1="0" x2="380" y2="170" stroke="#1e293b" stroke-width="1" />
+      <line x1="500" y1="0" x2="500" y2="170" stroke="#1e293b" stroke-width="1" />
+      <line x1="600" y1="0" x2="600" y2="170" stroke="#1e293b" stroke-width="1" />
+
+      <!-- Horizontal Reference Line (0dB) -->
+      <line x1="0" y1="95" x2="636" y2="95" stroke="#334155" stroke-width="1" stroke-dasharray="3 3" />
+      <text x="12" y="92" fill="#64748b" font-family="monospace" font-size="8.5">0 dB</text>
+
+      <!-- 1. GLORIA JONES 1964 CURVE (AMBER): Midrange Focus (300Hz - 4kHz), Rolled Off Sub & Air -->
+      <!-- Sub cutoff at 100Hz, big peak at 1kHz - 2.5kHz, rolloff above 8kHz -->
+      <path d="M 20 160 C 60 160, 120 150, 180 110 C 260 60, 360 40, 440 60 C 500 80, 540 140, 620 165 L 620 170 L 20 170 Z" fill="url(#gloria-eq-fill)" />
+      <path d="M 20 160 C 60 160, 120 150, 180 110 C 260 60, 360 40, 440 60 C 500 80, 540 140, 620 165" fill="none" stroke="#f59e0b" stroke-width="3" stroke-linecap="round" />
+
+      <!-- 2. SOFT CELL 1981 CURVE (CYAN): Synth-Pop "Smile" EQ - Extended Sub-Bass & Sparkling Highs -->
+      <!-- High sub at 40Hz, dip in midrange at 800Hz, high shelf boost at 10kHz -->
+      <path d="M 20 50 C 60 55, 140 65, 220 100 C 300 130, 400 130, 480 90 C 530 65, 580 45, 620 45 L 620 170 L 20 170 Z" fill="url(#softcell-eq-fill)" />
+      <path d="M 20 50 C 60 55, 140 65, 220 100 C 300 130, 400 130, 480 90 C 530 65, 580 45, 620 45" fill="none" stroke="#38bdf8" stroke-width="3" stroke-linecap="round" stroke-dasharray="6 4" />
+
+      <!-- Annotations for Gloria Jones Curve -->
+      <rect x="290" y="16" width="180" height="22" rx="4" fill="#78350f" stroke="#f59e0b" stroke-width="0.8" />
+      <text x="380" y="31" fill="#fef3c7" font-family="system-ui, sans-serif" font-size="9.5" font-weight="800" text-anchor="middle">&#x25B2; 1964: MIDRANGE PUNCH (1–3kHz)</text>
+
+      <!-- Sub-bass rolloff label -->
+      <text x="70" y="150" fill="#f59e0b" font-family="system-ui, sans-serif" font-size="8.5" font-weight="700">No Sub (&lt;80Hz)</text>
+      <!-- Treble rolloff label -->
+      <text x="560" y="150" fill="#f59e0b" font-family="system-ui, sans-serif" font-size="8.5" font-weight="700">No Air (&gt;10kHz)</text>
+
+      <!-- Soft Cell annotations -->
+      <text x="60" y="42" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="8.5" font-weight="800">1981 Sub-Bass</text>
+      <text x="550" y="36" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="8.5" font-weight="800">1981 Synth Sparkle</text>
+
+      <!-- Frequency Scale Along Bottom -->
+      <text x="20" y="186" fill="#64748b" font-family="monospace" font-size="9">20Hz</text>
+      <text x="60" y="186" fill="#64748b" font-family="monospace" font-size="9">60Hz</text>
+      <text x="160" y="186" fill="#64748b" font-family="monospace" font-size="9">250Hz</text>
+      <text x="280" y="186" fill="#64748b" font-family="monospace" font-size="9">500Hz</text>
+      <text x="380" y="186" fill="#64748b" font-family="monospace" font-size="9">1kHz</text>
+      <text x="500" y="186" fill="#64748b" font-family="monospace" font-size="9">4kHz</text>
+      <text x="600" y="186" fill="#64748b" font-family="monospace" font-size="9">16kHz</text>
+    </g>
+
+    <!-- Legend Bar Below Graph -->
+    <g transform="translate(18, 222)">
+      <line x1="20" y1="8" x2="50" y2="8" stroke="#f59e0b" stroke-width="3" />
+      <text x="60" y="12" fill="#fde68a" font-family="system-ui, sans-serif" font-size="10" font-weight="800">Gloria Jones (1964): Midrange-Focused (Horn stabs &amp; vocal presence for AM Radio)</text>
+
+      <line x1="430" y1="8" x2="460" y2="8" stroke="#38bdf8" stroke-width="3" stroke-dasharray="4 2" />
+      <text x="470" y="12" fill="#bae6fd" font-family="system-ui, sans-serif" font-size="10" font-weight="800">Soft Cell (1981): Smile EQ (Deep Sub &amp; Synth Sparkle)</text>
+    </g>
+  </g>
+
+  <!-- ==================== BOTTOM SPECIFICATION CARDS ==================== -->
+  <g transform="translate(24, 320)">
+    <!-- Card 1: Correct Answer -->
+    <g transform="translate(0, 0)">
+      <rect x="0" y="0" width="216" height="84" rx="8" fill="#111827" stroke="#f59e0b" stroke-width="1.2" />
+      <rect x="12" y="10" width="104" height="18" rx="4" fill="#78350f" />
+      <text x="64" y="22" fill="#fef3c7" font-family="system-ui, sans-serif" font-size="9" font-weight="800" text-anchor="middle">&#x2713; CORRECT ANSWER</text>
+      <text x="12" y="44" fill="#fde68a" font-family="system-ui, sans-serif" font-size="10.5" font-weight="700">Version A (Gloria Jones)</text>
+      <text x="12" y="58" fill="#9ca3af" font-family="system-ui, sans-serif" font-size="9.5">Mid-range focused curve</text>
+      <text x="12" y="72" fill="#9ca3af" font-family="system-ui, sans-serif" font-size="9.5">Lacks deep sub-bass and ultra-highs</text>
+    </g>
+
+    <!-- Card 2: 1960s Technical Limitations -->
+    <g transform="translate(228, 0)">
+      <rect x="0" y="0" width="216" height="84" rx="8" fill="#111827" stroke="#374151" stroke-width="1.2" />
+      <rect x="12" y="10" width="100" height="18" rx="4" fill="#1f2937" />
+      <text x="62" y="22" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="9" font-weight="800" text-anchor="middle">AM / VINYL CUT</text>
+      <text x="12" y="44" fill="#e5e7eb" font-family="system-ui, sans-serif" font-size="10.5" font-weight="700">Bandwidth Limits</text>
+      <text x="12" y="58" fill="#9ca3af" font-family="system-ui, sans-serif" font-size="9.5">Sub-bass below 60Hz caused needle jump;</text>
+      <text x="12" y="72" fill="#9ca3af" font-family="system-ui, sans-serif" font-size="9.5">AM radio transmitters rolled off &gt;10kHz</text>
+    </g>
+
+    <!-- Card 3: 1980s Modern Sound -->
+    <g transform="translate(456, 0)">
+      <rect x="0" y="0" width="216" height="84" rx="8" fill="#111827" stroke="#374151" stroke-width="1.2" />
+      <rect x="12" y="10" width="112" height="18" rx="4" fill="#1f2937" />
+      <text x="68" y="22" fill="#a855f7" font-family="system-ui, sans-serif" font-size="9" font-weight="800" text-anchor="middle">1980s EXPANDED EQ</text>
+      <text x="12" y="44" fill="#e5e7eb" font-family="system-ui, sans-serif" font-size="10.5" font-weight="700">Electronic Range</text>
+      <text x="12" y="58" fill="#9ca3af" font-family="system-ui, sans-serif" font-size="9.5">Analog synthesizers generated 35Hz rumble</text>
+      <text x="12" y="72" fill="#9ca3af" font-family="system-ui, sans-serif" font-size="9.5">and pristine 15kHz metallic pings</text>
+    </g>
+  </g>
+</svg>

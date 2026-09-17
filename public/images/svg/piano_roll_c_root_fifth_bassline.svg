@@ -1,0 +1,194 @@
+<svg width="720" height="420" viewBox="0 0 720 420" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg-grad-roll" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#090d16" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+
+    <!-- Note Glows -->
+    <filter id="glow-root-note" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+
+    <filter id="glow-fifth-note" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+
+    <linearGradient id="c-note-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#06b6d4" />
+      <stop offset="100%" stop-color="#3b82f6" />
+    </linearGradient>
+
+    <linearGradient id="g-note-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#a855f7" />
+      <stop offset="100%" stop-color="#ec4899" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background Panel -->
+  <rect width="720" height="420" rx="14" fill="url(#bg-grad-roll)" />
+  <rect x="1" y="1" width="718" height="418" rx="13" stroke="#334155" stroke-width="1.5" />
+
+  <!-- Top Title Bar -->
+  <g transform="translate(24, 16)">
+    <rect x="0" y="0" width="672" height="34" rx="7" fill="#1e293b" stroke="#06b6d4" stroke-width="1.2" />
+    <circle cx="18" cy="17" r="5" fill="#06b6d4" />
+    <text x="32" y="22" fill="#f8fafc" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" letter-spacing="0.8">PIANO ROLL SEQUENCING: C ROOT &amp; G 5TH BASSLINE (CORRECT PATTERN)</text>
+    <rect x="526" y="6" width="134" height="22" rx="4" fill="#0891b2" fill-opacity="0.4" stroke="#06b6d4" stroke-width="0.8" />
+    <text x="593" y="21" fill="#cffafe" font-family="system-ui, -apple-system, sans-serif" font-size="10.5" font-weight="800" text-anchor="middle">16-STEP GRID (4/4)</text>
+  </g>
+
+  <!-- ==================== PIANO ROLL SEQUENCER GRID ==================== -->
+  <g transform="translate(24, 60)">
+    <rect x="0" y="0" width="672" height="248" rx="10" fill="#090f1f" stroke="#1e293b" stroke-width="1.2" />
+
+    <!-- Beat Timeline Header (Above grid) -->
+    <g transform="translate(76, 12)">
+      <!-- Beat 1: Cols 0-3 (width: 140px) -->
+      <rect x="0" y="0" width="136" height="20" rx="3" fill="#1e293b" stroke="#334155" />
+      <text x="68" y="14" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="10" font-weight="800" text-anchor="middle">BEAT 1 (1.1 - 1.2)</text>
+
+      <!-- Beat 2: Cols 4-7 (width: 140px) -->
+      <rect x="144" y="0" width="136" height="20" rx="3" fill="#1e293b" stroke="#334155" />
+      <text x="212" y="14" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="10" font-weight="800" text-anchor="middle">BEAT 2 (1.2 - 1.3)</text>
+
+      <!-- Beat 3: Cols 8-11 (width: 140px) -->
+      <rect x="288" y="0" width="136" height="20" rx="3" fill="#1e293b" stroke="#334155" />
+      <text x="356" y="14" fill="#c084fc" font-family="system-ui, sans-serif" font-size="10" font-weight="800" text-anchor="middle">BEAT 3 (1.3 - 1.4)</text>
+
+      <!-- Beat 4: Cols 12-15 (width: 140px) -->
+      <rect x="432" y="0" width="136" height="20" rx="3" fill="#1e293b" stroke="#334155" />
+      <text x="500" y="14" fill="#c084fc" font-family="system-ui, sans-serif" font-size="10" font-weight="800" text-anchor="middle">BEAT 4 (1.4 - 2.1)</text>
+    </g>
+
+    <!-- LEFT KEYBOARD / PITCH LABELS -->
+    <!-- Rows: G4 (y=40), F4 (y=78), E4 (y=116), D4 (y=154), C4 (y=192) -->
+    <g transform="translate(14, 40)">
+      <!-- Row 0: G4 (The 5th) -->
+      <rect x="0" y="0" width="56" height="34" rx="4" fill="#6b21a8" stroke="#a855f7" stroke-width="1.2" />
+      <text x="28" y="21" fill="#f3e8ff" font-family="system-ui, sans-serif" font-size="12" font-weight="800" text-anchor="middle">G4 (5th)</text>
+
+      <!-- Row 1: F4 -->
+      <rect x="0" y="38" width="56" height="34" rx="4" fill="#1e293b" stroke="#334155" />
+      <text x="28" y="59" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="12" font-weight="700" text-anchor="middle">F4</text>
+
+      <!-- Row 2: E4 -->
+      <rect x="0" y="76" width="56" height="34" rx="4" fill="#1e293b" stroke="#334155" />
+      <text x="28" y="97" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="12" font-weight="700" text-anchor="middle">E4</text>
+
+      <!-- Row 3: D4 -->
+      <rect x="0" y="114" width="56" height="34" rx="4" fill="#1e293b" stroke="#334155" />
+      <text x="28" y="135" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="12" font-weight="700" text-anchor="middle">D4</text>
+
+      <!-- Row 4: C4 (The Root) -->
+      <rect x="0" y="152" width="56" height="34" rx="4" fill="#0e7490" stroke="#06b6d4" stroke-width="1.2" />
+      <text x="28" y="173" fill="#cffafe" font-family="system-ui, sans-serif" font-size="12" font-weight="800" text-anchor="middle">C4 (Root)</text>
+    </g>
+
+    <!-- 16-STEP GRID CANVAS -->
+    <!-- Origin (76, 40), width = 576 (36px per step), height = 190 (38px per row) -->
+    <g transform="translate(76, 40)">
+      <!-- Row Background Strips -->
+      <rect x="0" y="0" width="576" height="34" fill="#131024" rx="3" />
+      <rect x="0" y="38" width="576" height="34" fill="#0f172a" rx="3" />
+      <rect x="0" y="76" width="576" height="34" fill="#0c1322" rx="3" />
+      <rect x="0" y="114" width="576" height="34" fill="#0f172a" rx="3" />
+      <rect x="0" y="152" width="576" height="34" fill="#081e28" rx="3" />
+
+      <!-- Step Grid Lines (16 columns: 36px each) -->
+      <!-- Sub-beat vertical lines -->
+      <line x1="36" y1="0" x2="36" y2="186" stroke="#1e293b" stroke-width="1" />
+      <line x1="72" y1="0" x2="72" y2="186" stroke="#1e293b" stroke-width="1" />
+      <line x1="108" y1="0" x2="108" y2="186" stroke="#1e293b" stroke-width="1" />
+      <!-- Beat 2 Line (thick) -->
+      <line x1="144" y1="0" x2="144" y2="186" stroke="#334155" stroke-width="2" />
+      <line x1="180" y1="0" x2="180" y2="186" stroke="#1e293b" stroke-width="1" />
+      <line x1="216" y1="0" x2="216" y2="186" stroke="#1e293b" stroke-width="1" />
+      <line x1="252" y1="0" x2="252" y2="186" stroke="#1e293b" stroke-width="1" />
+      <!-- Beat 3 Line (thick) -->
+      <line x1="288" y1="0" x2="288" y2="186" stroke="#475569" stroke-width="2" />
+      <line x1="324" y1="0" x2="324" y2="186" stroke="#1e293b" stroke-width="1" />
+      <line x1="360" y1="0" x2="360" y2="186" stroke="#1e293b" stroke-width="1" />
+      <line x1="396" y1="0" x2="396" y2="186" stroke="#1e293b" stroke-width="1" />
+      <!-- Beat 4 Line (thick) -->
+      <line x1="432" y1="0" x2="432" y2="186" stroke="#334155" stroke-width="2" />
+      <line x1="468" y1="0" x2="468" y2="186" stroke="#1e293b" stroke-width="1" />
+      <line x1="504" y1="0" x2="504" y2="186" stroke="#1e293b" stroke-width="1" />
+      <line x1="540" y1="0" x2="540" y2="186" stroke="#1e293b" stroke-width="1" />
+
+      <!-- ==================== THE SEQUENCED NOTES (CORRECT ANSWER) ==================== -->
+      <!-- 1. C4 LONG NOTE: Row 4 (y=152), Col 0 to 3 (x=0, width = 4 * 36 = 144px) -->
+      <rect x="2" y="154" width="140" height="30" rx="5" fill="url(#c-note-grad)" stroke="#67e8f9" stroke-width="1.5" filter="url(#glow-root-note)" />
+      <text x="72" y="173" fill="#ffffff" font-family="system-ui, sans-serif" font-size="11" font-weight="900" text-anchor="middle">C4 ROOT (LONG: 4 STEPS)</text>
+
+      <!-- 2. G4 SHORT NOTE 1: Row 0 (y=0), Col 8 to 9 (x=288, width = 2 * 36 = 72px) -->
+      <rect x="290" y="2" width="68" height="30" rx="5" fill="url(#g-note-grad)" stroke="#f472b6" stroke-width="1.5" filter="url(#glow-fifth-note)" />
+      <text x="324" y="21" fill="#ffffff" font-family="system-ui, sans-serif" font-size="10.5" font-weight="900" text-anchor="middle">G4 (SHORT)</text>
+
+      <!-- 3. G4 SHORT NOTE 2: Row 0 (y=0), Col 12 to 13 (x=432, width = 2 * 36 = 72px) -->
+      <rect x="434" y="2" width="68" height="30" rx="5" fill="url(#g-note-grad)" stroke="#f472b6" stroke-width="1.5" filter="url(#glow-fifth-note)" />
+      <text x="468" y="21" fill="#ffffff" font-family="system-ui, sans-serif" font-size="10.5" font-weight="900" text-anchor="middle">G4 (SHORT)</text>
+
+      <!-- Grid step numbers along bottom -->
+      <g transform="translate(0, 190)">
+        <text x="18" y="10" fill="#475569" font-family="monospace" font-size="9" text-anchor="middle">1</text>
+        <text x="54" y="10" fill="#475569" font-family="monospace" font-size="9" text-anchor="middle">2</text>
+        <text x="90" y="10" fill="#475569" font-family="monospace" font-size="9" text-anchor="middle">3</text>
+        <text x="126" y="10" fill="#475569" font-family="monospace" font-size="9" text-anchor="middle">4</text>
+        <text x="162" y="10" fill="#475569" font-family="monospace" font-size="9" text-anchor="middle">5</text>
+        <text x="198" y="10" fill="#475569" font-family="monospace" font-size="9" text-anchor="middle">6</text>
+        <text x="234" y="10" fill="#475569" font-family="monospace" font-size="9" text-anchor="middle">7</text>
+        <text x="270" y="10" fill="#475569" font-family="monospace" font-size="9" text-anchor="middle">8</text>
+        <text x="306" y="10" fill="#c084fc" font-family="monospace" font-size="9" font-weight="700" text-anchor="middle">9</text>
+        <text x="342" y="10" fill="#c084fc" font-family="monospace" font-size="9" font-weight="700" text-anchor="middle">10</text>
+        <text x="378" y="10" fill="#475569" font-family="monospace" font-size="9" text-anchor="middle">11</text>
+        <text x="414" y="10" fill="#475569" font-family="monospace" font-size="9" text-anchor="middle">12</text>
+        <text x="450" y="10" fill="#c084fc" font-family="monospace" font-size="9" font-weight="700" text-anchor="middle">13</text>
+        <text x="486" y="10" fill="#c084fc" font-family="monospace" font-size="9" font-weight="700" text-anchor="middle">14</text>
+        <text x="522" y="10" fill="#475569" font-family="monospace" font-size="9" text-anchor="middle">15</text>
+        <text x="558" y="10" fill="#475569" font-family="monospace" font-size="9" text-anchor="middle">16</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- ==================== BOTTOM SPECIFICATION CARDS ==================== -->
+  <g transform="translate(24, 320)">
+    <!-- Card 1: Pattern Breakdown -->
+    <g transform="translate(0, 0)">
+      <rect x="0" y="0" width="216" height="84" rx="8" fill="#111827" stroke="#374151" stroke-width="1.2" />
+      <rect x="12" y="10" width="94" height="18" rx="4" fill="#1f2937" />
+      <text x="59" y="22" fill="#06b6d4" font-family="system-ui, sans-serif" font-size="9" font-weight="800" text-anchor="middle">PATTERN STEPS</text>
+      <text x="12" y="44" fill="#e5e7eb" font-family="system-ui, sans-serif" font-size="10.5" font-weight="700">Beat 1: C4 (Length 4)</text>
+      <text x="12" y="58" fill="#9ca3af" font-family="system-ui, sans-serif" font-size="9.5">Beat 3: G4 (Col 8, Length 2)</text>
+      <text x="12" y="72" fill="#9ca3af" font-family="system-ui, sans-serif" font-size="9.5">Beat 4: G4 (Col 12, Length 2)</text>
+    </g>
+
+    <!-- Card 2: Root-Fifth Harmony -->
+    <g transform="translate(228, 0)">
+      <rect x="0" y="0" width="216" height="84" rx="8" fill="#111827" stroke="#374151" stroke-width="1.2" />
+      <rect x="12" y="10" width="102" height="18" rx="4" fill="#1f2937" />
+      <text x="63" y="22" fill="#a855f7" font-family="system-ui, sans-serif" font-size="9" font-weight="800" text-anchor="middle">MUSICAL FUNCTION</text>
+      <text x="12" y="44" fill="#e5e7eb" font-family="system-ui, sans-serif" font-size="10.5" font-weight="700">Root-Fifth Foundation</text>
+      <text x="12" y="58" fill="#9ca3af" font-family="system-ui, sans-serif" font-size="9.5">C = Root (Tonal foundation / anchor)</text>
+      <text x="12" y="72" fill="#9ca3af" font-family="system-ui, sans-serif" font-size="9.5">G = Perfect 5th (7 semitones higher)</text>
+    </g>
+
+    <!-- Card 3: Rhythmic Groove -->
+    <g transform="translate(456, 0)">
+      <rect x="0" y="0" width="216" height="84" rx="8" fill="#111827" stroke="#22c55e" stroke-width="1.2" />
+      <rect x="12" y="10" width="90" height="18" rx="4" fill="#14532d" />
+      <text x="57" y="22" fill="#4ade80" font-family="system-ui, sans-serif" font-size="9" font-weight="800" text-anchor="middle">&#x2713; GROOVE DYNAMICS</text>
+      <text x="12" y="44" fill="#4ade80" font-family="system-ui, sans-serif" font-size="10.5" font-weight="700">Long Root + Short 5ths</text>
+      <text x="12" y="58" fill="#9ca3af" font-family="system-ui, sans-serif" font-size="9.5">Holding the root grounds the beat,</text>
+      <text x="12" y="72" fill="#9ca3af" font-family="system-ui, sans-serif" font-size="9.5">while short 5ths inject bounce &amp; syncopation</text>
+    </g>
+  </g>
+</svg>

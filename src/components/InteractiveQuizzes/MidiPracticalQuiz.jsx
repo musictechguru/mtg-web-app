@@ -7,6 +7,9 @@ export default function MidiPracticalQuiz({
     max = 24,
     step = 1,
     targetValue = 12,
+    tolerance = 0,
+    targetMin,
+    targetMax,
     unit = 'ST',
     onResult
 }) {
@@ -20,12 +23,20 @@ export default function MidiPracticalQuiz({
         setValues([min]);
         setIsSubmitted(false);
         setIsCorrect(false);
-    }, [controlType, targetValue, min, max]);
+    }, [controlType, targetValue, tolerance, targetMin, targetMax, min, max]);
 
     const checkAnswer = () => {
         setIsSubmitted(true);
         const userValue = values[0];
-        const correct = userValue === targetValue;
+        let correct = false;
+
+        if (targetMin !== undefined && targetMax !== undefined) {
+            correct = userValue >= targetMin && userValue <= targetMax;
+        } else if (tolerance > 0) {
+            correct = Math.abs(userValue - targetValue) <= tolerance;
+        } else {
+            correct = userValue === targetValue;
+        }
 
         setIsCorrect(correct);
         if (onResult) {
@@ -157,7 +168,19 @@ export default function MidiPracticalQuiz({
             ) : (
                 <div style={{ marginTop: '20px', padding: '15px', borderRadius: '8px', background: isCorrect ? 'rgba(34, 197, 94, 0.2)' : 'rgba(239, 68, 68, 0.2)', border: isCorrect ? '1px solid #22c55e' : '1px solid #ef4444', textAlign: 'center' }}>
                     <p style={{ fontWeight: 'bold', margin: 0, color: isCorrect ? '#22c55e' : '#ef4444' }}>
-                        {isCorrect ? "Spot on! That's correct." : `Incorrect. The target was ${targetValue} ${unit}.`}
+                        {isCorrect ? (
+                            targetMin !== undefined && targetMax !== undefined
+                                ? `Spot on! ${values[0]}${unit ? ` ${unit}` : ''} is within the soft/delicate touch range (${targetMin}–${targetMax}${unit ? ` ${unit}` : ''}).`
+                                : tolerance > 0
+                                    ? `Spot on! ${values[0]}${unit ? ` ${unit}` : ''} is within the acceptable range (Target: ${targetValue} ± ${tolerance}${unit ? ` ${unit}` : ''}).`
+                                    : "Spot on! That's correct."
+                        ) : (
+                            targetMin !== undefined && targetMax !== undefined
+                                ? `Incorrect. A soft, delicate key press ranges from ${targetMin} to ${targetMax}${unit ? ` ${unit}` : ''} (Target: ${targetValue}).`
+                                : tolerance > 0
+                                    ? `Incorrect. Expected around ${targetValue}${unit ? ` ${unit}` : ''} (±${tolerance}).`
+                                    : `Incorrect. The target was ${targetValue} ${unit}.`
+                        )}
                     </p>
                 </div>
             )}

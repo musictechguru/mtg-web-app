@@ -1,27 +1,176 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600"><rect width="100%" height="100%" fill="#1a1a1a"/>
-    <defs>
-        <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
-      <path d="M0,0 L0,6 L9,3 z" fill="#fff" />
-    </marker>
-    </defs>
-    
-    <!-- Mic -->
-    <rect x="50" y="250" width="100" height="100" rx="10" fill="#db4437" />
-    <text x="100" y="305" text-anchor="middle" fill="white" font-family="Arial">Mic</text>
-    
-    <!-- Cable -->
-    <line x1="150" y1="300" x2="250" y2="300" stroke="white" stroke-width="4" marker-end="url(#arrow)"/>
-    
-    <!-- Preamp -->
-    <rect x="250" y="250" width="150" height="100" rx="10" fill="#f4b400" />
-    <text x="325" y="305" text-anchor="middle" fill="black" font-family="Arial">Preamp</text>
-    
-    <!-- Cable -->
-    <line x1="400" y1="300" x2="500" y2="300" stroke="white" stroke-width="4" marker-end="url(#arrow)"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 320" fill="none">
+  <!-- Dark Studio Background -->
+  <rect width="920" height="320" rx="14" fill="#0f172a" />
 
-    <!-- Interface -->
-    <rect x="500" y="250" width="150" height="100" rx="10" fill="#0f9d58" />
-    <text x="575" y="305" text-anchor="middle" fill="white" font-family="Arial">Interface (A/D)</text>
-    
-    <text x="400" y="100" text-anchor="middle" fill="white" font-size="32">Basic Signal Flow</text>
-    </svg>
+  <!-- Subtle Blueprint Grid -->
+  <g stroke="#1e293b" stroke-width="1" opacity="0.6">
+    <line x1="40" y1="70" x2="880" y2="70" />
+    <line x1="40" y1="260" x2="880" y2="260" />
+    <line x1="40" y1="165" x2="880" y2="165" stroke-dasharray="3 3" />
+  </g>
+
+  <!-- Title Badge -->
+  <rect x="260" y="16" width="400" height="32" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1" />
+  <text x="460" y="37" fill="#38bdf8" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" text-anchor="middle" letter-spacing="1.2">RECORDING SIGNAL CHAIN: SOURCE TO DAW</text>
+
+  <!-- Marker definition -->
+  <defs>
+    <filter id="card-glow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000" flood-opacity="0.4" />
+    </filter>
+    <linearGradient id="mic-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ef4444" stop-opacity="0.2" />
+      <stop offset="100%" stop-color="#b91c1c" stop-opacity="0.05" />
+    </linearGradient>
+    <linearGradient id="xlr-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.2" />
+      <stop offset="100%" stop-color="#b45309" stop-opacity="0.05" />
+    </linearGradient>
+    <linearGradient id="iface-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981" stop-opacity="0.2" />
+      <stop offset="100%" stop-color="#047857" stop-opacity="0.05" />
+    </linearGradient>
+    <linearGradient id="usb-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#06b6d4" stop-opacity="0.2" />
+      <stop offset="100%" stop-color="#0e7490" stop-opacity="0.05" />
+    </linearGradient>
+    <linearGradient id="daw-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#a855f7" stop-opacity="0.2" />
+      <stop offset="100%" stop-color="#7e22ce" stop-opacity="0.05" />
+    </linearGradient>
+  </defs>
+
+  <!-- STEP 1: Condenser Microphone -->
+  <g transform="translate(30, 75)" filter="url(#card-glow)">
+    <rect width="145" height="175" rx="10" fill="#1e293b" stroke="#ef4444" stroke-width="1.5" />
+    <rect width="145" height="175" rx="10" fill="url(#mic-grad)" />
+    <!-- Step Badge -->
+    <rect x="10" y="10" width="24" height="20" rx="4" fill="#ef4444" />
+    <text x="22" y="24" fill="#fff" font-family="system-ui, sans-serif" font-size="11" font-weight="800" text-anchor="middle">1</text>
+    <text x="72" y="24" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="10" font-weight="600">TRANSDUCER</text>
+    <!-- Mic Icon -->
+    <rect x="57" y="44" width="30" height="42" rx="15" fill="#334155" stroke="#ef4444" stroke-width="1.5" />
+    <line x1="57" y1="62" x2="87" y2="62" stroke="#ef4444" stroke-width="1" />
+    <path d="M 50 64 Q 50 92 72 92 Q 94 92 94 64" fill="none" stroke="#94a3b8" stroke-width="2" />
+    <line x1="72" y1="92" x2="72" y2="104" stroke="#94a3b8" stroke-width="2" />
+    <!-- Label -->
+    <text x="72" y="124" fill="#f8fafc" font-family="system-ui, sans-serif" font-size="12" font-weight="700" text-anchor="middle">Condenser Mic</text>
+    <text x="72" y="140" fill="#fca5a5" font-family="system-ui, sans-serif" font-size="10" font-weight="500" text-anchor="middle">Acoustic → Electric</text>
+    <text x="72" y="158" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="9" text-anchor="middle">Mic Level (-50 dBu)</text>
+  </g>
+
+  <!-- Arrow 1 -> 2 -->
+  <g stroke="#64748b" stroke-width="2" fill="none">
+    <line x1="180" y1="162" x2="200" y2="162" />
+    <polygon points="200,158 208,162 200,166" fill="#64748b" stroke="none" />
+  </g>
+
+  <!-- STEP 2: XLR Cable -->
+  <g transform="translate(213, 75)" filter="url(#card-glow)">
+    <rect width="145" height="175" rx="10" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5" />
+    <rect width="145" height="175" rx="10" fill="url(#xlr-grad)" />
+    <!-- Step Badge -->
+    <rect x="10" y="10" width="24" height="20" rx="4" fill="#f59e0b" />
+    <text x="22" y="24" fill="#000" font-family="system-ui, sans-serif" font-size="11" font-weight="800" text-anchor="middle">2</text>
+    <text x="72" y="24" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="10" font-weight="600">BALANCED LINE</text>
+    <!-- XLR Icon -->
+    <circle cx="72" cy="72" r="22" fill="#334155" stroke="#f59e0b" stroke-width="1.5" />
+    <circle cx="65" cy="67" r="3" fill="#f59e0b" />
+    <circle cx="79" cy="67" r="3" fill="#f59e0b" />
+    <circle cx="72" cy="79" r="3" fill="#f59e0b" />
+    <!-- Label -->
+    <text x="72" y="124" fill="#f8fafc" font-family="system-ui, sans-serif" font-size="12" font-weight="700" text-anchor="middle">XLR Cable</text>
+    <text x="72" y="140" fill="#fcd34d" font-family="system-ui, sans-serif" font-size="10" font-weight="500" text-anchor="middle">Hot, Cold &amp; Shield</text>
+    <text x="72" y="158" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="9" text-anchor="middle">Rejects EMI Noise</text>
+  </g>
+
+  <!-- Arrow 2 -> 3 -->
+  <g stroke="#64748b" stroke-width="2" fill="none">
+    <line x1="363" y1="162" x2="383" y2="162" />
+    <polygon points="383,158 391,162 383,166" fill="#64748b" stroke="none" />
+  </g>
+
+  <!-- STEP 3: Audio Interface -->
+  <g transform="translate(396, 75)" filter="url(#card-glow)">
+    <rect width="150" height="175" rx="10" fill="#1e293b" stroke="#10b981" stroke-width="1.5" />
+    <rect width="150" height="175" rx="10" fill="url(#iface-grad)" />
+    <!-- Step Badge -->
+    <rect x="10" y="10" width="24" height="20" rx="4" fill="#10b981" />
+    <text x="22" y="24" fill="#000" font-family="system-ui, sans-serif" font-size="11" font-weight="800" text-anchor="middle">3</text>
+    <text x="75" y="24" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="10" font-weight="600">PREAMP &amp; ADC</text>
+    <!-- Interface Graphic -->
+    <rect x="35" y="50" width="80" height="42" rx="4" fill="#334155" stroke="#10b981" stroke-width="1.5" />
+    <circle cx="55" cy="71" r="9" fill="#1e293b" stroke="#10b981" stroke-width="1.5" />
+    <line x1="55" y1="71" x2="60" y2="66" stroke="#10b981" stroke-width="1.5" />
+    <circle cx="78" cy="65" r="3" fill="#ef4444" />
+    <circle cx="78" cy="77" r="3" fill="#10b981" />
+    <rect x="92" y="63" width="14" height="16" rx="2" fill="#1e293b" />
+    <!-- Label -->
+    <text x="75" y="124" fill="#f8fafc" font-family="system-ui, sans-serif" font-size="12" font-weight="700" text-anchor="middle">Audio Interface</text>
+    <text x="75" y="140" fill="#6ee7b7" font-family="system-ui, sans-serif" font-size="10" font-weight="500" text-anchor="middle">Preamp Gain Stage</text>
+    <text x="75" y="158" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="9" text-anchor="middle">A/D Conversion (24-bit)</text>
+  </g>
+
+  <!-- Arrow 3 -> 4 -->
+  <g stroke="#64748b" stroke-width="2" fill="none">
+    <line x1="551" y1="162" x2="571" y2="162" />
+    <polygon points="571,158 579,162 571,166" fill="#64748b" stroke="none" />
+  </g>
+
+  <!-- STEP 4: USB Cable -->
+  <g transform="translate(584, 75)" filter="url(#card-glow)">
+    <rect width="145" height="175" rx="10" fill="#1e293b" stroke="#06b6d4" stroke-width="1.5" />
+    <rect width="145" height="175" rx="10" fill="url(#usb-grad)" />
+    <!-- Step Badge -->
+    <rect x="10" y="10" width="24" height="20" rx="4" fill="#06b6d4" />
+    <text x="22" y="24" fill="#000" font-family="system-ui, sans-serif" font-size="11" font-weight="800" text-anchor="middle">4</text>
+    <text x="72" y="24" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="10" font-weight="600">DATA PROTOCOL</text>
+    <!-- USB Graphic -->
+    <rect x="52" y="55" width="40" height="30" rx="3" fill="#334155" stroke="#06b6d4" stroke-width="1.5" />
+    <line x1="62" y1="62" x2="62" y2="78" stroke="#06b6d4" stroke-width="2" />
+    <line x1="72" y1="60" x2="72" y2="80" stroke="#06b6d4" stroke-width="2" />
+    <line x1="82" y1="64" x2="82" y2="76" stroke="#06b6d4" stroke-width="2" />
+    <!-- Label -->
+    <text x="72" y="124" fill="#f8fafc" font-family="system-ui, sans-serif" font-size="12" font-weight="700" text-anchor="middle">USB Cable</text>
+    <text x="72" y="140" fill="#67e8f9" font-family="system-ui, sans-serif" font-size="10" font-weight="500" text-anchor="middle">High-Speed Stream</text>
+    <text x="72" y="158" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="9" text-anchor="middle">Digital Audio Packets</text>
+  </g>
+
+  <!-- Arrow 4 -> 5 -->
+  <g stroke="#64748b" stroke-width="2" fill="none">
+    <line x1="734" y1="162" x2="754" y2="162" />
+    <polygon points="754,158 762,162 754,166" fill="#64748b" stroke="none" />
+  </g>
+
+  <!-- STEP 5: Laptop (DAW) -->
+  <g transform="translate(767, 75)" filter="url(#card-glow)">
+    <rect width="145" height="175" rx="10" fill="#1e293b" stroke="#a855f7" stroke-width="1.5" />
+    <rect width="145" height="175" rx="10" fill="url(#daw-grad)" />
+    <!-- Step Badge -->
+    <rect x="10" y="10" width="24" height="20" rx="4" fill="#a855f7" />
+    <text x="22" y="24" fill="#fff" font-family="system-ui, sans-serif" font-size="11" font-weight="800" text-anchor="middle">5</text>
+    <text x="72" y="24" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="10" font-weight="600">DESTINATION</text>
+    <!-- Laptop Graphic -->
+    <rect x="47" y="52" width="50" height="32" rx="3" fill="#334155" stroke="#a855f7" stroke-width="1.5" />
+    <path d="M 52 68 Q 60 58 66 68 T 80 68" fill="none" stroke="#a855f7" stroke-width="1.5" />
+    <line x1="42" y1="84" x2="102" y2="84" stroke="#a855f7" stroke-width="2" />
+    <!-- Label -->
+    <text x="72" y="124" fill="#f8fafc" font-family="system-ui, sans-serif" font-size="12" font-weight="700" text-anchor="middle">Laptop (DAW)</text>
+    <text x="72" y="140" fill="#d8b4fe" font-family="system-ui, sans-serif" font-size="10" font-weight="500" text-anchor="middle">Multi-track Software</text>
+    <text x="72" y="158" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="9" text-anchor="middle">32-bit Float Storage</text>
+  </g>
+
+  <!-- Bottom Signal Progression Bar -->
+  <g transform="translate(40, 268)">
+    <rect width="840" height="32" rx="6" fill="#1e293b" />
+    <text x="90" y="20" fill="#ef4444" font-family="system-ui, sans-serif" font-size="10" font-weight="700" text-anchor="middle">Acoustic Sound</text>
+    <text x="180" y="20" fill="#64748b" font-family="system-ui, sans-serif" font-size="11" text-anchor="middle">→</text>
+    <text x="270" y="20" fill="#f59e0b" font-family="system-ui, sans-serif" font-size="10" font-weight="700" text-anchor="middle">Mic Level (mV)</text>
+    <text x="360" y="20" fill="#64748b" font-family="system-ui, sans-serif" font-size="11" text-anchor="middle">→</text>
+    <text x="460" y="20" fill="#10b981" font-family="system-ui, sans-serif" font-size="10" font-weight="700" text-anchor="middle">Line Level (+4 dBu)</text>
+    <text x="560" y="20" fill="#64748b" font-family="system-ui, sans-serif" font-size="11" text-anchor="middle">→</text>
+    <text x="655" y="20" fill="#06b6d4" font-family="system-ui, sans-serif" font-size="10" font-weight="700" text-anchor="middle">Digital PCM Stream</text>
+    <text x="745" y="20" fill="#64748b" font-family="system-ui, sans-serif" font-size="11" text-anchor="middle">→</text>
+    <text x="805" y="20" fill="#a855f7" font-family="system-ui, sans-serif" font-size="10" font-weight="700" text-anchor="middle">DAW Audio Track</text>
+  </g>
+</svg>

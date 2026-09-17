@@ -1,0 +1,88 @@
+<svg width="720" height="420" viewBox="0 0 720 420" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg-grad-adt" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#090d16" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+    <filter id="glow-adt-cyan" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <rect width="720" height="420" rx="14" fill="url(#bg-grad-adt)" />
+  <rect x="1" y="1" width="718" height="418" rx="13" stroke="#334155" stroke-width="1.5" />
+
+  <!-- Title Bar -->
+  <g transform="translate(24, 16)">
+    <rect x="0" y="0" width="672" height="34" rx="7" fill="#1e293b" stroke="#06b6d4" stroke-width="1.2" />
+    <circle cx="18" cy="17" r="5" fill="#06b6d4" filter="url(#glow-adt-cyan)" />
+    <text x="32" y="22" fill="#f8fafc" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" letter-spacing="0.6">VOCAL PROCESSING: ARTIFICIAL DOUBLE TRACKING (ADT) AT ABBEY ROAD</text>
+    <rect x="520" y="6" width="140" height="22" rx="4" fill="#155e75" fill-opacity="0.4" stroke="#06b6d4" stroke-width="0.8" />
+    <text x="590" y="21" fill="#cffafe" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="800" text-anchor="middle">KEN TOWNSEND (1966)</text>
+  </g>
+
+  <!-- Flow Schematic -->
+  <g transform="translate(24, 62)">
+    <rect x="0" y="0" width="672" height="264" rx="10" fill="#0b1329" stroke="#1e293b" stroke-width="1.2" />
+
+    <!-- Step 1: 4-Track Studer Tape Recorder -->
+    <g transform="translate(20, 20)">
+      <rect x="0" y="0" width="180" height="100" rx="8" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5" />
+      <text x="14" y="24" fill="#7dd3fc" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="800">1. MASTER TAPE RECORDER</text>
+      <text x="14" y="42" fill="#cbd5e1" font-family="system-ui, -apple-system, sans-serif" font-size="9">Studer J37 4-Track Tape</text>
+      <text x="14" y="58" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="8.5">• Direct Dry Vocal Track</text>
+      <text x="14" y="72" fill="#38bdf8" font-family="system-ui, -apple-system, sans-serif" font-size="8.5" font-weight="700">• Signal tapped from SYNC head</text>
+      <text x="14" y="86" fill="#64748b" font-family="system-ui, -apple-system, sans-serif" font-size="8">before reaching record head</text>
+    </g>
+
+    <!-- Path 1: Direct to Mixing Console -->
+    <path d="M 200 50 L 460 50" stroke="#38bdf8" stroke-width="2.5" fill="none" />
+    <text x="240" y="42" fill="#38bdf8" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="700">DIRECT VOCAL (DRY)</text>
+
+    <!-- Path 2: Down to Secondary Tape Recorder for Delay -->
+    <path d="M 110 120 L 110 160 L 220 160" stroke="#f59e0b" stroke-width="2.5" fill="none" />
+    <text x="120" y="152" fill="#f59e0b" font-family="system-ui, -apple-system, sans-serif" font-size="8.5" font-weight="700">SYNC OUTPUT</text>
+
+    <!-- Step 2: Secondary Tape Recorder + VFO -->
+    <g transform="translate(220, 126)">
+      <rect x="0" y="0" width="210" height="114" rx="8" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5" />
+      <text x="14" y="24" fill="#fcd34d" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="800">2. BXI TAPE + VARISPEED</text>
+      <text x="14" y="42" fill="#cbd5e1" font-family="system-ui, -apple-system, sans-serif" font-size="9">Variable Frequency Oscillator (VFO)</text>
+      <text x="14" y="58" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="8.5">• Capstan motor speed modulated</text>
+      <text x="14" y="72" fill="#f59e0b" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="800">• Tape Delay: 15 ms to 45 ms</text>
+      <text x="14" y="86" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="8.5">• Slight wow &amp; flutter creates chorusing</text>
+      <text x="14" y="100" fill="#64748b" font-family="system-ui, -apple-system, sans-serif" font-size="8">Without requiring a second vocal take!</text>
+    </g>
+
+    <!-- Path from Secondary Tape to Mixing Console -->
+    <path d="M 430 180 L 460 180 L 460 110 L 480 110" stroke="#f59e0b" stroke-width="2.5" fill="none" />
+    <text x="430" y="155" fill="#f59e0b" font-family="system-ui, -apple-system, sans-serif" font-size="8.5" font-weight="700">DELAYED COPY</text>
+
+    <!-- Step 3: Mixing Desk (REDD.51) -->
+    <g transform="translate(480, 40)">
+      <rect x="0" y="0" width="170" height="180" rx="8" fill="#1e293b" stroke="#10b981" stroke-width="2" />
+      <rect x="10" y="10" width="150" height="26" rx="4" fill="#064e3b" />
+      <text x="85" y="27" fill="#a7f3d0" font-family="system-ui, -apple-system, sans-serif" font-size="10.5" font-weight="800" text-anchor="middle">ABBEY ROAD CONSOLE</text>
+      
+      <text x="14" y="58" fill="#cbd5e1" font-family="system-ui, -apple-system, sans-serif" font-size="9">CH 1: <tspan fill="#38bdf8" font-weight="700">Direct Lead Vocal</tspan></text>
+      <text x="14" y="76" fill="#cbd5e1" font-family="system-ui, -apple-system, sans-serif" font-size="9">CH 2: <tspan fill="#f59e0b" font-weight="700">ADT Delayed Vocal</tspan></text>
+
+      <rect x="10" y="96" width="150" height="70" rx="5" fill="#0f172a" />
+      <text x="85" y="116" fill="#10b981" font-family="system-ui, -apple-system, sans-serif" font-size="9.5" font-weight="800" text-anchor="middle">COMBINED OUTPUT</text>
+      <text x="85" y="132" fill="#f8fafc" font-family="system-ui, -apple-system, sans-serif" font-size="8.5" text-anchor="middle">Massive acoustic body</text>
+      <text x="85" y="146" fill="#f8fafc" font-family="system-ui, -apple-system, sans-serif" font-size="8.5" text-anchor="middle">Lush phase thickening</text>
+      <text x="85" y="160" fill="#a7f3d0" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="700" text-anchor="middle">Thickens Ringo Starr's voice</text>
+    </g>
+  </g>
+
+  <!-- Bottom Bar -->
+  <g transform="translate(24, 334)">
+    <rect x="0" y="0" width="672" height="70" rx="8" fill="#0b1329" stroke="#334155" stroke-width="1.2" />
+    <text x="16" y="22" fill="#06b6d4" font-family="system-ui, -apple-system, sans-serif" font-size="10.5" font-weight="800">WHY ADT WAS USED ON 'WITH A LITTLE HELP FROM MY FRIENDS':</text>
+    <text x="16" y="40" fill="#cbd5e1" font-family="system-ui, -apple-system, sans-serif" font-size="9.5">Ringo Starr’s vocal range was modest and thin compared to Lennon or McCartney. Abbey Road engineer Ken Townsend patched his vocal through ADT, creating a simulated second vocal take that added confidence, depth, and pop presence to the mix.</text>
+  </g>
+</svg>

@@ -1,0 +1,102 @@
+<svg width="720" height="400" viewBox="0 0 720 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="glow-cyan" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+    <filter id="glow-green" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+    <marker id="arrow-cyan" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#38bdf8" />
+    </marker>
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#10b981" />
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="720" height="400" rx="14" fill="#0f172a" />
+  <rect x="1" y="1" width="718" height="398" rx="13" stroke="#334155" stroke-width="1.5" />
+
+  <!-- Header Badge -->
+  <rect x="180" y="16" width="360" height="30" rx="6" fill="#1e293b" stroke="#10b981" stroke-width="1.2" />
+  <text x="360" y="36" fill="#10b981" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" text-anchor="middle" letter-spacing="1">SIGNAL DESTINATION: HARD DRIVE &amp; SSD STORAGE</text>
+
+  <!-- Flowchart Container -->
+  <rect x="24" y="60" width="672" height="236" rx="10" fill="#182234" stroke="#334155" stroke-width="1" />
+
+  <!-- Stage 1: Microphone & Preamp (Analog) -->
+  <g transform="translate(44, 85)">
+    <rect width="115" height="95" rx="8" fill="#0f172a" stroke="#38bdf8" stroke-width="1.2" />
+    <circle cx="57" cy="35" r="16" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5" />
+    <text x="57" y="40" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="14" font-weight="700" text-anchor="middle">MIC</text>
+    <text x="57" y="66" fill="#f8fafc" font-family="system-ui, sans-serif" font-size="10.5" font-weight="600" text-anchor="middle">Mic + Preamp</text>
+    <text x="57" y="80" fill="#94a3b8" font-family="monospace" font-size="9" text-anchor="middle">Analog Voltage</text>
+  </g>
+
+  <!-- Arrow 1 -> 2 -->
+  <line x1="162" y1="132" x2="192" y2="132" stroke="#38bdf8" stroke-width="2" marker-end="url(#arrow-cyan)" />
+
+  <!-- Stage 2: Audio Interface A/D Converter -->
+  <g transform="translate(195, 85)">
+    <rect width="125" height="95" rx="8" fill="#0f172a" stroke="#38bdf8" stroke-width="1.2" />
+    <rect x="18" y="18" width="89" height="32" rx="4" fill="#1e293b" stroke="#38bdf8" stroke-width="1" />
+    <text x="62" y="38" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="12" font-weight="700" text-anchor="middle">A/D CONV</text>
+    <text x="62" y="66" fill="#f8fafc" font-family="system-ui, sans-serif" font-size="10.5" font-weight="600" text-anchor="middle">PCM Sampling</text>
+    <text x="62" y="80" fill="#38bdf8" font-family="monospace" font-size="9" text-anchor="middle">24-bit / 48 kHz</text>
+  </g>
+
+  <!-- Arrow 2 -> 3 -->
+  <line x1="323" y1="132" x2="353" y2="132" stroke="#38bdf8" stroke-width="2" marker-end="url(#arrow-cyan)" />
+
+  <!-- Stage 3: Computer & DAW (RAM / Buffer) -->
+  <g transform="translate(356, 85)">
+    <rect width="125" height="95" rx="8" fill="#0f172a" stroke="#38bdf8" stroke-width="1.2" />
+    <rect x="18" y="18" width="89" height="32" rx="4" fill="#1e293b" stroke="#38bdf8" stroke-width="1" />
+    <text x="62" y="38" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="12" font-weight="700" text-anchor="middle">DAW / CPU</text>
+    <text x="62" y="66" fill="#f8fafc" font-family="system-ui, sans-serif" font-size="10.5" font-weight="600" text-anchor="middle">Audio Engine</text>
+    <text x="62" y="80" fill="#94a3b8" font-family="monospace" font-size="9" text-anchor="middle">RAM Buffer Pool</text>
+  </g>
+
+  <!-- Arrow 3 -> 4 (Digital Write Stream) -->
+  <line x1="484" y1="132" x2="518" y2="132" stroke="#10b981" stroke-width="2.5" marker-end="url(#arrow-green)" />
+  <text x="501" y="122" fill="#10b981" font-family="monospace" font-size="8" text-anchor="middle">WRITE</text>
+
+  <!-- Stage 4: FINAL DESTINATION (HARD DRIVE / SSD) - HIGHLIGHTED -->
+  <g transform="translate(522, 75)">
+    <rect width="156" height="115" rx="10" fill="#0b1120" stroke="#10b981" stroke-width="2" filter="url(#glow-green)" />
+    <!-- SSD Icon representation -->
+    <rect x="18" y="16" width="120" height="42" rx="5" fill="#1e293b" stroke="#10b981" stroke-width="1" />
+    <text x="78" y="35" fill="#10b981" font-family="system-ui, sans-serif" font-size="11" font-weight="800" text-anchor="middle">NVMe SSD / HDD</text>
+    <text x="78" y="50" fill="#34d399" font-family="monospace" font-size="9" text-anchor="middle">Non-Volatile Media</text>
+
+    <text x="78" y="78" fill="#f8fafc" font-family="system-ui, sans-serif" font-size="11" font-weight="700" text-anchor="middle">FINAL DESTINATION</text>
+    <rect x="25" y="86" width="106" height="18" rx="4" fill="rgba(16, 185, 129, 0.15)" stroke="#10b981" stroke-width="0.8" />
+    <text x="78" y="98" fill="#10b981" font-family="monospace" font-size="9" font-weight="700" text-anchor="middle">Audio.wav (BWF)</text>
+  </g>
+
+  <!-- Mid-Level Data Representation Bar -->
+  <g transform="translate(44, 204)">
+    <rect width="634" height="74" rx="6" fill="#0b1120" stroke="#1e293b" />
+    <text x="18" y="24" fill="#f8fafc" font-family="system-ui, sans-serif" font-size="10.5" font-weight="700">Digital Storage Architecture:</text>
+    <text x="18" y="44" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="9.5">• RAM temporarily holds incoming buffers during active playback and recording.</text>
+    <text x="18" y="60" fill="#34d399" font-family="system-ui, sans-serif" font-size="9.5">• The Hard Drive / Solid State Drive (SSD) permanently retains the audio data as uncompressed linear PCM audio files.</text>
+  </g>
+
+  <!-- Bottom Educational Summary Box -->
+  <g transform="translate(24, 310)">
+    <rect width="672" height="72" rx="8" fill="#182234" stroke="#334155" stroke-width="1" />
+    <circle cx="28" cy="36" r="14" fill="rgba(16, 185, 129, 0.15)" stroke="#10b981" stroke-width="1.2" />
+    <text x="28" y="41" fill="#10b981" font-family="system-ui, sans-serif" font-size="14" font-weight="700" text-anchor="middle">💾</text>
+    <text x="54" y="26" fill="#f8fafc" font-family="system-ui, sans-serif" font-size="11" font-weight="700">Why SSDs / Hard Drives are the Ultimate Destination:</text>
+    <text x="54" y="44" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="10">Microphones and preamps generate and amplify electrical voltage; the audio interface digitizes it. However, the signal only becomes a permanent recording once encoded and committed to disk sectors on an internal or external SSD/HDD.</text>
+  </g>
+</svg>

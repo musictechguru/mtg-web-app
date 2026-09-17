@@ -1,33 +1,202 @@
-<svg width="400" height="250" xmlns="http://www.w3.org/2000/svg">
+<svg width="720" height="420" viewBox="0 0 720 420" fill="none" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <style>
-      .text { font-family: sans-serif; fill: #eee; font-size: 12px; }
-      .dist { font-size: 14px; font-weight: bold; fill: #facc15; }
-    </style>
+    <!-- Background Gradient -->
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#090d16" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+
+    <!-- Glowing Filters -->
+    <filter id="glow-gold" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+    <filter id="glow-cyan" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="2.5" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+
+    <!-- Arrow Markers -->
+    <marker id="arrow-gold" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#facc15" />
+    </marker>
+    <marker id="arrow-gold-rev" markerWidth="8" markerHeight="6" refX="1" refY="3" orient="auto">
+      <polygon points="8 0, 0 3, 8 6" fill="#facc15" />
+    </marker>
+    <marker id="arrow-cyan" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#38bdf8" />
+    </marker>
+    <marker id="arrow-cyan-rev" markerWidth="8" markerHeight="6" refX="1" refY="3" orient="auto">
+      <polygon points="8 0, 0 3, 8 6" fill="#38bdf8" />
+    </marker>
+    <marker id="arrow-red" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#f43f5e" />
+    </marker>
   </defs>
-  <rect width="100%" height="100%" fill="#1e1e1e" />
-  
-  <!-- Mic 1 -->
-  <circle cx="100" cy="150" r="10" fill="#333" stroke="#ccc" stroke-width="2" />
-  <rect x="95" y="150" width="10" height="30" fill="#666" />
-  <text x="100" y="195" text-anchor="middle" class="text">Mic 1</text>
 
-  <!-- Source 1 -->
-  <circle cx="100" cy="50" r="15" fill="#3b82f6" opacity="0.8" />
-  <text x="100" y="30" text-anchor="middle" class="text">Source 1</text>
-  
-  <!-- Distance X -->
-  <line x1="100" y1="65" x2="100" y2="140" stroke="#fff" stroke-dasharray="4" />
-  <text x="110" y="100" class="dist">X</text>
+  <!-- Container Box -->
+  <rect width="720" height="420" rx="14" fill="url(#bg-grad)" />
+  <rect x="1" y="1" width="718" height="418" rx="13" stroke="#334155" stroke-width="1.5" />
 
-  <!-- Mic 2 -->
-  <circle cx="300" cy="150" r="10" fill="#333" stroke="#ccc" stroke-width="2" />
-  <rect x="295" y="150" width="10" height="30" fill="#666" />
-  <text x="300" y="195" text-anchor="middle" class="text">Mic 2</text>
+  <!-- Top Title Bar -->
+  <g transform="translate(24, 16)">
+    <rect x="0" y="0" width="672" height="34" rx="7" fill="#1e293b" stroke="#38bdf8" stroke-width="1.2" />
+    <circle cx="18" cy="17" r="5" fill="#facc15" filter="url(#glow-gold)" />
+    <text x="32" y="22" fill="#f8fafc" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" letter-spacing="0.8">THE 3:1 MICROPHONE DISTANCE RULE (PHASE COHERENCE)</text>
+    <rect x="522" y="6" width="138" height="22" rx="4" fill="#854d0e" fill-opacity="0.35" stroke="#facc15" stroke-width="0.8" />
+    <text x="591" y="21" fill="#facc15" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="800" text-anchor="middle">RULE RATIO: 3 : 1</text>
+  </g>
 
-  <!-- Distance 3X -->
-  <line x1="110" y1="150" x2="290" y2="150" stroke="#facc15" stroke-width="2" />
-  <text x="200" y="140" text-anchor="middle" class="dist">3X</text>
-  
-  <text x="200" y="230" text-anchor="middle" class="text" fill="#fff" font-size="14">Distance between Mics >= 3 * Distance to Source</text>
+  <!-- STUDIO ACOUSTIC STAGE DIAGRAM -->
+  <g transform="translate(24, 62)">
+    <!-- Stage Area Background Plate -->
+    <rect x="0" y="0" width="672" height="195" rx="10" fill="#0b1329" stroke="#1e293b" stroke-width="1.2" />
+
+    <!-- Grid / Distance lines -->
+    <line x1="40" y1="135" x2="632" y2="135" stroke="#1e293b" stroke-width="1" stroke-dasharray="4 4" />
+
+    <!-- ==================== SOURCE 1 & MIC 1 ==================== -->
+    <!-- SOURCE 1 (Left Vocalist / Instrument) -->
+    <g transform="translate(90, 80)">
+      <!-- Acoustic waves radiating from Source 1 -->
+      <path d="M 28 -20 A 30 30 0 0 1 28 20" stroke="#38bdf8" stroke-width="1.5" stroke-opacity="0.4" fill="none" />
+      <path d="M 38 -30 A 45 45 0 0 1 38 30" stroke="#38bdf8" stroke-width="1.5" stroke-opacity="0.25" fill="none" />
+      <!-- Source 1 icon (Speaker / Performer circle) -->
+      <circle cx="0" cy="0" r="22" fill="#0284c7" stroke="#38bdf8" stroke-width="2" filter="url(#glow-cyan)" />
+      <!-- Sound wave icon inside -->
+      <path d="M -8 -8 L -2 -8 L 5 -13 L 5 13 L -2 8 L -8 8 Z" fill="#ffffff" />
+      <path d="M 9 -6 A 8 8 0 0 1 9 6" stroke="#ffffff" stroke-width="1.8" fill="none" stroke-linecap="round" />
+      <!-- Label -->
+      <text x="0" y="36" fill="#f8fafc" font-family="system-ui, sans-serif" font-size="11.5" font-weight="700" text-anchor="middle">SOURCE 1</text>
+      <text x="0" y="49" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="9" text-anchor="middle">(Lead Instrument)</text>
+    </g>
+
+    <!-- MIC 1 (Direct mic for Source 1) -->
+    <!-- Position: x = 205 (distance = 115 px = "D") -->
+    <g transform="translate(205, 80)">
+      <!-- Mic stand / mount -->
+      <line x1="0" y1="16" x2="0" y2="46" stroke="#64748b" stroke-width="2.5" />
+      <line x1="-12" y1="46" x2="12" y2="46" stroke="#64748b" stroke-width="2" />
+      <!-- Microphone Body pointing LEFT towards Source 1 -->
+      <rect x="-6" y="-7" width="22" height="14" rx="3" fill="#334155" stroke="#94a3b8" stroke-width="1.2" />
+      <!-- Mic Capsule Grille -->
+      <path d="M -6 -7 A 7 7 0 0 0 -6 7 Z" fill="#0284c7" stroke="#38bdf8" stroke-width="1.2" />
+      <line x1="-6" y1="-5" x2="-6" y2="5" stroke="#38bdf8" stroke-width="0.8" />
+      <!-- Label -->
+      <text x="5" y="-16" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="12" font-weight="800" text-anchor="middle">MIC 1</text>
+      <text x="5" y="38" fill="#67e8f9" font-family="system-ui, sans-serif" font-size="9" font-weight="600" text-anchor="middle">0 dB (Ref)</text>
+    </g>
+
+    <!-- DISTANCE D (Source 1 to Mic 1) Dimension Bracket -->
+    <g transform="translate(0, 0)">
+      <!-- Dimension line with arrows -->
+      <line x1="94" y1="28" x2="201" y2="28" stroke="#38bdf8" stroke-width="1.8" marker-start="url(#arrow-cyan-rev)" marker-end="url(#arrow-cyan)" />
+      <!-- Vertical tick lines -->
+      <line x1="90" y1="22" x2="90" y2="56" stroke="#38bdf8" stroke-width="1.2" stroke-dasharray="2 2" />
+      <line x1="205" y1="22" x2="205" y2="60" stroke="#38bdf8" stroke-width="1.2" stroke-dasharray="2 2" />
+      <!-- Distance Badge "D" -->
+      <rect x="130" y="16" width="36" height="23" rx="4" fill="#0f172a" stroke="#38bdf8" stroke-width="1.2" />
+      <text x="148" y="32" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="12" font-weight="800" text-anchor="middle">1 × D</text>
+      <text x="148" y="50" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="9" text-anchor="middle">e.g. 1 Foot</text>
+    </g>
+
+    <!-- ==================== DISTANCE 3D (MIC 1 TO MIC 2) ==================== -->
+    <!-- Distance 3D line spanning between Mic 1 (x=205) and Mic 2 (x=550) = 345 px = 3 * 115 px -->
+    <g transform="translate(0, 0)">
+      <!-- Top Dimension Line for 3D -->
+      <line x1="209" y1="140" x2="546" y2="140" stroke="#facc15" stroke-width="2.2" marker-start="url(#arrow-gold-rev)" marker-end="url(#arrow-gold)" />
+      <!-- Vertical tick guides -->
+      <line x1="205" y1="105" x2="205" y2="152" stroke="#facc15" stroke-width="1.2" stroke-dasharray="2 2" />
+      <line x1="550" y1="105" x2="550" y2="152" stroke="#facc15" stroke-width="1.2" stroke-dasharray="2 2" />
+
+      <!-- Center 3D Highlight Pill -->
+      <rect x="317" y="125" width="122" height="30" rx="6" fill="#1e293b" stroke="#facc15" stroke-width="1.8" filter="url(#glow-gold)" />
+      <text x="378" y="145" fill="#facc15" font-family="system-ui, sans-serif" font-size="13" font-weight="800" text-anchor="middle">≥ 3 × D (3:1 RULE)</text>
+      <text x="378" y="172" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="10" font-weight="600" text-anchor="middle">Distance between mics must be ≥ 3× distance to source (e.g. ≥ 3 Feet)</text>
+    </g>
+
+    <!-- BLEED PATH CURVE (Source 1 leaking into Mic 2) -->
+    <path d="M 112 75 Q 330 -10 540 70" stroke="#f43f5e" stroke-width="1.8" stroke-dasharray="4 4" fill="none" marker-end="url(#arrow-red)" />
+    <!-- Bleed attenuation tag -->
+    <rect x="270" y="38" width="215" height="20" rx="4" fill="#4c0519" stroke="#f43f5e" stroke-width="1" />
+    <text x="377" y="52" fill="#fda4af" font-family="system-ui, sans-serif" font-size="9.5" font-weight="700" text-anchor="middle">LEAKAGE / BLEED: ATTENUATED BY ≥ 9.5 dB</text>
+
+    <!-- ==================== SOURCE 2 & MIC 2 ==================== -->
+    <!-- MIC 2 (Direct mic for Source 2) -->
+    <!-- Position: x = 550 (distance from Mic 1 = 345 px = 3 x 115 px) -->
+    <g transform="translate(550, 80)">
+      <!-- Mic stand / mount -->
+      <line x1="0" y1="16" x2="0" y2="46" stroke="#64748b" stroke-width="2.5" />
+      <line x1="-12" y1="46" x2="12" y2="46" stroke="#64748b" stroke-width="2" />
+      <!-- Microphone Body pointing RIGHT towards Source 2 -->
+      <rect x="-16" y="-7" width="22" height="14" rx="3" fill="#334155" stroke="#94a3b8" stroke-width="1.2" />
+      <!-- Mic Capsule Grille -->
+      <path d="M 6 -7 A 7 7 0 0 1 6 7 Z" fill="#eab308" stroke="#facc15" stroke-width="1.2" />
+      <line x1="6" y1="-5" x2="6" y2="5" stroke="#facc15" stroke-width="0.8" />
+      <!-- Label -->
+      <text x="-5" y="-16" fill="#facc15" font-family="system-ui, sans-serif" font-size="12" font-weight="800" text-anchor="middle">MIC 2</text>
+      <text x="-5" y="38" fill="#fef08a" font-family="system-ui, sans-serif" font-size="9" font-weight="600" text-anchor="middle">Direct Mic</text>
+    </g>
+
+    <!-- SOURCE 2 (Right Vocalist / Instrument) -->
+    <!-- Position: x = 615 (distance to Mic 2 = 65 px / D) -->
+    <g transform="translate(615, 80)">
+      <!-- Source 2 icon -->
+      <circle cx="0" cy="0" r="22" fill="#ca8a04" stroke="#facc15" stroke-width="2" filter="url(#glow-gold)" />
+      <!-- Sound wave icon inside -->
+      <path d="M 8 -8 L 2 -8 L -5 -13 L -5 13 L 2 8 L 8 8 Z" fill="#ffffff" />
+      <path d="M -9 -6 A 8 8 0 0 0 -9 6" stroke="#ffffff" stroke-width="1.8" fill="none" stroke-linecap="round" />
+      <!-- Label -->
+      <text x="0" y="36" fill="#f8fafc" font-family="system-ui, sans-serif" font-size="11.5" font-weight="700" text-anchor="middle">SOURCE 2</text>
+      <text x="0" y="49" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="9" text-anchor="middle">(Second Source)</text>
+    </g>
+  </g>
+
+  <!-- BOTTOM: TECHNICAL EXPLANATION & EXAM FORMULA CARDS -->
+  <g transform="translate(24, 268)">
+    <!-- CARD 1: THE CORE 3:1 FORMULA -->
+    <g transform="translate(0, 0)">
+      <rect x="0" y="0" width="216" height="138" rx="8" fill="#1e293b" stroke="#facc15" stroke-width="1.5" />
+      <rect x="10" y="10" width="82" height="19" rx="4" fill="#854d0e" />
+      <text x="51" y="23" fill="#fef08a" font-family="system-ui, sans-serif" font-size="9.5" font-weight="800" text-anchor="middle">3:1 RULE RATIO</text>
+      
+      <text x="12" y="48" fill="#facc15" font-family="system-ui, sans-serif" font-size="11.5" font-weight="800">D (Mics) ≥ 3 × D (Source)</text>
+      <text x="12" y="68" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="10.5" font-weight="500">If Mic 1 is placed <tspan fill="#38bdf8" font-weight="700">1 ft</tspan> from</text>
+      <text x="12" y="83" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="10.5" font-weight="500">Source 1, Mic 2 must be placed</text>
+      <text x="12" y="98" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="10.5" font-weight="500">at least <tspan fill="#facc15" font-weight="700">3 ft (3 times)</tspan> away</text>
+      <text x="12" y="113" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="10.5">from Mic 1 to preserve phase.</text>
+    </g>
+
+    <!-- CARD 2: WHY IT PREVENTS CANCELLATION -->
+    <g transform="translate(228, 0)">
+      <rect x="0" y="0" width="216" height="138" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.2" />
+      <rect x="10" y="10" width="112" height="19" rx="4" fill="#0369a1" />
+      <text x="66" y="23" fill="#bae6fd" font-family="system-ui, sans-serif" font-size="9.5" font-weight="800" text-anchor="middle">INVERSE SQUARE LAW</text>
+      
+      <text x="12" y="48" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="11.5" font-weight="800">≥ 9 dB Acoustic Drop</text>
+      <text x="12" y="68" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="10.5">Sound level falls with distance.</text>
+      <text x="12" y="83" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="10.5">At 3× the distance, acoustic</text>
+      <text x="12" y="98" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="10.5">spill is attenuated by ~9.5 dB,</text>
+      <text x="12" y="113" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="10.5">making bleed virtually inaudible.</text>
+    </g>
+
+    <!-- CARD 3: COMB FILTERING PREVENTION -->
+    <g transform="translate(456, 0)">
+      <rect x="0" y="0" width="216" height="138" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.2" />
+      <rect x="10" y="10" width="105" height="19" rx="4" fill="#881337" />
+      <text x="62" y="23" fill="#fecdd3" font-family="system-ui, sans-serif" font-size="9.5" font-weight="800" text-anchor="middle">COMB FILTERING</text>
+      
+      <text x="12" y="48" fill="#fb7185" font-family="system-ui, sans-serif" font-size="11.5" font-weight="800">Eliminates Phasy Tone</text>
+      <text x="12" y="68" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="10.5">Delayed spill causes hollow,</text>
+      <text x="12" y="83" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="10.5">filtered phase notches.</text>
+      <text x="12" y="98" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="10.5">The 3:1 rule keeps phase</text>
+      <text x="12" y="113" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="10.5">artifacts below &lt; 1 dB ripple.</text>
+    </g>
+  </g>
 </svg>

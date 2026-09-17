@@ -232,6 +232,19 @@ const QuizPlayer = ({ quiz, onFinish }) => {
                                 explanation: explanationText
                             };
                         }
+
+                        // Unless dev explicitly requests raw order, shuffle answer options
+                        if (!(isDev && devRawOrder)) {
+                            if (!q.answers || q.answers.length < 2) return q;
+
+                            const shuffledAnswers = [...q.answers];
+                            for (let i = shuffledAnswers.length - 1; i > 0; i--) {
+                                const j = Math.floor(Math.random() * (i + 1));
+                                [shuffledAnswers[i], shuffledAnswers[j]] = [shuffledAnswers[j], shuffledAnswers[i]];
+                            }
+                            return { ...q, answers: shuffledAnswers };
+                        }
+
                         return q;
                     });
                 } else {
@@ -1120,6 +1133,9 @@ const QuizPlayer = ({ quiz, onFinish }) => {
                                 max={currentQuestion.max}
                                 step={currentQuestion.step}
                                 targetValue={currentQuestion.target_value}
+                                tolerance={currentQuestion.tolerance}
+                                targetMin={currentQuestion.target_min}
+                                targetMax={currentQuestion.target_max}
                                 unit={currentQuestion.unit}
                                 onResult={handleInteractiveResult}
                             />

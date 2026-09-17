@@ -1,0 +1,105 @@
+<svg width="720" height="420" viewBox="0 0 720 420" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg-grad-wt" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#090d16" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+    <filter id="glow-wt-orange" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <rect width="720" height="420" rx="14" fill="url(#bg-grad-wt)" />
+  <rect x="1" y="1" width="718" height="418" rx="13" stroke="#334155" stroke-width="1.5" />
+
+  <!-- Title Bar -->
+  <g transform="translate(24, 16)">
+    <rect x="0" y="0" width="672" height="34" rx="7" fill="#1e293b" stroke="#f97316" stroke-width="1.2" />
+    <circle cx="18" cy="17" r="5" fill="#f97316" filter="url(#glow-wt-orange)" />
+    <text x="32" y="22" fill="#f8fafc" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" letter-spacing="0.6">GUITAR FILTERING: ERIC CLAPTON'S 'WOMAN TONE' (PASSIVE RC LOW-PASS)</text>
+    <rect x="520" y="6" width="140" height="22" rx="4" fill="#7c2d12" fill-opacity="0.4" stroke="#f97316" stroke-width="0.8" />
+    <text x="590" y="21" fill="#fed7aa" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="800" text-anchor="middle">CREAM / 1968</text>
+  </g>
+
+  <!-- Left: Schematic & Guitar Settings -->
+  <g transform="translate(24, 62)">
+    <rect x="0" y="0" width="310" height="266" rx="10" fill="#0b1329" stroke="#1e293b" stroke-width="1.2" />
+    <text x="16" y="26" fill="#fdba74" font-family="system-ui, -apple-system, sans-serif" font-size="11.5" font-weight="800">GIBSON SG / LES PAUL SETTINGS</text>
+    
+    <!-- Knobs Visual -->
+    <g transform="translate(20, 42)">
+      <!-- Volume Knob -->
+      <circle cx="45" cy="45" r="32" fill="#1e293b" stroke="#f97316" stroke-width="2" />
+      <line x1="45" y1="45" x2="68" y2="45" stroke="#f97316" stroke-width="3" stroke-linecap="round" />
+      <text x="45" y="90" fill="#f8fafc" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="700" text-anchor="middle">VOLUME: 10</text>
+      <text x="45" y="102" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="8.5" text-anchor="middle">Max output to amp</text>
+
+      <!-- Tone Knob -->
+      <g transform="translate(130, 0)">
+        <circle cx="45" cy="45" r="32" fill="#1e293b" stroke="#ef4444" stroke-width="2" />
+        <line x1="45" y1="45" x2="22" y2="45" stroke="#ef4444" stroke-width="3" stroke-linecap="round" />
+        <text x="45" y="90" fill="#fca5a5" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="800" text-anchor="middle">TONE: 0 (ROLLED OFF)</text>
+        <text x="45" y="102" fill="#ef4444" font-family="system-ui, -apple-system, sans-serif" font-size="8.5" font-weight="700" text-anchor="middle">100% Highs to Ground</text>
+      </g>
+    </g>
+
+    <!-- Circuit details -->
+    <g transform="translate(16, 160)">
+      <rect x="0" y="0" width="278" height="94" rx="6" fill="#0f172a" stroke="#334155" stroke-width="1" />
+      <text x="10" y="18" fill="#fdba74" font-family="system-ui, -apple-system, sans-serif" font-size="9.5" font-weight="800">PASSIVE RC FILTER MECHANISM:</text>
+      <text x="10" y="36" fill="#cbd5e1" font-family="system-ui, -apple-system, sans-serif" font-size="9">• Pickup: Neck or Bridge Humbucker</text>
+      <text x="10" y="52" fill="#cbd5e1" font-family="system-ui, -apple-system, sans-serif" font-size="9">• Tone pot set to zero: sends frequencies above</text>
+      <text x="10" y="68" fill="#fca5a5" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="700">  ~400 Hz directly through 0.022µF cap to ground</text>
+      <text x="10" y="84" fill="#cbd5e1" font-family="system-ui, -apple-system, sans-serif" font-size="9">• Removes all harsh pick transients &amp; 'ice-pick' treble</text>
+    </g>
+  </g>
+
+  <!-- Right: Frequency Response & Marshall Saturation -->
+  <g transform="translate(348, 62)">
+    <rect x="0" y="0" width="348" height="266" rx="10" fill="#0b1329" stroke="#1e293b" stroke-width="1.2" />
+    <text x="16" y="26" fill="#38bdf8" font-family="system-ui, -apple-system, sans-serif" font-size="11.5" font-weight="800">FREQUENCY RESPONSE &amp; MARSHALL SATURATION</text>
+
+    <!-- Frequency Curve -->
+    <g transform="translate(16, 42)">
+      <rect x="0" y="0" width="316" height="114" rx="6" fill="#0f172a" stroke="#334155" stroke-width="1" />
+      
+      <!-- Axis labels -->
+      <text x="10" y="18" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="8.5">Magnitude (dB)</text>
+      <text x="250" y="104" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="8.5">Frequency (Hz)</text>
+
+      <!-- Standard Bright Guitar Curve (Dashed) -->
+      <path d="M 20 50 Q 120 45 200 48 T 290 55" stroke="#64748b" stroke-width="1.5" stroke-dasharray="3 3" fill="none" />
+      <text x="180" y="42" fill="#64748b" font-family="system-ui, -apple-system, sans-serif" font-size="7.5">Standard Bright Tone (Tone 10)</text>
+
+      <!-- Woman Tone Curve: steep low pass drop -->
+      <path d="M 20 48 Q 60 46 90 50 Q 120 60 140 90 T 290 102" stroke="#f97316" stroke-width="2.5" fill="none" />
+      <circle cx="100" cy="53" r="4" fill="#f97316" />
+      <text x="110" y="66" fill="#fed7aa" font-family="system-ui, -apple-system, sans-serif" font-size="8.5" font-weight="800">Cutoff ~450 Hz</text>
+
+      <text x="20" y="104" fill="#64748b" font-family="system-ui, -apple-system, sans-serif" font-size="8">100 Hz</text>
+      <text x="95" y="104" fill="#f97316" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="700">500 Hz</text>
+      <text x="170" y="104" fill="#64748b" font-family="system-ui, -apple-system, sans-serif" font-size="8">2 kHz</text>
+      <text x="220" y="104" fill="#64748b" font-family="system-ui, -apple-system, sans-serif" font-size="8">8 kHz</text>
+    </g>
+
+    <!-- Amplifier Saturation Box -->
+    <g transform="translate(16, 166)">
+      <rect x="0" y="0" width="316" height="88" rx="6" fill="#0f172a" stroke="#334155" stroke-width="1" />
+      <text x="10" y="18" fill="#38bdf8" font-family="system-ui, -apple-system, sans-serif" font-size="9.5" font-weight="800">MARSHALL 100W VALVE OVERDRIVE:</text>
+      <text x="10" y="36" fill="#cbd5e1" font-family="system-ui, -apple-system, sans-serif" font-size="9">• Marshall JTM45/100 cranked into power-tube saturation</text>
+      <text x="10" y="52" fill="#cbd5e1" font-family="system-ui, -apple-system, sans-serif" font-size="9">• Soft valve clipping compresses the warm fundamental</text>
+      <text x="10" y="68" fill="#38bdf8" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="700">• Result: Smooth, cello-like, singing violin sustain without harshness</text>
+    </g>
+  </g>
+
+  <!-- Bottom Bar -->
+  <g transform="translate(24, 342)">
+    <rect x="0" y="0" width="672" height="60" rx="8" fill="#0b1329" stroke="#334155" stroke-width="1.2" />
+    <text x="16" y="22" fill="#eab308" font-family="system-ui, -apple-system, sans-serif" font-size="10.5" font-weight="800">EXAM RELEVANCE: 'WOMAN TONE' DEFINITION</text>
+    <text x="16" y="40" fill="#cbd5e1" font-family="system-ui, -apple-system, sans-serif" font-size="9.5">Created by rolling the guitar's tone potentiometer completely down to zero while running high-gain Marshall valve amplifiers, producing a thick, singing, vocal/horn-like lead guitar timbre.</text>
+  </g>
+</svg>

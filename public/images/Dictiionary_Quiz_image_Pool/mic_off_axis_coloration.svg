@@ -1,24 +1,235 @@
-<svg width="400" height="250" xmlns="http://www.w3.org/2000/svg">
+<svg width="720" height="420" viewBox="0 0 720 420" fill="none" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <style>
-      .text { font-family: sans-serif; fill: #eee; font-size: 12px; }
-      .line { stroke-width: 2; fill: none; }
-    </style>
+    <!-- Background Gradient -->
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#090d16" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+
+    <!-- Glowing Filters -->
+    <filter id="glow-cyan" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="2.5" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+    <filter id="glow-red" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="2" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+    <filter id="glow-badge" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="2" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+
+    <!-- Arrow Markers -->
+    <marker id="arrow-down-cyan" markerWidth="7" markerHeight="5" refX="6" refY="2.5" orient="auto">
+      <polygon points="0 0, 7 2.5, 0 5" fill="#38bdf8" />
+    </marker>
+    <marker id="arrow-down-amber" markerWidth="7" markerHeight="5" refX="6" refY="2.5" orient="auto">
+      <polygon points="0 0, 7 2.5, 0 5" fill="#facc15" />
+    </marker>
   </defs>
-  <rect width="100%" height="100%" fill="#1e1e1e" />
-  
-  <!-- Mic pointing right -->
-  <rect x="20" y="110" width="60" height="30" fill="#666" />
-  <circle cx="80" cy="125" r="15" fill="#333" /> <!-- Grill -->
-  
-  <!-- Source Angles -->
-  <line x1="80" y1="125" x2="350" y2="125" stroke="#fff" stroke-dasharray="4" /> <!-- 0 deg -->
-  <line x1="80" y1="125" x2="300" y2="50" stroke="#facc15" stroke-dasharray="4" /> <!-- 45 deg -->
-  <line x1="80" y1="125" x2="200" y2="20" stroke="#ef4444" stroke-dasharray="4" /> <!-- 90 deg -->
-  
-  <text x="360" y="130" class="text" fill="#fff">0° (Bright/Full)</text>
-  <text x="310" y="45" class="text" fill="#facc15">45° (Slightly Dull)</text>
-  <text x="200" y="15" class="text" fill="#ef4444">90° (Dark/Muffled)</text>
-  
-  <text x="200" y="230" text-anchor="middle" class="text" font-weight="bold">Off-Axis Coloration</text>
+
+  <!-- Container Box -->
+  <rect width="720" height="420" rx="14" fill="url(#bg-grad)" />
+  <rect x="1" y="1" width="718" height="418" rx="13" stroke="#334155" stroke-width="1.5" />
+
+  <!-- Top Title Bar -->
+  <g transform="translate(24, 16)">
+    <rect x="0" y="0" width="672" height="34" rx="7" fill="#1e293b" stroke="#38bdf8" stroke-width="1.2" />
+    <circle cx="18" cy="17" r="5" fill="#fb7185" filter="url(#glow-badge)" />
+    <text x="32" y="22" fill="#f8fafc" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" letter-spacing="0.8">OFF-AXIS COLORATION: WAVELENGTH DIFFRACTION &amp; HF SHADOWING</text>
+    <rect x="532" y="6" width="128" height="22" rx="4" fill="#881337" fill-opacity="0.35" stroke="#fb7185" stroke-width="0.8" />
+    <text x="596" y="21" fill="#fca5a5" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="800" text-anchor="middle">90° OFF-AXIS</text>
+  </g>
+
+  <!-- ==================== LEFT: PHYSICAL ACOUSTIC MECHANISM ==================== -->
+  <g transform="translate(24, 60)">
+    <!-- Sub-container plate -->
+    <rect x="0" y="0" width="330" height="210" rx="10" fill="#0b1329" stroke="#1e293b" stroke-width="1.2" />
+
+    <!-- Sub-heading -->
+    <rect x="10" y="10" width="170" height="20" rx="4" fill="#1e293b" />
+    <text x="95" y="24" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="9.5" font-weight="700" text-anchor="middle">90° OFF-AXIS ACOUSTIC SHADOW</text>
+
+    <!-- Sound Source at 90° (Top Left-Center) -->
+    <g transform="translate(165, 42)">
+      <circle cx="0" cy="0" r="14" fill="#ca8a04" stroke="#facc15" stroke-width="1.5" />
+      <text x="0" y="4" fill="#ffffff" font-family="system-ui, sans-serif" font-size="9" font-weight="800" text-anchor="middle">90°</text>
+      <text x="0" y="-18" fill="#facc15" font-family="system-ui, sans-serif" font-size="10" font-weight="700" text-anchor="middle">OFF-AXIS SOUND SOURCE</text>
+    </g>
+
+    <!-- SHORT HIGH-FREQUENCY WAVES (Cyan, tight wavelengths, blocked) -->
+    <!-- Rays arriving at capsule top -->
+    <g transform="translate(195, 60)">
+      <!-- Tight ripple wave lines -->
+      <path d="M -10 5 Q 0 10 10 5 T 30 5" stroke="#38bdf8" stroke-width="2" fill="none" opacity="0.9" />
+      <path d="M -10 17 Q 0 22 10 17 T 30 17" stroke="#38bdf8" stroke-width="2" fill="none" opacity="0.9" />
+      <path d="M -10 29 Q 0 34 10 29 T 30 29" stroke="#38bdf8" stroke-width="2" fill="none" opacity="0.7" />
+      <line x1="10" y1="36" x2="10" y2="52" stroke="#38bdf8" stroke-width="1.5" marker-end="url(#arrow-down-cyan)" />
+      <!-- Short wave label -->
+      <rect x="25" y="24" width="98" height="28" rx="4" fill="#0c4a6e" fill-opacity="0.8" stroke="#38bdf8" stroke-width="0.8" />
+      <text x="74" y="37" fill="#7dd3fc" font-family="system-ui, sans-serif" font-size="8.5" font-weight="700" text-anchor="middle">Short HF Waves</text>
+      <text x="74" y="48" fill="#e0f2fe" font-family="system-ui, sans-serif" font-size="7.5" text-anchor="middle">(λ &lt; 3cm at 10kHz)</text>
+    </g>
+
+    <!-- LONG LOW-FREQUENCY WAVES (Amber, large curved wavefronts, diffracting) -->
+    <g transform="translate(100, 60)">
+      <!-- Broad curved wavefronts that bend around body -->
+      <path d="M -40 8 Q 10 18 50 25" stroke="#facc15" stroke-width="2" fill="none" opacity="0.8" />
+      <path d="M -40 24 Q 10 36 50 48" stroke="#facc15" stroke-width="2" fill="none" opacity="0.8" />
+      <path d="M -30 65 Q 10 105 80 115" stroke="#facc15" stroke-width="1.8" stroke-dasharray="3 3" fill="none" opacity="0.6" />
+      <!-- Long wave label -->
+      <rect x="-85" y="24" width="95" height="28" rx="4" fill="#713f12" fill-opacity="0.8" stroke="#facc15" stroke-width="0.8" />
+      <text x="-37" y="37" fill="#fef08a" font-family="system-ui, sans-serif" font-size="8.5" font-weight="700" text-anchor="middle">Long LF Waves</text>
+      <text x="-37" y="48" fill="#fef9c3" font-family="system-ui, sans-serif" font-size="7.5" text-anchor="middle">(λ &gt; 3m at 100Hz)</text>
+    </g>
+
+    <!-- MICROPHONE DRAWING (Horizontal, pointing right towards 0 deg) -->
+    <g transform="translate(110, 130)">
+      <!-- Mic body (Cylinder) -->
+      <rect x="0" y="0" width="80" height="26" rx="4" fill="#334155" stroke="#64748b" stroke-width="1.5" />
+      <line x1="20" y1="0" x2="20" y2="26" stroke="#475569" stroke-width="1" />
+      <!-- Capsule Collar -->
+      <rect x="76" y="2" width="12" height="22" rx="2" fill="#475569" stroke="#94a3b8" stroke-width="1" />
+      <!-- Capsule Grille / Diaphragm (Facing Right at 0°) -->
+      <rect x="86" y="-2" width="28" height="30" rx="6" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5" />
+      <line x1="94" y1="-2" x2="94" y2="28" stroke="#38bdf8" stroke-width="1" />
+      <line x1="102" y1="-2" x2="102" y2="28" stroke="#38bdf8" stroke-width="1" />
+      <circle cx="100" cy="13" r="8" fill="none" stroke="#f43f5e" stroke-width="1" stroke-dasharray="2 2" />
+      <text x="100" y="16" fill="#ffffff" font-family="system-ui, sans-serif" font-size="8" font-weight="700" text-anchor="middle">MIC</text>
+
+      <!-- 0° Arrow and Label -->
+      <line x1="116" y1="13" x2="155" y2="13" stroke="#38bdf8" stroke-width="1.5" marker-end="url(#arrow-down-cyan)" />
+      <text x="180" y="16" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="10" font-weight="800">0° FRONT</text>
+
+      <!-- Acoustic Shadow Area Behind Capsule (Below mic body) -->
+      <path d="M 86 32 L 86 65 L 125 65 L 114 32 Z" fill="#f43f5e" fill-opacity="0.15" stroke="#f43f5e" stroke-width="1" stroke-dasharray="3 3" />
+      <text x="105" y="52" fill="#fb7185" font-family="system-ui, sans-serif" font-size="8" font-weight="700" text-anchor="middle">ACOUSTIC</text>
+      <text x="105" y="61" fill="#fb7185" font-family="system-ui, sans-serif" font-size="8" font-weight="700" text-anchor="middle">SHADOW</text>
+    </g>
+
+    <!-- Bottom Diffraction note -->
+    <rect x="15" y="174" width="300" height="26" rx="5" fill="#1e293b" stroke="#334155" stroke-width="1" />
+    <text x="165" y="191" fill="#fca5a5" font-family="system-ui, sans-serif" font-size="9.5" font-weight="600" text-anchor="middle">Highs blocked by body; Lows wrap freely → <tspan fill="#facc15" font-weight="700">Muffled Tone</tspan></text>
+  </g>
+
+  <!-- ==================== RIGHT: FREQUENCY RESPONSE GRAPH ==================== -->
+  <g transform="translate(366, 60)">
+    <!-- Sub-container plate -->
+    <rect x="0" y="0" width="330" height="210" rx="10" fill="#0b1329" stroke="#1e293b" stroke-width="1.2" />
+
+    <!-- Sub-heading -->
+    <rect x="10" y="10" width="175" height="20" rx="4" fill="#1e293b" />
+    <text x="97" y="24" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="9.5" font-weight="700" text-anchor="middle">FREQUENCY RESPONSE SPECTRUM</text>
+
+    <!-- Graph Grid Area: Width 280, Height 120 (x: 35 to 315, y: 45 to 165) -->
+    <rect x="35" y="45" width="280" height="120" fill="#070c18" stroke="#1e293b" stroke-width="1" />
+
+    <!-- Horizontal dB lines -->
+    <!-- 0 dB line (y = 70) -->
+    <line x1="35" y1="70" x2="315" y2="70" stroke="#334155" stroke-width="1.2" />
+    <text x="28" y="73" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="8.5" text-anchor="end">0 dB</text>
+
+    <!-- -6 dB line (y = 100) -->
+    <line x1="35" y1="100" x2="315" y2="100" stroke="#1e293b" stroke-width="1" stroke-dasharray="2 2" />
+    <text x="28" y="103" fill="#64748b" font-family="system-ui, sans-serif" font-size="8.5" text-anchor="end">-6 dB</text>
+
+    <!-- -12 dB line (y = 130) -->
+    <line x1="35" y1="130" x2="315" y2="130" stroke="#1e293b" stroke-width="1" stroke-dasharray="2 2" />
+    <text x="28" y="133" fill="#64748b" font-family="system-ui, sans-serif" font-size="8.5" text-anchor="end">-12 dB</text>
+
+    <!-- Vertical Frequency Grid Lines -->
+    <!-- 100Hz: x = 70 -->
+    <line x1="70" y1="45" x2="70" y2="165" stroke="#1e293b" stroke-width="1" stroke-dasharray="2 2" />
+    <text x="70" y="177" fill="#64748b" font-family="system-ui, sans-serif" font-size="8" text-anchor="middle">100Hz</text>
+
+    <!-- 1kHz: x = 140 -->
+    <line x1="140" y1="45" x2="140" y2="165" stroke="#1e293b" stroke-width="1" stroke-dasharray="2 2" />
+    <text x="140" y="177" fill="#64748b" font-family="system-ui, sans-serif" font-size="8" text-anchor="middle">1kHz</text>
+
+    <!-- 5kHz: x = 210 -->
+    <line x1="210" y1="45" x2="210" y2="165" stroke="#1e293b" stroke-width="1" stroke-dasharray="2 2" />
+    <text x="210" y="177" fill="#64748b" font-family="system-ui, sans-serif" font-size="8" text-anchor="middle">5kHz</text>
+
+    <!-- 15kHz: x = 280 -->
+    <line x1="280" y1="45" x2="280" y2="165" stroke="#1e293b" stroke-width="1" stroke-dasharray="2 2" />
+    <text x="280" y="177" fill="#64748b" font-family="system-ui, sans-serif" font-size="8" text-anchor="middle">15kHz</text>
+
+    <!-- CURVE 1: 0° ON-AXIS (Cyan - Flat & Extended Treble) -->
+    <path d="M 35 72 L 70 70 L 140 70 L 210 68 L 260 67 L 300 73 L 315 82" stroke="#38bdf8" stroke-width="2.5" fill="none" filter="url(#glow-cyan)" />
+
+    <!-- CURVE 2: 45° OFF-AXIS (Amber - Gentle Rolloff) -->
+    <path d="M 35 88 L 70 86 L 140 86 L 210 93 L 260 102 L 300 114 L 315 125" stroke="#facc15" stroke-width="1.8" stroke-dasharray="4 2" fill="none" />
+
+    <!-- CURVE 3: 90° OFF-AXIS (Rose/Red - Severe High-Frequency Drop) -->
+    <path d="M 35 101 L 70 100 L 140 102 L 195 110 L 230 128 L 270 148 L 315 160" stroke="#f43f5e" stroke-width="2.8" fill="none" filter="url(#glow-red)" />
+
+    <!-- High-Frequency Rolloff Shaded Zone -->
+    <path d="M 210 68 L 260 67 L 300 73 L 315 82 L 315 160 L 270 148 L 230 128 L 210 110 Z" fill="#f43f5e" fill-opacity="0.15" />
+    <text x="265" y="105" fill="#fda4af" font-family="system-ui, sans-serif" font-size="8.5" font-weight="700" text-anchor="middle">HF LOSS</text>
+    <text x="265" y="115" fill="#fda4af" font-family="system-ui, sans-serif" font-size="7.5" text-anchor="middle">(-12 to -18 dB)</text>
+
+    <!-- Graph Legend (Bottom) -->
+    <g transform="translate(40, 192)">
+      <line x1="0" y1="4" x2="16" y2="4" stroke="#38bdf8" stroke-width="2.5" />
+      <text x="20" y="8" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="9" font-weight="700">0° On-Axis (Flat)</text>
+
+      <line x1="110" y1="4" x2="126" y2="4" stroke="#facc15" stroke-width="1.8" stroke-dasharray="4 2" />
+      <text x="130" y="8" fill="#fcd34d" font-family="system-ui, sans-serif" font-size="9" font-weight="700">45° Off-Axis</text>
+
+      <line x1="205" y1="4" x2="221" y2="4" stroke="#f43f5e" stroke-width="2.8" />
+      <text x="225" y="8" fill="#fda4af" font-family="system-ui, sans-serif" font-size="9" font-weight="700">90° (Dull / Colored)</text>
+    </g>
+  </g>
+
+  <!-- ==================== BOTTOM: 3 EXPLANATORY CARDS ==================== -->
+  <g transform="translate(24, 282)">
+    <!-- CARD 1: SHORT WAVELENGTHS BLOCKED (CORRECT ANSWER) -->
+    <g transform="translate(0, 0)">
+      <rect x="0" y="0" width="216" height="122" rx="8" fill="#0c2340" stroke="#38bdf8" stroke-width="1.8" />
+      <rect x="10" y="10" width="95" height="18" rx="4" fill="#0284c7" />
+      <text x="57" y="23" fill="#ffffff" font-family="system-ui, sans-serif" font-size="9" font-weight="800" text-anchor="middle">CORRECT ANSWER</text>
+      
+      <text x="12" y="46" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="11" font-weight="800">Short Waves Blocked</text>
+      <text x="12" y="64" fill="#e2e8f0" font-family="system-ui, sans-serif" font-size="10" font-weight="600">High frequencies have tiny</text>
+      <text x="12" y="78" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="9.5">wavelengths (10kHz = 3.4cm).</text>
+      <text x="12" y="92" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="9.5">The mic body &amp; capsule physically</text>
+      <text x="12" y="106" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="9.5">shadow and block side arrival.</text>
+    </g>
+
+    <!-- CARD 2: LONG WAVELENGTHS DIFFRACT -->
+    <g transform="translate(228, 0)">
+      <rect x="0" y="0" width="216" height="122" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.2" />
+      <rect x="10" y="10" width="95" height="18" rx="4" fill="#713f12" stroke="#facc15" stroke-width="0.8" />
+      <text x="57" y="23" fill="#fef08a" font-family="system-ui, sans-serif" font-size="9" font-weight="700" text-anchor="middle">DIFFRACTION</text>
+      
+      <text x="12" y="46" fill="#facc15" font-family="system-ui, sans-serif" font-size="11" font-weight="800">Lows Bend Around Body</text>
+      <text x="12" y="64" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="10">Bass wavelengths are huge</text>
+      <text x="12" y="78" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="9.5">(100Hz = 3.4m) and diffract</text>
+      <text x="12" y="92" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="9.5">around the microphone housing</text>
+      <text x="12" y="106" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="9.5">without significant blockage.</text>
+    </g>
+
+    <!-- CARD 3: AUDIBLE RESULT (DULL / COLORED BLEED) -->
+    <g transform="translate(456, 0)">
+      <rect x="0" y="0" width="216" height="122" rx="8" fill="#1e1824" stroke="#f43f5e" stroke-width="1.2" />
+      <rect x="10" y="10" width="85" height="18" rx="4" fill="#881337" />
+      <text x="52" y="23" fill="#fecdd3" font-family="system-ui, sans-serif" font-size="9" font-weight="700" text-anchor="middle">SONIC IMPACT</text>
+      
+      <text x="12" y="46" fill="#fb7185" font-family="system-ui, sans-serif" font-size="11" font-weight="800">"Dull" or "Colored" Tone</text>
+      <text x="12" y="64" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="10">Because highs are lost while</text>
+      <text x="12" y="78" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="9.5">lows survive, 90° off-axis sound</text>
+      <text x="12" y="92" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="9.5">(like hi-hat spill into a snare mic)</text>
+      <text x="12" y="106" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="9.5">sounds boxy, dark, and hollow.</text>
+    </g>
+  </g>
 </svg>

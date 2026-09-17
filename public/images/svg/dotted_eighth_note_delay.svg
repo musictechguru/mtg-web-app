@@ -1,0 +1,117 @@
+<svg width="720" height="420" viewBox="0 0 720 420" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg-grad-dot" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#090d16" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+    <filter id="glow-dot-cyan" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <rect width="720" height="420" rx="14" fill="url(#bg-grad-dot)" />
+  <rect x="1" y="1" width="718" height="418" rx="13" stroke="#334155" stroke-width="1.5" />
+
+  <!-- Title Bar -->
+  <g transform="translate(24, 16)">
+    <rect x="0" y="0" width="672" height="34" rx="7" fill="#1e293b" stroke="#06b6d4" stroke-width="1.2" />
+    <circle cx="18" cy="17" r="5" fill="#06b6d4" filter="url(#glow-dot-cyan)" />
+    <text x="32" y="22" fill="#f8fafc" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" letter-spacing="0.6">TEMPO-SYNCED DELAY: DOTTED-8TH NOTE (3/16) POLYRHYTHMIC BOUNCE</text>
+    <rect x="520" y="6" width="140" height="22" rx="4" fill="#155e75" fill-opacity="0.4" stroke="#06b6d4" stroke-width="0.8" />
+    <text x="590" y="21" fill="#cffafe" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="800" text-anchor="middle">COMPARISON 2: Q10</text>
+  </g>
+
+  <!-- 16-Step Grid Timeline -->
+  <g transform="translate(24, 62)">
+    <rect x="0" y="0" width="672" height="264" rx="10" fill="#0b1329" stroke="#1e293b" stroke-width="1.2" />
+
+    <!-- Beat Labels Row -->
+    <g transform="translate(30, 20)">
+      <text x="0" y="16" fill="#f8fafc" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="800">4/4 TIME MEASURE: 16 SIXTEENTH-NOTE SUBDIVISIONS (1 e &amp; a, 2 e &amp; a...)</text>
+
+      <!-- 4 Beat Blocks -->
+      <g transform="translate(0, 30)">
+        <!-- Beat 1 -->
+        <rect x="0" y="0" width="145" height="32" rx="4" fill="#1e293b" stroke="#334155" />
+        <text x="72" y="20" fill="#38bdf8" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="800" text-anchor="middle">BEAT 1 (1 e &amp; a)</text>
+        
+        <!-- Beat 2 -->
+        <rect x="155" y="0" width="145" height="32" rx="4" fill="#1e293b" stroke="#334155" />
+        <text x="227" y="20" fill="#cbd5e1" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="700" text-anchor="middle">BEAT 2 (2 e &amp; a)</text>
+
+        <!-- Beat 3 -->
+        <rect x="310" y="0" width="145" height="32" rx="4" fill="#1e293b" stroke="#334155" />
+        <text x="382" y="20" fill="#cbd5e1" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="700" text-anchor="middle">BEAT 3 (3 e &amp; a)</text>
+
+        <!-- Beat 4 -->
+        <rect x="465" y="0" width="145" height="32" rx="4" fill="#1e293b" stroke="#334155" />
+        <text x="537" y="20" fill="#cbd5e1" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="700" text-anchor="middle">BEAT 4 (4 e &amp; a)</text>
+      </g>
+    </g>
+
+    <!-- Dry Guitar Pluck Hit vs Dotted-8th Echoes -->
+    <g transform="translate(30, 96)">
+      <!-- Dry Hit on Beat 1 (Step 0) -->
+      <rect x="0" y="0" width="40" height="70" rx="5" fill="#0369a1" stroke="#38bdf8" stroke-width="2" />
+      <text x="20" y="26" fill="#ffffff" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="900" text-anchor="middle">DRY</text>
+      <text x="20" y="42" fill="#bae6fd" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="700" text-anchor="middle">PLUCK</text>
+      <text x="20" y="58" fill="#bae6fd" font-family="system-ui, -apple-system, sans-serif" font-size="7.5" text-anchor="middle">Step 1</text>
+
+      <!-- Interval arrow 3 sixteenths -->
+      <path d="M 42 35 L 110 35" stroke="#f59e0b" stroke-width="2" stroke-dasharray="3 2" fill="none" />
+      <text x="76" y="28" fill="#f59e0b" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="800" text-anchor="middle">+3/16</text>
+
+      <!-- Echo 1 (Step 4 / "1 a") -->
+      <rect x="114" y="10" width="38" height="60" rx="5" fill="#78350f" stroke="#f59e0b" stroke-width="1.5" />
+      <text x="133" y="32" fill="#fde68a" font-family="system-ui, -apple-system, sans-serif" font-size="8.5" font-weight="800" text-anchor="middle">ECHO 1</text>
+      <text x="133" y="46" fill="#fed7aa" font-family="system-ui, -apple-system, sans-serif" font-size="7.5" text-anchor="middle">LEFT (75%)</text>
+      <text x="133" y="58" fill="#fde68a" font-family="system-ui, -apple-system, sans-serif" font-size="7.5" font-weight="700" text-anchor="middle">on "1 a"</text>
+
+      <!-- Interval arrow 3 sixteenths -->
+      <path d="M 154 35 L 226 35" stroke="#f59e0b" stroke-width="2" stroke-dasharray="3 2" fill="none" />
+      <text x="190" y="28" fill="#f59e0b" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="800" text-anchor="middle">+3/16</text>
+
+      <!-- Echo 2 (Step 7 / "2 &") -->
+      <rect x="230" y="20" width="38" height="50" rx="5" fill="#78350f" stroke="#f59e0b" stroke-width="1.5" />
+      <text x="249" y="38" fill="#fde68a" font-family="system-ui, -apple-system, sans-serif" font-size="8.5" font-weight="800" text-anchor="middle">ECHO 2</text>
+      <text x="249" y="50" fill="#fed7aa" font-family="system-ui, -apple-system, sans-serif" font-size="7.5" text-anchor="middle">RIGHT (55%)</text>
+      <text x="249" y="62" fill="#fde68a" font-family="system-ui, -apple-system, sans-serif" font-size="7.5" font-weight="700" text-anchor="middle">on "2 &amp;"</text>
+
+      <!-- Interval arrow 3 sixteenths -->
+      <path d="M 270 35 L 344 35" stroke="#f59e0b" stroke-width="2" stroke-dasharray="3 2" fill="none" />
+      <text x="307" y="28" fill="#f59e0b" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="800" text-anchor="middle">+3/16</text>
+
+      <!-- Echo 3 (Step 10 / "3 e") -->
+      <rect x="348" y="28" width="38" height="42" rx="5" fill="#78350f" stroke="#f59e0b" stroke-width="1.2" />
+      <text x="367" y="44" fill="#fde68a" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="800" text-anchor="middle">ECHO 3</text>
+      <text x="367" y="56" fill="#fed7aa" font-family="system-ui, -apple-system, sans-serif" font-size="7" text-anchor="middle">LEFT (40%)</text>
+
+      <!-- Interval arrow 3 sixteenths -->
+      <path d="M 388 35 L 460 35" stroke="#f59e0b" stroke-width="2" stroke-dasharray="3 2" fill="none" />
+      <text x="424" y="28" fill="#f59e0b" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="800" text-anchor="middle">+3/16</text>
+
+      <!-- Echo 4 (Step 13 / "4") -->
+      <rect x="464" y="34" width="38" height="36" rx="5" fill="#78350f" stroke="#f59e0b" stroke-width="1" />
+      <text x="483" y="48" fill="#fde68a" font-family="system-ui, -apple-system, sans-serif" font-size="7.5" font-weight="800" text-anchor="middle">ECHO 4</text>
+      <text x="483" y="58" fill="#fed7aa" font-family="system-ui, -apple-system, sans-serif" font-size="6.5" text-anchor="middle">RIGHT (25%)</text>
+    </g>
+
+    <!-- Formula Box below -->
+    <g transform="translate(30, 196)">
+      <rect x="0" y="0" width="612" height="54" rx="6" fill="#0f172a" stroke="#334155" stroke-width="1" />
+      <text x="14" y="20" fill="#06b6d4" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="800">MATHEMATICAL FORMULA &amp; WHY IT CREATES A GROOVE:</text>
+      <text x="14" y="36" fill="#cbd5e1" font-family="system-ui, -apple-system, sans-serif" font-size="9">A dotted-eighth note delay equals 3 sixteenth notes: Delay Time (ms) = (60,000 / BPM) × 0.75. Because the repeats never land on the main downbeats (1, 2, 3, 4), they create an infectious syncopated gallop that propels the tropical house guitar riff forward.</text>
+    </g>
+  </g>
+
+  <!-- Bottom Bar -->
+  <g transform="translate(24, 334)">
+    <rect x="0" y="0" width="672" height="70" rx="8" fill="#0b1329" stroke="#334155" stroke-width="1.2" />
+    <text x="16" y="22" fill="#06b6d4" font-family="system-ui, -apple-system, sans-serif" font-size="10.5" font-weight="800">EDEXCEL EXAM RELEVANCE:</text>
+    <text x="16" y="40" fill="#cbd5e1" font-family="system-ui, -apple-system, sans-serif" font-size="9.5">Questions frequently ask which delay subdivision creates polyrhythmic bouncing syncopation across a straight 4/4 meter. The answer is almost always dotted-eighth (3/16), famously used on U2's guitars and modern tropical EDM plucks.</text>
+  </g>
+</svg>

@@ -1,0 +1,191 @@
+<svg width="720" height="420" viewBox="0 0 720 420" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#090d16" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+
+    <!-- Glowing Filters -->
+    <filter id="glow-cyan" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="2.5" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+    <filter id="glow-rose" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="2.5" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+    <filter id="glow-badge" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="2" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+
+    <!-- Arrow Markers -->
+    <marker id="arrow-flow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#94a3b8" />
+    </marker>
+  </defs>
+
+  <!-- Container Box -->
+  <rect width="720" height="420" rx="14" fill="url(#bg-grad)" />
+  <rect x="1" y="1" width="718" height="418" rx="13" stroke="#334155" stroke-width="1.5" />
+
+  <!-- Top Title Bar -->
+  <g transform="translate(24, 16)">
+    <rect x="0" y="0" width="672" height="34" rx="7" fill="#1e293b" stroke="#38bdf8" stroke-width="1.2" />
+    <circle cx="18" cy="17" r="5" fill="#38bdf8" filter="url(#glow-badge)" />
+    <text x="32" y="22" fill="#f8fafc" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" letter-spacing="0.8">THE 3 PHASES OF MUSIC PRODUCTION: WORKFLOW TIMELINE</text>
+    <rect x="522" y="6" width="138" height="22" rx="4" fill="#0284c7" fill-opacity="0.35" stroke="#38bdf8" stroke-width="0.8" />
+    <text x="591" y="21" fill="#38bdf8" font-family="system-ui, -apple-system, sans-serif" font-size="10.5" font-weight="800" text-anchor="middle">LIFECYCLE STAGES</text>
+  </g>
+
+  <!-- ==================== MAIN 3-PHASE TIMELINE FLOWCHART ==================== -->
+  <g transform="translate(24, 60)">
+    <!-- Container Plate -->
+    <rect x="0" y="0" width="672" height="206" rx="10" fill="#0b1329" stroke="#1e293b" stroke-width="1.2" />
+
+    <!-- ==================== COLUMN 1: PRE-PRODUCTION ==================== -->
+    <g transform="translate(14, 14)">
+      <rect x="0" y="0" width="194" height="178" rx="8" fill="#0f172a" stroke="#0284c7" stroke-width="1.5" />
+      
+      <!-- Phase Badge -->
+      <rect x="10" y="10" width="174" height="24" rx="4" fill="#0284c7" />
+      <text x="97" y="26" fill="#ffffff" font-family="system-ui, sans-serif" font-size="11" font-weight="800" text-anchor="middle">1. PRE-PRODUCTION</text>
+      
+      <text x="97" y="48" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="9" font-weight="700" text-anchor="middle">BEFORE ENTERING STUDIO</text>
+      <line x1="20" y1="54" x2="174" y2="54" stroke="#1e293b" stroke-width="1" />
+
+      <!-- Activity list items -->
+      <g transform="translate(14, 66)">
+        <circle cx="4" cy="4" r="3" fill="#38bdf8" />
+        <text x="14" y="8" fill="#e2e8f0" font-family="system-ui, sans-serif" font-size="10" font-weight="600">Rehearsing arrangement</text>
+
+        <circle cx="4" cy="24" r="3" fill="#38bdf8" />
+        <text x="14" y="28" fill="#e2e8f0" font-family="system-ui, sans-serif" font-size="10" font-weight="600">Choosing tempo (BPM) &amp; key</text>
+
+        <circle cx="4" cy="44" r="3" fill="#38bdf8" />
+        <text x="14" y="48" fill="#e2e8f0" font-family="system-ui, sans-serif" font-size="10" font-weight="600">Writing &amp; lyric refinement</text>
+
+        <circle cx="4" cy="64" r="3" fill="#38bdf8" />
+        <text x="14" y="68" fill="#e2e8f0" font-family="system-ui, sans-serif" font-size="10" font-weight="600">Demo tracking &amp; guide click</text>
+
+        <circle cx="4" cy="84" r="3" fill="#38bdf8" />
+        <text x="14" y="88" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="9.5">Gear &amp; mic selection prep</text>
+      </g>
+    </g>
+
+    <!-- Connector Arrow 1 -> 2 -->
+    <line x1="216" y1="103" x2="236" y2="103" stroke="#94a3b8" stroke-width="2.5" marker-end="url(#arrow-flow)" />
+
+    <!-- ==================== COLUMN 2: PRODUCTION (TRACKING) ==================== -->
+    <g transform="translate(239, 14)">
+      <rect x="0" y="0" width="194" height="178" rx="8" fill="#0f172a" stroke="#059669" stroke-width="1.2" />
+      
+      <!-- Phase Badge -->
+      <rect x="10" y="10" width="174" height="24" rx="4" fill="#059669" />
+      <text x="97" y="26" fill="#ffffff" font-family="system-ui, sans-serif" font-size="11" font-weight="800" text-anchor="middle">2. PRODUCTION</text>
+      
+      <text x="97" y="48" fill="#34d399" font-family="system-ui, sans-serif" font-size="9" font-weight="700" text-anchor="middle">TRACKING IN THE STUDIO</text>
+      <line x1="20" y1="54" x2="174" y2="54" stroke="#1e293b" stroke-width="1" />
+
+      <!-- Activity list items -->
+      <g transform="translate(14, 66)">
+        <circle cx="4" cy="4" r="3" fill="#34d399" />
+        <text x="14" y="8" fill="#e2e8f0" font-family="system-ui, sans-serif" font-size="10" font-weight="600">Rhythm section tracking</text>
+
+        <circle cx="4" cy="24" r="3" fill="#34d399" />
+        <text x="14" y="28" fill="#e2e8f0" font-family="system-ui, sans-serif" font-size="10" font-weight="600">Overdubs (Vocals/Guitars)</text>
+
+        <circle cx="4" cy="44" r="3" fill="#34d399" />
+        <text x="14" y="48" fill="#e2e8f0" font-family="system-ui, sans-serif" font-size="10" font-weight="600">Punch-in take fixes</text>
+
+        <circle cx="4" cy="64" r="3" fill="#34d399" />
+        <text x="14" y="68" fill="#e2e8f0" font-family="system-ui, sans-serif" font-size="10" font-weight="600">Vocal composite (comping)</text>
+
+        <circle cx="4" cy="84" r="3" fill="#34d399" />
+        <text x="14" y="88" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="9.5">Room &amp; mic acoustic balance</text>
+      </g>
+    </g>
+
+    <!-- Connector Arrow 2 -> 3 -->
+    <line x1="441" y1="103" x2="461" y2="103" stroke="#94a3b8" stroke-width="2.5" marker-end="url(#arrow-flow)" />
+
+    <!-- ==================== COLUMN 3: POST-PRODUCTION (MIXING & MASTERING) ==================== -->
+    <g transform="translate(464, 14)">
+      <rect x="0" y="0" width="194" height="178" rx="8" fill="#181320" stroke="#f43f5e" stroke-width="1.8" />
+      
+      <!-- Phase Badge -->
+      <rect x="10" y="10" width="174" height="24" rx="4" fill="#881337" stroke="#f43f5e" stroke-width="0.8" />
+      <text x="97" y="26" fill="#fecdd3" font-family="system-ui, sans-serif" font-size="11" font-weight="800" text-anchor="middle">3. POST-PRODUCTION</text>
+      
+      <text x="97" y="48" fill="#fb7185" font-family="system-ui, sans-serif" font-size="9" font-weight="700" text-anchor="middle">AFTER RECORDING FINISHES</text>
+      <line x1="20" y1="54" x2="174" y2="54" stroke="#1e293b" stroke-width="1" />
+
+      <!-- Activity list items -->
+      <g transform="translate(14, 62)">
+        <circle cx="4" cy="4" r="3" fill="#cbd5e1" />
+        <text x="14" y="8" fill="#e2e8f0" font-family="system-ui, sans-serif" font-size="10" font-weight="600">Multitrack Mixing</text>
+        <text x="14" y="20" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="8.5">Balance, EQ, compression, FX</text>
+
+        <!-- MASTERING HIGHLIGHT BOX (CORRECT ANSWER CALLOUT) -->
+        <g transform="translate(-4, 28)">
+          <rect x="0" y="0" width="176" height="54" rx="5" fill="#4c0519" stroke="#f43f5e" stroke-width="1.5" filter="url(#glow-rose)" />
+          <text x="88" y="16" fill="#fda4af" font-family="system-ui, sans-serif" font-size="9.5" font-weight="900" text-anchor="middle">&#x26A0; MASTERING</text>
+          <text x="88" y="30" fill="#ffffff" font-family="system-ui, sans-serif" font-size="8.5" font-weight="700" text-anchor="middle">Final Stereo Mix Polish</text>
+          <text x="88" y="44" fill="#fca5a5" font-family="system-ui, sans-serif" font-size="8" font-weight="600" text-anchor="middle">(NOT Pre-Production)</text>
+        </g>
+      </g>
+    </g>
+  </g>
+
+  <!-- ==================== BOTTOM: 3 EDUCATIONAL EXPLANATION CARDS ==================== -->
+  <g transform="translate(24, 280)">
+    <!-- CARD 1: MASTERING IS POST-PRODUCTION (CORRECT ANSWER) -->
+    <g transform="translate(0, 0)">
+      <rect x="0" y="0" width="216" height="124" rx="8" fill="#0c2340" stroke="#38bdf8" stroke-width="1.8" />
+      <rect x="10" y="10" width="95" height="18" rx="4" fill="#0284c7" />
+      <text x="57" y="23" fill="#ffffff" font-family="system-ui, sans-serif" font-size="9" font-weight="800" text-anchor="middle">CORRECT ANSWER</text>
+      
+      <text x="12" y="46" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="11" font-weight="800">Mastering = Final Step</text>
+      <text x="12" y="64" fill="#e2e8f0" font-family="system-ui, sans-serif" font-size="10" font-weight="600">Mastering is NOT pre-production.</text>
+      <text x="12" y="78" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="9.5">It is the final post-production</text>
+      <text x="12" y="92" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="9.5">polish of completed stereo mixes</text>
+      <text x="12" y="106" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="9.5" font-weight="700">before commercial release.</text>
+    </g>
+
+    <!-- CARD 2: PRE-PRODUCTION PURPOSE -->
+    <g transform="translate(228, 0)">
+      <rect x="0" y="0" width="216" height="124" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.2" />
+      <rect x="10" y="10" width="112" height="18" rx="4" fill="#0369a1" />
+      <text x="66" y="23" fill="#bae6fd" font-family="system-ui, sans-serif" font-size="9" font-weight="800" text-anchor="middle">PRE-PRODUCTION</text>
+      
+      <text x="12" y="46" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="11" font-weight="800">Preparation &amp; Vision</text>
+      <text x="12" y="64" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="10">Sorts out all musical choices:</text>
+      <text x="12" y="78" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="9.5">• Rehearsing structural changes</text>
+      <text x="12" y="92" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="9.5">• Setting ideal vocal key &amp; BPM</text>
+      <text x="12" y="106" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="9.5">• Saves costly studio time</text>
+    </g>
+
+    <!-- CARD 3: THE FULL 3-STAGE SEQUENCE -->
+    <g transform="translate(456, 0)">
+      <rect x="0" y="0" width="216" height="124" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.2" />
+      <rect x="10" y="10" width="105" height="18" rx="4" fill="#881337" />
+      <text x="62" y="23" fill="#fecdd3" font-family="system-ui, sans-serif" font-size="9" font-weight="800" text-anchor="middle">CHRONOLOGY</text>
+      
+      <text x="12" y="46" fill="#fb7185" font-family="system-ui, sans-serif" font-size="11" font-weight="800">Three Orderly Stages</text>
+      <text x="12" y="64" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="10">Professional records follow:</text>
+      <text x="12" y="78" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="9.5">1. Pre-Prod: Rehearse &amp; arrange</text>
+      <text x="12" y="92" fill="#34d399" font-family="system-ui, sans-serif" font-size="9.5">2. Tracking: Record multitracks</text>
+      <text x="12" y="106" fill="#fb7185" font-family="system-ui, sans-serif" font-size="9.5">3. Post-Prod: Mix &amp; master</text>
+    </g>
+  </g>
+</svg>

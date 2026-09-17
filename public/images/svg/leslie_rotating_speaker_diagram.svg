@@ -1,0 +1,89 @@
+<svg width="720" height="420" viewBox="0 0 720 420" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg-grad-les" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#090d16" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+    <filter id="glow-les-amber" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <rect width="720" height="420" rx="14" fill="url(#bg-grad-les)" />
+  <rect x="1" y="1" width="718" height="418" rx="13" stroke="#334155" stroke-width="1.5" />
+
+  <!-- Title Bar -->
+  <g transform="translate(24, 16)">
+    <rect x="0" y="0" width="672" height="34" rx="7" fill="#1e293b" stroke="#f59e0b" stroke-width="1.2" />
+    <circle cx="18" cy="17" r="5" fill="#f59e0b" filter="url(#glow-les-amber)" />
+    <text x="32" y="22" fill="#f8fafc" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" letter-spacing="0.6">MODULATION &amp; ACOUSTICS: LESLIE ROTATING SPEAKER ON HAMMOND ORGAN</text>
+    <rect x="520" y="6" width="140" height="22" rx="4" fill="#78350f" fill-opacity="0.4" stroke="#f59e0b" stroke-width="0.8" />
+    <text x="590" y="21" fill="#fde68a" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="800" text-anchor="middle">JOE COCKER (1968)</text>
+  </g>
+
+  <!-- Main Visual: Leslie Cabinet Schematic -->
+  <g transform="translate(24, 62)">
+    <rect x="0" y="0" width="672" height="264" rx="10" fill="#0b1329" stroke="#1e293b" stroke-width="1.2" />
+
+    <!-- Physical Cabinet Box -->
+    <g transform="translate(30, 16)">
+      <rect x="0" y="0" width="220" height="232" rx="10" fill="#1e293b" stroke="#78350f" stroke-width="2" />
+      <text x="110" y="24" fill="#fde68a" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="800" text-anchor="middle">LESLIE 122 CABINET</text>
+
+      <!-- Top Chamber: Rotating Treble Horn -->
+      <g transform="translate(20, 36)">
+        <rect x="0" y="0" width="180" height="74" rx="6" fill="#0f172a" stroke="#f59e0b" stroke-width="1.2" />
+        <circle cx="90" cy="37" r="28" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="4 2" />
+        <!-- Rotating horns -->
+        <line x1="90" y1="37" x2="65" y2="22" stroke="#f59e0b" stroke-width="3" stroke-linecap="round" />
+        <line x1="90" y1="37" x2="115" y2="52" stroke="#f59e0b" stroke-width="3" stroke-linecap="round" />
+        <circle cx="90" cy="37" r="6" fill="#f59e0b" />
+        <text x="90" y="66" fill="#fed7aa" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="700" text-anchor="middle">ROTATING HIGH HORN</text>
+      </g>
+
+      <!-- Middle: Crossover 800 Hz -->
+      <line x1="10" y1="120" x2="210" y2="120" stroke="#334155" stroke-width="1.5" />
+      <text x="110" y="128" fill="#64748b" font-family="system-ui, -apple-system, sans-serif" font-size="7.5" font-weight="700" text-anchor="middle">PASSIVE CROSSOVER: 800 Hz</text>
+
+      <!-- Bottom Chamber: Rotating Bass Drum -->
+      <g transform="translate(20, 138)">
+        <rect x="0" y="0" width="180" height="80" rx="6" fill="#0f172a" stroke="#38bdf8" stroke-width="1.2" />
+        <ellipse cx="90" cy="40" rx="36" ry="22" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5" stroke-dasharray="4 2" />
+        <rect x="74" y="32" width="32" height="16" fill="#38bdf8" rx="3" />
+        <text x="90" y="70" fill="#bae6fd" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="700" text-anchor="middle">ROTATING BASS DRUM BAFFLE</text>
+      </g>
+    </g>
+
+    <!-- Right Side: Dual Modulation Principles -->
+    <g transform="translate(280, 16)">
+      <!-- Box 1: Doppler Pitch Modulation -->
+      <rect x="0" y="0" width="360" height="110" rx="8" fill="#1e293b" stroke="#f59e0b" stroke-width="1.2" />
+      <text x="14" y="24" fill="#fcd34d" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="800">1. DOPPLER EFFECT (FREQUENCY MODULATION)</text>
+      <text x="14" y="44" fill="#cbd5e1" font-family="system-ui, -apple-system, sans-serif" font-size="9.5">• As horn rotates towards mic: frequency shifts UP</text>
+      <text x="14" y="60" fill="#cbd5e1" font-family="system-ui, -apple-system, sans-serif" font-size="9.5">• As horn rotates away: frequency shifts DOWN</text>
+      <text x="14" y="76" fill="#f59e0b" font-family="system-ui, -apple-system, sans-serif" font-size="9.5" font-weight="700">• Creates pitch vibrato &amp; rich animated phasing</text>
+      <text x="14" y="94" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="8.5">Speed modes: Chorale (slow ~48 RPM) &amp; Tremolo (fast ~400 RPM)</text>
+
+      <!-- Box 2: Tremolo Amplitude Modulation -->
+      <g transform="translate(0, 122)">
+        <rect x="0" y="0" width="360" height="110" rx="8" fill="#1e293b" stroke="#38bdf8" stroke-width="1.2" />
+        <text x="14" y="24" fill="#7dd3fc" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="800">2. TREMOLO (AMPLITUDE MODULATION)</text>
+        <text x="14" y="44" fill="#cbd5e1" font-family="system-ui, -apple-system, sans-serif" font-size="9.5">• Directional horn sweeps volume louder and quieter</text>
+        <text x="14" y="60" fill="#cbd5e1" font-family="system-ui, -apple-system, sans-serif" font-size="9.5">• Wall reflections in the studio add swirling diffuse delay</text>
+        <text x="14" y="76" fill="#38bdf8" font-family="system-ui, -apple-system, sans-serif" font-size="9.5" font-weight="700">• Integral sound of Tommy Eyre’s intro Hammond Organ</text>
+        <text x="14" y="94" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="8.5">Instantly transforms the track into a dramatic psychedelic soul anthem</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Bottom Bar -->
+  <g transform="translate(24, 334)">
+    <rect x="0" y="0" width="672" height="70" rx="8" fill="#0b1329" stroke="#334155" stroke-width="1.2" />
+    <text x="16" y="22" fill="#10b981" font-family="system-ui, -apple-system, sans-serif" font-size="10.5" font-weight="800">HOW TO IDENTIFY IN EXAM QUESTIONS:</text>
+    <text x="16" y="40" fill="#cbd5e1" font-family="system-ui, -apple-system, sans-serif" font-size="9.5">Listen for the swirling, watery, undulating modulation on organ or guitars. The physical rotation of horns inside the cabinet produces simultaneous Doppler pitch-shifting (vibrato) and directional volume changes (tremolo).</text>
+  </g>
+</svg>
