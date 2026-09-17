@@ -25,6 +25,57 @@ const CATEGORY_ICONS = {
   mix: Disc
 };
 
+// Verified catalog of YouTube video IDs for Component 1 and classic tracks
+const KNOWN_TRACK_VIDEOS = {
+  "angels": "luwAMFcc2f8",
+  "september": "Gs069dndIYk",
+  "animals": "jdWhJcrrjQs",
+  "common people": "yuTMWgOduFM",
+  "i love you, i'm sorry": "VwT_3fS5Gso",
+  "i love you, i’m sorry": "VwT_3fS5Gso",
+  "kill bill": "MSRcC626prw",
+  "chaise longue": "QNX8_kODKoc",
+  "the logical song": "OQfZITwN3zA",
+  "moving to new york": "4b_y7HwzUe8",
+  "i don't feel like dancin'": "4H5I6y1Qvz8",
+  "i don’t feel like dancin’": "4H5I6y1Qvz8",
+  "fame": "Y40PFEzL0eA",
+  "bohemian rhapsody": "fJ9rUzIMcZQ",
+  "superstition": "0CFuCYNx-1g",
+  "whole lotta love": "HQmmM_qwG4k",
+  "taxman": "Maz9ddxEQnM",
+  "hey jude": "A_MjCqQoLLA",
+  "hotel california": "09839DpTctU",
+  "yesterday": "wXTJBr9tt8Q"
+};
+
+// Universal API Fetcher with automatic fallback to localhost:3001
+async function fetchCompanionApi(endpoint, options = {}) {
+  // 1. Try relative route through Vite proxy first
+  try {
+    const res = await fetch(endpoint, options);
+    const contentType = res.headers.get('content-type') || '';
+    if (res.ok && contentType.includes('application/json')) {
+      return await res.json();
+    }
+  } catch (e) {
+    // Relative route network error
+  }
+
+  // 2. Direct backend fallback to http://localhost:3001 (where Tracksheet server.js runs with CORS)
+  try {
+    const fallbackUrl = `http://localhost:3001${endpoint}`;
+    const fallbackRes = await fetch(fallbackUrl, options);
+    if (fallbackRes.ok) {
+      return await fallbackRes.json();
+    }
+  } catch (fallbackErr) {
+    // Fallback error
+  }
+
+  throw new Error(`Could not connect to service at ${endpoint}`);
+}
+
 export default function VideoCompanionModal({ 
   isOpen, 
   onClose, 
@@ -53,6 +104,7 @@ export default function VideoCompanionModal({
   const [videoId, setVideoId] = useState(null);
   const [loadingVideo, setLoadingVideo] = useState(false);
   const [videoError, setVideoError] = useState(null);
+  const [videoRetryCount, setVideoRetryCount] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -169,7 +221,7 @@ export default function VideoCompanionModal({
       setIsGeneratingPersona(true);
       setPersonaError(null);
       try {
-        const res = await fetch('/api/commentary/generate', {
+        const data = await fetchCompanionApi('/api/commentary/generate', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -182,11 +234,11 @@ export default function VideoCompanionModal({
             rawMarkdown: rawMarkdown
           })
         });
-        const data = await res.json();
         if (isMounted) {
           if (data.success && Array.isArray(data.beats) && data.beats.length > 0) {
             personaCacheRef.current[selectedPersona] = data.beats;
             setAiBeats(data.beats);
+            setPersonaError(null);
           } else {
             console.warn('[VideoCompanion] Persona commentary fallback:', data.error);
             setPersonaError(data.error || 'Failed to craft voice commentary');
@@ -277,8 +329,7 @@ export default function VideoCompanionModal({
 
   const loadPersonaStats = async () => {
     try {
-      const res = await fetch('/api/commentary/persona-stats');
-      const data = await res.json();
+      const data = await fetchCompanionApi('/api/commentary/persona-stats');
       if (data.success && data.personas) {
         setPersonaStats(data.personas);
       }
@@ -289,8 +340,7 @@ export default function VideoCompanionModal({
 
   const loadLearnedRules = async () => {
     try {
-      const res = await fetch(`/api/commentary/user-rules?persona=${selectedPersona}`);
-      const data = await res.json();
+      const data = await fetchCompanionApi(`/api/commentary/user-rules?persona=${selectedPersona}`);
       if (data.success && data.rules) {
         setLearnedRules(data.rules);
       }
@@ -330,7 +380,7 @@ export default function VideoCompanionModal({
     }));
 
     try {
-      const res = await fetch('/api/commentary/rate', {
+      const data = await fetchCompanionApi('/api/commentary/rate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -344,7 +394,6 @@ export default function VideoCompanionModal({
           notes: note
         })
       });
-      const data = await res.json();
       if (data.success) {
         const personaObj = COMMENTARY_PERSONAS[selectedPersona] || {};
         const personaTitle = personaObj.shortLabel || personaObj.name || selectedPersona;
@@ -387,7 +436,7 @@ export default function VideoCompanionModal({
     setIsHoning(true);
     try {
       if (trackId) {
-        await fetch('/api/commentary/regenerate', {
+        await fetchCompanionApi('/api/commentary/regenerate', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ trackId, persona: selectedPersona })
@@ -395,7 +444,7 @@ export default function VideoCompanionModal({
       }
       delete personaCacheRef.current[selectedPersona];
       setIsGeneratingPersona(true);
-      const res = await fetch('/api/commentary/generate', {
+      const data = await fetchCompanionApi('/api/commentary/generate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -408,7 +457,6 @@ export default function VideoCompanionModal({
           rawMarkdown: rawMarkdown
         })
       });
-      const data = await res.json();
       if (data.success && Array.isArray(data.beats) && data.beats.length > 0) {
         personaCacheRef.current[selectedPersona] = data.beats;
         setAiBeats(data.beats);
@@ -432,6 +480,18 @@ export default function VideoCompanionModal({
     async function resolveVideo() {
       setLoadingVideo(true);
       setVideoError(null);
+
+      // 1. Instant check against verified offline track catalogue
+      const cleanTrackName = (trackName || '').toLowerCase().trim();
+      const matchedKey = Object.keys(KNOWN_TRACK_VIDEOS).find(k => 
+        cleanTrackName === k || cleanTrackName.includes(k) || k.includes(cleanTrackName)
+      );
+      if (matchedKey && KNOWN_TRACK_VIDEOS[matchedKey]) {
+        setVideoId(KNOWN_TRACK_VIDEOS[matchedKey]);
+        setLoadingVideo(false);
+        return;
+      }
+
       try {
         const queryParam = initialYoutubeUrl || `${trackName || ''} ${artistName || ''}`.trim();
         if (!queryParam) {
@@ -441,19 +501,24 @@ export default function VideoCompanionModal({
         }
 
         const preferParam = mediaPreference === 'audio' ? '&prefer=audio' : '&prefer=video';
-        const res = await fetch(`/api/youtube/resolve?query=${encodeURIComponent(queryParam)}${preferParam}`);
-        const data = await res.json();
+        const data = await fetchCompanionApi(`/api/youtube/resolve?query=${encodeURIComponent(queryParam)}${preferParam}`);
 
         if (isMounted) {
-          if (data.success && data.videoId) {
+          if (data && data.success && data.videoId) {
             setVideoId(data.videoId);
+          } else if (matchedKey && KNOWN_TRACK_VIDEOS[matchedKey]) {
+            setVideoId(KNOWN_TRACK_VIDEOS[matchedKey]);
           } else {
             setVideoError('Could not locate an embeddable YouTube video for this track.');
           }
         }
       } catch (err) {
         if (isMounted) {
-          setVideoError('Failed to connect to YouTube video resolver.');
+          if (matchedKey && KNOWN_TRACK_VIDEOS[matchedKey]) {
+            setVideoId(KNOWN_TRACK_VIDEOS[matchedKey]);
+          } else {
+            setVideoError('Failed to connect to YouTube video resolver.');
+          }
         }
       } finally {
         if (isMounted) setLoadingVideo(false);
@@ -465,7 +530,7 @@ export default function VideoCompanionModal({
     return () => {
       isMounted = false;
     };
-  }, [isOpen, trackName, artistName, initialYoutubeUrl, mediaPreference]);
+  }, [isOpen, trackName, artistName, initialYoutubeUrl, mediaPreference, videoRetryCount]);
 
   // 3. YouTube IFrame API Initialization & Polling
   useEffect(() => {
@@ -936,16 +1001,24 @@ export default function VideoCompanionModal({
           {videoError && !loadingVideo && (
             <div className="video-error-overlay">
               <p>{videoError}</p>
-              {initialYoutubeUrl && (
+              <div style={{ display: 'flex', gap: '8px', alignItems: 'center', marginTop: '0.5rem', flexWrap: 'wrap', justifyContent: 'center' }}>
+                <button 
+                  type="button" 
+                  className="btn-link-yt" 
+                  style={{ background: 'linear-gradient(135deg, #8B5CF6, #6366F1)' }}
+                  onClick={() => setVideoRetryCount(c => c + 1)}
+                >
+                  <RefreshCw size={14} /> Retry Video
+                </button>
                 <a 
-                  href={initialYoutubeUrl} 
+                  href={initialYoutubeUrl || `https://www.youtube.com/results?search_query=${encodeURIComponent(`${trackName || ''} ${artistName || ''}`)}`}
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="btn-link-yt"
                 >
                   <ExternalLink size={14} /> Open in YouTube
                 </a>
-              )}
+              </div>
             </div>
           )}
 
@@ -1028,9 +1101,27 @@ export default function VideoCompanionModal({
             </div>
           </div>
 
-          {personaError && (
-            <div className="companion-persona-error-banner">
+          {personaError && !aiBeats && (
+            <div className="companion-persona-error-banner" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '8px' }}>
               <span>⚠️ {personaError} — using Chief Studio Engineer telemetry</span>
+              <button 
+                type="button" 
+                onClick={() => {
+                  delete personaCacheRef.current[selectedPersona];
+                  setSelectedPersona(p => p);
+                }}
+                style={{
+                  background: 'rgba(255,255,255,0.12)',
+                  border: '1px solid rgba(255,255,255,0.2)',
+                  color: '#FFF',
+                  padding: '2px 8px',
+                  borderRadius: '4px',
+                  fontSize: '0.68rem',
+                  cursor: 'pointer'
+                }}
+              >
+                Retry
+              </button>
             </div>
           )}
 
