@@ -19,7 +19,7 @@ import { downloadGoodLookingPdf } from './pdfExporter';
 import { useUser } from '../../contexts/UserContext';
 import PremiumLocked from '../PremiumLocked';
 
-const API_BASE = import.meta.env.VITE_TRACKSHEET_API_URL || '';
+const API_BASE = import.meta.env.VITE_TRACKSHEET_API_URL || 'https://tracksheet-creator-2.onrender.com';
 
 const DAW_OPTIONS = [
   'Logic Pro',

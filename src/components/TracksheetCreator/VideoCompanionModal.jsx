@@ -49,7 +49,7 @@ const KNOWN_TRACK_VIDEOS = {
   "yesterday": "wXTJBr9tt8Q"
 };
 
-const API_BASE = import.meta.env.VITE_TRACKSHEET_API_URL || '';
+const API_BASE = import.meta.env.VITE_TRACKSHEET_API_URL || 'https://tracksheet-creator-2.onrender.com';
 
 // Universal API Fetcher with automatic fallback to configured API / localhost
 async function fetchCompanionApi(endpoint, options = {}) {
