@@ -149,13 +149,6 @@ export default function VideoCompanionModal({
   const typewriterTimerRef = useRef(null);
   const typewriterBoxRef = useRef(null);
 
-  // Auto-scroll typewriter box into view when beat changes
-  useEffect(() => {
-    if (typewriterBoxRef.current) {
-      typewriterBoxRef.current.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    }
-  }, [activeBeat?.id]);
-
   // Clear persona beats cache if track changes
   const prevTrackIdentifierRef = useRef(null);
   const currentTrackIdentifier = `${trackId || ''}_${trackName || ''}_${artistName || ''}`;
@@ -399,6 +392,13 @@ export default function VideoCompanionModal({
     const safeIdx = Math.max(0, Math.min(manualBeatIdx, beats.length - 1));
     return beats[safeIdx] || beats[0];
   }, [beats, effectiveMusicTime, autoSync, manualBeatIdx]);
+
+  // Auto-scroll typewriter box into view when beat changes
+  useEffect(() => {
+    if (typewriterBoxRef.current) {
+      typewriterBoxRef.current.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+  }, [activeBeat?.id]);
 
   const handleRateBeat = async (stars, tag = null, customNote = null) => {
     if (!activeBeat) return;
