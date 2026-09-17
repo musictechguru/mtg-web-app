@@ -343,7 +343,8 @@ export default function TracksheetCreator({ onBack }) {
               track_name: reqTrackName,
               artist_name: reqArtistName,
               force_regenerate: forceRegenerate,
-              existing_id: targetTrackId || undefined
+              existing_id: targetTrackId || undefined,
+              source: 'mtg_app'
             })
           });
 
@@ -482,6 +483,21 @@ export default function TracksheetCreator({ onBack }) {
       setActiveTab('tracksheet');
       setHistoryOpen(false);
       setLoading(false);
+
+      // Log archive item selection to search database
+      if (API_BASE || import.meta.env.DEV) {
+        fetch(`${API_BASE}/api/searches`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            track_name: found.track_name || (fallbackTrack ? fallbackTrack.track : ''),
+            artist_name: found.artist_name || (fallbackTrack ? fallbackTrack.artist : ''),
+            source: 'mtg_app',
+            found_in_archive: true,
+            matched_track_id: found.id || id
+          })
+        }).catch(() => {});
+      }
 
       setTimeout(() => {
         if (resultPanelRef.current) {
