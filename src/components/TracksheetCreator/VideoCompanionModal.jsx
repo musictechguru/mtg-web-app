@@ -86,11 +86,8 @@ export default function VideoCompanionModal({
   rawMarkdown, 
   youtubeUrl: initialYoutubeUrl 
 }) {
-  const [docked, setDocked] = useState(() => {
-    // Default to docked at bottom of screen so track sheet is never obscured
-    const stored = localStorage.getItem('video_companion_docked');
-    return stored === null ? true : stored === 'true';
-  });
+  // Screen positioning state: 'center' pop-up modal vs 'docked' at bottom
+  const [docked, setDocked] = useState(false);
   const [autoMoveToBottom, setAutoMoveToBottom] = useState(() => {
     return localStorage.getItem('auto_move_companion_to_bottom') !== 'false';
   });
@@ -284,9 +281,20 @@ export default function VideoCompanionModal({
 
   // Video-to-music timeline calibration offset (deals with film intros, MTV dialogue, director logos)
   const [videoOffset, setVideoOffset] = useState(0);
-  const [mediaPreference, setMediaPreference] = useState(() => {
-    return localStorage.getItem('video_companion_media_mode') || 'video';
-  });
+  const [mediaPreference, setMediaPreference] = useState('video');
+
+  // Whenever the companion is opened, ensure it starts as a centered pop-up window with video open
+  useEffect(() => {
+    if (isOpen) {
+      setDocked(false);
+      setIsGliding(false);
+      setAutoMoveDismissed(false);
+      setAutoMoveActive(true);
+      setAutoMoveSecondsLeft(2);
+      setMediaPreference('video');
+      setVideoError(null);
+    }
+  }, [isOpen]);
 
   // Re-read or reset offset when videoId changes
   useEffect(() => {
