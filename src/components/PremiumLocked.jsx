@@ -105,6 +105,11 @@ const PremiumLocked = ({ itemTitle }) => {
                         <p style={{ color: '#94a3b8', fontSize: '0.95rem', lineHeight: '1.5' }}>Access stage 3 and 4 intensive practical quizzes like Synthesizer and Effects Chains.</p>
                     </div>
                     <div style={{ background: 'rgba(255,255,255,0.05)', padding: '25px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.1)' }}>
+                        <div style={{ fontSize: '2rem', marginBottom: '15px' }}>🎚️</div>
+                        <h3 style={{ fontSize: '1.2rem', marginBottom: '10px', color: '#f8fafc' }}>Component 1 Track Sheet</h3>
+                        <p style={{ color: '#94a3b8', fontSize: '0.95rem', lineHeight: '1.5' }}>Generate authentic multi-track session sheets, hardware routing, and complete DAW submission logbooks.</p>
+                    </div>
+                    <div style={{ background: 'rgba(255,255,255,0.05)', padding: '25px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.1)' }}>
                         <div style={{ fontSize: '2rem', marginBottom: '15px' }}>📈</div>
                         <h3 style={{ fontSize: '1.2rem', marginBottom: '10px', color: '#f8fafc' }}>Detailed Analytics</h3>
                         <p style={{ color: '#94a3b8', fontSize: '0.95rem', lineHeight: '1.5' }}>Track your mastery progress comprehensively across every topic to guarantee top marks.</p>

@@ -271,12 +271,26 @@ const Dashboard = ({ onNavigate, onOpenProfile }) => {
                         🎚️
                     </div>
                     <div>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px', flexWrap: 'wrap' }}>
                             <span style={{ fontSize: '0.75rem', fontWeight: 'bold', background: 'rgba(168, 85, 247, 0.25)', color: '#c084fc', padding: '2px 8px', borderRadius: '6px' }}>
                                 PEARSON EDEXCEL (9MT0/01)
                             </span>
                             <span style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>
                                 Component 1 Recording
+                            </span>
+                            <span style={{ 
+                                fontSize: '0.75rem', 
+                                fontWeight: 'bold', 
+                                background: currentUser?.is_premium ? 'rgba(34, 197, 94, 0.2)' : 'rgba(234, 179, 8, 0.2)', 
+                                color: currentUser?.is_premium ? '#4ade80' : '#facc15', 
+                                border: `1px solid ${currentUser?.is_premium ? 'rgba(34, 197, 94, 0.4)' : 'rgba(234, 179, 8, 0.4)'}`,
+                                padding: '2px 8px', 
+                                borderRadius: '6px',
+                                display: 'inline-flex',
+                                alignItems: 'center',
+                                gap: '4px'
+                            }}>
+                                {currentUser?.is_premium ? '✓ PREMIUM UNLOCKED' : '🔒 PREMIUM'}
                             </span>
                         </div>
                         <h3 style={{ margin: '0 0 6px 0', color: '#fff', fontSize: '1.3rem' }}>
@@ -288,9 +302,11 @@ const Dashboard = ({ onNavigate, onOpenProfile }) => {
                     </div>
                 </div>
                 <button
-                    onClick={() => onNavigate({ type: 'tracksheet_creator', title: 'Component 1: Track Sheet & Logbook' })}
+                    onClick={() => onNavigate({ type: 'tracksheet_creator', title: 'Component 1: Track Sheet & Logbook', isPremium: true })}
                     style={{
-                        background: 'linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%)',
+                        background: currentUser?.is_premium 
+                            ? 'linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%)' 
+                            : 'linear-gradient(135deg, #7c3aed 0%, #4f46e5 100%)',
                         color: '#fff',
                         border: 'none',
                         padding: '12px 24px',
@@ -308,7 +324,7 @@ const Dashboard = ({ onNavigate, onOpenProfile }) => {
                     onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.04)'}
                     onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
                 >
-                    Open Track Sheet Creator →
+                    {currentUser?.is_premium ? 'Open Track Sheet Creator →' : '🔒 Unlock Track Sheet Creator'}
                 </button>
             </div>
 

@@ -147,6 +147,14 @@ export default function VideoCompanionModal({
   const playerContainerRef = useRef(null);
   const intervalRef = useRef(null);
   const typewriterTimerRef = useRef(null);
+  const typewriterBoxRef = useRef(null);
+
+  // Auto-scroll typewriter box into view when beat changes
+  useEffect(() => {
+    if (typewriterBoxRef.current) {
+      typewriterBoxRef.current.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+  }, [activeBeat?.id]);
 
   // Clear persona beats cache if track changes
   const prevTrackIdentifierRef = useRef(null);
@@ -1166,7 +1174,7 @@ export default function VideoCompanionModal({
           )}
 
           {/* Monitor Live Typewriter Text Box */}
-          <div className="companion-typewriter-box">
+          <div ref={typewriterBoxRef} className="companion-typewriter-box">
             <div className="companion-radar-wrap">
               <div className="companion-radar-ring"></div>
               <Disc className="companion-spinning-vinyl" size={22} color={activeBeat?.accentColor || '#C084FC'} />

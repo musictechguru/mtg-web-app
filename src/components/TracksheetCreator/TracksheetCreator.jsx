@@ -16,6 +16,8 @@ import VideoCompanionModal from './VideoCompanionModal';
 import { parseHistoricalTracksheet } from './tracksheetParser';
 import { parseLogbook } from './logbookParser';
 import { downloadGoodLookingPdf } from './pdfExporter';
+import { useUser } from '../../contexts/UserContext';
+import PremiumLocked from '../PremiumLocked';
 
 const API_BASE = import.meta.env.VITE_TRACKSHEET_API_URL || '';
 
@@ -198,6 +200,7 @@ async function getArchiveData() {
 }
 
 export default function TracksheetCreator({ onBack }) {
+  const { currentUser } = useUser();
   const [trackName, setTrackName] = useState('');
   const [artistName, setArtistName] = useState('');
   const [loading, setLoading] = useState(false);
@@ -225,6 +228,7 @@ export default function TracksheetCreator({ onBack }) {
 
   const activityRef = useRef(null);
   const c1ActivityRef = useRef(null);
+  const videoCompanionRef = useRef(null);
   const resultPanelRef = useRef(null);
 
   useEffect(() => {
@@ -267,8 +271,10 @@ export default function TracksheetCreator({ onBack }) {
   };
 
   useEffect(() => {
-    fetchHistory();
-  }, []);
+    if (currentUser?.is_premium) {
+      fetchHistory();
+    }
+  }, [currentUser?.is_premium]);
 
   const handleSetLayout = (mode) => {
     setTracksheetLayout(mode);
@@ -614,6 +620,38 @@ export default function TracksheetCreator({ onBack }) {
     }
     setVideoCompanionOpen(true);
   };
+
+  if (!currentUser?.is_premium) {
+    return (
+      <div style={{ maxWidth: '900px', margin: '0 auto', padding: '20px' }}>
+        {onBack && (
+          <button
+            onClick={onBack}
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '8px',
+              background: 'rgba(255, 255, 255, 0.05)',
+              border: '1px solid rgba(255, 255, 255, 0.1)',
+              color: '#94a3b8',
+              padding: '8px 16px',
+              borderRadius: '8px',
+              cursor: 'pointer',
+              marginBottom: '15px',
+              fontSize: '0.9rem',
+              fontWeight: '500',
+              transition: 'all 0.2s'
+            }}
+            onMouseEnter={(e) => { e.currentTarget.style.color = '#fff'; e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.3)'; }}
+            onMouseLeave={(e) => { e.currentTarget.style.color = '#94a3b8'; e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)'; }}
+          >
+            <ArrowLeft size={16} /> Back to Dashboard
+          </button>
+        )}
+        <PremiumLocked itemTitle="Component 1: Track Sheet & Logbook" />
+      </div>
+    );
+  }
 
   return (
     <div className="tracksheet-wrapper">
