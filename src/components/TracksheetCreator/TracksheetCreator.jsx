@@ -225,6 +225,19 @@ export default function TracksheetCreator({ onBack }) {
 
   const activityRef = useRef(null);
   const c1ActivityRef = useRef(null);
+  const resultPanelRef = useRef(null);
+
+  useEffect(() => {
+    if (loading && searchActive && activityRef.current && typeof window !== 'undefined' && window.innerWidth <= 768) {
+      activityRef.current.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+  }, [loading, searchActive]);
+
+  useEffect(() => {
+    if (c1Loading && c1ActivityRef.current && typeof window !== 'undefined' && window.innerWidth <= 768) {
+      c1ActivityRef.current.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+  }, [c1Loading]);
 
   const fetchHistory = async () => {
     // 1. If backend API URL is configured or running locally in dev, try live API
@@ -342,6 +355,12 @@ export default function TracksheetCreator({ onBack }) {
           setCopyNotification(`Retained historical tracksheet with highest score (${data.score}%)`);
           setTimeout(() => setCopyNotification(''), 4000);
         }
+
+        setTimeout(() => {
+          if (resultPanelRef.current) {
+            resultPanelRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }, 120);
       } else {
         setResult(
           `### Track Not Yet in Archive\n\n"${reqTrackName}" was not found in the pre-generated library.\n\n` +
@@ -442,6 +461,12 @@ export default function TracksheetCreator({ onBack }) {
       setActiveTab('tracksheet');
       setHistoryOpen(false);
       setLoading(false);
+
+      setTimeout(() => {
+        if (resultPanelRef.current) {
+          resultPanelRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 120);
       return;
     }
 
@@ -461,6 +486,12 @@ export default function TracksheetCreator({ onBack }) {
             setActiveTab('tracksheet');
             setHistoryOpen(false);
             setLoading(false);
+
+            setTimeout(() => {
+              if (resultPanelRef.current) {
+                resultPanelRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              }
+            }, 120);
             return;
           }
         }
@@ -726,7 +757,7 @@ export default function TracksheetCreator({ onBack }) {
 
         {/* Active Document Result Panel */}
         {result && (
-          <div className="glass-panel" style={{ animation: 'fadeIn 0.5s ease' }}>
+          <div ref={resultPanelRef} className="glass-panel tracksheet-result-panel" style={{ animation: 'fadeIn 0.5s ease' }}>
             {/* View Switching Tabs */}
             <div className="view-tabs">
               <button 

@@ -178,6 +178,7 @@ export default function VideoCompanionModal({
             trackName: trackName,
             artistName: artistName,
             tracksheetData: parsedTracksheet,
+            content: rawMarkdown,
             rawMarkdown: rawMarkdown
           })
         });
@@ -403,6 +404,7 @@ export default function VideoCompanionModal({
           trackName: trackName,
           artistName: artistName,
           tracksheetData: parsedTracksheet,
+          content: rawMarkdown,
           rawMarkdown: rawMarkdown
         })
       });
@@ -842,14 +844,11 @@ export default function VideoCompanionModal({
           <div className="video-companion-title-group">
             <div className="video-live-pulse-badge">
               <span className="live-dot-pulse"></span>
-              <span className="live-title-text">STUDIO VIDEO COMPANION <span className="title-beta-pill">BETA</span></span>
-              {docked && (
-                <span className="docked-location-pill" title="Docked at bottom of screen so you can view the track sheet">
-                  📍 BOTTOM SCREEN
-                </span>
-              )}
+              <span className="live-title-text">
+                {docked ? 'STUDIO COMPANION' : 'STUDIO VIDEO COMPANION'} <span className="title-beta-pill">BETA</span>
+              </span>
             </div>
-            <span className="video-track-subtitle">
+            <span className="video-track-subtitle" title={`${trackName}${artistName ? ' • ' + artistName : ''}`}>
               <strong style={{ color: '#F8FAFC' }}>{trackName}</strong>
               {artistName && <span style={{ color: '#94A3B8' }}> • {artistName}</span>}
             </span>
@@ -863,11 +862,12 @@ export default function VideoCompanionModal({
               onClick={handleToggleMediaMode}
               title={mediaPreference === 'audio' ? "Playing Clean Studio Audio. Click to switch to Music Video." : "Playing Music Video. Click to switch to Clean Studio Audio (avoids film intro skits)."}
             >
-              {mediaPreference === 'audio' ? '🎵 Studio Audio' : '🎬 Video'}
+              {mediaPreference === 'audio' ? '🎵 Audio' : '🎬 Video'}
             </button>
 
             {/* Audio Volume / Unmute Button */}
             <button 
+              type="button"
               className={`companion-btn-icon ${isMuted ? 'muted-warning' : ''}`}
               onClick={toggleMute} 
               title={isMuted ? "Audio is Muted — Click to Unmute" : "Mute Audio"}
@@ -878,7 +878,7 @@ export default function VideoCompanionModal({
             {/* Compact HUD Toggle (when docked at bottom) */}
             {docked && (
               <button 
-                type="button"
+                type="button" 
                 className={`companion-btn-icon ${isCompactHud ? 'compact-active' : ''}`}
                 onClick={toggleCompactHud} 
                 title={isCompactHud ? "Expand Full Studio Commentary Controls" : "Compact HUD: Mini-bar to give maximum space for track sheet"}
@@ -889,6 +889,7 @@ export default function VideoCompanionModal({
 
             {/* Move to Bottom / Expand Button */}
             <button 
+              type="button"
               className="companion-btn-icon" 
               onClick={toggleDock} 
               title={docked ? "Expand to Center Modal" : "Move to Bottom of Screen (allows viewing rest of track sheet)"}
@@ -898,6 +899,7 @@ export default function VideoCompanionModal({
 
             {/* Close Button */}
             <button 
+              type="button"
               className="companion-btn-icon close-btn" 
               onClick={onClose} 
               title="Close Video Companion"
