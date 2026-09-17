@@ -310,6 +310,26 @@ export default function TracksheetCreator({ onBack }) {
         }
         if (archivedMatch && archivedMatch.content) {
           data = archivedMatch;
+        } else if (archivedMatch && archivedMatch.id) {
+          // If matched from live history summary without content, check static archive first
+          const staticData = await getArchiveData();
+          const staticMatch = staticData.find(s => s.id === archivedMatch.id || (s.track_name && archivedMatch.track_name && s.track_name.toLowerCase() === archivedMatch.track_name.toLowerCase()));
+          if (staticMatch && staticMatch.content) {
+            data = staticMatch;
+          } else if (API_BASE || import.meta.env.DEV) {
+            // Fetch full tracksheet with content from live backend API
+            try {
+              const res = await fetch(`${API_BASE}/api/tracksheets/${archivedMatch.id}`);
+              if (res.ok) {
+                const cType = res.headers.get('content-type') || '';
+                if (cType.includes('application/json')) {
+                  data = await res.json();
+                }
+              }
+            } catch (e) {
+              console.warn('Could not fetch full tracksheet by id:', e);
+            }
+          }
         }
       }
 
@@ -440,14 +460,15 @@ export default function TracksheetCreator({ onBack }) {
     // 1. Check in loaded state history
     let found = history.find(h => h.id === id || h.id === Number(id));
 
-    // 2. If not found in state, check cached static archive
-    if (!found) {
+    // 2. If not found in state or item lacks content, check cached static archive
+    if (!found || !found.content) {
       const staticData = await getArchiveData();
-      found = staticData.find(h => h.id === id || h.id === Number(id));
-      if (!found && fallbackTrack) {
-        found = findArchivedTrack(fallbackTrack.track, fallbackTrack.artist, staticData);
+      const staticFound = staticData.find(h => h.id === id || h.id === Number(id)) || 
+        (fallbackTrack ? findArchivedTrack(fallbackTrack.track, fallbackTrack.artist, staticData) : null);
+      if (staticFound && staticFound.content) {
+        found = staticFound;
       }
-      if (found && history.length === 0) {
+      if (history.length === 0 && staticData.length > 0) {
         setHistory(staticData);
       }
     }
