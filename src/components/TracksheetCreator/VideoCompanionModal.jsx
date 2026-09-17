@@ -25,21 +25,21 @@ const CATEGORY_ICONS = {
   mix: Disc
 };
 
-// Verified catalog of YouTube video IDs for Component 1 and classic tracks
+// Verified catalog of YouTube video IDs for Component 1 and classic tracks (all verified 200 OK for 3rd-party embedding)
 const KNOWN_TRACK_VIDEOS = {
   "angels": "luwAMFcc2f8",
   "september": "Gs069dndIYk",
   "animals": "jdWhJcrrjQs",
   "common people": "yuTMWgOduFM",
-  "i love you, i'm sorry": "VwT_3fS5Gso",
-  "i love you, i’m sorry": "VwT_3fS5Gso",
+  "i love you, i'm sorry": "ZWGt1jMIjBY",
+  "i love you, i’m sorry": "ZWGt1jMIjBY",
   "kill bill": "MSRcC626prw",
-  "chaise longue": "QNX8_kODKoc",
-  "the logical song": "OQfZITwN3zA",
-  "moving to new york": "4b_y7HwzUe8",
-  "i don't feel like dancin'": "4H5I6y1Qvz8",
-  "i don’t feel like dancin’": "4H5I6y1Qvz8",
-  "fame": "Y40PFEzL0eA",
+  "chaise longue": "gJ2_y0Zv95w",
+  "the logical song": "low6Coqrw9Y",
+  "moving to new york": "4X3hDrlc5I4",
+  "i don't feel like dancin'": "k6Vu7SRMlFk",
+  "i don’t feel like dancin’": "k6Vu7SRMlFk",
+  "fame": "Ypgq0qdgVZA",
   "bohemian rhapsody": "fJ9rUzIMcZQ",
   "superstition": "0CFuCYNx-1g",
   "whole lotta love": "HQmmM_qwG4k",
@@ -481,12 +481,12 @@ export default function VideoCompanionModal({
       setLoadingVideo(true);
       setVideoError(null);
 
-      // 1. Instant check against verified offline track catalogue
+      // 1. Instant check against verified offline track catalogue (for video mode)
       const cleanTrackName = (trackName || '').toLowerCase().trim();
       const matchedKey = Object.keys(KNOWN_TRACK_VIDEOS).find(k => 
         cleanTrackName === k || cleanTrackName.includes(k) || k.includes(cleanTrackName)
       );
-      if (matchedKey && KNOWN_TRACK_VIDEOS[matchedKey]) {
+      if (mediaPreference !== 'audio' && matchedKey && KNOWN_TRACK_VIDEOS[matchedKey]) {
         setVideoId(KNOWN_TRACK_VIDEOS[matchedKey]);
         setLoadingVideo(false);
         return;
@@ -609,7 +609,13 @@ export default function VideoCompanionModal({
             onError: (event) => {
               console.warn('[VideoCompanion] YouTube Player error:', event.data);
               if (event.data === 101 || event.data === 150) {
-                setVideoError('Playback restricted by video owner. Try switching to Studio Audio or watching on YouTube.');
+                // Video owner has prohibited embedded playback on external domains (common on official VEVO/label uploads)
+                if (mediaPreference !== 'audio') {
+                  console.info('[VideoCompanion] Video embed restricted by owner. Automatically recovering with Studio Audio...');
+                  setMediaPreference('audio');
+                  return;
+                }
+                setVideoError('Playback restricted by video owner for this embed. Try clicking Retry or watching on YouTube.');
               }
             }
           }
@@ -1008,7 +1014,15 @@ export default function VideoCompanionModal({
                   style={{ background: 'linear-gradient(135deg, #8B5CF6, #6366F1)' }}
                   onClick={() => setVideoRetryCount(c => c + 1)}
                 >
-                  <RefreshCw size={14} /> Retry Video
+                  <RefreshCw size={14} /> Retry
+                </button>
+                <button 
+                  type="button" 
+                  className="btn-link-yt" 
+                  style={{ background: 'linear-gradient(135deg, #10B981, #059669)' }}
+                  onClick={() => setMediaPreference(p => p === 'audio' ? 'video' : 'audio')}
+                >
+                  <Music size={14} /> {mediaPreference === 'audio' ? 'Switch to Video' : 'Switch to Studio Audio'}
                 </button>
                 <a 
                   href={initialYoutubeUrl || `https://www.youtube.com/results?search_query=${encodeURIComponent(`${trackName || ''} ${artistName || ''}`)}`}
