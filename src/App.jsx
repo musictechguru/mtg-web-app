@@ -77,7 +77,7 @@ const MainApp = () => {
           return { type: 'dictionary_selector', title: 'Dictionary Quizzes' };
         }
         if (quizParam === 'tracksheet_creator') {
-          return { type: 'tracksheet_creator', title: 'Component 1: Track Sheet & Logbook', isPremium: true };
+          return { type: 'tracksheet_creator', title: 'Component 1: Track Sheet & Logbook' };
         }
         const found = findCourseItem(quizParam);
         if (found) return found;
@@ -308,38 +308,17 @@ const MainApp = () => {
           <button
             className={`nav-item ${activeItem?.type === 'tracksheet_creator' ? 'active' : ''}`}
             onClick={() => {
-              handleItemSelectWrapper({ type: 'tracksheet_creator', title: 'Component 1: Track Sheet & Logbook', isPremium: true });
+              handleItemSelectWrapper({ type: 'tracksheet_creator', title: 'Component 1: Track Sheet & Logbook' });
             }}
             style={{ 
               marginBottom: '20px', 
               fontWeight: 'bold', 
               color: '#c084fc', 
               border: '1px solid rgba(192, 132, 252, 0.4)',
-              background: activeItem?.type === 'tracksheet_creator' ? 'rgba(192, 132, 252, 0.15)' : 'transparent',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              gap: '8px'
+              background: activeItem?.type === 'tracksheet_creator' ? 'rgba(192, 132, 252, 0.15)' : 'transparent'
             }}
           >
-            <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <span>🎚️</span> Component 1 Track Sheet
-            </span>
-            {!currentUser?.is_premium ? (
-              <span style={{ fontSize: '0.85rem' }} title="Premium Feature">🔒</span>
-            ) : (
-              <span style={{ 
-                fontSize: '0.65rem', 
-                background: 'rgba(192, 132, 252, 0.25)', 
-                color: '#c084fc', 
-                padding: '2px 6px', 
-                borderRadius: '4px',
-                border: '1px solid rgba(192, 132, 252, 0.4)',
-                letterSpacing: '0.5px'
-              }}>
-                PRO
-              </span>
-            )}
+            <span>🎚️</span> Component 1 Track Sheet
           </button>
 
           {courseData.sections.map((section, secIdx) => {
@@ -447,35 +426,7 @@ const MainApp = () => {
       <main className="main-content">
         {activeItem ? (
           activeItem.type === 'tracksheet_creator' ? (
-            !currentUser?.is_premium ? (
-              <div style={{ position: 'relative', width: '100%', maxWidth: '900px', margin: '0 auto', padding: '10px 0' }}>
-                <button
-                  onClick={goToDashboardWrapper}
-                  style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '8px',
-                    background: 'rgba(255, 255, 255, 0.05)',
-                    border: '1px solid rgba(255, 255, 255, 0.1)',
-                    color: '#94a3b8',
-                    padding: '8px 16px',
-                    borderRadius: '8px',
-                    cursor: 'pointer',
-                    marginBottom: '15px',
-                    fontSize: '0.9rem',
-                    fontWeight: '500',
-                    transition: 'all 0.2s'
-                  }}
-                  onMouseEnter={(e) => { e.currentTarget.style.color = '#fff'; e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.3)'; }}
-                  onMouseLeave={(e) => { e.currentTarget.style.color = '#94a3b8'; e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)'; }}
-                >
-                  ← Back to Dashboard
-                </button>
-                <PremiumLocked itemTitle={activeItem.title || 'Component 1: Track Sheet & Logbook'} />
-              </div>
-            ) : (
-              <TracksheetCreator onBack={goToDashboardWrapper} />
-            )
+            <TracksheetCreator onBack={goToDashboardWrapper} />
           ) : activeItem.type === 'lp_quiz' ? (
             <QuizPlayer quiz={activeItem} onFinish={goToDashboardWrapper} />
           ) : activeItem.type === 'lp_activity' ? (

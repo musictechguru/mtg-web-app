@@ -302,11 +302,9 @@ const Dashboard = ({ onNavigate, onOpenProfile }) => {
                     </div>
                 </div>
                 <button
-                    onClick={() => onNavigate({ type: 'tracksheet_creator', title: 'Component 1: Track Sheet & Logbook', isPremium: true })}
+                    onClick={() => onNavigate({ type: 'tracksheet_creator', title: 'Component 1: Track Sheet & Logbook' })}
                     style={{
-                        background: currentUser?.is_premium 
-                            ? 'linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%)' 
-                            : 'linear-gradient(135deg, #7c3aed 0%, #4f46e5 100%)',
+                        background: 'linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%)',
                         color: '#fff',
                         border: 'none',
                         padding: '12px 24px',
@@ -324,7 +322,7 @@ const Dashboard = ({ onNavigate, onOpenProfile }) => {
                     onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.04)'}
                     onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
                 >
-                    {currentUser?.is_premium ? 'Open Track Sheet Creator →' : '🔒 Unlock Track Sheet Creator'}
+                    Open Track Sheet Creator →
                 </button>
             </div>
 
