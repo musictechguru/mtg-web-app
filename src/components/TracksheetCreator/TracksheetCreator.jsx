@@ -198,7 +198,6 @@ async function getArchiveData() {
 }
 
 export default function TracksheetCreator({ onBack }) {
-  const { currentUser } = useUser();
   const [trackName, setTrackName] = useState('');
   const [artistName, setArtistName] = useState('');
   const [loading, setLoading] = useState(false);
