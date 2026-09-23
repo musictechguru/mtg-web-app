@@ -532,7 +532,7 @@ export default function TracksheetCreator({ onBack }) {
     }
   };
 
-  const loadHistoryItem = async (id) => {
+  const loadHistoryItem = async (id, targetTab = 'tracksheet') => {
     setLoading(true);
     setSearchActive(false);
     const apiBase = getApiBaseUrl();
@@ -544,14 +544,21 @@ export default function TracksheetCreator({ onBack }) {
         setResult(data.content);
         setCurrentTrackId(data.id);
         setTrackName(data.track_name);
+        setArtistName(data.artist_name || '');
         const dedupedC1 = dedupeSolutions(data.c1_solutions || []);
         setC1Solutions(dedupedC1);
         setProducerSolutions(dedupeSolutions(data.producer_solutions || []));
         if (dedupedC1.length > 0) {
           const matched = dedupedC1.find(s => s.daw.toLowerCase() === selectedDaw.toLowerCase()) || dedupedC1[0];
           setSelectedDaw(matched.daw);
+          if (targetTab === 'c1') {
+            setActiveTab(matched.daw);
+          } else {
+            setActiveTab('tracksheet');
+          }
+        } else {
+          setActiveTab('tracksheet');
         }
-        setActiveTab('tracksheet');
         setHistoryOpen(false);
         setLoading(false);
 
@@ -579,8 +586,14 @@ export default function TracksheetCreator({ onBack }) {
       if (dedupedC1.length > 0) {
         const matched = dedupedC1.find(s => s.daw.toLowerCase() === selectedDaw.toLowerCase()) || dedupedC1[0];
         setSelectedDaw(matched.daw);
+        if (targetTab === 'c1') {
+          setActiveTab(matched.daw);
+        } else {
+          setActiveTab('tracksheet');
+        }
+      } else {
+        setActiveTab('tracksheet');
       }
-      setActiveTab('tracksheet');
       setHistoryOpen(false);
       setLoading(false);
 
@@ -1330,6 +1343,71 @@ export default function TracksheetCreator({ onBack }) {
             </div>
           </div>
         )}
+
+        {/* Classic Archive Panel (Only shown when no document is active, matching tracksheetcreator.com) */}
+        {!result && history && history.length > 0 && (
+          <div className="history-panel glass-panel">
+            <div className="result-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem', flexWrap: 'wrap', gap: '0.5rem' }}>
+              <h2 style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', margin: 0, fontSize: '1.35rem', color: '#F8FAFC' }}>
+                <History size={22} color="#C084FC" />
+                Historical Session Library ({history.length})
+              </h2>
+              <span style={{ fontSize: '0.85rem', color: '#94A3B8' }}>
+                Pre-engineered multi-track sessions &amp; C1 logbooks
+              </span>
+            </div>
+            <div className="history-grid">
+              {history.map((item) => (
+                <div 
+                  key={item.id} 
+                  className="history-card" 
+                  onClick={() => loadHistoryItem(item.id, 'tracksheet')}
+                  title="Click to open Historical Tracksheet"
+                >
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '0.5rem' }}>
+                    <h3 style={{ margin: 0, color: '#F8FAFC', fontSize: '1.05rem', fontWeight: 700 }}>{item.track_name}</h3>
+                    {item.score > 0 && (
+                      <span className="history-score-badge" title={`Reliability Score: ${item.score}%`}>
+                        {item.score}%
+                      </span>
+                    )}
+                  </div>
+                  <p style={{ color: '#38BDF8', margin: '0.25rem 0 0.65rem', fontSize: '0.88rem' }}>{item.artist_name || 'Unknown Artist'}</p>
+
+                  <div className="history-quick-btn-row">
+                    <button 
+                      type="button" 
+                      className="history-quick-btn tracksheet"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        loadHistoryItem(item.id, 'tracksheet');
+                      }}
+                      title="Open Historical Tracksheet"
+                    >
+                      <FileText size={12} />
+                      <span>Tracksheet</span>
+                    </button>
+                    {(item.c1_solutions && item.c1_solutions.length > 0) || item.c1_count > 0 ? (
+                      <button 
+                        type="button" 
+                        className="history-quick-btn c1"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          loadHistoryItem(item.id, 'c1');
+                        }}
+                        title="Open Component 1 Logbook"
+                      >
+                        <Sliders size={12} color="#C084FC" />
+                        <span>C1 Logbook</span>
+                        {item.c1_count > 0 && <span className="history-count-pill">{item.c1_count}</span>}
+                      </button>
+                    ) : null}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
       </main>
 
       {/* Archive Modal Drawer */}
@@ -1337,43 +1415,65 @@ export default function TracksheetCreator({ onBack }) {
         <div className="archive-modal-overlay" onClick={() => setHistoryOpen(false)}>
           <div className="archive-modal-content" onClick={(e) => e.stopPropagation()}>
             <div className="archive-modal-header">
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <History size={20} color="var(--accent-purple)" />
-                <h3>Historical Archive Library</h3>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <History size={22} color="#C084FC" />
+                <h3 style={{ margin: 0, fontSize: '1.2rem', color: '#F8FAFC' }}>Historical Archive Library</h3>
+                <span className="archive-header-count">{filteredHistory.length} Tracks</span>
               </div>
-              <button className="btn-close-modal" onClick={() => setHistoryOpen(false)}>
+              <button className="btn-close-modal" onClick={() => setHistoryOpen(false)} title="Close Library">
                 <X size={18} />
               </button>
             </div>
 
             <div className="archive-modal-search">
-              <Search size={16} className="archive-search-icon" />
+              <Search size={18} className="archive-search-icon" />
               <input 
                 type="text" 
                 placeholder="Search archive by track or artist..."
                 value={historySearch}
                 onChange={(e) => setHistorySearch(e.target.value)}
+                autoFocus
               />
             </div>
 
             <div className="archive-list">
               {filteredHistory.length === 0 ? (
-                <p className="empty-archive-msg">No matching tracks in archive.</p>
+                <p className="empty-archive-msg">No matching tracks found in archive.</p>
               ) : (
                 filteredHistory.map((item) => (
                   <div 
                     key={item.id} 
                     className="archive-item-card"
-                    onClick={() => loadHistoryItem(item.id)}
+                    onClick={() => loadHistoryItem(item.id, 'tracksheet')}
                   >
                     <div className="archive-item-info">
                       <div className="archive-item-title">{item.track_name}</div>
                       <div className="archive-item-artist">{item.artist_name || 'Unknown Artist'}</div>
                     </div>
                     <div className="archive-item-action">
-                      <span className="archive-load-pill">
-                        Load
-                      </span>
+                      {(item.c1_solutions && item.c1_solutions.length > 0) || item.c1_count > 0 ? (
+                        <button 
+                          type="button"
+                          className="archive-c1-pill"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            loadHistoryItem(item.id, 'c1');
+                          }}
+                          title="Open Component 1 Logbook"
+                        >
+                          <Sliders size={12} /> C1 Logbook
+                        </button>
+                      ) : null}
+                      <button 
+                        type="button"
+                        className="archive-load-pill"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          loadHistoryItem(item.id, 'tracksheet');
+                        }}
+                      >
+                        Tracksheet
+                      </button>
                     </div>
                   </div>
                 ))
