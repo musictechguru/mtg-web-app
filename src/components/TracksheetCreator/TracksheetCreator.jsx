@@ -404,11 +404,9 @@ export default function TracksheetCreator({ onBack }) {
 
         if (dedupedC1.length > 0) {
           const matched = dedupedC1.find(s => s.daw.toLowerCase() === selectedDaw.toLowerCase()) || dedupedC1[0];
-          setActiveTab(matched.daw);
           setSelectedDaw(matched.daw);
-        } else {
-          setActiveTab('tracksheet');
         }
+        setActiveTab('tracksheet');
 
         if (data.kept_existing_highest) {
           setCopyNotification(`Retained historical tracksheet with highest score (${data.score}%)`);
@@ -551,11 +549,9 @@ export default function TracksheetCreator({ onBack }) {
         setProducerSolutions(dedupeSolutions(data.producer_solutions || []));
         if (dedupedC1.length > 0) {
           const matched = dedupedC1.find(s => s.daw.toLowerCase() === selectedDaw.toLowerCase()) || dedupedC1[0];
-          setActiveTab(matched.daw);
           setSelectedDaw(matched.daw);
-        } else {
-          setActiveTab('tracksheet');
         }
+        setActiveTab('tracksheet');
         setHistoryOpen(false);
         setLoading(false);
 
@@ -582,11 +578,9 @@ export default function TracksheetCreator({ onBack }) {
       setProducerSolutions(dedupeSolutions(found.producer_solutions || []));
       if (dedupedC1.length > 0) {
         const matched = dedupedC1.find(s => s.daw.toLowerCase() === selectedDaw.toLowerCase()) || dedupedC1[0];
-        setActiveTab(matched.daw);
         setSelectedDaw(matched.daw);
-      } else {
-        setActiveTab('tracksheet');
       }
+      setActiveTab('tracksheet');
       setHistoryOpen(false);
       setLoading(false);
 
