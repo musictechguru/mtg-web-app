@@ -111,6 +111,19 @@ export default function LogbookDossierView({ data, daw, tracksheetData = null, i
     masterBus
   } = data;
 
+  const formatObjText = (val) => {
+    if (!val) return '';
+    if (typeof val === 'string') return val;
+    if (typeof val === 'object') {
+      if (val.rawText && typeof val.rawText === 'string') return val.rawText;
+      return Object.entries(val)
+        .filter(([k, v]) => v && typeof v === 'string')
+        .map(([k, v]) => `* **${k.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())}:** ${v}`)
+        .join('\n');
+    }
+    return String(val);
+  };
+
   const instruments = data.instruments && data.instruments.length > 0 
     ? data.instruments 
     : (data.stems || []).map((s) => {
@@ -118,9 +131,9 @@ export default function LogbookDossierView({ data, daw, tracksheetData = null, i
         return {
           name: s.name,
           rawHeading: s.name,
-          pathway1: s.microphoneSetup || '',
-          pathway2: s.diSetup || '',
-          pathway3: s.soundDesign ? (typeof s.soundDesign === 'string' ? s.soundDesign : JSON.stringify(s.soundDesign)) : '',
+          pathway1: formatObjText(s.microphoneSetup),
+          pathway2: formatObjText(s.diSetup),
+          pathway3: formatObjText(s.soundDesign) || formatObjText(s.midiProgramming),
           preferredPathway: s.pathway || `Pathway ${s.pathwayType || 3}`,
           preferredJustification: s.originalGear ? `Authentic hardware: ${s.originalGear}` : '',
           channelStrip: chain.map(c => ({
@@ -138,7 +151,7 @@ export default function LogbookDossierView({ data, daw, tracksheetData = null, i
             url: ''
           })),
           examinerPitfall: '',
-          rawBody: s.rawBody || ''
+          rawBody: typeof s.rawBody === 'string' ? s.rawBody : ''
         };
       });
 
@@ -152,6 +165,7 @@ export default function LogbookDossierView({ data, daw, tracksheetData = null, i
 
     return {
       ...t,
+      capture: t.capture || t.inputSource || t.pathway || (t.dawInput ? `${t.originalSource || t.stem} (${t.dawInput})` : 'Direct Capture'),
       dynamics: t.dynamics || dyn || 'VCA Compressor',
       eq: t.eq || eq || 'Channel EQ',
       inserts: t.inserts || ins || 'Analog Saturation',
@@ -980,13 +994,14 @@ export default function LogbookDossierView({ data, daw, tracksheetData = null, i
   // Helper to parse transducer specifications
   const parseLogbookTransducer = (body, instName) => {
     if (!body) return null;
+    const bodyText = typeof body === 'string' ? body : (body.rawText || String(body));
 
     let rawTransducer = '';
     let polarPattern = '';
     let placement = '';
     let gainStaging = '';
 
-    const lines = body.split('\n');
+    const lines = bodyText.split('\n');
     for (const line of lines) {
       const clean = line.trim().replace(/^[•*-]\s*/, '');
       const boldMatch = clean.match(/^\*\*([^*]+)\*\*:?\s*(.*)$/);
@@ -1068,6 +1083,19 @@ export default function LogbookDossierView({ data, daw, tracksheetData = null, i
     };
   };
 
+  const ensureString = (val) => {
+    if (!val) return '';
+    if (typeof val === 'string') return val;
+    if (typeof val === 'object') {
+      if (val.rawText) return val.rawText;
+      return Object.entries(val)
+        .filter(([k, v]) => v && typeof v === 'string')
+        .map(([k, v]) => `* **${k}:** ${v}`)
+        .join('\n');
+    }
+    return String(val);
+  };
+
   const getSelectedCaptureSolution = (inst) => {
     if (!inst) return null;
 
@@ -1084,27 +1112,27 @@ export default function LogbookDossierView({ data, daw, tracksheetData = null, i
       return {
         num: 1,
         title: 'Pathway 1: Acoustic / Microphone Capture',
-        body: inst.pathway1 || inst.pathway2 || inst.pathway3
+        body: ensureString(inst.pathway1 || inst.pathway2 || inst.pathway3)
       };
     }
     if (norm.includes('pathway 3') || /\bp3\b/.test(norm) || norm.includes('midi') || norm.includes('software instrument') || norm.includes('synth')) {
       return {
         num: 3,
         title: 'Pathway 3: Audio Instruments & MIDI',
-        body: inst.pathway3 || inst.pathway2 || inst.pathway1
+        body: ensureString(inst.pathway3 || inst.pathway2 || inst.pathway1)
       };
     }
     if (norm.includes('pathway 2') || /\bp2\b/.test(norm) || norm.includes('direct injection') || /\bdi\b/.test(norm) || norm.includes('line input')) {
       return {
         num: 2,
         title: 'Pathway 2: Direct Injection (DI) & Line Input',
-        body: inst.pathway2 || inst.pathway1 || inst.pathway3
+        body: ensureString(inst.pathway2 || inst.pathway1 || inst.pathway3)
       };
     }
 
-    if (inst.pathway1) return { num: 1, title: 'Pathway 1: Acoustic / Microphone Capture', body: inst.pathway1 };
-    if (inst.pathway2) return { num: 2, title: 'Pathway 2: Direct Injection (DI) & Line Input', body: inst.pathway2 };
-    if (inst.pathway3) return { num: 3, title: 'Pathway 3: Audio Instruments & MIDI', body: inst.pathway3 };
+    if (inst.pathway1) return { num: 1, title: 'Pathway 1: Acoustic / Microphone Capture', body: ensureString(inst.pathway1) };
+    if (inst.pathway2) return { num: 2, title: 'Pathway 2: Direct Injection (DI) & Line Input', body: ensureString(inst.pathway2) };
+    if (inst.pathway3) return { num: 3, title: 'Pathway 3: Audio Instruments & MIDI', body: ensureString(inst.pathway3) };
 
     return null;
   };

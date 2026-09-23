@@ -1,11 +1,18 @@
-/**
- * producerParser.js
- * Parses Producer Recreation Dossier markdown into structured data
- * for the Producer Dossier View (tracksheetcreator.com).
- */
+import { parseLogbook } from './logbookParser.js';
 
 export function parseProducerRecreation(markdown) {
   if (!markdown) return null;
+
+  // If this markdown is in the standard C1 / Logbook comprehensive format, parse with parseLogbook
+  const hasLogbookS2 = /### Section 2[^\n]*\n+\s*\|[^|]*Trk[^|]*\|[^|]*Stem[^|]*\|[^|]*Capture/i.test(markdown) ||
+                       /\|[ ]*Trk[ ]*\|[ ]*Stem \/ Instrument[ ]*\|/i.test(markdown);
+  if (hasLogbookS2) {
+    const logbookData = parseLogbook(markdown);
+    if (logbookData && logbookData.trackTable && logbookData.trackTable.length > 0) {
+      logbookData.isProducer = true;
+      return logbookData;
+    }
+  }
 
   const result = {
     title: 'Studio Production & Stem Recreation Dossier',
@@ -154,44 +161,81 @@ export function parseProducerRecreation(markdown) {
   if (isNewSection2RoutingTable) {
     const trackTableMatch = s2Text.match(/\|([^\n]+)\|\n\|[-| :]+\|\n((?:\|[^\n]+\|\n?)+)/);
     if (trackTableMatch) {
+      const headerCells = trackTableMatch[1].split('|').map(h => h.trim().toLowerCase()).filter(Boolean);
       const rows = trackTableMatch[2].trim().split('\n');
+
+      const trkIdx = headerCells.findIndex(h => h.includes('trk') || h.includes('track'));
+      const stemIdx = headerCells.findIndex(h => h.includes('stem') || h.includes('instrument') || h.includes('element'));
+      const captureIdx = headerCells.findIndex(h => h.includes('capture') || h.includes('pathway') || h.includes('source') || h.includes('mic') || h.includes('input'));
+      const faderIdx = headerCells.findIndex(h => h.includes('fader') || h.includes('level') || h.includes('volume'));
+      const panIdx = headerCells.findIndex(h => h.includes('pan') || h.includes('pos'));
+      const dynIdx = headerCells.findIndex(h => h.includes('dynamic') || h.includes('gate') || h.includes('comp'));
+      const eqIdx = headerCells.findIndex(h => h.includes('eq') || h.includes('equaliz') || h.includes('filter'));
+      const insertsIdx = headerCells.findIndex(h => h.includes('insert') || h.includes('fx'));
+      const auxIdx = headerCells.findIndex(h => h.includes('aux') || h.includes('send') || h.includes('reverb') || h.includes('routing'));
+
+      const isComprehensiveFormat = dynIdx !== -1 || eqIdx !== -1 || insertsIdx !== -1;
+
       for (const row of rows) {
         const cells = row.split('|').map(c => c.trim()).filter((_, idx, arr) => idx > 0 && idx < arr.length - 1);
-        if (cells.length >= 4) {
-          const hasPathwayCol = cells.length >= 9 || /(?:pathway|mic|di|instrument|midi)/i.test(cells[2]);
-          const trackNo = cells[0] || `${result.trackTable.length + 1}`;
-          const stem = cells[1] || 'Stem';
-          let pathway = hasPathwayCol ? cells[2] : '';
-          const originalSource = hasPathwayCol ? cells[3] : cells[2];
-          const dawInput = hasPathwayCol ? cells[4] : cells[3];
-          const pan = hasPathwayCol ? cells[5] : cells[4];
-          const fader = hasPathwayCol ? cells[6] : cells[5];
-          const targetHeadroom = hasPathwayCol ? cells[7] : cells[6];
-          const routing = cells[cells.length - 1] || 'Subgroup';
+        if (cells.length >= 3) {
+          if (isComprehensiveFormat) {
+            result.trackTable.push({
+              trackNo: trkIdx !== -1 && cells[trkIdx] ? cells[trkIdx] : `${result.trackTable.length + 1}`,
+              stem: stemIdx !== -1 && cells[stemIdx] ? cells[stemIdx] : cells[1] || 'Stem',
+              capture: captureIdx !== -1 && cells[captureIdx] ? cells[captureIdx] : cells[2] || '',
+              fader: faderIdx !== -1 && cells[faderIdx] ? cells[faderIdx] : '0.0 dB',
+              pan: panIdx !== -1 && cells[panIdx] ? cells[panIdx] : 'C',
+              dynamics: dynIdx !== -1 && cells[dynIdx] ? cells[dynIdx] : '',
+              eq: eqIdx !== -1 && cells[eqIdx] ? cells[eqIdx] : '',
+              inserts: insertsIdx !== -1 && cells[insertsIdx] ? cells[insertsIdx] : '',
+              aux: auxIdx !== -1 && cells[auxIdx] ? cells[auxIdx] : '',
+              pathway: captureIdx !== -1 ? cells[captureIdx] : '',
+              originalSource: captureIdx !== -1 ? cells[captureIdx] : '',
+              dawInput: `Input ${result.trackTable.length + 1}`,
+              targetHeadroom: '-10 dBFS Peak'
+            });
+          } else {
+            // Legacy 8-9 column routing table format
+            const hasPathwayCol = cells.length >= 9 || /(?:pathway|mic|di|instrument|midi)/i.test(cells[2]);
+            const trackNo = cells[0] || `${result.trackTable.length + 1}`;
+            const stem = cells[1] || 'Stem';
+            let pathway = hasPathwayCol ? cells[2] : '';
+            const originalSource = hasPathwayCol ? cells[3] : cells[2];
+            const dawInput = hasPathwayCol ? cells[4] : cells[3];
+            const pan = hasPathwayCol ? cells[5] : cells[4];
+            const fader = hasPathwayCol ? cells[6] : cells[5];
+            const targetHeadroom = hasPathwayCol ? cells[7] : cells[6];
+            const routing = cells[cells.length - 1] || 'Subgroup';
 
-          // Smart fallback if LLM omitted Selected Pathway column in table
-          if (!pathway) {
-            const normInput = (dawInput + ' ' + stem + ' ' + originalSource).toLowerCase();
-            if (normInput.includes('audio track') || normInput.includes('mic') || normInput.includes('vocal') || normInput.includes('acoustic')) {
-              pathway = 'Pathway 1: Microphone';
-            } else if (normInput.includes('di') || normInput.includes('direct')) {
-              pathway = 'Pathway 2: Direct Injection (DI)';
-            } else {
-              pathway = 'Pathway 3: Audio Instrument';
+            if (!pathway) {
+              const normInput = (dawInput + ' ' + stem + ' ' + originalSource).toLowerCase();
+              if (normInput.includes('audio track') || normInput.includes('mic') || normInput.includes('vocal') || normInput.includes('acoustic')) {
+                pathway = 'Pathway 1: Microphone';
+              } else if (normInput.includes('di') || normInput.includes('direct')) {
+                pathway = 'Pathway 2: Direct Injection (DI)';
+              } else {
+                pathway = 'Pathway 3: Audio Instrument';
+              }
             }
-          }
 
-          result.trackTable.push({
-            trackNo,
-            stem,
-            pathway,
-            originalSource,
-            dawInput,
-            pan,
-            fader,
-            targetHeadroom,
-            routing
-          });
+            result.trackTable.push({
+              trackNo,
+              stem,
+              capture: originalSource || pathway || dawInput || 'Direct Capture',
+              pathway,
+              originalSource,
+              dawInput,
+              pan,
+              fader,
+              targetHeadroom,
+              routing,
+              dynamics: '',
+              eq: '',
+              inserts: '',
+              aux: routing
+            });
+          }
         }
       }
     }
@@ -573,6 +617,46 @@ export function parseProducerRecreation(markdown) {
       result.masterBus.phaseCorrelation = corrMatch[1].trim();
     }
   }
+
+  // Populate instruments for seamless parity with LogbookDossierView
+  const extractText = (val) => {
+    if (!val) return '';
+    if (typeof val === 'string') return val;
+    if (typeof val === 'object') {
+      if (val.rawText && typeof val.rawText === 'string') return val.rawText;
+      return Object.entries(val)
+        .filter(([k, v]) => v && typeof v === 'string')
+        .map(([k, v]) => `* **${k.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())}:** ${v}`)
+        .join('\n');
+    }
+    return String(val);
+  };
+
+  result.instruments = (result.stems || []).map(s => ({
+    name: s.name,
+    rawHeading: s.name,
+    pathway1: extractText(s.microphoneSetup),
+    pathway2: extractText(s.diSetup),
+    pathway3: extractText(s.soundDesign) || extractText(s.midiProgramming),
+    preferredPathway: s.pathway || `Pathway ${s.pathwayType || 3}`,
+    preferredJustification: s.originalGear ? `Authentic hardware: ${s.originalGear}` : '',
+    channelStrip: (s.stockChain || []).map(c => ({
+      slot: c.slot,
+      plugin: c.plugin,
+      circuit: c.type || c.circuit || '',
+      params: c.settings || c.params || '',
+      objective: c.objective || ''
+    })),
+    thirdParty: (s.thirdPartyChain || []).map(c => ({
+      name: c.plugin,
+      circuit: c.type || c.circuit || '',
+      params: c.settings || c.params || '',
+      objective: c.objective || '',
+      url: ''
+    })),
+    examinerPitfall: '',
+    rawBody: typeof s.rawBody === 'string' ? s.rawBody : ''
+  }));
 
   return result;
 }
