@@ -66,28 +66,114 @@
   background: var(--secondary);
 }
 
+/* Top Bar Navigation & Badges */
+.tracksheet-top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 2rem 0;
+  max-width: 1240px;
+  margin: 0 auto;
+  gap: 1rem;
+  width: 100%;
+  position: relative;
+  z-index: 15;
+  flex-wrap: wrap;
+}
+
+.btn-back-dashboard {
+  background: rgba(30, 41, 59, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #94A3B8;
+  padding: 0.55rem 1.1rem;
+  border-radius: 10px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(8px);
+}
+
+.btn-back-dashboard:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #F8FAFC;
+  transform: translateX(-2px);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.tracksheet-top-right {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.exam-badge-tag {
+  background: rgba(139, 92, 246, 0.15);
+  border: 1px solid rgba(139, 92, 246, 0.35);
+  color: #C084FC;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  padding: 0.45rem 0.9rem;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.btn-history-pill {
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #E2E8F0;
+  padding: 0.45rem 1rem;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  transition: all 0.2s ease;
+}
+
+.btn-history-pill:hover {
+  border-color: #8B5CF6;
+  color: white;
+  box-shadow: 0 0 14px rgba(139, 92, 246, 0.4);
+  transform: translateY(-1px);
+}
+
 /* Header */
 .tracksheet-wrapper header {
   position: relative;
   z-index: 10;
-  padding: 2rem;
+  padding: 2rem 1.5rem 1rem;
   text-align: center;
-  background: linear-gradient(to bottom, rgba(15, 23, 42, 0.9), transparent);
+}
+
+.header-star-icon-wrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 0.5rem;
 }
 
 .tracksheet-wrapper h1 {
-  font-size: 3rem;
+  font-size: 2.75rem;
   font-weight: 800;
   margin: 0;
   background: linear-gradient(135deg, #A78BFA, #F472B6);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   text-shadow: 0 0 40px var(--primary-glow);
+  letter-spacing: -0.01em;
 }
 
 .subtitle {
   color: var(--text-muted);
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   margin-top: 0.5rem;
 }
 
@@ -205,6 +291,89 @@
   opacity: 0.7;
   cursor: not-allowed;
   transform: none;
+}
+
+/* Quick Suggestions - Exact 1:1 Parity with Screenshot */
+.quick-suggestions-row {
+  margin-top: 1.15rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.quick-label {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: #94A3B8;
+  letter-spacing: -0.01em;
+}
+
+.quick-pills {
+  display: flex;
+  gap: 0.45rem 0.55rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.quick-pill {
+  background: #0B1120;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #E2E8F0;
+  padding: 0.35rem 0.75rem;
+  border-radius: 8px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  line-height: 1.3;
+}
+
+.quick-pill strong {
+  color: #FFFFFF;
+  font-weight: 700;
+}
+
+.quick-pill .pill-artist {
+  color: #94A3B8;
+  font-size: 0.78rem;
+  font-weight: 400;
+  margin-left: 2px;
+}
+
+.quick-pill:hover {
+  background: rgba(139, 92, 246, 0.2);
+  border-color: #8B5CF6;
+  color: white;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.25);
+}
+
+.quick-suggestions-row.c1-2027-row {
+  margin-top: 0.95rem;
+}
+
+.quick-label.c1-2027-label {
+  color: #94A3B8;
+}
+
+.quick-pill.c1-2027-pill {
+  background: #0B1120;
+  border-color: rgba(255, 255, 255, 0.1);
+  color: #E2E8F0;
+}
+
+.quick-pill.c1-2027-pill:hover {
+  background: rgba(168, 85, 247, 0.22);
+  border-color: #C084FC;
+  color: #FFFFFF;
+  box-shadow: 0 4px 12px rgba(192, 132, 252, 0.25);
+}
+
+.quick-pill.c1-2027-pill .pill-artist {
+  color: #94A3B8;
 }
 
 /* Loading Animation */

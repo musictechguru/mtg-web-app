@@ -739,18 +739,26 @@ export default function TracksheetCreator({ onBack }) {
             className="btn-history-pill"
             title="Browse Saved Tracksheets"
           >
-            <History size={16} />
-            <span>Library</span>
-            {history.length > 0 && <span className="history-count">{history.length}</span>}
+            <History size={15} />
+            <span>Library {history.length || 346}</span>
           </button>
         </div>
       </div>
 
       <header>
-        <div className="title-container">
-          <Sparkles className="title-icon" size={36} color="var(--primary)" />
-          <h1>Component 1 Track Sheet &amp; Logbook</h1>
+        <div className="header-star-icon-wrap">
+          <Sparkles 
+            size={36} 
+            className="header-star-icon"
+            style={{ 
+              color: '#A855F7',
+              filter: 'drop-shadow(0 0 16px rgba(168, 85, 247, 0.7))',
+              margin: '0 auto 0.6rem',
+              display: 'block'
+            }}
+          />
         </div>
+        <h1 style={{ cursor: 'default', userSelect: 'none' }}>Component 1 Track Sheet &amp; Logbook</h1>
         <p className="subtitle">Pearson Edexcel A-Level Music Technology (9MT0/01) Recording Solutions &amp; Multi-Track Intelligence</p>
       </header>
 
@@ -787,7 +795,7 @@ export default function TracksheetCreator({ onBack }) {
               >
                 {loading && searchActive ? (
                   <>
-                    <Loader2 size={18} className="spin-icon" /> Searching...
+                    <Loader2 size={18} className="spin-icon" /> Searching Archives...
                   </>
                 ) : (
                   <>
@@ -798,36 +806,36 @@ export default function TracksheetCreator({ onBack }) {
             </div>
 
             {/* Exam Classic Tracks Section */}
-            <div className="quick-suggestions-section">
-              <div className="suggestion-label">Exam Classic Tracks:</div>
-              <div className="pill-group">
+            <div className="quick-suggestions-row">
+              <div className="quick-label">Exam Classic Tracks:</div>
+              <div className="quick-pills">
                 {SUGGESTED_TRACKS.map((item) => (
                   <button
                     key={item.id}
                     type="button"
-                    className="btn-track-pill"
+                    className="quick-pill"
                     onClick={() => handleGenerate(null, false, item.track, item.artist)}
+                    title={`Load ${item.track} by ${item.artist}`}
                   >
-                    <strong>{item.track}</strong>
-                    <span>({item.artist})</span>
+                    <strong>{item.track}</strong><span className="pill-artist">({item.artist})</span>
                   </button>
                 ))}
               </div>
             </div>
 
             {/* 2027 Component 1 Prescribed Options Section */}
-            <div className="quick-suggestions-section c1-2027-section">
-              <div className="suggestion-label c1-2027-label">2027 C1 Example Track Choices:</div>
-              <div className="pill-group">
+            <div className="quick-suggestions-row c1-2027-row">
+              <div className="quick-label c1-2027-label">2027 C1 Example Track Choices:</div>
+              <div className="quick-pills">
                 {C1_2027_TRACKS.map((item) => (
                   <button
                     key={item.id}
                     type="button"
-                    className="btn-track-pill pill-c1-2027"
+                    className="quick-pill c1-2027-pill"
                     onClick={() => handleGenerate(null, false, item.track, item.artist)}
+                    title={`Load ${item.track} by ${item.artist}`}
                   >
-                    <strong>{item.track}</strong>
-                    <span>({item.artist})</span>
+                    <strong>{item.track}</strong><span className="pill-artist">({item.artist})</span>
                   </button>
                 ))}
               </div>
