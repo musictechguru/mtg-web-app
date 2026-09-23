@@ -196,6 +196,7 @@ export function parseHistoricalTracksheet(markdown) {
   const lines = markdown.split('\n');
   let currentSection = 0; // 1: Metadata, 2: Personnel, 3: Studio, 4: Musicology, 5: Signal Chains, 6: Mixdown, 7: References, 8: JSON
   let currentInstrument = null;
+  let lastInstrumentProp = '';
   let currentMusicologyField = null;
   const scoresCollected = [];
 
@@ -395,10 +396,11 @@ export function parseHistoricalTracksheet(markdown) {
 
       // Tempo / BPM detection
       if (!result.musicology.bpm) {
-        const bpmMatch = textToScan.match(/(?:~|approx\.?|approximately\s*)?(\d{2,3})(?:\s*-\s*\d{2,3})?\s*BPM/i);
+        const bpmMatch = textToScan.match(/(?:~|approx\.?|approximately\s*)?\b(\d{2,3}(?:\.\d+)?)(?:\s*-\s*\d{2,3}(?:\.\d+)?)?\s*BPM/i);
         if (bpmMatch) {
-          result.musicology.bpm = bpmMatch[1];
-          result.musicology.tempo = `${bpmMatch[1]} BPM`;
+          const cleanBpm = String(parseFloat(bpmMatch[1]));
+          result.musicology.bpm = cleanBpm;
+          result.musicology.tempo = `${cleanBpm} BPM`;
         }
       }
 
@@ -429,7 +431,7 @@ export function parseHistoricalTracksheet(markdown) {
             const parts = parsed.value.split(/->|→/).map(p => p.trim()).filter(Boolean);
             if (parts.length > 0) {
               result.musicology.formBreakdown = [];
-              result.musicology.formSections = parts.map((p, idx) => {
+              result.musicology.formSections = parts.map((p) => {
                 const matchParen = p.match(/^([^(]+?)\s*\(([^)]+)\)$/);
                 let title = p;
                 let desc = '';
@@ -455,10 +457,11 @@ export function parseHistoricalTracksheet(markdown) {
             if (keyMatch && !result.musicology.key) result.musicology.key = keyMatch[1].trim();
             else if (!result.musicology.key) result.musicology.key = text.split('.')[0];
 
-            const bpmMatch = text.match(/(\d{2,3})\s*BPM/i);
+            const bpmMatch = text.match(/(?:~|approx\.?|approximately\s*)?\b(\d{2,3}(?:\.\d+)?)(?:\s*-\s*\d{2,3}(?:\.\d+)?)?\s*BPM/i);
             if (bpmMatch && !result.musicology.bpm) {
-              result.musicology.bpm = bpmMatch[1];
-              result.musicology.tempo = `${bpmMatch[1]} BPM`;
+              const cleanBpm = String(parseFloat(bpmMatch[1]));
+              result.musicology.bpm = cleanBpm;
+              result.musicology.tempo = `${cleanBpm} BPM`;
             }
           }
         } else if (rawHeading.includes('arrangement') || rawHeading.includes('production')) {
@@ -498,10 +501,11 @@ export function parseHistoricalTracksheet(markdown) {
             else result.musicology.key = parsed.value.split('.')[0].split('(')[0].trim();
           }
 
-          const bpmMatch = combined.match(/(\d{2,3})\s*BPM/i);
+          const bpmMatch = combined.match(/(?:~|approx\.?|approximately\s*)?\b(\d{2,3}(?:\.\d+)?)(?:\s*-\s*\d{2,3}(?:\.\d+)?)?\s*BPM/i);
           if (bpmMatch && !result.musicology.bpm) {
-            result.musicology.bpm = bpmMatch[1];
-            result.musicology.tempo = `${bpmMatch[1]} BPM`;
+            const cleanBpm = String(parseFloat(bpmMatch[1]));
+            result.musicology.bpm = cleanBpm;
+            result.musicology.tempo = `${cleanBpm} BPM`;
           }
         } else if (currentMusicologyField === 'arrangement') {
           const title = subKey || '';
@@ -560,15 +564,17 @@ export function parseHistoricalTracksheet(markdown) {
 
       if (h3Match) {
         if (currentInstrument) {
-          result.instruments.push(currentInstrument);
+          result.instruments.push(finalizeInstrument(currentInstrument));
         }
         currentInstrument = createInstrumentModel(h3Match[1].trim());
+        lastInstrumentProp = '';
         continue;
       } else if (bulletInstMatch && !isPropertyKey(bulletInstMatch[1])) {
         if (currentInstrument) {
-          result.instruments.push(currentInstrument);
+          result.instruments.push(finalizeInstrument(currentInstrument));
         }
         currentInstrument = createInstrumentModel(bulletInstMatch[1].trim());
+        lastInstrumentProp = '';
         if (bulletInstMatch[2]) {
           const parsed = extractScoreAndSource(bulletInstMatch[2]);
           if (parsed.scoreNum) scoresCollected.push(parsed.scoreNum);
@@ -589,55 +595,132 @@ export function parseHistoricalTracksheet(markdown) {
           if (parsed.scoreNum) scoresCollected.push(parsed.scoreNum);
 
           if (propKey.includes('mix balance') || propKey.includes('panning') || propKey.includes('stereo placement') || propKey.includes('spatial placement')) {
+            lastInstrumentProp = 'mixBalance';
             currentInstrument.mixBalance = parsed.value;
             currentInstrument.mixBalanceScore = parsed.score;
             currentInstrument.mixBalanceSource = parsed.source;
           } else if (propKey.includes('mix processing') || propKey.includes('outboard fx') || propKey.includes('mixdown processing') || propKey.includes('mix chain') || propKey.includes('reverb send')) {
+            lastInstrumentProp = 'mixProcessing';
             currentInstrument.mixProcessing = parsed.value;
             currentInstrument.mixProcessingScore = parsed.score;
             currentInstrument.mixProcessingSource = parsed.source;
           } else if (propKey.includes('backline') || propKey.includes('instrument')) {
+            lastInstrumentProp = 'backline';
             currentInstrument.backline = parsed.value;
             currentInstrument.backlineScore = parsed.score;
             currentInstrument.backlineSource = parsed.source;
           } else if (propKey.includes('pathway') || propKey.includes('input method')) {
+            lastInstrumentProp = 'pathway';
             currentInstrument.pathway = parsed.value;
-          } else if (propKey.includes('microphon') || propKey.includes('transducer')) {
+          } else if (propKey.includes('placement') || propKey.includes('distance') || propKey.includes('baffling')) {
+            lastInstrumentProp = 'placement';
+            currentInstrument.placement = parsed.value;
+            currentInstrument.placementScore = parsed.score;
+            currentInstrument.placementSource = parsed.source;
+          } else if (propKey.includes('stereo') || propKey.includes('multi-mic') || propKey.includes('array')) {
+            lastInstrumentProp = 'stereoArray';
+            currentInstrument.stereoArray = parsed.value;
+            currentInstrument.stereoArrayScore = parsed.score;
+            currentInstrument.stereoArraySource = parsed.source;
+          } else if (propKey.includes('microphon') || propKey.includes('transducer') || propKey.includes('mic setup') || propKey.includes('mics')) {
+            lastInstrumentProp = 'mics';
             currentInstrument.mics = parsed.value;
             currentInstrument.micScore = parsed.score;
             currentInstrument.micSource = parsed.source;
-          } else if (propKey.includes('placement') || propKey.includes('distance') || propKey.includes('baffling')) {
-            currentInstrument.placement = parsed.value;
-          } else if (propKey.includes('stereo') || propKey.includes('multi-mic')) {
-            currentInstrument.stereoArray = parsed.value;
           } else if (propKey.includes('signal chain') || propKey.includes('analog tracking') || propKey.includes('hardware processing')) {
+            lastInstrumentProp = 'signalChain';
             currentInstrument.signalChain = parsed.value;
             currentInstrument.chainScore = parsed.score;
             currentInstrument.chainSource = parsed.source;
           } else if (propKey.includes('allocation') || propKey.includes('bouncing') || propKey.includes('tape')) {
+            lastInstrumentProp = 'tapeAllocation';
             currentInstrument.tapeAllocation = parsed.value;
           } else if (propKey.includes('plugin') || propKey.includes('daw')) {
+            lastInstrumentProp = 'signalChain';
             if (!currentInstrument.signalChain) {
               currentInstrument.signalChain = parsed.value;
             }
           }
         } else if (subListMatch) {
-          // Nested item e.g. * Kick: AKG D12...
-          const subKey = subListMatch[1].trim();
-          const subVal = subListMatch[2].trim();
+          // Nested item e.g. * Kick: AKG D12... or * Top: Shure SM57 -> SSL ...
+          const rawSubKey = subListMatch[1].trim();
+          const rawSubVal = subListMatch[2].trim();
+          const subKey = rawSubKey.replace(/\*/g, '').trim();
+          const subVal = rawSubVal.replace(/^\*\s*/, '').trim();
+
           if (subKey.toLowerCase() === 'score') {
             const parsed = extractScoreAndSource(`Score: ${subVal}`);
             if (parsed.scoreNum) scoresCollected.push(parsed.scoreNum);
-            if (currentInstrument.mics && !currentInstrument.micScore) {
-              currentInstrument.micScore = parsed.score;
-              currentInstrument.micSource = parsed.source;
+            if (lastInstrumentProp === 'signalChain') {
+              if (!currentInstrument.chainScore) {
+                currentInstrument.chainScore = parsed.score;
+                currentInstrument.chainSource = parsed.source;
+              }
+            } else {
+              if (!currentInstrument.micScore) {
+                currentInstrument.micScore = parsed.score;
+                currentInstrument.micSource = parsed.source;
+              }
             }
           } else {
-            const item = `${subKey}: ${subVal}`;
-            if (currentInstrument.mics) {
-              currentInstrument.mics += ` | ${item}`;
+            const item = subKey ? `${subKey}: ${subVal}` : subVal;
+            const parsed = extractScoreAndSource(subVal);
+            if (parsed.scoreNum) scoresCollected.push(parsed.scoreNum);
+
+            if (subVal.includes('->') || subVal.includes('→') || lastInstrumentProp === 'signalChain') {
+              if (currentInstrument.signalChain) {
+                currentInstrument.signalChain += ` | ${item}`;
+              } else {
+                currentInstrument.signalChain = item;
+              }
+              if (parsed.score && !currentInstrument.chainScore) {
+                currentInstrument.chainScore = parsed.score;
+                currentInstrument.chainSource = parsed.source;
+              }
+
+              // Always preserve the microphone make and model in currentInstrument.mics if this sub-item arrived for mics
+              if (lastInstrumentProp === 'mics' || (!lastInstrumentProp && !currentInstrument.mics)) {
+                const rawMicNode = subVal.split(/->|→/)[0].replace(/\s*-\s*Score:.*$/i, '').trim();
+                const micEntry = subKey ? `${subKey}: ${rawMicNode}` : rawMicNode;
+                if (currentInstrument.mics) {
+                  currentInstrument.mics += ` | ${micEntry}`;
+                } else {
+                  currentInstrument.mics = micEntry;
+                }
+                if (parsed.score && !currentInstrument.micScore) {
+                  currentInstrument.micScore = parsed.score;
+                  currentInstrument.micSource = parsed.source;
+                }
+              }
+            } else if (lastInstrumentProp === 'placement') {
+              if (currentInstrument.placement) {
+                currentInstrument.placement += ` | ${item}`;
+              } else {
+                currentInstrument.placement = item;
+              }
+            } else if (lastInstrumentProp === 'stereoArray') {
+              if (currentInstrument.stereoArray) {
+                currentInstrument.stereoArray += ` | ${item}`;
+              } else {
+                currentInstrument.stereoArray = item;
+              }
+            } else if (lastInstrumentProp === 'backline') {
+              if (currentInstrument.backline) {
+                currentInstrument.backline += ` | ${item}`;
+              } else {
+                currentInstrument.backline = item;
+              }
             } else {
-              currentInstrument.mics = item;
+              // Default to mics
+              if (currentInstrument.mics) {
+                currentInstrument.mics += ` | ${item}`;
+              } else {
+                currentInstrument.mics = item;
+              }
+              if (parsed.score && !currentInstrument.micScore) {
+                currentInstrument.micScore = parsed.score;
+                currentInstrument.micSource = parsed.source;
+              }
             }
           }
         }
@@ -689,7 +772,7 @@ export function parseHistoricalTracksheet(markdown) {
   }
 
   if (currentInstrument) {
-    result.instruments.push(currentInstrument);
+    result.instruments.push(finalizeInstrument(currentInstrument));
   }
 
   // Ensure mixdown fields have intelligent historical defaults if not explicitly present in markdown
@@ -746,6 +829,73 @@ export function parseHistoricalTracksheet(markdown) {
   return result;
 }
 
+function finalizeInstrument(inst) {
+  if (!inst) return inst;
+  // If mics contains signal flow arrows (-> or →), separate signal chains from mics
+  if (inst.mics && (/->|→/.test(inst.mics))) {
+    const parts = inst.mics.split(/\s*\|\s*/);
+    const cleanMics = [];
+    const chains = [];
+    for (const p of parts) {
+      if (/->|→/.test(p)) {
+        const cleanP = p.replace(/^[\s*–—-]+([^*:]+)[*:\s]+/, '$1: ').replace(/^\s*-\s*/, '').trim();
+        chains.push(cleanP);
+        // Extract the transducer/microphone make and model from the first node before the arrow
+        const micFromChain = cleanP.split(/->|→/)[0].replace(/\s*-\s*Score:.*$/i, '').trim();
+        if (micFromChain) {
+          cleanMics.push(micFromChain);
+        }
+      } else {
+        cleanMics.push(p);
+      }
+    }
+    if (chains.length > 0) {
+      const chainStr = chains.join(' | ');
+      if (!inst.signalChain) {
+        inst.signalChain = chainStr;
+      } else if (!inst.signalChain.includes(chains[0])) {
+        inst.signalChain += ' | ' + chainStr;
+      }
+    }
+    inst.mics = cleanMics.join('; ').replace(/^;\s*|;\s*$/g, '').trim();
+  }
+
+  // Fallback 1: If mics is still empty, extract transducer from the beginning of signalChain
+  if (!inst.mics && inst.signalChain && (/->|→/.test(inst.signalChain))) {
+    const chainParts = inst.signalChain.split(/\s*\|\s*/);
+    const extractedNodes = [];
+    for (const cp of chainParts) {
+      const firstNode = cp.split(/->|→/)[0].replace(/^[\s*–—-]+([^*:]+)[*:\s]+/, '$1: ').replace(/\s*-\s*Score:.*$/i, '').trim();
+      if (firstNode && !/^(?:direct\s+injection|di\s+box|line\s+level|software\s+instrument|midi)$/i.test(firstNode)) {
+        extractedNodes.push(firstNode);
+      }
+    }
+    if (extractedNodes.length > 0) {
+      inst.mics = extractedNodes.join('; ');
+    }
+  }
+
+  // Fallback 2: Check pathway for explicit microphone mentions (e.g. "Acoustic Microphone Capture (Shure SM57)" or "via Neumann U87")
+  if (!inst.mics && inst.pathway) {
+    const parenMatch = inst.pathway.match(/\(([^)]+)\)/);
+    const viaMatch = inst.pathway.match(/(?:via|using|with)\s+([A-Za-z0-9\s/&#_-]+)/i);
+    if (parenMatch && !/^(?:acoustic|microphone|capture|mono|stereo)$/i.test(parenMatch[1].trim())) {
+      inst.mics = parenMatch[1].trim();
+    } else if (viaMatch) {
+      inst.mics = viaMatch[1].trim();
+    }
+  }
+
+  if (inst.mics) {
+    inst.mics = inst.mics
+      .replace(/\*\*([^*]+)\*\*/g, '$1')
+      .replace(/\*([^*]+)\*/g, '$1')
+      .replace(/\s{2,}/g, ' ')
+      .trim();
+  }
+  return inst;
+}
+
 function createInstrumentModel(name) {
   return {
     name,
@@ -768,6 +918,10 @@ function createInstrumentModel(name) {
     backlineSource: '',
     micScore: '',
     micSource: '',
+    placementScore: '',
+    placementSource: '',
+    stereoArrayScore: '',
+    stereoArraySource: '',
     chainScore: '',
     chainSource: ''
   };

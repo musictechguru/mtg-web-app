@@ -26,53 +26,51 @@ export function generatePdfHtml({ type, content, trackName, artistName, daw }) {
           </div>
         </div>
 
-        <!-- Candidate & Hardware Info -->
+        <!-- Section 1: Release & Production Metadata -->
         <div class="pdf-section pdf-avoid-break">
-          <div class="pdf-section-title">1. Candidate, Studio & Hardware Metadata</div>
-          <div class="pdf-grid-2">
-            <div class="pdf-card">
-              <div class="pdf-card-title">Examination Details</div>
-              <div class="pdf-kv"><span>Centre Name / Number:</span> <strong>Exemplar Centre / 12345</strong></div>
-              <div class="pdf-kv"><span>Candidate Name / Number:</span> <strong>Candidate / 0001</strong></div>
-              <div class="pdf-kv"><span>Submission Cycle:</span> <strong>A-Level Music Technology Component 1</strong></div>
+          <div class="pdf-section-title">1. Release &amp; Production Metadata</div>
+          <div class="pdf-card" style="padding: 10px 14px;">
+            <div style="font-size: 13pt; font-weight: 800; color: #0f172a; margin-bottom: 4px;">
+              ${data.trackName || effectiveTrack} ${data.artistName || effectiveArtist ? `— ${data.artistName || effectiveArtist}` : ''} ${data.year ? `(${data.year})` : ''}
             </div>
-            <div class="pdf-card">
-              <div class="pdf-card-title">Hardware & Acoustic Environment</div>
-              <div class="pdf-kv"><span>Audio Interface:</span> <strong>${data.audioInterface || "Focusrite Clarett+ / Universal Audio Apollo (24-bit/48kHz)"}</strong></div>
-              <div class="pdf-kv"><span>Monitoring Environment:</span> <strong>${data.monitoring || "Nearfield studio monitors & closed-back headphones"}</strong></div>
-              <div class="pdf-kv"><span>Target Dynamic Range:</span> <strong>-1.0 dBFS True Peak / -14 to -16 LUFS Integrated</strong></div>
+            <div style="font-size: 8.5pt; color: #475569; display: flex; gap: 14px; flex-wrap: wrap;">
+              ${(data.genre1 || data.genre) ? `<span><strong>Genre:</strong> ${data.genre1 ? `${data.genre1}${data.genre2 ? ` / ${data.genre2}` : ''}` : data.genre}</span>` : ''}
+              ${data.recordLabel ? `<span><strong>Record Label:</strong> ${data.recordLabel}</span>` : ''}
+              <span><strong>Primary DAW:</strong> ${effectiveDaw}</span>
             </div>
           </div>
         </div>
 
-        <!-- Master Track Sheet Table -->
+        <!-- Section 2: Master Track Sheet Table -->
         ${data.trackTable && data.trackTable.length > 0 ? `
           <div class="pdf-section pdf-avoid-break">
-            <div class="pdf-section-title">2. Master Track Sheet & Channel Routing Table</div>
+            <div class="pdf-section-title">2. Master Track Sheet &amp; Mixing Desk Allocation Table</div>
             <table class="pdf-table">
               <thead>
                 <tr>
-                  <th style="width: 45px;">Trk #</th>
-                  <th>Stem / Instrument</th>
-                  <th>Selected Pathway</th>
-                  <th>Input Source / Transducer</th>
-                  <th>DAW Track Type</th>
-                  <th style="width: 50px;">Pan</th>
-                  <th style="width: 55px;">Fader</th>
-                  <th style="width: 70px;">Target Level</th>
+                  <th style="width: 32px; text-align: center;">Trk</th>
+                  <th style="width: 110px;">Stem / Instrument</th>
+                  <th style="width: 140px;">Capture</th>
+                  <th style="width: 48px; text-align: center;">Fader</th>
+                  <th style="width: 42px; text-align: center;">Pan</th>
+                  <th>Dynamics</th>
+                  <th>EQ</th>
+                  <th>Inserts</th>
+                  <th>Aux</th>
                 </tr>
               </thead>
               <tbody>
                 ${data.trackTable.map(row => `
                   <tr>
-                    <td style="text-align: center; font-weight: bold;">${row.trackNo || row.trackNum || "-"}</td>
-                    <td style="font-weight: 600;">${row.stem || "-"}</td>
-                    <td><span class="pdf-badge ${row.pathway && row.pathway.includes("1") ? "badge-mic" : row.pathway && row.pathway.includes("2") ? "badge-di" : "badge-midi"}">${row.pathway || "Pathway 1"}</span></td>
-                    <td>${row.inputSource || row.source || "-"}</td>
-                    <td>${row.dawInput || "Audio Track"}</td>
-                    <td style="text-align: center;">${row.pan || "C"}</td>
-                    <td style="text-align: center;">${row.fader || "0.0 dB"}</td>
-                    <td style="text-align: center; font-family: monospace;">${row.targetHeadroom || row.headroom || "-12 dBFS"}</td>
+                    <td style="text-align: center; font-weight: bold; font-family: monospace;">${row.trackNo || row.trackNum || "-"}</td>
+                    <td style="font-weight: 600; color: #0f172a;">${row.stem || "-"}</td>
+                    <td style="font-size: 7.5pt;">${row.capture || row.inputSource || row.pathway || "-"}</td>
+                    <td style="text-align: center; font-family: monospace; font-size: 7.5pt; font-weight: 600; color: #0284c7;">${row.fader || "0.0 dB"}</td>
+                    <td style="text-align: center; font-family: monospace; font-size: 7.5pt;">${row.pan || "C"}</td>
+                    <td style="font-size: 7.5pt;">${row.dynamics || "-"}</td>
+                    <td style="font-size: 7.5pt;">${row.eq || "-"}</td>
+                    <td style="font-size: 7.5pt;">${row.inserts || "-"}</td>
+                    <td style="font-size: 7.5pt;">${row.aux || "-"}</td>
                   </tr>
                 `).join("")}
               </tbody>
@@ -239,55 +237,10 @@ export function generatePdfHtml({ type, content, trackName, artistName, daw }) {
         <div class="pdf-section pdf-avoid-break">
           <div class="pdf-section-title">4. Mix Strategy, Master Bus & Final Mastering Suite</div>
 
-          ${data.mixStrategy && (data.mixStrategy.faderHierarchy?.length > 0 || data.mixStrategy.philosophy) ? `
+          ${data.mixStrategy && data.mixStrategy.philosophy ? `
             <div class="pdf-card" style="padding: 7px 10px; margin-bottom: 8px;">
-              <div class="pdf-card-title" style="font-size: 8.5pt; color: #0284c7; margin-bottom: 4px;">4.1 Mix Balance, Fader Hierarchy & Stereo Staging Architecture</div>
-              ${data.mixStrategy.philosophy ? `
-                <p style="font-size: 7.2pt; line-height: 1.4; color: #334155; margin: 0 0 6px 0;">${data.mixStrategy.philosophy}</p>
-              ` : ""}
-              ${data.mixStrategy.faderHierarchy && data.mixStrategy.faderHierarchy.length > 0 ? `
-                <table style="width: 100%; border-collapse: collapse; font-size: 6.8pt; margin-top: 3px;">
-                  <thead>
-                    <tr style="background: #f1f5f9; border-bottom: 1px solid #cbd5e1;">
-                      <th style="padding: 3px 5px; text-align: left; width: 22%;">Stem / Element</th>
-                      <th style="padding: 3px 5px; text-align: center; width: 13%;">Target Fader</th>
-                      <th style="padding: 3px 5px; text-align: left; width: 22%;">Visual Level Meter</th>
-                      <th style="padding: 3px 5px; text-align: center; width: 15%;">Stereo Pan</th>
-                      <th style="padding: 3px 5px; text-align: left; width: 28%;">Mix Role & Staging</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    ${data.mixStrategy.faderHierarchy.map(item => {
-                      const db = typeof item.dbNum === 'number' && !isNaN(item.dbNum) ? item.dbNum : 0;
-                      const pct = Math.max(14, Math.min(100, Math.round(((db + 12) / 12) * 86 + 14)));
-                      const color = db >= -0.5 ? '#ef4444' : db >= -3.5 ? '#0284c7' : db >= -6.5 ? '#059669' : '#7c3aed';
-                      return `
-                        <tr style="border-bottom: 1px solid #f1f5f9;">
-                          <td style="padding: 2.5px 5px; font-weight: 600; color: #0f172a;">${item.element}</td>
-                          <td style="padding: 2.5px 5px; text-align: center;">
-                            <span style="display: inline-block; padding: 1px 4px; border-radius: 3px; font-weight: 700; font-size: 6.5pt; color: ${color}; background: #f8fafc; border: 1px solid ${color}40;">
-                              ${item.faderLevel}
-                            </span>
-                          </td>
-                          <td style="padding: 2.5px 5px;">
-                            <div style="background: #e2e8f0; border-radius: 2px; height: 8px; width: 100%; position: relative; overflow: hidden;">
-                              <div style="width: ${pct}%; height: 100%; border-radius: 2px; background: ${color};"></div>
-                            </div>
-                          </td>
-                          <td style="padding: 2.5px 5px; text-align: center;">
-                            <span style="display: inline-block; padding: 1px 4px; border-radius: 3px; font-size: 6.5pt; background: #f1f5f9; color: #475569; border: 1px solid #cbd5e1;">
-                              ${item.pan || 'Center'}
-                            </span>
-                          </td>
-                          <td style="padding: 2.5px 5px; color: #475569;">
-                            ${item.role ? item.role : ''}${item.staging && item.staging !== 'Mix Staging' ? ` (${item.staging})` : ''}
-                          </td>
-                        </tr>
-                      `;
-                    }).join('')}
-                  </tbody>
-                </table>
-              ` : ""}
+              <div class="pdf-card-title" style="font-size: 8.5pt; color: #0284c7; margin-bottom: 4px;">Mixdown Engineering Approach & Staging Methodology</div>
+              <p style="font-size: 7.2pt; line-height: 1.4; color: #334155; margin: 0;">${data.mixStrategy.philosophy}</p>
             </div>
           ` : ""}
 
@@ -507,11 +460,33 @@ export function generatePdfHtml({ type, content, trackName, artistName, daw }) {
                   ` : ""}
                 </div>
 
-                ${inst.pathway ? `
-                  <div class="pdf-preferred-reason" style="background: #f1f5f9; border-left-color: #3b82f6; color: #1e3a8a;">
-                    <strong>Historical Pathway / Input Method:</strong> ${inst.pathway}
-                  </div>
-                ` : ""}
+                ${(() => {
+                  const pathwayText = inst.pathway ? inst.pathway.replace(/\.$/, '') : '';
+                  if (!pathwayText && !inst.mics) return '';
+                  const textToShow = pathwayText || 'Acoustic Microphone Capture';
+                  let cleanMic = '';
+                  if (inst.mics) {
+                    const firstChunk = inst.mics.split(/[.;|]/)[0].trim();
+                    const gearParen = firstChunk.match(/\(([^)]+)\)/);
+                    if (gearParen && /e\.g\.|shure|akg|neumann|sennheiser|rode|audio-technica|d112|sm57|u87|c414|nt1|md421|beta 52/i.test(gearParen[1])) {
+                      cleanMic = gearParen[1].replace(/^(?:e\.g\.?|i\.e\.?)\s*/i, '').trim();
+                    } else {
+                      cleanMic = firstChunk
+                        .replace(/\s*\(.*?\)/g, '')
+                        .replace(/^[\s*–—-]+([^*:]+)[*:\s]+/, '$1: ')
+                        .replace(/\s*-\s*Score:.*$/i, '')
+                        .replace(/[-:]\s*$/, '')
+                        .trim();
+                    }
+                  }
+                  const hasMic = cleanMic && textToShow.toLowerCase().includes(cleanMic.toLowerCase());
+                  const micSuffix = cleanMic && !hasMic ? ` — <strong>Mic:</strong> ${cleanMic}` : '';
+                  return `
+                    <div class="pdf-preferred-reason" style="background: #f1f5f9; border-left-color: #3b82f6; color: #1e3a8a;">
+                      <strong>Historical Pathway / Input Method:</strong> ${textToShow}${micSuffix}
+                    </div>
+                  `;
+                })()}
 
                 <div class="pdf-specs-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 8px; margin-top: 8px;">
                   ${inst.backline ? `

@@ -242,6 +242,87 @@ const Dashboard = ({ onNavigate, onOpenProfile }) => {
                 </div>
             </div>
 
+            {/* 16-Block Timetable & Scheme of Work Feature Card */}
+            <div style={{
+                background: 'linear-gradient(135deg, rgba(56, 189, 248, 0.12) 0%, rgba(59, 130, 246, 0.08) 100%)',
+                border: '1px solid rgba(56, 189, 248, 0.3)',
+                borderRadius: '16px',
+                padding: '24px',
+                marginBottom: '25px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                flexWrap: 'wrap',
+                gap: '20px',
+                boxShadow: '0 8px 24px rgba(0,0,0,0.2)'
+            }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '18px' }}>
+                    <div style={{
+                        width: '56px',
+                        height: '56px',
+                        borderRadius: '12px',
+                        background: 'linear-gradient(135deg, #0284c7, #38bdf8)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        fontSize: '1.8rem',
+                        boxShadow: '0 4px 15px rgba(56, 189, 248, 0.4)'
+                    }}>
+                        🗺️
+                    </div>
+                    <div>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px', flexWrap: 'wrap' }}>
+                            <span style={{ fontSize: '0.75rem', fontWeight: 'bold', background: 'rgba(56, 189, 248, 0.25)', color: '#38bdf8', padding: '2px 8px', borderRadius: '6px' }}>
+                                EDEXCEL 9MT0 SYLLABUS
+                            </span>
+                            <span style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>
+                                24 Weeks/Year Framework (3 Weeks / 12h per Block)
+                            </span>
+                            <span style={{ 
+                                fontSize: '0.75rem', 
+                                fontWeight: 'bold', 
+                                background: 'rgba(16, 185, 129, 0.2)', 
+                                color: '#34d399', 
+                                border: '1px solid rgba(16, 185, 129, 0.4)',
+                                padding: '2px 8px', 
+                                borderRadius: '6px'
+                            }}>
+                                🎮 INTERACTIVE QUEST MAP
+                            </span>
+                        </div>
+                        <h3 style={{ margin: '0 0 6px 0', color: '#fff', fontSize: '1.3rem' }}>
+                            16-Block Timetable & Scheme of Work
+                        </h3>
+                        <p style={{ margin: 0, color: 'var(--text-secondary)', fontSize: '0.92rem', maxWidth: '650px', lineHeight: '1.4' }}>
+                            Interactive 3-week block curriculum (4 hours/week, 12h per block) covering Critical Listening (1950s–Present), Technical Theory, Practical Studio Tracking, Coursework Milestones (C1 & C2), and 5–10 Facts Revision Flashcards.
+                        </p>
+                    </div>
+                </div>
+                <button
+                    onClick={() => onNavigate({ type: 'timetable_builder', title: '16-Block Timetable & Scheme of Work' })}
+                    style={{
+                        background: 'linear-gradient(135deg, #0284c7 0%, #0369a1 100%)',
+                        color: '#fff',
+                        border: 'none',
+                        padding: '12px 24px',
+                        borderRadius: '10px',
+                        cursor: 'pointer',
+                        fontWeight: 'bold',
+                        fontSize: '1rem',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '8px',
+                        boxShadow: '0 4px 15px rgba(2, 132, 199, 0.4)',
+                        transition: 'all 0.2s',
+                        whiteSpace: 'nowrap'
+                    }}
+                    onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.04)'}
+                    onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
+                >
+                    Launch Timetable Quest Map →
+                </button>
+            </div>
+
             {/* Component 1 Track Sheet & Logbook Feature Card */}
             <div style={{
                 background: 'linear-gradient(135deg, rgba(168, 85, 247, 0.12) 0%, rgba(99, 102, 241, 0.08) 100%)',

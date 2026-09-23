@@ -49,25 +49,9 @@ const KNOWN_TRACK_VIDEOS = {
   "yesterday": "wXTJBr9tt8Q"
 };
 
-const API_BASE = import.meta.env.VITE_TRACKSHEET_API_URL || 'https://tracksheet-creator-2.onrender.com';
-
-// Universal API Fetcher with automatic fallback to configured API / localhost
+// Universal API Fetcher with automatic fallback to localhost:3001
 async function fetchCompanionApi(endpoint, options = {}) {
-  // 1. Try configured API base first (e.g. Render backend)
-  if (API_BASE) {
-    try {
-      const targetUrl = `${API_BASE}${endpoint}`;
-      const res = await fetch(targetUrl, options);
-      const contentType = res.headers.get('content-type') || '';
-      if (res.ok && contentType.includes('application/json')) {
-        return await res.json();
-      }
-    } catch (e) {
-      // Configured API route network error
-    }
-  }
-
-  // 2. Try relative route through Vite proxy
+  // 1. Try relative route through Vite proxy first
   try {
     const res = await fetch(endpoint, options);
     const contentType = res.headers.get('content-type') || '';
@@ -78,17 +62,15 @@ async function fetchCompanionApi(endpoint, options = {}) {
     // Relative route network error
   }
 
-  // 3. Fallback to localhost:3001 if in development
-  if (import.meta.env.DEV) {
-    try {
-      const fallbackUrl = `http://localhost:3001${endpoint}`;
-      const fallbackRes = await fetch(fallbackUrl, options);
-      if (fallbackRes.ok) {
-        return await fallbackRes.json();
-      }
-    } catch (fallbackErr) {
-      // Fallback error
+  // 2. Direct backend fallback to http://localhost:3001 (where Tracksheet server.js runs with CORS)
+  try {
+    const fallbackUrl = `http://localhost:3001${endpoint}`;
+    const fallbackRes = await fetch(fallbackUrl, options);
+    if (fallbackRes.ok) {
+      return await fallbackRes.json();
     }
+  } catch (fallbackErr) {
+    // Fallback error
   }
 
   throw new Error(`Could not connect to service at ${endpoint}`);

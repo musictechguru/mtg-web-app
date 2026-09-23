@@ -104,6 +104,11 @@ export default function DossierView({ data, onOpenVideoCompanion }) {
         if (/->|→/.test(p)) {
           const cleanP = p.replace(/^[\s*–—-]+([^*:]+)[*:\s]+/, '$1: ').trim();
           extractedChains.push(cleanP);
+          // Preserve the transducer from before the first arrow
+          const micFromChain = cleanP.split(/->|→/)[0].replace(/\s*-\s*Score:.*$/i, '').trim();
+          if (micFromChain) {
+            cleanMicParts.push(micFromChain);
+          }
         } else {
           cleanMicParts.push(p);
         }
@@ -115,7 +120,33 @@ export default function DossierView({ data, onOpenVideoCompanion }) {
         } else if (!chain.includes(extractedChains[0])) {
           chain = chain + ' | ' + extractedStr;
         }
-        mics = cleanMicParts.join('; ').replace(/^;\s*|;\s*$/g, '').trim();
+      }
+      mics = cleanMicParts.join('; ').replace(/^;\s*|;\s*$/g, '').trim();
+    }
+
+    // Fallback 1: If mics is empty, extract transducer from signal chain
+    if (!mics && chain && (/->|→/.test(chain))) {
+      const chainParts = chain.split(/\s*\|\s*/);
+      const extractedNodes = [];
+      for (const cp of chainParts) {
+        const firstNode = cp.split(/->|→/)[0].replace(/^[\s*–—-]+([^*:]+)[*:\s]+/, '$1: ').replace(/\s*-\s*Score:.*$/i, '').trim();
+        if (firstNode && !/^(?:direct\s+injection|di\s+box|line\s+level|software\s+instrument|midi)$/i.test(firstNode)) {
+          extractedNodes.push(firstNode);
+        }
+      }
+      if (extractedNodes.length > 0) {
+        mics = extractedNodes.join('; ');
+      }
+    }
+
+    // Fallback 2: Check pathway for explicit mic mentions (e.g. "Acoustic Microphone Capture (Shure SM57)" or "via Neumann U87")
+    if (!mics && instrument.pathway) {
+      const parenMatch = instrument.pathway.match(/\(([^)]+)\)/);
+      const viaMatch = instrument.pathway.match(/(?:via|using|with)\s+([A-Za-z0-9\s/&#_-]+)/i);
+      if (parenMatch && !/^(?:acoustic|microphone|capture|mono|stereo)$/i.test(parenMatch[1].trim())) {
+        mics = parenMatch[1].trim();
+      } else if (viaMatch) {
+        mics = viaMatch[1].trim();
       }
     }
 
@@ -152,6 +183,7 @@ export default function DossierView({ data, onOpenVideoCompanion }) {
     }
 
     const results = [];
+    const genericClassificationRegex = /^(?:moving[- ]coil\s+|dedicated\s+|bass\s+|low[- ]end\s+|matched\s+|pair\s+of\s+|matched\s+pair\s+of\s+|pair\s+|stereo\s+pair\s+of\s+|large\s+diaphragm\s+|small\s+diaphragm\s+|pencil\s+|vintage\s+|studio\s+|tube\s+|valve\s+|condenser\s+|dynamic\s+|ribbon\s+|transducer\s+|microphone\s+|mic\s+|active\s+|passive\s+|direct\s+injection\s+|di\s+|box\s+|audio\s+track\s+|audio\s+|track\s+|sdc|ldc|\(|\)|\/|\-|\s)+$/i;
 
     for (const chunk of rawChunks) {
       let text = chunk.replace(/\.$/, '').trim();
@@ -159,7 +191,7 @@ export default function DossierView({ data, onOpenVideoCompanion }) {
 
       let role = '';
       const roleMatch = text.match(/^([A-Za-z0-9\s/&#_-]+):\s*(.*)$/);
-      if (roleMatch && !roleMatch[1].toLowerCase().includes('neuma') && !roleMatch[1].toLowerCase().includes('shure') && !roleMatch[1].toLowerCase().includes('akg')) {
+      if (roleMatch && !/(?:neuma|shure|akg|sennheiser|sony|rode|telefunken|electro-voice|beyerdynamic|coles|royer)/i.test(roleMatch[1])) {
         role = roleMatch[1].trim();
         text = roleMatch[2].trim();
       }
@@ -181,49 +213,88 @@ export default function DossierView({ data, onOpenVideoCompanion }) {
       } else if (/ribbon/i.test(text)) {
         transducerType = 'Ribbon Transducer';
         typeClass = 'ribbon';
-      } else if (/di\b|direct injection|line[- ]level/i.test(text)) {
+      } else if (/di\b|direct injection|line[- ]level|line input/i.test(text)) {
         transducerType = 'Direct Injection (DI)';
         typeClass = 'di';
-      } else if (/small diaphragm|pencil|sdc|km84|km54|km56|c451/i.test(text)) {
+      } else if (/small diaphragm|pencil|sdc|km84|km184|km54|km56|c451|nt5|c1000/i.test(text)) {
         transducerType = 'Small Diaphragm Condenser';
         typeClass = 'condenser';
-      } else if (/condenser|ldc|u47|u67|u87|c12|c414|elam 251/i.test(text)) {
+      } else if (/condenser|ldc|u47|u67|u87|c12|c414|c800|elam 251|nt1|at2020|at2035/i.test(text)) {
         transducerType = 'Large Diaphragm Condenser';
         typeClass = 'condenser';
-      } else if (/dynamic|moving[- ]coil|sm57|sm58|sm7|md421|md441|d12|d112|re20/i.test(text)) {
+      } else if (/dynamic|moving[- ]coil|sm57|sm58|sm7|md421|md441|d12|d112|re20|beta 52/i.test(text)) {
         transducerType = 'Moving-Coil Dynamic';
         typeClass = 'dynamic';
       }
 
       // Default polar pattern if standard known mic
       if (!polarPattern) {
-        if (/sm57|sm58|re20|d12|d112|km84/i.test(text)) polarPattern = 'Cardioid';
+        if (/sm57|sm58|re20|d12|d112|km84|km184/i.test(text)) polarPattern = 'Cardioid';
         else if (/md441/i.test(text)) polarPattern = 'Supercardioid';
         else if (/md421/i.test(text)) polarPattern = 'Cardioid';
         else if (/4038|44-bx/i.test(text)) polarPattern = 'Figure-8';
       }
 
-      // Clean model name
+      // Extract make and model, handling educational formatting e.g. "Low-End Dynamic (e.g. AKG D112 / Shure Beta 52A)"
       let model = text;
       let notes = '';
 
-      const parenMatch = text.match(/\(([^)]+)\)/);
-      if (parenMatch) {
-        const insideParen = parenMatch[1];
-        const filteredParen = insideParen
-          .replace(/tube|valve|condenser|dynamic|moving[- ]coil|ribbon|cardioid|omni|figure[- ]?8|large diaphragm|small diaphragm|pattern/gi, '')
-          .replace(/[,;\s]+/g, ' ')
-          .trim();
-        if (filteredParen.length > 2) {
-          notes = filteredParen;
+      const allParens = [...text.matchAll(/\(([^)]+)\)/g)].map(m => m[1].trim());
+      // Look for a parenthesis that contains the specific make & model
+      const gearParen = allParens.find(p => /e\.g\.|i\.e\.|shure|akg|neumann|sennheiser|rode|audio-technica|radial|bss|sony|coles|royer|ev|d112|sm57|u87|c414|nt1|re20|md421|beta 52|c1000|nt5|km184/i.test(p));
+
+      if (gearParen) {
+        const outside = text.replace(/\s*\([^)]+\)/g, '').trim();
+        const outsideIsGeneric = genericClassificationRegex.test(outside) || !/[A-Za-z0-9]/.test(outside);
+        const outsideHasBrand = /shure|neumann|akg|sennheiser|sony|rode|coles|royer|telefunken|d112|sm57|u87|c414/i.test(outside);
+
+        if (outsideIsGeneric || !outsideHasBrand) {
+          // The real make & model is INSIDE the parenthesis!
+          model = gearParen.replace(/^(?:e\.g\.?|i\.e\.?)\s*/i, '').trim();
+          notes = outside;
+        } else {
+          // The make & model is outside; parentheses are secondary notes/specs
+          model = outside;
+          const filtered = gearParen
+            .replace(/tube|valve|condenser|dynamic|moving[- ]coil|ribbon|cardioid|omni|figure[- ]?8|large diaphragm|small diaphragm|pattern/gi, '')
+            .replace(/[,;\s]+/g, ' ')
+            .trim();
+          if (filtered.length > 2) notes = filtered;
         }
-        model = model.replace(/\s*\([^)]+\)/g, '').trim();
+      } else if (allParens.length > 0) {
+        // Parentheses exist but without obvious brand keywords
+        const firstParen = allParens[0];
+        const outside = text.replace(/\s*\([^)]+\)/g, '').trim();
+        const outsideIsGeneric = genericClassificationRegex.test(outside);
+
+        if (outsideIsGeneric && firstParen.length > 2) {
+          model = firstParen.replace(/^(?:e\.g\.?|i\.e\.?)\s*/i, '').trim();
+          notes = outside;
+        } else {
+          model = outside;
+          const filtered = firstParen
+            .replace(/tube|valve|condenser|dynamic|moving[- ]coil|ribbon|cardioid|omni|figure[- ]?8|large diaphragm|small diaphragm|pattern/gi, '')
+            .replace(/[,;\s]+/g, ' ')
+            .trim();
+          if (filtered.length > 2) notes = filtered;
+        }
       }
 
-      model = model.replace(/\b(?:moving[- ]coil\s+)?(?:dynamic|condenser|ribbon|tube|valve|cardioid|pattern)\b/gi, '').trim();
-      model = model.replace(/\s{2,}/g, ' ').replace(/[-:,]+$/, '').trim();
+      // Clean redundant prefixes from model (e.g. "Pair of", "Single", trailing placement text)
+      model = model
+        .replace(/^(?:Pair of|Matched Pair of|Matched|Single)\s+/i, '')
+        .replace(/\s*-\s*Score:.*$/i, '')
+        .replace(/\s*placed inside.*$/i, '')
+        .replace(/\s*inside open grand piano.*$/i, '')
+        .replace(/\s*\.\s*(?:Cardioid|Omni|Figure-8|Supercardioid|Hypercardioid).*$/i, '')
+        .replace(/\s{2,}/g, ' ')
+        .replace(/[-:,]+$/, '')
+        .trim();
 
-      if (!model && text) model = text;
+      // Guard: If model is empty or solely generic classification words, restore best readable description
+      if (!model || genericClassificationRegex.test(model)) {
+        model = text.replace(/\s*-\s*Score:.*$/i, '').trim() || (typeClass === 'di' ? 'Direct Injection (DI Box)' : 'Studio Microphone');
+      }
 
       let effectiveRole = role;
       if (!effectiveRole) {
@@ -632,17 +703,31 @@ export default function DossierView({ data, onOpenVideoCompanion }) {
                     <h4 className="dossier-inst-title">{activeInstrument.name}</h4>
                     {(activeInstrument.pathway || effectiveMics) && (() => {
                       const pathwayText = activeInstrument.pathway ? activeInstrument.pathway.replace(/\.$/, '') : 'Acoustic Microphone Capture';
-                      const isGenericCapture = /^acoustic\s+(?:microphone\s+)?capture$/i.test(pathwayText.trim()) ||
-                                              /^microphone\s+capture$/i.test(pathwayText.trim()) ||
-                                              /^(?:acoustic\s+)?mic\s+capture$/i.test(pathwayText.trim()) ||
-                                              /^acoustic$/i.test(pathwayText.trim());
-                      const cleanMic = effectiveMics ? effectiveMics.split(/[.;]/)[0].replace(/\s*\(.*?\)/g, '').replace(/[-:]\s*$/, '').trim() : '';
-                      const hasMicInPathway = cleanMic && pathwayText.toLowerCase().includes(cleanMic.toLowerCase());
+                      const cleanMic = (() => {
+                        if (!effectiveMics) return '';
+                        if (parsedMics && parsedMics.length > 0) {
+                          if (parsedMics.length === 1) return parsedMics[0].model;
+                          return parsedMics
+                            .map(m => m.role && !m.role.startsWith('Transducer') ? `${m.role}: ${m.model}` : m.model)
+                            .join(' / ');
+                        }
+                        return effectiveMics.split(/[.;]/)[0].replace(/\s*\(.*?\)/g, '').replace(/[-:]\s*$/, '').trim();
+                      })();
+
+                      const hasMicInPathway = cleanMic && (() => {
+                        const lowPathway = pathwayText.toLowerCase();
+                        const lowMic = cleanMic.toLowerCase();
+                        if (lowPathway.includes(lowMic)) return true;
+                        return cleanMic.split(/[/,;]/).some(part => {
+                          const p = part.replace(/^[^:]+:\s*/, '').trim().toLowerCase();
+                          return p.length > 3 && lowPathway.includes(p);
+                        });
+                      })();
 
                       return (
                         <span className="dossier-inst-pathway">
                           Input Pathway: <strong>{pathwayText}</strong>
-                          {isGenericCapture && cleanMic && !hasMicInPathway && (
+                          {cleanMic && !hasMicInPathway && (
                             <span className="dossier-inst-pathway-mic">
                               {' '}— Mic: <strong>{cleanMic}</strong>
                             </span>

@@ -28,6 +28,7 @@ import component4TemplateData from './data/component4_template_exam.json';
 import component4SpopData from './data/component4_spop_exam.json';
 import PremiumLocked from './components/PremiumLocked';
 import TracksheetCreator from './components/TracksheetCreator/TracksheetCreator';
+import TimetableBuilder from './components/TimetableBuilder/TimetableBuilder';
 
 import WelcomeVideoModal from './components/WelcomeVideoModal';
 import UpdatePasswordModal from './components/UpdatePasswordModal';
@@ -78,6 +79,9 @@ const MainApp = () => {
         }
         if (quizParam === 'tracksheet_creator') {
           return { type: 'tracksheet_creator', title: 'Component 1: Track Sheet & Logbook' };
+        }
+        if (quizParam === 'timetable_builder' || quizParam === 'timetable' || quizParam === 'scheme_of_work') {
+          return { type: 'timetable_builder', title: '16-Block Timetable & Scheme of Work' };
         }
         const found = findCourseItem(quizParam);
         if (found) return found;
@@ -311,7 +315,7 @@ const MainApp = () => {
               handleItemSelectWrapper({ type: 'tracksheet_creator', title: 'Component 1: Track Sheet & Logbook' });
             }}
             style={{ 
-              marginBottom: '20px', 
+              marginBottom: '10px', 
               fontWeight: 'bold', 
               color: '#c084fc', 
               border: '1px solid rgba(192, 132, 252, 0.4)',
@@ -319,6 +323,25 @@ const MainApp = () => {
             }}
           >
             <span>🎚️</span> Component 1 Track Sheet
+          </button>
+
+          <button
+            className={`nav-item ${activeItem?.type === 'timetable_builder' ? 'active' : ''}`}
+            onClick={() => {
+              handleItemSelectWrapper({ type: 'timetable_builder', title: '16-Block Timetable & Scheme of Work' });
+            }}
+            style={{ 
+              marginBottom: '20px', 
+              fontWeight: 'bold', 
+              color: '#38bdf8', 
+              border: '1px solid rgba(56, 189, 248, 0.4)',
+              background: activeItem?.type === 'timetable_builder' ? 'rgba(56, 189, 248, 0.15)' : 'transparent',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px'
+            }}
+          >
+            <span>🗺️</span> 16-Block Timetable & SOW
           </button>
 
           {courseData.sections.map((section, secIdx) => {
@@ -425,7 +448,9 @@ const MainApp = () => {
       {/* Main Content Area */}
       <main className="main-content">
         {activeItem ? (
-          activeItem.type === 'tracksheet_creator' ? (
+          activeItem.type === 'timetable_builder' ? (
+            <TimetableBuilder onNavigate={handleItemSelectWrapper} onBack={goToDashboardWrapper} />
+          ) : activeItem.type === 'tracksheet_creator' ? (
             <TracksheetCreator onBack={goToDashboardWrapper} />
           ) : activeItem.type === 'lp_quiz' ? (
             <QuizPlayer quiz={activeItem} onFinish={goToDashboardWrapper} />

@@ -4,6 +4,87 @@
  * for the Logbook Dossier View.
  */
 
+// Helper dictionary to map stock DAW plugins to modern 3rd-party industry standards
+export const STOCK_TO_THIRDPARTY_MAP = {
+  // Logic Pro / Generic Stock EQs
+  'channel eq': 'FabFilter Pro-Q 3',
+  'linear phase eq': 'FabFilter Pro-Q 3',
+  'vintage tube eq': 'UAD Pultec EQP-1A',
+  'vintage graphic eq': 'API 560 (Waves / UAD)',
+  'vintage console eq': 'UAD Neve 1073 EQ',
+  'parametric eq': 'FabFilter Pro-Q 3',
+  'eq eight': 'FabFilter Pro-Q 3',
+  'stock eq': 'FabFilter Pro-Q 3',
+
+  // Dynamics & Compressors
+  'compressor': 'Universal Audio 1176LN / SSL G-Master',
+  'studio vca': 'SSL G-Master Bus Compressor',
+  'vintage opto': 'Teletronix LA-2A (UAD)',
+  'vintage fet': 'Universal Audio 1176LN Classic',
+  'classic vca': 'dbx 160 Compressor (Waves / UAD)',
+  'studio fet': 'Empirical Labs Distressor (Empirical Labs)',
+  'noise gate': 'FabFilter Pro-G',
+  'gate': 'FabFilter Pro-G',
+  'expander': 'FabFilter Pro-G',
+  'de-esser': 'FabFilter Pro-DS',
+  'multipressor': 'FabFilter Pro-MB',
+  'multiband compressor': 'FabFilter Pro-MB',
+  'limiter': 'FabFilter Pro-L 2',
+  'adaptive limiter': 'FabFilter Pro-L 2',
+  'mastering assistant': 'iZotope Ozone 11 Maximizer',
+
+  // Time-Based FX & Spatial
+  'space designer': 'Soundtoys SuperPlate / Valhalla VintageVerb',
+  'chromaverb': 'Valhalla VintageVerb',
+  'silververb': 'Valhalla Room',
+  'tape delay': 'Soundtoys EchoBoy',
+  'delay designer': 'Soundtoys EchoBoy',
+  'stereo delay': 'Soundtoys EchoBoy',
+  'sample delay': 'Soundtoys Little MicroShift',
+
+  // Color, Saturation & Amp Sims
+  'chromaglow': 'Soundtoys Decapitator / Sonnox Inflator',
+  'overdrive': 'Soundtoys Decapitator',
+  'distortion': 'Soundtoys Devil-Loc Deluxe',
+  'clip distortion': 'FabFilter Saturn 2',
+  'pedalboard': 'Line 6 Helix Native',
+  'amp designer': 'Neural DSP Tone King Imperial',
+  'bass amp designer': 'Ampeg SVT-VR Classic (Plugin Alliance)',
+  'vintage warmer': 'PSP VintageWarmer 2',
+  'subbass': 'Waves Submarine',
+
+  // Modulation & Pitch
+  'chorus': 'Soundtoys MicroShift',
+  'ensemble': 'Roland Dimension D (UAD / Arturia)',
+  'flanger': 'Eventide Instant Flanger Mk II',
+  'phaser': 'Soundtoys PhaseMistress',
+  'tremolo': 'Soundtoys Tremolator',
+  'pitch correction': 'Antares Auto-Tune Pro',
+  'flex pitch': 'Celemony Melodyne 5'
+};
+
+export function get3rdPartyPluginName(stockName) {
+  if (!stockName) return 'FabFilter / UAD Equivalent';
+  const clean = stockName.toLowerCase().replace(/\[.*?\]/g, '').replace(/`.*?`/g, '').trim();
+  
+  for (const [key, val] of Object.entries(STOCK_TO_THIRDPARTY_MAP)) {
+    if (clean.includes(key)) return val;
+  }
+  
+  if (clean.includes('comp') || clean.includes('1176') || clean.includes('vca')) return 'UAD 1176LN / SSL G-Comp';
+  if (clean.includes('opto') || clean.includes('la-2a')) return 'Teletronix LA-2A (UAD)';
+  if (clean.includes('eq') || clean.includes('filter')) return 'FabFilter Pro-Q 3';
+  if (clean.includes('reverb') || clean.includes('plate') || clean.includes('room')) return 'Valhalla VintageVerb';
+  if (clean.includes('delay') || clean.includes('echo')) return 'Soundtoys EchoBoy';
+  if (clean.includes('gate')) return 'FabFilter Pro-G';
+  if (clean.includes('amp') || clean.includes('cab')) return 'Ampeg SVT-VR / Neural DSP';
+  if (clean.includes('sat') || clean.includes('drive') || clean.includes('glow')) return 'Soundtoys Decapitator';
+  if (clean.includes('limit') || clean.includes('maxim')) return 'FabFilter Pro-L 2';
+  if (clean.includes('mod') || clean.includes('chorus')) return 'Soundtoys MicroShift';
+
+  return `${stockName} (3rd-Party Pro)`;
+}
+
 export function parseLogbook(markdown) {
   if (!markdown) return null;
 
@@ -11,14 +92,19 @@ export function parseLogbook(markdown) {
     title: 'Component 1 Recording Logbook',
     trackName: '',
     artistName: '',
+    year: '',
+    genre: '',
+    genre1: '',
+    genre2: '',
+    recordLabel: '',
     daw: '',
-    audioInterface: '',
-    monitoring: '',
+    key: '',
+    bpm: '',
+    timeSignature: '',
     trackTable: [],
     instruments: [],
     mixStrategy: {
       philosophy: '',
-      faderHierarchy: [],
       frequencySeparation: '',
       dynamicControl: '',
       spatialDepth: '',
@@ -33,31 +119,141 @@ export function parseLogbook(markdown) {
   };
 
   // Section 1: Examination & Production Metadata
-  const titleArtistMatch = markdown.match(/Selected Title & Artist:\*\*\s*(.+)/i);
-  if (titleArtistMatch) {
-    const raw = titleArtistMatch[1].trim();
-    const parts = raw.split(/\s*-\s*|\s+by\s+/i);
-    if (parts.length > 1) {
-      result.trackName = parts[0].trim();
-      result.artistName = parts[1].trim();
+  // Check for Release Metadata format e.g. Title - Artist Year genre 1 genre 2, record label
+  const releaseMetaMatch = markdown.match(/(?:Selected Title & Artist|Title & Artist|Release Metadata|Production Metadata)[^*:\n]*:\*\*\s*(.+)/i);
+  if (releaseMetaMatch) {
+    const raw = releaseMetaMatch[1].trim();
+    // Possible formats:
+    // Song - Artist (1994, Progressive Rock, EMI)
+    // Song by Artist (1994)
+    // Song - Artist
+    const parenMatch = raw.match(/\(([^)]+)\)/);
+    let outsideParen = raw.replace(/\s*\([^)]+\)/g, '').trim();
+
+    const byMatch = outsideParen.split(/\s+by\s+/i);
+    const dashMatch = outsideParen.split(/\s*[-–—]\s*/);
+
+    if (byMatch.length > 1) {
+      result.trackName = byMatch[0].trim();
+      result.artistName = byMatch[1].trim();
+    } else if (dashMatch.length > 1) {
+      result.trackName = dashMatch[0].trim();
+      result.artistName = dashMatch[1].trim();
     } else {
-      result.trackName = raw;
+      result.trackName = outsideParen;
+    }
+
+    if (parenMatch) {
+      const parenParts = parenMatch[1].split(/,\s*/);
+      let remaining = [];
+      parenParts.forEach(part => {
+        const p = part.trim();
+        if (/^\d{4}$/.test(p) && !result.year) {
+          result.year = p;
+        } else {
+          remaining.push(p);
+        }
+      });
+
+      if (remaining.length === 1) {
+        // e.g. (1997, Alternative Rock)
+        result.genre1 = remaining[0];
+        result.genre = remaining[0];
+      } else if (remaining.length === 2) {
+        // e.g. (1997, Alternative Rock / Art Rock, Parlophone)
+        const gSplit = remaining[0].split(/[\/,]/).map(s => s.trim()).filter(Boolean);
+        if (gSplit.length > 1) {
+          result.genre1 = gSplit[0];
+          result.genre2 = gSplit[1];
+          result.genre = `${gSplit[0]} / ${gSplit[1]}`;
+        } else {
+          result.genre1 = remaining[0];
+          result.genre = remaining[0];
+        }
+        result.recordLabel = remaining[1];
+      } else if (remaining.length >= 3) {
+        // e.g. (1997, Genre 1, Genre 2, Record Label)
+        result.genre1 = remaining[0];
+        result.genre2 = remaining[1];
+        result.genre = `${remaining[0]} / ${remaining[1]}`;
+        result.recordLabel = remaining.slice(2).join(', ');
+      }
+    } else {
+      // Check for format: Title - Artist Year genre 1 genre 2, record label (no parentheses)
+      const commaParts = raw.split(/,\s*/);
+      if (commaParts.length > 1) {
+        result.recordLabel = commaParts[commaParts.length - 1].trim();
+        outsideParen = commaParts.slice(0, -1).join(', ').trim();
+      }
+      const yearInText = outsideParen.match(/\b(19\d\d|20\d\d)\b/);
+      if (yearInText) {
+        result.year = yearInText[1];
+        const beforeYear = outsideParen.substring(0, yearInText.index).trim();
+        const afterYear = outsideParen.substring(yearInText.index + 4).trim();
+        if (afterYear) {
+          const gParts = afterYear.split(/[\/,]/).map(g => g.trim()).filter(Boolean);
+          if (gParts.length > 0) result.genre1 = gParts[0];
+          if (gParts.length > 1) result.genre2 = gParts[1];
+          result.genre = afterYear;
+        }
+        const dashInBefore = beforeYear.split(/\s*[-–—]\s*/);
+        if (dashInBefore.length > 1) {
+          result.trackName = dashInBefore[0].trim();
+          result.artistName = dashInBefore[1].trim();
+        } else {
+          result.trackName = beforeYear;
+        }
+      }
     }
   }
+
+  // Fallback explicit metadata bullets
+  const songMatch = markdown.match(/(?:\*\s+\*\*(?:Song|Track|Title):\*\*\s*|\bSong:\s*)([^\n]+)/i);
+  if (songMatch && !result.trackName) result.trackName = songMatch[1].replace(/[-*]/g, '').trim();
+
+  const artistMatch = markdown.match(/(?:\*\s+\*\*Artist:\*\*\s*|\bArtist:\s*)([^\n]+)/i);
+  if (artistMatch && !result.artistName) result.artistName = artistMatch[1].replace(/[-*]/g, '').trim();
+
+  const yearMatch = markdown.match(/(?:\*\s+\*\*(?:Year|Release Year|Date Recorded):\*\*\s*|\bYear:\s*)(\d{4})/i);
+  if (yearMatch) result.year = yearMatch[1].trim();
+
+  const genreMatch = markdown.match(/(?:\*\s+\*\*(?:Genre|Genre \/ Style|Style):\*\*\s*|\bGenre:\s*)([^\n]+)/i);
+  if (genreMatch) {
+    const rawGenre = genreMatch[1].replace(/[-*]/g, '').trim();
+    result.genre = rawGenre;
+    const gParts = rawGenre.split(/[\/,]/).map(g => g.trim()).filter(Boolean);
+    if (gParts.length > 0) result.genre1 = gParts[0];
+    if (gParts.length > 1) result.genre2 = gParts[1];
+  }
+
+  const labelMatch = markdown.match(/(?:\*\s+\*\*(?:Record Label|Label|Record Company):\*\*\s*|\bLabel:\s*)([^\n]+)/i);
+  if (labelMatch) result.recordLabel = labelMatch[1].replace(/[-*]/g, '').trim();
 
   const dawMatch = markdown.match(/Primary (?:Digital Audio Workstation|DAW)[^:]*:\*\*\s*(.+)/i);
   if (dawMatch) {
     result.daw = dawMatch[1].trim();
   }
 
-  const ifaceMatch = markdown.match(/Audio Interface & Clock Rate:\*\*\s*(.+)/i);
-  if (ifaceMatch) {
-    result.audioInterface = ifaceMatch[1].trim();
+  // Key & Harmonic Structure
+  const keyMatch = markdown.match(/\*\s+\*\*Key[^*:]*:\*\*\s*([^\n]+)/i);
+  if (keyMatch) {
+    const rawKey = keyMatch[1].replace(/[-*]/g, '').trim();
+    const keyExtracted = rawKey.match(/^([A-G][b#]?(?:-flat|-sharp)?(?:\s+(?:Major|Minor|Aeolian|Dorian|Mixolydian|pentatonic|blues))?)/i);
+    result.key = keyExtracted ? keyExtracted[1].trim() : rawKey.split(/[-(]/)[0].trim();
   }
 
-  const monitorMatch = markdown.match(/Monitoring Environment:\*\*\s*(.+)/i);
-  if (monitorMatch) {
-    result.monitoring = monitorMatch[1].trim();
+  // Tempo & Meter / BPM
+  const tempoMatch = markdown.match(/\*\s+\*\*Tempo[^*:]*:\*\*\s*([^\n]+)/i);
+  if (tempoMatch) {
+    const rawTempo = tempoMatch[1];
+    const bpmM = rawTempo.match(/(?:~|approx\.?|approximately\s*)?\b(\d{2,3}(?:\.\d+)?)(?:\s*-\s*\d{2,3}(?:\.\d+)?)?\s*BPM/i);
+    if (bpmM) {
+      result.bpm = String(parseFloat(bpmM[1]));
+    }
+    const meterM = rawTempo.match(/\b([234567]\/[48]|\b12\/8\b|\b9\/8\b|\b6\/8\b)\b/);
+    if (meterM) {
+      result.timeSignature = meterM[1];
+    }
   }
 
   // Section 2: Master Track Sheet & Input Routing Table
@@ -66,19 +262,63 @@ export function parseLogbook(markdown) {
     const tableText = s2Match[1];
     const rows = tableText.split('\n').map(r => r.trim()).filter(r => r.startsWith('|') && !r.includes('---'));
     if (rows.length > 1) {
+      const headerCells = rows[0].split('|').map(c => c.trim().toLowerCase()).filter(Boolean);
+      
+      const trkIdx = headerCells.findIndex(h => h.includes('trk') || h.includes('track') || h === '#');
+      const stemIdx = headerCells.findIndex(h => h.includes('stem') || h.includes('instrument'));
+      const captureIdx = headerCells.findIndex(h => h.includes('capture') || h.includes('pathway') || h.includes('transducer') || h.includes('input source'));
+      const faderIdx = headerCells.findIndex(h => h.includes('fader') || h.includes('level') || h.includes('volume'));
+      const panIdx = headerCells.findIndex(h => h.includes('pan') || h.includes('pos'));
+      const dynIdx = headerCells.findIndex(h => h.includes('dynamic') || h.includes('gate') || h.includes('comp'));
+      const eqIdx = headerCells.findIndex(h => h.includes('eq') || h.includes('equaliz') || h.includes('filter'));
+      const insertsIdx = headerCells.findIndex(h => h.includes('insert') || h.includes('fx'));
+      const auxIdx = headerCells.findIndex(h => h.includes('aux') || h.includes('send') || h.includes('reverb'));
+
+      const isComprehensiveFormat = dynIdx !== -1 || eqIdx !== -1 || insertsIdx !== -1 || auxIdx !== -1;
+
       for (let i = 1; i < rows.length; i++) {
         const cells = rows[i].split('|').map(c => c.trim()).filter((_, idx, arr) => idx > 0 && idx < arr.length - 1);
-        if (cells.length >= 4) {
-          result.trackTable.push({
-            trackNo: cells[0] || String(i),
-            stem: cells[1] || 'Stem',
-            pathway: cells[2] || '',
-            inputSource: cells[3] || '',
-            dawInput: cells[4] || '',
-            pan: cells[5] || 'C',
-            fader: cells[6] || '0 dB',
-            targetHeadroom: cells[7] || ''
-          });
+        if (cells.length >= 3) {
+          if (isComprehensiveFormat) {
+            result.trackTable.push({
+              trackNo: trkIdx !== -1 && cells[trkIdx] ? cells[trkIdx] : String(i),
+              stem: stemIdx !== -1 && cells[stemIdx] ? cells[stemIdx] : cells[1] || 'Stem',
+              capture: captureIdx !== -1 && cells[captureIdx] ? cells[captureIdx] : cells[2] || '',
+              fader: faderIdx !== -1 && cells[faderIdx] ? cells[faderIdx] : '0.0 dB',
+              pan: panIdx !== -1 && cells[panIdx] ? cells[panIdx] : 'C',
+              dynamics: dynIdx !== -1 && cells[dynIdx] ? cells[dynIdx] : '',
+              eq: eqIdx !== -1 && cells[eqIdx] ? cells[eqIdx] : '',
+              inserts: insertsIdx !== -1 && cells[insertsIdx] ? cells[insertsIdx] : '',
+              aux: auxIdx !== -1 && cells[auxIdx] ? cells[auxIdx] : '',
+              pathway: captureIdx !== -1 ? cells[captureIdx] : '',
+              inputSource: captureIdx !== -1 ? cells[captureIdx] : '',
+              dawInput: `Input ${i}`,
+              targetHeadroom: '-12 dBFS'
+            });
+          } else {
+            // Legacy format: Track # | Stem | Pathway | Input Source | DAW Input | Pan | Fader | Headroom
+            const rawPathway = cells[2] || '';
+            const rawInputSource = cells[3] || '';
+            const combinedCapture = rawInputSource 
+              ? (rawPathway ? `${rawInputSource} (${rawPathway.replace(/^Pathway\s*\d+\s*\(?/i, '').replace(/\)$/, '')})` : rawInputSource)
+              : rawPathway;
+
+            result.trackTable.push({
+              trackNo: cells[0] || String(i),
+              stem: cells[1] || 'Stem',
+              capture: combinedCapture || 'Direct Capture',
+              pathway: rawPathway,
+              inputSource: rawInputSource,
+              dawInput: cells[4] || `Input ${i}`,
+              pan: cells[5] || 'C',
+              fader: cells[6] || '0.0 dB',
+              targetHeadroom: cells[7] || '-12 dBFS',
+              dynamics: '',
+              eq: '',
+              inserts: '',
+              aux: ''
+            });
+          }
         }
       }
     }
@@ -196,150 +436,21 @@ export function parseLogbook(markdown) {
     const s4Text = markdown.substring(s4Idx);
     result.masterBus.rawContent = s4Text;
 
-    // 1. Overall Mix Philosophy, Balance & Fader Hierarchy
-    const balanceMatch = s4Text.match(/(?:Fader Hierarchy|Mix Balance|Balance & Stereo|Overall Mix Philosophy)[^:\n]*:?\s*([\s\S]*?)(?=(?:###|\n####|\*\*4\.\d|\*\*Frequency|\*\*Dynamic|\*\*Spatial|\*\*Master Bus|\*\*Master Limiting|$))/i);
+    // 1. Overall Mix Philosophy & Gain Staging (narrative only — no fader/staging tables)
+    const balanceMatch = s4Text.match(/(?:Fader Hierarchy|Mix Balance|Balance \& Stereo|Overall Mix Philosophy|Gain Staging)[^:\n]*:?\s*([\s\S]*?)(?=(?:###|\n####|\*\*4\.\d|\*\*Frequency|\*\*Dynamic|\*\*Spatial|\*\*Master Bus|\*\*Master Limiting|$))/i);
     if (balanceMatch) {
       let rawPhilosophy = balanceMatch[1].trim();
-
-      // Check for Markdown table within Section 4.1
-      const faderTableMatch = rawPhilosophy.match(/\|([^\n]+)\|\n\|[-| :]+\|\n((?:\|[^\n]+\|\n?)+)/);
-      if (faderTableMatch) {
-        const headerCells = faderTableMatch[1].split('|').map(c => c.trim().toLowerCase()).filter(Boolean);
-        const stemIdx = headerCells.findIndex(h => h.includes('stem') || h.includes('element') || h.includes('instrument') || h.includes('track'));
-        const levelIdx = headerCells.findIndex(h => h.includes('fader') || h.includes('level') || h.includes('db'));
-        const panIdx = headerCells.findIndex(h => h.includes('pan') || h.includes('pos') || h.includes('stereo'));
-        const roleIdx = headerCells.findIndex(h => (h.includes('role') || h.includes('spectral') || h.includes('frequency')) && !h.includes('spatial'));
-        const stagingIdx = headerCells.findIndex(h => h.includes('spatial') || h.includes('depth') || h.includes('reverb') || (h.includes('staging') && !h.includes('role')));
-
-        const rows = faderTableMatch[2].trim().split('\n');
-        for (const row of rows) {
-          const cells = row.split('|').map(c => c.trim()).filter((_, idx, arr) => idx > 0 && idx < arr.length - 1);
-          if (cells.length >= 2) {
-            const element = stemIdx !== -1 && cells[stemIdx] ? cells[stemIdx] : cells[0];
-            const faderLevel = levelIdx !== -1 && cells[levelIdx] ? cells[levelIdx] : cells[1];
-            const pan = panIdx !== -1 && cells[panIdx] ? cells[panIdx] : (cells.length > 2 ? cells[2] : 'Center');
-            const role = roleIdx !== -1 && cells[roleIdx] ? cells[roleIdx] : (cells.length > 3 ? cells[3] : '');
-            const staging = stagingIdx !== -1 && cells[stagingIdx] ? cells[stagingIdx] : (cells.length > 4 ? cells[4] : '');
-
-            const dbMatch = faderLevel.match(/([-+]?\d+(?:\.\d+)?)/);
-            const dbNum = dbMatch ? parseFloat(dbMatch[1]) : 0;
-
-            result.mixStrategy.faderHierarchy.push({
-              element,
-              faderLevel,
-              dbNum,
-              pan,
-              role,
-              staging
-            });
-          }
-        }
-        // Clean out table markdown from narrative philosophy
-        rawPhilosophy = rawPhilosophy.replace(faderTableMatch[0], '').trim();
-      }
-
-      // Check for ASCII dash lines like:
-      // [ 0.0 dB] --------------------------------- Lead Vocal (Center Focal Point)
-      // [-3.0 dB] --------------------- Kick / Snare / Bass Guitar (Rhythmic Foundation)
-      // [-6.5 dB] ------------ Rhythm Electric Guitars (Pan 45° L/R)
-      const dashRegex = /\[\s*([-+]?\d+(?:\.\d+)?)\s*dB\s*\]\s*[-—=~]+\s*([^\n(]+?)(?:\s*\(([^)\n]+)\))?$/gm;
-      let dashMatch;
-      let hasDashes = false;
-      while ((dashMatch = dashRegex.exec(rawPhilosophy)) !== null) {
-        hasDashes = true;
-        const dbNum = parseFloat(dashMatch[1]);
-        const faderLevel = dbNum === 0 ? '0.0 dB (Ref)' : `${dbNum > 0 ? '+' : ''}${dbNum.toFixed(1)} dB`;
-        const element = dashMatch[2].trim();
-        const note = dashMatch[3]?.trim() || '';
-
-        let pan = 'Center (0)';
-        let role = note;
-        if (/center/i.test(note)) {
-          pan = 'Center (0)';
-          role = note;
-        } else if (/\b(?:pan|panned|left|right|l\/r)\b/i.test(note)) {
-          pan = note;
-          role = element.toLowerCase().includes('vocal') ? 'Harmonic Support' : 'Stereo Staging & Texture';
-        } else if (/width|ambience|overhead/i.test(note)) {
-          pan = 'Stereo L/R';
-          role = note;
-        }
-
-        result.mixStrategy.faderHierarchy.push({
-          element,
-          faderLevel,
-          dbNum,
-          pan,
-          role: role || (element.toLowerCase().includes('vocal') ? 'Center Focal Point' : 'Rhythmic Foundation'),
-          staging: 'Mix Staging'
-        });
-      }
-
-      if (hasDashes) {
-        rawPhilosophy = rawPhilosophy.replace(/\[\s*[-+]?\d+(?:\.\d+)?\s*dB\s*\]\s*[-—=~]+[^\n]+/gi, '').trim();
-      }
-
-      // Clean up any remaining code fences or headers
-      rawPhilosophy = rawPhilosophy.replace(/```[a-z]*\n?/gi, '').replace(/MIX BALANCE & FADER HIERARCHY:?/i, '').trim();
+      // Strip any table that might have leaked in (console fades / staging tables)
+      rawPhilosophy = rawPhilosophy.replace(/\|[^\n]+\|\n\|[-| :]+\|\n(?:\|[^\n]+\|\n?)+/g, '').trim();
+      // Strip ASCII dash-level lines
+      rawPhilosophy = rawPhilosophy.replace(/\[\s*[-+]?\d+(?:\.\d+)?\s*dB\s*\]\s*[-—=~]+[^\n]+/gi, '').trim();
+      // Clean code fences and headers
+      rawPhilosophy = rawPhilosophy.replace(/```[a-z]*\n?/gi, '').replace(/MIX BALANCE \& FADER HIERARCHY:?/i, '').trim();
       result.mixStrategy.philosophy = rawPhilosophy.replace(/^\s*\*\s+/gm, '• ');
     }
 
-    // Check anywhere in Section 4 (prior to Master Bus) for Fader Hierarchy table if not found yet
-    const s45Idx = s4Text.search(/(?:####\s*4\.5|###\s*Section 4\.5|Master Bus Processing|Master Bus Signal Chain|Mastering & Final Limiting)/i);
-    const s4PreMaster = s45Idx !== -1 ? s4Text.substring(0, s45Idx) : s4Text;
-
-    if (result.mixStrategy.faderHierarchy.length === 0) {
-      const globalFaderMatch = s4PreMaster.match(/\|([^\n]*(?:stem|element|instrument)[^\n]*(?:fader|level|pan|placement)[^\n]*)\|\n\|[-| :]+\|\n((?:\|[^\n]+\|\n?)+)/i);
-      if (globalFaderMatch) {
-        const headerCells = globalFaderMatch[1].split('|').map(c => c.trim().toLowerCase()).filter(Boolean);
-        const stemIdx = headerCells.findIndex(h => h.includes('stem') || h.includes('element') || h.includes('instrument') || h.includes('track'));
-        const levelIdx = headerCells.findIndex(h => h.includes('fader') || h.includes('level') || h.includes('db'));
-        const panIdx = headerCells.findIndex(h => h.includes('pan') || h.includes('pos') || h.includes('stereo'));
-        const roleIdx = headerCells.findIndex(h => (h.includes('role') || h.includes('spectral') || h.includes('frequency') || h.includes('placement')) && !h.includes('spatial'));
-        const stagingIdx = headerCells.findIndex(h => h.includes('spatial') || h.includes('depth') || h.includes('reverb') || (h.includes('staging') && !h.includes('role')));
-
-        const rows = globalFaderMatch[2].trim().split('\n');
-        for (const row of rows) {
-          const cells = row.split('|').map(c => c.trim()).filter((_, idx, arr) => idx > 0 && idx < arr.length - 1);
-          if (cells.length >= 2) {
-            const element = stemIdx !== -1 && cells[stemIdx] ? cells[stemIdx] : cells[0];
-            const faderLevel = levelIdx !== -1 && cells[levelIdx] ? cells[levelIdx] : cells[1];
-            const pan = panIdx !== -1 && cells[panIdx] ? cells[panIdx] : (cells.length > 2 ? cells[2] : 'Center');
-            const role = roleIdx !== -1 && cells[roleIdx] ? cells[roleIdx] : (cells.length > 3 ? cells[3] : '');
-            const staging = stagingIdx !== -1 && cells[stagingIdx] ? cells[stagingIdx] : (cells.length > 4 ? cells[4] : '');
-
-            const dbMatch = faderLevel.match(/([-+]?\d+(?:\.\d+)?)/);
-            const dbNum = dbMatch ? parseFloat(dbMatch[1]) : 0;
-
-            result.mixStrategy.faderHierarchy.push({
-              element,
-              faderLevel,
-              dbNum,
-              pan,
-              role,
-              staging
-            });
-          }
-        }
-      }
-    }
-
-    // Fallback: If faderHierarchy is still empty but trackTable exists, populate from trackTable
-    if (result.mixStrategy.faderHierarchy.length === 0 && result.trackTable.length > 0) {
-      result.trackTable.forEach(t => {
-        const dbMatch = (t.fader || '').match(/([-+]?\d+(?:\.\d+)?)/);
-        const dbNum = dbMatch ? parseFloat(dbMatch[1]) : -6.0;
-        result.mixStrategy.faderHierarchy.push({
-          element: t.stem,
-          faderLevel: t.fader || `${dbNum.toFixed(1)} dB`,
-          dbNum: dbNum,
-          pan: t.pan || 'Center',
-          role: t.inputSource || 'Mix Channel',
-          staging: 'Console Channel'
-        });
-      });
-      result.mixStrategy.faderHierarchy.sort((a, b) => b.dbNum - a.dbNum);
-    }
+    // Resolve s45Idx for master bus table search below
+    const s45Idx = s4Text.search(/(?:####\s*4\.5|###\s*Section 4\.5|Master Bus Processing|Master Bus Signal Chain|Mastering \& Final Limiting)/i);
 
     // 2. Frequency Masking Management & Spectral Separation
     const freqMatch = s4Text.match(/(?:####\s*4\.2[^\n]*|\bFrequency Masking Management[^\n]*|\bFrequency Separation[^\n]*)\n([\s\S]*?)(?=(?:####\s*4\.\d|###\s*Section\s*4\.\d|\n####\s*4|\n###\s*4|$))/i);
@@ -400,20 +511,27 @@ export function parseLogbook(markdown) {
 
     // 6. Master Bus Table (Search specifically within Section 4.5 to avoid collision with 4.1)
     const s45TableIdx = s4Text.search(/(?:####\s*4\.5|###\s*Section 4\.5|Master Bus Processing|Master Bus Signal Chain|Mastering & Final Limiting)/i);
-    const s45Text = s45TableIdx !== -1 ? s4Text.substring(s45TableIdx) : s4Text;
-    const tableMatch = s45Text.match(/\|[^\n]+\|\n\|[-| :]+\|\n((?:\|[^\n]+\|\n?)+)/);
-    if (tableMatch) {
-      result.masterBus.table = [];
-      const rows = tableMatch[1].trim().split('\n');
-      for (const row of rows) {
-        const cells = row.split('|').map(c => c.trim()).filter((_, idx, arr) => idx > 0 && idx < arr.length - 1);
-        if (cells.length >= 3) {
-          result.masterBus.table.push({
-            stage: cells[0],
-            processor: cells[1],
-            settings: cells[2],
-            objective: cells[3] || ''
-          });
+    if (s45TableIdx !== -1) {
+      const s45Text = s4Text.substring(s45TableIdx);
+      const tableMatch = s45Text.match(/\|[^\n]+\|\n\|[-| :]+\|\n((?:\|[^\n]+\|\n?)+)/);
+      if (tableMatch) {
+        const rows = tableMatch[1].trim().split('\n');
+        const parsedRows = [];
+        for (const row of rows) {
+          const cells = row.split('|').map(c => c.trim()).filter((_, idx, arr) => idx > 0 && idx < arr.length - 1);
+          if (cells.length >= 3) {
+            parsedRows.push({
+              stage: cells[0],
+              processor: cells[1],
+              settings: cells[2],
+              objective: cells[3] || ''
+            });
+          }
+        }
+        // Guard: Discard if this table is actually track fader balances / stems
+        const isFaderTable = parsedRows.some(r => /vocal|kick|snare|guitar|synth|bass/i.test(r.stage) && /dB|pan/i.test(r.processor + r.settings));
+        if (!isFaderTable) {
+          result.masterBus.table = parsedRows;
         }
       }
     }
@@ -428,6 +546,112 @@ export function parseLogbook(markdown) {
     if (limitMatch) {
       result.masterBus.limiting = limitMatch[1].trim().replace(/^\s*\*\s+/gm, '• ');
     }
+  }
+
+  // 8. Cross-enrich trackTable with details from instruments if dynamics, EQ, inserts, or aux are empty
+  if (result.trackTable && result.trackTable.length > 0) {
+    result.trackTable.forEach((row, idx) => {
+      const matchedInst = result.instruments.find(inst => {
+        const sNorm = (row.stem || '').toLowerCase();
+        const iNorm = (inst.name || '').toLowerCase();
+        return sNorm.includes(iNorm) || iNorm.includes(sNorm);
+      }) || result.instruments[idx];
+
+      if (matchedInst) {
+        if (!row.capture || row.capture === 'Direct Capture') {
+          row.capture = matchedInst.preferredPathway || matchedInst.pathway1 || matchedInst.pathway2 || matchedInst.pathway3 || 'Acoustic / DI Capture';
+        }
+
+        if (!row.dynamics && matchedInst.channelStrip && matchedInst.channelStrip.length > 0) {
+          const dynPlugins = matchedInst.channelStrip.filter(cs => {
+            const p = (cs.plugin || cs.type || '').toLowerCase();
+            return p.includes('gate') || p.includes('comp') || p.includes('limit') || p.includes('vca') || p.includes('opto') || p.includes('fet') || p.includes('expander');
+          });
+          if (dynPlugins.length > 0) {
+            row.dynamics = dynPlugins.map(d => d.plugin).join(' + ');
+          }
+        }
+
+        if (!row.eq && matchedInst.channelStrip && matchedInst.channelStrip.length > 0) {
+          const eqPlugins = matchedInst.channelStrip.filter(cs => {
+            const p = (cs.plugin || cs.type || '').toLowerCase();
+            return p.includes('eq') || p.includes('filter') || p.includes('hpf') || p.includes('pultec') || p.includes('bell');
+          });
+          if (eqPlugins.length > 0) {
+            row.eq = eqPlugins.map(e => e.plugin).join(' + ');
+          }
+        }
+
+        if (!row.inserts && matchedInst.channelStrip && matchedInst.channelStrip.length > 0) {
+          const insPlugins = matchedInst.channelStrip.filter(cs => {
+            const p = (cs.plugin || cs.type || '').toLowerCase();
+            return !p.includes('gate') && !p.includes('comp') && !p.includes('limit') && !p.includes('vca') && !p.includes('eq') && !p.includes('filter');
+          });
+          if (insPlugins.length > 0) {
+            row.inserts = insPlugins.map(i => i.plugin).join(' + ');
+          }
+        }
+
+        if (!row.aux) {
+          const stemLow = (row.stem || '').toLowerCase();
+          if (stemLow.includes('kick')) row.aux = 'Aux 1 (Mono Sub / Dry)';
+          else if (stemLow.includes('snare')) row.aux = 'Aux 1 (Plate Reverb)';
+          else if (stemLow.includes('drum') || stemLow.includes('overhead')) row.aux = 'Aux 2 (Drum Room Reverb)';
+          else if (stemLow.includes('bass')) row.aux = 'Aux (Amp Fuzz / Sub)';
+          else if (stemLow.includes('vocal')) row.aux = 'Aux 1 (Plate) + Aux 2 (Tape Delay)';
+          else if (stemLow.includes('guitar')) row.aux = 'Aux 2 (Tape Delay / Spring)';
+          else if (stemLow.includes('piano') || stemLow.includes('key')) row.aux = 'Aux 1 (Concert Hall Reverb)';
+          else if (stemLow.includes('brass') || stemLow.includes('horn')) row.aux = 'Aux 1 (Chamber Reverb)';
+          else row.aux = 'Aux 1 (Room Reverb)';
+        }
+
+        if (!row.dynamics) {
+          const stemLow = (row.stem || '').toLowerCase();
+          if (stemLow.includes('kick') || stemLow.includes('snare')) row.dynamics = 'Noise Gate + Studio VCA';
+          else if (stemLow.includes('bass')) row.dynamics = 'Vintage Opto (LA-2A)';
+          else if (stemLow.includes('vocal')) row.dynamics = 'FET Compressor (1176)';
+          else row.dynamics = 'Studio VCA Compressor';
+        }
+        if (!row.eq) {
+          row.eq = 'Channel EQ (High-Pass + Notch)';
+        }
+      }
+    });
+  } else if (result.instruments && result.instruments.length > 0) {
+    result.instruments.forEach((inst, idx) => {
+      const stemLow = (inst.name || '').toLowerCase();
+      let fader = '-6.0 dB';
+      let pan = 'Center';
+      if (stemLow.includes('lead vocal')) { fader = '0.0 dB'; pan = 'Center'; }
+      else if (stemLow.includes('kick')) { fader = '-3.0 dB'; pan = 'Center'; }
+      else if (stemLow.includes('snare')) { fader = '-3.5 dB'; pan = 'Center'; }
+      else if (stemLow.includes('bass')) { fader = '-4.0 dB'; pan = 'Center'; }
+      else if (stemLow.includes('guitar')) { fader = '-6.5 dB'; pan = idx % 2 === 0 ? 'L 45°' : 'R 45°'; }
+      else if (stemLow.includes('overhead')) { fader = '-7.5 dB'; pan = 'Stereo L/R'; }
+      else if (stemLow.includes('backing') || stemLow.includes('harmony')) { fader = '-8.0 dB'; pan = 'L/R 35°'; }
+      else if (stemLow.includes('brass') || stemLow.includes('horn')) { fader = '-7.0 dB'; pan = 'R 30°'; }
+      else if (stemLow.includes('piano') || stemLow.includes('organ') || stemLow.includes('hammond')) { fader = '-6.0 dB'; pan = 'L 25°'; }
+
+      const dynPlugins = (inst.channelStrip || []).filter(cs => /gate|comp|limit|vca|opto|fet/i.test(cs.plugin || cs.type || ''));
+      const eqPlugins = (inst.channelStrip || []).filter(cs => /eq|filter|hpf/i.test(cs.plugin || cs.type || ''));
+      const insPlugins = (inst.channelStrip || []).filter(cs => !/gate|comp|limit|vca|eq|filter/i.test(cs.plugin || cs.type || ''));
+
+      result.trackTable.push({
+        trackNo: String(idx + 1),
+        stem: inst.name,
+        capture: inst.preferredPathway || inst.pathway1 || inst.pathway2 || inst.pathway3 || 'Acoustic / DI Capture',
+        fader,
+        pan,
+        dynamics: dynPlugins.map(d => d.plugin).join(' + ') || 'Studio VCA Compressor',
+        eq: eqPlugins.map(e => e.plugin).join(' + ') || 'Channel EQ',
+        inserts: insPlugins.map(i => i.plugin).join(' + ') || 'Tape Saturation',
+        aux: stemLow.includes('vocal') ? 'Aux 1 (Plate) + Aux 2 (Tape Delay)' : 'Aux 1 (Room Reverb)',
+        pathway: inst.preferredPathway || '',
+        inputSource: inst.pathway1 || '',
+        dawInput: `Input ${idx + 1}`,
+        targetHeadroom: '-12 dBFS'
+      });
+    });
   }
 
   return result;

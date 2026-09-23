@@ -3,7 +3,7 @@ import {
   Sparkles, Music, Mic2, Database, History, Sliders, 
   FileText, Copy, Check, Disc,
   Search, ArrowLeft, RefreshCw, LayoutTemplate,
-  FileDown, Loader2, X, Radio
+  FileDown, Loader2, X, Radio, Download, Printer, Zap, GraduationCap
 } from 'lucide-react';
 
 import ReactMarkdown from 'react-markdown';
@@ -12,12 +12,23 @@ import './TracksheetCreator.css';
 import { getTracksheetActivityPhrases, getSolutionEngineeringPhrases } from './activityPhrases';
 import DossierView from './DossierView';
 import LogbookDossierView from './LogbookDossierView';
+import ProducerDossierView from './ProducerDossierView';
 import VideoCompanionModal from './VideoCompanionModal';
 import { parseHistoricalTracksheet } from './tracksheetParser';
 import { parseLogbook } from './logbookParser';
+import { parseProducerRecreation } from './producerParser';
 import { downloadGoodLookingPdf } from './pdfExporter';
+import { downloadProducerPdf } from './producerPdfExporter';
 
-const API_BASE = import.meta.env.VITE_TRACKSHEET_API_URL || 'https://tracksheet-creator-2.onrender.com';
+export function getApiBaseUrl() {
+  if (typeof window !== 'undefined') {
+    const host = window.location.hostname;
+    if (host === 'localhost' || host === '127.0.0.1' || host.endsWith('.local')) {
+      return import.meta.env.VITE_TRACKSHEET_API_URL_DEV || 'http://localhost:3001';
+    }
+  }
+  return import.meta.env.VITE_TRACKSHEET_API_URL || 'https://tracksheet-creator-2.onrender.com';
+}
 
 const DAW_OPTIONS = [
   'Logic Pro',
@@ -209,23 +220,37 @@ export default function TracksheetCreator({ onBack }) {
   const [historySearch, setHistorySearch] = useState('');
   const [tracksheetPhrases, setTracksheetPhrases] = useState([]);
 
+  // Platform Mode: 'mtg' (Component 1) vs 'producer' (Producer Studio)
+  const [platformMode, setPlatformMode] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('tracksheet_platform_mode');
+      if (saved === 'producer' || saved === 'mtg') return saved;
+    }
+    return 'mtg';
+  });
+
   // Component 1 & Logbook state
   const [selectedDaw, setSelectedDaw] = useState('Logic Pro');
   const [c1Solutions, setC1Solutions] = useState([]);
   const [c1Loading, setC1Loading] = useState(false);
   const [c1Phrases, setC1Phrases] = useState([]);
-  const [activeTab, setActiveTab] = useState('tracksheet'); // 'tracksheet' or daw string
+
+  // Producer Studio state
+  const [selectedProducerDaw, setSelectedProducerDaw] = useState('Logic Pro');
+  const [producerSolutions, setProducerSolutions] = useState([]);
+  const [producerLoading, setProducerLoading] = useState(false);
+
+  const [activeTab, setActiveTab] = useState('tracksheet'); // 'tracksheet' | daw string | 'producer' | `producer-${daw}`
   const [copyNotification, setCopyNotification] = useState('');
   const [pdfGenerating, setPdfGenerating] = useState(false);
 
   // Layout mode: 'dossier' vs 'text'
   const [tracksheetLayout, setTracksheetLayout] = useState(() => {
-    return localStorage.getItem('mtg_tracksheet_layout') || 'dossier';
+    return localStorage.getItem('tracksheet_layout_mode') || 'dossier';
   });
 
   const activityRef = useRef(null);
   const c1ActivityRef = useRef(null);
-  const videoCompanionRef = useRef(null);
   const resultPanelRef = useRef(null);
 
   useEffect(() => {
@@ -241,26 +266,23 @@ export default function TracksheetCreator({ onBack }) {
   }, [c1Loading]);
 
   const fetchHistory = async () => {
-    // 1. If backend API URL is configured or running locally in dev, try live API
-    if (API_BASE || import.meta.env.DEV) {
-      try {
-        const res = await fetch(`${API_BASE}/api/tracksheets`);
-        if (res.ok) {
-          const cType = res.headers.get('content-type') || '';
-          if (cType.includes('application/json')) {
-            const data = await res.json();
-            if (Array.isArray(data) && data.length > 0) {
-              setHistory(data);
-              return;
-            }
+    const apiBase = getApiBaseUrl();
+    try {
+      const res = await fetch(`${apiBase}/api/tracksheets`);
+      if (res.ok) {
+        const cType = res.headers.get('content-type') || '';
+        if (cType.includes('application/json')) {
+          const data = await res.json();
+          if (Array.isArray(data) && data.length > 0) {
+            setHistory(data);
+            return;
           }
         }
-      } catch (e) {
-        // Backend not running or unreachable
       }
+    } catch {
+      // Backend not running, load static archive
     }
 
-    // 2. Load pre-generated static archive (works 100% on the internet, production Vercel, offline, mobile)
     const staticData = await getArchiveData();
     if (staticData && staticData.length > 0) {
       setHistory(staticData);
@@ -273,16 +295,19 @@ export default function TracksheetCreator({ onBack }) {
 
   const handleSetLayout = (mode) => {
     setTracksheetLayout(mode);
-    localStorage.setItem('mtg_tracksheet_layout', mode);
+    localStorage.setItem('tracksheet_layout_mode', mode);
   };
 
-  const handleGenerate = async (e, forceRegenerate = false) => {
+  const handleGenerate = async (e, forceRegenerate = false, overrideTrack = null, overrideArtist = null) => {
     if (e && e.preventDefault) e.preventDefault();
-    if (!trackName || !trackName.trim()) return;
+    const reqTrackName = (overrideTrack !== null ? overrideTrack : trackName).trim();
+    const reqArtistName = (overrideArtist !== null ? overrideArtist : artistName).trim();
+    if (!reqTrackName) return;
+
+    setTrackName(reqTrackName);
+    setArtistName(reqArtistName);
 
     const targetTrackId = forceRegenerate ? currentTrackId : null;
-    const reqTrackName = trackName.trim();
-    const reqArtistName = artistName ? artistName.trim() : '';
 
     setLoading(true);
     setSearchActive(true);
@@ -291,10 +316,12 @@ export default function TracksheetCreator({ onBack }) {
     setResult(null);
     setCurrentTrackId(null);
     setC1Solutions([]);
+    setProducerSolutions([]);
     setActiveTab('tracksheet');
 
     const startTime = Date.now();
-    const MIN_ANIMATION_MS = 2200;
+    const MIN_ANIMATION_MS = 2000;
+    const apiBase = getApiBaseUrl();
 
     try {
       let data = null;
@@ -312,32 +339,32 @@ export default function TracksheetCreator({ onBack }) {
         if (archivedMatch && archivedMatch.content) {
           data = archivedMatch;
         } else if (archivedMatch && archivedMatch.id) {
-          // If matched from live history summary without content, check static archive first
-          const staticData = await getArchiveData();
-          const staticMatch = staticData.find(s => s.id === archivedMatch.id || (s.track_name && archivedMatch.track_name && s.track_name.toLowerCase() === archivedMatch.track_name.toLowerCase()));
-          if (staticMatch && staticMatch.content) {
-            data = staticMatch;
-          } else if (API_BASE || import.meta.env.DEV) {
-            // Fetch full tracksheet with content from live backend API
-            try {
-              const res = await fetch(`${API_BASE}/api/tracksheets/${archivedMatch.id}`);
-              if (res.ok) {
-                const cType = res.headers.get('content-type') || '';
-                if (cType.includes('application/json')) {
-                  data = await res.json();
-                }
+          try {
+            const res = await fetch(`${apiBase}/api/tracksheets/${archivedMatch.id}`);
+            if (res.ok) {
+              const cType = res.headers.get('content-type') || '';
+              if (cType.includes('application/json')) {
+                data = await res.json();
               }
-            } catch (e) {
-              console.warn('Could not fetch full tracksheet by id:', e);
+            }
+          } catch (e) {
+            console.warn('Could not fetch full tracksheet by id:', e);
+          }
+
+          if (!data) {
+            const staticData = await getArchiveData();
+            const staticMatch = staticData.find(s => s.id === archivedMatch.id || (s.track_name && archivedMatch.track_name && s.track_name.toLowerCase() === archivedMatch.track_name.toLowerCase()));
+            if (staticMatch && staticMatch.content) {
+              data = staticMatch;
             }
           }
         }
       }
 
-      // 2. If not found in archive or forcing regeneration, call live backend if configured
-      if (!data && (API_BASE || import.meta.env.DEV)) {
+      // 2. If not found in archive or forcing regeneration, call live backend
+      if (!data) {
         try {
-          const res = await fetch(`${API_BASE}/api/tracksheets/generate`, {
+          const res = await fetch(`${apiBase}/api/tracksheets/generate`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -370,8 +397,18 @@ export default function TracksheetCreator({ onBack }) {
         setCurrentTrackId(data.id);
         setTrackName(data.track_name);
         setArtistName(data.artist_name || '');
-        setC1Solutions(dedupeSolutions(data.c1_solutions));
+        const dedupedC1 = dedupeSolutions(data.c1_solutions || []);
+        setC1Solutions(dedupedC1);
+        setProducerSolutions(dedupeSolutions(data.producer_solutions || []));
         fetchHistory();
+
+        if (dedupedC1.length > 0) {
+          const matched = dedupedC1.find(s => s.daw.toLowerCase() === selectedDaw.toLowerCase()) || dedupedC1[0];
+          setActiveTab(matched.daw);
+          setSelectedDaw(matched.daw);
+        } else {
+          setActiveTab('tracksheet');
+        }
 
         if (data.kept_existing_highest) {
           setCopyNotification(`Retained historical tracksheet with highest score (${data.score}%)`);
@@ -387,7 +424,7 @@ export default function TracksheetCreator({ onBack }) {
         setResult(
           `### Track Not Yet in Archive\n\n"${reqTrackName}" was not found in the pre-generated library.\n\n` +
           `Live AI generation of new unarchived tracks requires the backend server to be connected.\n\n` +
-          `**Tip:** Choose any of the **194 pre-generated tracks** from the Archive or the **2027 C1 Example track choices** above to view complete multi-track session sheets and logbooks immediately!`
+          `**Tip:** Choose any of the **Exam Classic Tracks** or the **2027 C1 Example track choices** above to view complete multi-track session sheets and logbooks immediately!`
         );
       }
     } catch (error) {
@@ -403,7 +440,6 @@ export default function TracksheetCreator({ onBack }) {
     const dawToUse = dawOverride || selectedDaw;
     if (!currentTrackId && !result) return;
 
-    // Check if solution already exists in c1Solutions
     const existingSol = c1Solutions.find(s => s.daw.toLowerCase() === dawToUse.toLowerCase());
     if (existingSol) {
       setActiveTab(existingSol.daw);
@@ -411,94 +447,148 @@ export default function TracksheetCreator({ onBack }) {
       return;
     }
 
-    // Try live API if configured or in DEV
-    if (API_BASE || import.meta.env.DEV) {
-      const freshPhrases = getSolutionEngineeringPhrases(dawToUse, { trackName, artistName });
-      setC1Phrases(freshPhrases);
-      setC1Loading(true);
+    const apiBase = getApiBaseUrl();
+    const freshPhrases = getSolutionEngineeringPhrases(dawToUse, { trackName, artistName });
+    setC1Phrases(freshPhrases);
+    setC1Loading(true);
 
-      try {
-        const res = await fetch(`${API_BASE}/api/tracksheets/${currentTrackId || 0}/c1`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ 
-            daw: dawToUse,
-            track_name: trackName,
-            artist_name: artistName,
-            content: result
-          })
-        });
+    try {
+      const res = await fetch(`${apiBase}/api/tracksheets/${currentTrackId || 0}/c1`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          daw: dawToUse,
+          track_name: trackName,
+          artist_name: artistName,
+          content: result
+        })
+      });
 
-        if (res.ok) {
-          const cType = res.headers.get('content-type') || '';
-          if (cType.includes('application/json')) {
-            const data = await res.json();
-            setC1Solutions((prev) => {
-              const filtered = prev.filter(item => item.daw.toLowerCase() !== data.daw.toLowerCase());
-              const updated = [...filtered, data];
-              return dedupeSolutions(updated);
-            });
-            setActiveTab(data.daw);
-            setSelectedDaw(data.daw);
-            setC1Loading(false);
-            return;
-          }
+      if (res.ok) {
+        const cType = res.headers.get('content-type') || '';
+        if (cType.includes('application/json')) {
+          const data = await res.json();
+          setC1Solutions((prev) => {
+            const filtered = prev.filter(item => item.daw.toLowerCase() !== data.daw.toLowerCase());
+            const updated = [...filtered, data];
+            return dedupeSolutions(updated);
+          });
+          setActiveTab(data.daw);
+          setSelectedDaw(data.daw);
+          setC1Loading(false);
+          return;
         }
-      } catch (error) {
-        console.error('C1 generation failed', error);
-      } finally {
-        setC1Loading(false);
       }
+    } catch (error) {
+      console.error('C1 generation failed', error);
+    } finally {
+      setC1Loading(false);
     }
-
-    const availableDaws = c1Solutions.map(s => s.daw).join(', ');
-    alert(`Pre-generated Component 1 solution is currently available in: ${availableDaws || 'Logic Pro'}.\n\nGenerating on-demand solutions for additional DAWs (${dawToUse}) requires the live Tracksheet AI server.`);
   };
 
-  const loadHistoryItem = async (id, fallbackTrack = null) => {
-    setLoading(true);
-    setSearchActive(false);
+  const handleGenerateProducer = async (dawOverride) => {
+    const dawToUse = dawOverride || selectedProducerDaw;
+    if (!currentTrackId && !result) return;
 
-    // 1. Check in loaded state history
-    let found = history.find(h => h.id === id || h.id === Number(id));
-
-    // 2. If not found in state or item lacks content, check cached static archive
-    if (!found || !found.content) {
-      const staticData = await getArchiveData();
-      const staticFound = staticData.find(h => h.id === id || h.id === Number(id)) || 
-        (fallbackTrack ? findArchivedTrack(fallbackTrack.track, fallbackTrack.artist, staticData) : null);
-      if (staticFound && staticFound.content) {
-        found = staticFound;
-      }
-      if (history.length === 0 && staticData.length > 0) {
-        setHistory(staticData);
-      }
+    const existingSol = producerSolutions.find(s => s.daw.toLowerCase() === dawToUse.toLowerCase());
+    if (existingSol) {
+      setActiveTab(`producer-${existingSol.daw}`);
+      setSelectedProducerDaw(existingSol.daw);
+      return;
     }
 
+    const apiBase = getApiBaseUrl();
+    setProducerLoading(true);
+
+    try {
+      const res = await fetch(`${apiBase}/api/tracksheets/${currentTrackId || 0}/producer`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          daw: dawToUse,
+          track_name: trackName,
+          artist_name: artistName,
+          content: result
+        })
+      });
+
+      if (res.ok) {
+        const cType = res.headers.get('content-type') || '';
+        if (cType.includes('application/json')) {
+          const data = await res.json();
+          setProducerSolutions((prev) => {
+            const filtered = prev.filter(item => item.daw.toLowerCase() !== data.daw.toLowerCase());
+            const updated = [...filtered, data];
+            return dedupeSolutions(updated);
+          });
+          setActiveTab(`producer-${data.daw}`);
+          setSelectedProducerDaw(data.daw);
+          setProducerLoading(false);
+          return;
+        }
+      }
+    } catch (error) {
+      console.error('Producer generation failed', error);
+    } finally {
+      setProducerLoading(false);
+    }
+  };
+
+  const loadHistoryItem = async (id) => {
+    setLoading(true);
+    setSearchActive(false);
+    const apiBase = getApiBaseUrl();
+
+    try {
+      const res = await fetch(`${apiBase}/api/tracksheets/${id}`);
+      if (res.ok) {
+        const data = await res.json();
+        setResult(data.content);
+        setCurrentTrackId(data.id);
+        setTrackName(data.track_name);
+        const dedupedC1 = dedupeSolutions(data.c1_solutions || []);
+        setC1Solutions(dedupedC1);
+        setProducerSolutions(dedupeSolutions(data.producer_solutions || []));
+        if (dedupedC1.length > 0) {
+          const matched = dedupedC1.find(s => s.daw.toLowerCase() === selectedDaw.toLowerCase()) || dedupedC1[0];
+          setActiveTab(matched.daw);
+          setSelectedDaw(matched.daw);
+        } else {
+          setActiveTab('tracksheet');
+        }
+        setHistoryOpen(false);
+        setLoading(false);
+
+        setTimeout(() => {
+          if (resultPanelRef.current) {
+            resultPanelRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }, 120);
+        return;
+      }
+    } catch (e) {
+      console.error('Error loading history item from API:', e);
+    }
+
+    const staticData = await getArchiveData();
+    const found = staticData.find(item => item.id === id);
     if (found && found.content) {
       setResult(found.content);
       setCurrentTrackId(found.id);
       setTrackName(found.track_name);
       setArtistName(found.artist_name || '');
-      setC1Solutions(dedupeSolutions(found.c1_solutions));
-      setActiveTab('tracksheet');
+      const dedupedC1 = dedupeSolutions(found.c1_solutions || []);
+      setC1Solutions(dedupedC1);
+      setProducerSolutions(dedupeSolutions(found.producer_solutions || []));
+      if (dedupedC1.length > 0) {
+        const matched = dedupedC1.find(s => s.daw.toLowerCase() === selectedDaw.toLowerCase()) || dedupedC1[0];
+        setActiveTab(matched.daw);
+        setSelectedDaw(matched.daw);
+      } else {
+        setActiveTab('tracksheet');
+      }
       setHistoryOpen(false);
       setLoading(false);
-
-      // Log archive item selection to search database
-      if (API_BASE || import.meta.env.DEV) {
-        fetch(`${API_BASE}/api/searches`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            track_name: found.track_name || (fallbackTrack ? fallbackTrack.track : ''),
-            artist_name: found.artist_name || (fallbackTrack ? fallbackTrack.artist : ''),
-            source: 'mtg_app',
-            found_in_archive: true,
-            matched_track_id: found.id || id
-          })
-        }).catch(() => {});
-      }
 
       setTimeout(() => {
         if (resultPanelRef.current) {
@@ -506,36 +596,6 @@ export default function TracksheetCreator({ onBack }) {
         }
       }, 120);
       return;
-    }
-
-    // 3. Fallback to API if configured
-    if (API_BASE || import.meta.env.DEV) {
-      try {
-        const res = await fetch(`${API_BASE}/api/tracksheets/${id}`);
-        if (res.ok) {
-          const cType = res.headers.get('content-type') || '';
-          if (cType.includes('application/json')) {
-            const data = await res.json();
-            setResult(data.content);
-            setCurrentTrackId(data.id);
-            setTrackName(data.track_name);
-            setArtistName(data.artist_name || '');
-            setC1Solutions(dedupeSolutions(data.c1_solutions));
-            setActiveTab('tracksheet');
-            setHistoryOpen(false);
-            setLoading(false);
-
-            setTimeout(() => {
-              if (resultPanelRef.current) {
-                resultPanelRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
-              }
-            }, 120);
-            return;
-          }
-        }
-      } catch (e) {
-        console.error('Error loading history item from API:', e);
-      }
     }
 
     setLoading(false);
@@ -549,20 +609,42 @@ export default function TracksheetCreator({ onBack }) {
     setTimeout(() => setCopyNotification(''), 3000);
   };
 
+  const handleDownload = (content, filename) => {
+    if (!content) return;
+    const blob = new Blob([content], { type: 'text/markdown;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', filename);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   const handleDownloadPdf = async (type) => {
-    const isLogbook = type === 'logbook' || type === 'c1' || activeTab !== 'tracksheet';
-    const content = isLogbook ? (currentC1?.content || '') : (result || '');
+    const isLogbook = type === 'logbook' || type === 'c1' || (!isTracksheetTab && !isProducerTab);
+    const isProd = type === 'producer' || isProducerTab;
+    const content = isProd ? (currentProducer?.content || '') : (isLogbook ? (currentC1?.content || '') : (result || ''));
     if (!content) return;
 
     setPdfGenerating(true);
     try {
-      await downloadGoodLookingPdf({
-        type: isLogbook ? 'logbook' : 'tracksheet',
-        content,
-        trackName,
-        artistName,
-        daw: isLogbook ? (currentC1?.daw || selectedDaw) : undefined
-      });
+      if (isProd) {
+        await downloadProducerPdf({
+          content,
+          trackName,
+          artistName,
+          daw: currentProducer?.daw || selectedProducerDaw
+        });
+      } else {
+        await downloadGoodLookingPdf({
+          type: isLogbook ? 'logbook' : 'tracksheet',
+          content,
+          trackName,
+          artistName,
+          daw: isLogbook ? (currentC1?.daw || selectedDaw) : undefined
+        });
+      }
     } catch (err) {
       console.error('PDF export failed:', err);
       alert('Could not export PDF. Please try again.');
@@ -572,10 +654,30 @@ export default function TracksheetCreator({ onBack }) {
   };
 
   const isTracksheetTab = activeTab === 'tracksheet';
+  const isProducerTab = !isTracksheetTab && (
+    activeTab.startsWith('producer') || 
+    producerSolutions.some(s => `producer-${s.daw.toLowerCase()}` === activeTab.toLowerCase() || (platformMode === 'producer' && s.daw.toLowerCase() === activeTab.toLowerCase())) ||
+    (platformMode === 'producer' && !activeTab.startsWith('c1') && !c1Solutions.some(s => s.daw.toLowerCase() === activeTab.toLowerCase()))
+  );
+  const isC1Tab = !isTracksheetTab && !isProducerTab;
+
   const currentC1 = useMemo(() => {
-    if (isTracksheetTab) return null;
-    return c1Solutions.find(s => s.daw.toLowerCase() === activeTab.toLowerCase()) || null;
-  }, [c1Solutions, activeTab, isTracksheetTab]);
+    if (isTracksheetTab || isProducerTab) return null;
+    return c1Solutions.find(s => s.daw.toLowerCase() === activeTab.toLowerCase() || activeTab.toLowerCase() === `c1-${s.daw.toLowerCase()}`) || 
+           c1Solutions.find(s => s.daw.toLowerCase() === selectedDaw.toLowerCase()) || 
+           c1Solutions[0] || null;
+  }, [c1Solutions, activeTab, isTracksheetTab, isProducerTab, selectedDaw]);
+
+  const currentProducer = useMemo(() => {
+    if (isTracksheetTab || isC1Tab) return null;
+    return producerSolutions.find(s => activeTab.toLowerCase() === `producer-${s.daw.toLowerCase()}` || activeTab.toLowerCase() === s.daw.toLowerCase()) || 
+           producerSolutions.find(s => s.daw.toLowerCase() === selectedProducerDaw.toLowerCase()) || 
+           producerSolutions[0] || null;
+  }, [producerSolutions, activeTab, isTracksheetTab, isC1Tab, selectedProducerDaw]);
+
+  const activeContent = isTracksheetTab 
+    ? result 
+    : (isProducerTab ? (currentProducer?.content || '') : (currentC1?.content || ''));
 
   const parsedTracksheetData = useMemo(() => {
     if (!result) return null;
@@ -587,6 +689,11 @@ export default function TracksheetCreator({ onBack }) {
     return parseLogbook(currentC1.content);
   }, [currentC1]);
 
+  const parsedProducerData = useMemo(() => {
+    if (!currentProducer || !currentProducer.content) return null;
+    return parseProducerRecreation(currentProducer.content) || parseLogbook(currentProducer.content);
+  }, [currentProducer]);
+
   const filteredHistory = useMemo(() => {
     if (!historySearch.trim()) return history;
     const q = historySearch.toLowerCase();
@@ -596,7 +703,7 @@ export default function TracksheetCreator({ onBack }) {
     );
   }, [history, historySearch]);
 
-  // Studio Video Companion State (Pop-up video + Synchronized Studio Text Monitor)
+  // Studio Video Companion State
   const [videoCompanionOpen, setVideoCompanionOpen] = useState(false);
   const [videoCompanionTrack, setVideoCompanionTrack] = useState(null);
 
@@ -638,38 +745,28 @@ export default function TracksheetCreator({ onBack }) {
             className="btn-history-pill"
             title="Browse Saved Tracksheets"
           >
-            <History size={15} />
-            Archive ({history.length})
+            <History size={16} />
+            <span>Library</span>
+            {history.length > 0 && <span className="history-count">{history.length}</span>}
           </button>
         </div>
       </div>
 
-      {/* Hero Header */}
       <header>
-        <h1 style={{ cursor: 'default', userSelect: 'none' }}>
-          <Sparkles 
-            size={36} 
-            className="header-star-icon"
-            style={{ 
-              verticalAlign: 'middle', 
-              marginRight: '12px',
-              color: '#F472B6'
-            }}
-          />
-          Component 1 Track Sheet & Logbook
-        </h1>
-        <p className="subtitle">
-          Pearson Edexcel A-Level Music Technology (9MT0/01) Recording Solutions & Multi-Track Intelligence
-        </p>
+        <div className="title-container">
+          <Sparkles className="title-icon" size={36} color="var(--primary)" />
+          <h1>Component 1 Track Sheet &amp; Logbook</h1>
+        </div>
+        <p className="subtitle">Pearson Edexcel A-Level Music Technology (9MT0/01) Recording Solutions &amp; Multi-Track Intelligence</p>
       </header>
 
       <main>
-        {/* Search Panel */}
-        <div className="glass-panel">
+        {/* Search & Generator Hero Card */}
+        <div className="glass-panel tracksheet-search-panel">
           <form onSubmit={handleGenerate}>
             <div className="input-group">
               <div className="input-field-wrapper">
-                <Music size={20} color="var(--text-muted)" className="input-icon" />
+                <Music size={18} color="var(--text-muted)" className="input-icon" />
                 <input 
                   type="text" 
                   className="input-field has-icon" 
@@ -680,106 +777,82 @@ export default function TracksheetCreator({ onBack }) {
                 />
               </div>
               <div className="input-field-wrapper">
-                <Mic2 size={20} color="var(--text-muted)" className="input-icon" />
+                <Mic2 size={18} color="var(--text-muted)" className="input-icon" />
                 <input 
                   type="text" 
-                  className="input-field has-icon"
+                  className="input-field has-icon" 
                   placeholder="Artist (e.g. David Bowie)" 
                   value={artistName}
                   onChange={(e) => setArtistName(e.target.value)}
                 />
               </div>
-              <button type="submit" className="btn-generate" disabled={loading || !trackName.trim()}>
+              <button 
+                type="submit" 
+                className="btn-generate"
+                disabled={loading || !trackName.trim()}
+              >
                 {loading && searchActive ? (
                   <>
-                    <div className="loader"></div>
-                    Searching Archives...
+                    <Loader2 size={18} className="spin-icon" /> Searching...
                   </>
-                ) : loading ? (
-                  <div className="loader"></div>
                 ) : (
                   <>
-                    <Sparkles size={16} /> Generate Tracksheet
+                    <Sparkles size={18} /> Generate Tracksheet
                   </>
                 )}
               </button>
+            </div>
 
-              {result && (
-                <button 
-                  type="button" 
-                  className="btn-regenerate-form" 
-                  onClick={() => handleGenerate(null, true)}
-                  disabled={loading || !trackName}
-                  title="Regenerate this tracksheet with AI"
-                >
-                  <RefreshCw size={16} />
-                  Regenerate
-                </button>
-              )}
+            {/* Exam Classic Tracks Section */}
+            <div className="quick-suggestions-section">
+              <div className="suggestion-label">Exam Classic Tracks:</div>
+              <div className="pill-group">
+                {SUGGESTED_TRACKS.map((item) => (
+                  <button
+                    key={item.id}
+                    type="button"
+                    className="btn-track-pill"
+                    onClick={() => handleGenerate(null, false, item.track, item.artist)}
+                  >
+                    <strong>{item.track}</strong>
+                    <span>({item.artist})</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* 2027 Component 1 Prescribed Options Section */}
+            <div className="quick-suggestions-section c1-2027-section">
+              <div className="suggestion-label c1-2027-label">2027 C1 Example Track Choices:</div>
+              <div className="pill-group">
+                {C1_2027_TRACKS.map((item) => (
+                  <button
+                    key={item.id}
+                    type="button"
+                    className="btn-track-pill pill-c1-2027"
+                    onClick={() => handleGenerate(null, false, item.track, item.artist)}
+                  >
+                    <strong>{item.track}</strong>
+                    <span>({item.artist})</span>
+                  </button>
+                ))}
+              </div>
             </div>
           </form>
-
-          {/* Quick Suggestions */}
-          <div className="quick-suggestions-row">
-            <span className="quick-label">Exam Classic Tracks:</span>
-            <div className="quick-pills">
-              {SUGGESTED_TRACKS.map((t, idx) => (
-                <button
-                  key={idx}
-                  type="button"
-                  className="quick-pill"
-                  onClick={() => {
-                    setTrackName(t.track);
-                    setArtistName(t.artist);
-                    if (t.id) {
-                      loadHistoryItem(t.id, t);
-                    }
-                  }}
-                  title={`Load ${t.track} by ${t.artist} (#${t.id})`}
-                >
-                  {t.track} <span className="pill-artist">({t.artist})</span>
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* 2027 C1 Example track choices */}
-          <div className="quick-suggestions-row c1-2027-row">
-            <span className="quick-label c1-2027-label">2027 C1 Example track choices:</span>
-            <div className="quick-pills">
-              {C1_2027_TRACKS.map((t, idx) => (
-                <button
-                  key={idx}
-                  type="button"
-                  className="quick-pill c1-2027-pill"
-                  onClick={() => {
-                    setTrackName(t.track);
-                    setArtistName(t.artist);
-                    if (t.id) {
-                      loadHistoryItem(t.id);
-                    }
-                  }}
-                  title={`Load ${t.track} by ${t.artist} (#${t.id})`}
-                >
-                  {t.track} <span className="pill-artist">({t.artist})</span>
-                </button>
-              ))}
-            </div>
-          </div>
         </div>
 
-        {/* Real-time Activity Monitor for Tracksheet */}
+        {/* Real-time Activity Monitor */}
         {loading && searchActive && (
           <div ref={activityRef} className="glass-panel activity-monitor-panel">
             <div className="activity-monitor-inner">
               <div className="activity-icon-wrap">
                 <div className="activity-radar-ring"></div>
-                <Sliders className="activity-spinning-sliders" size={22} color="#8B5CF6" />
+                <Disc className="activity-spinning-disc" size={24} color="#C084FC" />
               </div>
               <div className="activity-text-wrap">
                 <span className="activity-badge">
                   <span className="activity-live-dot"></span>
-                  HISTORICAL MULTI-TRACK ARCHIVE & SESSION DISPATCH
+                  ACTIVITY MONITOR
                 </span>
                 <div className="activity-phrase-container">
                   <ActivityTypewriter 
@@ -807,80 +880,226 @@ export default function TracksheetCreator({ onBack }) {
                 Historical Tracksheet
               </button>
               
-              {c1Solutions.map((sol) => (
-                <button
-                  key={sol.daw}
-                  type="button"
-                  className={`tab-btn ${activeTab.toLowerCase() === sol.daw.toLowerCase() ? 'active' : ''}`}
-                  onClick={() => {
-                    setActiveTab(sol.daw);
-                    setSelectedDaw(sol.daw);
-                  }}
-                >
-                  <FileText size={18} />
-                  {sol.daw} Logbook
-                  <span className="daw-tab-badge">C1</span>
-                </button>
-              ))}
-            </div>
+              {platformMode === 'producer' ? (
+                <>
+                  {producerSolutions.map((sol) => (
+                    <button
+                      key={sol.daw}
+                      type="button"
+                      className={`tab-btn ${isProducerTab && (activeTab.toLowerCase() === `producer-${sol.daw.toLowerCase()}` || activeTab.toLowerCase() === sol.daw.toLowerCase()) ? 'active' : ''}`}
+                      onClick={() => {
+                        setActiveTab(`producer-${sol.daw}`);
+                        setSelectedProducerDaw(sol.daw);
+                      }}
+                    >
+                      <Zap size={16} color="#06B6D4" />
+                      {sol.daw} Studio
+                      <span className="daw-tab-badge producer">PRODUCER</span>
+                    </button>
+                  ))}
 
-            {/* Component 1 Control Bar */}
-            <div className="c1-control-bar">
-              <div className="c1-info">
-                <span className="c1-title">
-                  <Sliders size={18} color="#C084FC" />
-                  Component 1 Recording Suite
-                </span>
-                <span className="c1-subtitle">
-                  Select your primary DAW to engineer authentic solutions and generate the completed official logbook document.
-                </span>
-              </div>
-
-              <div className="c1-actions">
-                <select 
-                  className="daw-select"
-                  value={selectedDaw}
-                  onChange={(e) => {
-                    const val = e.target.value;
-                    setSelectedDaw(val);
-                    const existing = c1Solutions.find(s => s.daw.toLowerCase() === val.toLowerCase());
-                    if (existing) {
-                      setActiveTab(existing.daw);
-                    }
-                  }}
-                >
-                  {DAW_OPTIONS.map((daw) => {
-                    const isCreated = c1Solutions.some(s => s.daw.toLowerCase() === daw.toLowerCase());
-                    return (
-                      <option key={daw} value={daw}>
-                        {daw} {isCreated ? '✓ (Created)' : ''}
-                      </option>
-                    );
-                  })}
-                </select>
-
-                <button 
-                  type="button"
-                  className="btn-c1"
-                  onClick={() => handleGenerateC1(selectedDaw)}
-                  disabled={c1Loading || !currentTrackId}
-                >
-                  {c1Loading ? (
-                    <>
-                      <div className="loader" style={{ width: '16px', height: '16px', borderWidth: '2px' }}></div>
-                      Engineering {selectedDaw} Solution...
-                    </>
-                  ) : (
-                    <>
-                      <Sparkles size={16} />
-                      {c1Solutions.some(s => s.daw.toLowerCase() === selectedDaw.toLowerCase()) 
-                        ? `Regenerate ${selectedDaw} Logbook` 
-                        : `Create ${selectedDaw} Solution`}
-                    </>
+                  {producerSolutions.length === 0 && (
+                    <button 
+                      type="button" 
+                      className={`tab-btn ${isProducerTab ? 'active' : ''}`}
+                      onClick={() => setActiveTab('producer')}
+                    >
+                      <Zap size={16} />
+                      Studio Recreation
+                      <span style={{ fontSize: '0.72rem', opacity: 0.7 }}>(Not yet created)</span>
+                    </button>
                   )}
-                </button>
-              </div>
+
+                  <button
+                    type="button"
+                    className={`tab-btn switch-platform-tab ${isC1Tab ? 'active' : ''}`}
+                    style={{ borderColor: 'rgba(168, 85, 247, 0.45)', background: isC1Tab ? 'rgba(168, 85, 247, 0.25)' : 'rgba(168, 85, 247, 0.1)', color: '#E9D5FF', marginLeft: 'auto' }}
+                    onClick={() => {
+                      setPlatformMode('mtg');
+                      if (typeof window !== 'undefined') localStorage.setItem('tracksheet_platform_mode', 'mtg');
+                      if (c1Solutions.length > 0) {
+                        setActiveTab(c1Solutions[0].daw);
+                        setSelectedDaw(c1Solutions[0].daw);
+                      } else {
+                        setActiveTab('c1');
+                      }
+                    }}
+                    title="Switch to Pearson Edexcel Component 1 Recording Logbook Suite"
+                  >
+                    <GraduationCap size={16} color="#C084FC" />
+                    <span>Component 1 Logbook</span>
+                    <span className="daw-tab-badge mtg">{c1Solutions.length > 0 ? `${c1Solutions.length} Ready` : 'A-LEVEL'}</span>
+                  </button>
+                </>
+              ) : (
+                <>
+                  {c1Solutions.map((sol) => (
+                    <button
+                      key={sol.daw}
+                      type="button"
+                      className={`tab-btn ${isC1Tab && activeTab.toLowerCase() === sol.daw.toLowerCase() ? 'active' : ''}`}
+                      onClick={() => {
+                        setActiveTab(sol.daw);
+                        setSelectedDaw(sol.daw);
+                      }}
+                    >
+                      <FileText size={18} />
+                      {sol.daw} Logbook
+                      <span className="daw-tab-badge">C1</span>
+                    </button>
+                  ))}
+
+                  {c1Solutions.length === 0 && (
+                    <button 
+                      type="button" 
+                      className={`tab-btn ${isC1Tab && activeTab === 'c1' ? 'active' : ''}`}
+                      onClick={() => setActiveTab('c1')}
+                    >
+                      <FileText size={18} />
+                      Component 1 Logbook
+                      <span style={{ fontSize: '0.72rem', opacity: 0.7 }}>(Not yet created)</span>
+                    </button>
+                  )}
+
+                  <button
+                    type="button"
+                    className={`tab-btn switch-platform-tab ${isProducerTab ? 'active' : ''}`}
+                    style={{ borderColor: 'rgba(6, 182, 212, 0.45)', background: isProducerTab ? 'rgba(6, 182, 212, 0.25)' : 'rgba(6, 182, 212, 0.1)', color: '#CFFAFE', marginLeft: 'auto' }}
+                    onClick={() => {
+                      setPlatformMode('producer');
+                      if (typeof window !== 'undefined') localStorage.setItem('tracksheet_platform_mode', 'producer');
+                      if (producerSolutions.length > 0) {
+                        setActiveTab(`producer-${producerSolutions[0].daw}`);
+                        setSelectedProducerDaw(producerSolutions[0].daw);
+                      } else {
+                        setActiveTab('producer');
+                      }
+                    }}
+                    title="Switch to Producer Studio In-The-Box Recreation"
+                  >
+                    <Zap size={16} color="#06B6D4" />
+                    <span>Producer Studio</span>
+                    <span className="daw-tab-badge producer">{producerSolutions.length > 0 ? `${producerSolutions.length} Ready` : 'PRODUCER'}</span>
+                  </button>
+                </>
+              )}
             </div>
+
+            {/* On-Demand DAW Selector & Action Bar */}
+            {platformMode === 'producer' ? (
+              <div className="c1-control-bar" style={{ borderColor: 'rgba(6, 182, 212, 0.4)' }}>
+                <div className="c1-info">
+                  <span className="c1-title">
+                    <Zap size={18} color="#06B6D4" />
+                    Studio Sound Design &amp; In-The-Box Recreation Suite
+                  </span>
+                  <span className="c1-subtitle">
+                    Select your DAW to engineer authentic in-the-box stem sound design, native stock chains, and 3rd-party vintage emulations.
+                  </span>
+                </div>
+
+                <div className="c1-actions">
+                  <select 
+                    className="daw-select"
+                    value={selectedProducerDaw}
+                    onChange={(e) => {
+                      const val = e.target.value;
+                      setSelectedProducerDaw(val);
+                      const existing = producerSolutions.find(s => s.daw.toLowerCase() === val.toLowerCase());
+                      if (existing) {
+                        setActiveTab(`producer-${existing.daw}`);
+                      }
+                    }}
+                  >
+                    {DAW_OPTIONS.map((daw) => {
+                      const isCreated = producerSolutions.some(s => s.daw.toLowerCase() === daw.toLowerCase());
+                      return (
+                        <option key={daw} value={daw}>
+                          {daw} {isCreated ? '✓ (Recreated)' : ''}
+                        </option>
+                      );
+                    })}
+                  </select>
+
+                  <button 
+                    type="button"
+                    className="btn-c1"
+                    style={{ background: 'linear-gradient(135deg, #06B6D4, #3B82F6)', borderColor: '#06B6D4' }}
+                    onClick={() => handleGenerateProducer(selectedProducerDaw)}
+                    disabled={producerLoading || !currentTrackId}
+                  >
+                    {producerLoading ? (
+                      <>
+                        <Loader2 size={15} className="spin-icon" /> Engineering Recreation...
+                      </>
+                    ) : (
+                      <>
+                        <Zap size={16} />
+                        {producerSolutions.some(s => s.daw.toLowerCase() === selectedProducerDaw.toLowerCase()) 
+                          ? `Regenerate ${selectedProducerDaw} Recreation` 
+                          : `Recreate in ${selectedProducerDaw}`}
+                      </>
+                    )}
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <div className="c1-control-bar">
+                <div className="c1-info">
+                  <span className="c1-title">
+                    <Sliders size={18} color="#C084FC" />
+                    Component 1 Recording Suite
+                  </span>
+                  <span className="c1-subtitle">
+                    Select your primary DAW to engineer authentic solutions and generate the completed official logbook document.
+                  </span>
+                </div>
+
+                <div className="c1-actions">
+                  <select 
+                    className="daw-select"
+                    value={selectedDaw}
+                    onChange={(e) => {
+                      const val = e.target.value;
+                      setSelectedDaw(val);
+                      const existing = c1Solutions.find(s => s.daw.toLowerCase() === val.toLowerCase());
+                      if (existing) {
+                        setActiveTab(existing.daw);
+                      }
+                    }}
+                  >
+                    {DAW_OPTIONS.map((daw) => {
+                      const isCreated = c1Solutions.some(s => s.daw.toLowerCase() === daw.toLowerCase());
+                      return (
+                        <option key={daw} value={daw}>
+                          {daw} {isCreated ? '✓ (Created)' : ''}
+                        </option>
+                      );
+                    })}
+                  </select>
+
+                  <button 
+                    type="button"
+                    className="btn-c1"
+                    onClick={() => handleGenerateC1(selectedDaw)}
+                    disabled={c1Loading || !currentTrackId}
+                  >
+                    {c1Loading ? (
+                      <>
+                        <Loader2 size={15} className="spin-icon" /> Engineering Solution...
+                      </>
+                    ) : (
+                      <>
+                        <Sparkles size={16} />
+                        {c1Solutions.some(s => s.daw.toLowerCase() === selectedDaw.toLowerCase()) 
+                          ? `Regenerate ${selectedDaw} Logbook` 
+                          : `Create ${selectedDaw} Solution`}
+                      </>
+                    )}
+                  </button>
+                </div>
+              </div>
+            )}
 
             {/* Real-time Component 1 Activity Monitor */}
             {c1Loading && (
@@ -913,11 +1132,13 @@ export default function TracksheetCreator({ onBack }) {
                 <h2>
                   {isTracksheetTab 
                     ? 'Historical Session Tracksheet' 
-                    : `Component 1 Completed Logbook (${currentC1 ? currentC1.daw : selectedDaw})`
+                    : platformMode === 'producer'
+                      ? `Studio Production & Stem Recreation (${currentProducer ? currentProducer.daw : selectedProducerDaw})`
+                      : `Component 1 Completed Logbook (${currentC1 ? currentC1.daw : selectedDaw})`
                   }
                 </h2>
 
-                {(isTracksheetTab || currentC1) && (
+                {(isTracksheetTab || (platformMode === 'producer' ? currentProducer : currentC1)) && (
                   <div className="layout-switcher-bar">
                     <span className="layout-switcher-label">
                       <LayoutTemplate size={13} style={{ verticalAlign: 'middle', marginRight: '4px' }} />
@@ -974,7 +1195,7 @@ export default function TracksheetCreator({ onBack }) {
                     type="button" 
                     className="btn-toolbar btn-regenerate" 
                     onClick={() => handleGenerate(null, true)}
-                    disabled={loading || c1Loading}
+                    disabled={loading || c1Loading || producerLoading}
                     title="Regenerate this tracksheet with AI"
                   >
                     <RefreshCw size={15} /> Regenerate Tracksheet
@@ -982,11 +1203,28 @@ export default function TracksheetCreator({ onBack }) {
                 )}
 
                 <button 
+                  type="button" 
+                  className="btn-toolbar"
+                  onClick={() => handleCopy(activeContent)}
+                  title="Copy Markdown content to clipboard"
+                >
+                  <Copy size={15} /> Copy
+                </button>
+
+                <button 
                   type="button"
                   className="btn-toolbar btn-pdf"
-                  onClick={() => handleDownloadPdf(isTracksheetTab ? 'tracksheet' : 'logbook')}
+                  onClick={() => handleDownloadPdf(isTracksheetTab ? 'tracksheet' : (platformMode === 'producer' ? 'producer' : 'logbook'))}
                   disabled={pdfGenerating}
                   title="Download high-resolution PDF document"
+                  style={{
+                    background: platformMode === 'producer' 
+                      ? 'linear-gradient(135deg, rgba(6, 182, 212, 0.25), rgba(59, 130, 246, 0.25))' 
+                      : 'linear-gradient(135deg, rgba(168, 85, 247, 0.25), rgba(56, 189, 248, 0.25))',
+                    borderColor: platformMode === 'producer' ? 'rgba(6, 182, 212, 0.5)' : 'rgba(168, 85, 247, 0.5)',
+                    color: '#F8FAFC',
+                    fontWeight: 600
+                  }}
                 >
                   {pdfGenerating ? (
                     <>
@@ -994,24 +1232,36 @@ export default function TracksheetCreator({ onBack }) {
                     </>
                   ) : (
                     <>
-                      <FileDown size={15} /> Download PDF
+                      <FileDown size={15} color={platformMode === 'producer' ? '#38BDF8' : '#C084FC'} /> Download PDF
                     </>
                   )}
                 </button>
 
                 <button 
                   type="button" 
-                  className="btn-toolbar"
-                  onClick={() => handleCopy(isTracksheetTab ? result : (currentC1?.content || ''))}
-                  title="Copy Markdown content to clipboard"
+                  className="btn-toolbar" 
+                  onClick={() => handleDownload(
+                    activeContent,
+                    `${(trackName || 'track').replace(/[^a-z0-9]/gi, '_')}_${isTracksheetTab ? 'tracksheet' : platformMode === 'producer' ? `Producer_Recreation_${currentProducer ? currentProducer.daw : selectedProducerDaw}` : `C1_Logbook_${currentC1 ? currentC1.daw : selectedDaw}`}.md`
+                  )}
+                  title="Download Markdown file"
                 >
-                  <Copy size={15} /> Copy
+                  <Download size={15} /> .md
+                </button>
+
+                <button 
+                  type="button" 
+                  className="btn-toolbar" 
+                  onClick={() => window.print()}
+                  title="Print or export via system dialog"
+                >
+                  <Printer size={15} /> Print
                 </button>
               </div>
             </div>
 
             {/* Document Content View */}
-            <div className={`markdown-body ${(isTracksheetTab || currentC1) && tracksheetLayout !== 'text' ? 'custom-layout-active' : ''}`}>
+            <div className={`markdown-body ${(isTracksheetTab || (platformMode === 'producer' ? currentProducer : currentC1)) && tracksheetLayout !== 'text' ? 'custom-layout-active' : ''}`}>
               {isTracksheetTab ? (
                 tracksheetLayout === 'dossier' && parsedTracksheetData ? (
                   <DossierView data={parsedTracksheetData} onOpenVideoCompanion={() => handleOpenVideoCompanion()} />
@@ -1020,10 +1270,37 @@ export default function TracksheetCreator({ onBack }) {
                     {normalizeMarkdown(result)}
                   </ReactMarkdown>
                 )
+              ) : platformMode === 'producer' ? (
+                currentProducer ? (
+                  tracksheetLayout === 'dossier' && (parsedProducerData || parsedLogbookData) ? (
+                    <ProducerDossierView data={parsedProducerData || parsedLogbookData} daw={currentProducer.daw} tracksheetData={parsedTracksheetData} />
+                  ) : (
+                    <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                      {normalizeMarkdown(currentProducer.content)}
+                    </ReactMarkdown>
+                  )
+                ) : (
+                  <div style={{ padding: '3rem 1rem', textAlign: 'center' }}>
+                    <Radio size={48} color="#06B6D4" style={{ opacity: 0.8, marginBottom: '1rem' }} />
+                    <h3 style={{ color: '#E2E8F0', marginTop: 0 }}>No Producer Recreation Created Yet for {selectedProducerDaw}</h3>
+                    <p style={{ color: 'var(--text-muted)', maxWidth: '550px', margin: '0.5rem auto 1.5rem' }}>
+                      Choose your target DAW from the dropdown menu above and click <strong>Recreate in {selectedProducerDaw}</strong> to engineer authentic in-the-box stem sound design, native stock chains, and pro 3rd-party vintage emulations.
+                    </p>
+                    <button 
+                      type="button" 
+                      className="btn-c1" 
+                      style={{ margin: '0 auto', background: 'linear-gradient(135deg, #06B6D4, #3B82F6)', borderColor: '#06B6D4' }}
+                      onClick={() => handleGenerateProducer(selectedProducerDaw)}
+                      disabled={producerLoading || !currentTrackId}
+                    >
+                      {producerLoading ? 'Engineering Recreation...' : `Generate ${selectedProducerDaw} Recreation Now`}
+                    </button>
+                  </div>
+                )
               ) : (
                 currentC1 ? (
                   tracksheetLayout === 'dossier' && parsedLogbookData ? (
-                    <LogbookDossierView data={parsedLogbookData} daw={currentC1.daw || selectedDaw} />
+                    <LogbookDossierView data={parsedLogbookData} daw={currentC1.daw || selectedDaw} tracksheetData={parsedTracksheetData} />
                   ) : (
                     <ReactMarkdown remarkPlugins={[remarkGfm]}>
                       {normalizeMarkdown(currentC1.content)}
@@ -1032,16 +1309,16 @@ export default function TracksheetCreator({ onBack }) {
                 ) : (
                   <div className="empty-c1-state" style={{ padding: '3rem 1rem', textAlign: 'center' }}>
                     <Sliders size={48} color="#C084FC" style={{ opacity: 0.8, marginBottom: '1rem' }} />
-                    <h3 style={{ color: '#DDD6FE', marginBottom: '0.5rem' }}>No {selectedDaw} Solution Generated Yet</h3>
+                    <h3 style={{ color: '#DDD6FE', marginBottom: '0.5rem' }}>No Component 1 Solution Created Yet for {selectedDaw}</h3>
                     <p style={{ color: 'var(--text-muted)', maxWidth: '480px', margin: '0 auto 1.5rem', fontSize: '0.92rem' }}>
-                      Click "Create {selectedDaw} Solution" above to generate a full Edexcel Component 1 logbook with faders, EQ, and mic setups.
+                      Click <strong>Create {selectedDaw} Solution</strong> above to generate a full Edexcel Component 1 logbook with faders, EQ, and mic setups.
                     </p>
                     <button 
                       type="button"
                       className="btn-c1"
                       style={{ margin: '0 auto' }}
                       onClick={() => handleGenerateC1(selectedDaw)}
-                      disabled={c1Loading}
+                      disabled={c1Loading || !currentTrackId}
                     >
                       <Sparkles size={16} /> Create {selectedDaw} Solution
                     </button>
