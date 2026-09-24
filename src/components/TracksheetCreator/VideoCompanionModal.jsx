@@ -49,31 +49,89 @@ const KNOWN_TRACK_VIDEOS = {
   "yesterday": "wXTJBr9tt8Q"
 };
 
-// Universal API Fetcher with automatic fallback to localhost:3001
+// Universal API Fetcher with automatic routing across Vercel (MTG App), Render backend, Vite proxy & localhost
 async function fetchCompanionApi(endpoint, options = {}) {
-  // 1. Try relative route through Vite proxy first
-  try {
-    const res = await fetch(endpoint, options);
-    const contentType = res.headers.get('content-type') || '';
-    if (res.ok && contentType.includes('application/json')) {
-      return await res.json();
+  const prodBackend = (typeof import.meta !== 'undefined' && import.meta.env?.VITE_TRACKSHEET_API_URL) || 'https://tracksheet-creator-2.onrender.com';
+  const candidateUrls = [];
+
+  if (typeof window !== 'undefined') {
+    const host = window.location.hostname.toLowerCase();
+    const isLocal = host === 'localhost' || host === '127.0.0.1' || host.endsWith('.local');
+    const isDirectBackend = host.includes('tracksheetcreator') || host.includes('onrender.com');
+
+    if (isLocal) {
+      // Local development: relative proxy first, then direct port 3001, then cloud backend
+      candidateUrls.push(endpoint);
+      candidateUrls.push(`http://localhost:3001${endpoint}`);
+      candidateUrls.push(`${prodBackend}${endpoint}`);
+    } else if (isDirectBackend) {
+      // Deployed directly on Render or tracksheetcreator domain: relative first, then full domain
+      candidateUrls.push(endpoint);
+      candidateUrls.push(`${prodBackend}${endpoint}`);
+    } else {
+      // Online MTG App (e.g. app.musictechguru.com on Vercel) or iframe embed:
+      // Must query the live Render API server directly (Vercel returns index.html for unknown relative /api routes)
+      candidateUrls.push(`${prodBackend}${endpoint}`);
     }
-  } catch (e) {
-    // Relative route network error
+  } else {
+    candidateUrls.push(`${prodBackend}${endpoint}`);
+    candidateUrls.push(endpoint);
   }
 
-  // 2. Direct backend fallback to http://localhost:3001 (where Tracksheet server.js runs with CORS)
-  try {
-    const fallbackUrl = `http://localhost:3001${endpoint}`;
-    const fallbackRes = await fetch(fallbackUrl, options);
-    if (fallbackRes.ok) {
-      return await fallbackRes.json();
+  let lastError = null;
+  for (const url of candidateUrls) {
+    // Attempt request with 1 automatic retry if Render server is waking up from sleep (502 / 503)
+    for (let attempt = 0; attempt < 2; attempt++) {
+      try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 40000); // 40s timeout for cold start / AI generation
+
+        const fetchOpts = {
+          ...options,
+          signal: controller.signal
+        };
+
+        const res = await fetch(url, fetchOpts);
+        clearTimeout(timeoutId);
+
+        const contentType = res.headers.get('content-type') || '';
+
+        // If Render is waking up (502/503), wait 2.5s and retry once
+        if ((res.status === 502 || res.status === 503) && attempt === 0) {
+          console.warn(`[CompanionAPI] Server spinning up (${res.status}) on ${url}. Retrying in 2.5s...`);
+          await new Promise(r => setTimeout(r, 2500));
+          continue;
+        }
+
+        if (!res.ok) {
+          if (contentType.includes('application/json')) {
+            const errJson = await res.json().catch(() => ({}));
+            throw new Error(errJson?.error || `Server returned ${res.status}`);
+          }
+          throw new Error(`Server returned HTTP ${res.status}`);
+        }
+
+        if (!contentType.includes('application/json')) {
+          throw new Error(`Expected JSON but received ${contentType || 'non-JSON'}`);
+        }
+
+        return await res.json();
+      } catch (e) {
+        lastError = e;
+        if (e.name === 'AbortError') {
+          lastError = new Error('Commentary generation server timed out');
+        }
+        // If it was a network error or 502 on Render during cold boot, pause briefly and retry once
+        if (attempt === 0 && url.includes('onrender.com') && e.name !== 'AbortError') {
+          await new Promise(r => setTimeout(r, 2000));
+          continue;
+        }
+        break;
+      }
     }
-  } catch (fallbackErr) {
-    // Fallback error
   }
 
-  throw new Error(`Could not connect to service at ${endpoint}`);
+  throw lastError || new Error(`Could not connect to service at ${endpoint}`);
 }
 
 export default function VideoCompanionModal({ 
@@ -119,6 +177,7 @@ export default function VideoCompanionModal({
   const [aiBeats, setAiBeats] = useState(null);
   const [isGeneratingPersona, setIsGeneratingPersona] = useState(false);
   const [personaError, setPersonaError] = useState(null);
+  const [retryTrigger, setRetryTrigger] = useState(0);
   const personaCacheRef = useRef({});
 
   // Typewriter display states
@@ -227,9 +286,7 @@ export default function VideoCompanionModal({
             persona: selectedPersona,
             trackName: trackName,
             artistName: artistName,
-            tracksheetData: parsedTracksheet,
-            content: rawMarkdown,
-            rawMarkdown: rawMarkdown
+            content: rawMarkdown || ''
           })
         });
         if (isMounted) {
@@ -245,7 +302,7 @@ export default function VideoCompanionModal({
       } catch (err) {
         if (isMounted) {
           console.error('[VideoCompanion] Network error fetching persona commentary:', err);
-          setPersonaError('Could not reach commentary generation server');
+          setPersonaError(err.message?.includes('timed out') ? 'Commentary server timed out' : 'Could not reach commentary generation server');
         }
       } finally {
         if (isMounted) {
@@ -259,7 +316,7 @@ export default function VideoCompanionModal({
     return () => {
       isMounted = false;
     };
-  }, [isOpen, selectedPersona, trackId, trackName, artistName, parsedTracksheet, rawMarkdown]);
+  }, [isOpen, selectedPersona, trackId, trackName, artistName, rawMarkdown, retryTrigger]);
 
   // Handle persona selection
   const handlePersonaChange = (newPersonaId) => {
@@ -468,9 +525,7 @@ export default function VideoCompanionModal({
           persona: selectedPersona,
           trackName: trackName,
           artistName: artistName,
-          tracksheetData: parsedTracksheet,
-          content: rawMarkdown,
-          rawMarkdown: rawMarkdown
+          content: rawMarkdown || ''
         })
       });
       if (data.success && Array.isArray(data.beats) && data.beats.length > 0) {
@@ -1138,7 +1193,8 @@ export default function VideoCompanionModal({
                 type="button" 
                 onClick={() => {
                   delete personaCacheRef.current[selectedPersona];
-                  setSelectedPersona(p => p);
+                  setPersonaError(null);
+                  setRetryTrigger(r => r + 1);
                 }}
                 style={{
                   background: 'rgba(255,255,255,0.12)',

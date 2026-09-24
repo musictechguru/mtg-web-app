@@ -44,9 +44,9 @@ export const TIMETABLE_BLOCKS = [
     },
 
     practical: {
-      title: "Vocal & Acoustic Guitar Studio Tracking",
-      description: "Set up matched or complementary microphones for simultaneous vocal and acoustic guitar capture. Dial in clean gain staging, minimize bleed, and create a balanced stereo mix with plate reverb.",
-      deliverable: "24-bit/44.1kHz Stereo Mix with balanced pan, gain staging, and subtle space reverb."
+      title: "1950s Authentic Recording & Production Project",
+      description: "Set up a 1950s-style session capturing vocal and acoustic guitar (or upright bass). Implement minimal miking with vintage dynamic/ribbon microphone techniques, control single-room spill, calibrate analogue gain staging with valve preamp emulation, and dial in tape slapback delay (75–120ms with zero feedback).",
+      deliverable: "Authentic 1950s-style mono or early stereo mixdown with slapback tape delay, natural acoustic room spill, and documented microphone log."
     },
 
     courseworkExam: {
@@ -74,6 +74,65 @@ export const TIMETABLE_BLOCKS = [
       { id: 7, fact: "Early reflections reach the listener within the first 50ms and provide spatial cues about room dimensions and wall boundaries." },
       { id: 8, fact: "Reverb RT60 is the exact time required for sound pressure level to decay by 60 dB after the sound source has stopped." }
     ],
+
+        resources: {
+      freeTutorials: [
+      {
+            "title": "Setting Up a Vocal Microphone (Part 1)",
+            "url": "https://www.musictechguru.com/homepage/free-music-production-tutorials/",
+            "tag": "Free Video"
+      },
+      {
+            "title": "Setting Up a Vocal Microphone (Part 2)",
+            "url": "https://www.musictechguru.com/homepage/free-music-production-tutorials/",
+            "tag": "Free Video"
+      },
+      {
+            "title": "Setting Up a Record Track in Logic X",
+            "url": "https://www.musictechguru.com/homepage/free-music-production-tutorials/",
+            "tag": "Free Tutorial"
+      },
+      {
+            "title": "How to Use Reverb (Basic) in Logic X",
+            "url": "https://www.musictechguru.com/homepage/free-music-production-tutorials/",
+            "tag": "Free Tutorial"
+      }
+],
+      shopResources: [
+      {
+            "title": "Music Technology 1930\u20131961: A Complete Teaching Pack",
+            "url": "https://www.musictechguru.com/product/music-technology-1930-1961/",
+            "tag": "Teaching Pack"
+      }
+],
+      aLevelGuides: [
+      {
+            "title": "Past Papers & Edexcel Resources Archive",
+            "url": "https://www.musictechguru.com/homepage/a-level-music-technology/a-level-music-tech-course-overview/past-papers-edexcel-resources/",
+            "tag": "Spec Archive"
+      }
+],
+      inAppActivities: [
+      {
+            "id": "quiz-topic-1_p1",
+            "title": "Topic 1 Quiz: Fundamentals & Recording (Part 1)",
+            "type": "quiz",
+            "actionText": "Launch Quiz"
+      },
+      {
+            "id": "tracksheet",
+            "title": "Tracksheet Creator: 1950s Studio Locker Setup",
+            "type": "tracksheet",
+            "actionText": "Open Tracksheet Creator"
+      },
+      {
+            "id": "fingerprints",
+            "title": "Sonic Fingerprints: 1950s Era Production Hallmarks",
+            "type": "fingerprints",
+            "actionText": "Explore Fingerprints"
+      }
+]
+    },
 
     appLinks: {
       mtgQuizId: "quiz-topic-1_p1",
@@ -123,9 +182,9 @@ export const TIMETABLE_BLOCKS = [
     },
 
     practical: {
-      title: "32-Bar House Beat & Rhythm Section Tracking",
-      description: "Program a punchy 4-on-the-floor House drum groove with custom swing/velocity. Record DI bass and electric guitar through amp modellers, arrange into a 32-bar structured piece.",
-      deliverable: "32-bar structured arrangement with programmed drum groove, live guitar, and DI bass."
+      title: "The 'Talking 'bout a Revolution' Foundation Mixing & Rhythm Project",
+      description: "Work with the multitrack stems of 'Talking 'bout a Revolution' (in BandLab or Logic Pro X). Establish proper gain staging, create a solid static balance, pan instruments for width, apply corrective EQ and dynamic compression to vocals and acoustic rhythm guitars, and program a complementary humanized drum machine groove.",
+      deliverable: "Polished multitrack balance mix with automated vocal levels, carved EQ pockets, and dynamic rhythm section."
     },
 
     courseworkExam: {
@@ -152,6 +211,65 @@ export const TIMETABLE_BLOCKS = [
       { id: 6, fact: "MIDI velocity ranges from 0 to 127, controlling the volume, filter cutoff, or sample layer triggered by a note." },
       { id: 7, fact: "Gain staging is the practice of maintaining optimal signal levels between -18dBFS and -12dBFS RMS throughout every stage of the signal chain." }
     ],
+
+        resources: {
+      freeTutorials: [
+      {
+            "title": "Basic Drum Programming in Logic Pro X",
+            "url": "https://www.musictechguru.com/homepage/free-music-production-tutorials/",
+            "tag": "Free Video"
+      },
+      {
+            "title": "Using Insert Plugins Within Logic X",
+            "url": "https://www.musictechguru.com/homepage/free-music-production-tutorials/",
+            "tag": "Free Video"
+      },
+      {
+            "title": "Remake 'Shape of You' by Ed Sheeran",
+            "url": "https://www.musictechguru.com/homepage/free-music-production-tutorials/",
+            "tag": "Free Project"
+      }
+],
+      shopResources: [
+      {
+            "title": "BandLab Mixing Tutorial/Assessment \u2013 'Talking 'bout a Revolution'",
+            "url": "https://www.musictechguru.com/product/bandlab-mixing-tutorial-assessment-talking-bout-a-revolution/",
+            "tag": "Multitrack & Guide"
+      },
+      {
+            "title": "The Guide to Mixing Rock",
+            "url": "https://www.musictechguru.com/product/the-guide-to-mixing-rock/",
+            "tag": "Production Pack"
+      }
+],
+      aLevelGuides: [
+      {
+            "title": "Music Tech Toolbox Reference",
+            "url": "https://www.musictechguru.com/homepage/free-music-production-tutorials/mt-toolbox-blk/",
+            "tag": "Toolbox Guide"
+      }
+],
+      inAppActivities: [
+      {
+            "id": "quiz-topic-1_p2",
+            "title": "Topic 1 Quiz: Fundamentals & Recording (Part 2)",
+            "type": "quiz",
+            "actionText": "Launch Quiz"
+      },
+      {
+            "id": "quiz-topic-7_p1",
+            "title": "Topic 7 Quiz: FX & Processors (Part 1)",
+            "type": "quiz",
+            "actionText": "Launch Quiz"
+      },
+      {
+            "id": "fingerprints",
+            "title": "Sonic Fingerprints: 1960s Tape Saturation & Flanging",
+            "type": "fingerprints",
+            "actionText": "Explore Fingerprints"
+      }
+]
+    },
 
     appLinks: {
       mtgQuizId: "quiz-topic-1_p2",
@@ -201,8 +319,8 @@ export const TIMETABLE_BLOCKS = [
     },
 
     practical: {
-      title: "Cover Track Project & Creative Sampling Composition Launch",
-      description: "1. Record a cover track (Vocal, Acoustic Guitar, Bass, Programmed Beat) following exam specification. 2. Launch creative sampling composition using a supplied audio stimulus.",
+      title: "1970s Cover Track & Creative Sampling Launch",
+      description: "1. Record an acoustic/electric cover track following A-Level Component 1 specification. 2. Launch creative sampling composition in your DAW by chopping and pitch-mapping an authentic vintage audio stimulus.",
       deliverable: "Multi-track DAW project with recorded cover stems + initial 16-bar sampled composition motif."
     },
 
@@ -230,6 +348,65 @@ export const TIMETABLE_BLOCKS = [
       { id: 6, fact: "A 24-track 2-inch tape machine provides approximately 144 mm/track width, delivering low tape hiss and high dynamic punch." },
       { id: 7, fact: "Multi-sampling involves recording an instrument at multiple pitches and velocities across the keyboard to avoid pitch-shift artifacts." }
     ],
+
+        resources: {
+      freeTutorials: [
+      {
+            "title": "Importing Audio Tutorial for Logic X",
+            "url": "https://www.musictechguru.com/homepage/free-music-production-tutorials/",
+            "tag": "Free Video"
+      },
+      {
+            "title": "Introduction to Logic Pro X Masterclass",
+            "url": "https://www.musictechguru.com/homepage/free-music-production-tutorials/",
+            "tag": "Free Video"
+      }
+],
+      shopResources: [
+      {
+            "title": "Mixing for A-Level Music Technology \u2013 A Preparation Project",
+            "url": "https://www.musictechguru.com/product/mixing-for-a-level-music-technology-a-preparation-project/",
+            "tag": "Practice Project"
+      },
+      {
+            "title": "Introduction to Drum Sampling Pack",
+            "url": "https://www.musictechguru.com/product/introduction-to-drum-sampling/",
+            "tag": "Sample Pack"
+      },
+      {
+            "title": "\u2018The Model\u2019 by Kraftwerk Logic Pro X Multitrack & Tutorial",
+            "url": "https://www.musictechguru.com/product/the-guide-to-recreating-the-model-by-kraftwerk/",
+            "tag": "Multitrack Remake"
+      }
+],
+      aLevelGuides: [
+      {
+            "title": "Component 1: Recording & Mixing Overview",
+            "url": "https://www.musictechguru.com/homepage/a-level-music-technology/component-1-recording-mixing/",
+            "tag": "Spec Guide"
+      }
+],
+      inAppActivities: [
+      {
+            "id": "quiz-topic-4_p1",
+            "title": "Topic 4 Quiz: Sampling (Part 1)",
+            "type": "quiz",
+            "actionText": "Launch Quiz"
+      },
+      {
+            "id": "tracksheet",
+            "title": "Tracksheet Creator: Practice Cover Project Initialization",
+            "type": "tracksheet",
+            "actionText": "Open Tracksheet Creator"
+      },
+      {
+            "id": "fingerprints",
+            "title": "Sonic Fingerprints: 1970s Multitrack Punch & Tape Delays",
+            "type": "fingerprints",
+            "actionText": "Explore Fingerprints"
+      }
+]
+    },
 
     appLinks: {
       mtgQuizId: "quiz-topic-4_p1",
@@ -279,9 +456,9 @@ export const TIMETABLE_BLOCKS = [
     },
 
     practical: {
-      title: "Cover Track Overdubs & 80s Synth Programming",
-      description: "Program an authentic 80s analog bass patch and lush brass pad from scratch. Track remaining guitar/keys overdubs for the cover recording project.",
-      deliverable: "Synth patches saved in DAW + updated cover multitrack session."
+      title: "1980s Synth-Pop Production & Component 3 Mock Examination",
+      description: "Construct an authentic 1980s Synth-Pop arrangement featuring analog/FM synthesizer layers (bass, poly-pads, brass leads) and gated reverb snare processing, followed by sitting the Component 3 Synth-Pop Listening Paper.",
+      deliverable: "32-bar authentic 80s synth-pop arrangement + completed Component 3 Listening Paper score sheet."
     },
 
     courseworkExam: {
@@ -308,6 +485,65 @@ export const TIMETABLE_BLOCKS = [
       { id: 6, fact: "FM (Frequency Modulation) synthesis uses a Modulator operator to alter the frequency of a Carrier operator at audio rates to generate complex sidebands." },
       { id: 7, fact: "MIDI data does not transmit audio; it transmits performance control data (Note On, Pitch, Velocity, CC)." }
     ],
+
+        resources: {
+      freeTutorials: [
+      {
+            "title": "The Retro Synth in Logic X",
+            "url": "https://www.musictechguru.com/homepage/free-music-production-tutorials/",
+            "tag": "Free Video"
+      },
+      {
+            "title": "Remake 'Too Good' by Drake (Stock Plugins ONLY) - Instruments Part 2",
+            "url": "https://www.musictechguru.com/homepage/free-music-production-tutorials/",
+            "tag": "Free Tutorial"
+      }
+],
+      shopResources: [
+      {
+            "title": "\u2018Nobody\u2019s Diary\u2019 by Yazoo Logic Pro Multitrack & Tutorial",
+            "url": "https://www.musictechguru.com/product/the-guide-to-recreating-nobodys-diary-by-yazoo/",
+            "tag": "Multitrack Remake"
+      },
+      {
+            "title": "\u2018Axel F\u2019 Logic Pro X Multitrack & Tutorial",
+            "url": "https://www.musictechguru.com/product/axel-f-logic-pro-version-guide/",
+            "tag": "Multitrack Remake"
+      },
+      {
+            "title": "\u2018Brick England\u2019 by Pet Shop Boys Logic Pro X Multitrack & Tutorial",
+            "url": "https://www.musictechguru.com/product/brick-england-logic-pro-download-pet-shop-boys/",
+            "tag": "Multitrack Remake"
+      }
+],
+      aLevelGuides: [
+      {
+            "title": "Master Edexcel Component 3: Listening and Analysing Guide",
+            "url": "https://www.musictechguru.com/edexcel-component-3-music-technology-revision/",
+            "tag": "Exam Guide"
+      }
+],
+      inAppActivities: [
+      {
+            "id": "c3_synthpop",
+            "title": "Official Component 3 Mock Exam: Synth-Pop Listening Paper",
+            "type": "exam_c3",
+            "actionText": "Launch C3 Exam"
+      },
+      {
+            "id": "quiz-topic-3_p1",
+            "title": "Topic 3 Quiz: Synthesis (Part 1)",
+            "type": "quiz",
+            "actionText": "Launch Quiz"
+      },
+      {
+            "id": "fingerprints",
+            "title": "Sonic Fingerprints: 1980s FM & Analogue Synthesis",
+            "type": "fingerprints",
+            "actionText": "Explore Fingerprints"
+      }
+]
+    },
 
     appLinks: {
       mtgQuizId: "quiz-topic-3_p1",
@@ -357,9 +593,9 @@ export const TIMETABLE_BLOCKS = [
     },
 
     practical: {
-      title: "Sample-Based Composition Arrangement",
-      description: "Develop the 3-minute sample-based composition using sliced breakbeats, pitch-shifted motifs, and creative synthesis layers.",
-      deliverable: "In-progress DAW arrangement of sample-based composition (at least 2 minutes long)."
+      title: "1990s Breakbeat, Time-Stretching & DAW Production Mock",
+      description: "Sample an acoustic breakbeat, time-stretch and pitch-shift it into a 138 BPM 2-step groove. Program Reese basslines and apply sidechain compression, then complete the Component 4 Production Mock Paper sprint.",
+      deliverable: "138 BPM 1990s dance track stem mix + timed Component 4 practical exam export."
     },
 
     courseworkExam: {
@@ -386,6 +622,65 @@ export const TIMETABLE_BLOCKS = [
       { id: 6, fact: "MP3 is a lossy perceptual compression format that discards psychoacoustically inaudible frequencies using masking algorithms." },
       { id: 7, fact: "Dither is low-level randomized noise added during bit-depth reduction to eliminate correlated quantisation distortion." }
     ],
+
+        resources: {
+      freeTutorials: [
+      {
+            "title": "Using Aux and Bus Channels in Logic X",
+            "url": "https://www.musictechguru.com/homepage/free-music-production-tutorials/",
+            "tag": "Free Video"
+      },
+      {
+            "title": "How They Used Sampling for Gnarls Barkley's 'Crazy'",
+            "url": "https://www.musictechguru.com/homepage/a-level-music-technology/component-2-sequencing-sampling-synthesis-composition/",
+            "tag": "Case Study"
+      }
+],
+      shopResources: [
+      {
+            "title": "\u2018Gotta Get Thru This\u2019 Logic Pro X Remake & 2-Step Breakdown",
+            "url": "https://www.musictechguru.com/product/gotta-get-thru-this-logic-pro-x-remake/",
+            "tag": "Multitrack Remake"
+      },
+      {
+            "title": "\u2018Small Town\u2019 by Morcheeba Logic Pro X Multitrack & Tutorial",
+            "url": "https://www.musictechguru.com/product/the-guide-to-recreating-small-town-by-morcheeba/",
+            "tag": "Trip-Hop Stems"
+      },
+      {
+            "title": "Guidance Video \u2013 Edexcel Music Technology C4 Production & Analysing Exam Sample Paper",
+            "url": "https://www.musictechguru.com/product/guidance-video-edexcel-music-technology-c4-production-analysing-exam-sample-paper/",
+            "tag": "Exam Video"
+      }
+],
+      aLevelGuides: [
+      {
+            "title": "Edexcel Component 4: Producing and Analysing Guide",
+            "url": "https://www.musictechguru.com/edexcel-component-4-production-exam-revision/",
+            "tag": "Exam Guide"
+      }
+],
+      inAppActivities: [
+      {
+            "id": "c4_template",
+            "title": "Official Component 4 Mock Exam: Practical Production Paper",
+            "type": "exam_c4",
+            "actionText": "Launch C4 Exam"
+      },
+      {
+            "id": "quiz-topic-4_p2",
+            "title": "Topic 4 Quiz: Sequencing & Audio Editing (Part 2)",
+            "type": "quiz",
+            "actionText": "Launch Quiz"
+      },
+      {
+            "id": "fingerprints",
+            "title": "Sonic Fingerprints: 1990s Time-Stretch & Early Digital DAWs",
+            "type": "fingerprints",
+            "actionText": "Explore Fingerprints"
+      }
+]
+    },
 
     appLinks: {
       mtgQuizId: "quiz-topic-4_p2",
@@ -435,9 +730,9 @@ export const TIMETABLE_BLOCKS = [
     },
 
     practical: {
-      title: "Compressor Shootout Lab & Final Recording Mixdown",
-      description: "1. Compare FET, Opto, and VCA compressors on vocal and drum buses. 2. Finalize balance, panning, dynamic control, and EQ for the practice cover recording project.",
-      deliverable: "Final 24-bit/44.1kHz Stereo WAV master of Cover Recording Project."
+      title: "2000s Dynamic Processing, Precision EQ & C1 Hand-In Milestone",
+      description: "Finalize and balance all multitrack stems for the Year 1 Component 1 practice portfolio. Apply multi-stage compression, parametric EQ sculpting, gate sidechains, and export an uncompressed 24-bit/44.1kHz master.",
+      deliverable: "Approved 24-bit stereo WAV practice mix + exported tracksheet with complete microphone and processing documentation."
     },
 
     courseworkExam: {
@@ -465,6 +760,60 @@ export const TIMETABLE_BLOCKS = [
       { id: 7, fact: "A High-Pass Filter (HPF) attenuates frequencies below its cutoff point, removing low-end rumble and mechanical stage noise." }
     ],
 
+        resources: {
+      freeTutorials: [
+      {
+            "title": "How to Mix Your Drums & Bass for Component 1",
+            "url": "https://www.musictechguru.com/homepage/a-level-music-technology/component-1-recording-mixing/",
+            "tag": "Mixing Guide"
+      },
+      {
+            "title": "Using Insert Plugins Within Logic X",
+            "url": "https://www.musictechguru.com/homepage/free-music-production-tutorials/",
+            "tag": "Free Tutorial"
+      }
+],
+      shopResources: [
+      {
+            "title": "How to Mix a Live Recorded Song Using Logic Pro X (C1 Coursework Guide)",
+            "url": "https://www.musictechguru.com/product/how-to-mix-for-component-1/",
+            "tag": "Full Video Guide"
+      },
+      {
+            "title": "The Guide to Mixing \u2018Moaning Lisa Smile\u2019 by Wolf Alice & \u2018Whinging Tom\u2019",
+            "url": "https://www.musictechguru.com/product/guide-to-mixing-moaning-lisa-smile-whinging-tom/",
+            "tag": "Multitrack Guide"
+      }
+],
+      aLevelGuides: [
+      {
+            "title": "Component 1 Recording & Mixing Specification",
+            "url": "https://www.musictechguru.com/homepage/a-level-music-technology/component-1-recording-mixing/",
+            "tag": "Spec Guide"
+      }
+],
+      inAppActivities: [
+      {
+            "id": "quiz-topic-5_p1",
+            "title": "Topic 5 Quiz: Dynamic Processors (Part 1)",
+            "type": "quiz",
+            "actionText": "Launch Quiz"
+      },
+      {
+            "id": "quiz-topic-6_p1",
+            "title": "Topic 6 Quiz: EQ & Filtering (Part 1)",
+            "type": "quiz",
+            "actionText": "Launch Quiz"
+      },
+      {
+            "id": "tracksheet",
+            "title": "Tracksheet Creator: Generate Candidate Logbook & Declaration",
+            "type": "tracksheet",
+            "actionText": "Open Tracksheet Creator"
+      }
+]
+    },
+
     appLinks: {
       mtgQuizId: "quiz-topic-5_p1",
       mtgQuizTitle: "Topic 5: Dynamic Processing (Part 1)",
@@ -477,8 +826,8 @@ export const TIMETABLE_BLOCKS = [
   {
     id: "block-7",
     blockNumber: 7,
-    title: "2010s Modern Mixing, Aux Routing & Automation",
-    subtitle: "2010s Era • In-The-Box Mixing & Spatial Design",
+    title: "2010s Production & The Ed Sheeran 'Shape of You' Remix",
+    subtitle: "2010s Era • Creative Remixing, Modern In-The-Box Mixing & Space Design",
     phase: "Year 1",
     phaseLabel: "Foundation & Audio Fundamentals",
     weeksLabel: "Weeks 19–21",
@@ -493,10 +842,10 @@ export const TIMETABLE_BLOCKS = [
       genres: "EDM Festival Anthems, Trap, Modern Pop & Indie R&B",
       context: "100% In-The-Box production, complex sidechain routing, automated vocal chops, Haas effect stereo widening, saturation.",
       tracks: [
+        { artist: "Ed Sheeran", title: "Shape of You", note: "Dancehall groove, marimba plucks, vocal chops, and modern sidechain ducking" },
         { artist: "Daft Punk", title: "Get Lucky", note: "Analog tracking meets modern digital mixing, tape to DAW workflow" },
         { artist: "Billie Eilish", title: "Bad Guy", note: "Ultra close-mic proximity effect, sub-bass saturation, ASMR vocal aesthetic" },
-        { artist: "Kendrick Lamar", title: "HUMBLE.", note: "Distorted 808 sub, pitch automation, aggressive stereo spread" },
-        { artist: "Calvin Harris / Avicii", title: "Summer / Levels", note: "Supersaw synth stacks, extreme sidechain pumping, vocal chops" }
+        { artist: "Kendrick Lamar", title: "HUMBLE.", note: "Distorted 808 sub, pitch automation, aggressive stereo spread" }
       ]
     },
 
@@ -513,9 +862,9 @@ export const TIMETABLE_BLOCKS = [
     },
 
     practical: {
-      title: "Composition Submixing, FX Stems & Automation Polish",
-      description: "Set up designated Aux FX returns (Plate, Hall, Slap Delay, Ping-Pong Delay). Build submix stems (Drums, Bass, Synths, FX). Automate filters and volume sweeps across the practice composition.",
-      deliverable: "Fully automated DAW mixdown of practice composition."
+      title: "The Ed Sheeran 'Shape of You' Creative Remix Project",
+      description: "Take the vocal and melodic stems of Ed Sheeran's 'Shape of You' and produce an authentic 2010s creative remix in Logic Pro X. Re-harmonize the marimba motif using modern synth presets, slice and pitch-shift vocal chops, build custom sidechain compression ducking curves, and design spatial width using tempo-synced delays and Haas effect widening.",
+      deliverable: "Full 2010s creative remix master WAV with automated transitions, processed vocal chops, and active bus routing."
     },
 
     courseworkExam: {
@@ -542,6 +891,80 @@ export const TIMETABLE_BLOCKS = [
       { id: 6, fact: "Touch automation updates parameter values while you hold or adjust the control, instantly returning to previous values when released." },
       { id: 7, fact: "Latch automation remains at the new value even after you release the control until playback stops." }
     ],
+
+        resources: {
+      freeTutorials: [
+      {
+            "title": "Remixing 'Shape of You' on Logic Pro X",
+            "url": "https://www.musictechguru.com/homepage/a-level-music-technology/component-2-sequencing-sampling-synthesis-composition/",
+            "tag": "Remix Masterclass"
+      },
+      {
+            "title": "Remake 'Shape of You' by Ed Sheeran",
+            "url": "https://www.musictechguru.com/homepage/free-music-production-tutorials/",
+            "tag": "Free Video Project"
+      },
+      {
+            "title": "Using Aux and Bus Channels in Logic X",
+            "url": "https://www.musictechguru.com/homepage/free-music-production-tutorials/",
+            "tag": "Free Video"
+      },
+      {
+            "title": "Remake 'Too Good' by Drake on Logic Pro X - Drums Part 1",
+            "url": "https://www.musictechguru.com/homepage/free-music-production-tutorials/",
+            "tag": "Free Project"
+      },
+      {
+            "title": "Music Tech Toolbox Essentials",
+            "url": "https://www.musictechguru.com/homepage/free-music-production-tutorials/mt-toolbox-blk/",
+            "tag": "Toolbox Guide"
+      }
+],
+      shopResources: [
+      {
+            "title": "\u2018La La La\u2019 by Naughty Boy Logic Pro X Multitrack & Tutorial",
+            "url": "https://www.musictechguru.com/product/la-la-la-by-naughty-boy-logic-pro-x-multitrack-tutorial/",
+            "tag": "Multitrack Remake"
+      },
+      {
+            "title": "\u2018Rather Be\u2019 by Clean Bandit Logic Pro X Multitrack & Tutorial",
+            "url": "https://www.musictechguru.com/product/recreate-rather-clean-bandit-using-logic-pro/",
+            "tag": "Multitrack Remake"
+      },
+      {
+            "title": "\u2018King\u2019 by Years & Years Logic Pro X Multitrack & Tutorial",
+            "url": "https://www.musictechguru.com/product/recreate-king-years-years-logic-pro/",
+            "tag": "Multitrack Remake"
+      }
+],
+      aLevelGuides: [
+      {
+            "title": "Component 4: Production Techniques & Exam Overview",
+            "url": "https://www.musictechguru.com/homepage/a-level-music-technology/component-4-production-analysing/",
+            "tag": "Spec Guide"
+      }
+],
+      inAppActivities: [
+      {
+            "id": "quiz-topic-7_p1",
+            "title": "Topic 7 Quiz: FX & Processors (Part 1)",
+            "type": "quiz",
+            "actionText": "Launch Quiz"
+      },
+      {
+            "id": "c4_spop",
+            "title": "Component 4 Practical Sidechain & Mixdown Exam",
+            "type": "exam_c4",
+            "actionText": "Launch C4 Exam"
+      },
+      {
+            "id": "fingerprints",
+            "title": "Sonic Fingerprints: 2010s Pristine Digital & Sidechain Pumping",
+            "type": "fingerprints",
+            "actionText": "Explore Fingerprints"
+      }
+]
+    },
 
     appLinks: {
       mtgQuizId: "quiz-topic-7_p1",
@@ -591,9 +1014,9 @@ export const TIMETABLE_BLOCKS = [
     },
 
     practical: {
-      title: "'Something Fun' Creative Vocal Lab & Final Composition Polish",
-      description: "Produce a high-energy creative track incorporating vocoders, pitch-shifted choir harmonies, and stutter edits. Complete final bounce and commentary for Practice Composition.",
-      deliverable: "Final 24-bit/44.1kHz Stereo WAV master of Practice Composition + Commentary PDF."
+      title: "Vocal Production, Tech Icons & Year 1 Capstone Hand-In",
+      description: "Complete the Year 1 Component 2 composition project. Perform manual pitch correction and formant shifting on vocal stems, construct tension risers, and conduct candidate peer reviews before submission.",
+      deliverable: "Final 3-minute Year 1 Component 2 Composition master audio + complete track commentary dossier."
     },
 
     courseworkExam: {
@@ -620,6 +1043,65 @@ export const TIMETABLE_BLOCKS = [
       { id: 6, fact: "Melodyne uses frequency-selective spectral analysis to allow independent manipulation of pitch, drift, vibrato, timing, and formants on individual notes." },
       { id: 7, fact: "Varispeed alters the tape speed (or digital sample clock), changing both pitch and tempo simultaneously." }
     ],
+
+        resources: {
+      freeTutorials: [
+      {
+            "title": "Music Technology Component 2 Composition Guidance and Tick List",
+            "url": "https://www.musictechguru.com/music-technology-component-2-composition-guide/",
+            "tag": "NEA Checklist"
+      },
+      {
+            "title": "Remixing 'Shape of You' on Logic Pro X",
+            "url": "https://www.musictechguru.com/homepage/a-level-music-technology/component-2-sequencing-sampling-synthesis-composition/",
+            "tag": "Remix Tutorial"
+      }
+],
+      shopResources: [
+      {
+            "title": "Edexcel A-Level Music Technology Component 2 Complete Guide \u2013 Brief 2 (Logic Pro X)",
+            "url": "https://www.musictechguru.com/product/edexcel-a-level-music-technology-component-2-complete-guide-brief-2-logic-pro-x/",
+            "tag": "NEA Master Guide"
+      },
+      {
+            "title": "Stranger Things Theme Logic Pro X Multitrack & Tutorial",
+            "url": "https://www.musictechguru.com/product/stranger-things-theme-logic-arrangement/",
+            "tag": "Sound Design Pack"
+      },
+      {
+            "title": "\u2018Heartbeats\u2019 by The Knife Logic Pro X Multitrack & Tutorial",
+            "url": "https://www.musictechguru.com/product/the-guide-to-recreating-heartbeats-by-the-knife/",
+            "tag": "Multitrack Remake"
+      }
+],
+      aLevelGuides: [
+      {
+            "title": "Component 2: Sequencing, Sampling & Composition Guide",
+            "url": "https://www.musictechguru.com/homepage/a-level-music-technology/component-2-sequencing-sampling-synthesis-composition/",
+            "tag": "Spec Guide"
+      }
+],
+      inAppActivities: [
+      {
+            "id": "quiz-topic-10_p1",
+            "title": "Topic 10 Quiz: Technology Icons & Milestones",
+            "type": "quiz",
+            "actionText": "Launch Quiz"
+      },
+      {
+            "id": "dictionary",
+            "title": "Production Dictionary: Master Terminology Challenge",
+            "type": "dictionary",
+            "actionText": "Open Dictionary"
+      },
+      {
+            "id": "tracksheet",
+            "title": "Tracksheet Creator: Export C2 Composition Commentary Dossier",
+            "type": "tracksheet",
+            "actionText": "Open Tracksheet Creator"
+      }
+]
+    },
 
     appLinks: {
       mtgQuizId: "quiz-timeline-1",
@@ -669,9 +1151,9 @@ export const TIMETABLE_BLOCKS = [
     },
 
     practical: {
-      title: "Multitrack Drum Kit Recording & Official C1 Pre-Production",
-      description: "Set up 8–10 microphones on an acoustic drum kit. Tune drums, balance preamps, check phase alignment on snare top/bottom and overheads. Record C1 candidate drum tracks.",
-      deliverable: "Pristine multitrack drum session with verified phase coherence and zero digital clipping."
+      title: "Live Band Recording Project (C1 NEA Warmup & Dry Run)",
+      description: "Execute a full live band recording simulation as a comprehensive warmup before commencing official Component 1 NEA tracking. Mic an entire acoustic drum kit (Kick In/Out, Snare Top/Bottom with 180° polarity flip, toms, spaced A/B or ORTF overheads), DI and mic bass amps, dual-mic guitar cabinets (SM57 on cone edge + Royer R-121 ribbon), and track live guide vocals. Calibrate phase alignment, perform vocal comping, and test-export candidate tracksheet documentation.",
+      deliverable: "Complete band multitrack session with sample-accurate phase alignment, rough balance mix, and verified pre-production candidate tracksheet."
     },
 
     courseworkExam: {
@@ -698,6 +1180,75 @@ export const TIMETABLE_BLOCKS = [
       { id: 6, fact: "Placing a guitar cab mic at the center (dust cap) captures the brightest, most aggressive high frequencies; angling toward the cone edge yields warmer tone." },
       { id: 7, fact: "Spill/bleed between drum microphones can be managed using directional polar patterns, physical baffles, acoustic gates, or transient envelope shapers." }
     ],
+
+        resources: {
+      freeTutorials: [
+      {
+            "title": "Component 1: How to Mix Your Drums & Bass",
+            "url": "https://www.musictechguru.com/homepage/a-level-music-technology/component-1-recording-mixing/",
+            "tag": "Mixing Guide"
+      },
+      {
+            "title": "Setting Up a Vocal Microphone (Parts 1 & 2)",
+            "url": "https://www.musictechguru.com/homepage/free-music-production-tutorials/",
+            "tag": "Free Video"
+      },
+      {
+            "title": "Component 1 Recording & Mixing Guidance",
+            "url": "https://www.musictechguru.com/homepage/a-level-music-technology/component-1-recording-mixing/",
+            "tag": "Spec Guide"
+      }
+],
+      shopResources: [
+      {
+            "title": "Mixing for A-Level Music Technology \u2013 A Preparation Project",
+            "url": "https://www.musictechguru.com/product/mixing-for-a-level-music-technology-a-preparation-project/",
+            "tag": "Warmup Project"
+      },
+      {
+            "title": "How to Mix a Live Recorded Song Using Logic Pro X (C1 Coursework Guide)",
+            "url": "https://www.musictechguru.com/product/how-to-mix-for-component-1/",
+            "tag": "C1 Masterclass"
+      },
+      {
+            "title": "The Guide to Mixing Rock",
+            "url": "https://www.musictechguru.com/product/the-guide-to-mixing-rock/",
+            "tag": "Production Pack"
+      },
+      {
+            "title": "The Guide to Mixing \u2018Moaning Lisa Smile\u2019 by Wolf Alice & \u2018Whinging Tom\u2019",
+            "url": "https://www.musictechguru.com/product/guide-to-mixing-moaning-lisa-smile-whinging-tom/",
+            "tag": "Multitrack Guide"
+      }
+],
+      aLevelGuides: [
+      {
+            "title": "Official Component 1 NEA Recording Assessment Brief",
+            "url": "https://www.musictechguru.com/homepage/a-level-music-technology/component-1-recording-mixing/",
+            "tag": "Spec Brief"
+      }
+],
+      inAppActivities: [
+      {
+            "id": "c3_heavyrock",
+            "title": "Official Component 3 Mock Exam: Heavy Rock Listening Paper",
+            "type": "exam_c3",
+            "actionText": "Launch C3 Exam"
+      },
+      {
+            "id": "quiz-topic-2_p2",
+            "title": "Topic 2 Quiz: Microphones & Acoustics (Part 2)",
+            "type": "quiz",
+            "actionText": "Launch Quiz"
+      },
+      {
+            "id": "tracksheet",
+            "title": "Tracksheet Creator: Official C1 Session Setup & Mic Floorplan",
+            "type": "tracksheet",
+            "actionText": "Open Tracksheet Creator"
+      }
+]
+    },
 
     appLinks: {
       mtgQuizId: "quiz-topic-2_p2",
@@ -747,9 +1298,9 @@ export const TIMETABLE_BLOCKS = [
     },
 
     practical: {
-      title: "C1 Rhythm Tracking & C2 Stimulus Sound Design",
-      description: "1. Track live Bass Guitar (DI + Mic) locked to C1 drum track. 2. Import official C2 stimulus; slice into sampler zones, tune to key, create playable virtual instrument patch.",
-      deliverable: "Locked C1 rhythm section stems + playable C2 sampler instrument."
+      title: "House Grooves, MIDI Sampling & Official C2 Composition Launch",
+      description: "Analyze the Pearson Edexcel Component 2 composition briefs. Select target brief, curate audio stimulus material, set up chromatic sampler key zones, and program an authentic EDM groove with groove templates and custom swing.",
+      deliverable: "Official C2 Project DAW session initialized with tagged stimulus samples, tempo map, and 32-bar core musical theme."
     },
 
     courseworkExam: {
@@ -776,6 +1327,65 @@ export const TIMETABLE_BLOCKS = [
       { id: 6, fact: "Portamento (Glide) introduces a continuous slide in pitch between consecutive legato notes." },
       { id: 7, fact: "Sample start modulation routes velocity or an LFO to offset the initial sample playback point, giving each strike unique attack character." }
     ],
+
+        resources: {
+      freeTutorials: [
+      {
+            "title": "Sequencing 101 on Logic Pro X",
+            "url": "https://www.musictechguru.com/homepage/a-level-music-technology/component-2-sequencing-sampling-synthesis-composition/",
+            "tag": "Free Tutorial"
+      },
+      {
+            "title": "Music Technology Component 2 Composition Guidance and Tick List",
+            "url": "https://www.musictechguru.com/music-technology-component-2-composition-guide/",
+            "tag": "NEA Checklist"
+      }
+],
+      shopResources: [
+      {
+            "title": "Edexcel A-Level Music Technology Component 2 Complete Guide \u2013 Brief 2 (Logic Pro X)",
+            "url": "https://www.musictechguru.com/product/edexcel-a-level-music-technology-component-2-complete-guide-brief-2-logic-pro-x/",
+            "tag": "Brief Guide"
+      },
+      {
+            "title": "\u2018Gotta Get Thru This\u2019 Logic Pro X Remake & 2-Step Stems",
+            "url": "https://www.musictechguru.com/product/gotta-get-thru-this-logic-pro-x-remake/",
+            "tag": "Multitrack Remake"
+      },
+      {
+            "title": "Introduction to Drum Sampling Pack",
+            "url": "https://www.musictechguru.com/product/introduction-to-drum-sampling/",
+            "tag": "Sample Pack"
+      }
+],
+      aLevelGuides: [
+      {
+            "title": "Official Component 2 NEA Composition Assessment Brief",
+            "url": "https://www.musictechguru.com/homepage/a-level-music-technology/component-2-sequencing-sampling-synthesis-composition/",
+            "tag": "Spec Brief"
+      }
+],
+      inAppActivities: [
+      {
+            "id": "c4_edm",
+            "title": "Official Component 4 Mock Exam: EDM Practical Production Paper",
+            "type": "exam_c4",
+            "actionText": "Launch C4 Exam"
+      },
+      {
+            "id": "quiz-topic-6_p1",
+            "title": "Topic 6 Quiz: Sequencing & EQ (Part 1)",
+            "type": "quiz",
+            "actionText": "Launch Quiz"
+      },
+      {
+            "id": "tracksheet",
+            "title": "Tracksheet Creator: Log C2 Sample Stimulus & Source Details",
+            "type": "tracksheet",
+            "actionText": "Open Tracksheet Creator"
+      }
+]
+    },
 
     appLinks: {
       mtgQuizId: "quiz-topic-6_p1",
@@ -825,9 +1435,9 @@ export const TIMETABLE_BLOCKS = [
     },
 
     practical: {
-      title: "C1 Guitars/Keys Tracking & C2 Synth Texture Design",
-      description: "1. Record acoustic and electric guitars for C1. 2. Design custom evolving wavetable and FM patches for C2 thematic development.",
-      deliverable: "Recorded C1 guitar tracks + completed C2 thematic B-section."
+      title: "Synth-Pop, Electro & Advanced Sound Design (C1 Guitars & C2 Themes)",
+      description: "Design advanced synthesizer patches using FM operator ratios, wavetable wavetables, and ring modulation for Component 2. In parallel, complete tracking and phase checks for Component 1 electric and acoustic guitars.",
+      deliverable: "Component 1 multi-mic guitar stems + fully documented Component 2 custom synth patches."
     },
 
     courseworkExam: {
@@ -854,6 +1464,65 @@ export const TIMETABLE_BLOCKS = [
       { id: 6, fact: "Oscillator Sync resets the slave oscillator's waveform cycle every time the master oscillator completes a cycle, generating rich tearing overtones when sweeping pitch." },
       { id: 7, fact: "Polyphonic portamento enables smooth pitch slides between notes while sustaining multiple chord voices." }
     ],
+
+        resources: {
+      freeTutorials: [
+      {
+            "title": "The Retro Synth in Logic X",
+            "url": "https://www.musictechguru.com/homepage/free-music-production-tutorials/",
+            "tag": "Free Video"
+      },
+      {
+            "title": "Remake 'Too Good' by Drake on Logic Pro X - Instruments Part 2",
+            "url": "https://www.musictechguru.com/homepage/free-music-production-tutorials/",
+            "tag": "Free Tutorial"
+      }
+],
+      shopResources: [
+      {
+            "title": "\u2018Singularity\u2019 by New Order Logic Pro X Multitrack & Tutorial",
+            "url": "https://www.musictechguru.com/product/the-guide-to-recreating-singularity-by-new-order/",
+            "tag": "Multitrack Remake"
+      },
+      {
+            "title": "\u2018Monument\u2019 by R\u00f6yksopp Logic Pro X Multitrack & Tutorial",
+            "url": "https://www.musictechguru.com/product/the-guide-to-recreating-monument-by-royksopp/",
+            "tag": "Multitrack Remake"
+      },
+      {
+            "title": "\u2018Madness\u2019 by Muse Logic Pro X Multitrack & Tutorial",
+            "url": "https://www.musictechguru.com/product/the-guide-to-recreating-madness-by-muse/",
+            "tag": "Multitrack Remake"
+      }
+],
+      aLevelGuides: [
+      {
+            "title": "Sound Design for C2: Risers, Sweeps & Textures",
+            "url": "https://www.musictechguru.com/homepage/a-level-music-technology/component-2-sequencing-sampling-synthesis-composition/",
+            "tag": "Technique Guide"
+      }
+],
+      inAppActivities: [
+      {
+            "id": "quiz-topic-3_p2",
+            "title": "Topic 3 Quiz: Synthesis (Part 2)",
+            "type": "quiz",
+            "actionText": "Launch Quiz"
+      },
+      {
+            "id": "tracksheet",
+            "title": "Tracksheet Creator: Update C1 Guitar & Mic Placements",
+            "type": "tracksheet",
+            "actionText": "Open Tracksheet Creator"
+      },
+      {
+            "id": "fingerprints",
+            "title": "Sonic Fingerprints: Electro & Synth-Pop Waveforms",
+            "type": "fingerprints",
+            "actionText": "Explore Fingerprints"
+      }
+]
+    },
 
     appLinks: {
       mtgQuizId: "quiz-topic-3_p2",
@@ -903,9 +1572,9 @@ export const TIMETABLE_BLOCKS = [
     },
 
     practical: {
-      title: "C1 Bass/Guitar Comping & C2 Transition Production",
-      description: "1. Comp and polish C1 guitar and bass multitracks. 2. Build 5 custom transition FX and risers for C2 arrangement markers.",
-      deliverable: "Cleaned C1 rhythm multitracks + C2 project with dynamic transitions."
+      title: "Urban, EDM, Transducers & Mid-Year Full Mock Examinations",
+      description: "Sit full exam-condition papers for Component 3 (Listening & Analysing) and Component 4 (Producing & Analysing). Analyze written essay criteria and complete timed practical audio editing tasks.",
+      deliverable: "Completed 12-mark comparison essay + bounced 24-bit Component 4 practical exam mixdown."
     },
 
     courseworkExam: {
@@ -932,6 +1601,65 @@ export const TIMETABLE_BLOCKS = [
       { id: 6, fact: "Multiband compression divides the audio spectrum into independent frequency bands (e.g. Low, Mid, High), applying distinct threshold and ratio settings to each." },
       { id: 7, fact: "A Transient Shaper allows independent boosting or cutting of the initial attack transient and sustained decay tail without relying on a threshold." }
     ],
+
+        resources: {
+      freeTutorials: [
+      {
+            "title": "Master Edexcel Component 3: Listening and Analysing Guide",
+            "url": "https://www.musictechguru.com/edexcel-component-3-music-technology-revision/",
+            "tag": "Exam Guide"
+      },
+      {
+            "title": "Edexcel Component 4: Producing and Analysing Guide",
+            "url": "https://www.musictechguru.com/edexcel-component-4-production-exam-revision/",
+            "tag": "Exam Guide"
+      }
+],
+      shopResources: [
+      {
+            "title": "2023 Music Technology Component 4 Past Paper Walkthrough",
+            "url": "https://www.musictechguru.com/product/2023-music-technology-component-4-past-paper-walkthough/",
+            "tag": "Exam Video"
+      },
+      {
+            "title": "2022 Edexcel Music Technology Component 4 Exam Guidance Video",
+            "url": "https://www.musictechguru.com/product/2022-edexcel-music-tech-component-4-exam/",
+            "tag": "Exam Video"
+      },
+      {
+            "title": "Guidance Video \u2013 How to Pass the 2020 Music Technology Exam Component 4",
+            "url": "https://www.musictechguru.com/product/guidance-video-how-to-pass-the-2020-music-technology-exam-component-4/",
+            "tag": "Exam Video"
+      }
+],
+      aLevelGuides: [
+      {
+            "title": "Mastering the 12-Mark Comparison Essay in Component 3",
+            "url": "https://www.musictechguru.com/edexcel-component-3-music-technology-revision/",
+            "tag": "Essay Technique"
+      }
+],
+      inAppActivities: [
+      {
+            "id": "c3_funk",
+            "title": "Official Component 3 Mock Exam: Funk Listening Paper",
+            "type": "exam_c3",
+            "actionText": "Launch C3 Exam"
+      },
+      {
+            "id": "c3_soul",
+            "title": "Official Component 3 Mock Exam: Soul Listening Paper",
+            "type": "exam_c3",
+            "actionText": "Launch C3 Exam"
+      },
+      {
+            "id": "quiz-topic-2_p1",
+            "title": "Topic 2 Quiz: Microphones & Acoustics (Part 1)",
+            "type": "quiz",
+            "actionText": "Launch Quiz"
+      }
+]
+    },
 
     appLinks: {
       mtgQuizId: "quiz-topic-2_p1",
@@ -981,9 +1709,9 @@ export const TIMETABLE_BLOCKS = [
     },
 
     practical: {
-      title: "C1 Lead Vocal Tracking Session & Synth Masterpiece Lab",
-      description: "1. Record C1 Lead and Backing Vocals with multi-take comping and de-essing. 2. Build a standalone synth composition using at least 3 distinct synthesis methods.",
-      deliverable: "Comped and tuned C1 vocal stems + locked C2 3-minute arrangement."
+      title: "The Pro Vocal Chain, Synth Masterpiece & C2 Structure Lock",
+      description: "Track final lead and backing vocal takes for Component 1 using a high-end vocal chain (pop shield, reflection filter, tube preamp emulation, optical compression, de-essing, surgical EQ). Finalize Component 2 arrangement architecture.",
+      deliverable: "Pristine comped lead vocal stem with pitch correction + fully structured 3-minute Component 2 composition."
     },
 
     courseworkExam: {
@@ -1010,6 +1738,65 @@ export const TIMETABLE_BLOCKS = [
       { id: 6, fact: "The Shure SM7B dynamic microphone has a flat, wide frequency response, internal shock isolation, and electromagnetic shielding against hum." },
       { id: 7, fact: "Granular synthesis breaks audio samples into tiny grains (1–100ms) that are replayed, layered, and modulated to create evolving ambient clouds." }
     ],
+
+        resources: {
+      freeTutorials: [
+      {
+            "title": "Setting Up a Vocal Microphone (Parts 1 & 2)",
+            "url": "https://www.musictechguru.com/homepage/free-music-production-tutorials/",
+            "tag": "Free Video"
+      },
+      {
+            "title": "Using Insert Plugins Within Logic X",
+            "url": "https://www.musictechguru.com/homepage/free-music-production-tutorials/",
+            "tag": "Free Tutorial"
+      }
+],
+      shopResources: [
+      {
+            "title": "\u2018La La La\u2019 by Naughty Boy Logic Pro X Multitrack & Tutorial",
+            "url": "https://www.musictechguru.com/product/la-la-la-by-naughty-boy-logic-pro-x-multitrack-tutorial/",
+            "tag": "Vocal Multitrack"
+      },
+      {
+            "title": "Edexcel A-Level Music Technology Component 2 Complete Guide \u2013 Brief 2",
+            "url": "https://www.musictechguru.com/product/edexcel-a-level-music-technology-component-2-complete-guide-brief-2-logic-pro-x/",
+            "tag": "Brief Guide"
+      },
+      {
+            "title": "How to Mix a Live Recorded Song Using Logic Pro X",
+            "url": "https://www.musictechguru.com/product/how-to-mix-for-component-1/",
+            "tag": "Mixing Masterclass"
+      }
+],
+      aLevelGuides: [
+      {
+            "title": "Component 2 Composition Guide & Tick List",
+            "url": "https://www.musictechguru.com/music-technology-component-2-composition-guide/",
+            "tag": "NEA Checklist"
+      }
+],
+      inAppActivities: [
+      {
+            "id": "quiz-topic-3_p1",
+            "title": "Topic 3 Quiz: Synthesis (Part 1)",
+            "type": "quiz",
+            "actionText": "Launch Quiz"
+      },
+      {
+            "id": "tracksheet",
+            "title": "Tracksheet Creator: Log C1 Lead Vocal Chain & Mic Details",
+            "type": "tracksheet",
+            "actionText": "Open Tracksheet Creator"
+      },
+      {
+            "id": "dictionary",
+            "title": "Production Dictionary: Vocal Processing & Modulation Terms",
+            "type": "dictionary",
+            "actionText": "Open Dictionary"
+      }
+]
+    },
 
     appLinks: {
       mtgQuizId: "quiz-topic-3_p1",
@@ -1059,9 +1846,9 @@ export const TIMETABLE_BLOCKS = [
     },
 
     practical: {
-      title: "Mastering C1 & C2 Projects + Generating Examiner Dossiers",
-      description: "1. Apply mastering chain (Linear EQ, Multiband, True Peak Limiter, Dither) to C1 and C2 mixes. 2. Use Tracksheet Creator to generate complete official candidate PDF Dossiers.",
-      deliverable: "Final mastered WAV files + complete Tracksheet Creator PDF dossiers ready for moderation."
+      title: "Mixing Architecture, Mastering & Final Logbook Dossier Sign-Off",
+      description: "Perform final mixdown and mastering for both Component 1 and Component 2. Ensure compliance with true peak limits (-1.0 dBFS), integrated loudness standards, dynamic range, and print complete candidate declaration dossiers.",
+      deliverable: "Approved 24-bit master audio files for C1 & C2 + complete PDF Candidate Tracksheets exported from Tracksheet Creator."
     },
 
     courseworkExam: {
@@ -1088,6 +1875,65 @@ export const TIMETABLE_BLOCKS = [
       { id: 6, fact: "Dynamic Range (LRA) measures the variation in loudness throughout an entire track in Loudness Units (LU)." },
       { id: 7, fact: "Checking a mix in mono immediately reveals comb filtering, phase cancellation, and unbalanced center elements." }
     ],
+
+        resources: {
+      freeTutorials: [
+      {
+            "title": "Mastering in Logic Pro X (LUFS, Limiting & Dither)",
+            "url": "https://www.musictechguru.com/homepage/free-music-production-tutorials/",
+            "tag": "Free Tutorial"
+      },
+      {
+            "title": "Using Aux and Bus Channels in Logic X",
+            "url": "https://www.musictechguru.com/homepage/free-music-production-tutorials/",
+            "tag": "Free Video"
+      }
+],
+      shopResources: [
+      {
+            "title": "Mixing for A-Level Music Technology \u2013 A Preparation Project",
+            "url": "https://www.musictechguru.com/product/mixing-for-a-level-music-technology-a-preparation-project/",
+            "tag": "Mixing Guide"
+      },
+      {
+            "title": "The Guide to Mixing Rock",
+            "url": "https://www.musictechguru.com/product/the-guide-to-mixing-rock/",
+            "tag": "Production Pack"
+      },
+      {
+            "title": "BandLab Mixing Tutorial/Assessment \u2013 'Talking 'bout a Revolution'",
+            "url": "https://www.musictechguru.com/product/bandlab-mixing-tutorial-assessment-talking-bout-a-revolution/",
+            "tag": "Assessment Guide"
+      }
+],
+      aLevelGuides: [
+      {
+            "title": "Component 1 & 2 Coursework Submission Requirements",
+            "url": "https://www.musictechguru.com/homepage/a-level-music-technology/",
+            "tag": "Spec Requirements"
+      }
+],
+      inAppActivities: [
+      {
+            "id": "quiz-topic-8_p1",
+            "title": "Topic 8 Quiz: Mastering (Part 1)",
+            "type": "quiz",
+            "actionText": "Launch Quiz"
+      },
+      {
+            "id": "tracksheet",
+            "title": "Tracksheet Creator: Generate Complete Official Candidate Dossier",
+            "type": "tracksheet",
+            "actionText": "Open Tracksheet Creator"
+      },
+      {
+            "id": "dictionary",
+            "title": "Production Dictionary: Mastering & Metering Terms",
+            "type": "dictionary",
+            "actionText": "Open Dictionary"
+      }
+]
+    },
 
     appLinks: {
       mtgQuizId: "quiz-topic-8_p1",
@@ -1137,9 +1983,9 @@ export const TIMETABLE_BLOCKS = [
     },
 
     practical: {
-      title: "Timed Component 4 Production Sprints & Final Coursework Export",
-      description: "1. Complete final digital upload of C1 and C2 coursework packages. 2. Carry out timed Component 4 practical drills: Audio restoration, MIDI programming, and mix balance.",
-      deliverable: "OFFICIAL SIGN-OFF: Coursework Component 1 & 2 securely archived and uploaded."
+      title: "Official Coursework Hand-In, Audio Restoration & Component 4 Drills",
+      description: "Officially submit Component 1 and 2 coursework files. Transition immediately into intensive Component 4 practical exam drills: spectral editing, click/hum removal, phase alignment, and transient shaping.",
+      deliverable: "Official coursework submission confirmation + completed timed audio restoration exam tasks."
     },
 
     courseworkExam: {
@@ -1166,6 +2012,65 @@ export const TIMETABLE_BLOCKS = [
       { id: 6, fact: "Component 1 and 2 coursework files must be delivered as uncompressed 24-bit / 44.1 kHz stereo WAV files." },
       { id: 7, fact: "Phase alignment on Component 4 practical exams often requires engaging a single 180° polarity inversion button on one channel." }
     ],
+
+        resources: {
+      freeTutorials: [
+      {
+            "title": "Edexcel Component 4: Producing and Analysing Guide",
+            "url": "https://www.musictechguru.com/edexcel-component-4-production-exam-revision/",
+            "tag": "Exam Guide"
+      },
+      {
+            "title": "Music Tech Toolbox Reference",
+            "url": "https://www.musictechguru.com/homepage/free-music-production-tutorials/mt-toolbox-blk/",
+            "tag": "Toolbox Guide"
+      }
+],
+      shopResources: [
+      {
+            "title": "2023 Music Technology Component 4 Past Paper Walkthrough",
+            "url": "https://www.musictechguru.com/product/2023-music-technology-component-4-past-paper-walkthough/",
+            "tag": "Walkthrough Video"
+      },
+      {
+            "title": "2022 Edexcel Music Technology Component 4 Exam Guidance Video",
+            "url": "https://www.musictechguru.com/product/2022-edexcel-music-tech-component-4-exam/",
+            "tag": "Walkthrough Video"
+      },
+      {
+            "title": "Guidance Video \u2013 How to Pass the 2019 Music Technology Exam Component 4",
+            "url": "https://www.musictechguru.com/product/how-to-pass-the-2019-music-technology-exam-component-4/",
+            "tag": "Walkthrough Video"
+      }
+],
+      aLevelGuides: [
+      {
+            "title": "Component 4 Audio Restoration & Repair Secrets",
+            "url": "https://www.musictechguru.com/edexcel-component-4-production-exam-revision/",
+            "tag": "Technique Guide"
+      }
+],
+      inAppActivities: [
+      {
+            "id": "quiz-topic-9_p1",
+            "title": "Topic 9 Quiz: Acoustics & Signal Flow (Part 1)",
+            "type": "quiz",
+            "actionText": "Launch Quiz"
+      },
+      {
+            "id": "c4_spop",
+            "title": "Component 4 Practical Speed Drill",
+            "type": "exam_c4",
+            "actionText": "Launch C4 Drill"
+      },
+      {
+            "id": "tracksheet",
+            "title": "Tracksheet Creator: Final Verified Submission Archive",
+            "type": "tracksheet",
+            "actionText": "Open Tracksheet Creator"
+      }
+]
+    },
 
     appLinks: {
       mtgQuizId: "quiz-topic-9_p1",
@@ -1221,9 +2126,9 @@ export const TIMETABLE_BLOCKS = [
     },
 
     practical: {
-      title: "Full Timed Mock Examinations Under Exam Conditions",
-      description: "Complete full, timed past papers for Component 3 (Listening & Analysing - 90 mins) and Component 4 (Producing & Analysing - 135 mins).",
-      deliverable: "Completed exam papers marked against official Edexcel examiner standards."
+      title: "Final Examination Mastery & Past Paper Bootcamp (The Final Boss)",
+      description: "Undertake timed past papers under strict exam conditions for Component 3 and Component 4. Review mark schemes, examiner reports, acoustic formulas, and complete the comprehensive Production Dictionary Master Challenge.",
+      deliverable: "100% completed exam portfolio + validated 10-topic master quiz certificate."
     },
 
     courseworkExam: {
@@ -1250,6 +2155,81 @@ export const TIMETABLE_BLOCKS = [
       { id: 6, fact: "In Component 3, always use precise technical terminology: write 'Cardioid Large Diaphragm Condenser' rather than simply 'Mic'." },
       { id: 7, fact: "In Component 4, always check stereo master bus ceiling and verify that the bounced WAV file reproduces all requested edits cleanly." }
     ],
+
+        resources: {
+      freeTutorials: [
+      {
+            "title": "Past Papers & Edexcel Resources Archive",
+            "url": "https://www.musictechguru.com/homepage/a-level-music-technology/a-level-music-tech-course-overview/past-papers-edexcel-resources/",
+            "tag": "Official Archive"
+      },
+      {
+            "title": "Master Edexcel Component 3: Listening and Analysing Guide",
+            "url": "https://www.musictechguru.com/edexcel-component-3-music-technology-revision/",
+            "tag": "Revision Guide"
+      },
+      {
+            "title": "Edexcel Component 4: Producing and Analysing Guide",
+            "url": "https://www.musictechguru.com/edexcel-component-4-production-exam-revision/",
+            "tag": "Revision Guide"
+      }
+],
+      shopResources: [
+      {
+            "title": "Music Technology 1930\u20131961: A Complete Teaching Pack",
+            "url": "https://www.musictechguru.com/product/music-technology-1930-1961/",
+            "tag": "History Pack"
+      },
+      {
+            "title": "2023 Music Technology Component 4 Past Paper Walkthrough",
+            "url": "https://www.musictechguru.com/product/2023-music-technology-component-4-past-paper-walkthough/",
+            "tag": "Exam Video"
+      },
+      {
+            "title": "2022 Edexcel Music Technology Component 4 Exam Guidance Video",
+            "url": "https://www.musictechguru.com/product/2022-edexcel-music-tech-component-4-exam/",
+            "tag": "Exam Video"
+      },
+      {
+            "title": "Guidance Video \u2013 How to Pass the 2020 Music Technology Exam Component 4",
+            "url": "https://www.musictechguru.com/product/guidance-video-how-to-pass-the-2020-music-technology-exam-component-4/",
+            "tag": "Exam Video"
+      }
+],
+      aLevelGuides: [
+      {
+            "title": "Last-Minute Exam Hacks & Formula Review for 9MT0",
+            "url": "https://www.musictechguru.com/homepage/a-level-music-technology/",
+            "tag": "Formula Sheet"
+      }
+],
+      inAppActivities: [
+      {
+            "id": "quiz-topic-10_p1",
+            "title": "Topic 10 Quiz: Equipment & Studio Systems (Part 1)",
+            "type": "quiz",
+            "actionText": "Launch Quiz"
+      },
+      {
+            "id": "c3_reggae",
+            "title": "Official Component 3 Mock Exam: Reggae Listening Paper",
+            "type": "exam_c3",
+            "actionText": "Launch C3 Exam"
+      },
+      {
+            "id": "dictionary",
+            "title": "Production Dictionary: Master Terminology Challenge",
+            "type": "dictionary",
+            "actionText": "Open Dictionary"
+      },
+      {
+            "id": "fingerprints",
+            "title": "Sonic Fingerprints: Complete Era & Genre Audio Exam",
+            "type": "fingerprints",
+            "actionText": "Explore Fingerprints"
+      }
+]
+    },
 
     appLinks: {
       mtgQuizId: "quiz-topic-10_p1",

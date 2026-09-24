@@ -980,3 +980,200 @@
   border-color: rgba(16, 185, 129, 0.3);
 }
 
+
+/* =========================================================
+   MusicTechGuru Master Curriculum & Resource Locker
+   ========================================================= */
+
+.sow-resource-locker {
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(56, 189, 248, 0.25) !important;
+  border-radius: 14px;
+  padding: 18px 20px;
+  margin-top: 15px;
+}
+
+.sow-resource-subgroup {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sow-resource-subgroup:first-of-type {
+  margin-top: 10px;
+}
+
+.sow-resource-subgroup-title {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: #94a3b8;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 2px;
+}
+
+/* In-App Interactive Buttons Grid */
+.sow-inapp-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 10px;
+}
+
+.sow-inapp-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  background: linear-gradient(135deg, rgba(30, 58, 138, 0.4) 0%, rgba(15, 23, 42, 0.7) 100%);
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  border-radius: 10px;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s ease;
+  color: #fff;
+}
+
+.sow-inapp-btn:hover {
+  background: linear-gradient(135deg, rgba(30, 58, 138, 0.8) 0%, rgba(30, 41, 59, 0.9) 100%);
+  border-color: #38bdf8;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(56, 189, 248, 0.25);
+}
+
+.sow-inapp-icon {
+  font-size: 1.3rem;
+  flex-shrink: 0;
+}
+
+.sow-inapp-info {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.sow-inapp-title {
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: #e2e8f0;
+  line-height: 1.25;
+}
+
+.sow-inapp-action {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #38bdf8;
+  margin-top: 3px;
+}
+
+/* External Link Lists */
+.sow-link-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sow-resource-link {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 9px 14px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 0.85rem;
+  transition: all 0.2s ease;
+  background: rgba(15, 23, 42, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.sow-resource-link:hover {
+  background: rgba(30, 41, 59, 0.75);
+  transform: translateX(3px);
+}
+
+.sow-resource-link.shop {
+  border-left: 3px solid #ec4899;
+}
+.sow-resource-link.shop:hover {
+  border-color: #ec4899;
+  box-shadow: 0 2px 10px rgba(236, 72, 153, 0.15);
+}
+
+.sow-resource-link.free {
+  border-left: 3px solid #10b981;
+}
+.sow-resource-link.free:hover {
+  border-color: #10b981;
+  box-shadow: 0 2px 10px rgba(16, 185, 129, 0.15);
+}
+
+.sow-resource-link.guide {
+  border-left: 3px solid #f59e0b;
+}
+.sow-resource-link.guide:hover {
+  border-color: #f59e0b;
+  box-shadow: 0 2px 10px rgba(245, 158, 11, 0.15);
+}
+
+.sow-link-main {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.sow-link-tag {
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 2px 7px;
+  border-radius: 4px;
+  letter-spacing: 0.4px;
+}
+
+.sow-link-tag.shop {
+  background: rgba(236, 72, 153, 0.18);
+  color: #f472b6;
+  border: 1px solid rgba(236, 72, 153, 0.35);
+}
+
+.sow-link-tag.free {
+  background: rgba(16, 185, 129, 0.18);
+  color: #34d399;
+  border: 1px solid rgba(16, 185, 129, 0.35);
+}
+
+.sow-link-tag.guide {
+  background: rgba(245, 158, 11, 0.18);
+  color: #fbbf24;
+  border: 1px solid rgba(245, 158, 11, 0.35);
+}
+
+.sow-link-title {
+  color: #f1f5f9;
+  font-weight: 500;
+}
+
+.sow-link-ext {
+  color: #94a3b8;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-left: 8px;
+}
+
+.sow-resource-badge-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.72rem;
+  padding: 3px 8px;
+  border-radius: 6px;
+  background: rgba(56, 189, 248, 0.12);
+  color: #38bdf8;
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  font-weight: 600;
+  margin-top: 6px;
+}

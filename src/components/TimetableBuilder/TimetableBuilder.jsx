@@ -190,6 +190,20 @@ const TimetableBuilder = ({ onNavigate, onBack }) => {
     }
   };
 
+  // Launch any interactive in-app activity
+  const handleLaunchActivity = (activity) => {
+    if (!onNavigate) return;
+    if (activity.type === 'quiz' || activity.type === 'exam_c3' || activity.type === 'exam_c4') {
+      handleLaunchQuiz(activity.id, activity.title);
+    } else if (activity.type === 'tracksheet') {
+      handleLaunchTracksheet();
+    } else if (activity.type === 'fingerprints') {
+      onNavigate({ type: 'lp_fingerprints' });
+    } else if (activity.type === 'dictionary') {
+      onNavigate({ type: 'dictionary_selector', title: 'Dictionary Quizzes' });
+    }
+  };
+
   const getCategoryClass = (cat = '') => {
     const lower = cat.toLowerCase();
     if (lower.includes('listening')) return 'listening';
@@ -571,6 +585,14 @@ const TimetableBuilder = ({ onNavigate, onBack }) => {
                           {block.practical.title}
                         </div>
 
+                        {block.resources && (
+                          <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', marginBottom: '8px' }}>
+                            <span className="sow-resource-badge-chip" style={{ margin: 0, fontSize: '0.7rem', padding: '2px 6px' }}>
+                              🎓 {(block.resources.shopResources?.length || 0) + (block.resources.freeTutorials?.length || 0)} Guru Tutorials & Packs
+                            </span>
+                          </div>
+                        )}
+
                         {/* Skills mini bar */}
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.74rem', color: '#94a3b8', marginBottom: '8px' }}>
                           <span>🎯 Skills Progress:</span>
@@ -654,6 +676,14 @@ const TimetableBuilder = ({ onNavigate, onBack }) => {
                           <strong style={{ color: '#fff', display: 'block', marginBottom: '2px' }}>Studio Mission:</strong>
                           {block.practical.title}
                         </div>
+
+                        {block.resources && (
+                          <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', marginBottom: '8px' }}>
+                            <span className="sow-resource-badge-chip" style={{ margin: 0, fontSize: '0.7rem', padding: '2px 6px' }}>
+                              🎓 {(block.resources.shopResources?.length || 0) + (block.resources.freeTutorials?.length || 0)} Guru Tutorials & Packs
+                            </span>
+                          </div>
+                        )}
 
                         {/* Skills mini bar */}
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.74rem', color: '#94a3b8', marginBottom: '8px' }}>
@@ -829,6 +859,11 @@ const TimetableBuilder = ({ onNavigate, onBack }) => {
                       <div style={{ color: '#fbbf24', fontSize: '0.78rem' }}>
                         📱 MTG App: {block.appLinks.mtgQuizTitle}
                       </div>
+                      {block.resources && (
+                        <div className="sow-resource-badge-chip">
+                          <span>🎓</span> {(block.resources.shopResources?.length || 0) + (block.resources.freeTutorials?.length || 0)} MTG Tutorials & Multitracks
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -1080,6 +1115,119 @@ const TimetableBuilder = ({ onNavigate, onBack }) => {
                   ))}
                 </div>
               </div>
+
+              {/* MusicTechGuru Master Curriculum & Resource Locker */}
+              {selectedBlock.resources && (
+                <div className="dossier-section sow-resource-locker">
+                  <h4 className="dossier-section-title" style={{ color: '#38bdf8' }}>
+                    <span>🎓</span> MusicTechGuru Master Resource Locker
+                  </h4>
+                  
+                  {/* In-App Direct Launchers */}
+                  {selectedBlock.resources.inAppActivities && selectedBlock.resources.inAppActivities.length > 0 && (
+                    <div className="sow-resource-subgroup">
+                      <div className="sow-resource-subgroup-title">
+                        <span>⚡</span> Interactive MTG In-App Tools & Exams
+                      </div>
+                      <div className="sow-inapp-grid">
+                        {selectedBlock.resources.inAppActivities.map((act, idx) => (
+                          <button
+                            key={idx}
+                            className="sow-inapp-btn"
+                            onClick={() => handleLaunchActivity(act)}
+                          >
+                            <span className="sow-inapp-icon">
+                              {act.type.includes('exam') ? '📝' : act.type === 'tracksheet' ? '🎚️' : act.type === 'fingerprints' ? '🔍' : act.type === 'dictionary' ? '📖' : '⚡'}
+                            </span>
+                            <div className="sow-inapp-info">
+                              <span className="sow-inapp-title">{act.title}</span>
+                              <span className="sow-inapp-action">{act.actionText || 'Open'} ➔</span>
+                            </div>
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Shop Multitracks & Teaching Packs */}
+                  {selectedBlock.resources.shopResources && selectedBlock.resources.shopResources.length > 0 && (
+                    <div className="sow-resource-subgroup">
+                      <div className="sow-resource-subgroup-title">
+                        <span>🛍️</span> Shop Multitrack Stems & Teaching Packs
+                      </div>
+                      <div className="sow-link-list">
+                        {selectedBlock.resources.shopResources.map((item, idx) => (
+                          <a
+                            key={idx}
+                            href={item.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="sow-resource-link shop"
+                          >
+                            <div className="sow-link-main">
+                              <span className="sow-link-tag shop">{item.tag || 'Shop'}</span>
+                              <span className="sow-link-title">{item.title}</span>
+                            </div>
+                            <span className="sow-link-ext">↗</span>
+                          </a>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Free Web Tutorials */}
+                  {selectedBlock.resources.freeTutorials && selectedBlock.resources.freeTutorials.length > 0 && (
+                    <div className="sow-resource-subgroup">
+                      <div className="sow-resource-subgroup-title">
+                        <span>🆓</span> Free Web Tutorials & Video Breakdowns
+                      </div>
+                      <div className="sow-link-list">
+                        {selectedBlock.resources.freeTutorials.map((item, idx) => (
+                          <a
+                            key={idx}
+                            href={item.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="sow-resource-link free"
+                          >
+                            <div className="sow-link-main">
+                              <span className="sow-link-tag free">{item.tag || 'Free'}</span>
+                              <span className="sow-link-title">{item.title}</span>
+                            </div>
+                            <span className="sow-link-ext">↗</span>
+                          </a>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* A-Level Guides & Spec Walkthroughs */}
+                  {selectedBlock.resources.aLevelGuides && selectedBlock.resources.aLevelGuides.length > 0 && (
+                    <div className="sow-resource-subgroup">
+                      <div className="sow-resource-subgroup-title">
+                        <span>📋</span> Specification Guides & Exam Walkthroughs
+                      </div>
+                      <div className="sow-link-list">
+                        {selectedBlock.resources.aLevelGuides.map((item, idx) => (
+                          <a
+                            key={idx}
+                            href={item.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="sow-resource-link guide"
+                          >
+                            <div className="sow-link-main">
+                              <span className="sow-link-tag guide">{item.tag || 'Guide'}</span>
+                              <span className="sow-link-title">{item.title}</span>
+                            </div>
+                            <span className="sow-link-ext">↗</span>
+                          </a>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
 
               {/* Interactive In-App Launch Actions */}
               <div className="dossier-actions">
