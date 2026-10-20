@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
+import { useUser } from '../../contexts/UserContext';
 import './Component2Guide.css';
 import {
   OVERVIEW_SPECS,
@@ -37,11 +38,13 @@ const DEFAULT_STATE = {
   ]
 };
 
-const Component2Guide = ({ onBack }) => {
+const Component2Guide = ({ onBack, embeddedInTeacher = false }) => {
+  const { userProgress, saveComponent2Progress } = useUser() || {};
   // 7 clear tabs covering every single mark scheme area & technique category
   const [activeTab, setActiveTab] = useState('overview'); // 'overview' | 'synthesis' | 'sampling' | 'effects' | 'musicality' | 'mixing' | 'workflow'
   const [techSearch, setTechSearch] = useState('');
   const [copiedId, setCopiedId] = useState(null);
+  const isInitialMount = useRef(true);
 
   const [guideState, setGuideState] = useState(() => {
     try {
@@ -52,6 +55,13 @@ const Component2Guide = ({ onBack }) => {
           ...DEFAULT_STATE,
           ...parsed,
           stimulusInfo: { ...DEFAULT_STATE.stimulusInfo, ...(parsed.stimulusInfo || {}) }
+        };
+      }
+      if (userProgress?.component2Guide) {
+        return {
+          ...DEFAULT_STATE,
+          ...userProgress.component2Guide,
+          stimulusInfo: { ...DEFAULT_STATE.stimulusInfo, ...(userProgress.component2Guide.stimulusInfo || {}) }
         };
       }
     } catch (e) {
@@ -65,6 +75,18 @@ const Component2Guide = ({ onBack }) => {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(guideState));
     } catch (e) {
       console.warn('Failed to save Component 2 guide state:', e);
+    }
+
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+      return;
+    }
+
+    if (saveComponent2Progress) {
+      const timer = setTimeout(() => {
+        saveComponent2Progress(guideState);
+      }, 700);
+      return () => clearTimeout(timer);
     }
   }, [guideState]);
 
@@ -537,9 +559,15 @@ const Component2Guide = ({ onBack }) => {
     <div className="c2-guide-container">
       {/* Top Bar */}
       <div className="c2-top-bar">
-        <button className="c2-back-btn" onClick={onBack}>
-          ← Back to Dashboard
-        </button>
+        {!embeddedInTeacher ? (
+          <button className="c2-back-btn" onClick={onBack}>
+            ← Back to Dashboard
+          </button>
+        ) : (
+          <div style={{ fontSize: '0.88rem', color: '#94a3b8', fontWeight: 600 }}>
+            🎓 Teacher Interactive Component 2 Guide & Classroom Reference
+          </div>
+        )}
         <div className="c2-top-actions">
           <button
             className="c2-action-btn"

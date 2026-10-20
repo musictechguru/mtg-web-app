@@ -303,6 +303,36 @@ export const UserProvider = ({ children }) => {
         }
     };
 
+    const saveComponent2Progress = async (c2State) => {
+        if (!currentUser) return;
+
+        const updatedProgress = {
+            ...userProgress,
+            component2Guide: {
+                ...c2State,
+                updatedAt: new Date().toISOString()
+            }
+        };
+
+        setUserProgress(updatedProgress);
+
+        if (currentUser.id === 'admin_mock_id') return;
+
+        try {
+            const { error } = await supabase
+                .from('user_progress')
+                .upsert({
+                    id: currentUser.id,
+                    progress: updatedProgress,
+                    updated_at: new Date().toISOString()
+                });
+
+            if (error) console.error("Error syncing Component 2 progress:", error);
+        } catch (err) {
+            console.error("Unexpected error syncing Component 2 progress:", err);
+        }
+    };
+
     const fetchClassProgress = async () => {
         if (!currentUser || currentUser.role !== 'teacher') return [];
 
@@ -370,6 +400,7 @@ export const UserProvider = ({ children }) => {
         saveQuizResult,
         clearProgress,
         completeCampaignNode,
+        saveComponent2Progress,
         fetchClassProgress,
         redeemInvite,
         redeemPromoCode,

@@ -439,6 +439,126 @@ const StudentProgressModal = ({ student, onClose }) => {
                             </div>
                         )}
                     </div>
+
+                    {/* Component 2: Technology-Based Composition Progress Section */}
+                    {(() => {
+                        const c2 = progress.component2Guide || null;
+                        const completedTechIds = c2?.completedTechniques ? Object.keys(c2.completedTechniques).filter(k => c2.completedTechniques[k]) : [];
+                        const synCount = completedTechIds.filter(k => k.startsWith('syn_')).length;
+                        const smpCount = completedTechIds.filter(k => k.startsWith('smp_')).length;
+                        const fxCount = completedTechIds.filter(k => k.startsWith('fx_')).length;
+                        const checkedKeys = c2?.checkedItems ? Object.keys(c2.checkedItems).filter(k => c2.checkedItems[k]) : [];
+                        const masterDone = checkedKeys.filter(k => k.startsWith('mc_')).length;
+                        const phaseDone = checkedKeys.filter(k => k.startsWith('p1_') || k.startsWith('p2_') || k.startsWith('p3_') || k.startsWith('p4_') || k.startsWith('p5_')).length;
+                        const noteEntries = c2?.techniqueNotes ? Object.entries(c2.techniqueNotes).filter(([, v]) => v && v.trim()) : [];
+                        const sampleCredits = (c2?.sampleCredits || []).filter(s => s.name || s.source);
+
+                        return (
+                            <div>
+                                <h3 style={{ 
+                                    fontSize: '1.15rem', 
+                                    fontWeight: '600', 
+                                    marginBottom: '16px',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: '8px',
+                                    color: '#f472b6'
+                                }}>
+                                    <span>🎹</span> Component 2: Technology-Based Composition Dossier
+                                </h3>
+
+                                {c2 ? (
+                                    <div style={{
+                                        background: 'rgba(236, 72, 153, 0.04)',
+                                        border: '1px solid rgba(244, 114, 182, 0.25)',
+                                        borderRadius: '14px',
+                                        padding: '20px',
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                        gap: '16px'
+                                    }}>
+                                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(170px, 1fr))', gap: '12px' }}>
+                                            <div style={{ background: 'rgba(15, 23, 42, 0.65)', padding: '12px', borderRadius: '10px', border: '1px solid rgba(255,255,255,0.08)' }}>
+                                                <div style={{ fontSize: '0.72rem', color: '#94a3b8', textTransform: 'uppercase' }}>Chosen Brief</div>
+                                                <div style={{ fontSize: '1rem', fontWeight: 800, color: '#fff', marginTop: '4px' }}>
+                                                    {c2.selectedBrief === 'brief3' ? 'Brief 3 (Topic/Stimulus)' : c2.selectedBrief === 'brief1' ? 'Brief 1 (Video)' : 'Brief 2 (Text/Song)'}
+                                                </div>
+                                            </div>
+                                            <div style={{ background: 'rgba(15, 23, 42, 0.65)', padding: '12px', borderRadius: '10px', border: '1px solid rgba(255,255,255,0.08)' }}>
+                                                <div style={{ fontSize: '0.72rem', color: '#94a3b8', textTransform: 'uppercase' }}>24 Techniques Used</div>
+                                                <div style={{ fontSize: '1rem', fontWeight: 800, color: '#38bdf8', marginTop: '4px' }}>
+                                                    {completedTechIds.length} / 24 <span style={{ fontSize: '0.78rem', color: '#94a3b8' }}>(Syn {synCount} • Smp {smpCount} • FX {fxCount})</span>
+                                                </div>
+                                            </div>
+                                            <div style={{ background: 'rgba(15, 23, 42, 0.65)', padding: '12px', borderRadius: '10px', border: '1px solid rgba(255,255,255,0.08)' }}>
+                                                <div style={{ fontSize: '0.72rem', color: '#94a3b8', textTransform: 'uppercase' }}>5-Phase Tasks</div>
+                                                <div style={{ fontSize: '1rem', fontWeight: 800, color: '#c084fc', marginTop: '4px' }}>
+                                                    {phaseDone} / 26 Completed
+                                                </div>
+                                            </div>
+                                            <div style={{ background: 'rgba(15, 23, 42, 0.65)', padding: '12px', borderRadius: '10px', border: '1px solid rgba(255,255,255,0.08)' }}>
+                                                <div style={{ fontSize: '0.72rem', color: '#94a3b8', textTransform: 'uppercase' }}>Master Submission List</div>
+                                                <div style={{ fontSize: '1rem', fontWeight: 800, color: '#34d399', marginTop: '4px' }}>
+                                                    {masterDone} / 17 Verified
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {(c2.stimulusInfo?.trackTitle || c2.stimulusInfo?.artist) && (
+                                            <div style={{ background: 'rgba(15, 23, 42, 0.65)', padding: '12px 14px', borderRadius: '10px', fontSize: '0.88rem' }}>
+                                                <strong style={{ color: '#38bdf8' }}>🎧 Stimulus Track: </strong>
+                                                {c2.stimulusInfo.trackTitle || 'Untitled'} by {c2.stimulusInfo.artist || 'Unknown'}
+                                                {c2.stimulusInfo.bpm ? ` • ${c2.stimulusInfo.bpm} BPM` : ''}
+                                                {c2.stimulusInfo.keySignature ? ` • Key: ${c2.stimulusInfo.keySignature}` : ''}
+                                                {c2.stimulusInfo.genre ? ` • Genre: ${c2.stimulusInfo.genre}` : ''}
+                                            </div>
+                                        )}
+
+                                        {noteEntries.length > 0 && (
+                                            <div style={{ background: 'rgba(15, 23, 42, 0.65)', padding: '14px', borderRadius: '10px' }}>
+                                                <div style={{ fontWeight: 700, color: '#f472b6', fontSize: '0.85rem', marginBottom: '8px', textTransform: 'uppercase' }}>
+                                                    ✍️ Student Logbook Technique Notes ({noteEntries.length} Written)
+                                                </div>
+                                                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', maxHeight: '220px', overflowY: 'auto' }}>
+                                                    {noteEntries.map(([key, val]) => (
+                                                        <div key={key} style={{ fontSize: '0.84rem', background: 'rgba(255,255,255,0.03)', padding: '8px 10px', borderRadius: '6px', borderLeft: '3px solid #38bdf8' }}>
+                                                            <strong style={{ color: '#38bdf8', textTransform: 'uppercase', marginRight: '6px' }}>[{key}]</strong>
+                                                            <span style={{ color: '#e2e8f0' }}>{val}</span>
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        )}
+
+                                        {sampleCredits.length > 0 && (
+                                            <div style={{ background: 'rgba(15, 23, 42, 0.65)', padding: '14px', borderRadius: '10px' }}>
+                                                <div style={{ fontWeight: 700, color: '#34d399', fontSize: '0.85rem', marginBottom: '8px', textTransform: 'uppercase' }}>
+                                                    🧾 Credited Samples & Performers ({sampleCredits.length})
+                                                </div>
+                                                {sampleCredits.map((sc, i) => (
+                                                    <div key={i} style={{ fontSize: '0.83rem', color: '#cbd5e1', marginBottom: '4px' }}>
+                                                        • <strong>{sc.name || 'Sample'}</strong> — Source: {sc.source || 'N/A'} ({sc.manipulation || 'No manipulation listed'}, Bars: {sc.bars || 'N/A'})
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        )}
+                                    </div>
+                                ) : (
+                                    <div style={{
+                                        padding: '20px',
+                                        background: 'rgba(255, 255, 255, 0.02)',
+                                        borderRadius: '12px',
+                                        border: '1px dashed rgba(255, 255, 255, 0.1)',
+                                        color: 'var(--text-secondary)',
+                                        textAlign: 'center',
+                                        fontSize: '0.9rem'
+                                    }}>
+                                        This student has not started ticking off their Component 2 Guide & Logbook checklist yet.
+                                    </div>
+                                )}
+                            </div>
+                        );
+                    })()}
                 </div>
 
                 {/* Footer */}
