@@ -407,6 +407,87 @@ const Dashboard = ({ onNavigate, onOpenProfile }) => {
                 </button>
             </div>
 
+            {/* Component 2 Technology-Based Composition Guide & Tick List Feature Card */}
+            <div style={{
+                background: 'linear-gradient(135deg, rgba(236, 72, 153, 0.12) 0%, rgba(139, 92, 246, 0.08) 100%)',
+                border: '1px solid rgba(244, 114, 182, 0.35)',
+                borderRadius: '16px',
+                padding: '24px',
+                marginBottom: '35px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                flexWrap: 'wrap',
+                gap: '20px',
+                boxShadow: '0 8px 24px rgba(0,0,0,0.2)'
+            }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '18px' }}>
+                    <div style={{
+                        width: '56px',
+                        height: '56px',
+                        borderRadius: '12px',
+                        background: 'linear-gradient(135deg, #ec4899, #8b5cf6)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        fontSize: '1.8rem',
+                        boxShadow: '0 4px 15px rgba(236, 72, 153, 0.4)'
+                    }}>
+                        🎹
+                    </div>
+                    <div>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px', flexWrap: 'wrap' }}>
+                            <span style={{ fontSize: '0.75rem', fontWeight: 'bold', background: 'rgba(236, 72, 153, 0.25)', color: '#f472b6', padding: '2px 8px', borderRadius: '6px' }}>
+                                PEARSON EDEXCEL (9MT0/02)
+                            </span>
+                            <span style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>
+                                60 Marks • 3:00 Duration • 6+ Parts
+                            </span>
+                            <span style={{ 
+                                fontSize: '0.75rem', 
+                                fontWeight: 'bold', 
+                                background: 'rgba(56, 189, 248, 0.2)', 
+                                color: '#38bdf8', 
+                                border: '1px solid rgba(56, 189, 248, 0.4)',
+                                padding: '2px 8px', 
+                                borderRadius: '6px'
+                            }}>
+                                ✅ INTERACTIVE TICK LISTS & LOGBOOK BUILDER
+                            </span>
+                        </div>
+                        <h3 style={{ margin: '0 0 6px 0', color: '#fff', fontSize: '1.3rem' }}>
+                            Component 2: Technology-Based Composition Guide
+                        </h3>
+                        <p style={{ margin: 0, color: 'var(--text-secondary)', fontSize: '0.92rem', maxWidth: '650px', lineHeight: '1.4' }}>
+                            Complete interactive coursework companion for Brief 2 & Brief 3. Track your 5-phase composition workflow, tick off 24 synthesis, sampling & creative FX techniques in Logic Pro X, and build examiner-ready logbook entries.
+                        </p>
+                    </div>
+                </div>
+                <button
+                    onClick={() => onNavigate({ id: 'component2_guide', type: 'component2_guide', title: 'Component 2: Composition Guide & Logbook' })}
+                    style={{
+                        background: 'linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%)',
+                        color: '#fff',
+                        border: 'none',
+                        padding: '12px 24px',
+                        borderRadius: '10px',
+                        cursor: 'pointer',
+                        fontWeight: 'bold',
+                        fontSize: '1rem',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '8px',
+                        boxShadow: '0 4px 15px rgba(236, 72, 153, 0.4)',
+                        transition: 'all 0.2s',
+                        whiteSpace: 'nowrap'
+                    }}
+                    onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.04)'}
+                    onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
+                >
+                    Open Component 2 Guide →
+                </button>
+            </div>
+
             <div id="campaign-map-section">
                 <CampaignMap onNavigate={onNavigate} />
             </div>

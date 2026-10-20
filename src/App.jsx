@@ -29,6 +29,7 @@ import component4SpopData from './data/component4_spop_exam.json';
 import PremiumLocked from './components/PremiumLocked';
 import TracksheetCreator from './components/TracksheetCreator/TracksheetCreator';
 import TimetableBuilder from './components/TimetableBuilder/TimetableBuilder';
+import Component2Guide from './components/Component2Guide/Component2Guide';
 
 import WelcomeVideoModal from './components/WelcomeVideoModal';
 import UpdatePasswordModal from './components/UpdatePasswordModal';
@@ -79,6 +80,9 @@ const MainApp = () => {
         }
         if (quizParam === 'tracksheet_creator') {
           return { type: 'tracksheet_creator', title: 'Component 1: Track Sheet & Logbook' };
+        }
+        if (quizParam === 'component2_guide' || quizParam === 'c2_guide') {
+          return { type: 'component2_guide', title: 'Component 2: Composition Guide & Logbook' };
         }
         if (quizParam === 'timetable_builder' || quizParam === 'timetable' || quizParam === 'scheme_of_work') {
           return { type: 'timetable_builder', title: '16-Block Timetable & Scheme of Work' };
@@ -312,7 +316,7 @@ const MainApp = () => {
           <button
             className={`nav-item ${activeItem?.type === 'tracksheet_creator' ? 'active' : ''}`}
             onClick={() => {
-              handleItemSelectWrapper({ type: 'tracksheet_creator', title: 'Component 1: Track Sheet & Logbook' });
+              handleItemSelectWrapper({ id: 'tracksheet_creator', type: 'tracksheet_creator', title: 'Component 1: Track Sheet & Logbook' });
             }}
             style={{ 
               marginBottom: '10px', 
@@ -326,9 +330,28 @@ const MainApp = () => {
           </button>
 
           <button
+            className={`nav-item ${activeItem?.type === 'component2_guide' ? 'active' : ''}`}
+            onClick={() => {
+              handleItemSelectWrapper({ id: 'component2_guide', type: 'component2_guide', title: 'Component 2: Composition Guide & Logbook' });
+            }}
+            style={{ 
+              marginBottom: '10px', 
+              fontWeight: 'bold', 
+              color: '#f472b6', 
+              border: '1px solid rgba(244, 114, 182, 0.45)',
+              background: activeItem?.type === 'component2_guide' ? 'rgba(244, 114, 182, 0.12)' : 'transparent',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px'
+            }}
+          >
+            <span>🎹</span> Component 2 Guide & Tick List
+          </button>
+
+          <button
             className={`nav-item ${activeItem?.type === 'timetable_builder' ? 'active' : ''}`}
             onClick={() => {
-              handleItemSelectWrapper({ type: 'timetable_builder', title: '16-Block Timetable & Scheme of Work' });
+              handleItemSelectWrapper({ id: 'timetable_builder', type: 'timetable_builder', title: '16-Block Timetable & Scheme of Work' });
             }}
             style={{ 
               marginBottom: '20px', 
@@ -452,6 +475,8 @@ const MainApp = () => {
             <TimetableBuilder onNavigate={handleItemSelectWrapper} onBack={goToDashboardWrapper} />
           ) : activeItem.type === 'tracksheet_creator' ? (
             <TracksheetCreator onBack={goToDashboardWrapper} />
+          ) : activeItem.type === 'component2_guide' ? (
+            <Component2Guide onBack={goToDashboardWrapper} />
           ) : activeItem.type === 'lp_quiz' ? (
             <QuizPlayer quiz={activeItem} onFinish={goToDashboardWrapper} />
           ) : activeItem.type === 'lp_activity' ? (
