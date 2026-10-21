@@ -14,6 +14,7 @@ import DossierView from './DossierView';
 import LogbookDossierView from './LogbookDossierView';
 import ProducerDossierView from './ProducerDossierView';
 import VideoCompanionModal from './VideoCompanionModal';
+import Component1ChecklistPanel from './Component1ChecklistPanel';
 import { parseHistoricalTracksheet } from './tracksheetParser';
 import { parseLogbook } from './logbookParser';
 import { parseProducerRecreation } from './producerParser';
@@ -208,7 +209,7 @@ async function getArchiveData() {
   return [];
 }
 
-export default function TracksheetCreator({ onBack }) {
+export default function TracksheetCreator({ onBack, initialMode = 'generator' }) {
   const [trackName, setTrackName] = useState('');
   const [artistName, setArtistName] = useState('');
   const [loading, setLoading] = useState(false);
@@ -714,6 +715,13 @@ export default function TracksheetCreator({ onBack }) {
   const [videoCompanionOpen, setVideoCompanionOpen] = useState(false);
   const [videoCompanionTrack, setVideoCompanionTrack] = useState(null);
 
+  // Top-level separation between Track Sheet Creator ('generator') and C1 Tick List ('checklist')
+  const [c1ViewMode, setC1ViewMode] = useState(initialMode === 'checklist' ? 'checklist' : 'generator');
+
+  useEffect(() => {
+    setC1ViewMode(initialMode === 'checklist' ? 'checklist' : 'generator');
+  }, [initialMode]);
+
   const handleOpenVideoCompanion = (customTrack = null) => {
     if (customTrack) {
       setVideoCompanionTrack(customTrack);
@@ -747,14 +755,30 @@ export default function TracksheetCreator({ onBack }) {
           <span className="exam-badge-tag">
             PEARSON EDEXCEL (9MT0/01)
           </span>
-          <button 
-            onClick={() => setHistoryOpen(true)}
+          <button
+            type="button"
+            onClick={() => setC1ViewMode(prev => prev === 'checklist' ? 'generator' : 'checklist')}
             className="btn-history-pill"
-            title="Browse Saved Tracksheets"
+            style={{
+              borderColor: c1ViewMode === 'checklist' ? 'rgba(168, 85, 247, 0.6)' : 'rgba(16, 185, 129, 0.55)',
+              background: c1ViewMode === 'checklist' ? 'rgba(168, 85, 247, 0.18)' : 'rgba(16, 185, 129, 0.16)',
+              color: c1ViewMode === 'checklist' ? '#E9D5FF' : '#34D399'
+            }}
+            title="Switch between Track Sheet Creator and C1 Tick List"
           >
-            <History size={15} />
-            <span>Library {history.length || 346}</span>
+            {c1ViewMode === 'checklist' ? <Disc size={15} /> : <Check size={15} />}
+            <span>{c1ViewMode === 'checklist' ? 'Switch to Track Sheet Creator' : 'Open C1 Tick List & Mark Scheme'}</span>
           </button>
+          {c1ViewMode === 'generator' && (
+            <button 
+              onClick={() => setHistoryOpen(true)}
+              className="btn-history-pill"
+              title="Browse Saved Tracksheets"
+            >
+              <History size={15} />
+              <span>Library {history.length || 346}</span>
+            </button>
+          )}
         </div>
       </div>
 
@@ -771,12 +795,83 @@ export default function TracksheetCreator({ onBack }) {
             }}
           />
         </div>
-        <h1 style={{ cursor: 'default', userSelect: 'none' }}>Component 1 Track Sheet &amp; Logbook</h1>
-        <p className="subtitle">Pearson Edexcel A-Level Music Technology (9MT0/01) Recording Solutions &amp; Multi-Track Intelligence</p>
+        <h1 style={{ cursor: 'default', userSelect: 'none' }}>
+          {c1ViewMode === 'checklist'
+            ? 'Component 1 Recording Guide & Tick List'
+            : 'Component 1 Track Sheet & Logbook'}
+        </h1>
+        <p className="subtitle">
+          {c1ViewMode === 'checklist'
+            ? 'Pearson Edexcel (9MT0/01) • 60-Mark Assessment Grids, Separated Vocals, Glyn Johns Drums, DI Amp Sims & MIDI Keys'
+            : 'Pearson Edexcel A-Level Music Technology (9MT0/01) Recording Solutions & Multi-Track Intelligence'}
+        </p>
+
+        {/* Clean Top-Level Mode Switcher separating the two tools */}
+        <div style={{
+          display: 'inline-flex',
+          gap: '6px',
+          padding: '5px',
+          borderRadius: '12px',
+          background: 'rgba(15, 23, 42, 0.8)',
+          border: '1px solid rgba(255, 255, 255, 0.1)',
+          marginTop: '14px'
+        }}>
+          <button
+            type="button"
+            onClick={() => setC1ViewMode('generator')}
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '7px',
+              padding: '8px 16px',
+              borderRadius: '8px',
+              border: c1ViewMode === 'generator' ? '1px solid rgba(168, 85, 247, 0.6)' : '1px solid transparent',
+              background: c1ViewMode === 'generator'
+                ? 'linear-gradient(135deg, rgba(168, 85, 247, 0.35), rgba(124, 58, 237, 0.25))'
+                : 'transparent',
+              color: c1ViewMode === 'generator' ? '#fff' : '#94A3B8',
+              fontSize: '0.82rem',
+              fontWeight: 700,
+              cursor: 'pointer'
+            }}
+          >
+            <Sliders size={15} /> Track Sheet &amp; Logbook Creator
+          </button>
+          <button
+            type="button"
+            onClick={() => setC1ViewMode('checklist')}
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '7px',
+              padding: '8px 16px',
+              borderRadius: '8px',
+              border: c1ViewMode === 'checklist' ? '1px solid rgba(16, 185, 129, 0.6)' : '1px solid transparent',
+              background: c1ViewMode === 'checklist'
+                ? 'linear-gradient(135deg, rgba(16, 185, 129, 0.3), rgba(5, 150, 105, 0.2))'
+                : 'transparent',
+              color: c1ViewMode === 'checklist' ? '#fff' : '#94A3B8',
+              fontSize: '0.82rem',
+              fontWeight: 700,
+              cursor: 'pointer'
+            }}
+          >
+            <Check size={15} /> C1 Recording Guide &amp; Tick List (60m)
+          </button>
+        </div>
       </header>
 
       <main>
-        {/* Search & Generator Hero Card */}
+        {c1ViewMode === 'checklist' ? (
+          <Component1ChecklistPanel
+            activeTrackName={trackName}
+            activeArtistName={artistName}
+            activeDaw={selectedDaw}
+            onSwitchToTracksheet={() => setC1ViewMode('generator')}
+          />
+        ) : (
+          <>
+            {/* Search & Generator Hero Card */}
         <div className="glass-panel tracksheet-search-panel">
           <form onSubmit={handleGenerate}>
             <div className="input-group">
@@ -1315,7 +1410,17 @@ export default function TracksheetCreator({ onBack }) {
               ) : (
                 currentC1 ? (
                   tracksheetLayout === 'dossier' && parsedLogbookData ? (
-                    <LogbookDossierView data={parsedLogbookData} daw={currentC1.daw || selectedDaw} tracksheetData={parsedTracksheetData} />
+                    <LogbookDossierView
+                      data={parsedLogbookData}
+                      daw={currentC1.daw || selectedDaw}
+                      tracksheetData={parsedTracksheetData}
+                      onOpenChecklistHub={() => {
+                        setC1ChecklistOpen(true);
+                        setTimeout(() => {
+                          checklistHubRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }, 80);
+                      }}
+                    />
                   ) : (
                     <ReactMarkdown remarkPlugins={[remarkGfm]}>
                       {normalizeMarkdown(currentC1.content)}
@@ -1407,6 +1512,8 @@ export default function TracksheetCreator({ onBack }) {
               ))}
             </div>
           </div>
+        )}
+          </>
         )}
       </main>
 

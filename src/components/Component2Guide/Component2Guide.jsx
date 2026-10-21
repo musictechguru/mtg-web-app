@@ -16,6 +16,7 @@ import {
   MASTER_CHECKLIST,
   RESOURCE_LINKS
 } from './component2Data';
+import StudentMarkSchemeModal from '../StudentMarkSchemeModal';
 
 const STORAGE_KEY = 'mtg_component2_guide_state_v2';
 
@@ -44,6 +45,7 @@ const Component2Guide = ({ onBack, embeddedInTeacher = false }) => {
   const [activeTab, setActiveTab] = useState('overview'); // 'overview' | 'synthesis' | 'sampling' | 'effects' | 'musicality' | 'mixing' | 'workflow'
   const [techSearch, setTechSearch] = useState('');
   const [copiedId, setCopiedId] = useState(null);
+  const [showMarkSchemeModal, setShowMarkSchemeModal] = useState(false);
   const isInitialMount = useRef(true);
 
   const [guideState, setGuideState] = useState(() => {
@@ -79,13 +81,17 @@ const Component2Guide = ({ onBack, embeddedInTeacher = false }) => {
 
     if (isInitialMount.current) {
       isInitialMount.current = false;
+      // If we have local state that hasn't been synced to userProgress yet, sync it now
+      if (saveComponent2Progress && !userProgress?.component2Guide) {
+        saveComponent2Progress(guideState);
+      }
       return;
     }
 
     if (saveComponent2Progress) {
       const timer = setTimeout(() => {
         saveComponent2Progress(guideState);
-      }, 700);
+      }, 250);
       return () => clearTimeout(timer);
     }
   }, [guideState]);
@@ -96,23 +102,31 @@ const Component2Guide = ({ onBack, embeddedInTeacher = false }) => {
   };
 
   const toggleCheckItem = (id) => {
-    setGuideState(prev => ({
-      ...prev,
-      checkedItems: {
-        ...prev.checkedItems,
-        [id]: !prev.checkedItems[id]
-      }
-    }));
+    setGuideState(prev => {
+      const next = {
+        ...prev,
+        checkedItems: {
+          ...prev.checkedItems,
+          [id]: !prev.checkedItems[id]
+        }
+      };
+      if (saveComponent2Progress) saveComponent2Progress(next);
+      return next;
+    });
   };
 
   const toggleTechnique = (id) => {
-    setGuideState(prev => ({
-      ...prev,
-      completedTechniques: {
-        ...prev.completedTechniques,
-        [id]: !prev.completedTechniques[id]
-      }
-    }));
+    setGuideState(prev => {
+      const next = {
+        ...prev,
+        completedTechniques: {
+          ...prev.completedTechniques,
+          [id]: !prev.completedTechniques[id]
+        }
+      };
+      if (saveComponent2Progress) saveComponent2Progress(next);
+      return next;
+    });
   };
 
   const updateTechniqueNote = (id, text) => {
@@ -571,6 +585,13 @@ const Component2Guide = ({ onBack, embeddedInTeacher = false }) => {
         <div className="c2-top-actions">
           <button
             className="c2-action-btn"
+            style={{ background: 'linear-gradient(135deg, #0284c7 0%, #0369a1 100%)', color: '#fff', border: 'none' }}
+            onClick={() => setShowMarkSchemeModal(true)}
+          >
+            🏆 Mark Scheme Tick List (60m)
+          </button>
+          <button
+            className="c2-action-btn"
             onClick={() => copyTextToClipboard(buildFullLogbookExport(), 'full_export')}
           >
             {copiedId === 'full_export' ? '✅ Copied Full Logbook Dossier!' : '📋 Copy Full Logbook Dossier'}
@@ -636,13 +657,56 @@ const Component2Guide = ({ onBack, embeddedInTeacher = false }) => {
           </div>
         </div>
 
-        <div className="c2-progress-area">
+        <div className="c2-progress-area" style={{ paddingBottom: '22px' }}>
           <div className="c2-progress-labels">
             <span style={{ color: '#94a3b8' }}>Overall Component 2 Coursework & Technique Completion</span>
             <span style={{ color: '#34d399' }}>{progressStats.overallPercent}% Complete</span>
           </div>
-          <div className="c2-progress-track">
+          <div className="c2-progress-track" style={{ position: 'relative', overflow: 'visible' }}>
             <div className="c2-progress-fill" style={{ width: `${progressStats.overallPercent}%` }} />
+            {[
+              { pct: 0, label: 'Brief' },
+              { pct: 20, label: 'P1: Setup' },
+              { pct: 40, label: 'P2: Parts' },
+              { pct: 60, label: 'P3: AG1–3 Tech' },
+              { pct: 80, label: 'P4: AG4 Mix' },
+              { pct: 100, label: 'P5: Submit' }
+            ].map(mk => {
+              const reached = progressStats.overallPercent >= mk.pct;
+              return (
+                <div
+                  key={mk.pct}
+                  style={{
+                    position: 'absolute',
+                    left: `${mk.pct}%`,
+                    top: '50%',
+                    transform: 'translate(-50%, -50%)',
+                    zIndex: 2
+                  }}
+                >
+                  <div style={{
+                    width: '12px',
+                    height: '12px',
+                    borderRadius: '50%',
+                    background: reached ? '#10b981' : '#1e293b',
+                    border: `2px solid ${reached ? '#fff' : '#64748b'}`,
+                    boxShadow: reached ? '0 0 8px rgba(16, 185, 129, 0.8)' : 'none'
+                  }} />
+                  <div style={{
+                    position: 'absolute',
+                    top: '16px',
+                    left: '50%',
+                    transform: mk.pct === 0 ? 'translateX(0%)' : mk.pct === 100 ? 'translateX(-100%)' : 'translateX(-50%)',
+                    fontSize: '0.68rem',
+                    fontWeight: 800,
+                    color: reached ? '#34d399' : '#64748b',
+                    whiteSpace: 'nowrap'
+                  }}>
+                    {mk.label}
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>
@@ -1636,6 +1700,13 @@ const Component2Guide = ({ onBack, embeddedInTeacher = false }) => {
           </div>
         </div>
       )}
+
+      {/* Official 60-Mark Scheme Tick List Modal */}
+      <StudentMarkSchemeModal
+        isOpen={showMarkSchemeModal}
+        onClose={() => setShowMarkSchemeModal(false)}
+        initialComponent="c2"
+      />
     </div>
   );
 };

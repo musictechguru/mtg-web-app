@@ -1,9 +1,11 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useUser } from '../contexts/UserContext';
 import GuruTracker from './GuruTracker';
 import WelcomeVideoModal from './WelcomeVideoModal';
 import CampaignMap from './CampaignMap';
 import campaignData from '../data/campaign_route.json';
+import StudentMarkSchemeModal from './StudentMarkSchemeModal';
+import { getGradeFromPercentage } from './teacherComponentMetrics';
 
 console.log('GuruTracker import:', GuruTracker);
 
@@ -11,6 +13,22 @@ const Dashboard = ({ onNavigate, onOpenProfile }) => {
     const { currentUser, userProgress, clearProgress, logout } = useUser();
     const [showWelcomeModal, setShowWelcomeModal] = React.useState(false);
     const [showProgress, setShowProgress] = React.useState(false);
+    const [markSchemeModal, setMarkSchemeModal] = useState({ open: false, component: 'c1' });
+
+    // Coursework 60-mark metrics for Component 1 & 2
+    const courseworkStats = useMemo(() => {
+        const c1Ticks = userProgress?.component1Guide?.markSchemeTicks || {};
+        const c1Marks = Object.values(c1Ticks).filter(Boolean).length * 4;
+        const c1Pct = Math.min(100, Math.round((c1Marks / 60) * 100));
+        const c1Grade = getGradeFromPercentage(c1Pct);
+
+        const c2Ticks = userProgress?.component2Guide?.markSchemeTicks || {};
+        const c2Marks = Object.values(c2Ticks).filter(Boolean).length * 4;
+        const c2Pct = Math.min(100, Math.round((c2Marks / 60) * 100));
+        const c2Grade = getGradeFromPercentage(c2Pct);
+
+        return { c1Marks, c1Pct, c1Grade, c2Marks, c2Pct, c2Grade };
+    }, [userProgress]);
 
     // Calculate Global Guru Progress using Campaign Nodes
     const guruStats = useMemo(() => {
@@ -382,29 +400,76 @@ const Dashboard = ({ onNavigate, onOpenProfile }) => {
                         </p>
                     </div>
                 </div>
-                <button
-                    onClick={() => onNavigate({ type: 'tracksheet_creator', title: 'Component 1: Track Sheet & Logbook' })}
-                    style={{
-                        background: 'linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%)',
-                        color: '#fff',
-                        border: 'none',
-                        padding: '12px 24px',
-                        borderRadius: '10px',
-                        cursor: 'pointer',
-                        fontWeight: 'bold',
-                        fontSize: '1rem',
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '8px',
-                        boxShadow: '0 4px 15px rgba(139, 92, 246, 0.4)',
-                        transition: 'all 0.2s',
-                        whiteSpace: 'nowrap'
-                    }}
-                    onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.04)'}
-                    onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
-                >
-                    Open Track Sheet Creator →
-                </button>
+                <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+                    <button
+                        onClick={() => setMarkSchemeModal({ open: true, component: 'c1' })}
+                        style={{
+                            background: 'linear-gradient(135deg, #0284c7 0%, #0369a1 100%)',
+                            color: '#fff',
+                            border: 'none',
+                            padding: '12px 20px',
+                            borderRadius: '10px',
+                            cursor: 'pointer',
+                            fontWeight: 'bold',
+                            fontSize: '0.95rem',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '8px',
+                            boxShadow: '0 4px 15px rgba(2, 132, 199, 0.4)',
+                            transition: 'all 0.2s',
+                            whiteSpace: 'nowrap'
+                        }}
+                        onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.03)'}
+                        onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
+                    >
+                        🏆 Mark Scheme Tick List ({courseworkStats.c1Marks}/60m) →
+                    </button>
+                    <button
+                        onClick={() => onNavigate({ id: 'tracksheet_creator', type: 'tracksheet_creator', title: 'Component 1: Track Sheet & Logbook' })}
+                        style={{
+                            background: 'linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%)',
+                            color: '#fff',
+                            border: 'none',
+                            padding: '12px 20px',
+                            borderRadius: '10px',
+                            cursor: 'pointer',
+                            fontWeight: 'bold',
+                            fontSize: '0.95rem',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '8px',
+                            boxShadow: '0 4px 15px rgba(139, 92, 246, 0.4)',
+                            transition: 'all 0.2s',
+                            whiteSpace: 'nowrap'
+                        }}
+                        onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.03)'}
+                        onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
+                    >
+                        🎚️ Track Sheet Creator →
+                    </button>
+                    <button
+                        onClick={() => onNavigate({ id: 'component1_guide', type: 'component1_guide', title: 'Component 1: Recording Guide & Tick List' })}
+                        style={{
+                            background: 'rgba(16, 185, 129, 0.16)',
+                            color: '#6ee7b7',
+                            border: '1px solid rgba(16, 185, 129, 0.45)',
+                            padding: '12px 20px',
+                            borderRadius: '10px',
+                            cursor: 'pointer',
+                            fontWeight: 'bold',
+                            fontSize: '0.95rem',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '8px',
+                            transition: 'all 0.2s',
+                            whiteSpace: 'nowrap'
+                        }}
+                        onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.03)'}
+                        onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
+                    >
+                        ✅ C1 Guide &amp; Tick List →
+                    </button>
+                </div>
             </div>
 
             {/* Component 2 Technology-Based Composition Guide & Tick List Feature Card */}
@@ -452,7 +517,7 @@ const Dashboard = ({ onNavigate, onOpenProfile }) => {
                                 padding: '2px 8px', 
                                 borderRadius: '6px'
                             }}>
-                                ✅ INTERACTIVE TICK LISTS & LOGBOOK BUILDER
+                                🏆 {courseworkStats.c2Marks} / 60 MARKS ({courseworkStats.c2Pct}% • GRADE {courseworkStats.c2Grade.grade})
                             </span>
                         </div>
                         <h3 style={{ margin: '0 0 6px 0', color: '#fff', fontSize: '1.3rem' }}>
@@ -463,29 +528,54 @@ const Dashboard = ({ onNavigate, onOpenProfile }) => {
                         </p>
                     </div>
                 </div>
-                <button
-                    onClick={() => onNavigate({ id: 'component2_guide', type: 'component2_guide', title: 'Component 2: Composition Guide & Logbook' })}
-                    style={{
-                        background: 'linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%)',
-                        color: '#fff',
-                        border: 'none',
-                        padding: '12px 24px',
-                        borderRadius: '10px',
-                        cursor: 'pointer',
-                        fontWeight: 'bold',
-                        fontSize: '1rem',
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '8px',
-                        boxShadow: '0 4px 15px rgba(236, 72, 153, 0.4)',
-                        transition: 'all 0.2s',
-                        whiteSpace: 'nowrap'
-                    }}
-                    onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.04)'}
-                    onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
-                >
-                    Open Component 2 Guide →
-                </button>
+                <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+                    <button
+                        onClick={() => setMarkSchemeModal({ open: true, component: 'c2' })}
+                        style={{
+                            background: 'linear-gradient(135deg, #0284c7 0%, #0369a1 100%)',
+                            color: '#fff',
+                            border: 'none',
+                            padding: '12px 20px',
+                            borderRadius: '10px',
+                            cursor: 'pointer',
+                            fontWeight: 'bold',
+                            fontSize: '0.95rem',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '8px',
+                            boxShadow: '0 4px 15px rgba(2, 132, 199, 0.4)',
+                            transition: 'all 0.2s',
+                            whiteSpace: 'nowrap'
+                        }}
+                        onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.03)'}
+                        onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
+                    >
+                        🏆 Mark Scheme Tick List ({courseworkStats.c2Marks}/60m) →
+                    </button>
+                    <button
+                        onClick={() => onNavigate({ id: 'component2_guide', type: 'component2_guide', title: 'Component 2: Composition Guide & Logbook' })}
+                        style={{
+                            background: 'linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%)',
+                            color: '#fff',
+                            border: 'none',
+                            padding: '12px 24px',
+                            borderRadius: '10px',
+                            cursor: 'pointer',
+                            fontWeight: 'bold',
+                            fontSize: '1rem',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '8px',
+                            boxShadow: '0 4px 15px rgba(236, 72, 153, 0.4)',
+                            transition: 'all 0.2s',
+                            whiteSpace: 'nowrap'
+                        }}
+                        onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.04)'}
+                        onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
+                    >
+                        Open Component 2 Guide →
+                    </button>
+                </div>
             </div>
 
             <div id="campaign-map-section">
@@ -594,6 +684,13 @@ const Dashboard = ({ onNavigate, onOpenProfile }) => {
             {showWelcomeModal && (
                 <WelcomeVideoModal onClose={() => setShowWelcomeModal(false)} />
             )}
+
+            {/* Coursework Mark Scheme Points Interactive Modal */}
+            <StudentMarkSchemeModal
+                isOpen={markSchemeModal.open}
+                initialComponent={markSchemeModal.component}
+                onClose={() => setMarkSchemeModal({ open: false, component: 'c1' })}
+            />
         </div>
     );
 };

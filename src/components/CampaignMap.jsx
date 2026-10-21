@@ -119,6 +119,32 @@ const CampaignMap = ({ onNavigate }) => {
             }
 
             targetItem = { type: examType, id: examId, title: node.title, campaignNodeId: node.id };
+        } else if (node.type === 'roulette') {
+            // Russian Roulette Mega Quiz: gather diverse questions across all stages
+            const pool = [];
+            (courseData.sections || []).forEach(section => {
+                (section.items || []).forEach(item => {
+                    if (Array.isArray(item.questions) && item.questions.length > 0) {
+                        item.questions.forEach(q => {
+                            if (q.answers || q.correct_order || q.audio_src || q.audio_a || q.targetNumber || q.hotspots || q.options) {
+                                pool.push({ ...q, sourceQuiz: item.title });
+                            }
+                        });
+                    }
+                });
+            });
+
+            // Randomize and select 25 challenging questions
+            const selected = [...pool].sort(() => Math.random() - 0.5).slice(0, 25);
+
+            targetItem = {
+                type: 'lp_quiz',
+                id: 'russian_roulette_mega_quiz',
+                title: 'Russian Roulette: Mega Quiz',
+                campaignNodeId: node.id,
+                randomise: false,
+                questions: selected
+            };
         }
 
         if (targetItem) {

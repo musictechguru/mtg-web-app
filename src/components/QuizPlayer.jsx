@@ -12,6 +12,8 @@ import GraphDrawingQuiz from './InteractiveQuizzes/GraphDrawingQuiz';
 import PianoRollQuiz from './InteractiveQuizzes/PianoRollQuiz';
 import TimelineQuiz from './InteractiveQuizzes/TimelineQuiz';
 import MidiPracticalQuiz from './InteractiveQuizzes/MidiPracticalQuiz';
+import PanningQuiz from './InteractiveQuizzes/PanningQuiz';
+import SignalFlowLabelQuiz from './InteractiveQuizzes/SignalFlowLabelQuiz';
 
 const isDev = Boolean(
     import.meta.env.DEV ||
@@ -1137,6 +1139,21 @@ const QuizPlayer = ({ quiz, onFinish }) => {
                                 targetMin={currentQuestion.target_min}
                                 targetMax={currentQuestion.target_max}
                                 unit={currentQuestion.unit}
+                                onResult={handleInteractiveResult}
+                            />
+                        ) : currentQuestion.type === 'panning' ? (
+                            <PanningQuiz
+                                key={currentQuestionIndex}
+                                question={currentQuestion}
+                                examMode={false}
+                                onResult={handleInteractiveResult}
+                            />
+                        ) : (currentQuestion.type === 'signal-flow-label' || currentQuestion.type === 'signal_flow_label') ? (
+                            <SignalFlowLabelQuiz
+                                key={currentQuestionIndex}
+                                flowSteps={currentQuestion.flowSteps || []}
+                                terms={currentQuestion.terms || []}
+                                correctAnswers={currentQuestion.correctAnswers || {}}
                                 onResult={handleInteractiveResult}
                             />
                         ) : (

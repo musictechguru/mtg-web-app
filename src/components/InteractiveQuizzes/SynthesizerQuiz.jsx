@@ -452,10 +452,11 @@ export default function SynthesizerQuiz({ quiz, onExit }) {
   // Save quiz result
   const userContext = useUser();
   const saveQuizResult = userContext ? userContext.saveQuizResult : null;
+  const completeCampaignNode = userContext ? userContext.completeCampaignNode : null;
   const resultsSavedRef = useRef(false);
 
   useEffect(() => {
-    if (quizComplete && saveQuizResult && !resultsSavedRef.current) {
+    if (quizComplete && !resultsSavedRef.current) {
       resultsSavedRef.current = true;
 
       const percentage = Math.round((score / questions.length) * 100);
@@ -465,9 +466,14 @@ export default function SynthesizerQuiz({ quiz, onExit }) {
       else if (percentage >= 60) grade = 'C';
       else if (percentage >= 50) grade = 'D';
 
-      saveQuizResult(quiz?.title || "Topic 34: Synthesizer Fundamentals", score, questions.length, grade);
+      if (saveQuizResult) {
+        saveQuizResult(quiz?.title || "Practical Quiz 15: Synthesizer Fundamentals", score, questions.length, grade);
+      }
+      if (quiz?.campaignNodeId && completeCampaignNode) {
+        completeCampaignNode(quiz.campaignNodeId);
+      }
     }
-  }, [quizComplete, score, questions.length, saveQuizResult, quiz?.title]);
+  }, [quizComplete, score, questions.length, saveQuizResult, completeCampaignNode, quiz?.title, quiz?.campaignNodeId]);
 
   const playSound = (params, isTarget = false) => {
     const ctx = audioContextRef.current;

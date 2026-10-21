@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor, useSensors, useDraggable, useDroppable } from '@dnd-kit/core';
 import { arrayMove, SortableContext, sortableKeyboardCoordinates, verticalListSortingStrategy, useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
@@ -104,13 +104,6 @@ const Component3ExamPlayer = ({ examData, onExit }) => {
     const [examFinished, setExamFinished] = useState(false);
     const [shuffledOptions, setShuffledOptions] = useState({});
 
-    // Trigger campaign map progression when exam finishes
-    useEffect(() => {
-        if (examFinished && examData.campaignNodeId && completeCampaignNode) {
-            // For mock exams, finishing is enough to unlock next node
-            completeCampaignNode(examData.campaignNodeId);
-        }
-    }, [examFinished, examData.campaignNodeId, completeCampaignNode]);
     const [timeRemaining, setTimeRemaining] = useState(60 * 60); // 60 minutes in seconds
     const [timerActive, setTimerActive] = useState(false);
     const [timerStarted, setTimerStarted] = useState(false); // Track if timer has been started at least once
@@ -408,6 +401,26 @@ const Component3ExamPlayer = ({ examData, onExit }) => {
 
         return { totalScore, earnedScore, percentage, grade, sectionBreakdown };
     }, [answers, manualScores, sections]);
+
+    const examSavedRef = useRef(false);
+
+    // Save exam result to user history / TeacherDashboard and complete campaign node
+    useEffect(() => {
+        if (examFinished && !examSavedRef.current) {
+            examSavedRef.current = true;
+            if (saveQuizResult) {
+                saveQuizResult(examData.title, resultStats.earnedScore, resultStats.totalScore, resultStats.grade);
+            }
+            if (examData.campaignNodeId && completeCampaignNode) {
+                completeCampaignNode(examData.campaignNodeId);
+            }
+        }
+    }, [examFinished, examData.title, examData.campaignNodeId, resultStats, saveQuizResult, completeCampaignNode]);
+
+    // Reset saved ref if exam changes
+    useEffect(() => {
+        examSavedRef.current = false;
+    }, [examData]);
 
 
     // --- Handlers ---

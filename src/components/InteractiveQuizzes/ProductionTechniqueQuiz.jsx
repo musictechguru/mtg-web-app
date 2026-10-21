@@ -126,10 +126,11 @@ const ProductionTechniqueQuiz = ({ quiz, onExit }) => {
 
     const userContext = useUser();
     const saveQuizResult = userContext ? userContext.saveQuizResult : null;
+    const completeCampaignNode = userContext ? userContext.completeCampaignNode : null;
     const resultsSavedRef = useRef(false);
 
     useEffect(() => {
-        if (quizFinished && saveQuizResult && !resultsSavedRef.current) {
+        if (quizFinished && !resultsSavedRef.current) {
             resultsSavedRef.current = true;
             const percentage = Math.round((score / quizData.length) * 100);
             let grade = 'U';
@@ -138,9 +139,14 @@ const ProductionTechniqueQuiz = ({ quiz, onExit }) => {
             else if (percentage >= 60) grade = 'C';
             else if (percentage >= 50) grade = 'D';
 
-            saveQuizResult(quiz?.title || "Practical Quiz 17: EDM Production Techniques", score, quizData.length, grade);
+            if (saveQuizResult) {
+                saveQuizResult(quiz?.title || "Practical Quiz 17: EDM Production Techniques", score, quizData.length, grade);
+            }
+            if (quiz?.campaignNodeId && completeCampaignNode) {
+                completeCampaignNode(quiz.campaignNodeId);
+            }
         }
-    }, [quizFinished, score, saveQuizResult, quiz?.title]);
+    }, [quizFinished, score, saveQuizResult, completeCampaignNode, quiz?.title, quiz?.campaignNodeId]);
 
     const audioContextRef = useRef(null);
     const activeSources = useRef([]);

@@ -49,7 +49,7 @@ function DroppableZone({ id, cx, cy, radius, showHint }) {
     return <div ref={setNodeRef} style={style} />;
 }
 
-export default function PanningQuiz({ question, initialAnswers, onAnswersChange, examMode, showAnswers }) {
+export default function PanningQuiz({ question, initialAnswers, onAnswersChange, examMode, showAnswers, onResult }) {
     // Determine dimensions
     const containerWidth = 600;
     const radius = 250;
@@ -68,7 +68,9 @@ export default function PanningQuiz({ question, initialAnswers, onAnswersChange,
         } else {
             setElementPositions({});
         }
-    }, [initialAnswers]);
+        setSubmitted(false);
+        setFeedback({ isCorrect: false, details: {} });
+    }, [initialAnswers, question]);
 
     const handleDragEnd = (event) => {
         const { active, over } = event;
@@ -103,6 +105,9 @@ export default function PanningQuiz({ question, initialAnswers, onAnswersChange,
 
         setFeedback({ isCorrect: allCorrect, details });
         setSubmitted(true);
+        if (onResult) {
+            onResult(allCorrect);
+        }
     };
 
     const getCoordinates = (angle, distanceRatio) => {
@@ -246,7 +251,7 @@ export default function PanningQuiz({ question, initialAnswers, onAnswersChange,
                     </span>
                     {!feedback.isCorrect && (
                         <button
-                            onClick={() => { setSubmitted(false); setFeedback({ isCorrect: false, details: {} }); }}
+                            onClick={() => { setSubmitted(false); setFeedback({ isCorrect: false, details: {} }); if (onResult) onResult(false); }}
                             style={{ marginLeft: 'auto', padding: '5px 10px', backgroundColor: 'transparent', border: '1px solid currentColor', color: 'inherit', borderRadius: '4px', cursor: 'pointer' }}
                         >
                             Retry

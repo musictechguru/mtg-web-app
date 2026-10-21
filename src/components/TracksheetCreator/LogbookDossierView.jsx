@@ -1,11 +1,11 @@
-import { useState } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { 
   Sliders, Mic2, Disc, FileText, CheckCircle2, AlertTriangle, 
   ExternalLink, Layers, Volume2, Cpu, Star, Radio, Zap, Activity,
   BarChart2, Table
 } from 'lucide-react';
 
-export default function LogbookDossierView({ data, daw }) {
+export default function LogbookDossierView({ data, daw, onOpenChecklistHub }) {
   if (!data) return null;
 
   const [activeInstIdx, setActiveInstIdx] = useState(0);
@@ -25,6 +25,61 @@ export default function LogbookDossierView({ data, daw }) {
 
   const currentDaw = daw || parsedDaw || 'Logic Pro';
   const activeInstrument = instruments && instruments.length > 0 ? instruments[activeInstIdx] : null;
+
+  const trackStorageKey = useMemo(() => {
+    const slug = `${trackName || 'default'}_${currentDaw}`.toLowerCase().replace(/[^a-z0-9]+/g, '_');
+    return `mtg_c1_dossier_ticks_${slug}`;
+  }, [trackName, currentDaw]);
+
+  const [dossierTicks, setDossierTicks] = useState(() => {
+    try {
+      const saved = localStorage.getItem(trackStorageKey);
+      return saved ? JSON.parse(saved) : {};
+    } catch {
+      return {};
+    }
+  });
+
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem(trackStorageKey);
+      setDossierTicks(saved ? JSON.parse(saved) : {});
+    } catch {
+      setDossierTicks({});
+    }
+  }, [trackStorageKey]);
+
+  const toggleDossierTick = (id) => {
+    setDossierTicks(prev => {
+      const next = { ...prev, [id]: !prev[id] };
+      try {
+        localStorage.setItem(trackStorageKey, JSON.stringify(next));
+      } catch (e) {
+        console.warn('Could not save C1 dossier tick:', e);
+      }
+      return next;
+    });
+  };
+
+  const dossierProgress = useMemo(() => {
+    const allIds = [];
+    (trackTable || []).forEach((_, idx) => allIds.push(`trk_${idx}`));
+    (instruments || []).forEach((inst, idx) => {
+      allIds.push(`inst_${idx}`);
+      (inst.channelStrip || []).forEach((__, sIdx) => allIds.push(`inst_${idx}_slot_${sIdx}`));
+    });
+    if (mixStrategy?.faderHierarchy?.length || mixStrategy?.philosophy) allIds.push('mix_faders');
+    if (mixStrategy?.frequencySeparation) allIds.push('mix_eq');
+    if (mixStrategy?.dynamicControl) allIds.push('mix_dyn');
+    if (mixStrategy?.spatialDepth) allIds.push('mix_fx');
+    if (mixStrategy?.automation) allIds.push('mix_auto');
+    (masterBus?.table || []).forEach((_, mIdx) => allIds.push(`master_${mIdx}`));
+
+    const doneCount = allIds.filter(id => dossierTicks[id]).length;
+    const totalCount = allIds.length;
+    const pct = totalCount > 0 ? Math.round((doneCount / totalCount) * 100) : 0;
+    return { doneCount, totalCount, pct };
+  }, [trackTable, instruments, mixStrategy, masterBus, dossierTicks]);
 
   const getDawColor = (dName) => {
     const d = (dName || '').toLowerCase();
@@ -517,6 +572,73 @@ export default function LogbookDossierView({ data, daw }) {
             </div>
           </div>
         </div>
+
+        {/* Interactive Track Dossier Tick List Progress Bar */}
+        {dossierProgress.totalCount > 0 && (
+          <div style={{
+            marginTop: '1.1rem',
+            paddingTop: '1rem',
+            borderTop: '1px solid rgba(255, 255, 255, 0.1)'
+          }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '8px', marginBottom: '8px' }}>
+              <span style={{ fontSize: '0.84rem', fontWeight: 700, color: '#E2E8F0', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                <CheckCircle2 size={16} color="#34D399" />
+                Session Tick List Progress for {trackName || 'This Track'}: <strong style={{ color: '#34D399' }}>{dossierProgress.doneCount} / {dossierProgress.totalCount} Steps Ticked ({dossierProgress.pct}%)</strong>
+              </span>
+              <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+                {onOpenChecklistHub && (
+                  <button
+                    type="button"
+                    onClick={onOpenChecklistHub}
+                    style={{
+                      background: 'rgba(168, 85, 247, 0.2)',
+                      border: '1px solid rgba(192, 132, 252, 0.45)',
+                      color: '#E9D5FF',
+                      padding: '4px 12px',
+                      borderRadius: '8px',
+                      fontSize: '0.76rem',
+                      fontWeight: 700,
+                      cursor: 'pointer'
+                    }}
+                  >
+                    📊 Open Full 60-Mark C1 Mark Scheme &amp; Tick List Hub
+                  </button>
+                )}
+                {dossierProgress.doneCount > 0 && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (window.confirm(`Reset session ticks for ${trackName || 'this track'}?`)) {
+                        setDossierTicks({});
+                        localStorage.removeItem(trackStorageKey);
+                      }
+                    }}
+                    style={{
+                      background: 'rgba(255, 255, 255, 0.06)',
+                      border: '1px solid rgba(255, 255, 255, 0.14)',
+                      color: '#94A3B8',
+                      padding: '4px 10px',
+                      borderRadius: '8px',
+                      fontSize: '0.75rem',
+                      fontWeight: 600,
+                      cursor: 'pointer'
+                    }}
+                  >
+                    ↺ Reset Track Ticks
+                  </button>
+                )}
+              </div>
+            </div>
+            <div style={{ height: '10px', background: 'rgba(0, 0, 0, 0.45)', borderRadius: '8px', overflow: 'hidden', border: '1px solid rgba(255, 255, 255, 0.08)' }}>
+              <div style={{
+                width: `${dossierProgress.pct}%`,
+                height: '100%',
+                background: 'linear-gradient(90deg, #10b981 0%, #38bdf8 50%, #a855f7 100%)',
+                transition: 'width 0.35s ease'
+              }} />
+            </div>
+          </div>
+        )}
       </div>
 
       {/* 2. Section 2: Master Track Sheet & Input Routing Matrix */}
@@ -527,13 +649,16 @@ export default function LogbookDossierView({ data, daw }) {
               <Activity size={20} color="#38BDF8" />
               <h3 className="logbook-sec-title">Section 2: Master Track Sheet & Input Routing Table</h3>
             </div>
-            <span className="logbook-sec-pill">{trackTable.length} Channels Allocated</span>
+            <span className="logbook-sec-pill">
+              {trackTable.filter((_, idx) => dossierTicks[`trk_${idx}`]).length} / {trackTable.length} Channels Tracked
+            </span>
           </div>
 
           <div className="table-wrapper">
             <table className="logbook-table">
               <thead>
                 <tr>
+                  <th style={{ width: '58px', textAlign: 'center' }}>TICK</th>
                   <th style={{ width: '45px', textAlign: 'center' }}>TRK #</th>
                   <th>STEM / INSTRUMENT</th>
                   <th>SELECTED PATHWAY</th>
@@ -545,62 +670,172 @@ export default function LogbookDossierView({ data, daw }) {
                 </tr>
               </thead>
               <tbody>
-                {trackTable.map((row, idx) => (
-                  <tr key={idx}>
-                    <td style={{ textAlign: 'center' }}>
-                      <span className="logbook-trk-pill">{row.trackNo}</span>
-                    </td>
-                    <td><strong style={{ color: '#F8FAFC' }}>{row.stem}</strong></td>
-                    <td>
-                      <span className={`logbook-pathway-pill ${row.pathway.includes('1') ? 'p1' : row.pathway.includes('2') ? 'p2' : 'p3'}`}>
-                        {row.pathway}
-                      </span>
-                    </td>
-                    <td>
-                      {renderInputSourceCell(row.inputSource)}
-                    </td>
-                    <td style={{ fontSize: '0.82rem', color: '#94A3B8' }}>{row.dawInput}</td>
-                    <td style={{ textAlign: 'center', color: '#38BDF8', fontWeight: 600 }}>{row.pan}</td>
-                    <td style={{ textAlign: 'center', color: '#FBBF24', fontWeight: 600 }}>{row.fader}</td>
-                    <td style={{ textAlign: 'right', color: '#34D399', fontWeight: 600 }}>{row.targetHeadroom}</td>
-                  </tr>
-                ))}
+                {trackTable.map((row, idx) => {
+                  const isTicked = !!dossierTicks[`trk_${idx}`];
+                  return (
+                    <tr
+                      key={idx}
+                      onClick={() => toggleDossierTick(`trk_${idx}`)}
+                      style={{
+                        cursor: 'pointer',
+                        background: isTicked ? 'rgba(16, 185, 129, 0.08)' : undefined,
+                        transition: 'background 0.2s ease'
+                      }}
+                      title="Click row to tick/untick this channel as recorded"
+                    >
+                      <td style={{ textAlign: 'center' }}>
+                        <span style={{
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          width: '22px',
+                          height: '22px',
+                          borderRadius: '6px',
+                          border: isTicked ? '2px solid #10b981' : '2px solid rgba(255,255,255,0.25)',
+                          background: isTicked ? '#10b981' : 'rgba(15, 23, 42, 0.6)',
+                          color: '#fff',
+                          fontWeight: 800,
+                          fontSize: '0.78rem'
+                        }}>
+                          {isTicked ? '✓' : ''}
+                        </span>
+                      </td>
+                      <td style={{ textAlign: 'center' }}>
+                        <span className="logbook-trk-pill">{row.trackNo}</span>
+                      </td>
+                      <td>
+                        <strong style={{ color: isTicked ? '#6EE7B7' : '#F8FAFC', textDecoration: isTicked ? 'line-through' : 'none' }}>
+                          {row.stem}
+                        </strong>
+                      </td>
+                      <td>
+                        <span className={`logbook-pathway-pill ${row.pathway.includes('1') ? 'p1' : row.pathway.includes('2') ? 'p2' : 'p3'}`}>
+                          {row.pathway}
+                        </span>
+                      </td>
+                      <td>
+                        {renderInputSourceCell(row.inputSource)}
+                      </td>
+                      <td style={{ fontSize: '0.82rem', color: '#94A3B8' }}>{row.dawInput}</td>
+                      <td style={{ textAlign: 'center', color: '#38BDF8', fontWeight: 600 }}>{row.pan}</td>
+                      <td style={{ textAlign: 'center', color: '#FBBF24', fontWeight: 600 }}>{row.fader}</td>
+                      <td style={{ textAlign: 'right', color: '#34D399', fontWeight: 600 }}>{row.targetHeadroom}</td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>
         </div>
       )}
 
-      {/* 3. Section 3: Interactive 3-Pathway Instrumental Solutions Hub */}
-      {instruments && instruments.length > 0 && (
+      {/* 3. Section 3: Interactive 3-Pathway Solutions Hub (Separating Vocals from Drum Kit & Other Instruments per C1 Mark Scheme) */}
+      {instruments && instruments.length > 0 && (() => {
+        const isVocalStem = (name = '') => /vocal|lead vox|backing vox|\bbv\b|harmonies|singer/i.test(name);
+        const isDrumStem = (name = '') => /drum|kick|snare|overhead|hi-hat|\btom\b|\bkit\b/i.test(name) && !isVocalStem(name);
+
+        const vocalStems = instruments.map((inst, idx) => ({ inst, idx })).filter(x => isVocalStem(x.inst.name));
+        const drumStems = instruments.map((inst, idx) => ({ inst, idx })).filter(x => isDrumStem(x.inst.name));
+        const otherInstStems = instruments.map((inst, idx) => ({ inst, idx })).filter(x => !isVocalStem(x.inst.name) && !isDrumStem(x.inst.name));
+
+        const renderStemTabBtn = ({ inst, idx }, accentHex) => {
+          const isStemDone = !!dossierTicks[`inst_${idx}`];
+          const isActive = activeInstIdx === idx;
+          return (
+            <button
+              key={idx}
+              type="button"
+              className={`logbook-inst-tab-btn ${isActive ? 'active' : ''}`}
+              onClick={() => setActiveInstIdx(idx)}
+              style={{
+                borderColor: isStemDone ? 'rgba(16, 185, 129, 0.65)' : isActive ? accentHex : undefined
+              }}
+            >
+              <span
+                className="logbook-inst-num"
+                style={isStemDone ? { background: '#10b981', color: '#fff' } : isActive ? { background: accentHex, color: '#0f172a' } : undefined}
+              >
+                {isStemDone ? '✓' : idx + 1}
+              </span>
+              <span className="logbook-inst-name">{inst.name}</span>
+            </button>
+          );
+        };
+
+        const activeIsVocal = activeInstrument && isVocalStem(activeInstrument.name);
+        const activeIsDrum = activeInstrument && isDrumStem(activeInstrument.name);
+
+        return (
         <div className="logbook-section-card glass-panel">
           <div className="logbook-sec-header">
             <div className="logbook-sec-title-wrap">
               <Layers size={20} color="#C084FC" />
-              <h3 className="logbook-sec-title">Section 3: Instrument-by-Instrument 3-Pathway Solutions</h3>
+              <h3 className="logbook-sec-title">Section 3: Vocals vs. Drum Kit &amp; Other Instruments — 3-Pathway Capture &amp; Processing</h3>
             </div>
-            <span className="logbook-sec-pill">{instruments.length} Core Stems</span>
+            <span className="logbook-sec-pill">
+              {instruments.filter((_, idx) => dossierTicks[`inst_${idx}`]).length} / {instruments.length} Core Stems Completed
+            </span>
           </div>
 
-          {/* Instrument Selector Tabs */}
-          <div className="logbook-inst-tabs">
-            {instruments.map((inst, idx) => (
-              <button
-                key={idx}
-                type="button"
-                className={`logbook-inst-tab-btn ${activeInstIdx === idx ? 'active' : ''}`}
-                onClick={() => setActiveInstIdx(idx)}
-              >
-                <span className="logbook-inst-num">{idx + 1}</span>
-                <span className="logbook-inst-name">{inst.name}</span>
-              </button>
-            ))}
+          {/* Separated Mark Scheme Category Selector (Vocals Separated from Drum Kit & Other Instruments) */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '12px', marginBottom: '16px' }}>
+            {/* Column 1: Vocals (Separated per C1 Mark Scheme AG1B & AG2–AG4) */}
+            {vocalStems.length > 0 && (
+              <div style={{
+                background: 'rgba(251, 191, 36, 0.08)',
+                border: '1px solid rgba(251, 191, 36, 0.35)',
+                borderRadius: '12px',
+                padding: '10px 12px'
+              }}>
+                <div style={{ fontSize: '0.74rem', fontWeight: 800, color: '#FBBF24', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '8px' }}>
+                  🎤 C1 Mark Scheme Column: Vocals — Lead &amp; Backing (16m+)
+                </div>
+                <div className="logbook-inst-tabs" style={{ margin: 0 }}>
+                  {vocalStems.map(item => renderStemTabBtn(item, '#FBBF24'))}
+                </div>
+              </div>
+            )}
+
+            {/* Column 2: Drum Kit (AG1A & AG2–AG4) */}
+            {drumStems.length > 0 && (
+              <div style={{
+                background: 'rgba(56, 189, 248, 0.08)',
+                border: '1px solid rgba(56, 189, 248, 0.35)',
+                borderRadius: '12px',
+                padding: '10px 12px'
+              }}>
+                <div style={{ fontSize: '0.74rem', fontWeight: 800, color: '#38BDF8', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '8px' }}>
+                  🥁 C1 Mark Scheme Column: Drum Kit (4+ Mics • 16m+)
+                </div>
+                <div className="logbook-inst-tabs" style={{ margin: 0 }}>
+                  {drumStems.map(item => renderStemTabBtn(item, '#38BDF8'))}
+                </div>
+              </div>
+            )}
+
+            {/* Column 3: All Other Instruments (Bass, Guitars, MIDI/Keys & Extra — AG1C & AG2–AG4) */}
+            {otherInstStems.length > 0 && (
+              <div style={{
+                background: 'rgba(192, 132, 252, 0.08)',
+                border: '1px solid rgba(192, 132, 252, 0.35)',
+                borderRadius: '12px',
+                padding: '10px 12px',
+                gridColumn: vocalStems.length > 0 && drumStems.length > 0 ? '1 / -1' : undefined
+              }}>
+                <div style={{ fontSize: '0.74rem', fontWeight: 800, color: '#C084FC', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '8px' }}>
+                  🎸 C1 Mark Scheme Column: All Other Instruments — Bass, Guitars, DI Amp Sim &amp; MIDI/Extra (16m+)
+                </div>
+                <div className="logbook-inst-tabs" style={{ margin: 0 }}>
+                  {otherInstStems.map(item => renderStemTabBtn(item, '#C084FC'))}
+                </div>
+              </div>
+            )}
           </div>
 
-          {/* Active Instrument Dedicated Sections */}
+          {/* Active Instrument / Vocal Dedicated Sections */}
           {activeInstrument && (
             <div className="logbook-inst-hub">
-              {/* Dedicated Section: Instrumental Capture Procedure (Preferred Pathway Only) */}
+              {/* Dedicated Section: Capture Procedure (Preferred Pathway Only) */}
               {(() => {
                 const selected = getSelectedCaptureSolution(activeInstrument);
                 if (!selected || !selected.body) return null;
@@ -608,15 +843,40 @@ export default function LogbookDossierView({ data, daw }) {
                 const headerClass = selected.num === 1 ? 'p1' : selected.num === 2 ? 'p2' : 'p3';
                 const HeaderIcon = selected.num === 1 ? Mic2 : selected.num === 2 ? Zap : Radio;
                 const prefPathwayTitle = activeInstrument.preferredPathway || selected.title;
+                const isInstTicked = !!dossierTicks[`inst_${activeInstIdx}`];
 
                 return (
                   <div className="logbook-dedicated-section preferred-capture-section">
-                    <div className="logbook-section-card-title">
+                    <div className="logbook-section-card-title" style={{ flexWrap: 'wrap', gap: '8px' }}>
                       <div className="logbook-card-title-left">
                         <HeaderIcon size={18} color={selected.num === 1 ? '#38BDF8' : selected.num === 2 ? '#FBBF24' : '#C084FC'} />
-                        <span>Instrumental Capture Procedure: {activeInstrument.name}</span>
+                        <span>
+                          {activeIsVocal
+                            ? `🎤 Vocal Capture Procedure (AG1B Vocals Column): ${activeInstrument.name}`
+                            : activeIsDrum
+                            ? `🥁 Drum Kit Capture Procedure (AG1A Drums Column): ${activeInstrument.name}`
+                            : `🎸 Instrument Capture Procedure (AG1C Other Parts Column): ${activeInstrument.name}`}
+                        </span>
                       </div>
-                      <span className="logbook-badge-pref">⭐ Preferred Pathway: {selected.title.split(':')[0]}</span>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+                        <span className="logbook-badge-pref">⭐ Preferred Pathway: {selected.title.split(':')[0]}</span>
+                        <button
+                          type="button"
+                          onClick={() => toggleDossierTick(`inst_${activeInstIdx}`)}
+                          style={{
+                            padding: '5px 12px',
+                            borderRadius: '8px',
+                            border: isInstTicked ? '1px solid #10b981' : '1px solid rgba(255,255,255,0.25)',
+                            background: isInstTicked ? '#10b981' : 'rgba(15, 23, 42, 0.85)',
+                            color: '#fff',
+                            fontWeight: 800,
+                            fontSize: '0.78rem',
+                            cursor: 'pointer'
+                          }}
+                        >
+                          {isInstTicked ? '✓ Stem Capture Ticked Off' : '☐ Tick When Stem Captured'}
+                        </button>
+                      </div>
                     </div>
 
                     <div className="logbook-preferred-capture-card">
@@ -751,13 +1011,16 @@ export default function LogbookDossierView({ data, daw }) {
                       <Sliders size={18} color="#38BDF8" />
                       <span>{currentDaw} Channel Strip Insert Chain: {activeInstrument.name}</span>
                     </div>
-                    <span className="logbook-section-pill">{activeInstrument.channelStrip.length} Inserts</span>
+                    <span className="logbook-section-pill">
+                      {activeInstrument.channelStrip.filter((_, rIdx) => dossierTicks[`inst_${activeInstIdx}_slot_${rIdx}`]).length} / {activeInstrument.channelStrip.length} Inserts Dialled
+                    </span>
                   </div>
 
                   <div className="table-wrapper" style={{ margin: '0.75rem 0' }}>
                     <table className="logbook-strip-table">
                       <thead>
                         <tr>
+                          <th style={{ width: '54px', textAlign: 'center' }}>TICK</th>
                           <th style={{ width: '80px' }}>ORDER</th>
                           <th>PROCESSOR / PLUGIN</th>
                           <th>TYPE & CIRCUIT</th>
@@ -766,15 +1029,44 @@ export default function LogbookDossierView({ data, daw }) {
                         </tr>
                       </thead>
                       <tbody>
-                        {activeInstrument.channelStrip.map((row, rIdx) => (
-                          <tr key={rIdx}>
-                            <td><span className="logbook-slot-pill">{row.slot}</span></td>
-                            <td><strong style={{ color: '#F8FAFC' }}>{row.plugin}</strong></td>
-                            <td style={{ color: '#C084FC', fontSize: '0.82rem' }}>{row.type}</td>
-                            <td>{renderSettingsBadge(row.settings)}</td>
-                            <td style={{ fontSize: '0.82rem', color: '#CBD5E1' }}>{row.objective}</td>
-                          </tr>
-                        ))}
+                        {activeInstrument.channelStrip.map((row, rIdx) => {
+                          const slotKey = `inst_${activeInstIdx}_slot_${rIdx}`;
+                          const isSlotTicked = !!dossierTicks[slotKey];
+                          return (
+                            <tr
+                              key={rIdx}
+                              onClick={() => toggleDossierTick(slotKey)}
+                              style={{
+                                cursor: 'pointer',
+                                background: isSlotTicked ? 'rgba(16, 185, 129, 0.08)' : undefined
+                              }}
+                              title="Click to tick/untick this plugin insert in your DAW"
+                            >
+                              <td style={{ textAlign: 'center' }}>
+                                <span style={{
+                                  display: 'inline-flex',
+                                  alignItems: 'center',
+                                  justifyContent: 'center',
+                                  width: '20px',
+                                  height: '20px',
+                                  borderRadius: '5px',
+                                  border: isSlotTicked ? '2px solid #10b981' : '2px solid rgba(255,255,255,0.25)',
+                                  background: isSlotTicked ? '#10b981' : 'rgba(15, 23, 42, 0.6)',
+                                  color: '#fff',
+                                  fontWeight: 800,
+                                  fontSize: '0.74rem'
+                                }}>
+                                  {isSlotTicked ? '✓' : ''}
+                                </span>
+                              </td>
+                              <td><span className="logbook-slot-pill">{row.slot}</span></td>
+                              <td><strong style={{ color: isSlotTicked ? '#6EE7B7' : '#F8FAFC' }}>{row.plugin}</strong></td>
+                              <td style={{ color: '#C084FC', fontSize: '0.82rem' }}>{row.type}</td>
+                              <td>{renderSettingsBadge(row.settings)}</td>
+                              <td style={{ fontSize: '0.82rem', color: '#CBD5E1' }}>{row.objective}</td>
+                            </tr>
+                          );
+                        })}
                       </tbody>
                     </table>
                   </div>
@@ -825,7 +1117,8 @@ export default function LogbookDossierView({ data, daw }) {
             </div>
           )}
         </div>
-      )}
+        );
+      })()}
 
       {/* 4. Section 4: Comprehensive Mix Strategy & Mastering Suite */}
       {(mixStrategy || masterBus) && (
@@ -851,42 +1144,60 @@ export default function LogbookDossierView({ data, daw }) {
 
               {/* 4.1 Featured Card: Fader Hierarchy, Balance & Stereo Staging */}
               {(mixStrategy.faderHierarchy?.length > 0 || mixStrategy.philosophy) && (
-                <div className="logbook-fader-card">
-                  <div className="logbook-fader-card-header">
+                <div className="logbook-fader-card" style={dossierTicks['mix_faders'] ? { borderColor: 'rgba(16, 185, 129, 0.5)' } : undefined}>
+                  <div className="logbook-fader-card-header" style={{ flexWrap: 'wrap', gap: '8px' }}>
                     <div className="logbook-card-title-left">
                       <Sliders size={16} color="#38BDF8" />
                       <span>4.1 Mix Balance, Fader Hierarchy & Stereo Staging</span>
                     </div>
-                    {mixStrategy.faderHierarchy?.length > 0 && (
-                      <div className="logbook-view-toggle">
-                        <button 
-                          type="button"
-                          className={`logbook-view-toggle-btn ${faderViewMode === 'meters' ? 'active' : ''}`}
-                          onClick={() => setFaderViewMode('meters')}
-                          title="Console Fader Meters"
-                        >
-                          <BarChart2 size={13} />
-                          <span>Console Faders</span>
-                        </button>
-                        <button 
-                          type="button"
-                          className={`logbook-view-toggle-btn ${faderViewMode === 'table' ? 'active' : ''}`}
-                          onClick={() => setFaderViewMode('table')}
-                          title="Staging Table"
-                        >
-                          <Table size={13} />
-                          <span>Staging Table</span>
-                        </button>
-                        <button 
-                          type="button"
-                          className={`logbook-view-toggle-btn ${faderViewMode === 'split' ? 'active' : ''}`}
-                          onClick={() => setFaderViewMode('split')}
-                          title="Split Dual View"
-                        >
-                          <span>Split View</span>
-                        </button>
-                      </div>
-                    )}
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+                      <button
+                        type="button"
+                        onClick={() => toggleDossierTick('mix_faders')}
+                        style={{
+                          padding: '4px 10px',
+                          borderRadius: '7px',
+                          border: dossierTicks['mix_faders'] ? '1px solid #10b981' : '1px solid rgba(255,255,255,0.2)',
+                          background: dossierTicks['mix_faders'] ? '#10b981' : 'rgba(15, 23, 42, 0.8)',
+                          color: '#fff',
+                          fontWeight: 700,
+                          fontSize: '0.74rem',
+                          cursor: 'pointer'
+                        }}
+                      >
+                        {dossierTicks['mix_faders'] ? '✓ Faders & Panning Ticked' : '☐ Tick Faders & Panning'}
+                      </button>
+                      {mixStrategy.faderHierarchy?.length > 0 && (
+                        <div className="logbook-view-toggle">
+                          <button 
+                            type="button"
+                            className={`logbook-view-toggle-btn ${faderViewMode === 'meters' ? 'active' : ''}`}
+                            onClick={() => setFaderViewMode('meters')}
+                            title="Console Fader Meters"
+                          >
+                            <BarChart2 size={13} />
+                            <span>Console Faders</span>
+                          </button>
+                          <button 
+                            type="button"
+                            className={`logbook-view-toggle-btn ${faderViewMode === 'table' ? 'active' : ''}`}
+                            onClick={() => setFaderViewMode('table')}
+                            title="Staging Table"
+                          >
+                            <Table size={13} />
+                            <span>Staging Table</span>
+                          </button>
+                          <button 
+                            type="button"
+                            className={`logbook-view-toggle-btn ${faderViewMode === 'split' ? 'active' : ''}`}
+                            onClick={() => setFaderViewMode('split')}
+                            title="Split Dual View"
+                          >
+                            <span>Split View</span>
+                          </button>
+                        </div>
+                      )}
+                    </div>
                   </div>
 
                   {/* Philosophy narrative overview */}
@@ -1019,7 +1330,7 @@ export default function LogbookDossierView({ data, daw }) {
               <div className="logbook-mix-grid" style={{ marginTop: '1.25rem' }}>
 
                 {mixStrategy.frequencySeparation && (
-                  <div className="logbook-mix-card" style={{ borderColor: 'rgba(192, 132, 252, 0.28)' }}>
+                  <div className="logbook-mix-card" style={{ borderColor: dossierTicks['mix_eq'] ? 'rgba(16, 185, 129, 0.55)' : 'rgba(192, 132, 252, 0.28)' }}>
                     <div className="logbook-mix-card-header">
                       <div className="logbook-mix-card-title-group">
                         <div className="logbook-mix-card-icon-wrap" style={{ background: 'rgba(192, 132, 252, 0.15)', borderColor: 'rgba(192, 132, 252, 0.4)' }}>
@@ -1027,9 +1338,19 @@ export default function LogbookDossierView({ data, daw }) {
                         </div>
                         <span className="logbook-mix-card-title">Frequency Masking Management & Spectral Separation</span>
                       </div>
-                      <span className="logbook-mix-card-tag" style={{ background: 'rgba(192, 132, 252, 0.12)', color: '#C084FC', borderColor: 'rgba(192, 132, 252, 0.3)' }}>
-                        EQ & Pocketing
-                      </span>
+                      <button
+                        type="button"
+                        onClick={() => toggleDossierTick('mix_eq')}
+                        className="logbook-mix-card-tag"
+                        style={{
+                          background: dossierTicks['mix_eq'] ? '#10b981' : 'rgba(192, 132, 252, 0.12)',
+                          color: dossierTicks['mix_eq'] ? '#fff' : '#C084FC',
+                          borderColor: dossierTicks['mix_eq'] ? '#10b981' : 'rgba(192, 132, 252, 0.3)',
+                          cursor: 'pointer'
+                        }}
+                      >
+                        {dossierTicks['mix_eq'] ? '✓ EQ Ticked' : '☐ Tick EQ'}
+                      </button>
                     </div>
                     <div className="logbook-mix-card-body">
                       {renderMixCardContent(mixStrategy.frequencySeparation, '#C084FC')}
@@ -1038,7 +1359,7 @@ export default function LogbookDossierView({ data, daw }) {
                 )}
 
                 {mixStrategy.dynamicControl && (
-                  <div className="logbook-mix-card" style={{ borderColor: 'rgba(251, 191, 36, 0.28)' }}>
+                  <div className="logbook-mix-card" style={{ borderColor: dossierTicks['mix_dyn'] ? 'rgba(16, 185, 129, 0.55)' : 'rgba(251, 191, 36, 0.28)' }}>
                     <div className="logbook-mix-card-header">
                       <div className="logbook-mix-card-title-group">
                         <div className="logbook-mix-card-icon-wrap" style={{ background: 'rgba(251, 191, 36, 0.15)', borderColor: 'rgba(251, 191, 36, 0.4)' }}>
@@ -1046,9 +1367,19 @@ export default function LogbookDossierView({ data, daw }) {
                         </div>
                         <span className="logbook-mix-card-title">Dynamic Control, Mix Subgroups & Bus Glue</span>
                       </div>
-                      <span className="logbook-mix-card-tag" style={{ background: 'rgba(251, 191, 36, 0.12)', color: '#FBBF24', borderColor: 'rgba(251, 191, 36, 0.3)' }}>
-                        VCA & Subgroups
-                      </span>
+                      <button
+                        type="button"
+                        onClick={() => toggleDossierTick('mix_dyn')}
+                        className="logbook-mix-card-tag"
+                        style={{
+                          background: dossierTicks['mix_dyn'] ? '#10b981' : 'rgba(251, 191, 36, 0.12)',
+                          color: dossierTicks['mix_dyn'] ? '#fff' : '#FBBF24',
+                          borderColor: dossierTicks['mix_dyn'] ? '#10b981' : 'rgba(251, 191, 36, 0.3)',
+                          cursor: 'pointer'
+                        }}
+                      >
+                        {dossierTicks['mix_dyn'] ? '✓ Dynamics Ticked' : '☐ Tick Dynamics'}
+                      </button>
                     </div>
                     <div className="logbook-mix-card-body">
                       {renderMixCardContent(mixStrategy.dynamicControl, '#FBBF24')}
@@ -1057,7 +1388,7 @@ export default function LogbookDossierView({ data, daw }) {
                 )}
 
                 {mixStrategy.spatialDepth && (
-                  <div className="logbook-mix-card" style={{ borderColor: 'rgba(52, 211, 153, 0.28)' }}>
+                  <div className="logbook-mix-card" style={{ borderColor: dossierTicks['mix_fx'] ? 'rgba(16, 185, 129, 0.55)' : 'rgba(52, 211, 153, 0.28)' }}>
                     <div className="logbook-mix-card-header">
                       <div className="logbook-mix-card-title-group">
                         <div className="logbook-mix-card-icon-wrap" style={{ background: 'rgba(52, 211, 153, 0.15)', borderColor: 'rgba(52, 211, 153, 0.4)' }}>
@@ -1065,9 +1396,19 @@ export default function LogbookDossierView({ data, daw }) {
                         </div>
                         <span className="logbook-mix-card-title">Spatial Depth & Time-Based FX Architecture</span>
                       </div>
-                      <span className="logbook-mix-card-tag" style={{ background: 'rgba(52, 211, 153, 0.12)', color: '#34D399', borderColor: 'rgba(52, 211, 153, 0.3)' }}>
-                        Reverb & Delays
-                      </span>
+                      <button
+                        type="button"
+                        onClick={() => toggleDossierTick('mix_fx')}
+                        className="logbook-mix-card-tag"
+                        style={{
+                          background: dossierTicks['mix_fx'] ? '#10b981' : 'rgba(52, 211, 153, 0.12)',
+                          color: dossierTicks['mix_fx'] ? '#fff' : '#34D399',
+                          borderColor: dossierTicks['mix_fx'] ? '#10b981' : 'rgba(52, 211, 153, 0.3)',
+                          cursor: 'pointer'
+                        }}
+                      >
+                        {dossierTicks['mix_fx'] ? '✓ Spatial FX Ticked' : '☐ Tick Spatial FX'}
+                      </button>
                     </div>
                     <div className="logbook-mix-card-body">
                       {renderMixCardContent(mixStrategy.spatialDepth, '#34D399')}
@@ -1076,7 +1417,7 @@ export default function LogbookDossierView({ data, daw }) {
                 )}
 
                 {mixStrategy.automation && (
-                  <div className="logbook-mix-card" style={{ borderColor: 'rgba(244, 114, 182, 0.28)' }}>
+                  <div className="logbook-mix-card" style={{ borderColor: dossierTicks['mix_auto'] ? 'rgba(16, 185, 129, 0.55)' : 'rgba(244, 114, 182, 0.28)' }}>
                     <div className="logbook-mix-card-header">
                       <div className="logbook-mix-card-title-group">
                         <div className="logbook-mix-card-icon-wrap" style={{ background: 'rgba(244, 114, 182, 0.15)', borderColor: 'rgba(244, 114, 182, 0.4)' }}>
@@ -1084,9 +1425,19 @@ export default function LogbookDossierView({ data, daw }) {
                         </div>
                         <span className="logbook-mix-card-title">Mix Automation Passes & Dynamic Rides</span>
                       </div>
-                      <span className="logbook-mix-card-tag" style={{ background: 'rgba(244, 114, 182, 0.12)', color: '#F472B6', borderColor: 'rgba(244, 114, 182, 0.3)' }}>
-                        Fader Passes
-                      </span>
+                      <button
+                        type="button"
+                        onClick={() => toggleDossierTick('mix_auto')}
+                        className="logbook-mix-card-tag"
+                        style={{
+                          background: dossierTicks['mix_auto'] ? '#10b981' : 'rgba(244, 114, 182, 0.12)',
+                          color: dossierTicks['mix_auto'] ? '#fff' : '#F472B6',
+                          borderColor: dossierTicks['mix_auto'] ? '#10b981' : 'rgba(244, 114, 182, 0.3)',
+                          cursor: 'pointer'
+                        }}
+                      >
+                        {dossierTicks['mix_auto'] ? '✓ Automation Ticked' : '☐ Tick Automation'}
+                      </button>
                     </div>
                     <div className="logbook-mix-card-body">
                       {renderMixCardContent(mixStrategy.automation, '#F472B6')}
@@ -1105,13 +1456,16 @@ export default function LogbookDossierView({ data, daw }) {
                   <Cpu size={18} color="#34D399" />
                   <span>Master Bus Processing & Final Mastering Chain ({currentDaw})</span>
                 </div>
-                <span className="logbook-section-pill">{masterBus.table.length} Stages</span>
+                <span className="logbook-section-pill">
+                  {masterBus.table.filter((_, rIdx) => dossierTicks[`master_${rIdx}`]).length} / {masterBus.table.length} Stages Verified
+                </span>
               </div>
 
               <div className="table-wrapper">
                 <table className="logbook-master-table">
                   <thead>
                     <tr>
+                      <th style={{ width: '54px', textAlign: 'center' }}>TICK</th>
                       <th style={{ width: '180px' }}>Processing Stage</th>
                       <th style={{ width: '220px' }}>Plugin / Processor</th>
                       <th>Exact Parameter Settings</th>
@@ -1119,14 +1473,43 @@ export default function LogbookDossierView({ data, daw }) {
                     </tr>
                   </thead>
                   <tbody>
-                    {masterBus.table.map((row, rIdx) => (
-                      <tr key={rIdx}>
-                        <td><strong style={{ color: '#F8FAFC' }}>{row.stage}</strong></td>
-                        <td style={{ color: '#38BDF8', fontWeight: 600 }}>{row.processor}</td>
-                        <td>{renderSettingsBadge(row.settings)}</td>
-                        <td style={{ color: '#CBD5E1', fontSize: '0.84rem' }}>{row.objective}</td>
-                      </tr>
-                    ))}
+                    {masterBus.table.map((row, rIdx) => {
+                      const mKey = `master_${rIdx}`;
+                      const isMasterTicked = !!dossierTicks[mKey];
+                      return (
+                        <tr
+                          key={rIdx}
+                          onClick={() => toggleDossierTick(mKey)}
+                          style={{
+                            cursor: 'pointer',
+                            background: isMasterTicked ? 'rgba(16, 185, 129, 0.08)' : undefined
+                          }}
+                          title="Click to tick/untick this Master Bus processing stage"
+                        >
+                          <td style={{ textAlign: 'center' }}>
+                            <span style={{
+                              display: 'inline-flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              width: '20px',
+                              height: '20px',
+                              borderRadius: '5px',
+                              border: isMasterTicked ? '2px solid #10b981' : '2px solid rgba(255,255,255,0.25)',
+                              background: isMasterTicked ? '#10b981' : 'rgba(15, 23, 42, 0.6)',
+                              color: '#fff',
+                              fontWeight: 800,
+                              fontSize: '0.74rem'
+                            }}>
+                              {isMasterTicked ? '✓' : ''}
+                            </span>
+                          </td>
+                          <td><strong style={{ color: isMasterTicked ? '#6EE7B7' : '#F8FAFC' }}>{row.stage}</strong></td>
+                          <td style={{ color: '#38BDF8', fontWeight: 600 }}>{row.processor}</td>
+                          <td>{renderSettingsBadge(row.settings)}</td>
+                          <td style={{ color: '#CBD5E1', fontSize: '0.84rem' }}>{row.objective}</td>
+                        </tr>
+                      );
+                    })}
                   </tbody>
                 </table>
               </div>

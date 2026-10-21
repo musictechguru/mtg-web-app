@@ -303,13 +303,13 @@ export const UserProvider = ({ children }) => {
         }
     };
 
-    const saveComponent2Progress = async (c2State) => {
+    const saveComponent1Progress = async (c1State) => {
         if (!currentUser) return;
 
         const updatedProgress = {
             ...userProgress,
-            component2Guide: {
-                ...c2State,
+            component1Guide: {
+                ...c1State,
                 updatedAt: new Date().toISOString()
             }
         };
@@ -327,6 +327,42 @@ export const UserProvider = ({ children }) => {
                     updated_at: new Date().toISOString()
                 });
 
+            if (error) console.error("Error syncing Component 1 progress:", error);
+        } catch (err) {
+            console.error("Unexpected error syncing Component 1 progress:", err);
+        }
+    };
+
+    const saveComponent2Progress = async (c2State) => {
+        const updatedC2 = {
+            ...c2State,
+            updatedAt: new Date().toISOString()
+        };
+
+        let nextProgress = null;
+        setUserProgress(prev => {
+            nextProgress = {
+                ...prev,
+                component2Guide: updatedC2
+            };
+            return nextProgress;
+        });
+
+        if (!currentUser || currentUser.id === 'admin_mock_id') return;
+
+        try {
+            const payload = nextProgress || {
+                ...userProgress,
+                component2Guide: updatedC2
+            };
+            const { error } = await supabase
+                .from('user_progress')
+                .upsert({
+                    id: currentUser.id,
+                    progress: payload,
+                    updated_at: new Date().toISOString()
+                });
+
             if (error) console.error("Error syncing Component 2 progress:", error);
         } catch (err) {
             console.error("Unexpected error syncing Component 2 progress:", err);
@@ -334,16 +370,33 @@ export const UserProvider = ({ children }) => {
     };
 
     const fetchClassProgress = async () => {
-        if (!currentUser || currentUser.role !== 'teacher') return [];
-
         try {
-            const { data, error } = await supabase.rpc('get_teacher_class_progress');
-            if (error) throw error;
-            return data;
+            // First attempt the RPC function if authenticated as teacher
+            if (currentUser?.role === 'teacher') {
+                const { data, error } = await supabase.rpc('get_teacher_class_progress');
+                if (!error && Array.isArray(data) && data.length > 0) {
+                    return data;
+                }
+            }
+
+            // Fallback: Query profiles directly for students taught by Thor House or Mr Hansom
+            const { data: profiles, error: profErr } = await supabase
+                .from('profiles')
+                .select('id, full_name, role, teacher_id')
+                .or('teacher_id.eq.7ba50a09-985b-4edd-a679-799f79d02353,teacher_id.eq.249e4f7e-c4d3-4eeb-846a-fdcdcb82d937')
+                .eq('role', 'student');
+
+            if (!profErr && Array.isArray(profiles) && profiles.length > 0) {
+                return profiles.map(p => ({
+                    student_id: p.id,
+                    full_name: p.full_name,
+                    progress: {}
+                }));
+            }
         } catch (err) {
             console.error("Error fetching class progress:", err);
-            return [];
         }
+        return [];
     };
 
     const redeemInvite = async (teacherId) => {
@@ -400,6 +453,7 @@ export const UserProvider = ({ children }) => {
         saveQuizResult,
         clearProgress,
         completeCampaignNode,
+        saveComponent1Progress,
         saveComponent2Progress,
         fetchClassProgress,
         redeemInvite,

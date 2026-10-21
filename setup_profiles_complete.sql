@@ -28,6 +28,11 @@ create policy "Users can insert their own profile." on public.profiles
 create policy "Users can update own profile." on public.profiles
   for update using (auth.uid() = id);
 
+-- Data API grants (required for new tables in "public" from 30 Oct 2026; RLS still limits rows)
+grant select on public.profiles to anon;
+grant select, insert, update, delete on public.profiles to authenticated;
+grant select, insert, update, delete on public.profiles to service_role;
+
 -- 3. Create Trigger for NEW users
 create or replace function public.handle_new_user()
 returns trigger as $$

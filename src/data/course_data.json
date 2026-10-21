@@ -941,7 +941,8 @@
               "quote": "The Fletcher-Munson curves prove human hearing isn't flat. We are much more sensitive to midrange frequencies than we are to extreme highs and lows, especially at low volumes.",
               "quote_author": "Psychoacoustics Engineering"
             }
-          ]
+          ],
+          "id": "diagnostic_initial"
         }
       ]
     },
@@ -7331,6 +7332,250 @@
                 "author": "Alan Parsons, Engineer (Pink Floyd - The Dark Side of the Moon, The Beatles - Abbey Road)"
               },
               "img": "/images/explanation_gain_signal_path.svg"
+            },
+            {
+              "title": "Electric Guitar Pedalboard Chain",
+              "content": "Arrange the standard pedals in the optimal low-noise signal order from guitar to amplifier.",
+              "type": "drag_drop",
+              "items": [
+                "Guitar Output",
+                "Tuner / Wah Pedal",
+                "Overdrive / Distortion",
+                "Equalizer (EQ)",
+                "Modulation (Chorus / Flanger)",
+                "Time-Based (Delay / Reverb)",
+                "Guitar Amplifier Input"
+              ],
+              "correct_order": [
+                "Guitar Output",
+                "Tuner / Wah Pedal",
+                "Overdrive / Distortion",
+                "Equalizer (EQ)",
+                "Modulation (Chorus / Flanger)",
+                "Time-Based (Delay / Reverb)",
+                "Guitar Amplifier Input"
+              ],
+              "explanation": "<p><strong>Standard Pedalboard Signal Flow:</strong> Dynamic frequency filters and pitch/wah pedals go first so they process the pure raw guitar pickup signal. Gain and distortion stages follow, adding saturation and harmonics. EQ sculpts the distorted tone. Modulation (chorus/phaser) adds movement, and time-based effects (delay and reverb) are placed last to prevent their echoes from being heavily clipped and distorted by gain stages.</p>",
+              "expert_quote": {
+                "text": "Putting delay before heavy distortion creates a muddy wall of washed-out noise. Place time-based effects after saturation or inside the amp effects loop for pristine repeats.",
+                "author": "Pete Cornish, Custom Effects & Signal Routing Designer (Pink Floyd, Paul McCartney)"
+              }
+            },
+            {
+              "title": "Auxiliary Reverb Send/Return Flow",
+              "content": "Route an audio signal from a dry snare track through a parallel reverb auxiliary bus in a DAW.",
+              "type": "drag_drop",
+              "items": [
+                "Snare Drum Audio Track",
+                "Post-Fader Aux Send",
+                "Auxiliary Bus (Bus 1)",
+                "Reverb Plugin (100% Wet)",
+                "Aux Return Fader",
+                "Master Stereo Bus"
+              ],
+              "correct_order": [
+                "Snare Drum Audio Track",
+                "Post-Fader Aux Send",
+                "Auxiliary Bus (Bus 1)",
+                "Reverb Plugin (100% Wet)",
+                "Aux Return Fader",
+                "Master Stereo Bus"
+              ],
+              "explanation": "<p><strong>Parallel Aux Reverb Routing:</strong> The original dry snare track splits a portion of its signal via a <em>post-fader send</em> to Bus 1. The dedicated Auxiliary Return track hosts the reverb plugin set to <strong>100% Wet</strong> (zero dry signal, since the original track already carries the dry sound). The Aux Return fader balances the wet ambience into the Master Stereo Bus alongside the dry channel.</p>",
+              "expert_quote": {
+                "text": "Never insert reverbs directly on individual channels when mixing. Using an auxiliary bus allows multiple instruments to share one acoustic space while conserving CPU and maintaining punch.",
+                "author": "Bob Clearmountain, Legendary Mix Engineer (Bruce Springsteen, David Bowie)"
+              }
+            },
+            {
+              "title": "Sidechain Compression Key Signal Path",
+              "content": "Route the kick drum key input to duck the bass guitar track whenever the kick strikes.",
+              "type": "drag_drop",
+              "items": [
+                "Kick Drum Track",
+                "Pre-Fader Aux Send (Bus 2)",
+                "Bass Guitar Track",
+                "Compressor Plugin on Bass",
+                "Sidechain Key Input Detector",
+                "Gain Reduction Circuit"
+              ],
+              "correct_order": [
+                "Kick Drum Track",
+                "Pre-Fader Aux Send (Bus 2)",
+                "Sidechain Key Input Detector",
+                "Compressor Plugin on Bass",
+                "Gain Reduction Circuit",
+                "Bass Guitar Track"
+              ],
+              "explanation": "<p><strong>Sidechain Ducking Flow:</strong> The kick drum outputs a trigger voltage/signal via Bus 2 to the <em>Key Input / External Sidechain Detector</em> of the compressor inserted on the bass guitar channel. When the kick hits, the detector signals the VCA circuit to pull down the bass guitar's volume, carving low-end acoustic space and preventing frequency masking.</p>",
+              "expert_quote": {
+                "text": "Sidechaining the kick to the sub-bass is what allows modern club tracks to hit at -6 LUFS without the low end devouring the master limiter's headroom.",
+                "author": "Deadmau5, Electronic Music Producer & Engineer"
+              }
+            },
+            {
+              "title": "Acoustic Drum Recording Chain",
+              "content": "Trace the path of a snare drum sound from the acoustic transient to the multitrack audio file on your hard drive.",
+              "type": "drag_drop",
+              "items": [
+                "Snare Drum Head Vibration",
+                "Shure SM57 Dynamic Capsule",
+                "Analogue Preamp (Gain Stage)",
+                "Analogue-to-Digital Converter (ADC)",
+                "DAW 24-bit/48kHz Audio Track",
+                "Hard Drive / SSD Storage"
+              ],
+              "correct_order": [
+                "Snare Drum Head Vibration",
+                "Shure SM57 Dynamic Capsule",
+                "Analogue Preamp (Gain Stage)",
+                "Analogue-to-Digital Converter (ADC)",
+                "DAW 24-bit/48kHz Audio Track",
+                "Hard Drive / SSD Storage"
+              ],
+              "explanation": "<p><strong>Analogue to Digital Capture:</strong> Mechanical air pressure waves strike the microphone diaphragm, generating microvolt electrical currents. The microphone preamp boosts this mic-level signal to line-level (~+4 dBu). The ADC samples the continuous voltage at the clock rate (48 kHz) and quantizes each sample into 24-bit digital binary words, written into the DAW multitrack WAV file.</p>",
+              "expert_quote": {
+                "text": "Once a transient is clipped at the analogue-to-digital converter, you cannot reconstruct the lost dynamic information. Gain-staging before conversion is sacred.",
+                "author": "Al Schmitt, 23-time Grammy Award-Winning Engineer"
+              }
+            },
+            {
+              "title": "Hardware Outboard Compressor Insert Chain",
+              "content": "Route an analogue 1176 Limiter into a DAW track using an audio interface hardware insert.",
+              "type": "drag_drop",
+              "items": [
+                "DAW Vocal Track Output",
+                "Interface D/A Line Out 3",
+                "Hardware 1176 Input",
+                "1176 Gain Reduction Circuit",
+                "Hardware 1176 Output",
+                "Interface A/D Line In 3",
+                "DAW Insert Return"
+              ],
+              "correct_order": [
+                "DAW Vocal Track Output",
+                "Interface D/A Line Out 3",
+                "Hardware 1176 Input",
+                "1176 Gain Reduction Circuit",
+                "Hardware 1176 Output",
+                "Interface A/D Line In 3",
+                "DAW Insert Return"
+              ],
+              "explanation": "<p><strong>Hardware Insert Loop:</strong> The digital DAW channel routes out via D/A conversion onto interface line output 3. This balanced analogue signal enters the outboard compressor, receives gain reduction, and leaves via the compressor's output into interface line input 3 (A/D conversion) back onto the DAW channel with automatic delay compensation (ADC).</p>",
+              "expert_quote": {
+                "text": "Analogue hardware inserts introduce real harmonic transformer saturation that plugin emulations still strive to replicate.",
+                "author": "Chris Lord-Alge, Mix Engineer (Green Day, Muse)"
+              }
+            },
+            {
+              "title": "Studio Re-Amping Workflow",
+              "content": "Route a previously recorded clean DI electric guitar track through a physical high-gain valve amplifier.",
+              "type": "drag_drop",
+              "items": [
+                "DAW Clean DI Guitar Track",
+                "Audio Interface Line Output",
+                "Passive Reamp Box (Line to Hi-Z)",
+                "Valve Guitar Amplifier Input",
+                "Speaker Cabinet 4x12",
+                "Microphone (SM57 / Royer R-121)",
+                "Microphone Preamp to DAW Track"
+              ],
+              "correct_order": [
+                "DAW Clean DI Guitar Track",
+                "Audio Interface Line Output",
+                "Passive Reamp Box (Line to Hi-Z)",
+                "Valve Guitar Amplifier Input",
+                "Speaker Cabinet 4x12",
+                "Microphone (SM57 / Royer R-121)",
+                "Microphone Preamp to DAW Track"
+              ],
+              "explanation": "<p><strong>Re-Amping Signal Path:</strong> A balanced low-impedance line-level signal from the interface cannot be plugged directly into a guitar amplifier without impedance mismatch and noise. A <em>Reamp Box</em> matches impedance (converts low-Z line level to high-Z instrument level). The amp drives the speaker cabinet, miked up with a dynamic or ribbon mic feeding a preamp back into a new DAW track.</p>",
+              "expert_quote": {
+                "text": "Re-amping gives you the luxury of perfecting the musical performance first, then dialling in amplifier tone, speaker cabinets, and mic positions for days without fatiguing the guitarist.",
+                "author": "Andy Sneap, Metal Producer (Judas Priest, Megadeth, Killswitch Engage)"
+              }
+            },
+            {
+              "title": "Studio Monitor Playback Chain",
+              "content": "Trace the monitoring signal path from the DAW Master Bus to the listener's ears.",
+              "type": "drag_drop",
+              "items": [
+                "DAW Master Stereo Bus",
+                "Digital-to-Analogue Converter (DAC)",
+                "Monitor Controller (Volume Pot)",
+                "Active Studio Monitor Amplifier",
+                "Speaker Crossover Network",
+                "Tweeter & Woofer Drivers",
+                "Acoustic Pressure Waves in Control Room"
+              ],
+              "correct_order": [
+                "DAW Master Stereo Bus",
+                "Digital-to-Analogue Converter (DAC)",
+                "Monitor Controller (Volume Pot)",
+                "Active Studio Monitor Amplifier",
+                "Speaker Crossover Network",
+                "Tweeter & Woofer Drivers",
+                "Acoustic Pressure Waves in Control Room"
+              ],
+              "explanation": "<p><strong>Monitoring Signal Chain:</strong> The 32-bit float master stereo mix leaves the DAW and is converted to balanced analogue voltages by high-fidelity DACs. A passive or active monitor controller scales listening volume without truncating digital bits. The active monitor's amplifier powers the internal crossover, which splits high frequencies to the tweeter and lows to the woofer, converting electrical voltages back into acoustic air pressure waves.</p>",
+              "expert_quote": {
+                "text": "If your monitoring chain and room acoustics lie to you, every mixing decision you make will be an overcompensation.",
+                "author": "Philip Newell, Acoustic Designer & Recording Engineer"
+              }
+            },
+            {
+              "title": "Direct Injection (DI) & Amp Split on Bass Guitar",
+              "content": "Route an electric bass so you capture both a clean DI track and a miked valve amplifier simultaneously.",
+              "type": "drag_drop",
+              "items": [
+                "Bass Guitar Pickup Output",
+                "Active DI Box Instrument Input",
+                "DI 'Thru' Output to Bass Amp Head",
+                "DI Balanced XLR Output to Preamp 1",
+                "Microphone on Bass Cabinet to Preamp 2",
+                "DAW Tracks 1 (DI) and 2 (Amp)"
+              ],
+              "correct_order": [
+                "Bass Guitar Pickup Output",
+                "Active DI Box Instrument Input",
+                "DI 'Thru' Output to Bass Amp Head",
+                "DI Balanced XLR Output to Preamp 1",
+                "Microphone on Bass Cabinet to Preamp 2",
+                "DAW Tracks 1 (DI) and 2 (Amp)"
+              ],
+              "explanation": "<p><strong>Bass DI Split Technique:</strong> The bass plugs into the high-impedance input of a DI box. The <em>Thru / Parallel Out</em> jack sends an unbuffered copy directly into the bass amp on stage or in the live room. Meanwhile, the DI's transformer-balanced XLR output feeds Preamp 1 (sub-bass clarity), while a mic on the amp feeds Preamp 2 (midrange grit and speaker colour).</p>",
+              "expert_quote": {
+                "text": "The secret to massive bass tone is blending the pristine sub-frequencies of a high-end DI with the compressed growl of a miked Ampeg SVT valve cabinet.",
+                "author": "Jack Joseph Puig, Producer & Mixer (U2, Weezer, John Mayer)"
+              }
+            },
+            {
+              "title": "Mastering Processing Chain",
+              "content": "Arrange the standard mastering processors in the conventional order for stereo finalization.",
+              "type": "drag_drop",
+              "items": [
+                "Unmastered 24-bit Stereo Mixdown",
+                "Corrective Subtractive EQ (High-Pass / Resonance Removal)",
+                "Stereo Glue Bus Compressor (Gentle 1.5:1 - 2:1)",
+                "Broad Tonal / Linear Phase EQ (Air & Warmth)",
+                "Stereo Width Processor / Multiband Imaging",
+                "True Peak Brickwall Limiter",
+                "Dither (to 16-bit for CD / Streaming)"
+              ],
+              "correct_order": [
+                "Unmastered 24-bit Stereo Mixdown",
+                "Corrective Subtractive EQ (High-Pass / Resonance Removal)",
+                "Stereo Glue Bus Compressor (Gentle 1.5:1 - 2:1)",
+                "Broad Tonal / Linear Phase EQ (Air & Warmth)",
+                "Stereo Width Processor / Multiband Imaging",
+                "True Peak Brickwall Limiter",
+                "Dither (to 16-bit for CD / Streaming)"
+              ],
+              "explanation": "<p><strong>Mastering Signal Architecture:</strong> Clean up inaudible subsonic rumble (<25 Hz) and harsh resonances first so subsequent processors do not react to junk frequencies. Apply subtle bus compression for coherence. Add musical colour and sheen with broad tonal EQ, optimize stereo width, catch inter-sample peaks with a True Peak limiter, and apply dither on the very final output stage when downsampling bit depth.</p>",
+              "expert_quote": {
+                "text": "Dither must always be the very last process in your digital mastering chain. Any processing after dither truncates the quantization noise shaping.",
+                "author": "Bob Katz, Mastering Engineer & Author of 'Mastering Audio'"
+              }
             }
           ]
         },
@@ -7362,6 +7607,232 @@
                 "author": "Bob Moog, Electronic Synthesizer Pioneer"
               },
               "img": "/images/subtractive_synth_flow_hq.png"
+            },
+            {
+              "title": "Filter Envelope Routing",
+              "content": "Arrange the signal and modulation flow for shaping the brightness of a synth lead over time.",
+              "type": "drag_drop",
+              "items": [
+                "MIDI Note On / Gate Trigger",
+                "Filter Envelope Generator (ADSR)",
+                "Envelope Depth / Amount Knob",
+                "VCF Cutoff Frequency Mod Input",
+                "Audio Filter Resonant Slope",
+                "Shaped Harmonic Timbre Output"
+              ],
+              "correct_order": [
+                "MIDI Note On / Gate Trigger",
+                "Filter Envelope Generator (ADSR)",
+                "Envelope Depth / Amount Knob",
+                "VCF Cutoff Frequency Mod Input",
+                "Audio Filter Resonant Slope",
+                "Shaped Harmonic Timbre Output"
+              ],
+              "explanation": "<p><strong>Filter Modulation Flow:</strong> Pressing a key generates a Gate voltage triggering the Filter Envelope. The Attack, Decay, Sustain, and Release stages produce a control voltage scaled by the Envelope Amount parameter. This modulation voltage sweeps the VCF cutoff frequency upwards and downwards across the audio signal's spectrum, creating dynamic filter sweeps (e.g. brass stabs or pluck sounds).</p>",
+              "expert_quote": {
+                "text": "The filter envelope is what turns a static buzzing oscillator into a living, expressive acoustic or electronic instrument.",
+                "author": "Dave Smith, Designer of the Prophet-5 & Co-Creator of MIDI"
+              }
+            },
+            {
+              "title": "LFO Vibrato Modulation Path",
+              "content": "Route a Low-Frequency Oscillator (LFO) through the modulation wheel to apply pitch vibrato.",
+              "type": "drag_drop",
+              "items": [
+                "LFO Sine Wave Generator (5 Hz)",
+                "Modulation Wheel (Depth Attenuator)",
+                "VCO Pitch / Frequency Control Input",
+                "VCO Raw Audio Generation",
+                "Periodic Pitch Variation (Vibrato)"
+              ],
+              "correct_order": [
+                "LFO Sine Wave Generator (5 Hz)",
+                "Modulation Wheel (Depth Attenuator)",
+                "VCO Pitch / Frequency Control Input",
+                "VCO Raw Audio Generation",
+                "Periodic Pitch Variation (Vibrato)"
+              ],
+              "explanation": "<p><strong>LFO Pitch Modulation:</strong> The Low Frequency Oscillator outputs an inaudible sub-audio cyclic voltage (e.g. 5 Hz). The Mod Wheel acts as a variable attenuator, controlling how much of this voltage reaches the VCO's pitch CV input. As the LFO voltage oscillates positive and negative, the oscillator pitch wavers up and down to produce musical vibrato.</p>",
+              "expert_quote": {
+                "text": "Vibrato rate should generally hover between 4.5 Hz and 6.5 Hz to emulate the natural physiological vibrato of violinists and vocalists.",
+                "author": "Tom Oberheim, Synthesizer Pioneer & SEM Designer"
+              }
+            },
+            {
+              "title": "Pulse Width Modulation (PWM) Signal Flow",
+              "content": "Trace the modulation path that turns a static square wave into a lush chorused string pad.",
+              "type": "drag_drop",
+              "items": [
+                "LFO Triangle Wave (0.5 Hz)",
+                "PWM Depth Parameter",
+                "Pulse Waveform Duty Cycle Circuit",
+                "VCO Harmonic Spectrum Shift",
+                "Thick Chorused Audio Output"
+              ],
+              "correct_order": [
+                "LFO Triangle Wave (0.5 Hz)",
+                "PWM Depth Parameter",
+                "Pulse Waveform Duty Cycle Circuit",
+                "VCO Harmonic Spectrum Shift",
+                "Thick Chorused Audio Output"
+              ],
+              "explanation": "<p><strong>Pulse Width Modulation (PWM):</strong> A slow LFO voltage continuously varies the duty cycle (ratio of positive to negative half-cycles) of a square wave away from 50/50. Modulating the pulse width alters the balance of odd and even harmonics in the waveform, generating a rich, animated chorus-like doubling effect without needing multiple oscillators.</p>",
+              "expert_quote": {
+                "text": "The signature lush string sound of the Roland Juno-60 comes from a single oscillator with slow LFO Pulse Width Modulation running through its analogue BBD chorus.",
+                "author": "Nick Batt, Sonicstate Synthesizer Specialist"
+              }
+            },
+            {
+              "title": "Sub-Oscillator Low-End Reinforcement",
+              "content": "Route a sub-oscillator alongside a main saw oscillator to create a heavy synth bass.",
+              "type": "drag_drop",
+              "items": [
+                "Master Pitch CV (Key Pitch)",
+                "Main VCO (Sawtooth Wave)",
+                "Frequency Divider Flip-Flop (-1 or -2 Octaves)",
+                "Sub-Oscillator (Square/Sine Wave)",
+                "Audio Mixer Section",
+                "VCF (Low-Pass Filter)"
+              ],
+              "correct_order": [
+                "Master Pitch CV (Key Pitch)",
+                "Main VCO (Sawtooth Wave)",
+                "Frequency Divider Flip-Flop (-1 or -2 Octaves)",
+                "Sub-Oscillator (Square/Sine Wave)",
+                "Audio Mixer Section",
+                "VCF (Low-Pass Filter)"
+              ],
+              "explanation": "<p><strong>Sub-Oscillator Architecture:</strong> The primary pitch control voltage drives the main VCO. A digital flip-flop circuit divides the main oscillator frequency by 2 (or 4), producing a clean square or sine wave exactly one or two octaves lower. Both signals are blended in the Mixer before passing to the VCF, providing solid low-end foundation that stays in perfect phase alignment with the lead oscillator.</p>",
+              "expert_quote": {
+                "text": "A sub-oscillator guarantees that your bassline maintains solid fundamental power below 80 Hz even when heavy filter resonance sweeps the upper harmonics.",
+                "author": "Vince Clarke, Synth-Pop Pioneer (Depeche Mode, Yazoo, Erasure)"
+              }
+            },
+            {
+              "title": "Ring Modulation Signal Flow",
+              "content": "Trace the math and routing that generates metallic bell and robot tones via Ring Modulation.",
+              "type": "drag_drop",
+              "items": [
+                "Carrier Audio Signal (Oscillator 1)",
+                "Modulator Audio Signal (Oscillator 2)",
+                "Four-Quadrant Analogue Multiplier Circuit",
+                "Sum & Difference Sideband Frequencies (f1 + f2 & f1 - f2)",
+                "Suppression of Original Carrier & Modulator",
+                "Inharmonic Metallic Audio Output"
+              ],
+              "correct_order": [
+                "Carrier Audio Signal (Oscillator 1)",
+                "Modulator Audio Signal (Oscillator 2)",
+                "Four-Quadrant Analogue Multiplier Circuit",
+                "Sum & Difference Sideband Frequencies (f1 + f2 & f1 - f2)",
+                "Suppression of Original Carrier & Modulator",
+                "Inharmonic Metallic Audio Output"
+              ],
+              "explanation": "<p><strong>Ring Modulation Mathematics:</strong> Two audio-rate signals (Carrier $f_1$ and Modulator $f_2$) enter a diode ring or four-quadrant multiplier. The circuit multiplies their instantaneous amplitudes together, completely cancelling the original input frequencies and outputting solely their sum ($f_1 + f_2$) and difference ($f_1 - f_2$) sidebands. These non-integer harmonic relationships produce characteristic metallic, bell-like, and Dalek robotic textures.</p>",
+              "expert_quote": {
+                "text": "Ring modulation was the sonic identity of the BBC Radiophonic Workshop and early avant-garde electronic music. It takes harmonious tones and turns them into alien steel.",
+                "author": "Delia Derbyshire, Electronic Music Pioneer (Doctor Who Theme)"
+              }
+            },
+            {
+              "title": "Velocity-to-VCA Dynamic Sensitivity",
+              "content": "Route keyboard touch dynamics into the amplifier for expressive playing.",
+              "type": "drag_drop",
+              "items": [
+                "Keyboard Key Strike (Physical Force)",
+                "MIDI Velocity Sensor (Time Between Contact Switches)",
+                "Velocity Scaling / Curve Processor",
+                "VCA Level Modulation Input",
+                "VCA Dynamic Volume Output"
+              ],
+              "correct_order": [
+                "Keyboard Key Strike (Physical Force)",
+                "MIDI Velocity Sensor (Time Between Contact Switches)",
+                "Velocity Scaling / Curve Processor",
+                "VCA Level Modulation Input",
+                "VCA Dynamic Volume Output"
+              ],
+              "explanation": "<p><strong>Velocity to Amplitude Path:</strong> Striking a key rapidly measures the millisecond transit time between two rubber membrane switches under the key. This value (0–127) is converted into a modulation voltage that scales the maximum gain of the VCA. Harder keystrokes produce higher VCA gain, restoring dynamic acoustic expression to electronic synthesis.</p>",
+              "expert_quote": {
+                "text": "Routing velocity simultaneously to both VCA level (volume) and VCF cutoff (brightness) mirrors acoustic instruments, where louder notes are naturally brighter.",
+                "author": "Paul Wiffen, Sound Designer & Synthesist (Stevie Wonder, Jean-Michel Jarre)"
+              }
+            },
+            {
+              "title": "Key Tracking (Keyboard Follow) on VCF",
+              "content": "Route keyboard pitch CV to the filter cutoff to maintain consistent brightness across all octaves.",
+              "type": "drag_drop",
+              "items": [
+                "Keyboard Key Pitch (Note Number)",
+                "1 Volt Per Octave Pitch CV Bus",
+                "Key Tracking Amount Knob (0% - 100%)",
+                "VCF Cutoff Frequency Offset",
+                "Even Timbral Balance Across Octaves"
+              ],
+              "correct_order": [
+                "Keyboard Key Pitch (Note Number)",
+                "1 Volt Per Octave Pitch CV Bus",
+                "Key Tracking Amount Knob (0% - 100%)",
+                "VCF Cutoff Frequency Offset",
+                "Even Timbral Balance Across Octaves"
+              ],
+              "explanation": "<p><strong>VCF Keyboard Tracking:</strong> Without keyboard tracking, high notes on a keyboard would sound muffled because their fundamental frequencies collide with a static low-pass cutoff filter. Key tracking routes keyboard pitch CV to the filter cutoff, causing the filter to open progressively wider as you play higher up the keyboard, maintaining consistent harmonic clarity across all registers.</p>",
+              "expert_quote": {
+                "text": "Set key tracking to 100% on a self-oscillating filter, and the filter resonance itself becomes a perfectly pitched sine-wave oscillator that tracks the keyboard in equal temperament.",
+                "author": "Don Buchla, Electronic Instrument Pioneer"
+              }
+            },
+            {
+              "title": "Sample & Hold Random Voltage Flow",
+              "content": "Trace how analog white noise is converted into stepping sci-fi computer bleeps.",
+              "type": "drag_drop",
+              "items": [
+                "White Noise Generator (Broadband Voltage Source)",
+                "Clock Pulse / LFO Square Wave (Sampling Trigger)",
+                "Sample & Hold Capacitor Circuit",
+                "Quantized / Stepped Control Voltage Output",
+                "VCO Pitch or VCF Cutoff Input",
+                "Rhythmic Stepped Arpeggiated FX"
+              ],
+              "correct_order": [
+                "White Noise Generator (Broadband Voltage Source)",
+                "Clock Pulse / LFO Square Wave (Sampling Trigger)",
+                "Sample & Hold Capacitor Circuit",
+                "Quantized / Stepped Control Voltage Output",
+                "VCO Pitch or VCF Cutoff Input",
+                "Rhythmic Stepped Arpeggiated FX"
+              ],
+              "explanation": "<p><strong>Sample & Hold Circuit:</strong> White noise provides random voltages. Each time a clock pulse triggers the circuit, a capacitor samples the instantaneous voltage of the noise and holds it constant until the next clock strike. This output creates a staircase pattern of random, rhythmic voltages, famous for powering the sci-fi computer sounds of R2-D2 and classic synth intros.</p>",
+              "expert_quote": {
+                "text": "The intro to 'Karn Evil 9' by ELP and the bubbling sounds in classic Doctor Who are the definitive sound of Sample & Hold modulating an ARP 2600 filter.",
+                "author": "Keith Emerson, Keyboard Legend"
+              }
+            },
+            {
+              "title": "Filter Resonance Self-Oscillation Feedback Loop",
+              "content": "Trace the internal feedback loop that occurs when filter resonance (Q) is driven to its maximum.",
+              "type": "drag_drop",
+              "items": [
+                "VCF Audio Input",
+                "Filter Frequency Resonant Peak",
+                "Resonance Feedback Path (Output Fed Back to Input)",
+                "Phase-Inverted High-Gain Reinforcement",
+                "Self-Oscillation (Pure Sine Wave Generation)",
+                "VCF Output without Oscillator Input"
+              ],
+              "correct_order": [
+                "VCF Audio Input",
+                "Filter Frequency Resonant Peak",
+                "Resonance Feedback Path (Output Fed Back to Input)",
+                "Phase-Inverted High-Gain Reinforcement",
+                "Self-Oscillation (Pure Sine Wave Generation)",
+                "VCF Output without Oscillator Input"
+              ],
+              "explanation": "<p><strong>Self-Oscillation Feedback:</strong> Resonance boosts frequencies around the cutoff point by feeding a portion of the filter's output back into its input. When resonance is turned to 100%, the positive feedback loop reaches unity gain and breaks into self-oscillation, generating a pure sine wave at the cutoff frequency even when no audio oscillator is connected to the filter input.</p>",
+              "expert_quote": {
+                "text": "A 4-pole 24 dB/octave ladder filter has four RC stages that each introduce a 45-degree phase shift at cutoff. At resonance, that total 180-degree shift inverts phase, turning negative feedback into pure oscillatory energy.",
+                "author": "Robert Moog, US Patent 3,475,623 (Moog Ladder Filter)"
+              }
             }
           ]
         },
@@ -7598,6 +8069,209 @@
                 "author": "Mick Guzauski, Mixing Engineer"
               },
               "img": "/images/Dictiionary_Quiz_image_Pool/eq_air_hq.png"
+            },
+            {
+              "title": "Sub-Bass High-Pass Filter Slope",
+              "content": "Select the correct High-Pass Filter (HPF) frequency and slope to remove sub-audible rumble from a lead vocal.",
+              "type": "multi_choice",
+              "question": "What is the recommended High-Pass Filter cutoff and slope to eliminate stage rumble and handling noise on a vocal without thinning out the fundamental pitch?",
+              "answers": [
+                {
+                  "text": "80 Hz HPF with a 12 dB/octave slope",
+                  "is_true": "yes"
+                },
+                {
+                  "text": "300 Hz HPF with a 48 dB/octave slope",
+                  "is_true": "no"
+                },
+                {
+                  "text": "20 Hz HPF with a 6 dB/octave slope",
+                  "is_true": "no"
+                },
+                {
+                  "text": "1 kHz HPF with a 24 dB/octave slope",
+                  "is_true": "no"
+                }
+              ],
+              "explanation": "<p><strong>Vocal High-Pass Filtering:</strong> Most human vocal fundamentals reside between 85 Hz (male baritone) and 255 Hz (female soprano). A High-Pass Filter engaged at <strong>80 Hz with a 12 dB/octave slope</strong> removes unwanted air conditioning rumble, mic stand vibration, and plosive blast energy without audibly cutting into vocal body.</p>",
+              "expert_quote": {
+                "text": "Every track that isn't a kick drum or bass guitar gets a high-pass filter. It clears out headroom you didn't even realize you were losing.",
+                "author": "Dave Pensado, Grammy-Winning Mixer"
+              }
+            },
+            {
+              "title": "Q-Factor and Bandwidth Relationship",
+              "content": "Calculate or identify the bandwidth behavior when adjusting the Quality factor (Q) on a parametric EQ.",
+              "type": "multi_choice",
+              "question": "A parametric EQ band is set to a centre frequency of 1,000 Hz. If the engineer increases the Q value from 0.7 to 5.0, what happens to the affected bandwidth?",
+              "answers": [
+                {
+                  "text": "The bandwidth narrows significantly, focusing energy on a tight frequency surgical notch",
+                  "is_true": "yes"
+                },
+                {
+                  "text": "The bandwidth broadens, affecting several octaves above and below 1,000 Hz",
+                  "is_true": "no"
+                },
+                {
+                  "text": "The centre frequency automatically shifts down to 500 Hz",
+                  "is_true": "no"
+                },
+                {
+                  "text": "The filter changes from a bell curve into a high-shelf filter",
+                  "is_true": "no"
+                }
+              ],
+              "explanation": "<p><strong>Q-Factor Formula:</strong> $Q = f_0 / \\Delta f$, where $f_0$ is the centre frequency and $\\Delta f$ is the bandwidth in Hertz. Higher Q values correspond to narrower bandwidths. A Q of 0.7 affects over two octaves (broad musical tonal shaping), whereas a Q of 5.0 to 10.0 produces a sharp, surgical notch to remove acoustic ring or mains hum.</p>",
+              "expert_quote": {
+                "text": "Cut narrow, boost wide. High Q for surgical problem solving; low Q for musical sweetening.",
+                "author": "Paul White, Sound On Sound Editor-in-Chief"
+              }
+            },
+            {
+              "title": "Removing 50 Hz UK Mains Hum with a Notch Filter",
+              "content": "Identify the proper EQ filter topology to eliminate electromagnetic mains hum from a single-coil guitar track.",
+              "type": "multi_choice",
+              "question": "To remove persistent 50 Hz UK mains hum from a bass guitar recording while leaving the 41.2 Hz low E string intact, which EQ filter should be applied?",
+              "answers": [
+                {
+                  "text": "A narrow notch filter (Q = 10 to 20) with deep attenuation (-18 dB) centered at 50 Hz and its 100 Hz / 150 Hz harmonics",
+                  "is_true": "yes"
+                },
+                {
+                  "text": "A low-shelf cut of -12 dB from 200 Hz down",
+                  "is_true": "no"
+                },
+                {
+                  "text": "A 100 Hz high-pass filter with 24 dB/octave slope",
+                  "is_true": "no"
+                },
+                {
+                  "text": "A broad bell boost of +6 dB at 60 Hz",
+                  "is_true": "no"
+                }
+              ],
+              "explanation": "<p><strong>Notch Filtering Mains Hum:</strong> In the UK, AC mains electricity oscillates at 50 Hz. Single-coil pickups readily capture this electromagnetic hum. Applying a high-pass filter would completely destroy the bass guitar's lowest fundamental notes (e.g. low E at 41.2 Hz). A surgical notch filter with high Q (10–20) removes only 49–51 Hz and its integer harmonics without affecting adjacent bass frequencies.</p>",
+              "expert_quote": {
+                "text": "Mains hum is never just 50 Hz; it has odd and even harmonics extending into the kilohertz range. Harmonic notch filters are vital for forensic cleanup.",
+                "author": "Peter Mew, Abbey Road Mastering Engineer"
+              }
+            },
+            {
+              "title": "Taming 'Boxy' Snare & Drum Resonances",
+              "content": "Identify the classic frequency zone responsible for boxy or cardboard drum tones.",
+              "type": "multi_choice",
+              "question": "When an acoustic snare drum sounds 'boxy' or like cardboard in a mix, which frequency area should be dipped with a medium-Q parametric EQ?",
+              "answers": [
+                {
+                  "text": "400 Hz - 600 Hz",
+                  "is_true": "yes"
+                },
+                {
+                  "text": "60 Hz - 80 Hz",
+                  "is_true": "no"
+                },
+                {
+                  "text": "2 kHz - 4 kHz",
+                  "is_true": "no"
+                },
+                {
+                  "text": "10 kHz - 12 kHz",
+                  "is_true": "no"
+                }
+              ],
+              "explanation": "<p><strong>Boxiness Frequencies:</strong> The 400 Hz to 600 Hz octave represents 'boxiness' and hollow, cheap acoustic reflections in drums and vocals. Dipping 2–4 dB with a moderate Q in this region immediately hollows out mud and lets the low-end weight (150–200 Hz) and crack (3–5 kHz) shine through.</p>",
+              "expert_quote": {
+                "text": "If a mix sounds amateur, 9 times out of 10 there is a buildup of energy around 400 to 500 Hz across multiple tracks.",
+                "author": "Mick Guzauski, Mix Engineer (Daft Punk, Earth Wind & Fire, Eric Clapton)"
+              }
+            },
+            {
+              "title": "Adding 'Air' with a High-Shelf EQ",
+              "content": "Select the correct EQ filter curve to add modern vocal sheen and acoustic openness.",
+              "type": "multi_choice",
+              "question": "What is the function of a High-Shelf boost at 12 kHz to 16 kHz on a lead vocal?",
+              "answers": [
+                {
+                  "text": "Adds 'air', breathiness, and expensive sheen without exaggerating harsh 3–6 kHz sibilance",
+                  "is_true": "yes"
+                },
+                {
+                  "text": "Compresses high-frequency sibilance to act as a de-esser",
+                  "is_true": "no"
+                },
+                {
+                  "text": "Removes high-frequency hiss by rolling off everything above 12 kHz",
+                  "is_true": "no"
+                },
+                {
+                  "text": "Shifts the phase of the vocal by 180 degrees to widen stereo width",
+                  "is_true": "no"
+                }
+              ],
+              "explanation": "<p><strong>High-Shelf 'Air' Band:</strong> Pioneered by the famous Maag EQ4 20 kHz 'Air Band' and Pultec EQP-1A, a gentle high-shelf boost above 12 kHz lifts the outermost harmonic overtones and room breath of a vocal. Because it is positioned well above the 4–8 kHz harsh sibilance range, it adds sparkle without making 'S' and 'T' consonants uncomfortably sharp.</p>",
+              "expert_quote": {
+                "text": "The 16 kHz and 20 kHz shelf adds luxury and dimension. You don't hear it as a frequency; you feel it as space and light.",
+                "author": "Cliff Maag, Creator of the Maag EQ4"
+              }
+            },
+            {
+              "title": "Dynamic EQ vs Static EQ",
+              "content": "Compare dynamic equalization with standard static parametric EQ.",
+              "type": "multi_choice",
+              "question": "Why would an engineer choose a Dynamic EQ over a traditional Static EQ to tame an acoustic guitar's boominess on low G and F# notes?",
+              "answers": [
+                {
+                  "text": "Dynamic EQ only attenuates the boomy 120 Hz resonance when the guitarist actually strikes those specific loud notes, leaving quiet passages untouched",
+                  "is_true": "yes"
+                },
+                {
+                  "text": "Dynamic EQ automatically adds reverb and stereo delay to the boosted frequencies",
+                  "is_true": "no"
+                },
+                {
+                  "text": "Dynamic EQ converts the acoustic guitar from an analog signal to 32-bit floating point",
+                  "is_true": "no"
+                },
+                {
+                  "text": "Dynamic EQ only works on mono tracks, whereas static EQ works on stereo",
+                  "is_true": "no"
+                }
+              ],
+              "explanation": "<p><strong>Dynamic EQ Advantages:</strong> A static EQ applies its cut 100% of the time. If an acoustic guitar has a severe body resonance only on low notes (e.g. 100–140 Hz), a static cut hollows out the instrument during quiet fingerpicked sections. Dynamic EQ acts like a compressor with a parametric filter: the cut is only engaged when the signal exceeds a threshold, keeping the tone full during soft playing.</p>",
+              "expert_quote": {
+                "text": "Dynamic EQ is the bridge between tone and dynamics. It fixes problems that only occur when the musician hits hard.",
+                "author": "Fab Dupont, Producer & Mix Engineer (Flux Studios NYC)"
+              }
+            },
+            {
+              "title": "Low Shelf vs High-Pass Filter",
+              "content": "Differentiate between shelf and cut filter curves in the low end.",
+              "type": "multi_choice",
+              "question": "What is the fundamental difference between a Low-Shelf filter and a High-Pass (Low-Cut) filter?",
+              "answers": [
+                {
+                  "text": "A high-pass filter continually rolls off all frequencies below cutoff at a set slope (dB/oct), while a low-shelf filter levels off to a fixed gain adjustment below its transition frequency",
+                  "is_true": "yes"
+                },
+                {
+                  "text": "A low-shelf filter removes 100% of sub-bass, while a high-pass filter can only boost frequencies",
+                  "is_true": "no"
+                },
+                {
+                  "text": "A low-shelf filter operates exclusively in the mid-frequency range from 1 kHz to 5 kHz",
+                  "is_true": "no"
+                },
+                {
+                  "text": "There is no difference; they are two names for the identical mathematical circuit",
+                  "is_true": "no"
+                }
+              ],
+              "explanation": "<p><strong>Shelf vs Pass Filters:</strong> A High-Pass filter continuously rolls off sound below its cutoff frequency at 6, 12, 18, or 24 dB per octave into complete silence. In contrast, a Low-Shelf filter boosts or cuts low frequencies by a specified amount (e.g. -3 dB) and then levels out horizontally across all deeper frequencies down to 0 Hz.</p>",
+              "expert_quote": {
+                "text": "Use a high-pass filter when you want junk eliminated entirely; use a low shelf when you just want to tilt the overall balance of the instrument.",
+                "author": "Bobby Owsinski, Author of 'The Mixing Engineer's Handbook'"
+              }
             }
           ]
         },
@@ -7682,6 +8356,180 @@
                 "author": "Don Buchla, Synthesizer Pioneer"
               },
               "img": "/images/svg/synth_waveforms_comparison.svg"
+            },
+            {
+              "title": "Pulse Wave Duty Cycle & Harmonics",
+              "content": "Identify the harmonic characteristics of a 25% pulse wave versus a 50% square wave.",
+              "type": "multi_choice",
+              "question": "A symmetrical 50% square wave contains ONLY odd harmonics (1st, 3rd, 5th...). What happens to the harmonic spectrum when the duty cycle is narrowed to a 25% pulse wave?",
+              "answers": [
+                {
+                  "text": "Even harmonics (2nd, 4th, 6th...) appear in the spectrum, creating a nasal, reedy, oboe-like timbre",
+                  "is_true": "yes"
+                },
+                {
+                  "text": "All harmonics disappear, leaving only a pure fundamental sine wave",
+                  "is_true": "no"
+                },
+                {
+                  "text": "The pitch drops by exactly one octave",
+                  "is_true": "no"
+                },
+                {
+                  "text": "Only high frequencies above 10 kHz are preserved",
+                  "is_true": "no"
+                }
+              ],
+              "explanation": "<p><strong>Pulse Wave Harmonic Series:</strong> A 50% duty cycle square wave is perfectly symmetrical, causing all even harmonics to cancel out ($f, 3f, 5f, 7f...$). When the pulse width deviates from 50% (e.g. 25% or 10%), even harmonics enter the sound. The narrower the pulse, the brighter and more nasal the sound becomes (emulating reed instruments or clavinet).</p>",
+              "expert_quote": {
+                "text": "Modulating the duty cycle with an LFO creates Pulse Width Modulation (PWM), the quintessential lush string sound of 80s polysynths.",
+                "author": "Dave Smith, Designer of Prophet-5"
+              }
+            },
+            {
+              "title": "Digital Hard Clipping Waveform Distortion",
+              "content": "Identify the visual and acoustic result of exceeding 0 dBFS on an A/D converter.",
+              "type": "multi_choice",
+              "question": "When an analogue sine wave signal exceeds 0 dBFS at an analogue-to-digital converter, what happens to the waveform peaks?",
+              "answers": [
+                {
+                  "text": "The peaks are abruptly flat-topped (squared off), generating harsh, non-musical odd harmonic distortion and aliasing",
+                  "is_true": "yes"
+                },
+                {
+                  "text": "The peaks are rounded off gently with warm second-harmonic tube saturation",
+                  "is_true": "no"
+                },
+                {
+                  "text": "The waveform is converted into an inverted triangle wave",
+                  "is_true": "no"
+                },
+                {
+                  "text": "The converter automatically compresses the audio with zero distortion",
+                  "is_true": "no"
+                }
+              ],
+              "explanation": "<p><strong>Digital Hard Clipping:</strong> In fixed-point digital audio (16-bit or 24-bit), numbers cannot exceed the maximum binary value ($0\\text{ dBFS}$, where all bits are 1). Any voltage peak exceeding this limit is abruptly sheared off into a flat horizontal line. This instantaneous truncation generates intense high-frequency odd harmonics and inharmonic aliasing foldback.</p>",
+              "expert_quote": {
+                "text": "Analogue tape saturates with graceful compression and warmth; digital converters slam into a brick wall of pure digital hash.",
+                "author": "Rupert Neve, Audio Pioneer"
+              }
+            },
+            {
+              "title": "DC Offset in Audio Waveforms",
+              "content": "Identify the causes, visual signs, and remedies for Direct Current (DC) offset in a recorded track.",
+              "type": "multi_choice",
+              "question": "A recorded bass track sits noticeably above the center 0V axis line when viewed in a DAW audio editor. What is this condition called, and how should it be resolved?",
+              "answers": [
+                {
+                  "text": "DC Offset; resolve by applying a high-pass filter at 10–20 Hz or using a DAW 'Remove DC Offset' utility",
+                  "is_true": "yes"
+                },
+                {
+                  "text": "Phase Inversion; resolve by flipping the polarity switch by 180 degrees",
+                  "is_true": "no"
+                },
+                {
+                  "text": "Frequency Masking; resolve by boosting the presence band at 3 kHz",
+                  "is_true": "no"
+                },
+                {
+                  "text": "Dither Noise; resolve by truncating bit depth from 24-bit to 16-bit",
+                  "is_true": "no"
+                }
+              ],
+              "explanation": "<p><strong>DC Offset Diagnosis:</strong> DC (Direct Current) offset occurs when faulty hardware or low-quality audio interfaces leak continuous DC voltage into the audio path, displacing the waveform above or below the center zero line. This robs digital headroom and causes loud clicks during audio splices. Engaging a high-pass filter at 10–20 Hz blocks the 0 Hz DC voltage and realigns the waveform onto the zero axis.</p>",
+              "expert_quote": {
+                "text": "DC offset is invisible to the ears until you cut an edit or hit a limiter, where it eats up 2 to 3 dB of headroom for zero audible gain.",
+                "author": "Bob Katz, Mastering Engineer"
+              }
+            },
+            {
+              "title": "Phase Inversion & Total Destructive Cancellation",
+              "content": "Analyze the acoustic result of combining two identical waveforms when one has its polarity flipped.",
+              "type": "multi_choice",
+              "question": "Two identical recordings of an acoustic snare drum are played back simultaneously at unity gain. If the phase/polarity of track 2 is flipped by 180 degrees, what will the listener hear?",
+              "answers": [
+                {
+                  "text": "Total silence (complete destructive phase cancellation: 1 + (-1) = 0)",
+                  "is_true": "yes"
+                },
+                {
+                  "text": "The snare drum sounds twice as loud (+6 dB boost)",
+                  "is_true": "no"
+                },
+                {
+                  "text": "The snare drum tone shifts up by an octave",
+                  "is_true": "no"
+                },
+                {
+                  "text": "The sound is panned automatically to hard left and hard right",
+                  "is_true": "no"
+                }
+              ],
+              "explanation": "<p><strong>Phase Cancellation:</strong> Phase/polarity inversion multiplies every instantaneous amplitude value by -1. When two identical waveforms with opposite polarity are summed together ($A + (-A) = 0$), the positive pressure waves and negative pressure waves cancel out completely across the entire frequency spectrum, producing total silence.</p>",
+              "expert_quote": {
+                "text": "The null test is the ultimate scientific test in audio. If two files cancel to digital silence when one is inverted, they are bit-for-bit identical.",
+                "author": "Ethan Winer, Acoustic Engineer & Author"
+              }
+            },
+            {
+              "title": "Acoustic Envelope: Percussive vs Sustained Pads",
+              "content": "Contrast the ADSR amplitude envelope contours of an acoustic snare drum versus a string orchestra pad.",
+              "type": "multi_choice",
+              "question": "Which ADSR envelope setting accurately represents a synthesized percussive rimshot or snare hit?",
+              "answers": [
+                {
+                  "text": "Instantaneous Attack (0-1 ms), Short Decay (80-150 ms), Zero Sustain (0%), Short Release",
+                  "is_true": "yes"
+                },
+                {
+                  "text": "Slow Attack (800 ms), Long Decay (2000 ms), 100% Sustain, Long Release (1500 ms)",
+                  "is_true": "no"
+                },
+                {
+                  "text": "Medium Attack (250 ms), Zero Decay, 100% Sustain, Zero Release",
+                  "is_true": "no"
+                },
+                {
+                  "text": "Zero Attack, Infinite Decay, 50% Sustain, Infinite Release",
+                  "is_true": "no"
+                }
+              ],
+              "explanation": "<p><strong>Percussive ADSR Envelopes:</strong> Drums are explosive transient events: their attack is instantaneous ($<1\\text{ ms}$). Unlike bowed strings, acoustic drums do not sustain when hit; they immediately decay to silence. Therefore, percussive envelopes have <strong>0% Sustain</strong> and rely purely on the Decay parameter to dictate how long the shell resonates.</p>",
+              "expert_quote": {
+                "text": "Sustain is a level, not a time. Decay and Release are times. Once students understand this distinction, envelope programming clicks into place.",
+                "author": "Gordon Reid, Synth Secrets / Sound On Sound"
+              }
+            },
+            {
+              "title": "Triangle Wave vs Sine Wave Harmonics",
+              "content": "Identify the acoustic and mathematical difference between a triangle wave and a pure sine wave.",
+              "type": "multi_choice",
+              "question": "How does the harmonic spectrum of an analogue triangle wave differ from that of a pure sine wave?",
+              "answers": [
+                {
+                  "text": "A triangle wave contains weak odd harmonics (falling off at 1/n²), giving it a slightly hollow, warm woodwind flute timbre compared to the single-frequency sine wave",
+                  "is_true": "yes"
+                },
+                {
+                  "text": "A triangle wave contains all even harmonics, while a sine wave contains all odd harmonics",
+                  "is_true": "no"
+                },
+                {
+                  "text": "A triangle wave has a flat harmonic spectrum with all harmonics at equal volume",
+                  "is_true": "no"
+                },
+                {
+                  "text": "A triangle wave only contains frequencies above 5,000 Hz",
+                  "is_true": "no"
+                }
+              ],
+              "explanation": "<p><strong>Triangle Wave Spectrum:</strong> A pure sine wave contains solely the fundamental frequency ($f$). A triangle wave contains only odd harmonics ($3f, 5f, 7f...$), but their amplitudes fall off very rapidly by the inverse square of the harmonic number ($1/n^2$: 3rd harmonic is at $1/9$ volume; 5th is at $1/25$). This subtle harmonic content gives triangle waves a soft, flute-like warmth without the harshness of a square or sawtooth wave.</p>",
+              "expert_quote": {
+                "text": "A triangle wave is a fantastic modulation source and sub-bass wave because its upper harmonics are soft enough to sit under a kick without buzzing.",
+                "author": "Bob Moog"
+              }
             }
           ]
         },
@@ -7696,7 +8544,7 @@
               "content": "Tap the **Cutoff Frequency** control on this synthesizer.",
               "question_text": "Tap the Cutoff Frequency knob.",
               "type": "hotspot",
-              "image_src": "/images/esp_synth.png?v=2",
+              "image_src": "/images/esp_synth.png",
               "hotspots": [
                 {
                   "id": "cutoff",
@@ -7729,7 +8577,7 @@
               "content": "Tap the **Resonance** control on this synthesizer.",
               "question_text": "Tap the Resonance knob.",
               "type": "hotspot",
-              "image_src": "/images/esp_synth.png?v=2",
+              "image_src": "/images/esp_synth.png",
               "hotspots": [
                 {
                   "id": "resonance",
@@ -7762,7 +8610,7 @@
               "content": "Tap the **Attack** fader/knob on the Envelope section.",
               "question_text": "Tap the Attack control.",
               "type": "hotspot",
-              "image_src": "/images/esp_synth.png?v=2",
+              "image_src": "/images/esp_synth.png",
               "hotspots": [
                 {
                   "id": "attack",
@@ -7786,7 +8634,7 @@
               "content": "Tap the **LFO Rate** (Speed) knob.",
               "question_text": "Tap the LFO Rate control.",
               "type": "hotspot",
-              "image_src": "/images/esp_synth.png?v=2",
+              "image_src": "/images/esp_synth.png",
               "hotspots": [
                 {
                   "id": "lfo_rate",
@@ -7810,7 +8658,7 @@
               "content": "Tap the **Waveform Selector**.",
               "question_text": "Tap the Waveform selection area.",
               "type": "hotspot",
-              "image_src": "/images/esp_synth.png?v=2",
+              "image_src": "/images/esp_synth.png",
               "hotspots": [
                 {
                   "id": "waveform",
@@ -8688,7 +9536,8 @@
               },
               "img": "/images/mastering_dither_bit_reduction_diagram.svg"
             }
-          ]
+          ],
+          "id": "quiz-topic-27"
         },
         {
           "title": "Practical Quiz 9: Microphone Techniques",
@@ -9060,7 +9909,8 @@
               "img": "/images/polar_pattern_omni.svg"
             }
           ],
-          "isPremium": true
+          "isPremium": true,
+          "id": "quiz-topic-28"
         },
         {
           "title": "Practical Quiz 10: Recording Workflow",
@@ -9336,7 +10186,8 @@
               }
             }
           ],
-          "isPremium": true
+          "isPremium": true,
+          "id": "quiz-topic-29"
         },
         {
           "id": "quiz-topic-30",
@@ -9451,6 +10302,122 @@
               "explanation_image": {
                 "src": "/images/svg/midi_7bit_binary_conversion.svg",
                 "alt": "7-Bit MIDI Binary Conversion Table"
+              }
+            },
+            {
+              "title": "MIDI Status Byte vs Data Byte Identification",
+              "content": "Identify the fundamental binary structural difference between a MIDI Status byte and a MIDI Data byte.",
+              "type": "multi_choice",
+              "question": "In the serial MIDI 1.0 specification, how does a receiving synthesizer or DAW distinguish between a Status Byte (command) and a Data Byte (value)?",
+              "answers": [
+                {
+                  "text": "The Most Significant Bit (MSB, Bit 7) is ALWAYS 1 for Status Bytes (1xxxxxxx) and ALWAYS 0 for Data Bytes (0xxxxxxx)",
+                  "is_true": "yes"
+                },
+                {
+                  "text": "Status bytes are 16 bits long, while data bytes are 8 bits long",
+                  "is_true": "no"
+                },
+                {
+                  "text": "Status bytes only transmit even numbers, while data bytes transmit odd numbers",
+                  "is_true": "no"
+                },
+                {
+                  "text": "Status bytes are sent on red cables; data bytes on black cables",
+                  "is_true": "no"
+                }
+              ],
+              "explanation": "<p><strong>MIDI MSB Byte Architecture:</strong> In standard MIDI 1.0 (baud rate 31.25 kbaud), each 8-bit byte reserves its Most Significant Bit (MSB, Bit 7) as a flag. If $\\text{Bit } 7 = 1$ (values 128–255 / `0x80`–`0xFF`), the byte is a <strong>Status Byte</strong> (e.g. Note On, Pitch Bend). If $\\text{Bit } 7 = 0$ (values 0–127 / `0x00`–`0x7F`), the byte is a <strong>Data Byte</strong> (e.g. Note Number 60, Velocity 100).</p>",
+              "expert_quote": {
+                "text": "The MSB rule is what made MIDI 1.0 so resilient. Even if a byte was dropped over a long cable, the receiving synth instantly knew whether the next byte was a command or a parameter.",
+                "author": "Dave Smith & Chet Wood, Creators of the MIDI 1.0 Specification"
+              }
+            },
+            {
+              "title": "MIDI Velocity & Controller 7-Bit Resolution (128 Values)",
+              "content": "Calculate the mathematical range of standard 7-bit MIDI data.",
+              "type": "multi_choice",
+              "question": "Because MIDI Data bytes use 7 bits for value encoding ($2^7$), what is the total number of discrete velocity or continuous controller (CC) values available?",
+              "answers": [
+                {
+                  "text": "128 discrete values (ranging from 0 to 127)",
+                  "is_true": "yes"
+                },
+                {
+                  "text": "256 discrete values (ranging from 0 to 255)",
+                  "is_true": "no"
+                },
+                {
+                  "text": "100 discrete values (ranging from 1% to 100%)",
+                  "is_true": "no"
+                },
+                {
+                  "text": "1,024 discrete values (ranging from 0 to 1023)",
+                  "is_true": "no"
+                }
+              ],
+              "explanation": "<p><strong>7-Bit Calculation:</strong> In 7-bit binary, $2^7 = 128$ distinct states. Counting from zero, the range is strictly <strong>0 to 127</strong>. This is why MIDI note numbers (0 = C-1 to 127 = G9), note velocities (0 = silent/note-off, 127 = maximum strike), and CC parameters (e.g. Mod Wheel CC1, Volume CC7, Pan CC10) all peak at 127.</p>",
+              "expert_quote": {
+                "text": "In 1982, 128 steps felt like plenty for keyboard volume and velocity. Today in orchestral scoring, we use 14-bit CCs to eliminate audible stepping.",
+                "author": "Hans Zimmer, Film Composer"
+              }
+            },
+            {
+              "title": "14-Bit Pitch Bend Resolution (16,384 Steps)",
+              "content": "Analyze why Pitch Bend uses two data bytes (LSB and MSB) instead of a single 7-bit byte.",
+              "type": "multi_choice",
+              "question": "Why does the MIDI specification pair two 7-bit data bytes together (LSB and MSB) to transmit Pitch Bend information?",
+              "answers": [
+                {
+                  "text": "To provide high-resolution 14-bit precision ($2^{14} = 16,384$ steps), preventing audible stair-stepped frequency jumps during pitch wheel bends",
+                  "is_true": "yes"
+                },
+                {
+                  "text": "Because the pitch bend wheel sends left and right channel audio simultaneously",
+                  "is_true": "no"
+                },
+                {
+                  "text": "To double the maximum tempo from 120 BPM to 240 BPM",
+                  "is_true": "no"
+                },
+                {
+                  "text": "To transmit the musician's finger pressure (aftertouch)",
+                  "is_true": "no"
+                }
+              ],
+              "explanation": "<p><strong>14-Bit Pitch Bend:</strong> Human hearing is extraordinarily sensitive to pitch shifts. If pitch bend only had 128 steps across a 2-semitone bend, the listener would hear discrete 'zipper noise' or stepping. By combining two 7-bit data bytes (Coarse MSB and Fine LSB), MIDI achieves $7 + 7 = 14\\text{ bits}$, yielding <strong>16,384 discrete steps</strong> (with center resting position at 8,192 / `0x2000`), guaranteeing smooth glissandos.</p>",
+              "expert_quote": {
+                "text": "14-bit pitch bend was ahead of its time. It proved that 1980s serial MIDI could deliver continuous, expressive microtonal nuance.",
+                "author": "Bob Moog"
+              }
+            },
+            {
+              "title": "MIDI Channel Voice Message Hexadecimal Identification",
+              "content": "Decode standard MIDI hexadecimal status bytes into their corresponding musical commands.",
+              "type": "multi_choice",
+              "question": "In a MIDI data stream, what does the hexadecimal message '90 3C 64' represent?",
+              "answers": [
+                {
+                  "text": "Note On on Channel 1 (90), Middle C / Note 60 (3C), Velocity 100 (64)",
+                  "is_true": "yes"
+                },
+                {
+                  "text": "Control Change on Channel 9 (90), Pan Pot (3C), Value 64 (64)",
+                  "is_true": "no"
+                },
+                {
+                  "text": "Pitch Bend on Channel 1 (90), +3 semitones (3C), Fine tune (64)",
+                  "is_true": "no"
+                },
+                {
+                  "text": "Program Change to Patch 90, Bank 3C, Volume 64",
+                  "is_true": "no"
+                }
+              ],
+              "explanation": "<p><strong>Decoding MIDI Hexadecimal:</strong><br/>• `90`: Status byte for <strong>Note On</strong> on MIDI Channel 1 (the upper nibble `9` = Note On; lower nibble `0` = Channel 1 in 0-indexed hex).<br/>• `3C`: First data byte representing <strong>Note Number</strong> in hex (`3C` hex = $3 \\times 16 + 12 = 60$, which is Middle C, C4).<br/>• `64`: Second data byte representing <strong>Velocity</strong> (`64` hex = $6 \\times 16 + 4 = 100$).</p>",
+              "expert_quote": {
+                "text": "Reading raw MIDI hex bytes is like reading the Matrix. Once you see '90 3C 7F', you literally see Middle C ringing at full force.",
+                "author": "Craig Anderton, Music Technologist & Author"
               }
             }
           ],
@@ -11072,6 +12039,103 @@
                 "author": "Frankie Knuckles, Godfather of House Music"
               },
               "img": "/images/gen/drum_machine_step_sequencer.png"
+            },
+            {
+              "title": "Treble Clef Melody to Piano Roll Translation",
+              "type": "piano-roll",
+              "question": "Translate this 4-note musical score riff (C4 - E4 - G4 - B4) into the Piano Roll grid.",
+              "hint": "C4 is Middle C (Row 3). E4 is two whole steps above (Row 2). G4 is Row 1. B4 is Row 0. Place one quarter note on each beat (columns 0, 4, 8, 12).",
+              "rows": [
+                {
+                  "name": "B4",
+                  "note": "B4"
+                },
+                {
+                  "name": "G4",
+                  "note": "G4"
+                },
+                {
+                  "name": "E4",
+                  "note": "E4"
+                },
+                {
+                  "name": "C4",
+                  "note": "C4"
+                }
+              ],
+              "columns": 16,
+              "targetPattern": [
+                {
+                  "row": 3,
+                  "col": 0,
+                  "length": 4
+                },
+                {
+                  "row": 2,
+                  "col": 4,
+                  "length": 4
+                },
+                {
+                  "row": 1,
+                  "col": 8,
+                  "length": 4
+                },
+                {
+                  "row": 0,
+                  "col": 12,
+                  "length": 4
+                }
+              ],
+              "explanation": "<p><strong>Score to Piano Roll Translation:</strong> In treble clef, C4 (Middle C) sits on the ledger line below the staff, E4 sits on the bottom line, G4 on the second line, and B4 on the third line. In a 16-step grid (1 bar of 4/4 with 16th-note resolution), each quarter note spans 4 grid squares starting on columns 0, 4, 8, and 12.</p>",
+              "expert_quote": {
+                "text": "Component 4 frequently asks you to input a melodic phrase from traditional music notation directly into your DAW piano roll without quantize errors.",
+                "author": "Edexcel A-Level Music Technology Examiner Report"
+              },
+              "img": "/images/svg/staff_notation_c_major7_arpeggio.svg"
+            },
+            {
+              "title": "Bass Clef Syncopated Funk Riff",
+              "type": "piano-roll",
+              "question": "Input the syncopated Bass Clef riff (E1 on beat 1, octave jump to E2 on the 'and' of 2, G1 on beat 3).",
+              "hint": "E1 is the bottom bass note (Row 2). E2 is one octave up (Row 0). G1 is Row 1. Column 0 = Beat 1, Column 6 = 'and' of 2, Column 8 = Beat 3.",
+              "rows": [
+                {
+                  "name": "E2 (Octave)",
+                  "note": "E2"
+                },
+                {
+                  "name": "G1 (Minor 3rd)",
+                  "note": "G1"
+                },
+                {
+                  "name": "E1 (Root)",
+                  "note": "E1"
+                }
+              ],
+              "columns": 16,
+              "targetPattern": [
+                {
+                  "row": 2,
+                  "col": 0,
+                  "length": 3
+                },
+                {
+                  "row": 0,
+                  "col": 6,
+                  "length": 2
+                },
+                {
+                  "row": 1,
+                  "col": 8,
+                  "length": 4
+                }
+              ],
+              "explanation": "<p><strong>Bass Riff Input:</strong> Syncopated basslines use root-octave jumps on off-beats. On a 16-step grid, beat 1 begins at column 0, the 'and' of beat 2 sits at column 6 (step 7), and beat 3 starts at column 8. Ensuring note lengths terminate before the next hit prevents muddy overlapping low-end voice allocation.</p>",
+              "expert_quote": {
+                "text": "In bass sequencing, the space between the notes is just as important as the notes themselves. Tight note releases define the funk groove.",
+                "author": "Marcus Miller, Legendary Bassist & Producer"
+              },
+              "img": "/images/svg/staff_notation_bass_riff.svg"
             }
           ],
           "isPremium": true
@@ -11770,7 +12834,2028 @@
               "target_max": 45
             }
           ],
-          "isPremium": true
+          "isPremium": true,
+          "id": "quiz-topic-38"
+        },
+        {
+          "id": "quiz-topic-39",
+          "title": "Practical Quiz 20: Sample Editing, Truncation & Chopping",
+          "description": "Master interactive audio chopping, zero-crossing points, reverse stutter glitches, crossfade looping, and classic sampler workflow.",
+          "type": "sample_chopping_quiz",
+          "campaignNodeId": "node_pq20",
+          "questions": []
+        },
+        {
+          "id": "quiz-topic-40",
+          "title": "Practical Quiz 21: Stereo Panning & Soundstage Evolution",
+          "description": "Interactive soundstage placement from 1960s LCR hard panning to modern rock, EDM, jazz, and orchestral stereo imaging.",
+          "type": "lp_quiz",
+          "campaignNodeId": "node_pq21",
+          "questions": [
+            {
+              "id": "panning_q1",
+              "type": "panning",
+              "title": "1960s Early Stereo (LCR Panning)",
+              "content": "Position the instruments according to 1960s 4-track console limitations (e.g. The Beatles - Taxman / Eleanor Rigby).",
+              "question": "Place the instruments in their authentic 1960s 3-position (Left-Center-Right) stereo soundstage.",
+              "hint": "Early British mixing consoles only had 3-way toggle switches: Left, Center, Right - no pan pots!",
+              "elements": [
+                {
+                  "id": "el_drums",
+                  "content": "Ringo Drum Kit",
+                  "targetZone": "zone_hard_left"
+                },
+                {
+                  "id": "el_bass",
+                  "content": "Paul Bass Guitar",
+                  "targetZone": "zone_hard_left"
+                },
+                {
+                  "id": "el_strings",
+                  "content": "String Octet",
+                  "targetZone": "zone_center"
+                },
+                {
+                  "id": "el_lead_vox",
+                  "content": "Lead Vocal",
+                  "targetZone": "zone_hard_right"
+                },
+                {
+                  "id": "el_backing_vox",
+                  "content": "Backing Vocals",
+                  "targetZone": "zone_hard_right"
+                }
+              ],
+              "zones": [
+                {
+                  "id": "zone_hard_left",
+                  "angle": 0,
+                  "distance": 0.85,
+                  "label": "Hard Left"
+                },
+                {
+                  "id": "zone_mid_left",
+                  "angle": 45,
+                  "distance": 0.7,
+                  "label": "Mid Left"
+                },
+                {
+                  "id": "zone_center",
+                  "angle": 90,
+                  "distance": 0.75,
+                  "label": "Center"
+                },
+                {
+                  "id": "zone_mid_right",
+                  "angle": 135,
+                  "distance": 0.7,
+                  "label": "Mid Right"
+                },
+                {
+                  "id": "zone_hard_right",
+                  "angle": 180,
+                  "distance": 0.85,
+                  "label": "Hard Right"
+                }
+              ],
+              "explanation": "<p><strong>1960s LCR Limitations:</strong> In the mid-1960s, REDD and TG EMI consoles lacked continuous pan pots on individual channel strips; tracks were routed via 3-way toggle switches to Left, Center, or Right. Rhythmic rhythm tracks (drums and bass) were bounced together onto Track 1 (Hard Left), acoustic strings went to Track 2 (Center), and vocals onto Tracks 3 and 4 (Hard Right).</p>",
+              "expert_quote": {
+                "text": "In 1966, mono was the only format we took seriously. The stereo mix was whipped together in an afternoon with drums on one speaker and vocals on the other!",
+                "author": "Geoff Emerick, Sound Engineer (The Beatles - Revolver, Sgt. Pepper)"
+              }
+            },
+            {
+              "id": "panning_q2",
+              "type": "panning",
+              "title": "Modern Rock Band (Drummer Perspective)",
+              "content": "Arrange a modern rock band across the stereo panorama from the drummer's listening perspective.",
+              "question": "Place the drum kit and rhythm section in an authentic modern rock soundstage.",
+              "hint": "Kick and snare stay locked in the center for power, double-tracked guitars pan wide, and hi-hat sits on the drummer's left.",
+              "elements": [
+                {
+                  "id": "el_kick_snare",
+                  "content": "Kick & Snare Drums",
+                  "targetZone": "zone_center"
+                },
+                {
+                  "id": "el_hihat",
+                  "content": "Hi-Hat (Drummer Left)",
+                  "targetZone": "zone_mid_left"
+                },
+                {
+                  "id": "el_floor_tom",
+                  "content": "Floor Tom (Drummer Right)",
+                  "targetZone": "zone_mid_right"
+                },
+                {
+                  "id": "el_gtr_left",
+                  "content": "Rhythm Guitar (Take 1)",
+                  "targetZone": "zone_hard_left"
+                },
+                {
+                  "id": "el_gtr_right",
+                  "content": "Rhythm Guitar (Take 2)",
+                  "targetZone": "zone_hard_right"
+                }
+              ],
+              "zones": [
+                {
+                  "id": "zone_hard_left",
+                  "angle": 0,
+                  "distance": 0.9,
+                  "label": "100% Left"
+                },
+                {
+                  "id": "zone_mid_left",
+                  "angle": 45,
+                  "distance": 0.65,
+                  "label": "Mid Left (Drummer Perspective)"
+                },
+                {
+                  "id": "zone_center",
+                  "angle": 90,
+                  "distance": 0.75,
+                  "label": "Center"
+                },
+                {
+                  "id": "zone_mid_right",
+                  "angle": 135,
+                  "distance": 0.65,
+                  "label": "Mid Right"
+                },
+                {
+                  "id": "zone_hard_right",
+                  "angle": 180,
+                  "distance": 0.9,
+                  "label": "100% Right"
+                }
+              ],
+              "explanation": "<p><strong>Modern Rock Panoramic Spread:</strong> Keeping low-frequency energy (kick drum, bass guitar, and snare core) anchored in the center balances acoustic power across both monitors. Panning double-tracked rhythm guitars hard left and hard right (100% L/R) creates immense soundstage width while leaving the entire center channel open for the lead vocal.</p>",
+              "expert_quote": {
+                "text": "Pan your double-tracked heavy guitars 100% left and 100% right. Anything less sounds like a weak guitar in the middle rather than a giant stereo wall.",
+                "author": "Andy Wallace, Mix Engineer (Nirvana - Nevermind, Rage Against the Machine)"
+              }
+            },
+            {
+              "id": "panning_q3",
+              "type": "panning",
+              "title": "Modern EDM & Club Mix",
+              "content": "Position dance elements to ensure maximum mono compatibility and club subwoofer safety.",
+              "question": "Place the electronic music stems to balance wide stereo excitement with mono club sound systems.",
+              "hint": "Sub-bass below 100 Hz MUST be in the center to avoid phase cancellation on mono club PAs!",
+              "elements": [
+                {
+                  "id": "el_sub_bass",
+                  "content": "Sub-Bass (30-80 Hz)",
+                  "targetZone": "zone_center"
+                },
+                {
+                  "id": "el_edm_clap",
+                  "content": "Main Snare / Clap",
+                  "targetZone": "zone_center"
+                },
+                {
+                  "id": "el_supersaw_l",
+                  "content": "Stereo Supersaw Lead (L)",
+                  "targetZone": "zone_hard_left"
+                },
+                {
+                  "id": "el_supersaw_r",
+                  "content": "Stereo Supersaw Lead (R)",
+                  "targetZone": "zone_hard_right"
+                },
+                {
+                  "id": "el_fx_riser",
+                  "content": "White Noise Sweep (Riser)",
+                  "targetZone": "zone_mid_right"
+                }
+              ],
+              "zones": [
+                {
+                  "id": "zone_hard_left",
+                  "angle": 0,
+                  "distance": 0.85,
+                  "label": "Wide Left"
+                },
+                {
+                  "id": "zone_mid_left",
+                  "angle": 45,
+                  "distance": 0.7,
+                  "label": "Mid Left"
+                },
+                {
+                  "id": "zone_center",
+                  "angle": 90,
+                  "distance": 0.8,
+                  "label": "Mono Center"
+                },
+                {
+                  "id": "zone_mid_right",
+                  "angle": 135,
+                  "distance": 0.7,
+                  "label": "Mid Right"
+                },
+                {
+                  "id": "zone_hard_right",
+                  "angle": 180,
+                  "distance": 0.85,
+                  "label": "Wide Right"
+                }
+              ],
+              "explanation": "<p><strong>EDM Stereo Imaging:</strong> Club sound systems sum low frequencies to mono to drive subwoofer arrays uniformly. If sub-bass has stereo phase differences, summing to mono causes destructive phase cancellation, obliterating the bass drop. High-frequency supersaws and noise sweeps are spread wide using unison detuning and Haas panning to deliver immersive headphone impact.</p>",
+              "expert_quote": {
+                "text": "Mono your bass up to 120 Hz with an elliptical filter. If your low end isn't bulletproof in mono, your record will fall flat in any festival arena.",
+                "author": "Skrillex, Producer & Electronic Artist"
+              }
+            },
+            {
+              "id": "panning_q4",
+              "type": "panning",
+              "title": "Traditional Acoustic Jazz Quartet",
+              "content": "Position an authentic 1950s Blue Note jazz quartet as if seated in front of a live nightclub stage.",
+              "question": "Place the instruments in their natural acoustic jazz stage positions.",
+              "hint": "Grand piano sits on stage right (listener's left), upright bass centers the rhythm, saxophone leads front and center-left, and ride cymbal occupies stage left.",
+              "elements": [
+                {
+                  "id": "el_piano",
+                  "content": "Steinway Grand Piano",
+                  "targetZone": "zone_mid_left"
+                },
+                {
+                  "id": "el_sax",
+                  "content": "Tenor Saxophone (Lead)",
+                  "targetZone": "zone_mid_left"
+                },
+                {
+                  "id": "el_upright_bass",
+                  "content": "Upright Acoustic Bass",
+                  "targetZone": "zone_center"
+                },
+                {
+                  "id": "el_jazz_ride",
+                  "content": "Ride Cymbal & Brushes",
+                  "targetZone": "zone_mid_right"
+                },
+                {
+                  "id": "el_room_mic",
+                  "content": "Live Room Ambience",
+                  "targetZone": "zone_hard_right"
+                }
+              ],
+              "zones": [
+                {
+                  "id": "zone_hard_left",
+                  "angle": 0,
+                  "distance": 0.8,
+                  "label": "Far Left"
+                },
+                {
+                  "id": "zone_mid_left",
+                  "angle": 45,
+                  "distance": 0.6,
+                  "label": "Medium Left"
+                },
+                {
+                  "id": "zone_center",
+                  "angle": 90,
+                  "distance": 0.7,
+                  "label": "Center Stage"
+                },
+                {
+                  "id": "zone_mid_right",
+                  "angle": 135,
+                  "distance": 0.6,
+                  "label": "Medium Right"
+                },
+                {
+                  "id": "zone_hard_right",
+                  "angle": 180,
+                  "distance": 0.8,
+                  "label": "Far Right"
+                }
+              ],
+              "explanation": "<p><strong>Acoustic Jazz Staging:</strong> Pioneered by Rudy Van Gelder at Blue Note, jazz panning recreates the physical perspective of sitting in the front row of a club. The piano is placed medium-left, the upright bass anchors the center, the tenor saxophone sits slightly left of center, and the drummer's feathered ride cymbal and snare taps sit medium-right.</p>",
+              "expert_quote": {
+                "text": "In jazz, you are capturing a conversation between masters in an acoustic room. You don't manufacture space with plugins; you document reality.",
+                "author": "Rudy Van Gelder, Legendary Recording Engineer (Miles Davis, John Coltrane)"
+              }
+            },
+            {
+              "id": "panning_q5",
+              "type": "panning",
+              "title": "Contemporary Pop Lead & Backing Vocal Stacks",
+              "content": "Arrange modern commercial pop vocals to achieve vocal prominence and wide stereo backing stacks.",
+              "question": "Place the lead and backing vocal stems across the stereo soundstage.",
+              "hint": "The lead vocal must be intimacy-centered and dry, while 4-part harmony stacks fan out hard left and hard right.",
+              "elements": [
+                {
+                  "id": "el_lead_vocal",
+                  "content": "Main Lead Vocal (Dry/In-Your-Face)",
+                  "targetZone": "zone_center"
+                },
+                {
+                  "id": "el_bv_hi_l",
+                  "content": "High Harmony Stack (Take A)",
+                  "targetZone": "zone_hard_left"
+                },
+                {
+                  "id": "el_bv_hi_r",
+                  "content": "High Harmony Stack (Take B)",
+                  "targetZone": "zone_hard_right"
+                },
+                {
+                  "id": "el_bv_mid_l",
+                  "content": "Mid Harmony Stack (Take A)",
+                  "targetZone": "zone_mid_left"
+                },
+                {
+                  "id": "el_bv_mid_r",
+                  "content": "Mid Harmony Stack (Take B)",
+                  "targetZone": "zone_mid_right"
+                }
+              ],
+              "zones": [
+                {
+                  "id": "zone_hard_left",
+                  "angle": 0,
+                  "distance": 0.85,
+                  "label": "Hard Left (100%)"
+                },
+                {
+                  "id": "zone_mid_left",
+                  "angle": 45,
+                  "distance": 0.7,
+                  "label": "Mid Left (50%)"
+                },
+                {
+                  "id": "zone_center",
+                  "angle": 90,
+                  "distance": 0.6,
+                  "label": "Dead Center Front"
+                },
+                {
+                  "id": "zone_mid_right",
+                  "angle": 135,
+                  "distance": 0.7,
+                  "label": "Mid Right (50%)"
+                },
+                {
+                  "id": "zone_hard_right",
+                  "angle": 180,
+                  "distance": 0.85,
+                  "label": "Hard Right (100%)"
+                }
+              ],
+              "explanation": "<p><strong>Pop Vocal Production:</strong> The lead vocal is positioned dead center with high direct-to-reverberant ratio to establish intimacy and clarity. Supporting harmonies are double or quad-tracked and panned in symmetrical pairs: mid harmonies at 50% Left/Right and top octave whispers at 100% Left/Right, wrapping around the listener without obscuring the lead.</p>",
+              "expert_quote": {
+                "text": "A huge pop chorus isn't one vocal with reverb; it's 16 tightly sung layers panned across the panorama like an orchestra.",
+                "author": "Serban Ghenea, Grammy-Winning Pop Mix Engineer (Taylor Swift, The Weeknd)"
+              }
+            },
+            {
+              "id": "panning_q6",
+              "type": "panning",
+              "title": "Orchestral Film Score Strings Layout",
+              "content": "Position standard orchestral string sections across a film scoring soundstage.",
+              "question": "Place the string sections in the classic European seating layout from left to right.",
+              "hint": "Violins 1 sit far left, Violas sit left-center, Cellos sit right-center, and Double Basses sit far right.",
+              "elements": [
+                {
+                  "id": "el_vln1",
+                  "content": "Violins 1 (First Violins)",
+                  "targetZone": "zone_hard_left"
+                },
+                {
+                  "id": "el_vla",
+                  "content": "Violas Section",
+                  "targetZone": "zone_mid_left"
+                },
+                {
+                  "id": "el_solo_flute",
+                  "content": "Solo Woodwind (Flute)",
+                  "targetZone": "zone_center"
+                },
+                {
+                  "id": "el_vlc",
+                  "content": "Cellos Section",
+                  "targetZone": "zone_mid_right"
+                },
+                {
+                  "id": "el_db",
+                  "content": "Double Basses Section",
+                  "targetZone": "zone_hard_right"
+                }
+              ],
+              "zones": [
+                {
+                  "id": "zone_hard_left",
+                  "angle": 0,
+                  "distance": 0.85,
+                  "label": "Stage Left (High Strings)"
+                },
+                {
+                  "id": "zone_mid_left",
+                  "angle": 45,
+                  "distance": 0.75,
+                  "label": "Mid Left"
+                },
+                {
+                  "id": "zone_center",
+                  "angle": 90,
+                  "distance": 0.8,
+                  "label": "Center Stage"
+                },
+                {
+                  "id": "zone_mid_right",
+                  "angle": 135,
+                  "distance": 0.75,
+                  "label": "Mid Right"
+                },
+                {
+                  "id": "zone_hard_right",
+                  "angle": 180,
+                  "distance": 0.85,
+                  "label": "Stage Right (Low Basses)"
+                }
+              ],
+              "explanation": "<p><strong>Orchestral Seating Architecture:</strong> The standard European concert/scoring seating places highest frequency strings (1st Violins) on the conductor's far left, progressing down in pitch through Violas (mid-left), Cellos (mid-right), to low Double Basses on the far right. Solo woodwinds sit in the acoustic center, flanked by brass in the rear.</p>",
+              "expert_quote": {
+                "text": "When mixing film scores recorded at Abbey Road Studio One, you respect the natural acoustic pan positions of the Decca Tree microphone array.",
+                "author": "Shawn Murphy, Academy Award-Winning Scoring Mixer (Star Wars, Jurassic Park)"
+              }
+            },
+            {
+              "id": "panning_q7",
+              "type": "panning",
+              "title": "1970s Hard Rock (Led Zeppelin Style)",
+              "content": "Recreate Jimmy Page's stereo production approach on 'Whole Lotta Love' / 'Black Dog'.",
+              "question": "Place the instruments according to 1970s analogue tape multi-tracking conventions.",
+              "hint": "Acoustic guitar fills the left, heavy electric guitar punches the right, Bonham's drums are centered with natural room bloom.",
+              "elements": [
+                {
+                  "id": "el_ac_gtr",
+                  "content": "Acoustic 12-String Guitar",
+                  "targetZone": "zone_hard_left"
+                },
+                {
+                  "id": "el_el_gtr",
+                  "content": "Marshall Stack Electric Riff",
+                  "targetZone": "zone_hard_right"
+                },
+                {
+                  "id": "el_bonham_drums",
+                  "content": "Bonham Drums (Ambient Kit)",
+                  "targetZone": "zone_center"
+                },
+                {
+                  "id": "el_plant_vox",
+                  "content": "Robert Plant Lead Vocal",
+                  "targetZone": "zone_center"
+                },
+                {
+                  "id": "el_slap_echo",
+                  "content": "Tape Slapback Echo Return",
+                  "targetZone": "zone_mid_left"
+                }
+              ],
+              "zones": [
+                {
+                  "id": "zone_hard_left",
+                  "angle": 0,
+                  "distance": 0.85,
+                  "label": "Hard Left"
+                },
+                {
+                  "id": "zone_mid_left",
+                  "angle": 45,
+                  "distance": 0.7,
+                  "label": "Mid Left"
+                },
+                {
+                  "id": "zone_center",
+                  "angle": 90,
+                  "distance": 0.8,
+                  "label": "Center"
+                },
+                {
+                  "id": "zone_mid_right",
+                  "angle": 135,
+                  "distance": 0.7,
+                  "label": "Mid Right"
+                },
+                {
+                  "id": "zone_hard_right",
+                  "angle": 180,
+                  "distance": 0.85,
+                  "label": "Hard Right"
+                }
+              ],
+              "explanation": "<p><strong>1970s Hard Rock Staging:</strong> Jimmy Page pioneered contrasting timbral textures across the stereo field by offsetting an acoustic guitar on one side against an aggressive Les Paul/Marshall riff on the opposite side. Drums were recorded with minimal mics (Glyn Johns or ambient pair) capturing John Bonham's massive physical kit in the center room.</p>",
+              "expert_quote": {
+                "text": "Distance makes depth. If you put the microphone back a bit in a stone hall, you get a sound that no artificial reverb unit can ever recreate.",
+                "author": "Jimmy Page, Guitarist & Producer (Led Zeppelin)"
+              }
+            },
+            {
+              "id": "panning_q8",
+              "type": "panning",
+              "title": "Acoustic Singer-Songwriter Ensemble",
+              "content": "Arrange an intimate acoustic folk/Americana ensemble for clarity and separation.",
+              "question": "Place the acoustic ensemble instruments to avoid frequency clashing and muddiness.",
+              "hint": "Lead vocal and acoustic guitar take the center, with solo cello and mandolin flanking on opposite sides for tonal balance.",
+              "elements": [
+                {
+                  "id": "el_cello",
+                  "content": "Acoustic Cello (Warm Lows)",
+                  "targetZone": "zone_mid_left"
+                },
+                {
+                  "id": "el_lead_vocal_folk",
+                  "content": "Lead Vocal & Acoustic Guitar",
+                  "targetZone": "zone_center"
+                },
+                {
+                  "id": "el_upright_folk",
+                  "content": "Upright Bass",
+                  "targetZone": "zone_center"
+                },
+                {
+                  "id": "el_mandolin",
+                  "content": "Mandolin (Crisp Highs)",
+                  "targetZone": "zone_mid_right"
+                },
+                {
+                  "id": "el_harmonica",
+                  "content": "Harmonica / Fiddle Solo",
+                  "targetZone": "zone_hard_left"
+                }
+              ],
+              "zones": [
+                {
+                  "id": "zone_hard_left",
+                  "angle": 0,
+                  "distance": 0.85,
+                  "label": "Far Left"
+                },
+                {
+                  "id": "zone_mid_left",
+                  "angle": 45,
+                  "distance": 0.65,
+                  "label": "Mid Left"
+                },
+                {
+                  "id": "zone_center",
+                  "angle": 90,
+                  "distance": 0.75,
+                  "label": "Center Front"
+                },
+                {
+                  "id": "zone_mid_right",
+                  "angle": 135,
+                  "distance": 0.65,
+                  "label": "Mid Right"
+                },
+                {
+                  "id": "zone_hard_right",
+                  "angle": 180,
+                  "distance": 0.85,
+                  "label": "Far Right"
+                }
+              ],
+              "explanation": "<p><strong>Acoustic Separation:</strong> In sparse acoustic arrangements, placing competing mid-frequency stringed instruments on opposite sides prevents frequency masking. The warm, resonant body of the cello on the medium-left is counterbalanced by the bright percussive chop of the mandolin on the medium-right, leaving the central axis free for the singer's voice.</p>",
+              "expert_quote": {
+                "text": "In acoustic music, panning is your EQ. If two acoustic instruments clash, don't reach for an EQ knob—move one of them across the soundstage.",
+                "author": "T Bone Burnett, Producer (O Brother, Where Art Thou?, Robert Plant & Alison Krauss)"
+              }
+            },
+            {
+              "id": "panning_q9",
+              "type": "panning",
+              "title": "1980s Synth-Pop (The Human League / New Order)",
+              "content": "Position early digital and analogue synthesizers and drum machines in a 1980s synth-pop soundstage.",
+              "question": "Place the 1980s electronic instruments across the stereo panorama.",
+              "hint": "Roland TR-808/LinnDrum kicks and snares are centered, chorus synth pads go wide stereo, and Simmons electronic toms pan dynamically.",
+              "elements": [
+                {
+                  "id": "el_linn_drums",
+                  "content": "LinnDrum Kick & Snare",
+                  "targetZone": "zone_center"
+                },
+                {
+                  "id": "el_mono_bass",
+                  "content": "Roland SH-101 Bass Synth",
+                  "targetZone": "zone_center"
+                },
+                {
+                  "id": "el_juno_pad_l",
+                  "content": "Juno-60 Stereo Chorus (L)",
+                  "targetZone": "zone_hard_left"
+                },
+                {
+                  "id": "el_juno_pad_r",
+                  "content": "Juno-60 Stereo Chorus (R)",
+                  "targetZone": "zone_hard_right"
+                },
+                {
+                  "id": "el_synth_lead",
+                  "content": "Sequential Prophet-5 Lead Riff",
+                  "targetZone": "zone_mid_right"
+                }
+              ],
+              "zones": [
+                {
+                  "id": "zone_hard_left",
+                  "angle": 0,
+                  "distance": 0.9,
+                  "label": "Hard Left (Chorus L)"
+                },
+                {
+                  "id": "zone_mid_left",
+                  "angle": 45,
+                  "distance": 0.7,
+                  "label": "Mid Left"
+                },
+                {
+                  "id": "zone_center",
+                  "angle": 90,
+                  "distance": 0.75,
+                  "label": "Center"
+                },
+                {
+                  "id": "zone_mid_right",
+                  "angle": 135,
+                  "distance": 0.7,
+                  "label": "Mid Right"
+                },
+                {
+                  "id": "zone_hard_right",
+                  "angle": 180,
+                  "distance": 0.9,
+                  "label": "Hard Right (Chorus R)"
+                }
+              ],
+              "explanation": "<p><strong>1980s Synth-Pop Soundstage:</strong> 1980s electronic music anchored the low-end using punchy sample-based drum machine kicks (LinnDrum / DMX) and monophonic analogue synth basslines in the center. Analogue bucket-brigade (BBD) stereo chorus circuits (found on the Roland Juno-60) produced wide spatial pads spanning from 100% Left to 100% Right.</p>",
+              "expert_quote": {
+                "text": "The sound of 1980s synth-pop is defined by mono driving basslines holding down the center while modulated polyphonic synth chords wash out wide across the speakers.",
+                "author": "Martin Rushent, Producer (The Human League - Dare)"
+              }
+            },
+            {
+              "id": "panning_q10",
+              "type": "panning",
+              "title": "Heavy Metal Dual Harmony Solos",
+              "content": "Position rhythm and lead guitars during an iconic Iron Maiden / Metallica dual harmony guitar solo.",
+              "question": "Place the dual lead guitars and backing rhythm tracks across the soundstage.",
+              "hint": "Backing rhythm guitars stay pinned at 100% L & 100% R, while harmony lead guitar 1 sits mid-left and lead guitar 2 sits mid-right.",
+              "elements": [
+                {
+                  "id": "el_metal_rhythm_l",
+                  "content": "Rhythm Guitar Wall (100% L)",
+                  "targetZone": "zone_hard_left"
+                },
+                {
+                  "id": "el_solo_gtr1",
+                  "content": "Lead Guitar 1 (Lower Harmony)",
+                  "targetZone": "zone_mid_left"
+                },
+                {
+                  "id": "el_metal_bass",
+                  "content": "Bass Guitar & Drum Kit",
+                  "targetZone": "zone_center"
+                },
+                {
+                  "id": "el_solo_gtr2",
+                  "content": "Lead Guitar 2 (Upper Harmony)",
+                  "targetZone": "zone_mid_right"
+                },
+                {
+                  "id": "el_metal_rhythm_r",
+                  "content": "Rhythm Guitar Wall (100% R)",
+                  "targetZone": "zone_hard_right"
+                }
+              ],
+              "zones": [
+                {
+                  "id": "zone_hard_left",
+                  "angle": 0,
+                  "distance": 0.95,
+                  "label": "100% Hard Left"
+                },
+                {
+                  "id": "zone_mid_left",
+                  "angle": 45,
+                  "distance": 0.65,
+                  "label": "Mid Left (35%)"
+                },
+                {
+                  "id": "zone_center",
+                  "angle": 90,
+                  "distance": 0.8,
+                  "label": "Center"
+                },
+                {
+                  "id": "zone_mid_right",
+                  "angle": 135,
+                  "distance": 0.65,
+                  "label": "Mid Right (35%)"
+                },
+                {
+                  "id": "zone_hard_right",
+                  "angle": 180,
+                  "distance": 0.95,
+                  "label": "100% Hard Right"
+                }
+              ],
+              "explanation": "<p><strong>Dual Harmony Lead Staging:</strong> In classic heavy metal productions (e.g. Iron Maiden, Judas Priest, Avenged Sevenfold), the heavily distorted rhythm guitars remain anchored at 100% hard left and hard right to maintain full stereo width. The twin lead guitars playing in 3rds or 5ths are panned symmetrically at roughly 30%–45% Left and Right, creating a wide dual-guitar attack that doesn't mask the bass and drums in the center.</p>",
+              "expert_quote": {
+                "text": "Panning twin lead guitars slightly off-center lets both distinct musical lines speak clearly without fighting each other for the center spot.",
+                "author": "Martin Birch, Legendary Metal Producer (Iron Maiden, Deep Purple, Black Sabbath)"
+              }
+            }
+          ]
+        },
+        {
+          "id": "quiz-topic-41",
+          "title": "Practical Quiz 22: Studio Signal Flow Labelling",
+          "description": "Complete authentic studio and DAW signal flow diagrams by dragging routing components, preamps, processors, and converters into position.",
+          "type": "lp_quiz",
+          "campaignNodeId": "node_pq22",
+          "questions": [
+            {
+              "id": "sfl_q1",
+              "type": "signal-flow-label",
+              "title": "Studio Vocal Recording Chain",
+              "content": "Drag the components into their correct sequence from the vocalist singing into the microphone through to the DAW track.",
+              "question": "Complete the studio vocal recording chain from acoustic performance to DAW storage.",
+              "flowSteps": [
+                {
+                  "id": "step1",
+                  "label": "1. Acoustic Sound Source"
+                },
+                {
+                  "id": "step2",
+                  "label": "2. Acoustic-to-Electric Transducer"
+                },
+                {
+                  "id": "step3",
+                  "label": "3. Mic-to-Line Gain Stage"
+                },
+                {
+                  "id": "step4",
+                  "label": "4. Outboard Dynamic Control"
+                },
+                {
+                  "id": "step5",
+                  "label": "5. Analogue-to-Digital Quantization"
+                },
+                {
+                  "id": "step6",
+                  "label": "6. Digital Recording & Storage"
+                }
+              ],
+              "terms": [
+                "Vocalist at 6 Inches",
+                "Neumann U87 Condenser Mic",
+                "Neve 1073 Mic Preamp",
+                "Teletronix LA-2A Optical Compressor",
+                "24-bit/96kHz A/D Converter",
+                "DAW Audio Track (WAV File)",
+                "Guitar Amplifier",
+                "Reverb Plugin (Wet)"
+              ],
+              "correctAnswers": {
+                "step1": "Vocalist at 6 Inches",
+                "step2": "Neumann U87 Condenser Mic",
+                "step3": "Neve 1073 Mic Preamp",
+                "step4": "Teletronix LA-2A Optical Compressor",
+                "step5": "24-bit/96kHz A/D Converter",
+                "step6": "DAW Audio Track (WAV File)"
+              },
+              "explanation": "<p><strong>Classic Vocal Recording Chain:</strong> The vocalist generates acoustic pressure waves, captured by a large diaphragm condenser mic powered by +48V phantom power. The mic-level signal is amplified by a high-grade preamp (e.g. Neve 1073) up to line level (+4 dBu). Gentle outboard optical compression (LA-2A) tames vocal peaks before the signal hits the A/D converter, preventing digital clipping at the DAW input.</p>",
+              "expert_quote": {
+                "text": "A great vocal chain is transparent in all the right ways and coloured in all the musical ways. Getting it right on the way in means less work when mixing.",
+                "author": "Bruce Swedien, Grammy-Winning Engineer (Michael Jackson - Thriller)"
+              }
+            },
+            {
+              "id": "sfl_q2",
+              "type": "signal-flow-label",
+              "title": "Parallel (New York) Drum Compression",
+              "content": "Complete the signal flow for New York style parallel drum compression.",
+              "question": "Route the drum submix to achieve parallel compression without losing transient punch.",
+              "flowSteps": [
+                {
+                  "id": "step1",
+                  "label": "1. Multi-miked Drum Stems"
+                },
+                {
+                  "id": "step2",
+                  "label": "2. Main Drum Subgroup Bus"
+                },
+                {
+                  "id": "step3",
+                  "label": "3. Auxiliary Send Split"
+                },
+                {
+                  "id": "step4",
+                  "label": "4. Heavy Compression Processing"
+                },
+                {
+                  "id": "step5",
+                  "label": "5. Parallel Return Fader Blend"
+                },
+                {
+                  "id": "step6",
+                  "label": "6. Master Stereo Output"
+                }
+              ],
+              "terms": [
+                "Kick, Snare, Toms, Overheads",
+                "Uncompressed Dry Drum Bus",
+                "Pre/Post Fader Aux Send (Bus 1)",
+                "Stereo 1176 Limiter (All Buttons In)",
+                "Aux Return Fader (-10 dB to -15 dB)",
+                "Master Stereo 2-Bus",
+                "Notch Filter 50Hz",
+                "Tape Slapback Delay"
+              ],
+              "correctAnswers": {
+                "step1": "Kick, Snare, Toms, Overheads",
+                "step2": "Uncompressed Dry Drum Bus",
+                "step3": "Pre/Post Fader Aux Send (Bus 1)",
+                "step4": "Stereo 1176 Limiter (All Buttons In)",
+                "step5": "Aux Return Fader (-10 dB to -15 dB)",
+                "step6": "Master Stereo 2-Bus"
+              },
+              "explanation": "<p><strong>Parallel Compression Architecture:</strong> Rather than crushing the dynamic transients of the original drum bus, a copy of the drum mix is sent via an Aux Send to an auxiliary track hosting a fast, aggressive compressor (e.g. an 1176 in 'all-buttons-in' ratio). The heavily squashed, harmonically rich return track is blended in beneath the punchy, uncompressed dry drum bus.</p>",
+              "expert_quote": {
+                "text": "Parallel compression gives you the best of both worlds: the huge energy and sustain of crushed room tone with the snappy transients of your uncompressed hits.",
+                "author": "Michael Brauer, Mix Engineer (Coldplay, John Mayer)"
+              }
+            },
+            {
+              "id": "sfl_q3",
+              "type": "signal-flow-label",
+              "title": "Hardware Insert Loop on In-Line Console",
+              "content": "Trace the hardware insert loop routing outboard gear through a recording console.",
+              "question": "Complete the hardware insert path on an analogue mixing console channel.",
+              "flowSteps": [
+                {
+                  "id": "step1",
+                  "label": "1. Console Input Stage"
+                },
+                {
+                  "id": "step2",
+                  "label": "2. Pre-Fader Insert Send Jack"
+                },
+                {
+                  "id": "step3",
+                  "label": "3. Outboard Analogue Processor"
+                },
+                {
+                  "id": "step4",
+                  "label": "4. Post-Processor Insert Return"
+                },
+                {
+                  "id": "step5",
+                  "label": "5. Channel Fader & Pan Pot"
+                },
+                {
+                  "id": "step6",
+                  "label": "6. Mix Bus Summing Amplifier"
+                }
+              ],
+              "terms": [
+                "Channel Mic/Line Preamp",
+                "Insert Send (Unbalanced / Balanced Out)",
+                "Outboard Parametric EQ or Compressor",
+                "Insert Return Jack",
+                "Long-Throw Channel Fader (100mm)",
+                "Console Master Stereo Bus",
+                "Direct Box (DI)",
+                "LFO Sine Wave"
+              ],
+              "correctAnswers": {
+                "step1": "Channel Mic/Line Preamp",
+                "step2": "Insert Send (Unbalanced / Balanced Out)",
+                "step3": "Outboard Parametric EQ or Compressor",
+                "step4": "Insert Return Jack",
+                "step5": "Long-Throw Channel Fader (100mm)",
+                "step6": "Console Master Stereo Bus"
+              },
+              "explanation": "<p><strong>Analogue Console Insert Architecture:</strong> In an in-line mixing desk, the insert jack breaks the channel signal path directly after the preamp and before the main fader. The insert send sends 100% of the channel audio out to an external hardware processor, and the insert return feeds the processed signal back into the channel strip.</p>",
+              "expert_quote": {
+                "text": "Insert points are serial: 100% of the signal passes through the processor. Aux sends are parallel: a copy of the signal is sent while the original channel plays on.",
+                "author": "Rupert Neve, Console Designer & Audio Electronics Icon"
+              }
+            },
+            {
+              "id": "sfl_q4",
+              "type": "signal-flow-label",
+              "title": "Sidechain Key Ducking Signal Flow",
+              "content": "Trace the control signal and audio signal paths in a sidechain ducking setup.",
+              "question": "Label the stages of sidechain ducking between a kick drum and a synth bass.",
+              "flowSteps": [
+                {
+                  "id": "step1",
+                  "label": "1. Trigger / Key Audio Source"
+                },
+                {
+                  "id": "step2",
+                  "label": "2. Auxiliary Send Bus"
+                },
+                {
+                  "id": "step3",
+                  "label": "3. Target Audio Channel"
+                },
+                {
+                  "id": "step4",
+                  "label": "4. Sidechain Detector Circuit"
+                },
+                {
+                  "id": "step5",
+                  "label": "5. Dynamic Gain Reduction (VCA)"
+                },
+                {
+                  "id": "step6",
+                  "label": "6. Balanced Low-End Mix Output"
+                }
+              ],
+              "terms": [
+                "Kick Drum Track",
+                "Sidechain Bus (Bus 3)",
+                "Synth Bass Channel",
+                "Compressor Key Input / Sidechain Detector",
+                "Automatic Gain Reduction of Bass",
+                "Clean Kick & Bass Master Bus",
+                "Chorus Modulation Pedal",
+                "Piezo Transducer"
+              ],
+              "correctAnswers": {
+                "step1": "Kick Drum Track",
+                "step2": "Sidechain Bus (Bus 3)",
+                "step3": "Synth Bass Channel",
+                "step4": "Compressor Key Input / Sidechain Detector",
+                "step5": "Automatic Gain Reduction of Bass",
+                "step6": "Clean Kick & Bass Master Bus"
+              },
+              "explanation": "<p><strong>Sidechain Key Ducking:</strong> The kick drum acts as the key trigger signal, routed via Bus 3 into the external detector circuit of the compressor inserted on the synth bass track. When the kick hits, the detector commands the VCA to duck the volume of the bass by 3–6 dB, preventing masking between the kick and sub-bass.</p>",
+              "expert_quote": {
+                "text": "Sidechain compression is both a technical utility to avoid bass clashes and a creative rhythmic pumping effect synonymous with French touch house.",
+                "author": "Thomas Bangalter, Daft Punk"
+              }
+            },
+            {
+              "id": "sfl_q5",
+              "type": "signal-flow-label",
+              "title": "Re-Amping Guitar Workflow",
+              "content": "Trace the re-amping signal flow from recorded clean DI guitar in the DAW through an acoustic valve amp back into a new track.",
+              "question": "Complete the full re-amping signal chain.",
+              "flowSteps": [
+                {
+                  "id": "step1",
+                  "label": "1. DAW Source Audio"
+                },
+                {
+                  "id": "step2",
+                  "label": "2. Interface D/A Output"
+                },
+                {
+                  "id": "step3",
+                  "label": "3. Impedance & Level Matching"
+                },
+                {
+                  "id": "step4",
+                  "label": "4. High-Gain Valve Amp & Cab"
+                },
+                {
+                  "id": "step5",
+                  "label": "5. Microphone on Speaker Cone"
+                },
+                {
+                  "id": "step6",
+                  "label": "6. Re-recorded Mic Audio Track"
+                }
+              ],
+              "terms": [
+                "Pre-recorded Clean DI Guitar Track",
+                "Balanced Line Output (Low-Z / +4 dBu)",
+                "Passive Reamp Box (Line to High-Z / Instrument Level)",
+                "Valve Guitar Amplifier & 4x12 Cabinet",
+                "Shure SM57 / Dynamic Microphone",
+                "New DAW High-Gain Distorted Track",
+                "MIDI Clock Signal",
+                "Phase Inverter Plug"
+              ],
+              "correctAnswers": {
+                "step1": "Pre-recorded Clean DI Guitar Track",
+                "step2": "Balanced Line Output (Low-Z / +4 dBu)",
+                "step3": "Passive Reamp Box (Line to High-Z / Instrument Level)",
+                "step4": "Valve Guitar Amplifier & 4x12 Cabinet",
+                "step5": "Shure SM57 / Dynamic Microphone",
+                "step6": "New DAW High-Gain Distorted Track"
+              },
+              "explanation": "<p><strong>Re-Amping Architecture:</strong> The pristine DI guitar performance is played back through an audio interface line output. A dedicated Reamp Box steps down the line-level voltage to instrument level and matches impedance so the valve amp responds dynamically as if a guitar were plugged straight in. A microphone on the cabinet captures the amplified tone into a new DAW track.</p>",
+              "expert_quote": {
+                "text": "Always capture a clean DI alongside any miked guitar amplifier. It is the ultimate insurance policy for modern production.",
+                "author": "Colin Richardson, Metal & Rock Producer (Slipknot, Machine Head, Bullet for My Valentine)"
+              }
+            },
+            {
+              "id": "sfl_q6",
+              "type": "signal-flow-label",
+              "title": "Subtractive Analogue Synthesizer Architecture",
+              "content": "Complete the internal audio signal path of a classic Minimoog-style subtractive synthesizer.",
+              "question": "Arrange the modules in the standard subtractive synthesis audio signal flow.",
+              "flowSteps": [
+                {
+                  "id": "step1",
+                  "label": "1. Harmonic Sound Generators"
+                },
+                {
+                  "id": "step2",
+                  "label": "2. Audio Summing / Blending"
+                },
+                {
+                  "id": "step3",
+                  "label": "3. Harmonic Sculpting / Timbre"
+                },
+                {
+                  "id": "step4",
+                  "label": "4. Dynamic Amplitude Shaping"
+                },
+                {
+                  "id": "step5",
+                  "label": "5. Output Attenuation"
+                },
+                {
+                  "id": "step6",
+                  "label": "6. Main Audio Output"
+                }
+              ],
+              "terms": [
+                "VCO Oscillators 1, 2, 3 + Noise",
+                "Oscillator Mixer Section",
+                "VCF (Voltage Controlled Filter)",
+                "VCA (Voltage Controlled Amplifier)",
+                "Master Volume Potentiometer",
+                "Mono / Stereo Line Output",
+                "Reverb Plate Tank",
+                "A/D Quantizer"
+              ],
+              "correctAnswers": {
+                "step1": "VCO Oscillators 1, 2, 3 + Noise",
+                "step2": "Oscillator Mixer Section",
+                "step3": "VCF (Voltage Controlled Filter)",
+                "step4": "VCA (Voltage Controlled Amplifier)",
+                "step5": "Master Volume Potentiometer",
+                "step6": "Mono / Stereo Line Output"
+              },
+              "explanation": "<p><strong>Subtractive Synthesis Architecture:</strong> Multiple VCOs generate raw harmonic waveforms (sawtooth, square, triangle). The Mixer combines them into a single audio stream. The VCF removes unwanted frequencies using low-pass filtering. Finally, the VCA, governed by an amplitude envelope generator, contours volume over time before the signal exits through the master volume pot.</p>",
+              "expert_quote": {
+                "text": "The architecture of VCO -> VCF -> VCA became the universal standard of synthesis because it mirrors acoustic instrument physics: excitation, filtering, and resonance.",
+                "author": "Bob Moog, Inventor of the Moog Synthesizer"
+              }
+            },
+            {
+              "id": "sfl_q7",
+              "type": "signal-flow-label",
+              "title": "Headphone Cue Mix Distribution",
+              "content": "Trace the signal routing that delivers custom headphone monitoring to musicians in the live room.",
+              "question": "Complete the studio headphone cue mix signal flow.",
+              "flowSteps": [
+                {
+                  "id": "step1",
+                  "label": "1. DAW Multitrack Session"
+                },
+                {
+                  "id": "step2",
+                  "label": "2. Independent Cue Send"
+                },
+                {
+                  "id": "step3",
+                  "label": "3. Discrete Audio Interface Outs"
+                },
+                {
+                  "id": "step4",
+                  "label": "4. Multi-Channel Headphone Amp"
+                },
+                {
+                  "id": "step5",
+                  "label": "5. Studio Live Room Wall Box"
+                },
+                {
+                  "id": "step6",
+                  "label": "6. Musician Monitoring"
+                }
+              ],
+              "terms": [
+                "DAW Channel Strips",
+                "Pre-Fader Aux Sends 1-4",
+                "Interface Line Outputs 3-6",
+                "Headphone Distribution Amplifier",
+                "Live Room XLR/TRS Tie Lines",
+                "Closed-Back Studio Headphones",
+                "Direct Cutting Lathe",
+                "Distortion Pedal"
+              ],
+              "correctAnswers": {
+                "step1": "DAW Channel Strips",
+                "step2": "Pre-Fader Aux Sends 1-4",
+                "step3": "Interface Line Outputs 3-6",
+                "step4": "Headphone Distribution Amplifier",
+                "step5": "Live Room XLR/TRS Tie Lines",
+                "step6": "Closed-Back Studio Headphones"
+              },
+              "explanation": "<p><strong>Headphone Cue Mix Routing:</strong> To provide musicians with their own personalized balance (e.g. 'more vocal, less drums') without affecting the engineer's control room mix, <em>pre-fader auxiliary sends</em> route signals to discrete interface outputs (e.g. outputs 3–6). These feed a high-power headphone amplifier driving closed-back headphones in the live room.</p>",
+              "expert_quote": {
+                "text": "A musician will only perform as well as their headphone mix allows them to hear themselves. Get the cue mix right in the first five minutes.",
+                "author": "Al Schmitt, Engineer"
+              }
+            },
+            {
+              "id": "sfl_q8",
+              "type": "signal-flow-label",
+              "title": "Vinyl Mastering Lathe Cutting Path",
+              "content": "Trace the specialized signal processing chain required before audio is cut into a vinyl lacquer.",
+              "question": "Complete the vinyl mastering signal path.",
+              "flowSteps": [
+                {
+                  "id": "step1",
+                  "label": "1. Master Audio Source"
+                },
+                {
+                  "id": "step2",
+                  "label": "2. Subsonic Protection Filter"
+                },
+                {
+                  "id": "step3",
+                  "label": "3. Low-End Centering"
+                },
+                {
+                  "id": "step4",
+                  "label": "4. Sibilance Protection"
+                },
+                {
+                  "id": "step5",
+                  "label": "5. Cutting Head Driver Amp"
+                },
+                {
+                  "id": "step6",
+                  "label": "6. Physical Lacquer Disc"
+                }
+              ],
+              "terms": [
+                "High-Resolution 24-bit Master",
+                "High-Pass Filter at 30 Hz",
+                "Elliptical EQ (Mono Sub-Bass below 150Hz)",
+                "High-Frequency Limiter / De-Esser",
+                "Precision RIAA Cutting Amplifier",
+                "Vinyl Cutting Lathe Diamond Stylus",
+                "Reverb Spring Tank",
+                "Guitar Valve Preamp"
+              ],
+              "correctAnswers": {
+                "step1": "High-Resolution 24-bit Master",
+                "step2": "High-Pass Filter at 30 Hz",
+                "step3": "Elliptical EQ (Mono Sub-Bass below 150Hz)",
+                "step4": "High-Frequency Limiter / De-Esser",
+                "step5": "Precision RIAA Cutting Amplifier",
+                "step6": "Vinyl Cutting Lathe Diamond Stylus"
+              },
+              "explanation": "<p><strong>Vinyl Mastering Physics:</strong> Out-of-phase low frequencies cause the cutting stylus to oscillate vertically, risking cutting completely through the vinyl disc or causing the playback needle to jump out of the groove. An <em>Elliptical EQ</em> sums all frequencies below ~150 Hz to pure mono, while high-frequency limiters protect the heated diamond cutting head from burning out on harsh sibilance.</p>",
+              "expert_quote": {
+                "text": "Vinyl is a mechanical medium governed by strict laws of physics. If you don't control high-frequency sibilance and out-of-phase sub bass, the cutting lathe will literally reject your master.",
+                "author": "Bernie Grundman, Mastering Legend"
+              }
+            },
+            {
+              "id": "sfl_q9",
+              "type": "signal-flow-label",
+              "title": "Acoustic Drum Trigger to MIDI Flow",
+              "content": "Trace the hybrid workflow of triggering sample reinforcement from an acoustic snare drum.",
+              "question": "Complete the acoustic drum trigger-to-MIDI replacement signal flow.",
+              "flowSteps": [
+                {
+                  "id": "step1",
+                  "label": "1. Acoustic Snare Strike"
+                },
+                {
+                  "id": "step2",
+                  "label": "2. Rim-Mounted Transducer"
+                },
+                {
+                  "id": "step3",
+                  "label": "3. Trigger Interface Conversion"
+                },
+                {
+                  "id": "step4",
+                  "label": "4. Digital Control Data"
+                },
+                {
+                  "id": "step5",
+                  "label": "5. Virtual Sampler Instrument"
+                },
+                {
+                  "id": "step6",
+                  "label": "6. Layered Sampled Drum Audio"
+                }
+              ],
+              "terms": [
+                "Physical Drumstick Impact",
+                "Piezoelectric Crystal Sensor",
+                "Trigger-to-MIDI Module",
+                "MIDI Note On & Velocity Byte",
+                "Multi-Velocity Drum Sampler Plugin",
+                "Reinforced Snare Audio Track",
+                "Balanced XLR Cable",
+                "Optical Compressor"
+              ],
+              "correctAnswers": {
+                "step1": "Physical Drumstick Impact",
+                "step2": "Piezoelectric Crystal Sensor",
+                "step3": "Trigger-to-MIDI Module",
+                "step4": "MIDI Note On & Velocity Byte",
+                "step5": "Multi-Velocity Drum Sampler Plugin",
+                "step6": "Reinforced Snare Audio Track"
+              },
+              "explanation": "<p><strong>Acoustic Drum Triggering:</strong> A piezo crystal mounted to the acoustic drum rim converts physical shell vibration into a spike of voltage. A trigger-to-MIDI module analyzes the spike's onset and peak amplitude, outputting a MIDI Note On message with matched velocity (0–127). The DAW sampler instantly triggers a pre-recorded multi-velocity sample to blend with the acoustic mic.</p>",
+              "expert_quote": {
+                "text": "Drum sample blending has been standard practice in rock and pop since the 1980s. The acoustic mic gives you natural feel and bleed; the trigger sample delivers consistent low-end punch.",
+                "author": "Chris Lord-Alge, Mix Engineer"
+              }
+            },
+            {
+              "id": "sfl_q10",
+              "type": "signal-flow-label",
+              "title": "Analogue Tape Machine Playback Signal Path",
+              "content": "Trace the signal path from magnetic tape passing the playback head through to the mixing console.",
+              "question": "Complete the analogue multitrack tape playback path.",
+              "flowSteps": [
+                {
+                  "id": "step1",
+                  "label": "1. Magnetic Audio Storage"
+                },
+                {
+                  "id": "step2",
+                  "label": "2. Magnetic-to-Electric Transducer"
+                },
+                {
+                  "id": "step3",
+                  "label": "3. Tape Playback Head Preamplifier"
+                },
+                {
+                  "id": "step4",
+                  "label": "4. Frequency Equalization Standard"
+                },
+                {
+                  "id": "step5",
+                  "label": "5. Output Line Driver"
+                },
+                {
+                  "id": "step6",
+                  "label": "6. Mixing Console Line Input"
+                }
+              ],
+              "terms": [
+                "Ferric Oxide Magnetic Tape (2-Inch 24-Track)",
+                "Inductive Playback Head Gap",
+                "Low-Noise Head Preamp",
+                "NAB / CCIR De-emphasis EQ Filter",
+                "Balanced Line Output (+4 dBu)",
+                "Console Multitrack Tape Return",
+                "Microphone Capsule",
+                "MIDI Cable"
+              ],
+              "correctAnswers": {
+                "step1": "Ferric Oxide Magnetic Tape (2-Inch 24-Track)",
+                "step2": "Inductive Playback Head Gap",
+                "step3": "Low-Noise Head Preamp",
+                "step4": "NAB / CCIR De-emphasis EQ Filter",
+                "step5": "Balanced Line Output (+4 dBu)",
+                "step6": "Console Multitrack Tape Return"
+              },
+              "explanation": "<p><strong>Analogue Tape Playback Flow:</strong> Magnetic domains oriented on 2-inch ferric oxide tape pass across the microscopic gap of the playback head, inducing small alternating electrical voltages via electromagnetic induction. A low-noise head preamp boosts these microvolts, followed by calibrated NAB or CCIR de-emphasis EQ filters to restore flat frequency response before driving the console line inputs.</p>",
+              "expert_quote": {
+                "text": "Tape is not just a recording medium; it is a musical instrument that introduces subtle tape compression, harmonic saturation, and low-end head bump warmth.",
+                "author": "Eddie Kramer, Recording Engineer (Jimi Hendrix, Led Zeppelin)"
+              }
+            }
+          ]
+        },
+        {
+          "id": "quiz-topic-42",
+          "title": "Practical Quiz 23: Studio Maths & Audio Calculations",
+          "description": "Essential mathematical calculations for Edexcel Component 3 & 4: file sizes, delay times, wavelength, Nyquist theorem, compressor transfer curves, and sampler transposition ratios.",
+          "type": "lp_quiz",
+          "campaignNodeId": "node_pq23",
+          "questions": [
+            {
+              "title": "Audio File Size Calculation (PCM 24-bit / 48 kHz)",
+              "content": "Calculate the uncompressed file size for a 3-minute stereo audio recording.",
+              "type": "multi_choice",
+              "question": "A student records a 3-minute (180 seconds) stereo audio track at 24-bit / 48 kHz. What is the approximate uncompressed file size in Megabytes (MB)?",
+              "answers": [
+                {
+                  "text": "51.84 MB (Formula: 48,000 × 24 × 2 × 180 ÷ 8 ÷ 1,000,000)",
+                  "is_true": "yes"
+                },
+                {
+                  "text": "12.96 MB",
+                  "is_true": "no"
+                },
+                {
+                  "text": "103.68 MB",
+                  "is_true": "no"
+                },
+                {
+                  "text": "25.92 MB",
+                  "is_true": "no"
+                }
+              ],
+              "explanation": "<p><strong>File Size Formula:</strong><br/>$$\\text{Total Bits} = \\text{Sample Rate (Hz)} \\times \\text{Bit Depth} \\times \\text{Channels} \\times \\text{Time (seconds)}$$<br/>$$48,000 \\times 24 \\times 2 \\times 180 = 414,720,000\\text{ bits}$$<br/>Divide by 8 to convert bits to bytes: $51,840,000\\text{ bytes} = \\mathbf{51.84\\text{ MB}}$ (or $49.44\\text{ MiB}$ using $1024^2$).</p>",
+              "expert_quote": {
+                "text": "Always know your audio file math. In multi-track recording sessions with 64 tracks, a 4-minute song can eat 3 to 4 Gigabytes in a single pass.",
+                "author": "Edexcel A-Level Music Technology Specification Guide"
+              }
+            },
+            {
+              "title": "Delay Time Calculation from BPM (Dotted Eighth Note)",
+              "content": "Calculate the exact millisecond delay time for a dotted 8th note at 120 BPM.",
+              "type": "multi_choice",
+              "question": "A track is running at a tempo of 120 BPM. What is the exact delay time in milliseconds (ms) for a rhythmic Dotted Eighth Note ($1/8\\text{d}$)?",
+              "answers": [
+                {
+                  "text": "375 ms (Formula: 60,000 ÷ 120 = 500 ms; 8th note = 250 ms; dotted 8th = 250 × 1.5 = 375 ms)",
+                  "is_true": "yes"
+                },
+                {
+                  "text": "250 ms",
+                  "is_true": "no"
+                },
+                {
+                  "text": "500 ms",
+                  "is_true": "no"
+                },
+                {
+                  "text": "333 ms",
+                  "is_true": "no"
+                }
+              ],
+              "explanation": "<p><strong>Delay Time Formula:</strong><br/>1. One quarter note ($1/4$) at $\\text{BPM}$ in ms: $\\frac{60,000}{120} = 500\\text{ ms}$.<br/>2. An eighth note ($1/8$) is half of a quarter note: $\\frac{500}{2} = 250\\text{ ms}$.<br/>3. A <em>dotted</em> note adds $50\\%$ to its duration: $250 \\times 1.5 = \\mathbf{375\\text{ ms}}$. This is the iconic U2 / The Edge rhythmic echo timing.</p>",
+              "expert_quote": {
+                "text": "The dotted eighth note delay turns a simple three-note arpeggio into an intricate, cascading wall of sound.",
+                "author": "The Edge, Guitarist (U2)"
+              }
+            },
+            {
+              "title": "Acoustic Wavelength Calculation (\\(\\lambda = v / f\\))",
+              "content": "Calculate the physical wavelength of a 100 Hz bass frequency in air.",
+              "type": "multi_choice",
+              "question": "Assuming the speed of sound in air is approximately 340 m/s, what is the physical wavelength (\\(\\lambda\\)) of a 100 Hz bass tone produced by a bass guitar or kick drum?",
+              "answers": [
+                {
+                  "text": "3.4 meters (Formula: 340 m/s ÷ 100 Hz = 3.4 m)",
+                  "is_true": "yes"
+                },
+                {
+                  "text": "34.0 meters",
+                  "is_true": "no"
+                },
+                {
+                  "text": "0.34 meters (34 cm)",
+                  "is_true": "no"
+                },
+                {
+                  "text": "1.7 meters",
+                  "is_true": "no"
+                }
+              ],
+              "explanation": "<p><strong>Wavelength Formula:</strong><br/>$$\\lambda = \\frac{v}{f}$$<br/>Where $v = 340\\text{ m/s}$ (speed of sound) and $f = 100\\text{ Hz}$.<br/>$$\\lambda = \\frac{340}{100} = \\mathbf{3.4\\text{ meters}} \\text{ (approx. } 11.15\\text{ feet)}$$<br/>Because bass waves are physically massive, small studio bedrooms whose dimensions are close to $3.4\\text{ m}$ experience severe room modes and standing waves.</p>",
+              "expert_quote": {
+                "text": "You cannot trap a 3.4-meter sound wave with 2 inches of foam. Understanding wavelength is why real bass traps need mass and depth.",
+                "author": "Rod Gervais, Acoustic Consultant & Studio Builder"
+              }
+            },
+            {
+              "title": "Acoustic Period Calculation (\\(T = 1 / f\\))",
+              "content": "Calculate the period in milliseconds of a 250 Hz snare body resonance.",
+              "type": "multi_choice",
+              "question": "What is the period (\\(T\\)), in milliseconds (ms), of a sound wave vibrating at a frequency of 250 Hz?",
+              "answers": [
+                {
+                  "text": "4.0 ms (Formula: 1 ÷ 250 = 0.004 s = 4.0 ms)",
+                  "is_true": "yes"
+                },
+                {
+                  "text": "2.5 ms",
+                  "is_true": "no"
+                },
+                {
+                  "text": "40.0 ms",
+                  "is_true": "no"
+                },
+                {
+                  "text": "0.4 ms",
+                  "is_true": "no"
+                }
+              ],
+              "explanation": "<p><strong>Period Formula:</strong><br/>$$T = \\frac{1}{f} = \\frac{1}{250\\text{ Hz}} = 0.004\\text{ seconds} = \\mathbf{4.0\\text{ ms}}$$<br/>One complete positive and negative cycle of a 250 Hz waveform takes exactly 4 milliseconds to complete.</p>",
+              "expert_quote": {
+                "text": "Period is the time domain counterpart of frequency. When time-aligning multi-mic drum tracks, milliseconds directly translate into degrees of phase.",
+                "author": "Ken Pohlmann, Author of 'Principles of Digital Audio'"
+              }
+            },
+            {
+              "title": "Nyquist Theorem & Aliasing Foldback Calculation",
+              "content": "Calculate the aliasing foldback frequency of an over-Nyquist tone.",
+              "type": "multi_choice",
+              "question": "An audio interface is recording at a sample rate of 44.1 kHz. If a 26 kHz synthesizer tone enters the converter with no anti-aliasing low-pass filter, at what audible frequency will the alias artifact appear?",
+              "answers": [
+                {
+                  "text": "18.1 kHz (Formula: |44.1 kHz - 26 kHz| = 18.1 kHz)",
+                  "is_true": "yes"
+                },
+                {
+                  "text": "22.05 kHz",
+                  "is_true": "no"
+                },
+                {
+                  "text": "26.0 kHz",
+                  "is_true": "no"
+                },
+                {
+                  "text": "1.9 kHz",
+                  "is_true": "no"
+                }
+              ],
+              "explanation": "<p><strong>Nyquist & Aliasing Calculation:</strong><br/>According to the Nyquist-Shannon Theorem, the maximum representable frequency is half the sample rate: $f_N = \\frac{44.1\\text{ kHz}}{2} = 22.05\\text{ kHz}$. Any frequency $f_{\\text{in}}$ above $f_N$ folds back around the Nyquist frequency into the audible band at:<br/>$$f_{\\text{alias}} = |f_{\\text{sample}} - f_{\\text{in}}| = |44.1\\text{ kHz} - 26.0\\text{ kHz}| = \\mathbf{18.1\\text{ kHz}}$$<br/>This produces an unnatural inharmonic tone that moves in reverse pitch as the original tone glides upwards.</p>",
+              "expert_quote": {
+                "text": "Without steep anti-aliasing brickwall filters before conversion, digital audio would be overrun with metallic foldback noise.",
+                "author": "Harry Nyquist, Pioneer in Information Theory"
+              }
+            },
+            {
+              "title": "Dynamic Range from Bit Depth (6 dB Rule)",
+              "content": "Calculate theoretical dynamic range for 16-bit and 24-bit audio.",
+              "type": "multi_choice",
+              "question": "According to the rule of thumb that each bit of digital audio resolution provides approximately 6.02 dB of dynamic range, what is the theoretical dynamic range of 24-bit audio compared to 16-bit CD audio?",
+              "answers": [
+                {
+                  "text": "144 dB for 24-bit vs 96 dB for 16-bit (an extra 48 dB of dynamic range / lower noise floor)",
+                  "is_true": "yes"
+                },
+                {
+                  "text": "192 dB for 24-bit vs 128 dB for 16-bit",
+                  "is_true": "no"
+                },
+                {
+                  "text": "48 dB for 24-bit vs 32 dB for 16-bit",
+                  "is_true": "no"
+                },
+                {
+                  "text": "240 dB for 24-bit vs 160 dB for 16-bit",
+                  "is_true": "no"
+                }
+              ],
+              "explanation": "<p><strong>Bit Depth Dynamic Range Formula:</strong><br/>$$\\text{Dynamic Range} \\approx 6.02 \\times n\\text{ dB}$$<br/>• For $n = 16\\text{ bits}$: $16 \\times 6 = \\mathbf{96\\text{ dB}}$.<br/>• For $n = 24\\text{ bits}$: $24 \\times 6 = \\mathbf{144\\text{ dB}}$.<br/>The extra 8 bits in 24-bit audio lower the digital quantization noise floor by an astounding 48 dB, allowing engineers to record with generous headroom without noise penalty.</p>",
+              "expert_quote": {
+                "text": "In 24-bit recording, you can safely track vocals peaking at -18 dBFS and still have a cleaner noise floor than a 16-bit recording peaking at 0 dBFS.",
+                "author": "Bob Katz, Mastering Audio"
+              }
+            },
+            {
+              "title": "Compressor Output Math (Threshold, Ratio & Make-up Gain)",
+              "content": "Calculate the final output level of a compressed signal passing the threshold.",
+              "type": "multi_choice",
+              "question": "A compressor is set with Threshold = -20 dBFS, Ratio = 4:1, and Make-up Gain = +6 dB. If a snare transient hits the input at -8 dBFS, what is the resulting output level in dBFS?",
+              "answers": [
+                {
+                  "text": "-11 dBFS",
+                  "is_true": "yes"
+                },
+                {
+                  "text": "-8 dBFS",
+                  "is_true": "no"
+                },
+                {
+                  "text": "-14 dBFS",
+                  "is_true": "no"
+                },
+                {
+                  "text": "-2 dBFS",
+                  "is_true": "no"
+                }
+              ],
+              "explanation": "<p><strong>Compressor Transfer Calculation:</strong><br/>1. Input signal is $-8\\text{ dBFS}$, which is $12\\text{ dB}$ above the $-20\\text{ dBFS}$ threshold ($(-8) - (-20) = +12\\text{ dB}$).<br/>2. With a $4:1$ ratio, for every $4\\text{ dB}$ above threshold, only $1\\text{ dB}$ emerges: $\\frac{12}{4} = 3\\text{ dB}$ above threshold.<br/>3. Output before make-up gain: $-20 + 3 = -17\\text{ dBFS}$ (a gain reduction of $9\\text{ dB}$).<br/>4. Applying $+6\\text{ dB}$ make-up gain: $-17 + 6 = \\mathbf{-11\\text{ dBFS}}$.</p>",
+              "expert_quote": {
+                "text": "Compression math is simple once you isolate the overshoot above threshold from the make-up gain stage.",
+                "author": "Mike Senior, Author of 'Mixing Secrets for the Small Studio'"
+              }
+            },
+            {
+              "title": "Sampler Transposition & Playback Duration Ratio",
+              "content": "Calculate sample playback duration after chromatic transposition.",
+              "type": "multi_choice",
+              "question": "A 2.0-second vocal sample is loaded into a traditional sampler without time-stretching. If the producer plays the sample one octave lower (-12 semitones), how long will the sample take to play to completion?",
+              "answers": [
+                {
+                  "text": "4.0 seconds (pitch halves, so playback duration doubles)",
+                  "is_true": "yes"
+                },
+                {
+                  "text": "1.0 second",
+                  "is_true": "no"
+                },
+                {
+                  "text": "2.0 seconds",
+                  "is_true": "no"
+                },
+                {
+                  "text": "8.0 seconds",
+                  "is_true": "no"
+                }
+              ],
+              "explanation": "<p><strong>Sampler Pitch vs Time Mathematics:</strong> In classic sampling (without time-stretch DSP), pitching an audio file down by 12 semitones (one octave) halves its playback clock rate ($f_1 = \\frac{1}{2} f_0$). Because the digital audio words are read at half the speed, the duration doubles: $2.0\\text{ s} \\times 2 = \\mathbf{4.0\\text{ seconds}}$. Conversely, pitching up by 12 semitones halves duration to 1.0 second.</p>",
+              "expert_quote": {
+                "text": "The classic jungle drum break sound was born from pitching up amen breaks by 6 to 9 semitones, which sped up the tempo from 130 BPM to 170 BPM automatically.",
+                "author": "Goldie, Drum & Bass Pioneer"
+              }
+            },
+            {
+              "title": "Comb Filtering First Notch Frequency",
+              "content": "Calculate the first phase cancellation notch frequency caused by acoustic path delay.",
+              "type": "multi_choice",
+              "question": "A direct sound and a boundary-reflected copy combine with a time delay of 1.0 millisecond (0.001 s). At what frequency will the first complete destructive phase cancellation notch occur?",
+              "answers": [
+                {
+                  "text": "500 Hz (Formula: f = 1 ÷ (2 × 0.001 s) = 500 Hz)",
+                  "is_true": "yes"
+                },
+                {
+                  "text": "1,000 Hz",
+                  "is_true": "no"
+                },
+                {
+                  "text": "250 Hz",
+                  "is_true": "no"
+                },
+                {
+                  "text": "100 Hz",
+                  "is_true": "no"
+                }
+              ],
+              "explanation": "<p><strong>Comb Filter First Notch Formula:</strong><br/>$$f_{\\text{notch}} = \\frac{1}{2 \\Delta t}$$<br/>Where $\\Delta t = 0.001\\text{ s}$ ($1.0\\text{ ms}$).<br/>$$f_{\\text{notch}} = \\frac{1}{2 \\times 0.001} = \\frac{1}{0.002} = \\mathbf{500\\text{ Hz}}$$<br/>Subsequent notches occur at odd harmonic multiples: $1500\\text{ Hz}, 2500\\text{ Hz}, 3500\\text{ Hz}$, creating the familiar hollow 'comb filter' sound.</p>",
+              "expert_quote": {
+                "text": "Placing microphones too close to reflective walls or using multiple mics without the 3:1 rule creates comb filtering you can never EQ away.",
+                "author": "Al Schmitt"
+              }
+            },
+            {
+              "title": "Impedance Bridging Rule (Voltage Transfer)",
+              "content": "Identify the minimum input impedance requirement for low-distortion voltage transfer.",
+              "type": "multi_choice",
+              "question": "In modern studio interconnects (voltage bridging), what is the recommended ratio between the source device output impedance (\\(Z_{\\text{out}}\\)) and the receiving destination input impedance (\\(Z_{\\text{in}}\\))?",
+              "answers": [
+                {
+                  "text": "Input impedance should be at least 10 times greater than output impedance (Z_in ≥ 10 × Z_out)",
+                  "is_true": "yes"
+                },
+                {
+                  "text": "Input impedance must exactly equal output impedance (Z_in = Z_out)",
+                  "is_true": "no"
+                },
+                {
+                  "text": "Input impedance must be 10 times lower than output impedance (Z_in ≤ 0.1 × Z_out)",
+                  "is_true": "no"
+                },
+                {
+                  "text": "Impedance does not matter in analogue audio",
+                  "is_true": "no"
+                }
+              ],
+              "explanation": "<p><strong>Voltage Bridging Principle:</strong> In vintage 600-ohm telecommunications, power matching required $Z_{\\text{in}} = Z_{\\text{out}}$. In modern studio audio, we transfer voltage, not power. To prevent signal voltage loss and high-frequency loading, modern inputs are high impedance ($Z_{\\text{in}} \\ge 10\\text{ k}\\Omega$), while outputs are low impedance ($Z_{\\text{out}} \\le 100\\,\\Omega$), satisfying the <strong>10:1 bridging ratio</strong>.</p>",
+              "expert_quote": {
+                "text": "Low source impedance driving high load impedance ensures that 95% or more of the voltage appears across the load with virtually zero cable loss.",
+                "author": "Douglas Self, Audio Power Amplifier Design"
+              }
+            },
+            {
+              "title": "True Peak vs Sample Peak Inter-Sample Overs",
+              "content": "Explain why a digital file with sample peak of -0.2 dBFS can distort consumer D/A converters.",
+              "type": "multi_choice",
+              "question": "A mastering engineer delivers a track normalized to a Sample Peak of -0.2 dBFS. When played through consumer DACs or lossy MP3 encoders, audible clipping occurs. Why?",
+              "answers": [
+                {
+                  "text": "Inter-sample peaks: the continuous reconstructed analogue waveform between sample points overshoots 0 dBFS (creating +1.0 to +2.0 dBTP true peaks)",
+                  "is_true": "yes"
+                },
+                {
+                  "text": "The MP3 encoder reduces the sample rate to 22.05 kHz",
+                  "is_true": "no"
+                },
+                {
+                  "text": "The bit depth is automatically increased to 64-bit float",
+                  "is_true": "no"
+                },
+                {
+                  "text": "Consumer DACs cannot reproduce frequencies above 10 kHz",
+                  "is_true": "no"
+                }
+              ],
+              "explanation": "<p><strong>Inter-Sample True Peaks:</strong> Digital samples only capture discrete points in time. When a D/A converter's reconstruction filter draws a smooth continuous analogue waveform between adjacent high-level samples (e.g. sample A at -0.3 dBFS and sample B at -0.3 dBFS), the curved analogue wave between them can overshoot up to <strong>+2.0 dB above 0 dBFS</strong>, causing nasty clipping in analogue playback circuits and MP3/AAC lossy encoding.</p>",
+              "expert_quote": {
+                "text": "Always leave at least -1.0 dBFS True Peak headroom on streaming masters to guarantee clean lossy transcoding on Spotify and Apple Music.",
+                "author": "Ian Shepherd, Mastering Engineer & Founder of Dynamic Range Day"
+              }
+            },
+            {
+              "title": "Reverberation Time (RT60) Definition",
+              "content": "Identify the standard scientific definition of RT60 in acoustics.",
+              "type": "multi_choice",
+              "question": "What is the precise definition of 'RT60' when measuring the reverberation time of an acoustic recording space?",
+              "answers": [
+                {
+                  "text": "The time required for acoustic sound energy to decay by 60 dB (one millionth of its original sound energy) after the sound source has stopped",
+                  "is_true": "yes"
+                },
+                {
+                  "text": "The time taken for sound to travel 60 meters across the room",
+                  "is_true": "no"
+                },
+                {
+                  "text": "The maximum temperature of 60 degrees Celsius in an echo chamber",
+                  "is_true": "no"
+                },
+                {
+                  "text": "The delay time of 60 milliseconds on an analogue tape loop",
+                  "is_true": "no"
+                }
+              ],
+              "explanation": "<p><strong>RT60 Sabine Definition:</strong> Formulated by Wallace Clement Sabine, RT60 measures the duration in seconds for sound pressure level in an enclosed space to drop by exactly <strong>60 dB</strong> (reducing acoustic energy to one-millionth of its initial level: $10^{-6}$). Live orchestral halls typically have RT60 of 1.8–2.2 seconds, while modern dry recording control rooms target RT60 between 0.25 and 0.4 seconds.</p>",
+              "expert_quote": {
+                "text": "A control room with an RT60 above 0.5 seconds will smear your stereo imaging and cloud your perception of low-end transients.",
+                "author": "Philip Newell, Recording Spaces"
+              }
+            }
+          ]
+        },
+        {
+          "id": "quiz-topic-43",
+          "title": "Practical Quiz 24: Audio Fault Diagnosis, Editing & Restoration",
+          "description": "Diagnose, repair, and restore authentic audio recording defects: clicks, DC offset, mains hum, phase issues, plosives, and digital clipping.",
+          "type": "lp_quiz",
+          "campaignNodeId": "node_pq24",
+          "questions": [
+            {
+              "title": "Diagnosing UK vs US Mains Hum Frequencies",
+              "content": "Differentiate between 50 Hz and 60 Hz hum based on geographical electrical grid recording.",
+              "type": "multi_choice",
+              "question": "An archival tape recorded in London in 1973 exhibits a persistent low-frequency buzzing hum. Spectral analysis reveals energy peaks at 50 Hz, 100 Hz, 150 Hz, and 250 Hz. What is the source of this fault?",
+              "answers": [
+                {
+                  "text": "UK 50 Hz AC mains electromagnetic interference and its integer harmonics",
+                  "is_true": "yes"
+                },
+                {
+                  "text": "US 60 Hz ground loop hum",
+                  "is_true": "no"
+                },
+                {
+                  "text": "Acoustic room resonance of a bass drum shell",
+                  "is_true": "no"
+                },
+                {
+                  "text": "Tape bias oscillator leakage at 100 kHz",
+                  "is_true": "no"
+                }
+              ],
+              "explanation": "<p><strong>Mains Hum Frequency Diagnosis:</strong> Mains electricity in the UK and Europe runs at 50 Hz (cycles per second), whereas in North America it runs at 60 Hz. Transformer and coil induction creates an initial 50 Hz fundamental followed by distinct odd and even harmonics ($100\\text{ Hz}, 150\\text{ Hz}, 200\\text{ Hz}, 250\\text{ Hz}...$). Identifying 50 Hz vs 60 Hz immediately reveals geographic power origins.</p>",
+              "expert_quote": {
+                "text": "Restoration engineers always check whether the hum is 50 Hz or 60 Hz before touching a dial. It tells you immediately if the fault was captured in Europe or the US.",
+                "author": "Mark O'Shea, Audio Restoration Specialist"
+              }
+            },
+            {
+              "title": "Repairing Vocal Plosive (P-Pop) Blasts",
+              "content": "Select the correct combination of editing and EQ to remove an explosive 'P' blast on a vocal track.",
+              "type": "multi_choice",
+              "question": "A singer accidentally moved off-axis from the pop shield during a passionate take, producing an explosive low-frequency 'P' plosive blast that clipped the microphone diaphragm. How should this be repaired in the DAW?",
+              "answers": [
+                {
+                  "text": "Automate a steep high-pass filter (HPF at 100–120 Hz) or apply localized spectral repair gain reduction strictly over the 20–50 ms duration of the plosive blast",
+                  "is_true": "yes"
+                },
+                {
+                  "text": "Apply a global high-shelf boost at 10 kHz across the entire vocal track",
+                  "is_true": "no"
+                },
+                {
+                  "text": "Invert the phase of the entire vocal track",
+                  "is_true": "no"
+                },
+                {
+                  "text": "Apply a 20:1 brickwall limiter across the master bus",
+                  "is_true": "no"
+                }
+              ],
+              "explanation": "<p><strong>Plosive Blast Repair:</strong> Plosives ('P' and 'B' consonants) project a high-velocity blast of air that physically buffets the microphone diaphragm, producing huge subsonic bursts of energy below 100 Hz. Automating a high-pass filter to engage exclusively during the 30–50 ms plosive transient eliminates the subsonic thud without thinning out the body of the singer's voice on surrounding words.</p>",
+              "expert_quote": {
+                "text": "Never leave a permanent 150 Hz high-pass filter on a vocal just to fix three plosives. Automate the filter or use spectral editing to surgically remove only the blast.",
+                "author": "Mike Senior"
+              }
+            },
+            {
+              "title": "Phase Inversion on Snare Drum Top and Bottom Microphones",
+              "content": "Diagnose the thin, hollow sound of a multi-miked snare drum.",
+              "type": "multi_choice",
+              "question": "A recording engineer places a Shure SM57 pointing down at the top snare head, and a second mic pointing up at the snare wires on the bottom head. When both mics are brought up in the mix, the snare loses all low-end punch and sounds hollow. Why?",
+              "answers": [
+                {
+                  "text": "Opposing diaphragm motion: when the top head moves downward, the bottom head moves outward toward the bottom mic, causing 180° phase cancellation. Solution: flip the polarity switch (Ø) on the bottom mic preamp",
+                  "is_true": "yes"
+                },
+                {
+                  "text": "The bottom mic is receiving too much phantom power",
+                  "is_true": "no"
+                },
+                {
+                  "text": "The top mic is overloading the digital converters",
+                  "is_true": "no"
+                },
+                {
+                  "text": "Snare drums cannot be recorded with two microphones simultaneously",
+                  "is_true": "no"
+                }
+              ],
+              "explanation": "<p><strong>Snare Phase Inversion:</strong> When the drumstick strikes the top snare head, the skin moves downward (away from the top mic). This compresses the air inside the shell, forcing the bottom skin to push downward (toward the bottom mic). Because the diaphragms point at each other in opposite directions, the resulting electrical voltages are 180 degrees out of phase, destructively cancelling low-end body ($150\\text{--}250\\text{ Hz}$). Flipping the bottom mic's polarity ($\\varnothing$) restores full low-end punch.</p>",
+              "expert_quote": {
+                "text": "Checking polarity between top and bottom snare mics is rule number one of drum recording. Hit the phase button; whichever setting has more low end is the correct one.",
+                "author": "Sylvia Massy, Producer (Tool, Prince, Johnny Cash)"
+              }
+            },
+            {
+              "title": "Zero-Crossing Splice Clicks",
+              "content": "Identify the cause of audible clicks when splicing audio regions.",
+              "type": "multi_choice",
+              "question": "While compiling ('comping') multiple acoustic guitar takes in a DAW, loud audible clicks and ticks occur at every edit boundary. What is the cause of these clicks, and what is the standard professional solution?",
+              "answers": [
+                {
+                  "text": "The audio regions were sliced at non-zero amplitudes; apply 2–5 ms equal-power crossfades at every edit boundary or snap cuts to zero-crossings",
+                  "is_true": "yes"
+                },
+                {
+                  "text": "The audio interface buffer size was set too high (1024 samples)",
+                  "is_true": "no"
+                },
+                {
+                  "text": "The bit depth was changed from 24-bit to 32-bit float",
+                  "is_true": "no"
+                },
+                {
+                  "text": "The guitar strings were tuned in drop D",
+                  "is_true": "no"
+                }
+              ],
+              "explanation": "<p><strong>Zero-Crossing DC Discontinuity:</strong> If an audio region is cut when the waveform is at $+0.5\\text{V}$ and spliced to a region starting at $-0.4\\text{V}$, the speaker cone is commanded to jump instantaneously across a $0.9\\text{V}$ gap in zero time ($0\\text{ ms}$). This infinite rate of voltage change produces an audible high-frequency transient click. Applying micro-crossfades ($2\\text{--}5\\text{ ms}$) smooths the voltage across the splice.</p>",
+              "expert_quote": {
+                "text": "Every edit without a crossfade is a click waiting to happen on high-end monitors. Make batch crossfades part of your muscle memory.",
+                "author": "Bobby Owsinski"
+              }
+            },
+            {
+              "title": "Buffer Underrun / Audio Dropout Clicks vs Tape Dropouts",
+              "content": "Distinguish between CPU buffer underrun clicks and analogue tape dropouts.",
+              "type": "multi_choice",
+              "question": "During a heavy multitrack mixing session, periodic sputtering clicks and momentary gaps in sound occur during playback. The CPU meter is hovering near 100%. What is this defect?",
+              "answers": [
+                {
+                  "text": "DAW Buffer Underrun: the CPU cannot process audio blocks within the allocated hardware buffer window. Solution: increase audio buffer size from 64/128 to 512/1024 samples",
+                  "is_true": "yes"
+                },
+                {
+                  "text": "Tape oxide flaking off the physical magnetic reel",
+                  "is_true": "no"
+                },
+                {
+                  "text": "Microphone pop shield acoustic turbulence",
+                  "is_true": "no"
+                },
+                {
+                  "text": "Phantom power voltage drop",
+                  "is_true": "no"
+                }
+              ],
+              "explanation": "<p><strong>Buffer Underruns:</strong> When running numerous CPU-heavy virtual instruments and convolution reverbs at low buffer sizes (e.g. 64 samples = $1.3\\text{ ms}$), the computer processor cannot deliver processed audio frames before the soundcard hardware buffer runs dry. The resulting momentary silence produces harsh digital clicks and dropouts. Increasing buffer size gives the CPU more time to render audio.</p>",
+              "expert_quote": {
+                "text": "Low buffer sizes are for tracking with zero latency; high buffer sizes are for mixing with unlimited plugins.",
+                "author": "Paul White, Sound On Sound"
+              }
+            },
+            {
+              "title": "Severe Sibilance Restoration (Frequency-Conscious De-Essing)",
+              "content": "Select the correct frequency target and tool to eliminate piercing sibilance.",
+              "type": "multi_choice",
+              "question": "A condenser microphone with a pronounced high-frequency boost creates harsh, piercing 'S' and 'SH' sibilance on a female vocal whenever she sings words like 'sunshine' or 'sister'. Which tool and frequency target should be deployed?",
+              "answers": [
+                {
+                  "text": "A De-Esser (frequency-conscious dynamic attenuator) with its sidechain detection filter tuned between 5 kHz and 8 kHz",
+                  "is_true": "yes"
+                },
+                {
+                  "text": "A 100 Hz high-pass filter",
+                  "is_true": "no"
+                },
+                {
+                  "text": "A guitar noise gate set to -40 dB",
+                  "is_true": "no"
+                },
+                {
+                  "text": "A tape saturation plugin pushed into 6 dB of valve distortion",
+                  "is_true": "no"
+                }
+              ],
+              "explanation": "<p><strong>De-Essing Sibilance:</strong> Sibilance energy concentrated in human speech ('S', 'T', 'Z', 'SH') sits primarily between <strong>5 kHz and 8.5 kHz</strong>. A De-Esser uses a bandpass sidechain filter tuned to this specific frequency pocket. When sibilance occurs, the compressor ducks only that narrow band (split-band mode) or pulls down the vocal volume momentarily, preventing ear fatigue.</p>",
+              "expert_quote": {
+                "text": "Over-de-essing turns your singer into Daffy Duck with a lisp; under-de-essing rips the listener's eardrums out at high volume. Find the exact resonance frequency first.",
+                "author": "Chris Lord-Alge"
+              }
+            },
+            {
+              "title": "Digital Clipping De-Clipping Restoration",
+              "content": "Diagnose flat-topped audio and evaluate spectral repair de-clipping techniques.",
+              "type": "multi_choice",
+              "question": "An irreplaceable live vocal take clipped the audio interface A/D converter during a climactic chorus, flat-topping the waveform peaks at 0 dBFS. What digital restoration algorithm can best reconstruct the sheared peaks?",
+              "answers": [
+                {
+                  "text": "A De-Clip algorithm that uses cubic spline or polynomial interpolation to mathematically reconstruct the curved peak tops based on surrounding gradient vectors",
+                  "is_true": "yes"
+                },
+                {
+                  "text": "A graphic EQ boosting 100 Hz by +12 dB",
+                  "is_true": "no"
+                },
+                {
+                  "text": "A 16-bit dither noise generator",
+                  "is_true": "no"
+                },
+                {
+                  "text": "An analogue tube tape emulator driven into red distortion",
+                  "is_true": "no"
+                }
+              ],
+              "explanation": "<p><strong>De-Clipping Mathematics:</strong> When digital clipping occurs, the waveform peak is sliced flat. Dedicated restoration suites (e.g. iZotope RX De-clip) analyze the curvature (derivative and trajectory) of the waveform immediately before and after the flat-top, calculating polynomial interpolation curves to redraw the missing harmonic peak and pulling down overall level to prevent re-clipping.</p>",
+              "expert_quote": {
+                "text": "De-clippers are modern miracles for live archival recordings, but prevention is always superior. Never track without at least 12 dB of headroom.",
+                "author": "Mark Waldrep, Audio Engineer & Author"
+              }
+            },
+            {
+              "title": "Time-Stretch Transient Smearing Artifacts",
+              "content": "Identify the cause of flamming drum hits after DAW tempo changes.",
+              "type": "multi_choice",
+              "question": "When an acoustic drum loop is slowed down from 140 BPM to 110 BPM using a complex polyphonic time-stretching algorithm, the snare and kick transients sound smeared, flanged, and doubled. What algorithm setting should be chosen instead?",
+              "answers": [
+                {
+                  "text": "Select 'Rhythmic' or 'Percussive / Slice' mode, which isolates and preserves sharp transients while stretching only the decay tails",
+                  "is_true": "yes"
+                },
+                {
+                  "text": "Convert the drum track to MP3 at 128 kbps",
+                  "is_true": "no"
+                },
+                {
+                  "text": "Invert the phase of the left channel",
+                  "is_true": "no"
+                },
+                {
+                  "text": "Boost 16 kHz by +10 dB",
+                  "is_true": "no"
+                }
+              ],
+              "explanation": "<p><strong>Time-Stretch Algorithm Selection:</strong> Polyphonic and complex granular algorithms use spectral phase vocoders that treat all audio as continuous sine waves, introducing phase smearing across sharp transients. In contrast, 'Percussive / Slice' modes (e.g. Ableton Live 'Beats Mode' or Logic Pro 'Flex Rhythmic') detect transients and leave their attacks completely un-stretched, stretching only the ambient room decay between hits.</p>",
+              "expert_quote": {
+                "text": "Using polyphonic stretch on a drum loop is like smearing grease over a sharp photograph. Always use transient-based slice stretching for drums.",
+                "author": "Henk Baan, DSP Algorithm Designer"
+              }
+            },
+            {
+              "title": "Linear Phase Pre-Ringing Artifacts",
+              "content": "Identify the sonic artifact produced by steep linear phase filters on sharp transients.",
+              "type": "multi_choice",
+              "question": "A mix engineer applies an extremely steep 48 dB/octave linear-phase high-pass filter at 50 Hz on an acoustic kick drum. What unnatural artifact is introduced directly before each kick impact?",
+              "answers": [
+                {
+                  "text": "'Pre-ringing': a backwards whooshing or smearing sound that precedes the kick transient caused by symmetrical impulse response filters",
+                  "is_true": "yes"
+                },
+                {
+                  "text": "High-frequency tape hiss",
+                  "is_true": "no"
+                },
+                {
+                  "text": "Severe phase distortion and group delay",
+                  "is_true": "no"
+                },
+                {
+                  "text": "Automatic conversion from stereo to mono",
+                  "is_true": "no"
+                }
+              ],
+              "explanation": "<p><strong>Linear Phase Pre-Ringing:</strong> Standard minimum-phase EQs introduce phase shift but keep all ringing strictly <em>after</em> the transient (post-ringing, which human ears naturally mask). Linear-phase EQs preserve phase by using symmetrical FIR filters, but this forces half of the ringing to occur <em>before</em> the transient (pre-ringing). On isolated percussive transients (kick, snare), this pre-ringing sounds like a strange reverse suck-in noise.</p>",
+              "expert_quote": {
+                "text": "Linear phase EQ is not automatically superior. On sharp transient drums, minimum phase EQ sounds tighter and punchier because it has zero pre-ringing.",
+                "author": "Fabian Schivre, Tokyo Dawn Labs"
+              }
+            },
+            {
+              "title": "Acoustic Drum Spill / Bleed Gate Chatter",
+              "content": "Diagnose rapid flutter or chattering on a noise gate applied to a floor tom.",
+              "type": "multi_choice",
+              "question": "A noise gate inserted on a floor tom mic rapidly flutters open and closed during cymbal crashes, producing ragged chattering noise. What parameter adjustments on the gate will cure this defect?",
+              "answers": [
+                {
+                  "text": "Increase the 'Hold' time and engage a 'Sidechain Bandpass Filter' on the gate so it only responds to the low 80–150 Hz resonance of the tom strike",
+                  "is_true": "yes"
+                },
+                {
+                  "text": "Set the attack time to 500 milliseconds",
+                  "is_true": "no"
+                },
+                {
+                  "text": "Invert the polarity of the overhead microphones",
+                  "is_true": "no"
+                },
+                {
+                  "text": "Boost the cymbal bleed with a high-shelf EQ",
+                  "is_true": "no"
+                }
+              ],
+              "explanation": "<p><strong>Noise Gate Chatter Remedy:</strong> Gate chatter occurs when ambient cymbal bleed fluctuates right around the threshold voltage, rapidly toggling the gate. Setting a Frequency-Conscious Sidechain Filter restricts the gate's detector strictly to the tom's fundamental frequency ($80\\text{--}150\\text{ Hz}$). Increasing the <strong>Hold</strong> parameter ensures the gate stays solidly open for the full decay before closing smoothly via the Release.</p>",
+              "expert_quote": {
+                "text": "A chattering noise gate will ruin a drum take faster than bad tuning. Key the sidechain to the drum fundamental and let the hold time breathe.",
+                "author": "Andy Wallace"
+              }
+            },
+            {
+              "title": "Acoustic Guitar Finger Squeaks Restoration",
+              "content": "Select the best approach to tame loud finger squeaks on roundwound acoustic guitar strings.",
+              "type": "multi_choice",
+              "question": "A nylon/steel acoustic guitar recording has beautiful tone, but loud high-frequency finger slide squeaks (between 2.5 kHz and 4.5 kHz) distract between chord transitions. What is the most transparent restoration method?",
+              "answers": [
+                {
+                  "text": "Use spectral repair attenuation to selectively drop the squeak frequency bursts by 6–10 dB, or automate a dynamic EQ dip only during the chord shift gaps",
+                  "is_true": "yes"
+                },
+                {
+                  "text": "Apply a low-pass filter at 1 kHz across the entire track",
+                  "is_true": "no"
+                },
+                {
+                  "text": "Hard clip the guitar through a fuzz pedal",
+                  "is_true": "no"
+                },
+                {
+                  "text": "Add white noise to mask the squeaks",
+                  "is_true": "no"
+                }
+              ],
+              "explanation": "<p><strong>Taming String Squeaks:</strong> Squeaks are high-energy friction bursts occurring between $2.5\\text{ kHz}$ and $5\\text{ kHz}$. A static EQ cut in this range permanently deadens the acoustic guitar's presence. Spectral editing allows the engineer to draw a marquee around the squeak burst and attenuate it by 6–10 dB, leaving the surrounding chord decay pristine.</p>",
+              "expert_quote": {
+                "text": "Don't remove string squeaks completely—they convey acoustic authenticity. Just attenuate them so they don't poke the listener in the eye.",
+                "author": "Al Schmitt"
+              }
+            },
+            {
+              "title": "Stereo Cassette Tape Azimuth Misalignment",
+              "content": "Diagnose the hollow, muffled sound of a vintage cassette tape playback.",
+              "type": "multi_choice",
+              "question": "A cassette tape from 1985 sounds bright and punchy in stereo, but when summed to mono, high frequencies completely vanish into muffled, hollow comb filtering. What mechanical fault on the tape machine caused this?",
+              "answers": [
+                {
+                  "text": "Tape Head Azimuth Misalignment: the playback head is tilted at a slight angle relative to the tape path, causing a phase delay between left and right channels",
+                  "is_true": "yes"
+                },
+                {
+                  "text": "The cassette was recorded with too much dolby B noise reduction",
+                  "is_true": "no"
+                },
+                {
+                  "text": "The tape was accidentally played at 7.5 ips instead of 1.875 ips",
+                  "is_true": "no"
+                },
+                {
+                  "text": "The tape formulation was Type IV Metal instead of Type I Normal",
+                  "is_true": "no"
+                }
+              ],
+              "explanation": "<p><strong>Tape Azimuth Misalignment:</strong> Azimuth refers to the 90-degree perpendicular angle of the tape head gap relative to the tape direction. If the head is misaligned by even a fraction of a degree, one stereo channel reads the waveform micro-fractions of a millisecond earlier than the other. In stereo this sounds wide, but in mono the timing discrepancy causes devastating high-frequency phase cancellation.</p>",
+              "expert_quote": {
+                "text": "Before digitizing any archival cassette or reel-to-reel tape, align the azimuth screw while monitoring in mono for maximum high-frequency clarity.",
+                "author": "Richard Hess, Tape Restoration Specialist"
+              }
+            }
+          ]
         }
       ]
     },
@@ -12175,7 +15260,8 @@
                 "alt": "Soft Cell (Marc Almond & Dave Ball) Synth-Pop Duo Format"
               }
             }
-          ]
+          ],
+          "id": "comp_tainted_love"
         },
         {
           "type": "lp_quiz",
@@ -12574,7 +15660,8 @@
                 "alt": "Jonas Blue - 2015 Tropical House / Dance-Pop Producer Format"
               }
             }
-          ]
+          ],
+          "id": "comp_fast_car"
         },
         {
           "type": "lp_quiz",
@@ -12973,7 +16060,8 @@
                 "alt": "Pet Shop Boys - High-NRG Synth-Pop Duo Format"
               }
             }
-          ]
+          ],
+          "id": "comp_always_on_my_mind"
         },
         {
           "type": "lp_quiz",
@@ -13373,7 +16461,8 @@
               }
             }
           ],
-          "isPremium": true
+          "isPremium": true,
+          "id": "comp_mad_world"
         },
         {
           "type": "lp_quiz",
@@ -13773,7 +16862,8 @@
               }
             }
           ],
-          "isPremium": true
+          "isPremium": true,
+          "id": "comp_crossroads"
         },
         {
           "type": "lp_quiz",
@@ -14173,7 +17263,8 @@
               }
             }
           ],
-          "isPremium": true
+          "isPremium": true,
+          "id": "comp_with_a_little_help"
         },
         {
           "type": "lp_quiz",
@@ -14341,7 +17432,8 @@
               }
             }
           ],
-          "isPremium": true
+          "isPremium": true,
+          "id": "comp_blue_monday"
         },
         {
           "type": "lp_quiz",
@@ -14505,7 +17597,8 @@
               }
             }
           ],
-          "isPremium": true
+          "isPremium": true,
+          "id": "comp_smooth_criminal"
         },
         {
           "type": "lp_quiz",
@@ -14669,7 +17762,8 @@
               }
             }
           ],
-          "isPremium": true
+          "isPremium": true,
+          "id": "comp_word_up"
         }
       ]
     },
@@ -15185,7 +18279,8 @@
                 "alt": "Natural Acoustic Drum & Bass Balance: No Sidechain Pumping"
               }
             }
-          ]
+          ],
+          "id": "case_heartbreak_hotel"
         },
         {
           "type": "lp_quiz",
@@ -15718,7 +18813,8 @@
                 "alt": "Continuous Closed Tape Loop Traveling Across Tape Guides and Playback Head"
               }
             }
-          ]
+          ],
+          "id": "case_tomorrow_never_knows"
         },
         {
           "type": "lp_quiz",
@@ -16227,7 +19323,8 @@
               }
             }
           ],
-          "isPremium": true
+          "isPremium": true,
+          "id": "case_money"
         },
         {
           "type": "lp_quiz",
@@ -16736,7 +19833,8 @@
               }
             }
           ],
-          "isPremium": true
+          "isPremium": true,
+          "id": "case_billie_jean"
         },
         {
           "type": "lp_quiz",
@@ -17245,7 +20343,8 @@
               }
             }
           ],
-          "isPremium": true
+          "isPremium": true,
+          "id": "case_g_thang"
         },
         {
           "type": "lp_quiz",
@@ -17754,7 +20853,8 @@
               }
             }
           ],
-          "isPremium": true
+          "isPremium": true,
+          "id": "case_one_more_time"
         }
       ]
     },

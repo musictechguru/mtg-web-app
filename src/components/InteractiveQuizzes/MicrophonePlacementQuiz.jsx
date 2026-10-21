@@ -15,6 +15,7 @@ const MicrophonePlacementQuiz = ({ quiz, onExit }) => {
 
     const userContext = useUser();
     const saveQuizResult = userContext ? userContext.saveQuizResult : null;
+    const completeCampaignNode = userContext ? userContext.completeCampaignNode : null;
     const resultsSavedRef = useRef(false);
 
     // Dragging state
@@ -42,13 +43,18 @@ const MicrophonePlacementQuiz = ({ quiz, onExit }) => {
     }, [currentScenarioIndex]);
 
     useEffect(() => {
-        if (isComplete && saveQuizResult && !resultsSavedRef.current) {
+        if (isComplete && !resultsSavedRef.current) {
             resultsSavedRef.current = true;
             const score = scenarios.length;
             const total = scenarios.length;
-            saveQuizResult(quiz?.title || "Practical Quiz 14: Advanced Microphone Placement", score, total, 'A');
+            if (saveQuizResult) {
+                saveQuizResult(quiz?.title || "Practical Quiz 14: Advanced Microphone Placement", score, total, 'A');
+            }
+            if (quiz?.campaignNodeId && completeCampaignNode) {
+                completeCampaignNode(quiz.campaignNodeId);
+            }
         }
-    }, [isComplete, saveQuizResult, quiz?.title, scenarios.length]);
+    }, [isComplete, saveQuizResult, completeCampaignNode, quiz?.title, quiz?.campaignNodeId, scenarios.length]);
 
     if (!currentScenario) {
         return <div className="mic-placement-container"><p style={{ padding: '20px' }}>No scenarios found for this quiz.</p></div>;

@@ -281,11 +281,12 @@ export default function EffectsChainQuiz({ quiz, onExit }) {
     // Save quiz result
     const userContext = useUser();
     const saveQuizResult = userContext ? userContext.saveQuizResult : null;
+    const completeCampaignNode = userContext ? userContext.completeCampaignNode : null;
     const resultsSavedRef = useRef(false);
     const activeNodesRef = useRef([]);
 
     useEffect(() => {
-        if (quizComplete && saveQuizResult && !resultsSavedRef.current) {
+        if (quizComplete && !resultsSavedRef.current) {
             resultsSavedRef.current = true;
 
             const percentage = Math.round((score / questions.length) * 100);
@@ -295,9 +296,14 @@ export default function EffectsChainQuiz({ quiz, onExit }) {
             else if (percentage >= 60) grade = 'C';
             else if (percentage >= 50) grade = 'D';
 
-            saveQuizResult(quiz?.title || "Topic 35: Audio Effects Processing", score, questions.length, grade);
+            if (saveQuizResult) {
+                saveQuizResult(quiz?.title || "Practical Quiz 16: Audio Effects Processing", score, questions.length, grade);
+            }
+            if (quiz?.campaignNodeId && completeCampaignNode) {
+                completeCampaignNode(quiz.campaignNodeId);
+            }
         }
-    }, [quizComplete, score, questions.length, saveQuizResult, quiz?.title]);
+    }, [quizComplete, score, questions.length, saveQuizResult, completeCampaignNode, quiz?.title, quiz?.campaignNodeId]);
 
     useEffect(() => {
         // Initialize first question

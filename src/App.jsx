@@ -18,6 +18,7 @@ import SynthesizerQuiz from './components/InteractiveQuizzes/SynthesizerQuiz';
 import MicrophonePlacementQuiz from './components/InteractiveQuizzes/MicrophonePlacementQuiz';
 import ProductionTechniqueQuiz from './components/InteractiveQuizzes/ProductionTechniqueQuiz';
 import RockProductionQuiz from './components/InteractiveQuizzes/RockProductionQuiz';
+import SampleChoppingQuiz from './components/InteractiveQuizzes/SampleChoppingQuiz';
 import component3FunkData from './data/component3_funk_exam.json';
 import component3SynthPopData from './data/component3_synthpop_exam.json';
 import component3HeavyRockData from './data/component3_heavyrock_exam.json';
@@ -80,6 +81,9 @@ const MainApp = () => {
         }
         if (quizParam === 'tracksheet_creator') {
           return { type: 'tracksheet_creator', title: 'Component 1: Track Sheet & Logbook' };
+        }
+        if (quizParam === 'component1_guide' || quizParam === 'c1_guide') {
+          return { type: 'component1_guide', title: 'Component 1: Recording Guide & Tick List' };
         }
         if (quizParam === 'component2_guide' || quizParam === 'c2_guide') {
           return { type: 'component2_guide', title: 'Component 2: Composition Guide & Logbook' };
@@ -330,6 +334,25 @@ const MainApp = () => {
           </button>
 
           <button
+            className={`nav-item ${activeItem?.type === 'component1_guide' ? 'active' : ''}`}
+            onClick={() => {
+              handleItemSelectWrapper({ id: 'component1_guide', type: 'component1_guide', title: 'Component 1: Recording Guide & Tick List' });
+            }}
+            style={{ 
+              marginBottom: '10px', 
+              fontWeight: 'bold', 
+              color: '#34d399', 
+              border: '1px solid rgba(52, 211, 153, 0.45)',
+              background: activeItem?.type === 'component1_guide' ? 'rgba(16, 185, 129, 0.14)' : 'transparent',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px'
+            }}
+          >
+            <span>✅</span> Component 1 Guide & Tick List
+          </button>
+
+          <button
             className={`nav-item ${activeItem?.type === 'component2_guide' ? 'active' : ''}`}
             onClick={() => {
               handleItemSelectWrapper({ id: 'component2_guide', type: 'component2_guide', title: 'Component 2: Composition Guide & Logbook' });
@@ -474,7 +497,9 @@ const MainApp = () => {
           activeItem.type === 'timetable_builder' ? (
             <TimetableBuilder onNavigate={handleItemSelectWrapper} onBack={goToDashboardWrapper} />
           ) : activeItem.type === 'tracksheet_creator' ? (
-            <TracksheetCreator onBack={goToDashboardWrapper} />
+            <TracksheetCreator onBack={goToDashboardWrapper} initialMode="generator" />
+          ) : activeItem.type === 'component1_guide' ? (
+            <TracksheetCreator onBack={goToDashboardWrapper} initialMode="checklist" />
           ) : activeItem.type === 'component2_guide' ? (
             <Component2Guide onBack={goToDashboardWrapper} />
           ) : activeItem.type === 'lp_quiz' ? (
@@ -503,6 +528,8 @@ const MainApp = () => {
             <ProductionTechniqueQuiz quiz={activeItem} onExit={goToDashboardWrapper} />
           ) : activeItem.type === 'rock_production_quiz' ? (
             <RockProductionQuiz quiz={activeItem} onExit={goToDashboardWrapper} />
+          ) : activeItem.type === 'sample_chopping_quiz' ? (
+            <SampleChoppingQuiz quiz={activeItem} onExit={goToDashboardWrapper} />
           ) : activeItem.type === 'premium_locked' ? (
             <div style={{ position: 'relative', width: '100%', maxWidth: '900px', margin: '0 auto', padding: '10px 0' }}>
               <button
@@ -530,7 +557,7 @@ const MainApp = () => {
               <PremiumLocked itemTitle={activeItem.title} />
             </div>
           ) : (
-            <LessonViewer lesson={activeItem} />
+            <LessonViewer lesson={activeItem} onBack={goToDashboardWrapper} />
           )
         ) : (
           <Dashboard onNavigate={handleItemSelectWrapper} onOpenProfile={() => setShowProfileSettings(true)} />
