@@ -234,6 +234,51 @@ function ActivityTypewriter({ phrases, shuffle = false, getFreshPhrases = null }
   );
 }
 
+// The generate endpoint streams Server-Sent Events ("chunk", "clear", "complete"/"existing", "error");
+// older deployments return plain JSON. Resolves to the final tracksheet record, or null.
+async function readGenerateResponse(res, onChunk) {
+  const cType = res.headers.get('content-type') || '';
+  if (cType.includes('application/json')) return res.json();
+  if (!res.body) return null;
+
+  const reader = res.body.getReader();
+  const decoder = new TextDecoder('utf-8');
+  let buffer = '';
+  let streamed = '';
+  let final = null;
+
+  const handleLine = (line) => {
+    if (!line.startsWith('data: ')) return;
+    const payload = line.slice(6);
+    if (payload === '[DONE]') return;
+    let evt;
+    try { evt = JSON.parse(payload); } catch { return; }
+    if (evt.type === 'chunk') {
+      streamed += evt.data;
+      if (onChunk) onChunk(streamed);
+    } else if (evt.type === 'clear') {
+      streamed = '';
+    } else if (evt.type === 'complete' || evt.type === 'existing') {
+      final = evt.data;
+    } else if (evt.type === 'error') {
+      throw new Error(evt.data?.error || 'Generation failed');
+    }
+  };
+
+  for (;;) {
+    const { value, done } = await reader.read();
+    if (value) {
+      buffer += decoder.decode(value, { stream: true });
+      const lines = buffer.split('\n');
+      buffer = lines.pop();
+      lines.forEach(handleLine);
+    }
+    if (done) break;
+  }
+  if (buffer) handleLine(buffer);
+  return final;
+}
+
 let cachedArchive = null;
 async function getArchiveData() {
   if (cachedArchive && cachedArchive.length > 0) return cachedArchive;
@@ -422,10 +467,7 @@ export default function TracksheetCreator({ onBack, initialMode = 'generator' })
           });
 
           if (res.ok) {
-            const cType = res.headers.get('content-type') || '';
-            if (cType.includes('application/json')) {
-              data = await res.json();
-            }
+            data = await readGenerateResponse(res);
           }
         } catch (apiErr) {
           console.warn('Live API generation call failed:', apiErr);
