@@ -293,11 +293,90 @@ export const STIMULUS_CHECKLIST = [
 ];
 
 export const SUGGESTED_GENRES = [
-  { genre: 'Electronic / EDM / House / DnB', why: 'Great for dramatic contrasting sections with filtered build-ups, risers, sample chops, and high-impact drops.' },
-  { genre: 'Hip-Hop / Trap / Trip-Hop', why: 'Perfect for rhythmic text delivery, spoken-word slicing, pitch-shifted vocal hooks, 808 bass synthesis, and lo-fi bitcrushing.' },
-  { genre: 'Synth-Pop / Electropop', why: 'Familiar verse/chorus structures that showcase strong melody, harmony, layered analog-style synths, and vocoder/tuned vocal FX.' },
-  { genre: 'Alternative / Indie Electronic', why: 'Great for blending organic recorded instruments/vocals with creative sampling, tape saturation, and atmospheric modulation.' },
-  { genre: 'Experimental / Ambient / IDM', why: 'Ideal if focusing heavily on Texture, Rhythm, and Form & Structure with deep wavetable/FM synthesis and granular/stretched audio manipulation.' }
+  {
+    id: 'synthpop',
+    icon: '🎹',
+    genre: 'Synth-Pop / Electropop / Nu-Disco',
+    badge: '⭐ Top Choice for Brief 2 (Song / Text)',
+    color: '#38bdf8',
+    bpm: '105–126 BPM',
+    bestForBriefs: 'Brief 2 (Sung Vocal or Vocoder/Sampled Hook) & Brief 3',
+    why: 'Familiar Verse–Pre-Chorus–Chorus–Bridge structures make it effortless to score top marks in Melody (AG7), Harmony (AG8), and Form (AG11) while showcasing rich analog synthesis.',
+    ag1Fit: 'Detuned ES2 Supersaw pads, Retro Synth arpeggio plucks, sub-bass layers, and legato lead lines.',
+    ag2Fit: 'Sliced vocal hooks in Quick Sampler, Flex Pitch backing harmonies (+3/+7st), and reversed vocal pre-drops.',
+    ag3Fit: 'EVOC 20 Vocoder layers, 80s Gated Reverb snares, Chorus stereo widening, and Tape Delay vocal throws.',
+    referenceArtists: 'Chvrches, The Weeknd, Dua Lipa, Depeche Mode, Robyn'
+  },
+  {
+    id: 'electronic_ukg',
+    icon: '🎧',
+    genre: 'Electronic / House / UK Garage / DnB',
+    badge: '⭐ Top Choice for Brief 2 & Brief 3',
+    color: '#c084fc',
+    bpm: '122–135 BPM (House/UKG) or 170–174 BPM (DnB)',
+    bestForBriefs: 'Brief 2 (Spoken Word / Chopped Vocal Text) & Brief 3 (Topic/Stimulus)',
+    why: 'Built entirely around technology-based production: dramatic filtered build-ups, chopped vocal motifs, deep bass design, and high-impact drops.',
+    ag1Fit: 'ES2 Reese bass (detuned saws + sine sub), LFO filter wobbles, white-noise risers, and FM pluck stabs.',
+    ag2Fit: 'Transient-sliced spoken-word phrases, chopped breakbeats, pitch-shifted vocal stutters, and found-sound percussion.',
+    ag3Fit: 'AutoFilter High-Pass build sweeps, ChromaVerb bloom automation with hard drop-mutes, and Kick-to-Bass sidechain pumping.',
+    referenceArtists: 'Fred again.., Disclosure, Bicep, Overmono, Sub Focus'
+  },
+  {
+    id: 'hiphop_triphop',
+    icon: '🎤',
+    genre: 'Hip-Hop / Trip-Hop / Alternative Trap',
+    badge: '⭐ Best for Spoken Word & Rhythmic Text',
+    color: '#f472b6',
+    bpm: '75–95 BPM (Boom-Bap/Trip-Hop) or 130–145 BPM (Trap)',
+    bestForBriefs: 'Brief 2 (Rapped, Spoken Word, or Sampled Set Text)',
+    why: 'Perfect if you don\'t have a traditional pop singer—allows clear, rhythmic spoken-word or rapped delivery of the set text over dusty chopped samples and heavy 808s.',
+    ag1Fit: '808 sub-bass with pitch envelope and mono legato Glide (Portamento), dark haunting pad beds, and eerie lead synths.',
+    ag2Fit: 'Resampled chord loops, vinyl/found-sound textures, halftime stretched audio (Flex Time), and octave-down (-12st) vocal doubles.',
+    ag3Fit: 'Bitcrusher lo-fi crunch, Overdrive tape warmth, rhythmic 1/4-note delay throws on final words, and Step FX filter gating.',
+    referenceArtists: 'Massive Attack, Portishead, Loyle Carner, Kendrick Lamar, Gorillaz'
+  },
+  {
+    id: 'indie_electronic',
+    icon: '🎸',
+    genre: 'Alternative / Indie Electronic / Art-Pop',
+    badge: '✨ Great for Organic + Electronic Contrast',
+    color: '#34d399',
+    bpm: '90–118 BPM',
+    bestForBriefs: 'Brief 2 (Intimate Vocal Song) & Brief 3 (Atmospheric Theme)',
+    why: 'Ideal for contrasting intimate, sparse verses (whispered vocals, acoustic/electric guitar or piano samples) with dense, heavily processed electronic choruses.',
+    ag1Fit: 'Alchemy morphing wavetable pads, warm analog bass, and subtle FM bell counter-melodies.',
+    ag2Fit: 'Multi-layered organic recordings + manipulated vocal breaths/whispers mapped across the keyboard in Sampler.',
+    ag3Fit: 'Extreme dry-vs-wet spatial contrast, Space Designer ambient swells, Tremolo/Phaser movement, and parallel distortion.',
+    referenceArtists: 'Billie Eilish, James Blake, Radiohead, FKA twigs, Caroline Polachek'
+  },
+  {
+    id: 'ambient_idm',
+    icon: '🌌',
+    genre: 'Cinematic Electronica / Downtempo / IDM',
+    badge: '🎨 Best for Brief 3 (Conceptual / Theme)',
+    color: '#fbbf24',
+    bpm: '85–115 BPM',
+    bestForBriefs: 'Brief 3 (Topic / Stimulus-Based) or Experimental Brief 2',
+    why: 'Rewards deep sound design, evolving textures (AG10), intricate rhythmic programming (AG9), and programmatic storytelling without needing a traditional pop vocal.',
+    ag1Fit: 'Deep Alchemy granular/wavetable synthesis, evolving 4-stage ADSR pads, and complex LFO matrix modulation.',
+    ag2Fit: 'Extreme Flex Time stretching (Tempophone/Paulstretch style), environmental foley field recordings, and micro-loop glitches.',
+    ag3Fit: 'Escalating Tape Delay feedback (40%→90%), sweeping bandpass filters, and wide binaural/stereo panning.',
+    referenceArtists: 'Bonobo, Jon Hopkins, Four Tet, Boards of Canada, Rival Consoles'
+  },
+  {
+    id: 'darkwave_midtempo',
+    icon: '⚡',
+    genre: 'Darkwave / Cyberpunk / Industrial Electro',
+    badge: '🔥 High-Impact Sound Design',
+    color: '#fb7185',
+    bpm: '95–112 BPM',
+    bestForBriefs: 'Brief 2 (Dramatic / Dystopian Text) & Brief 3',
+    why: 'Dramatic, aggressive, and cinematic—makes aggressive synthesis, distortion, and heavy automation sound completely idiomatic.',
+    ag1Fit: 'Aggressive FM metallic basslines (EFM1/ES2), detuned brassy saw leads, and rapid 1/16th arpeggiators.',
+    ag2Fit: 'Heavily processed robotic vocal slices, metallic impact samples, and pitch-dropped vocal phrases.',
+    ag3Fit: 'Heavy Clip Distortion/Bitcrusher automation, EVOC 20 vocoding, Remix FX stutters, and huge gated drum rooms.',
+    referenceArtists: 'Gesaffelstein, Justice, Nine Inch Nails, Grimes, Kavinsky'
+  }
 ];
 
 export const WORKFLOW_PHASES = [

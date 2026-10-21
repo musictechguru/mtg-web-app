@@ -17,18 +17,20 @@ import {
   RESOURCE_LINKS
 } from './component2Data';
 import StudentMarkSchemeModal from '../StudentMarkSchemeModal';
+import PremiumLocked from '../PremiumLocked';
 
 const STORAGE_KEY = 'mtg_component2_guide_state_v2';
 
 const DEFAULT_STATE = {
   selectedBrief: 'brief2',
+  selectedGenreId: 'synthpop',
   selectedMusicality: ['melody', 'texture', 'form'],
   stimulusInfo: {
     trackTitle: '',
     artist: '',
     bpm: '',
     keySignature: '',
-    genre: '',
+    genre: 'Synth-Pop / Electropop / Nu-Disco',
     notes: ''
   },
   checkedItems: {}, // stores boolean flags for mark scheme elements, stimulus, phases, mix, logbook reqs, master checklist
@@ -40,12 +42,13 @@ const DEFAULT_STATE = {
 };
 
 const Component2Guide = ({ onBack, embeddedInTeacher = false }) => {
-  const { userProgress, saveComponent2Progress } = useUser() || {};
-  // 7 clear tabs covering every single mark scheme area & technique category
-  const [activeTab, setActiveTab] = useState('overview'); // 'overview' | 'synthesis' | 'sampling' | 'effects' | 'musicality' | 'mixing' | 'workflow'
+  const { userProgress, saveComponent2Progress, currentUser } = useUser() || {};
+  const [activeTab, setActiveTab] = useState('overview'); // 'overview' | 'musicality' | 'synthesis' | 'sampling' | 'effects' | 'mixing' | 'workflow'
   const [techSearch, setTechSearch] = useState('');
   const [copiedId, setCopiedId] = useState(null);
   const [showMarkSchemeModal, setShowMarkSchemeModal] = useState(false);
+  const [openNoteIds, setOpenNoteIds] = useState({});
+  const [expandedMsCodes, setExpandedMsCodes] = useState({});
   const isInitialMount = useRef(true);
 
   const [guideState, setGuideState] = useState(() => {
@@ -81,7 +84,6 @@ const Component2Guide = ({ onBack, embeddedInTeacher = false }) => {
 
     if (isInitialMount.current) {
       isInitialMount.current = false;
-      // If we have local state that hasn't been synced to userProgress yet, sync it now
       if (saveComponent2Progress && !userProgress?.component2Guide) {
         saveComponent2Progress(guideState);
       }
@@ -139,16 +141,43 @@ const Component2Guide = ({ onBack, embeddedInTeacher = false }) => {
     }));
   };
 
+  const toggleNoteEditor = (id) => {
+    setOpenNoteIds(prev => ({ ...prev, [id]: !prev[id] }));
+  };
+
+  const toggleMsBands = (code) => {
+    setExpandedMsCodes(prev => ({ ...prev, [code]: !prev[code] }));
+  };
+
+  const selectGenreCard = (genreObj) => {
+    setGuideState(prev => {
+      const next = {
+        ...prev,
+        selectedGenreId: genreObj.id,
+        stimulusInfo: {
+          ...prev.stimulusInfo,
+          genre: genreObj.genre
+        }
+      };
+      if (saveComponent2Progress) saveComponent2Progress(next);
+      return next;
+    });
+  };
+
   const toggleMusicalityPillar = (pillarId) => {
     setGuideState(prev => {
       const current = prev.selectedMusicality || [];
+      let nextMusicality;
       if (current.includes(pillarId)) {
-        return { ...prev, selectedMusicality: current.filter(id => id !== pillarId) };
+        nextMusicality = current.filter(id => id !== pillarId);
+      } else if (current.length >= 3) {
+        nextMusicality = [...current.slice(1), pillarId];
+      } else {
+        nextMusicality = [...current, pillarId];
       }
-      if (current.length >= 3) {
-        return { ...prev, selectedMusicality: [...current.slice(1), pillarId] };
-      }
-      return { ...prev, selectedMusicality: [...current, pillarId] };
+      const next = { ...prev, selectedMusicality: nextMusicality };
+      if (saveComponent2Progress) saveComponent2Progress(next);
+      return next;
     });
   };
 
@@ -249,6 +278,7 @@ const Component2Guide = ({ onBack, embeddedInTeacher = false }) => {
 
   const buildFullLogbookExport = () => {
     const briefObj = BRIEF_OPTIONS.find(b => b.id === guideState.selectedBrief) || BRIEF_OPTIONS[0];
+    const genreObj = SUGGESTED_GENRES.find(g => g.id === guideState.selectedGenreId);
     const musicalityNames = MUSICALITY_PILLARS
       .filter(m => (guideState.selectedMusicality || []).includes(m.id))
       .map(m => `${m.code}: ${m.name}`)
@@ -270,11 +300,12 @@ const Component2Guide = ({ onBack, embeddedInTeacher = false }) => {
       '# EDEXCEL A-LEVEL MUSIC TECHNOLOGY (9MT0)',
       '## COMPONENT 2: TECHNOLOGY-BASED COMPOSITION — LOGBOOK DOSSIER',
       '',
-      '### 1. Brief, Stimulus Track & Musicality Overview',
+      '### 1. Brief, Target Style/Genre & Stimulus Track',
       `- **Chosen Brief**: ${briefObj.title}`,
+      `- **Target Style / Genre**: ${genre || genreObj?.genre || '[Genre]'}`,
       `- **Target Musicality Focus (Best 3 of 5)**: ${musicalityNames || 'AG7 Melody, AG10 Texture, AG11 Form & Structure'}`,
       `- **Stimulus / Reference Track**: ${trackTitle || '[Track Title]'} by ${artist || '[Artist]'}`,
-      `- **Project Tempo & Key**: ${bpm || '[BPM]'} BPM | Key: ${keySignature || '[Key]'} | Genre: ${genre || '[Genre]'}`,
+      `- **Project Tempo & Key**: ${bpm || '[BPM]'} BPM | Key: ${keySignature || '[Key]'}`,
       notes ? `- **Stimulus Analysis Notes**: ${notes}` : '',
       '',
       '### 2. AG1: Synthesis Techniques (8 Marks)',
@@ -313,10 +344,11 @@ const Component2Guide = ({ onBack, embeddedInTeacher = false }) => {
     if (window.confirm('Reset all Component 2 tick lists and logbook notes? This cannot be undone.')) {
       setGuideState(DEFAULT_STATE);
       localStorage.removeItem(STORAGE_KEY);
+      if (saveComponent2Progress) saveComponent2Progress(DEFAULT_STATE);
     }
   };
 
-  // Shared Renderer for the 8 Detailed Technique Cards in Synthesis, Sampling, or Effects tabs
+  // Shared Renderer for the 8 Detailed Technique Cards (Decluttered with Collapsible Logbook Notes)
   const renderTechniqueSection = (categoryKey, sectionTitle, sectionSubtitle, accentColor, extraBanner = null) => {
     const items = TECHNIQUES_BANK.filter(t => {
       if (t.category !== categoryKey) return false;
@@ -338,7 +370,7 @@ const Component2Guide = ({ onBack, embeddedInTeacher = false }) => {
     return (
       <div>
         <div className="c2-section-card" style={{ borderTop: `4px solid ${accentColor}` }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '16px', marginBottom: '14px' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '16px', marginBottom: extraBanner ? '14px' : 0 }}>
             <div>
               <h2 className="c2-section-title" style={{ margin: 0 }}>
                 {sectionTitle}
@@ -351,7 +383,7 @@ const Component2Guide = ({ onBack, embeddedInTeacher = false }) => {
               <input
                 type="text"
                 className="c2-input-field"
-                style={{ width: '250px' }}
+                style={{ width: '240px' }}
                 placeholder="🔍 Filter techniques or recipes..."
                 value={techSearch}
                 onChange={e => setTechSearch(e.target.value)}
@@ -377,6 +409,7 @@ const Component2Guide = ({ onBack, embeddedInTeacher = false }) => {
           {items.map((tech) => {
             const isCompleted = !!guideState.completedTechniques[tech.id];
             const noteValue = guideState.techniqueNotes[tech.id] || '';
+            const isNoteOpen = Boolean(openNoteIds[tech.id] || noteValue.trim());
 
             return (
               <div
@@ -387,9 +420,9 @@ const Component2Guide = ({ onBack, embeddedInTeacher = false }) => {
                 {/* Top Header */}
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '12px' }}>
                   <div>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px', flexWrap: 'wrap' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px', flexWrap: 'wrap' }}>
                       <span style={{
-                        fontSize: '0.74rem',
+                        fontSize: '0.73rem',
                         fontWeight: 800,
                         textTransform: 'uppercase',
                         padding: '3px 10px',
@@ -402,7 +435,7 @@ const Component2Guide = ({ onBack, embeddedInTeacher = false }) => {
                       </span>
                       {isCompleted && (
                         <span style={{
-                          fontSize: '0.74rem',
+                          fontSize: '0.73rem',
                           fontWeight: 800,
                           padding: '3px 10px',
                           borderRadius: '6px',
@@ -410,91 +443,91 @@ const Component2Guide = ({ onBack, embeddedInTeacher = false }) => {
                           color: '#34d399',
                           border: '1px solid rgba(16, 185, 129, 0.4)'
                         }}>
-                          ✓ COMPLETED IN COMPOSITION
+                          ✓ USED IN TRACK
                         </span>
                       )}
                     </div>
-                    <h3 style={{ margin: 0, fontSize: '1.35rem', color: '#fff', fontWeight: 800 }}>
-                      Technique {tech.number}: {tech.title}
+                    <h3 style={{ margin: 0, fontSize: '1.28rem', color: '#fff', fontWeight: 800 }}>
+                      {tech.number}. {tech.title}
                     </h3>
                   </div>
 
-                  <button
-                    onClick={() => toggleTechnique(tech.id)}
-                    style={{
-                      padding: '10px 18px',
-                      borderRadius: '10px',
-                      border: isCompleted ? '1px solid #10b981' : '1px solid rgba(255,255,255,0.25)',
-                      background: isCompleted ? '#10b981' : 'rgba(15, 23, 42, 0.85)',
-                      color: '#fff',
-                      fontWeight: 800,
-                      fontSize: '0.88rem',
-                      cursor: 'pointer',
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '8px',
-                      boxShadow: isCompleted ? '0 0 15px rgba(16, 185, 129, 0.4)' : 'none'
-                    }}
-                  >
-                    {isCompleted ? '✓ Ticked Off (Used in Track)' : '☐ Tick When Used in Track'}
-                  </button>
+                  <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+                    <button
+                      onClick={() => toggleNoteEditor(tech.id)}
+                      style={{
+                        padding: '9px 14px',
+                        borderRadius: '10px',
+                        border: '1px solid rgba(56, 189, 248, 0.4)',
+                        background: isNoteOpen ? 'rgba(56, 189, 248, 0.18)' : 'rgba(15, 23, 42, 0.7)',
+                        color: '#38bdf8',
+                        fontWeight: 700,
+                        fontSize: '0.82rem',
+                        cursor: 'pointer'
+                      }}
+                    >
+                      ✍️ {noteValue.trim() ? 'Edit Logbook Note' : isNoteOpen ? 'Hide Logbook Note' : '+ Add Logbook Note'}
+                    </button>
+                    <button
+                      onClick={() => toggleTechnique(tech.id)}
+                      style={{
+                        padding: '9px 16px',
+                        borderRadius: '10px',
+                        border: isCompleted ? '1px solid #10b981' : '1px solid rgba(255,255,255,0.25)',
+                        background: isCompleted ? '#10b981' : 'rgba(15, 23, 42, 0.85)',
+                        color: '#fff',
+                        fontWeight: 800,
+                        fontSize: '0.85rem',
+                        cursor: 'pointer',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '6px',
+                        boxShadow: isCompleted ? '0 0 15px rgba(16, 185, 129, 0.4)' : 'none'
+                      }}
+                    >
+                      {isCompleted ? '✓ Ticked Off' : '☐ Tick When Used'}
+                    </button>
+                  </div>
                 </div>
 
-                {/* 2-Column Body: Visual Diagram/Screenshot + Detailed Steps & Recipes */}
+                {/* 2-Column Body: Visual Diagram + Parameter Recipes (Left) | Steps & Logbook Note (Right) */}
                 <div className="c2-tech-body-grid">
-                  {/* Left Column: Plugin Visual + Examiner Rationale + Parameter Recipes */}
                   <div>
                     {tech.image && (
-                      <div className="c2-tech-image-box" style={{ marginBottom: '14px' }}>
+                      <div className="c2-tech-image-box" style={{ marginBottom: '12px' }}>
                         <img src={tech.image} alt={tech.title} loading="lazy" />
                         <div className="c2-tech-image-caption">{tech.imageCaption}</div>
                       </div>
                     )}
 
-                    {tech.whyExaminersLoveIt && (
-                      <div style={{
-                        background: 'rgba(16, 185, 129, 0.08)',
-                        border: '1px solid rgba(16, 185, 129, 0.3)',
-                        borderRadius: '10px',
-                        padding: '11px 14px',
-                        fontSize: '0.83rem',
-                        color: '#a7f3d0',
-                        lineHeight: 1.45,
-                        marginBottom: '12px'
-                      }}>
-                        <strong>🎯 Why Examiners Award Top Marks:</strong> {tech.whyExaminersLoveIt}
-                      </div>
-                    )}
-
                     {tech.recipes && tech.recipes.length > 0 && (
                       <div className="c2-recipes-box">
-                        <div style={{ fontSize: '0.78rem', fontWeight: 800, color: '#c084fc', textTransform: 'uppercase', marginBottom: '8px', letterSpacing: '0.5px' }}>
-                          🎛️ Exact Parameter Recipes to Try in Logic Pro X:
+                        <div style={{ fontSize: '0.76rem', fontWeight: 800, color: '#c084fc', textTransform: 'uppercase', marginBottom: '6px', letterSpacing: '0.5px' }}>
+                          🎛️ Exact Parameter Recipes (Logic Pro X):
                         </div>
                         {tech.recipes.map((r, rIdx) => (
-                          <div key={rIdx} style={{ marginBottom: rIdx < tech.recipes.length - 1 ? '8px' : 0, fontSize: '0.82rem', lineHeight: 1.4 }}>
+                          <div key={rIdx} style={{ marginBottom: rIdx < tech.recipes.length - 1 ? '6px' : 0, fontSize: '0.8rem', lineHeight: 1.4 }}>
                             <span style={{ color: '#fff', fontWeight: 700 }}>• {r.name}: </span>
-                            <span style={{ color: '#cbd5e1', fontFamily: 'monospace', fontSize: '0.79rem' }}>{r.settings}</span>
+                            <span style={{ color: '#cbd5e1', fontFamily: 'monospace', fontSize: '0.78rem' }}>{r.settings}</span>
                           </div>
                         ))}
                       </div>
                     )}
                   </div>
 
-                  {/* Right Column: Description, Step-by-Step Instructions & Inline Logbook Builder */}
                   <div>
-                    <p style={{ margin: '0 0 12px 0', fontSize: '0.95rem', color: '#f1f5f9', lineHeight: 1.55 }}>
-                      <strong>Description:</strong> {tech.description}
+                    <p style={{ margin: '0 0 10px 0', fontSize: '0.92rem', color: '#f1f5f9', lineHeight: 1.5 }}>
+                      {tech.description}
                     </p>
 
                     <div style={{
                       background: 'rgba(15, 23, 42, 0.65)',
                       border: '1px solid rgba(255,255,255,0.08)',
                       borderRadius: '12px',
-                      padding: '14px 18px',
-                      marginBottom: '14px'
+                      padding: '12px 16px',
+                      marginBottom: '10px'
                     }}>
-                      <div style={{ fontSize: '0.82rem', fontWeight: 800, color: accentColor, textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '6px' }}>
+                      <div style={{ fontSize: '0.8rem', fontWeight: 800, color: accentColor, textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '6px' }}>
                         Step-by-Step in Logic Pro X:
                       </div>
                       <ol className="c2-tech-steps" style={{ margin: 0 }}>
@@ -504,61 +537,63 @@ const Component2Guide = ({ onBack, embeddedInTeacher = false }) => {
                       </ol>
                     </div>
 
-                    <div className="c2-logbook-prompt">
-                      <strong>📝 What to Document in Your Logbook:</strong> {tech.logbookPrompt}
+                    <div className="c2-logbook-prompt" style={{ marginBottom: isNoteOpen ? '10px' : 0 }}>
+                      <strong>📝 Logbook Checklist:</strong> {tech.logbookPrompt}
                     </div>
 
-                    {/* Inline Logbook Note Builder (Always Visible for Immediate Editing) */}
-                    <div style={{
-                      background: 'rgba(15, 23, 42, 0.8)',
-                      border: '1px solid rgba(56, 189, 248, 0.25)',
-                      borderRadius: '12px',
-                      padding: '14px'
-                    }}>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '8px', marginBottom: '6px' }}>
-                        <span style={{ fontSize: '0.82rem', fontWeight: 800, color: '#38bdf8' }}>
-                          ✍️ Your Custom Logbook Entry for Technique #{tech.number}
-                        </span>
-                        <div style={{ display: 'flex', gap: '6px' }}>
-                          <button
-                            onClick={() => updateTechniqueNote(tech.id, tech.templatePlaceholder)}
-                            style={{
-                              background: 'rgba(56, 189, 248, 0.15)',
-                              border: '1px solid rgba(56, 189, 248, 0.4)',
-                              color: '#38bdf8',
-                              padding: '5px 10px',
-                              borderRadius: '6px',
-                              fontSize: '0.76rem',
-                              fontWeight: 700,
-                              cursor: 'pointer'
-                            }}
-                          >
-                            Load Examiner Template
-                          </button>
-                          <button
-                            onClick={() => copyTextToClipboard(noteValue || tech.templatePlaceholder, tech.id)}
-                            style={{
-                              background: 'rgba(16, 185, 129, 0.18)',
-                              border: '1px solid rgba(16, 185, 129, 0.45)',
-                              color: '#34d399',
-                              padding: '5px 10px',
-                              borderRadius: '6px',
-                              fontSize: '0.76rem',
-                              fontWeight: 700,
-                              cursor: 'pointer'
-                            }}
-                          >
-                            {copiedId === tech.id ? '✓ Copied!' : 'Copy Note'}
-                          </button>
+                    {/* Collapsible Logbook Note Editor */}
+                    {isNoteOpen && (
+                      <div style={{
+                        background: 'rgba(15, 23, 42, 0.85)',
+                        border: '1px solid rgba(56, 189, 248, 0.3)',
+                        borderRadius: '12px',
+                        padding: '12px'
+                      }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '8px', marginBottom: '6px' }}>
+                          <span style={{ fontSize: '0.8rem', fontWeight: 800, color: '#38bdf8' }}>
+                            ✍️ Custom Logbook Entry for Technique #{tech.number}
+                          </span>
+                          <div style={{ display: 'flex', gap: '6px' }}>
+                            <button
+                              onClick={() => updateTechniqueNote(tech.id, tech.templatePlaceholder)}
+                              style={{
+                                background: 'rgba(56, 189, 248, 0.15)',
+                                border: '1px solid rgba(56, 189, 248, 0.4)',
+                                color: '#38bdf8',
+                                padding: '4px 10px',
+                                borderRadius: '6px',
+                                fontSize: '0.75rem',
+                                fontWeight: 700,
+                                cursor: 'pointer'
+                              }}
+                            >
+                              Load Example Template
+                            </button>
+                            <button
+                              onClick={() => copyTextToClipboard(noteValue || tech.templatePlaceholder, tech.id)}
+                              style={{
+                                background: 'rgba(16, 185, 129, 0.18)',
+                                border: '1px solid rgba(16, 185, 129, 0.45)',
+                                color: '#34d399',
+                                padding: '4px 10px',
+                                borderRadius: '6px',
+                                fontSize: '0.75rem',
+                                fontWeight: 700,
+                                cursor: 'pointer'
+                              }}
+                            >
+                              {copiedId === tech.id ? '✓ Copied!' : 'Copy Note'}
+                            </button>
+                          </div>
                         </div>
+                        <textarea
+                          className="c2-note-textarea"
+                          placeholder={`Example: "${tech.templatePlaceholder}"`}
+                          value={noteValue}
+                          onChange={e => updateTechniqueNote(tech.id, e.target.value)}
+                        />
                       </div>
-                      <textarea
-                        className="c2-note-textarea"
-                        placeholder={`Example Logbook Entry: "${tech.templatePlaceholder}"`}
-                        value={noteValue}
-                        onChange={e => updateTechniqueNote(tech.id, e.target.value)}
-                      />
-                    </div>
+                    )}
                   </div>
                 </div>
               </div>
@@ -568,6 +603,36 @@ const Component2Guide = ({ onBack, embeddedInTeacher = false }) => {
       </div>
     );
   };
+
+  if (!currentUser?.is_premium && !embeddedInTeacher) {
+    return (
+      <div style={{ position: 'relative', width: '100%', maxWidth: '900px', margin: '0 auto', padding: '10px 0' }}>
+        {onBack && (
+          <button
+            onClick={onBack}
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '8px',
+              background: 'rgba(255, 255, 255, 0.08)',
+              color: '#94a3b8',
+              border: '1px solid rgba(255, 255, 255, 0.15)',
+              padding: '8px 16px',
+              borderRadius: '8px',
+              cursor: 'pointer',
+              fontWeight: 600,
+              fontSize: '0.9rem',
+              marginBottom: '20px',
+              transition: 'all 0.2s ease'
+            }}
+          >
+            ← Back to Dashboard
+          </button>
+        )}
+        <PremiumLocked itemTitle="Component 2: Composition Guide & Logbook" />
+      </div>
+    );
+  }
 
   return (
     <div className="c2-guide-container">
@@ -602,25 +667,25 @@ const Component2Guide = ({ onBack, embeddedInTeacher = false }) => {
         </div>
       </div>
 
-      {/* Hero HUD */}
+      {/* Clean, Compact Hero HUD */}
       <div className="c2-hud">
         <div className="c2-hud-top">
           <div className="c2-hud-title">
             <span style={{
-              fontSize: '0.75rem',
+              fontSize: '0.73rem',
               fontWeight: '800',
-              background: 'rgba(16, 185, 129, 0.2)',
-              color: '#34d399',
-              border: '1px solid rgba(16, 185, 129, 0.4)',
+              background: 'rgba(244, 114, 182, 0.2)',
+              color: '#f472b6',
+              border: '1px solid rgba(244, 114, 182, 0.45)',
               padding: '3px 10px',
               borderRadius: '6px',
               letterSpacing: '0.6px'
             }}>
-              EDEXCEL A-LEVEL 9MT0 • COMPONENT 2 (60 MARKS)
+              EDEXCEL A-LEVEL 9MT0 • COMPONENT 2 (60 MARKS • 3:00 DURATION)
             </span>
             <h1>Technology-Based Composition Guide</h1>
             <p className="c2-hud-subtitle">
-              Complete interactive guide covering every Mark Scheme element (AG1–AG11), 24 detailed Logic Pro X techniques (Synthesis, Sampling & Creative FX) with visual diagrams, parameter recipes, and tick lists.
+              Choose your Brief & recommended Style/Genre, follow the 24 Logic Pro X synthesis, sampling & FX techniques, and tick off your coursework progress.
             </p>
           </div>
 
@@ -647,7 +712,7 @@ const Component2Guide = ({ onBack, embeddedInTeacher = false }) => {
                 <span className="c2-stat-val" style={{ color: '#f472b6' }}>{progressStats.fxDone} / 8</span>
               </div>
             </div>
-            <div className="c2-stat-badge" onClick={() => switchTab('overview')} title="Jump to Mark Scheme Checklist">
+            <div className="c2-stat-badge" onClick={() => switchTab('musicality')} title="Jump to Mark Scheme Checklist">
               <span className="c2-stat-icon">📊</span>
               <div className="c2-stat-info">
                 <span className="c2-stat-label">Mark Scheme</span>
@@ -665,7 +730,7 @@ const Component2Guide = ({ onBack, embeddedInTeacher = false }) => {
           <div className="c2-progress-track" style={{ position: 'relative', overflow: 'visible' }}>
             <div className="c2-progress-fill" style={{ width: `${progressStats.overallPercent}%` }} />
             {[
-              { pct: 0, label: 'Brief' },
+              { pct: 0, label: 'Brief & Style' },
               { pct: 20, label: 'P1: Setup' },
               { pct: 40, label: 'P2: Parts' },
               { pct: 60, label: 'P3: AG1–3 Tech' },
@@ -711,119 +776,76 @@ const Component2Guide = ({ onBack, embeddedInTeacher = false }) => {
         </div>
       </div>
 
-      {/* Sticky 7-Tab Navigation Bar — Every Technique Pillar is Immediately Visible */}
+      {/* Clean Step-by-Step 7-Tab Navigation Bar */}
       <div className="c2-tabs-bar">
         <button
           className={`c2-tab-btn ${activeTab === 'overview' ? 'active' : ''}`}
           onClick={() => switchTab('overview')}
         >
-          <span>📊</span> Mark Scheme & Briefs
+          <span>🧭</span> 1. Brief, Styles & Stimulus
+        </button>
+        <button
+          className={`c2-tab-btn ${activeTab === 'musicality' ? 'active' : ''}`}
+          onClick={() => switchTab('musicality')}
+        >
+          <span>📊</span> 2. Mark Scheme & Musicality
           <span className="c2-tab-count">{progressStats.msDone}/{progressStats.msTotal}</span>
         </button>
         <button
           className={`c2-tab-btn ${activeTab === 'synthesis' ? 'active' : ''}`}
           onClick={() => switchTab('synthesis')}
         >
-          <span>🎹</span> AG1: Synthesis (8)
+          <span>🎹</span> 3. Synthesis (8)
           <span className="c2-tab-count">{progressStats.synDone}/8</span>
         </button>
         <button
           className={`c2-tab-btn ${activeTab === 'sampling' ? 'active' : ''}`}
           onClick={() => switchTab('sampling')}
         >
-          <span>✂️</span> AG2: Sampling (8)
+          <span>✂️</span> 4. Sampling (8)
           <span className="c2-tab-count">{progressStats.smpDone}/8</span>
         </button>
         <button
           className={`c2-tab-btn ${activeTab === 'effects' ? 'active' : ''}`}
           onClick={() => switchTab('effects')}
         >
-          <span>🎛️</span> AG3: Creative FX (8)
+          <span>🎛️</span> 5. Creative FX (8)
           <span className="c2-tab-count">{progressStats.fxDone}/8</span>
-        </button>
-        <button
-          className={`c2-tab-btn ${activeTab === 'musicality' ? 'active' : ''}`}
-          onClick={() => switchTab('musicality')}
-        >
-          <span>🎼</span> AG5–11: Musicality & Brief
         </button>
         <button
           className={`c2-tab-btn ${activeTab === 'mixing' ? 'active' : ''}`}
           onClick={() => switchTab('mixing')}
         >
-          <span>🎚️</span> AG4: Mix & Logbook
+          <span>🎚️</span> 6. Mix & Logbook
           <span className="c2-tab-count">{progressStats.mixDone}/{progressStats.mixTotal}</span>
         </button>
         <button
           className={`c2-tab-btn ${activeTab === 'workflow' ? 'active' : ''}`}
           onClick={() => switchTab('workflow')}
         >
-          <span>🗺️</span> 5-Phase & Master List
+          <span>✅</span> 7. 5-Phase & Final Check
           <span className="c2-tab-count">{progressStats.masterDone}/{progressStats.masterTotal}</span>
         </button>
       </div>
 
       {/* =========================================================
-          TAB 1: MARK SCHEME DEEP DIVE (AG1–AG11), BRIEFS & STIMULUS
+          TAB 1: BRIEF SELECTION, RECOMMENDED STYLES/GENRES & STIMULUS
           ========================================================= */}
       {activeTab === 'overview' && (
         <div>
-          {/* Quick Jump Banner to the 24 Technique Examples */}
-          <div style={{
-            background: 'linear-gradient(135deg, rgba(56, 189, 248, 0.14) 0%, rgba(168, 85, 247, 0.14) 50%, rgba(236, 72, 153, 0.14) 100%)',
-            border: '1px solid rgba(56, 189, 248, 0.4)',
-            borderRadius: '16px',
-            padding: '18px 22px',
-            marginBottom: '24px',
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            flexWrap: 'wrap',
-            gap: '16px'
-          }}>
-            <div>
-              <div style={{ fontWeight: 800, color: '#fff', fontSize: '1.1rem', marginBottom: '4px' }}>
-                ⚡ Jump Straight to the 24 Detailed Technique Examples & Parameter Recipes:
-              </div>
-              <div style={{ fontSize: '0.86rem', color: 'var(--text-secondary)' }}>
-                Each section includes Logic Pro X screenshots, step-by-step guides, exact synth/sampler/FX recipes, and logbook builders.
-              </div>
-            </div>
-            <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
-              <button
-                onClick={() => switchTab('synthesis')}
-                style={{ background: '#0284c7', color: '#fff', border: 'none', padding: '10px 16px', borderRadius: '10px', fontWeight: 800, cursor: 'pointer', fontSize: '0.85rem' }}
-              >
-                🎹 8 Synthesis Examples →
-              </button>
-              <button
-                onClick={() => switchTab('sampling')}
-                style={{ background: '#7c3aed', color: '#fff', border: 'none', padding: '10px 16px', borderRadius: '10px', fontWeight: 800, cursor: 'pointer', fontSize: '0.85rem' }}
-              >
-                ✂️ 8 Sampling Examples →
-              </button>
-              <button
-                onClick={() => switchTab('effects')}
-                style={{ background: '#db2777', color: '#fff', border: 'none', padding: '10px 16px', borderRadius: '10px', fontWeight: 800, cursor: 'pointer', fontSize: '0.85rem' }}
-              >
-                🎛️ 8 Creative FX Examples →
-              </button>
-            </div>
-          </div>
-
-          {/* Specs Grid */}
+          {/* Core Specifications Strip */}
           <div className="c2-specs-grid">
             {OVERVIEW_SPECS.map((spec, idx) => (
               <div key={idx} className="c2-spec-card">
                 <div className="c2-spec-icon">{spec.icon}</div>
                 <div>
-                  <div style={{ fontSize: '0.75rem', textTransform: 'uppercase', color: 'var(--text-secondary)', fontWeight: 700 }}>
+                  <div style={{ fontSize: '0.73rem', textTransform: 'uppercase', color: 'var(--text-secondary)', fontWeight: 700 }}>
                     {spec.label}
                   </div>
-                  <div style={{ fontSize: '1.2rem', fontWeight: 800, color: '#fff', margin: '2px 0' }}>
+                  <div style={{ fontSize: '1.15rem', fontWeight: 800, color: '#fff', margin: '2px 0' }}>
                     {spec.value}
                   </div>
-                  <div style={{ fontSize: '0.8rem', color: '#94a3b8' }}>
+                  <div style={{ fontSize: '0.78rem', color: '#94a3b8' }}>
                     {spec.sub}
                   </div>
                 </div>
@@ -831,146 +853,18 @@ const Component2Guide = ({ onBack, embeddedInTeacher = false }) => {
             ))}
           </div>
 
-          {/* Complete Mark Scheme Deep Dive (All Elements AG1–AG11 with Tick Lists & Band Descriptors) */}
-          <div className="c2-section-card">
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px', marginBottom: '8px' }}>
+          {/* STEP 1: CHOOSING YOUR BRIEF (Brief 2 & Brief 3 Recommended) */}
+          <div className="c2-section-card" style={{ borderTop: '4px solid #10b981' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '10px', marginBottom: '6px' }}>
               <h2 className="c2-section-title" style={{ margin: 0 }}>
-                <span>📊</span> Complete Mark Scheme Breakdown & Element Tick Lists (60 Marks Total)
+                <span>🧭</span> Step 1: Choose Your Brief (Brief 2 & Brief 3 Strongly Recommended)
               </h2>
-              <span style={{
-                background: 'rgba(16, 185, 129, 0.15)',
-                color: '#34d399',
-                padding: '6px 14px',
-                borderRadius: '12px',
-                fontWeight: 800,
-                fontSize: '0.85rem'
-              }}>
-                {progressStats.msDone} / {progressStats.msTotal} Mark Scheme Elements Ticked
+              <span style={{ fontSize: '0.8rem', color: '#34d399', fontWeight: 700 }}>
+                Click a card to select your brief
               </span>
             </div>
             <p className="c2-section-desc">
-              Every single element of the Edexcel Component 2 Mark Scheme is detailed below with its Level 1–4 marking bands, a concrete production example, and a tick list of elements to include in your composition:
-            </p>
-
-            <div className="c2-ms-detailed-list">
-              {MARK_SCHEME_DETAILED.map((ms) => {
-                const doneCount = ms.elementsChecklist.filter(e => guideState.checkedItems[e.id]).length;
-                return (
-                  <div key={ms.code} className="c2-ms-card" style={{ borderLeft: `5px solid ${ms.color}` }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '12px' }}>
-                      <div>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '4px', flexWrap: 'wrap' }}>
-                          <span style={{
-                            background: `${ms.color}25`,
-                            color: ms.color,
-                            border: `1px solid ${ms.color}60`,
-                            fontWeight: 800,
-                            fontSize: '0.78rem',
-                            padding: '3px 10px',
-                            borderRadius: '6px'
-                          }}>
-                            {ms.code} • {ms.marks} MARKS
-                          </span>
-                          <span style={{ fontSize: '0.78rem', color: '#94a3b8', fontWeight: 600 }}>
-                            {ms.category}
-                          </span>
-                        </div>
-                        <h3 style={{ margin: '4px 0', fontSize: '1.3rem', color: '#fff' }}>
-                          {ms.code}: {ms.title}
-                        </h3>
-                        <p style={{ margin: 0, fontSize: '0.88rem', color: 'var(--text-secondary)', lineHeight: 1.5 }}>
-                          {ms.summary}
-                        </p>
-                      </div>
-
-                      <button
-                        onClick={() => switchTab(ms.jumpTab)}
-                        style={{
-                          background: `${ms.color}20`,
-                          border: `1px solid ${ms.color}60`,
-                          color: ms.color,
-                          padding: '8px 14px',
-                          borderRadius: '10px',
-                          fontWeight: 700,
-                          fontSize: '0.82rem',
-                          cursor: 'pointer',
-                          whiteSpace: 'nowrap'
-                        }}
-                      >
-                        View Detailed {ms.code} Examples →
-                      </button>
-                    </div>
-
-                    {/* Level 1 to Level 4 Band Descriptors */}
-                    <div className="c2-ms-bands-grid">
-                      {ms.bands.map((b, bIdx) => (
-                        <div
-                          key={bIdx}
-                          className="c2-ms-band-box"
-                          style={{
-                            borderTop: bIdx === ms.bands.length - 1 ? `2px solid ${ms.color}` : '1px solid rgba(255,255,255,0.08)',
-                            background: bIdx === ms.bands.length - 1 ? `${ms.color}12` : 'rgba(30, 41, 59, 0.6)'
-                          }}
-                        >
-                          <div style={{ fontWeight: 800, fontSize: '0.78rem', color: bIdx === ms.bands.length - 1 ? ms.color : '#cbd5e1', marginBottom: '4px' }}>
-                            {b.level} {bIdx === ms.bands.length - 1 ? '⭐ Top Band' : ''}
-                          </div>
-                          <div style={{ fontSize: '0.79rem', color: 'var(--text-secondary)', lineHeight: 1.4 }}>
-                            {b.desc}
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-
-                    {/* Concrete Real-World Example */}
-                    <div style={{
-                      background: 'rgba(56, 189, 248, 0.08)',
-                      borderLeft: `3px solid ${ms.color}`,
-                      padding: '10px 14px',
-                      borderRadius: '6px',
-                      fontSize: '0.84rem',
-                      color: '#e2e8f0',
-                      marginBottom: '14px',
-                      lineHeight: 1.45
-                    }}>
-                      <strong>💡 Concrete High-Mark Example:</strong> {ms.realWorldExample}
-                    </div>
-
-                    {/* Tickable Sub-Elements for this Criterion */}
-                    <div style={{ fontSize: '0.8rem', fontWeight: 800, color: ms.color, textTransform: 'uppercase', marginBottom: '8px' }}>
-                      ✅ {ms.code} Elements Tick List ({doneCount}/{ms.elementsChecklist.length} Completed):
-                    </div>
-                    <div className="c2-tick-list">
-                      {ms.elementsChecklist.map(el => {
-                        const checked = !!guideState.checkedItems[el.id];
-                        return (
-                          <div
-                            key={el.id}
-                            className={`c2-tick-item ${checked ? 'checked' : ''}`}
-                            onClick={() => toggleCheckItem(el.id)}
-                            style={{ padding: '10px 14px' }}
-                          >
-                            <div className="c2-checkbox">{checked ? '✓' : ''}</div>
-                            <div className="c2-tick-text">
-                              <div className="c2-tick-title" style={{ fontSize: '0.88rem' }}>{el.text}</div>
-                            </div>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* Choosing Your Brief Section */}
-          <div className="c2-section-card">
-            <h2 className="c2-section-title">
-              <span>🧭</span> Choosing Your Brief: Why Brief 2 & Brief 3 Are Strongly Recommended
-            </h2>
-            <p className="c2-section-desc">
-              We strongly advise choosing <strong>Brief 2 (Text/Poem-Based)</strong> or <strong>Brief 3 (Topic/Stimulus-Based)</strong> rather than Brief 1 (Video). Click your chosen brief below:
+              We strongly advise choosing <strong>Brief 2 (Song / Text-Based)</strong> or <strong>Brief 3 (Topic / Stimulus-Based)</strong> rather than Brief 1 (Video), so your musical structure, tempo, and sound design aren't restricted by rigid video hit-points.
             </p>
 
             <div className="c2-briefs-grid">
@@ -1002,22 +896,22 @@ const Component2Guide = ({ onBack, embeddedInTeacher = false }) => {
                         )}
                       </div>
 
-                      <h3 style={{ margin: '4px 0 4px 0', color: '#fff', fontSize: '1.2rem' }}>{brief.title}</h3>
-                      <div style={{ fontSize: '0.82rem', color: '#38bdf8', fontWeight: 600, marginBottom: '10px' }}>
+                      <h3 style={{ margin: '4px 0', color: '#fff', fontSize: '1.15rem' }}>{brief.title}</h3>
+                      <div style={{ fontSize: '0.8rem', color: '#38bdf8', fontWeight: 600, marginBottom: '8px' }}>
                         {brief.subtitle}
                       </div>
-                      <p style={{ margin: '0 0 12px 0', fontSize: '0.88rem', color: 'var(--text-secondary)', lineHeight: 1.5 }}>
+                      <p style={{ margin: '0 0 10px 0', fontSize: '0.86rem', color: 'var(--text-secondary)', lineHeight: 1.45 }}>
                         {brief.summary}
                       </p>
 
                       <ul className="c2-brief-list">
-                        {brief.pros.map((pro, i) => (
-                          <li key={i}>{pro}</li>
+                        {brief.pros.slice(0, 3).map((pro, i) => (
+                          <li key={i} style={{ fontSize: '0.82rem' }}>{pro}</li>
                         ))}
                       </ul>
                     </div>
 
-                    <div className={`c2-critical-box ${brief.badgeType === 'recommended' ? 'danger' : 'amber'}`}>
+                    <div className={`c2-critical-box ${brief.badgeType === 'recommended' ? 'danger' : 'amber'}`} style={{ fontSize: '0.78rem', padding: '10px 12px' }}>
                       {brief.criticalRule}
                     </div>
                   </div>
@@ -1026,11 +920,134 @@ const Component2Guide = ({ onBack, embeddedInTeacher = false }) => {
             </div>
           </div>
 
-          {/* Stimulus Track Setup & Tick List */}
-          <div className="c2-section-card">
+          {/* STEP 2: RECOMMENDED STYLES & GENRES FOR COMPONENT 2 (PROMINENT & INTERACTIVE) */}
+          <div className="c2-section-card" style={{ borderTop: '4px solid #f472b6' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px', marginBottom: '6px' }}>
+              <div>
+                <h2 className="c2-section-title" style={{ margin: 0 }}>
+                  <span>🎶</span> Step 2: Best Styles & Genres for Component 2 (AG6 Style & Coherence)
+                </h2>
+              </div>
+              <span style={{
+                background: 'rgba(244, 114, 182, 0.18)',
+                border: '1px solid rgba(244, 114, 182, 0.45)',
+                color: '#f472b6',
+                padding: '5px 12px',
+                borderRadius: '10px',
+                fontSize: '0.82rem',
+                fontWeight: 800
+              }}>
+                Click your target style to set your project genre
+              </span>
+            </div>
+            <p className="c2-section-desc">
+              Component 2 specifically rewards <strong>Technology-Based Composition</strong>: custom synthesis (`AG1`), creative audio sampling (`AG2`), and dynamic effects automation (`AG3`). Purely acoustic/unprocessed genres make it hard to access top technical marks. The <strong>6 styles & genres below</strong> are the best choices for scoring Band 4 marks:
+            </p>
+
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(330px, 1fr))', gap: '16px' }}>
+              {SUGGESTED_GENRES.map((g) => {
+                const isSelectedGenre = guideState.selectedGenreId === g.id || guideState.stimulusInfo.genre === g.genre;
+                return (
+                  <div
+                    key={g.id}
+                    onClick={() => selectGenreCard(g)}
+                    style={{
+                      background: isSelectedGenre ? `${g.color}14` : 'rgba(15, 23, 42, 0.75)',
+                      border: isSelectedGenre ? `2px solid ${g.color}` : '1px solid rgba(255, 255, 255, 0.1)',
+                      borderRadius: '16px',
+                      padding: '18px',
+                      cursor: 'pointer',
+                      transition: 'all 0.2s ease',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      justifyContent: 'space-between',
+                      gap: '12px',
+                      boxShadow: isSelectedGenre ? `0 8px 24px ${g.color}25` : 'none'
+                    }}
+                  >
+                    <div>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '8px', marginBottom: '8px', flexWrap: 'wrap' }}>
+                        <span style={{
+                          fontSize: '0.72rem',
+                          fontWeight: 800,
+                          padding: '3px 9px',
+                          borderRadius: '6px',
+                          background: `${g.color}22`,
+                          color: g.color,
+                          border: `1px solid ${g.color}50`
+                        }}>
+                          {g.badge}
+                        </span>
+                        {isSelectedGenre && (
+                          <span style={{
+                            fontSize: '0.72rem',
+                            fontWeight: 800,
+                            background: '#10b981',
+                            color: '#0f172a',
+                            padding: '2px 8px',
+                            borderRadius: '6px'
+                          }}>
+                            ✓ TARGET STYLE
+                          </span>
+                        )}
+                      </div>
+
+                      <h3 style={{ margin: '0 0 4px 0', fontSize: '1.15rem', color: '#fff', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <span>{g.icon}</span> {g.genre}
+                      </h3>
+                      <div style={{ fontSize: '0.78rem', color: g.color, fontWeight: 700, marginBottom: '8px' }}>
+                        ⏱️ {g.bpm} • {g.bestForBriefs}
+                      </div>
+
+                      <p style={{ margin: '0 0 12px 0', fontSize: '0.84rem', color: '#cbd5e1', lineHeight: 1.45 }}>
+                        {g.why}
+                      </p>
+
+                      {/* How this genre hits AG1, AG2, AG3 */}
+                      <div style={{
+                        background: 'rgba(15, 23, 42, 0.8)',
+                        border: '1px solid rgba(255,255,255,0.07)',
+                        borderRadius: '10px',
+                        padding: '10px 12px',
+                        fontSize: '0.79rem',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: '6px'
+                      }}>
+                        <div>
+                          <strong style={{ color: '#38bdf8' }}>🎹 AG1 Synthesis: </strong>
+                          <span style={{ color: '#e2e8f0' }}>{g.ag1Fit}</span>
+                        </div>
+                        <div>
+                          <strong style={{ color: '#c084fc' }}>✂️ AG2 Sampling: </strong>
+                          <span style={{ color: '#e2e8f0' }}>{g.ag2Fit}</span>
+                        </div>
+                        <div>
+                          <strong style={{ color: '#f472b6' }}>🎛️ AG3 Creative FX: </strong>
+                          <span style={{ color: '#e2e8f0' }}>{g.ag3Fit}</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div style={{
+                      fontSize: '0.77rem',
+                      color: '#94a3b8',
+                      borderTop: '1px solid rgba(255,255,255,0.08)',
+                      paddingTop: '8px'
+                    }}>
+                      <strong style={{ color: '#fff' }}>🎧 Reference Artists:</strong> {g.referenceArtists}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* STEP 3: STIMULUS TRACK SETUP & LOGGER */}
+          <div className="c2-section-card" style={{ borderTop: '4px solid #38bdf8' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px', marginBottom: '8px' }}>
               <h2 className="c2-section-title" style={{ margin: 0 }}>
-                <span>🎧</span> Setting Up Your Stimulus / Reference Track in Logic Pro X
+                <span>🎧</span> Step 3: Set Up Your Stimulus / Reference Track in Logic Pro X (-6dB Rule)
               </h2>
               <span style={{
                 background: 'rgba(56, 189, 248, 0.15)',
@@ -1044,7 +1061,7 @@ const Component2Guide = ({ onBack, embeddedInTeacher = false }) => {
               </span>
             </div>
             <p className="c2-section-desc">
-              Select a professional reference track in your target genre and import it directly into Logic Pro X at <strong>-6dB</strong> to guide your structure, sound design, and mix balance.
+              Pick a commercial reference track from your chosen style/genre above and import it onto Track 1 of Logic Pro X at <strong>-6dB</strong> to guide your structure, arrangement markers, and mix balance.
             </p>
 
             {/* Stimulus Track Metadata Form */}
@@ -1053,12 +1070,12 @@ const Component2Guide = ({ onBack, embeddedInTeacher = false }) => {
               border: '1px solid rgba(255,255,255,0.08)',
               borderRadius: '12px',
               padding: '16px',
-              marginBottom: '20px'
+              marginBottom: '16px'
             }}>
-              <div style={{ fontWeight: 700, color: '#38bdf8', fontSize: '0.9rem', marginBottom: '12px' }}>
-                📝 Log Your Stimulus Track Details (Automatically Added to Logbook Export)
+              <div style={{ fontWeight: 700, color: '#38bdf8', fontSize: '0.88rem', marginBottom: '10px' }}>
+                📝 Log Your Stimulus Track & Genre Details (Included in Logbook Export)
               </div>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '12px', marginBottom: '12px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '10px', marginBottom: '10px' }}>
                 <input
                   className="c2-input-field"
                   placeholder="Stimulus Track Title..."
@@ -1085,7 +1102,7 @@ const Component2Guide = ({ onBack, embeddedInTeacher = false }) => {
                 />
                 <input
                   className="c2-input-field"
-                  placeholder="Genre (e.g. Synth-Pop / EDM)..."
+                  placeholder="Target Style / Genre..."
                   value={guideState.stimulusInfo.genre}
                   onChange={e => updateStimulusField('genre', e.target.value)}
                 />
@@ -1098,7 +1115,7 @@ const Component2Guide = ({ onBack, embeddedInTeacher = false }) => {
               />
             </div>
 
-            <div className="c2-tick-list" style={{ marginBottom: '20px' }}>
+            <div className="c2-tick-list">
               {STIMULUS_CHECKLIST.map(item => {
                 const checked = !!guideState.checkedItems[item.id];
                 return (
@@ -1115,77 +1132,175 @@ const Component2Guide = ({ onBack, embeddedInTeacher = false }) => {
                 );
               })}
             </div>
-
-            <h3 style={{ fontSize: '1.05rem', color: '#fff', marginBottom: '12px' }}>
-              Suggested Genres for Brief 2 & Brief 3
-            </h3>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(230px, 1fr))', gap: '12px' }}>
-              {SUGGESTED_GENRES.map((g, i) => (
-                <div key={i} style={{
-                  background: 'rgba(15, 23, 42, 0.7)',
-                  border: '1px solid rgba(255,255,255,0.08)',
-                  borderRadius: '10px',
-                  padding: '14px'
-                }}>
-                  <div style={{ fontWeight: 700, color: '#38bdf8', fontSize: '0.92rem', marginBottom: '6px' }}>
-                    {g.genre}
-                  </div>
-                  <div style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', lineHeight: 1.45 }}>
-                    {g.why}
-                  </div>
-                </div>
-              ))}
-            </div>
           </div>
         </div>
       )}
 
       {/* =========================================================
-          TAB 2: AG1 SYNTHESIS TECHNIQUES (8 DETAILED EXAMPLES)
-          ========================================================= */}
-      {activeTab === 'synthesis' && renderTechniqueSection(
-        'synthesis',
-        '🎹 AG1: Synthesis Techniques in Logic Pro X (8 Detailed Examples — 8 Marks)',
-        'You MUST demonstrate original patch design and synthesis control across multiple parts. Aim to use as many of these 8 synthesis techniques as possible and document every oscillator, filter, envelope, and LFO parameter in your logbook.',
-        '#38bdf8'
-      )}
-
-      {/* =========================================================
-          TAB 3: AG2 SAMPLING & AUDIO MANIPULATION (8 DETAILED EXAMPLES)
-          ========================================================= */}
-      {activeTab === 'sampling' && renderTechniqueSection(
-        'sampling',
-        '✂️ AG2: Sampling & Audio Manipulation in Logic Pro X (8 Detailed Examples — 8 Marks)',
-        'You MUST use at least 6 samples in your composition and demonstrate diverse manipulation techniques across Quick Sampler, multi-zone Sampler, Flex Time, Flex Pitch, and region processing.',
-        '#c084fc',
-        <div className="c2-critical-box danger">
-          ⚠️ CRITICAL EXAMINER RULE: Every sample used (including Freesound, Splice, recorded performers, or AI-generated audio) MUST be credited with its source in your logbook!
-        </div>
-      )}
-
-      {/* =========================================================
-          TAB 4: AG3 CREATIVE EFFECTS & AUTOMATION (8 DETAILED EXAMPLES)
-          ========================================================= */}
-      {activeTab === 'effects' && renderTechniqueSection(
-        'effects',
-        '🎛️ AG3: Creative Effects & Automation in Logic Pro X (8 Detailed Examples — 8 Marks)',
-        'Creative effects, spatial Aux bus routing, and dynamic parameter automation are essential for adding depth, transitions, and excitement to your mix.',
-        '#f472b6'
-      )}
-
-      {/* =========================================================
-          TAB 5: AG5–AG11 MUSICALITY, STYLE & BRIEF EXAMPLES
+          TAB 2: MARK SCHEME (AG1–AG11) & MUSICALITY (BEST 3 OF 5)
           ========================================================= */}
       {activeTab === 'musicality' && (
         <div>
+          {/* Complete Mark Scheme Breakdown (Clean & Collapsible Band Details) */}
+          <div className="c2-section-card" style={{ borderTop: '4px solid #34d399' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px', marginBottom: '8px' }}>
+              <h2 className="c2-section-title" style={{ margin: 0 }}>
+                <span>📊</span> Edexcel Component 2 Mark Scheme Breakdown (60 Marks Total)
+              </h2>
+              <span style={{
+                background: 'rgba(16, 185, 129, 0.15)',
+                color: '#34d399',
+                padding: '6px 14px',
+                borderRadius: '12px',
+                fontWeight: 800,
+                fontSize: '0.85rem'
+              }}>
+                {progressStats.msDone} / {progressStats.msTotal} Mark Scheme Elements Ticked
+              </span>
+            </div>
+            <p className="c2-section-desc">
+              Tick off each mark scheme element as you build your track. Click <strong>"View Level 1–4 Bands"</strong> on any criterion to inspect the exact marking descriptors.
+            </p>
+
+            <div className="c2-ms-detailed-list">
+              {MARK_SCHEME_DETAILED.map((ms) => {
+                const doneCount = ms.elementsChecklist.filter(e => guideState.checkedItems[e.id]).length;
+                const isExpanded = !!expandedMsCodes[ms.code];
+                return (
+                  <div key={ms.code} className="c2-ms-card" style={{ borderLeft: `5px solid ${ms.color}`, padding: '18px' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '12px', marginBottom: '12px' }}>
+                      <div>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px', flexWrap: 'wrap' }}>
+                          <span style={{
+                            background: `${ms.color}25`,
+                            color: ms.color,
+                            border: `1px solid ${ms.color}60`,
+                            fontWeight: 800,
+                            fontSize: '0.75rem',
+                            padding: '2px 9px',
+                            borderRadius: '6px'
+                          }}>
+                            {ms.code} • {ms.marks} MARKS
+                          </span>
+                          <span style={{ fontSize: '0.76rem', color: '#94a3b8', fontWeight: 600 }}>
+                            {ms.category}
+                          </span>
+                        </div>
+                        <h3 style={{ margin: '2px 0', fontSize: '1.2rem', color: '#fff' }}>
+                          {ms.code}: {ms.title}
+                        </h3>
+                        <p style={{ margin: 0, fontSize: '0.86rem', color: 'var(--text-secondary)', lineHeight: 1.45 }}>
+                          {ms.summary}
+                        </p>
+                      </div>
+
+                      <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+                        <button
+                          onClick={() => toggleMsBands(ms.code)}
+                          style={{
+                            background: 'rgba(255,255,255,0.06)',
+                            border: '1px solid rgba(255,255,255,0.15)',
+                            color: '#cbd5e1',
+                            padding: '7px 12px',
+                            borderRadius: '8px',
+                            fontWeight: 700,
+                            fontSize: '0.78rem',
+                            cursor: 'pointer'
+                          }}
+                        >
+                          {isExpanded ? 'Hide Level 1–4 Bands ▲' : 'View Level 1–4 Bands ▼'}
+                        </button>
+                        {ms.jumpTab !== 'musicality' && (
+                          <button
+                            onClick={() => switchTab(ms.jumpTab)}
+                            style={{
+                              background: `${ms.color}20`,
+                              border: `1px solid ${ms.color}60`,
+                              color: ms.color,
+                              padding: '7px 12px',
+                              borderRadius: '8px',
+                              fontWeight: 700,
+                              fontSize: '0.78rem',
+                              cursor: 'pointer'
+                            }}
+                          >
+                            Open {ms.code} Examples →
+                          </button>
+                        )}
+                      </div>
+                    </div>
+
+                    {isExpanded && (
+                      <>
+                        <div className="c2-ms-bands-grid" style={{ marginBottom: '12px' }}>
+                          {ms.bands.map((b, bIdx) => (
+                            <div
+                              key={bIdx}
+                              className="c2-ms-band-box"
+                              style={{
+                                borderTop: bIdx === ms.bands.length - 1 ? `2px solid ${ms.color}` : '1px solid rgba(255,255,255,0.08)',
+                                background: bIdx === ms.bands.length - 1 ? `${ms.color}12` : 'rgba(30, 41, 59, 0.6)'
+                              }}
+                            >
+                              <div style={{ fontWeight: 800, fontSize: '0.76rem', color: bIdx === ms.bands.length - 1 ? ms.color : '#cbd5e1', marginBottom: '4px' }}>
+                                {b.level} {bIdx === ms.bands.length - 1 ? '⭐ Top Band' : ''}
+                              </div>
+                              <div style={{ fontSize: '0.78rem', color: 'var(--text-secondary)', lineHeight: 1.4 }}>
+                                {b.desc}
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+
+                        <div style={{
+                          background: 'rgba(56, 189, 248, 0.08)',
+                          borderLeft: `3px solid ${ms.color}`,
+                          padding: '9px 12px',
+                          borderRadius: '6px',
+                          fontSize: '0.82rem',
+                          color: '#e2e8f0',
+                          marginBottom: '12px',
+                          lineHeight: 1.45
+                        }}>
+                          <strong>💡 Concrete High-Mark Example:</strong> {ms.realWorldExample}
+                        </div>
+                      </>
+                    )}
+
+                    {/* Tickable Sub-Elements for this Criterion */}
+                    <div className="c2-tick-list">
+                      {ms.elementsChecklist.map(el => {
+                        const checked = !!guideState.checkedItems[el.id];
+                        return (
+                          <div
+                            key={el.id}
+                            className={`c2-tick-item ${checked ? 'checked' : ''}`}
+                            onClick={() => toggleCheckItem(el.id)}
+                            style={{ padding: '9px 12px' }}
+                          >
+                            <div className="c2-checkbox">{checked ? '✓' : ''}</div>
+                            <div className="c2-tick-text">
+                              <div className="c2-tick-title" style={{ fontSize: '0.86rem' }}>{el.text}</div>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* AG7–AG11 Musicality Pillars (Best 3 out of 5 = 18 Marks) */}
           <div className="c2-section-card" style={{ borderTop: '4px solid #14b8a6' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px', marginBottom: '12px' }}>
               <div>
                 <h2 className="c2-section-title" style={{ margin: 0 }}>
-                  <span>🎼</span> AG7–AG11: Musicality Deep Dive (Best 3 out of 5 = 18 Marks)
+                  <span>🎼</span> AG7–AG11: Musicality Focus Selector (Best 3 out of 5 = 18 Marks)
                 </h2>
                 <p className="c2-section-desc" style={{ margin: '6px 0 0 0' }}>
-                  Examiners assess all 5 Musicality criteria (6 marks each) and count your <strong>BEST 3 out of 5</strong> (up to 18 marks total). Click any 3 pillars below to mark them as your primary focus, study the concrete Logic Pro examples, and write your logbook notes:
+                  Examiners mark all 5 Musicality criteria (6 marks each) and count your <strong>BEST 3 out of 5</strong>. Select your 3 primary pillars below:
                 </p>
               </div>
               <span style={{
@@ -1206,17 +1321,18 @@ const Component2Guide = ({ onBack, embeddedInTeacher = false }) => {
                 const isSelected = (guideState.selectedMusicality || []).includes(pillar.id);
                 const noteKey = `mus_${pillar.id}`;
                 const noteValue = guideState.techniqueNotes[noteKey] || '';
+                const isNoteOpen = Boolean(openNoteIds[noteKey] || noteValue.trim());
 
                 return (
                   <div
                     key={pillar.id}
                     className={`c2-tech-detailed-card ${isSelected ? 'completed' : ''}`}
-                    style={{ borderTop: `3px solid ${isSelected ? '#14b8a6' : 'rgba(255,255,255,0.2)'}` }}
+                    style={{ borderTop: `3px solid ${isSelected ? '#14b8a6' : 'rgba(255,255,255,0.2)'}`, padding: '18px' }}
                   >
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '12px', marginBottom: '12px' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '12px', marginBottom: '10px' }}>
                       <div>
                         <span style={{
-                          fontSize: '0.74rem',
+                          fontSize: '0.73rem',
                           fontWeight: 800,
                           padding: '3px 10px',
                           borderRadius: '6px',
@@ -1225,85 +1341,124 @@ const Component2Guide = ({ onBack, embeddedInTeacher = false }) => {
                         }}>
                           {pillar.code} • {pillar.marks} MARKS {isSelected ? '• ⭐ TOP 3 FOCUS' : ''}
                         </span>
-                        <h3 style={{ margin: '6px 0 4px 0', fontSize: '1.3rem', color: '#fff' }}>
+                        <h3 style={{ margin: '6px 0 2px 0', fontSize: '1.22rem', color: '#fff' }}>
                           {pillar.code}: {pillar.name}
                         </h3>
-                        <p style={{ margin: 0, fontSize: '0.9rem', color: 'var(--text-secondary)' }}>
+                        <p style={{ margin: 0, fontSize: '0.86rem', color: 'var(--text-secondary)' }}>
                           {pillar.desc}
                         </p>
                       </div>
 
-                      <button
-                        onClick={() => toggleMusicalityPillar(pillar.id)}
-                        style={{
-                          padding: '9px 16px',
-                          borderRadius: '10px',
-                          border: isSelected ? '1px solid #14b8a6' : '1px solid rgba(255,255,255,0.2)',
-                          background: isSelected ? '#0d9488' : 'rgba(15, 23, 42, 0.8)',
-                          color: '#fff',
-                          fontWeight: 800,
-                          fontSize: '0.84rem',
-                          cursor: 'pointer'
-                        }}
-                      >
-                        {isSelected ? '★ Selected in Best 3' : '☆ Select as Top 3 Focus'}
-                      </button>
-                    </div>
-
-                    <div style={{
-                      background: 'rgba(15, 23, 42, 0.65)',
-                      border: '1px solid rgba(255,255,255,0.08)',
-                      borderRadius: '10px',
-                      padding: '14px 18px',
-                      marginBottom: '12px'
-                    }}>
-                      <div style={{ fontSize: '0.8rem', fontWeight: 800, color: '#2dd4bf', textTransform: 'uppercase', marginBottom: '6px' }}>
-                        How to Score 5–6 Marks in {pillar.name}:
+                      <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+                        <button
+                          onClick={() => toggleNoteEditor(noteKey)}
+                          style={{
+                            padding: '8px 12px',
+                            borderRadius: '8px',
+                            border: '1px solid rgba(56, 189, 248, 0.4)',
+                            background: isNoteOpen ? 'rgba(56, 189, 248, 0.18)' : 'rgba(15, 23, 42, 0.7)',
+                            color: '#38bdf8',
+                            fontWeight: 700,
+                            fontSize: '0.8rem',
+                            cursor: 'pointer'
+                          }}
+                        >
+                          ✍️ {noteValue.trim() ? 'Edit Note' : '+ Logbook Note'}
+                        </button>
+                        <button
+                          onClick={() => toggleMusicalityPillar(pillar.id)}
+                          style={{
+                            padding: '8px 14px',
+                            borderRadius: '8px',
+                            border: isSelected ? '1px solid #14b8a6' : '1px solid rgba(255,255,255,0.2)',
+                            background: isSelected ? '#0d9488' : 'rgba(15, 23, 42, 0.8)',
+                            color: '#fff',
+                            fontWeight: 800,
+                            fontSize: '0.82rem',
+                            cursor: 'pointer'
+                          }}
+                        >
+                          {isSelected ? '★ Selected in Best 3' : '☆ Select as Top 3'}
+                        </button>
                       </div>
-                      <ul className="c2-tech-steps" style={{ margin: 0 }}>
-                        {pillar.detailedTips.map((tip, idx) => (
-                          <li key={idx}>{tip}</li>
-                        ))}
-                      </ul>
                     </div>
 
-                    <div className="c2-logbook-prompt">
-                      <strong>💡 Concrete Logbook Example ({pillar.name}):</strong> "{pillar.logicExample}"
-                    </div>
+                    <ul className="c2-tech-steps" style={{ margin: '0 0 10px 0' }}>
+                      {pillar.detailedTips.map((tip, idx) => (
+                        <li key={idx} style={{ fontSize: '0.84rem' }}>{tip}</li>
+                      ))}
+                    </ul>
 
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
-                      <span style={{ fontSize: '0.8rem', fontWeight: 700, color: '#38bdf8' }}>
-                        ✍️ Your {pillar.name} Logbook Notes:
-                      </span>
-                      <button
-                        onClick={() => updateTechniqueNote(noteKey, pillar.logicExample)}
-                        style={{
-                          background: 'rgba(56, 189, 248, 0.15)',
-                          border: '1px solid rgba(56, 189, 248, 0.4)',
-                          color: '#38bdf8',
-                          padding: '4px 10px',
-                          borderRadius: '6px',
-                          fontSize: '0.75rem',
-                          fontWeight: 700,
-                          cursor: 'pointer'
-                        }}
-                      >
-                        Insert Example Template
-                      </button>
-                    </div>
-                    <textarea
-                      className="c2-note-textarea"
-                      style={{ minHeight: '72px' }}
-                      placeholder={pillar.logicExample}
-                      value={noteValue}
-                      onChange={e => updateTechniqueNote(noteKey, e.target.value)}
-                    />
+                    {isNoteOpen && (
+                      <div style={{ marginTop: '10px', background: 'rgba(15, 23, 42, 0.8)', padding: '12px', borderRadius: '10px', border: '1px solid rgba(56, 189, 248, 0.25)' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
+                          <span style={{ fontSize: '0.8rem', fontWeight: 700, color: '#38bdf8' }}>
+                            ✍️ Your {pillar.name} Logbook Notes:
+                          </span>
+                          <button
+                            onClick={() => updateTechniqueNote(noteKey, pillar.logicExample)}
+                            style={{
+                              background: 'rgba(56, 189, 248, 0.15)',
+                              border: '1px solid rgba(56, 189, 248, 0.4)',
+                              color: '#38bdf8',
+                              padding: '4px 10px',
+                              borderRadius: '6px',
+                              fontSize: '0.75rem',
+                              fontWeight: 700,
+                              cursor: 'pointer'
+                            }}
+                          >
+                            Insert Example Template
+                          </button>
+                        </div>
+                        <textarea
+                          className="c2-note-textarea"
+                          style={{ minHeight: '68px' }}
+                          placeholder={pillar.logicExample}
+                          value={noteValue}
+                          onChange={e => updateTechniqueNote(noteKey, e.target.value)}
+                        />
+                      </div>
+                    )}
                   </div>
                 );
               })}
             </div>
           </div>
         </div>
+      )}
+
+      {/* =========================================================
+          TAB 3: AG1 SYNTHESIS TECHNIQUES (8 DETAILED EXAMPLES)
+          ========================================================= */}
+      {activeTab === 'synthesis' && renderTechniqueSection(
+        'synthesis',
+        '🎹 AG1: Synthesis Techniques in Logic Pro X (8 Detailed Examples — 8 Marks)',
+        'Demonstrate original patch design across multiple parts (ES2, Retro Synth, Alchemy, EFM1). Tick off each technique used and click "+ Add Logbook Note" to document your exact parameters.',
+        '#38bdf8'
+      )}
+
+      {/* =========================================================
+          TAB 4: AG2 SAMPLING & AUDIO MANIPULATION (8 DETAILED EXAMPLES)
+          ========================================================= */}
+      {activeTab === 'sampling' && renderTechniqueSection(
+        'sampling',
+        '✂️ AG2: Sampling & Audio Manipulation in Logic Pro X (8 Detailed Examples — 8 Marks)',
+        'Use at least 6 distinct samples and demonstrate diverse manipulation techniques across Quick Sampler, multi-zone Sampler, Flex Time, and Flex Pitch.',
+        '#c084fc',
+        <div className="c2-critical-box danger">
+          ⚠️ CRITICAL EXAMINER RULE: Every sample used (including Freesound, Splice, recorded performers, or AI-generated audio) MUST be credited with its source in your logbook!
+        </div>
+      )}
+
+      {/* =========================================================
+          TAB 5: AG3 CREATIVE EFFECTS & AUTOMATION (8 DETAILED EXAMPLES)
+          ========================================================= */}
+      {activeTab === 'effects' && renderTechniqueSection(
+        'effects',
+        '🎛️ AG3: Creative Effects & Automation in Logic Pro X (8 Detailed Examples — 8 Marks)',
+        'Use spatial Aux bus routing, dynamic filter/FX automation, vocoding, and rhythmic processing to drive transitions and contrast.',
+        '#f472b6'
       )}
 
       {/* =========================================================
@@ -1341,7 +1496,7 @@ const Component2Guide = ({ onBack, embeddedInTeacher = false }) => {
                     style={{ borderTop: `3px solid ${group.color}` }}
                   >
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
-                      <h3 style={{ margin: 0, fontSize: '1.25rem', color: '#fff', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <h3 style={{ margin: 0, fontSize: '1.2rem', color: '#fff', display: 'flex', alignItems: 'center', gap: '8px' }}>
                         <span>{group.icon}</span> {group.title}
                       </h3>
                       <span style={{ fontSize: '0.85rem', fontWeight: 800, color: group.color }}>
@@ -1422,10 +1577,10 @@ const Component2Guide = ({ onBack, embeddedInTeacher = false }) => {
               })}
             </div>
 
-            <h3 style={{ fontSize: '1.1rem', color: '#fff', marginBottom: '12px' }}>
+            <h3 style={{ fontSize: '1.05rem', color: '#fff', marginBottom: '12px' }}>
               🔍 Weak vs. Top-Band Logbook Entries (How to Write for Full Marks)
             </h3>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
               {LOGBOOK_WRITING_EXAMPLES.map((ex, i) => (
                 <div
                   key={i}
@@ -1433,20 +1588,20 @@ const Component2Guide = ({ onBack, embeddedInTeacher = false }) => {
                     background: 'rgba(15, 23, 42, 0.7)',
                     border: '1px solid rgba(255,255,255,0.08)',
                     borderRadius: '12px',
-                    padding: '16px'
+                    padding: '14px'
                   }}
                 >
-                  <div style={{ fontWeight: 800, color: '#38bdf8', fontSize: '0.85rem', marginBottom: '10px', textTransform: 'uppercase' }}>
+                  <div style={{ fontWeight: 800, color: '#38bdf8', fontSize: '0.82rem', marginBottom: '8px', textTransform: 'uppercase' }}>
                     {ex.category}
                   </div>
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '12px' }}>
-                    <div style={{ background: 'rgba(239, 68, 68, 0.08)', border: '1px solid rgba(239, 68, 68, 0.3)', borderRadius: '8px', padding: '12px' }}>
-                      <div style={{ fontSize: '0.75rem', fontWeight: 800, color: '#f87171', marginBottom: '4px' }}>❌ WEAK ENTRY (Vague, low marks)</div>
-                      <div style={{ fontSize: '0.85rem', color: '#fca5a5', fontStyle: 'italic' }}>{ex.weak}</div>
+                    <div style={{ background: 'rgba(239, 68, 68, 0.08)', border: '1px solid rgba(239, 68, 68, 0.3)', borderRadius: '8px', padding: '10px 12px' }}>
+                      <div style={{ fontSize: '0.73rem', fontWeight: 800, color: '#f87171', marginBottom: '4px' }}>❌ WEAK ENTRY (Vague, low marks)</div>
+                      <div style={{ fontSize: '0.83rem', color: '#fca5a5', fontStyle: 'italic' }}>{ex.weak}</div>
                     </div>
-                    <div style={{ background: 'rgba(16, 185, 129, 0.08)', border: '1px solid rgba(16, 185, 129, 0.3)', borderRadius: '8px', padding: '12px' }}>
-                      <div style={{ fontSize: '0.75rem', fontWeight: 800, color: '#34d399', marginBottom: '4px' }}>✅ TOP-BAND ENTRY (Specific plugin, parameters & bars)</div>
-                      <div style={{ fontSize: '0.85rem', color: '#d1fae5', lineHeight: 1.45 }}>{ex.strong}</div>
+                    <div style={{ background: 'rgba(16, 185, 129, 0.08)', border: '1px solid rgba(16, 185, 129, 0.3)', borderRadius: '8px', padding: '10px 12px' }}>
+                      <div style={{ fontSize: '0.73rem', fontWeight: 800, color: '#34d399', marginBottom: '4px' }}>✅ TOP-BAND ENTRY (Specific plugin, parameters & bars)</div>
+                      <div style={{ fontSize: '0.83rem', color: '#d1fae5', lineHeight: 1.45 }}>{ex.strong}</div>
                     </div>
                   </div>
                 </div>
@@ -1583,8 +1738,8 @@ const Component2Guide = ({ onBack, embeddedInTeacher = false }) => {
                     }}>
                       {phase.phaseNumber} • {phase.timing}
                     </span>
-                    <h3 style={{ margin: '6px 0 4px 0', fontSize: '1.3rem', color: '#fff' }}>{phase.title}</h3>
-                    <p style={{ margin: 0, fontSize: '0.88rem', color: 'var(--text-secondary)' }}>{phase.summary}</p>
+                    <h3 style={{ margin: '6px 0 4px 0', fontSize: '1.25rem', color: '#fff' }}>{phase.title}</h3>
+                    <p style={{ margin: 0, fontSize: '0.86rem', color: 'var(--text-secondary)' }}>{phase.summary}</p>
                   </div>
 
                   <div style={{ textAlign: 'right', minWidth: '140px' }}>
