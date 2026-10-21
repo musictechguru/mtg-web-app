@@ -1,13 +1,52 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600"><defs>
-        <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
-          <feGaussianBlur in="SourceAlpha" stdDeviation="3"/>
-          <feOffset dx="2" dy="2" result="offsetblur"/>
-          <feComponentTransfer>
-            <feFuncA type="linear" slope="0.5"/>
-          </feComponentTransfer>
-          <feMerge> 
-            <feMergeNode/>
-            <feMergeNode in="SourceGraphic"/> 
-          </feMerge>
-        </filter>
-        </defs><rect x="0" y="0" width="800" height="600" fill="#f8f9fa" /><text x="400" y="300" font-family="Arial, sans-serif" font-size="30" fill="black" text-anchor="middle" font-weight="normal" >Stereo Panning Arc.Svg</text><rect x="100" y="100" width="600" height="400" rx="20" fill="none" stroke="#ccc" stroke-width="4" opacity="1" /></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="100%" height="100%">
+  <rect width="800" height="500" fill="#0f172a" rx="12"/>
+  <rect x="20" y="20" width="760" height="460" fill="none" stroke="#1e293b" stroke-width="2" rx="10"/>
+
+  <text x="400" y="55" fill="#f8fafc" font-size="20" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">Stereo Soundstage &amp; Panning Arc</text>
+  <text x="400" y="80" fill="#94a3b8" font-size="13" font-family="system-ui, sans-serif" text-anchor="middle">Phantom Center, Left/Right Interaural Level &amp; Time Differences</text>
+
+  <g transform="translate(400, 360)">
+    <!-- Stereo Arc -->
+    <path d="M -260 0 A 260 260 0 0 1 260 0" fill="none" stroke="#334155" stroke-width="4"/>
+    <path d="M -180 0 A 180 180 0 0 1 180 0" fill="none" stroke="#1e293b" stroke-width="2" stroke-dasharray="4 4"/>
+
+    <!-- Left Speaker -->
+    <g transform="translate(-270, 0)">
+      <rect x="-25" y="-35" width="50" height="70" fill="#1e293b" rx="6" stroke="#38bdf8" stroke-width="2"/>
+      <circle cx="0" cy="10" r="16" fill="#0f172a" stroke="#38bdf8" stroke-width="2"/>
+      <circle cx="0" cy="-15" r="8" fill="#0f172a" stroke="#38bdf8" stroke-width="2"/>
+      <text x="0" y="55" fill="#38bdf8" font-size="12" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">LEFT (L100)</text>
+    </g>
+
+    <!-- Right Speaker -->
+    <g transform="translate(270, 0)">
+      <rect x="-25" y="-35" width="50" height="70" fill="#1e293b" rx="6" stroke="#38bdf8" stroke-width="2"/>
+      <circle cx="0" cy="10" r="16" fill="#0f172a" stroke="#38bdf8" stroke-width="2"/>
+      <circle cx="0" cy="-15" r="8" fill="#0f172a" stroke="#38bdf8" stroke-width="2"/>
+      <text x="0" y="55" fill="#38bdf8" font-size="12" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">RIGHT (R100)</text>
+    </g>
+
+    <!-- Phantom Center (Center top of arc) -->
+    <circle cx="0" cy="-260" r="14" fill="#10b981"/>
+    <text x="0" y="-285" fill="#10b981" font-size="14" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">PHANTOM CENTER (C)</text>
+    <text x="0" y="-235" fill="#cbd5e1" font-size="11" font-family="system-ui, sans-serif" text-anchor="middle">Lead Vocals / Kick / Bass / Snare</text>
+
+    <!-- Mid Left / Mid Right -->
+    <circle cx="-184" cy="-184" r="10" fill="#fbbf24"/>
+    <text x="-195" y="-205" fill="#fbbf24" font-size="11" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">MID-LEFT (L50)</text>
+    <text x="-195" y="-160" fill="#94a3b8" font-size="9" font-family="system-ui, sans-serif" text-anchor="middle">Rhythm Guitar</text>
+
+    <circle cx="184" cy="-184" r="10" fill="#fbbf24"/>
+    <text x="195" y="-205" fill="#fbbf24" font-size="11" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">MID-RIGHT (R50)</text>
+    <text x="195" y="-160" fill="#94a3b8" font-size="9" font-family="system-ui, sans-serif" text-anchor="middle">Keys / Piano</text>
+
+    <!-- Listener Position -->
+    <circle cx="0" cy="40" r="22" fill="#334155" stroke="#94a3b8" stroke-width="2"/>
+    <text x="0" y="45" fill="#ffffff" font-size="10" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">LISTENER</text>
+  </g>
+
+  <!-- Summary Box -->
+  <rect x="50" y="420" width="700" height="50" fill="#1e293b" rx="6"/>
+  <text x="400" y="442" fill="#f8fafc" font-size="11" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">Pan laws (-3dB, -4.5dB, or -6dB center attenuation) ensure perceived loudness remains constant when panning across the stereo arc.</text>
+  <text x="400" y="458" fill="#94a3b8" font-size="10" font-family="system-ui, sans-serif" text-anchor="middle">Low bass frequencies (< 100 Hz) should stay in mono center to avoid club phase cancellation and maximize vinyl cutting headroom.</text>
+</svg>

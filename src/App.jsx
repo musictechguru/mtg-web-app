@@ -1,52 +1,39 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, lazy, Suspense } from 'react';
 import './App.css';
 import courseData from './data/course_data.json';
-import QuizPlayer from './components/QuizPlayer';
-import LessonViewer from './components/LessonViewer';
 import Dashboard from './components/Dashboard';
 import LoginScreen from './components/LoginScreen';
-import TeacherDashboard from './components/TeacherDashboard';
-import InviteLanding from './components/InviteLanding';
-import { UserProvider, useUser } from './contexts/UserContext';
-import WorksheetPlayer from './components/WorksheetPlayer';
-import FingerprintsQuizPlayer from './components/FingerprintsQuiz/FingerprintsQuizPlayer';
-import DictionaryQuizSelector from './components/DictionaryQuizSelector';
-import Component3ExamPlayer from './components/Component3ExamPlayer';
-import ProfileSettings from './components/ProfileSettings';
-import EffectsChainQuiz from './components/InteractiveQuizzes/EffectsChainQuiz';
-import SynthesizerQuiz from './components/InteractiveQuizzes/SynthesizerQuiz';
-import MicrophonePlacementQuiz from './components/InteractiveQuizzes/MicrophonePlacementQuiz';
-import ProductionTechniqueQuiz from './components/InteractiveQuizzes/ProductionTechniqueQuiz';
-import RockProductionQuiz from './components/InteractiveQuizzes/RockProductionQuiz';
-import SampleChoppingQuiz from './components/InteractiveQuizzes/SampleChoppingQuiz';
-import component3FunkData from './data/component3_funk_exam.json';
-import component3SynthPopData from './data/component3_synthpop_exam.json';
-import component3HeavyRockData from './data/component3_heavyrock_exam.json';
-import component3SoulData from './data/component3_soul_exam.json';
-import component3ReggaeData from './data/component3_reggae_exam.json';
-import component4EdmData from './data/component4_edm_exam.json';
-import component4TemplateData from './data/component4_template_exam.json';
-import component4SpopData from './data/component4_spop_exam.json';
 import PremiumLocked from './components/PremiumLocked';
-import TracksheetCreator from './components/TracksheetCreator/TracksheetCreator';
-import TimetableBuilder from './components/TimetableBuilder/TimetableBuilder';
-import Component2Guide from './components/Component2Guide/Component2Guide';
+import { UserProvider, useUser } from './contexts/UserContext';
 
-import WelcomeVideoModal from './components/WelcomeVideoModal';
-import UpdatePasswordModal from './components/UpdatePasswordModal';
+// Lazy-load sub-routes and heavy components for optimal initial bundle and performance
+const QuizPlayer = lazy(() => import('./components/QuizPlayer'));
+const LessonViewer = lazy(() => import('./components/LessonViewer'));
+const TeacherDashboard = lazy(() => import('./components/TeacherDashboard'));
+const InviteLanding = lazy(() => import('./components/InviteLanding'));
+const WorksheetPlayer = lazy(() => import('./components/WorksheetPlayer'));
+const FingerprintsQuizPlayer = lazy(() => import('./components/FingerprintsQuiz/FingerprintsQuizPlayer'));
+const DictionaryQuizSelector = lazy(() => import('./components/DictionaryQuizSelector'));
+const Component3ExamPlayer = lazy(() => import('./components/Component3ExamPlayer'));
+const ProfileSettings = lazy(() => import('./components/ProfileSettings'));
+const EffectsChainQuiz = lazy(() => import('./components/InteractiveQuizzes/EffectsChainQuiz'));
+const SynthesizerQuiz = lazy(() => import('./components/InteractiveQuizzes/SynthesizerQuiz'));
+const MicrophonePlacementQuiz = lazy(() => import('./components/InteractiveQuizzes/MicrophonePlacementQuiz'));
+const ProductionTechniqueQuiz = lazy(() => import('./components/InteractiveQuizzes/ProductionTechniqueQuiz'));
+const RockProductionQuiz = lazy(() => import('./components/InteractiveQuizzes/RockProductionQuiz'));
+const SampleChoppingQuiz = lazy(() => import('./components/InteractiveQuizzes/SampleChoppingQuiz'));
+const TracksheetCreator = lazy(() => import('./components/TracksheetCreator/TracksheetCreator'));
+const TimetableBuilder = lazy(() => import('./components/TimetableBuilder/TimetableBuilder'));
+const Component2Guide = lazy(() => import('./components/Component2Guide/Component2Guide'));
+const WelcomeVideoModal = lazy(() => import('./components/WelcomeVideoModal'));
+const UpdatePasswordModal = lazy(() => import('./components/UpdatePasswordModal'));
 
-const EXAM_DATA_MAP = {
-  'c3_funk': component3FunkData,
-  'c3_synthpop': component3SynthPopData,
-  'c3_heavyrock': component3HeavyRockData,
-  'c3_soul': component3SoulData,
-  'c3_reggae': component3ReggaeData,
-  'c4_edm': component4EdmData,
-  'c4_template': component4TemplateData,
-  'c4_spop': component4SpopData,
-  // Fallback for legacy course_data entries that might not have ID yet
-  'default': component3FunkData
-};
+const LoadingFallback = () => (
+  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '300px', color: '#94a3b8', gap: '16px' }}>
+    <div style={{ width: '36px', height: '36px', border: '3px solid rgba(255,255,255,0.1)', borderTopColor: '#38bdf8', borderRadius: '50%', animation: 'spin 0.8s linear infinite' }} />
+    <span style={{ fontSize: '0.9rem', fontWeight: 500 }}>Loading module...</span>
+  </div>
+);
 
 const isDev = Boolean(
   import.meta.env.DEV ||
@@ -68,6 +55,45 @@ const findCourseItem = (idOrTitle) => {
   return null;
 };
 
+const STAGE_THEMES = [
+  { color: '#38bdf8', bg: 'rgba(56, 189, 248, 0.12)', border: 'rgba(56, 189, 248, 0.3)' }, // Stage 1 - Cyan
+  { color: '#60a5fa', bg: 'rgba(96, 165, 250, 0.12)', border: 'rgba(96, 165, 250, 0.3)' }, // Stage 2 - Blue
+  { color: '#a78bfa', bg: 'rgba(167, 139, 250, 0.12)', border: 'rgba(167, 139, 250, 0.3)' }, // Stage 3 - Purple
+  { color: '#fbbf24', bg: 'rgba(251, 191, 36, 0.12)', border: 'rgba(251, 191, 36, 0.3)' }, // Stage 4 - Amber
+  { color: '#f472b6', bg: 'rgba(244, 114, 182, 0.12)', border: 'rgba(244, 114, 182, 0.3)' }, // Stage 4b - Rose
+  { color: '#34d399', bg: 'rgba(52, 211, 153, 0.12)', border: 'rgba(52, 211, 153, 0.3)' }, // Stage 5 - Emerald
+  { color: '#fb923c', bg: 'rgba(251, 146, 60, 0.12)', border: 'rgba(251, 146, 60, 0.3)' }, // Stage 6 - Orange
+  { color: '#38bdf8', bg: 'rgba(56, 189, 248, 0.12)', border: 'rgba(56, 189, 248, 0.3)' }, // Stage 7 - Sky
+  { color: '#e879f9', bg: 'rgba(232, 121, 249, 0.12)', border: 'rgba(232, 121, 249, 0.3)' }, // Stage 8 - Fuchsia
+  { color: '#2dd4bf', bg: 'rgba(45, 212, 191, 0.12)', border: 'rgba(45, 212, 191, 0.3)' }, // Component 4 - Teal
+];
+
+const parseStageTitle = (rawTitle) => {
+  if (!rawTitle) return { badge: 'STAGE', name: '' };
+  if (rawTitle.includes(':')) {
+    const parts = rawTitle.split(':');
+    const badge = parts[0].trim();
+    const name = parts.slice(1).join(':').trim();
+    return { badge: badge.toUpperCase(), name };
+  }
+  return { badge: 'STAGE', name: rawTitle };
+};
+
+const getStageCountLabel = (section, isTopicSection, topicGroupCount) => {
+  const count = section.items?.length || 0;
+  if (isTopicSection) {
+    return `${topicGroupCount} Topics`;
+  }
+  const titleLower = (section.title || '').toLowerCase();
+  if (titleLower.includes('mock')) {
+    return `${count} ${count === 1 ? 'Mock' : 'Mocks'}`;
+  }
+  if (titleLower.includes('producing') || titleLower.includes('lesson')) {
+    return `${count} ${count === 1 ? 'Module' : 'Modules'}`;
+  }
+  return `${count} ${count === 1 ? 'Quiz' : 'Quizzes'}`;
+};
+
 // Logic Component
 const MainApp = () => {
   const { currentUser, userProgress, logout, loading, needsPasswordReset } = useUser();
@@ -80,13 +106,13 @@ const MainApp = () => {
           return { type: 'dictionary_selector', title: 'Dictionary Quizzes' };
         }
         if (quizParam === 'tracksheet_creator') {
-          return { type: 'tracksheet_creator', title: 'Component 1: Track Sheet & Logbook' };
+          return { id: 'tracksheet_creator', type: 'tracksheet_creator', title: 'Component 1: Track Sheet & Logbook', isPremium: true };
         }
         if (quizParam === 'component1_guide' || quizParam === 'c1_guide') {
-          return { type: 'component1_guide', title: 'Component 1: Recording Guide & Tick List' };
+          return { id: 'component1_guide', type: 'component1_guide', title: 'Component 1: Recording Guide & Tick List', isPremium: true };
         }
         if (quizParam === 'component2_guide' || quizParam === 'c2_guide') {
-          return { type: 'component2_guide', title: 'Component 2: Composition Guide & Logbook' };
+          return { id: 'component2_guide', type: 'component2_guide', title: 'Component 2: Composition Guide & Logbook', isPremium: true };
         }
         if (quizParam === 'timetable_builder' || quizParam === 'timetable' || quizParam === 'scheme_of_work') {
           return { type: 'timetable_builder', title: '16-Block Timetable & Scheme of Work' };
@@ -116,6 +142,67 @@ const MainApp = () => {
   const [inviteTeacherId, setInviteTeacherId] = useState(null);
   const [showProfileSettings, setShowProfileSettings] = useState(false);
 
+  const [expandedStages, setExpandedStages] = useState(() => {
+    // Default Stage 1 (Diagnostic) and Stage 2 (Topic Mastery) open
+    const initial = { 0: true, 1: true };
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      const quizParam = params.get('quiz') || (isDev ? sessionStorage.getItem('mtg_dev_quiz') : null);
+      if (quizParam) {
+        const secIdx = (courseData.sections || []).findIndex(sec =>
+          sec.items?.some(it => it.id === quizParam || it.title === quizParam)
+        );
+        if (secIdx !== -1) {
+          initial[secIdx] = true;
+        }
+      }
+    }
+    return initial;
+  });
+
+  const isItemActive = (item) => {
+    if (!activeItem || !item) return false;
+    if (activeItem === item) return true;
+    if (item.id && activeItem.id && item.id === activeItem.id) return true;
+    if (item.title && activeItem.title && item.title === activeItem.title) return true;
+    return false;
+  };
+
+  const toggleStage = (secIdx) => {
+    setExpandedStages(prev => ({
+      ...prev,
+      [secIdx]: !prev[secIdx]
+    }));
+  };
+
+  const allStagesExpanded = (courseData.sections || []).length > 0 &&
+    (courseData.sections || []).every((_, idx) => Boolean(expandedStages[idx]));
+
+  const toggleAllStages = () => {
+    if (allStagesExpanded) {
+      setExpandedStages({});
+    } else {
+      const allOpen = {};
+      (courseData.sections || []).forEach((_, idx) => {
+        allOpen[idx] = true;
+      });
+      setExpandedStages(allOpen);
+    }
+  };
+
+  const isPremiumItem = (item) => {
+    if (!item) return false;
+    if (item.isPremium) return true;
+    const key = item.type || item.id;
+    return (
+      key === 'tracksheet_creator' ||
+      key === 'component1_guide' ||
+      key === 'c1_guide' ||
+      key === 'component2_guide' ||
+      key === 'c2_guide'
+    );
+  };
+
   // When courseData updates via Vite HMR, keep the currently active item updated with the new questions
   useEffect(() => {
     if (activeItem && (activeItem.id || activeItem.title)) {
@@ -128,8 +215,8 @@ const MainApp = () => {
 
   // If user is not premium but active item requires premium, redirect to premium locked
   useEffect(() => {
-    if (!loading && currentUser && activeItem?.isPremium && !currentUser.is_premium) {
-      setActiveItem({ type: 'premium_locked', title: activeItem.title });
+    if (!loading && currentUser && isPremiumItem(activeItem) && !currentUser.is_premium) {
+      setActiveItem({ type: 'premium_locked', title: activeItem.title || 'Premium Feature' });
     }
   }, [loading, currentUser, activeItem]);
 
@@ -159,6 +246,18 @@ const MainApp = () => {
     }
   }, [currentUser]);
 
+  // Auto-expand stage containing activeItem whenever activeItem changes
+  useEffect(() => {
+    if (activeItem) {
+      const secIdx = (courseData.sections || []).findIndex(sec =>
+        sec.items?.some(it => (it.id && it.id === activeItem.id) || (it.title && it.title === activeItem.title))
+      );
+      if (secIdx !== -1 && secIdx !== undefined) {
+        setExpandedStages(prev => ({ ...prev, [secIdx]: true }));
+      }
+    }
+  }, [activeItem]);
+
   const handleWelcomeVideoClose = () => {
     localStorage.setItem('hasSeenWelcomeVideo', 'true');
     setShowWelcomeVideo(false);
@@ -171,11 +270,15 @@ const MainApp = () => {
 
   // Invite routing takes precedence, handles its own unauthenticated state
   if (appView === 'invite') {
-    return <InviteLanding teacherId={inviteTeacherId} onComplete={() => {
-      window.history.replaceState({}, '', '/');
-      setInviteTeacherId(null);
-      setAppView('student');
-    }} />;
+    return (
+      <Suspense fallback={<LoadingFallback />}>
+        <InviteLanding teacherId={inviteTeacherId} onComplete={() => {
+          window.history.replaceState({}, '', '/');
+          setInviteTeacherId(null);
+          setAppView('student');
+        }} />
+      </Suspense>
+    );
   }
 
   if (!currentUser) {
@@ -183,20 +286,37 @@ const MainApp = () => {
   }
 
   if (appView === 'teacher') {
-    return <TeacherDashboard onBack={() => setAppView('student')} />;
+    return (
+      <Suspense fallback={<LoadingFallback />}>
+        <TeacherDashboard onBack={() => setAppView('student')} />
+      </Suspense>
+    );
   }
 
   // Normal App Logic
   const handleItemSelect = (item) => {
     // Premium Check
-    if (item.isPremium && !currentUser?.is_premium) {
-      setActiveItem({ type: 'premium_locked', title: item.title });
+    if (isPremiumItem(item) && !currentUser?.is_premium) {
+      setActiveItem({ type: 'premium_locked', title: item.title || 'Premium Feature' });
       window.scrollTo(0, 0);
       return;
     }
 
     setActiveItem(item);
     window.scrollTo(0, 0);
+
+    // Auto-expand stage containing this item
+    const secIdx = (courseData.sections || []).findIndex(sec =>
+      sec.items?.some(it => (it.id && it.id === item.id) || (it.title && it.title === item.title))
+    );
+    if (secIdx !== -1 && secIdx !== undefined) {
+      setExpandedStages(prev => ({ ...prev, [secIdx]: true }));
+    }
+
+    if (item?.title && item.title.includes("Topic") && item.title.includes("(Part")) {
+      const baseTitle = item.title.split(" (Part")[0];
+      setExpandedTopic(baseTitle);
+    }
 
     if (typeof window !== 'undefined') {
       const url = new URL(window.location.href);
@@ -320,23 +440,29 @@ const MainApp = () => {
           <button
             className={`nav-item ${activeItem?.type === 'tracksheet_creator' ? 'active' : ''}`}
             onClick={() => {
-              handleItemSelectWrapper({ id: 'tracksheet_creator', type: 'tracksheet_creator', title: 'Component 1: Track Sheet & Logbook' });
+              handleItemSelectWrapper({ id: 'tracksheet_creator', type: 'tracksheet_creator', title: 'Component 1: Track Sheet & Logbook', isPremium: true });
             }}
             style={{ 
               marginBottom: '10px', 
               fontWeight: 'bold', 
               color: '#c084fc', 
               border: '1px solid rgba(192, 132, 252, 0.4)',
-              background: activeItem?.type === 'tracksheet_creator' ? 'rgba(192, 132, 252, 0.15)' : 'transparent'
+              background: activeItem?.type === 'tracksheet_creator' ? 'rgba(192, 132, 252, 0.15)' : 'transparent',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between'
             }}
           >
-            <span>🎚️</span> Component 1 Track Sheet
+            <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <span>🎚️</span> Component 1 Track Sheet
+            </span>
+            {!currentUser?.is_premium && <span style={{ fontSize: '0.8rem', color: '#facc15' }}>🔒</span>}
           </button>
 
           <button
             className={`nav-item ${activeItem?.type === 'component1_guide' ? 'active' : ''}`}
             onClick={() => {
-              handleItemSelectWrapper({ id: 'component1_guide', type: 'component1_guide', title: 'Component 1: Recording Guide & Tick List' });
+              handleItemSelectWrapper({ id: 'component1_guide', type: 'component1_guide', title: 'Component 1: Recording Guide & Tick List', isPremium: true });
             }}
             style={{ 
               marginBottom: '10px', 
@@ -346,16 +472,19 @@ const MainApp = () => {
               background: activeItem?.type === 'component1_guide' ? 'rgba(16, 185, 129, 0.14)' : 'transparent',
               display: 'flex',
               alignItems: 'center',
-              gap: '8px'
+              justifyContent: 'space-between'
             }}
           >
-            <span>✅</span> Component 1 Guide & Tick List
+            <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <span>✅</span> Component 1 Guide & Tick List
+            </span>
+            {!currentUser?.is_premium && <span style={{ fontSize: '0.8rem', color: '#facc15' }}>🔒</span>}
           </button>
 
           <button
             className={`nav-item ${activeItem?.type === 'component2_guide' ? 'active' : ''}`}
             onClick={() => {
-              handleItemSelectWrapper({ id: 'component2_guide', type: 'component2_guide', title: 'Component 2: Composition Guide & Logbook' });
+              handleItemSelectWrapper({ id: 'component2_guide', type: 'component2_guide', title: 'Component 2: Composition Guide & Logbook', isPremium: true });
             }}
             style={{ 
               marginBottom: '10px', 
@@ -365,10 +494,13 @@ const MainApp = () => {
               background: activeItem?.type === 'component2_guide' ? 'rgba(244, 114, 182, 0.12)' : 'transparent',
               display: 'flex',
               alignItems: 'center',
-              gap: '8px'
+              justifyContent: 'space-between'
             }}
           >
-            <span>🎹</span> Component 2 Guide & Tick List
+            <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <span>🎹</span> Component 2 Guide & Tick List
+            </span>
+            {!currentUser?.is_premium && <span style={{ fontSize: '0.8rem', color: '#facc15' }}>🔒</span>}
           </button>
 
           <button
@@ -377,7 +509,7 @@ const MainApp = () => {
               handleItemSelectWrapper({ id: 'timetable_builder', type: 'timetable_builder', title: '16-Block Timetable & Scheme of Work' });
             }}
             style={{ 
-              marginBottom: '20px', 
+              marginBottom: '10px', 
               fontWeight: 'bold', 
               color: '#38bdf8', 
               border: '1px solid rgba(56, 189, 248, 0.4)',
@@ -390,10 +522,43 @@ const MainApp = () => {
             <span>🗺️</span> 16-Block Timetable & SOW
           </button>
 
+          <button
+            className={`nav-item ${activeItem?.type === 'lp_fingerprints' ? 'active' : ''}`}
+            onClick={() => {
+              handleItemSelectWrapper({ id: 'lp_fingerprints', type: 'lp_fingerprints', title: 'Sonic Fingerprints: Production Analysis' });
+            }}
+            style={{ 
+              marginBottom: '20px', 
+              fontWeight: 'bold', 
+              color: '#c084fc', 
+              border: '1px solid rgba(192, 132, 252, 0.45)',
+              background: activeItem?.type === 'lp_fingerprints' ? 'rgba(168, 85, 247, 0.15)' : 'transparent',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px'
+            }}
+          >
+            <span>🎧</span> Sonic Fingerprints (1950s–2010s)
+          </button>
+
+          {/* Curriculum Stages Header */}
+          <div className="stages-overview-header">
+            <span className="stages-overview-title">Curriculum Stages</span>
+            <button
+              type="button"
+              className="stages-toggle-all-btn"
+              onClick={toggleAllStages}
+              title={allStagesExpanded ? "Collapse all stages" : "Expand all stages"}
+            >
+              {allStagesExpanded ? 'Collapse All' : 'Expand All'}
+            </button>
+          </div>
+
           {courseData.sections.map((section, secIdx) => {
             // Group items by base Topic name if they are Topic Mastery Quizzes
             const isTopicSection = section.title.includes("Topic Mastery");
             let groupedItems = [];
+            let topicGroupCount = 0;
 
             if (isTopicSection) {
               const topicGroups = {};
@@ -407,7 +572,9 @@ const MainApp = () => {
                 }
               });
 
-              Object.keys(topicGroups).forEach(baseTitle => {
+              const groupKeys = Object.keys(topicGroups);
+              topicGroupCount = groupKeys.length;
+              groupKeys.forEach(baseTitle => {
                 groupedItems.push({
                   isGroup: true,
                   title: baseTitle,
@@ -415,74 +582,115 @@ const MainApp = () => {
                 });
               });
             } else {
-              groupedItems = section.items;
+              groupedItems = section.items || [];
             }
+
+            const isExpanded = Boolean(expandedStages[secIdx]);
+            const theme = STAGE_THEMES[secIdx % STAGE_THEMES.length];
+            const parsed = parseStageTitle(section.title);
+            const countLabel = getStageCountLabel(section, isTopicSection, topicGroupCount);
+            const isActiveStage = section.items?.some(it => isItemActive(it));
 
             return (
               <div key={secIdx} className="nav-section">
-                <h2>{section.title}</h2>
-                {groupedItems.map((item, itemIdx) => {
-                  if (item.isGroup) {
-                    const isExpanded = expandedTopic === item.title;
-                    return (
-                      <div key={itemIdx} style={{ marginBottom: '10px' }}>
-                        <div
-                          onClick={() => setExpandedTopic(isExpanded ? null : item.title)}
-                          style={{
-                            padding: '10px 15px',
-                            color: isExpanded ? 'var(--accent-blue)' : 'var(--text-secondary)',
-                            fontSize: '0.85rem',
-                            fontWeight: 'bold',
-                            textTransform: 'uppercase',
-                            letterSpacing: '0.5px',
-                            cursor: 'pointer',
-                            display: 'flex',
-                            justifyContent: 'space-between',
-                            alignItems: 'center',
-                            background: isExpanded ? 'rgba(59, 130, 246, 0.1)' : 'transparent',
-                            borderRadius: '8px',
-                            transition: 'all 0.2s ease'
-                          }}
+                <button
+                  type="button"
+                  onClick={() => toggleStage(secIdx)}
+                  className={`stage-header-btn ${isExpanded ? 'expanded' : ''} ${isActiveStage ? 'is-active-stage' : ''}`}
+                  style={{
+                    borderLeftColor: (isExpanded || isActiveStage) ? theme.color : 'rgba(255, 255, 255, 0.08)',
+                    background: isActiveStage 
+                      ? (isExpanded ? `linear-gradient(135deg, ${theme.bg} 0%, rgba(30, 41, 59, 0.7) 100%)` : theme.bg)
+                      : (isExpanded ? 'rgba(255, 255, 255, 0.05)' : 'rgba(255, 255, 255, 0.02)'),
+                    borderColor: isActiveStage ? theme.border : (isExpanded ? 'rgba(255, 255, 255, 0.14)' : 'rgba(255, 255, 255, 0.08)')
+                  }}
+                  aria-expanded={isExpanded}
+                  aria-label={`${parsed.badge}: ${parsed.name}`}
+                >
+                  <div className="stage-header-top">
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                      <span
+                        className="stage-badge"
+                        style={{
+                          color: theme.color,
+                          background: theme.bg,
+                          border: `1px solid ${theme.border}`
+                        }}
+                      >
+                        {parsed.badge}
+                      </span>
+                      {isActiveStage && (
+                        <span className="stage-active-badge" title="Active Stage">
+                          <span className="stage-active-dot" style={{ background: theme.color, boxShadow: `0 0 8px ${theme.color}` }}></span>
+                          ACTIVE
+                        </span>
+                      )}
+                    </div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                      <span className="stage-count-pill">{countLabel}</span>
+                      <svg
+                        className={`stage-chevron ${isExpanded ? 'rotated' : ''}`}
+                        width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
+                      >
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                      </svg>
+                    </div>
+                  </div>
+                  <div className="stage-header-title">
+                    {parsed.name}
+                  </div>
+                </button>
+
+                {isExpanded && (
+                  <div className="stage-content">
+                    {groupedItems.map((item, itemIdx) => {
+                      if (item.isGroup) {
+                        const isTopicExpanded = expandedTopic === item.title;
+                        const hasActiveChild = item.items?.some(sub => isItemActive(sub));
+                        return (
+                          <div key={itemIdx} className="stage-topic-group">
+                            <div
+                              onClick={() => setExpandedTopic(isTopicExpanded ? null : item.title)}
+                              className={`stage-topic-header ${isTopicExpanded ? 'expanded' : ''} ${hasActiveChild ? 'has-active-child' : ''}`}
+                            >
+                              <span className="stage-topic-title">{item.title}</span>
+                              <svg
+                                className={`stage-topic-chevron ${isTopicExpanded ? 'rotated' : ''}`}
+                                width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+                              >
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                              </svg>
+                            </div>
+
+                            {isTopicExpanded && (
+                              <div className="stage-subtopic-list">
+                                {item.items.map((subItem, subIdx) => (
+                                  <button
+                                    key={subIdx}
+                                    className={`nav-item stage-subitem ${isItemActive(subItem) ? 'active' : ''}`}
+                                    onClick={() => handleItemSelectWrapper(subItem)}
+                                  >
+                                    <span className="subitem-bullet"></span>
+                                    {subItem.title.includes('(Part 1)') ? 'Part 1' : 'Part 2'}
+                                  </button>
+                                ))}
+                              </div>
+                            )}
+                          </div>
+                        );
+                      }
+                      return (
+                        <button
+                          key={itemIdx}
+                          className={`nav-item stage-nav-item ${isItemActive(item) ? 'active' : ''}`}
+                          onClick={() => handleItemSelectWrapper(item)}
                         >
                           {item.title}
-                          <svg
-                            width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
-                            style={{
-                              transform: isExpanded ? 'rotate(180deg)' : 'rotate(0deg)',
-                              transition: 'transform 0.3s ease'
-                            }}
-                          >
-                            <polyline points="6 9 12 15 18 9"></polyline>
-                          </svg>
-                        </div>
-
-                        {isExpanded && (
-                          <div style={{ display: 'flex', flexDirection: 'column', gap: '5px', paddingLeft: '15px', marginTop: '5px', animation: 'fadeIn 0.2s ease-out' }}>
-                            {item.items.map((subItem, subIdx) => (
-                              <button
-                                key={subIdx}
-                                className={`nav-item ${activeItem === subItem ? 'active' : ''}`}
-                                onClick={() => handleItemSelectWrapper(subItem)}
-                                style={{ padding: '8px 15px', fontSize: '0.9rem' }}
-                              >
-                                {subItem.title.includes('(Part 1)') ? 'Part 1' : 'Part 2'}
-                              </button>
-                            ))}
-                          </div>
-                        )}
-                      </div>
-                    );
-                  }
-                  return (
-                    <button
-                      key={itemIdx}
-                      className={`nav-item ${activeItem === item ? 'active' : ''}`}
-                      onClick={() => handleItemSelectWrapper(item)}
-                    >
-                      {item.title}
-                    </button>
-                  );
-                })}
+                        </button>
+                      );
+                    })}
+                  </div>
+                )}
               </div>
             );
           })}
@@ -493,90 +701,176 @@ const MainApp = () => {
 
       {/* Main Content Area */}
       <main className="main-content">
-        {activeItem ? (
-          activeItem.type === 'timetable_builder' ? (
-            <TimetableBuilder onNavigate={handleItemSelectWrapper} onBack={goToDashboardWrapper} />
-          ) : activeItem.type === 'tracksheet_creator' ? (
-            <TracksheetCreator onBack={goToDashboardWrapper} initialMode="generator" />
-          ) : activeItem.type === 'component1_guide' ? (
-            <TracksheetCreator onBack={goToDashboardWrapper} initialMode="checklist" />
-          ) : activeItem.type === 'component2_guide' ? (
-            <Component2Guide onBack={goToDashboardWrapper} />
-          ) : activeItem.type === 'lp_quiz' ? (
-            <QuizPlayer quiz={activeItem} onFinish={goToDashboardWrapper} />
-          ) : activeItem.type === 'lp_activity' ? (
-            <WorksheetPlayer activity={activeItem} onFinish={goToDashboardWrapper} />
-          ) : activeItem.type === 'lp_fingerprints' ? (
-            <FingerprintsQuizPlayer onExit={goToDashboardWrapper} />
-          ) : activeItem.type === 'dictionary_selector' ? (
-            <DictionaryQuizSelector
-              onSelectQuiz={(quiz) => handleItemSelectWrapper({ type: 'lp_quiz', ...quiz })}
-              onBack={goToDashboardWrapper}
-            />
-          ) : (activeItem.type === 'component3_exam' || activeItem.type === 'component4_exam') ? (
-            <Component3ExamPlayer
-              examData={{ ...(EXAM_DATA_MAP[activeItem.id] || EXAM_DATA_MAP['default']), campaignNodeId: activeItem.campaignNodeId }}
-              onExit={goToDashboardWrapper}
-            />
-          ) : activeItem.type === 'lp_synth_quiz' ? (
-            <SynthesizerQuiz quiz={activeItem} onExit={goToDashboardWrapper} />
-          ) : activeItem.type === 'effects_chain_quiz' ? (
-            <EffectsChainQuiz quiz={activeItem} onExit={goToDashboardWrapper} />
-          ) : activeItem.type === 'microphone_placement_quiz' ? (
-            <MicrophonePlacementQuiz quiz={activeItem} onExit={goToDashboardWrapper} />
-          ) : activeItem.type === 'production_technique_quiz' ? (
-            <ProductionTechniqueQuiz quiz={activeItem} onExit={goToDashboardWrapper} />
-          ) : activeItem.type === 'rock_production_quiz' ? (
-            <RockProductionQuiz quiz={activeItem} onExit={goToDashboardWrapper} />
-          ) : activeItem.type === 'sample_chopping_quiz' ? (
-            <SampleChoppingQuiz quiz={activeItem} onExit={goToDashboardWrapper} />
-          ) : activeItem.type === 'premium_locked' ? (
-            <div style={{ position: 'relative', width: '100%', maxWidth: '900px', margin: '0 auto', padding: '10px 0' }}>
-              <button
-                onClick={goToDashboardWrapper}
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                  background: 'rgba(255, 255, 255, 0.05)',
-                  border: '1px solid rgba(255, 255, 255, 0.1)',
-                  color: '#94a3b8',
-                  padding: '8px 16px',
-                  borderRadius: '8px',
-                  cursor: 'pointer',
-                  marginBottom: '15px',
-                  fontSize: '0.9rem',
-                  fontWeight: '500',
-                  transition: 'all 0.2s'
-                }}
-                onMouseEnter={(e) => { e.currentTarget.style.color = '#fff'; e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.3)'; }}
-                onMouseLeave={(e) => { e.currentTarget.style.color = '#94a3b8'; e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)'; }}
-              >
-                ← Back to Dashboard
-              </button>
-              <PremiumLocked itemTitle={activeItem.title} />
-            </div>
+        <Suspense fallback={<LoadingFallback />}>
+          {activeItem ? (
+            activeItem.type === 'timetable_builder' ? (
+              <TimetableBuilder onNavigate={handleItemSelectWrapper} onBack={goToDashboardWrapper} />
+            ) : activeItem.type === 'tracksheet_creator' ? (
+              !currentUser?.is_premium ? (
+                <div style={{ position: 'relative', width: '100%', maxWidth: '900px', margin: '0 auto', padding: '10px 0' }}>
+                  <button
+                    onClick={goToDashboardWrapper}
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '8px',
+                      background: 'rgba(255, 255, 255, 0.08)',
+                      color: '#94a3b8',
+                      border: '1px solid rgba(255, 255, 255, 0.15)',
+                      padding: '8px 16px',
+                      borderRadius: '8px',
+                      cursor: 'pointer',
+                      fontWeight: 600,
+                      fontSize: '0.9rem',
+                      marginBottom: '20px',
+                      transition: 'all 0.2s ease'
+                    }}
+                  >
+                    ← Back to Dashboard
+                  </button>
+                  <PremiumLocked itemTitle={activeItem.title || 'Component 1: Track Sheet & Logbook'} />
+                </div>
+              ) : (
+                <TracksheetCreator onBack={goToDashboardWrapper} initialMode="generator" />
+              )
+            ) : activeItem.type === 'component1_guide' ? (
+              !currentUser?.is_premium ? (
+                <div style={{ position: 'relative', width: '100%', maxWidth: '900px', margin: '0 auto', padding: '10px 0' }}>
+                  <button
+                    onClick={goToDashboardWrapper}
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '8px',
+                      background: 'rgba(255, 255, 255, 0.08)',
+                      color: '#94a3b8',
+                      border: '1px solid rgba(255, 255, 255, 0.15)',
+                      padding: '8px 16px',
+                      borderRadius: '8px',
+                      cursor: 'pointer',
+                      fontWeight: 600,
+                      fontSize: '0.9rem',
+                      marginBottom: '20px',
+                      transition: 'all 0.2s ease'
+                    }}
+                  >
+                    ← Back to Dashboard
+                  </button>
+                  <PremiumLocked itemTitle={activeItem.title || 'Component 1: Recording Guide & Tick List'} />
+                </div>
+              ) : (
+                <TracksheetCreator onBack={goToDashboardWrapper} initialMode="checklist" />
+              )
+            ) : activeItem.type === 'component2_guide' ? (
+              !currentUser?.is_premium ? (
+                <div style={{ position: 'relative', width: '100%', maxWidth: '900px', margin: '0 auto', padding: '10px 0' }}>
+                  <button
+                    onClick={goToDashboardWrapper}
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '8px',
+                      background: 'rgba(255, 255, 255, 0.08)',
+                      color: '#94a3b8',
+                      border: '1px solid rgba(255, 255, 255, 0.15)',
+                      padding: '8px 16px',
+                      borderRadius: '8px',
+                      cursor: 'pointer',
+                      fontWeight: 600,
+                      fontSize: '0.9rem',
+                      marginBottom: '20px',
+                      transition: 'all 0.2s ease'
+                    }}
+                  >
+                    ← Back to Dashboard
+                  </button>
+                  <PremiumLocked itemTitle={activeItem.title || 'Component 2: Composition Guide & Logbook'} />
+                </div>
+              ) : (
+                <Component2Guide onBack={goToDashboardWrapper} />
+              )
+            ) : activeItem.type === 'lp_quiz' ? (
+              <QuizPlayer quiz={activeItem} onFinish={goToDashboardWrapper} />
+            ) : activeItem.type === 'lp_activity' ? (
+              <WorksheetPlayer activity={activeItem} onFinish={goToDashboardWrapper} />
+            ) : activeItem.type === 'lp_fingerprints' ? (
+              <FingerprintsQuizPlayer onExit={goToDashboardWrapper} />
+            ) : activeItem.type === 'dictionary_selector' ? (
+              <DictionaryQuizSelector
+                onSelectQuiz={(quiz) => handleItemSelectWrapper({ type: 'lp_quiz', ...quiz })}
+                onBack={goToDashboardWrapper}
+              />
+            ) : (activeItem.type === 'component3_exam' || activeItem.type === 'component4_exam') ? (
+              <Component3ExamPlayer
+                examData={activeItem}
+                onExit={goToDashboardWrapper}
+              />
+            ) : activeItem.type === 'lp_synth_quiz' ? (
+              <SynthesizerQuiz quiz={activeItem} onExit={goToDashboardWrapper} />
+            ) : activeItem.type === 'effects_chain_quiz' ? (
+              <EffectsChainQuiz quiz={activeItem} onExit={goToDashboardWrapper} />
+            ) : activeItem.type === 'microphone_placement_quiz' ? (
+              <MicrophonePlacementQuiz quiz={activeItem} onExit={goToDashboardWrapper} />
+            ) : activeItem.type === 'production_technique_quiz' ? (
+              <ProductionTechniqueQuiz quiz={activeItem} onExit={goToDashboardWrapper} />
+            ) : activeItem.type === 'rock_production_quiz' ? (
+              <RockProductionQuiz quiz={activeItem} onExit={goToDashboardWrapper} />
+            ) : activeItem.type === 'sample_chopping_quiz' ? (
+              <SampleChoppingQuiz quiz={activeItem} onExit={goToDashboardWrapper} />
+            ) : activeItem.type === 'premium_locked' ? (
+              <div style={{ position: 'relative', width: '100%', maxWidth: '900px', margin: '0 auto', padding: '10px 0' }}>
+                <button
+                  onClick={goToDashboardWrapper}
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    background: 'rgba(255, 255, 255, 0.05)',
+                    border: '1px solid rgba(255, 255, 255, 0.1)',
+                    color: '#94a3b8',
+                    padding: '8px 16px',
+                    borderRadius: '8px',
+                    cursor: 'pointer',
+                    marginBottom: '15px',
+                    fontSize: '0.9rem',
+                    fontWeight: '500',
+                    transition: 'all 0.2s'
+                  }}
+                  onMouseEnter={(e) => { e.currentTarget.style.color = '#fff'; e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.3)'; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.color = '#94a3b8'; e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)'; }}
+                >
+                  ← Back to Dashboard
+                </button>
+                <PremiumLocked itemTitle={activeItem.title} />
+              </div>
+            ) : (
+              <LessonViewer lesson={activeItem} onBack={goToDashboardWrapper} />
+            )
           ) : (
-            <LessonViewer lesson={activeItem} onBack={goToDashboardWrapper} />
-          )
-        ) : (
-          <Dashboard onNavigate={handleItemSelectWrapper} onOpenProfile={() => setShowProfileSettings(true)} />
-        )}
+            <Dashboard onNavigate={handleItemSelectWrapper} onOpenProfile={() => setShowProfileSettings(true)} />
+          )}
+        </Suspense>
       </main>
 
       {/* Full-screen Welcome Video */}
       {showWelcomeVideo && (
-        <WelcomeVideoModal onClose={handleWelcomeVideoClose} />
+        <Suspense fallback={null}>
+          <WelcomeVideoModal onClose={handleWelcomeVideoClose} />
+        </Suspense>
       )}
 
       {/* Profile Settings Modal */}
       {showProfileSettings && (
-        <ProfileSettings onClose={() => setShowProfileSettings(false)} />
+        <Suspense fallback={null}>
+          <ProfileSettings onClose={() => setShowProfileSettings(false)} />
+        </Suspense>
       )}
 
       {/* Update Password Modal */}
       {needsPasswordReset && (
-        <UpdatePasswordModal />
+        <Suspense fallback={null}>
+          <UpdatePasswordModal />
+        </Suspense>
       )}
     </div>
   );

@@ -1,13 +1,78 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600"><defs>
-        <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
-          <feGaussianBlur in="SourceAlpha" stdDeviation="3"/>
-          <feOffset dx="2" dy="2" result="offsetblur"/>
-          <feComponentTransfer>
-            <feFuncA type="linear" slope="0.5"/>
-          </feComponentTransfer>
-          <feMerge> 
-            <feMergeNode/>
-            <feMergeNode in="SourceGraphic"/> 
-          </feMerge>
-        </filter>
-        </defs><rect x="0" y="0" width="800" height="600" fill="#f8f9fa" /><text x="400" y="300" font-family="Arial, sans-serif" font-size="30" fill="black" text-anchor="middle" font-weight="normal" >Mix Knob Wet Dry.Svg</text><rect x="100" y="100" width="600" height="400" rx="20" fill="none" stroke="#ccc" stroke-width="4" opacity="1" /></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
+  <defs>
+    <linearGradient id="rackGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+    <radialGradient id="knobBody" cx="40%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#475569" />
+      <stop offset="60%" stop-color="#1e293b" />
+      <stop offset="100%" stop-color="#020617" />
+    </radialGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="450" rx="14" fill="#090d16" stroke="#1e293b" stroke-width="2" />
+
+  <!-- Plugin Interface Box -->
+  <rect x="60" y="40" width="680" height="340" rx="12" fill="url(#rackGrad)" stroke="#3b82f6" stroke-width="2" />
+  
+  <!-- Plugin Header Bar -->
+  <rect x="60" y="40" width="680" height="40" rx="12" fill="#1e3a8a" />
+  <circle cx="85" cy="60" r="5" fill="#ef4444" />
+  <circle cx="102" cy="60" r="5" fill="#f59e0b" />
+  <circle cx="119" cy="60" r="5" fill="#10b981" />
+  <text x="400" y="66" fill="#f8fafc" font-family="Inter, sans-serif" font-size="14" font-weight="800" text-anchor="middle">
+    COMPRESSOR PLUGIN: BUILT-IN "MIX / BLEND" CONTROL
+  </text>
+
+  <!-- LEFT: EXPLANATION TEXT -->
+  <g transform="translate(100, 120)">
+    <text x="0" y="30" fill="#38bdf8" font-family="Inter, sans-serif" font-size="16" font-weight="800">Internal Parallel Compression</text>
+    <text x="0" y="65" fill="#e2e8f0" font-family="Inter, sans-serif" font-size="13" font-weight="500">
+      Modern compressor plugins include a dedicated
+    </text>
+    <text x="0" y="88" fill="#60a5fa" font-family="Inter, sans-serif" font-size="15" font-weight="800">
+      "MIX" or "WET / DRY" KNOB
+    </text>
+    <text x="0" y="120" fill="#94a3b8" font-family="Inter, sans-serif" font-size="12" leading="18">
+      • Eliminates the need to create a separate Aux track
+    </text>
+    <text x="0" y="142" fill="#94a3b8" font-family="Inter, sans-serif" font-size="12">
+      • Allows dialling in heavy 20:1 smash...
+    </text>
+    <text x="0" y="164" fill="#94a3b8" font-family="Inter, sans-serif" font-size="12">
+      • ...then rolling back Mix to 30%–40% directly in the insert!
+    </text>
+  </g>
+
+  <!-- RIGHT: THE ROTARY MIX KNOB (DIALLED TO ~35% WET) -->
+  <g transform="translate(560, 210)">
+    <!-- Dial track arc -->
+    <path d="M -70 50 A 85 85 0 1 1 70 50" fill="none" stroke="#334155" stroke-width="8" stroke-linecap="round" />
+    <!-- Active Wet portion (from left to 35%) -->
+    <path d="M -70 50 A 85 85 0 0 1 -35 -75" fill="none" stroke="#3b82f6" stroke-width="8" stroke-linecap="round" />
+
+    <!-- Knob Cap -->
+    <circle cx="0" cy="0" r="65" fill="url(#knobBody)" stroke="#64748b" stroke-width="2" />
+    <circle cx="0" cy="0" r="45" fill="#0f172a" />
+    
+    <!-- White Indicator notch at ~10 o'clock (35% position) -->
+    <line x1="0" y1="0" x2="-28" y2="-50" stroke="#f8fafc" stroke-width="4" stroke-linecap="round" />
+
+    <!-- Labels -->
+    <text x="-75" y="75" fill="#94a3b8" font-family="Inter, sans-serif" font-size="12" font-weight="700">0% DRY</text>
+    <text x="75" y="75" fill="#94a3b8" font-family="Inter, sans-serif" font-size="12" font-weight="700" text-anchor="end">100% WET</text>
+
+    <!-- Digital Readout -->
+    <rect x="-40" y="85" width="80" height="28" rx="6" fill="#020617" stroke="#3b82f6" />
+    <text x="0" y="104" fill="#38bdf8" font-family="'Courier New', monospace" font-size="14" font-weight="900" text-anchor="middle">35% MIX</text>
+
+    <text x="0" y="-85" fill="#f8fafc" font-family="Inter, sans-serif" font-size="14" font-weight="800" text-anchor="middle">MIX / BLEND</text>
+  </g>
+
+  <!-- BOTTOM FOOTER -->
+  <text x="400" y="415" fill="#94a3b8" font-family="Inter, sans-serif" font-size="12" text-anchor="middle">
+    Component 4 Exam Tip: In Logic Pro, Pro Tools, or Ableton Live, look for the 'Mix' or 'Dry/Wet' percentage slider on compressor plugins.
+  </text>
+</svg>

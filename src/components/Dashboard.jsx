@@ -1,13 +1,12 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, lazy, Suspense } from 'react';
 import { useUser } from '../contexts/UserContext';
 import GuruTracker from './GuruTracker';
-import WelcomeVideoModal from './WelcomeVideoModal';
 import CampaignMap from './CampaignMap';
 import campaignData from '../data/campaign_route.json';
-import StudentMarkSchemeModal from './StudentMarkSchemeModal';
 import { getGradeFromPercentage } from './teacherComponentMetrics';
 
-console.log('GuruTracker import:', GuruTracker);
+const WelcomeVideoModal = lazy(() => import('./WelcomeVideoModal'));
+const StudentMarkSchemeModal = lazy(() => import('./StudentMarkSchemeModal'));
 
 const Dashboard = ({ onNavigate, onOpenProfile }) => {
     const { currentUser, userProgress, clearProgress, logout } = useUser();
@@ -402,7 +401,13 @@ const Dashboard = ({ onNavigate, onOpenProfile }) => {
                 </div>
                 <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
                     <button
-                        onClick={() => setMarkSchemeModal({ open: true, component: 'c1' })}
+                        onClick={() => {
+                            if (!currentUser?.is_premium) {
+                                onNavigate({ id: 'component1_checklist', type: 'premium_locked', title: 'Component 1: Mark Scheme Checklist', isPremium: true });
+                                return;
+                            }
+                            setMarkSchemeModal({ open: true, component: 'c1' });
+                        }}
                         style={{
                             background: 'linear-gradient(135deg, #0284c7 0%, #0369a1 100%)',
                             color: '#fff',
@@ -425,7 +430,7 @@ const Dashboard = ({ onNavigate, onOpenProfile }) => {
                         🏆 Mark Scheme Tick List ({courseworkStats.c1Marks}/60m) →
                     </button>
                     <button
-                        onClick={() => onNavigate({ id: 'tracksheet_creator', type: 'tracksheet_creator', title: 'Component 1: Track Sheet & Logbook' })}
+                        onClick={() => onNavigate({ id: 'tracksheet_creator', type: 'tracksheet_creator', title: 'Component 1: Track Sheet & Logbook', isPremium: true })}
                         style={{
                             background: 'linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%)',
                             color: '#fff',
@@ -448,7 +453,7 @@ const Dashboard = ({ onNavigate, onOpenProfile }) => {
                         🎚️ Track Sheet Creator →
                     </button>
                     <button
-                        onClick={() => onNavigate({ id: 'component1_guide', type: 'component1_guide', title: 'Component 1: Recording Guide & Tick List' })}
+                        onClick={() => onNavigate({ id: 'component1_guide', type: 'component1_guide', title: 'Component 1: Recording Guide & Tick List', isPremium: true })}
                         style={{
                             background: 'rgba(16, 185, 129, 0.16)',
                             color: '#6ee7b7',
@@ -511,6 +516,20 @@ const Dashboard = ({ onNavigate, onOpenProfile }) => {
                             <span style={{ 
                                 fontSize: '0.75rem', 
                                 fontWeight: 'bold', 
+                                background: currentUser?.is_premium ? 'rgba(34, 197, 94, 0.2)' : 'rgba(234, 179, 8, 0.2)', 
+                                color: currentUser?.is_premium ? '#4ade80' : '#facc15', 
+                                border: `1px solid ${currentUser?.is_premium ? 'rgba(34, 197, 94, 0.4)' : 'rgba(234, 179, 8, 0.4)'}`,
+                                padding: '2px 8px', 
+                                borderRadius: '6px',
+                                display: 'inline-flex',
+                                alignItems: 'center',
+                                gap: '4px'
+                            }}>
+                                {currentUser?.is_premium ? '✓ PREMIUM UNLOCKED' : '🔒 PREMIUM'}
+                            </span>
+                            <span style={{ 
+                                fontSize: '0.75rem', 
+                                fontWeight: 'bold', 
                                 background: 'rgba(56, 189, 248, 0.2)', 
                                 color: '#38bdf8', 
                                 border: '1px solid rgba(56, 189, 248, 0.4)',
@@ -530,7 +549,13 @@ const Dashboard = ({ onNavigate, onOpenProfile }) => {
                 </div>
                 <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
                     <button
-                        onClick={() => setMarkSchemeModal({ open: true, component: 'c2' })}
+                        onClick={() => {
+                            if (!currentUser?.is_premium) {
+                                onNavigate({ id: 'component2_checklist', type: 'premium_locked', title: 'Component 2: Mark Scheme Checklist', isPremium: true });
+                                return;
+                            }
+                            setMarkSchemeModal({ open: true, component: 'c2' });
+                        }}
                         style={{
                             background: 'linear-gradient(135deg, #0284c7 0%, #0369a1 100%)',
                             color: '#fff',
@@ -553,7 +578,7 @@ const Dashboard = ({ onNavigate, onOpenProfile }) => {
                         🏆 Mark Scheme Tick List ({courseworkStats.c2Marks}/60m) →
                     </button>
                     <button
-                        onClick={() => onNavigate({ id: 'component2_guide', type: 'component2_guide', title: 'Component 2: Composition Guide & Logbook' })}
+                        onClick={() => onNavigate({ id: 'component2_guide', type: 'component2_guide', title: 'Component 2: Composition Guide & Logbook', isPremium: true })}
                         style={{
                             background: 'linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%)',
                             color: '#fff',
@@ -576,6 +601,76 @@ const Dashboard = ({ onNavigate, onOpenProfile }) => {
                         Open Component 2 Guide →
                     </button>
                 </div>
+            </div>
+
+            {/* Sonic Fingerprints Feature Card */}
+            <div style={{
+                background: 'linear-gradient(135deg, rgba(168, 85, 247, 0.12) 0%, rgba(59, 130, 246, 0.08) 100%)',
+                border: '1px solid rgba(168, 85, 247, 0.35)',
+                borderRadius: '16px',
+                padding: '24px',
+                marginBottom: '35px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                flexWrap: 'wrap',
+                gap: '20px',
+                boxShadow: '0 8px 24px rgba(0,0,0,0.2)'
+            }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '18px' }}>
+                    <div style={{
+                        width: '56px',
+                        height: '56px',
+                        borderRadius: '12px',
+                        background: 'linear-gradient(135deg, #8b5cf6, #3b82f6)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        fontSize: '1.8rem',
+                        boxShadow: '0 4px 15px rgba(139, 92, 246, 0.4)'
+                    }}>
+                        🎧
+                    </div>
+                    <div>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px', flexWrap: 'wrap' }}>
+                            <span style={{ fontSize: '0.75rem', fontWeight: 'bold', background: 'rgba(168, 85, 247, 0.25)', color: '#c084fc', padding: '2px 8px', borderRadius: '6px' }}>
+                                CRITICAL LISTENING LAB
+                            </span>
+                            <span style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>
+                                1950s–2010s Iconic Tracks • Capture, EQ, Dynamics, FX & Stereo
+                            </span>
+                        </div>
+                        <h3 style={{ margin: '0 0 6px 0', color: '#fff', fontSize: '1.3rem' }}>
+                            Sonic Fingerprints: Production Analysis Laboratory
+                        </h3>
+                        <p style={{ margin: 0, color: 'var(--text-secondary)', fontSize: '0.92rem', maxWidth: '650px', lineHeight: '1.4' }}>
+                            Analyze the authentic production fingerprints of Elvis, The Beatles, Pink Floyd, Michael Jackson, King Tubby Reggae Dub, New Order Synth-Pop, Dr. Dre, Daft Punk, and 2010s EDM Pop. Test your ear against professional engineering criteria!
+                        </p>
+                    </div>
+                </div>
+                <button
+                    onClick={() => onNavigate({ id: 'lp_fingerprints', type: 'lp_fingerprints', title: 'Sonic Fingerprints: Production Analysis' })}
+                    style={{
+                        background: 'linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%)',
+                        color: '#fff',
+                        border: 'none',
+                        padding: '12px 24px',
+                        borderRadius: '10px',
+                        cursor: 'pointer',
+                        fontWeight: 'bold',
+                        fontSize: '1rem',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '8px',
+                        boxShadow: '0 4px 15px rgba(139, 92, 246, 0.4)',
+                        transition: 'all 0.2s',
+                        whiteSpace: 'nowrap'
+                    }}
+                    onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.04)'}
+                    onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
+                >
+                    Launch Fingerprints Lab →
+                </button>
             </div>
 
             <div id="campaign-map-section">
@@ -682,15 +777,21 @@ const Dashboard = ({ onNavigate, onOpenProfile }) => {
 
             {/* Welcome Video Replay logic */}
             {showWelcomeModal && (
-                <WelcomeVideoModal onClose={() => setShowWelcomeModal(false)} />
+                <Suspense fallback={null}>
+                    <WelcomeVideoModal onClose={() => setShowWelcomeModal(false)} />
+                </Suspense>
             )}
 
             {/* Coursework Mark Scheme Points Interactive Modal */}
-            <StudentMarkSchemeModal
-                isOpen={markSchemeModal.open}
-                initialComponent={markSchemeModal.component}
-                onClose={() => setMarkSchemeModal({ open: false, component: 'c1' })}
-            />
+            {markSchemeModal.open && (
+                <Suspense fallback={null}>
+                    <StudentMarkSchemeModal
+                        isOpen={markSchemeModal.open}
+                        initialComponent={markSchemeModal.component}
+                        onClose={() => setMarkSchemeModal({ open: false, component: 'c1' })}
+                    />
+                </Suspense>
+            )}
         </div>
     );
 };

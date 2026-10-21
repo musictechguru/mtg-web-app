@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { CheckSquare, Square, X, Award, Check, Copy, ExternalLink, HelpCircle } from 'lucide-react';
 import { useUser } from '../contexts/UserContext';
+import PremiumLocked from './PremiumLocked';
 import {
     C1_MARK_SCHEME_ITEMS,
     C2_MARK_SCHEME_ITEMS,
@@ -15,7 +16,7 @@ export default function StudentMarkSchemeModal({
     onClose,
     initialComponent = 'c1' // 'c1' | 'c2'
 }) {
-    const { userProgress, saveComponent1Progress, saveComponent2Progress } = useUser() || {};
+    const { userProgress, saveComponent1Progress, saveComponent2Progress, currentUser } = useUser() || {};
     const [activeComponent, setActiveComponent] = useState(initialComponent);
     const [copied, setCopied] = useState(false);
 
@@ -149,6 +150,61 @@ export default function StudentMarkSchemeModal({
     };
 
     if (!isOpen) return null;
+
+    if (!currentUser?.is_premium) {
+        return (
+            <div style={{
+                position: 'fixed',
+                inset: 0,
+                background: 'rgba(7, 11, 22, 0.88)',
+                backdropFilter: 'blur(8px)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                zIndex: 10000,
+                padding: '20px'
+            }}>
+                <div style={{
+                    background: '#0f172a',
+                    border: '1px solid rgba(255, 255, 255, 0.15)',
+                    borderRadius: '20px',
+                    width: '100%',
+                    maxWidth: '850px',
+                    maxHeight: '90vh',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    boxShadow: '0 24px 60px rgba(0, 0, 0, 0.6)',
+                    position: 'relative',
+                    padding: '30px 20px',
+                    overflowY: 'auto'
+                }}>
+                    <button
+                        onClick={onClose}
+                        aria-label="Close modal"
+                        style={{
+                            position: 'absolute',
+                            top: '20px',
+                            right: '20px',
+                            background: 'rgba(255, 255, 255, 0.1)',
+                            border: 'none',
+                            color: '#cbd5e1',
+                            borderRadius: '50%',
+                            width: '36px',
+                            height: '36px',
+                            cursor: 'pointer',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            zIndex: 10
+                        }}
+                    >
+                        <X size={20} />
+                    </button>
+                    <PremiumLocked itemTitle={activeComponent === 'c1' ? 'Component 1: Mark Scheme Tick List' : 'Component 2: Mark Scheme Tick List'} />
+                </div>
+            </div>
+        );
+    }
 
     const currentItems = activeComponent === 'c1' ? C1_MARK_SCHEME_ITEMS : C2_MARK_SCHEME_ITEMS;
     const currentTicks = activeComponent === 'c1' ? c1Ticks : c2Ticks;

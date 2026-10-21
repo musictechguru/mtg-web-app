@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="100%" height="100%">
+  <rect width="800" height="500" fill="#0f172a" rx="12"/>
+  <rect x="20" y="20" width="760" height="460" fill="none" stroke="#1e293b" stroke-width="2" rx="10"/>
+
+  <text x="400" y="55" fill="#f8fafc" font-size="20" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">Fast Attack Time (0.1 ms - 1 ms): Transient Suppression</text>
+  <text x="400" y="80" fill="#94a3b8" font-size="13" font-family="system-ui, sans-serif" text-anchor="middle">Compressor engages almost immediately, clamping down on initial acoustic strike peaks</text>
+
+  <!-- Left: Original Drum Waveform -->
+  <g transform="translate(50, 110)">
+    <rect width="335" height="260" fill="#1e293b" rx="8" stroke="#334155"/>
+    <text x="167" y="30" fill="#38bdf8" font-size="14" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">Original Drum Hit (Uncompressed)</text>
+
+    <rect x="25" y="50" width="285" height="130" fill="#0f172a" rx="6" stroke="#475569"/>
+    <line x1="35" y1="115" x2="300" y2="115" stroke="#334155" stroke-dasharray="2 2"/>
+    <line x1="35" y1="80" x2="300" y2="80" stroke="#f59e0b" stroke-dasharray="4 4"/>
+    <text x="290" y="75" fill="#f59e0b" font-size="10" font-family="system-ui, sans-serif" text-anchor="end">Threshold</text>
+
+    <path d="M 35 115 L 70 115 L 85 45 L 95 180 L 105 75 L 120 150 L 140 100 L 180 125 L 240 115 L 300 115" fill="none" stroke="#38bdf8" stroke-width="2.5"/>
+    <circle cx="85" cy="45" r="5" fill="#38bdf8"/>
+    <text x="85" y="35" fill="#38bdf8" font-size="11" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">Sharp Peak (+8dB)</text>
+
+    <text x="167" y="200" fill="#cbd5e1" font-size="11" font-family="system-ui, sans-serif" text-anchor="middle">• Intact explosive transient crack</text>
+    <text x="167" y="218" fill="#cbd5e1" font-size="11" font-family="system-ui, sans-serif" text-anchor="middle">• High peak-to-average (crest) factor</text>
+    <text x="167" y="238" fill="#94a3b8" font-size="10" font-family="system-ui, sans-serif" text-anchor="middle">Dynamic range is wide and punchy</text>
+  </g>
+
+  <!-- Right: Fast Attack Waveform -->
+  <g transform="translate(415, 110)">
+    <rect width="335" height="260" fill="#1e293b" rx="8" stroke="#ef4444" stroke-width="2"/>
+    <text x="167" y="30" fill="#ef4444" font-size="14" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">Fast Attack (0.5 ms) Clamped</text>
+
+    <rect x="25" y="50" width="285" height="130" fill="#0f172a" rx="6" stroke="#475569"/>
+    <line x1="35" y1="115" x2="300" y2="115" stroke="#334155" stroke-dasharray="2 2"/>
+    <line x1="35" y1="80" x2="300" y2="80" stroke="#f59e0b" stroke-dasharray="4 4"/>
+    <text x="290" y="75" fill="#f59e0b" font-size="10" font-family="system-ui, sans-serif" text-anchor="end">Threshold</text>
+
+    <path d="M 70 115 L 85 45 L 95 180" fill="none" stroke="#64748b" stroke-width="1.5" stroke-dasharray="2 2"/>
+
+    <path d="M 35 115 L 70 115 L 85 82 L 95 145 L 105 95 L 120 135 L 140 108 L 180 120 L 240 115 L 300 115" fill="none" stroke="#ef4444" stroke-width="3"/>
+    <circle cx="85" cy="82" r="5" fill="#ef4444"/>
+    <text x="85" y="65" fill="#ef4444" font-size="11" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">Crushed Transient</text>
+
+    <text x="167" y="200" fill="#cbd5e1" font-size="11" font-family="system-ui, sans-serif" text-anchor="middle">• Initial strike peak attenuated instantly</text>
+    <text x="167" y="218" fill="#cbd5e1" font-size="11" font-family="system-ui, sans-serif" text-anchor="middle">• Tames aggressive peaks &amp; controls headroom</text>
+    <text x="167" y="238" fill="#fca5a5" font-size="10" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">Trade-off: Drum sounds smaller and pushed back</text>
+  </g>
+
+  <!-- Summary Box -->
+  <rect x="50" y="390" width="700" height="60" fill="#1e293b" rx="6"/>
+  <text x="400" y="415" fill="#f8fafc" font-size="12" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">Use fast attack (&lt; 1 ms) when peak safety or brickwall control is needed (limiting, de-essing, aggressive room mic squash).</text>
+  <text x="400" y="435" fill="#94a3b8" font-size="11" font-family="system-ui, sans-serif" text-anchor="middle">Avoid ultra-fast attack on main snare/kick if you want upfront acoustic "snap" and punch.</text>
+</svg>

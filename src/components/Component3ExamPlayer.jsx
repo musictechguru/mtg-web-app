@@ -10,6 +10,26 @@ import PanningQuiz from './InteractiveQuizzes/PanningQuiz';
 import GraphDrawingQuiz from './InteractiveQuizzes/GraphDrawingQuiz';
 import TimelineQuiz from './InteractiveQuizzes/TimelineQuiz';
 import PremiumLocked from './PremiumLocked';
+import component3FunkData from '../data/component3_funk_exam.json';
+import component3SynthPopData from '../data/component3_synthpop_exam.json';
+import component3HeavyRockData from '../data/component3_heavyrock_exam.json';
+import component3SoulData from '../data/component3_soul_exam.json';
+import component3ReggaeData from '../data/component3_reggae_exam.json';
+import component4EdmData from '../data/component4_edm_exam.json';
+import component4TemplateData from '../data/component4_template_exam.json';
+import component4SpopData from '../data/component4_spop_exam.json';
+
+const EXAM_DATA_MAP = {
+  'c3_funk': component3FunkData,
+  'c3_synthpop': component3SynthPopData,
+  'c3_heavyrock': component3HeavyRockData,
+  'c3_soul': component3SoulData,
+  'c3_reggae': component3ReggaeData,
+  'c4_edm': component4EdmData,
+  'c4_template': component4TemplateData,
+  'c4_spop': component4SpopData,
+  'default': component3FunkData
+};
 
 // --- Sortable Item Component (For// SortableItem component
 function SortableItem({ id, item, onItemChange }) {
@@ -94,7 +114,17 @@ function DroppableBucket({ id, title, children }) {
     );
 }
 
-const Component3ExamPlayer = ({ examData, onExit }) => {
+const Component3ExamPlayer = ({ examData: rawExamData, onExit }) => {
+    const examData = useMemo(() => {
+        if (rawExamData && rawExamData.sections) return rawExamData;
+        const examId = rawExamData?.id || rawExamData;
+        const base = EXAM_DATA_MAP[examId] || EXAM_DATA_MAP['default'];
+        return {
+            ...base,
+            campaignNodeId: rawExamData?.campaignNodeId || base?.campaignNodeId
+        };
+    }, [rawExamData]);
+
     const { currentUser, saveQuizResult, completeCampaignNode } = useUser();
     const [currentSectionIndex, setCurrentSectionIndex] = useState(-1); // -1 = Intro
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);

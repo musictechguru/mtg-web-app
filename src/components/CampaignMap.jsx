@@ -1,20 +1,55 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useUser } from '../contexts/UserContext';
 import campaignData from '../data/campaign_route.json';
 import courseData from '../data/course_data.json';
-import dictionaryData from '../data/dictionary_quizzes.json';
 
 const CampaignMap = ({ onNavigate }) => {
-    const { userProgress } = useUser();
+    const { userProgress, setCampaignCompletedNodes } = useUser();
     const scrollRef = useRef(null);
+
+    const isDev = Boolean(import.meta.env.DEV);
+    const [devMode, setDevMode] = useState(() => {
+        if (!isDev) return false;
+        try {
+            return localStorage.getItem('mtg_dev_mode') === 'true';
+        } catch (e) {
+            return false;
+        }
+    });
+
+    const toggleDevMode = () => {
+        if (!isDev) return;
+        const next = !devMode;
+        setDevMode(next);
+        try {
+            localStorage.setItem('mtg_dev_mode', next ? 'true' : 'false');
+        } catch (e) {}
+    };
+
+    // Keyboard shortcut: Shift + D toggles Dev Mode (ONLY in local development)
+    useEffect(() => {
+        if (!isDev) return;
+        const handleKeyDown = (e) => {
+            if ((e.shiftKey && (e.key === 'D' || e.key === 'd')) || (e.altKey && (e.key === 'D' || e.key === 'd'))) {
+                // Ignore if user is typing in an input or textarea
+                if (['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement?.tagName)) return;
+                e.preventDefault();
+                toggleDevMode();
+            }
+        };
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, [devMode, isDev]);
 
     const completedNodes = userProgress?.campaignCompleted || [];
 
     // Determine unlocked and active status for each node
-    // Rule 1: The first node of any standard round is unlocked
-    // Rule 2: subsequent nodes in a round are unlocked if the previous node IS completed
-    // Rule 3: Exams unlock if the last node of the preceding round is completed
+    // Rule 1: In Dev Mode, ALL nodes are immediately unlocked
+    // Rule 2: The first node of any standard round is unlocked
+    // Rule 3: subsequent nodes in a round are unlocked if the previous node IS completed
+    // Rule 4: Exams unlock if the last node of the preceding round is completed
     const isNodeUnlocked = (rIdx, nIdx) => {
+        if (devMode) return true;
         if (rIdx === 0 && nIdx === 0) return true;
         const round = campaignData.rounds[rIdx];
 
@@ -69,8 +104,8 @@ const CampaignMap = ({ onNavigate }) => {
         }
     }, [firstActiveNodeId]);
 
-    const handleNodeClick = (node, isActive, isCompleted) => {
-        if (!isCompleted && !isActive) return;
+    const handleNodeClick = async (node, isActive, isCompleted) => {
+        if (!devMode && !isCompleted && !isActive) return;
 
         let targetItem = null;
         if (node.type === 'course') {
@@ -84,6 +119,7 @@ const CampaignMap = ({ onNavigate }) => {
                 if (targetItem) break;
             }
         } else if (node.type === 'dictionary') {
+            const { default: dictionaryData } = await import('../data/dictionary_quizzes.json');
             let topicObj = null;
             dictionaryData.volumes.forEach(v => v.parts.forEach(p => p.topics.forEach(t => {
                 if (t.id === node.topicId) topicObj = t;
@@ -155,6 +191,36 @@ const CampaignMap = ({ onNavigate }) => {
         }
     };
 
+    const handleJumpToRound = (rIdx) => {
+        const round = campaignData.rounds[rIdx];
+        if (round && round.nodes[0]) {
+            const el = document.getElementById(`campaign-node-${round.nodes[0].id}`);
+            if (el) {
+                el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }
+    };
+
+    const unlockUpToRound5 = () => {
+        const priorNodes = [];
+        for (let r = 0; r <= 5; r++) {
+            campaignData.rounds[r].nodes.forEach(n => priorNodes.push(n.id));
+        }
+        const round5 = campaignData.rounds[6];
+        if (round5) {
+            round5.nodes.slice(0, 7).forEach(n => priorNodes.push(n.id));
+        }
+        if (setCampaignCompletedNodes) {
+            setCampaignCompletedNodes(priorNodes);
+        }
+    };
+
+    const resetMapProgress = () => {
+        if (setCampaignCompletedNodes) {
+            setCampaignCompletedNodes([]);
+        }
+    };
+
     // We need to group rounds into pairs ("2 stages") followed by an Exam.
     // However, our data is flat: 10 rounds, 5 exams. 
     // They are logically ordered: Vol 1, Vol 2, Exam 1, Vol 3, Vol 4, Exam 2, etc.
@@ -186,10 +252,126 @@ const CampaignMap = ({ onNavigate }) => {
                     </h2>
                     <p style={{ margin: '5px 0 0 0', color: 'var(--text-secondary)', fontSize: '0.9rem' }}>{campaignData.description}</p>
                 </div>
-                <div style={{ fontWeight: 'bold', color: 'var(--accent-success)', background: 'rgba(34, 197, 94, 0.1)', padding: '5px 15px', borderRadius: '20px' }}>
-                    {completedNodes.length} / {campaignData.rounds.reduce((acc, r) => acc + r.nodes.length, 0)} Nodes
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                    {isDev && (
+                        <button
+                            onClick={toggleDevMode}
+                            style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '8px',
+                                background: devMode ? '#eab308' : '#1e293b',
+                                border: devMode ? '2px solid #ca8a04' : '2px solid #eab308',
+                                color: devMode ? '#0f172a' : '#fef08a',
+                                padding: '8px 16px',
+                                borderRadius: '24px',
+                                cursor: 'pointer',
+                                fontWeight: 'bold',
+                                fontSize: '0.88rem',
+                                boxShadow: devMode ? '0 0 15px rgba(234, 179, 8, 0.6)' : '0 2px 6px rgba(0,0,0,0.3)',
+                                transition: 'all 0.2s ease'
+                            }}
+                            title="Toggle Dev Mode (Shortcut: Shift + D) to unlock all nodes"
+                        >
+                            <span>{devMode ? '🔓 Dev Mode: ON (Click to Turn OFF)' : '⚡ Dev Mode: OFF (Click to Enable)'}</span>
+                        </button>
+                    )}
+                    <div style={{ fontWeight: 'bold', color: 'var(--accent-success)', background: 'rgba(34, 197, 94, 0.1)', padding: '5px 15px', borderRadius: '20px' }}>
+                        {completedNodes.length} / {campaignData.rounds.reduce((acc, r) => acc + r.nodes.length, 0)} Nodes
+                    </div>
                 </div>
             </div>
+
+            {devMode && (
+                <div style={{
+                    padding: '12px 20px',
+                    background: 'rgba(234, 179, 8, 0.08)',
+                    borderBottom: '1px solid rgba(234, 179, 8, 0.2)',
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    gap: '12px',
+                    fontSize: '0.85rem'
+                }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#fef08a', fontWeight: 'bold' }}>
+                        <span>🛠️ Dev Mode Active (Shift + D):</span>
+                        <span style={{ fontWeight: 'normal', color: '#cbd5e1' }}>All nodes unlocked &amp; clickable</span>
+                    </div>
+                    <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: '10px' }}>
+                        <select
+                            onChange={(e) => {
+                                if (e.target.value !== '') {
+                                    handleJumpToRound(Number(e.target.value));
+                                }
+                            }}
+                            style={{
+                                background: '#1e293b',
+                                color: '#f8fafc',
+                                border: '1px solid #475569',
+                                padding: '6px 12px',
+                                borderRadius: '6px',
+                                fontSize: '0.8rem',
+                                cursor: 'pointer'
+                            }}
+                            defaultValue=""
+                        >
+                            <option value="" disabled>📍 Jump to Stage / Round...</option>
+                            {campaignData.rounds.map((r, idx) => (
+                                <option key={idx} value={idx}>{r.title}</option>
+                            ))}
+                        </select>
+                        <button
+                            onClick={unlockUpToRound5}
+                            style={{
+                                background: 'rgba(59, 130, 246, 0.2)',
+                                border: '1px solid #3b82f6',
+                                color: '#93c5fd',
+                                padding: '6px 12px',
+                                borderRadius: '6px',
+                                cursor: 'pointer',
+                                fontWeight: 'bold',
+                                fontSize: '0.8rem'
+                            }}
+                            title="Marks Rounds 1-4 and start of Round 5 complete so C4 lessons are unlocked"
+                        >
+                            ⏩ Fast-Forward to Round 5 Lessons
+                        </button>
+                        <button
+                            onClick={resetMapProgress}
+                            style={{
+                                background: 'rgba(239, 68, 68, 0.2)',
+                                border: '1px solid #ef4444',
+                                color: '#fca5a5',
+                                padding: '6px 12px',
+                                borderRadius: '6px',
+                                cursor: 'pointer',
+                                fontWeight: 'bold',
+                                fontSize: '0.8rem'
+                            }}
+                            title="Reset all campaign completed nodes"
+                        >
+                            🔄 Reset Map Progress
+                        </button>
+                        <button
+                            onClick={toggleDevMode}
+                            style={{
+                                background: '#dc2626',
+                                border: '1px solid #ef4444',
+                                color: '#ffffff',
+                                padding: '6px 12px',
+                                borderRadius: '6px',
+                                cursor: 'pointer',
+                                fontWeight: 'bold',
+                                fontSize: '0.8rem'
+                            }}
+                            title="Turn Dev Mode OFF"
+                        >
+                            ✕ Turn Dev Mode OFF
+                        </button>
+                    </div>
+                </div>
+            )}
 
             <div
                 ref={scrollRef}

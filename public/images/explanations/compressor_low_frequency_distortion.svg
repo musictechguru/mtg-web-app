@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="100%" height="100%">
+  <rect width="800" height="500" fill="#0f172a" rx="12"/>
+  <rect x="20" y="20" width="760" height="460" fill="none" stroke="#1e293b" stroke-width="2" rx="10"/>
+
+  <text x="400" y="55" fill="#f8fafc" font-size="20" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">Low Frequency Distortion with Ultra-Fast Release (&lt; 20 ms)</text>
+  <text x="400" y="80" fill="#94a3b8" font-size="13" font-family="system-ui, sans-serif" text-anchor="middle">When compressor release is faster than the sound's wavelength period, it tracks and distorts the wave itself</text>
+
+  <g transform="translate(50, 110)">
+    <rect width="335" height="260" fill="#1e293b" rx="8" stroke="#334155"/>
+    <text x="167" y="30" fill="#38bdf8" font-size="14" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">50 Hz Bass Wave (Period = 20 ms)</text>
+
+    <rect x="25" y="50" width="285" height="130" fill="#0f172a" rx="6" stroke="#475569"/>
+    <path d="M 35 115 Q 100 35 167 115 T 300 115" fill="none" stroke="#38bdf8" stroke-width="3"/>
+    <line x1="35" y1="115" x2="300" y2="115" stroke="#334155" stroke-dasharray="2 2"/>
+
+    <text x="167" y="198" fill="#38bdf8" font-size="12" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">Full Cycle Period = 20 ms</text>
+    <text x="167" y="218" fill="#cbd5e1" font-size="10" font-family="system-ui, sans-serif" text-anchor="middle">A single cycle takes 20 ms to complete</text>
+    <text x="167" y="234" fill="#cbd5e1" font-size="10" font-family="system-ui, sans-serif" text-anchor="middle">Pure fundamental sine tone (clean bass)</text>
+  </g>
+
+  <g transform="translate(415, 110)">
+    <rect width="335" height="260" fill="#1e293b" rx="8" stroke="#ef4444" stroke-width="2"/>
+    <text x="167" y="30" fill="#ef4444" font-size="14" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">Fast Release (5 ms): Waveform Clipped</text>
+
+    <rect x="25" y="50" width="285" height="130" fill="#0f172a" rx="6" stroke="#475569"/>
+    <path d="M 35 115 L 75 75 L 125 75 L 167 115 L 205 155 L 255 155 L 300 115" fill="none" stroke="#ef4444" stroke-width="3"/>
+    <line x1="35" y1="115" x2="300" y2="115" stroke="#334155" stroke-dasharray="2 2"/>
+
+    <text x="167" y="198" fill="#ef4444" font-size="12" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">Intra-Cycle Gain Modulation (THD!)</text>
+    <text x="167" y="218" fill="#cbd5e1" font-size="10" font-family="system-ui, sans-serif" text-anchor="middle">Compressor releases BEFORE wave finishes cycle</text>
+    <text x="167" y="234" fill="#fca5a5" font-size="10" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">Results in buzz, fuzz &amp; bass distortion</text>
+  </g>
+
+  <!-- Summary Box -->
+  <rect x="50" y="390" width="700" height="60" fill="#1e293b" rx="6"/>
+  <text x="400" y="415" fill="#f8fafc" font-size="12" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">Rule of Thumb: For bass guitar and 808 subs, set release to at least 50-100 ms.</text>
+  <text x="400" y="435" fill="#94a3b8" font-size="11" font-family="system-ui, sans-serif" text-anchor="middle">Ultra-fast release times (&lt; 20 ms) modulate the fundamental waveform cycles, causing harmonic distortion.</text>
+</svg>

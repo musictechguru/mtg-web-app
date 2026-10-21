@@ -1,13 +1,67 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600"><defs>
-        <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
-          <feGaussianBlur in="SourceAlpha" stdDeviation="3"/>
-          <feOffset dx="2" dy="2" result="offsetblur"/>
-          <feComponentTransfer>
-            <feFuncA type="linear" slope="0.5"/>
-          </feComponentTransfer>
-          <feMerge> 
-            <feMergeNode/>
-            <feMergeNode in="SourceGraphic"/> 
-          </feMerge>
-        </filter>
-        </defs><rect x="0" y="0" width="800" height="600" fill="#f8f9fa" /><text x="400" y="300" font-family="Arial, sans-serif" font-size="30" fill="black" text-anchor="middle" font-weight="normal" >Parametric Eq Knobs.Svg</text><rect x="100" y="100" width="600" height="400" rx="20" fill="none" stroke="#ccc" stroke-width="4" opacity="1" /></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="100%" height="100%">
+  <rect width="800" height="500" fill="#0f172a" rx="12"/>
+  <rect x="20" y="20" width="760" height="460" fill="none" stroke="#1e293b" stroke-width="2" rx="10"/>
+
+  <text x="400" y="55" fill="#f8fafc" font-size="20" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">The 3 Parameters of a Fully Parametric EQ Band</text>
+  <text x="400" y="80" fill="#94a3b8" font-size="13" font-family="system-ui, sans-serif" text-anchor="middle">Frequency (Hz), Gain (dB), and Q (Bandwidth / Quality Factor)</text>
+
+  <!-- Left: 3 Knobs -->
+  <g transform="translate(50, 110)">
+    <!-- Knob 1: Frequency -->
+    <g transform="translate(0, 0)">
+      <rect width="110" height="150" fill="#1e293b" rx="8" stroke="#334155"/>
+      <text x="55" y="25" fill="#38bdf8" font-size="12" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">1. Frequency</text>
+      <circle cx="55" cy="70" r="30" fill="#0f172a" stroke="#38bdf8" stroke-width="3"/>
+      <line x1="55" y1="70" x2="72" y2="50" stroke="#38bdf8" stroke-width="3.5"/>
+      <text x="55" y="120" fill="#ffffff" font-size="13" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">1.2 kHz</text>
+      <text x="55" y="136" fill="#94a3b8" font-size="9" font-family="system-ui, sans-serif" text-anchor="middle">Center Freq (f0)</text>
+    </g>
+
+    <!-- Knob 2: Gain -->
+    <g transform="translate(125, 0)">
+      <rect width="110" height="150" fill="#1e293b" rx="8" stroke="#334155"/>
+      <text x="55" y="25" fill="#34d399" font-size="12" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">2. Gain</text>
+      <circle cx="55" cy="70" r="30" fill="#0f172a" stroke="#34d399" stroke-width="3"/>
+      <line x1="55" y1="70" x2="75" y2="70" stroke="#34d399" stroke-width="3.5"/>
+      <text x="55" y="120" fill="#ffffff" font-size="13" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">+6.0 dB</text>
+      <text x="55" y="136" fill="#94a3b8" font-size="9" font-family="system-ui, sans-serif" text-anchor="middle">Boost (+) / Cut (-)</text>
+    </g>
+
+    <!-- Knob 3: Q Factor -->
+    <g transform="translate(250, 0)">
+      <rect width="110" height="150" fill="#1e293b" rx="8" stroke="#334155"/>
+      <text x="55" y="25" fill="#f59e0b" font-size="12" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">3. Q Factor</text>
+      <circle cx="55" cy="70" r="30" fill="#0f172a" stroke="#f59e0b" stroke-width="3"/>
+      <line x1="55" y1="70" x2="45" y2="45" stroke="#f59e0b" stroke-width="3.5"/>
+      <text x="55" y="120" fill="#ffffff" font-size="13" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">Q = 2.8</text>
+      <text x="55" y="136" fill="#94a3b8" font-size="9" font-family="system-ui, sans-serif" text-anchor="middle">Bandwidth Width</text>
+    </g>
+  </g>
+
+  <!-- Right: Q Comparison Graph -->
+  <g transform="translate(435, 110)">
+    <rect width="315" height="250" fill="#1e293b" rx="8" stroke="#334155"/>
+    <text x="157" y="28" fill="#f8fafc" font-size="13" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">Effect of Q on Bandwidth (BW = f0 / Q)</text>
+
+    <rect x="20" y="45" width="275" height="135" fill="#0f172a" rx="6" stroke="#475569"/>
+    <!-- Center line -->
+    <line x1="157" y1="45" x2="157" y2="180" stroke="#475569" stroke-width="1" stroke-dasharray="3 3"/>
+    <text x="157" y="172" fill="#94a3b8" font-size="9" font-family="system-ui, sans-serif" text-anchor="middle">1.2 kHz (f0)</text>
+
+    <!-- Broad Q=0.7 (Musical) -->
+    <path d="M 35 150 C 90 150, 120 70, 157 70 C 194 70, 224 150, 280 150" fill="none" stroke="#38bdf8" stroke-width="3"/>
+    <text x="60" y="80" fill="#38bdf8" font-size="10" font-weight="bold" font-family="system-ui, sans-serif">Low Q (0.7): Wide</text>
+
+    <!-- Narrow Q=6.0 (Surgical) -->
+    <path d="M 35 150 L 135 150 Q 150 150 157 70 Q 164 150 179 150 L 280 150" fill="none" stroke="#f59e0b" stroke-width="3"/>
+    <text x="215" y="80" fill="#f59e0b" font-size="10" font-weight="bold" font-family="system-ui, sans-serif">High Q (6.0): Narrow</text>
+
+    <text x="157" y="205" fill="#cbd5e1" font-size="11" font-family="system-ui, sans-serif" text-anchor="middle">• High Q = Narrow notch (removes harsh ring)</text>
+    <text x="157" y="225" fill="#cbd5e1" font-size="11" font-family="system-ui, sans-serif" text-anchor="middle">• Low Q = Broad bell (musical shaping / tone)</text>
+  </g>
+
+  <!-- Bottom Explanatory -->
+  <rect x="50" y="380" width="700" height="70" fill="#1e293b" rx="6"/>
+  <text x="400" y="405" fill="#f8fafc" font-size="13" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">Semi-Parametric vs Fully Parametric: A semi-parametric EQ omits the Q bandwidth knob.</text>
+  <text x="400" y="425" fill="#94a3b8" font-size="11" font-family="system-ui, sans-serif" text-anchor="middle">George Massenburg coined the term "Parametric Equalizer" and published the AES paper in 1972.</text>
+</svg>

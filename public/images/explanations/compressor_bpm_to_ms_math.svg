@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="100%" height="100%">
+  <rect width="800" height="500" fill="#0f172a" rx="12"/>
+  <rect x="20" y="20" width="760" height="460" fill="none" stroke="#1e293b" stroke-width="2" rx="10"/>
+
+  <text x="400" y="55" fill="#f8fafc" font-size="20" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">Tempo-Synced Compressor Timing Formula</text>
+  <text x="400" y="80" fill="#94a3b8" font-size="13" font-family="system-ui, sans-serif" text-anchor="middle">Calculating musical note durations in milliseconds for attack and release settings</text>
+
+  <g transform="translate(60, 110)">
+    <rect width="680" height="85" fill="#1e293b" rx="8" stroke="#38bdf8" stroke-width="1.5"/>
+    <text x="340" y="35" fill="#38bdf8" font-size="16" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">Quarter Note (1 Beat) Duration (ms) = 60,000 / BPM</text>
+    <text x="340" y="60" fill="#cbd5e1" font-size="12" font-family="system-ui, sans-serif" text-anchor="middle">Example at 120 BPM:  60,000 ÷ 120 = 500 ms per quarter note</text>
+  </g>
+
+  <g transform="translate(60, 215)">
+    <rect x="0" y="0" width="155" height="145" fill="#1e293b" rx="6" stroke="#334155"/>
+    <text x="77" y="28" fill="#fbbf24" font-size="13" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">1/4 Note (Beat)</text>
+    <text x="77" y="60" fill="#ffffff" font-size="18" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">500 ms</text>
+    <text x="77" y="85" fill="#94a3b8" font-size="10" font-family="system-ui, sans-serif" text-anchor="middle">Slow bus release</text>
+    <text x="77" y="105" fill="#cbd5e1" font-size="10" font-family="system-ui, sans-serif" text-anchor="middle">Recovers once</text>
+    <text x="77" y="120" fill="#cbd5e1" font-size="10" font-family="system-ui, sans-serif" text-anchor="middle">every bar beat</text>
+
+    <rect x="175" y="0" width="155" height="145" fill="#1e293b" rx="6" stroke="#334155"/>
+    <text x="252" y="28" fill="#34d399" font-size="13" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">1/8 Note</text>
+    <text x="252" y="60" fill="#ffffff" font-size="18" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">250 ms</text>
+    <text x="252" y="85" fill="#94a3b8" font-size="10" font-family="system-ui, sans-serif" text-anchor="middle">Classic mix release</text>
+    <text x="252" y="105" fill="#cbd5e1" font-size="10" font-family="system-ui, sans-serif" text-anchor="middle">Pumps smoothly</text>
+    <text x="252" y="120" fill="#cbd5e1" font-size="10" font-family="system-ui, sans-serif" text-anchor="middle">with drum hits</text>
+
+    <rect x="350" y="0" width="155" height="145" fill="#1e293b" rx="6" stroke="#334155"/>
+    <text x="427" y="28" fill="#38bdf8" font-size="13" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">1/16 Note</text>
+    <text x="427" y="60" fill="#ffffff" font-size="18" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">125 ms</text>
+    <text x="427" y="85" fill="#94a3b8" font-size="10" font-family="system-ui, sans-serif" text-anchor="middle">Snare drum release</text>
+    <text x="427" y="105" fill="#cbd5e1" font-size="10" font-family="system-ui, sans-serif" text-anchor="middle">Lets go before</text>
+    <text x="427" y="120" fill="#cbd5e1" font-size="10" font-family="system-ui, sans-serif" text-anchor="middle">next 16th hit</text>
+
+    <rect x="525" y="0" width="155" height="145" fill="#1e293b" rx="6" stroke="#334155"/>
+    <text x="602" y="28" fill="#a78bfa" font-size="13" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">1/32 Note / Attack</text>
+    <text x="602" y="60" fill="#ffffff" font-size="18" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">62.5 ms</text>
+    <text x="602" y="85" fill="#94a3b8" font-size="10" font-family="system-ui, sans-serif" text-anchor="middle">Attack window</text>
+    <text x="602" y="105" fill="#cbd5e1" font-size="10" font-family="system-ui, sans-serif" text-anchor="middle">Surgical clamp</text>
+    <text x="602" y="120" fill="#cbd5e1" font-size="10" font-family="system-ui, sans-serif" text-anchor="middle">on fast transients</text>
+  </g>
+
+  <!-- Summary Box -->
+  <rect x="50" y="390" width="700" height="60" fill="#1e293b" rx="6"/>
+  <text x="400" y="415" fill="#f8fafc" font-size="12" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">At 90 BPM: 60,000 ÷ 90 = 667 ms per beat. A 300 ms release represents roughly an eighth note.</text>
+  <text x="400" y="435" fill="#94a3b8" font-size="11" font-family="system-ui, sans-serif" text-anchor="middle">Setting compressor release to return to 0 dB right before the next snare strike creates cohesive "groove glue".</text>
+</svg>

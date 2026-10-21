@@ -1,13 +1,68 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600"><defs>
-        <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
-          <feGaussianBlur in="SourceAlpha" stdDeviation="3"/>
-          <feOffset dx="2" dy="2" result="offsetblur"/>
-          <feComponentTransfer>
-            <feFuncA type="linear" slope="0.5"/>
-          </feComponentTransfer>
-          <feMerge> 
-            <feMergeNode/>
-            <feMergeNode in="SourceGraphic"/> 
-          </feMerge>
-        </filter>
-        </defs><rect x="0" y="0" width="800" height="600" fill="#f8f9fa" /><text x="400" y="300" font-family="Arial, sans-serif" font-size="30" fill="black" text-anchor="middle" font-weight="normal" >Chorus Vs Flanger Time.Svg</text><rect x="100" y="100" width="600" height="400" rx="20" fill="none" stroke="#ccc" stroke-width="4" opacity="1" /></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="100%" height="100%">
+  <rect width="800" height="500" fill="#0f172a" rx="12"/>
+  <rect x="20" y="20" width="760" height="460" fill="none" stroke="#1e293b" stroke-width="2" rx="10"/>
+
+  <text x="400" y="55" fill="#f8fafc" font-size="20" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">Time-Based Effects: Delay Times &amp; Modulation Classifications</text>
+  <text x="400" y="80" fill="#94a3b8" font-size="13" font-family="system-ui, sans-serif" text-anchor="middle">Short time delays determine whether an effect creates Comb Filtering, Chorus Thickening, or Discrete Echoes</text>
+
+  <g transform="translate(50, 110)">
+    <!-- Time Bar Scale -->
+    <rect x="0" y="60" width="700" height="18" fill="#1e293b" rx="4"/>
+
+    <!-- Marker 0 ms -->
+    <text x="10" y="50" fill="#94a3b8" font-size="10" font-family="system-ui, sans-serif">0 ms</text>
+    <!-- Marker 10 ms -->
+    <text x="100" y="50" fill="#94a3b8" font-size="10" font-family="system-ui, sans-serif">10 ms</text>
+    <!-- Marker 35 ms -->
+    <text x="240" y="50" fill="#94a3b8" font-size="10" font-family="system-ui, sans-serif">35 ms</text>
+    <!-- Marker 70 ms -->
+    <text x="400" y="50" fill="#94a3b8" font-size="10" font-family="system-ui, sans-serif">70 ms</text>
+    <!-- Marker 150 ms -->
+    <text x="580" y="50" fill="#94a3b8" font-size="10" font-family="system-ui, sans-serif">150 ms+</text>
+
+    <!-- Zone 1: Flanger -->
+    <rect x="0" y="90" width="95" height="140" fill="#1e293b" rx="6" stroke="#f43f5e" stroke-width="2"/>
+    <text x="47" y="115" fill="#f43f5e" font-size="13" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">Flanger</text>
+    <text x="47" y="135" fill="#ffffff" font-size="11" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">0.1 - 7 ms</text>
+    <text x="47" y="160" fill="#cbd5e1" font-size="10" font-family="system-ui, sans-serif" text-anchor="middle">• High feedback</text>
+    <text x="47" y="175" fill="#cbd5e1" font-size="10" font-family="system-ui, sans-serif" text-anchor="middle">• Jet plane sweep</text>
+    <text x="47" y="195" fill="#fca5a5" font-size="9" font-family="system-ui, sans-serif" text-anchor="middle">Comb filtering</text>
+
+    <!-- Zone 2: Chorus -->
+    <rect x="105" y="90" width="130" height="140" fill="#1e293b" rx="6" stroke="#38bdf8" stroke-width="2"/>
+    <text x="170" y="115" fill="#38bdf8" font-size="13" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">Chorus</text>
+    <text x="170" y="135" fill="#ffffff" font-size="11" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">10 - 35 ms</text>
+    <text x="170" y="160" fill="#cbd5e1" font-size="10" font-family="system-ui, sans-serif" text-anchor="middle">• Pitch LFO vibrato</text>
+    <text x="170" y="175" fill="#cbd5e1" font-size="10" font-family="system-ui, sans-serif" text-anchor="middle">• Low/no feedback</text>
+    <text x="170" y="195" fill="#bae6fd" font-size="9" font-family="system-ui, sans-serif" text-anchor="middle">Ensemble width</text>
+
+    <!-- Zone 3: Doubler / Haas Zone -->
+    <rect x="245" y="90" width="150" height="140" fill="#1e293b" rx="6" stroke="#34d399" stroke-width="2"/>
+    <text x="320" y="115" fill="#34d399" font-size="13" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">Doubler / Haas</text>
+    <text x="320" y="135" fill="#ffffff" font-size="11" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">20 - 45 ms</text>
+    <text x="320" y="160" fill="#cbd5e1" font-size="10" font-family="system-ui, sans-serif" text-anchor="middle">• Stereo widening</text>
+    <text x="320" y="175" fill="#cbd5e1" font-size="10" font-family="system-ui, sans-serif" text-anchor="middle">• Precedence effect</text>
+    <text x="320" y="195" fill="#a7f3d0" font-size="9" font-family="system-ui, sans-serif" text-anchor="middle">Simulates double-track</text>
+
+    <!-- Zone 4: Slapback Echo -->
+    <rect x="405" y="90" width="150" height="140" fill="#1e293b" rx="6" stroke="#fbbf24" stroke-width="2"/>
+    <text x="480" y="115" fill="#fbbf24" font-size="13" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">Slapback Delay</text>
+    <text x="480" y="135" fill="#ffffff" font-size="11" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">70 - 140 ms</text>
+    <text x="480" y="160" fill="#cbd5e1" font-size="10" font-family="system-ui, sans-serif" text-anchor="middle">• Single repeat</text>
+    <text x="480" y="175" fill="#cbd5e1" font-size="10" font-family="system-ui, sans-serif" text-anchor="middle">• 1950s Sun Records</text>
+    <text x="480" y="195" fill="#fde68a" font-size="9" font-family="system-ui, sans-serif" text-anchor="middle">Rockabilly / Elvis vocal</text>
+
+    <!-- Zone 5: Rhythmic Delay -->
+    <rect x="565" y="90" width="135" height="140" fill="#1e293b" rx="6" stroke="#a78bfa" stroke-width="2"/>
+    <text x="632" y="115" fill="#a78bfa" font-size="13" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">Echo / Delay</text>
+    <text x="632" y="135" fill="#ffffff" font-size="11" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">150 - 1000+ ms</text>
+    <text x="632" y="160" fill="#cbd5e1" font-size="10" font-family="system-ui, sans-serif" text-anchor="middle">• Tempo-synced (1/4, 1/8)</text>
+    <text x="632" y="175" fill="#cbd5e1" font-size="10" font-family="system-ui, sans-serif" text-anchor="middle">• Ping-pong stereo</text>
+    <text x="632" y="195" fill="#ddd6fe" font-size="9" font-family="system-ui, sans-serif" text-anchor="middle">Distinct rhythmic echoes</text>
+  </g>
+
+  <!-- Summary Box -->
+  <rect x="50" y="380" width="700" height="70" fill="#1e293b" rx="6"/>
+  <text x="400" y="405" fill="#f8fafc" font-size="13" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">Haas Threshold (~35-40ms): Delays below this fuse with the direct sound (temporal fusion);</text>
+  <text x="400" y="425" fill="#94a3b8" font-size="11" font-family="system-ui, sans-serif" text-anchor="middle">delays above this threshold are perceived by human auditory perception as separate, discrete echoes.</text>
+</svg>

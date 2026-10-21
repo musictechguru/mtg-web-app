@@ -11,12 +11,19 @@ export const UserProvider = ({ children }) => {
     const [currentUser, setCurrentUser] = useState(null);
     const [loading, setLoading] = useState(true);
     const [needsPasswordReset, setNeedsPasswordReset] = useState(false);
-    const [userProgress, setUserProgress] = useState({
-        totalScore: 0,
-        quizzesCompleted: 0,
-        history: [],
-        mastery: {},
-        campaignCompleted: []
+    const [userProgress, setUserProgress] = useState(() => {
+        let localCampaign = [];
+        try {
+            const stored = localStorage.getItem('mtg_local_campaign');
+            if (stored) localCampaign = JSON.parse(stored);
+        } catch (e) {}
+        return {
+            totalScore: 0,
+            quizzesCompleted: 0,
+            history: [],
+            mastery: {},
+            campaignCompleted: localCampaign
+        };
     });
 
     // Initialize Auth Listener
@@ -276,8 +283,6 @@ export const UserProvider = ({ children }) => {
     };
 
     const completeCampaignNode = async (nodeId) => {
-        if (!currentUser) return;
-
         const currentCampaign = userProgress.campaignCompleted || [];
         if (currentCampaign.includes(nodeId)) return;
 
@@ -287,6 +292,11 @@ export const UserProvider = ({ children }) => {
         };
 
         setUserProgress(updatedProgress);
+        try {
+            localStorage.setItem('mtg_local_campaign', JSON.stringify(updatedProgress.campaignCompleted));
+        } catch (e) {}
+
+        if (!currentUser) return;
 
         try {
             const { error } = await supabase
@@ -300,6 +310,34 @@ export const UserProvider = ({ children }) => {
             if (error) console.error("Error syncing campaign progress:", error);
         } catch (err) {
             console.error("Unexpected error syncing campaign progress:", err);
+        }
+    };
+
+    const setCampaignCompletedNodes = async (nodesArray) => {
+        const updatedProgress = {
+            ...userProgress,
+            campaignCompleted: nodesArray
+        };
+
+        setUserProgress(updatedProgress);
+        try {
+            localStorage.setItem('mtg_local_campaign', JSON.stringify(nodesArray));
+        } catch (e) {}
+
+        if (!currentUser) return;
+
+        try {
+            const { error } = await supabase
+                .from('user_progress')
+                .upsert({
+                    id: currentUser.id,
+                    progress: updatedProgress,
+                    updated_at: new Date().toISOString()
+                });
+
+            if (error) console.error("Error updating campaign progress array:", error);
+        } catch (err) {
+            console.error("Unexpected error updating campaign progress array:", err);
         }
     };
 
@@ -453,6 +491,7 @@ export const UserProvider = ({ children }) => {
         saveQuizResult,
         clearProgress,
         completeCampaignNode,
+        setCampaignCompletedNodes,
         saveComponent1Progress,
         saveComponent2Progress,
         fetchClassProgress,

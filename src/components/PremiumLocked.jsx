@@ -106,8 +106,8 @@ const PremiumLocked = ({ itemTitle }) => {
                     </div>
                     <div style={{ background: 'rgba(255,255,255,0.05)', padding: '25px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.1)' }}>
                         <div style={{ fontSize: '2rem', marginBottom: '15px' }}>🎚️</div>
-                        <h3 style={{ fontSize: '1.2rem', marginBottom: '10px', color: '#f8fafc' }}>Component 1 Track Sheet</h3>
-                        <p style={{ color: '#94a3b8', fontSize: '0.95rem', lineHeight: '1.5' }}>Generate authentic multi-track session sheets, hardware routing, and complete DAW submission logbooks.</p>
+                        <h3 style={{ fontSize: '1.2rem', marginBottom: '10px', color: '#f8fafc' }}>Component 1 &amp; 2 Toolkit</h3>
+                        <p style={{ color: '#94a3b8', fontSize: '0.95rem', lineHeight: '1.5' }}>Track Sheet Creator, DAW logbook generators, and complete Component 1 &amp; 2 coursework mark scheme tick lists.</p>
                     </div>
                     <div style={{ background: 'rgba(255,255,255,0.05)', padding: '25px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.1)' }}>
                         <div style={{ fontSize: '2rem', marginBottom: '15px' }}>📈</div>

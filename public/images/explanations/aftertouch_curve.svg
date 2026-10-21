@@ -1,13 +1,58 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600"><defs>
-        <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
-          <feGaussianBlur in="SourceAlpha" stdDeviation="3"/>
-          <feOffset dx="2" dy="2" result="offsetblur"/>
-          <feComponentTransfer>
-            <feFuncA type="linear" slope="0.5"/>
-          </feComponentTransfer>
-          <feMerge> 
-            <feMergeNode/>
-            <feMergeNode in="SourceGraphic"/> 
-          </feMerge>
-        </filter>
-        </defs><rect x="0" y="0" width="800" height="600" fill="#f8f9fa" /><text x="400" y="300" font-family="Arial, sans-serif" font-size="30" fill="black" text-anchor="middle" font-weight="normal" >Aftertouch Curve.Svg</text><rect x="100" y="100" width="600" height="400" rx="20" fill="none" stroke="#ccc" stroke-width="4" opacity="1" /></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="100%" height="100%">
+  <rect width="800" height="500" fill="#0f172a" rx="12"/>
+  <rect x="20" y="20" width="760" height="460" fill="none" stroke="#1e293b" stroke-width="2" rx="10"/>
+
+  <text x="400" y="55" fill="#f8fafc" font-size="20" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">MIDI Aftertouch: Velocity vs Channel vs Polyphonic Pressure</text>
+  <text x="400" y="80" fill="#94a3b8" font-size="13" font-family="system-ui, sans-serif" text-anchor="middle">Continuous pressure modulation applied AFTER the initial key-down strike</text>
+
+  <!-- Left: Timeline Curve -->
+  <g transform="translate(50, 110)">
+    <rect width="390" height="260" fill="#1e293b" rx="8" stroke="#334155"/>
+    <text x="195" y="30" fill="#38bdf8" font-size="14" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">Key Strike &amp; Pressure Curve Over Time</text>
+
+    <!-- Axes -->
+    <line x1="50" y1="210" x2="360" y2="210" stroke="#64748b" stroke-width="2"/>
+    <line x1="50" y1="60" x2="50" y2="210" stroke="#64748b" stroke-width="2"/>
+    <text x="350" y="230" fill="#94a3b8" font-size="10" font-family="system-ui, sans-serif">Time</text>
+    <text x="25" y="65" fill="#94a3b8" font-size="10" font-family="system-ui, sans-serif">127</text>
+    <text x="30" y="215" fill="#94a3b8" font-size="10" font-family="system-ui, sans-serif">0</text>
+
+    <!-- Velocity spike -->
+    <line x1="90" y1="210" x2="90" y2="75" stroke="#f43f5e" stroke-width="4"/>
+    <circle cx="90" cy="75" r="5" fill="#f43f5e"/>
+    <text x="90" y="65" fill="#f43f5e" font-size="10" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">Velocity (Strike)</text>
+
+    <!-- Key held, then pressure applied -->
+    <path d="M 90 210 L 150 210 Q 180 210 210 140 Q 240 100 270 120 Q 300 150 330 210" fill="none" stroke="#38bdf8" stroke-width="3"/>
+    <!-- Fill under aftertouch -->
+    <path d="M 150 210 Q 180 210 210 140 Q 240 100 270 120 Q 300 150 330 210 Z" fill="#38bdf8" fill-opacity="0.15"/>
+
+    <text x="250" y="90" fill="#38bdf8" font-size="12" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">Aftertouch Pressure (0-127)</text>
+    <text x="250" y="105" fill="#94a3b8" font-size="10" font-family="system-ui, sans-serif" text-anchor="middle">Controls Vibrato / Filter Cutoff</text>
+  </g>
+
+  <!-- Right: Channel vs Polyphonic -->
+  <g transform="translate(460, 110)">
+    <rect width="290" height="260" fill="#1e293b" rx="8" stroke="#334155"/>
+    <text x="145" y="30" fill="#34d399" font-size="14" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">Types of Aftertouch</text>
+
+    <!-- Box 1: Channel Aftertouch -->
+    <rect x="20" y="55" width="250" height="90" fill="#0f172a" rx="6" stroke="#475569"/>
+    <text x="35" y="80" fill="#fbbf24" font-size="13" font-weight="bold" font-family="system-ui, sans-serif">Channel Aftertouch (Mono)</text>
+    <text x="35" y="100" fill="#cbd5e1" font-size="11" font-family="system-ui, sans-serif">• 1 single pressure sensor under keybed</text>
+    <text x="35" y="118" fill="#cbd5e1" font-size="11" font-family="system-ui, sans-serif">• Highest key pressure affects ALL notes</text>
+    <text x="35" y="134" fill="#94a3b8" font-size="10" font-family="system-ui, sans-serif">Standard in 95% of MIDI keyboards</text>
+
+    <!-- Box 2: Polyphonic Aftertouch -->
+    <rect x="20" y="155" width="250" height="90" fill="#0f172a" rx="6" stroke="#475569"/>
+    <text x="35" y="180" fill="#a78bfa" font-size="13" font-weight="bold" font-family="system-ui, sans-serif">Polyphonic Aftertouch (Poly)</text>
+    <text x="35" y="200" fill="#cbd5e1" font-size="11" font-family="system-ui, sans-serif">• Individual sensor under EACH key</text>
+    <text x="35" y="218" fill="#cbd5e1" font-size="11" font-family="system-ui, sans-serif">• Press C4 for vibrato; E4 &amp; G4 stay dry</text>
+    <text x="35" y="234" fill="#94a3b8" font-size="10" font-family="system-ui, sans-serif">CS-80, Prophet-T8, Hydrasynth</text>
+  </g>
+
+  <!-- Bottom Summary -->
+  <rect x="50" y="390" width="700" height="60" fill="#1e293b" rx="6"/>
+  <text x="400" y="415" fill="#f8fafc" font-size="12" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">MIDI Status Byte: Channel Pressure (0xD0) vs Polyphonic Key Pressure (0xA0, Note#, Value)</text>
+  <text x="400" y="435" fill="#94a3b8" font-size="11" font-family="system-ui, sans-serif" text-anchor="middle">Velocity measures key descent speed on impact; Aftertouch measures sustained finger pressure.</text>
+</svg>

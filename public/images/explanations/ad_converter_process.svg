@@ -1,13 +1,73 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600"><defs>
-        <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
-          <feGaussianBlur in="SourceAlpha" stdDeviation="3"/>
-          <feOffset dx="2" dy="2" result="offsetblur"/>
-          <feComponentTransfer>
-            <feFuncA type="linear" slope="0.5"/>
-          </feComponentTransfer>
-          <feMerge> 
-            <feMergeNode/>
-            <feMergeNode in="SourceGraphic"/> 
-          </feMerge>
-        </filter>
-        </defs><rect x="0" y="0" width="800" height="600" fill="#f8f9fa" /><text x="400" y="300" font-family="Arial, sans-serif" font-size="30" fill="black" text-anchor="middle" font-weight="normal" >Ad Converter Process.Svg</text><rect x="100" y="100" width="600" height="400" rx="20" fill="none" stroke="#ccc" stroke-width="4" opacity="1" /></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="100%" height="100%">
+  <rect width="800" height="500" fill="#0f172a" rx="12"/>
+  <rect x="20" y="20" width="760" height="460" fill="none" stroke="#1e293b" stroke-width="2" rx="10"/>
+
+  <text x="400" y="55" fill="#f8fafc" font-size="20" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">A/D Conversion (ADC) Architecture &amp; Signal Stages</text>
+  <text x="400" y="80" fill="#94a3b8" font-size="13" font-family="system-ui, sans-serif" text-anchor="middle">Continuous Analog Voltage to Discrete Digital Binary Bitstream</text>
+
+  <!-- 4 Blocks Flow -->
+  <!-- Block 1: Continuous Analog -->
+  <g transform="translate(40, 120)">
+    <rect width="150" height="240" fill="#1e293b" rx="8" stroke="#334155"/>
+    <text x="75" y="30" fill="#38bdf8" font-size="13" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">1. Analog Input</text>
+    <rect x="15" y="50" width="120" height="90" fill="#0f172a" rx="6" stroke="#475569"/>
+    <!-- Sine wave -->
+    <path d="M 20 95 Q 45 55 75 95 T 130 95" fill="none" stroke="#38bdf8" stroke-width="3"/>
+    <text x="75" y="170" fill="#cbd5e1" font-size="11" font-family="system-ui, sans-serif" text-anchor="middle">Continuous</text>
+    <text x="75" y="188" fill="#cbd5e1" font-size="11" font-family="system-ui, sans-serif" text-anchor="middle">Voltage Waveform</text>
+    <text x="75" y="215" fill="#64748b" font-size="10" font-family="system-ui, sans-serif" text-anchor="middle">Infinite precision</text>
+  </g>
+
+  <!-- Arrow -->
+  <path d="M 195 240 L 215 240" stroke="#94a3b8" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <!-- Block 2: Anti-Aliasing Filter -->
+  <g transform="translate(225, 120)">
+    <rect width="150" height="240" fill="#1e293b" rx="8" stroke="#334155"/>
+    <text x="75" y="30" fill="#f59e0b" font-size="13" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">2. Anti-Aliasing</text>
+    <rect x="15" y="50" width="120" height="90" fill="#0f172a" rx="6" stroke="#475569"/>
+    <!-- LPF curve -->
+    <path d="M 25 75 L 85 75 Q 105 75 125 130" fill="none" stroke="#f59e0b" stroke-width="3"/>
+    <text x="75" y="170" fill="#cbd5e1" font-size="11" font-family="system-ui, sans-serif" text-anchor="middle">Steep Low-Pass</text>
+    <text x="75" y="188" fill="#cbd5e1" font-size="11" font-family="system-ui, sans-serif" text-anchor="middle">Cutoff at fs / 2</text>
+    <text x="75" y="215" fill="#f59e0b" font-size="10" font-family="system-ui, sans-serif" text-anchor="middle">Prevents foldover</text>
+  </g>
+
+  <!-- Arrow -->
+  <path d="M 380 240 L 400 240" stroke="#94a3b8" stroke-width="3"/>
+
+  <!-- Block 3: Sampling & Holding -->
+  <g transform="translate(410, 120)">
+    <rect width="150" height="240" fill="#1e293b" rx="8" stroke="#334155"/>
+    <text x="75" y="30" fill="#a78bfa" font-size="13" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">3. Sample &amp; Hold</text>
+    <rect x="15" y="50" width="120" height="90" fill="#0f172a" rx="6" stroke="#475569"/>
+    <!-- Sample pulses -->
+    <line x1="30" y1="95" x2="30" y2="70" stroke="#a78bfa" stroke-width="3"/>
+    <line x1="50" y1="95" x2="50" y2="60" stroke="#a78bfa" stroke-width="3"/>
+    <line x1="70" y1="95" x2="70" y2="80" stroke="#a78bfa" stroke-width="3"/>
+    <line x1="90" y1="95" x2="90" y2="120" stroke="#a78bfa" stroke-width="3"/>
+    <line x1="110" y1="95" x2="110" y2="130" stroke="#a78bfa" stroke-width="3"/>
+    <text x="75" y="170" fill="#cbd5e1" font-size="11" font-family="system-ui, sans-serif" text-anchor="middle">Sampling Rate</text>
+    <text x="75" y="188" fill="#cbd5e1" font-size="11" font-family="system-ui, sans-serif" text-anchor="middle">44.1 kHz / 96 kHz</text>
+    <text x="75" y="215" fill="#a78bfa" font-size="10" font-family="system-ui, sans-serif" text-anchor="middle">Time discretization</text>
+  </g>
+
+  <!-- Arrow -->
+  <path d="M 565 240 L 585 240" stroke="#94a3b8" stroke-width="3"/>
+
+  <!-- Block 4: Quantization -->
+  <g transform="translate(595, 120)">
+    <rect width="165" height="240" fill="#1e293b" rx="8" stroke="#334155"/>
+    <text x="82" y="30" fill="#34d399" font-size="13" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">4. Quantization</text>
+    <rect x="15" y="50" width="135" height="90" fill="#0f172a" rx="6" stroke="#475569"/>
+    <!-- Staircase -->
+    <path d="M 25 125 H 45 V 105 H 65 V 75 H 85 V 65 H 105 V 85 H 125 V 115 H 140" fill="none" stroke="#34d399" stroke-width="2.5"/>
+    <text x="82" y="170" fill="#cbd5e1" font-size="11" font-family="system-ui, sans-serif" text-anchor="middle">Bit Depth (24-bit)</text>
+    <text x="82" y="188" fill="#34d399" font-size="11" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">0110 1011 0010...</text>
+    <text x="82" y="215" fill="#94a3b8" font-size="10" font-family="system-ui, sans-serif" text-anchor="middle">16.7M amplitude steps</text>
+  </g>
+
+  <rect x="40" y="390" width="720" height="60" fill="#1e293b" rx="6"/>
+  <text x="400" y="415" fill="#f1f5f9" font-size="13" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">Nyquist Theorem: fs ≥ 2 × fmax &amp; Dynamic Range: 6.02 dB per bit (24-bit ≈ 144 dB)</text>
+  <text x="400" y="435" fill="#94a3b8" font-size="11" font-family="system-ui, sans-serif" text-anchor="middle">Dither is added prior to quantization truncation to eliminate harmonic distortion.</text>
+</svg>

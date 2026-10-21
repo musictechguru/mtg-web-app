@@ -1,13 +1,58 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600"><defs>
-        <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
-          <feGaussianBlur in="SourceAlpha" stdDeviation="3"/>
-          <feOffset dx="2" dy="2" result="offsetblur"/>
-          <feComponentTransfer>
-            <feFuncA type="linear" slope="0.5"/>
-          </feComponentTransfer>
-          <feMerge> 
-            <feMergeNode/>
-            <feMergeNode in="SourceGraphic"/> 
-          </feMerge>
-        </filter>
-        </defs><rect x="0" y="0" width="800" height="600" fill="#f8f9fa" /><text x="400" y="300" font-family="Arial, sans-serif" font-size="30" fill="black" text-anchor="middle" font-weight="normal" >Level Matching Ab.Svg</text><rect x="100" y="100" width="600" height="400" rx="20" fill="none" stroke="#ccc" stroke-width="4" opacity="1" /></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="100%" height="100%">
+  <rect width="800" height="500" fill="#0f172a" rx="12"/>
+  <rect x="20" y="20" width="760" height="460" fill="none" stroke="#1e293b" stroke-width="2" rx="10"/>
+
+  <text x="400" y="55" fill="#f8fafc" font-size="20" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">Level-Matched A/B Testing &amp; Psychoacoustic Bias</text>
+  <text x="400" y="80" fill="#94a3b8" font-size="13" font-family="system-ui, sans-serif" text-anchor="middle">Why un-matched comparisons trick human hearing into preferring louder signals</text>
+
+  <!-- Left: Fletcher-Munson Psychoacoustic Curve -->
+  <g transform="translate(50, 110)">
+    <rect width="335" height="260" fill="#1e293b" rx="8" stroke="#334155"/>
+    <text x="167" y="30" fill="#fbbf24" font-size="14" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">Equal-Loudness (Fletcher-Munson)</text>
+
+    <rect x="25" y="50" width="285" height="130" fill="#0f172a" rx="6" stroke="#475569"/>
+    <!-- Quiet curve (steep bass boost needed) -->
+    <path d="M 35 70 Q 100 150 167 150 Q 230 160 270 120 T 300 130" fill="none" stroke="#64748b" stroke-width="2"/>
+    <text x="50" y="85" fill="#64748b" font-size="9" font-family="system-ui, sans-serif">Low Vol (60 phons)</text>
+
+    <!-- Loud curve (flatter response) -->
+    <path d="M 35 100 Q 100 125 167 130 Q 230 135 270 115 T 300 120" fill="none" stroke="#fbbf24" stroke-width="3"/>
+    <text x="50" y="115" fill="#fbbf24" font-size="9" font-weight="bold" font-family="system-ui, sans-serif">High Vol (85 phons)</text>
+
+    <text x="167" y="200" fill="#fbbf24" font-size="11" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">Louder Sounds Flatter &amp; More Exciting</text>
+    <text x="167" y="218" fill="#cbd5e1" font-size="10" font-family="system-ui, sans-serif" text-anchor="middle">• 1 dB increase makes a plugin sound "richer"</text>
+    <text x="167" y="234" fill="#cbd5e1" font-size="10" font-family="system-ui, sans-serif" text-anchor="middle">• More perceived sub-bass and high-end sparkle</text>
+  </g>
+
+  <!-- Right: Rigorous A/B Comparison -->
+  <g transform="translate(415, 110)">
+    <rect width="335" height="260" fill="#1e293b" rx="8" stroke="#34d399" stroke-width="2"/>
+    <text x="167" y="30" fill="#34d399" font-size="14" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">Level-Matched Comparison</text>
+
+    <g transform="translate(25, 55)">
+      <!-- Track A -->
+      <rect width="130" height="90" fill="#0f172a" rx="4" stroke="#38bdf8"/>
+      <text x="65" y="25" fill="#38bdf8" font-size="12" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">Mix A (Dry)</text>
+      <text x="65" y="50" fill="#f8fafc" font-size="14" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">-14.0 LUFS</text>
+      <text x="65" y="70" fill="#94a3b8" font-size="9" font-family="system-ui, sans-serif" text-anchor="middle">Integrated Loudness</text>
+
+      <!-- Track B -->
+      <g transform="translate(155, 0)">
+        <rect width="130" height="90" fill="#0f172a" rx="4" stroke="#34d399"/>
+        <text x="65" y="25" fill="#34d399" font-size="12" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">Mix B (Processed)</text>
+        <text x="65" y="50" fill="#f8fafc" font-size="14" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">-14.0 LUFS</text>
+        <text x="65" y="70" fill="#94a3b8" font-size="9" font-family="system-ui, sans-serif" text-anchor="middle">Makeup Gain Adjusted</text>
+      </g>
+    </g>
+
+    <text x="167" y="175" fill="#34d399" font-size="11" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">Objective Quality Evaluation</text>
+    <text x="167" y="195" fill="#cbd5e1" font-size="10" font-family="system-ui, sans-serif" text-anchor="middle">• Evaluates actual tone, punch, and clarity</text>
+    <text x="167" y="210" fill="#cbd5e1" font-size="10" font-family="system-ui, sans-serif" text-anchor="middle">• Prevents fooling yourself with compressor makeup</text>
+    <text x="167" y="226" fill="#cbd5e1" font-size="10" font-family="system-ui, sans-serif" text-anchor="middle">• Essential for mastering and reference matching</text>
+  </g>
+
+  <!-- Summary Box -->
+  <rect x="50" y="390" width="700" height="60" fill="#1e293b" rx="6"/>
+  <text x="400" y="415" fill="#f8fafc" font-size="12" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">Always level-match plugin input and output: Louder is ALWAYS perceived as better by human psychoacoustics.</text>
+  <text x="400" y="435" fill="#94a3b8" font-size="11" font-family="system-ui, sans-serif" text-anchor="middle">Use LUFS Integrated or RMS meters to balance within ±0.2 dB before toggling bypass.</text>
+</svg>

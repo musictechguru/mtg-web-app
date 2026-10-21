@@ -1,13 +1,58 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600"><defs>
-        <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
-          <feGaussianBlur in="SourceAlpha" stdDeviation="3"/>
-          <feOffset dx="2" dy="2" result="offsetblur"/>
-          <feComponentTransfer>
-            <feFuncA type="linear" slope="0.5"/>
-          </feComponentTransfer>
-          <feMerge> 
-            <feMergeNode/>
-            <feMergeNode in="SourceGraphic"/> 
-          </feMerge>
-        </filter>
-        </defs><rect x="0" y="0" width="800" height="600" fill="#f8f9fa" /><text x="400" y="300" font-family="Arial, sans-serif" font-size="30" fill="black" text-anchor="middle" font-weight="normal" >Dynamic Eq Vs Multiband.Svg</text><rect x="100" y="100" width="600" height="400" rx="20" fill="none" stroke="#ccc" stroke-width="4" opacity="1" /></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="100%" height="100%">
+  <rect width="800" height="500" fill="#0f172a" rx="12"/>
+  <rect x="20" y="20" width="760" height="460" fill="none" stroke="#1e293b" stroke-width="2" rx="10"/>
+
+  <text x="400" y="55" fill="#f8fafc" font-size="20" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">Dynamic EQ vs Multiband Compression</text>
+  <text x="400" y="80" fill="#94a3b8" font-size="13" font-family="system-ui, sans-serif" text-anchor="middle">Surgical parametric threshold control vs Crossover-split multiband dynamics</text>
+
+  <!-- Left: Dynamic EQ -->
+  <g transform="translate(50, 110)">
+    <rect width="335" height="260" fill="#1e293b" rx="8" stroke="#38bdf8" stroke-width="2"/>
+    <text x="167" y="30" fill="#38bdf8" font-size="15" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">Dynamic EQ</text>
+    <text x="167" y="48" fill="#94a3b8" font-size="11" font-family="system-ui, sans-serif" text-anchor="middle">e.g. FabFilter Pro-MB / Oxford Dynamic EQ</text>
+
+    <rect x="25" y="60" width="285" height="110" fill="#0f172a" rx="6" stroke="#475569"/>
+    <!-- Flat baseline -->
+    <line x1="35" y1="115" x2="295" y2="115" stroke="#64748b" stroke-width="2"/>
+    <!-- Dynamic Bell -->
+    <path d="M 120 115 Q 167 45 214 115" fill="none" stroke="#38bdf8" stroke-width="3"/>
+    <path d="M 120 115 Q 167 145 214 115" fill="none" stroke="#38bdf8" stroke-width="3" stroke-dasharray="3 3"/>
+    <!-- Arrow indicating dynamic expansion/cut -->
+    <line x1="167" y1="75" x2="167" y2="135" stroke="#f43f5e" stroke-width="2"/>
+    <text x="167" y="105" fill="#ffffff" font-size="10" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">Dynamic Cut</text>
+
+    <text x="167" y="195" fill="#38bdf8" font-size="11" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">Zero Crossover Filters Required</text>
+    <text x="167" y="212" fill="#cbd5e1" font-size="10" font-family="system-ui, sans-serif" text-anchor="middle">• Modulates individual bell gain via threshold</text>
+    <text x="167" y="228" fill="#cbd5e1" font-size="10" font-family="system-ui, sans-serif" text-anchor="middle">• No phase shift when threshold is not triggered</text>
+    <text x="167" y="244" fill="#cbd5e1" font-size="10" font-family="system-ui, sans-serif" text-anchor="middle">• Pinpoint precision for de-essing &amp; resonant taming</text>
+  </g>
+
+  <!-- Right: Multiband Compressor -->
+  <g transform="translate(415, 110)">
+    <rect width="335" height="260" fill="#1e293b" rx="8" stroke="#a78bfa" stroke-width="2"/>
+    <text x="167" y="30" fill="#a78bfa" font-size="15" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">Multiband Compressor</text>
+    <text x="167" y="48" fill="#94a3b8" font-size="11" font-family="system-ui, sans-serif" text-anchor="middle">e.g. Waves C4 / TC Electronic Master X</text>
+
+    <rect x="25" y="60" width="285" height="110" fill="#0f172a" rx="6" stroke="#475569"/>
+    <!-- 3 Crossover Bins -->
+    <rect x="35" y="80" width="75" height="70" fill="#38bdf8" fill-opacity="0.2" stroke="#38bdf8"/>
+    <rect x="115" y="70" width="90" height="80" fill="#fbbf24" fill-opacity="0.2" stroke="#fbbf24"/>
+    <rect x="210" y="85" width="85" height="65" fill="#34d399" fill-opacity="0.2" stroke="#34d399"/>
+    <text x="72" y="120" fill="#38bdf8" font-size="10" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">LOW</text>
+    <text x="160" y="115" fill="#fbbf24" font-size="10" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">MID</text>
+    <text x="252" y="122" fill="#34d399" font-size="10" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">HIGH</text>
+    <!-- Crossover markers -->
+    <line x1="112" y1="65" x2="112" y2="160" stroke="#f43f5e" stroke-width="2" stroke-dasharray="2 2"/>
+    <line x1="208" y1="65" x2="208" y2="160" stroke="#f43f5e" stroke-width="2" stroke-dasharray="2 2"/>
+
+    <text x="167" y="195" fill="#a78bfa" font-size="11" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">Full Frequency Band Splitting</text>
+    <text x="167" y="212" fill="#cbd5e1" font-size="10" font-family="system-ui, sans-serif" text-anchor="middle">• Audio split by steep crossover filters (18-24dB/oct)</text>
+    <text x="167" y="228" fill="#cbd5e1" font-size="10" font-family="system-ui, sans-serif" text-anchor="middle">• Crossovers induce continuous phase rotation</text>
+    <text x="167" y="244" fill="#cbd5e1" font-size="10" font-family="system-ui, sans-serif" text-anchor="middle">• Best for broad macro-dynamic tonal control</text>
+  </g>
+
+  <!-- Summary Box -->
+  <rect x="50" y="390" width="700" height="60" fill="#1e293b" rx="6"/>
+  <text x="400" y="415" fill="#f8fafc" font-size="12" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">Dynamic EQ is preferred for surgical problems (vocal harshness, guitar palm mutes) due to zero crossover coloration.</text>
+  <text x="400" y="435" fill="#94a3b8" font-size="11" font-family="system-ui, sans-serif" text-anchor="middle">Multiband compressors excel at mastering and controlling overall acoustic energy in distinct frequency registers.</text>
+</svg>

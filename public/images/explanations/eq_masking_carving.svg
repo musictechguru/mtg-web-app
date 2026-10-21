@@ -1,13 +1,26 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600"><defs>
-        <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
-          <feGaussianBlur in="SourceAlpha" stdDeviation="3"/>
-          <feOffset dx="2" dy="2" result="offsetblur"/>
-          <feComponentTransfer>
-            <feFuncA type="linear" slope="0.5"/>
-          </feComponentTransfer>
-          <feMerge> 
-            <feMergeNode/>
-            <feMergeNode in="SourceGraphic"/> 
-          </feMerge>
-        </filter>
-        </defs><rect x="0" y="0" width="800" height="600" fill="#f8f9fa" /><text x="400" y="300" font-family="Arial, sans-serif" font-size="30" fill="black" text-anchor="middle" font-weight="normal" >Eq Masking Carving.Svg</text><rect x="100" y="100" width="600" height="400" rx="20" fill="none" stroke="#ccc" stroke-width="4" opacity="1" /></svg>
+<svg width="400" height="250" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .text { font-family: sans-serif; fill: #eee; font-size: 12px; }
+    </style>
+  </defs>
+  <rect width="100%" height="100%" fill="#1e1e1e" />
+  
+  <!-- Frequency Axis -->
+  <line x1="20" y1="200" x2="380" y2="200" stroke="#666" />
+  
+  <!-- Sound A (Loud - Guitar?) -->
+  <path d="M50,200 C100,200 120,50 180,50 S260,200 300,200" fill="none" stroke="#3b82f6" stroke-width="3" />
+  <text x="180" y="40" class="text" fill="#3b82f6" text-anchor="middle">Loud Instrument (Masker)</text>
+  
+  <!-- Sound B (Quiet - Vocal?) -->
+  <path d="M120,200 C140,200 160,100 180,100 S220,200 240,200" fill="none" stroke="#ef4444" stroke-width="2" stroke-dasharray="4"/>
+  <text x="180" y="90" class="text" fill="#ef4444" text-anchor="middle">Quiet Instrument (Masked)</text>
+  
+  <!-- Masking Zone -->
+  <path d="M120,200 C140,200 160,100 180,100 S220,200 240,200" fill="rgba(255, 0, 0, 0.2)" />
+  <text x="180" y="150" class="text" fill="#fff" text-anchor="middle" font-weight="bold">MASKED / HIDDEN</text>
+  
+  <text x="200" y="230" class="text" fill="#aaa" text-anchor="middle">Conflict Range</text>
+
+</svg>

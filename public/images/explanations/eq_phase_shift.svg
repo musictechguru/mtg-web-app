@@ -1,13 +1,42 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600"><defs>
-        <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
-          <feGaussianBlur in="SourceAlpha" stdDeviation="3"/>
-          <feOffset dx="2" dy="2" result="offsetblur"/>
-          <feComponentTransfer>
-            <feFuncA type="linear" slope="0.5"/>
-          </feComponentTransfer>
-          <feMerge> 
-            <feMergeNode/>
-            <feMergeNode in="SourceGraphic"/> 
-          </feMerge>
-        </filter>
-        </defs><rect x="0" y="0" width="800" height="600" fill="#f8f9fa" /><text x="400" y="300" font-family="Arial, sans-serif" font-size="30" fill="black" text-anchor="middle" font-weight="normal" >Eq Phase Shift.Svg</text><rect x="100" y="100" width="600" height="400" rx="20" fill="none" stroke="#ccc" stroke-width="4" opacity="1" /></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="100%" height="100%">
+  <rect width="800" height="500" fill="#0f172a" rx="12"/>
+  <rect x="20" y="20" width="760" height="460" fill="none" stroke="#1e293b" stroke-width="2" rx="10"/>
+
+  <text x="400" y="55" fill="#f8fafc" font-size="20" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">Equaliser Phase Shift in Minimum Phase Filters</text>
+  <text x="400" y="80" fill="#94a3b8" font-size="13" font-family="system-ui, sans-serif" text-anchor="middle">Magnitude response change inherently causes frequency-dependent phase delay</text>
+
+  <!-- Top Pane: Magnitude Boost -->
+  <g transform="translate(60, 110)">
+    <rect width="680" height="120" fill="#1e293b" rx="6" stroke="#334155"/>
+    <text x="20" y="25" fill="#38bdf8" font-size="12" font-weight="bold" font-family="system-ui, sans-serif">Magnitude Response (dB Boost)</text>
+    <!-- Grid -->
+    <line x1="50" y1="80" x2="650" y2="80" stroke="#475569" stroke-width="1.5"/>
+    <line x1="350" y1="30" x2="350" y2="110" stroke="#475569" stroke-dasharray="3 3"/>
+    <text x="350" y="105" fill="#94a3b8" font-size="9" font-family="system-ui, sans-serif" text-anchor="middle">1 kHz (f0)</text>
+
+    <!-- Boost curve -->
+    <path d="M 50 80 C 220 80, 280 40, 350 40 C 420 40, 480 80, 650 80" fill="none" stroke="#38bdf8" stroke-width="3.5"/>
+    <text x="450" y="50" fill="#38bdf8" font-size="11" font-weight="bold" font-family="system-ui, sans-serif">+6 dB Boost</text>
+  </g>
+
+  <!-- Bottom Pane: Phase Shift Curve -->
+  <g transform="translate(60, 245)">
+    <rect width="680" height="120" fill="#1e293b" rx="6" stroke="#334155"/>
+    <text x="20" y="25" fill="#f43f5e" font-size="12" font-weight="bold" font-family="system-ui, sans-serif">Phase Response (Degrees Shift)</text>
+    <!-- Grid -->
+    <line x1="50" y1="65" x2="650" y2="65" stroke="#475569" stroke-width="1.5"/>
+    <line x1="350" y1="20" x2="350" y2="110" stroke="#475569" stroke-dasharray="3 3"/>
+    <text x="350" y="105" fill="#94a3b8" font-size="9" font-family="system-ui, sans-serif" text-anchor="middle">1 kHz (0° Shift at Peak)</text>
+
+    <!-- Phase S-curve: positive phase lead before f0, crossing 0, negative lag after -->
+    <path d="M 50 65 C 180 65, 230 35, 280 35 C 315 35, 335 65, 350 65 C 365 65, 385 95, 420 95 C 470 95, 520 65, 650 65" fill="none" stroke="#f43f5e" stroke-width="3"/>
+
+    <text x="280" y="28" fill="#34d399" font-size="10" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">+45° Phase Lead</text>
+    <text x="420" y="110" fill="#f43f5e" font-size="10" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">-45° Phase Lag</text>
+  </g>
+
+  <!-- Summary Box -->
+  <rect x="60" y="380" width="680" height="70" fill="#1e293b" rx="6"/>
+  <text x="400" y="405" fill="#f8fafc" font-size="13" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">Minimum Phase EQs alter time/phase alignment around filter cutoff or boost frequencies.</text>
+  <text x="400" y="425" fill="#94a3b8" font-size="11" font-family="system-ui, sans-serif" text-anchor="middle">Linear Phase EQs prevent phase shift but introduce latency and pre-ringing artifacts around transients.</text>
+</svg>

@@ -186,7 +186,7 @@ const TimetableBuilder = ({ onNavigate, onBack }) => {
   // Launch Tracksheet Creator
   const handleLaunchTracksheet = () => {
     if (onNavigate) {
-      onNavigate({ type: 'tracksheet_creator', title: 'Component 1: Track Sheet & Logbook' });
+      onNavigate({ id: 'tracksheet_creator', type: 'tracksheet_creator', title: 'Component 1: Track Sheet & Logbook', isPremium: true });
     }
   };
 

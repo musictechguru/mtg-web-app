@@ -1,13 +1,65 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600"><defs>
-        <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
-          <feGaussianBlur in="SourceAlpha" stdDeviation="3"/>
-          <feOffset dx="2" dy="2" result="offsetblur"/>
-          <feComponentTransfer>
-            <feFuncA type="linear" slope="0.5"/>
-          </feComponentTransfer>
-          <feMerge> 
-            <feMergeNode/>
-            <feMergeNode in="SourceGraphic"/> 
-          </feMerge>
-        </filter>
-        </defs><rect x="0" y="0" width="800" height="600" fill="#f8f9fa" /><text x="400" y="300" font-family="Arial, sans-serif" font-size="30" fill="black" text-anchor="middle" font-weight="normal" >Cable Capacitance Filter.Svg</text><rect x="100" y="100" width="600" height="400" rx="20" fill="none" stroke="#ccc" stroke-width="4" opacity="1" /></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="100%" height="100%">
+  <rect width="800" height="500" fill="#0f172a" rx="12"/>
+  <rect x="20" y="20" width="760" height="460" fill="none" stroke="#1e293b" stroke-width="2" rx="10"/>
+
+  <text x="400" y="55" fill="#f8fafc" font-size="20" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">Guitar Cable Capacitance &amp; High-Frequency Roll-Off</text>
+  <text x="400" y="80" fill="#94a3b8" font-size="13" font-family="system-ui, sans-serif" text-anchor="middle">How long unbalanced cables form an RC Low-Pass Filter with high-impedance pickups</text>
+
+  <!-- Left: Schematic Circuit Model -->
+  <g transform="translate(50, 110)">
+    <rect width="335" height="260" fill="#1e293b" rx="8" stroke="#334155"/>
+    <text x="167" y="30" fill="#38bdf8" font-size="14" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">Equivalent RC Low-Pass Circuit</text>
+
+    <rect x="25" y="50" width="285" height="120" fill="#0f172a" rx="6" stroke="#475569"/>
+    <!-- Guitar Pickup (Hi-Z Source) -->
+    <circle cx="65" cy="110" r="18" fill="#1e293b" stroke="#38bdf8" stroke-width="2"/>
+    <text x="65" y="114" fill="#38bdf8" font-size="9" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">Hi-Z</text>
+    <text x="65" y="140" fill="#94a3b8" font-size="8" font-family="system-ui, sans-serif" text-anchor="middle">Rsource (15kΩ)</text>
+
+    <line x1="83" y1="110" x2="135" y2="110" stroke="#94a3b8" stroke-width="2"/>
+    <!-- Cable Resistance -->
+    <rect x="135" y="102" width="30" height="16" fill="#1e293b" stroke="#cbd5e1" stroke-width="1.5"/>
+    <text x="150" y="96" fill="#cbd5e1" font-size="8" font-family="system-ui, sans-serif" text-anchor="middle">Rcable</text>
+
+    <line x1="165" y1="110" x2="225" y2="110" stroke="#94a3b8" stroke-width="2"/>
+    <!-- Cable Capacitance to Ground -->
+    <line x1="200" y1="110" x2="200" y2="128" stroke="#f43f5e" stroke-width="2"/>
+    <line x1="190" y1="128" x2="210" y2="128" stroke="#f43f5e" stroke-width="2"/>
+    <line x1="190" y1="134" x2="210" y2="134" stroke="#f43f5e" stroke-width="2"/>
+    <line x1="200" y1="134" x2="200" y2="150" stroke="#f43f5e" stroke-width="2"/>
+    <line x1="194" y1="150" x2="206" y2="150" stroke="#94a3b8" stroke-width="2"/>
+    <text x="235" y="133" fill="#f43f5e" font-size="9" font-weight="bold" font-family="system-ui, sans-serif">C (pF)</text>
+
+    <!-- Output to Amp -->
+    <circle cx="275" cy="110" r="14" fill="#1e293b" stroke="#34d399" stroke-width="2"/>
+    <text x="275" y="114" fill="#34d399" font-size="9" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">AMP</text>
+
+    <text x="167" y="195" fill="#f8fafc" font-size="11" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">Capacitance Shunts High Frequencies to Ground</text>
+    <text x="167" y="215" fill="#cbd5e1" font-size="10" font-family="system-ui, sans-serif" text-anchor="middle">• Standard cable: ~30-40 pF per foot (100 pF/m)</text>
+    <text x="167" y="235" fill="#cbd5e1" font-size="10" font-family="system-ui, sans-serif" text-anchor="middle">• 30-foot cable = ~1,000 pF total capacitance</text>
+  </g>
+
+  <!-- Right: Frequency Response Comparison -->
+  <g transform="translate(415, 110)">
+    <rect width="335" height="260" fill="#1e293b" rx="8" stroke="#334155"/>
+    <text x="167" y="30" fill="#34d399" font-size="14" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">Frequency Loss vs Cable Length</text>
+
+    <rect x="25" y="50" width="285" height="120" fill="#0f172a" rx="6" stroke="#475569"/>
+    <!-- Short Cable (Flat) -->
+    <path d="M 35 80 L 220 80 Q 260 80 295 100" fill="none" stroke="#34d399" stroke-width="3"/>
+    <text x="75" y="73" fill="#34d399" font-size="10" font-weight="bold" font-family="system-ui, sans-serif">10ft (3m) Low-Loss</text>
+
+    <!-- Long Cable (Roll-off) -->
+    <path d="M 35 80 L 140 80 Q 180 80 220 115 T 295 155" fill="none" stroke="#ef4444" stroke-width="3"/>
+    <text x="130" y="110" fill="#ef4444" font-size="10" font-weight="bold" font-family="system-ui, sans-serif">30ft (10m) Heavy Roll-off</text>
+
+    <text x="167" y="195" fill="#34d399" font-size="11" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">Audible Loss of Sparkle &amp; "Tone Sucking"</text>
+    <text x="167" y="215" fill="#cbd5e1" font-size="10" font-family="system-ui, sans-serif" text-anchor="middle">• Audible roll-off starting at 3 kHz - 5 kHz</text>
+    <text x="167" y="235" fill="#cbd5e1" font-size="10" font-family="system-ui, sans-serif" text-anchor="middle">• Solution: DI Box / Buffer pedal (converts to Low-Z)</text>
+  </g>
+
+  <!-- Summary Box -->
+  <rect x="50" y="390" width="700" height="60" fill="#1e293b" rx="6"/>
+  <text x="400" y="415" fill="#f8fafc" font-size="12" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">Low-Z signals (e.g. active DI box, balanced mic cables 150-600Ω) can run 100+ meters without HF loss.</text>
+  <text x="400" y="435" fill="#94a3b8" font-size="11" font-family="system-ui, sans-serif" text-anchor="middle">Passive guitar pickups (10k-50kΩ high impedance) lose noticeable high-end chime over runs longer than 5-6 meters.</text>
+</svg>

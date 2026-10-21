@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad2" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e1b4b" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="450" rx="14" fill="url(#bgGrad2)" stroke="#312e81" stroke-width="2" />
+
+  <!-- Header -->
+  <text x="400" y="42" fill="#f8fafc" font-family="Inter, sans-serif" font-size="20" font-weight="800" text-anchor="middle">
+    PARALLEL COMPRESSION ON VOCALS: UPWARD DYNAMICS
+  </text>
+  <text x="400" y="66" fill="#c7d2fe" font-family="Inter, sans-serif" font-size="13" text-anchor="middle">
+    Bringing Out Intimacy, Breath &amp; Consonants without Suffocating Loud Phrases
+  </text>
+
+  <!-- GRAPH BOX: Input vs Output Levels -->
+  <g transform="translate(80, 95)">
+    <rect width="640" height="260" rx="10" fill="#030712" stroke="#4338ca" stroke-width="2" />
+
+    <!-- Grid lines -->
+    <line x1="80" y1="40" x2="600" y2="40" stroke="#1e293b" />
+    <line x1="80" y1="100" x2="600" y2="100" stroke="#1e293b" />
+    <line x1="80" y1="160" x2="600" y2="160" stroke="#1e293b" />
+    <line x1="80" y1="220" x2="600" y2="220" stroke="#1e293b" />
+
+    <text x="65" y="45" fill="#f87171" font-family="'Courier New', monospace" font-size="11" font-weight="700" text-anchor="end">0 dBFS</text>
+    <text x="65" y="105" fill="#f59e0b" font-family="'Courier New', monospace" font-size="11" font-weight="700" text-anchor="end">-12 dBFS</text>
+    <text x="65" y="165" fill="#38bdf8" font-family="'Courier New', monospace" font-size="11" font-weight="700" text-anchor="end">-24 dBFS</text>
+    <text x="65" y="225" fill="#94a3b8" font-family="'Courier New', monospace" font-size="11" font-weight="700" text-anchor="end">-40 dBFS</text>
+
+    <!-- Quiet phrase region (Whisper) -->
+    <rect x="120" y="30" width="180" height="200" fill="#3b82f6" opacity="0.1" rx="6" />
+    <text x="210" y="20" fill="#60a5fa" font-family="Inter, sans-serif" font-size="11" font-weight="700" text-anchor="middle">Quiet Whispered Phrase</text>
+
+    <!-- Loud phrase region (Belting Chorus) -->
+    <rect x="360" y="30" width="180" height="200" fill="#ef4444" opacity="0.1" rx="6" />
+    <text x="450" y="20" fill="#f87171" font-family="Inter, sans-serif" font-size="11" font-weight="700" text-anchor="middle">Loud Belting Chorus</text>
+
+    <!-- DRY VOCAL ENVELOPE (Blue Curve) -->
+    <path d="M 90 210 Q 150 200 210 180 T 320 210 Q 380 50 450 45 T 580 200" fill="none" stroke="#60a5fa" stroke-width="2.5" />
+    <text x="590" y="180" fill="#60a5fa" font-family="Inter, sans-serif" font-size="10" font-weight="700">Dry Vocal</text>
+
+    <!-- PARALLEL BOOSTED ENVELOPE (Green Glow Curve) -->
+    <!-- The quiet part is boosted by +12 dB! But the loud part is only +1 dB higher! -->
+    <path d="M 90 140 Q 150 135 210 120 T 320 140 Q 380 46 450 42 T 580 145" fill="none" stroke="#10b981" stroke-width="3" stroke-dasharray="4,4" />
+    <text x="590" y="140" fill="#10b981" font-family="Inter, sans-serif" font-size="10" font-weight="800">Parallel Sum</text>
+
+    <!-- Upward Arrow showing lift in the quiet section -->
+    <line x1="210" y1="175" x2="210" y2="130" stroke="#34d399" stroke-width="3" />
+    <polygon points="210,123 205,133 215,133" fill="#34d399" />
+    <text x="210" y="155" fill="#34d399" font-family="Inter, sans-serif" font-size="11" font-weight="800" text-anchor="middle">+10 dB Lift!</text>
+
+    <!-- Minimal change indicator on loud section -->
+    <text x="450" y="70" fill="#e2e8f0" font-family="Inter, sans-serif" font-size="11" font-weight="700" text-anchor="middle">Loud peaks are NOT crushed</text>
+  </g>
+
+  <!-- BOTTOM EXPLANATION -->
+  <text x="400" y="390" fill="#f8fafc" font-family="Inter, sans-serif" font-size="13" font-weight="700" text-anchor="middle">
+    Standard downward compression pulls the loud peaks down.
+  </text>
+  <text x="400" y="410" fill="#34d399" font-family="Inter, sans-serif" font-size="13" font-weight="800" text-anchor="middle">
+    Parallel compression acts as "Upward Compression": it lifts low-level consonants and room emotion while leaving loud notes untouched!
+  </text>
+</svg>

@@ -1,13 +1,80 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600"><defs>
-        <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
-          <feGaussianBlur in="SourceAlpha" stdDeviation="3"/>
-          <feOffset dx="2" dy="2" result="offsetblur"/>
-          <feComponentTransfer>
-            <feFuncA type="linear" slope="0.5"/>
-          </feComponentTransfer>
-          <feMerge> 
-            <feMergeNode/>
-            <feMergeNode in="SourceGraphic"/> 
-          </feMerge>
-        </filter>
-        </defs><rect x="0" y="0" width="800" height="600" fill="#f8f9fa" /><text x="400" y="300" font-family="Arial, sans-serif" font-size="30" fill="black" text-anchor="middle" font-weight="normal" >Channel Strip Eq.Svg</text><rect x="100" y="100" width="600" height="400" rx="20" fill="none" stroke="#ccc" stroke-width="4" opacity="1" /></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="100%" height="100%">
+  <rect width="800" height="500" fill="#0f172a" rx="12"/>
+  <rect x="20" y="20" width="760" height="460" fill="none" stroke="#1e293b" stroke-width="2" rx="10"/>
+
+  <text x="400" y="55" fill="#f8fafc" font-size="20" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">Console Channel Strip 4-Band Parametric EQ</text>
+  <text x="400" y="80" fill="#94a3b8" font-size="13" font-family="system-ui, sans-serif" text-anchor="middle">High Pass Filter + Low Shelf + 2 Semi/Fully Parametric Mids + High Shelf</text>
+
+  <!-- 5 Strip Sections -->
+  <!-- HPF -->
+  <g transform="translate(45, 110)">
+    <rect width="130" height="250" fill="#1e293b" rx="8" stroke="#334155"/>
+    <text x="65" y="28" fill="#f43f5e" font-size="13" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">HPF / Low Cut</text>
+    <circle cx="65" cy="80" r="28" fill="#0f172a" stroke="#f43f5e" stroke-width="3"/>
+    <line x1="65" y1="80" x2="80" y2="65" stroke="#f43f5e" stroke-width="3"/>
+    <text x="65" y="125" fill="#cbd5e1" font-size="11" font-family="system-ui, sans-serif" text-anchor="middle">80 Hz</text>
+    <rect x="25" y="145" width="80" height="24" fill="#0f172a" rx="4"/>
+    <text x="65" y="161" fill="#f43f5e" font-size="10" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">18 dB / Oct</text>
+    <text x="65" y="200" fill="#94a3b8" font-size="10" font-family="system-ui, sans-serif" text-anchor="middle">Cuts mic rumble</text>
+    <text x="65" y="218" fill="#94a3b8" font-size="10" font-family="system-ui, sans-serif" text-anchor="middle">&amp; proximity mud</text>
+  </g>
+
+  <!-- Low Shelf -->
+  <g transform="translate(190, 110)">
+    <rect width="130" height="250" fill="#1e293b" rx="8" stroke="#334155"/>
+    <text x="65" y="28" fill="#fbbf24" font-size="13" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">LF Shelving</text>
+    <circle cx="65" cy="80" r="28" fill="#0f172a" stroke="#fbbf24" stroke-width="3"/>
+    <line x1="65" y1="80" x2="65" y2="55" stroke="#fbbf24" stroke-width="3"/>
+    <text x="65" y="125" fill="#cbd5e1" font-size="11" font-family="system-ui, sans-serif" text-anchor="middle">Gain: ±15 dB</text>
+    <rect x="25" y="145" width="80" height="24" fill="#0f172a" rx="4"/>
+    <text x="65" y="161" fill="#fbbf24" font-size="10" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">60 / 100 Hz</text>
+    <text x="65" y="200" fill="#94a3b8" font-size="10" font-family="system-ui, sans-serif" text-anchor="middle">Boosts bass drum</text>
+    <text x="65" y="218" fill="#94a3b8" font-size="10" font-family="system-ui, sans-serif" text-anchor="middle">or cuts bass boom</text>
+  </g>
+
+  <!-- LMF (Low Mid Parametric) -->
+  <g transform="translate(335, 110)">
+    <rect width="130" height="250" fill="#1e293b" rx="8" stroke="#334155"/>
+    <text x="65" y="28" fill="#34d399" font-size="13" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">LMF Bell</text>
+    <circle cx="45" cy="75" r="20" fill="#0f172a" stroke="#34d399" stroke-width="2.5"/>
+    <circle cx="85" cy="75" r="20" fill="#0f172a" stroke="#34d399" stroke-width="2.5"/>
+    <text x="45" y="108" fill="#94a3b8" font-size="9" font-family="system-ui, sans-serif" text-anchor="middle">FREQ</text>
+    <text x="85" y="108" fill="#94a3b8" font-size="9" font-family="system-ui, sans-serif" text-anchor="middle">GAIN</text>
+    <text x="65" y="132" fill="#cbd5e1" font-size="11" font-family="system-ui, sans-serif" text-anchor="middle">200 Hz - 2 kHz</text>
+    <circle cx="65" cy="165" r="16" fill="#0f172a" stroke="#34d399" stroke-width="2"/>
+    <text x="65" y="193" fill="#34d399" font-size="10" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">Q Control</text>
+    <text x="65" y="218" fill="#94a3b8" font-size="10" font-family="system-ui, sans-serif" text-anchor="middle">Removes 300Hz box</text>
+  </g>
+
+  <!-- HMF (High Mid Parametric) -->
+  <g transform="translate(480, 110)">
+    <rect width="130" height="250" fill="#1e293b" rx="8" stroke="#334155"/>
+    <text x="65" y="28" fill="#38bdf8" font-size="13" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">HMF Bell</text>
+    <circle cx="45" cy="75" r="20" fill="#0f172a" stroke="#38bdf8" stroke-width="2.5"/>
+    <circle cx="85" cy="75" r="20" fill="#0f172a" stroke="#38bdf8" stroke-width="2.5"/>
+    <text x="45" y="108" fill="#94a3b8" font-size="9" font-family="system-ui, sans-serif" text-anchor="middle">FREQ</text>
+    <text x="85" y="108" fill="#94a3b8" font-size="9" font-family="system-ui, sans-serif" text-anchor="middle">GAIN</text>
+    <text x="65" y="132" fill="#cbd5e1" font-size="11" font-family="system-ui, sans-serif" text-anchor="middle">1.5 kHz - 8 kHz</text>
+    <circle cx="65" cy="165" r="16" fill="#0f172a" stroke="#38bdf8" stroke-width="2"/>
+    <text x="65" y="193" fill="#38bdf8" font-size="10" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">Q Control</text>
+    <text x="65" y="218" fill="#94a3b8" font-size="10" font-family="system-ui, sans-serif" text-anchor="middle">Vocal bite / clarity</text>
+  </g>
+
+  <!-- HF Shelving -->
+  <g transform="translate(625, 110)">
+    <rect width="130" height="250" fill="#1e293b" rx="8" stroke="#334155"/>
+    <text x="65" y="28" fill="#a78bfa" font-size="13" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">HF Shelving</text>
+    <circle cx="65" cy="80" r="28" fill="#0f172a" stroke="#a78bfa" stroke-width="3"/>
+    <line x1="65" y1="80" x2="80" y2="65" stroke="#a78bfa" stroke-width="3"/>
+    <text x="65" y="125" fill="#cbd5e1" font-size="11" font-family="system-ui, sans-serif" text-anchor="middle">Gain: ±15 dB</text>
+    <rect x="25" y="145" width="80" height="24" fill="#0f172a" rx="4"/>
+    <text x="65" y="161" fill="#a78bfa" font-size="10" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">10 / 12 kHz</text>
+    <text x="65" y="200" fill="#94a3b8" font-size="10" font-family="system-ui, sans-serif" text-anchor="middle">Adds top-end "air"</text>
+    <text x="65" y="218" fill="#94a3b8" font-size="10" font-family="system-ui, sans-serif" text-anchor="middle">&amp; sheen to cymbals</text>
+  </g>
+
+  <!-- Summary Bar -->
+  <rect x="45" y="380" width="710" height="70" fill="#1e293b" rx="6"/>
+  <text x="400" y="405" fill="#f1f5f9" font-size="13" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">Semi-Parametric vs Fully Parametric: Full Parametric includes continuous Q bandwidth control.</text>
+  <text x="400" y="425" fill="#94a3b8" font-size="11" font-family="system-ui, sans-serif" text-anchor="middle">SSL 4000 E/G Series &amp; Neve VR console standard channel strip configuration.</text>
+</svg>

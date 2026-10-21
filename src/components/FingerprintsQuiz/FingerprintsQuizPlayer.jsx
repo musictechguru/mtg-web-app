@@ -3,8 +3,11 @@ import SongSelector from './SongSelector';
 import CriterionQuestion from './CriterionQuestion';
 import FeedbackModal from './FeedbackModal';
 import fingerprintsData from '../../data/fingerprints_data.json';
+import { useUser } from '../../contexts/UserContext';
 
 const FingerprintsQuizPlayer = ({ onExit }) => {
+    const { saveQuizResult } = useUser();
+
     // State
     const [view, setView] = useState('selector'); // selector, quiz, summary
     const [currentSong, setCurrentSong] = useState(null);
@@ -14,6 +17,17 @@ const FingerprintsQuizPlayer = ({ onExit }) => {
 
     // We store the full result object from the classification step
     const [userResult, setUserResult] = useState(null);
+
+    // Save result to profile history when summary is reached
+    useEffect(() => {
+        if (view === 'summary' && currentSong && typeof saveQuizResult === 'function') {
+            const totalScore = Object.values(completedCriteria).reduce((acc, c) => acc + c.score, 0);
+            const totalMax = Object.values(completedCriteria).reduce((acc, c) => acc + c.maxScore, 0);
+            const overallPercentage = totalMax > 0 ? Math.round((totalScore / totalMax) * 100) : 0;
+            const grade = overallPercentage >= 80 ? 'A*' : overallPercentage >= 70 ? 'A' : overallPercentage >= 60 ? 'B' : overallPercentage >= 50 ? 'C' : 'D';
+            saveQuizResult(`Sonic Fingerprints: ${currentSong.title}`, totalScore, totalMax, grade);
+        }
+    }, [view]);
 
     const handleSongSelect = (song) => {
         setCurrentSong(song);
