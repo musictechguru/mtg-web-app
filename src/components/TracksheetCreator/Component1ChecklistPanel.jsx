@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import {
   CheckSquare, Square, ChevronDown, ChevronUp,
-  Copy, Check, RotateCcw, ArrowLeft, Disc
+  Copy, Check, RotateCcw, ArrowLeft, Disc, Music, User
 } from 'lucide-react';
 import {
   C1_OVERVIEW_SPECS,
@@ -11,9 +11,24 @@ import {
   C1_MASTER_CHECKLIST
 } from './component1ChecklistData';
 import StudentMarkSchemeModal from '../StudentMarkSchemeModal';
+import PremiumLocked from '../PremiumLocked';
 import { useUser } from '../../contexts/UserContext';
 
 const C1_STORAGE_KEY = 'mtg_component1_checklist_v3';
+
+export const PRESCRIBED_SONG_SUGGESTIONS = [
+  { track: 'Superstition', artist: 'Stevie Wonder' },
+  { track: 'Black Dog', artist: 'Led Zeppelin' },
+  { track: 'Dreams', artist: 'Fleetwood Mac' },
+  { track: 'Fame', artist: 'David Bowie' },
+  { track: 'Rosanna', artist: 'Toto' },
+  { track: 'Good Times', artist: 'Chic' },
+  { track: 'Sir Duke', artist: 'Stevie Wonder' },
+  { track: 'Roxanne', artist: 'The Police' },
+  { track: 'Billie Jean', artist: 'Michael Jackson' },
+  { track: 'More Than a Feeling', artist: 'Boston' },
+  { track: "Don't You Worry 'Bout a Thing", artist: 'Stevie Wonder' }
+];
 
 const DEFAULT_CHANNEL_PLAN = [
   { ch: 1, source: 'Kick Drum', category: '🥁 Drum Kit', mic: 'AKG D112 (Dynamic)', placement: 'Inside porthole, 8 cm from beater @ 30°' },
@@ -52,7 +67,7 @@ export default function Component1ChecklistPanel({
   onBack = null,
   onSwitchToTracksheet = null
 }) {
-  const { userProgress, saveComponent1Progress } = useUser() || {};
+  const { userProgress, saveComponent1Progress, currentUser } = useUser() || {};
 
   const [activeSubTab, setActiveSubTab] = useState('markscheme'); // 'markscheme' | 'drums' | 'vocals' | 'other_instruments' | 'mixing_mastering' | 'workflow'
   const [techFilter, setTechFilter] = useState('All');
@@ -117,6 +132,17 @@ export default function Component1ChecklistPanel({
     }
   }, [state, saveComponent1Progress, activeDaw]);
 
+  // Auto-sync track name & artist from parent props if local state hasn't set one yet
+  useEffect(() => {
+    if (activeTrackName && !state.chosenSong) {
+      setState(prev => ({
+        ...prev,
+        chosenSong: activeTrackName,
+        originalArtist: activeArtistName || prev.originalArtist
+      }));
+    }
+  }, [activeTrackName, activeArtistName]);
+
   const syncWithActiveTrack = () => {
     if (!activeTrackName) return;
     setState(prev => ({
@@ -128,6 +154,17 @@ export default function Component1ChecklistPanel({
 
   const updateField = (field, value) => {
     setState(prev => ({ ...prev, [field]: value }));
+  };
+
+  const updateSongField = (songName) => {
+    setState(prev => {
+      const match = PRESCRIBED_SONG_SUGGESTIONS.find(s => s.track.toLowerCase() === songName.trim().toLowerCase());
+      return {
+        ...prev,
+        chosenSong: songName,
+        originalArtist: (!prev.originalArtist && match) ? match.artist : prev.originalArtist
+      };
+    });
   };
 
   const toggleCheck = (group, id) => {
@@ -593,6 +630,36 @@ export default function Component1ChecklistPanel({
     );
   };
 
+  if (!currentUser?.is_premium) {
+    return (
+      <div style={{ position: 'relative', width: '100%', maxWidth: '900px', margin: '0 auto', padding: '10px 0' }}>
+        {onBack && (
+          <button
+            onClick={onBack}
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '8px',
+              background: 'rgba(255, 255, 255, 0.08)',
+              color: '#94a3b8',
+              border: '1px solid rgba(255, 255, 255, 0.15)',
+              padding: '8px 16px',
+              borderRadius: '8px',
+              cursor: 'pointer',
+              fontWeight: 600,
+              fontSize: '0.9rem',
+              marginBottom: '20px',
+              transition: 'all 0.2s ease'
+            }}
+          >
+            <ArrowLeft size={16} /> Back
+          </button>
+        )}
+        <PremiumLocked itemTitle="Component 1 Checklist & Tick List" />
+      </div>
+    );
+  }
+
   return (
     <div style={{
       background: 'linear-gradient(145deg, rgba(15, 23, 42, 0.94) 0%, rgba(30, 17, 54, 0.9) 100%)',
@@ -754,6 +821,154 @@ export default function Component1ChecklistPanel({
             <RotateCcw size={13} />
           </button>
         </div>
+      </div>
+
+      {/* Permanent Header: Track Name & Session Metadata Bar (Visible across all tabs) */}
+      <div style={{
+        background: 'linear-gradient(135deg, rgba(30, 27, 75, 0.45), rgba(15, 23, 42, 0.7))',
+        border: '1px solid rgba(168, 85, 247, 0.3)',
+        borderRadius: '10px',
+        padding: '10px 14px',
+        marginBottom: '12px',
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+        gap: '10px',
+        alignItems: 'end',
+        boxShadow: '0 4px 14px rgba(0, 0, 0, 0.25)'
+      }}>
+        <div>
+          <label style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '5px',
+            fontSize: '0.7rem',
+            color: '#C084FC',
+            fontWeight: 800,
+            marginBottom: '4px',
+            letterSpacing: '0.04em'
+          }}>
+            <Music size={13} color="#C084FC" />
+            CHOSEN TRACK NAME (PRESCRIBED SONG)
+          </label>
+          <div>
+            <input
+              type="text"
+              list="c1-prescribed-song-list"
+              placeholder={activeTrackName || 'e.g. Superstition, Black Dog, Dreams...'}
+              value={state.chosenSong}
+              onChange={e => updateSongField(e.target.value)}
+              style={{
+                width: '100%',
+                padding: '7px 11px',
+                borderRadius: '7px',
+                border: state.chosenSong ? '1px solid rgba(168, 85, 247, 0.6)' : '1px solid rgba(255,255,255,0.15)',
+                background: 'rgba(2, 6, 23, 0.75)',
+                color: '#F8FAFC',
+                fontSize: '0.84rem',
+                fontWeight: 700,
+                outline: 'none',
+                boxShadow: state.chosenSong ? '0 0 0 1px rgba(168,85,247,0.3)' : 'none'
+              }}
+            />
+            <datalist id="c1-prescribed-song-list">
+              {PRESCRIBED_SONG_SUGGESTIONS.map(s => (
+                <option key={s.track} value={s.track}>{s.track} — {s.artist}</option>
+              ))}
+            </datalist>
+          </div>
+        </div>
+
+        <div>
+          <label style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '5px',
+            fontSize: '0.7rem',
+            color: '#94A3B8',
+            fontWeight: 700,
+            marginBottom: '4px',
+            letterSpacing: '0.04em'
+          }}>
+            <Disc size={13} color="#94A3B8" />
+            ORIGINAL ARTIST
+          </label>
+          <input
+            type="text"
+            placeholder={activeArtistName || 'e.g. Stevie Wonder, Led Zeppelin...'}
+            value={state.originalArtist}
+            onChange={e => updateField('originalArtist', e.target.value)}
+            style={{
+              width: '100%',
+              padding: '7px 11px',
+              borderRadius: '7px',
+              border: '1px solid rgba(255,255,255,0.15)',
+              background: 'rgba(2, 6, 23, 0.75)',
+              color: '#E2E8F0',
+              fontSize: '0.82rem',
+              outline: 'none'
+            }}
+          />
+        </div>
+
+        <div>
+          <label style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '5px',
+            fontSize: '0.7rem',
+            color: '#94A3B8',
+            fontWeight: 700,
+            marginBottom: '4px',
+            letterSpacing: '0.04em'
+          }}>
+            <User size={13} color="#94A3B8" />
+            CANDIDATE NAME (OPTIONAL)
+          </label>
+          <input
+            type="text"
+            placeholder="Student Name"
+            value={state.studentName}
+            onChange={e => updateField('studentName', e.target.value)}
+            style={{
+              width: '100%',
+              padding: '7px 11px',
+              borderRadius: '7px',
+              border: '1px solid rgba(255,255,255,0.15)',
+              background: 'rgba(2, 6, 23, 0.75)',
+              color: '#E2E8F0',
+              fontSize: '0.82rem',
+              outline: 'none'
+            }}
+          />
+        </div>
+
+        {activeTrackName && activeTrackName !== state.chosenSong && (
+          <div style={{ display: 'flex', alignItems: 'flex-end' }}>
+            <button
+              type="button"
+              onClick={syncWithActiveTrack}
+              title={`Import "${activeTrackName}" from Track Sheet Creator`}
+              style={{
+                width: '100%',
+                padding: '7px 12px',
+                borderRadius: '7px',
+                border: '1px solid rgba(56, 189, 248, 0.5)',
+                background: 'rgba(56, 189, 248, 0.16)',
+                color: '#38BDF8',
+                fontSize: '0.75rem',
+                fontWeight: 700,
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '5px',
+                whiteSpace: 'nowrap'
+              }}
+            >
+              ⚡ Use "{activeTrackName}"
+            </button>
+          </div>
+        )}
       </div>
 
       {/* Sub-navigation Tabs */}
@@ -1079,77 +1294,54 @@ export default function Component1ChecklistPanel({
       {/* TAB 6: WORKFLOW, CHANNEL LOG & PRE-FLIGHT (COLLAPSIBLE ACCORDIONS) */}
       {activeSubTab === 'workflow' && (
         <div>
-          {/* Candidate Metadata Compact Row */}
+          {/* Workflow Controls & Candidate Number Bar */}
           <div style={{
             background: 'rgba(15, 23, 42, 0.7)',
             border: '1px solid rgba(255,255,255,0.08)',
             borderRadius: '10px',
-            padding: '10px 12px',
-            marginBottom: '10px',
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))',
-            gap: '8px',
-            alignItems: 'end'
+            padding: '10px 14px',
+            marginBottom: '12px',
+            display: 'flex',
+            flexWrap: 'wrap',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            gap: '10px'
           }}>
-            <div>
-              <label style={{ display: 'block', fontSize: '0.68rem', color: '#94A3B8', fontWeight: 700, marginBottom: '3px' }}>CANDIDATE NAME</label>
-              <input
-                type="text"
-                placeholder="Name"
-                value={state.studentName}
-                onChange={e => updateField('studentName', e.target.value)}
-                style={{ width: '100%', padding: '6px 9px', borderRadius: '6px', border: '1px solid rgba(255,255,255,0.12)', background: 'rgba(2, 6, 23, 0.6)', color: '#fff', fontSize: '0.77rem' }}
-              />
-            </div>
-            <div>
-              <label style={{ display: 'block', fontSize: '0.68rem', color: '#94A3B8', fontWeight: 700, marginBottom: '3px' }}>CHOSEN SONG</label>
-              <input
-                type="text"
-                placeholder={activeTrackName || 'Song Title'}
-                value={state.chosenSong}
-                onChange={e => updateField('chosenSong', e.target.value)}
-                style={{ width: '100%', padding: '6px 9px', borderRadius: '6px', border: '1px solid rgba(255,255,255,0.12)', background: 'rgba(2, 6, 23, 0.6)', color: '#fff', fontSize: '0.77rem' }}
-              />
-            </div>
-            <div>
-              <label style={{ display: 'block', fontSize: '0.68rem', color: '#94A3B8', fontWeight: 700, marginBottom: '3px' }}>ORIGINAL ARTIST</label>
-              <input
-                type="text"
-                placeholder={activeArtistName || 'Artist'}
-                value={state.originalArtist}
-                onChange={e => updateField('originalArtist', e.target.value)}
-                style={{ width: '100%', padding: '6px 9px', borderRadius: '6px', border: '1px solid rgba(255,255,255,0.12)', background: 'rgba(2, 6, 23, 0.6)', color: '#fff', fontSize: '0.77rem' }}
-              />
-            </div>
-            <div style={{ display: 'flex', gap: '6px' }}>
-              {activeTrackName && (
-                <button
-                  type="button"
-                  onClick={syncWithActiveTrack}
-                  style={{
-                    padding: '6px 10px',
-                    borderRadius: '6px',
-                    border: '1px solid rgba(56, 189, 248, 0.45)',
-                    background: 'rgba(56, 189, 248, 0.14)',
-                    color: '#38BDF8',
-                    fontSize: '0.73rem',
-                    fontWeight: 700,
-                    cursor: 'pointer'
-                  }}
-                >
-                  Sync Track
-                </button>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                <label style={{ fontSize: '0.7rem', color: '#94A3B8', fontWeight: 700, whiteSpace: 'nowrap' }}>CANDIDATE NO:</label>
+                <input
+                  type="text"
+                  placeholder="e.g. 1234"
+                  value={state.candidateNumber}
+                  onChange={e => updateField('candidateNumber', e.target.value)}
+                  style={{ width: '90px', padding: '5px 8px', borderRadius: '6px', border: '1px solid rgba(255,255,255,0.12)', background: 'rgba(2, 6, 23, 0.6)', color: '#fff', fontSize: '0.78rem' }}
+                />
+              </div>
+
+              <div style={{ fontSize: '0.74rem', color: '#CBD5E1', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                <span style={{ color: '#94A3B8', fontWeight: 700 }}>DAW:</span>
+                <span style={{ padding: '3px 8px', borderRadius: '5px', background: 'rgba(168, 85, 247, 0.15)', color: '#C084FC', fontWeight: 700 }}>{activeDaw || 'Logic Pro'}</span>
+              </div>
+
+              {state.chosenSong && (
+                <div style={{ fontSize: '0.74rem', color: '#94A3B8' }}>
+                  Target Track: <strong style={{ color: '#F1F5F9' }}>{state.chosenSong}</strong> {state.originalArtist ? `(${state.originalArtist})` : ''}
+                </div>
               )}
+            </div>
+
+            <div style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
               <button
                 type="button"
                 onClick={() => toggleAllPhases(true)}
                 style={{
-                  padding: '6px 9px',
+                  padding: '6px 11px',
                   borderRadius: '6px',
                   border: '1px solid rgba(255,255,255,0.15)',
                   background: 'rgba(255,255,255,0.05)',
                   color: '#CBD5E1',
-                  fontSize: '0.72rem',
+                  fontSize: '0.73rem',
                   fontWeight: 700,
                   cursor: 'pointer'
                 }}
@@ -1160,12 +1352,12 @@ export default function Component1ChecklistPanel({
                 type="button"
                 onClick={() => toggleAllPhases(false)}
                 style={{
-                  padding: '6px 9px',
+                  padding: '6px 11px',
                   borderRadius: '6px',
                   border: '1px solid rgba(255,255,255,0.15)',
                   background: 'rgba(255,255,255,0.05)',
                   color: '#CBD5E1',
-                  fontSize: '0.72rem',
+                  fontSize: '0.73rem',
                   fontWeight: 700,
                   cursor: 'pointer'
                 }}

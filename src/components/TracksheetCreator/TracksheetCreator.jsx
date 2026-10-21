@@ -20,6 +20,8 @@ import { parseLogbook } from './logbookParser';
 import { parseProducerRecreation } from './producerParser';
 import { downloadGoodLookingPdf } from './pdfExporter';
 import { downloadProducerPdf } from './producerPdfExporter';
+import { useUser } from '../../contexts/UserContext';
+import PremiumLocked from '../PremiumLocked';
 
 export function getApiBaseUrl() {
   if (typeof window !== 'undefined') {
@@ -79,16 +81,57 @@ const normalizeString = (str) => {
   return str.toLowerCase().trim().replace(/[‘’]/g, "'").replace(/[“”]/g, '"').replace(/\s+/g, ' ');
 };
 
+// Loose key for matching: strips accents, punctuation, "the", "&"/"and", feat. credits
+const looseKey = (str) => {
+  if (!str) return '';
+  return str
+    .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/\s*[([](feat|ft|featuring)\.?[^)\]]*[)\]]/g, '')
+    .replace(/\b(feat|ft|featuring)\.?\s.*$/, '')
+    .replace(/&/g, ' and ')
+    .replace(/['’‘`]/g, '')
+    .replace(/[^a-z0-9]+/g, ' ')
+    .replace(/^(the|a)\s+/, '')
+    .replace(/\band\b/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+};
+
+const looseMatch = (a, b) => {
+  if (!a || !b) return false;
+  if (a === b) return true;
+  const sa = a.replace(/ /g, '');
+  const sb = b.replace(/ /g, '');
+  return sa === sb;
+};
+
 const findArchivedTrack = (tName, aName, historyItems) => {
   if (!tName || !historyItems || historyItems.length === 0) return null;
   const normT = normalizeString(tName);
   const normA = normalizeString(aName);
-  return historyItems.find((item) => {
+  const exact = historyItems.find((item) => {
     const itemT = normalizeString(item.track_name);
     const itemA = normalizeString(item.artist_name);
     if (normA) return itemT === normT && itemA === normA;
     return itemT === normT;
-  }) || null;
+  });
+  if (exact) return exact;
+
+  const keyT = looseKey(tName);
+  const keyA = looseKey(aName);
+  if (!keyT) return null;
+  const titleMatches = historyItems.filter(item => looseMatch(looseKey(item.track_name), keyT));
+  if (titleMatches.length === 0) return null;
+  if (keyA) {
+    const withArtist = titleMatches.find(item => {
+      const ia = looseKey(item.artist_name);
+      return looseMatch(ia, keyA) || (ia && (ia.includes(keyA) || keyA.includes(ia)));
+    });
+    if (withArtist) return withArtist;
+  }
+  // Title matches but artist differs/missing: still return the best title match
+  return titleMatches[0];
 };
 
 const dedupeSolutions = (solutions) => {
@@ -210,6 +253,7 @@ async function getArchiveData() {
 }
 
 export default function TracksheetCreator({ onBack, initialMode = 'generator' }) {
+  const { currentUser } = useUser() || {};
   const [trackName, setTrackName] = useState('');
   const [artistName, setArtistName] = useState('');
   const [loading, setLoading] = useState(false);
@@ -705,10 +749,14 @@ export default function TracksheetCreator({ onBack, initialMode = 'generator' })
   const filteredHistory = useMemo(() => {
     if (!historySearch.trim()) return history;
     const q = historySearch.toLowerCase();
-    return history.filter(h => 
-      (h.track_name && h.track_name.toLowerCase().includes(q)) ||
-      (h.artist_name && h.artist_name.toLowerCase().includes(q))
-    );
+    const qKey = looseKey(historySearch);
+    const tokens = qKey.split(' ').filter(Boolean);
+    return history.filter(h => {
+      if ((h.track_name && h.track_name.toLowerCase().includes(q)) ||
+          (h.artist_name && h.artist_name.toLowerCase().includes(q))) return true;
+      const hay = `${looseKey(h.track_name)} ${looseKey(h.artist_name)}`;
+      return tokens.length > 0 && tokens.every(t => hay.includes(t));
+    });
   }, [history, historySearch]);
 
   // Studio Video Companion State
@@ -737,6 +785,36 @@ export default function TracksheetCreator({ onBack, initialMode = 'generator' })
     }
     setVideoCompanionOpen(true);
   };
+
+  if (!currentUser?.is_premium) {
+    return (
+      <div style={{ position: 'relative', width: '100%', maxWidth: '900px', margin: '0 auto', padding: '10px 0' }}>
+        {onBack && (
+          <button
+            onClick={onBack}
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '8px',
+              background: 'rgba(255, 255, 255, 0.08)',
+              color: '#94a3b8',
+              border: '1px solid rgba(255, 255, 255, 0.15)',
+              padding: '8px 16px',
+              borderRadius: '8px',
+              cursor: 'pointer',
+              fontWeight: 600,
+              fontSize: '0.9rem',
+              marginBottom: '20px',
+              transition: 'all 0.2s ease'
+            }}
+          >
+            <ArrowLeft size={16} /> Back to Dashboard
+          </button>
+        )}
+        <PremiumLocked itemTitle={initialMode === 'checklist' ? 'Component 1: Recording Guide & Tick List' : 'Component 1: Track Sheet & Logbook'} />
+      </div>
+    );
+  }
 
   return (
     <div className="tracksheet-wrapper">
@@ -1415,10 +1493,8 @@ export default function TracksheetCreator({ onBack, initialMode = 'generator' })
                       daw={currentC1.daw || selectedDaw}
                       tracksheetData={parsedTracksheetData}
                       onOpenChecklistHub={() => {
-                        setC1ChecklistOpen(true);
-                        setTimeout(() => {
-                          checklistHubRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                        }, 80);
+                        setC1ViewMode('checklist');
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
                       }}
                     />
                   ) : (
