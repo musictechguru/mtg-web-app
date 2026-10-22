@@ -123,7 +123,7 @@ const LoginScreen = ({ onSelectPreview }) => {
                     }}>Music Tech Guru<br/>Revision App</h1>
                     
                     <p style={{ color: 'var(--text-secondary)', marginBottom: '2rem', fontSize: '1rem', lineHeight: '1.6' }}>
-                        Your ultimate companion for mastering music technology. Ace your Edexcel exams with our premium tools and resources.
+                        Your ultimate companion for mastering music technology. Master your Edexcel exams with our premium tools and resources.
                     </p>
 
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
@@ -148,6 +148,36 @@ const LoginScreen = ({ onSelectPreview }) => {
                                 <span style={{ fontWeight: '500', color: 'var(--text-primary)', fontSize: '0.9rem' }}>{feature.text}</span>
                             </div>
                         ))}
+                    </div>
+
+                    {/* Quick Link to Tutor on WordPress */}
+                    <div style={{ marginTop: '1.5rem', paddingTop: '1.2rem', borderTop: '1px solid rgba(255,255,255,0.08)' }}>
+                        <a 
+                            href="https://www.musictechguru.com/homepage/music-tech-tutor/" 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'space-between',
+                                background: 'rgba(0, 193, 240, 0.1)',
+                                border: '1px solid rgba(0, 193, 240, 0.35)',
+                                borderRadius: '12px',
+                                padding: '10px 14px',
+                                color: '#38bdf8',
+                                textDecoration: 'none',
+                                fontSize: '0.85rem',
+                                fontWeight: '700',
+                                transition: 'all 0.2s'
+                            }}
+                        >
+                            <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                                <span>🎓</span> 1-on-1 Music Tech Tutor
+                            </span>
+                            <span style={{ fontSize: '0.75rem', background: '#00C1F0', color: '#0b0f19', padding: '3px 8px', borderRadius: '6px', fontWeight: 'bold' }}>
+                                Free Consult &rarr;
+                            </span>
+                        </a>
                     </div>
                 </div>
 
@@ -338,6 +368,132 @@ const LoginScreen = ({ onSelectPreview }) => {
                 </div>
             </div>
 
+            {/* Student & Parent Testimonials & 1-on-1 Tutor Showcase */}
+            <div style={{
+                width: '100%',
+                maxWidth: '900px',
+                marginTop: '24px',
+                background: 'linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(17, 24, 39, 0.9) 100%)',
+                border: '1px solid rgba(0, 193, 240, 0.35)',
+                borderRadius: '20px',
+                padding: '24px',
+                boxShadow: '0 15px 30px -5px rgba(0, 0, 0, 0.4), 0 0 20px rgba(0, 193, 240, 0.1)',
+                boxSizing: 'border-box'
+            }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '10px', marginBottom: '18px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <span style={{
+                            background: 'rgba(0, 193, 240, 0.15)',
+                            color: '#00C1F0',
+                            padding: '4px 12px',
+                            borderRadius: '50px',
+                            fontSize: '0.78rem',
+                            fontWeight: 800,
+                            letterSpacing: '0.5px',
+                            textTransform: 'uppercase'
+                        }}>
+                            🎓 1-on-1 Private Tuition Reviews
+                        </span>
+                        <span style={{ color: '#fbbf24', fontSize: '1rem', letterSpacing: '2px' }}>
+                            ★★★★★
+                        </span>
+                    </div>
+                    <span style={{ fontSize: '0.8rem', color: '#94a3b8' }}>
+                        Verified Results from Real Students & Parents
+                    </span>
+                </div>
+
+                <div style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+                    gap: '16px',
+                    marginBottom: '18px'
+                }}>
+                    {/* Testimonial 1: Student Fast-Track */}
+                    <div style={{
+                        background: 'rgba(255, 255, 255, 0.03)',
+                        border: '1px solid rgba(255, 255, 255, 0.07)',
+                        borderRadius: '14px',
+                        padding: '16px',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'space-between'
+                    }}>
+                        <blockquote style={{
+                            margin: '0 0 14px 0',
+                            color: '#f1f5f9',
+                            fontSize: '0.92rem',
+                            lineHeight: '1.6',
+                            fontStyle: 'italic',
+                            borderLeft: '3px solid #00C1F0',
+                            paddingLeft: '12px'
+                        }}>
+                            "This guy is the real deal. I started studying A level Music Technology in Year 13 and Thor helped me manage two years of work in one. We had weekly sessions where we would use his resources to revise the specification inside and out. When it came to the coursework, I really learnt to master my workflow and production techniques on Logic – there’s a reason they call him the Guru!"
+                        </blockquote>
+                        <div style={{ borderTop: '1px solid rgba(255, 255, 255, 0.06)', paddingTop: '10px' }}>
+                            <strong style={{ color: '#ffffff', fontSize: '0.9rem', display: 'block' }}>Former A-Level Student</strong>
+                            <span style={{ color: '#38bdf8', fontSize: '0.8rem', fontWeight: 600 }}>Achieved Grade A (Compressed 2 Years into 1)</span>
+                        </div>
+                    </div>
+
+                    {/* Testimonial 2: Parent D-to-A Grade */}
+                    <div style={{
+                        background: 'rgba(255, 255, 255, 0.03)',
+                        border: '1px solid rgba(255, 255, 255, 0.07)',
+                        borderRadius: '14px',
+                        padding: '16px',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'space-between'
+                    }}>
+                        <blockquote style={{
+                            margin: '0 0 14px 0',
+                            color: '#f1f5f9',
+                            fontSize: '0.92rem',
+                            lineHeight: '1.6',
+                            fontStyle: 'italic',
+                            borderLeft: '3px solid #10b981',
+                            paddingLeft: '12px'
+                        }}>
+                            "We got in touch with Thor at the end of February for help as our son, who was in Y13, was averaging a D grade and had barely started his coursework components... resulting in an A grade. I have no doubt that without Thor’s tutorials, my son would not have been able to achieve his potential."
+                        </blockquote>
+                        <div style={{ borderTop: '1px solid rgba(255, 255, 255, 0.06)', paddingTop: '10px' }}>
+                            <strong style={{ color: '#ffffff', fontSize: '0.9rem', display: 'block' }}>Parent of Year 13 Student</strong>
+                            <span style={{ color: '#34d399', fontSize: '0.8rem', fontWeight: 600 }}>Grade D to Grade A in Just 2 Months</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '14px', borderTop: '1px solid rgba(255, 255, 255, 0.08)', paddingTop: '14px' }}>
+                    <div style={{ color: '#94a3b8', fontSize: '0.82rem' }}>
+                        🎧 1-on-1 Mentoring for Coursework (Comp 1 & 2) and Listening & Production Exam Prep (Comp 3 & 4)
+                    </div>
+
+                    <a
+                        href="https://www.musictechguru.com/homepage/music-tech-tutor/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{
+                            background: 'linear-gradient(135deg, #00C1F0 0%, #0284c7 100%)',
+                            color: '#0b0f19',
+                            textDecoration: 'none',
+                            padding: '10px 20px',
+                            borderRadius: '50px',
+                            fontWeight: 800,
+                            fontSize: '0.88rem',
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: '6px',
+                            boxShadow: '0 4px 15px rgba(0, 193, 240, 0.35)',
+                            transition: 'all 0.2s ease',
+                            whiteSpace: 'nowrap'
+                        }}
+                    >
+                        Book 1-on-1 Tutoring with Thor ↗
+                    </a>
+                </div>
+            </div>
+
             {/* Explore Curriculum & Free Preview Quizzes Section */}
             <div style={{
                 width: '100%',
@@ -431,14 +587,17 @@ const LoginScreen = ({ onSelectPreview }) => {
                                                     }
                                                 }}
                                                 style={{
-                                                    color: '#cbd5e1',
+                                                    color: item.isPremium ? '#94a3b8' : '#cbd5e1',
                                                     textDecoration: 'none',
                                                     fontSize: '0.85rem',
                                                     padding: '6px 8px',
                                                     borderRadius: '6px',
                                                     background: 'rgba(255, 255, 255, 0.02)',
                                                     transition: 'all 0.15s ease',
-                                                    display: 'block'
+                                                    display: 'flex',
+                                                    alignItems: 'center',
+                                                    justifyContent: 'space-between',
+                                                    gap: '6px'
                                                 }}
                                                 onMouseEnter={(e) => {
                                                     e.currentTarget.style.background = 'rgba(56, 189, 248, 0.15)';
@@ -446,10 +605,11 @@ const LoginScreen = ({ onSelectPreview }) => {
                                                 }}
                                                 onMouseLeave={(e) => {
                                                     e.currentTarget.style.background = 'rgba(255, 255, 255, 0.02)';
-                                                    e.currentTarget.style.color = '#cbd5e1';
+                                                    e.currentTarget.style.color = item.isPremium ? '#94a3b8' : '#cbd5e1';
                                                 }}
                                             >
-                                                {item.title}
+                                                <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{item.title}</span>
+                                                {item.isPremium && <span style={{ fontSize: '0.75rem', color: '#facc15', flexShrink: 0 }}>🔒 PRO</span>}
                                             </a>
                                         ))}
                                     </div>

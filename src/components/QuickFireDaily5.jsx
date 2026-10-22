@@ -2,9 +2,20 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { Flame, Clock, Award, CheckCircle2, XCircle, RotateCcw, ArrowRight, Zap, Trophy, BookOpen } from 'lucide-react';
 import dictionaryData from '../data/dictionary_quizzes.json';
 import { useUser } from '../contexts/UserContext';
+import PremiumLocked from './PremiumLocked';
 
 const HISTORY_KEY = 'mtg_daily5_history';
 const STREAK_KEY = 'mtg_daily5_streak';
+const DAY_LOG_KEY = 'mtg_daily5_day_log';
+
+export function getDailyDrillsCompletedToday() {
+  try {
+    const todayStr = new Date().toISOString().split('T')[0];
+    const log = JSON.parse(localStorage.getItem(DAY_LOG_KEY) || '{}');
+    if (log.date === todayStr) return log.count || 0;
+  } catch {}
+  return 0;
+}
 
 /**
  * Validates that all answer choices in a question are of comparable length.
@@ -138,6 +149,8 @@ export default function QuickFireDaily5({ onExit }) {
   const [isComplete, setIsComplete] = useState(false);
   const [timeLeft, setTimeLeft] = useState(120); // 2 minutes countdown
   const [timerActive, setTimerActive] = useState(true);
+  const [showUpgradeModal, setShowUpgradeModal] = useState(false);
+  const [completedCountToday, setCompletedCountToday] = useState(() => getDailyDrillsCompletedToday());
 
   // Streak state
   const [streakData, setStreakData] = useState(() => {
@@ -258,6 +271,16 @@ export default function QuickFireDaily5({ onExit }) {
       console.warn('Failed to save streak:', e);
     }
 
+    // Save daily drill completion count
+    try {
+      const currentLog = JSON.parse(localStorage.getItem(DAY_LOG_KEY) || '{}');
+      const countToday = (currentLog.date === todayStr ? (currentLog.count || 0) : 0) + 1;
+      localStorage.setItem(DAY_LOG_KEY, JSON.stringify({ date: todayStr, count: countToday }));
+      setCompletedCountToday(countToday);
+    } catch (e) {
+      console.warn('Failed to save daily count:', e);
+    }
+
     // Save to user context
     if (saveQuizResult) {
       const pct = Math.round(((score + (isAnswered && (selectedOption === currentQ?.correctAnswer) ? 0 : 0)) / 5) * 100);
@@ -270,6 +293,12 @@ export default function QuickFireDaily5({ onExit }) {
   };
 
   const handleRestart = () => {
+    // Free users can only do 1 free drill per calendar day
+    if (!currentUser?.is_premium && completedCountToday >= 1) {
+      setShowUpgradeModal(true);
+      return;
+    }
+
     const next5 = selectDaily5Questions();
     setQuestions(next5);
     setCurrentIndex(0);
@@ -392,7 +421,89 @@ export default function QuickFireDaily5({ onExit }) {
         </div>
       </div>
 
-      {!isComplete ? (
+      {!currentUser?.is_premium && completedCountToday >= 1 && !isComplete ? (
+        /* Daily Free Drill Already Completed Card */
+        <div style={{
+          background: 'linear-gradient(135deg, rgba(30, 41, 59, 0.95) 0%, rgba(15, 23, 42, 0.98) 100%)',
+          border: '1px solid rgba(249, 115, 22, 0.4)',
+          borderRadius: '20px',
+          padding: '48px 24px',
+          textAlign: 'center',
+          boxShadow: '0 20px 40px rgba(0, 0, 0, 0.4)',
+          maxWidth: '650px',
+          margin: '20px auto'
+        }}>
+          <div style={{
+            width: '68px',
+            height: '68px',
+            borderRadius: '50%',
+            background: 'linear-gradient(135deg, #f97316 0%, #ef4444 100%)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            margin: '0 auto 20px',
+            boxShadow: '0 8px 24px rgba(249, 115, 22, 0.4)'
+          }}>
+            <Flame size={38} color="#fff" />
+          </div>
+          <h2 style={{ fontSize: '1.8rem', fontWeight: 800, color: '#fff', margin: '0 0 10px 0' }}>
+            Today's Free Daily 5 Completed!
+          </h2>
+          <p style={{ color: '#94a3b8', fontSize: '1rem', lineHeight: '1.6', maxWidth: '500px', margin: '0 auto 24px' }}>
+            You've completed your 1 free daily drill for today and kept your <strong style={{ color: '#fb923c' }}>{streakData.streak} Day Streak</strong> alive! Your next free drill unlocks tomorrow.
+          </p>
+          <div style={{
+            background: 'rgba(249, 115, 22, 0.1)',
+            border: '1px solid rgba(249, 115, 22, 0.3)',
+            borderRadius: '12px',
+            padding: '16px 20px',
+            marginBottom: '28px',
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '12px',
+            textAlign: 'left'
+          }}>
+            <span style={{ fontSize: '1.4rem' }}>🔒</span>
+            <div>
+              <div style={{ fontWeight: 700, color: '#fb923c', fontSize: '0.95rem' }}>Want unlimited drills right now?</div>
+              <div style={{ color: '#cbd5e1', fontSize: '0.82rem' }}>Upgrade to Premium for unlimited instant practice sessions and full question banks.</div>
+            </div>
+          </div>
+          <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
+            <button
+              onClick={() => setShowUpgradeModal(true)}
+              style={{
+                background: 'linear-gradient(135deg, #f97316 0%, #ef4444 100%)',
+                color: '#fff',
+                border: 'none',
+                padding: '12px 28px',
+                borderRadius: '10px',
+                fontWeight: 800,
+                fontSize: '0.95rem',
+                cursor: 'pointer',
+                boxShadow: '0 4px 16px rgba(249, 115, 22, 0.4)'
+              }}
+            >
+              ⭐ Unlock Unlimited Drills
+            </button>
+            <button
+              onClick={onExit}
+              style={{
+                background: 'rgba(255, 255, 255, 0.08)',
+                color: '#cbd5e1',
+                border: '1px solid rgba(255, 255, 255, 0.15)',
+                padding: '12px 24px',
+                borderRadius: '10px',
+                fontWeight: 600,
+                fontSize: '0.95rem',
+                cursor: 'pointer'
+              }}
+            >
+              Return to Dashboard
+            </button>
+          </div>
+        </div>
+      ) : !isComplete ? (
         /* Active Question Card */
         <div style={{
           background: 'var(--bg-panel, #1e293b)',
@@ -663,13 +774,13 @@ export default function QuickFireDaily5({ onExit }) {
           </div>
 
           {/* Bottom Actions */}
-          <div style={{ display: 'flex', gap: '14px', justifyContent: 'center' }}>
+          <div style={{ display: 'flex', gap: '14px', justifyContent: 'center', flexWrap: 'wrap' }}>
             <button
               onClick={handleRestart}
               style={{
-                background: 'rgba(255, 255, 255, 0.08)',
-                color: '#fff',
-                border: '1px solid rgba(255, 255, 255, 0.2)',
+                background: !currentUser?.is_premium ? 'linear-gradient(135deg, rgba(234, 179, 8, 0.15) 0%, rgba(249, 115, 22, 0.2) 100%)' : 'rgba(255, 255, 255, 0.08)',
+                color: !currentUser?.is_premium ? '#facc15' : '#fff',
+                border: !currentUser?.is_premium ? '1px solid rgba(249, 115, 22, 0.4)' : '1px solid rgba(255, 255, 255, 0.2)',
                 padding: '12px 24px',
                 borderRadius: '10px',
                 fontWeight: 700,
@@ -680,7 +791,8 @@ export default function QuickFireDaily5({ onExit }) {
                 gap: '8px'
               }}
             >
-              <RotateCcw size={18} /> Practice Another 5
+              <RotateCcw size={18} />
+              {!currentUser?.is_premium ? 'Practice Another 5 (PRO 🔒)' : 'Practice Another 5'}
             </button>
             <button
               onClick={onExit}
@@ -698,6 +810,96 @@ export default function QuickFireDaily5({ onExit }) {
             >
               Return to Dashboard
             </button>
+          </div>
+
+          {/* Non-Premium Upsell Banner */}
+          {!currentUser?.is_premium && (
+            <div style={{
+              marginTop: '28px',
+              background: 'linear-gradient(135deg, rgba(234, 179, 8, 0.1) 0%, rgba(249, 115, 22, 0.15) 100%)',
+              border: '1px solid rgba(249, 115, 22, 0.4)',
+              borderRadius: '14px',
+              padding: '18px 22px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              gap: '16px',
+              flexWrap: 'wrap',
+              textAlign: 'left'
+            }}>
+              <div style={{ flex: 1, minWidth: '240px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontWeight: 800, color: '#facc15', fontSize: '0.98rem' }}>
+                  <span>🔥</span> Free Daily Drill Completed!
+                </div>
+                <p style={{ margin: '6px 0 0 0', color: '#cbd5e1', fontSize: '0.86rem', lineHeight: '1.45' }}>
+                  You've banked today's free drill. Your next free daily drill resets at midnight! Upgrade to <strong>MTG Premium</strong> for unlimited practice sessions, instant question repeats, and complete Component 3 &amp; 4 exams.
+                </p>
+              </div>
+              <button
+                onClick={() => setShowUpgradeModal(true)}
+                style={{
+                  background: 'linear-gradient(135deg, #eab308 0%, #f97316 100%)',
+                  color: '#0f172a',
+                  border: 'none',
+                  fontWeight: 800,
+                  fontSize: '0.9rem',
+                  padding: '10px 20px',
+                  borderRadius: '10px',
+                  cursor: 'pointer',
+                  boxShadow: '0 4px 14px rgba(249, 115, 22, 0.35)',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '6px'
+                }}
+              >
+                <span>⭐</span> Upgrade to Premium
+              </button>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Upgrade to Premium Modal */}
+      {showUpgradeModal && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: 'rgba(0, 0, 0, 0.85)',
+          backdropFilter: 'blur(8px)',
+          zIndex: 9999,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: '20px',
+          overflowY: 'auto'
+        }}>
+          <div style={{ position: 'relative', width: '100%', maxWidth: '850px', maxHeight: '90vh', overflowY: 'auto' }}>
+            <button
+              onClick={() => setShowUpgradeModal(false)}
+              style={{
+                position: 'absolute',
+                top: '20px',
+                right: '20px',
+                zIndex: 10,
+                background: 'rgba(255, 255, 255, 0.1)',
+                border: '1px solid rgba(255, 255, 255, 0.2)',
+                color: '#fff',
+                width: '36px',
+                height: '36px',
+                borderRadius: '50%',
+                cursor: 'pointer',
+                fontSize: '1.2rem',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}
+            >
+              ✕
+            </button>
+            <PremiumLocked itemTitle="Unlimited Daily 5 Quick-Fire Drills" />
           </div>
         </div>
       )}

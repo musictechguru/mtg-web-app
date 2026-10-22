@@ -130,6 +130,9 @@ const MainApp = () => {
         if (quizParam === 'component2_guide' || quizParam === 'c2_guide') {
           return { id: 'component2_guide', type: 'component2_guide', title: 'Component 2: Composition Guide & Logbook', isPremium: true };
         }
+        if (quizParam === 'lp_fingerprints' || quizParam === 'fingerprints') {
+          return { id: 'lp_fingerprints', type: 'lp_fingerprints', title: 'Sonic Fingerprints: Production Analysis', isPremium: true };
+        }
         if (quizParam === 'timetable_builder' || quizParam === 'timetable' || quizParam === 'scheme_of_work') {
           return { type: 'timetable_builder', title: '16-Block Timetable & Scheme of Work' };
         }
@@ -215,9 +218,19 @@ const MainApp = () => {
       key === 'component1_guide' ||
       key === 'c1_guide' ||
       key === 'component2_guide' ||
-      key === 'c2_guide'
+      key === 'c2_guide' ||
+      key === 'lp_fingerprints'
     );
   };
+
+  // If activeItem requires premium and user is not premium, enforce premium_locked
+  useEffect(() => {
+    if (!loading && activeItem && isPremiumItem(activeItem) && !currentUser?.is_premium) {
+      if (activeItem.type !== 'premium_locked') {
+        setActiveItem({ type: 'premium_locked', title: activeItem.title || 'Premium Feature' });
+      }
+    }
+  }, [loading, currentUser, activeItem]);
 
   // When courseData updates via Vite HMR, keep the currently active item updated with the new questions
   useEffect(() => {
@@ -676,7 +689,7 @@ const MainApp = () => {
           <button
             className={`nav-item ${activeItem?.type === 'lp_fingerprints' ? 'active' : ''}`}
             onClick={() => {
-              handleItemSelectWrapper({ id: 'lp_fingerprints', type: 'lp_fingerprints', title: 'Sonic Fingerprints: Production Analysis' });
+              handleItemSelectWrapper({ id: 'lp_fingerprints', type: 'lp_fingerprints', title: 'Sonic Fingerprints: Production Analysis', isPremium: true });
             }}
             style={{ 
               marginBottom: '20px', 
@@ -686,10 +699,13 @@ const MainApp = () => {
               background: activeItem?.type === 'lp_fingerprints' ? 'rgba(168, 85, 247, 0.15)' : 'transparent',
               display: 'flex',
               alignItems: 'center',
-              gap: '8px'
+              justifyContent: 'space-between'
             }}
           >
-            <span>🎧</span> Sonic Fingerprints (1950s–2010s)
+            <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <span>🎧</span> Sonic Fingerprints (1950s–2010s)
+            </span>
+            {!currentUser?.is_premium && <span style={{ fontSize: '0.8rem', color: '#facc15' }}>🔒</span>}
           </button>
 
           {/* Curriculum Stages Header */}
@@ -798,19 +814,26 @@ const MainApp = () => {
                       if (item.isGroup) {
                         const isTopicExpanded = expandedTopic === item.title;
                         const hasActiveChild = item.items?.some(sub => isItemActive(sub));
+                        const isAllPremium = item.items?.length > 0 && item.items.every(sub => sub.isPremium);
                         return (
                           <div key={itemIdx} className="stage-topic-group">
                             <div
                               onClick={() => setExpandedTopic(isTopicExpanded ? null : item.title)}
                               className={`stage-topic-header ${isTopicExpanded ? 'expanded' : ''} ${hasActiveChild ? 'has-active-child' : ''}`}
+                              style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}
                             >
                               <span className="stage-topic-title">{item.title}</span>
-                              <svg
-                                className={`stage-topic-chevron ${isTopicExpanded ? 'rotated' : ''}`}
-                                width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
-                              >
-                                <polyline points="6 9 12 15 18 9"></polyline>
-                              </svg>
+                              <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                                {isAllPremium && !currentUser?.is_premium && (
+                                  <span style={{ fontSize: '0.75rem', color: '#facc15' }} title="Premium Topic">🔒</span>
+                                )}
+                                <svg
+                                  className={`stage-topic-chevron ${isTopicExpanded ? 'rotated' : ''}`}
+                                  width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+                                >
+                                  <polyline points="6 9 12 15 18 9"></polyline>
+                                </svg>
+                              </div>
                             </div>
 
                             {isTopicExpanded && (
@@ -820,9 +843,15 @@ const MainApp = () => {
                                     key={subIdx}
                                     className={`nav-item stage-subitem ${isItemActive(subItem) ? 'active' : ''}`}
                                     onClick={() => handleItemSelectWrapper(subItem)}
+                                    style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}
                                   >
-                                    <span className="subitem-bullet"></span>
-                                    {subItem.title.includes('(Part 1)') ? 'Part 1' : 'Part 2'}
+                                    <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                                      <span className="subitem-bullet"></span>
+                                      {subItem.title.includes('(Part 1)') ? 'Part 1' : 'Part 2'}
+                                    </span>
+                                    {subItem.isPremium && !currentUser?.is_premium && (
+                                      <span style={{ fontSize: '0.75rem', color: '#facc15' }}>🔒</span>
+                                    )}
                                   </button>
                                 ))}
                               </div>
@@ -835,8 +864,12 @@ const MainApp = () => {
                           key={itemIdx}
                           className={`nav-item stage-nav-item ${isItemActive(item) ? 'active' : ''}`}
                           onClick={() => handleItemSelectWrapper(item)}
+                          style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '8px' }}
                         >
-                          {item.title}
+                          <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{item.title}</span>
+                          {item.isPremium && !currentUser?.is_premium && (
+                            <span style={{ fontSize: '0.75rem', flexShrink: 0, color: '#facc15' }}>🔒</span>
+                          )}
                         </button>
                       );
                     })}
@@ -1003,7 +1036,33 @@ const MainApp = () => {
             ) : activeItem.type === 'lp_activity' ? (
               <WorksheetPlayer activity={activeItem} onFinish={goToDashboardWrapper} />
             ) : activeItem.type === 'lp_fingerprints' ? (
-              <FingerprintsQuizPlayer onExit={goToDashboardWrapper} />
+              !currentUser?.is_premium ? (
+                <div style={{ position: 'relative', width: '100%', maxWidth: '900px', margin: '0 auto', padding: '10px 0' }}>
+                  <button
+                    onClick={goToDashboardWrapper}
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '8px',
+                      background: 'rgba(255, 255, 255, 0.08)',
+                      color: '#94a3b8',
+                      border: '1px solid rgba(255, 255, 255, 0.15)',
+                      padding: '8px 16px',
+                      borderRadius: '8px',
+                      cursor: 'pointer',
+                      fontWeight: 600,
+                      fontSize: '0.9rem',
+                      marginBottom: '20px',
+                      transition: 'all 0.2s ease'
+                    }}
+                  >
+                    ← Back to Dashboard
+                  </button>
+                  <PremiumLocked itemTitle={activeItem.title || 'Sonic Fingerprints: Production Analysis'} />
+                </div>
+              ) : (
+                <FingerprintsQuizPlayer onExit={goToDashboardWrapper} />
+              )
             ) : activeItem.type === 'dictionary_selector' ? (
               <DictionaryQuizSelector
                 onSelectQuiz={(quiz) => handleItemSelectWrapper({ type: 'lp_quiz', ...quiz })}

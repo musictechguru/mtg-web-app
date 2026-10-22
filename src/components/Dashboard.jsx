@@ -92,7 +92,7 @@ const Dashboard = ({ onNavigate, onOpenProfile }) => {
             onNavigate({ id: 'tracksheet_creator', type: 'tracksheet_creator', title: 'Component 1: Track Sheet & Logbook', isPremium: true });
             return;
         } else if (task.type === 'fingerprints') {
-            onNavigate({ type: 'lp_fingerprints', title: 'Sonic Fingerprints: Production Analysis' });
+            onNavigate({ id: 'lp_fingerprints', type: 'lp_fingerprints', title: 'Sonic Fingerprints: Production Analysis', isPremium: true });
             return;
         } else if (task.type === 'dictionary') {
             onNavigate({ type: 'dictionary_selector', title: 'Dictionary Quizzes' });
@@ -595,8 +595,8 @@ const Dashboard = ({ onNavigate, onOpenProfile }) => {
                                 }}>
                                     🎧
                                 </div>
-                                <span style={{ fontSize: '0.7rem', fontWeight: 'bold', background: 'rgba(99, 102, 241, 0.2)', color: '#818cf8', padding: '3px 8px', borderRadius: '6px' }}>
-                                    1950s–2010s
+                                <span style={{ fontSize: '0.7rem', fontWeight: 'bold', background: !currentUser?.is_premium ? 'rgba(234, 179, 8, 0.2)' : 'rgba(99, 102, 241, 0.2)', color: !currentUser?.is_premium ? '#facc15' : '#818cf8', padding: '3px 8px', borderRadius: '6px', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                                    {!currentUser?.is_premium && <span>🔒 PRO • </span>}1950s–2010s
                                 </span>
                             </div>
                             <h4 style={{ margin: '0 0 4px 0', color: '#fff', fontSize: '1rem', fontWeight: 700 }}>
@@ -607,7 +607,7 @@ const Dashboard = ({ onNavigate, onOpenProfile }) => {
                             </p>
                         </div>
                         <button
-                            onClick={() => onNavigate({ id: 'lp_fingerprints', type: 'lp_fingerprints', title: 'Sonic Fingerprints: Production Analysis' })}
+                            onClick={() => onNavigate({ id: 'lp_fingerprints', type: 'lp_fingerprints', title: 'Sonic Fingerprints: Production Analysis', isPremium: true })}
                             style={{
                                 background: 'linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%)',
                                 color: '#fff',
@@ -628,7 +628,7 @@ const Dashboard = ({ onNavigate, onOpenProfile }) => {
                             onMouseEnter={e => e.currentTarget.style.transform = 'translateY(-1px)'}
                             onMouseLeave={e => e.currentTarget.style.transform = 'translateY(0)'}
                         >
-                            Launch Fingerprints Lab →
+                            Launch Fingerprints Lab {!currentUser?.is_premium ? '🔒' : '→'}
                         </button>
                     </div>
 
