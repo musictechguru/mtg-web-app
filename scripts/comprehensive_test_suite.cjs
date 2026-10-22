@@ -927,6 +927,39 @@ runSuite('Suite 9: Homework Assignment Links & Daily 5 Spaced Repetition', (asse
   assert(tdContent.includes("viewMode === 'assignments'"), 'TeacherDashboard includes Homework & Assignments view');
   assert(tdContent.includes('AssignmentModal'), 'TeacherDashboard integrates AssignmentModal');
   assert(tdContent.includes('savedAssignments'), 'TeacherDashboard displays and manages saved assignment links');
+
+  // 8. Answer Length Equality in Daily 5 (Anti-Guessing Safeguard)
+  assert(qfContent.includes('isAnswerLengthBalanced'), 'QuickFireDaily5 implements isAnswerLengthBalanced validation');
+  assert(qfContent.includes('isAnswerLengthBalanced(q.answers, 10)'), 'QuickFireDaily5 enforces strict length balance (max diff <= 10) on dictionary pool');
+
+  const dictData = JSON.parse(fs.readFileSync(path.join(rootDir, 'src/data/dictionary_quizzes.json'), 'utf8'));
+  function testBalanced(answers, maxDiff = 10) {
+    if (!answers || answers.length < 2) return false;
+    const lengths = answers.map(a => (a.text || '').trim().length);
+    return (Math.max(...lengths) - Math.min(...lengths)) <= maxDiff;
+  }
+  const balancedPool = [];
+  dictData.volumes.forEach((vol, vIdx) => {
+    (vol.parts || []).forEach((part, pIdx) => {
+      (part.topics || []).forEach((topic, tIdx) => {
+        ['basic', 'intermediate'].forEach(lvl => {
+          (topic.levels?.[lvl] || []).forEach((q, qIdx) => {
+            const correctAns = q.answers?.find(a => a.is_true === 'yes' || a.is_true === true);
+            if (correctAns && q.content && testBalanced(q.answers, 10)) {
+              balancedPool.push(q);
+            }
+          });
+        });
+      });
+    });
+  });
+  assert(balancedPool.length >= 750, `Substantial balanced question pool for Daily 5 (Found: ${balancedPool.length} questions)`);
+  const sampleSelection = [...balancedPool].sort(() => 0.5 - Math.random()).slice(0, 5);
+  sampleSelection.forEach((q, idx) => {
+    const lens = q.answers.map(a => a.text.trim().length);
+    const diff = Math.max(...lens) - Math.min(...lens);
+    assert(diff <= 10, `Daily 5 Sample Q${idx + 1} options strictly balanced in length (Max diff: ${diff} chars)`);
+  });
 });
 
 // -------------------------------------------------------------

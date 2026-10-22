@@ -6,7 +6,23 @@ import { useUser } from '../contexts/UserContext';
 const HISTORY_KEY = 'mtg_daily5_history';
 const STREAK_KEY = 'mtg_daily5_streak';
 
-// Extract full flattened bank of 2,400 questions
+/**
+ * Validates that all answer choices in a question are of comparable length.
+ * Prevents students from guessing the correct answer simply because it is the longest or shortest option.
+ * @param {Array} answers Array of answer objects with .text property
+ * @param {number} maxAllowedDiff Maximum character length difference between longest and shortest answer (default 10)
+ * @returns {boolean}
+ */
+export function isAnswerLengthBalanced(answers, maxAllowedDiff = 10) {
+  if (!answers || answers.length < 2) return false;
+  const lengths = answers.map(a => (a.text || '').trim().length);
+  const min = Math.min(...lengths);
+  const max = Math.max(...lengths);
+  if (min === 0) return false;
+  return (max - min) <= maxAllowedDiff;
+}
+
+// Extract full flattened bank of questions that meet strict length-balance standards
 function getAllQuestionsPool() {
   const pool = [];
   dictionaryData.volumes.forEach((vol, vIdx) => {
@@ -15,7 +31,9 @@ function getAllQuestionsPool() {
         ['basic', 'intermediate'].forEach(lvl => {
           (topic.levels?.[lvl] || []).forEach((q, qIdx) => {
             const correctAns = q.answers?.find(a => a.is_true === 'yes' || a.is_true === true);
-            if (correctAns && q.content) {
+            // Strict pedagogical safeguard: answers must be balanced in length (max diff <= 10 chars)
+            // so students cannot deduce the answer by option length
+            if (correctAns && q.content && isAnswerLengthBalanced(q.answers, 10)) {
               pool.push({
                 uid: `v${vIdx + 1}_p${pIdx + 1}_t${tIdx + 1}_${lvl}_q${qIdx + 1}`,
                 volumeTitle: vol.title,

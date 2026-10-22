@@ -220,146 +220,88 @@ const Dashboard = ({ onNavigate, onOpenProfile }) => {
                 </div>
             </div>
 
-            <div className="welcome-banner" style={{ textAlign: 'right', display: 'flex', justifyContent: 'flex-end', gap: '10px', marginBottom: '20px' }}>
+            <div className="welcome-banner" style={{ textAlign: 'right', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', flexWrap: 'wrap', gap: '10px' }}>
                 <button
-                    onClick={clearProgress}
-                    style={{ background: 'transparent', border: '1px solid #333', padding: '5px 10px', borderRadius: '4px', fontSize: '0.8rem', color: '#666', cursor: 'pointer' }}
+                    onClick={() => setShowWelcomeModal(true)}
+                    style={{
+                        background: 'rgba(59, 130, 246, 0.1)',
+                        border: '1px solid rgba(59, 130, 246, 0.3)',
+                        padding: '6px 14px',
+                        borderRadius: '8px',
+                        fontSize: '0.85rem',
+                        color: 'var(--accent-blue)',
+                        cursor: 'pointer',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '6px',
+                        fontWeight: '600'
+                    }}
                 >
-                    Reset Data
+                    <span>🎬</span> Watch Welcome Tour
                 </button>
-                <button
-                    onClick={logout}
-                    style={{ background: 'transparent', border: '1px solid #e11d48', padding: '5px 10px', borderRadius: '4px', fontSize: '0.8rem', color: '#e11d48', cursor: 'pointer' }}
-                >
-                    Log Out
-                </button>
-            </div>
-
-            {/* Welcome Banner */}
-            <div className="guru-hero" style={{
-                background: 'linear-gradient(90deg, rgba(59, 130, 246, 0.15) 0%, rgba(37, 99, 235, 0.05) 100%)',
-                borderLeft: '4px solid var(--accent-blue)',
-                padding: '20px',
-                borderRadius: '8px',
-                marginBottom: '40px',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '20px'
-            }}>
-                <div style={{ flexShrink: 0, width: '160px', borderRadius: '8px', overflow: 'hidden', boxShadow: '0 4px 6px rgba(0,0,0,0.2)' }}>
-                    <video
-                        ref={el => { if (el) el.muted = true; }}
-                        width="100%"
-                        src="/MTGuru_vids/MTG%20Wecome%20short.mp4"
-                        autoPlay
-                        muted
-                        loop
-                        playsInline
-                        style={{ display: 'block' }}
+                <div style={{ display: 'flex', gap: '10px' }}>
+                    <button
+                        onClick={clearProgress}
+                        style={{ background: 'transparent', border: '1px solid #333', padding: '5px 10px', borderRadius: '4px', fontSize: '0.8rem', color: '#666', cursor: 'pointer' }}
                     >
-                        Your browser does not support the video tag.
-                    </video>
-                </div>
-                <div>
-                    <h3 style={{ margin: '0 0 5px 0', color: 'var(--accent-blue)' }}>Welcome to the Music Tech Guru Revision App!</h3>
-                    <p style={{ margin: 0, color: 'var(--text-secondary)', lineHeight: '1.5' }}>
-                        This is your central hub for mastering Music Technology.
-                        Take interactive quizzes, prepare for your exams, and level up your skills to become a <strong>Legend</strong>!
-                    </p>
-                    <div style={{ display: 'flex', gap: '15px', marginTop: '20px', flexWrap: 'wrap' }}>
-                        <button
-                            onClick={() => {
-                                const mapEl = document.getElementById('campaign-map-section');
-                                if (mapEl) mapEl.scrollIntoView({ behavior: 'smooth' });
-                            }}
-                            style={{
-                                backgroundColor: 'var(--accent-success)',
-                                color: '#fff',
-                                border: 'none',
-                                padding: '12px 24px',
-                                borderRadius: '8px',
-                                cursor: 'pointer',
-                                fontWeight: 'bold',
-                                fontSize: '1.1rem',
-                                boxShadow: '0 4px 15px rgba(16, 185, 129, 0.4)',
-                                transition: 'transform 0.2s',
-                            }}
-                            onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.05)'}
-                            onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
-                        >
-                            Start A-Level Music Tech Journey Here
-                        </button>
-                        <button
-                            onClick={() => setShowWelcomeModal(true)}
-                            style={{
-                                backgroundColor: 'transparent',
-                                color: 'var(--accent-blue)',
-                                border: '2px solid var(--accent-blue)',
-                                padding: '10px 20px',
-                                borderRadius: '8px',
-                                cursor: 'pointer',
-                                fontWeight: '600'
-                            }}
-                        >
-                            Play Welcome Video
-                        </button>
-                    </div>
+                        Reset Data
+                    </button>
+                    <button
+                        onClick={logout}
+                        style={{ background: 'transparent', border: '1px solid #e11d48', padding: '5px 10px', borderRadius: '4px', fontSize: '0.8rem', color: '#e11d48', cursor: 'pointer' }}
+                    >
+                        Log Out
+                    </button>
                 </div>
             </div>
 
-            {/* Daily 5 Spaced Repetition Drill Feature Card */}
+            {/* Slim Daily 5 Spaced Repetition Sprint Bar */}
             <div style={{
-                background: 'linear-gradient(135deg, rgba(249, 115, 22, 0.14) 0%, rgba(234, 88, 12, 0.07) 100%)',
-                border: '1px solid rgba(249, 115, 22, 0.35)',
-                borderRadius: '16px',
-                padding: '24px',
+                background: 'linear-gradient(135deg, rgba(249, 115, 22, 0.12) 0%, rgba(234, 88, 12, 0.06) 100%)',
+                border: '1px solid rgba(249, 115, 22, 0.3)',
+                borderRadius: '14px',
+                padding: '12px 20px',
                 marginBottom: '25px',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
                 flexWrap: 'wrap',
-                gap: '20px',
-                boxShadow: '0 8px 24px rgba(0,0,0,0.2)'
+                gap: '12px',
+                boxShadow: '0 4px 15px rgba(0,0,0,0.15)'
             }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '18px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
                     <div style={{
-                        width: '56px',
-                        height: '56px',
-                        borderRadius: '12px',
+                        width: '40px',
+                        height: '40px',
+                        borderRadius: '10px',
                         background: 'linear-gradient(135deg, #ea580c, #f97316)',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        fontSize: '1.8rem',
-                        boxShadow: '0 4px 15px rgba(249, 115, 22, 0.4)'
+                        fontSize: '1.3rem',
+                        boxShadow: '0 2px 8px rgba(249, 115, 22, 0.3)'
                     }}>
                         🔥
                     </div>
                     <div>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px', flexWrap: 'wrap' }}>
-                            <span style={{ fontSize: '0.75rem', fontWeight: 'bold', background: 'rgba(249, 115, 22, 0.25)', color: '#fb923c', padding: '2px 8px', borderRadius: '6px' }}>
-                                2-MINUTE DAILY SPRINT
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+                            <span style={{ fontWeight: 800, color: '#fff', fontSize: '1rem' }}>
+                                Daily 5 Quick-Fire Drill
                             </span>
-                            <span style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>
-                                Spaced Repetition Algorithm • 2,400-Question Bank
-                            </span>
-                            <span style={{ 
-                                fontSize: '0.75rem', 
-                                fontWeight: 'bold', 
-                                background: dailyStreak > 0 ? 'rgba(249, 115, 22, 0.2)' : 'rgba(255, 255, 255, 0.08)', 
-                                color: dailyStreak > 0 ? '#fb923c' : '#94a3b8', 
+                            <span style={{
+                                fontSize: '0.72rem',
+                                fontWeight: 'bold',
+                                background: dailyStreak > 0 ? 'rgba(249, 115, 22, 0.25)' : 'rgba(255, 255, 255, 0.08)',
+                                color: dailyStreak > 0 ? '#fb923c' : '#94a3b8',
                                 border: `1px solid ${dailyStreak > 0 ? 'rgba(249, 115, 22, 0.4)' : 'rgba(255, 255, 255, 0.15)'}`,
-                                padding: '2px 8px', 
+                                padding: '2px 8px',
                                 borderRadius: '6px'
                             }}>
-                                🔥 {dailyStreak > 0 ? `${dailyStreak}-Day Streak` : 'Start Streak Today'}
+                                🔥 {dailyStreak > 0 ? `${dailyStreak}-Day Streak` : 'Start Streak'}
                             </span>
                         </div>
-                        <h3 style={{ margin: '0 0 6px 0', color: '#fff', fontSize: '1.3rem' }}>
-                            Daily 5 Quick-Fire Revision
-                        </h3>
-                        <p style={{ margin: 0, color: 'var(--text-secondary)', fontSize: '0.9rem', maxWidth: '620px', lineHeight: '1.4' }}>
-                            Sharpen recall with 5 rapid questions prioritising your past mistakes and topics due for review. Complete in under 2 minutes every day to keep knowledge fresh.
+                        <p style={{ margin: '2px 0 0 0', color: 'var(--text-secondary)', fontSize: '0.8rem' }}>
+                            2-minute spaced repetition sprint targeting past mistakes and review-due questions.
                         </p>
                     </div>
                 </div>
@@ -367,450 +309,329 @@ const Dashboard = ({ onNavigate, onOpenProfile }) => {
                 <button
                     onClick={() => onNavigate({ id: 'quick_fire_daily5', type: 'quick_fire_daily5', title: 'Daily 5 Quick-Fire Drill' })}
                     style={{
-                        padding: '12px 24px',
-                        borderRadius: '10px',
+                        padding: '9px 18px',
+                        borderRadius: '8px',
                         background: 'linear-gradient(135deg, #ea580c 0%, #f97316 100%)',
                         color: '#fff',
                         border: 'none',
                         fontWeight: '700',
-                        fontSize: '0.95rem',
+                        fontSize: '0.88rem',
                         cursor: 'pointer',
                         display: 'flex',
                         alignItems: 'center',
-                        gap: '8px',
-                        boxShadow: '0 4px 15px rgba(234, 88, 12, 0.35)',
-                        transition: 'transform 0.2s, box-shadow 0.2s',
+                        gap: '6px',
+                        boxShadow: '0 2px 10px rgba(234, 88, 12, 0.3)',
+                        transition: 'transform 0.2s',
                         whiteSpace: 'nowrap'
                     }}
-                    onMouseEnter={(e) => {
-                        e.currentTarget.style.transform = 'translateY(-2px)';
-                        e.currentTarget.style.boxShadow = '0 6px 20px rgba(234, 88, 12, 0.5)';
-                    }}
-                    onMouseLeave={(e) => {
-                        e.currentTarget.style.transform = 'translateY(0)';
-                        e.currentTarget.style.boxShadow = '0 4px 15px rgba(234, 88, 12, 0.35)';
-                    }}
+                    onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-1px)'}
+                    onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
                 >
                     <span>⚡</span> Start Daily 5 Drill (+XP)
                 </button>
             </div>
 
-            {/* 16-Block Timetable & Scheme of Work Feature Card */}
-            <div style={{
-                background: 'linear-gradient(135deg, rgba(56, 189, 248, 0.12) 0%, rgba(59, 130, 246, 0.08) 100%)',
-                border: '1px solid rgba(56, 189, 248, 0.3)',
-                borderRadius: '16px',
-                padding: '24px',
-                marginBottom: '25px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                flexWrap: 'wrap',
-                gap: '20px',
-                boxShadow: '0 8px 24px rgba(0,0,0,0.2)'
-            }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '18px' }}>
-                    <div style={{
-                        width: '56px',
-                        height: '56px',
-                        borderRadius: '12px',
-                        background: 'linear-gradient(135deg, #0284c7, #38bdf8)',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        fontSize: '1.8rem',
-                        boxShadow: '0 4px 15px rgba(56, 189, 248, 0.4)'
-                    }}>
-                        🗺️
-                    </div>
-                    <div>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px', flexWrap: 'wrap' }}>
-                            <span style={{ fontSize: '0.75rem', fontWeight: 'bold', background: 'rgba(56, 189, 248, 0.25)', color: '#38bdf8', padding: '2px 8px', borderRadius: '6px' }}>
-                                EDEXCEL 9MT0 SYLLABUS
-                            </span>
-                            <span style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>
-                                24 Weeks/Year Framework (3 Weeks / 12h per Block)
-                            </span>
-                            <span style={{ 
-                                fontSize: '0.75rem', 
-                                fontWeight: 'bold', 
-                                background: 'rgba(16, 185, 129, 0.2)', 
-                                color: '#34d399', 
-                                border: '1px solid rgba(16, 185, 129, 0.4)',
-                                padding: '2px 8px', 
-                                borderRadius: '6px'
-                            }}>
-                                🎮 INTERACTIVE QUEST MAP
-                            </span>
-                        </div>
-                        <h3 style={{ margin: '0 0 6px 0', color: '#fff', fontSize: '1.3rem' }}>
-                            16-Block Timetable & Scheme of Work
-                        </h3>
-                        <p style={{ margin: 0, color: 'var(--text-secondary)', fontSize: '0.92rem', maxWidth: '650px', lineHeight: '1.4' }}>
-                            Interactive 3-week block curriculum (4 hours/week, 12h per block) covering Critical Listening (1950s–Present), Technical Theory, Practical Studio Tracking, Coursework Milestones (C1 & C2), and 5–10 Facts Revision Flashcards.
-                        </p>
-                    </div>
-                </div>
-                <button
-                    onClick={() => onNavigate({ type: 'timetable_builder', title: '16-Block Timetable & Scheme of Work' })}
-                    style={{
-                        background: 'linear-gradient(135deg, #0284c7 0%, #0369a1 100%)',
-                        color: '#fff',
-                        border: 'none',
-                        padding: '12px 24px',
-                        borderRadius: '10px',
-                        cursor: 'pointer',
-                        fontWeight: 'bold',
-                        fontSize: '1rem',
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '8px',
-                        boxShadow: '0 4px 15px rgba(2, 132, 199, 0.4)',
-                        transition: 'all 0.2s',
-                        whiteSpace: 'nowrap'
-                    }}
-                    onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.04)'}
-                    onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
-                >
-                    Launch Timetable Quest Map →
-                </button>
-            </div>
-
-            {/* Component 1 Track Sheet & Logbook Feature Card */}
-            <div style={{
-                background: 'linear-gradient(135deg, rgba(168, 85, 247, 0.12) 0%, rgba(99, 102, 241, 0.08) 100%)',
-                border: '1px solid rgba(168, 85, 247, 0.3)',
-                borderRadius: '16px',
-                padding: '24px',
-                marginBottom: '35px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                flexWrap: 'wrap',
-                gap: '20px',
-                boxShadow: '0 8px 24px rgba(0,0,0,0.2)'
-            }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '18px' }}>
-                    <div style={{
-                        width: '56px',
-                        height: '56px',
-                        borderRadius: '12px',
-                        background: 'linear-gradient(135deg, #8b5cf6, #ec4899)',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        fontSize: '1.8rem',
-                        boxShadow: '0 4px 15px rgba(139, 92, 246, 0.4)'
-                    }}>
-                        🎚️
-                    </div>
-                    <div>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px', flexWrap: 'wrap' }}>
-                            <span style={{ fontSize: '0.75rem', fontWeight: 'bold', background: 'rgba(168, 85, 247, 0.25)', color: '#c084fc', padding: '2px 8px', borderRadius: '6px' }}>
-                                PEARSON EDEXCEL (9MT0/01)
-                            </span>
-                            <span style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>
-                                Component 1 Recording
-                            </span>
-                            <span style={{ 
-                                fontSize: '0.75rem', 
-                                fontWeight: 'bold', 
-                                background: currentUser?.is_premium ? 'rgba(34, 197, 94, 0.2)' : 'rgba(234, 179, 8, 0.2)', 
-                                color: currentUser?.is_premium ? '#4ade80' : '#facc15', 
-                                border: `1px solid ${currentUser?.is_premium ? 'rgba(34, 197, 94, 0.4)' : 'rgba(234, 179, 8, 0.4)'}`,
-                                padding: '2px 8px', 
-                                borderRadius: '6px',
-                                display: 'inline-flex',
-                                alignItems: 'center',
-                                gap: '4px'
-                            }}>
-                                {currentUser?.is_premium ? '✓ PREMIUM UNLOCKED' : '🔒 PREMIUM'}
-                            </span>
-                        </div>
-                        <h3 style={{ margin: '0 0 6px 0', color: '#fff', fontSize: '1.3rem' }}>
-                            Component 1 Track Sheet & Logbook Creator
-                        </h3>
-                        <p style={{ margin: 0, color: 'var(--text-secondary)', fontSize: '0.92rem', maxWidth: '650px', lineHeight: '1.4' }}>
-                            Generate authentic multi-track session sheets, mic setups, and complete DAW-specific submission logbooks (Logic, Pro Tools, Ableton, Cubase, etc.) with marking rationale and PDF downloads.
-                        </p>
-                    </div>
-                </div>
-                <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
-                    <button
-                        onClick={() => {
-                            if (!currentUser?.is_premium) {
-                                onNavigate({ id: 'component1_checklist', type: 'premium_locked', title: 'Component 1: Mark Scheme Checklist', isPremium: true });
-                                return;
-                            }
-                            setMarkSchemeModal({ open: true, component: 'c1' });
-                        }}
-                        style={{
-                            background: 'linear-gradient(135deg, #0284c7 0%, #0369a1 100%)',
-                            color: '#fff',
-                            border: 'none',
-                            padding: '12px 20px',
-                            borderRadius: '10px',
-                            cursor: 'pointer',
-                            fontWeight: 'bold',
-                            fontSize: '0.95rem',
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: '8px',
-                            boxShadow: '0 4px 15px rgba(2, 132, 199, 0.4)',
-                            transition: 'all 0.2s',
-                            whiteSpace: 'nowrap'
-                        }}
-                        onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.03)'}
-                        onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
-                    >
-                        🏆 Mark Scheme Tick List ({courseworkStats.c1Marks}/60m) →
-                    </button>
-                    <button
-                        onClick={() => onNavigate({ id: 'tracksheet_creator', type: 'tracksheet_creator', title: 'Component 1: Track Sheet & Logbook', isPremium: true })}
-                        style={{
-                            background: 'linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%)',
-                            color: '#fff',
-                            border: 'none',
-                            padding: '12px 20px',
-                            borderRadius: '10px',
-                            cursor: 'pointer',
-                            fontWeight: 'bold',
-                            fontSize: '0.95rem',
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: '8px',
-                            boxShadow: '0 4px 15px rgba(139, 92, 246, 0.4)',
-                            transition: 'all 0.2s',
-                            whiteSpace: 'nowrap'
-                        }}
-                        onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.03)'}
-                        onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
-                    >
-                        🎚️ Track Sheet Creator →
-                    </button>
-                    <button
-                        onClick={() => onNavigate({ id: 'component1_guide', type: 'component1_guide', title: 'Component 1: Recording Guide & Tick List', isPremium: true })}
-                        style={{
-                            background: 'rgba(16, 185, 129, 0.16)',
-                            color: '#6ee7b7',
-                            border: '1px solid rgba(16, 185, 129, 0.45)',
-                            padding: '12px 20px',
-                            borderRadius: '10px',
-                            cursor: 'pointer',
-                            fontWeight: 'bold',
-                            fontSize: '0.95rem',
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: '8px',
-                            transition: 'all 0.2s',
-                            whiteSpace: 'nowrap'
-                        }}
-                        onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.03)'}
-                        onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
-                    >
-                        ✅ C1 Guide &amp; Tick List →
-                    </button>
-                </div>
-            </div>
-
-            {/* Component 2 Technology-Based Composition Guide & Tick List Feature Card */}
-            <div style={{
-                background: 'linear-gradient(135deg, rgba(236, 72, 153, 0.12) 0%, rgba(139, 92, 246, 0.08) 100%)',
-                border: '1px solid rgba(244, 114, 182, 0.35)',
-                borderRadius: '16px',
-                padding: '24px',
-                marginBottom: '35px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                flexWrap: 'wrap',
-                gap: '20px',
-                boxShadow: '0 8px 24px rgba(0,0,0,0.2)'
-            }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '18px' }}>
-                    <div style={{
-                        width: '56px',
-                        height: '56px',
-                        borderRadius: '12px',
-                        background: 'linear-gradient(135deg, #ec4899, #8b5cf6)',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        fontSize: '1.8rem',
-                        boxShadow: '0 4px 15px rgba(236, 72, 153, 0.4)'
-                    }}>
-                        🎹
-                    </div>
-                    <div>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px', flexWrap: 'wrap' }}>
-                            <span style={{ fontSize: '0.75rem', fontWeight: 'bold', background: 'rgba(236, 72, 153, 0.25)', color: '#f472b6', padding: '2px 8px', borderRadius: '6px' }}>
-                                PEARSON EDEXCEL (9MT0/02)
-                            </span>
-                            <span style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>
-                                60 Marks • 3:00 Duration • 6+ Parts
-                            </span>
-                            <span style={{ 
-                                fontSize: '0.75rem', 
-                                fontWeight: 'bold', 
-                                background: currentUser?.is_premium ? 'rgba(34, 197, 94, 0.2)' : 'rgba(234, 179, 8, 0.2)', 
-                                color: currentUser?.is_premium ? '#4ade80' : '#facc15', 
-                                border: `1px solid ${currentUser?.is_premium ? 'rgba(34, 197, 94, 0.4)' : 'rgba(234, 179, 8, 0.4)'}`,
-                                padding: '2px 8px', 
-                                borderRadius: '6px',
-                                display: 'inline-flex',
-                                alignItems: 'center',
-                                gap: '4px'
-                            }}>
-                                {currentUser?.is_premium ? '✓ PREMIUM UNLOCKED' : '🔒 PREMIUM'}
-                            </span>
-                            <span style={{ 
-                                fontSize: '0.75rem', 
-                                fontWeight: 'bold', 
-                                background: 'rgba(56, 189, 248, 0.2)', 
-                                color: '#38bdf8', 
-                                border: '1px solid rgba(56, 189, 248, 0.4)',
-                                padding: '2px 8px', 
-                                borderRadius: '6px'
-                            }}>
-                                🏆 {courseworkStats.c2Marks} / 60 MARKS ({courseworkStats.c2Pct}% • GRADE {courseworkStats.c2Grade.grade})
-                            </span>
-                        </div>
-                        <h3 style={{ margin: '0 0 6px 0', color: '#fff', fontSize: '1.3rem' }}>
-                            Component 2: Technology-Based Composition Guide
-                        </h3>
-                        <p style={{ margin: 0, color: 'var(--text-secondary)', fontSize: '0.92rem', maxWidth: '650px', lineHeight: '1.4' }}>
-                            Complete interactive coursework companion for Brief 2 & Brief 3. Track your 5-phase composition workflow, tick off 24 synthesis, sampling & creative FX techniques in Logic Pro X, and build examiner-ready logbook entries.
-                        </p>
-                    </div>
-                </div>
-                <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
-                    <button
-                        onClick={() => {
-                            if (!currentUser?.is_premium) {
-                                onNavigate({ id: 'component2_checklist', type: 'premium_locked', title: 'Component 2: Mark Scheme Checklist', isPremium: true });
-                                return;
-                            }
-                            setMarkSchemeModal({ open: true, component: 'c2' });
-                        }}
-                        style={{
-                            background: 'linear-gradient(135deg, #0284c7 0%, #0369a1 100%)',
-                            color: '#fff',
-                            border: 'none',
-                            padding: '12px 20px',
-                            borderRadius: '10px',
-                            cursor: 'pointer',
-                            fontWeight: 'bold',
-                            fontSize: '0.95rem',
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: '8px',
-                            boxShadow: '0 4px 15px rgba(2, 132, 199, 0.4)',
-                            transition: 'all 0.2s',
-                            whiteSpace: 'nowrap'
-                        }}
-                        onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.03)'}
-                        onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
-                    >
-                        🏆 Mark Scheme Tick List ({courseworkStats.c2Marks}/60m) →
-                    </button>
-                    <button
-                        onClick={() => onNavigate({ id: 'component2_guide', type: 'component2_guide', title: 'Component 2: Composition Guide & Logbook', isPremium: true })}
-                        style={{
-                            background: 'linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%)',
-                            color: '#fff',
-                            border: 'none',
-                            padding: '12px 24px',
-                            borderRadius: '10px',
-                            cursor: 'pointer',
-                            fontWeight: 'bold',
-                            fontSize: '1rem',
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: '8px',
-                            boxShadow: '0 4px 15px rgba(236, 72, 153, 0.4)',
-                            transition: 'all 0.2s',
-                            whiteSpace: 'nowrap'
-                        }}
-                        onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.04)'}
-                        onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
-                    >
-                        Open Component 2 Guide →
-                    </button>
-                </div>
-            </div>
-
-            {/* Sonic Fingerprints Feature Card */}
-            <div style={{
-                background: 'linear-gradient(135deg, rgba(168, 85, 247, 0.12) 0%, rgba(59, 130, 246, 0.08) 100%)',
-                border: '1px solid rgba(168, 85, 247, 0.35)',
-                borderRadius: '16px',
-                padding: '24px',
-                marginBottom: '35px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                flexWrap: 'wrap',
-                gap: '20px',
-                boxShadow: '0 8px 24px rgba(0,0,0,0.2)'
-            }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '18px' }}>
-                    <div style={{
-                        width: '56px',
-                        height: '56px',
-                        borderRadius: '12px',
-                        background: 'linear-gradient(135deg, #8b5cf6, #3b82f6)',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        fontSize: '1.8rem',
-                        boxShadow: '0 4px 15px rgba(139, 92, 246, 0.4)'
-                    }}>
-                        🎧
-                    </div>
-                    <div>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px', flexWrap: 'wrap' }}>
-                            <span style={{ fontSize: '0.75rem', fontWeight: 'bold', background: 'rgba(168, 85, 247, 0.25)', color: '#c084fc', padding: '2px 8px', borderRadius: '6px' }}>
-                                CRITICAL LISTENING LAB
-                            </span>
-                            <span style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>
-                                1950s–2010s Iconic Tracks • Capture, EQ, Dynamics, FX & Stereo
-                            </span>
-                        </div>
-                        <h3 style={{ margin: '0 0 6px 0', color: '#fff', fontSize: '1.3rem' }}>
-                            Sonic Fingerprints: Production Analysis Laboratory
-                        </h3>
-                        <p style={{ margin: 0, color: 'var(--text-secondary)', fontSize: '0.92rem', maxWidth: '650px', lineHeight: '1.4' }}>
-                            Analyze the authentic production fingerprints of Elvis, The Beatles, Pink Floyd, Michael Jackson, King Tubby Reggae Dub, New Order Synth-Pop, Dr. Dre, Daft Punk, and 2010s EDM Pop. Test your ear against professional engineering criteria!
-                        </p>
-                    </div>
-                </div>
-                <button
-                    onClick={() => onNavigate({ id: 'lp_fingerprints', type: 'lp_fingerprints', title: 'Sonic Fingerprints: Production Analysis' })}
-                    style={{
-                        background: 'linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%)',
-                        color: '#fff',
-                        border: 'none',
-                        padding: '12px 24px',
-                        borderRadius: '10px',
-                        cursor: 'pointer',
-                        fontWeight: 'bold',
-                        fontSize: '1rem',
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '8px',
-                        boxShadow: '0 4px 15px rgba(139, 92, 246, 0.4)',
-                        transition: 'all 0.2s',
-                        whiteSpace: 'nowrap'
-                    }}
-                    onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.04)'}
-                    onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
-                >
-                    Launch Fingerprints Lab →
-                </button>
-            </div>
-
-            <div id="campaign-map-section">
+            {/* CENTRAL FOCUS: THE PATH TO LEGEND (Campaign Map) */}
+            <div id="campaign-map-section" style={{ marginBottom: '35px' }}>
                 <CampaignMap onNavigate={onNavigate} />
+            </div>
+
+            {/* Coursework & Specialised Tools (Compact, Non-Distracting Grid) */}
+            <div style={{ marginBottom: '35px' }}>
+                <div style={{ marginBottom: '14px' }}>
+                    <h3 style={{ margin: 0, fontSize: '1.2rem', color: '#fff', fontWeight: 800, display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <span>🎛️</span> Coursework &amp; Specialised Tools
+                    </h3>
+                    <p style={{ margin: '3px 0 0 0', color: 'var(--text-secondary)', fontSize: '0.82rem' }}>
+                        Quick access to your 16-block syllabus timetable, C1/C2 coursework guides, and listening laboratories.
+                    </p>
+                </div>
+
+                <div style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
+                    gap: '16px'
+                }}>
+                    {/* Card 1: 16-Block Timetable */}
+                    <div style={{
+                        background: 'linear-gradient(135deg, rgba(56, 189, 248, 0.08) 0%, rgba(59, 130, 246, 0.04) 100%)',
+                        border: '1px solid rgba(56, 189, 248, 0.25)',
+                        borderRadius: '14px',
+                        padding: '16px',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'space-between',
+                        boxShadow: '0 4px 15px rgba(0,0,0,0.15)'
+                    }}>
+                        <div>
+                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '10px' }}>
+                                <div style={{
+                                    width: '38px',
+                                    height: '38px',
+                                    borderRadius: '10px',
+                                    background: 'linear-gradient(135deg, #0284c7, #38bdf8)',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    fontSize: '1.25rem'
+                                }}>
+                                    🗺️
+                                </div>
+                                <span style={{ fontSize: '0.7rem', fontWeight: 'bold', background: 'rgba(56, 189, 248, 0.2)', color: '#38bdf8', padding: '3px 8px', borderRadius: '6px' }}>
+                                    EDEXCEL 9MT0
+                                </span>
+                            </div>
+                            <h4 style={{ margin: '0 0 4px 0', color: '#fff', fontSize: '1rem', fontWeight: 700 }}>
+                                16-Block Scheme of Work
+                            </h4>
+                            <p style={{ margin: '0 0 12px 0', color: 'var(--text-secondary)', fontSize: '0.8rem', lineHeight: '1.4' }}>
+                                24-week framework (12h per block) covering theory, listening, and coursework milestones.
+                            </p>
+                        </div>
+                        <button
+                            onClick={() => onNavigate({ type: 'timetable_builder', title: '16-Block Timetable & Scheme of Work' })}
+                            style={{
+                                background: 'linear-gradient(135deg, #0284c7 0%, #0369a1 100%)',
+                                color: '#fff',
+                                border: 'none',
+                                padding: '9px 14px',
+                                borderRadius: '8px',
+                                cursor: 'pointer',
+                                fontWeight: 'bold',
+                                fontSize: '0.85rem',
+                                width: '100%',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                gap: '6px',
+                                boxShadow: '0 2px 8px rgba(2, 132, 199, 0.3)',
+                                transition: 'all 0.2s'
+                            }}
+                            onMouseEnter={e => e.currentTarget.style.transform = 'translateY(-1px)'}
+                            onMouseLeave={e => e.currentTarget.style.transform = 'translateY(0)'}
+                        >
+                            Launch Timetable Quest Map →
+                        </button>
+                    </div>
+
+                    {/* Card 2: Component 1 Track Sheet */}
+                    <div style={{
+                        background: 'linear-gradient(135deg, rgba(168, 85, 247, 0.08) 0%, rgba(99, 102, 241, 0.04) 100%)',
+                        border: '1px solid rgba(168, 85, 247, 0.25)',
+                        borderRadius: '14px',
+                        padding: '16px',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'space-between',
+                        boxShadow: '0 4px 15px rgba(0,0,0,0.15)'
+                    }}>
+                        <div>
+                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '10px' }}>
+                                <div style={{
+                                    width: '38px',
+                                    height: '38px',
+                                    borderRadius: '10px',
+                                    background: 'linear-gradient(135deg, #8b5cf6, #ec4899)',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    fontSize: '1.25rem'
+                                }}>
+                                    🎚️
+                                </div>
+                                <span style={{ fontSize: '0.7rem', fontWeight: 'bold', background: 'rgba(168, 85, 247, 0.2)', color: '#c084fc', padding: '3px 8px', borderRadius: '6px' }}>
+                                    9MT0/01 • {courseworkStats.c1Marks}/60m
+                                </span>
+                            </div>
+                            <h4 style={{ margin: '0 0 4px 0', color: '#fff', fontSize: '1rem', fontWeight: 700 }}>
+                                Component 1 Track Sheet &amp; Logbook
+                            </h4>
+                            <p style={{ margin: '0 0 12px 0', color: 'var(--text-secondary)', fontSize: '0.8rem', lineHeight: '1.4' }}>
+                                DAW session sheets, mic setups, and PDF logbook generator with marking rationale.
+                            </p>
+                        </div>
+                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
+                            <button
+                                onClick={() => onNavigate({ id: 'tracksheet_creator', type: 'tracksheet_creator', title: 'Component 1: Track Sheet & Logbook', isPremium: true })}
+                                style={{
+                                    background: 'linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%)',
+                                    color: '#fff',
+                                    border: 'none',
+                                    padding: '8px 10px',
+                                    borderRadius: '8px',
+                                    cursor: 'pointer',
+                                    fontWeight: 'bold',
+                                    fontSize: '0.8rem',
+                                    textAlign: 'center'
+                                }}
+                            >
+                                Track Sheet →
+                            </button>
+                            <button
+                                onClick={() => {
+                                    if (!currentUser?.is_premium) {
+                                        onNavigate({ id: 'component1_checklist', type: 'premium_locked', title: 'Component 1: Mark Scheme Checklist', isPremium: true });
+                                        return;
+                                    }
+                                    setMarkSchemeModal({ open: true, component: 'c1' });
+                                }}
+                                style={{
+                                    background: 'rgba(255,255,255,0.06)',
+                                    color: '#e2e8f0',
+                                    border: '1px solid rgba(255,255,255,0.15)',
+                                    padding: '8px 10px',
+                                    borderRadius: '8px',
+                                    cursor: 'pointer',
+                                    fontWeight: 'bold',
+                                    fontSize: '0.8rem',
+                                    textAlign: 'center'
+                                }}
+                            >
+                                Tick List →
+                            </button>
+                        </div>
+                    </div>
+
+                    {/* Card 3: Component 2 Composition */}
+                    <div style={{
+                        background: 'linear-gradient(135deg, rgba(236, 72, 153, 0.08) 0%, rgba(139, 92, 246, 0.04) 100%)',
+                        border: '1px solid rgba(244, 114, 182, 0.25)',
+                        borderRadius: '14px',
+                        padding: '16px',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'space-between',
+                        boxShadow: '0 4px 15px rgba(0,0,0,0.15)'
+                    }}>
+                        <div>
+                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '10px' }}>
+                                <div style={{
+                                    width: '38px',
+                                    height: '38px',
+                                    borderRadius: '10px',
+                                    background: 'linear-gradient(135deg, #ec4899, #8b5cf6)',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    fontSize: '1.25rem'
+                                }}>
+                                    🎹
+                                </div>
+                                <span style={{ fontSize: '0.7rem', fontWeight: 'bold', background: 'rgba(236, 72, 153, 0.2)', color: '#f472b6', padding: '3px 8px', borderRadius: '6px' }}>
+                                    9MT0/02 • {courseworkStats.c2Marks}/60m
+                                </span>
+                            </div>
+                            <h4 style={{ margin: '0 0 4px 0', color: '#fff', fontSize: '1rem', fontWeight: 700 }}>
+                                Component 2: Composition Guide
+                            </h4>
+                            <p style={{ margin: '0 0 12px 0', color: 'var(--text-secondary)', fontSize: '0.8rem', lineHeight: '1.4' }}>
+                                Brief 2 &amp; 3 companion, 24 synthesis &amp; FX techniques, and logbook entries.
+                            </p>
+                        </div>
+                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
+                            <button
+                                onClick={() => onNavigate({ id: 'component2_guide', type: 'component2_guide', title: 'Component 2: Composition Guide & Logbook', isPremium: true })}
+                                style={{
+                                    background: 'linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%)',
+                                    color: '#fff',
+                                    border: 'none',
+                                    padding: '8px 10px',
+                                    borderRadius: '8px',
+                                    cursor: 'pointer',
+                                    fontWeight: 'bold',
+                                    fontSize: '0.8rem',
+                                    textAlign: 'center'
+                                }}
+                            >
+                                Open Guide →
+                            </button>
+                            <button
+                                onClick={() => {
+                                    if (!currentUser?.is_premium) {
+                                        onNavigate({ id: 'component2_checklist', type: 'premium_locked', title: 'Component 2: Mark Scheme Checklist', isPremium: true });
+                                        return;
+                                    }
+                                    setMarkSchemeModal({ open: true, component: 'c2' });
+                                }}
+                                style={{
+                                    background: 'rgba(255,255,255,0.06)',
+                                    color: '#e2e8f0',
+                                    border: '1px solid rgba(255,255,255,0.15)',
+                                    padding: '8px 10px',
+                                    borderRadius: '8px',
+                                    cursor: 'pointer',
+                                    fontWeight: 'bold',
+                                    fontSize: '0.8rem',
+                                    textAlign: 'center'
+                                }}
+                            >
+                                Tick List →
+                            </button>
+                        </div>
+                    </div>
+
+                    {/* Card 4: Sonic Fingerprints Lab */}
+                    <div style={{
+                        background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.08) 0%, rgba(59, 130, 246, 0.04) 100%)',
+                        border: '1px solid rgba(99, 102, 241, 0.25)',
+                        borderRadius: '14px',
+                        padding: '16px',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'space-between',
+                        boxShadow: '0 4px 15px rgba(0,0,0,0.15)'
+                    }}>
+                        <div>
+                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '10px' }}>
+                                <div style={{
+                                    width: '38px',
+                                    height: '38px',
+                                    borderRadius: '10px',
+                                    background: 'linear-gradient(135deg, #8b5cf6, #3b82f6)',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    fontSize: '1.25rem'
+                                }}>
+                                    🎧
+                                </div>
+                                <span style={{ fontSize: '0.7rem', fontWeight: 'bold', background: 'rgba(99, 102, 241, 0.2)', color: '#818cf8', padding: '3px 8px', borderRadius: '6px' }}>
+                                    1950s–2010s
+                                </span>
+                            </div>
+                            <h4 style={{ margin: '0 0 4px 0', color: '#fff', fontSize: '1rem', fontWeight: 700 }}>
+                                Sonic Fingerprints: Production Analysis
+                            </h4>
+                            <p style={{ margin: '0 0 12px 0', color: 'var(--text-secondary)', fontSize: '0.8rem', lineHeight: '1.4' }}>
+                                Critical listening lab on iconic tracks (Beatles, Pink Floyd, Daft Punk, etc.).
+                            </p>
+                        </div>
+                        <button
+                            onClick={() => onNavigate({ id: 'lp_fingerprints', type: 'lp_fingerprints', title: 'Sonic Fingerprints: Production Analysis' })}
+                            style={{
+                                background: 'linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%)',
+                                color: '#fff',
+                                border: 'none',
+                                padding: '9px 14px',
+                                borderRadius: '8px',
+                                cursor: 'pointer',
+                                fontWeight: 'bold',
+                                fontSize: '0.85rem',
+                                width: '100%',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                gap: '6px',
+                                boxShadow: '0 2px 8px rgba(139, 92, 246, 0.3)',
+                                transition: 'all 0.2s'
+                            }}
+                            onMouseEnter={e => e.currentTarget.style.transform = 'translateY(-1px)'}
+                            onMouseLeave={e => e.currentTarget.style.transform = 'translateY(0)'}
+                        >
+                            Launch Fingerprints Lab →
+                        </button>
+                    </div>
+                </div>
             </div>
 
             <div style={{ textAlign: 'center', marginBottom: '30px' }}>
