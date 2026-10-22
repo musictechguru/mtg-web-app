@@ -354,40 +354,7 @@ const MainApp = () => {
     setShowWelcomeVideo(false);
   }, []);
 
-
-  if (loading) {
-    return <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', color: '#fff' }}>Loading...</div>;
-  }
-
-  // Invite routing takes precedence, handles its own unauthenticated state
-  if (appView === 'invite') {
-    return (
-      <Suspense fallback={<LoadingFallback />}>
-        <InviteLanding teacherId={inviteTeacherId} onComplete={() => {
-          window.history.replaceState({}, '', '/');
-          setInviteTeacherId(null);
-          setAppView('student');
-        }} />
-      </Suspense>
-    );
-  }
-
-  if (!currentUser && !activeItem) {
-    return <LoginScreen onSelectPreview={handleItemSelect} />;
-  }
-
-  if (appView === 'teacher') {
-    if (!currentUser) {
-      return <LoginScreen onSelectPreview={handleItemSelect} />;
-    }
-    return (
-      <Suspense fallback={<LoadingFallback />}>
-        <TeacherDashboard onBack={() => setAppView('student')} />
-      </Suspense>
-    );
-  }
-
-  // Normal App Logic
+  // Normal App Logic Handlers
   const handleItemSelect = (item) => {
     // Premium Check
     if (isPremiumItem(item) && !currentUser?.is_premium) {
@@ -436,8 +403,6 @@ const MainApp = () => {
     }
   };
 
-
-
   // Close menu when route changes or item selected
   const handleItemSelectWrapper = (item) => {
     handleItemSelect(item);
@@ -448,6 +413,38 @@ const MainApp = () => {
     goToDashboard();
     setMobileMenuOpen(false);
   };
+
+  if (loading) {
+    return <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', color: '#fff' }}>Loading...</div>;
+  }
+
+  // Invite routing takes precedence, handles its own unauthenticated state
+  if (appView === 'invite') {
+    return (
+      <Suspense fallback={<LoadingFallback />}>
+        <InviteLanding teacherId={inviteTeacherId} onComplete={() => {
+          window.history.replaceState({}, '', '/');
+          setInviteTeacherId(null);
+          setAppView('student');
+        }} />
+      </Suspense>
+    );
+  }
+
+  if (!currentUser && !activeItem) {
+    return <LoginScreen onSelectPreview={handleItemSelect} />;
+  }
+
+  if (appView === 'teacher') {
+    if (!currentUser) {
+      return <LoginScreen onSelectPreview={handleItemSelect} />;
+    }
+    return (
+      <Suspense fallback={<LoadingFallback />}>
+        <TeacherDashboard onBack={() => setAppView('student')} />
+      </Suspense>
+    );
+  }
 
   return (
     <div className="app-container">
