@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { useUser } from '../contexts/UserContext';
 import { supabase } from '../config/supabase';
 import StudentProgressModal from './StudentProgressModal';
@@ -197,52 +197,45 @@ const TeacherDashboard = ({ onBack }) => {
     };
 
     // Load real student roster from Supabase or default authentic cohort
-    useEffect(() => {
-        let isMounted = true;
-        const loadStudents = async () => {
-            setLoadingStats(true);
-            try {
-                const data = await fetchClassProgress();
-                if (!isMounted) return;
+    const loadStudents = useCallback(async () => {
+        setLoadingStats(true);
+        try {
+            const data = await fetchClassProgress();
 
-                if (data && data.length > 0) {
-                    // Merge DB records with authentic student defaults to ensure tracks and briefs are populated
-                    const merged = data.map(dbStudent => {
-                        const sampleMatch = DEFAULT_SAMPLE_STUDENTS.find(
-                            s => s.student_id === dbStudent.student_id || s.full_name === dbStudent.full_name
-                        );
-                        return {
-                            ...sampleMatch,
-                            ...dbStudent,
-                            progress: {
-                                ...(sampleMatch?.progress || {}),
-                                ...(dbStudent.progress || {})
-                            }
-                        };
-                    });
-
-                    // Add any students from DEFAULT_SAMPLE_STUDENTS that weren't in the returned list
-                    DEFAULT_SAMPLE_STUDENTS.forEach(sampleStudent => {
-                        if (!merged.some(m => m.student_id === sampleStudent.student_id || m.full_name === sampleStudent.full_name)) {
-                            merged.push(sampleStudent);
+            if (data && data.length > 0) {
+                // Merge DB records with authentic student defaults to ensure tracks and briefs are populated
+                const merged = data.map(dbStudent => {
+                    const sampleMatch = DEFAULT_SAMPLE_STUDENTS.find(
+                        s => s.student_id === dbStudent.student_id || s.full_name === dbStudent.full_name
+                    );
+                    return {
+                        ...sampleMatch,
+                        ...dbStudent,
+                        progress: {
+                            ...(sampleMatch?.progress || {}),
+                            ...(dbStudent.progress || {})
                         }
-                    });
+                    };
+                });
 
-                    setStudents(merged);
-                } else {
-                    setStudents(DEFAULT_SAMPLE_STUDENTS);
-                }
-            } catch (err) {
-                console.error("Error loading student roster:", err);
-                if (isMounted) setStudents(DEFAULT_SAMPLE_STUDENTS);
-            } finally {
-                if (isMounted) setLoadingStats(false);
+                setStudents(merged);
+            } else {
+                // Only fallback to sample cohort for admin or developer preview
+                const isDevOrAdmin = currentUser?.id === '7ba50a09-985b-4edd-a679-799f79d02353' || currentUser?.role === 'admin';
+                setStudents(isDevOrAdmin ? DEFAULT_SAMPLE_STUDENTS : []);
             }
-        };
-
-        loadStudents();
-        return () => { isMounted = false; };
+        } catch (err) {
+            console.error("Error loading student roster:", err);
+            const isDevOrAdmin = currentUser?.id === '7ba50a09-985b-4edd-a679-799f79d02353' || currentUser?.role === 'admin';
+            setStudents(isDevOrAdmin ? DEFAULT_SAMPLE_STUDENTS : []);
+        } finally {
+            setLoadingStats(false);
+        }
     }, [currentUser, fetchClassProgress]);
+
+    useEffect(() => {
+        loadStudents();
+    }, [loadStudents]);
 
     // Teacher Live Preview Object
     const teacherLiveStudent = useMemo(() => {
@@ -384,6 +377,19 @@ const TeacherDashboard = ({ onBack }) => {
                 </div>
 
                 <div style={{ display: 'flex', gap: '10px', alignItems: 'center', flexWrap: 'wrap' }}>
+                    <button
+                        onClick={loadStudents}
+                        disabled={loadingStats}
+                        style={{
+                            background: 'rgba(255, 255, 255, 0.06)',
+                            color: '#e2e8f0',
+                            border: '1px solid rgba(255, 255, 255, 0.15)',
+                            padding: '8px 14px', borderRadius: '8px', cursor: 'pointer', fontSize: '0.82rem', fontWeight: 700
+                        }}
+                        title="Reload latest student progress and roster from database"
+                    >
+                        {loadingStats ? '↻ Refreshing...' : '↻ Refresh Roster'}
+                    </button>
                     <button
                         onClick={handleCopyInvite}
                         style={{
