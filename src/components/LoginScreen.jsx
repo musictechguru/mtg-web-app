@@ -83,12 +83,15 @@ const LoginScreen = ({ onSelectPreview }) => {
             flexDirection: 'column',
             justifyContent: 'flex-start',
             alignItems: 'center',
-            minHeight: '100vh',
+            minHeight: '100dvh',
+            width: '100%',
+            maxWidth: '100vw',
             backgroundColor: 'var(--bg-dark)',
             color: 'var(--text-primary)',
-            padding: '40px 20px',
+            padding: 'clamp(20px, 4vw, 40px) clamp(12px, 3vw, 20px)',
             backgroundImage: 'radial-gradient(circle at 50% 30%, rgba(59, 130, 246, 0.1) 0%, transparent 60%)',
-            boxSizing: 'border-box'
+            boxSizing: 'border-box',
+            overflowX: 'hidden'
         }}>
             <div style={{
                 display: 'flex',
@@ -100,11 +103,14 @@ const LoginScreen = ({ onSelectPreview }) => {
                 maxWidth: '900px',
                 overflow: 'hidden',
                 border: '1px solid rgba(255, 255, 255, 0.1)',
-                boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.1)'
+                boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.1)',
+                boxSizing: 'border-box'
             }}>
                 {/* Marketing Panel */}
                 <div style={{
-                    flex: '1 1 350px',
+                    flex: '1 1 300px',
+                    minWidth: 0,
+                    maxWidth: '100%',
                     padding: '2rem 1.5rem',
                     background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%)',
                     display: 'flex',
@@ -184,6 +190,8 @@ const LoginScreen = ({ onSelectPreview }) => {
                 {/* Login Form Panel */}
                 <div style={{
                     flex: '1 1 300px',
+                    minWidth: 0,
+                    maxWidth: '100%',
                     padding: '2rem 1.5rem',
                     display: 'flex',
                     flexDirection: 'column',
@@ -509,14 +517,18 @@ const LoginScreen = ({ onSelectPreview }) => {
                             background: 'rgba(56, 189, 248, 0.1)',
                             border: '1px solid rgba(56, 189, 248, 0.35)',
                             color: '#38bdf8',
-                            padding: '12px 24px',
+                            padding: '12px 18px',
                             borderRadius: '12px',
-                            fontSize: '0.95rem',
+                            fontSize: 'clamp(0.85rem, 3.5vw, 0.95rem)',
                             fontWeight: 600,
                             cursor: 'pointer',
                             display: 'inline-flex',
                             alignItems: 'center',
-                            gap: '10px',
+                            justifyContent: 'center',
+                            gap: '8px',
+                            maxWidth: '100%',
+                            boxSizing: 'border-box',
+                            textAlign: 'center',
                             transition: 'all 0.2s ease',
                             boxShadow: '0 4px 12px rgba(0, 0, 0, 0.2)'
                         }}
