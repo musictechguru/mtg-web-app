@@ -631,6 +631,71 @@ const Dashboard = ({ onNavigate, onOpenProfile }) => {
                             Launch Fingerprints Lab →
                         </button>
                     </div>
+
+                    {/* Card 5: 1-on-1 Music Tech Tutor */}
+                    <div style={{
+                        background: 'linear-gradient(135deg, rgba(0, 193, 240, 0.12) 0%, rgba(59, 130, 246, 0.05) 100%)',
+                        border: '1px solid rgba(0, 193, 240, 0.4)',
+                        borderRadius: '14px',
+                        padding: '16px',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'space-between',
+                        boxShadow: '0 4px 15px rgba(0,0,0,0.2)'
+                    }}>
+                        <div>
+                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '10px' }}>
+                                <div style={{
+                                    width: '38px',
+                                    height: '38px',
+                                    borderRadius: '10px',
+                                    background: 'linear-gradient(135deg, #00C1F0, #0284c7)',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    fontSize: '1.25rem'
+                                }}>
+                                    🎓
+                                </div>
+                                <span style={{ fontSize: '0.7rem', fontWeight: 'bold', background: 'rgba(0, 193, 240, 0.2)', color: '#00C1F0', padding: '3px 8px', borderRadius: '6px' }}>
+                                    1-ON-1 ONLINE
+                                </span>
+                            </div>
+                            <h4 style={{ margin: '0 0 4px 0', color: '#fff', fontSize: '1rem', fontWeight: 700 }}>
+                                Music Tech Tutor (Private Lessons)
+                            </h4>
+                            <p style={{ margin: '0 0 12px 0', color: 'var(--text-secondary)', fontSize: '0.8rem', lineHeight: '1.4' }}>
+                                1-on-1 private tuition with Thor. 20+ years Edexcel teaching, coursework rescue, and exam mastery.
+                            </p>
+                        </div>
+                        <a
+                            href="https://www.musictechguru.com/homepage/music-tech-tutor/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            style={{
+                                background: 'linear-gradient(135deg, #00C1F0 0%, #0284c7 100%)',
+                                color: '#0b0f19',
+                                textDecoration: 'none',
+                                padding: '9px 14px',
+                                borderRadius: '8px',
+                                cursor: 'pointer',
+                                fontWeight: 'bold',
+                                fontSize: '0.85rem',
+                                width: '100%',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                gap: '6px',
+                                boxShadow: '0 2px 8px rgba(0, 193, 240, 0.3)',
+                                transition: 'all 0.2s',
+                                boxSizing: 'border-box'
+                            }}
+                            onMouseEnter={e => e.currentTarget.style.transform = 'translateY(-1px)'}
+                            onMouseLeave={e => e.currentTarget.style.transform = 'translateY(0)'}
+                        >
+                            Book Free Consultation ↗
+                        </a>
+                    </div>
                 </div>
             </div>
 

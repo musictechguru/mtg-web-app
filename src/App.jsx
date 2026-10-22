@@ -98,7 +98,7 @@ const getStageCountLabel = (section, isTopicSection, topicGroupCount) => {
 
 // Logic Component
 const MainApp = () => {
-  const { currentUser, userProgress, logout, loading, needsPasswordReset } = useUser();
+  const { currentUser, userProgress, loading, needsPasswordReset } = useUser();
   const [activeItem, setActiveItem] = useState(() => {
     if (typeof window !== 'undefined') {
       const params = new URLSearchParams(window.location.search);
@@ -229,27 +229,70 @@ const MainApp = () => {
     }
   }, [courseData]);
 
-  // Dynamic SEO metadata based on active item
+  // Dynamic SEO metadata & canonical tag based on active item
   useEffect(() => {
+    const baseUrl = 'https://app.musictechguru.com';
+    let currentUrl = baseUrl;
+    let pageTitle = 'Music Tech Guru | A-Level Music Technology Revision';
+    let pageDesc = 'Master Edexcel A-Level Music Technology with interactive quizzes, Component 3 & 4 mock exams, and premium teacher tools.';
+
     if (activeItem?.title) {
-      document.title = `${activeItem.title} | Music Tech Guru Revision`;
-      const metaDesc = document.querySelector('meta[name="description"]');
-      if (metaDesc) {
-        metaDesc.setAttribute(
-          'content',
-          `Revise ${activeItem.title} for Edexcel A-Level Music Technology with interactive questions, audio analysis, and exam tips.`
-        );
-      }
-    } else {
-      document.title = 'Music Tech Guru | A-Level Music Technology Revision';
-      const metaDesc = document.querySelector('meta[name="description"]');
-      if (metaDesc) {
-        metaDesc.setAttribute(
-          'content',
-          'Master Edexcel A-Level Music Technology with interactive quizzes, Component 3 & 4 mock exams, and premium teacher tools.'
-        );
+      pageTitle = `${activeItem.title} | Music Tech Guru Revision`;
+      pageDesc = `Revise ${activeItem.title} for Edexcel A-Level Music Technology with interactive questions, audio analysis, and exam tips.`;
+
+      const itemId = activeItem.id || activeItem.title;
+      if (activeItem.type === 'quick_fire_daily5') {
+        currentUrl = `${baseUrl}/?quiz=quick_fire_daily5`;
+      } else if (activeItem.type === 'dictionary_selector') {
+        currentUrl = `${baseUrl}/?quiz=dictionary_selector`;
+      } else if (activeItem.type === 'tracksheet_creator') {
+        currentUrl = `${baseUrl}/?quiz=tracksheet_creator`;
+      } else if (activeItem.type === 'component1_guide') {
+        currentUrl = `${baseUrl}/?quiz=component1_guide`;
+      } else if (activeItem.type === 'component2_guide') {
+        currentUrl = `${baseUrl}/?quiz=component2_guide`;
+      } else if (activeItem.type === 'timetable_builder') {
+        currentUrl = `${baseUrl}/?quiz=timetable_builder`;
+      } else if (activeItem.type === 'lp_fingerprints') {
+        currentUrl = `${baseUrl}/?quiz=lp_fingerprints`;
+      } else if (itemId) {
+        currentUrl = `${baseUrl}/?quiz=${encodeURIComponent(itemId)}`;
       }
     }
+
+    document.title = pageTitle;
+
+    const setMeta = (selector, attr, val) => {
+      let el = document.querySelector(selector);
+      if (!el) {
+        el = document.createElement('meta');
+        if (selector.includes('property=')) {
+          const propName = selector.match(/property="([^"]+)"/)?.[1];
+          if (propName) el.setAttribute('property', propName);
+        } else if (selector.includes('name=')) {
+          const nameVal = selector.match(/name="([^"]+)"/)?.[1];
+          if (nameVal) el.setAttribute('name', nameVal);
+        }
+        document.head.appendChild(el);
+      }
+      el.setAttribute(attr, val);
+    };
+
+    setMeta('meta[name="description"]', 'content', pageDesc);
+    setMeta('meta[property="og:title"]', 'content', pageTitle);
+    setMeta('meta[property="og:description"]', 'content', pageDesc);
+    setMeta('meta[property="og:url"]', 'content', currentUrl);
+    setMeta('meta[name="twitter:title"]', 'content', pageTitle);
+    setMeta('meta[name="twitter:description"]', 'content', pageDesc);
+    setMeta('meta[name="twitter:url"]', 'content', currentUrl);
+
+    let canonical = document.querySelector('link[rel="canonical"]');
+    if (!canonical) {
+      canonical = document.createElement('link');
+      canonical.setAttribute('rel', 'canonical');
+      document.head.appendChild(canonical);
+    }
+    canonical.setAttribute('href', currentUrl);
   }, [activeItem]);
 
 
@@ -483,10 +526,38 @@ const MainApp = () => {
           <button
             className={`nav-item ${!activeItem && appView === 'student' ? 'active' : ''}`}
             onClick={goToDashboardWrapper}
-            style={{ marginBottom: '20px', fontWeight: 'bold', color: 'var(--accent-blue)' }}
+            style={{ marginBottom: '15px', fontWeight: 'bold', color: 'var(--accent-blue)' }}
           >
             Dashboard
           </button>
+
+          <a
+            href="https://www.musictechguru.com/homepage/music-tech-tutor/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="nav-item"
+            style={{
+              marginBottom: '15px',
+              fontWeight: 'bold',
+              color: '#38bdf8',
+              border: '1px solid rgba(56, 189, 248, 0.45)',
+              background: 'rgba(56, 189, 248, 0.1)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              textDecoration: 'none',
+              padding: '10px 14px',
+              borderRadius: '8px',
+              transition: 'all 0.2s ease'
+            }}
+          >
+            <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <span>🎓</span> 1-on-1 Music Tech Tutor
+            </span>
+            <span style={{ fontSize: '0.7rem', background: 'rgba(56, 189, 248, 0.25)', color: '#38bdf8', padding: '2px 6px', borderRadius: '4px', fontWeight: 'bold' }}>
+              Thor
+            </span>
+          </a>
 
           <button
             className={`nav-item ${activeItem?.type === 'dictionary_selector' ? 'active' : ''}`}
