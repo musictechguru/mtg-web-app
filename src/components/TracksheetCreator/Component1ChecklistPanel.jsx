@@ -755,7 +755,7 @@ export default function Component1ChecklistPanel({
           className={`c2-tab-btn ${activeTab === 'overview' ? 'active' : ''}`}
           onClick={() => switchTab('overview')}
         >
-          <span>🧭</span> 1. Song, Styles & Setup
+          <span>🧭</span> 1. Song, Setup & Channel Plan
         </button>
         <button
           type="button"
@@ -808,7 +808,7 @@ export default function Component1ChecklistPanel({
       </div>
 
       {/* =========================================================
-          TAB 1: SONG SELECTION, RECOMMENDED STYLES & STUDIO SETUP
+          TAB 1: STUDIO RECORDING STRATEGY, SONG & CHANNEL PLAN
           ========================================================= */}
       {activeTab === 'overview' && (
         <div>
@@ -920,147 +920,10 @@ export default function Component1ChecklistPanel({
             </div>
           </div>
 
-          {/* STEP 2: BEST SONG STYLES & PRESCRIBED TRACK SELECTOR */}
-          <div className="c2-section-card" style={{ borderTop: '4px solid #c084fc' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '10px', marginBottom: '6px' }}>
-              <h2 className="c2-section-title" style={{ margin: 0 }}>
-                <span>🎷</span> Step 2: Best Song Styles & Arrangements for Component 1
-              </h2>
-              <span style={{
-                fontSize: '0.78rem',
-                fontWeight: 800,
-                background: 'rgba(192, 132, 252, 0.2)',
-                color: '#c084fc',
-                border: '1px solid rgba(192, 132, 252, 0.45)',
-                padding: '4px 12px',
-                borderRadius: '999px'
-              }}>
-                Click any song pill below to set your prescribed track
-              </span>
-            </div>
-            <p className="c2-section-desc">
-              When choosing from the official Edexcel prescribed list, pick a song with a clear rhythm-section groove, distinct Lead & Backing Vocal parts (`AG1B`), and natural keyboard/horn/guitar layers so you easily reach <strong>12–24 tracks</strong>.
-            </p>
-
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-              gap: '16px'
-            }}>
-              {C1_RECOMMENDED_STYLES.map((styleItem) => {
-                const isSelected = state.selectedStyleId === styleItem.id;
-                return (
-                  <div
-                    key={styleItem.id}
-                    onClick={() => setState(prev => ({ ...prev, selectedStyleId: styleItem.id }))}
-                    style={{
-                      background: isSelected
-                        ? 'linear-gradient(145deg, rgba(168, 85, 247, 0.18), rgba(15, 23, 42, 0.92))'
-                        : 'rgba(15, 23, 42, 0.72)',
-                      border: isSelected ? '2px solid #c084fc' : '1px solid rgba(255,255,255,0.1)',
-                      borderRadius: '16px',
-                      padding: '18px',
-                      cursor: 'pointer',
-                      transition: 'all 0.2s ease',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      justifyContent: 'space-between',
-                      boxShadow: isSelected ? '0 0 22px rgba(192, 132, 252, 0.25)' : 'none'
-                    }}
-                  >
-                    <div>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '8px', flexWrap: 'wrap', marginBottom: '8px' }}>
-                        <span style={{
-                          fontSize: '0.7rem',
-                          fontWeight: 800,
-                          padding: '3px 9px',
-                          borderRadius: '6px',
-                          background: 'rgba(16, 185, 129, 0.18)',
-                          color: '#34d399',
-                          border: '1px solid rgba(16, 185, 129, 0.4)'
-                        }}>
-                          {styleItem.badge}
-                        </span>
-                        <span style={{
-                          fontSize: '0.72rem',
-                          fontWeight: 700,
-                          color: '#38bdf8',
-                          background: 'rgba(56, 189, 248, 0.12)',
-                          padding: '3px 8px',
-                          borderRadius: '6px'
-                        }}>
-                          ⏱️ {styleItem.bpm}
-                        </span>
-                      </div>
-
-                      <h3 style={{ margin: '0 0 6px 0', fontSize: '1.12rem', color: '#fff', fontWeight: 800 }}>
-                        {styleItem.genre}
-                      </h3>
-
-                      <p style={{ margin: '0 0 12px 0', fontSize: '0.84rem', color: '#cbd5e1', lineHeight: 1.45 }}>
-                        {styleItem.why}
-                      </p>
-
-                      <div style={{
-                        background: 'rgba(2, 6, 23, 0.55)',
-                        border: '1px solid rgba(255,255,255,0.07)',
-                        borderRadius: '10px',
-                        padding: '10px 12px',
-                        fontSize: '0.78rem',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        gap: '6px',
-                        marginBottom: '12px'
-                      }}>
-                        <div><strong style={{ color: '#38bdf8' }}>🥁 AG1A Drums:</strong> <span style={{ color: '#e2e8f0' }}>{styleItem.drumsFit}</span></div>
-                        <div><strong style={{ color: '#fbbf24' }}>🎤 AG1B Vocals:</strong> <span style={{ color: '#e2e8f0' }}>{styleItem.vocalsFit}</span></div>
-                        <div><strong style={{ color: '#c084fc' }}>🎸 AG1C Other Inst:</strong> <span style={{ color: '#e2e8f0' }}>{styleItem.otherFit}</span></div>
-                      </div>
-                    </div>
-
-                    <div>
-                      <div style={{ fontSize: '0.74rem', color: '#94a3b8', fontWeight: 700, marginBottom: '6px' }}>
-                        🎵 Classic Prescribed Examples (Click to Load):
-                      </div>
-                      <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
-                        {styleItem.exampleTracks.map((fullStr, i) => {
-                          const [tName, aName] = fullStr.split(' — ');
-                          const isCurrentSong = state.chosenSong === tName;
-                          return (
-                            <button
-                              key={i}
-                              type="button"
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                selectSongPill(tName, aName);
-                              }}
-                              style={{
-                                padding: '4px 9px',
-                                borderRadius: '6px',
-                                border: isCurrentSong ? '1px solid #34d399' : '1px solid rgba(255,255,255,0.14)',
-                                background: isCurrentSong ? 'rgba(16, 185, 129, 0.22)' : 'rgba(255,255,255,0.05)',
-                                color: isCurrentSong ? '#6ee7b7' : '#e2e8f0',
-                                fontSize: '0.74rem',
-                                fontWeight: 700,
-                                cursor: 'pointer'
-                              }}
-                            >
-                              {isCurrentSong ? '✓ ' : ''}{fullStr}
-                            </button>
-                          );
-                        })}
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* STEP 3: SESSION DETAILS & 12-CHANNEL PATCH PLAN */}
+          {/* STEP 2: SESSION DETAILS & 12-CHANNEL PATCH PLAN */}
           <div className="c2-section-card" style={{ borderTop: '4px solid #38bdf8' }}>
             <h2 className="c2-section-title">
-              <span>📋</span> Step 3: Your Prescribed Song & 12–24 Channel Studio Patch Plan
+              <span>📋</span> Step 2: Your Prescribed Song & 12–24 Channel Studio Patch Plan
             </h2>
             <p className="c2-section-desc">
               Enter your chosen prescribed song and candidate details below. They automatically sync with your exported Component 1 Logbook summary and your Teacher Dashboard.
