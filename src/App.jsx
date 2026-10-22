@@ -1,4 +1,4 @@
-import React, { useState, useEffect, lazy, Suspense } from 'react';
+import React, { useState, useEffect, useCallback, lazy, Suspense } from 'react';
 import './App.css';
 import courseData from './data/course_data.json';
 import Dashboard from './components/Dashboard';
@@ -27,6 +27,7 @@ const TimetableBuilder = lazy(() => import('./components/TimetableBuilder/Timeta
 const Component2Guide = lazy(() => import('./components/Component2Guide/Component2Guide'));
 const WelcomeVideoModal = lazy(() => import('./components/WelcomeVideoModal'));
 const UpdatePasswordModal = lazy(() => import('./components/UpdatePasswordModal'));
+import GuruBuddy from './components/GuruBuddy/GuruBuddy';
 
 const LoadingFallback = () => (
   <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '300px', color: '#94a3b8', gap: '16px' }}>
@@ -238,13 +239,15 @@ const MainApp = () => {
 
   useEffect(() => {
     // Check if the user has seen the welcome video.
-    if (currentUser) {
+    if (currentUser?.id) {
       const hasSeen = localStorage.getItem('hasSeenWelcomeVideo');
       if (!hasSeen) {
+        // Mark immediately so background profile fetches or re-renders cannot trigger a second playback
+        localStorage.setItem('hasSeenWelcomeVideo', 'true');
         setShowWelcomeVideo(true);
       }
     }
-  }, [currentUser]);
+  }, [currentUser?.id]);
 
   // Auto-expand stage containing activeItem whenever activeItem changes
   useEffect(() => {
@@ -258,10 +261,10 @@ const MainApp = () => {
     }
   }, [activeItem]);
 
-  const handleWelcomeVideoClose = () => {
+  const handleWelcomeVideoClose = useCallback(() => {
     localStorage.setItem('hasSeenWelcomeVideo', 'true');
     setShowWelcomeVideo(false);
-  };
+  }, []);
 
 
   if (loading) {
@@ -871,6 +874,17 @@ const MainApp = () => {
         <Suspense fallback={null}>
           <UpdatePasswordModal />
         </Suspense>
+      )}
+
+      {/* Floating Blue Music Tech Guru Buddy */}
+      {currentUser && (
+        <GuruBuddy
+          userProgress={userProgress}
+          courseData={courseData}
+          onNavigate={handleItemSelectWrapper}
+          activeItem={activeItem}
+          onGoToDashboard={goToDashboardWrapper}
+        />
       )}
     </div>
   );

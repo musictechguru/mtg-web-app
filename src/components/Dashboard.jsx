@@ -207,8 +207,16 @@ const Dashboard = ({ onNavigate, onOpenProfile }) => {
                 gap: '20px'
             }}>
                 <div style={{ flexShrink: 0, width: '160px', borderRadius: '8px', overflow: 'hidden', boxShadow: '0 4px 6px rgba(0,0,0,0.2)' }}>
-                    <video width="100%" autoPlay muted loop playsInline style={{ display: 'block' }}>
-                        <source src="/MTGuru_vids/MTG%20Wecome%20short.mp4" type="video/mp4" />
+                    <video
+                        ref={el => { if (el) el.muted = true; }}
+                        width="100%"
+                        src="/MTGuru_vids/MTG%20Wecome%20short.mp4"
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                        style={{ display: 'block' }}
+                    >
                         Your browser does not support the video tag.
                     </video>
                 </div>

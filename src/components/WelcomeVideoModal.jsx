@@ -1,15 +1,35 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useCallback, memo } from 'react';
 
-const WelcomeVideoModal = ({ onClose }) => {
+const WelcomeVideoModal = memo(({ onClose }) => {
     const videoRef = useRef(null);
+    const hasClosedRef = useRef(false);
+
+    const handleClose = useCallback(() => {
+        if (hasClosedRef.current) return;
+        hasClosedRef.current = true;
+        if (videoRef.current) {
+            videoRef.current.pause();
+        }
+        if (onClose) {
+            onClose();
+        }
+    }, [onClose]);
 
     useEffect(() => {
-        // Attempt to play on mount
-        if (videoRef.current) {
-            videoRef.current.play().catch(error => {
+        const video = videoRef.current;
+        if (video) {
+            video.play().catch(error => {
                 console.warn("Autoplay was prevented by browser:", error);
             });
         }
+        return () => {
+            // Stop and release video immediately on unmount (prevents StrictMode & fast-close double audio)
+            if (video) {
+                video.pause();
+                video.removeAttribute('src');
+                video.load();
+            }
+        };
     }, []);
 
     return (
@@ -18,22 +38,23 @@ const WelcomeVideoModal = ({ onClose }) => {
                 <video
                     ref={videoRef}
                     style={styles.videoPlayer}
+                    src="/MTGuru_vids/Music_Tech_Guru_Sonic Realm.mp4"
                     controls
                     autoPlay
-                    onEnded={onClose}
+                    playsInline
+                    onEnded={handleClose}
                 >
-                    <source src="/MTGuru_vids/Music_Tech_Guru_Sonic Realm.mp4" type="video/mp4" />
                     Your browser does not support the video tag.
                 </video>
                 <div style={styles.controls}>
-                    <button onClick={onClose} style={styles.skipButton}>
+                    <button onClick={handleClose} style={styles.skipButton}>
                         Skip / Close
                     </button>
                 </div>
             </div>
         </div>
     );
-};
+});
 
 const styles = {
     overlay: {

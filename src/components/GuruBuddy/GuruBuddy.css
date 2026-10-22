@@ -1,0 +1,1027 @@
+/* ==========================================================================
+   GuruBuddy.css - Blue Music Tech Guru Floating Companion
+   ========================================================================== */
+
+.guru-buddy-root {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9999;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  pointer-events: none; /* Allows clicks to pass through transparent outer areas */
+}
+
+.guru-buddy-root * {
+  box-sizing: border-box;
+}
+
+/* Container for interactive elements */
+.guru-buddy-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  pointer-events: auto;
+}
+
+/* ==========================================================================
+   SPEECH BUBBLE NUDGE
+   ========================================================================== */
+
+.guru-speech-bubble {
+  position: absolute;
+  bottom: 84px;
+  right: 8px;
+  max-width: 320px;
+  min-width: 260px;
+  background: linear-gradient(145deg, #1e293b, #0f172a);
+  border: 1px solid rgba(56, 189, 248, 0.45);
+  border-radius: 16px;
+  padding: 14px 16px;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.5), 0 0 20px rgba(56, 189, 248, 0.2);
+  animation: guruBubbleFadeUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  color: #f8fafc;
+  pointer-events: auto;
+}
+
+/* Tail pointing down to the avatar */
+.guru-speech-bubble::after {
+  content: '';
+  position: absolute;
+  bottom: -9px;
+  right: 28px;
+  width: 16px;
+  height: 16px;
+  background: #0f172a;
+  border-right: 1px solid rgba(56, 189, 248, 0.45);
+  border-bottom: 1px solid rgba(56, 189, 248, 0.45);
+  transform: rotate(45deg);
+}
+
+.guru-bubble-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.guru-bubble-badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 2px 8px;
+  border-radius: 9999px;
+  background: rgba(56, 189, 248, 0.15);
+  color: #38bdf8;
+  border: 1px solid rgba(56, 189, 248, 0.3);
+}
+
+.guru-bubble-close {
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  cursor: pointer;
+  padding: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+.guru-bubble-close:hover {
+  color: #f8fafc;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.guru-bubble-text {
+  font-size: 0.88rem;
+  line-height: 1.45;
+  color: #e2e8f0;
+  margin: 0 0 12px 0;
+  font-weight: 500;
+}
+
+.guru-bubble-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.guru-bubble-btn-action {
+  flex: 1;
+  background: linear-gradient(135deg, #0284c7 0%, #2563eb 100%);
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+}
+
+.guru-bubble-btn-action:hover {
+  background: linear-gradient(135deg, #0ea5e9 0%, #3b82f6 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(37, 99, 235, 0.5);
+}
+
+.guru-bubble-btn-dismiss {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #94a3b8;
+  border-radius: 8px;
+  padding: 8px 10px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.guru-bubble-btn-dismiss:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #cbd5e1;
+}
+
+/* ==========================================================================
+   FLOATING GURU BUTTON (BLUE DUDE)
+   ========================================================================== */
+
+.guru-trigger-btn {
+  position: relative;
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  background: #0f172a;
+  border: 2px solid #38bdf8;
+  padding: 0;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5), 0 0 20px rgba(56, 189, 248, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  outline: none;
+}
+
+.guru-trigger-btn:hover {
+  transform: scale(1.08) translateY(-2px);
+  border-color: #7dd3fc;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6), 0 0 30px rgba(56, 189, 248, 0.65);
+}
+
+.guru-trigger-btn:active {
+  transform: scale(0.96);
+}
+
+.guru-dude-img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Pulse ring */
+.guru-pulse-ring {
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  right: -4px;
+  bottom: -4px;
+  border-radius: 50%;
+  border: 2px solid rgba(56, 189, 248, 0.5);
+  animation: guruPulseRing 2.5s infinite;
+  pointer-events: none;
+}
+
+/* Unread mission badge */
+.guru-alert-badge {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  background: #f43f5e;
+  color: #ffffff;
+  font-size: 0.72rem;
+  font-weight: 800;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #0f172a;
+  box-shadow: 0 2px 8px rgba(244, 63, 94, 0.5);
+  animation: bounceDot 1.8s infinite;
+}
+
+/* "Exam mode / Quiet mode" pill */
+.guru-quiet-mode {
+  opacity: 0.4;
+  transform: scale(0.85);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+}
+.guru-quiet-mode:hover {
+  opacity: 0.85;
+}
+
+/* ==========================================================================
+   DRAWER / SLIDE-OUT PANEL ("GURU COACH")
+   ========================================================================== */
+
+.guru-drawer-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(4px);
+  z-index: 10000;
+  opacity: 0;
+  animation: guruFadeIn 0.25s forwards;
+  pointer-events: auto;
+}
+
+.guru-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 440px;
+  max-width: 90vw;
+  background: #0f172a;
+  border-left: 1px solid rgba(56, 189, 248, 0.25);
+  box-shadow: -15px 0 45px rgba(0, 0, 0, 0.7);
+  z-index: 10001;
+  display: flex;
+  flex-direction: column;
+  transform: translateX(100%);
+  animation: guruSlideLeft 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  pointer-events: auto;
+  color: #f8fafc;
+}
+
+/* Header */
+.guru-drawer-header {
+  padding: 24px 20px 20px 20px;
+  background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  position: relative;
+}
+
+.guru-drawer-close-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #94a3b8;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.guru-drawer-close-btn:hover {
+  background: rgba(255, 255, 255, 0.18);
+  color: #fff;
+}
+
+.guru-header-identity {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.guru-header-avatar {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  border: 2px solid #38bdf8;
+  box-shadow: 0 0 15px rgba(56, 189, 248, 0.4);
+  object-fit: cover;
+}
+
+.guru-header-title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  margin: 0;
+  color: #f8fafc;
+  letter-spacing: -0.01em;
+}
+
+.guru-header-sub {
+  font-size: 0.8rem;
+  color: #38bdf8;
+  margin: 2px 0 0 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Rank Charging bar */
+.guru-rank-bar-wrap {
+  margin-top: 14px;
+}
+
+.guru-rank-bar-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: #94a3b8;
+  margin-bottom: 6px;
+}
+
+.guru-rank-bar-track {
+  height: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.guru-rank-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #38bdf8 0%, #10b981 100%);
+  border-radius: 4px;
+  transition: width 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Drawer Content */
+.guru-drawer-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Section Title */
+.guru-section-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Primary Top Mission Card */
+.guru-top-mission-card {
+  background: linear-gradient(145deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.95));
+  border: 1px solid rgba(56, 189, 248, 0.4);
+  border-radius: 14px;
+  padding: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3), 0 0 16px rgba(56, 189, 248, 0.15);
+  position: relative;
+  overflow: hidden;
+}
+
+.guru-top-mission-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: #38bdf8;
+}
+
+.guru-mission-category {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #38bdf8;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 6px;
+}
+
+.guru-mission-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 8px 0;
+}
+
+.guru-mission-desc {
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: #cbd5e1;
+  margin: 0 0 14px 0;
+}
+
+.guru-mission-cta-btn {
+  width: 100%;
+  padding: 11px 16px;
+  background: linear-gradient(135deg, #0284c7 0%, #2563eb 100%);
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4);
+}
+
+.guru-mission-cta-btn:hover {
+  background: linear-gradient(135deg, #0ea5e9 0%, #3b82f6 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.6);
+}
+
+/* Secondary Mission List */
+.guru-secondary-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.guru-secondary-item {
+  background: rgba(30, 41, 59, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  transition: all 0.2s ease;
+}
+
+.guru-secondary-item:hover {
+  background: rgba(30, 41, 59, 0.85);
+  border-color: rgba(56, 189, 248, 0.25);
+  transform: translateX(-2px);
+}
+
+.guru-secondary-info {
+  flex: 1;
+}
+
+.guru-secondary-title {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #f1f5f9;
+  margin: 0 0 3px 0;
+}
+
+.guru-secondary-badge {
+  font-size: 0.68rem;
+  color: #94a3b8;
+}
+
+.guru-secondary-btn {
+  background: rgba(56, 189, 248, 0.12);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  color: #38bdf8;
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+
+.guru-secondary-btn:hover {
+  background: #38bdf8;
+  color: #0f172a;
+}
+
+/* ==========================================================================
+   EXPERT SPEC EXPLANATION WITH PICTURE & QUOTE
+   ========================================================================== */
+
+.guru-expert-box {
+  background: linear-gradient(145deg, rgba(30, 41, 59, 0.75) 0%, rgba(15, 23, 42, 0.95) 100%);
+  border: 1px solid rgba(168, 85, 247, 0.35);
+  border-radius: 14px;
+  padding: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.guru-expert-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  gap: 8px;
+}
+
+.guru-expert-title {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #c084fc;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.guru-expert-dice-btn {
+  background: rgba(168, 85, 247, 0.15);
+  border: 1px solid rgba(168, 85, 247, 0.35);
+  color: #d8b4fe;
+  font-size: 0.76rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.guru-expert-dice-btn:hover {
+  background: rgba(168, 85, 247, 0.3);
+  color: #ffffff;
+}
+
+/* Picture / Diagram */
+.guru-expert-image-container {
+  width: 100%;
+  max-height: 180px;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(0, 0, 0, 0.4);
+  margin-bottom: 14px;
+  position: relative;
+  cursor: zoom-in;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.2s;
+}
+
+.guru-expert-image-container:hover {
+  border-color: rgba(56, 189, 248, 0.5);
+}
+
+.guru-expert-image {
+  width: 100%;
+  height: 100%;
+  max-height: 180px;
+  object-fit: contain;
+  display: block;
+}
+
+.guru-expert-expand-badge {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #e2e8f0;
+  font-size: 0.68rem;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 4px;
+  pointer-events: none;
+}
+
+/* Expert Explanation Text */
+.guru-expert-text {
+  font-size: 0.84rem;
+  line-height: 1.55;
+  color: #cbd5e1;
+  margin-bottom: 14px;
+}
+
+/* Expert Quote with Golden Accent */
+.guru-expert-quote {
+  border-left: 3px solid var(--accent-gold);
+  background: rgba(255, 215, 0, 0.05);
+  margin: 0;
+  padding: 10px 14px;
+  border-radius: 0 8px 8px 0;
+}
+
+.guru-quote-text {
+  margin: 0 0 6px 0;
+  font-size: 0.82rem;
+  color: #ffd700;
+  font-style: italic;
+  line-height: 1.45;
+}
+
+.guru-quote-author {
+  font-size: 0.74rem;
+  color: #94a3b8;
+  font-style: normal;
+  font-weight: 600;
+}
+
+/* Lightbox Modal */
+.guru-diagram-lightbox-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.88);
+  backdrop-filter: blur(8px);
+  z-index: 10002;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  animation: guruFadeIn 0.2s forwards;
+  pointer-events: auto;
+}
+
+.guru-diagram-lightbox-content {
+  position: relative;
+  max-width: 90vw;
+  max-height: 85vh;
+  background: #0f172a;
+  border: 1px solid rgba(56, 189, 248, 0.4);
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.guru-diagram-lightbox-img {
+  max-width: 100%;
+  max-height: calc(85vh - 32px);
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+.guru-diagram-lightbox-close {
+  position: absolute;
+  top: -14px;
+  right: -14px;
+  background: #1e293b;
+  border: 2px solid #38bdf8;
+  color: #ffffff;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  transition: transform 0.2s;
+}
+
+.guru-diagram-lightbox-close:hover {
+  transform: scale(1.1);
+  background: #0284c7;
+}
+
+/* ==========================================================================
+   ACADEMIC CALENDAR & HALF-TERM STATUS BANNER
+   ========================================================================== */
+
+.guru-calendar-banner {
+  margin-top: 14px;
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(56, 189, 248, 0.2);
+  border-radius: 10px;
+  padding: 10px 12px;
+}
+
+.guru-calendar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.76rem;
+  color: #94a3b8;
+  margin-bottom: 6px;
+}
+
+.guru-calendar-phase {
+  font-weight: 700;
+  color: #f1f5f9;
+}
+
+.guru-calendar-countdown {
+  background: rgba(239, 68, 68, 0.15);
+  color: #f87171;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 0.7rem;
+}
+
+.guru-calendar-target-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.guru-calendar-badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #38bdf8;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.guru-target-pill {
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 9999px;
+}
+
+.guru-target-pill.completed {
+  background: rgba(16, 185, 129, 0.15);
+  color: #34d399;
+  border: 1px solid rgba(16, 185, 129, 0.4);
+}
+
+.guru-target-pill.pending {
+  background: rgba(245, 158, 11, 0.15);
+  color: #fbbf24;
+  border: 1px solid rgba(245, 158, 11, 0.4);
+}
+
+/* ==========================================================================
+   STUDENT FOCUS SELECTOR CHIPS
+   ========================================================================== */
+
+.guru-focus-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 4px;
+}
+
+.guru-focus-chip {
+  background: rgba(30, 41, 59, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #94a3b8;
+  border-radius: 8px;
+  padding: 6px 10px;
+  font-size: 0.76rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.guru-focus-chip:hover {
+  background: rgba(30, 41, 59, 1);
+  color: #f8fafc;
+  border-color: rgba(56, 189, 248, 0.4);
+}
+
+.guru-focus-chip.active {
+  background: linear-gradient(135deg, rgba(2, 132, 199, 0.3) 0%, rgba(37, 99, 235, 0.3) 100%);
+  border-color: #38bdf8;
+  color: #38bdf8;
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.25);
+}
+
+/* ==========================================================================
+   PATH TO LEGEND ACTIVE STATION
+   ========================================================================== */
+
+.guru-legend-station {
+  background: linear-gradient(135deg, rgba(30, 58, 138, 0.35) 0%, rgba(15, 23, 42, 0.8) 100%);
+  border: 1px solid rgba(56, 189, 248, 0.4);
+  border-radius: 14px;
+  padding: 14px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+  position: relative;
+  overflow: hidden;
+}
+
+.guru-legend-station::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(180deg, #38bdf8 0%, #a855f7 100%);
+}
+
+.guru-legend-station-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.guru-legend-station-badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #38bdf8;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.guru-legend-next-rank {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #c084fc;
+  background: rgba(168, 85, 247, 0.15);
+  border: 1px solid rgba(168, 85, 247, 0.3);
+  padding: 2px 7px;
+  border-radius: 9999px;
+}
+
+.guru-legend-station-body {
+  margin-bottom: 12px;
+}
+
+.guru-legend-station-step {
+  font-size: 0.72rem;
+  color: #94a3b8;
+  display: block;
+  margin-bottom: 2px;
+}
+
+.guru-legend-node-title {
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: #f8fafc;
+  margin: 0;
+  line-height: 1.35;
+}
+
+.guru-legend-btn-row {
+  display: flex;
+  gap: 8px;
+}
+
+.guru-legend-play-btn {
+  flex: 1.4;
+  background: linear-gradient(135deg, #0284c7 0%, #2563eb 100%);
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  padding: 9px 12px;
+  font-size: 0.84rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: all 0.2s;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+}
+
+.guru-legend-play-btn:hover {
+  background: linear-gradient(135deg, #0ea5e9 0%, #3b82f6 100%);
+  transform: translateY(-1px);
+}
+
+.guru-legend-map-btn {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: #e2e8f0;
+  border-radius: 8px;
+  padding: 9px 12px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.guru-legend-map-btn:hover {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: rgba(56, 189, 248, 0.4);
+}
+
+/* ==========================================================================
+   STUDENT FEELING / FEEDBACK BAR
+   ========================================================================== */
+
+.guru-feeling-container {
+  background: rgba(15, 23, 42, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  padding: 12px;
+}
+
+.guru-feeling-chips {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.guru-feeling-chip {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #cbd5e1;
+  padding: 5px 10px;
+  border-radius: 6px;
+  font-size: 0.74rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.guru-feeling-chip:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+
+.guru-feeling-chip.active {
+  background: rgba(56, 189, 248, 0.2);
+  border-color: #38bdf8;
+  color: #38bdf8;
+}
+
+.guru-feeling-hint {
+  font-size: 0.75rem;
+  font-style: italic;
+  color: #94a3b8;
+  margin: 8px 0 0 0;
+  line-height: 1.4;
+}
+
+/* ==========================================================================
+   ANIMATIONS
+   ========================================================================== */
+
+@keyframes guruBubbleFadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(12px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes guruPulseRing {
+  0% {
+    transform: scale(0.98);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.18);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(0.98);
+    opacity: 0;
+  }
+}
+
+@keyframes bounceDot {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+@keyframes guruFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes guruSlideLeft {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 640px) {
+  .guru-buddy-root {
+    bottom: 16px;
+    right: 16px;
+  }
+  .guru-trigger-btn {
+    width: 58px;
+    height: 58px;
+  }
+  .guru-speech-bubble {
+    max-width: calc(100vw - 32px);
+    right: 0;
+    bottom: 74px;
+  }
+  .guru-drawer {
+    width: 100vw;
+    max-width: 100vw;
+  }
+}
