@@ -2,6 +2,7 @@ import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { useUser } from '../contexts/UserContext';
 import { supabase } from '../config/supabase';
 import StudentProgressModal from './StudentProgressModal';
+import AssignmentModal from './AssignmentModal';
 import {
     SIMPLE_C1_CHECKLIST,
     SIMPLE_C2_CHECKLIST,
@@ -21,12 +22,44 @@ const TeacherDashboard = ({ onBack }) => {
     const [buying, setBuying] = useState(false);
     const [copied, setCopied] = useState(false);
 
-    // Active view: 'matrix' (All students table) or 'student_ticks' (Fill-in mode for a student)
+    // Active view: 'matrix' (All students table) or 'student_ticks' (Fill-in mode for a student) or 'assignments' (Homework links)
     const [viewMode, setViewMode] = useState('matrix');
     const [selectedStudentId, setSelectedStudentId] = useState('teacher_live');
     const [selectedStudentForModal, setSelectedStudentForModal] = useState(null);
     const [activeComponentTab, setActiveComponentTab] = useState('all'); // 'all' | 'c1' | 'c2' | 'c3' | 'c4'
     const [searchQuery, setSearchQuery] = useState('');
+    const [showAssignmentModal, setShowAssignmentModal] = useState(false);
+    const [assigningBlockId, setAssigningBlockId] = useState('block-1');
+    const [copiedAssignmentId, setCopiedAssignmentId] = useState(null);
+    const [savedAssignments, setSavedAssignments] = useState(() => {
+        try {
+            const raw = localStorage.getItem('mtg_teacher_assignments');
+            return raw ? JSON.parse(raw) : [];
+        } catch {
+            return [];
+        }
+    });
+
+    const reloadSavedAssignments = () => {
+        try {
+            const raw = localStorage.getItem('mtg_teacher_assignments');
+            setSavedAssignments(raw ? JSON.parse(raw) : []);
+        } catch {
+            setSavedAssignments([]);
+        }
+    };
+
+    const handleDeleteAssignment = (id) => {
+        try {
+            const raw = localStorage.getItem('mtg_teacher_assignments');
+            const list = raw ? JSON.parse(raw) : [];
+            const updated = list.filter(a => a.id !== id);
+            localStorage.setItem('mtg_teacher_assignments', JSON.stringify(updated));
+            setSavedAssignments(updated);
+        } catch (e) {
+            console.warn('Failed to delete assignment:', e);
+        }
+    };
 
     // Teacher saved ticks: { [student_id]: { c1: {}, c2: {}, c3: {}, c4: {}, teacherNotes: '' } }
     const [teacherTicks, setTeacherTicks] = useState(() => {
@@ -535,48 +568,90 @@ const TeacherDashboard = ({ onBack }) => {
                     >
                         ✅ Fill In Student Tick List ({activeStudent.full_name.split(' ')[0]})
                     </button>
+                    <button
+                        onClick={() => {
+                            reloadSavedAssignments();
+                            setViewMode('assignments');
+                        }}
+                        style={{
+                            padding: '9px 18px',
+                            borderRadius: '8px',
+                            border: 'none',
+                            background: viewMode === 'assignments' ? '#38bdf8' : 'transparent',
+                            color: viewMode === 'assignments' ? '#0f172a' : '#cbd5e1',
+                            fontWeight: 800,
+                            fontSize: '0.86rem',
+                            cursor: 'pointer'
+                        }}
+                    >
+                        📅 Homework Links & Assignments
+                    </button>
                 </div>
 
-                {viewMode === 'matrix' && (
-                    <div style={{ display: 'flex', gap: '10px', alignItems: 'center', flexWrap: 'wrap' }}>
-                        <input
-                            type="text"
-                            placeholder="🔍 Filter student..."
-                            value={searchQuery}
-                            onChange={(e) => setSearchQuery(e.target.value)}
-                            style={{
-                                background: 'rgba(15, 23, 42, 0.8)',
-                                border: '1px solid rgba(255, 255, 255, 0.12)',
-                                color: '#fff',
-                                padding: '7px 14px',
-                                borderRadius: '8px',
-                                fontSize: '0.84rem',
-                                outline: 'none',
-                                width: '200px'
-                            }}
-                        />
-                        <button
-                            onClick={resetAllStudentsC1C2}
-                            style={{
-                                background: 'rgba(239, 68, 68, 0.12)',
-                                border: '1px solid rgba(239, 68, 68, 0.35)',
-                                color: '#fca5a5',
-                                padding: '7px 14px',
-                                borderRadius: '8px',
-                                fontSize: '0.82rem',
-                                fontWeight: 700,
-                                cursor: 'pointer',
-                                display: 'flex',
-                                alignItems: 'center',
-                                gap: '6px',
-                                whiteSpace: 'nowrap'
-                            }}
-                            title="Reset all Component 1 and Component 2 ticks for all students"
-                        >
-                            ↺ Reset All C1 & C2 Ticks
-                        </button>
-                    </div>
-                )}
+                <div style={{ display: 'flex', gap: '10px', alignItems: 'center', flexWrap: 'wrap' }}>
+                    <button
+                        onClick={() => {
+                            setAssigningBlockId('block-1');
+                            setShowAssignmentModal(true);
+                        }}
+                        style={{
+                            padding: '8px 16px',
+                            borderRadius: '8px',
+                            border: '1px solid rgba(56, 189, 248, 0.5)',
+                            background: 'linear-gradient(135deg, rgba(56, 189, 248, 0.2), rgba(99, 102, 241, 0.2))',
+                            color: '#38bdf8',
+                            fontWeight: 700,
+                            fontSize: '0.84rem',
+                            cursor: 'pointer',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '6px'
+                        }}
+                    >
+                        <span>📋</span> + Create Homework Link
+                    </button>
+
+                    {viewMode === 'matrix' && (
+                        <>
+                            <input
+                                type="text"
+                                placeholder="🔍 Filter student..."
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                                style={{
+                                    background: 'rgba(15, 23, 42, 0.8)',
+                                    border: '1px solid rgba(255, 255, 255, 0.12)',
+                                    color: '#fff',
+                                    padding: '7px 14px',
+                                    borderRadius: '8px',
+                                    fontSize: '0.84rem',
+                                    outline: 'none',
+                                    width: '200px'
+                                }}
+                            />
+                            <button
+                                onClick={resetAllStudentsC1C2}
+                                style={{
+                                    background: 'rgba(239, 68, 68, 0.12)',
+                                    border: '1px solid rgba(239, 68, 68, 0.35)',
+                                    color: '#fca5a5',
+                                    padding: '7px 14px',
+                                    borderRadius: '8px',
+                                    fontSize: '0.82rem',
+                                    fontWeight: 700,
+                                    cursor: 'pointer',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: '6px',
+                                    whiteSpace: 'nowrap'
+                                }}
+                                title="Reset all Component 1 and Component 2 ticks for all students"
+                            >
+                                ↺ Reset All C1 & C2 Ticks
+                            </button>
+                        </>
+                    )}
+                </div>
             </div>
 
             {/* =========================================================
@@ -1279,11 +1354,241 @@ const TeacherDashboard = ({ onBack }) => {
                 </div>
             )}
 
+            {/* =========================================================
+                VIEW 3: HOMEWORK & ASSIGNMENT LINKS MANAGEMENT
+                ========================================================= */}
+            {viewMode === 'assignments' && (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '22px' }}>
+                    <div style={{
+                        background: 'linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 0.95) 100%)',
+                        border: '1px solid rgba(56, 189, 248, 0.3)',
+                        borderRadius: '16px',
+                        padding: '24px',
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        flexWrap: 'wrap',
+                        gap: '16px'
+                    }}>
+                        <div>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '6px' }}>
+                                <span style={{ fontSize: '1.4rem' }}>📋</span>
+                                <h3 style={{ margin: 0, color: '#fff', fontSize: '1.3rem' }}>
+                                    16-Block Weekly Homework Links
+                                </h3>
+                                <span style={{ fontSize: '0.75rem', fontWeight: 'bold', background: 'rgba(56, 189, 248, 0.2)', color: '#38bdf8', padding: '2px 8px', borderRadius: '6px' }}>
+                                    ONE-CLICK ASSIGNMENTS
+                                </span>
+                            </div>
+                            <p style={{ margin: 0, color: 'var(--text-secondary)', fontSize: '0.9rem', maxWidth: '680px', lineHeight: '1.4' }}>
+                                Pick any of the 16 Blocks from the Edexcel Scheme of Work to generate a pre-configured student assignment link. Links can be posted straight into Google Classroom or Microsoft Teams, and student browsers automatically display an active homework tracker banner with clickable tasks.
+                            </p>
+                        </div>
+
+                        <button
+                            onClick={() => {
+                                setAssigningBlockId('block-1');
+                                setShowAssignmentModal(true);
+                            }}
+                            style={{
+                                padding: '12px 24px',
+                                borderRadius: '10px',
+                                background: 'linear-gradient(135deg, #0284c7 0%, #2563eb 100%)',
+                                color: '#fff',
+                                border: 'none',
+                                fontWeight: 700,
+                                fontSize: '0.95rem',
+                                cursor: 'pointer',
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '8px',
+                                boxShadow: '0 4px 15px rgba(37, 99, 235, 0.4)'
+                            }}
+                        >
+                            <span>+</span> Create New Homework Link
+                        </button>
+                    </div>
+
+                    {/* Saved Assignments List */}
+                    {savedAssignments.length === 0 ? (
+                        <div style={{
+                            background: 'var(--bg-panel)',
+                            border: '1px solid rgba(255, 255, 255, 0.08)',
+                            borderRadius: '16px',
+                            padding: '40px 20px',
+                            textAlign: 'center'
+                        }}>
+                            <div style={{ fontSize: '2.5rem', marginBottom: '12px' }}>🎯</div>
+                            <h4 style={{ margin: '0 0 8px 0', color: '#fff', fontSize: '1.1rem' }}>No Active Homework Links Generated Yet</h4>
+                            <p style={{ margin: '0 0 20px 0', color: 'var(--text-secondary)', fontSize: '0.88rem', maxWidth: '480px', marginLeft: 'auto', marginRight: 'auto' }}>
+                                Select one of the high-impact blocks below to immediately generate your first assignment link for your candidates:
+                            </p>
+                            <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
+                                {[
+                                    { id: 'block-1', label: 'Block 1: Studio Setup & Topic 1' },
+                                    { id: 'block-2', label: 'Block 2: Microphones & Placement' },
+                                    { id: 'block-4', label: 'Block 4: Dynamic & FX Processors' },
+                                    { id: 'block-7', label: 'Block 7: Logic Pro & Digital Audio' }
+                                ].map(b => (
+                                    <button
+                                        key={b.id}
+                                        onClick={() => {
+                                            setAssigningBlockId(b.id);
+                                            setShowAssignmentModal(true);
+                                        }}
+                                        style={{
+                                            padding: '8px 16px',
+                                            borderRadius: '8px',
+                                            background: 'rgba(255, 255, 255, 0.05)',
+                                            border: '1px solid rgba(255, 255, 255, 0.15)',
+                                            color: '#38bdf8',
+                                            fontSize: '0.85rem',
+                                            fontWeight: 600,
+                                            cursor: 'pointer'
+                                        }}
+                                    >
+                                        ⚡ Assign {b.label}
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+                    ) : (
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))', gap: '18px' }}>
+                            {savedAssignments.map(asg => {
+                                const isCopied = copiedAssignmentId === asg.id;
+                                const formattedDue = asg.dueDate
+                                    ? new Date(asg.dueDate).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
+                                    : 'Next Lesson';
+
+                                return (
+                                    <div
+                                        key={asg.id}
+                                        style={{
+                                            background: 'var(--bg-panel)',
+                                            border: '1px solid rgba(255, 255, 255, 0.1)',
+                                            borderRadius: '16px',
+                                            padding: '20px',
+                                            display: 'flex',
+                                            flexDirection: 'column',
+                                            justifyContent: 'space-between',
+                                            gap: '16px',
+                                            boxShadow: '0 4px 15px rgba(0, 0, 0, 0.2)'
+                                        }}
+                                    >
+                                        <div>
+                                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '8px' }}>
+                                                <span style={{ fontSize: '0.78rem', fontWeight: 800, background: 'rgba(56, 189, 248, 0.15)', color: '#38bdf8', padding: '3px 8px', borderRadius: '6px' }}>
+                                                    BLOCK {asg.blockNumber || 'SOW'}
+                                                </span>
+                                                <button
+                                                    onClick={() => handleDeleteAssignment(asg.id)}
+                                                    style={{ background: 'transparent', border: 'none', color: '#94a3b8', cursor: 'pointer', fontSize: '0.9rem', padding: '2px 6px' }}
+                                                    title="Delete this homework link record"
+                                                >
+                                                    ✕
+                                                </button>
+                                            </div>
+
+                                            <h4 style={{ margin: '0 0 6px 0', color: '#fff', fontSize: '1.1rem' }}>
+                                                {asg.title}
+                                            </h4>
+
+                                            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.82rem', color: '#cbd5e1', marginBottom: '12px' }}>
+                                                <span>📅 Due: <strong>{formattedDue}</strong></span>
+                                                <span>•</span>
+                                                <span>🎯 {asg.tasks?.length || 0} tasks included</span>
+                                            </div>
+
+                                            {asg.url && (
+                                                <div style={{
+                                                    background: 'rgba(0, 0, 0, 0.35)',
+                                                    border: '1px solid rgba(255, 255, 255, 0.08)',
+                                                    padding: '8px 12px',
+                                                    borderRadius: '8px',
+                                                    fontSize: '0.75rem',
+                                                    fontFamily: 'monospace',
+                                                    color: '#94a3b8',
+                                                    overflow: 'hidden',
+                                                    textOverflow: 'ellipsis',
+                                                    whiteSpace: 'nowrap',
+                                                    marginBottom: '14px'
+                                                }}>
+                                                    {asg.url}
+                                                </div>
+                                            )}
+                                        </div>
+
+                                        <div style={{ display: 'flex', gap: '10px' }}>
+                                            <button
+                                                onClick={() => {
+                                                    navigator.clipboard.writeText(asg.url);
+                                                    setCopiedAssignmentId(asg.id);
+                                                    setTimeout(() => setCopiedAssignmentId(null), 2000);
+                                                }}
+                                                style={{
+                                                    flex: 1,
+                                                    padding: '10px',
+                                                    borderRadius: '8px',
+                                                    background: isCopied ? '#10b981' : 'rgba(56, 189, 248, 0.15)',
+                                                    border: `1px solid ${isCopied ? '#10b981' : 'rgba(56, 189, 248, 0.4)'}`,
+                                                    color: isCopied ? '#fff' : '#38bdf8',
+                                                    fontWeight: 700,
+                                                    fontSize: '0.84rem',
+                                                    cursor: 'pointer',
+                                                    display: 'flex',
+                                                    alignItems: 'center',
+                                                    justifyContent: 'center',
+                                                    gap: '6px'
+                                                }}
+                                            >
+                                                <span>{isCopied ? '✓ Copied!' : '🔗 Copy Student Link'}</span>
+                                            </button>
+
+                                            <button
+                                                onClick={() => {
+                                                    setAssigningBlockId(asg.blockId);
+                                                    setShowAssignmentModal(true);
+                                                }}
+                                                style={{
+                                                    padding: '10px 14px',
+                                                    borderRadius: '8px',
+                                                    background: 'rgba(255, 255, 255, 0.06)',
+                                                    border: '1px solid rgba(255, 255, 255, 0.15)',
+                                                    color: '#fff',
+                                                    fontWeight: 600,
+                                                    fontSize: '0.84rem',
+                                                    cursor: 'pointer'
+                                                }}
+                                                title="View formatted classroom announcement & options"
+                                            >
+                                                Edit / Post
+                                            </button>
+                                        </div>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    )}
+                </div>
+            )}
+
             {/* Expanded Detailed Student Progress Modal */}
             {selectedStudentForModal && (
                 <StudentProgressModal
                     student={selectedStudentForModal}
                     onClose={() => setSelectedStudentForModal(null)}
+                />
+            )}
+
+            {/* One-Click Weekly Homework Assignment Generator Modal */}
+            {showAssignmentModal && (
+                <AssignmentModal
+                    initialBlockId={assigningBlockId}
+                    onClose={() => {
+                        setShowAssignmentModal(false);
+                        reloadSavedAssignments();
+                    }}
+                    onAssignCreated={() => reloadSavedAssignments()}
                 />
             )}
         </div>

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import './TimetableBuilder.css';
 import { TIMETABLE_BLOCKS, SOW_RANKS, calculateSowProgress } from './timetableData';
 import courseData from '../../data/course_data.json';
+import AssignmentModal from '../AssignmentModal';
 
 const TimetableBuilder = ({ onNavigate, onBack }) => {
   // Local state persistence
@@ -47,6 +48,7 @@ const TimetableBuilder = ({ onNavigate, onBack }) => {
   const [activeFactsBlockId, setActiveFactsBlockId] = useState(TIMETABLE_BLOCKS[0].id);
   const [activeSkillsBlockId, setActiveSkillsBlockId] = useState(TIMETABLE_BLOCKS[0].id);
   const [searchQuery, setSearchQuery] = useState('');
+  const [assigningBlockId, setAssigningBlockId] = useState(null);
 
   useEffect(() => {
     try {
@@ -480,6 +482,27 @@ const TimetableBuilder = ({ onNavigate, onBack }) => {
                       }}
                     >
                       {allDone ? 'Reset Block Skills' : '✓ Mark All Ticked'}
+                    </button>
+
+                    <button
+                      onClick={() => setAssigningBlockId(activeBlock.id)}
+                      style={{
+                        padding: '8px 14px',
+                        borderRadius: '8px',
+                        background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.25), rgba(6, 182, 212, 0.25))',
+                        border: '1px solid rgba(99, 102, 241, 0.6)',
+                        color: '#a5b4fc',
+                        fontWeight: '700',
+                        fontSize: '0.82rem',
+                        cursor: 'pointer',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '6px',
+                        transition: 'all 0.2s'
+                      }}
+                      title="Generate One-Click Homework Link for Students"
+                    >
+                      <span>📋</span> Assign Homework Link
                     </button>
                   </div>
                 </div>
@@ -1250,6 +1273,15 @@ const TimetableBuilder = ({ onNavigate, onBack }) => {
                 )}
 
                 <button
+                  className="action-btn"
+                  style={{ background: 'linear-gradient(135deg, #4f46e5 0%, #06b6d4 100%)', color: '#fff', border: 'none' }}
+                  onClick={() => setAssigningBlockId(selectedBlock.id)}
+                  title="Generate One-Click Homework Assignment Link for Students"
+                >
+                  <span>📋</span> Assign Homework Link
+                </button>
+
+                <button
                   className={`action-btn ${completedBlocks.includes(selectedBlock.id) ? 'success' : 'secondary'}`}
                   onClick={() => toggleBlockMastered(selectedBlock.id)}
                 >
@@ -1260,6 +1292,13 @@ const TimetableBuilder = ({ onNavigate, onBack }) => {
             </div>
           </div>
         </div>
+      )}
+      {/* One-Click Weekly Homework Assignment Modal */}
+      {assigningBlockId && (
+        <AssignmentModal
+          initialBlockId={assigningBlockId}
+          onClose={() => setAssigningBlockId(null)}
+        />
       )}
     </div>
   );

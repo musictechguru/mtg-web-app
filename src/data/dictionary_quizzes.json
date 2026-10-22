@@ -21668,28 +21668,28 @@
                 "intermediate": [
                   {
                     "title": "Question 1",
-                    "content": "Why is additive synthesis theoretically capable of recreating any sound?",
+                    "content": "Why is additive synthesis theoretically capable of recreating any periodic timbre?",
                     "type": "multi_choice",
                     "answers": [
                       {
-                        "text": "It's magic",
-                        "is_true": "no"
-                      },
-                      {
-                        "text": "Fourier theorem states any complex waveform can be built from sine waves at different frequencies and amplitudes",
+                        "text": "Any complex periodic sound can be constructed by combining individual sine waves at specific harmonic frequencies and amplitudes",
                         "is_true": "yes"
                       },
                       {
-                        "text": "It can't recreate any sound",
+                        "text": "It uses magnetic tape loops that store pre-recorded acoustic instruments",
                         "is_true": "no"
                       },
                       {
-                        "text": "Only because it's expensive",
+                        "text": "It automatically applies dynamic sidechain compression",
+                        "is_true": "no"
+                      },
+                      {
+                        "text": "It operates exclusively at a 192 kHz sample rate",
                         "is_true": "no"
                       }
                     ],
                     "explanation": "",
-                    "expert_explanation": "Equalization adjusts the balance of frequency components.",
+                    "expert_explanation": "Additive synthesis builds complex timbres from the ground up by summing pure sine wave harmonics, each with its own frequency and amplitude envelope.",
                     "explanation_image": "/images/svg/synthesis_additive_stack.svg",
                     "expert_quote": {
                       "text": "Terms like eq are fundamental.",
@@ -30201,7 +30201,7 @@
                       }
                     ],
                     "explanation": "",
-                    "expert_explanation": "Modern time-stretch algorithms utilize powerful Fast Fourier Transform (FFT) processors to map and cleanly isolate transients before warping the sustained gaps.",
+                    "expert_explanation": "Modern time-stretching algorithms use advanced granular and spectral processing to preserve transient punch and pitch stability during tempo changes.",
                     "explanation_image": {
                       "src": "/images/Dictiionary_Quiz_image_Pool/explanation_sampling_waveform.png",
                       "alt": "Image"
@@ -38392,19 +38392,19 @@
                     "type": "multi_choice",
                     "answers": [
                       {
-                        "text": "Identical",
-                        "is_true": "no"
-                      },
-                      {
-                        "text": "Sample checks samples",
+                        "text": "Sample peak measures discrete digital sample values, while true peak detects inter-sample waveform overshoots",
                         "is_true": "yes"
                       },
                       {
-                        "text": "True peak less accurate",
+                        "text": "They are completely identical measurements in every way",
                         "is_true": "no"
                       },
                       {
-                        "text": "Sample peak is newer",
+                        "text": "Sample peak is measured in analog volts, true peak in binary bits",
+                        "is_true": "no"
+                      },
+                      {
+                        "text": "True peak only measures low-frequency sub-bass content",
                         "is_true": "no"
                       }
                     ],
@@ -42114,7 +42114,7 @@
                       }
                     ],
                     "explanation": "",
-                    "expert_explanation": "Boosting with EQ introduces phase shift, especially with high Q settings (narrow bands) and large gain changes. This can smear the transients. Linear Phase EQ avoids this but introduces pre-ringing.",
+                    "expert_explanation": "A Q of 1.0 represents a moderate bandwidth roughly one to two octaves wide. At 1 kHz, this spans approximately 700 Hz to 1.4 kHz.",
                     "explanation_image": "/images/svg/eq_bell_q_factor.svg",
                     "expert_quote": {
                       "text": "Every dB of EQ you add is a dB of headroom you lose.",
@@ -42146,7 +42146,7 @@
                       }
                     ],
                     "explanation": "",
-                    "expert_explanation": "Boosting with EQ introduces phase shift, especially with high Q settings (narrow bands) and large gain changes. This can smear the transients. Linear Phase EQ avoids this but introduces pre-ringing.",
+                    "expert_explanation": "EQ boosts affect both frequency balance and phase relationships around the center frequency. Excessive boosting can alter transient crispness and stereo imaging.",
                     "explanation_image": {
                       "src": "/images/explanations/eq_phase_shift.svg",
                       "alt": "Phase shift illustration"
@@ -42181,7 +42181,7 @@
                       }
                     ],
                     "explanation": "",
-                    "expert_explanation": "Boosting with EQ introduces phase shift, especially with high Q settings (narrow bands) and large gain changes. This can smear the transients. Linear Phase EQ avoids this but introduces pre-ringing.",
+                    "expert_explanation": "Surgical notch filtering uses a high Q value (narrow bandwidth) to cut narrow resonance rings or hums without hollowing out the instrument's core tone.",
                     "explanation_image": "/images/svg/filter_resonance_q.svg",
                     "expert_quote": {
                       "text": "Every dB of EQ you add is a dB of headroom you lose.",
@@ -42213,7 +42213,7 @@
                       }
                     ],
                     "explanation": "",
-                    "expert_explanation": "Boosting with EQ introduces phase shift, especially with high Q settings (narrow bands) and large gain changes. This can smear the transients. Linear Phase EQ avoids this but introduces pre-ringing.",
+                    "expert_explanation": "A wide Q (low value like 0.5) creates smooth, musical tonal shaping across octaves, whereas a narrow boost (high Q) sounds like an unnatural resonance peak.",
                     "explanation_image": "/images/explanations/eq_wide_vs_narrow.svg",
                     "expert_quote": {
                       "text": "Every dB of EQ you add is a dB of headroom you lose.",
@@ -42245,7 +42245,7 @@
                       }
                     ],
                     "explanation": "",
-                    "expert_explanation": "Boosting with EQ introduces phase shift, especially with high Q settings (narrow bands) and large gain changes. This can smear the transients. Linear Phase EQ avoids this but introduces pre-ringing.",
+                    "expert_explanation": "As Q value increases, the filter's bandwidth becomes narrower; as Q decreases, the filter's bandwidth becomes wider.",
                     "explanation_image": {
                       "src": "/images/explanations/eq_phase_shift.svg",
                       "alt": "Phase shift illustration"
@@ -42280,7 +42280,7 @@
                       }
                     ],
                     "explanation": "",
-                    "expert_explanation": "Boosting with EQ introduces phase shift, especially with high Q settings (narrow bands) and large gain changes. This can smear the transients. Linear Phase EQ avoids this but introduces pre-ringing.",
+                    "expert_explanation": "Equaliser boosts directly add gain to the audio signal. A +10 dB boost increases signal amplitude significantly and will easily clip if headroom is insufficient.",
                     "explanation_image": {
                       "src": "/images/explanations/eq_phase_shift.svg",
                       "alt": "Phase shift illustration"
@@ -42315,7 +42315,7 @@
                       }
                     ],
                     "explanation": "",
-                    "expert_explanation": "Boosting with EQ introduces phase shift, especially with high Q settings (narrow bands) and large gain changes. This can smear the transients. Linear Phase EQ avoids this but introduces pre-ringing.",
+                    "expert_explanation": "Narrow, aggressive EQ boosts create steeper filter slopes, which result in greater phase shift around the center frequency.",
                     "explanation_image": {
                       "src": "/images/explanations/eq_phase_shift.svg",
                       "alt": "Phase shift illustration"
@@ -42350,7 +42350,7 @@
                       }
                     ],
                     "explanation": "",
-                    "expert_explanation": "Boosting with EQ introduces phase shift, especially with high Q settings (narrow bands) and large gain changes. This can smear the transients. Linear Phase EQ avoids this but introduces pre-ringing.",
+                    "expert_explanation": "With a Q of 2.0 (narrow bandwidth), cutting at 400 Hz drops off quickly, leaving an octave up (800 Hz) largely unaffected.",
                     "explanation_image": {
                       "src": "/images/explanations/eq_phase_shift.svg",
                       "alt": "Phase shift illustration"
@@ -42385,7 +42385,7 @@
                       }
                     ],
                     "explanation": "",
-                    "expert_explanation": "Boosting with EQ introduces phase shift, especially with high Q settings (narrow bands) and large gain changes. This can smear the transients. Linear Phase EQ avoids this but introduces pre-ringing.",
+                    "expert_explanation": "Musical, broad tonal shaping typically employs a moderate Q between 0.7 and 1.5, blending smoothly across related harmonics.",
                     "explanation_image": "/images/explanations/surgical_vs_musical_q.svg",
                     "expert_quote": {
                       "text": "Every dB of EQ you add is a dB of headroom you lose.",
@@ -42417,7 +42417,7 @@
                       }
                     ],
                     "explanation": "",
-                    "expert_explanation": "Boosting with EQ introduces phase shift, especially with high Q settings (narrow bands) and large gain changes. This can smear the transients. Linear Phase EQ avoids this but introduces pre-ringing.",
+                    "expert_explanation": "Boosting adjacent frequencies (1 kHz, 2 kHz, and 4 kHz) with wide bandwidths compounds into a broad, general presence lift across the entire midrange.",
                     "explanation_image": "/images/svg/3_to_1_rule_diagram.svg",
                     "expert_quote": {
                       "text": "Every dB of EQ you add is a dB of headroom you lose.",
@@ -62797,7 +62797,7 @@
                       }
                     ],
                     "explanation": "",
-                    "expert_explanation": "Linear Phase EQ is often used in mastering because minimal usage preserves the phase relationship of transients (like kick drums) better than standard Minimum Phase EQs, though it adds latency (pre-ringing).",
+                    "expert_explanation": "A Q of 1.0 at 300 Hz spans roughly an octave (150 Hz to 600 Hz), gently attenuating lower midrange mud.",
                     "explanation_image": "/images/svg/3_to_1_rule_diagram.svg",
                     "expert_quote": {
                       "text": "Preserve the punch. Watch the phase.",
@@ -62808,35 +62808,35 @@
                   },
                   {
                     "title": "Question 2",
-                    "content": "Linear-phase EQ in mastering prevents:",
+                    "content": "When applying tonal equalisation in mastering, why are broad, gentle curves (low Q) preferred over steep narrow boosts?",
                     "type": "multi_choice",
                     "answers": [
                       {
-                        "text": "All problems",
-                        "is_true": "no"
-                      },
-                      {
-                        "text": "Frequency changes",
-                        "is_true": "no"
-                      },
-                      {
-                        "text": "Feedback",
-                        "is_true": "no"
-                      },
-                      {
-                        "text": "Phase shift but causes pre-ringing",
+                        "text": "Broad curves sound transparent and natural across the complete mix without creating artificial resonances",
                         "is_true": "yes"
+                      },
+                      {
+                        "text": "Steep narrow boosts are technically forbidden in stereo DAWs",
+                        "is_true": "no"
+                      },
+                      {
+                        "text": "Broad curves reduce master file sizes",
+                        "is_true": "no"
+                      },
+                      {
+                        "text": "Mastering equalisers cannot support high Q values",
+                        "is_true": "no"
                       }
                     ],
                     "explanation": "",
-                    "expert_explanation": "Linear Phase EQ is often used in mastering because minimal usage preserves the phase relationship of transients (like kick drums) better than standard Minimum Phase EQs, though it adds latency (pre-ringing).",
-                    "explanation_image": "/images/explanations/eq_phase_shift.svg",
+                    "expert_explanation": "Broad, gentle EQ curves sound natural across a full mix, avoiding unnatural resonance bumps.",
+                    "explanation_image": "/images/Vintage Console EQ.png",
                     "expert_quote": {
-                      "text": "Preserve the punch. Watch the phase.",
-                      "author": "FabFilter Pro-Q Manual"
+                      "text": "In mastering, subtle broad strokes are musical; narrow boosts sound like an effect.",
+                      "author": "Bob Ludwig, Mastering Engineer"
                     },
                     "id": "v8_t20_i_2",
-                    "img": "/images/explanations/eq_phase_shift.svg"
+                    "img": "/images/Vintage Console EQ.png"
                   },
                   {
                     "title": "Question 3",
@@ -62861,7 +62861,7 @@
                       }
                     ],
                     "explanation": "",
-                    "expert_explanation": "Linear Phase EQ is often used in mastering because minimal usage preserves the phase relationship of transients (like kick drums) better than standard Minimum Phase EQs, though it adds latency (pre-ringing).",
+                    "expert_explanation": "Gentle subtractive cutting (-1 to -2 dB) with moderate Q targets harshness around 2.5 kHz without dulling vocal clarity.",
                     "explanation_image": "/images/explanations/mid_side_eq_cut.svg",
                     "expert_quote": {
                       "text": "Preserve the punch. Watch the phase.",
@@ -62893,7 +62893,7 @@
                       }
                     ],
                     "explanation": "",
-                    "expert_explanation": "Linear Phase EQ is often used in mastering because minimal usage preserves the phase relationship of transients (like kick drums) better than standard Minimum Phase EQs, though it adds latency (pre-ringing).",
+                    "expert_explanation": "A low Q value (0.8) creates a broad curve that cleans up boxiness and mud from ~180 Hz to 500 Hz.",
                     "explanation_image": {
                       "src": "/images/explanations/linear_phase_vs_minimum.svg",
                       "alt": "Impulse response of Linear Phase"
@@ -62928,7 +62928,7 @@
                       }
                     ],
                     "explanation": "",
-                    "expert_explanation": "Linear Phase EQ is often used in mastering because minimal usage preserves the phase relationship of transients (like kick drums) better than standard Minimum Phase EQs, though it adds latency (pre-ringing).",
+                    "expert_explanation": "High-frequency sheen or 'air' is traditionally achieved using a gentle high-shelf boost starting between 10 kHz and 12 kHz.",
                     "explanation_image": {
                       "src": "/images/explanations/linear_phase_vs_minimum.svg",
                       "alt": "Impulse response of Linear Phase"
@@ -62963,7 +62963,7 @@
                       }
                     ],
                     "explanation": "",
-                    "expert_explanation": "Linear Phase EQ is often used in mastering because minimal usage preserves the phase relationship of transients (like kick drums) better than standard Minimum Phase EQs, though it adds latency (pre-ringing).",
+                    "expert_explanation": "Mastering EQ requires subtlety (typically 0.5 dB to 2 dB). A +4 dB boost is too drastic and can cause harshness or ear fatigue.",
                     "explanation_image": {
                       "src": "/images/explanations/linear_phase_vs_minimum.svg",
                       "alt": "Impulse response of Linear Phase"
@@ -62998,7 +62998,7 @@
                       }
                     ],
                     "explanation": "",
-                    "expert_explanation": "Linear Phase EQ is often used in mastering because minimal usage preserves the phase relationship of transients (like kick drums) better than standard Minimum Phase EQs, though it adds latency (pre-ringing).",
+                    "expert_explanation": "A 12 dB/octave high-pass filter set at 25 Hz will attenuate frequencies by 12 dB at one octave below (12.5 Hz), removing subsonic rumble.",
                     "explanation_image": "/images/svg/high_pass_filter.svg",
                     "expert_quote": {
                       "text": "Preserve the punch. Watch the phase.",
@@ -63030,7 +63030,7 @@
                       }
                     ],
                     "explanation": "",
-                    "expert_explanation": "Linear Phase EQ is often used in mastering because minimal usage preserves the phase relationship of transients (like kick drums) better than standard Minimum Phase EQs, though it adds latency (pre-ringing).",
+                    "expert_explanation": "High Q values (4 to 8) in mastering are reserved for surgical notch cuts to eliminate specific annoying ringing room resonances.",
                     "explanation_image": {
                       "src": "/images/explanations/linear_phase_vs_minimum.svg",
                       "alt": "Impulse response of Linear Phase"
@@ -63065,7 +63065,7 @@
                       }
                     ],
                     "explanation": "",
-                    "expert_explanation": "Linear Phase EQ is often used in mastering because minimal usage preserves the phase relationship of transients (like kick drums) better than standard Minimum Phase EQs, though it adds latency (pre-ringing).",
+                    "expert_explanation": "If cutting at 3 kHz makes the mix sound noticeably dull, the bandwidth (Q) was likely set too wide, cutting desirable vocal presence.",
                     "explanation_image": {
                       "src": "/images/explanations/linear_phase_vs_minimum.svg",
                       "alt": "Impulse response of Linear Phase"
@@ -63100,7 +63100,7 @@
                       }
                     ],
                     "explanation": "",
-                    "expert_explanation": "Linear Phase EQ is often used in mastering because minimal usage preserves the phase relationship of transients (like kick drums) better than standard Minimum Phase EQs, though it adds latency (pre-ringing).",
+                    "expert_explanation": "After surgical cleanup, tonal EQ focuses on broad musical enhancement—sweetening the overall frequency balance of the track.",
                     "explanation_image": "/images/svg/eq_bell_q_factor.svg",
                     "expert_quote": {
                       "text": "Preserve the punch. Watch the phase.",

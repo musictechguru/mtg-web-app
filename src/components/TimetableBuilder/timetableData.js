@@ -293,6 +293,12 @@ export const TIMETABLE_BLOCKS = [
         "actionText": "Launch Signal Flow"
       },
       {
+        "id": "quiz-topic-46",
+        "title": "Practical Quiz 27: Phase Alignment, Polarities & Comb Filtering",
+        "type": "quiz",
+        "actionText": "Launch Phase Alignment"
+      },
+      {
         "id": "interactive-practical-21",
         "title": "Practical Quiz 21: Stereo Panning & Soundstage Evolution",
         "type": "quiz",
@@ -452,6 +458,12 @@ export const TIMETABLE_BLOCKS = [
         "title": "Practical Quiz 4: Sampler Parameters & Key Mapping",
         "type": "quiz",
         "actionText": "Launch Practical 4"
+      },
+      {
+        "id": "quiz-topic-45",
+        "title": "Practical Quiz 26: Frequency Spectrum & Instrument EQ Pocketing",
+        "type": "quiz",
+        "actionText": "Launch EQ Pocketing"
       },
       {
         "id": "interactive-practical-20",
@@ -619,6 +631,12 @@ export const TIMETABLE_BLOCKS = [
         "title": "Practical Quiz 3: Subtractive Synthesis Flow",
         "type": "quiz",
         "actionText": "Launch Synthesis Flow"
+      },
+      {
+        "id": "quiz-topic-44",
+        "title": "Practical Quiz 25: Dynamic Processing & Envelope Matching",
+        "type": "quiz",
+        "actionText": "Launch Dynamics Quiz"
       },
       {
         "id": "interactive-practical-17",
@@ -1118,6 +1136,12 @@ export const TIMETABLE_BLOCKS = [
         "title": "Practical Quiz 7: Delay Time Calculations & BPM Sync",
         "type": "quiz",
         "actionText": "Launch Practical 7"
+      },
+      {
+        "id": "quiz-topic-47",
+        "title": "Practical Quiz 28: DAW Automation Modes & MIDI Control Change Data",
+        "type": "quiz",
+        "actionText": "Launch Automation Quiz"
       },
       {
         "id": "interactive-practical-8",

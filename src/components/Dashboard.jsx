@@ -3,6 +3,8 @@ import { useUser } from '../contexts/UserContext';
 import GuruTracker from './GuruTracker';
 import CampaignMap from './CampaignMap';
 import campaignData from '../data/campaign_route.json';
+import courseData from '../data/course_data.json';
+import AssignmentBanner from './AssignmentBanner';
 import { getGradeFromPercentage } from './teacherComponentMetrics';
 
 const WelcomeVideoModal = lazy(() => import('./WelcomeVideoModal'));
@@ -64,8 +66,46 @@ const Dashboard = ({ onNavigate, onOpenProfile }) => {
         return 'U';
     };
 
+    // Daily 5 Spaced Repetition streak
+    const dailyStreak = useMemo(() => {
+        try {
+            const val = localStorage.getItem('mtg_daily5_streak');
+            return val ? parseInt(val, 10) : 0;
+        } catch {
+            return 0;
+        }
+    }, []);
+
+    // Homework Assignment task launcher
+    const handleLaunchAssignmentTask = (task) => {
+        if (!task || !onNavigate) return;
+        if (task.type === 'quiz' || task.type === 'exam_c3' || task.type === 'exam_c4') {
+            for (const section of courseData.sections || []) {
+                for (const item of section.items || []) {
+                    if (item.id === task.id || item.title === task.title) {
+                        onNavigate(item);
+                        return;
+                    }
+                }
+            }
+        } else if (task.type === 'tracksheet') {
+            onNavigate({ id: 'tracksheet_creator', type: 'tracksheet_creator', title: 'Component 1: Track Sheet & Logbook', isPremium: true });
+            return;
+        } else if (task.type === 'fingerprints') {
+            onNavigate({ type: 'lp_fingerprints', title: 'Sonic Fingerprints: Production Analysis' });
+            return;
+        } else if (task.type === 'dictionary') {
+            onNavigate({ type: 'dictionary_selector', title: 'Dictionary Quizzes' });
+            return;
+        }
+        onNavigate(task);
+    };
+
     return (
         <div className="dashboard-container" style={{ padding: '20px', maxWidth: '1200px', margin: '0 auto' }}>
+            {/* Active Teacher Homework Assignment Banner (auto-detects assignment URL/storage) */}
+            <AssignmentBanner onLaunchTask={handleLaunchAssignmentTask} />
+
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '30px', flexWrap: 'wrap', gap: '15px' }}>
                 <h1 style={{ margin: 0, color: 'var(--text-primary)', fontSize: '2.5rem' }}>
                     Welcome back, <span style={{ color: 'var(--accent-blue)' }}>{currentUser?.full_name || 'Creator'}!</span>
@@ -265,6 +305,94 @@ const Dashboard = ({ onNavigate, onOpenProfile }) => {
                         </button>
                     </div>
                 </div>
+            </div>
+
+            {/* Daily 5 Spaced Repetition Drill Feature Card */}
+            <div style={{
+                background: 'linear-gradient(135deg, rgba(249, 115, 22, 0.14) 0%, rgba(234, 88, 12, 0.07) 100%)',
+                border: '1px solid rgba(249, 115, 22, 0.35)',
+                borderRadius: '16px',
+                padding: '24px',
+                marginBottom: '25px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                flexWrap: 'wrap',
+                gap: '20px',
+                boxShadow: '0 8px 24px rgba(0,0,0,0.2)'
+            }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '18px' }}>
+                    <div style={{
+                        width: '56px',
+                        height: '56px',
+                        borderRadius: '12px',
+                        background: 'linear-gradient(135deg, #ea580c, #f97316)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        fontSize: '1.8rem',
+                        boxShadow: '0 4px 15px rgba(249, 115, 22, 0.4)'
+                    }}>
+                        🔥
+                    </div>
+                    <div>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px', flexWrap: 'wrap' }}>
+                            <span style={{ fontSize: '0.75rem', fontWeight: 'bold', background: 'rgba(249, 115, 22, 0.25)', color: '#fb923c', padding: '2px 8px', borderRadius: '6px' }}>
+                                2-MINUTE DAILY SPRINT
+                            </span>
+                            <span style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>
+                                Spaced Repetition Algorithm • 2,400-Question Bank
+                            </span>
+                            <span style={{ 
+                                fontSize: '0.75rem', 
+                                fontWeight: 'bold', 
+                                background: dailyStreak > 0 ? 'rgba(249, 115, 22, 0.2)' : 'rgba(255, 255, 255, 0.08)', 
+                                color: dailyStreak > 0 ? '#fb923c' : '#94a3b8', 
+                                border: `1px solid ${dailyStreak > 0 ? 'rgba(249, 115, 22, 0.4)' : 'rgba(255, 255, 255, 0.15)'}`,
+                                padding: '2px 8px', 
+                                borderRadius: '6px'
+                            }}>
+                                🔥 {dailyStreak > 0 ? `${dailyStreak}-Day Streak` : 'Start Streak Today'}
+                            </span>
+                        </div>
+                        <h3 style={{ margin: '0 0 6px 0', color: '#fff', fontSize: '1.3rem' }}>
+                            Daily 5 Quick-Fire Revision
+                        </h3>
+                        <p style={{ margin: 0, color: 'var(--text-secondary)', fontSize: '0.9rem', maxWidth: '620px', lineHeight: '1.4' }}>
+                            Sharpen recall with 5 rapid questions prioritising your past mistakes and topics due for review. Complete in under 2 minutes every day to keep knowledge fresh.
+                        </p>
+                    </div>
+                </div>
+
+                <button
+                    onClick={() => onNavigate({ id: 'quick_fire_daily5', type: 'quick_fire_daily5', title: 'Daily 5 Quick-Fire Drill' })}
+                    style={{
+                        padding: '12px 24px',
+                        borderRadius: '10px',
+                        background: 'linear-gradient(135deg, #ea580c 0%, #f97316 100%)',
+                        color: '#fff',
+                        border: 'none',
+                        fontWeight: '700',
+                        fontSize: '0.95rem',
+                        cursor: 'pointer',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '8px',
+                        boxShadow: '0 4px 15px rgba(234, 88, 12, 0.35)',
+                        transition: 'transform 0.2s, box-shadow 0.2s',
+                        whiteSpace: 'nowrap'
+                    }}
+                    onMouseEnter={(e) => {
+                        e.currentTarget.style.transform = 'translateY(-2px)';
+                        e.currentTarget.style.boxShadow = '0 6px 20px rgba(234, 88, 12, 0.5)';
+                    }}
+                    onMouseLeave={(e) => {
+                        e.currentTarget.style.transform = 'translateY(0)';
+                        e.currentTarget.style.boxShadow = '0 4px 15px rgba(234, 88, 12, 0.35)';
+                    }}
+                >
+                    <span>⚡</span> Start Daily 5 Drill (+XP)
+                </button>
             </div>
 
             {/* 16-Block Timetable & Scheme of Work Feature Card */}

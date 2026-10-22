@@ -19,6 +19,33 @@ export default function ParameterMatchingQuiz({
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [isCorrect, setIsCorrect] = useState(false);
 
+    // Stop audio on question change or unmount
+    useEffect(() => {
+        const allAudios = document.querySelectorAll('audio');
+        allAudios.forEach(a => {
+            if (!a.paused) {
+                a.pause();
+                a.currentTime = 0;
+            }
+        });
+        return () => {
+            allAudios.forEach(a => {
+                if (!a.paused) {
+                    a.pause();
+                }
+            });
+        };
+    }, [audioBeforeSrc, audioAfterSrc]);
+
+    const handleAudioPlay = (e) => {
+        const allAudios = document.querySelectorAll('audio');
+        allAudios.forEach(a => {
+            if (a !== e.target && !a.paused) {
+                a.pause();
+            }
+        });
+    };
+
     // Check if the user's value is within tolerance
     const checkAnswer = () => {
         setIsSubmitted(true);
@@ -54,7 +81,7 @@ export default function ParameterMatchingQuiz({
                             <p style={{ fontSize: '0.85rem', color: '#fca5a5', margin: '0 0 8px 0', fontWeight: 'bold' }}>
                                 1. Listen to the Problem (Before)
                             </p>
-                            <audio controls src={audioBeforeSrc} style={{ width: '100%', height: '32px' }} />
+                            <audio controls onPlay={handleAudioPlay} src={audioBeforeSrc} style={{ width: '100%', height: '32px' }} />
                         </div>
                     )}
 
@@ -63,7 +90,7 @@ export default function ParameterMatchingQuiz({
                             <p style={{ fontSize: '0.85rem', color: '#86efac', margin: '0 0 8px 0', fontWeight: 'bold' }}>
                                 2. Listen to the Goal (After)
                             </p>
-                            <audio controls src={audioAfterSrc} style={{ width: '100%', height: '32px' }} />
+                            <audio controls onPlay={handleAudioPlay} src={audioAfterSrc} style={{ width: '100%', height: '32px' }} />
                         </div>
                     )}
                 </div>

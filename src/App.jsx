@@ -24,6 +24,7 @@ const RockProductionQuiz = lazy(() => import('./components/InteractiveQuizzes/Ro
 const SampleChoppingQuiz = lazy(() => import('./components/InteractiveQuizzes/SampleChoppingQuiz'));
 const TracksheetCreator = lazy(() => import('./components/TracksheetCreator/TracksheetCreator'));
 const TimetableBuilder = lazy(() => import('./components/TimetableBuilder/TimetableBuilder'));
+const QuickFireDaily5 = lazy(() => import('./components/QuickFireDaily5'));
 const Component2Guide = lazy(() => import('./components/Component2Guide/Component2Guide'));
 const WelcomeVideoModal = lazy(() => import('./components/WelcomeVideoModal'));
 const UpdatePasswordModal = lazy(() => import('./components/UpdatePasswordModal'));
@@ -101,7 +102,21 @@ const MainApp = () => {
   const [activeItem, setActiveItem] = useState(() => {
     if (typeof window !== 'undefined') {
       const params = new URLSearchParams(window.location.search);
-      const quizParam = params.get('quiz') || (isDev ? sessionStorage.getItem('mtg_dev_quiz') : null);
+      let quizParam = params.get('quiz') || (isDev ? sessionStorage.getItem('mtg_dev_quiz') : null);
+
+      // Support clean path routing like /topic/ID or /revision/ID
+      const path = window.location.pathname;
+      if (!quizParam && (path.startsWith('/topic/') || path.startsWith('/revision/'))) {
+        const parts = path.split('/');
+        if (parts.length > 2 && parts[2]) {
+          quizParam = decodeURIComponent(parts[2]);
+        }
+      }
+
+      const quickfireParam = params.get('quickfire') || params.get('daily5');
+      if (quickfireParam === 'true' || quizParam === 'quick_fire_daily5' || quizParam === 'quickfire' || quizParam === 'daily5') {
+        return { id: 'quick_fire_daily5', type: 'quick_fire_daily5', title: 'Daily 5 Quick-Fire Drill' };
+      }
       if (quizParam) {
         if (quizParam === 'dictionary_selector') {
           return { type: 'dictionary_selector', title: 'Dictionary Quizzes' };
@@ -214,12 +229,29 @@ const MainApp = () => {
     }
   }, [courseData]);
 
-  // If user is not premium but active item requires premium, redirect to premium locked
+  // Dynamic SEO metadata based on active item
   useEffect(() => {
-    if (!loading && currentUser && isPremiumItem(activeItem) && !currentUser.is_premium) {
-      setActiveItem({ type: 'premium_locked', title: activeItem.title || 'Premium Feature' });
+    if (activeItem?.title) {
+      document.title = `${activeItem.title} | Music Tech Guru Revision`;
+      const metaDesc = document.querySelector('meta[name="description"]');
+      if (metaDesc) {
+        metaDesc.setAttribute(
+          'content',
+          `Revise ${activeItem.title} for Edexcel A-Level Music Technology with interactive questions, audio analysis, and exam tips.`
+        );
+      }
+    } else {
+      document.title = 'Music Tech Guru | A-Level Music Technology Revision';
+      const metaDesc = document.querySelector('meta[name="description"]');
+      if (metaDesc) {
+        metaDesc.setAttribute(
+          'content',
+          'Master Edexcel A-Level Music Technology with interactive quizzes, Component 3 & 4 mock exams, and premium teacher tools.'
+        );
+      }
     }
-  }, [loading, currentUser, activeItem]);
+  }, [activeItem]);
+
 
   useEffect(() => {
     // Diagnostic: Log Supabase URL to ensure correct environment
@@ -284,11 +316,14 @@ const MainApp = () => {
     );
   }
 
-  if (!currentUser) {
-    return <LoginScreen />;
+  if (!currentUser && !activeItem) {
+    return <LoginScreen onSelectPreview={handleItemSelect} />;
   }
 
   if (appView === 'teacher') {
+    if (!currentUser) {
+      return <LoginScreen onSelectPreview={handleItemSelect} />;
+    }
     return (
       <Suspense fallback={<LoadingFallback />}>
         <TeacherDashboard onBack={() => setAppView('student')} />
@@ -385,29 +420,52 @@ const MainApp = () => {
           <div onClick={goToDashboardWrapper}>
             <h1>Music Tech Guru</h1>
           </div>
-          <button 
-                onClick={() => {
-                  setShowProfileSettings(true);
-                  setMobileMenuOpen(false);
-                }}
-                className={!currentUser.full_name ? "pulse-button" : ""}
-                style={{
-                    background: !currentUser.full_name ? '' : 'transparent',
-                    border: '1px solid rgba(255,255,255,0.2)', padding: '8px 10px',
-                    borderRadius: '8px', color: !currentUser.full_name ? 'white' : 'var(--text-secondary)',
-                    fontSize: '0.85rem', textAlign: 'left', marginTop: '10px',
-                    display: 'flex', flexDirection: 'column', gap: '4px',
-                    width: '100%', transition: 'all 0.2s'
-                }}
-          >
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
-                  <span style={{ fontWeight: 'bold', fontSize: '1rem', color: !currentUser.full_name ? 'white' : 'var(--text-primary)' }}>
-                      {currentUser.full_name ? currentUser.full_name : "📝 Set Your Name"}
-                  </span>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
-              </div>
-              <span style={{ fontSize: '0.75rem', opacity: 0.8 }}>{currentUser.email}</span>
-          </button>
+          {currentUser ? (
+            <button 
+                  onClick={() => {
+                    setShowProfileSettings(true);
+                    setMobileMenuOpen(false);
+                  }}
+                  className={!currentUser.full_name ? "pulse-button" : ""}
+                  style={{
+                      background: !currentUser.full_name ? '' : 'transparent',
+                      border: '1px solid rgba(255,255,255,0.2)', padding: '8px 10px',
+                      borderRadius: '8px', color: !currentUser.full_name ? 'white' : 'var(--text-secondary)',
+                      fontSize: '0.85rem', textAlign: 'left', marginTop: '10px',
+                      display: 'flex', flexDirection: 'column', gap: '4px',
+                      width: '100%', transition: 'all 0.2s'
+                  }}
+            >
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
+                    <span style={{ fontWeight: 'bold', fontSize: '1rem', color: !currentUser.full_name ? 'white' : 'var(--text-primary)' }}>
+                        {currentUser.full_name ? currentUser.full_name : "📝 Set Your Name"}
+                    </span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                </div>
+                <span style={{ fontSize: '0.75rem', opacity: 0.8 }}>{currentUser.email}</span>
+            </button>
+          ) : (
+            <button
+              onClick={goToDashboardWrapper}
+              style={{
+                background: 'linear-gradient(135deg, #0284c7, #2563eb)',
+                border: 'none',
+                color: '#fff',
+                padding: '8px 12px',
+                borderRadius: '8px',
+                fontWeight: 'bold',
+                fontSize: '0.85rem',
+                cursor: 'pointer',
+                marginTop: '10px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '6px'
+              }}
+            >
+              <span>🔐</span> Log In / Sign Up
+            </button>
+          )}
         </div>
 
         <nav>
@@ -523,6 +581,25 @@ const MainApp = () => {
             }}
           >
             <span>🗺️</span> 16-Block Timetable & SOW
+          </button>
+
+          <button
+            className={`nav-item ${activeItem?.type === 'quick_fire_daily5' ? 'active' : ''}`}
+            onClick={() => {
+              handleItemSelectWrapper({ id: 'quick_fire_daily5', type: 'quick_fire_daily5', title: 'Daily 5 Quick-Fire Drill' });
+            }}
+            style={{ 
+              marginBottom: '10px', 
+              fontWeight: 'bold', 
+              color: '#fb923c', 
+              border: '1px solid rgba(249, 115, 22, 0.45)',
+              background: activeItem?.type === 'quick_fire_daily5' ? 'rgba(249, 115, 22, 0.15)' : 'transparent',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px'
+            }}
+          >
+            <span>🔥</span> Daily 5 Quick-Fire
           </button>
 
           <button
@@ -704,9 +781,67 @@ const MainApp = () => {
 
       {/* Main Content Area */}
       <main className="main-content">
+        {!currentUser && activeItem && (
+          <div style={{
+            background: 'linear-gradient(90deg, #0f172a 0%, #1e293b 100%)',
+            border: '1px solid rgba(56, 189, 248, 0.35)',
+            borderRadius: '12px',
+            padding: '12px 18px',
+            marginBottom: '20px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            flexWrap: 'wrap',
+            gap: '12px',
+            boxShadow: '0 4px 12px rgba(0,0,0,0.3)'
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+              <span style={{ fontSize: '1.2rem' }}>🎧</span>
+              <div>
+                <strong style={{ color: '#38bdf8', fontSize: '0.95rem' }}>Free Revision Preview</strong>
+                <p style={{ margin: 0, color: '#94a3b8', fontSize: '0.85rem' }}>
+                  You are previewing <strong>{activeItem.title}</strong>. Practice freely or log in to track your scores across all stages.
+                </p>
+              </div>
+            </div>
+            <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+              <button
+                onClick={goToDashboardWrapper}
+                style={{
+                  background: 'rgba(255, 255, 255, 0.08)',
+                  border: '1px solid rgba(255, 255, 255, 0.15)',
+                  color: '#cbd5e1',
+                  padding: '6px 12px',
+                  borderRadius: '6px',
+                  cursor: 'pointer',
+                  fontSize: '0.85rem'
+                }}
+              >
+                ← All Topics
+              </button>
+              <button
+                onClick={goToDashboardWrapper}
+                style={{
+                  background: 'linear-gradient(135deg, #0284c7, #2563eb)',
+                  border: 'none',
+                  color: '#fff',
+                  fontWeight: 600,
+                  padding: '6px 14px',
+                  borderRadius: '6px',
+                  cursor: 'pointer',
+                  fontSize: '0.85rem'
+                }}
+              >
+                Log In / Sign Up
+              </button>
+            </div>
+          </div>
+        )}
         <Suspense fallback={<LoadingFallback />}>
           {activeItem ? (
-            activeItem.type === 'timetable_builder' ? (
+            activeItem.type === 'quick_fire_daily5' ? (
+              <QuickFireDaily5 onExit={goToDashboardWrapper} />
+            ) : activeItem.type === 'timetable_builder' ? (
               <TimetableBuilder onNavigate={handleItemSelectWrapper} onBack={goToDashboardWrapper} />
             ) : activeItem.type === 'tracksheet_creator' ? (
               !currentUser?.is_premium ? (

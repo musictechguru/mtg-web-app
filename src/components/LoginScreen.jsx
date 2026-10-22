@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useUser } from '../contexts/UserContext';
 import LegalModals from './LegalModals';
+import courseData from '../data/course_data.json';
 import '../App.css'; 
 
 const isDev = Boolean(
@@ -11,7 +12,7 @@ const isDev = Boolean(
     ))
 );
 
-const LoginScreen = () => {
+const LoginScreen = ({ onSelectPreview }) => {
     const { login, signup, resetPassword, resendVerification, loading, adminBypass } = useUser();
     
     // view can be 'login', 'signup', 'forgot'
@@ -22,6 +23,7 @@ const LoginScreen = () => {
     const [error, setError] = useState('');
     const [message, setMessage] = useState('');
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [showSyllabus, setShowSyllabus] = useState(false);
     
     // Legal Modals State
     const [legalType, setLegalType] = useState(null);
@@ -78,14 +80,15 @@ const LoginScreen = () => {
     return (
         <div style={{
             display: 'flex',
-            justifyContent: 'center',
+            flexDirection: 'column',
+            justifyContent: 'flex-start',
             alignItems: 'center',
-            minHeight: '100dvh',
-            height: '100vh',
+            minHeight: '100vh',
             backgroundColor: 'var(--bg-dark)',
             color: 'var(--text-primary)',
-            padding: '20px',
-            backgroundImage: 'radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.1) 0%, transparent 50%)'
+            padding: '40px 20px',
+            backgroundImage: 'radial-gradient(circle at 50% 30%, rgba(59, 130, 246, 0.1) 0%, transparent 60%)',
+            boxSizing: 'border-box'
         }}>
             <div style={{
                 display: 'flex',
@@ -333,6 +336,128 @@ const LoginScreen = () => {
                         >Privacy Policy</span>.
                     </p>
                 </div>
+            </div>
+
+            {/* Explore Curriculum & Free Preview Quizzes Section */}
+            <div style={{
+                width: '100%',
+                maxWidth: '900px',
+                marginTop: '24px',
+                marginBottom: '40px'
+            }}>
+                <div style={{ textAlign: 'center', marginBottom: '16px' }}>
+                    <button
+                        type="button"
+                        onClick={() => setShowSyllabus(prev => !prev)}
+                        style={{
+                            background: 'rgba(56, 189, 248, 0.1)',
+                            border: '1px solid rgba(56, 189, 248, 0.35)',
+                            color: '#38bdf8',
+                            padding: '12px 24px',
+                            borderRadius: '12px',
+                            fontSize: '0.95rem',
+                            fontWeight: 600,
+                            cursor: 'pointer',
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: '10px',
+                            transition: 'all 0.2s ease',
+                            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.2)'
+                        }}
+                    >
+                        <span>📚</span>
+                        <span>{showSyllabus ? 'Hide Syllabus Overview' : 'Explore Course Syllabus & Free Preview Quizzes (120+ Modules)'}</span>
+                        <span style={{ fontSize: '0.8rem', opacity: 0.8 }}>{showSyllabus ? '▲' : '▼'}</span>
+                    </button>
+                </div>
+
+                {showSyllabus && (
+                    <div style={{
+                        background: 'var(--bg-panel)',
+                        borderRadius: '20px',
+                        padding: '24px',
+                        border: '1px solid rgba(255, 255, 255, 0.1)',
+                        boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.3)'
+                    }}>
+                        <div style={{ marginBottom: '20px', textAlign: 'center' }}>
+                            <h2 style={{ fontSize: '1.4rem', color: '#f8fafc', marginBottom: '8px' }}>
+                                Edexcel A-Level Music Technology Revision Curriculum
+                            </h2>
+                            <p style={{ color: '#94a3b8', fontSize: '0.9rem', maxWidth: '650px', margin: '0 auto' }}>
+                                Click any topic to test your knowledge in Guest Preview mode. Component 3 &amp; 4 revision covering 1950s–present day music production.
+                            </p>
+                        </div>
+
+                        <div style={{
+                            display: 'grid',
+                            gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
+                            gap: '16px',
+                            maxHeight: '550px',
+                            overflowY: 'auto',
+                            paddingRight: '8px'
+                        }}>
+                            {(courseData.sections || []).map((sec, sIdx) => (
+                                <div
+                                    key={sIdx}
+                                    style={{
+                                        background: 'rgba(255, 255, 255, 0.03)',
+                                        border: '1px solid rgba(255, 255, 255, 0.08)',
+                                        borderRadius: '12px',
+                                        padding: '16px'
+                                    }}
+                                >
+                                    <h3 style={{
+                                        fontSize: '0.95rem',
+                                        color: '#38bdf8',
+                                        margin: '0 0 10px 0',
+                                        display: 'flex',
+                                        justifyContent: 'space-between',
+                                        alignItems: 'center'
+                                    }}>
+                                        <span>{sec.title}</span>
+                                        <span style={{ fontSize: '0.75rem', color: '#94a3b8', fontWeight: 'normal' }}>
+                                            {(sec.items || []).length}
+                                        </span>
+                                    </h3>
+                                    <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                                        {(sec.items || []).map((item, iIdx) => (
+                                            <a
+                                                key={iIdx}
+                                                href={`/?quiz=${encodeURIComponent(item.id || item.title)}`}
+                                                onClick={(e) => {
+                                                    if (onSelectPreview) {
+                                                        e.preventDefault();
+                                                        onSelectPreview(item);
+                                                    }
+                                                }}
+                                                style={{
+                                                    color: '#cbd5e1',
+                                                    textDecoration: 'none',
+                                                    fontSize: '0.85rem',
+                                                    padding: '6px 8px',
+                                                    borderRadius: '6px',
+                                                    background: 'rgba(255, 255, 255, 0.02)',
+                                                    transition: 'all 0.15s ease',
+                                                    display: 'block'
+                                                }}
+                                                onMouseEnter={(e) => {
+                                                    e.currentTarget.style.background = 'rgba(56, 189, 248, 0.15)';
+                                                    e.currentTarget.style.color = '#38bdf8';
+                                                }}
+                                                onMouseLeave={(e) => {
+                                                    e.currentTarget.style.background = 'rgba(255, 255, 255, 0.02)';
+                                                    e.currentTarget.style.color = '#cbd5e1';
+                                                }}
+                                            >
+                                                {item.title}
+                                            </a>
+                                        ))}
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                )}
             </div>
 
             {/* Legal Modals */}

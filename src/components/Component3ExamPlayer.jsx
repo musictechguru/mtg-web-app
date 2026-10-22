@@ -164,6 +164,37 @@ const Component3ExamPlayer = ({ examData: rawExamData, onExit }) => {
         }
     }, [currentSectionIndex, timerStarted]);
 
+    // Prevent overlapping "double audio" and stop audio when navigating questions
+    const handleAudioPlay = (e) => {
+        const allAudios = document.querySelectorAll('audio');
+        allAudios.forEach(a => {
+            if (a !== e.target && !a.paused) {
+                a.pause();
+            }
+        });
+    };
+
+    useEffect(() => {
+        const allAudios = document.querySelectorAll('audio');
+        allAudios.forEach(a => {
+            if (!a.paused) {
+                a.pause();
+                a.currentTime = 0;
+            }
+        });
+    }, [currentSectionIndex, currentQuestionIndex]);
+
+    useEffect(() => {
+        return () => {
+            const allAudios = document.querySelectorAll('audio');
+            allAudios.forEach(a => {
+                if (!a.paused) {
+                    a.pause();
+                }
+            });
+        };
+    }, []);
+
     // Initialize shuffled order for ordering questions
     // Initialize shuffled order for ordering questions
     useEffect(() => {
@@ -692,6 +723,7 @@ const Component3ExamPlayer = ({ examData: rawExamData, onExit }) => {
                                 {currentQuestion.track.compareFilename && <div style={{ color: '#aaa', marginBottom: '5px', fontSize: '0.75rem' }}>{currentQuestion.track.audioLabel || 'Original (1973)'}</div>}
                                 <audio
                                     controls
+                                    onPlay={handleAudioPlay}
                                     src={`/${currentQuestion.track.filename}`}
                                     style={{ width: '100%', height: '30px' }}
                                 />
@@ -701,6 +733,7 @@ const Component3ExamPlayer = ({ examData: rawExamData, onExit }) => {
                                     <div style={{ color: '#aaa', marginBottom: '5px', fontSize: '0.75rem', marginTop: '10px' }}>{currentQuestion.track.compareLabel || 'Remix (2020)'}</div>
                                     <audio
                                         controls
+                                        onPlay={handleAudioPlay}
                                         src={`/${currentQuestion.track.compareFilename}`}
                                         style={{ width: '100%', height: '30px' }}
                                     />
@@ -730,7 +763,7 @@ const Component3ExamPlayer = ({ examData: rawExamData, onExit }) => {
                                                     <Play size={14} fill="white" />
                                                 </div>
                                                 <span style={{ fontWeight: 'bold', color: '#e2e8f0', minWidth: '100px' }}>{asset.name}</span>
-                                                <audio className="exam-asset-audio" src={`/${asset.filename}`} controls style={{ height: '30px', width: '250px', opacity: 0.9 }} />
+                                                <audio className="exam-asset-audio" src={`/${asset.filename}`} controls onPlay={handleAudioPlay} style={{ height: '30px', width: '250px', opacity: 0.9 }} />
                                             </div>
                                             <div>
                                                 {currentUser ? (

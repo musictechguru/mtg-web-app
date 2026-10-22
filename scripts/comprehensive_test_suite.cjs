@@ -268,6 +268,33 @@ runSuite('Suite 3: Practical Quizzes (Parts 2 & 3 Expansions)', (assert, warn) =
 
   const pq11 = allItems.find(i => i.id === 'quiz-topic-30');
   assert(Array.isArray(pq11?.questions) && pq11.questions.length === 10, `Practical Quiz 11 expanded to 10 questions (Found: ${pq11?.questions?.length})`);
+
+  // Newly Expanded Quizzes: PQ1, PQ4, PQ19
+  const pq1 = allItems.find(i => i.id === 'quiz-topic-11');
+  assert(Array.isArray(pq1?.questions) && pq1.questions.length === 10, `Practical Quiz 1 expanded to 10 questions (Found: ${pq1?.questions?.length})`);
+
+  const pq4 = allItems.find(i => i.id === 'quiz-topic-23');
+  assert(Array.isArray(pq4?.questions) && pq4.questions.length === 10, `Practical Quiz 4 expanded to 10 questions (Found: ${pq4?.questions?.length})`);
+
+  const pq19 = allItems.find(i => i.id === 'quiz-topic-38');
+  assert(Array.isArray(pq19?.questions) && pq19.questions.length === 10, `Practical Quiz 19 expanded to 10 questions (Found: ${pq19?.questions?.length})`);
+
+  // New High-Yield Practical Quizzes: PQ25 - PQ28
+  const pq25 = allItems.find(i => i.id === 'quiz-topic-44');
+  assert(Boolean(pq25), 'Practical Quiz 25 (Dynamic Processing) registered');
+  assert(Array.isArray(pq25?.questions) && pq25.questions.length === 12, `Practical Quiz 25 has 12 questions (Found: ${pq25?.questions?.length})`);
+
+  const pq26 = allItems.find(i => i.id === 'quiz-topic-45');
+  assert(Boolean(pq26), 'Practical Quiz 26 (Frequency Spectrum & EQ Pocketing) registered');
+  assert(Array.isArray(pq26?.questions) && pq26.questions.length === 12, `Practical Quiz 26 has 12 questions (Found: ${pq26?.questions?.length})`);
+
+  const pq27 = allItems.find(i => i.id === 'quiz-topic-46');
+  assert(Boolean(pq27), 'Practical Quiz 27 (Phase Alignment & Polarities) registered');
+  assert(Array.isArray(pq27?.questions) && pq27.questions.length === 12, `Practical Quiz 27 has 12 questions (Found: ${pq27?.questions?.length})`);
+
+  const pq28 = allItems.find(i => i.id === 'quiz-topic-47');
+  assert(Boolean(pq28), 'Practical Quiz 28 (DAW Automation & MIDI CC) registered');
+  assert(Array.isArray(pq28?.questions) && pq28.questions.length === 12, `Practical Quiz 28 has 12 questions (Found: ${pq28?.questions?.length})`);
 });
 
 // -------------------------------------------------------------
@@ -839,6 +866,67 @@ runSuite('Suite 9: Mock Exams Calibration, Audio Assets & 16-Block Timetable Syn
 
   // Verify Historical Tech is linked
   assert(timetableContent.includes('history-0') && timetableContent.includes('history-6') && timetableContent.includes('history-7') && timetableContent.includes('history-8'), 'Timetable links new Stage 6 Historical Quizzes');
+
+  // Verify new Practical Quizzes PQ25-PQ28 are linked
+  assert(timetableContent.includes('quiz-topic-44'), 'Timetable links PQ25 (Dynamics & Envelopes)');
+  assert(timetableContent.includes('quiz-topic-45'), 'Timetable links PQ26 (EQ & Frequency Pocketing)');
+  assert(timetableContent.includes('quiz-topic-46'), 'Timetable links PQ27 (Phase Alignment & Polarities)');
+  assert(timetableContent.includes('quiz-topic-47'), 'Timetable links PQ28 (DAW Automation & MIDI CC)');
+});
+
+// -------------------------------------------------------------
+// Suite 9: Homework Assignment Links & Daily 5 Spaced Repetition
+// -------------------------------------------------------------
+runSuite('Suite 9: Homework Assignment Links & Daily 5 Spaced Repetition', (assert, warn) => {
+  // 1. Daily 5 Spaced Repetition Engine
+  const qfPath = path.join(rootDir, 'src/components/QuickFireDaily5.jsx');
+  assert(fs.existsSync(qfPath), 'QuickFireDaily5.jsx component exists');
+  const qfContent = fs.readFileSync(qfPath, 'utf8');
+  assert(qfContent.includes('selectDaily5Questions'), 'QuickFireDaily5 implements spaced repetition algorithm');
+  assert(qfContent.includes('mtg_daily5_streak'), 'QuickFireDaily5 manages daily revision streak');
+  assert(qfContent.includes('fourteenDaysMs'), 'QuickFireDaily5 tracks 14-day spaced repetition intervals');
+
+  // 2. Assignment Modal Component
+  const amPath = path.join(rootDir, 'src/components/AssignmentModal.jsx');
+  assert(fs.existsSync(amPath), 'AssignmentModal.jsx component exists');
+  const amContent = fs.readFileSync(amPath, 'utf8');
+  assert(amContent.includes('mtg_teacher_assignments'), 'AssignmentModal saves assignments to teacher history');
+  assert(amContent.includes('assignmentUrl'), 'AssignmentModal generates direct student assignment URL');
+  assert(amContent.includes('classroomPostText'), 'AssignmentModal generates formatted Classroom/Teams post');
+
+  // 3. Assignment Banner Component
+  const abPath = path.join(rootDir, 'src/components/AssignmentBanner.jsx');
+  assert(fs.existsSync(abPath), 'AssignmentBanner.jsx component exists');
+  const abContent = fs.readFileSync(abPath, 'utf8');
+  assert(abContent.includes('mtg_current_assignment'), 'AssignmentBanner manages student active homework');
+  assert(abContent.includes('assignmentBlockId'), 'AssignmentBanner parses URL assignment parameters');
+
+  // 4. Timetable Integration
+  const tbPath = path.join(rootDir, 'src/components/TimetableBuilder/TimetableBuilder.jsx');
+  const tbContent = fs.readFileSync(tbPath, 'utf8');
+  assert(tbContent.includes('AssignmentModal'), 'TimetableBuilder imports AssignmentModal');
+  assert(tbContent.includes('setAssigningBlockId'), 'TimetableBuilder wires assignment trigger state');
+
+  // 5. Dashboard Integration
+  const dashPath = path.join(rootDir, 'src/components/Dashboard.jsx');
+  const dashContent = fs.readFileSync(dashPath, 'utf8');
+  assert(dashContent.includes('AssignmentBanner'), 'Dashboard imports and renders AssignmentBanner');
+  assert(dashContent.includes('quick_fire_daily5'), 'Dashboard features Daily 5 Quick-Fire Drill launcher');
+  assert(dashContent.includes('dailyStreak'), 'Dashboard tracks and displays user daily streak');
+
+  // 6. App.jsx Routing & Navigation
+  const appPath = path.join(rootDir, 'src/App.jsx');
+  const appContent = fs.readFileSync(appPath, 'utf8');
+  assert(appContent.includes('QuickFireDaily5'), 'App.jsx imports QuickFireDaily5');
+  assert(appContent.includes("activeItem.type === 'quick_fire_daily5'"), 'App.jsx routes quick_fire_daily5 view');
+  assert(appContent.includes("quickfireParam === 'true'"), 'App.jsx handles quickfire / daily5 URL parameter');
+
+  // 7. Teacher Dashboard Integration
+  const tdPath = path.join(rootDir, 'src/components/TeacherDashboard.jsx');
+  const tdContent = fs.readFileSync(tdPath, 'utf8');
+  assert(tdContent.includes("viewMode === 'assignments'"), 'TeacherDashboard includes Homework & Assignments view');
+  assert(tdContent.includes('AssignmentModal'), 'TeacherDashboard integrates AssignmentModal');
+  assert(tdContent.includes('savedAssignments'), 'TeacherDashboard displays and manages saved assignment links');
 });
 
 // -------------------------------------------------------------

@@ -469,6 +469,24 @@ const QuizPlayer = ({ quiz, onFinish }) => {
         });
     };
 
+    // Stop any playing audio on question change or unmount to prevent double audio
+    useEffect(() => {
+        const allAudios = document.querySelectorAll('audio');
+        allAudios.forEach(a => {
+            if (!a.paused) {
+                a.pause();
+                a.currentTime = 0;
+            }
+        });
+        return () => {
+            allAudios.forEach(a => {
+                if (!a.paused) {
+                    a.pause();
+                }
+            });
+        };
+    }, [currentQuestionIndex]);
+
     // Dev mode: Alt+Left / Alt+Right for skipping, Alt+R for reveal
     useEffect(() => {
         if (!isDev) return;
@@ -897,6 +915,36 @@ const QuizPlayer = ({ quiz, onFinish }) => {
                 <div style={{ background: 'rgba(255,255,255,0.05)', padding: '20px', borderRadius: '10px', marginBottom: '30px' }}>
                     <p style={{ fontSize: '1.1rem', margin: 0 }}>{expl}</p>
                 </div>
+                {!userContext?.currentUser && (
+                    <div style={{
+                        margin: '20px 0 24px 0',
+                        padding: '16px',
+                        background: 'linear-gradient(135deg, rgba(56, 189, 248, 0.12), rgba(99, 102, 241, 0.12))',
+                        border: '1px solid rgba(56, 189, 248, 0.3)',
+                        borderRadius: '12px',
+                        textAlign: 'center'
+                    }}>
+                        <h3 style={{ margin: '0 0 6px 0', color: '#38bdf8', fontSize: '1.1rem' }}>Want to save your grade?</h3>
+                        <p style={{ margin: '0 0 12px 0', fontSize: '0.85rem', color: '#cbd5e1' }}>
+                            Sign up for a free student account to record scores, track mastery across all 10 stages, and unlock mock exam audio tracks.
+                        </p>
+                        <button
+                            onClick={handleExit}
+                            style={{
+                                background: 'linear-gradient(135deg, #0284c7, #2563eb)',
+                                color: '#fff',
+                                border: 'none',
+                                padding: '8px 18px',
+                                borderRadius: '8px',
+                                fontWeight: 'bold',
+                                fontSize: '0.9rem',
+                                cursor: 'pointer'
+                            }}
+                        >
+                            Sign Up Free / Log In
+                        </button>
+                    </div>
+                )}
                 <button
                     className="btn-primary"
                     onClick={handleExit}
