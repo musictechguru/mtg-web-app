@@ -858,6 +858,19 @@ export default function TracksheetCreator({ onBack, initialMode = 'generator' })
     );
   }
 
+  if (c1ViewMode === 'checklist') {
+    return (
+      <Component1ChecklistPanel
+        activeTrackName={trackName}
+        activeArtistName={artistName}
+        activeDaw={selectedDaw}
+        standalone={true}
+        onBack={onBack}
+        onSwitchToTracksheet={() => setC1ViewMode('generator')}
+      />
+    );
+  }
+
   return (
     <div className="tracksheet-wrapper">
       {/* Background Gradients */}

@@ -10,6 +10,93 @@ export const C1_OVERVIEW_SPECS = [
   { icon: '💿', label: 'Master Format', value: '16-bit / 44.1 kHz', sub: 'Stereo WAV (-1.0 dBFS) + Logbook PDF' }
 ];
 
+export const C1_RECORDING_APPROACHES = [
+  {
+    id: 'hybrid_school',
+    title: 'Option 1: 4-Mic Glyn Johns Drums + DI Amp Sims + Live MIDI Keys',
+    subtitle: 'Ideal for School Studios • Zero Spill, Fast Setup & Maximum Phase Coherence',
+    badge: '⭐ STRONGLY RECOMMENDED',
+    badgeType: 'recommended',
+    description:
+      'Capture the acoustic drum kit using the phase-locked 4-Mic Glyn Johns method (AG1A), record Electric Guitars and Bass via clean Active DI into Logic Amp Designer & Pedalboard (AG1C), perform Pianos, Hammond B3, Rhodes & Mellotron live via USB MIDI (Pathway 3), and track Lead & Backing Vocals in a treated booth (AG1B).',
+    pros: [
+      '4-Mic Glyn Johns guarantees phase-coherent drums with a 30-second cable equidistance check',
+      'Zero guitar/bass amplifier spill into drum or vocal microphones',
+      'Full flexibility to tweak guitar/bass amp models, virtual mic positions & MIDI patches during mixing'
+    ],
+    keyTip: 'Always play Pathway 3 MIDI parts live on a keyboard with CC64 sustain & CC1 modulation — never import pre-made MIDI files.'
+  },
+  {
+    id: 'multi_mic_live',
+    title: 'Option 2: Multi-Mic Drum Kit (6–8 Mics) + Miked Guitar Cabinets',
+    subtitle: 'Traditional Studio Approach • Best for Large Multi-Room Studios with Isolation Booths',
+    badge: '🎙️ TRADITIONAL STUDIO',
+    badgeType: 'recommended',
+    description:
+      'Close-mike every drum shell (Kick, Snare Top/Bottom, Rack/Floor Toms, Hi-Hat + Stereo Overheads) and place dynamic/ribbon microphones (SM57 / R-121) on physical guitar and bass speaker cabinets in isolated rooms.',
+    pros: [
+      'Individual close mics on toms and hi-hat allow discrete gating and panning in rock/pop mixes',
+      'Authentic physical speaker cone movement on electric guitar and bass cabinets',
+      'Strong demonstration of multi-microphone acoustic capture across AG1A and AG1C'
+    ],
+    keyTip: 'Even when miking a guitar amp, always split the signal with a DI box Thru output to capture a clean safety DI track.'
+  },
+  {
+    id: 'unplanned_live',
+    title: 'Pitfall to Avoid: Unisolated Live-Room Tracking Without Phase/Spill Control',
+    subtitle: 'High Risk of Phase Cancellation, Cymbal Bleed & Capped AG1/AG7 Marks',
+    badge: '⚠️ AVOID THIS TRAP',
+    badgeType: 'warning',
+    description:
+      'Placing 8+ drum mics without measuring overhead equidistance, or tracking loud guitar amps and vocals in the same room as the drum kit, creates severe phase hollowness and unmixable cymbal bleed.',
+    pros: [
+      'Can feel fast on tracking day, but creates major problems during mixing (AG2–AG7)'
+    ],
+    cons: [
+      'Unequal overhead distances cause comb-filtering and a thin, off-center snare',
+      'Cymbal bleed into vocal or guitar mics becomes harsh when compressed in AG3',
+      'Headphone click bleed or room boominess caps AG1B (Vocals) and AG7 (Hygiene)'
+    ],
+    keyTip: 'Keep tracking separated: Drums first (phase-checked), DI/MIDI instruments second, and Vocals in a deadened booth last.'
+  }
+];
+
+export const C1_RECOMMENDED_STYLES = [
+  {
+    id: 'funk_soul_disco',
+    genre: '🎷 Funk / Soul / Motown / Disco',
+    badge: '⭐ TOP CHOICE FOR C1',
+    bpm: '95–120 BPM',
+    exampleTracks: ['Superstition — Stevie Wonder', 'Sir Duke — Stevie Wonder', 'Good Times — Chic', "Don't You Worry 'Bout a Thing — Stevie Wonder"],
+    why: 'Tight, dry drum grooves, upfront melodic basslines, rhythmic DI guitars, and rich keyboard/horn arrangements make it effortless to hit all 12–24 tracks and showcase all 3 capture pathways.',
+    drumsFit: 'Dry, punchy 4-Mic Glyn Johns kit with crisp snare ghost notes and tight kick pocket.',
+    vocalsFit: 'Dynamic, expressive Lead Vocal with wide call-and-response Backing Vocal stacks (L35/R35).',
+    otherFit: 'Articulate Active DI Bass, clean DI rhythm guitar, plus live MIDI Clavinet, Rhodes, Hammond B3 & Horn section.'
+  },
+  {
+    id: 'classic_pop_rock',
+    genre: '🎸 Classic Rock / AOR / Soft Rock',
+    badge: '🔥 HIGH MARKS POTENTIAL',
+    bpm: '105–135 BPM',
+    exampleTracks: ['Dreams — Fleetwood Mac', 'Rosanna — Toto', 'Black Dog — Led Zeppelin', 'More Than a Feeling — Boston'],
+    why: 'Combines room-filling acoustic drums, layered acoustic & electric guitars, lush multi-part vocal harmonies, and signature piano/organ parts for natural stereo width (AG6).',
+    drumsFit: 'Glyn Johns or 6-mic kit with Parallel NY Drum Bus compression and gated toms.',
+    vocalsFit: 'Soaring Lead Vocal with 3-part double-tracked chorus harmonies (L35/R35 & L65/R65).',
+    otherFit: '12th-fret SDC Acoustic Guitar, double-tracked DI/Amp Sim Electric Guitars (L55/R55), Bass DI+SVT, and MIDI B3/Rhodes.'
+  },
+  {
+    id: '80s_pop_new_wave',
+    genre: '🎹 80s Pop / New Wave / Art-Rock',
+    badge: '✨ GREAT MIX & FX SHOWCASE',
+    bpm: '110–128 BPM',
+    exampleTracks: ['Billie Jean — Michael Jackson', 'Fame — David Bowie', 'Roxanne — The Police'],
+    why: 'Showcases precision EQ pocketing (AG2), punchy VCA compression (AG3), gated/plate reverbs and tempo-synced delays (AG4), plus hybrid live + MIDI synthesizer layers (AG1C).',
+    drumsFit: 'Close-miked punchy Kick & Snare with short 0.7s Studio Room / Gated Plate ambience.',
+    vocalsFit: 'Crisp Lead Vocal with 28 ms pre-delayed Plate Reverb, 1/8D stereo delay throws, and rhythmic BVs.',
+    otherFit: 'Locked Bass DI + Synth Bass layer, funk/chorus DI Guitars, and Pathway 3 Retro Synth pads/brass.'
+  }
+];
+
 export const C1_MARK_SCHEME_DETAILED = [
   {
     code: 'AG1A',
