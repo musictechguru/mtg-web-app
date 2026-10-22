@@ -1112,7 +1112,35 @@ const MainApp = () => {
                 <PremiumLocked itemTitle={activeItem.title} />
               </div>
             ) : (
-              <LessonViewer lesson={activeItem} onBack={goToDashboardWrapper} />
+              activeItem.isPremium && !currentUser?.is_premium ? (
+                <div style={{ position: 'relative', width: '100%', maxWidth: '900px', margin: '0 auto', padding: '10px 0' }}>
+                  <button
+                    onClick={goToDashboardWrapper}
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '8px',
+                      background: 'rgba(255, 255, 255, 0.05)',
+                      border: '1px solid rgba(255, 255, 255, 0.1)',
+                      color: '#94a3b8',
+                      padding: '8px 16px',
+                      borderRadius: '8px',
+                      cursor: 'pointer',
+                      marginBottom: '15px',
+                      fontSize: '0.9rem',
+                      fontWeight: '500',
+                      transition: 'all 0.2s'
+                    }}
+                    onMouseEnter={(e) => { e.currentTarget.style.color = '#fff'; e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.3)'; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.color = '#94a3b8'; e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)'; }}
+                  >
+                    ← Back to Dashboard
+                  </button>
+                  <PremiumLocked itemTitle={activeItem.title} />
+                </div>
+              ) : (
+                <LessonViewer lesson={activeItem} onBack={goToDashboardWrapper} />
+              )
             )
           ) : (
             <Dashboard onNavigate={handleItemSelectWrapper} onOpenProfile={() => setShowProfileSettings(true)} />
