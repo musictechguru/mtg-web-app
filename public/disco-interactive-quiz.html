@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Disco & The 12-Inch Single (1974–1981) • Edexcel Component 3 Specification Quiz | Music Tech Guru</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #07050d;
+      --bg-card: #12091c;
+      --bg-surface: #1a0e28;
+      --accent-pink: #ec4899;
+      --accent-pink-glow: rgba(236, 72, 153, 0.35);
+      --accent-cyan: #00C1F0;
+      --accent-cyan-glow: rgba(0, 193, 240, 0.35);
+      --accent-gold: #f59e0b;
+      --accent-green: #22c55e;
+      --accent-red: #ef4444;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-pink: rgba(236, 72, 153, 0.35);
+      --border-cyan: rgba(0, 193, 240, 0.35);
+      --font: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: var(--font);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .quiz-container {
+      width: 100%;
+      max-width: 880px;
+      background: radial-gradient(circle at 50% 0%, rgba(236, 72, 153, 0.12) 0%, rgba(18, 9, 28, 0) 70%), var(--bg-card);
+      border: 1px solid var(--border-pink);
+      border-radius: 20px;
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.8), 0 0 40px rgba(236, 72, 153, 0.12);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    /* Top Quiz Header */
+    .quiz-header {
+      padding: 18px 26px;
+      background: rgba(10, 6, 16, 0.85);
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .quiz-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(236, 72, 153, 0.15);
+      border: 1px solid var(--border-pink);
+      color: #f472b6;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .quiz-score-pill {
+      font-size: 12.5px;
+      color: var(--text-muted);
+      font-weight: 700;
+    }
+
+    /* Progress Bar */
+    .progress-bar-track {
+      width: 100%;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #ec4899, #00C1F0);
+      width: 8.33%;
+      transition: width 0.3s ease;
+    }
+
+    /* Quiz Stage */
+    .quiz-stage {
+      padding: 28px 32px 24px 32px;
+      min-height: 490px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .q-meta-row {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .q-category {
+      font-size: 11.5px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #f472b6;
+    }
+
+    .q-ao-tag {
+      font-size: 10.5px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 4px;
+      background: rgba(0, 193, 240, 0.15);
+      color: var(--accent-cyan);
+      border: 1px solid var(--border-cyan);
+    }
+
+    .q-text {
+      font-size: clamp(17px, 2.3vw, 21px);
+      font-weight: 800;
+      line-height: 1.35;
+      color: #ffffff;
+      margin-bottom: 22px;
+      letter-spacing: -0.3px;
+    }
+
+    /* Options Grid */
+    .options-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .option-btn {
+      width: 100%;
+      text-align: left;
+      background: rgba(26, 14, 40, 0.6);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 13px 18px;
+      color: #e2e8f0;
+      font-family: inherit;
+      font-size: 13.5px;
+      line-height: 1.45;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .option-letter {
+      flex-shrink: 0;
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.08);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 11px;
+      color: #cbd5e1;
+      margin-top: 1px;
+      transition: all 0.2s;
+    }
+
+    .option-btn:hover:not(:disabled) {
+      background: rgba(236, 72, 153, 0.12);
+      border-color: var(--accent-pink);
+      transform: translateY(-2px);
+      color: #ffffff;
+    }
+
+    .option-btn:hover:not(:disabled) .option-letter {
+      background: var(--accent-pink);
+      color: #08060f;
+    }
+
+    .option-btn.correct {
+      background: rgba(34, 197, 94, 0.15) !important;
+      border-color: #22c55e !important;
+      color: #ffffff !important;
+    }
+
+    .option-btn.correct .option-letter {
+      background: #22c55e !important;
+      color: #08060f !important;
+    }
+
+    .option-btn.wrong {
+      background: rgba(239, 68, 68, 0.15) !important;
+      border-color: #ef4444 !important;
+      color: #fca5a5 !important;
+    }
+
+    .option-btn.wrong .option-letter {
+      background: #ef4444 !important;
+      color: #ffffff !important;
+    }
+
+    .option-btn:disabled {
+      cursor: default;
+    }
+
+    /* Explanations Card */
+    .insight-card {
+      display: none;
+      background: rgba(26, 14, 40, 0.85);
+      border-left: 4px solid var(--accent-pink);
+      border-radius: 10px;
+      padding: 16px 18px;
+      margin-top: 4px;
+      margin-bottom: 20px;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .insight-card.open {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .insight-title {
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #f472b6;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .insight-body {
+      font-size: 13px;
+      color: #cbd5e1;
+      line-height: 1.5;
+    }
+
+    .insight-tip {
+      margin-top: 8px;
+      font-size: 12px;
+      color: #94a3b8;
+      background: rgba(255, 255, 255, 0.04);
+      padding: 6px 10px;
+      border-radius: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    /* Bottom Control */
+    .quiz-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid var(--border-subtle);
+      padding-top: 18px;
+    }
+
+    .q-counter {
+      font-size: 12.5px;
+      color: var(--text-muted);
+      font-weight: 700;
+    }
+
+    .btn-next {
+      background: linear-gradient(135deg, #ec4899 0%, #db2777 100%);
+      color: #ffffff;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 800;
+      padding: 10px 22px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+      box-shadow: 0 4px 14px rgba(236, 72, 153, 0.35);
+    }
+
+    .btn-next:hover:not(:disabled) {
+      background: #f472b6;
+      color: #08060f;
+      transform: translateY(-1px);
+    }
+
+    .btn-next:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+
+    /* Results Screen */
+    .results-screen {
+      display: none;
+      padding: 44px 32px;
+      text-align: center;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .results-screen.open {
+      display: flex;
+    }
+
+    .results-badge {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      padding: 6px 16px;
+      border-radius: 30px;
+      background: rgba(236, 72, 153, 0.15);
+      border: 1px solid var(--border-pink);
+      color: #f472b6;
+      margin-bottom: 16px;
+    }
+
+    .results-score-big {
+      font-size: 64px;
+      font-weight: 900;
+      line-height: 1;
+      margin-bottom: 8px;
+      background: linear-gradient(135deg, #ec4899 0%, #00C1F0 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .results-score-big span {
+      font-size: 32px;
+      color: var(--text-muted);
+      -webkit-text-fill-color: var(--text-muted);
+    }
+
+    .results-title {
+      font-size: 22px;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 8px;
+    }
+
+    .results-desc {
+      font-size: 14px;
+      color: #cbd5e1;
+      max-width: 520px;
+      line-height: 1.5;
+      margin-bottom: 26px;
+    }
+
+    .btn-restart {
+      background: linear-gradient(135deg, #ec4899 0%, #db2777 100%);
+      color: #ffffff;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 800;
+      padding: 12px 28px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 18px rgba(236, 72, 153, 0.35);
+      transition: all 0.2s;
+    }
+
+    .btn-restart:hover {
+      background: #f472b6;
+      color: #08060f;
+      transform: translateY(-2px);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="quiz-container">
+    
+    <!-- Top Header -->
+    <header class="quiz-header">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <span class="quiz-badge">Edexcel Component 3</span>
+        <strong style="color: #ffffff; font-size: 14px;">Disco &amp; The 12-Inch Single (1974–1981) Exam Check</strong>
+      </div>
+      <div class="quiz-score-pill">
+        Score: <span id="currentScore" style="color: var(--accent-pink); font-weight: 800;">0</span> / 12
+      </div>
+    </header>
+
+    <!-- Progress Track -->
+    <div class="progress-bar-track">
+      <div class="progress-bar-fill" id="progressFill"></div>
+    </div>
+
+    <!-- Question Stage -->
+    <div class="quiz-stage" id="quizStage">
+      <div>
+        <div class="q-meta-row">
+          <span class="q-category" id="qCategory">Rhythm Section & Meter</span>
+          <span class="q-ao-tag" id="qAoTag">AO3: Musical Elements</span>
+        </div>
+
+        <h2 class="q-text" id="qText">Question text goes here...</h2>
+
+        <div class="options-grid" id="optionsGrid"></div>
+
+        <div class="insight-card" id="insightCard">
+          <div class="insight-title">💡 Examiner Insight & Mark Scheme</div>
+          <div class="insight-body" id="insightBody"></div>
+          <div class="insight-tip" id="insightTip"></div>
+        </div>
+      </div>
+
+      <footer class="quiz-footer">
+        <div class="q-counter" id="qCounter">Question 1 of 12</div>
+        <button class="btn-next" id="nextBtn" onclick="nextQuestion()">Next Question →</button>
+      </footer>
+    </div>
+
+    <!-- Results Screen -->
+    <div class="results-screen" id="resultsScreen">
+      <div class="results-badge" id="gradeBadge">Grade 9 • Distinction Star</div>
+      <div class="results-score-big">
+        <span id="finalScoreVal">12</span><span>/12</span>
+      </div>
+      <h3 class="results-title" id="resultTitle">Outstanding Syllabus Mastery!</h3>
+      <p class="results-desc" id="resultMessage">
+        You possess an exam-ready understanding of Disco production technology, 12-inch disc mastering physics, Moog modular sequencing, drum damping, and orchestral arrangements.
+      </p>
+      <button class="btn-restart" onclick="restartQuiz()">Restart Quiz ↺</button>
+    </div>
+
+  </div>
+
+  <script>
+    const questions = [
+      {
+        category: "Rhythm Section & Meter",
+        ao: "AO3: Musical Elements",
+        text: "What is the defining drum pattern of 1970s disco, and how are the kick drum and hi-hat coordinated to drive the dancefloor tempo?",
+        options: [
+          "Four-on-the-floor: bass drum on all four quarter notes (beats 1, 2, 3, 4) paired with open hi-hat accents on every eighth-note upbeat, choked abruptly on each downbeat",
+          "Backbeat pulse: bass drum strictly on beats 1 and 3 with half-time open hi-hats ringing freely across whole bars",
+          "One drop: kick drum accented exclusively on beat 3 with continuous closed 16th-note hi-hat rolls",
+          "Syncopated breakbeat: kick drum playing displaced 16th notes with open hi-hat accents exclusively on beat 1"
+        ],
+        correct: 0,
+        explanation: "The four-on-the-floor kick anchors the hypnotic 118–128 BPM tempo. Placing open hi-hats on the upbeats ('1-and, 2-and, 3-and, 4-and') that choke shut when the kick lands produces the genre's essential forward propulsion.",
+        tip: "Key AO3 Terminology: 'Four-on-the-floor' and 'offbeat open hi-hat'."
+      },
+      {
+        category: "Mastering Physics & Vinyl Technology",
+        ao: "AO4: Recording Technology",
+        text: "Why did the introduction of the 12-inch single by Tom Moulton revolutionize club sound quality and DJ performance compared to standard 7-inch singles?",
+        options: [
+          "Spreading 4–8 minutes of music over a 12-inch disc widened groove pitch and depth, allowing mastering engineers to cut +4 to +6 dB louder with uncompromised sub-bass without stylus skipping",
+          "It lowered the playback speed from 45 RPM down to 16 RPM to fit full 40-minute DJ sets on one side",
+          "It utilized digital laser scanning technology to eliminate mechanical turntable needle contact entirely",
+          "It compressed the dynamic range down to 0 dB VU using brickwall limiting circuits built directly into the vinyl compound"
+        ],
+        correct: 0,
+        explanation: "On a 7-inch disc, close groove spacing prevents the cutting stylus from making wide lateral swings, restricting low bass and overall volume. On a 12-inch disc, wider grooves allow significantly higher cutter-head excursion (+4 to +6 dB output) and powerful low-end frequencies without causing turntable needles to jump.",
+        tip: "AO4 Disc Physics: Wider groove pitch = greater lateral excursion = higher output level and enhanced bass response."
+      },
+      {
+        category: "Synthesizer Sequencing Architecture",
+        ao: "AO4: Recording Technology",
+        text: "On Donna Summer's 1977 landmark track 'I Feel Love', how did Giorgio Moroder and Robbie Wedel keep the Moog Modular step sequencer synchronized to the tape recording before MIDI existed?",
+        options: [
+          "By recording a sharp audio click pulse onto a dedicated tape track, which triggered the Moog 960 sequencer's control voltage inputs to advance steps in hard lock with the tempo",
+          "By linking the sequencer to the multitrack recorder via a standard 5-pin DIN MIDI cable and SMPTE timecode",
+          "By having a keyboard player manually tap the tempo key in real time on every eighth note throughout the take",
+          "By slowing down the tape machine to half-speed and manually splicing tape slices for every individual bass note"
+        ],
+        correct: 0,
+        explanation: "In 1977 (six years before MIDI was introduced in 1983), hardware was synced using control voltage and pulse triggers. An audio click was recorded onto track 24 of the 2-inch tape machine, converted to voltage triggers that clocked the Moog 960 step sequencer, while a synchronized Echoplex tape delay produced the bouncing 16th-note rhythm.",
+        tip: "Pre-MIDI Synchronisation: Audio click track / clock pulse feeding CV/Gate inputs."
+      },
+      {
+        category: "Bass Guitar Technique & Arrangement",
+        ao: "AO3: Musical Elements",
+        text: "What distinctive bass playing technique, mastered by Bernard Edwards on Chic's 'Good Times' and Sister Sledge's 'We Are Family', became the gold standard for live disco bass?",
+        options: [
+          "Staccato 16th-note octave jumping (root-to-octave leaps) using fingerstyle snapping, palm muting, and percussive ghost notes",
+          "Heavy fuzz-box distortion played with a felt plectrum in continuous downstrokes on the low E string",
+          "Two-handed fretboard tapping across five-string active basses with chorus modulation",
+          "Upright double bass played exclusively with a French bow in low register whole notes"
+        ],
+        correct: 0,
+        explanation: "Bernard Edwards pioneered a punchy, ultra-tight fingerstyle technique on his Music Man StingRay bass, bouncing rapidly between root notes and high octaves in 16th-note syncopation, using subtle palm muting to choke sustain and articulate each pulse cleanly.",
+        tip: "AO3 Bass Marker: 'Octave leaps / octave basslines' with staccato articulation."
+      },
+      {
+        category: "Guitar Tone & Signal Chain",
+        ao: "AO4: Recording Technology",
+        text: "How did Nile Rodgers achieve his celebrated 'chucking' rhythm guitar sound on classic Chic productions?",
+        options: [
+          "Plugging a 1959 Fender Stratocaster directly into the mixing console (DI) or an ultra-clean Fender Twin, using out-of-phase pickup positions (2 or 4) and rapid wrist strumming with left-hand fret muting",
+          "Routing a Gibson Les Paul through a saturated Marshall valve stack with maximum gain and power-soak attenuation",
+          "Using a Talkbox pedal and heavy flanging while picking slow arpeggios over the bridge pickup",
+          "Recording an acoustic 12-string guitar with two omnidirectional boundary mics mounted on reflective glass"
+        ],
+        correct: 0,
+        explanation: "Rodgers ran clean DI into Neve or SSL consoles, relying on the 'in-between' quack pickup settings of the Stratocaster. The percussive 'chucking' sound came from keeping his right hand moving in constant 16th notes while his left hand fretted and released chords instantly.",
+        tip: "Nile Rodgers 'Chucking': Clean Direct Injection (DI) Stratocaster + 16th-note fret hand muting."
+      },
+      {
+        category: "Studio Drum Capture & Acoustic Isolation",
+        ao: "AO4: Recording Technology",
+        text: "Which combination of studio practices was standard for capturing the characteristic 1970s disco drum sound?",
+        options: [
+          "Damping heads with gaffer tape/wallets, removing the front kick head and stuffing it with pillows, and recording in dead, carpeted booths to eliminate room reverberation",
+          "Recording in massive, reflective cathedral rooms using distant stereo ambient ribbon mics with no dampening",
+          "Using triggers connected to digital samplers loaded with 24-bit acoustic drum samples",
+          "Placing a single dynamic microphone four meters above the drum kit with hard brickwall limiting"
+        ],
+        correct: 0,
+        explanation: "Disco engineers required bone-dry, transient-rich drum recordings with zero ringing or bleed. They heavily muffled snares and toms with tape, towels, or wallets, removed resonant kick heads to place dynamic mics (e.g. AKG D12) inches from the beater, and trapped the kit in acoustically dead booths.",
+        tip: "Component 3 70s Drum Sound: Damped heads, removed front kick resonant head, close miking in dead booths."
+      },
+      {
+        category: "Vocal Tracking & Studio Processing",
+        ao: "AO4: Recording Technology",
+        text: "How were the distinctive lead vocals tracked and produced on the Bee Gees' massive Saturday Night Fever hits like 'Stayin' Alive'?",
+        options: [
+          "Barry Gibb's lead falsetto was tightly double- and triple-tracked in unison and harmony, compressed with fast-attack limiters (UREI 1176), and sweetened with EMT 140 plate reverb",
+          "Recorded through a vocoder synthesizer with robotic pitch quantization and ring modulation",
+          "Sung through a megaphone into an antique carbon microphone with deliberate low-fi distortion",
+          "Auto-Tuned with hard chromatic retune speeds and stereo chorus modulation"
+        ],
+        correct: 0,
+        explanation: "Barry Gibb developed an astonishing three-octave falsetto. At Criteria Studios, engineers Karl Richardson and Albhy Galuten double- and triple-tracked his falsetto with razor-sharp unison precision, glued the vocal layers with 1176 peak limiters, and passed them through EMT 140 reverberation plates.",
+        tip: "Bee Gees Vocal Trademark: Multi-tracked falsetto harmonies + optical/FET compression + EMT 140 plate reverb."
+      },
+      {
+        category: "Editing Innovations & Tape Loops",
+        ao: "AO4: Recording Technology",
+        text: "How did the production team at Criteria Studios create the iconic drum groove on the Bee Gees' 'Stayin' Alive' when drummer Dennis Bryon was absent?",
+        options: [
+          "They physically spliced a two-bar drum recording from 'Night Fever' into an analogue tape loop, threaded it around microphone stands across the room, and re-recorded it across the track",
+          "They programmed an 808 drum machine through an early sequencer",
+          "They hired a jazz session drummer to overdub live brushes onto a vintage radio broadcast",
+          "They digitally copy-pasted audio regions in Pro Tools using transient markers"
+        ],
+        correct: 0,
+        explanation: "Unable to find a replacement drummer in Miami, producer Albhy Galuten and engineer Karl Richardson copied two clean bars of Dennis Bryon's drumming from 'Night Fever', physically spliced the 2-inch tape into a loop, and looped it around mic stands to build the song's unwavering rhythmic bedrock (credited tongue-in-cheek to 'Bernard Lupe').",
+        tip: "Historic Milestone: Spliced 2-inch analogue tape loop (pre-digital looping technology)."
+      },
+      {
+        category: "Orchestration & Philadelphia Soul Influence",
+        ao: "AO3: Musical Elements",
+        text: "In the lush orchestral disco style created at Philadelphia's Sigma Sound Studios (e.g., MFSB, Harold Melvin), what signature technique did string arrangers use to accentuate transitions?",
+        options: [
+          "'Disco falls' (or drops) — dramatic, rapid descending glissandos down the fingerboard into strong downbeats",
+          "Slow modal tremolos in quarter-tone tuning mimicking Eastern classical rāgas",
+          "Aggressive heavy-metal col legno bow strikes bouncing against open cello strings",
+          "Twelve-tone serial rows played in strict retrograde inversion without harmonic accompaniment"
+        ],
+        correct: 0,
+        explanation: "Philly disco arrangers (like Bobby Martin and Don Renaldo) combined classical string elegance with dance beats. The 'disco fall' — a dramatic, synchronized descending glissando across 20+ violins landing precisely on beat 1 — became one of disco's most famous orchestral signatures.",
+        tip: "Arrangement Marker: 'Disco falls' / descending string glissandos."
+      },
+      {
+        category: "Arrangement & Extended Remixes",
+        ao: "AO3: Musical Elements",
+        text: "What arrangement device did remix pioneer Tom Moulton incorporate into extended club mixes specifically to assist club disc jockeys with seamless beatmatching?",
+        options: [
+          "Extended instrumental drum and percussion breakdowns (stripping away vocals, melody, and brass) to leave a clean four-on-the-floor beat",
+          "Sudden tempo accelerandos that increased the BPM from 100 to 140 within four measures",
+          "Lengthy spoken-word audio monologues with no rhythm section accompaniment",
+          "Switching meters from 4/4 time into 7/8 and 5/4 compound time during choruses"
+        ],
+        correct: 0,
+        explanation: "Tom Moulton pioneered the 'breakdown' — dropping out vocals and melodic elements for 16 to 32 bars to feature only kick, bass, and congas. This provided club DJs with a clean, uninterrupted rhythm track to transition and beatmatch into the next song without harmonic clashes.",
+        tip: "12-Inch Mix Structure: The extended percussion breakdown for DJ mixing."
+      },
+      {
+        category: "Analogue Modulation & Spatial Effects",
+        ao: "AO4: Recording Technology",
+        text: "Which analogue studio hardware unit was widely utilized in late-1970s disco mixing to apply dynamic, psychoacoustic sweeping to hi-hats, phased clavinets, and string ensembles?",
+        options: [
+          "Eventide Instant Flanger / Instant Phaser (using analog bucket brigade delay chips and variable phase-shift circuitry)",
+          "Antares Auto-Tune pitch correction DSP rack unit",
+          "Yamaha SPX90 multi-effects digital processor",
+          "Line 6 POD digital modeling preamp"
+        ],
+        correct: 0,
+        explanation: "Eventide's rackmount Instant Flanger and Instant Phaser were studio staples in the late 1970s. By modulating delay taps or all-pass phase-shift filters via LFOs or manual control, engineers added sweeping, three-dimensional motion to hi-hats, rhythm guitars, and lush string beds.",
+        tip: "1970s Modulation Hardware: Eventide Instant Flanger / Instant Phaser / Tape Flanging."
+      },
+      {
+        category: "Comparative Stylistic Analysis",
+        ao: "AO3 & AO4: Comprehensive Analysis",
+        text: "When comparing Philadelphia/New York Orchestral Disco (Chic, MFSB) with Munich Euro-Disco (Giorgio Moroder, Donna Summer), what is the fundamental technological and musical divergence?",
+        options: [
+          "Philly/NY disco relied on live acoustic musicians, subtle human swing, and 20-piece string/horn sections, whereas Munich Euro-disco pioneered fully synthetic, machine-clocked Moog step sequencing, white-noise percussion, and tape delay repeats",
+          "Philly disco was created entirely on electronic computer software, while Munich Euro-disco was strictly acoustic folk",
+          "Philly disco avoided the four-on-the-floor beat, whereas Euro-disco used rock shuffle beats",
+          "Euro-disco was recorded without microphones, while Philly disco was recorded live directly to 2-track cassette tape"
+        ],
+        correct: 0,
+        explanation: "This is a cornerstone Section B comparison: Philly and New York disco celebrated live acoustic virtuosity (real drum kits, live strings, DI funk guitar), whereas Giorgio Moroder's Euro-disco stripped away the acoustic band in favor of modular Moog synthesizers, step sequencers, and electronic noise generation.",
+        tip: "Section B Essay Gold: Contrast human groove + live orchestration (Philly/Chic) vs. rigid electronic sequencing + synthesized timbres (Munich/Moroder)."
+      }
+    ];
+
+    let currentQ = 0;
+    let score = 0;
+    let answered = false;
+
+    const qText = document.getElementById('qText');
+    const qCategory = document.getElementById('qCategory');
+    const qAoTag = document.getElementById('qAoTag');
+    const optionsGrid = document.getElementById('optionsGrid');
+    const insightCard = document.getElementById('insightCard');
+    const insightBody = document.getElementById('insightBody');
+    const insightTip = document.getElementById('insightTip');
+    const qCounter = document.getElementById('qCounter');
+    const currentScore = document.getElementById('currentScore');
+    const progressFill = document.getElementById('progressFill');
+    const nextBtn = document.getElementById('nextBtn');
+    const quizStage = document.getElementById('quizStage');
+    const resultsScreen = document.getElementById('resultsScreen');
+    const finalScoreVal = document.getElementById('finalScoreVal');
+    const gradeBadge = document.getElementById('gradeBadge');
+    const resultTitle = document.getElementById('resultTitle');
+    const resultMessage = document.getElementById('resultMessage');
+
+    const letters = ['A', 'B', 'C', 'D'];
+
+    function loadQuestion(index) {
+      answered = false;
+      const q = questions[index];
+      
+      qCategory.textContent = q.category;
+      qAoTag.textContent = q.ao;
+      qText.textContent = q.text;
+      qCounter.textContent = `Question ${index + 1} of ${questions.length}`;
+      currentScore.textContent = score;
+      
+      const pct = ((index + 1) / questions.length) * 100;
+      progressFill.style.width = `${pct}%`;
+      
+      insightCard.classList.remove('open');
+      nextBtn.disabled = true;
+
+      optionsGrid.innerHTML = '';
+      q.options.forEach((optText, optIdx) => {
+        const btn = document.createElement('button');
+        btn.className = 'option-btn';
+        btn.onclick = () => selectOption(optIdx);
+        
+        btn.innerHTML = `
+          <span class="option-letter">${letters[optIdx]}</span>
+          <span>${optText}</span>
+        `;
+        optionsGrid.appendChild(btn);
+      });
+    }
+
+    function selectOption(selectedIdx) {
+      if (answered) return;
+      answered = true;
+      
+      const q = questions[currentQ];
+      const buttons = optionsGrid.querySelectorAll('.option-btn');
+      
+      buttons.forEach(btn => btn.disabled = true);
+      
+      if (selectedIdx === q.correct) {
+        buttons[selectedIdx].classList.add('correct');
+        score++;
+        currentScore.textContent = score;
+      } else {
+        buttons[selectedIdx].classList.add('wrong');
+        buttons[q.correct].classList.add('correct');
+      }
+
+      insightBody.textContent = q.explanation;
+      insightTip.innerHTML = `<strong>Revision Note:</strong> ${q.tip}`;
+      insightCard.classList.add('open');
+
+      nextBtn.disabled = false;
+    }
+
+    function nextQuestion() {
+      if (currentQ < questions.length - 1) {
+        currentQ++;
+        loadQuestion(currentQ);
+      } else {
+        showResults();
+      }
+    }
+
+    function showResults() {
+      quizStage.style.display = 'none';
+      resultsScreen.classList.add('open');
+      finalScoreVal.textContent = score;
+
+      const percentage = (score / questions.length) * 100;
+      if (percentage >= 85) {
+        gradeBadge.textContent = 'Grade 9 • Distinction Star';
+        resultTitle.textContent = 'Phenomenal Specification Mastery!';
+        resultMessage.textContent = 'You have demonstrated complete, exam-ready mastery of 1970s Disco production techniques, 12-inch mastering physics, Moog modular sequencing, and drum damping.';
+      } else if (percentage >= 65) {
+        gradeBadge.textContent = 'Grade 7-8 • Merit / Distinction';
+        resultTitle.textContent = 'Solid Syllabus Understanding';
+        resultMessage.textContent = 'Great foundation! Review the exact mechanical differences between 7-inch and 12-inch disc cutting, and how Moog modular step sequencers synchronized with click tracks.';
+      } else {
+        gradeBadge.textContent = 'Revision Recommended';
+        resultTitle.textContent = 'Targeted Revision Needed';
+        resultMessage.textContent = 'Revisit the Disco study deck above to solidify four-on-the-floor mechanics, Tom Moulton 12-inch mixes, and the Philly vs Euro-Disco comparative criteria.';
+      }
+    }
+
+    function restartQuiz() {
+      currentQ = 0;
+      score = 0;
+      resultsScreen.classList.remove('open');
+      quizStage.style.display = 'flex';
+      loadQuestion(0);
+    }
+
+    // Initialize
+    loadQuestion(0);
+  </script>
+</body>
+</html>

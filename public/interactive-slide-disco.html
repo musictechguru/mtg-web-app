@@ -1,0 +1,1139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Disco & The 12-Inch Single (1974–1981) • Interactive Study Deck | Music Tech Guru</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #07050d;
+      --bg-card: #12091c;
+      --bg-surface: #1a0e28;
+      --accent-pink: #ec4899;
+      --accent-pink-glow: rgba(236, 72, 153, 0.35);
+      --accent-cyan: #00C1F0;
+      --accent-cyan-glow: rgba(0, 193, 240, 0.35);
+      --accent-gold: #f59e0b;
+      --accent-gold-glow: rgba(245, 158, 11, 0.35);
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-pink: rgba(236, 72, 153, 0.35);
+      --border-cyan: rgba(0, 193, 240, 0.35);
+      --font: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: var(--font);
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 8px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .deck-wrapper {
+      width: 100%;
+      max-width: 1100px;
+      height: calc(100vh - 16px);
+      min-height: 580px;
+      max-height: 660px;
+      background: radial-gradient(circle at 50% 0%, rgba(236, 72, 153, 0.12) 0%, rgba(18, 9, 28, 0) 70%), var(--bg-card);
+      border: 1px solid var(--border-pink);
+      border-radius: 16px;
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.8), 0 0 40px rgba(236, 72, 153, 0.12);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    /* Top Utility Bar */
+    .deck-topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      background: rgba(10, 6, 16, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-subtle);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      z-index: 10;
+    }
+
+    .badge-hub {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(236, 72, 153, 0.15);
+      border: 1px solid var(--border-pink);
+      color: #f472b6;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      text-transform: uppercase;
+    }
+
+    .badge-pulse {
+      width: 7px;
+      height: 7px;
+      background: var(--accent-pink);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--accent-pink);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
+    }
+
+    .deck-topic-title {
+      color: var(--text-muted);
+      font-size: 12px;
+    }
+
+    .deck-topic-title strong {
+      color: #fff;
+    }
+
+    /* Slides Viewport */
+    .slides-viewport {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      padding: 24px 36px 16px 36px;
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateX(30px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      overflow-y: auto;
+    }
+
+    .slide.active {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(0);
+    }
+
+    /* Slide Typography */
+    .slide-eyebrow {
+      font-size: 11.5px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--accent-pink);
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .slide-heading {
+      font-size: clamp(20px, 3vw, 27px);
+      font-weight: 900;
+      line-height: 1.15;
+      letter-spacing: -0.5px;
+      color: #ffffff;
+      margin-bottom: 12px;
+    }
+
+    .slide-heading span {
+      background: linear-gradient(135deg, #ec4899 0%, #00C1F0 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .slide-lead {
+      color: #cbd5e1;
+      font-size: 14px;
+      line-height: 1.5;
+      max-width: 820px;
+      margin-bottom: 14px;
+    }
+
+    /* Grids & Cards */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    @media (max-width: 768px) {
+      .grid-2, .grid-3 {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+    }
+
+    .info-card {
+      background: rgba(26, 14, 40, 0.65);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 14px 16px;
+      transition: all 0.2s;
+    }
+
+    .info-card:hover {
+      border-color: rgba(236, 72, 153, 0.4);
+      background: rgba(26, 14, 40, 0.9);
+      transform: translateY(-2px);
+    }
+
+    .info-card.highlight {
+      border-left: 4px solid var(--accent-pink);
+    }
+
+    .info-card.cyan-edge {
+      border-left: 4px solid var(--accent-cyan);
+    }
+
+    .info-card.gold-edge {
+      border-left: 4px solid var(--accent-gold);
+    }
+
+    .card-title {
+      font-size: 14.5px;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-text {
+      font-size: 12.5px;
+      line-height: 1.5;
+      color: #94a3b8;
+    }
+
+    .feature-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .feature-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 12.5px;
+      color: #cbd5e1;
+      line-height: 1.45;
+    }
+
+    .feature-icon {
+      color: var(--accent-pink);
+      font-weight: bold;
+      flex-shrink: 0;
+      font-size: 13px;
+    }
+
+    .pill {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      background: rgba(255, 255, 255, 0.08);
+      color: #e2e8f0;
+      margin-right: 4px;
+      margin-bottom: 4px;
+    }
+
+    .pill.pink {
+      background: rgba(236, 72, 153, 0.15);
+      color: #f472b6;
+      border: 1px solid var(--border-pink);
+    }
+
+    .pill.cyan {
+      background: rgba(0, 193, 240, 0.15);
+      color: var(--accent-cyan);
+      border: 1px solid var(--border-cyan);
+    }
+
+    .pill.gold {
+      background: rgba(245, 158, 11, 0.15);
+      color: var(--accent-gold);
+      border: 1px solid rgba(245, 158, 11, 0.35);
+    }
+
+    /* Artist Slide Layout */
+    .artist-hero-card {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 20px;
+      align-items: center;
+      background: rgba(26, 14, 40, 0.5);
+      border: 1px solid var(--border-subtle);
+      border-radius: 14px;
+      padding: 16px;
+    }
+
+    @media (max-width: 768px) {
+      .artist-hero-card {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .artist-visual-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .artist-photo {
+      width: 100%;
+      height: 190px;
+      object-fit: cover;
+      object-position: top;
+      border-radius: 12px;
+      border: 2px solid var(--border-pink);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+      background: #08060f;
+    }
+
+    .listen-btn {
+      width: 100%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      background: linear-gradient(135deg, #ec4899 0%, #db2777 100%);
+      color: #ffffff;
+      font-weight: 800;
+      font-size: 11.5px;
+      padding: 7px 12px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: 0 4px 14px rgba(236, 72, 153, 0.35);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .listen-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(236, 72, 153, 0.5);
+      background: #f472b6;
+      color: #08060f;
+    }
+
+    .artist-info {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .artist-meta-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 2px;
+    }
+
+    /* Comparison Table */
+    .compare-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 11.5px;
+      margin-top: 6px;
+    }
+
+    .compare-table th {
+      background: rgba(236, 72, 153, 0.12);
+      color: #f472b6;
+      padding: 8px 10px;
+      text-align: left;
+      font-weight: 800;
+      border-bottom: 1px solid var(--border-pink);
+      letter-spacing: 0.5px;
+    }
+
+    .compare-table td {
+      padding: 8px 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      color: #cbd5e1;
+      vertical-align: top;
+      line-height: 1.45;
+    }
+
+    .compare-table tr:hover td {
+      background: rgba(236, 72, 153, 0.05);
+    }
+
+    /* Bottom Navigation Bar */
+    .deck-bottombar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 24px;
+      background: rgba(10, 6, 16, 0.95);
+      backdrop-filter: blur(12px);
+      border-top: 1px solid var(--border-subtle);
+      z-index: 10;
+    }
+
+    .nav-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-main);
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 12.5px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .nav-btn:hover:not(:disabled) {
+      background: rgba(236, 72, 153, 0.2);
+      border-color: var(--accent-pink);
+      transform: translateY(-1px);
+    }
+
+    .nav-btn:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+
+    .deck-progress-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      flex: 1;
+      max-width: 320px;
+      margin: 0 16px;
+    }
+
+    .slide-counter {
+      font-size: 11.5px;
+      color: var(--text-muted);
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #ec4899, #00C1F0);
+      width: 7.7%;
+      transition: width 0.3s ease;
+    }
+
+    .keyboard-hint {
+      font-size: 11px;
+      color: #64748b;
+    }
+
+    .kbd {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 4px;
+      padding: 1px 5px;
+      font-family: inherit;
+      color: #94a3b8;
+    }
+
+    /* Video Modal */
+    .video-modal-backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(8px);
+      z-index: 1000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .video-modal-backdrop.open {
+      display: flex;
+    }
+
+    .video-modal-content {
+      position: relative;
+      width: 100%;
+      max-width: 800px;
+      background: #0d0914;
+      border: 1px solid var(--border-pink);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 30px rgba(236, 72, 153, 0.3);
+    }
+
+    .video-modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 18px;
+      background: rgba(255, 255, 255, 0.03);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .video-modal-title {
+      font-size: 14px;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .close-modal-btn {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 20px;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .close-modal-btn:hover {
+      color: #fff;
+    }
+
+    .video-player-wrapper {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+    }
+
+    .video-player-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="deck-wrapper">
+    <!-- Top Utility Header -->
+    <header class="deck-topbar">
+      <div class="badge-hub">
+        <span class="badge-pulse"></span>
+        Component 3 • Focus Style
+      </div>
+      <div class="deck-topic-title">
+        Pearson Edexcel 9MT0/03 • <strong>Disco &amp; The 12-Inch Single (1974–1981)</strong>
+      </div>
+      <div class="keyboard-hint">
+        Use <kbd class="kbd">←</kbd> <kbd class="kbd">→</kbd> or Click Next
+      </div>
+    </header>
+
+    <!-- Slide Viewport -->
+    <main class="slides-viewport" id="slidesViewport">
+
+      <!-- SLIDE 1: COVER -->
+      <section class="slide active" data-index="0">
+        <div class="slide-eyebrow">A-Level Music Technology • Component 3</div>
+        <h1 class="slide-heading">Disco &amp; <span>The 12-Inch Single</span></h1>
+        <p class="slide-lead">
+          From underground discotheques and the birth of modern club DJ culture to international chart supremacy. Disco redefined commercial audio production through the four-on-the-floor beat, 12-inch vinyl mastering, and electronic sequencer innovations.
+        </p>
+
+        <div class="grid-3" style="margin-top: 10px;">
+          <div class="info-card highlight">
+            <div class="card-title">💥 The Dancefloor Pulse</div>
+            <p class="card-text">
+              Four-on-the-floor bass drum pulse at 118–128 BPM, syncopated 16th-note octave basslines, and offbeat open hi-hat sizzle engineered for relentless body movement.
+            </p>
+          </div>
+          <div class="info-card cyan-edge">
+            <div class="card-title">💽 The 12-Inch Revolution</div>
+            <p class="card-text">
+              Tom Moulton spreads 3-minute tracks across 12-inch vinyl, enabling wider physical grooves, +4 to +6 dB higher cutting volumes, massive sub-bass, and extended breakbeats.
+            </p>
+          </div>
+          <div class="info-card gold-edge">
+            <div class="card-title">⚡ Synthetic Euro-Disco</div>
+            <p class="card-text">
+              Giorgio Moroder and Donna Summer harness the Moog Modular synthesizer sequencer on "I Feel Love" (1977), launching electronic dance music and synth-pop.
+            </p>
+          </div>
+        </div>
+
+        <div style="margin-top: 18px; padding: 12px 16px; background: rgba(236, 72, 153, 0.08); border: 1px solid var(--border-pink); border-radius: 10px; font-size: 12px; color: #cbd5e1; display: flex; align-items: center; gap: 10px;">
+          <span style="font-size: 18px;">💡</span>
+          <span><strong>Exam Tip:</strong> Edexcel Section B questions frequently contrast the <em>acoustically engineered, lavishly orchestrated Philly disco</em> (Sigma Sound) with the <em>purely electronic, machine-clocked Euro-disco</em> (Musicland Munich).</span>
+        </div>
+      </section>
+
+      <!-- SLIDE 2: SPECIFICATION ROADMAP -->
+      <section class="slide" data-index="1">
+        <div class="slide-eyebrow">Edexcel 9MT0/03 Syllabus Alignment</div>
+        <h2 class="slide-heading">Component 3 <span>Specification Matrix</span></h2>
+        <p class="slide-lead">
+          Disco questions test both your musical analysis (AO3) and your detailed knowledge of 1970s analogue recording equipment and disc-cutting physics (AO4).
+        </p>
+
+        <div class="grid-2">
+          <div class="info-card highlight">
+            <div class="card-title">AO3: Musical Elements &amp; Arrangement</div>
+            <ul class="feature-list" style="margin-top: 8px;">
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>Four-on-the-Floor Kick:</strong> Relentless quarter-note bass drum anchoring beats 1, 2, 3, 4.</li>
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>Offbeat Open Hi-Hat:</strong> Accented eighth-note open hats on the "and" of each beat, choked abruptly.</li>
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>Octave Basslines:</strong> Staccato 16th-note octave jumping (root-to-octave) played with fingerstyle snap or synth sequencers.</li>
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>Clean Rhythm Chank:</strong> Fender Stratocaster in positions 2 or 4 (quack tone), heavily compressed clean rhythm scratching.</li>
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>Orchestral Flourishes:</strong> Sweeping 20-piece string sections with dramatic pitch falls/glissandos and tight horn stabs.</li>
+            </ul>
+          </div>
+
+          <div class="info-card cyan-edge">
+            <div class="card-title">AO4: Studio Technology &amp; Physics</div>
+            <ul class="feature-list" style="margin-top: 8px;">
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>12-Inch Single Mastering:</strong> Wider microgrooves allowing higher cutter-head excursion without needle jumping; extended frequency response.</li>
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>Analogue Sequencers:</strong> Moog 960 step sequencers driven by audio click tracks (pulse signals) synchronized to multitrack tape.</li>
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>Acoustic Isolation &amp; Damping:</strong> Drum deadening using gaffer tape, wallets, and removed front kick resonant heads for punchy, dry transient capture.</li>
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>Stereo Mixing &amp; FX:</strong> EMT 140 plate reverb on vocals/strings, tape flanging/phasing, and Eventide delay lines on breakdowns.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 3: THE RHYTHM FOUNDATION -->
+      <section class="slide" data-index="2">
+        <div class="slide-eyebrow">The Engine of the Dancefloor • AO3 Core</div>
+        <h2 class="slide-heading">The Four-on-the-Floor <span>Rhythm Foundation</span></h2>
+        
+        <div class="artist-hero-card">
+          <div class="artist-visual-col">
+            <img src="/images/slides/disco/studio_54.jpg" alt="Studio 54 Logo" class="artist-photo" style="object-position: center;">
+            <button class="listen-btn" onclick="openVideo('A_sY2RJxq6M', 'The Trammps - Disco Inferno')">
+              ▶ Listen: Disco Inferno (1976)
+            </button>
+          </div>
+          <div class="artist-info">
+            <div class="artist-meta-pills">
+              <span class="pill pink">118–128 BPM Steady Tempo</span>
+              <span class="pill cyan">Quarter-Note Kick Pulse</span>
+              <span class="pill gold">Offbeat Open Hi-Hat</span>
+            </div>
+            <h3 style="font-size: 19px; color: #fff; margin-bottom: 6px;">Engineered for DJ Mixing &amp; Continuous Dancing</h3>
+            <p class="card-text">
+              <strong>The Kick Drum Pulse:</strong> Unlike rock (where the kick typically accents beats 1 and 3) or reggae (one drop on beat 3), disco features a four-on-the-floor kick hitting solidly on beats 1, 2, 3, and 4. This created an unshakeable, hypnotic grid designed for club sound systems.
+            </p>
+            <p class="card-text">
+              <strong>The Offbeat Hi-Hat Sizzle:</strong> Drum kits were fitted with crisp hi-hat cymbals. The drummer opened the hat on every upbeat ("1-and, 2-and, 3-and, 4-and") and snapped it shut with the pedal on every downbeat, creating the genre's unmistakable forward propulsion.
+            </p>
+            <p class="card-text">
+              <strong>Auxiliary Hand Percussion:</strong> Dense polyrhythms were layered on top: congas, timbales, cabasa, tambourine, and triangle. These filled high-frequency space and kept the energy driving across 8-minute club mixes.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 4: DONNA SUMMER -->
+      <section class="slide" data-index="3">
+        <div class="slide-eyebrow">Artist Focus • Casablanca Records</div>
+        <h2 class="slide-heading">Donna Summer: <span>The Queen of Disco</span></h2>
+        
+        <div class="artist-hero-card">
+          <div class="artist-visual-col">
+            <img src="/images/slides/disco/donna_summer.jpg" alt="Donna Summer" class="artist-photo">
+            <button class="listen-btn" onclick="openVideo('yEbaeLv-aOo', 'Donna Summer - I Feel Love')">
+              ▶ Listen: I Feel Love (1977)
+            </button>
+          </div>
+          <div class="artist-info">
+            <div class="artist-meta-pills">
+              <span class="pill pink">Casablanca Records</span>
+              <span class="pill cyan">Musicland Studios (Munich)</span>
+              <span class="pill gold">Giorgio Moroder Production</span>
+            </div>
+            <h3 style="font-size: 19px; color: #fff; margin-bottom: 6px;">Vocal Sensuality &amp; Studio Virtuosity</h3>
+            <p class="card-text">
+              <strong>"Love to Love You Baby" (1975):</strong> Donna Summer burst onto the scene with a 17-minute continuous side-long disco epic. Produced by Giorgio Moroder and Pete Bellotte, the track pioneered the extended club format and featured breathy, multi-tracked vocal performances recorded in intimate close-mic proximity.
+            </p>
+            <p class="card-text">
+              <strong>Vocal Production:</strong> Recorded through Neumann U87 and Telefunken valve microphones with Teletronix LA-2A optical compression, smoothing her dynamic range and blending warm chest tones with sparkling head voice.
+            </p>
+            <p class="card-text">
+              <strong>Crossing Over to Rock-Disco:</strong> Later hits like "Hot Stuff" (1979) blended disco's four-on-the-floor beat with searing distorted rock guitar solos (Jeff Baxter) and aggressive, belting vocals, winning the inaugural Grammy for Best Female Rock Vocalist.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 5: GIORGIO MORODER & THE MOOG SEQUENCER -->
+      <section class="slide" data-index="4">
+        <div class="slide-eyebrow">Artist &amp; Producer Focus • Electronic Milestone</div>
+        <h2 class="slide-heading">Giorgio Moroder: <span>The Synthesizer Sequencer</span></h2>
+        
+        <div class="artist-hero-card">
+          <div class="artist-visual-col">
+            <img src="/images/slides/disco/giorgio_moroder.jpg" alt="Giorgio Moroder" class="artist-photo">
+            <button class="listen-btn" onclick="openVideo('yEbaeLv-aOo', 'Donna Summer - I Feel Love')">
+              ▶ Listen: Moog Sequencer Pulse
+            </button>
+          </div>
+          <div class="artist-info">
+            <div class="artist-meta-pills">
+              <span class="pill pink">Moog Modular 55</span>
+              <span class="pill cyan">Robbie Wedel (Synth Programmer)</span>
+              <span class="pill gold">Tape Delay (Echoplex)</span>
+            </div>
+            <h3 style="font-size: 19px; color: #fff; margin-bottom: 6px;">"I Feel Love" (1977): The Dawn of Pure Electronica</h3>
+            <p class="card-text">
+              <strong>The Concept:</strong> On the concept album <em>I Remember Yesterday</em>, Moroder wanted the final track to represent "The Future". Rather than booking an orchestra and session musicians, he decided every element (except Summer's vocals and acoustic kick) should be synthetic.
+            </p>
+            <p class="card-text">
+              <strong>The Sequenced Bassline:</strong> Using a Moog Modular 960 step sequencer, Robbie Wedel programmed an 8-step bassline with a resonant low-pass filter. To create the relentless galloping 16th-note rhythm, Moroder sent the synthesizer output through an analogue tape delay synchronized precisely to the song's tempo.
+            </p>
+            <p class="card-text">
+              <strong>Synchronisation via Click Track:</strong> Before MIDI was invented in 1983, syncing was achieved by recording a rhythmic audio click pulse onto track 24 of the 24-track tape machine, which triggered the Moog's control voltage inputs to keep the synthesizer locked to the recording.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 6: CHIC & BERNARD EDWARDS -->
+      <section class="slide" data-index="5">
+        <div class="slide-eyebrow">Artist Focus • The Live Groove Masters</div>
+        <h2 class="slide-heading">Chic: <span>Nile Rodgers &amp; Bernard Edwards</span></h2>
+        
+        <div class="artist-hero-card">
+          <div class="artist-visual-col">
+            <img src="/images/slides/disco/chic.jpg" alt="Chic" class="artist-photo">
+            <button class="listen-btn" onclick="openVideo('Er9xGRolrT4', 'Chic - Good Times')">
+              ▶ Listen: Good Times (1979)
+            </button>
+          </div>
+          <div class="artist-info">
+            <div class="artist-meta-pills">
+              <span class="pill pink">Clean DI Stratocaster</span>
+              <span class="pill cyan">Music Man StingRay Bass</span>
+              <span class="pill gold">Power Station NYC</span>
+            </div>
+            <h3 style="font-size: 19px; color: #fff; margin-bottom: 6px;">Precision Musicianship &amp; The Rhythm Blueprint</h3>
+            <p class="card-text">
+              <strong>Bernard Edwards' Bass Virtuosity:</strong> Edwards played a Music Man StingRay bass using a unique "chucking" finger technique, combining fingerstyle snaps and palm muting. His walking 16th-note octave bassline on "Good Times" became the most sampled riff in music history (Sugarhill Gang, Queen).
+            </p>
+            <p class="card-text">
+              <strong>Nile Rodgers' "Chucking" Rhythm:</strong> Rodgers plugged his 1959 Fender Stratocaster directly into the mixing console (DI) or through an ultra-clean Fender Twin Reverb. Using rapid 16th-note wrist motions with left-hand chord muting, he generated percussive, shimmering funk chord scratches.
+            </p>
+            <p class="card-text">
+              <strong>Tony Thompson's Drum Sound:</strong> Recorded by engineer Bob Clearmountain at NYC's Power Station. Heavy drum damping, precise mic placement (Shure SM57 on snare, AKG D12 on kick), and subtle ambient room compression created their razor-sharp, punchy rhythm tracks.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 7: BEE GEES & SATURDAY NIGHT FEVER -->
+      <section class="slide" data-index="6">
+        <div class="slide-eyebrow">Artist Focus • Multi-Platinum Phenomenon</div>
+        <h2 class="slide-heading">The Bee Gees: <span>Saturday Night Fever</span></h2>
+        
+        <div class="artist-hero-card">
+          <div class="artist-visual-col">
+            <img src="/images/slides/disco/bee_gees.jpg" alt="Bee Gees" class="artist-photo">
+            <button class="listen-btn" onclick="openVideo('I_izvAbhExY', 'Bee Gees - Stayin Alive')">
+              ▶ Listen: Stayin' Alive (1977)
+            </button>
+          </div>
+          <div class="artist-info">
+            <div class="artist-meta-pills">
+              <span class="pill pink">Criteria Studios (Miami)</span>
+              <span class="pill cyan">Tape Loop Drum Pioneer</span>
+              <span class="pill gold">Barry Gibb Falsetto</span>
+            </div>
+            <h3 style="font-size: 19px; color: #fff; margin-bottom: 6px;">Vocal Harmonies &amp; The "Bernard Lupe" Drum Loop</h3>
+            <p class="card-text">
+              <strong>The Iconic Drum Loop on "Stayin' Alive":</strong> When drummer Dennis Bryon had to leave the sessions due to a family emergency, producer Albhy Galuten and engineer Karl Richardson copied two bars of drums from "Night Fever", physically spliced the 2-inch analogue tape into a continuous loop, and threaded it around mic stands to build the entire groove.
+            </p>
+            <p class="card-text">
+              <strong>Credited as "Bernard Lupe":</strong> The production team jokingly credited the drum loop to a fictional French session drummer named "Bernard Lupe", who actually received booking offers from other studios!
+            </p>
+            <p class="card-text">
+              <strong>Triple-Tracked Falsetto Harmonies:</strong> Barry Gibb's soaring three-octave falsetto lead was tracked multiple times with precise unison double-tracking, compressed using UREI 1176s, and sweetened with EMT 140 plate reverb, cutting through dense strings and brass.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 8: GLORIA GAYNOR & THE DISCO ANTHEM -->
+      <section class="slide" data-index="7">
+        <div class="slide-eyebrow">Artist Focus • The Orchestral Club Anthem</div>
+        <h2 class="slide-heading">Gloria Gaynor: <span>"I Will Survive"</span></h2>
+        
+        <div class="artist-hero-card">
+          <div class="artist-visual-col">
+            <img src="/images/slides/disco/gloria_gaynor.jpg" alt="Gloria Gaynor" class="artist-photo">
+            <button class="listen-btn" onclick="openVideo('ARt93zC67Xw', 'Gloria Gaynor - I Will Survive')">
+              ▶ Listen: I Will Survive (1978)
+            </button>
+          </div>
+          <div class="artist-info">
+            <div class="artist-meta-pills">
+              <span class="pill pink">Producers: Fekaris &amp; Perren</span>
+              <span class="pill cyan">Rubato Classical Intro</span>
+              <span class="pill gold">Philly-Style String Section</span>
+            </div>
+            <h3 style="font-size: 19px; color: #fff; margin-bottom: 6px;">From B-Side to Global Dance Anthem</h3>
+            <p class="card-text">
+              <strong>Structural Innovation:</strong> Begins with a classical-style rubato piano and vocal cadenza before an explosive four-on-the-floor kick and 16th-note hi-hat drop in at 116 BPM, unleashing one of the most powerful vocal narratives in pop history.
+            </p>
+            <p class="card-text">
+              <strong>Dynamic String Arrangement:</strong> Arranged by Dave Blumberg with 24 string players. Rapid ascending scalar runs, sharp counterpoint against the vocal melody, and dramatic "disco drops" (pitch slides/glissandos down into downbeats).
+            </p>
+            <p class="card-text">
+              <strong>The DJ Revival:</strong> Originally relegated to the B-side of "Substitute", club DJs (notably Richie Kaczor at Studio 54) flipped the 12-inch disc, creating such intense dancefloor hysteria that radio stations and Casablanca Records were forced to re-promote it to #1 worldwide.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 9: THE 12-INCH SINGLE & TOM MOULTON -->
+      <section class="slide" data-index="8">
+        <div class="slide-eyebrow">Studio Technology &amp; Audio Physics • AO4 Core</div>
+        <h2 class="slide-heading">The 12-Inch Single <span>&amp; Tom Moulton Mix</span></h2>
+        <p class="slide-lead">
+          The invention of the 12-inch vinyl single transformed dance music production, club sound reinforcement, and mastering engineering forever.
+        </p>
+
+        <div class="grid-2">
+          <div class="info-card highlight">
+            <div class="card-title">💽 Disc Mastering Physics (AO4)</div>
+            <ul class="feature-list" style="margin-top: 8px;">
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>Wider Groove Pitch:</strong> On a standard 7-inch 45 RPM single, grooves are crammed together, limiting low bass excursion so the stylus doesn't jump into adjacent tracks.</li>
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>+4 to +6 dB Higher Output:</strong> Spreading 4–8 minutes across a 12-inch disc allowed the mastering engineer (like José Rodriguez) to cut wider, deeper microgrooves with vastly higher lateral cutter-head excursion.</li>
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>Massive Sub-Bass Headroom:</strong> Allowed uncompromised 30–80 Hz low-end energy that would cause a 7-inch needle to skip across the record.</li>
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>High-Frequency Fidelity:</strong> Greater linear groove velocity at the outer edge of a 12-inch disc preserved transient clarity on hi-hats and cymbals.</li>
+            </ul>
+          </div>
+
+          <div class="info-card cyan-edge">
+            <div class="card-title">🎛 Tom Moulton &amp; The Extended Remix</div>
+            <ul class="feature-list" style="margin-top: 8px;">
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>The Accidental Invention:</strong> In 1974, Tom Moulton needed an acetate lacquer of a mix cut for a club DJ, but Media Sound ran out of 7-inch blanks and used a 12-inch blank instead. The huge visual spacing inspired the commercial 12-inch format.</li>
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>Extended Drum Breakdowns:</strong> Moulton lengthened songs from 3 minutes to 8–10 minutes by stripping out vocals to leave just kick, bass, and congas, giving club DJs time to beatmatch and mix seamlessly between records.</li>
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>Dynamic Build-Ups:</strong> Re-introducing strings, brass, and finally the vocal hook created explosive emotional tension and release on dancefloors.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 10: SYNTHESIZER SEQUENCING & DRUM DAMPING -->
+      <section class="slide" data-index="9">
+        <div class="slide-eyebrow">Production Mechanics • 1970s Hardware</div>
+        <h2 class="slide-heading">Sequencing &amp; <span>Drum Isolation Techniques</span></h2>
+        
+        <div class="grid-2">
+          <div class="info-card gold-edge">
+            <div class="card-title">🎹 Analogue Step Sequencing (Moog 960)</div>
+            <ul class="feature-list" style="margin-top: 8px;">
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>CV/Gate Voltage Control:</strong> Control Voltage (1 Volt per octave) determined oscillator pitch; Gate pulses triggered ADSR envelope generators for filter cutoffs and VCA amplifiers.</li>
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>Audio Click Synchronisation:</strong> A high-amplitude square wave click was recorded to an analogue tape track, converted via envelope follower to voltage triggers, keeping the sequencer in hard lock with acoustic instruments.</li>
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>White Noise Percussion:</strong> Analogue white noise generators filtered through high-pass envelopes created ultra-tight synthetic snare drums and sizzle hi-hats.</li>
+            </ul>
+          </div>
+
+          <div class="info-card highlight">
+            <div class="card-title">🥁 Drum Damping &amp; Booth Capture</div>
+            <ul class="feature-list" style="margin-top: 8px;">
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>Deadened Studio Booths:</strong> Drums were placed in tight acoustic booths with heavy carpet, acoustic foam, and baffle gobos to eliminate any natural room reverb.</li>
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>Severe Head Muffling:</strong> Gaffer tape, cotton wool, tea towels, or leather wallets taped onto the snare and toms completely eliminated ring and sustained resonance.</li>
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>Front Kick Resonant Head Removed:</strong> Pillows, blankets, or sandbags placed firmly against the batter head inside the kick drum with an AKG D12 mic placed inches from the beater for pure low-end "thud".</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 11: ORCHESTRAL DISCO & STUDIO CRAFT -->
+      <section class="slide" data-index="10">
+        <div class="slide-eyebrow">Studio Craft &amp; Orchestration • Philadelphia to New York</div>
+        <h2 class="slide-heading">Orchestral Disco: <span>Strings, Horns &amp; Tape</span></h2>
+        
+        <div class="grid-3">
+          <div class="info-card highlight">
+            <div class="card-title">🎻 The Philly String Sound</div>
+            <p class="card-text">
+              Sigma Sound Studios (Joe Tarsia) and MFSB utilized 20–30 piece string sections. Arrangers like Don Renaldo scored soaring counter-melodies and rapid descending glissandos ("disco falls"), adding breathtaking elegance to earthy funk backbeats.
+            </p>
+          </div>
+          <div class="info-card cyan-edge">
+            <div class="card-title">🎺 Punchy Brass Tracking</div>
+            <p class="card-text">
+              Trumpets, trombones, and saxophones double-tracked or triple-tracked with tight unison phrasing. Recorded using Neumann U87s and RCA 44 ribbon mics, providing bite without harshness to pierce through dense disco mixes.
+            </p>
+          </div>
+          <div class="info-card gold-edge">
+            <div class="card-title">🎛 Analogue FX &amp; Reverb</div>
+            <p class="card-text">
+              EMT 140 plate reverbs bathed the strings and lead vocals in luxurious decay, while Eventide Instant Flangers and Instant Phasers were applied across hi-hats and string pads for swirling, psychoacoustic dimension.
+            </p>
+          </div>
+        </div>
+
+        <div style="margin-top: 14px; background: rgba(0, 193, 240, 0.08); border: 1px solid var(--border-cyan); border-radius: 10px; padding: 12px 16px; font-size: 12px; color: #cbd5e1;">
+          <strong>Multitrack 24-Track Tape Allocation:</strong> Typically Tracks 1–8: Drums &amp; Percussion • Tracks 9–10: Bass &amp; Clean Guitar • Tracks 11–14: Keyboards (Rhodes, Clavinet, Piano) • Tracks 15–18: Strings &amp; Horns • Tracks 19–22: Lead &amp; Backing Vocals • Track 23: SMPTE/Click Code • Track 24: Guard Track.
+        </div>
+      </section>
+
+      <!-- SLIDE 12: SECTION B COMPARATIVE ANALYSIS -->
+      <section class="slide" data-index="11">
+        <div class="slide-eyebrow">Section B Long-Answer Comparative Matrix</div>
+        <h2 class="slide-heading">Philly/NY Orchestral vs. <span>Munich Euro-Disco</span></h2>
+        <p class="slide-lead">
+          Essential comparative criteria for Section B extended response questions examining technological and stylistic divergence in 1970s disco.
+        </p>
+
+        <table class="compare-table">
+          <thead>
+            <tr>
+              <th>Production Parameter</th>
+              <th>Orchestral Disco (Philly / Chic / Bee Gees)</th>
+              <th>Electronic Euro-Disco (Moroder / Munich)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Primary Instrumentation</strong></td>
+              <td>Live acoustic drums, fingerstyle electric bass, clean DI Stratocaster, grand piano, Rhodes, acoustic percussion.</td>
+              <td>Moog Modular synthesizers, Minimoog, ARP 2600, electronic click tracks, synthesized white noise percussive hits.</td>
+            </tr>
+            <tr>
+              <td><strong>Rhythm Section Execution</strong></td>
+              <td>Human pocket with subtle microscopic swing; damped snare and kick; live hand-played 16th-note hi-hat accents.</td>
+              <td>Rigid, machine-clocked 16th-note step sequencer grid; completely quantized feel with zero human swing.</td>
+            </tr>
+            <tr>
+              <td><strong>Orchestration &amp; Melodic Layers</strong></td>
+              <td>20–30 piece acoustic string orchestras, live horn sections, complex multi-part vocal choir arrangements.</td>
+              <td>Synthesizer filter sweeps, sawtooth polyphonic pads, sequenced arpeggiated ostinatos, intimate breathy solo vocals.</td>
+            </tr>
+            <tr>
+              <td><strong>Spatial &amp; Dynamics Processing</strong></td>
+              <td>Natural room acoustics combined with EMT 140 plate reverb, Teletronix LA-2A, UREI 1176 compression.</td>
+              <td>Tape delay (Echoplex / Roland Space Echo) synced to 16th notes, aggressive resonant filter modulation, stereo panning FX.</td>
+            </tr>
+            <tr>
+              <td><strong>Benchmark Tracks</strong></td>
+              <td>Chic – "Good Times" • Bee Gees – "Stayin' Alive" • MFSB – "TSOP"</td>
+              <td>Donna Summer – "I Feel Love" • Giorgio Moroder – "Chase"</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- SLIDE 13: COMPONENT 3 EXAM CHECKLIST -->
+      <section class="slide" data-index="12">
+        <div class="slide-eyebrow">Exam Revision Checklist • Pearson Edexcel 9MT0/03</div>
+        <h2 class="slide-heading">Component 3 <span>Exam Quick Reference</span></h2>
+        
+        <div class="grid-2">
+          <div class="info-card highlight">
+            <div class="card-title">📝 High-Yield Technical Terms</div>
+            <ul class="feature-list" style="margin-top: 8px;">
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>Four-on-the-Floor:</strong> Bass drum pulse on all four quarter notes (beats 1, 2, 3, 4).</li>
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>Offbeat Open Hi-Hat:</strong> Eighth-note open hats choked on every downbeat.</li>
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>Octave Bassline:</strong> Syncopated root-to-octave 16th-note leaps (Bernard Edwards / Moog).</li>
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>Chucking / Chanking:</strong> 16th-note clean DI guitar scratching with left-hand fretboard muting.</li>
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>12-Inch Vinyl:</strong> Wider groove pitch allowing +4 to +6 dB louder levels and extended low frequencies without stylus skipping.</li>
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>Disco Falls:</strong> Rapid descending string glissandos highlighting phrase transitions.</li>
+            </ul>
+          </div>
+
+          <div class="info-card cyan-edge">
+            <div class="card-title">🎯 Key Studios &amp; Engineers</div>
+            <ul class="feature-list" style="margin-top: 8px;">
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>Sigma Sound Studios (Philadelphia):</strong> Joe Tarsia, MFSB rhythm section, Philly soul/disco sound.</li>
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>Musicland Studios (Munich):</strong> Giorgio Moroder, Donna Summer, Pete Bellotte, Moog Modular step sequencing.</li>
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>Power Station (New York):</strong> Bob Clearmountain, Chic (Nile Rodgers &amp; Bernard Edwards).</li>
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>Criteria Studios (Miami):</strong> Karl Richardson &amp; Albhy Galuten, Bee Gees "Stayin' Alive" drum tape loop.</li>
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>Media Sound / Sigma NYC:</strong> Tom Moulton, invention of the extended breakdown and 12-inch single mix.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div style="margin-top: 14px; text-align: center; color: var(--text-muted); font-size: 12px;">
+          Ready to test your knowledge? Take the <strong>Edexcel Specification Quiz</strong> directly below this deck!
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Bottom Navigation Bar -->
+    <footer class="deck-bottombar">
+      <button class="nav-btn" id="prevBtn" onclick="prevSlide()" disabled>
+        ← Previous
+      </button>
+
+      <div class="deck-progress-group">
+        <span class="slide-counter" id="slideCounter">Slide 1 of 13</span>
+        <div class="progress-track">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+      </div>
+
+      <button class="nav-btn" id="nextBtn" onclick="nextSlide()">
+        Next →
+      </button>
+    </footer>
+  </div>
+
+  <!-- Video Modal -->
+  <div class="video-modal-backdrop" id="videoModal">
+    <div class="video-modal-content">
+      <div class="video-modal-header">
+        <span class="video-modal-title" id="videoModalTitle">Video Clip</span>
+        <button class="close-modal-btn" onclick="closeVideo()">&times;</button>
+      </div>
+      <div class="video-player-wrapper">
+        <iframe id="videoIframe" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+    const totalSlides = slides.length;
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const slideCounter = document.getElementById('slideCounter');
+    const progressFill = document.getElementById('progressFill');
+    const videoModal = document.getElementById('videoModal');
+    const videoModalTitle = document.getElementById('videoModalTitle');
+    const videoIframe = document.getElementById('videoIframe');
+
+    function updateDeck() {
+      slides.forEach((slide, idx) => {
+        slide.classList.toggle('active', idx === currentSlide);
+      });
+
+      prevBtn.disabled = currentSlide === 0;
+      nextBtn.disabled = currentSlide === totalSlides - 1;
+      
+      slideCounter.textContent = `Slide ${currentSlide + 1} of ${totalSlides}`;
+      const percentage = ((currentSlide + 1) / totalSlides) * 100;
+      progressFill.style.width = `${percentage}%`;
+    }
+
+    function nextSlide() {
+      if (currentSlide < totalSlides - 1) {
+        currentSlide++;
+        updateDeck();
+      }
+    }
+
+    function prevSlide() {
+      if (currentSlide > 0) {
+        currentSlide--;
+        updateDeck();
+      }
+    }
+
+    // Keyboard Navigation
+    document.addEventListener('keydown', (e) => {
+      if (videoModal.classList.contains('open')) {
+        if (e.key === 'Escape') closeVideo();
+        return;
+      }
+      if (e.key === 'ArrowRight' || e.key === ' ') {
+        nextSlide();
+      } else if (e.key === 'ArrowLeft') {
+        prevSlide();
+      }
+    });
+
+    // Swipe Support for Touch
+    let touchStartX = 0;
+    let touchEndX = 0;
+    const viewport = document.getElementById('slidesViewport');
+
+    viewport.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    viewport.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      handleSwipe();
+    }, { passive: true });
+
+    function handleSwipe() {
+      if (touchEndX < touchStartX - 50) {
+        nextSlide();
+      }
+      if (touchEndX > touchStartX + 50) {
+        prevSlide();
+      }
+    }
+
+    // Video Modal Handlers
+    function openVideo(videoId, title) {
+      videoIframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
+      videoModalTitle.textContent = title;
+      videoModal.classList.add('open');
+    }
+
+    function closeVideo() {
+      videoModal.classList.remove('open');
+      videoIframe.src = '';
+    }
+
+    videoModal.addEventListener('click', (e) => {
+      if (e.target === videoModal) {
+        closeVideo();
+      }
+    });
+  </script>
+</body>
+</html>
