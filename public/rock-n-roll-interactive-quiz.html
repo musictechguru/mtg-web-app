@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Musical Styles: Rock 'n' Roll • Interactive Learning Quiz | Music Tech Guru</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #070b12;
+      --bg-card: #0f172a;
+      --bg-surface: #131d31;
+      --accent-cyan: #00C1F0;
+      --accent-cyan-glow: rgba(0, 193, 240, 0.35);
+      --accent-amber: #fbbf24;
+      --accent-green: #22c55e;
+      --accent-red: #ef4444;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-cyan: rgba(0, 193, 240, 0.3);
+      --font: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: var(--font);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .quiz-container {
+      width: 100%;
+      max-width: 860px;
+      background: radial-gradient(circle at 50% 0%, rgba(0, 193, 240, 0.08) 0%, rgba(15, 23, 42, 0) 70%), var(--bg-card);
+      border: 1px solid var(--border-cyan);
+      border-radius: 20px;
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.7), 0 0 40px rgba(0, 193, 240, 0.1);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    /* Header */
+    .quiz-header {
+      padding: 20px 28px;
+      border-bottom: 1px solid var(--border-subtle);
+      background: rgba(11, 15, 25, 0.85);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .quiz-badge {
+      background: rgba(0, 193, 240, 0.15);
+      color: var(--accent-cyan);
+      border: 1px solid var(--border-cyan);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 50px;
+    }
+
+    .quiz-score-pill {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      padding: 6px 14px;
+      border-radius: 50px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #cbd5e1;
+    }
+
+    .progress-bar-track {
+      width: 100%;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #00C1F0, #38bdf8);
+      width: 8.33%;
+      transition: width 0.3s ease;
+    }
+
+    /* Question Stage */
+    .quiz-stage {
+      padding: 36px 32px;
+      min-height: 440px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    @media (max-width: 600px) {
+      .quiz-stage {
+        padding: 24px 20px;
+      }
+    }
+
+    .q-category {
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--accent-cyan);
+      margin-bottom: 8px;
+    }
+
+    .q-text {
+      font-size: clamp(18px, 2.8vw, 22px);
+      font-weight: 800;
+      color: #ffffff;
+      line-height: 1.45;
+      margin-bottom: 24px;
+    }
+
+    /* Options */
+    .options-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .option-btn {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 16px 20px;
+      color: #e2e8f0;
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 600;
+      line-height: 1.5;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .option-btn:hover:not(:disabled) {
+      border-color: var(--accent-cyan);
+      background: rgba(0, 193, 240, 0.08);
+      transform: translateX(4px);
+      color: #ffffff;
+    }
+
+    .option-letter {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 13px;
+      color: var(--accent-cyan);
+      flex-shrink: 0;
+    }
+
+    .option-btn.correct {
+      background: rgba(34, 197, 94, 0.15) !important;
+      border-color: var(--accent-green) !important;
+      color: #ffffff !important;
+    }
+
+    .option-btn.correct .option-letter {
+      background: var(--accent-green);
+      color: #0b0f19;
+      border-color: var(--accent-green);
+    }
+
+    .option-btn.wrong {
+      background: rgba(239, 68, 68, 0.15) !important;
+      border-color: var(--accent-red) !important;
+      color: #fca5a5 !important;
+    }
+
+    .option-btn.wrong .option-letter {
+      background: var(--accent-red);
+      color: #ffffff;
+      border-color: var(--accent-red);
+    }
+
+    /* Explanation Banner */
+    .insight-card {
+      display: none;
+      background: rgba(0, 193, 240, 0.06);
+      border: 1px solid var(--border-cyan);
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-bottom: 24px;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .insight-card.open {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .insight-title {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--accent-cyan);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .insight-body {
+      font-size: 13.5px;
+      line-height: 1.6;
+      color: #cbd5e1;
+    }
+
+    /* Footer */
+    .quiz-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .next-btn {
+      background: linear-gradient(135deg, #00C1F0 0%, #0284c7 100%);
+      color: #0b0f19;
+      border: none;
+      padding: 12px 28px;
+      border-radius: 50px;
+      font-size: 14.5px;
+      font-weight: 800;
+      cursor: pointer;
+      display: none;
+      box-shadow: 0 4px 15px rgba(0, 193, 240, 0.35);
+      transition: all 0.2s;
+    }
+
+    .next-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 193, 240, 0.5);
+    }
+
+    .next-btn.visible {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Results Screen */
+    .results-screen {
+      display: none;
+      text-align: center;
+      padding: 40px 24px;
+    }
+
+    .results-screen.open {
+      display: block;
+    }
+
+    .score-circle {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0, 193, 240, 0.2) 0%, rgba(15, 23, 42, 0.8) 100%);
+      border: 3px solid var(--accent-cyan);
+      margin: 0 auto 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 30px rgba(0, 193, 240, 0.3);
+    }
+
+    .score-number {
+      font-size: 38px;
+      font-weight: 900;
+      color: #ffffff;
+    }
+
+    .grade-badge {
+      display: inline-block;
+      font-size: 14px;
+      font-weight: 800;
+      padding: 6px 18px;
+      border-radius: 50px;
+      margin-bottom: 20px;
+    }
+
+    .retry-btn {
+      background: linear-gradient(135deg, #00C1F0 0%, #0284c7 100%);
+      color: #0b0f19;
+      border: none;
+      padding: 14px 32px;
+      border-radius: 50px;
+      font-size: 15px;
+      font-weight: 800;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="quiz-container">
+    
+    <!-- Header -->
+    <div class="quiz-header">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <span class="quiz-badge">Edexcel A-Level Component 3</span>
+        <strong style="color: #ffffff; font-size: 15px;">Rock 'n' Roll Interactive Learning Guide</strong>
+      </div>
+      <div class="quiz-score-pill" id="scorePill">Score: 0 / 12</div>
+    </div>
+
+    <div class="progress-bar-track">
+      <div class="progress-bar-fill" id="progressFill"></div>
+    </div>
+
+    <!-- Active Question Stage -->
+    <div class="quiz-stage" id="quizStage">
+      <div>
+        <div class="q-category" id="qCategory">Category • Topic</div>
+        <h2 class="q-text" id="qText">Question title will render here...</h2>
+        
+        <div class="options-grid" id="optionsGrid"></div>
+
+        <div class="insight-card" id="insightCard">
+          <div class="insight-title">💡 Guru Exam Insight</div>
+          <div class="insight-body" id="insightBody"></div>
+        </div>
+      </div>
+
+      <div class="quiz-footer">
+        <span style="color: var(--text-muted); font-size: 13px;" id="qCounter">Question 1 of 12</span>
+        <button class="next-btn" id="nextBtn" onclick="nextQuestion()">Next Question →</button>
+      </div>
+    </div>
+
+    <!-- Results Stage -->
+    <div class="results-screen" id="resultsScreen">
+      <div class="score-circle">
+        <span class="score-number" id="finalScore">12/12</span>
+        <span style="font-size: 12px; color: var(--text-muted); font-weight: 700;">FINAL SCORE</span>
+      </div>
+
+      <div class="grade-badge" id="gradeBadge">A* Distinction</div>
+      <h3 style="font-size: 24px; color: #fff; margin-bottom: 8px;" id="resultHeadline">Master of 1950s Rock 'n' Roll!</h3>
+      <p style="color: var(--text-muted); font-size: 15px; max-width: 500px; margin: 0 auto 20px; line-height: 1.6;" id="resultMessage">
+        You have demonstrated comprehensive mastery over the musical characteristics, studio capture workflows, and cultural contexts required for Edexcel Component 3.
+      </p>
+
+      <button class="retry-btn" onclick="restartQuiz()">↺ Retake Quiz</button>
+    </div>
+
+  </div>
+
+  <script>
+    const questions = [
+      {
+        category: "Decade & Stylistic Roots",
+        text: "Rock ’n’ Roll exploded during which decade, emerging primarily from the cross-pollination of which musical styles?",
+        options: [
+          "1940s • Big Band Swing, Bebop, and Classical",
+          "1950s • Jump Blues, Country / Western Swing, and Gospel",
+          "1960s • Folk, Motown, and Psychedelic Rock",
+          "1950s • Skiffle, Trad Jazz, and Music Hall"
+        ],
+        correct: 1,
+        insight: "Rock ’n’ Roll was not born overnight. Electrified Chicago and Delta blues (e.g. Muddy Waters, B.B. King) fused with the driving swing of Jump Blues and the rhythmic twang of Country to ignite the genre."
+      },
+      {
+        category: "Core Instrumentation & Band Lineup",
+        text: "Buddy Holly and the Crickets established the definitive 4-piece rock ensemble that later served as the blueprint for The Beatles. What was this lineup?",
+        options: [
+          "Lead Vocal, 2 Saxophones, Upright Bass, and Drum Kit",
+          "Lead Guitar, Rhythm Guitar, Bass (Upright or Electric), and Drum Kit",
+          "Piano, Harmonica, Acoustic Guitar, and Washboard",
+          "Electric Guitar, Organ, Synthesizer, and Drum Machine"
+        ],
+        correct: 1,
+        insight: "Early 1950s recordings frequently featured tenor saxophone and boogie-woogie piano breaks, but Buddy Holly standardized the 2-guitars, bass, and drums lineup that defined all subsequent rock music."
+      },
+      {
+        category: "Rhythmic Drive & Backbeat (AO3)",
+        text: "Which rhythmic characteristic is the hallmark of 1950s Rock ’n’ Roll rhythm sections?",
+        options: [
+          "A straight 4/4 marching beat with accents on beats 1 and 3",
+          "A slow 3/4 waltz tempo with unaccented snare rolls",
+          "A driving swung/shuffle boogie-woogie feel with a heavy snare backbeat on beats 2 and 4",
+          "Syncopated sixteenth-note funk polyrhythms"
+        ],
+        correct: 2,
+        insight: "The backbeat on beats 2 and 4 (usually struck with authority on the snare) is the single most important rhythmic identifier for 1950s listening questions in Component 3."
+      },
+      {
+        category: "Harmonic Structure (AO3)",
+        text: "Most landmark 1950s Rock ’n’ Roll hits (such as 'Rock Around the Clock' and 'Johnny B. Goode') are built on which underlying chord progression?",
+        options: [
+          "The 32-bar AABA jazz ballad progression",
+          "The 12-Bar Blues chord progression using dominant 7th chords (I – IV – V)",
+          "The minor-key Aeolian vamp (i – VII – VI)",
+          "Modal interchange between Dorian and Mixolydian scales"
+        ],
+        correct: 1,
+        insight: "Sped-up 12-bar blues progressions played on amplified instruments are the harmonic backbone of 1950s Rock 'n' Roll."
+      },
+      {
+        category: "Bassline Movement & Acoustic Technique (AO3)",
+        text: "What bass playing style provides the continuous, energetic forward drive in 1950s Rockabilly and Rock ’n’ Roll?",
+        options: [
+          "Sustained whole notes played with an orchestral bow",
+          "Heavy synth sub-bass 808 glide notes",
+          "Arpeggiated walking basslines (root, 3rd, 5th, 6th, ♭7th), often featuring percussive slap-bass",
+          "Drop-D distorted power-chord strumming"
+        ],
+        correct: 2,
+        insight: "Bill Black (with Elvis) and Marshall Lytle (Bill Haley) used the 'slap-bass' technique on the double bass—pulling the string so it snapped against the wooden fingerboard to supply extra percussive snap before drum kits were loudly amplified."
+      },
+      {
+        category: "Vocal Delivery & Lyrical Themes (AO3)",
+        text: "What characterizes the vocal style and lyrical themes of 1950s Rock ’n’ Roll pioneers like Little Richard and Elvis Presley?",
+        options: [
+          "Melancholy spoken-word narratives about the Great Depression",
+          "Energetic delivery featuring screams, glottal hiccups, and falsetto whoops, celebrating teen dance and love",
+          "Strictly political protests against the Cold War",
+          "Autotuned harmonies with classical vibrato"
+        ],
+        correct: 1,
+        insight: "Little Richard’s 'Tutti Frutti' ('A-wop-bop-a-loo-bop-a-lop-bam-boom!') and Elvis’s glottal hiccups brought sexual energy and teenage excitement to mainstream radio."
+      },
+      {
+        category: "1950s Studio Capture & Tracking (AO4)",
+        text: "How were 1950s rock ’n’ roll records captured in studios like Sun Studio (Memphis) and Chess Records (Chicago)?",
+        options: [
+          "24-track digital hard-disk recording with individual isolated booths",
+          "Direct-to-tape tracking (mono or 2-track) with the whole band playing live in one room and mixing 'on the fly'",
+          "MIDI sequencing into early hardware samplers",
+          "Overdubbing every instrument separately across 64 virtual tracks"
+        ],
+        correct: 1,
+        insight: "There were no overdubs or digital edits. Balance was achieved physically by moving musicians closer to or further from valve ribbon/condenser microphones. Natural room bleed was captured onto 1-track or 2-track tape."
+      },
+      {
+        category: "The Signature Slapback Delay (AO4)",
+        text: "Producer Sam Phillips created the signature 'slapback echo' on Elvis Presley's Sun Studio recordings. How was this technically achieved?",
+        options: [
+          "A digital multi-tap delay rack unit set to 500 ms with 80% feedback",
+          "Routing audio to a secondary tape recorder, utilizing the physical distance between Record and Playback heads for a single 50–80 ms repeat",
+          "Singing through a megaphone into an acoustic guitar soundhole",
+          "A rotating Leslie speaker horn cabinet in a tiled bathroom"
+        ],
+        correct: 1,
+        insight: "50–80 ms delay time with 1 single repeat (0% feedback). Remember this exact specification for Component 3 exam questions on Sun Records."
+      },
+      {
+        category: "Drum Tracking in the 1950s (AO4)",
+        text: "In the 1950s, how was the drum kit typically mic'd compared to modern multi-mic studio conventions?",
+        options: [
+          "Close-mic'd with 12 directional mics (top & bottom snare, inside/outside kick, stereo toms)",
+          "Typically captured with just a single overhead microphone, relying on drummer velocity balance and room acoustics",
+          "Triggered via electronic drum pads directly into a mixer",
+          "Recorded with contact boundary mics placed inside each shell"
+        ],
+        correct: 1,
+        insight: "Single-mic capture meant cymbals, snare, and kick had to be dynamically balanced by the drummer's hands and feet, resulting in natural acoustic spill into vocal and guitar microphones."
+      },
+      {
+        category: "Guitar Amplification & Tone (AO4)",
+        text: "How did guitarists like Chuck Berry and Scotty Moore achieve their cutting, slightly overdriven guitar tones?",
+        options: [
+          "Silicon fuzz-face pedals plugged into solid-state digital modelers",
+          "Driving low-wattage valve (tube) amplifiers (such as Fender Tweed amps) to high volume, pushing tubes into natural harmonic distortion",
+          "Direct input (DI) into the desk with software amp simulations",
+          "Acoustic guitars with piezo pickups running through chorus pedals"
+        ],
+        correct: 1,
+        insight: "Push-pull valve amplifiers naturally compress and harmonically clip when driven hard, creating warm sustain without harsh digital edge."
+      },
+      {
+        category: "Cultural Revolution & The Teen Market",
+        text: "Why did 1950s Rock ’n’ Roll provoke intense social controversy and moral panic among conservative authorities?",
+        options: [
+          "It was the first time teenagers had disposable income, leisure time, and music that integrated Black and White musical traditions",
+          "Older generations viewed the suggestive dancing and wild performances as corrupting youth",
+          "Conservative institutions feared the loss of traditional moral control over teenagers",
+          "All of the above"
+        ],
+        correct: 3,
+        insight: "Rock 'n' Roll marks the cultural birth of the modern teenager as an independent consumer demographic."
+      },
+      {
+        category: "Long-Term Impact on Subsequent Pop & Rock",
+        text: "How did 1950s Rock ’n’ Roll directly influence 1960s and 1970s British and American music?",
+        options: [
+          "The Beatles modelled their early songwriting and band lineup on Buddy Holly and covered Chuck Berry",
+          "The Rolling Stones and 1970s Punk bands drew their anti-establishment attitude and raw guitar riffs from Chuck Berry and Bo Diddley",
+          "Hard Rock and Heavy Metal (e.g. Led Zeppelin) electrified sped-up 12-bar blues progressions and guitar theatrics",
+          "All of the above"
+        ],
+        correct: 3,
+        insight: "Every modern pop, rock, and punk movement traces its lineage directly back to the 1950s pioneers."
+      }
+    ];
+
+    let currentQ = 0;
+    let score = 0;
+    let answered = false;
+
+    const qCategory = document.getElementById('qCategory');
+    const qText = document.getElementById('qText');
+    const optionsGrid = document.getElementById('optionsGrid');
+    const insightCard = document.getElementById('insightCard');
+    const insightBody = document.getElementById('insightBody');
+    const nextBtn = document.getElementById('nextBtn');
+    const qCounter = document.getElementById('qCounter');
+    const scorePill = document.getElementById('scorePill');
+    const progressFill = document.getElementById('progressFill');
+
+    const quizStage = document.getElementById('quizStage');
+    const resultsScreen = document.getElementById('resultsScreen');
+
+    function renderQuestion() {
+      answered = false;
+      const q = questions[currentQ];
+      qCategory.innerText = `${q.category}`;
+      qText.innerText = q.text;
+      qCounter.innerText = `Question ${currentQ + 1} of ${questions.length}`;
+      progressFill.style.width = `${((currentQ + 1) / questions.length) * 100}%`;
+      scorePill.innerText = `Score: ${score} / ${questions.length}`;
+
+      insightCard.classList.remove('open');
+      nextBtn.classList.remove('visible');
+
+      optionsGrid.innerHTML = '';
+      const letters = ['A', 'B', 'C', 'D'];
+
+      q.options.forEach((optText, idx) => {
+        const btn = document.createElement('button');
+        btn.className = 'option-btn';
+        btn.innerHTML = `<span class="option-letter">${letters[idx]}</span><span>${optText}</span>`;
+        btn.onclick = () => selectOption(idx, btn);
+        optionsGrid.appendChild(btn);
+      });
+    }
+
+    function selectOption(selectedIdx, clickedBtn) {
+      if (answered) return;
+      answered = true;
+
+      const q = questions[currentQ];
+      const buttons = optionsGrid.querySelectorAll('.option-btn');
+      buttons.forEach(b => b.disabled = true);
+
+      if (selectedIdx === q.correct) {
+        score++;
+        clickedBtn.classList.add('correct');
+      } else {
+        clickedBtn.classList.add('wrong');
+        buttons[q.correct].classList.add('correct');
+      }
+
+      scorePill.innerText = `Score: ${score} / ${questions.length}`;
+      insightBody.innerText = q.insight;
+      insightCard.classList.add('open');
+
+      nextBtn.innerText = currentQ === questions.length - 1 ? 'View Final Results ✓' : 'Next Question →';
+      nextBtn.classList.add('visible');
+    }
+
+    function nextQuestion() {
+      if (currentQ < questions.length - 1) {
+        currentQ++;
+        renderQuestion();
+      } else {
+        showResults();
+      }
+    }
+
+    function showResults() {
+      quizStage.style.display = 'none';
+      resultsScreen.classList.add('open');
+
+      const finalScore = document.getElementById('finalScore');
+      const gradeBadge = document.getElementById('gradeBadge');
+      const resultHeadline = document.getElementById('resultHeadline');
+      const resultMessage = document.getElementById('resultMessage');
+
+      finalScore.innerText = `${score}/${questions.length}`;
+      const pct = Math.round((score / questions.length) * 100);
+
+      if (pct >= 85) {
+        gradeBadge.innerText = 'A* Distinction (Top Band)';
+        gradeBadge.style.background = 'rgba(34, 197, 94, 0.2)';
+        gradeBadge.style.color = '#34d399';
+        resultHeadline.innerText = 'Exceptional Mastery of Rock ’n’ Roll!';
+        resultMessage.innerText = 'You demonstrated complete command over 1950s musical characteristics, tape studio capture, and cultural impact for Edexcel Component 3.';
+      } else if (pct >= 70) {
+        gradeBadge.innerText = 'A / B Merit (High Band)';
+        gradeBadge.style.background = 'rgba(0, 193, 240, 0.2)';
+        gradeBadge.style.color = '#00C1F0';
+        resultHeadline.innerText = 'Great Working Knowledge!';
+        resultMessage.innerText = 'Strong understanding of the key artists and rhythmic concepts. Review the slapback delay specs and tape head mechanics for a clean 15/15.';
+      } else {
+        gradeBadge.innerText = 'Review Recommended';
+        gradeBadge.style.background = 'rgba(245, 158, 11, 0.2)';
+        gradeBadge.style.color = '#fbbf24';
+        resultHeadline.innerText = 'Good Effort — Let’s Consolidate!';
+        resultMessage.innerText = 'Review the slide deck above, focusing on the 12-bar blues backbeat and the Sun Studio slapback delay settings.';
+      }
+    }
+
+    function restartQuiz() {
+      currentQ = 0;
+      score = 0;
+      resultsScreen.classList.remove('open');
+      quizStage.style.display = 'flex';
+      renderQuestion();
+    }
+
+    renderQuestion();
+  </script>
+</body>
+</html>
