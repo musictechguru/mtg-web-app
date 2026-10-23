@@ -60,7 +60,7 @@
     @media (max-width: 768px) {
       .deck-container {
         height: auto;
-        min-height: 600px;
+        min-height: 620px;
       }
     }
 
@@ -258,6 +258,151 @@
       color: #ffffff;
     }
 
+    /* YouTube Play Button */
+    .yt-play-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(239, 68, 68, 0.14);
+      border: 1px solid var(--border-red);
+      color: #ffffff;
+      padding: 7px 14px;
+      border-radius: 50px;
+      font-size: 12px;
+      font-weight: 800;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .yt-play-btn:hover {
+      background: var(--accent-red);
+      color: #ffffff;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px var(--accent-red-glow);
+    }
+
+    .yt-svg {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+    }
+
+    /* In-Deck Video Modal Overlay */
+    .video-modal-backdrop {
+      display: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(4, 7, 13, 0.88);
+      backdrop-filter: blur(8px);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      animation: modalFadeIn 0.25s ease;
+    }
+
+    .video-modal-backdrop.open {
+      display: flex;
+    }
+
+    @keyframes modalFadeIn {
+      from { opacity: 0; transform: scale(0.98); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .video-modal-content {
+      width: 100%;
+      max-width: 760px;
+      background: #0f172a;
+      border: 1px solid var(--border-red);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9), 0 0 40px var(--accent-red-glow);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .video-modal-header {
+      padding: 14px 20px;
+      background: rgba(11, 15, 25, 0.95);
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .video-modal-title {
+      font-size: 14px;
+      font-weight: 800;
+      color: #ffffff;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .external-yt-link {
+      color: var(--accent-red);
+      font-size: 12px;
+      font-weight: 700;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 10px;
+      border-radius: 6px;
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid var(--border-red);
+      transition: all 0.2s;
+    }
+
+    .external-yt-link:hover {
+      background: var(--accent-red);
+      color: #ffffff;
+    }
+
+    .video-modal-close {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      color: #cbd5e1;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      font-size: 15px;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+
+    .video-modal-close:hover {
+      background: var(--accent-red);
+      color: #ffffff;
+      border-color: var(--accent-red);
+    }
+
+    .video-modal-iframe-wrap {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      background: #000;
+    }
+
+    .video-modal-iframe-wrap iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
     /* Bottom Control Bar */
     .bottom-bar {
       padding: 16px 28px;
@@ -321,19 +466,6 @@
       border-radius: 10px;
       background: var(--accent-red);
       box-shadow: 0 0 10px var(--accent-red-glow);
-    }
-
-    /* Key Terms / Badges */
-    .term-pill {
-      display: inline-block;
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid var(--border-subtle);
-      color: #cbd5e1;
-      font-size: 11.5px;
-      font-weight: 700;
-      padding: 3px 10px;
-      border-radius: 6px;
-      margin: 2px 4px 2px 0;
     }
   </style>
 </head>
@@ -402,6 +534,11 @@
               <div class="feature-title">Detuned Guitars &amp; Sludge</div>
               <div class="feature-desc">Guitarist Tony Iommi lost the tips of his right-hand fingers in an industrial accident. He used thimble prosthetics and detuned his Gibson SG down 1.5 steps (to C# standard), slackening string tension and creating a dark, thunderous low-end.</div>
             </div>
+
+            <button class="yt-play-btn" onclick="openVideo('2KnyL4IFcwo', 'Black Sabbath - Black Sabbath (Tritone Riff)')">
+              <svg class="yt-svg" viewBox="0 0 24 24"><path fill="#ef4444" d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+              <span>▶ Watch: Black Sabbath - "Black Sabbath" (1970)</span>
+            </button>
           </div>
 
           <div class="image-frame">
@@ -430,6 +567,11 @@
               <div class="feature-title">The Bass "Gallop" (Steve Harris)</div>
               <div class="feature-desc">Fast, relentless sixteenth-note triplet patterns (gallop) played with bare fingers on a Fender Precision Bass, boosted at 2–3kHz for a distinct percussive clack.</div>
             </div>
+
+            <button class="yt-play-btn" onclick="openVideo('X4bgXH3sJ2Q', 'Iron Maiden - The Trooper (Twin Guitars & Gallop)')">
+              <svg class="yt-svg" viewBox="0 0 24 24"><path fill="#ef4444" d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+              <span>▶ Watch: Iron Maiden - "The Trooper"</span>
+            </button>
           </div>
 
           <div class="image-frame">
@@ -458,6 +600,11 @@
               <div class="feature-title">Visual Identity: Leather &amp; Studs</div>
               <div class="feature-desc">Halford introduced the definitive metal aesthetic: black leather jackets, motorcycle boots, chrome studs, and chains, replacing 1970s hippy flares with tough industrial iconography.</div>
             </div>
+
+            <button class="yt-play-btn" onclick="openVideo('WS6-vI70oc0', 'Judas Priest - Painkiller (High Register Screams)')">
+              <svg class="yt-svg" viewBox="0 0 24 24"><path fill="#ef4444" d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+              <span>▶ Watch: Judas Priest - "Painkiller"</span>
+            </button>
           </div>
 
           <div class="image-frame">
@@ -486,6 +633,11 @@
               <div class="feature-title">Surgical Noise Gating</div>
               <div class="feature-desc">Hardware noise gates (Drawmer DS201) were keyed aggressively to eliminate all amplifier hiss and string ring between rapid staccato chugs, resulting in a razor-sharp rhythm wall.</div>
             </div>
+
+            <button class="yt-play-btn" onclick="openVideo('E0ozmU9cJDg', 'Metallica - Master of Puppets (Down-Picking & Gating)')">
+              <svg class="yt-svg" viewBox="0 0 24 24"><path fill="#ef4444" d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+              <span>▶ Watch: Metallica - "Master of Puppets"</span>
+            </button>
           </div>
 
           <div class="image-frame">
@@ -514,6 +666,11 @@
               <div class="feature-title">Digital Chorusing &amp; Pitch Detuning</div>
               <div class="feature-desc">Rhythm guitars and vocal submixes were processed with Eventide H3000 pitch shifters (+9 / -9 cents detune) to create an ultra-wide, glossy, shimmering stereo image.</div>
             </div>
+
+            <button class="yt-play-btn" onclick="openVideo('o1tj2zJ2Wvg', 'Guns N\' Roses - Welcome to the Jungle')">
+              <svg class="yt-svg" viewBox="0 0 24 24"><path fill="#ef4444" d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+              <span>▶ Watch: Guns N' Roses - "Welcome to the Jungle"</span>
+            </button>
           </div>
 
           <div class="image-frame">
@@ -532,7 +689,7 @@
             1980s guitar virtuosos demanded instruments that could withstand extreme mechanical abuse while delivering high-output distortion without 50Hz hum.
           </p>
 
-          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-bottom: 20px;">
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-bottom: 16px;">
             <div class="feature-card">
               <div class="feature-title">Eddie Van Halen's "Frankenstrat"</div>
               <div class="feature-desc">Combining a Fender Stratocaster body with a Gibson PAF humbucker pickup mounted directly into the raw wood. High output, fat mid-range, and zero single-coil buzz.</div>
@@ -546,6 +703,11 @@
               <div class="feature-desc">Right-hand index finger taps notes high on the fretboard while the left hand executes pull-offs and hammer-ons, producing blazing arpeggios beyond normal picking limits.</div>
             </div>
           </div>
+
+          <button class="yt-play-btn" onclick="openVideo('sI7XiJgt0vY', 'Eddie Van Halen - Eruption (Tapping & Floyd Rose Dive-Bombs)')">
+            <svg class="yt-svg" viewBox="0 0 24 24"><path fill="#ef4444" d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+            <span>▶ Watch: Eddie Van Halen - "Eruption"</span>
+          </button>
         </div>
 
         <div class="callout-box">
@@ -572,6 +734,11 @@
               <div class="feature-title">The "Overdrive Boost" Secret</div>
               <div class="feature-desc">Guitarists placed an overdrive pedal (Ibanez Tube Screamer TS9 or Boss SD-1) before the amp with Drive at 0 and Level on 10. This cuts muddy sub-bass before the preamp tubes, resulting in a tighter, punchier palm-muted transient.</div>
             </div>
+
+            <button class="yt-play-btn" onclick="openVideo('qZkx5H8Z0jM', 'Marshall JCM800 High-Gain Tone Breakdown')">
+              <svg class="yt-svg" viewBox="0 0 24 24"><path fill="#ef4444" d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+              <span>▶ Watch: Marshall JCM800 High-Gain Tone</span>
+            </button>
           </div>
 
           <div class="image-frame">
@@ -590,7 +757,7 @@
             To achieve the monstrous, biting rhythm guitar sound on albums like Metallica's <em>Master of Puppets</em> (1986), engineers redesigned how guitars sit in the frequency spectrum.
           </p>
 
-          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-bottom: 20px;">
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-bottom: 16px;">
             <div class="feature-card">
               <div class="feature-title">The "V-Shape" Mid Scoop (Mesa/Boogie)</div>
               <div class="feature-desc">Using graphic or parametric EQ: Boosting 80–100Hz (chunk) and 4–6kHz (pick bite), while aggressively cutting 400–800Hz by up to 8–12dB. Eliminates "boxy" mud and makes room for the snare drum.</div>
@@ -604,6 +771,11 @@
               <div class="feature-desc">Recording four distinct, flawless takes of the rhythm guitar part. Panned Hard Left 100%, Mid Left 75%, Mid Right 75%, and Hard Right 100% for a crushing stereo wall.</div>
             </div>
           </div>
+
+          <button class="yt-play-btn" onclick="openVideo('E0ozmU9cJDg', 'Metallica - Master of Puppets (V-Scoop Rhythm Wall)')">
+            <svg class="yt-svg" viewBox="0 0 24 24"><path fill="#ef4444" d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+            <span>▶ Listen: Metallica - "Master of Puppets" (V-Curve Guitar Wall)</span>
+          </button>
         </div>
 
         <div class="callout-box">
@@ -630,6 +802,11 @@
               <div class="feature-title">Drum Triggers &amp; The Wendel Jr.</div>
               <div class="feature-desc">Piezo-electric contact sensors placed on the drum head triggered hardware digital samplers (like the 1984 Wendel Jr). Replaced or doubled the live kick with a pre-recorded, flawless sample on every single strike.</div>
             </div>
+
+            <button class="yt-play-btn" onclick="openVideo('WM8bTdBs-cw', 'Metallica - One (Machine-Gun Double Kick Drums)')">
+              <svg class="yt-svg" viewBox="0 0 24 24"><path fill="#ef4444" d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+              <span>▶ Watch: Metallica - "One" (Machine-Gun Double Kick)</span>
+            </button>
           </div>
 
           <div class="image-frame">
@@ -658,6 +835,11 @@
               <div class="feature-title">The Noise Gate Threshold &amp; Release</div>
               <div class="feature-desc">The snare track feeds a huge reverb; the output of the reverb passes through a noise gate. The gate opens upon the transient hit, holds open for 150–250ms, then slams shut instantly (0ms release). Result: colossal power without muddying the mix!</div>
             </div>
+
+            <button class="yt-play-btn" onclick="openVideo('0UIB9Y4OF44', 'Def Leppard - Pour Some Sugar On Me (Gated Snare Reverb)')">
+              <svg class="yt-svg" viewBox="0 0 24 24"><path fill="#ef4444" d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+              <span>▶ Watch: Def Leppard - "Pour Some Sugar On Me"</span>
+            </button>
           </div>
 
           <div class="image-frame">
@@ -676,7 +858,7 @@
             Producer Robert John "Mutt" Lange spent over three years and $4.5 million creating the ultimate rock production masterpiece — setting the gold standard for pop-metal hybrid engineering.
           </p>
 
-          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-bottom: 20px;">
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-bottom: 16px;">
             <div class="feature-card">
               <div class="feature-title">Fairlight CMI Sampled Drums</div>
               <div class="feature-desc">After drummer Rick Allen lost his arm in an accident, Lange reconstructed the drums digitally using a Fairlight CMI sampler. Cymbals were recorded live, but kick and snare were digitally programmed for robotic perfection.</div>
@@ -690,6 +872,11 @@
               <div class="feature-desc">Dozens of vocal takes were layered, bounced down, and treated on SSL 4000 series mixing consoles with SSL G-Master bus compression to create huge operatic football-chant choruses.</div>
             </div>
           </div>
+
+          <button class="yt-play-btn" onclick="openVideo('jaiaaar8P4c', 'Def Leppard - Hysteria (Mutt Lange High-Tech Production)')">
+            <svg class="yt-svg" viewBox="0 0 24 24"><path fill="#ef4444" d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+            <span>▶ Watch: Def Leppard - "Hysteria" (1987)</span>
+          </button>
         </div>
 
         <div class="callout-box">
@@ -757,6 +944,26 @@
         ⛶
       </button>
     </div>
+
+    <!-- In-Deck Video Modal -->
+    <div class="video-modal-backdrop" id="videoModalBackdrop" onclick="closeVideoModalOnClickOutside(event)">
+      <div class="video-modal-content">
+        <div class="video-modal-header">
+          <div class="video-modal-title" id="videoModalTitle">Video Demonstration</div>
+          <div style="display: flex; gap: 10px; align-items: center;">
+            <a id="videoExternalLink" href="#" target="_blank" rel="noopener noreferrer" class="external-yt-link">
+              <span>Open in YouTube</span>
+              <span>↗</span>
+            </a>
+            <button class="video-modal-close" onclick="closeVideoModal()" title="Close Video">✕</button>
+          </div>
+        </div>
+        <div class="video-modal-iframe-wrap">
+          <iframe id="videoModalIframe" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+
   </div>
 
   <script>
@@ -767,6 +974,11 @@
     const prevBtn = document.getElementById('prevBtn');
     const nextBtn = document.getElementById('nextBtn');
     const deckContainer = document.getElementById('deckContainer');
+
+    const videoModalBackdrop = document.getElementById('videoModalBackdrop');
+    const videoModalIframe = document.getElementById('videoModalIframe');
+    const videoModalTitle = document.getElementById('videoModalTitle');
+    const videoExternalLink = document.getElementById('videoExternalLink');
 
     let currentSlide = 0;
     const totalSlides = slides.length;
@@ -823,8 +1035,34 @@
       updateSlide();
     }
 
+    // Video Modal Handlers
+    function openVideo(videoId, title) {
+      videoModalTitle.textContent = title;
+      videoExternalLink.href = `https://www.youtube.com/watch?v=${videoId}`;
+      videoModalIframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+      videoModalBackdrop.classList.add('open');
+    }
+
+    function closeVideoModal() {
+      videoModalIframe.src = '';
+      videoModalBackdrop.classList.remove('open');
+    }
+
+    function closeVideoModalOnClickOutside(event) {
+      if (event.target === videoModalBackdrop) {
+        closeVideoModal();
+      }
+    }
+
     // Keyboard navigation
     document.addEventListener('keydown', (e) => {
+      if (videoModalBackdrop.classList.contains('open')) {
+        if (e.key === 'Escape') {
+          closeVideoModal();
+        }
+        return; // Prevent slide change while watching video
+      }
+
       if (e.key === 'ArrowRight' || e.key === ' ') {
         nextSlide();
       } else if (e.key === 'ArrowLeft') {
