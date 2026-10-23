@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Funk & Disco-Funk (1968–1982) • Edexcel Component 3 Specification Quiz | Music Tech Guru</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #08060f;
+      --bg-card: #120d24;
+      --bg-surface: #1a1333;
+      --accent-purple: #a855f7;
+      --accent-purple-glow: rgba(168, 85, 247, 0.35);
+      --accent-emerald: #10b981;
+      --accent-emerald-glow: rgba(16, 185, 129, 0.35);
+      --accent-gold: #f59e0b;
+      --accent-green: #22c55e;
+      --accent-red: #ef4444;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-purple: rgba(168, 85, 247, 0.35);
+      --border-emerald: rgba(16, 185, 129, 0.35);
+      --font: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: var(--font);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .quiz-container {
+      width: 100%;
+      max-width: 880px;
+      background: radial-gradient(circle at 50% 0%, rgba(168, 85, 247, 0.1) 0%, rgba(18, 13, 36, 0) 70%), var(--bg-card);
+      border: 1px solid var(--border-purple);
+      border-radius: 20px;
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.8), 0 0 40px rgba(168, 85, 247, 0.12);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    /* Header */
+    .quiz-header {
+      padding: 20px 28px;
+      border-bottom: 1px solid var(--border-subtle);
+      background: rgba(14, 10, 28, 0.9);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .quiz-badge {
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--accent-emerald);
+      border: 1px solid var(--border-emerald);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 50px;
+    }
+
+    .quiz-score-pill {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      padding: 6px 14px;
+      border-radius: 50px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #cbd5e1;
+    }
+
+    .progress-bar-track {
+      width: 100%;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #a855f7, #10b981);
+      width: 8.33%;
+      transition: width 0.3s ease;
+    }
+
+    /* Question Stage */
+    .quiz-stage {
+      padding: 36px 32px;
+      min-height: 440px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    @media (max-width: 600px) {
+      .quiz-stage {
+        padding: 24px 20px;
+      }
+    }
+
+    .q-meta-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+    }
+
+    .q-category {
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--accent-purple);
+    }
+
+    .q-ao-tag {
+      font-size: 11px;
+      font-weight: 800;
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--accent-emerald);
+      border: 1px solid var(--border-emerald);
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+
+    .q-text {
+      font-size: clamp(17px, 2.3vw, 21px);
+      font-weight: 800;
+      line-height: 1.35;
+      color: #ffffff;
+      margin-bottom: 24px;
+      letter-spacing: -0.3px;
+    }
+
+    .options-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .option-btn {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 14px 18px;
+      text-align: left;
+      font-family: inherit;
+      font-size: 14px;
+      color: #e2e8f0;
+      cursor: pointer;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      line-height: 1.45;
+    }
+
+    .option-letter {
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text-muted);
+      border-radius: 6px;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 12px;
+      flex-shrink: 0;
+      transition: all 0.2s;
+    }
+
+    .option-btn:hover:not(:disabled) {
+      background: rgba(168, 85, 247, 0.12);
+      border-color: var(--accent-purple);
+      transform: translateY(-2px);
+      color: #ffffff;
+    }
+
+    .option-btn:hover:not(:disabled) .option-letter {
+      background: var(--accent-purple);
+      color: #08060f;
+    }
+
+    .option-btn.correct {
+      background: rgba(34, 197, 94, 0.15) !important;
+      border-color: #22c55e !important;
+      color: #ffffff !important;
+    }
+
+    .option-btn.correct .option-letter {
+      background: #22c55e !important;
+      color: #08060f !important;
+    }
+
+    .option-btn.wrong {
+      background: rgba(239, 68, 68, 0.15) !important;
+      border-color: #ef4444 !important;
+      color: #fca5a5 !important;
+    }
+
+    .option-btn.wrong .option-letter {
+      background: #ef4444 !important;
+      color: #ffffff !important;
+    }
+
+    .option-btn:disabled {
+      cursor: default;
+    }
+
+    /* Explanations Card */
+    .insight-card {
+      display: none;
+      background: rgba(26, 19, 51, 0.85);
+      border-left: 4px solid var(--accent-purple);
+      border-radius: 10px;
+      padding: 16px 18px;
+      margin-top: 4px;
+      margin-bottom: 20px;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .insight-card.open {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .insight-title {
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--accent-purple);
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .insight-body {
+      font-size: 13px;
+      color: #cbd5e1;
+      line-height: 1.5;
+    }
+
+    .insight-tip {
+      margin-top: 8px;
+      font-size: 12px;
+      color: #94a3b8;
+      background: rgba(255, 255, 255, 0.04);
+      padding: 6px 10px;
+      border-radius: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    /* Bottom Control */
+    .quiz-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid var(--border-subtle);
+      padding-top: 18px;
+    }
+
+    .q-counter {
+      font-size: 12.5px;
+      color: var(--text-muted);
+      font-weight: 700;
+    }
+
+    .btn-next {
+      background: linear-gradient(135deg, #a855f7 0%, #7e22ce 100%);
+      color: #ffffff;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 800;
+      padding: 10px 22px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      display: none;
+      transition: all 0.2s;
+      box-shadow: 0 4px 14px rgba(168, 85, 247, 0.35);
+    }
+
+    .btn-next.visible {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-next:hover {
+      background: #c084fc;
+      color: #08060f;
+      transform: translateY(-1px);
+    }
+
+    /* Results Screen */
+    .results-screen {
+      display: none;
+      padding: 48px 32px;
+      text-align: center;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .results-screen.open {
+      display: flex;
+    }
+
+    .results-badge {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 6px 16px;
+      border-radius: 50px;
+      margin-bottom: 16px;
+      border: 1px solid;
+    }
+
+    .results-score-big {
+      font-size: clamp(48px, 8vw, 72px);
+      font-weight: 900;
+      line-height: 1;
+      color: #ffffff;
+      margin-bottom: 12px;
+    }
+
+    .results-score-big span {
+      font-size: 28px;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .results-title {
+      font-size: 22px;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 8px;
+    }
+
+    .results-desc {
+      font-size: 14px;
+      color: var(--text-muted);
+      max-width: 580px;
+      line-height: 1.6;
+      margin-bottom: 28px;
+    }
+
+    .btn-restart {
+      background: linear-gradient(135deg, #a855f7 0%, #7e22ce 100%);
+      color: #ffffff;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 800;
+      padding: 12px 28px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 18px rgba(168, 85, 247, 0.35);
+      transition: all 0.2s;
+    }
+
+    .btn-restart:hover {
+      background: #c084fc;
+      color: #08060f;
+      transform: translateY(-2px);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="quiz-container">
+    
+    <!-- Top Header -->
+    <header class="quiz-header">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <span class="quiz-badge">Edexcel Component 3</span>
+        <strong style="color: #ffffff; font-size: 14px;">Funk &amp; Disco-Funk (1968–1982) Exam Check</strong>
+      </div>
+      <div class="quiz-score-pill">
+        Score: <span id="currentScore" style="color: var(--accent-purple); font-weight: 800;">0</span> / 12
+      </div>
+    </header>
+
+    <!-- Progress Track -->
+    <div class="progress-bar-track">
+      <div class="progress-bar-fill" id="progressFill"></div>
+    </div>
+
+    <!-- Question Stage -->
+    <div class="quiz-stage" id="quizStage">
+      <div>
+        <div class="q-meta-row">
+          <span class="q-category" id="qCategory">Synthesizer Architecture & Bass</span>
+          <span class="q-ao-tag" id="qAoTag">AO4: Recording Technology</span>
+        </div>
+
+        <h2 class="q-text" id="qText">Question text goes here...</h2>
+
+        <div class="options-grid" id="optionsGrid"></div>
+
+        <div class="insight-card" id="insightCard">
+          <div class="insight-title">💡 Examiner Insight & Mark Scheme</div>
+          <div class="insight-body" id="insightBody"></div>
+          <div class="insight-tip" id="insightTip"></div>
+        </div>
+      </div>
+
+      <footer class="quiz-footer">
+        <div class="q-counter" id="qCounter">Question 1 of 12</div>
+        <button class="btn-next" id="nextBtn" onclick="nextQuestion()">Next Question →</button>
+      </footer>
+    </div>
+
+    <!-- Results Screen -->
+    <div class="results-screen" id="resultsScreen">
+      <div class="results-badge" id="gradeBadge">Grade 9 • Distinction Star</div>
+      <div class="results-score-big">
+        <span id="finalScoreVal">12</span><span>/12</span>
+      </div>
+      <h3 class="results-title" id="resultTitle">Outstanding Syllabus Mastery!</h3>
+      <p class="results-desc" id="resultMessage">
+        You possess an exam-ready understanding of Funk production technology, Minimoog subtractive basslines, envelope filters, slap bass techniques, and drum damping.
+      </p>
+      <button class="btn-restart" onclick="restartQuiz()">Restart Quiz ↺</button>
+    </div>
+
+  </div>
+
+  <script>
+    const questions = [
+      {
+        category: "Synthesizer Architecture & Bass",
+        ao: "AO4: Recording Technology",
+        text: "On Parliament's seminal 1977 track 'Flash Light', what type of synthesizer and synthesis method was used by Bernie Worrell to create the squelching, iconic bassline?",
+        options: [
+          "Subtractive synthesis using analog Minimoog synthesizers with sawtooth waveforms and a resonant 24dB/oct low-pass filter",
+          "Frequency Modulation (FM) synthesis on a Yamaha DX7 using sine operator algorithms",
+          "Wavetable synthesis utilizing pre-recorded acoustic bass samples on a Fairlight CMI",
+          "Additive synthesis using drawbars on a Hammond B3 organ with a Leslie speaker"
+        ],
+        correct: 0,
+        explanation: "Bernie Worrell interconnected three Minimoogs to generate the massive bass tone. The sound utilizes rich analog sawtooth oscillators (VCO), a fast attack envelope, and a resonant 4-pole (24dB/octave) ladder low-pass filter (VCF) swept downward.",
+        tip: "Component 3 Key Word: Subtractive Synthesis (Oscillator → Resonant Low-Pass Filter → Amplifier Envelope)."
+      },
+      {
+        category: "Rhythm & Metrical Structure",
+        ao: "AO3: Musical Elements",
+        text: "What foundational rhythmic principle did James Brown establish that transformed soul music into funk?",
+        options: [
+          "'The One' — an explosive, unified dynamic accent on beat 1 of every bar, after which interlocking syncopated ostinatos weave across beats 2, 3, and 4",
+          "Strict quarter-note swing with all instruments playing rubato behind the vocalist",
+          "A waltz-like triple meter with heavy accents exclusively on beat 3",
+          "Displacing all kick drum hits onto the 16th-note offbeats with zero downbeat presence"
+        ],
+        correct: 0,
+        explanation: "James Brown shifted the groove's gravitational center from the traditional backbeat (2 and 4) to 'The One' (beat 1). Every instrument unifies on beat 1 before breaking into complex, polyrhythmic, syncopated counterpoint.",
+        tip: "'The One': The definitive structural and musical concept of late 60s and 70s funk."
+      },
+      {
+        category: "Bass Guitar Tone & Technique",
+        ao: "AO3: Musical Elements",
+        text: "What revolutionary electric bass playing technique was invented by Larry Graham on Sly & The Family Stone's 'Thank You (Falettinme Be Mice Elf Agin)' (1969)?",
+        options: [
+          "Slap and Pop ('Thumpin' and Pluckin'') — striking low strings with the side of the thumb and snapping higher strings with the index finger",
+          "Palm-muted plectrum downpicking with heavy metal roundwound distortion",
+          "Two-handed fretboard tapping across six-string extended range basses",
+          "Plucking exclusively with a felt plectrum over the neck pickup for an upright bass tone"
+        ],
+        correct: 0,
+        explanation: "Larry Graham invented the slap bass technique to replace a missing drummer: thumbing (thump) emulated the bass drum and popping (pluck) against the fretboard emulated the snare crack, interspersed with percussive dead-note ghost clicks.",
+        tip: "Slap & Pop: Key terminology for Component 3 bass questions regarding Sly Stone, Graham Central Station, and Bootsy Collins."
+      },
+      {
+        category: "Dynamic Filters & Modulation",
+        ao: "AO4: Recording Technology",
+        text: "How does an envelope filter (such as the Mu-Tron III used by Bootsy Collins and Stevie Wonder) differ operationally from a standard wah-wah pedal or LFO-driven phaser?",
+        options: [
+          "An internal envelope detector tracks the volume/amplitude of each note, sweeping the filter cutoff frequency higher when struck harder",
+          "It uses a mechanical foot treadle to sweep a band-pass filter manually",
+          "It modulates the phase of the signal at a continuous, fixed rate set by a Low Frequency Oscillator (LFO)",
+          "It samples the audio and pitch-shifts it up one octave via granular synthesis"
+        ],
+        correct: 0,
+        explanation: "The Mu-Tron III uses an envelope follower circuit that translates the player's dynamic strike intensity into control voltage. Harder strikes push the cutoff frequency higher, creating an expressive, vocal-like 'quack' or 'squelch' that tracks every nuance of pick or finger attack.",
+        tip: "Envelope Filter / Auto-Wah: Dynamically controlled by input signal amplitude, NOT by a foot pedal or fixed LFO."
+      },
+      {
+        category: "Guitar Performance & Rhythmic Comping",
+        ao: "AO3: Musical Elements",
+        text: "What technique did rhythm guitarists like Nile Rodgers (Chic) and Jimmy Nolen (James Brown) use to provide a crisp, percussive 16th-note rhythmic engine?",
+        options: [
+          "'Chucking' / Scratching — lightly muting strings with the fretting hand while executing continuous 16th-note strumming on clean single-coil pickups",
+          "Sustained power chords with heavy fuzz and feedback through a cranked Marshall stack",
+          "Fingerpicking open chords using a nylon-string classical guitar",
+          "Using a motorized E-Bow to create continuous organ-like violin pads"
+        ],
+        correct: 0,
+        explanation: "Funk guitarists play partial jazz-inversion chords on the top three strings while left-hand muting to generate 16th-note 'chucking' or 'chicken scratch'. Nile Rodgers tracked this clean directly into the console (DI) on his Fender Stratocaster.",
+        tip: "Chucking / Scratching: Percussive 16th-note rhythm guitar pattern; clean single-coil Stratocaster tone."
+      },
+      {
+        category: "Electromechanical Keyboards",
+        ao: "AO4: Recording Technology",
+        text: "Which electromechanical keyboard, central to tracks like Herbie Hancock's 'Chameleon' and Stevie Wonder's 'Superstition', uses rubber-tipped hammers striking metal guitar strings against magnetic pickups?",
+        options: [
+          "Hohner Clavinet D6",
+          "Fender Rhodes Mark I",
+          "Wurlitzer 200A",
+          "Mellotron M400"
+        ],
+        correct: 0,
+        explanation: "The Hohner Clavinet D6 works like an electric clavichord: pressing a key pushes a rubber pad against an actual guitar-type string positioned over magnetic pickups, producing a bright, biting, harpsichord-like attack ideal for percussive funk comping.",
+        tip: "Keyboard Identification: Clavinet = struck guitar strings; Rhodes = struck tines; Wurlitzer = struck reeds."
+      },
+      {
+        category: "Drum Tracking & Damping",
+        ao: "AO4: Recording Technology",
+        text: "To achieve the dry, focused, punchy drum sound characteristic of 1970s funk breakbeats, what studio technique was standard practice on the snare drum?",
+        options: [
+          "Placing a heavy leather wallet, folded tea towel, or gaffer tape directly on the top snare head",
+          "Tuning the resonant head loose and leaving the batter head completely un-damped for ring",
+          "Placing an ambient room microphone 40 feet away in a concrete stairwell",
+          "Gating the snare drum with a 1980s digital noise gate keyed to white noise"
+        ],
+        correct: 0,
+        explanation: "Damping the snare head with a heavy leather wallet or cloth eliminated ringing overtones and shortened the decay time, yielding an explosive, dry, tight 'thud' that kept complex 16th-note ghost notes clear and punchy.",
+        tip: "Snare Wallet Damping: A standard 1970s analog technique for isolating the backbeat in deadened studio rooms."
+      },
+      {
+        category: "Synthesizer Architecture & Signal Flow",
+        ao: "AO4: Recording Technology",
+        text: "What is the correct sequential order of the core audio signal flow within an analog subtractive synthesizer (e.g. Minimoog / ARP Odyssey)?",
+        options: [
+          "Voltage Controlled Oscillator (VCO) → Voltage Controlled Filter (VCF) → Voltage Controlled Amplifier (VCA)",
+          "Voltage Controlled Amplifier (VCA) → Voltage Controlled Oscillator (VCO) → Voltage Controlled Filter (VCF)",
+          "Voltage Controlled Filter (VCF) → Low Frequency Oscillator (LFO) → Voltage Controlled Oscillator (VCO)",
+          "Analog to Digital Converter (ADC) → Granular Buffer → Digital Filter"
+        ],
+        correct: 0,
+        explanation: "Subtractive synthesis begins at the VCO (which generates harmonically dense raw waveforms like sawtooth or square), passes through the VCF (which subtracts unwanted high frequencies with a low-pass filter), and concludes at the VCA (which shapes volume over time via an envelope generator).",
+        tip: "Synthesizer Signal Chain: VCO (Generate) → VCF (Filter) → VCA (Amplify)."
+      },
+      {
+        category: "Bass Tone Identification",
+        ao: "AO3: Musical Elements",
+        text: "On Chic's disco-funk anthem 'Good Times' (1979), which playing technique did bassist Bernard Edwards use?",
+        options: [
+          "Fingerstyle playing with index and middle fingers positioned firmly over the pickup (NOT slap and pop!)",
+          "Aggressive thumb-slapping and octave-popping on a fretless bass",
+          "Heavy plastic plectrum downpicking with palm muting on flatwound strings",
+          "Moog Minimoog synthesizer bass sequenced via a hardware step sequencer"
+        ],
+        correct: 0,
+        explanation: "Despite the track's bouncy funk groove, Bernard Edwards did NOT use slap bass on 'Good Times'. He played precise, virtuosic fingerstyle on a Music Man StingRay bass with active electronics, achieving warm low-end definition and flawless timing.",
+        tip: "Common Exam Pitfall: Do not assume all 1970s funk bass is slap! Bernard Edwards was renowned for fingerstyle."
+      },
+      {
+        category: "Horn Section Arranging & Capture",
+        ao: "AO4: Recording Technology",
+        text: "How were brass and horn sections (e.g., The J.B.'s, The Phenix Horns, Tower of Power) typically arranged and recorded in 1970s funk tracks?",
+        options: [
+          "Trumpets and saxophones playing tight staccato riffs in unison or thirds, tracked together around dynamic and ribbon microphones",
+          "Individual horn players isolated in separate sound booths playing long, ambient sustained chords",
+          "Synthesizer brass emulations programmed using step sequencers",
+          "Muted French horns playing continuous chromatic counter-melodies in the sub-bass register"
+        ],
+        correct: 0,
+        explanation: "Funk horn sections acted as rhythmic percussion sections rather than lush orchestral pads. Players stood close together in the live room, blasting sharp, syncopated stabs in unison or tight harmony into ribbon mics (RCA 77DX / Beyerdynamic) or rugged dynamic mics.",
+        tip: "Staccato Brass Stabs: Short, punchy rhythmic punctuation locking with the snare drum and guitar scratches."
+      },
+      {
+        category: "Modulation Effects Processing",
+        ao: "AO4: Recording Technology",
+        text: "Which modulation effect, created using all-pass filter stages with an LFO sweep to create multiple moving phase notches, was widely used on 1970s funk rhythm guitars and electric pianos?",
+        options: [
+          "Analog Phaser (e.g. MXR Phase 90 or Electro-Harmonix Small Stone)",
+          "Ring Modulator producing metallic, non-harmonic sidebands",
+          "Octave Fuzz generating synthetic square-wave distortion",
+          "Gated Digital Plate Reverb with a 500ms pre-delay"
+        ],
+        correct: 0,
+        explanation: "Phasers split the audio signal, pass one half through a series of all-pass filters modulated by an LFO, and recombine it with the dry signal. This produces moving notches across the frequency spectrum, creating the sweeping, swooshing motion heard on 1970s funk guitars and keyboards.",
+        tip: "Phaser: Uses all-pass filters and phase cancellation; Chorus/Flanger: Uses delay lines with pitch detuning."
+      },
+      {
+        category: "Production Evolution & Mastering",
+        ao: "AO4: Recording Technology",
+        text: "When comparing an original 1970s vinyl funk master (e.g. Kool & The Gang's 'Jungle Boogie') with a modern club remix, what is a fundamental technical difference in low-end frequency management?",
+        options: [
+          "The 1970s vinyl master filtered out sub-bass below 40–50Hz to prevent the record cutting stylus from jumping out of the groove, whereas the modern remix features boosted sub-bass (30–60Hz) for club subwoofers",
+          "The 1970s mix had loud sub-bass below 20Hz that modern digital streaming services remove",
+          "The 1970s vinyl master used digital brickwall peak limiters on the master bus",
+          "The modern remix removes all bass frequencies to emphasize the mid-range horn section"
+        ],
+        correct: 0,
+        explanation: "Physical vinyl lacquers could not handle out-of-phase or extreme sub-bass signals without causing the playback stylus to skip out of the vinyl groove. Engineers used high-pass filters below 40Hz and centered bass in mono. Modern digital formats have no physical tracking limits and feature boosted sub-bass for subwoofers.",
+        tip: "Vinyl Cutting Constraints: High-pass filtering sub-bass and mono-centering the low end were essential for 1970s vinyl."
+      }
+    ];
+
+    let currentQ = 0;
+    let score = 0;
+    let answered = false;
+
+    const qText = document.getElementById('qText');
+    const qCategory = document.getElementById('qCategory');
+    const qAoTag = document.getElementById('qAoTag');
+    const optionsGrid = document.getElementById('optionsGrid');
+    const insightCard = document.getElementById('insightCard');
+    const insightBody = document.getElementById('insightBody');
+    const insightTip = document.getElementById('insightTip');
+    const nextBtn = document.getElementById('nextBtn');
+    const qCounter = document.getElementById('qCounter');
+    const currentScore = document.getElementById('currentScore');
+    const progressFill = document.getElementById('progressFill');
+
+    const quizStage = document.getElementById('quizStage');
+    const resultsScreen = document.getElementById('resultsScreen');
+    const finalScoreVal = document.getElementById('finalScoreVal');
+    const gradeBadge = document.getElementById('gradeBadge');
+    const resultTitle = document.getElementById('resultTitle');
+    const resultMessage = document.getElementById('resultMessage');
+
+    const letters = ['A', 'B', 'C', 'D'];
+
+    function loadQuestion(index) {
+      answered = false;
+      const q = questions[index];
+
+      qText.innerText = q.text;
+      qCategory.innerText = q.category;
+      qAoTag.innerText = q.ao;
+      qCounter.innerText = `Question ${index + 1} of ${questions.length}`;
+      progressFill.style.width = `${((index + 1) / questions.length) * 100}%`;
+
+      insightCard.classList.remove('open');
+      nextBtn.classList.remove('visible');
+
+      optionsGrid.innerHTML = '';
+      q.options.forEach((opt, idx) => {
+        const btn = document.createElement('button');
+        btn.className = 'option-btn';
+        btn.onclick = () => selectOption(idx);
+        btn.innerHTML = `
+          <span class="option-letter">${letters[idx]}</span>
+          <span>${opt}</span>
+        `;
+        optionsGrid.appendChild(btn);
+      });
+    }
+
+    function selectOption(selectedIndex) {
+      if (answered) return;
+      answered = true;
+
+      const q = questions[currentQ];
+      const buttons = optionsGrid.querySelectorAll('.option-btn');
+
+      buttons.forEach((btn, idx) => {
+        btn.disabled = true;
+        if (idx === q.correct) {
+          btn.classList.add('correct');
+        } else if (idx === selectedIndex) {
+          btn.classList.add('wrong');
+        }
+      });
+
+      if (selectedIndex === q.correct) {
+        score++;
+        currentScore.innerText = score;
+      }
+
+      insightBody.innerText = q.explanation;
+      insightTip.innerText = q.tip;
+      insightCard.classList.add('open');
+
+      nextBtn.innerText = currentQ === questions.length - 1 ? 'Show My Results →' : 'Next Question →';
+      nextBtn.classList.add('visible');
+    }
+
+    function nextQuestion() {
+      if (currentQ < questions.length - 1) {
+        currentQ++;
+        loadQuestion(currentQ);
+      } else {
+        showResults();
+      }
+    }
+
+    function showResults() {
+      quizStage.style.display = 'none';
+      resultsScreen.classList.add('open');
+      finalScoreVal.innerText = score;
+
+      const pct = (score / questions.length) * 100;
+
+      if (pct >= 85) {
+        gradeBadge.innerText = 'Grade 9 • Distinction Star';
+        gradeBadge.style.color = '#22c55e';
+        gradeBadge.style.borderColor = 'rgba(34, 197, 94, 0.4)';
+        resultTitle.innerText = 'Outstanding Syllabus Mastery!';
+        resultMessage.innerText = 'You possess a comprehensive, exam-ready grasp of late 1960s to 1980s Funk production, Minimoog subtractive synthesis, slap bass, envelope filters, and drum damping.';
+      } else if (pct >= 70) {
+        gradeBadge.innerText = 'Grade 7–8 • Distinction';
+        gradeBadge.style.color = '#f59e0b';
+        gradeBadge.style.borderColor = 'rgba(245, 158, 11, 0.4)';
+        resultTitle.innerText = 'Solid Component 3 Knowledge';
+        resultMessage.innerText = 'Great performance! Review the technical distinctions between analog subtractive synthesis (Minimoog), envelope filtering (Mu-Tron III), and guitar chucking techniques.';
+      } else {
+        gradeBadge.innerText = 'Grade 4–6 • Merit';
+        gradeBadge.style.color = '#ef4444';
+        gradeBadge.style.borderColor = 'rgba(239, 68, 68, 0.4)';
+        resultTitle.innerText = 'Revision Recommended';
+        resultMessage.innerText = 'Use the interactive Funk & Disco-Funk slide presentation above to review "The One", slap bass, Minimoog signal flow, and snare damping before trying again.';
+      }
+    }
+
+    function restartQuiz() {
+      currentQ = 0;
+      score = 0;
+      currentScore.innerText = '0';
+      resultsScreen.classList.remove('open');
+      quizStage.style.display = 'flex';
+      loadQuestion(0);
+    }
+
+    // Start quiz
+    loadQuestion(0);
+  </script>
+</body>
+</html>
