@@ -1,0 +1,1122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Classic & Hard Rock (1960s–1970s) • Interactive Study Deck | Music Tech Guru</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #070b12;
+      --bg-card: #0f172a;
+      --bg-surface: #131d31;
+      --accent-cyan: #00C1F0;
+      --accent-cyan-glow: rgba(0, 193, 240, 0.35);
+      --accent-amber: #fbbf24;
+      --accent-purple: #c084fc;
+      --accent-green: #34d399;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-cyan: rgba(0, 193, 240, 0.3);
+      --font: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: var(--font);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .deck-wrapper {
+      width: 100%;
+      max-width: 1100px;
+      background: radial-gradient(circle at 50% 0%, rgba(0, 193, 240, 0.08) 0%, rgba(15, 23, 42, 0) 70%), var(--bg-card);
+      border: 1px solid var(--border-cyan);
+      border-radius: 20px;
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.7), 0 0 40px rgba(0, 193, 240, 0.1);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .deck-wrapper:fullscreen {
+      max-width: 100vw;
+      height: 100vh;
+      border-radius: 0;
+      border: none;
+    }
+
+    .deck-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--border-subtle);
+      background: rgba(11, 15, 25, 0.85);
+      backdrop-filter: blur(12px);
+      flex-wrap: wrap;
+      gap: 12px;
+      z-index: 20;
+    }
+
+    .deck-title-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .deck-badge {
+      background: rgba(0, 193, 240, 0.15);
+      color: var(--accent-cyan);
+      border: 1px solid var(--border-cyan);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 50px;
+    }
+
+    .deck-title {
+      font-size: 16px;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: -0.3px;
+    }
+
+    .deck-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .slide-select {
+      background: var(--bg-surface);
+      color: var(--text-main);
+      border: 1px solid var(--border-subtle);
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-family: inherit;
+      font-weight: 600;
+      outline: none;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .slide-select:hover, .slide-select:focus {
+      border-color: var(--accent-cyan);
+    }
+
+    .btn-icon {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 14px;
+    }
+
+    .btn-icon:hover {
+      color: #ffffff;
+      border-color: var(--accent-cyan);
+      background: rgba(0, 193, 240, 0.1);
+    }
+
+    .slide-stage {
+      position: relative;
+      min-height: 540px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 36px 40px;
+      overflow: hidden;
+    }
+
+    @media (max-width: 768px) {
+      .slide-stage {
+        padding: 22px 16px;
+        min-height: 480px;
+      }
+    }
+
+    .slide {
+      display: none;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      width: 100%;
+    }
+
+    .slide.active {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .slide-eyebrow {
+      color: var(--accent-cyan);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .slide-heading {
+      font-size: clamp(24px, 3.8vw, 34px);
+      font-weight: 900;
+      color: #ffffff;
+      margin-bottom: 14px;
+      line-height: 1.2;
+      letter-spacing: -0.5px;
+    }
+
+    .slide-heading span {
+      color: var(--accent-cyan);
+    }
+
+    .slide-lead {
+      color: var(--text-muted);
+      font-size: 15.5px;
+      line-height: 1.6;
+      max-width: 820px;
+      margin-bottom: 22px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    @media (max-width: 860px) {
+      .grid-2, .grid-3, .grid-4 {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+    }
+
+    .info-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-subtle);
+      border-radius: 14px;
+      padding: 20px;
+      transition: all 0.25s ease;
+    }
+
+    .info-card:hover {
+      border-color: rgba(0, 193, 240, 0.4);
+      transform: translateY(-2px);
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .info-card.highlight {
+      border-color: var(--border-cyan);
+      background: linear-gradient(135deg, rgba(0, 193, 240, 0.08) 0%, rgba(15, 23, 42, 0.4) 100%);
+    }
+
+    .card-title {
+      font-size: 16px;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-text {
+      color: var(--text-muted);
+      font-size: 13.5px;
+      line-height: 1.6;
+    }
+
+    .artist-hero-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 24px;
+      display: flex;
+      gap: 24px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .artist-photo {
+      width: 170px;
+      height: 170px;
+      border-radius: 14px;
+      object-fit: cover;
+      border: 2px solid var(--border-cyan);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      background: #000;
+      flex-shrink: 0;
+    }
+
+    .artist-info {
+      flex: 1 1 320px;
+    }
+
+    .artist-meta-pills {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+
+    .pill {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 50px;
+      background: rgba(255, 255, 255, 0.06);
+      color: #cbd5e1;
+    }
+
+    .pill.cyan {
+      background: rgba(0, 193, 240, 0.15);
+      color: var(--accent-cyan);
+      border: 1px solid var(--border-cyan);
+    }
+
+    .pill.amber {
+      background: rgba(245, 158, 11, 0.15);
+      color: var(--accent-amber);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+    }
+
+    .cover-gallery {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+
+    @media (max-width: 720px) {
+      .cover-gallery {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .cover-card {
+      position: relative;
+      height: 150px;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--border-cyan);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+    }
+
+    .cover-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .cover-card:hover img {
+      transform: scale(1.06);
+    }
+
+    .cover-card-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 100%);
+      padding: 10px 8px 6px;
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #ffffff;
+      text-align: center;
+    }
+
+    .listen-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%);
+      color: #ffffff;
+      padding: 8px 16px;
+      border-radius: 50px;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      margin-top: 12px;
+      transition: all 0.2s;
+      box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+      cursor: pointer;
+      border: none;
+    }
+
+    .listen-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(239, 68, 68, 0.5);
+      color: #ffffff;
+    }
+
+    .feature-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .feature-item {
+      display: flex;
+      gap: 12px;
+      font-size: 14px;
+      line-height: 1.55;
+      color: #e2e8f0;
+    }
+
+    .feature-icon {
+      color: var(--accent-cyan);
+      font-weight: 900;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .deck-footer {
+      padding: 16px 24px;
+      background: rgba(11, 15, 25, 0.9);
+      border-top: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .nav-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--bg-surface);
+      color: #ffffff;
+      border: 1px solid var(--border-subtle);
+      padding: 10px 20px;
+      border-radius: 50px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .nav-btn:hover:not(:disabled) {
+      border-color: var(--accent-cyan);
+      background: rgba(0, 193, 240, 0.15);
+      color: var(--accent-cyan);
+      transform: translateY(-1px);
+    }
+
+    .nav-btn.primary {
+      background: linear-gradient(135deg, #00C1F0 0%, #0284c7 100%);
+      color: #0b0f19;
+      border: none;
+      box-shadow: 0 4px 15px rgba(0, 193, 240, 0.35);
+    }
+
+    .nav-btn.primary:hover {
+      box-shadow: 0 6px 20px rgba(0, 193, 240, 0.5);
+      color: #0b0f19;
+      transform: translateY(-2px);
+    }
+
+    .nav-btn:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .progress-group {
+      flex: 1 1 200px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .slide-counter {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-muted);
+      letter-spacing: 0.5px;
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 5px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #00C1F0, #38bdf8);
+      width: 7.7%;
+      border-radius: 10px;
+      transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .keyboard-hint {
+      font-size: 11px;
+      color: #64748b;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .kbd {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 4px;
+      padding: 1px 5px;
+      font-size: 10px;
+      font-family: monospace;
+      color: #cbd5e1;
+    }
+
+    .video-modal-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .video-modal-backdrop.open {
+      display: flex;
+    }
+
+    .video-modal-box {
+      width: 100%;
+      max-width: 800px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-cyan);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 25px 50px rgba(0,0,0,0.8);
+      position: relative;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: rgba(0, 0, 0, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #fff;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+      font-weight: 800;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="deck-wrapper" id="deckContainer">
+    
+    <!-- Top Bar -->
+    <header class="deck-header">
+      <div class="deck-title-group">
+        <span class="deck-badge">Edexcel A-Level Component 3</span>
+        <h2 class="deck-title">Classic &amp; Hard Rock Slide Deck</h2>
+      </div>
+
+      <div class="deck-actions">
+        <select class="slide-select" id="slideSelect" aria-label="Jump to slide">
+          <option value="0">1. Cover • Classic & Hard Rock</option>
+          <option value="1">2. Edexcel Specification Roadmap</option>
+          <option value="2">3. Evolution • From 50s Blues to 70s Arena Rock</option>
+          <option value="3">4. Artist Focus • Led Zeppelin & Jimmy Page</option>
+          <option value="4">5. Artist Focus • Queen & Freddie Mercury</option>
+          <option value="5">6. Artist Focus • David Bowie & Glam Rock</option>
+          <option value="6">7. Artist Focus • The Who & Pete Townshend</option>
+          <option value="7">8. Guitars & The Marshall Stack "Wall of Sound"</option>
+          <option value="8">9. Multi-Track Revolution • 16 & 24-Track Tape</option>
+          <option value="9">10. Multi-Mic Drum Tracking & Room Bleed</option>
+          <option value="10">11. Studio Effects • EMT 140 Plate & Tape Flange</option>
+          <option value="11">12. Analog Mixing Consoles & 1176 Compression</option>
+          <option value="12">13. Exam Master Strategy Checklist</option>
+        </select>
+        <button class="btn-icon" id="fullscreenBtn" title="Toggle Fullscreen">⛶</button>
+      </div>
+    </header>
+
+    <!-- Slide Stage -->
+    <main class="slide-stage" id="slideStage">
+
+      <!-- SLIDE 1: COVER -->
+      <section class="slide active" data-index="0">
+        <div class="slide-eyebrow">★ Decade Study • Late 1960s & 1970s</div>
+        <h1 class="slide-heading">Classic &amp; Hard Rock: <span>The Multi-Track Golden Era</span></h1>
+        
+        <div class="cover-gallery">
+          <div class="cover-card">
+            <img src="images/slides/rock/led_zeppelin.jpg" alt="Led Zeppelin">
+            <div class="cover-card-caption">Led Zeppelin</div>
+          </div>
+          <div class="cover-card">
+            <img src="images/slides/rock/queen.jpg" alt="Queen">
+            <div class="cover-card-caption">Queen</div>
+          </div>
+          <div class="cover-card">
+            <img src="images/slides/rock/david_bowie.jpg" alt="David Bowie">
+            <div class="cover-card-caption">David Bowie</div>
+          </div>
+          <div class="cover-card">
+            <img src="images/slides/rock/the_who.jpg" alt="The Who">
+            <div class="cover-card-caption">The Who</div>
+          </div>
+        </div>
+
+        <p class="slide-lead">
+          From Olympic Studios and Trident to Abbey Road. Master the high-headroom analog consoles, 24-track 2-inch tape machines, multi-mic drum capture, and heavy valve distortion that shaped rock history.
+        </p>
+
+        <button class="nav-btn primary" onclick="goToSlide(1)">
+          Start Presentation →
+        </button>
+      </section>
+
+      <!-- SLIDE 2: SPECIFICATION ROADMAP -->
+      <section class="slide" data-index="1">
+        <div class="slide-eyebrow">Edexcel Syllabus • Component 3 Listening & Analysing</div>
+        <h2 class="slide-heading">Component 3 Focus: <span>1960s & 1970s Rock</span></h2>
+        <p class="slide-lead">
+          Examiners assess your ability to connect musical composition (AO3) with specific recording technology and studio engineering decisions (AO4).
+        </p>
+
+        <div class="grid-2">
+          <div class="info-card highlight">
+            <h3 class="card-title">🎸 AO3: Musical & Stylistic Features</h3>
+            <ul class="feature-list" style="margin-top: 12px;">
+              <li class="feature-item"><span class="feature-icon">✓</span> Heavy overdriven pentatonic and blues-based guitar riffs</li>
+              <li class="feature-item"><span class="feature-icon">✓</span> Powerful unyielding drum grooves with heavy snare backbeats</li>
+              <li class="feature-item"><span class="feature-icon">✓</span> Operatic, dynamic, and falsetto rock vocals (Mercury, Plant)</li>
+              <li class="feature-item"><span class="feature-icon">✓</span> Extended theatrical guitar solos and multi-part compositions</li>
+            </ul>
+          </div>
+
+          <div class="info-card highlight">
+            <h3 class="card-title">🎛️ AO4: Studio Capture & Technology</h3>
+            <ul class="feature-list" style="margin-top: 12px;">
+              <li class="feature-item"><span class="feature-icon">✓</span> 16 and 24-track 2-inch tape machines (Studer A80, Ampex)</li>
+              <li class="feature-item"><span class="feature-icon">✓</span> Multi-mic drum tracking: close mics, overheads, ambient room</li>
+              <li class="feature-item"><span class="feature-icon">✓</span> EMT 140 plate reverb, tape flanging, and phasing</li>
+              <li class="feature-item"><span class="feature-icon">✓</span> Neve 1073 preamps, Helios consoles, and 1176 FET compression</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 3: EVOLUTION -->
+      <section class="slide" data-index="2">
+        <div class="slide-eyebrow">Historical Context • 1968 to Late 1970s</div>
+        <h2 class="slide-heading">From 1950s Blues to <span>1970s Arena Rock</span></h2>
+        
+        <div class="grid-3">
+          <div class="info-card">
+            <span class="pill amber" style="margin-bottom: 8px; display: inline-block;">1950s Foundation</span>
+            <h4 class="card-title">Blues Acceleration</h4>
+            <p class="card-text">
+              Sped-up 12-bar blues riffs originally played by Chuck Berry were electrified and amplified by British bands (Cream, Hendrix, Led Zeppelin) into crushing power-chord anthems.
+            </p>
+          </div>
+
+          <div class="info-card">
+            <span class="pill cyan" style="margin-bottom: 8px; display: inline-block;">Amplification Boom</span>
+            <h4 class="card-title">The 100-Watt Stack</h4>
+            <p class="card-text">
+              As audiences grew from clubs to massive sports arenas, Jim Marshall developed 100W valve heads and 4x12 cabinets to deliver unprecedented acoustic volume and natural distortion.
+            </p>
+          </div>
+
+          <div class="info-card">
+            <span class="pill" style="margin-bottom: 8px; display: inline-block;">Production Leap</span>
+            <h4 class="card-title">Multi-Track Freedom</h4>
+            <p class="card-text">
+              The jump from 4-track to 16/24-track tape liberated producers from live-in-the-room limitations, enabling endless vocal stacking, double-tracked guitars, and stereo panning.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 4: LED ZEPPELIN -->
+      <section class="slide" data-index="3">
+        <div class="slide-eyebrow">Artist 1 of 4 • Dynamic Contrast & Ambient Drums</div>
+        <h2 class="slide-heading">Led Zeppelin & <span>Jimmy Page</span></h2>
+
+        <div class="artist-hero-card">
+          <img src="images/slides/rock/led_zeppelin.jpg" alt="Led Zeppelin" class="artist-photo">
+          <div class="artist-info">
+            <div class="artist-meta-pills">
+              <span class="pill cyan">London, UK • Formed 1968</span>
+              <span class="pill">Olympic Studios / Headley Grange</span>
+              <span class="pill amber">"Whole Lotta Love" (1969)</span>
+            </div>
+            <h3 style="font-size: 22px; color: #fff; margin-bottom: 6px;">"Light and Shade" & Distance Micing</h3>
+            <p class="card-text" style="margin-bottom: 12px;">
+              <strong>Production Genius:</strong> Guitarist/producer Jimmy Page pioneered "distance makes depth"—placing mics yards away from Marshall cabs and drum kits to capture room ambience rather than dry direct signals.
+            </p>
+            <p class="card-text">
+              <strong>Signature Techniques:</strong> John Bonham's massive drum sound recorded with Beyer M160 ribbon mics in the stone stairwell of Headley Grange; psychedelic backwards tape echo and stereo panning sweeps.
+            </p>
+            <button class="listen-btn" onclick="openVideo('HQmmM_qwG4k', 'Led Zeppelin - Whole Lotta Love')">
+              ▶ Listen: Whole Lotta Love
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 5: QUEEN -->
+      <section class="slide" data-index="4">
+        <div class="slide-eyebrow">Artist 2 of 4 • Operatic Stacks & The Guitar Orchestra</div>
+        <h2 class="slide-heading">Queen: <span>24-Track Vocal Stacking</span></h2>
+
+        <div class="artist-hero-card">
+          <img src="images/slides/rock/queen.jpg" alt="Queen" class="artist-photo">
+          <div class="artist-info">
+            <div class="artist-meta-pills">
+              <span class="pill cyan">London, UK • 1970–Present</span>
+              <span class="pill">Trident & Rockfield Studios</span>
+              <span class="pill amber">Album: A Night at the Opera (1975)</span>
+            </div>
+            <h3 style="font-size: 22px; color: #fff; margin-bottom: 6px;">"Bohemian Rhapsody" (1975)</h3>
+            <p class="card-text" style="margin-bottom: 12px;">
+              <strong>Technological Milestone:</strong> Recorded over three weeks, the operatic section required over 180 separate vocal overdubs bounced across 24-track tape until the 2-inch tape became so worn it turned transparent!
+            </p>
+            <p class="card-text">
+              <strong>Brian May's Guitar Orchestra:</strong> Homemade "Red Special" guitar plugged into a cranked Vox AC30 and a treble booster, multi-tracked into rich four-part contrapuntal harmonies mimicking a symphony orchestra.
+            </p>
+            <button class="listen-btn" onclick="openVideo('fJ9rUzIMcZQ', 'Queen - Bohemian Rhapsody')">
+              ▶ Listen: Bohemian Rhapsody
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 6: DAVID BOWIE -->
+      <section class="slide" data-index="5">
+        <div class="slide-eyebrow">Artist 3 of 4 • Theatrical Glam Rock & Trident Studios</div>
+        <h2 class="slide-heading">David Bowie & <span>Mick Ronson</span></h2>
+
+        <div class="artist-hero-card">
+          <img src="images/slides/rock/david_bowie.jpg" alt="David Bowie" class="artist-photo">
+          <div class="artist-info">
+            <div class="artist-meta-pills">
+              <span class="pill cyan">London, UK • 1972</span>
+              <span class="pill">Trident Studios (Ken Scott, Engineer)</span>
+              <span class="pill amber">"Ziggy Stardust" / "Starman"</span>
+            </div>
+            <h3 style="font-size: 22px; color: #fff; margin-bottom: 6px;">The Glam Rock Sonic Signature</h3>
+            <p class="card-text" style="margin-bottom: 12px;">
+              <strong>Musical & Visual Contrast:</strong> Glam rock combined hard rock energy with effeminate, androgynous fashion (sequins, platform boots, make-up) and infectious melodic pop hooks.
+            </p>
+            <p class="card-text">
+              <strong>Trident Sound:</strong> Mick Ronson's Les Paul through a Marshall 200W with a cocked wah-wah pedal for a mid-boosted, nasal lead tone; tight dry drums and lush Trident A-Range console EQ.
+            </p>
+            <button class="listen-btn" onclick="openVideo('3qrKj5L-FUU', 'David Bowie - Ziggy Stardust')">
+              ▶ Listen: Ziggy Stardust
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 7: THE WHO -->
+      <section class="slide" data-index="6">
+        <div class="slide-eyebrow">Artist 4 of 4 • Power Chords & Early Synths</div>
+        <h2 class="slide-heading">The Who: <span>Synthesizer Integration</span></h2>
+
+        <div class="artist-hero-card">
+          <img src="images/slides/rock/the_who.jpg" alt="The Who" class="artist-photo">
+          <div class="artist-info">
+            <div class="artist-meta-pills">
+              <span class="pill cyan">London, UK • Formed 1964</span>
+              <span class="pill">Olympic Studios (Glyn Johns, Producer)</span>
+              <span class="pill amber">Album: Who's Next (1971)</span>
+            </div>
+            <h3 style="font-size: 22px; color: #fff; margin-bottom: 6px;">"Won't Get Fooled Again" / "Baba O'Riley"</h3>
+            <p class="card-text" style="margin-bottom: 12px;">
+              <strong>Unique Contribution:</strong> Pete Townshend was among the first rock composers to weave modular analog synthesizers (ARP 2600, EMS VCS3) and Lowrey organ repeaters into hard-hitting rock arrangements.
+            </p>
+            <p class="card-text">
+              <strong>Glyn Johns Production:</strong> Iconic 3-mic drum capture for Keith Moon, powerful open chord ring-outs on Hiwatt amp stacks, and John Entwistle's distorted treble-heavy bass tone.
+            </p>
+            <button class="listen-btn" onclick="openVideo('SHhrZgojY1Q', 'The Who - Won\'t Get Fooled Again')">
+              ▶ Listen: Won't Get Fooled Again
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 8: MARSHALL STACK & GUITARS -->
+      <section class="slide" data-index="7">
+        <div class="slide-eyebrow">Core Gear • Solidbody Guitars & High-Gain Amps</div>
+        <h2 class="slide-heading">The Rock Guitar Sound: <span>Les Paul & Marshall</span></h2>
+
+        <div class="grid-2" style="align-items: center;">
+          <div>
+            <div class="info-card highlight" style="margin-bottom: 14px;">
+              <h4 class="card-title">🎸 Gibson Les Paul vs. Fender Stratocaster</h4>
+              <p class="card-text">
+                The dual humbucking pickups of the Gibson Les Paul provided thick, noise-cancelling sustain with rich mid-range warmth. The Fender Stratocaster provided cutting glass-like single-coil treble bite.
+              </p>
+            </div>
+            <div class="info-card">
+              <h4 class="card-title">🔊 The Marshall 100W "Plexi" Stack</h4>
+              <p class="card-text">
+                Four EL34 output valves pushed into saturation, connected to two 4x12 cabinets loaded with Celestion Greenback speakers. This created the definitive crunchy, compressed rhythm tone of Classic Rock.
+              </p>
+            </div>
+          </div>
+
+          <div style="text-align: center;">
+            <img src="images/hq_dist_marshall_stack_1772046322562.png" alt="Marshall Amp Stack" style="width: 100%; max-width: 380px; height: 260px; object-fit: contain; border-radius: 14px; border: 2px solid var(--border-cyan); box-shadow: 0 10px 30px rgba(0,0,0,0.5); background: #0b0f19;">
+            <span style="color: var(--text-muted); font-size: 12px; display: block; margin-top: 8px;">The Iconic 100W Marshall Valve Amp Stack</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 9: MULTI-TRACK TAPE REVOLUTION -->
+      <section class="slide" data-index="8">
+        <div class="slide-eyebrow">Studio Revolution • 16 & 24-Track Tape</div>
+        <h2 class="slide-heading">The Multi-Track Leap: <span>Studer A80 & 2-Inch Tape</span></h2>
+
+        <div class="grid-2" style="align-items: center;">
+          <div>
+            <p class="slide-lead" style="margin-bottom: 16px;">
+              By the early 1970s, recording standards transformed from 4-track and 8-track machines to <strong>16-track and 24-track 2-inch tape recorders</strong> like the legendary Studer A80 and Ampex MM1200.
+            </p>
+            <ul class="feature-list">
+              <li class="feature-item"><span class="feature-icon">★</span> <strong>Overdubbing:</strong> Musicians could record their parts independently without destroying original takes.</li>
+              <li class="feature-item"><span class="feature-icon">★</span> <strong>Track Bouncing:</strong> Bouncing 6 background vocal tracks down to a stereo pair to free up tracks for lead guitars and synthesizers.</li>
+              <li class="feature-item"><span class="feature-icon">★</span> <strong>Tape Speed:</strong> Recorded at 15 or 30 inches per second (ips) for maximum high-frequency response and minimal noise.</li>
+            </ul>
+          </div>
+
+          <div style="text-align: center;">
+            <img src="images/Studer tape machine.png" alt="Studer A80 Tape Machine" style="width: 100%; max-width: 380px; height: 260px; object-fit: contain; border-radius: 14px; border: 2px solid var(--border-cyan); box-shadow: 0 10px 30px rgba(0,0,0,0.5); background: #0b0f19;">
+            <span style="color: var(--text-muted); font-size: 12px; display: block; margin-top: 8px;">Studer Multi-Track Reel-to-Reel Tape Machine</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 10: MULTI-MIC DRUM CAPTURE -->
+      <section class="slide" data-index="9">
+        <div class="slide-eyebrow">Studio Engineering • Multi-Mic Drum Tracking</div>
+        <h2 class="slide-heading">Close-Micing &amp; <span>Drum Isolation</span></h2>
+
+        <div class="grid-2" style="align-items: center;">
+          <div>
+            <p class="slide-lead" style="margin-bottom: 14px;">
+              Unlike 1950s single-overhead setups, 1970s engineers deployed dedicated microphones on every shell to shape modern punch and low-end definition:
+            </p>
+            <ul class="feature-list">
+              <li class="feature-item"><span class="feature-icon">•</span> <strong>Snare Drum:</strong> Shure SM57 angled 1-2 inches above the rim, often with a bottom mic for snare wire buzz.</li>
+              <li class="feature-item"><span class="feature-icon">•</span> <strong>Kick Drum:</strong> AKG D12 dynamic mic placed inside the shell near the beater for low-end thump.</li>
+              <li class="feature-item"><span class="feature-icon">•</span> <strong>Toms:</strong> Sennheiser MD421 dynamic mics on rack and floor toms.</li>
+              <li class="feature-item"><span class="feature-icon">•</span> <strong>Overheads:</strong> Matched stereo pair (AKG C414 or Neumann KM84) capturing cymbal sheen in spaced pair or X/Y.</li>
+              <li class="feature-item"><span class="feature-icon">•</span> <strong>Gobo Screens:</strong> Heavy acoustic baffles placed around the kit to prevent drum bleed into vocal mics.</li>
+            </ul>
+          </div>
+
+          <div style="text-align: center;">
+            <img src="images/close_micing_snare_studio.jpg" alt="Close Micing Snare in Studio" style="width: 100%; max-width: 380px; height: 260px; object-fit: cover; border-radius: 14px; border: 2px solid var(--border-cyan); box-shadow: 0 10px 30px rgba(0,0,0,0.5); background: #000;">
+            <span style="color: var(--text-muted); font-size: 12px; display: block; margin-top: 8px;">Studio Close-Micing & Acoustic Isolation</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 11: EMT 140 PLATE REVERB -->
+      <section class="slide" data-index="10">
+        <div class="slide-eyebrow">Studio Processing • Plate Reverb & Tape Flanging</div>
+        <h2 class="slide-heading">Analog Effects: <span>The EMT 140 Plate</span></h2>
+
+        <div class="grid-2" style="align-items: center;">
+          <div>
+            <div class="info-card highlight" style="margin-bottom: 12px;">
+              <h4 class="card-title">🌊 EMT 140 Plate Reverb</h4>
+              <p class="card-text">
+                Weighing over 600 lbs, a massive cold-rolled steel plate was excited by a transducer. Contact pickups captured vibrations, generating a dense, bright decay that gave rock snare drums and vocals expansive depth.
+              </p>
+            </div>
+            <div class="info-card">
+              <h4 class="card-title">🌀 Tape Flanging & Phasing</h4>
+              <p class="card-text">
+                Sending audio across two synchronized tape decks and gently pressing a finger against the reel's flange created subtle time delays that produced jet-plane comb-filtering sweeps (heard on Zeppelin drum and vocal breakdowns).
+              </p>
+            </div>
+          </div>
+
+          <div style="text-align: center;">
+            <img src="images/plate reverb.jpg" alt="EMT 140 Plate Reverb Unit" style="width: 100%; max-width: 380px; height: 260px; object-fit: cover; border-radius: 14px; border: 2px solid var(--border-cyan); box-shadow: 0 10px 30px rgba(0,0,0,0.5); background: #0b0f19;">
+            <span style="color: var(--text-muted); font-size: 12px; display: block; margin-top: 8px;">EMT 140 Cold-Rolled Steel Plate Reverb</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 12: CONSOLES & 1176 COMPRESSION -->
+      <section class="slide" data-index="11">
+        <div class="slide-eyebrow">Mixing Hardware • Analog Consoles & Bus Compression</div>
+        <h2 class="slide-heading">Neve Consoles &amp; <span>The UREI 1176 FET</span></h2>
+
+        <div class="grid-2" style="align-items: center;">
+          <div>
+            <div class="info-card" style="margin-bottom: 14px;">
+              <h4 class="card-title" style="color: var(--accent-cyan);">Rupert Neve & Trident Consoles</h4>
+              <p class="card-text">
+                Custom transformer-balanced consoles with Class-A transistor circuitry (such as the Neve 1073 preamp) introduced musical harmonic saturation when pushed hard, providing low-end punch and smooth high end.
+              </p>
+            </div>
+
+            <div class="info-card highlight">
+              <h4 class="card-title" style="color: var(--accent-amber);">⚡ UREI 1176 FET Peak Limiter</h4>
+              <p class="card-text">
+                Ultra-fast attack times (20 to 800 microseconds) allowed engineers to grab aggressive drum transients and vocal peaks instantly. Famous for the "all-buttons-in" mode for explosive room mic compression.
+              </p>
+            </div>
+          </div>
+
+          <div style="text-align: center;">
+            <img src="images/Studio FET Compressor (UREI 1176 Blackface).png" alt="UREI 1176 FET Compressor" style="width: 100%; max-width: 380px; height: 260px; object-fit: contain; border-radius: 14px; border: 2px solid var(--border-cyan); box-shadow: 0 10px 30px rgba(0,0,0,0.5); background: #0b0f19;">
+            <span style="color: var(--text-muted); font-size: 12px; display: block; margin-top: 8px;">UREI 1176 Solid-State FET Peak Limiter</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 13: EXAM STRATEGY -->
+      <section class="slide" data-index="12">
+        <div class="slide-eyebrow">Edexcel Component 3 • Question 5 Comparative Framework</div>
+        <h2 class="slide-heading">15-Mark Essay Formula: <span>1950s vs. 1970s</span></h2>
+        <p class="slide-lead">
+          In Component 3 Question 5, you are frequently asked to compare early recording production (1950s) with 1970s Classic Rock:
+        </p>
+
+        <div class="grid-3" style="margin-bottom: 20px;">
+          <div class="info-card" style="border-top: 3px solid var(--accent-cyan);">
+            <strong style="color: var(--accent-cyan); font-size: 14px; display: block; margin-bottom: 4px;">TRACKING & ISOLATION</strong>
+            <p class="card-text">1950s: Live in one room, 1-2 mono tape tracks, heavy bleed. <br><br>1970s: 24-track tape, isolation booths, gobo screens, individual close mics.</p>
+          </div>
+          <div class="info-card" style="border-top: 3px solid var(--accent-amber);">
+            <strong style="color: var(--accent-amber); font-size: 14px; display: block; margin-bottom: 4px;">SPATIAL PROCESSING</strong>
+            <p class="card-text">1950s: 50–80 ms slapback tape delay and natural room/echo chamber. <br><br>1970s: EMT 140 plate reverb, stereo panning, tape flanging/phasing.</p>
+          </div>
+          <div class="info-card" style="border-top: 3px solid var(--accent-green);">
+            <strong style="color: var(--accent-green); font-size: 14px; display: block; margin-bottom: 4px;">DYNAMIC CONTROL</strong>
+            <p class="card-text">1950s: Natural tape saturation, room player dynamics. <br><br>1970s: Fast FET/VCA hardware peak compressors (1176, LA-2A, SSL Bus).</p>
+          </div>
+        </div>
+
+        <div class="info-card highlight" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px;">
+          <div>
+            <h4 class="card-title" style="color: #ffffff; margin-bottom: 2px;">READY TO TEST YOUR KNOWLEDGE?</h4>
+            <p class="card-text">Proceed to the interactive Rock knowledge check quiz below to test your mastery of these concepts!</p>
+          </div>
+          <button class="nav-btn primary" onclick="goToSlide(0)">
+            ↺ Review From Beginning
+          </button>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Bottom Navigation Bar -->
+    <footer class="deck-footer">
+      <button class="nav-btn" id="prevBtn" onclick="prevSlide()" disabled>
+        ← Previous
+      </button>
+
+      <div class="progress-group">
+        <div class="slide-counter" id="slideCounter">Slide 1 of 13</div>
+        <div class="progress-track">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <div class="keyboard-hint">
+          Tip: Navigate using <span class="kbd">←</span> <span class="kbd">→</span> keys or swipe on mobile
+        </div>
+      </div>
+
+      <button class="nav-btn primary" id="nextBtn" onclick="nextSlide()">
+        Next →
+      </button>
+    </footer>
+
+  </div>
+
+  <!-- Video Modal -->
+  <div class="video-modal-backdrop" id="videoModal">
+    <div class="video-modal-box">
+      <button class="modal-close" onclick="closeVideo()">✕</button>
+      <div style="position: relative; padding-bottom: 56.25%; height: 0; background: #000;">
+        <iframe id="videoIframe" src="" style="position: absolute; top:0; left:0; width:100%; height:100%; border:none;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    const totalSlides = slides.length;
+    let currentSlide = 0;
+
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const slideCounter = document.getElementById('slideCounter');
+    const progressFill = document.getElementById('progressFill');
+    const slideSelect = document.getElementById('slideSelect');
+    const fullscreenBtn = document.getElementById('fullscreenBtn');
+    const deckContainer = document.getElementById('deckContainer');
+    const videoModal = document.getElementById('videoModal');
+    const videoIframe = document.getElementById('videoIframe');
+
+    function updateSlide(index) {
+      if (index < 0 || index >= totalSlides) return;
+      
+      slides[currentSlide].classList.remove('active');
+      currentSlide = index;
+      slides[currentSlide].classList.add('active');
+
+      prevBtn.disabled = currentSlide === 0;
+      nextBtn.disabled = currentSlide === totalSlides - 1;
+      nextBtn.innerText = currentSlide === totalSlides - 1 ? 'Finish Deck ✓' : 'Next →';
+      slideCounter.innerText = `Slide ${currentSlide + 1} of ${totalSlides}`;
+      progressFill.style.width = `${((currentSlide + 1) / totalSlides) * 100}%`;
+      slideSelect.value = currentSlide;
+    }
+
+    function nextSlide() {
+      if (currentSlide < totalSlides - 1) {
+        updateSlide(currentSlide + 1);
+      }
+    }
+
+    function prevSlide() {
+      if (currentSlide > 0) {
+        updateSlide(currentSlide - 1);
+      }
+    }
+
+    function goToSlide(index) {
+      updateSlide(parseInt(index, 10));
+    }
+
+    slideSelect.addEventListener('change', (e) => {
+      goToSlide(e.target.value);
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (videoModal.classList.contains('open')) {
+        if (e.key === 'Escape') closeVideo();
+        return;
+      }
+      if (e.key === 'ArrowRight' || e.key === ' ') {
+        e.preventDefault();
+        nextSlide();
+      } else if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        prevSlide();
+      } else if (e.key.toLowerCase() === 'f') {
+        toggleFullscreen();
+      }
+    });
+
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        deckContainer.requestFullscreen().catch(err => {
+          console.warn('Fullscreen error:', err);
+        });
+      } else {
+        document.exitFullscreen();
+      }
+    }
+    fullscreenBtn.addEventListener('click', toggleFullscreen);
+
+    let touchStartX = 0;
+    let touchEndX = 0;
+    const stage = document.getElementById('slideStage');
+
+    stage.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    stage.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      handleSwipe();
+    }, { passive: true });
+
+    function handleSwipe() {
+      const threshold = 50;
+      if (touchEndX < touchStartX - threshold) {
+        nextSlide();
+      } else if (touchEndX > touchStartX + threshold) {
+        prevSlide();
+      }
+    }
+
+    function openVideo(videoId, title) {
+      videoIframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
+      videoModal.classList.add('open');
+    }
+
+    function closeVideo() {
+      videoIframe.src = '';
+      videoModal.classList.remove('open');
+    }
+
+    videoModal.addEventListener('click', (e) => {
+      if (e.target === videoModal) closeVideo();
+    });
+  </script>
+</body>
+</html>
