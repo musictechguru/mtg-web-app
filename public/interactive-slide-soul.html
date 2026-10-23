@@ -1,0 +1,1198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Soul & Motown (1960–1975) • Interactive Study Deck | Music Tech Guru</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #070b14;
+      --bg-card: #0d1527;
+      --bg-surface: #131f38;
+      --accent-gold: #f59e0b;
+      --accent-gold-glow: rgba(245, 158, 11, 0.35);
+      --accent-cyan: #00C1F0;
+      --accent-cyan-glow: rgba(0, 193, 240, 0.35);
+      --accent-purple: #8b5cf6;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-gold: rgba(245, 158, 11, 0.35);
+      --border-cyan: rgba(0, 193, 240, 0.35);
+      --font: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: var(--font);
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 8px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .deck-wrapper {
+      width: 100%;
+      max-width: 1100px;
+      height: calc(100vh - 16px);
+      min-height: 580px;
+      max-height: 660px;
+      background: radial-gradient(circle at 50% 0%, rgba(245, 158, 11, 0.08) 0%, rgba(13, 21, 39, 0) 70%), var(--bg-card);
+      border: 1px solid var(--border-gold);
+      border-radius: 16px;
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.7), 0 0 40px rgba(245, 158, 11, 0.1);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .deck-wrapper:fullscreen {
+      max-width: 100vw;
+      height: 100vh;
+      border-radius: 0;
+      border: none;
+    }
+
+    .deck-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 20px;
+      border-bottom: 1px solid var(--border-subtle);
+      background: rgba(10, 16, 30, 0.88);
+      backdrop-filter: blur(12px);
+      flex-wrap: wrap;
+      gap: 12px;
+      z-index: 20;
+    }
+
+    .deck-title-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .deck-badge {
+      background: rgba(245, 158, 11, 0.15);
+      color: var(--accent-gold);
+      border: 1px solid var(--border-gold);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 50px;
+    }
+
+    .deck-title {
+      font-size: 16px;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: -0.3px;
+    }
+
+    .deck-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .slide-select {
+      background: var(--bg-surface);
+      color: var(--text-main);
+      border: 1px solid var(--border-subtle);
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-family: inherit;
+      font-weight: 600;
+      outline: none;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .slide-select:hover, .slide-select:focus {
+      border-color: var(--accent-gold);
+    }
+
+    .btn-icon {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 14px;
+    }
+
+    .btn-icon:hover {
+      color: #ffffff;
+      border-color: var(--accent-gold);
+      background: rgba(245, 158, 11, 0.1);
+    }
+
+    .slide-stage {
+      position: relative;
+      flex: 1;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 18px 36px 20px 36px;
+      overflow-y: auto;
+    }
+
+    @media (max-width: 768px) {
+      .slide-stage {
+        padding: 16px 14px;
+      }
+    }
+
+    .slide {
+      display: none;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      width: 100%;
+    }
+
+    .slide.active {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Typography */
+    .slide-eyebrow {
+      color: var(--accent-gold);
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .slide-heading {
+      font-size: clamp(20px, 3vw, 27px);
+      font-weight: 900;
+      line-height: 1.15;
+      letter-spacing: -0.5px;
+      color: #ffffff;
+      margin-bottom: 12px;
+    }
+
+    .slide-heading span {
+      background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .slide-lead {
+      color: #cbd5e1;
+      font-size: 14px;
+      line-height: 1.5;
+      max-width: 820px;
+      margin-bottom: 14px;
+    }
+
+    /* Grids & Cards */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    @media (max-width: 768px) {
+      .grid-2, .grid-3 {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+    }
+
+    .info-card {
+      background: rgba(19, 31, 56, 0.6);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 14px 16px;
+      transition: all 0.2s;
+    }
+
+    .info-card:hover {
+      border-color: rgba(245, 158, 11, 0.4);
+      background: rgba(19, 31, 56, 0.9);
+      transform: translateY(-2px);
+    }
+
+    .info-card.highlight {
+      border-left: 4px solid var(--accent-gold);
+    }
+
+    .info-card.cyan-edge {
+      border-left: 4px solid var(--accent-cyan);
+    }
+
+    .card-title {
+      font-size: 14.5px;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-text {
+      font-size: 12.5px;
+      line-height: 1.5;
+      color: #94a3b8;
+    }
+
+    .feature-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .feature-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 12.5px;
+      color: #cbd5e1;
+      line-height: 1.45;
+    }
+
+    .feature-icon {
+      color: var(--accent-gold);
+      font-weight: bold;
+      flex-shrink: 0;
+      font-size: 13px;
+    }
+
+    .pill {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      background: rgba(255, 255, 255, 0.08);
+      color: #e2e8f0;
+      margin-right: 4px;
+      margin-bottom: 4px;
+    }
+
+    .pill.gold {
+      background: rgba(245, 158, 11, 0.15);
+      color: var(--accent-gold);
+      border: 1px solid var(--border-gold);
+    }
+
+    .pill.cyan {
+      background: rgba(0, 193, 240, 0.15);
+      color: var(--accent-cyan);
+      border: 1px solid var(--border-cyan);
+    }
+
+    /* Artist Slide Layout */
+    .artist-hero-card {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 20px;
+      align-items: center;
+      background: rgba(19, 31, 56, 0.5);
+      border: 1px solid var(--border-subtle);
+      border-radius: 14px;
+      padding: 16px;
+    }
+
+    @media (max-width: 768px) {
+      .artist-hero-card {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .artist-visual-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .artist-photo {
+      width: 100%;
+      height: 190px;
+      object-fit: cover;
+      object-position: top;
+      border-radius: 12px;
+      border: 2px solid var(--border-gold);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+      background: #070b14;
+    }
+
+    .listen-btn {
+      width: 100%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+      color: #070b14;
+      font-weight: 800;
+      font-size: 11.5px;
+      padding: 7px 12px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: 0 4px 14px rgba(245, 158, 11, 0.3);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .listen-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(245, 158, 11, 0.45);
+      background: #fbbf24;
+    }
+
+    .artist-info {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .artist-meta-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 2px;
+    }
+
+    /* Comparison Table */
+    .compare-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 11.5px;
+      margin-top: 6px;
+    }
+
+    .compare-table th {
+      background: rgba(245, 158, 11, 0.12);
+      color: var(--accent-gold);
+      padding: 8px 10px;
+      text-align: left;
+      font-weight: 800;
+      border-bottom: 1px solid var(--border-gold);
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .compare-table td {
+      padding: 7px 10px;
+      border-bottom: 1px solid var(--border-subtle);
+      color: #cbd5e1;
+      line-height: 1.4;
+    }
+
+    .compare-table tr:hover td {
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    /* Footer Navigation */
+    .deck-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 24px;
+      background: rgba(10, 16, 30, 0.95);
+      border-top: 1px solid var(--border-subtle);
+      z-index: 20;
+    }
+
+    .nav-btn {
+      background: var(--bg-surface);
+      color: var(--text-main);
+      border: 1px solid var(--border-subtle);
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 8px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+
+    .nav-btn:hover:not(:disabled) {
+      border-color: var(--accent-gold);
+      color: #ffffff;
+      background: rgba(245, 158, 11, 0.12);
+    }
+
+    .nav-btn.primary {
+      background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+      color: #070b14;
+      border: none;
+      box-shadow: 0 4px 14px rgba(245, 158, 11, 0.35);
+    }
+
+    .nav-btn.primary:hover:not(:disabled) {
+      background: #fbbf24;
+      transform: translateY(-1px);
+    }
+
+    .nav-btn:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+
+    .deck-progress-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      flex: 1;
+      max-width: 320px;
+      margin: 0 16px;
+    }
+
+    .slide-counter {
+      font-size: 11.5px;
+      color: var(--text-muted);
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #f59e0b, #00C1F0);
+      width: 8%;
+      transition: width 0.3s ease;
+    }
+
+    .keyboard-hint {
+      font-size: 11px;
+      color: #64748b;
+    }
+
+    .kbd {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 4px;
+      padding: 1px 5px;
+      font-family: inherit;
+      color: #94a3b8;
+    }
+
+    /* Video Modal */
+    .video-modal-backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(8px);
+      z-index: 1000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .video-modal-backdrop.open {
+      display: flex;
+    }
+
+    .video-modal-box {
+      width: 100%;
+      max-width: 760px;
+      background: #0d1527;
+      border: 1px solid var(--border-gold);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.8);
+      position: relative;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 10px;
+      right: 12px;
+      background: rgba(0, 0, 0, 0.6);
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      z-index: 10;
+      transition: all 0.2s;
+    }
+
+    .modal-close:hover {
+      background: #ef4444;
+      border-color: #ef4444;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="deck-wrapper" id="deckContainer">
+    
+    <!-- Top Control Bar -->
+    <header class="deck-header">
+      <div class="deck-title-group">
+        <span class="deck-badge">Edexcel A-Level Component 3</span>
+        <h2 class="deck-title">Soul &amp; Motown (1960–1975) • Study Deck</h2>
+      </div>
+
+      <div class="deck-actions">
+        <select class="slide-select" id="slideSelect" aria-label="Jump to slide">
+          <option value="0">1. Cover • Soul & Motown (1960–1975)</option>
+          <option value="1">2. Edexcel Specification Roadmap</option>
+          <option value="2">3. Hitsville U.S.A. & Studio A (Detroit)</option>
+          <option value="3">4. Artist Focus • The Supremes & Pop-Soul</option>
+          <option value="4">5. Artist Focus • Marvin Gaye & Vocal Layering</option>
+          <option value="5">6. Artist Focus • Aretha Franklin & Muscle Shoals</option>
+          <option value="6">7. Artist Focus • Otis Redding & Stax (Memphis)</option>
+          <option value="7">8. Artist Focus • Stevie Wonder & Synth-Soul</option>
+          <option value="8">9. Studio Technology • The Direct Injection (DI) Box</option>
+          <option value="9">10. Spatial Acoustics • The Hitsville Echo Chamber</option>
+          <option value="10">11. Mixing for AM Radio • Inductor EQ & Bus Limiting</option>
+          <option value="11">12. Section B Analysis • Motown vs. Southern Soul</option>
+          <option value="12">13. Component 3 Exam Checklist</option>
+        </select>
+        <button class="btn-icon" id="fullscreenBtn" title="Toggle Fullscreen">⛶</button>
+      </div>
+    </header>
+
+    <!-- Slide Stage -->
+    <main class="slide-stage" id="slideStage">
+
+      <!-- SLIDE 1: COVER -->
+      <section class="slide active" data-index="0">
+        <div class="slide-eyebrow">Edexcel GCE A-Level Music Technology • Component 3: Music in Context</div>
+        <h1 class="slide-heading" style="font-size: clamp(26px, 4vw, 36px); margin-bottom: 12px;">
+          Soul, Motown &amp; R&amp;B: <span>1960 to 1975</span>
+        </h1>
+        <p class="slide-lead">
+          From Detroit's Hitsville basement and Memphis cinema acoustics to Muscle Shoals and 1970s electronic synthesizer funk: master the landmark engineering, custom DI boxes, attic echo chambers, and musical structures tested in Component 3.
+        </p>
+
+        <div class="grid-3" style="margin-top: 14px;">
+          <div class="info-card highlight">
+            <span class="pill gold">AO3 Focus</span>
+            <h4 class="card-title">Musical Identifiers</h4>
+            <p class="card-text">
+              Driving 4/4 backbeat with tambourine on beats 2 &amp; 4, walking syncopated P-basslines ("The Hook"), call-and-response gospel vocals, and tight staccato horn stabs.
+            </p>
+          </div>
+          <div class="info-card highlight">
+            <span class="pill gold">AO4 Focus</span>
+            <h4 class="card-title">Studio Capture &amp; DI</h4>
+            <p class="card-text">
+              Custom 5-channel Direct Injection (DI) boxes eliminating basement spill, close-damped snare drums (wallets/tape), and live ensemble tracking with room spill at Stax.
+            </p>
+          </div>
+          <div class="info-card highlight">
+            <span class="pill gold">Spatial &amp; Mix</span>
+            <h4 class="card-title">Attic Chambers &amp; AM EQ</h4>
+            <p class="card-text">
+              Hitsville attic echo chamber for lush vocal reflections, inductor-based graphic EQs boosting 3–5kHz presence for car radio translation, and 70s Moog/Clavinet synthesis.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 2: EDEXCEL ROADMAP -->
+      <section class="slide" data-index="1">
+        <div class="slide-eyebrow">Edexcel Syllabus • Component 3 Listening &amp; Analysing</div>
+        <h2 class="slide-heading">Component 3 Focus: <span>Soul &amp; Motown</span></h2>
+        <p class="slide-lead">
+          Examiners test your understanding of how African-American gospel traditions (AO3) combined with groundbreaking analog hardware, acoustic chambers, and early multitrack tape techniques (AO4).
+        </p>
+
+        <div class="grid-2">
+          <div class="info-card highlight">
+            <h3 class="card-title">🎺 AO3: Musical &amp; Stylistic Identifiers</h3>
+            <ul class="feature-list" style="margin-top: 10px;">
+              <li class="feature-item"><span class="feature-icon">✓</span> <strong>Driving Backbeat:</strong> Snare drum reinforced with tambourine and handclaps on beats 2 &amp; 4</li>
+              <li class="feature-item"><span class="feature-icon">✓</span> <strong>Melodic Bass Movement:</strong> Syncopated, walking basslines played with flatwound strings</li>
+              <li class="feature-item"><span class="feature-icon">✓</span> <strong>Gospel Vocal Delivery:</strong> Passionate lead vocal with 3-part call-and-response backing</li>
+              <li class="feature-item"><span class="feature-icon">✓</span> <strong>Staccato Horn Stabs:</strong> Trumpets, tenor sax, and baritone sax playing punchy unison riffs</li>
+              <li class="feature-item"><span class="feature-icon">✓</span> <strong>Harmonic Richness:</strong> Dominant 7ths, 9ths, minor 7ths, and gospel chord substitutions</li>
+            </ul>
+          </div>
+
+          <div class="info-card highlight">
+            <h3 class="card-title">🎛️ AO4: Studio Capture &amp; Technology</h3>
+            <ul class="feature-list" style="margin-top: 10px;">
+              <li class="feature-item"><span class="feature-icon">✓</span> <strong>Direct Injection (DI):</strong> Custom Motown DI boxes tracking bass and guitars direct to console</li>
+              <li class="feature-item"><span class="feature-icon">✓</span> <strong>Attic Echo Chamber:</strong> Dedicated plasterboard chamber with speaker and KM86 mic</li>
+              <li class="feature-item"><span class="feature-icon">✓</span> <strong>AM Radio EQ:</strong> Inductor graphic EQ boosting 200–500Hz punch &amp; 3–5kHz presence</li>
+              <li class="feature-item"><span class="feature-icon">✓</span> <strong>Heavily Damped Drums:</strong> Snare heads damped with wallets or cloth to kill sustain</li>
+              <li class="feature-item"><span class="feature-icon">✓</span> <strong>1970s Synth-Soul:</strong> TONTO modular Moog synth, Clavinet D6 with Mu-Tron III auto-wah</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 3: HITSVILLE U.S.A. & STUDIO A -->
+      <section class="slide" data-index="2">
+        <div class="slide-eyebrow">Studio Architecture • Detroit, Michigan</div>
+        <h2 class="slide-heading">Hitsville U.S.A.: <span>The "Snakepit" &amp; Quality Control</span></h2>
+        
+        <div class="grid-2" style="align-items: center;">
+          <div>
+            <div class="info-card highlight" style="margin-bottom: 12px;">
+              <h4 class="card-title">🏢 2648 West Grand Boulevard</h4>
+              <p class="card-text">
+                Founded in 1959 by Berry Gordy Jr., Motown operated 24 hours a day. Studio A (the "Snakepit") was a cramped, converted basement garage where house band <strong>The Funk Brothers</strong> tracked the rhythm foundations for hundreds of historic hits.
+              </p>
+            </div>
+            <div class="info-card" style="margin-bottom: 12px;">
+              <h4 class="card-title">📻 Testing on Car Radios</h4>
+              <p class="card-text">
+                Berry Gordy evaluated test mixes on a low-powered AM radio transmitter broadcasting to a car parked in the driveway. If a track didn't burst through a tiny car dashboard speaker, it was sent back for remixing!
+              </p>
+            </div>
+            <div class="info-card">
+              <h4 class="card-title">👥 The Funk Brothers</h4>
+              <p class="card-text">
+                James Jamerson (bass), Benny Benjamin / Pistol Allen (drums), Earl Van Dyke (piano/organ), Robert White / Joe Messina (guitars), and Jack Ashford (tambourine &amp; vibes).
+              </p>
+            </div>
+          </div>
+
+          <div style="text-align: center;">
+            <img src="/images/slides/soul/hitsville.jpg" alt="Hitsville USA Detroit" style="width: 100%; max-width: 380px; height: 260px; object-fit: cover; border-radius: 14px; border: 2px solid var(--border-gold); box-shadow: 0 10px 30px rgba(0,0,0,0.5); background: #070b14;">
+            <span style="color: var(--text-muted); font-size: 12px; display: block; margin-top: 8px;">Hitsville U.S.A. • 2648 West Grand Blvd, Detroit</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 4: THE SUPREMES & MOTOWN POP -->
+      <section class="slide" data-index="3">
+        <div class="slide-eyebrow">Artist Focus • 1964 to 1969</div>
+        <h2 class="slide-heading">The Supremes: <span>Pop-Soul Perfection</span></h2>
+
+        <div class="artist-hero-card">
+          <div class="artist-visual-col">
+            <img src="/images/slides/soul/the_supremes.jpg" alt="The Supremes" class="artist-photo">
+            <button class="listen-btn" onclick="openVideo('fQ7uXX9K7Sk', 'The Supremes - You Cant Hurry Love')">
+              ▶ Listen: You Can't Hurry Love
+            </button>
+          </div>
+          <div class="artist-info">
+            <div class="artist-meta-pills">
+              <span class="pill gold">Detroit, Michigan • Hitsville Studio A</span>
+              <span class="pill">Holland-Dozier-Holland Production</span>
+              <span class="pill cyan">"You Can't Hurry Love" (1966)</span>
+            </div>
+            <h3 style="font-size: 20px; color: #fff; margin-bottom: 6px;">The Holland-Dozier-Holland Blueprint</h3>
+            <p class="card-text" style="margin-bottom: 8px;">
+              <strong>Driving Tambourine &amp; Snare:</strong> Jack Ashford's tambourine played on every beat (or beats 2 and 4) created a bright 8kHz–10kHz acoustic sizzle that cut through AM radio static.
+            </p>
+            <p class="card-text" style="margin-bottom: 8px;">
+              <strong>Call-and-Response Vocals:</strong> Diana Ross's clear, intimate lead vocal was supported by Flo Ballard and Mary Wilson's tight harmonic responses, sent through the attic echo chamber for natural spatial depth.
+            </p>
+            <p class="card-text">
+              <strong>Melodic DI Bass:</strong> James Jamerson's dynamic syncopated bassline drove the track's melodic motion, reinforced by baritone saxophone doubling the root notes in the low-mids.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 5: MARVIN GAYE & VOCAL LAYERING -->
+      <section class="slide" data-index="4">
+        <div class="slide-eyebrow">Artist Focus • 1968 to 1973</div>
+        <h2 class="slide-heading">Marvin Gaye: <span>Vocal Layering &amp; Social Realism</span></h2>
+
+        <div class="artist-hero-card">
+          <div class="artist-visual-col">
+            <img src="/images/slides/soul/marvin_gaye.jpg" alt="Marvin Gaye" class="artist-photo">
+            <button class="listen-btn" onclick="openVideo('H-kA3UtBj4M', 'Marvin Gaye - Whats Going On')">
+              ▶ Listen: What's Going On
+            </button>
+          </div>
+          <div class="artist-info">
+            <div class="artist-meta-pills">
+              <span class="pill gold">Washington, D.C. / Detroit</span>
+              <span class="pill">Hitsville 16-Track Tape Machine</span>
+              <span class="pill cyan">"What's Going On" (1971)</span>
+            </div>
+            <h3 style="font-size: 20px; color: #fff; margin-bottom: 6px;">From Pop Sensation to Self-Produced Visionary</h3>
+            <p class="card-text" style="margin-bottom: 8px;">
+              <strong>Wurlitzer Tremolo Intro:</strong> "I Heard It Through The Grapevine" (1968) introduced the biting, reed-based tremolo of the Wurlitzer 200A electric piano as a staple soul instrument.
+            </p>
+            <p class="card-text" style="margin-bottom: 8px;">
+              <strong>Multi-Layered Vocal Counterpoint:</strong> On *What's Going On* (1971), Gaye recorded multiple lead vocal passes, singing counter-harmonies and spoken-word phrases on adjacent tracks while monitoring earlier takes.
+            </p>
+            <p class="card-text">
+              <strong>Organic Polyrhythms:</strong> Combining Detroit Symphony Orchestra strings with jazz-influenced Latin percussion (congas/bongos) and Jamerson's fluid bassline, recorded with minimal isolation.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 6: ARETHA FRANKLIN & MUSCLE SHOALS -->
+      <section class="slide" data-index="5">
+        <div class="slide-eyebrow">Artist Focus • 1967 to 1972</div>
+        <h2 class="slide-heading">Aretha Franklin: <span>Gospel Fire &amp; Muscle Shoals</span></h2>
+
+        <div class="artist-hero-card">
+          <div class="artist-visual-col">
+            <img src="/images/slides/soul/aretha_franklin.jpg" alt="Aretha Franklin" class="artist-photo">
+            <button class="listen-btn" onclick="openVideo('6FOUqQt3Kg0', 'Aretha Franklin - Respect')">
+              ▶ Listen: Respect (1967)
+            </button>
+          </div>
+          <div class="artist-info">
+            <div class="artist-meta-pills">
+              <span class="pill gold">Atlantic Records • Jerry Wexler</span>
+              <span class="pill">FAME Studios (Muscle Shoals, AL)</span>
+              <span class="pill cyan">"Respect" (1967)</span>
+            </div>
+            <h3 style="font-size: 20px; color: #fff; margin-bottom: 6px;">The Queen of Soul's Direct Piano Leadership</h3>
+            <p class="card-text" style="margin-bottom: 8px;">
+              <strong>Gospel Piano Foundations:</strong> Aretha directed the rhythm section from her acoustic grand piano, laying down heavy blues/gospel chords that locked with Spooner Oldham's Wurlitzer electric piano.
+            </p>
+            <p class="card-text" style="margin-bottom: 8px;">
+              <strong>Vocal Dynamism &amp; U67 Condenser:</strong> Captured with a Neumann U67 tube condenser microphone. Her astonishing dynamic range (from intimate whispers to full-throttle belt) was managed using subtle LA-2A optical levelling.
+            </p>
+            <p class="card-text">
+              <strong>The Muscle Shoals Rhythm Section:</strong> "The Swampers" provided an unpolished, greasy groove with delayed snare backbeats, live room ambience, and staccato horn punctuation.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 7: OTIS REDDING & STAX RECORDS -->
+      <section class="slide" data-index="6">
+        <div class="slide-eyebrow">Artist Focus • 1965 to 1968</div>
+        <h2 class="slide-heading">Otis Redding: <span>Stax Records &amp; Southern Soul</span></h2>
+
+        <div class="artist-hero-card">
+          <div class="artist-visual-col">
+            <img src="/images/slides/soul/otis_redding.jpg" alt="Otis Redding" class="artist-photo">
+            <button class="listen-btn" onclick="openVideo('rTVjnBo96Ug', 'Otis Redding - Dock of the Bay')">
+              ▶ Listen: (Sittin' On) The Dock of the Bay
+            </button>
+          </div>
+          <div class="artist-info">
+            <div class="artist-meta-pills">
+              <span class="pill gold">Stax Records • Memphis, Tennessee</span>
+              <span class="pill">Booker T. & the M.G.'s</span>
+              <span class="pill cyan">"Dock of the Bay" (1968)</span>
+            </div>
+            <h3 style="font-size: 20px; color: #fff; margin-bottom: 6px;">Converted Movie Theater Acoustics</h3>
+            <p class="card-text" style="margin-bottom: 8px;">
+              <strong>Sloping Cinema Floor:</strong> Stax recorded in a converted movie theater (926 E McLemore Ave). The sloping auditorium floor trapped deep low-mids, creating a punchy, warm, raw acoustic with natural spill.
+            </p>
+            <p class="card-text" style="margin-bottom: 8px;">
+              <strong>Memphis Horns:</strong> Unison staccato horn blasts recorded using RCA 77DX ribbon and Shure dynamic microphones, tracking in the same room as the rhythm section.
+            </p>
+            <p class="card-text">
+              <strong>Atmospheric Field Recordings:</strong> "(Sittin' On) The Dock of the Bay" featured dubbed tape sound effects (ocean waves crashing &amp; seagulls) blended with Steve Cropper's dry acoustic guitar.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 8: STEVIE WONDER & SYNTH-SOUL -->
+      <section class="slide" data-index="7">
+        <div class="slide-eyebrow">Artist Focus • 1972 to 1976</div>
+        <h2 class="slide-heading">Stevie Wonder: <span>The 1970s Synth-Soul Revolution</span></h2>
+
+        <div class="artist-hero-card">
+          <div class="artist-visual-col">
+            <img src="/images/slides/soul/stevie_wonder.jpg" alt="Stevie Wonder" class="artist-photo">
+            <button class="listen-btn" onclick="openVideo('0CFuCYNx-1g', 'Stevie Wonder - Superstition Live')">
+              ▶ Listen: Superstition Live (1973)
+            </button>
+          </div>
+          <div class="artist-info">
+            <div class="artist-meta-pills">
+              <span class="pill gold">Electric Lady Studios, NYC</span>
+              <span class="pill">TONTO Modular Synthesizer System</span>
+              <span class="pill cyan">"Superstition" (1972)</span>
+            </div>
+            <h3 style="font-size: 20px; color: #fff; margin-bottom: 6px;">Synthesizers, Clavinets &amp; Complete Autonomy</h3>
+            <p class="card-text" style="margin-bottom: 8px;">
+              <strong>Hohner Clavinet D6 &amp; Auto-Wah:</strong> On "Superstition", Wonder layered multiple tracks of Clavinet running through a Mu-Tron III envelope filter, creating a biting, squelchy, percussive rhythm bed.
+            </p>
+            <p class="card-text" style="margin-bottom: 8px;">
+              <strong>TONTO &amp; Minimoog Bass:</strong> Partnering with synthesizer pioneers Malcolm Cecil and Robert Margouleff, Wonder replaced traditional bass guitar with rich, resonant Minimoog synth basslines.
+            </p>
+            <p class="card-text">
+              <strong>Virtuosic Multi-Instrumentalist:</strong> Wonder performed drums, Clavinet, synthesizers, and lead vocals himself, utilizing modern 16- and 24-track tape overdubbing.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 9: DIRECT INJECTION (DI) -->
+      <section class="slide" data-index="8">
+        <div class="slide-eyebrow">Studio Technology • Impedance & Direct Capture</div>
+        <h2 class="slide-heading">The Direct Injection (DI) <span>Revolution</span></h2>
+
+        <div class="grid-2" style="align-items: center;">
+          <div>
+            <div class="info-card highlight" style="margin-bottom: 12px;">
+              <h4 class="card-title">🔌 Solving the "Snakepit" Spill Problem</h4>
+              <p class="card-text">
+                In Motown's tiny basement studio, loud bass and guitar amplifiers caused horrific spill into drum and vocal microphones. Motown engineers (Mike McLean &amp; Ed Wolfrum) invented a custom 5-channel <strong>Direct Injection (DI) box</strong>, plugging instruments straight into the console preamps!
+              </p>
+            </div>
+            <div class="info-card">
+              <h4 class="card-title">🎸 James Jamerson's Bass Recipe</h4>
+              <ul class="feature-list" style="margin-top: 6px;">
+                <li class="feature-item"><span class="feature-icon">•</span> <strong>Fender Precision Bass ("The Funk Machine"):</strong> 1962 model plugged directly into custom DI.</li>
+                <li class="feature-item"><span class="feature-icon">•</span> <strong>Heavy Flatwound Strings:</strong> La Bella flatwounds produced deep fundamental tones with zero fret squeak.</li>
+                <li class="feature-item"><span class="feature-icon">•</span> <strong>Foam Mute:</strong> Sponge rubber wedged under the bridge cover deadened sustain, creating punchy, staccato notes.</li>
+                <li class="feature-item"><span class="feature-icon">•</span> <strong>"The Hook":</strong> Jamerson plucked exclusively with his right index finger for immense dynamic weight.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div style="text-align: center;">
+            <img src="/images/diagram_di_box_flow.png" alt="DI Box Signal Flow" style="width: 100%; max-width: 380px; height: 250px; object-fit: contain; border-radius: 14px; border: 2px solid var(--border-gold); box-shadow: 0 10px 30px rgba(0,0,0,0.5); background: #070b14;">
+            <span style="color: var(--text-muted); font-size: 12px; display: block; margin-top: 8px;">Direct Injection: High-Z Instrument Level to Balanced Low-Z Mic Level</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 10: ATTIC ECHO CHAMBER -->
+      <section class="slide" data-index="9">
+        <div class="slide-eyebrow">Spatial Acoustics • Physical Reverb Chambers</div>
+        <h2 class="slide-heading">The Motown <span>Attic Echo Chamber</span></h2>
+
+        <div class="grid-2" style="align-items: center;">
+          <div>
+            <p class="slide-lead" style="margin-bottom: 12px;">
+              Before artificial EMT 140 plate reverbs were widely available, Motown constructed a dedicated acoustic echo chamber in the attic of 2648 West Grand Boulevard.
+            </p>
+            <div class="info-card highlight" style="margin-bottom: 12px;">
+              <h4 class="card-title">🔄 The 4-Step Signal Path (Component 3 Exam Focus!)</h4>
+              <ul class="feature-list" style="margin-top: 6px;">
+                <li class="feature-item"><span class="feature-icon">1.</span> <strong>Console Aux Send:</strong> An auxiliary bus routes the dry vocal or snare signal upstairs.</li>
+                <li class="feature-item"><span class="feature-icon">2.</span> <strong>Attic Loudspeaker:</strong> A studio monitor broadcasts the dry sound into the bare plasterboard/drywall attic.</li>
+                <li class="feature-item"><span class="feature-icon">3.</span> <strong>Chamber Microphone:</strong> A Neumann KM86 condenser at the opposite end captures the reverberant reflections ("wet" signal).</li>
+                <li class="feature-item"><span class="feature-icon">4.</span> <strong>Console Aux Return:</strong> The wet reverberant signal returns to the mixing desk to be blended with the dry track.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div style="text-align: center;">
+            <img src="/images/hq_rev_echo_chamber_1772049360173.png" alt="Acoustic Echo Chamber" style="width: 100%; max-width: 380px; height: 250px; object-fit: cover; border-radius: 14px; border: 2px solid var(--border-gold); box-shadow: 0 10px 30px rgba(0,0,0,0.5); background: #000;">
+            <span style="color: var(--text-muted); font-size: 12px; display: block; margin-top: 8px;">Acoustic Echo Chamber • Physical Speaker &amp; Microphone Setup</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 11: AM RADIO EQ & DYNAMICS -->
+      <section class="slide" data-index="10">
+        <div class="slide-eyebrow">Frequency Management & Dynamics • Mixing Philosophy</div>
+        <h2 class="slide-heading">Mixing for AM Radio: <span>Inductor EQ &amp; Compression</span></h2>
+
+        <div class="grid-2" style="align-items: center;">
+          <div>
+            <div class="info-card highlight" style="margin-bottom: 12px;">
+              <h4 class="card-title">📻 The AM Radio Bandwidth Challenge</h4>
+              <p class="card-text">
+                AM radio transmissions cut off below 80Hz and above 5kHz. Tracks mixed with massive sub-bass or airy 15kHz top end sounded dull and quiet on car radios. Motown engineers tailored every frequency specifically for medium-wave broadcast!
+              </p>
+            </div>
+            <div class="info-card" style="margin-bottom: 12px;">
+              <h4 class="card-title">🎚️ Motown Custom Inductor Graphic EQ</h4>
+              <p class="card-text">
+                Chief engineer Mike McLean built custom graphic EQs with passive inductor coils:
+                <br>• <strong>200Hz–500Hz Boost:</strong> Emphasized punchy bass fundamentals and snare body.
+                <br>• <strong>3kHz–5kHz Boost:</strong> Pushed lead vocals, horns, and tambourines right into the listener's face.
+              </p>
+            </div>
+            <div class="info-card">
+              <h4 class="card-title">⚡ Fairchild 660/670 Bus Limiting</h4>
+              <p class="card-text">
+                Tube limiters clamped dynamic peaks, maximizing average loudness and preventing transmitters from overloading.
+              </p>
+            </div>
+          </div>
+
+          <div style="text-align: center;">
+            <img src="/images/LA-2A Compressor.png" alt="Vintage Tube Compressor" style="width: 100%; max-width: 380px; height: 250px; object-fit: contain; border-radius: 14px; border: 2px solid var(--border-gold); box-shadow: 0 10px 30px rgba(0,0,0,0.5); background: #070b14;">
+            <span style="color: var(--text-muted); font-size: 12px; display: block; margin-top: 8px;">Vintage Tube Dynamics • Smoothing Vocals &amp; Maximizing Radio Loudness</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 12: SECTION B COMPARISON TABLE -->
+      <section class="slide" data-index="11">
+        <div class="slide-eyebrow">Section B Comparative Essay • Extended Response Focus</div>
+        <h2 class="slide-heading">Production Analysis: <span>Motown vs. Southern Soul</span></h2>
+
+        <p class="card-text" style="margin-bottom: 10px;">
+          Edexcel Section B frequently tasks you with comparing the polished, pop-oriented Detroit "Motown Sound" against raw Southern Deep Soul (Stax / Muscle Shoals):
+        </p>
+
+        <table class="compare-table">
+          <thead>
+            <tr>
+              <th>Production Element</th>
+              <th>Motown (Hitsville Detroit)</th>
+              <th>Southern Soul (Stax &amp; Muscle Shoals)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Studio Acoustic</strong></td>
+              <td>Compact basement "Snakepit" with heavy isolation baffling</td>
+              <td>Converted movie theatre (Stax) with sloping floor and deep live spill</td>
+            </tr>
+            <tr>
+              <td><strong>Bass Recording</strong></td>
+              <td>Custom 5-channel Direct Injection (DI) box (zero amplifier spill)</td>
+              <td>Ampeg B-15 flip-top bass amp mic'd in the live room with drums</td>
+            </tr>
+            <tr>
+              <td><strong>Spatial Reverb</strong></td>
+              <td>Attic acoustic echo chamber (bright, smooth, natural reflections)</td>
+              <td>Intimate, dry mixes; natural auditorium slapback and spring reverbs</td>
+            </tr>
+            <tr>
+              <td><strong>Arrangement / Horns</strong></td>
+              <td>Orchestral strings (Detroit Symphony) + baritone sax doubling bass</td>
+              <td>Unison/third brass stabs (Memphis Horns); strictly no strings</td>
+            </tr>
+            <tr>
+              <td><strong>Drum Feel &amp; Backbeat</strong></td>
+              <td>Driving 4/4 with tambourine on beats 2 &amp; 4 (or all 4 downbeats)</td>
+              <td>Relaxed, delayed backbeat with heavy snare wallet damping</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- SLIDE 13: COMPONENT 3 EXAM CHECKLIST -->
+      <section class="slide" data-index="12">
+        <div class="slide-eyebrow">Exam Mastery • Pearson Edexcel 9MT0/03</div>
+        <h2 class="slide-heading">Component 3 Revision: <span>Soul Exam Checklist</span></h2>
+
+        <div class="grid-2">
+          <div class="info-card highlight">
+            <h4 class="card-title">✅ Essential Technical Terms to Use</h4>
+            <ul class="feature-list" style="margin-top: 8px;">
+              <li class="feature-item"><span class="feature-icon">•</span> <strong>Direct Injection (DI):</strong> Converting high-Z instrument signal to balanced low-Z mic level.</li>
+              <li class="feature-item"><span class="feature-icon">•</span> <strong>Attic Echo Chamber:</strong> Dedicated acoustic reverb space with speaker send &amp; mic return.</li>
+              <li class="feature-item"><span class="feature-icon">•</span> <strong>Flatwound Strings &amp; Foam Mute:</strong> Deadening sustain and fret noise for low-mid thud.</li>
+              <li class="feature-item"><span class="feature-icon">•</span> <strong>Wurlitzer 200A &amp; Clavinet D6:</strong> Reed-based tremolo electric piano and funk envelope filtering.</li>
+              <li class="feature-item"><span class="feature-icon">•</span> <strong>Inductor Graphic EQ:</strong> Targeted boosts at 200–500Hz (punch) and 3–5kHz (AM presence).</li>
+            </ul>
+          </div>
+
+          <div class="info-card cyan-edge">
+            <h4 class="card-title">⚠️ Common Student Mistakes in Exams</h4>
+            <ul class="feature-list" style="margin-top: 8px;">
+              <li class="feature-item"><span class="feature-icon">✗</span> <strong>Claiming 60s Soul Used Digital Effects:</strong> Digital reverb and delays did not exist until the late 1970s.</li>
+              <li class="feature-item"><span class="feature-icon">✗</span> <strong>Confusing Stax and Motown:</strong> Stax is raw, dry, horn-driven without strings; Motown is polished, DI-driven with lush strings and echo chambers.</li>
+              <li class="feature-item"><span class="feature-icon">✗</span> <strong>Forgetting the Tambourine:</strong> Never omit the tambourine when describing Motown rhythm tracks!</li>
+              <li class="feature-item"><span class="feature-icon">✗</span> <strong>Ignoring Mono Mixing:</strong> Most 1960s Soul was mixed primarily for mono AM broadcast; stereo releases used hard L-C-R panning.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Bottom Controls Bar -->
+    <footer class="deck-footer">
+      <button class="nav-btn" id="prevBtn" onclick="prevSlide()" disabled>
+        ← Previous
+      </button>
+
+      <div class="deck-progress-group">
+        <div class="slide-counter" id="slideCounter">Slide 1 of 13</div>
+        <div class="progress-track">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <div class="keyboard-hint">
+          Tip: Navigate using <span class="kbd">←</span> <span class="kbd">→</span> keys or swipe on mobile
+        </div>
+      </div>
+
+      <button class="nav-btn primary" id="nextBtn" onclick="nextSlide()">
+        Next →
+      </button>
+    </footer>
+
+  </div>
+
+  <!-- Video Modal -->
+  <div class="video-modal-backdrop" id="videoModal">
+    <div class="video-modal-box">
+      <button class="modal-close" onclick="closeVideo()">✕</button>
+      <div style="position: relative; padding-bottom: 56.25%; height: 0; background: #000;">
+        <iframe id="videoIframe" src="" style="position: absolute; top:0; left:0; width:100%; height:100%; border:none;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    const totalSlides = slides.length;
+    let currentSlide = 0;
+
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const slideCounter = document.getElementById('slideCounter');
+    const progressFill = document.getElementById('progressFill');
+    const slideSelect = document.getElementById('slideSelect');
+    const fullscreenBtn = document.getElementById('fullscreenBtn');
+    const deckContainer = document.getElementById('deckContainer');
+    const videoModal = document.getElementById('videoModal');
+    const videoIframe = document.getElementById('videoIframe');
+
+    function updateSlide(index) {
+      if (index < 0 || index >= totalSlides) return;
+      
+      slides[currentSlide].classList.remove('active');
+      currentSlide = index;
+      slides[currentSlide].classList.add('active');
+
+      prevBtn.disabled = currentSlide === 0;
+      nextBtn.disabled = currentSlide === totalSlides - 1;
+      nextBtn.innerText = currentSlide === totalSlides - 1 ? 'Finish Deck ✓' : 'Next →';
+      slideCounter.innerText = `Slide ${currentSlide + 1} of ${totalSlides}`;
+      progressFill.style.width = `${((currentSlide + 1) / totalSlides) * 100}%`;
+      slideSelect.value = currentSlide;
+    }
+
+    function nextSlide() {
+      if (currentSlide < totalSlides - 1) {
+        updateSlide(currentSlide + 1);
+      }
+    }
+
+    function prevSlide() {
+      if (currentSlide > 0) {
+        updateSlide(currentSlide - 1);
+      }
+    }
+
+    function goToSlide(index) {
+      updateSlide(index);
+    }
+
+    slideSelect.addEventListener('change', (e) => {
+      goToSlide(parseInt(e.target.value));
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (videoModal.classList.contains('open')) {
+        if (e.key === 'Escape') closeVideo();
+        return;
+      }
+      if (e.key === 'ArrowRight' || e.key === ' ') {
+        nextSlide();
+      } else if (e.key === 'ArrowLeft') {
+        prevSlide();
+      }
+    });
+
+    fullscreenBtn.addEventListener('click', () => {
+      if (!document.fullscreenElement) {
+        deckContainer.requestFullscreen().catch(err => {
+          console.error(`Error attempting to enable fullscreen: ${err.message}`);
+        });
+      } else {
+        document.exitFullscreen();
+      }
+    });
+
+    // Touch Swipe Support
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    deckContainer.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    deckContainer.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      handleSwipe();
+    }, { passive: true });
+
+    function handleSwipe() {
+      const threshold = 45;
+      if (touchEndX < touchStartX - threshold) {
+        nextSlide();
+      } else if (touchEndX > touchStartX + threshold) {
+        prevSlide();
+      }
+    }
+
+    function openVideo(videoId, title) {
+      videoIframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
+      videoModal.classList.add('open');
+    }
+
+    function closeVideo() {
+      videoModal.classList.remove('open');
+      videoIframe.src = '';
+    }
+
+    videoModal.addEventListener('click', (e) => {
+      if (e.target === videoModal) {
+        closeVideo();
+      }
+    });
+  </script>
+</body>
+</html>
