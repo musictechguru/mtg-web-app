@@ -34,12 +34,13 @@
       background-color: var(--bg-dark);
       color: var(--text-main);
       font-family: var(--font);
-      min-height: 100vh;
+      height: 100vh;
+      overflow: hidden;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 20px;
+      padding: 8px;
       -webkit-font-smoothing: antialiased;
     }
 
@@ -47,9 +48,12 @@
     .deck-wrapper {
       width: 100%;
       max-width: 1100px;
+      height: calc(100vh - 16px);
+      min-height: 580px;
+      max-height: 660px;
       background: radial-gradient(circle at 50% 0%, rgba(0, 193, 240, 0.08) 0%, rgba(15, 23, 42, 0) 70%), var(--bg-card);
       border: 1px solid var(--border-cyan);
-      border-radius: 20px;
+      border-radius: 16px;
       box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.7), 0 0 40px rgba(0, 193, 240, 0.1);
       overflow: hidden;
       display: flex;
@@ -69,7 +73,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 16px 24px;
+      padding: 10px 20px;
       border-bottom: 1px solid var(--border-subtle);
       background: rgba(11, 15, 25, 0.85);
       backdrop-filter: blur(12px);
@@ -151,18 +155,18 @@
     /* Slide Stage */
     .slide-stage {
       position: relative;
-      min-height: 540px;
+      flex: 1;
+      min-height: 0;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding: 36px 40px;
-      overflow: hidden;
+      padding: 18px 36px 20px 36px;
+      overflow-y: auto;
     }
 
     @media (max-width: 768px) {
       .slide-stage {
-        padding: 22px 16px;
-        min-height: 480px;
+        padding: 16px 14px;
       }
     }
 
@@ -282,16 +286,25 @@
       background: var(--bg-surface);
       border: 1px solid var(--border-subtle);
       border-radius: 16px;
-      padding: 24px;
+      padding: 20px;
       display: flex;
-      gap: 24px;
-      align-items: center;
+      gap: 20px;
+      align-items: flex-start;
       flex-wrap: wrap;
     }
 
+    .artist-visual-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+      width: 160px;
+    }
+
     .artist-photo {
-      width: 170px;
-      height: 170px;
+      width: 160px;
+      height: 160px;
       border-radius: 14px;
       object-fit: cover;
       border: 2px solid var(--border-cyan);
@@ -383,15 +396,17 @@
     .listen-btn {
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       gap: 8px;
       background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%);
       color: #ffffff;
-      padding: 8px 16px;
+      padding: 7px 14px;
       border-radius: 50px;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 700;
       text-decoration: none;
-      margin-top: 12px;
+      margin-top: 0;
+      width: 100%;
       transition: all 0.2s;
       box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
       cursor: pointer;
@@ -429,7 +444,7 @@
 
     /* Bottom Control Bar */
     .deck-footer {
-      padding: 16px 24px;
+      padding: 10px 20px;
       background: rgba(11, 15, 25, 0.9);
       border-top: 1px solid var(--border-subtle);
       display: flex;
@@ -738,23 +753,25 @@
         <h2 class="slide-heading">Bill Haley & <span>His Comets</span></h2>
 
         <div class="artist-hero-card">
-          <img src="images/slides/rock_n_roll/bill_haley.jpg" alt="Bill Haley and the Comets" class="artist-photo">
+          <div class="artist-visual-col">
+            <img src="images/slides/rock_n_roll/bill_haley.jpg" alt="Bill Haley and the Comets" class="artist-photo">
+            <button class="listen-btn" onclick="openVideo('ZgdufzXvjqw', 'Bill Haley - Rock Around the Clock')">
+              ▶ Listen: Rock Around the Clock
+            </button>
+          </div>
           <div class="artist-info">
             <div class="artist-meta-pills">
               <span class="pill cyan">Chester, Pennsylvania</span>
               <span class="pill">Formed: 1952</span>
               <span class="pill amber">Decca Records</span>
             </div>
-            <h3 style="font-size: 22px; color: #fff; margin-bottom: 6px;">"Rock Around the Clock" (1954)</h3>
-            <p class="card-text" style="margin-bottom: 12px;">
+            <h3 style="font-size: 20px; color: #fff; margin-bottom: 6px;">"Rock Around the Clock" (1954)</h3>
+            <p class="card-text" style="margin-bottom: 10px;">
               <strong>Historical Contribution:</strong> The first white musicians to bring Rock 'n' Roll to the attention of mainstream America and the world. Featured in the 1955 movie <em>Blackboard Jungle</em>.
             </p>
             <p class="card-text">
               <strong>Musical Features:</strong> Fused western swing slap-bass with jump blues, bright energetic tenor saxophone solos, and syncopated snare accents.
             </p>
-            <button class="listen-btn" onclick="openVideo('ZgdufzXvjqw', 'Bill Haley - Rock Around the Clock')">
-              ▶ Listen: Rock Around the Clock
-            </button>
           </div>
         </div>
       </section>
@@ -765,23 +782,25 @@
         <h2 class="slide-heading">Buddy Holly & <span>The Crickets</span></h2>
 
         <div class="artist-hero-card">
-          <img src="images/slides/rock_n_roll/buddy_holly.jpg" alt="Buddy Holly" class="artist-photo">
+          <div class="artist-visual-col">
+            <img src="images/slides/rock_n_roll/buddy_holly.jpg" alt="Buddy Holly" class="artist-photo">
+            <button class="listen-btn" onclick="openVideo('OUesbTObC9A', 'Buddy Holly - Peggy Sue')">
+              ▶ Listen: Peggy Sue
+            </button>
+          </div>
           <div class="artist-info">
             <div class="artist-meta-pills">
               <span class="pill cyan">Lubbock, Texas</span>
               <span class="pill">Active: 1956–1959</span>
               <span class="pill amber">Album: The "Chirping" Crickets (1957)</span>
             </div>
-            <h3 style="font-size: 22px; color: #fff; margin-bottom: 6px;">"Peggy Sue" / "Everyday" (1957)</h3>
-            <p class="card-text" style="margin-bottom: 12px;">
+            <h3 style="font-size: 20px; color: #fff; margin-bottom: 6px;">"Peggy Sue" / "Everyday" (1957)</h3>
+            <p class="card-text" style="margin-bottom: 10px;">
               <strong>Unique Contribution:</strong> Considered the primary songwriting influence on Lennon and McCartney. Established the definitive 4-piece template: <strong>2 Guitars, Bass, and Drums</strong>.
             </p>
             <p class="card-text">
               <strong>Signature Techniques:</strong> Fender Stratocaster electric guitar, distinctive <em>vocal hiccups</em> (glottal stops), falsetto leaps, and Norman Petty's studio reverb experimentation.
             </p>
-            <button class="listen-btn" onclick="openVideo('OUesbTObC9A', 'Buddy Holly - Peggy Sue')">
-              ▶ Listen: Peggy Sue
-            </button>
           </div>
         </div>
       </section>
@@ -792,23 +811,25 @@
         <h2 class="slide-heading">Chuck Berry: <span>Guitar & Lyricism</span></h2>
 
         <div class="artist-hero-card">
-          <img src="images/slides/rock_n_roll/chuck_berry.jpg" alt="Chuck Berry with Gibson guitar" class="artist-photo">
+          <div class="artist-visual-col">
+            <img src="images/slides/rock_n_roll/chuck_berry.jpg" alt="Chuck Berry with Gibson guitar" class="artist-photo">
+            <button class="listen-btn" onclick="openVideo('T38v3-SSGcM', 'Chuck Berry - Johnny B. Goode')">
+              ▶ Listen: Johnny B. Goode
+            </button>
+          </div>
           <div class="artist-info">
             <div class="artist-meta-pills">
               <span class="pill cyan">St. Louis, Missouri</span>
               <span class="pill">Active: 1955–2017</span>
               <span class="pill amber">Chess Records (Chicago)</span>
             </div>
-            <h3 style="font-size: 22px; color: #fff; margin-bottom: 6px;">"Johnny B. Goode" (1958) / "Maybellene"</h3>
-            <p class="card-text" style="margin-bottom: 12px;">
+            <h3 style="font-size: 20px; color: #fff; margin-bottom: 6px;">"Johnny B. Goode" (1958) / "Maybellene"</h3>
+            <p class="card-text" style="margin-bottom: 10px;">
               <strong>Unique Contribution:</strong> Pioneered the transition from Rhythm &amp; Blues to Rock 'n' Roll as we know it. Defined the rock guitar vocabulary with <strong>double-stop intro licks</strong> and syncopated rhythm chugging.
             </p>
             <p class="card-text">
               <strong>Lyricism & Production:</strong> Lyrics based around teens, cars, high school, and guitars. Recorded through overdriven valve preamps at Chess Records.
             </p>
-            <button class="listen-btn" onclick="openVideo('T38v3-SSGcM', 'Chuck Berry - Johnny B. Goode')">
-              ▶ Listen: Johnny B. Goode
-            </button>
           </div>
         </div>
       </section>
@@ -819,23 +840,25 @@
         <h2 class="slide-heading">Elvis Presley & <span>Sam Phillips</span></h2>
 
         <div class="artist-hero-card">
-          <img src="images/slides/rock_n_roll/elvis_presley.jpg" alt="Elvis Presley in 1950s" class="artist-photo">
+          <div class="artist-visual-col">
+            <img src="images/slides/rock_n_roll/elvis_presley.jpg" alt="Elvis Presley in 1950s" class="artist-photo">
+            <button class="listen-btn" onclick="openVideo('gj0Rz-uP4Mk', 'Elvis Presley - Jailhouse Rock')">
+              ▶ Listen: Jailhouse Rock
+            </button>
+          </div>
           <div class="artist-info">
             <div class="artist-meta-pills">
               <span class="pill cyan">Memphis, Tennessee</span>
               <span class="pill">Sun Studio (1954–1955) → RCA</span>
               <span class="pill amber">"That's All Right" / "Jailhouse Rock"</span>
             </div>
-            <h3 style="font-size: 22px; color: #fff; margin-bottom: 6px;">The Birth of Rockabilly</h3>
-            <p class="card-text" style="margin-bottom: 12px;">
+            <h3 style="font-size: 20px; color: #fff; margin-bottom: 6px;">The Birth of Rockabilly</h3>
+            <p class="card-text" style="margin-bottom: 10px;">
               <strong>Unique Contribution:</strong> Fused African-American blues feeling with white country twang. Producer Sam Phillips engineered the iconic <strong>Sun Studio slapback echo</strong>, defining Elvis's vocal signature.
             </p>
             <p class="card-text">
               <strong>Musical Style:</strong> Scotty Moore's fingerpicked guitar, Bill Black's slapping upright bass, and Elvis's dynamic vocal theatrics (growls, crooning vibrato).
             </p>
-            <button class="listen-btn" onclick="openVideo('gj0Rz-uP4Mk', 'Elvis Presley - Jailhouse Rock')">
-              ▶ Listen: Jailhouse Rock
-            </button>
           </div>
         </div>
       </section>
@@ -847,32 +870,36 @@
 
         <div class="grid-2">
           <!-- Brenda Lee Card -->
-          <div class="info-card" style="display: flex; gap: 16px; align-items: flex-start;">
-            <img src="images/slides/rock_n_roll/brenda_lee.jpg" alt="Brenda Lee" style="width: 100px; height: 110px; border-radius: 10px; object-fit: cover; border: 1px solid var(--border-cyan); flex-shrink: 0;">
+          <div class="info-card" style="display: flex; gap: 14px; align-items: flex-start;">
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 8px; flex-shrink: 0; width: 100px;">
+              <img src="images/slides/rock_n_roll/brenda_lee.jpg" alt="Brenda Lee" style="width: 100px; height: 100px; border-radius: 10px; object-fit: cover; border: 1px solid var(--border-cyan);">
+              <button class="listen-btn" style="padding: 5px 8px; font-size: 11px;" onclick="openVideo('tfJ-q0VFe_g', 'Brenda Lee - Sweet Nothin\'s')">
+                ▶ Listen
+              </button>
+            </div>
             <div>
               <span class="pill cyan" style="margin-bottom: 4px; display: inline-block;">Atlanta, Georgia • Decca</span>
               <h4 class="card-title" style="margin-bottom: 4px;">Brenda Lee ("Sweet Nothings")</h4>
-              <p class="card-text" style="font-size: 13px; margin-bottom: 8px;">
+              <p class="card-text" style="font-size: 13px;">
                 One of the biggest female recording artists of the era. Sang about teenage relationships, heartbreaks, and youth culture with powerhouse vocal delivery.
               </p>
-              <button class="listen-btn" style="padding: 5px 12px; font-size: 11.5px;" onclick="openVideo('tfJ-q0VFe_g', 'Brenda Lee - Sweet Nothin\'s')">
-                ▶ Listen: Sweet Nothin's
-              </button>
             </div>
           </div>
 
           <!-- Bo Diddley Card -->
-          <div class="info-card" style="display: flex; gap: 16px; align-items: flex-start;">
-            <img src="images/slides/rock_n_roll/bo_diddley.jpg" alt="Bo Diddley with rectangular guitar" style="width: 100px; height: 110px; border-radius: 10px; object-fit: cover; border: 1px solid var(--border-cyan); flex-shrink: 0;">
+          <div class="info-card" style="display: flex; gap: 14px; align-items: flex-start;">
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 8px; flex-shrink: 0; width: 100px;">
+              <img src="images/slides/rock_n_roll/bo_diddley.jpg" alt="Bo Diddley with rectangular guitar" style="width: 100px; height: 100px; border-radius: 10px; object-fit: cover; border: 1px solid var(--border-cyan);">
+              <button class="listen-btn" style="padding: 5px 8px; font-size: 11px;" onclick="openVideo('yeZHB3ozglQ', 'Bo Diddley - Bo Diddley')">
+                ▶ Listen
+              </button>
+            </div>
             <div>
               <span class="pill amber" style="margin-bottom: 4px; display: inline-block;">Mississippi • Chess Records</span>
               <h4 class="card-title" style="margin-bottom: 4px;">Bo Diddley ("Bo Diddley")</h4>
-              <p class="card-text" style="font-size: 13px; margin-bottom: 8px;">
+              <p class="card-text" style="font-size: 13px;">
                 Introduced the African clave syncopated rhythm ("The Bo Diddley Beat": <em>shave and a haircut, two bits</em>) and his custom rectangular guitar.
               </p>
-              <button class="listen-btn" style="padding: 5px 12px; font-size: 11.5px;" onclick="openVideo('yeZHB3ozglQ', 'Bo Diddley - Bo Diddley')">
-                ▶ Listen: Bo Diddley
-              </button>
             </div>
           </div>
         </div>
@@ -885,28 +912,33 @@
 
         <div class="grid-2">
           <div class="info-card">
-            <div style="font-size: 30px; margin-bottom: 6px;">🎹 💥</div>
-            <span class="pill cyan" style="margin-bottom: 6px; display: inline-block;">Little Richard (Macon, Georgia)</span>
-            <h3 class="card-title">"Tutti Frutti" (1955) • Specialty Records</h3>
-            <p class="card-text" style="margin-bottom: 12px;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; margin-bottom: 6px;">
+              <div>
+                <span class="pill cyan" style="margin-bottom: 6px; display: inline-block;">Little Richard (Macon, Georgia)</span>
+                <h3 class="card-title" style="font-size: 15px;">"Tutti Frutti" (1955) • Specialty</h3>
+              </div>
+              <button class="listen-btn" style="width: auto; padding: 5px 12px; font-size: 11.5px; flex-shrink: 0;" onclick="openVideo('LVIttmFAzek', 'Little Richard - Tutti Frutti')">
+                ▶ Listen
+              </button>
+            </div>
+            <p class="card-text">
               Unrestrained vocal screaming, high falsetto "whoops", and driving boogie-woogie piano. Introduced flamboyant, electrifying stage presentation.
             </p>
-            <button class="listen-btn" onclick="openVideo('LVIttmFAzek', 'Little Richard - Tutti Frutti')">
-              ▶ Listen: Tutti Frutti
-            </button>
           </div>
 
           <div class="info-card" style="display: flex; gap: 14px; align-items: flex-start;">
-            <img src="images/slides/rock_n_roll/jerry_lee_lewis.jpg" alt="Jerry Lee Lewis" style="width: 100px; height: 120px; border-radius: 10px; object-fit: cover; border: 1px solid var(--border-cyan); flex-shrink: 0;">
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 8px; flex-shrink: 0; width: 100px;">
+              <img src="images/slides/rock_n_roll/jerry_lee_lewis.jpg" alt="Jerry Lee Lewis" style="width: 100px; height: 100px; border-radius: 10px; object-fit: cover; border: 1px solid var(--border-cyan);">
+              <button class="listen-btn" style="padding: 5px 8px; font-size: 11px;" onclick="openVideo('Jt0mg8Z09SY', 'Jerry Lee Lewis - Great Balls of Fire')">
+                ▶ Listen
+              </button>
+            </div>
             <div>
               <span class="pill amber" style="margin-bottom: 6px; display: inline-block;">Jerry Lee Lewis (Louisiana)</span>
               <h3 class="card-title" style="font-size: 15px; margin-bottom: 6px;">"Great Balls of Fire" (1957)</h3>
-              <p class="card-text" style="font-size: 13px; margin-bottom: 8px;">
+              <p class="card-text" style="font-size: 13px;">
                 Aggressive pump-piano, frantic full-keyboard glissandos using fists and heels, and suggestive lyric delivery.
               </p>
-              <button class="listen-btn" style="padding: 6px 14px; font-size: 12px;" onclick="openVideo('Jt0mg8Z09SY', 'Jerry Lee Lewis - Great Balls of Fire')">
-                ▶ Listen: Great Balls of Fire
-              </button>
             </div>
           </div>
         </div>

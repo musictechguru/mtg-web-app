@@ -34,21 +34,25 @@
       background-color: var(--bg-dark);
       color: var(--text-main);
       font-family: var(--font);
-      min-height: 100vh;
+      height: 100vh;
+      overflow: hidden;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 20px;
+      padding: 8px;
       -webkit-font-smoothing: antialiased;
     }
 
     .deck-wrapper {
       width: 100%;
       max-width: 1100px;
+      height: calc(100vh - 16px);
+      min-height: 580px;
+      max-height: 660px;
       background: radial-gradient(circle at 50% 0%, rgba(0, 193, 240, 0.08) 0%, rgba(15, 23, 42, 0) 70%), var(--bg-card);
       border: 1px solid var(--border-cyan);
-      border-radius: 20px;
+      border-radius: 16px;
       box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.7), 0 0 40px rgba(0, 193, 240, 0.1);
       overflow: hidden;
       display: flex;
@@ -67,7 +71,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 16px 24px;
+      padding: 10px 20px;
       border-bottom: 1px solid var(--border-subtle);
       background: rgba(11, 15, 25, 0.85);
       backdrop-filter: blur(12px);
@@ -148,18 +152,18 @@
 
     .slide-stage {
       position: relative;
-      min-height: 540px;
+      flex: 1;
+      min-height: 0;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding: 36px 40px;
-      overflow: hidden;
+      padding: 18px 36px 20px 36px;
+      overflow-y: auto;
     }
 
     @media (max-width: 768px) {
       .slide-stage {
-        padding: 22px 16px;
-        min-height: 480px;
+        padding: 16px 14px;
       }
     }
 
@@ -274,16 +278,25 @@
       background: var(--bg-surface);
       border: 1px solid var(--border-subtle);
       border-radius: 16px;
-      padding: 24px;
+      padding: 20px;
       display: flex;
-      gap: 24px;
-      align-items: center;
+      gap: 20px;
+      align-items: flex-start;
       flex-wrap: wrap;
     }
 
+    .artist-visual-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+      width: 160px;
+    }
+
     .artist-photo {
-      width: 170px;
-      height: 170px;
+      width: 160px;
+      height: 160px;
       border-radius: 14px;
       object-fit: cover;
       border: 2px solid var(--border-cyan);
@@ -373,15 +386,17 @@
     .listen-btn {
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       gap: 8px;
       background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%);
       color: #ffffff;
-      padding: 8px 16px;
+      padding: 7px 14px;
       border-radius: 50px;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 700;
       text-decoration: none;
-      margin-top: 12px;
+      margin-top: 0;
+      width: 100%;
       transition: all 0.2s;
       box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
       cursor: pointer;
@@ -417,7 +432,7 @@
     }
 
     .deck-footer {
-      padding: 16px 24px;
+      padding: 10px 20px;
       background: rgba(11, 15, 25, 0.9);
       border-top: 1px solid var(--border-subtle);
       display: flex;
@@ -699,23 +714,25 @@
         <h2 class="slide-heading">Led Zeppelin & <span>Jimmy Page</span></h2>
 
         <div class="artist-hero-card">
-          <img src="images/slides/rock/led_zeppelin.jpg" alt="Led Zeppelin" class="artist-photo">
+          <div class="artist-visual-col">
+            <img src="images/slides/rock/led_zeppelin.jpg" alt="Led Zeppelin" class="artist-photo">
+            <button class="listen-btn" onclick="openVideo('HQmmM_qwG4k', 'Led Zeppelin - Whole Lotta Love')">
+              ▶ Listen: Whole Lotta Love
+            </button>
+          </div>
           <div class="artist-info">
             <div class="artist-meta-pills">
               <span class="pill cyan">London, UK • Formed 1968</span>
               <span class="pill">Olympic Studios / Headley Grange</span>
               <span class="pill amber">"Whole Lotta Love" (1969)</span>
             </div>
-            <h3 style="font-size: 22px; color: #fff; margin-bottom: 6px;">"Light and Shade" & Distance Micing</h3>
-            <p class="card-text" style="margin-bottom: 12px;">
+            <h3 style="font-size: 20px; color: #fff; margin-bottom: 6px;">"Light and Shade" & Distance Micing</h3>
+            <p class="card-text" style="margin-bottom: 10px;">
               <strong>Production Genius:</strong> Guitarist/producer Jimmy Page pioneered "distance makes depth"—placing mics yards away from Marshall cabs and drum kits to capture room ambience rather than dry direct signals.
             </p>
             <p class="card-text">
               <strong>Signature Techniques:</strong> John Bonham's massive drum sound recorded with Beyer M160 ribbon mics in the stone stairwell of Headley Grange; psychedelic backwards tape echo and stereo panning sweeps.
             </p>
-            <button class="listen-btn" onclick="openVideo('HQmmM_qwG4k', 'Led Zeppelin - Whole Lotta Love')">
-              ▶ Listen: Whole Lotta Love
-            </button>
           </div>
         </div>
       </section>
@@ -726,23 +743,25 @@
         <h2 class="slide-heading">Queen: <span>24-Track Vocal Stacking</span></h2>
 
         <div class="artist-hero-card">
-          <img src="images/slides/rock/queen.jpg" alt="Queen" class="artist-photo">
+          <div class="artist-visual-col">
+            <img src="images/slides/rock/queen.jpg" alt="Queen" class="artist-photo">
+            <button class="listen-btn" onclick="openVideo('fJ9rUzIMcZQ', 'Queen - Bohemian Rhapsody')">
+              ▶ Listen: Bohemian Rhapsody
+            </button>
+          </div>
           <div class="artist-info">
             <div class="artist-meta-pills">
               <span class="pill cyan">London, UK • 1970–Present</span>
               <span class="pill">Trident & Rockfield Studios</span>
               <span class="pill amber">Album: A Night at the Opera (1975)</span>
             </div>
-            <h3 style="font-size: 22px; color: #fff; margin-bottom: 6px;">"Bohemian Rhapsody" (1975)</h3>
-            <p class="card-text" style="margin-bottom: 12px;">
+            <h3 style="font-size: 20px; color: #fff; margin-bottom: 6px;">"Bohemian Rhapsody" (1975)</h3>
+            <p class="card-text" style="margin-bottom: 10px;">
               <strong>Technological Milestone:</strong> Recorded over three weeks, the operatic section required over 180 separate vocal overdubs bounced across 24-track tape until the 2-inch tape became so worn it turned transparent!
             </p>
             <p class="card-text">
               <strong>Brian May's Guitar Orchestra:</strong> Homemade "Red Special" guitar plugged into a cranked Vox AC30 and a treble booster, multi-tracked into rich four-part contrapuntal harmonies mimicking a symphony orchestra.
             </p>
-            <button class="listen-btn" onclick="openVideo('fJ9rUzIMcZQ', 'Queen - Bohemian Rhapsody')">
-              ▶ Listen: Bohemian Rhapsody
-            </button>
           </div>
         </div>
       </section>
@@ -753,23 +772,25 @@
         <h2 class="slide-heading">David Bowie & <span>Mick Ronson</span></h2>
 
         <div class="artist-hero-card">
-          <img src="images/slides/rock/david_bowie.jpg" alt="David Bowie" class="artist-photo">
+          <div class="artist-visual-col">
+            <img src="images/slides/rock/david_bowie.jpg" alt="David Bowie" class="artist-photo">
+            <button class="listen-btn" onclick="openVideo('3qrKj5L-FUU', 'David Bowie - Ziggy Stardust')">
+              ▶ Listen: Ziggy Stardust
+            </button>
+          </div>
           <div class="artist-info">
             <div class="artist-meta-pills">
               <span class="pill cyan">London, UK • 1972</span>
               <span class="pill">Trident Studios (Ken Scott, Engineer)</span>
               <span class="pill amber">"Ziggy Stardust" / "Starman"</span>
             </div>
-            <h3 style="font-size: 22px; color: #fff; margin-bottom: 6px;">The Glam Rock Sonic Signature</h3>
-            <p class="card-text" style="margin-bottom: 12px;">
+            <h3 style="font-size: 20px; color: #fff; margin-bottom: 6px;">The Glam Rock Sonic Signature</h3>
+            <p class="card-text" style="margin-bottom: 10px;">
               <strong>Musical & Visual Contrast:</strong> Glam rock combined hard rock energy with effeminate, androgynous fashion (sequins, platform boots, make-up) and infectious melodic pop hooks.
             </p>
             <p class="card-text">
               <strong>Trident Sound:</strong> Mick Ronson's Les Paul through a Marshall 200W with a cocked wah-wah pedal for a mid-boosted, nasal lead tone; tight dry drums and lush Trident A-Range console EQ.
             </p>
-            <button class="listen-btn" onclick="openVideo('3qrKj5L-FUU', 'David Bowie - Ziggy Stardust')">
-              ▶ Listen: Ziggy Stardust
-            </button>
           </div>
         </div>
       </section>
@@ -780,23 +801,25 @@
         <h2 class="slide-heading">The Who: <span>Synthesizer Integration</span></h2>
 
         <div class="artist-hero-card">
-          <img src="images/slides/rock/the_who.jpg" alt="The Who" class="artist-photo">
+          <div class="artist-visual-col">
+            <img src="images/slides/rock/the_who.jpg" alt="The Who" class="artist-photo">
+            <button class="listen-btn" onclick="openVideo('SHhrZgojY1Q', 'The Who - Won\'t Get Fooled Again')">
+              ▶ Listen: Won't Get Fooled Again
+            </button>
+          </div>
           <div class="artist-info">
             <div class="artist-meta-pills">
               <span class="pill cyan">London, UK • Formed 1964</span>
               <span class="pill">Olympic Studios (Glyn Johns, Producer)</span>
               <span class="pill amber">Album: Who's Next (1971)</span>
             </div>
-            <h3 style="font-size: 22px; color: #fff; margin-bottom: 6px;">"Won't Get Fooled Again" / "Baba O'Riley"</h3>
-            <p class="card-text" style="margin-bottom: 12px;">
+            <h3 style="font-size: 20px; color: #fff; margin-bottom: 6px;">"Won't Get Fooled Again" / "Baba O'Riley"</h3>
+            <p class="card-text" style="margin-bottom: 10px;">
               <strong>Unique Contribution:</strong> Pete Townshend was among the first rock composers to weave modular analog synthesizers (ARP 2600, EMS VCS3) and Lowrey organ repeaters into hard-hitting rock arrangements.
             </p>
             <p class="card-text">
               <strong>Glyn Johns Production:</strong> Iconic 3-mic drum capture for Keith Moon, powerful open chord ring-outs on Hiwatt amp stacks, and John Entwistle's distorted treble-heavy bass tone.
             </p>
-            <button class="listen-btn" onclick="openVideo('SHhrZgojY1Q', 'The Who - Won\'t Get Fooled Again')">
-              ▶ Listen: Won't Get Fooled Again
-            </button>
           </div>
         </div>
       </section>
