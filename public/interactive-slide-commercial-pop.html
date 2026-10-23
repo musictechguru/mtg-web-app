@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Commercial Pop (1980s to Modern) • Interactive Study Deck | Music Tech Guru</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #060814;
+      --bg-card: #0c1026;
+      --bg-surface: #121838;
+      --accent-cyan: #00C1F0;
+      --accent-cyan-glow: rgba(0, 193, 240, 0.35);
+      --accent-pink: #ec4899;
+      --accent-pink-glow: rgba(236, 72, 153, 0.35);
+      --accent-gold: #f59e0b;
+      --accent-purple: #8b5cf6;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-cyan: rgba(0, 193, 240, 0.35);
+      --border-pink: rgba(236, 72, 153, 0.35);
+      --font: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: var(--font);
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 8px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .deck-wrapper {
+      width: 100%;
+      max-width: 1100px;
+      height: calc(100vh - 16px);
+      min-height: 580px;
+      max-height: 660px;
+      background: radial-gradient(circle at 50% 0%, rgba(0, 193, 240, 0.12) 0%, rgba(12, 16, 38, 0) 70%), var(--bg-card);
+      border: 1px solid var(--border-cyan);
+      border-radius: 16px;
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.8), 0 0 40px rgba(0, 193, 240, 0.12);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    /* Top Utility Bar */
+    .deck-topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      background: rgba(8, 11, 25, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-subtle);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      z-index: 10;
+    }
+
+    .badge-hub {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(0, 193, 240, 0.15);
+      border: 1px solid var(--border-cyan);
+      color: var(--accent-cyan);
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      text-transform: uppercase;
+    }
+
+    .badge-pulse {
+      width: 7px;
+      height: 7px;
+      background: var(--accent-cyan);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--accent-cyan);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
+    }
+
+    .deck-topic-title {
+      color: var(--text-muted);
+      font-size: 12px;
+    }
+
+    .deck-topic-title strong {
+      color: #fff;
+    }
+
+    /* Slides Viewport */
+    .slides-viewport {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      padding: 24px 36px 16px 36px;
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateX(30px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      overflow-y: auto;
+    }
+
+    .slide.active {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(0);
+    }
+
+    /* Slide Typography */
+    .slide-eyebrow {
+      font-size: 11.5px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--accent-cyan);
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .slide-heading {
+      font-size: clamp(20px, 3vw, 27px);
+      font-weight: 900;
+      line-height: 1.15;
+      letter-spacing: -0.5px;
+      color: #ffffff;
+      margin-bottom: 12px;
+    }
+
+    .slide-heading span {
+      background: linear-gradient(135deg, #00C1F0 0%, #ec4899 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .slide-lead {
+      color: #cbd5e1;
+      font-size: 14px;
+      line-height: 1.5;
+      max-width: 820px;
+      margin-bottom: 14px;
+    }
+
+    /* Grids & Cards */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    @media (max-width: 768px) {
+      .grid-2, .grid-3 {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+    }
+
+    .info-card {
+      background: rgba(18, 24, 56, 0.65);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 14px 16px;
+      transition: all 0.2s;
+    }
+
+    .info-card:hover {
+      border-color: rgba(0, 193, 240, 0.4);
+      background: rgba(18, 24, 56, 0.9);
+      transform: translateY(-2px);
+    }
+
+    .info-card.highlight {
+      border-left: 4px solid var(--accent-cyan);
+    }
+
+    .info-card.pink-edge {
+      border-left: 4px solid var(--accent-pink);
+    }
+
+    .info-card.gold-edge {
+      border-left: 4px solid var(--accent-gold);
+    }
+
+    .info-card.purple-edge {
+      border-left: 4px solid var(--accent-purple);
+    }
+
+    .card-title {
+      font-size: 14.5px;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-text {
+      font-size: 12.5px;
+      line-height: 1.5;
+      color: #94a3b8;
+    }
+
+    .feature-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .feature-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 12.5px;
+      color: #cbd5e1;
+      line-height: 1.45;
+    }
+
+    .feature-icon {
+      color: var(--accent-cyan);
+      font-weight: bold;
+      flex-shrink: 0;
+      font-size: 13px;
+    }
+
+    .pill {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      background: rgba(255, 255, 255, 0.08);
+      color: #e2e8f0;
+      margin-right: 4px;
+      margin-bottom: 4px;
+    }
+
+    .pill.cyan {
+      background: rgba(0, 193, 240, 0.15);
+      color: var(--accent-cyan);
+      border: 1px solid var(--border-cyan);
+    }
+
+    .pill.pink {
+      background: rgba(236, 72, 153, 0.15);
+      color: #f472b6;
+      border: 1px solid var(--border-pink);
+    }
+
+    .pill.gold {
+      background: rgba(245, 158, 11, 0.15);
+      color: var(--accent-gold);
+      border: 1px solid rgba(245, 158, 11, 0.35);
+    }
+
+    .pill.purple {
+      background: rgba(139, 92, 246, 0.15);
+      color: #c084fc;
+      border: 1px solid rgba(139, 92, 246, 0.35);
+    }
+
+    /* Artist Slide Layout */
+    .artist-hero-card {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 20px;
+      align-items: center;
+      background: rgba(18, 24, 56, 0.5);
+      border: 1px solid var(--border-subtle);
+      border-radius: 14px;
+      padding: 16px;
+    }
+
+    @media (max-width: 768px) {
+      .artist-hero-card {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .artist-visual-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .artist-photo {
+      width: 100%;
+      height: 190px;
+      object-fit: cover;
+      object-position: top;
+      border-radius: 12px;
+      border: 2px solid var(--border-cyan);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+      background: #060814;
+    }
+
+    .listen-btn {
+      width: 100%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      background: linear-gradient(135deg, #00C1F0 0%, #0284c7 100%);
+      color: #ffffff;
+      font-weight: 800;
+      font-size: 11.5px;
+      padding: 7px 12px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: 0 4px 14px rgba(0, 193, 240, 0.35);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .listen-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 193, 240, 0.5);
+      background: #38bdf8;
+      color: #060814;
+    }
+
+    .artist-info {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .artist-meta-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 2px;
+    }
+
+    /* Comparison Table */
+    .compare-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 11.5px;
+      margin-top: 6px;
+    }
+
+    .compare-table th {
+      background: rgba(0, 193, 240, 0.15);
+      color: var(--accent-cyan);
+      padding: 8px 10px;
+      text-align: left;
+      font-weight: 800;
+      border-bottom: 1px solid var(--border-cyan);
+      letter-spacing: 0.5px;
+    }
+
+    .compare-table td {
+      padding: 8px 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      color: #cbd5e1;
+      vertical-align: top;
+      line-height: 1.45;
+    }
+
+    .compare-table tr:hover td {
+      background: rgba(0, 193, 240, 0.05);
+    }
+
+    /* Bottom Navigation Bar */
+    .deck-bottombar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 24px;
+      background: rgba(8, 11, 25, 0.95);
+      backdrop-filter: blur(12px);
+      border-top: 1px solid var(--border-subtle);
+      z-index: 10;
+    }
+
+    .nav-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-main);
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 12.5px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .nav-btn:hover:not(:disabled) {
+      background: rgba(0, 193, 240, 0.2);
+      border-color: var(--accent-cyan);
+      transform: translateY(-1px);
+    }
+
+    .nav-btn:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+
+    .deck-progress-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      flex: 1;
+      max-width: 320px;
+      margin: 0 16px;
+    }
+
+    .slide-counter {
+      font-size: 11.5px;
+      color: var(--text-muted);
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #00C1F0, #ec4899);
+      width: 7.7%;
+      transition: width 0.3s ease;
+    }
+
+    .keyboard-hint {
+      font-size: 11px;
+      color: #64748b;
+    }
+
+    .kbd {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 4px;
+      padding: 1px 5px;
+      font-family: inherit;
+      color: #94a3b8;
+    }
+
+    /* Video Modal */
+    .video-modal-backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(8px);
+      z-index: 1000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .video-modal-backdrop.open {
+      display: flex;
+    }
+
+    .video-modal-content {
+      position: relative;
+      width: 100%;
+      max-width: 800px;
+      background: #090e21;
+      border: 1px solid var(--border-cyan);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 30px rgba(0, 193, 240, 0.3);
+    }
+
+    .video-modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 18px;
+      background: rgba(255, 255, 255, 0.03);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .video-modal-title {
+      font-size: 14px;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .close-modal-btn {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 20px;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .close-modal-btn:hover {
+      color: #fff;
+    }
+
+    .video-player-wrapper {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+    }
+
+    .video-player-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="deck-wrapper">
+    <!-- Top Utility Header -->
+    <header class="deck-topbar">
+      <div class="badge-hub">
+        <span class="badge-pulse"></span>
+        Component 3 • Focus Style
+      </div>
+      <div class="deck-topic-title">
+        Pearson Edexcel 9MT0/03 • <strong>Commercial Pop (1980s to Modern)</strong>
+      </div>
+      <div class="keyboard-hint">
+        Use <kbd class="kbd">←</kbd> <kbd class="kbd">→</kbd> or Click Next
+      </div>
+    </header>
+
+    <!-- Slide Viewport -->
+    <main class="slides-viewport" id="slidesViewport">
+
+      <!-- SLIDE 1: COVER -->
+      <section class="slide active" data-index="0">
+        <div class="slide-eyebrow">A-Level Music Technology • Component 3</div>
+        <h1 class="slide-heading">Commercial Pop &amp; <span>The Digital Revolution</span></h1>
+        <p class="slide-lead">
+          The transformation of popular music from analogue tape sessions into digital precision. The 1980s ushered in digital FM synthesizers, sampled drum machines, gated reverbs, and SSL console automation, laying the blueprint for modern hit-making.
+        </p>
+
+        <div class="grid-3" style="margin-top: 10px;">
+          <div class="info-card highlight">
+            <div class="card-title">🎹 Digital FM &amp; Sampling</div>
+            <p class="card-text">
+              Yamaha DX7 frequency modulation, Fairlight CMI Page R sampling, and the universal MIDI protocol (1983) unifying electronic instruments.
+            </p>
+          </div>
+          <div class="info-card pink-edge">
+            <div class="card-title">🥁 Gated Reverb &amp; LinnDrum</div>
+            <p class="card-text">
+              Linn LM-1/LinnDrum EPROM digital drum samples paired with explosive SSL Listen Mic Compressor gated reverbs on snare drums.
+            </p>
+          </div>
+          <div class="info-card gold-edge">
+            <div class="card-title">🎛 The SSL 4000 Console</div>
+            <p class="card-text">
+              In-line channel dynamics (compression/gating on every strip), Total Recall automation, and the legendary G-Master Bus 'Glue' Compressor.
+            </p>
+          </div>
+        </div>
+
+        <div style="margin-top: 18px; padding: 12px 16px; background: rgba(0, 193, 240, 0.08); border: 1px solid var(--border-cyan); border-radius: 10px; font-size: 12px; color: #cbd5e1; display: flex; align-items: center; gap: 10px;">
+          <span style="font-size: 18px;">💡</span>
+          <span><strong>Exam Focus:</strong> Edexcel Component 3 frequently evaluates the <em>contrast between 1980s hybrid analogue/digital hardware</em> (SSL 4000, DX7, Synclavier) and <em>post-2000s in-the-box DAW pop production</em> (Auto-Tune, sidechain pumping, brickwall limiting).</span>
+        </div>
+      </section>
+
+      <!-- SLIDE 2: SPECIFICATION ROADMAP -->
+      <section class="slide" data-index="1">
+        <div class="slide-eyebrow">Edexcel 9MT0/03 Syllabus Alignment</div>
+        <h2 class="slide-heading">Component 3 <span>Specification Matrix</span></h2>
+        <p class="slide-lead">
+          Commercial Pop questions test both musical analysis of pop arrangements (AO3) and deep technical understanding of 1980s hardware and modern DAW processing (AO4).
+        </p>
+
+        <div class="grid-2">
+          <div class="info-card highlight">
+            <div class="card-title">AO3: Musical Elements &amp; Arrangement</div>
+            <ul class="feature-list" style="margin-top: 8px;">
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>Quantized Rhythm Tracks:</strong> Grid-locked 16th-note drum programming with precise humanize/swing percentages.</li>
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>Vocal Stacks &amp; Hooks:</strong> Dense three- and four-part vocal harmony layering; pitch-perfect doubled leads and vocoder textures.</li>
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>Synthetic Basslines:</strong> Layered analog/digital bass (Minimoog + DX7) providing sub-weight and percussive transient bite.</li>
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>Anthemic Melodic Hooks:</strong> Clean, memorable pentatonic and diatonic melodies engineered for radio rotation ("Melodic Math").</li>
+            </ul>
+          </div>
+
+          <div class="info-card pink-edge">
+            <div class="card-title">AO4: Studio Technology &amp; Processing</div>
+            <ul class="feature-list" style="margin-top: 8px;">
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>Gated Reverb (Snare Drum):</strong> Large non-linear hall reverb tail severed abruptly by a fast-release noise gate (AMS RMX16 / SSL Listen Mic).</li>
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>FM Synthesis (Yamaha DX7):</strong> Frequency Modulation of sine waves (carriers and modulators) producing glassy tine pianos and metallic chimes.</li>
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>SSL Bus Compression:</strong> VCA Quad compressor on the stereo mix bus creating cohesive dynamic glue with 30ms attack and auto-release.</li>
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>Vocal Pitch Correction:</strong> From Eventide H3000 micro-pitch shifting to Antares Auto-Tune (retune speed 0 robotic effect) and Melodyne formant preservation.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 3: DRUM MACHINES & GATED REVERB -->
+      <section class="slide" data-index="2">
+        <div class="slide-eyebrow">The 80s Rhythm Revolution • AO4 Cornerstone</div>
+        <h2 class="slide-heading">Sampled Drum Machines &amp; <span>Gated Reverb</span></h2>
+        
+        <div class="grid-2">
+          <div class="info-card highlight">
+            <div class="card-title">🥁 The Digital Drum Machine (Linn LM-1 &amp; LinnDrum)</div>
+            <ul class="feature-list" style="margin-top: 8px;">
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>Real Acoustic Samples:</strong> Created by Roger Linn in 1980. Unlike analogue synthesis (TR-808), the LM-1 stored digital 8-bit / 28 kHz audio samples of real drums recorded on EPROM chips.</li>
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>Individual Channel Tuning &amp; Outputs:</strong> Each drum voice had its own dedicated output jack and tuning pot, allowing engineers to route the snare and kick into external compressors and EQs.</li>
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>Signature Pop Tracks:</strong> Prince – "When Doves Cry", Michael Jackson – "Thriller", a-ha – "Take On Me".</li>
+            </ul>
+          </div>
+
+          <div class="info-card pink-edge">
+            <div class="card-title">💥 The Gated Reverb Snare Phenomenon</div>
+            <ul class="feature-list" style="margin-top: 8px;">
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>Accidental Discovery:</strong> Engineer Hugh Padgham and Phil Collins at Townhouse Studios (1979) during Peter Gabriel's sessions. Collins played drums while the talkback mic (with heavy SSL Listen Mic Compression) was engaged.</li>
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>The Signal Chain:</strong> Snare Drum &rarr; Huge Digital Reverb (AMS RMX16 NonLin 2 or EMT 250) with 3–5 second decay &rarr; Noise Gate with high threshold and instantaneous release.</li>
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>Acoustic Result:</strong> A gigantic, explosive burst of cavernous room sound that vanishes into total silence after 250 milliseconds, leaving the mix clean for synths and vocals.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 4: MICHAEL JACKSON & QUINCY JONES -->
+      <section class="slide" data-index="3">
+        <div class="slide-eyebrow">Artist &amp; Producer Focus • The Gold Standard</div>
+        <h2 class="slide-heading">Michael Jackson: <span>Thriller &amp; Bruce Swedien</span></h2>
+        
+        <div class="artist-hero-card">
+          <div class="artist-visual-col">
+            <img src="/images/slides/pop/michael_jackson.jpg" alt="Michael Jackson 1983" class="artist-photo">
+            <button class="listen-btn" onclick="openVideo('Zi_XLOBDo_Y', 'Michael Jackson - Billie Jean')">
+              ▶ Listen: Billie Jean (1982)
+            </button>
+          </div>
+          <div class="artist-info">
+            <div class="artist-meta-pills">
+              <span class="pill cyan">Westlake Audio (Studio A)</span>
+              <span class="pill pink">Harrison 3232 Console</span>
+              <span class="pill gold">Bruce Swedien (Engineer)</span>
+            </div>
+            <h3 style="font-size: 19px; color: #fff; margin-bottom: 6px;">The Acusonic Recording Process &amp; Drum Perfection</h3>
+            <p class="card-text">
+              <strong>"Billie Jean" Drum Sound:</strong> Ndugu Chancler played a custom acoustic drum kit mounted on a custom 8x8-foot plywood riser to eliminate floor vibrations. Swedien placed a custom canvas blanket cover over the kick drum with an internal slot for a Shure SM7 dynamic mic.
+            </p>
+            <p class="card-text">
+              <strong>The Dual-Synthesizer Bassline:</strong> The unforgettable walking bassline was tracked by layering a Yamaha CS-80 and a Minimoog analogue synthesizer with Jackson's vocal beatboxing, producing both deep sub-bass and razor-sharp attack transients.
+            </p>
+            <p class="card-text">
+              <strong>Swedien's Acusonic Process:</strong> To avoid high-frequency tape degradation from countless playback passes, Swedien recorded the rhythm section onto a dedicated 24-track analogue tape and never played it again until the final master mixdown!
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 5: MADONNA & PATRICK LEONARD -->
+      <section class="slide" data-index="4">
+        <div class="slide-eyebrow">Artist Focus • The Pop Empress</div>
+        <h2 class="slide-heading">Madonna: <span>"Like A Prayer" &amp; 80s Pop Production</span></h2>
+        
+        <div class="artist-hero-card">
+          <div class="artist-visual-col">
+            <img src="/images/slides/pop/madonna.jpg" alt="Madonna" class="artist-photo">
+            <button class="listen-btn" onclick="openVideo('79fzeNUqQbQ', 'Madonna - Like A Prayer')">
+              ▶ Listen: Like A Prayer (1989)
+            </button>
+          </div>
+          <div class="artist-info">
+            <div class="artist-meta-pills">
+              <span class="pill cyan">Producers: Patrick Leonard &amp; Madonna</span>
+              <span class="pill pink">Sequential Circuits Prophet-5</span>
+              <span class="pill gold">Andraé Crouch Choir</span>
+            </div>
+            <h3 style="font-size: 19px; color: #fff; margin-bottom: 6px;">Fusing Gospel Choir with Dancefloor Technology</h3>
+            <p class="card-text">
+              <strong>Arrangement Architecture:</strong> Fuses heavy rock guitar distortion (provided by Prince) with a driving 120 BPM dance groove, Hammond B3 organ, and the soaring multi-voice power of the Andraé Crouch Gospel Choir.
+            </p>
+            <p class="card-text">
+              <strong>Bass &amp; Synth Orchestration:</strong> Guy Pratt performed live funk basslines alongside layered Sequential Prophet-5 and Minimoog synth bass patches, providing both organic human pocket and punchy electronic weight.
+            </p>
+            <p class="card-text">
+              <strong>Vocal Capture:</strong> Madonna's lead vocals were tracked using a Sony C-800G valve condenser mic and compressed through a Teletronix LA-2A, producing an intimate, breathy verse delivery that explodes into full-belted choruses.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 6: WHITNEY HOUSTON -->
+      <section class="slide" data-index="5">
+        <div class="slide-eyebrow">Artist Focus • The Pure Vocal Virtuoso</div>
+        <h2 class="slide-heading">Whitney Houston: <span>80s Pop-Dance Grandeur</span></h2>
+        
+        <div class="artist-hero-card">
+          <div class="artist-visual-col">
+            <img src="/images/slides/pop/whitney_houston.jpg" alt="Whitney Houston" class="artist-photo">
+            <button class="listen-btn" onclick="openVideo('eH3giaIzONA', 'Whitney Houston - I Wanna Dance with Somebody')">
+              ▶ Listen: I Wanna Dance
+            </button>
+          </div>
+          <div class="artist-info">
+            <div class="artist-meta-pills">
+              <span class="pill cyan">Producer: Narada Michael Walden</span>
+              <span class="pill pink">Roland TR-808 &amp; Oberheim DMX</span>
+              <span class="pill gold">Lexicon 480L Digital Reverb</span>
+            </div>
+            <h3 style="font-size: 19px; color: #fff; margin-bottom: 6px;">"I Wanna Dance with Somebody" (1987)</h3>
+            <p class="card-text">
+              <strong>Hybrid Drum Architecture:</strong> Producer Narada Michael Walden programmed an Oberheim DMX drum machine layered with Roland TR-808 cowbells and analog handclaps, creating an exuberant 119 BPM pop-funk pulse.
+            </p>
+            <p class="card-text">
+              <strong>Synth Brass &amp; Tines:</strong> Featuring iconic bright synth brass stabs generated on the Roland Jupiter-8 and shimmering digital bell tones from the Yamaha DX7, defining the high-gloss late-80s radio sound.
+            </p>
+            <p class="card-text">
+              <strong>Stereo Micro-Pitch Vocal Widening:</strong> Houston's phenomenal lead vocal was processed through an Eventide H3000 Harmonizer with subtle micro-pitch detuning (+9 cents left, -9 cents right with 15ms delay), paired with the lush hall algorithm of the Lexicon 480L digital reverb.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 7: A-HA & SYNTH-POP PRECISION -->
+      <section class="slide" data-index="6">
+        <div class="slide-eyebrow">Artist Focus • European Synth-Pop Mastery</div>
+        <h2 class="slide-heading">a-ha: <span>"Take On Me" &amp; Alan Tarney</span></h2>
+        
+        <div class="artist-hero-card">
+          <div class="artist-visual-col">
+            <img src="/images/slides/pop/linndrum.jpg" alt="LinnDrum Machine" class="artist-photo" style="object-position: center;">
+            <button class="listen-btn" onclick="openVideo('djV11Xbc914', 'a-ha - Take On Me')">
+              ▶ Listen: Take On Me (1985)
+            </button>
+          </div>
+          <div class="artist-info">
+            <div class="artist-meta-pills">
+              <span class="pill cyan">Producer: Alan Tarney</span>
+              <span class="pill pink">Roland Juno-60 Arpeggiator</span>
+              <span class="pill gold">LinnDrum LM-2 Samples</span>
+            </div>
+            <h3 style="font-size: 19px; color: #fff; margin-bottom: 6px;">Quantized Precision &amp; 2.5-Octave Vocal Leaps</h3>
+            <p class="card-text">
+              <strong>The Arpeggiated Hook:</strong> Magne Furuholmen programmed the legendary riff on a Roland Juno-60 analog synthesizer paired with a Yamaha DX7, driven by a Roland MIDI/DCB sequencer clocked to the LinnDrum.
+            </p>
+            <p class="card-text">
+              <strong>LinnDrum Percussion Grid:</strong> Driving 169 BPM tempo anchored by LinnDrum snare and claps, heavily compressed through SSL channel strips with bright top-end shelving boost at 10 kHz.
+            </p>
+            <p class="card-text">
+              <strong>Morten Harket's Vocal Climax:</strong> Harket delivers an astonishing vocal range, culminating in a legendary high E5 falsetto note that was tracked with zero pitch correction through a Neumann U87 and Teletronix LA-2A.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 8: MAX MARTIN & CHEIRON STUDIOS -->
+      <section class="slide" data-index="7">
+        <div class="slide-eyebrow">Producer Focus • The Millennium Pop Formula</div>
+        <h2 class="slide-heading">Max Martin: <span>The Cheiron Pop Revolution</span></h2>
+        
+        <div class="artist-hero-card">
+          <div class="artist-visual-col">
+            <img src="/images/slides/pop/quincy_jones.jpg" alt="Quincy Jones & Pop Production" class="artist-photo">
+            <button class="listen-btn" onclick="openVideo('C-u5WLJ9Yk4', 'Britney Spears - Baby One More Time')">
+              ▶ Listen: ...Baby One More Time
+            </button>
+          </div>
+          <div class="artist-info">
+            <div class="artist-meta-pills">
+              <span class="pill cyan">Cheiron Studios (Stockholm)</span>
+              <span class="pill pink">Denniz Pop &amp; Max Martin</span>
+              <span class="pill gold">"Melodic Math" Formula</span>
+            </div>
+            <h3 style="font-size: 19px; color: #fff; margin-bottom: 6px;">Britney Spears &amp; The Architecture of 2000s Pop</h3>
+            <p class="card-text">
+              <strong>"Melodic Math":</strong> Martin developed an exact science for hooks: vocal melodies must rhythmically interlock with the bassline, alternating between fast syncopated syllables in verses and soaring, open sustained vowels in choruses.
+            </p>
+            <p class="card-text">
+              <strong>The Three-Note Piano Stabs:</strong> "...Baby One More Time" opens with an iconic three-note descending piano stab (C-B-A) layered with sub-bass and sampled kick, instantly seizing radio listener attention within the first 1.5 seconds.
+            </p>
+            <p class="card-text">
+              <strong>Vocal Fry &amp; Layering:</strong> Britney's lead vocals were heavily compressed with SSL channel compressors and meticulously tuned, introducing the modern stylized "vocal fry" and triple-tracked octave harmonies that defined millennium teen pop.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 9: YAMAHA DX7 & FM SYNTHESIS -->
+      <section class="slide" data-index="8">
+        <div class="slide-eyebrow">Hardware Architecture • AO4 Digital Milestone</div>
+        <h2 class="slide-heading">Yamaha DX7: <span>Frequency Modulation Synthesis</span></h2>
+        <p class="slide-lead">
+          Released in 1983, the Yamaha DX7 ended the reign of warm analog subtractive synths and became the best-selling synthesizer of the 1980s, heard on over 60% of billboard hits.
+        </p>
+
+        <div class="grid-2">
+          <div class="info-card highlight">
+            <div class="card-title">🔬 FM Synthesis Principles (AO4)</div>
+            <ul class="feature-list" style="margin-top: 8px;">
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>Operators (Not VCOs):</strong> Contains 6 digital sine wave oscillators called 'Operators', each paired with its own digital envelope generator.</li>
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>Carriers vs. Modulators:</strong> When one operator (the Modulator) rapidly modulates the frequency of another (the Carrier) in the audible range, it creates complex non-harmonic sidebands (overtones).</li>
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>32 Preset Algorithms:</strong> Different routing matrixes linking the 6 operators in series and parallel.</li>
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>No Resonant Filters:</strong> Unlike Minimoogs, the DX7 had NO low-pass filters (VCFs); timbre brightness was controlled entirely by modulator amplitude!</li>
+            </ul>
+          </div>
+
+          <div class="info-card pink-edge">
+            <div class="card-title">🎹 Hallmark Commercial Sounds</div>
+            <ul class="feature-list" style="margin-top: 8px;">
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>E.PIANO 1 (Tine Piano):</strong> The glassy, shimmering digital electric piano heard on virtually every 1980s power ballad (Whitney Houston, Chicago, Celine Dion).</li>
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>BASS 1:</strong> Sharp, percussive digital slap bass with metallic slap transients (a-ha, Kenny Loggins "Danger Zone").</li>
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>TUB BELLS &amp; MARIMBA:</strong> Inharmonic bell tones that analog synthesizers were physically incapable of reproducing accurately.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 10: SAMPLING GIANTS: FAIRLIGHT & SYNCLAVIER -->
+      <section class="slide" data-index="9">
+        <div class="slide-eyebrow">Digital Sampling Workstations • The Multi-Million Studio Centerpieces</div>
+        <h2 class="slide-heading">Fairlight CMI <span>&amp; NED Synclavier II</span></h2>
+        
+        <div class="grid-2">
+          <div class="info-card gold-edge">
+            <div class="card-title">🖥 Fairlight CMI (Computer Musical Instrument)</div>
+            <ul class="feature-list" style="margin-top: 8px;">
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>First Commercial Sampler (1979):</strong> Australian invention by Peter Vogel and Kim Ryrie. Cost over $30,000 (£20,000+).</li>
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>Page R Step Sequencer:</strong> Revolutionized music programming; users placed notes visually on a computer monitor using a light pen.</li>
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>Iconic Sample "ORCH5":</strong> Stravinsky's *Firebird* orchestra chord sampled into an 8-bit, 16 kHz hit; became the famous 1980s pop orchestral stab heard in Afrika Bambaataa, Duran Duran, and Yes.</li>
+            </ul>
+          </div>
+
+          <div class="info-card highlight">
+            <div class="card-title">🎛 New England Digital Synclavier II</div>
+            <ul class="feature-list" style="margin-top: 8px;">
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>High-Resolution 16-Bit Sampling:</strong> Supported up to 100 kHz sample rates with pristine high fidelity and massive hard-disk memory.</li>
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>Direct-to-Disk Recording:</strong> Early precursor to the modern DAW, enabling multitrack audio recording directly onto magnetic hard disks.</li>
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>Famous Productions:</strong> Michael Jackson's *Bad* ("Smooth Criminal" kick/snare quantization), Frank Zappa, and Trevor Horn (Frankie Goes to Hollywood).</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 11: THE SSL 4000 & BUS COMPRESSION -->
+      <section class="slide" data-index="10">
+        <div class="slide-eyebrow">Mixing Engineering • The Sound of Modern Radio</div>
+        <h2 class="slide-heading">SSL 4000 Console: <span>Channel Dynamics &amp; Glue</span></h2>
+        
+        <div class="grid-3">
+          <div class="info-card highlight">
+            <div class="card-title">🎚 Channel Dynamics Strip</div>
+            <p class="card-text">
+              Every single channel on the Solid State Logic 4000 E/G series console featured a dedicated VCA compressor and an expander/gate. This allowed engineers to shape transient punch and eliminate bleed on all 48 multitrack channels simultaneously.
+            </p>
+          </div>
+          <div class="info-card pink-edge">
+            <div class="card-title">🎛 SSL G-Master Bus Compressor</div>
+            <p class="card-text">
+              The legendary Quad stereo bus compressor placed across the master outputs. Known as "The Glue" — it compresses the entire mix with an auto-release and gentle 2:1 or 4:1 ratio, bonding separate drums, synths, and vocals into a single, cohesive commercial radio punch.
+            </p>
+          </div>
+          <div class="info-card gold-edge">
+            <div class="card-title">💾 Total Recall Automation</div>
+            <p class="card-text">
+              Internal computers took digital snapshots of all motorized fader positions, pot settings, and routing configurations, enabling studios to recall complex 64-channel commercial pop mixes in minutes.
+            </p>
+          </div>
+        </div>
+
+        <div style="margin-top: 14px; background: rgba(0, 193, 240, 0.08); border: 1px solid var(--border-cyan); border-radius: 10px; padding: 12px 16px; font-size: 12px; color: #cbd5e1;">
+          <strong>Studio Fact:</strong> Over 75% of number-one singles produced throughout the 1980s and 1990s were mixed through an SSL 4000 E or G series analogue console.
+        </div>
+      </section>
+
+      <!-- SLIDE 12: SECTION B COMPARATIVE ANALYSIS -->
+      <section class="slide" data-index="11">
+        <div class="slide-eyebrow">Section B Long-Answer Comparative Matrix</div>
+        <h2 class="slide-heading">1980s Hybrid Pop vs. <span>Modern In-The-Box Pop</span></h2>
+        <p class="slide-lead">
+          Essential comparative criteria for Section B extended response exam questions examining the technological shift from 1980s hardware consoles to 2000s/2020s DAW virtual production.
+        </p>
+
+        <table class="compare-table">
+          <thead>
+            <tr>
+              <th>Production Parameter</th>
+              <th>1980s Hybrid Pop (Michael Jackson / Whitney / a-ha)</th>
+              <th>Modern Commercial Pop (Max Martin / Dua Lipa / Adele)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Recording Medium</strong></td>
+              <td>24-track analogue tape or early digital tape (Sony DASH 3348 48-track digital open reel).</td>
+              <td>Digital Audio Workstation (Pro Tools / Logic Pro) with 32-bit floating point processing.</td>
+            </tr>
+            <tr>
+              <td><strong>Pitch &amp; Timing Correction</strong></td>
+              <td>Manual composite vocal comping from multiple takes; tape vari-speed; zero digital pitch correction.</td>
+              <td>Antares Auto-Tune and Celemony Melodyne applied to every vocal track; tight vocal alignment via VocALign.</td>
+            </tr>
+            <tr>
+              <td><strong>Synthesis &amp; Sampling</strong></td>
+              <td>Dedicated external hardware: Yamaha DX7 (FM), Roland Jupiter-8 (analog), LinnDrum, Fairlight CMI.</td>
+              <td>In-the-box software plugins (Serum, Omnisphere, Kontakt) and gigabyte sample libraries.</td>
+            </tr>
+            <tr>
+              <td><strong>Console Dynamics &amp; Limiting</strong></td>
+              <td>Analogue SSL 4000 console channel dynamics, outboard UREI 1176, Lexicon 480L, +4 dB analog headroom.</td>
+              <td>Brickwall digital peak limiters (FabFilter Pro-L 2, Ozone), extreme loudness war RMS levels (-7 to -5 LUFS), sidechain compression ducking.</td>
+            </tr>
+            <tr>
+              <td><strong>Benchmark Tracks</strong></td>
+              <td>Michael Jackson – "Billie Jean" • a-ha – "Take On Me"</td>
+              <td>Britney Spears – "...Baby One More Time" • The Weeknd – "Blinding Lights"</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- SLIDE 13: COMPONENT 3 EXAM CHECKLIST -->
+      <section class="slide" data-index="12">
+        <div class="slide-eyebrow">Exam Revision Checklist • Pearson Edexcel 9MT0/03</div>
+        <h2 class="slide-heading">Component 3 <span>Exam Quick Reference</span></h2>
+        
+        <div class="grid-2">
+          <div class="info-card highlight">
+            <div class="card-title">📝 High-Yield Technical Terms</div>
+            <ul class="feature-list" style="margin-top: 8px;">
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>FM Synthesis (DX7):</strong> 6 operators, 32 algorithms, carrier/modulator frequency modulation for glassy electric pianos.</li>
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>Gated Reverb:</strong> Huge hall reverb abruptly clamped by a fast-release noise gate (AMS RMX16 / SSL Listen Mic).</li>
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>LinnDrum (LM-1/LM-2):</strong> 8-bit/12-bit digital acoustic drum samples stored on EPROMs with individual tunings.</li>
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>Fairlight CMI:</strong> Early 8-bit digital sampler with Page R sequencer and famous "ORCH5" orchestral stab.</li>
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>SSL Bus Compressor:</strong> Master stereo bus VCA compressor providing commercial dynamic "glue".</li>
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>Auto-Tune:</strong> Phase vocoder pitch correction; zero retune speed produces the famous hard-tuned Cher effect.</li>
+            </ul>
+          </div>
+
+          <div class="info-card pink-edge">
+            <div class="card-title">🎯 Key Producers &amp; Engineers</div>
+            <ul class="feature-list" style="margin-top: 8px;">
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>Quincy Jones &amp; Bruce Swedien:</strong> Michael Jackson's *Thriller*; Acusonic recording, plywood drum riser, Harrison 3232.</li>
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>Hugh Padgham:</strong> Pioneer of gated reverb snare drums at Townhouse Studios (Phil Collins, Peter Gabriel).</li>
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>Max Martin (Cheiron Studios):</strong> "Melodic Math", upfront vocal fry, aggressive pop hook architecture.</li>
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>Trevor Horn:</strong> ZTT Records, Fairlight/Synclavier sequencing, grand orchestral pop (Frankie Goes to Hollywood).</li>
+            </ul>
+          </div>
+        </div>
+
+        <div style="margin-top: 14px; text-align: center; color: var(--text-muted); font-size: 12px;">
+          Ready to test your knowledge? Take the <strong>Edexcel Specification Quiz</strong> directly below this deck!
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Bottom Navigation Bar -->
+    <footer class="deck-bottombar">
+      <button class="nav-btn" id="prevBtn" onclick="prevSlide()" disabled>
+        ← Previous
+      </button>
+
+      <div class="deck-progress-group">
+        <span class="slide-counter" id="slideCounter">Slide 1 of 13</span>
+        <div class="progress-track">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+      </div>
+
+      <button class="nav-btn" id="nextBtn" onclick="nextSlide()">
+        Next →
+      </button>
+    </footer>
+  </div>
+
+  <!-- Video Modal -->
+  <div class="video-modal-backdrop" id="videoModal">
+    <div class="video-modal-content">
+      <div class="video-modal-header">
+        <span class="video-modal-title" id="videoModalTitle">Video Clip</span>
+        <button class="close-modal-btn" onclick="closeVideo()">&times;</button>
+      </div>
+      <div class="video-player-wrapper">
+        <iframe id="videoIframe" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+    const totalSlides = slides.length;
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const slideCounter = document.getElementById('slideCounter');
+    const progressFill = document.getElementById('progressFill');
+    const videoModal = document.getElementById('videoModal');
+    const videoModalTitle = document.getElementById('videoModalTitle');
+    const videoIframe = document.getElementById('videoIframe');
+
+    function updateDeck() {
+      slides.forEach((slide, idx) => {
+        slide.classList.toggle('active', idx === currentSlide);
+      });
+
+      prevBtn.disabled = currentSlide === 0;
+      nextBtn.disabled = currentSlide === totalSlides - 1;
+      
+      slideCounter.textContent = `Slide ${currentSlide + 1} of ${totalSlides}`;
+      const percentage = ((currentSlide + 1) / totalSlides) * 100;
+      progressFill.style.width = `${percentage}%`;
+    }
+
+    function nextSlide() {
+      if (currentSlide < totalSlides - 1) {
+        currentSlide++;
+        updateDeck();
+      }
+    }
+
+    function prevSlide() {
+      if (currentSlide > 0) {
+        currentSlide--;
+        updateDeck();
+      }
+    }
+
+    // Keyboard Navigation
+    document.addEventListener('keydown', (e) => {
+      if (videoModal.classList.contains('open')) {
+        if (e.key === 'Escape') closeVideo();
+        return;
+      }
+      if (e.key === 'ArrowRight' || e.key === ' ') {
+        nextSlide();
+      } else if (e.key === 'ArrowLeft') {
+        prevSlide();
+      }
+    });
+
+    // Swipe Support for Touch
+    let touchStartX = 0;
+    let touchEndX = 0;
+    const viewport = document.getElementById('slidesViewport');
+
+    viewport.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    viewport.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      handleSwipe();
+    }, { passive: true });
+
+    function handleSwipe() {
+      if (touchEndX < touchStartX - 50) {
+        nextSlide();
+      }
+      if (touchEndX > touchStartX + 50) {
+        prevSlide();
+      }
+    }
+
+    // Video Modal Handlers
+    function openVideo(videoId, title) {
+      videoIframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
+      videoModalTitle.textContent = title;
+      videoModal.classList.add('open');
+    }
+
+    function closeVideo() {
+      videoModal.classList.remove('open');
+      videoIframe.src = '';
+    }
+
+    videoModal.addEventListener('click', (e) => {
+      if (e.target === videoModal) {
+        closeVideo();
+      }
+    });
+  </script>
+</body>
+</html>
