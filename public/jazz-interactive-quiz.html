@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jazz &amp; Recording Technology • Edexcel Component 3 Specification Quiz | Music Tech Guru</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #09090f;
+      --bg-card: #13111a;
+      --bg-surface: #1b1824;
+      --accent-purple: #eab308;
+      --accent-purple-glow: rgba(234, 179, 8, 0.35);
+      --accent-cyan: #2dd4bf;
+      --accent-cyan-glow: rgba(45, 212, 191, 0.35);
+      --accent-acid: #22c55e;
+      --accent-red: #ef4444;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-purple: rgba(234, 179, 8, 0.35);
+      --border-cyan: rgba(45, 212, 191, 0.35);
+      --font: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: var(--font);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .quiz-container {
+      width: 100%;
+      max-width: 880px;
+      background: radial-gradient(circle at 50% 0%, rgba(234, 179, 8, 0.15) 0%, rgba(14, 17, 36, 0) 70%), var(--bg-card);
+      border: 1px solid var(--border-purple);
+      border-radius: 20px;
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.8), 0 0 40px rgba(234, 179, 8, 0.15);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    /* Top Quiz Header */
+    .quiz-header {
+      padding: 18px 26px;
+      background: rgba(10, 9, 16, 0.85);
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .quiz-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(234, 179, 8, 0.15);
+      border: 1px solid var(--border-purple);
+      color: #fde047;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .quiz-score-pill {
+      font-size: 12.5px;
+      color: var(--text-muted);
+      font-weight: 700;
+    }
+
+    /* Progress Bar */
+    .progress-bar-track {
+      width: 100%;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent-purple) 0%, var(--accent-cyan) 100%);
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    /* Quiz Stage */
+    .quiz-stage {
+      padding: 30px 32px 24px 32px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .question-meta {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .q-category-tag {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--accent-purple);
+    }
+
+    .q-ao-tag {
+      font-size: 10.5px;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border-subtle);
+      color: #cbd5e1;
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+
+    .question-text {
+      font-size: clamp(17px, 2.5vw, 20px);
+      font-weight: 800;
+      line-height: 1.4;
+      color: #ffffff;
+      margin-bottom: 22px;
+    }
+
+    /* Options Grid */
+    .options-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .option-btn {
+      background: rgba(27, 24, 36, 0.6);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 13px 18px;
+      color: #e2e8f0;
+      font-family: var(--font);
+      font-size: 13.5px;
+      line-height: 1.45;
+      font-weight: 600;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .option-btn:hover:not(:disabled) {
+      background: rgba(27, 24, 36, 0.95);
+      border-color: rgba(234, 179, 8, 0.5);
+      transform: translateX(4px);
+    }
+
+    .option-letter {
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 800;
+      color: #94a3b8;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .option-btn.correct {
+      background: rgba(34, 197, 94, 0.15) !important;
+      border-color: var(--accent-acid) !important;
+      color: #86efac !important;
+    }
+
+    .option-btn.correct .option-letter {
+      background: var(--accent-acid);
+      color: #09090f;
+    }
+
+    .option-btn.wrong {
+      background: rgba(239, 68, 68, 0.15) !important;
+      border-color: var(--accent-red) !important;
+      color: #fca5a5 !important;
+    }
+
+    .option-btn.wrong .option-letter {
+      background: var(--accent-red);
+      color: #ffffff;
+    }
+
+    .option-btn:disabled {
+      cursor: default;
+    }
+
+    /* Explanation & Feedback Card */
+    .insight-card {
+      display: none;
+      background: rgba(10, 9, 16, 0.85);
+      border: 1px solid var(--border-purple);
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-bottom: 20px;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .insight-card.open {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .insight-title {
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--accent-purple);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .insight-body {
+      font-size: 12.5px;
+      color: #cbd5e1;
+      line-height: 1.55;
+      margin-bottom: 6px;
+    }
+
+    .insight-tip {
+      font-size: 11.5px;
+      color: #5eead4;
+      font-style: italic;
+    }
+
+    /* Quiz Footer */
+    .quiz-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 10px;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .q-counter {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-muted);
+    }
+
+    .next-q-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent-purple);
+      color: #09090f;
+      border: none;
+      padding: 10px 22px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .next-q-btn:hover:not(:disabled) {
+      box-shadow: 0 0 20px var(--accent-purple-glow);
+      transform: translateY(-1px);
+    }
+
+    .next-q-btn:disabled {
+      opacity: 0.25;
+      cursor: not-allowed;
+    }
+
+    /* Results Screen */
+    .results-screen {
+      display: none;
+      padding: 40px 32px;
+      text-align: center;
+      flex-direction: column;
+      align-items: center;
+      animation: fadeIn 0.4s ease;
+    }
+
+    .results-screen.open {
+      display: flex;
+    }
+
+    .results-score-circle {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      background: rgba(234, 179, 8, 0.15);
+      border: 3px solid var(--accent-purple);
+      box-shadow: 0 0 30px var(--accent-purple-glow);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .results-score-num {
+      font-size: 32px;
+      font-weight: 900;
+      color: #ffffff;
+      line-height: 1;
+    }
+
+    .results-score-total {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 700;
+    }
+
+    .results-grade-badge {
+      display: inline-block;
+      background: rgba(34, 197, 94, 0.15);
+      border: 1px solid var(--accent-acid);
+      color: #86efac;
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 800;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .results-title {
+      font-size: 24px;
+      font-weight: 900;
+      color: #ffffff;
+      margin-bottom: 8px;
+    }
+
+    .results-message {
+      font-size: 14px;
+      color: #cbd5e1;
+      max-width: 580px;
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+
+    .results-actions {
+      display: flex;
+      gap: 12px;
+    }
+
+    .restart-btn {
+      background: var(--accent-purple);
+      color: #09090f;
+      border: none;
+      padding: 10px 24px;
+      border-radius: 8px;
+      font-size: 13.5px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .restart-btn:hover {
+      box-shadow: 0 0 20px var(--accent-purple-glow);
+      transform: translateY(-1px);
+    }
+
+    .back-slides-btn {
+      background: rgba(255, 255, 255, 0.08);
+      color: #ffffff;
+      border: 1px solid var(--border-subtle);
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 13.5px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .back-slides-btn:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="quiz-container">
+    <!-- Top Header -->
+    <div class="quiz-header">
+      <div class="quiz-badge">
+        <span>🎷</span> Edexcel Component 3 &bull; Specification Quiz
+      </div>
+      <div class="quiz-score-pill">
+        Score: <strong style="color: var(--accent-purple);" id="currentScore">0</strong> / 12
+      </div>
+    </div>
+
+    <!-- Progress Track -->
+    <div class="progress-bar-track">
+      <div class="progress-bar-fill" id="progressFill"></div>
+    </div>
+
+    <!-- Active Quiz Stage -->
+    <div class="quiz-stage" id="quizStage">
+      <div class="question-meta">
+        <span class="q-category-tag" id="qCategory">Category</span>
+        <span class="q-ao-tag" id="qAoTag">AO Tag</span>
+      </div>
+
+      <h3 class="question-text" id="qText">Question Stem Loading...</h3>
+
+      <div class="options-grid" id="optionsGrid">
+        <!-- Buttons injected dynamically -->
+      </div>
+
+      <div class="insight-card" id="insightCard">
+        <div class="insight-title">
+          <span>💡</span> Technical Analysis &amp; Syllabus Context
+        </div>
+        <div class="insight-body" id="insightBody"></div>
+        <div class="insight-tip" id="insightTip"></div>
+      </div>
+
+      <div class="quiz-footer">
+        <span class="q-counter" id="qCounter">Question 1 of 12</span>
+        <button class="next-q-btn" id="nextBtn" onclick="nextQuestion()" disabled>
+          Next Question &rarr;
+        </button>
+      </div>
+    </div>
+
+    <!-- Results Screen -->
+    <div class="results-screen" id="resultsScreen">
+      <div class="results-score-circle">
+        <span class="results-score-num" id="finalScoreVal">0</span>
+        <span class="results-score-total">out of 12</span>
+      </div>
+      <div class="results-grade-badge" id="gradeBadge">Distinction</div>
+      <h2 class="results-title" id="resultTitle">Performance Summary</h2>
+      <p class="results-message" id="resultMessage">Analysis message goes here.</p>
+
+      <div class="results-actions">
+        <button class="restart-btn" onclick="restartQuiz()">Retake Quiz</button>
+        <a href="/interactive-slide-jazz.html" class="back-slides-btn">&larr; Return to Slide Deck</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const questions = [
+  {
+    "category": "Jazz History",
+    "ao": "AO4: Historical Context",
+    "text": "In which year did the Original Dixieland Jass Band make what is usually called the first jazz record?",
+    "correct": "1917",
+    "wrong": [
+      "1899",
+      "1925",
+      "1948"
+    ],
+    "explanation": "The Original Dixieland Jass Band recorded for Victor in New York in 1917, which is normally cited as the first jazz record.",
+    "tip": "First jazz record = 1917, Original Dixieland Jass Band."
+  },
+  {
+    "category": "Acoustic Recording",
+    "ao": "AO3: Recording Technology",
+    "text": "How were jazz records made during the acoustic era (before 1925)?",
+    "correct": "Performers played into a large horn that made a stylus cut the disc directly",
+    "wrong": [
+      "Performers were recorded by ribbon microphones onto magnetic tape",
+      "Each instrument was recorded on its own multitrack channel",
+      "Sound was sampled digitally and stored as data"
+    ],
+    "explanation": "Acoustic recording had no microphone or amplification. Sound waves travelled down a horn, moved a diaphragm and stylus and cut the groove straight into a disc.",
+    "tip": "Acoustic era = horn + stylus, no microphone, no editing."
+  },
+  {
+    "category": "Acoustic Limits",
+    "ao": "AO3: Recording Technology",
+    "text": "Why were bass drums usually avoided in acoustic-era jazz recordings?",
+    "correct": "Strong low-frequency vibrations could make the cutting stylus jump out of the groove",
+    "wrong": [
+      "They were too quiet to be picked up by the horn",
+      "They were banned by record labels for religious reasons",
+      "They could not be tuned to the key of the song"
+    ],
+    "explanation": "Heavy low-frequency energy caused the stylus to jump. Bass drums were avoided or softened, and a tuba often replaced the double bass.",
+    "tip": "Acoustic era: no bass drum (stylus jumps), tuba instead of double bass."
+  },
+  {
+    "category": "Microphones",
+    "ao": "AO3: Microphones",
+    "text": "What is the polar pattern of a classic RCA ribbon microphone, and why was it useful in jazz?",
+    "correct": "Figure-8 (bidirectional), so two players could face each other at either side of one microphone",
+    "wrong": [
+      "Omnidirectional, so it picked up the whole room equally",
+      "Cardioid, so it only picked up sound from one direction",
+      "Hypercardioid, so it rejected all sound from the side and rear"
+    ],
+    "explanation": "A ribbon microphone has a figure-8 pattern, picking up sound from the front and back and rejecting the sides. This allowed two horn players to share one mic.",
+    "tip": "Ribbon mic = figure-8 pattern, warm and smooth."
+  },
+  {
+    "category": "Record Formats",
+    "ao": "AO3: Formats",
+    "text": "How did the length of a 78 rpm disc influence swing-era recordings?",
+    "correct": "Each side held only about 3 to 4 minutes, so tunes were arranged and edited to fit",
+    "wrong": [
+      "A side could hold over 20 minutes, allowing long solos",
+      "Records were always recorded in stereo",
+      "Each record had to be recorded in a single take with no rehearsal"
+    ],
+    "explanation": "78 rpm shellac discs held roughly 3 to 4 minutes per side. Swing arrangers tailored their pieces to that length.",
+    "tip": "78 rpm = 3-4 minutes a side; long solos were not possible."
+  },
+  {
+    "category": "The LP",
+    "ao": "AO3: Formats",
+    "text": "What did the 33⅓ rpm microgroove LP, introduced in 1948, allow jazz to do?",
+    "correct": "Release extended performances, up to about 22 minutes per side",
+    "wrong": [
+      "Record in stereo for the first time ever",
+      "Record digitally with no surface noise",
+      "Replace the need for any microphones"
+    ],
+    "explanation": "The LP held far more music than a 78, making extended improvised solos and album-length works practical, as on Kind of Blue.",
+    "tip": "LP (1948) = up to ~22 minutes a side; albums and long solos."
+  },
+  {
+    "category": "Magnetic Tape",
+    "ao": "AO3: Studio Technology",
+    "text": "What was a key advantage of magnetic tape for jazz producers?",
+    "correct": "The best takes could be edited and spliced together, and tape later allowed stereo and multitrack",
+    "wrong": [
+      "It removed the need for performers to play live",
+      "It made every recording louder by default",
+      "It could only record one instrument at a time"
+    ],
+    "explanation": "Tape could be cut and joined, letting producers choose the best takes. It also led to stereo and multitrack recording.",
+    "tip": "Tape = editing, splicing, then multitrack and stereo."
+  },
+  {
+    "category": "Engineering",
+    "ao": "AO3: Studio Technique",
+    "text": "Which describes the recording approach associated with engineer Rudy Van Gelder at Blue Note?",
+    "correct": "Close-miked instruments, often with tube condenser microphones, giving a punchy, clear, intimate sound with natural bleed",
+    "wrong": [
+      "Distant ambient miking in a huge concert hall",
+      "Heavy multitrack overdubbing with artificial reverb",
+      "Using only a single omnidirectional microphone for the whole band"
+    ],
+    "explanation": "Van Gelder placed microphones close to the instruments and recorded the band live to tape. The result is clear, present and dry, with natural bleed holding the band together.",
+    "tip": "Van Gelder = close-miked, tube condensers (Neumann U47), live band, punchy and clear."
+  },
+  {
+    "category": "Modal Jazz",
+    "ao": "AO4: Musical Features",
+    "text": "Which best describes the style of Miles Davis' So What from Kind of Blue (1959)?",
+    "correct": "Modal: improvisation based on scales (modes) rather than fast-changing chords",
+    "wrong": [
+      "Free jazz with no fixed structure or key",
+      "Dance-band swing arranged for a big band",
+      "Electric fusion with synthesizers"
+    ],
+    "explanation": "So What is built on a few modes (D Dorian, then E-flat Dorian) in a 32-bar AABA form, giving improvisers space rather than constant chord changes.",
+    "tip": "Modal jazz = scales/modes instead of fast chord changes (Kind of Blue)."
+  },
+  {
+    "category": "Time Signature",
+    "ao": "AO4: Musical Features",
+    "text": "What is unusual about Dave Brubeck Quartet's Take Five (1959)?",
+    "correct": "It is in 5/4 time, composed by saxophonist Paul Desmond",
+    "wrong": [
+      "It is in 4/4 but played at 300 bpm",
+      "It uses no improvisation at all",
+      "It was the first jazz record to use synthesizers"
+    ],
+    "explanation": "Take Five is famous for its 5/4 time signature and repeated two-chord vamp, with solos including a well-known drum solo.",
+    "tip": "Take Five = 5/4 time, written by Paul Desmond."
+  },
+  {
+    "category": "Bebop",
+    "ao": "AO4: Musical Features",
+    "text": "How did 1940s bebop differ from swing?",
+    "correct": "Small combos played faster, harmonically complex, virtuosic improvisation, mainly for listening rather than dancing",
+    "wrong": [
+      "Large dance bands played simple riffs for dancing",
+      "It used only electronic instruments",
+      "It avoided improvisation in favour of written scores"
+    ],
+    "explanation": "Bebop musicians such as Charlie Parker and Dizzy Gillespie played fast tempos with extended and altered chords, in small groups.",
+    "tip": "Bebop = small combo, fast, complex harmony, virtuosic improvisation."
+  },
+  {
+    "category": "Jazz Fusion",
+    "ao": "AO3: Studio Technology",
+    "text": "Which technology features are associated with Miles Davis' Bitches Brew (1970) and later jazz fusion?",
+    "correct": "Electric piano and other electric instruments, plus tape editing, loops and echo by producer Teo Macero",
+    "wrong": [
+      "Only acoustic instruments recorded live with one microphone",
+      "Wax cylinder recording and acoustic horns",
+      "Fully digital sampling workstations"
+    ],
+    "explanation": "Fusion mixed jazz with rock and used the studio as an instrument. Teo Macero edited and assembled long sessions with tape splicing, loops and echo, while players used electric piano and later synthesizers.",
+    "tip": "Fusion = electric instruments (Rhodes, synths) + tape editing, loops, echo (Teo Macero)."
+  }
+];
+
+    function shuffle(arr) {
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+
+    let currentQ = 0;
+    let score = 0;
+    let answered = false;
+    let currentOptions = [];
+
+    const qText = document.getElementById('qText');
+    const qCategory = document.getElementById('qCategory');
+    const qAoTag = document.getElementById('qAoTag');
+    const optionsGrid = document.getElementById('optionsGrid');
+    const insightCard = document.getElementById('insightCard');
+    const insightBody = document.getElementById('insightBody');
+    const insightTip = document.getElementById('insightTip');
+    const qCounter = document.getElementById('qCounter');
+    const currentScore = document.getElementById('currentScore');
+    const progressFill = document.getElementById('progressFill');
+    const nextBtn = document.getElementById('nextBtn');
+    const quizStage = document.getElementById('quizStage');
+    const resultsScreen = document.getElementById('resultsScreen');
+    const finalScoreVal = document.getElementById('finalScoreVal');
+    const gradeBadge = document.getElementById('gradeBadge');
+    const resultTitle = document.getElementById('resultTitle');
+    const resultMessage = document.getElementById('resultMessage');
+    const letters = ['A', 'B', 'C', 'D'];
+
+    function loadQuestion(index) {
+      answered = false;
+      const q = questions[index];
+      qCategory.textContent = q.category;
+      qAoTag.textContent = q.ao;
+      qText.textContent = q.text;
+      qCounter.textContent = `Question ${index + 1} of ${questions.length}`;
+      currentScore.textContent = score;
+      progressFill.style.width = `${((index + 1) / questions.length) * 100}%`;
+      insightCard.classList.remove('open');
+      nextBtn.disabled = true;
+
+      currentOptions = shuffle([{ text: q.correct, ok: true }, ...q.wrong.map(w => ({ text: w, ok: false }))]);
+      optionsGrid.innerHTML = '';
+      currentOptions.forEach((opt, i) => {
+        const btn = document.createElement('button');
+        btn.className = 'option-btn';
+        btn.onclick = () => selectOption(i);
+        btn.innerHTML = `<span class="option-letter">${letters[i]}</span><span>${opt.text}</span>`;
+        optionsGrid.appendChild(btn);
+      });
+    }
+
+    function selectOption(i) {
+      if (answered) return;
+      answered = true;
+      const q = questions[currentQ];
+      const buttons = optionsGrid.querySelectorAll('.option-btn');
+      buttons.forEach(b => b.disabled = true);
+      const correctIdx = currentOptions.findIndex(o => o.ok);
+      if (currentOptions[i].ok) {
+        buttons[i].classList.add('correct');
+        score++;
+        currentScore.textContent = score;
+      } else {
+        buttons[i].classList.add('wrong');
+        buttons[correctIdx].classList.add('correct');
+      }
+      insightBody.textContent = q.explanation;
+      insightTip.innerHTML = `<strong>Revision Note:</strong> ${q.tip}`;
+      insightCard.classList.add('open');
+      nextBtn.disabled = false;
+    }
+
+    function nextQuestion() {
+      if (currentQ < questions.length - 1) {
+        currentQ++;
+        loadQuestion(currentQ);
+      } else {
+        showResults();
+      }
+    }
+
+    function showResults() {
+      quizStage.style.display = 'none';
+      resultsScreen.classList.add('open');
+      finalScoreVal.textContent = score;
+      const pct = (score / questions.length) * 100;
+      if (pct >= 85) {
+        gradeBadge.textContent = 'Grade 9 • Distinction Star';
+        resultTitle.textContent = 'Outstanding Jazz Specification Mastery!';
+        resultMessage.textContent = 'You can explain acoustic and electrical recording, ribbon microphones, formats from 78 to LP, tape editing, the Van Gelder sound, modal jazz, bebop and electric fusion.';
+      } else if (pct >= 65) {
+        gradeBadge.textContent = 'Grade 7-8 • Merit / Distinction';
+        resultTitle.textContent = 'Solid Syllabus Understanding';
+        resultMessage.textContent = 'Good work. Revisit how formats and microphones changed between the acoustic, swing and Blue Note eras, and what made fusion different.';
+      } else {
+        gradeBadge.textContent = 'Revision Recommended';
+        resultTitle.textContent = 'Targeted Revision Needed';
+        resultMessage.textContent = 'Return to the Jazz study deck to review acoustic recording limits, the ribbon microphone, 78 versus LP, tape editing and the main jazz styles.';
+      }
+    }
+
+    function restartQuiz() {
+      currentQ = 0;
+      score = 0;
+      resultsScreen.classList.remove('open');
+      quizStage.style.display = 'flex';
+      loadQuestion(0);
+    }
+
+    loadQuestion(0);
+  </script>
+</body>
+</html>
