@@ -1,0 +1,1132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Urban & Hip Hop (1970s to Present) • Interactive Study Deck | Music Tech Guru</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #08070d;
+      --bg-card: #110f1c;
+      --bg-surface: #181528;
+      --accent-orange: #f97316;
+      --accent-orange-glow: rgba(249, 115, 22, 0.35);
+      --accent-gold: #f59e0b;
+      --accent-gold-glow: rgba(245, 158, 11, 0.35);
+      --accent-cyan: #00C1F0;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-orange: rgba(249, 115, 22, 0.35);
+      --border-gold: rgba(245, 158, 11, 0.35);
+      --font: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: var(--font);
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 8px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .deck-wrapper {
+      width: 100%;
+      max-width: 1100px;
+      height: calc(100vh - 16px);
+      min-height: 580px;
+      max-height: 660px;
+      background: radial-gradient(circle at 50% 0%, rgba(249, 115, 22, 0.12) 0%, rgba(17, 15, 28, 0) 70%), var(--bg-card);
+      border: 1px solid var(--border-orange);
+      border-radius: 16px;
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.8), 0 0 40px rgba(249, 115, 22, 0.12);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    /* Top Utility Bar */
+    .deck-topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      background: rgba(10, 8, 16, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-subtle);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      z-index: 10;
+    }
+
+    .badge-hub {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(249, 115, 22, 0.15);
+      border: 1px solid var(--border-orange);
+      color: #fb923c;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      text-transform: uppercase;
+    }
+
+    .badge-pulse {
+      width: 7px;
+      height: 7px;
+      background: var(--accent-orange);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--accent-orange);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
+    }
+
+    .deck-topic-title {
+      color: var(--text-muted);
+      font-size: 12px;
+    }
+
+    .deck-topic-title strong {
+      color: #fff;
+    }
+
+    /* Slides Viewport */
+    .slides-viewport {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      padding: 24px 36px 16px 36px;
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateX(30px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      overflow-y: auto;
+    }
+
+    .slide.active {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(0);
+    }
+
+    /* Slide Typography */
+    .slide-eyebrow {
+      font-size: 11.5px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--accent-orange);
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .slide-heading {
+      font-size: clamp(20px, 3vw, 27px);
+      font-weight: 900;
+      line-height: 1.15;
+      letter-spacing: -0.5px;
+      color: #ffffff;
+      margin-bottom: 12px;
+    }
+
+    .slide-heading span {
+      background: linear-gradient(135deg, #f97316 0%, #f59e0b 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .slide-lead {
+      color: #cbd5e1;
+      font-size: 14px;
+      line-height: 1.5;
+      max-width: 820px;
+      margin-bottom: 14px;
+    }
+
+    /* Grids & Cards */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    @media (max-width: 768px) {
+      .grid-2, .grid-3 {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+    }
+
+    .info-card {
+      background: rgba(24, 21, 40, 0.65);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 14px 16px;
+      transition: all 0.2s;
+    }
+
+    .info-card:hover {
+      border-color: rgba(249, 115, 22, 0.4);
+      background: rgba(24, 21, 40, 0.9);
+      transform: translateY(-2px);
+    }
+
+    .info-card.highlight {
+      border-left: 4px solid var(--accent-orange);
+    }
+
+    .info-card.gold-edge {
+      border-left: 4px solid var(--accent-gold);
+    }
+
+    .info-card.cyan-edge {
+      border-left: 4px solid var(--accent-cyan);
+    }
+
+    .card-title {
+      font-size: 14.5px;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-text {
+      font-size: 12.5px;
+      line-height: 1.5;
+      color: #94a3b8;
+    }
+
+    .feature-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .feature-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 12.5px;
+      color: #cbd5e1;
+      line-height: 1.45;
+    }
+
+    .feature-icon {
+      color: var(--accent-orange);
+      font-weight: bold;
+      flex-shrink: 0;
+      font-size: 13px;
+    }
+
+    .pill {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      background: rgba(255, 255, 255, 0.08);
+      color: #e2e8f0;
+      margin-right: 4px;
+      margin-bottom: 4px;
+    }
+
+    .pill.orange {
+      background: rgba(249, 115, 22, 0.15);
+      color: #fb923c;
+      border: 1px solid var(--border-orange);
+    }
+
+    .pill.gold {
+      background: rgba(245, 158, 11, 0.15);
+      color: var(--accent-gold);
+      border: 1px solid var(--border-gold);
+    }
+
+    .pill.cyan {
+      background: rgba(0, 193, 240, 0.15);
+      color: var(--accent-cyan);
+      border: 1px solid rgba(0, 193, 240, 0.35);
+    }
+
+    /* Artist Slide Layout */
+    .artist-hero-card {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 20px;
+      align-items: center;
+      background: rgba(24, 21, 40, 0.5);
+      border: 1px solid var(--border-subtle);
+      border-radius: 14px;
+      padding: 16px;
+    }
+
+    @media (max-width: 768px) {
+      .artist-hero-card {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .artist-visual-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .artist-photo {
+      width: 100%;
+      height: 190px;
+      object-fit: cover;
+      object-position: top;
+      border-radius: 12px;
+      border: 2px solid var(--border-orange);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+      background: #08070d;
+    }
+
+    .listen-btn {
+      width: 100%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+      color: #ffffff;
+      font-weight: 800;
+      font-size: 11.5px;
+      padding: 7px 12px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: 0 4px 14px rgba(249, 115, 22, 0.35);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .listen-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(249, 115, 22, 0.5);
+      background: #fb923c;
+      color: #08070d;
+    }
+
+    .artist-info {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .artist-meta-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 2px;
+    }
+
+    /* Comparison Table */
+    .compare-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 11.5px;
+      margin-top: 6px;
+    }
+
+    .compare-table th {
+      background: rgba(249, 115, 22, 0.15);
+      color: #fb923c;
+      padding: 8px 10px;
+      text-align: left;
+      font-weight: 800;
+      border-bottom: 1px solid var(--border-orange);
+      letter-spacing: 0.5px;
+    }
+
+    .compare-table td {
+      padding: 8px 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      color: #cbd5e1;
+      vertical-align: top;
+      line-height: 1.45;
+    }
+
+    .compare-table tr:hover td {
+      background: rgba(249, 115, 22, 0.05);
+    }
+
+    /* Bottom Navigation Bar */
+    .deck-bottombar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 24px;
+      background: rgba(10, 8, 16, 0.95);
+      backdrop-filter: blur(12px);
+      border-top: 1px solid var(--border-subtle);
+      z-index: 10;
+    }
+
+    .nav-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-main);
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 12.5px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .nav-btn:hover:not(:disabled) {
+      background: rgba(249, 115, 22, 0.2);
+      border-color: var(--accent-orange);
+      transform: translateY(-1px);
+    }
+
+    .nav-btn:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+
+    .deck-progress-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      flex: 1;
+      max-width: 320px;
+      margin: 0 16px;
+    }
+
+    .slide-counter {
+      font-size: 11.5px;
+      color: var(--text-muted);
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #f97316, #f59e0b);
+      width: 7.7%;
+      transition: width 0.3s ease;
+    }
+
+    .keyboard-hint {
+      font-size: 11px;
+      color: #64748b;
+    }
+
+    .kbd {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 4px;
+      padding: 1px 5px;
+      font-family: inherit;
+      color: #94a3b8;
+    }
+
+    /* Video Modal */
+    .video-modal-backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(8px);
+      z-index: 1000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .video-modal-backdrop.open {
+      display: flex;
+    }
+
+    .video-modal-content {
+      position: relative;
+      width: 100%;
+      max-width: 800px;
+      background: #0d0a17;
+      border: 1px solid var(--border-orange);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 30px rgba(249, 115, 22, 0.3);
+    }
+
+    .video-modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 18px;
+      background: rgba(255, 255, 255, 0.03);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .video-modal-title {
+      font-size: 14px;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .close-modal-btn {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 20px;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .close-modal-btn:hover {
+      color: #fff;
+    }
+
+    .video-player-wrapper {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+    }
+
+    .video-player-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="deck-wrapper">
+    <!-- Top Utility Header -->
+    <header class="deck-topbar">
+      <div class="badge-hub">
+        <span class="badge-pulse"></span>
+        Component 3 • Focus Style
+      </div>
+      <div class="deck-topic-title">
+        Pearson Edexcel 9MT0/03 • <strong>Urban &amp; Hip Hop (1970s to Present)</strong>
+      </div>
+      <div class="keyboard-hint">
+        Use <kbd class="kbd">←</kbd> <kbd class="kbd">→</kbd> or Click Next
+      </div>
+    </header>
+
+    <!-- Slide Viewport -->
+    <main class="slides-viewport" id="slidesViewport">
+
+      <!-- SLIDE 1: COVER -->
+      <section class="slide active" data-index="0">
+        <div class="slide-eyebrow">A-Level Music Technology • Component 3</div>
+        <h1 class="slide-heading">Urban &amp; <span>Hip Hop Production</span></h1>
+        <p class="slide-lead">
+          From South Bronx block parties and turntable break-spinning to Golden Age hardware sampling, West Coast G-Funk, and modern Trap 808 glide science. Discover how hip hop transformed audio equipment from passive playback tools into creative musical instruments.
+        </p>
+
+        <div class="grid-3" style="margin-top: 10px;">
+          <div class="info-card highlight">
+            <div class="card-title">🎛 Turntablism &amp; Breaks</div>
+            <p class="card-text">
+              Kool Herc's 'Merry-Go-Round', Grandmaster Flash's quick-mix theory, and Grand Wizzard Theodore's scratching on Technics SL-1200 turntables.
+            </p>
+          </div>
+          <div class="info-card gold-edge">
+            <div class="card-title">📼 Hardware Samplers</div>
+            <p class="card-text">
+              The 12-bit crunch and variable aliasing of the E-mu SP-1200, alongside the unquantized groove and 16-pad feel of the Akai MPC60.
+            </p>
+          </div>
+          <div class="info-card cyan-edge">
+            <div class="card-title">🔊 808 Sub-Bass &amp; Trap</div>
+            <p class="card-text">
+              The tuned Roland TR-808 kick drum providing earth-shaking sub-bass, sidechain ducking, and modern pitch-sliding 808 glides.
+            </p>
+          </div>
+        </div>
+
+        <div style="margin-top: 18px; padding: 12px 16px; background: rgba(249, 115, 22, 0.08); border: 1px solid var(--border-orange); border-radius: 10px; font-size: 12px; color: #cbd5e1; display: flex; align-items: center; gap: 10px;">
+          <span style="font-size: 18px;">💡</span>
+          <span><strong>Exam Focus:</strong> Edexcel Component 3 frequently evaluates the <em>contrast between 1980s/90s hardware vinyl sampling</em> (SP-1200 / MPC) and <em>modern software beatmaking</em> (DAW plugins, internet sample packs, tuned 808s).</span>
+        </div>
+      </section>
+
+      <!-- SLIDE 2: SPECIFICATION ROADMAP -->
+      <section class="slide" data-index="1">
+        <div class="slide-eyebrow">Edexcel 9MT0/03 Syllabus Alignment</div>
+        <h2 class="slide-heading">Component 3 <span>Specification Matrix</span></h2>
+        <p class="slide-lead">
+          Urban and Hip Hop questions assess your knowledge of breakbeat manipulation, sampling limitations, vocal capture, and modern sub-frequency management.
+        </p>
+
+        <div class="grid-2">
+          <div class="info-card highlight">
+            <div class="card-title">AO3: Musical Elements &amp; Arrangement</div>
+            <ul class="feature-list" style="margin-top: 8px;">
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>Breakbeat Looping:</strong> Isolating drum solos ('breaks') from funk, soul, and rock vinyl (e.g. "Amen Break", "Funky Drummer").</li>
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>Rhythmic Flow &amp; Cadence:</strong> Syncopated 16th-note vocal phrasing, triplets, internal rhymes, and punchy call-and-response ad-libs.</li>
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>Melodic Hook Sampling:</strong> Transposing, filtering, and looping iconic funk/R&amp;B riffs (e.g. Isley Brothers, Chic).</li>
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>Sub-Bass Foundations:</strong> Sustained root notes and pitch-bent basslines anchoring tempos from 85–95 BPM (Boom Bap) to 130–145 BPM (Trap).</li>
+            </ul>
+          </div>
+
+          <div class="info-card gold-edge">
+            <div class="card-title">AO4: Studio Technology &amp; Processing</div>
+            <ul class="feature-list" style="margin-top: 8px;">
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>12-Bit Sampling Grit:</strong> E-mu SP-1200 26 kHz sampling rate; pitching 33 RPM records up to save memory, then pitching down to add crunch.</li>
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>MPC Velocity &amp; Swing:</strong> Akai MPC60 16-pad drum machine with subtle swing percentages creating human groove without rigid quantization.</li>
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>Sample Low-Pass Filtering:</strong> Carving out high-frequency horns/vocals to isolate deep vinyl basslines ('Bass Filtering').</li>
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>Sidechain Ducking:</strong> Compressing the sample loop or bass whenever the kick drum strikes to maintain mix clarity and low-end punch.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 3: TURNTABLISM & BRONX ORIGINS -->
+      <section class="slide" data-index="2">
+        <div class="slide-eyebrow">The Birth of the Culture • South Bronx 1970s</div>
+        <h2 class="slide-heading">Turntablism: <span>The Turntable as an Instrument</span></h2>
+        
+        <div class="artist-hero-card">
+          <div class="artist-visual-col">
+            <img src="/images/slides/hiphop/technics_sl1200.jpg" alt="Technics SL-1200 Turntable" class="artist-photo" style="object-position: center;">
+            <button class="listen-btn" onclick="openVideo('gYMkEMCHtJ4', 'Grandmaster Flash - The Message')">
+              ▶ Listen: The Message (1982)
+            </button>
+          </div>
+          <div class="artist-info">
+            <div class="artist-meta-pills">
+              <span class="pill orange">Technics SL-1200 Direct Drive</span>
+              <span class="pill gold">DJ Kool Herc &amp; Grandmaster Flash</span>
+              <span class="pill cyan">1520 Sedgwick Avenue</span>
+            </div>
+            <h3 style="font-size: 19px; color: #fff; margin-bottom: 6px;">From Playback Device to Expressive Performance Tool</h3>
+            <p class="card-text">
+              <strong>Kool Herc's "Merry-Go-Round":</strong> In 1973, DJ Kool Herc used two identical vinyl records on twin turntables to isolate and extend the percussive drum break indefinitely, alternating back and forth between decks to keep b-boys and dancers moving.
+            </p>
+            <p class="card-text">
+              <strong>Grandmaster Flash &amp; Quick-Mix Theory:</strong> Flash perfected needle-dropping (dropping the stylus precisely into the groove by eye) and backspinning without turntable rumble.
+            </p>
+            <p class="card-text">
+              <strong>The Invention of Scratching:</strong> Discovered accidentally by Grand Wizzard Theodore, scratching involved manually moving the vinyl back and forth under the needle while manipulating the crossfader, creating rhythmic percussive pitch chirps.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 4: SUGARHILL GANG & EARLY LIVE RAP -->
+      <section class="slide" data-index="3">
+        <div class="slide-eyebrow">Classroom Deck Focus • Late 1970s Jam Sessions</div>
+        <h2 class="slide-heading">Sugarhill Gang: <span>"Rapper's Delight" (1979)</span></h2>
+        
+        <div class="artist-hero-card">
+          <div class="artist-visual-col">
+            <img src="/images/slides/hiphop/grandmaster_flash.jpg" alt="Grandmaster Flash & Early Hip Hop" class="artist-photo">
+            <button class="listen-btn" onclick="openVideo('mcCK99wHrk0', 'Sugarhill Gang - Rappers Delight')">
+              ▶ Listen: Rapper's Delight (1979)
+            </button>
+          </div>
+          <div class="artist-info">
+            <div class="artist-meta-pills">
+              <span class="pill orange">Sugar Hill Records (Sylvia Robinson)</span>
+              <span class="pill gold">Chic "Good Times" Foundation</span>
+              <span class="pill cyan">14-Minute Continuous Take</span>
+            </div>
+            <h3 style="font-size: 19px; color: #fff; margin-bottom: 6px;">The Commercial Birth of Hip Hop on Vinyl</h3>
+            <p class="card-text">
+              <strong>Park Jam Inspiration:</strong> In the late 1970s, MCs and DJs met up for park jams over funk and disco beats. Sylvia Robinson assembled the Sugarhill Gang to capture this energy commercially on tape.
+            </p>
+            <p class="card-text">
+              <strong>Replaying Chic's "Good Times":</strong> Rather than using digital sampling (which was not yet commercially viable), the studio house band Positive Force replayed the iconic bassline and drum groove of Chic's "Good Times" live in the studio.
+            </p>
+            <p class="card-text">
+              <strong>Single-Take Virtuosity:</strong> The full 14-minute track was recorded live in one continuous take with zero overdubbing, proving that rap could become a global radio and commercial hit.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 5: RUN-DMC & THE TR-808 BEAT -->
+      <section class="slide" data-index="4">
+        <div class="slide-eyebrow">Artist Focus • Def Jam &amp; Rick Rubin</div>
+        <h2 class="slide-heading">Run-D.M.C.: <span>The Hardcore 808 Sound</span></h2>
+        
+        <div class="artist-hero-card">
+          <div class="artist-visual-col">
+            <img src="/images/slides/hiphop/run_dmc.jpg" alt="Run-D.M.C. in 1986" class="artist-photo">
+            <button class="listen-btn" onclick="openVideo('4B_UYYPb-Gk', 'Run-D.M.C. - Walk This Way')">
+              ▶ Listen: Walk This Way (1986)
+            </button>
+          </div>
+          <div class="artist-info">
+            <div class="artist-meta-pills">
+              <span class="pill orange">Producer: Rick Rubin</span>
+              <span class="pill gold">Roland TR-808 &amp; DMX</span>
+              <span class="pill cyan">Rap-Rock Crossover</span>
+            </div>
+            <h3 style="font-size: 19px; color: #fff; margin-bottom: 6px;">Stripping Away Disco for Aggressive Beats</h3>
+            <p class="card-text">
+              <strong>Raw Minimalist Production:</strong> Rick Rubin and Jam Master Jay stripped away the live disco bands of early rap, replacing them with bare, bone-crushing Roland TR-808 and Oberheim DMX drum machine beats, aggressive vocal doubling, and vinyl scratches.
+            </p>
+            <p class="card-text">
+              <strong>"Walk This Way" (1986):</strong> Collaborating with Aerosmith's Steven Tyler and Joe Perry, Rubin fused heavy rock guitar riffs with a hip-hop beat, breaking hip-hop onto mainstream rock radio and MTV.
+            </p>
+            <p class="card-text">
+              <strong>Vocal Delivery:</strong> Run and D.M.C. pioneered shouting, punchy, interlocking two-bar vocal exchanges, captured with close-mic proximity on dynamic microphones with heavy fast-attack compression.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 6: ICE CUBE & THE ART OF SAMPLING -->
+      <section class="slide" data-index="5">
+        <div class="slide-eyebrow">Classroom Deck Focus • 1990s Golden Age Storytelling</div>
+        <h2 class="slide-heading">Ice Cube: <span>"It Was A Good Day" (1992)</span></h2>
+        
+        <div class="artist-hero-card">
+          <div class="artist-visual-col">
+            <img src="/images/slides/hiphop/ice_cube.jpg" alt="Ice Cube" class="artist-photo">
+            <button class="listen-btn" onclick="openVideo('h4UqMyldS7Q', 'Ice Cube - It Was A Good Day')">
+              ▶ Listen: It Was A Good Day
+            </button>
+          </div>
+          <div class="artist-info">
+            <div class="artist-meta-pills">
+              <span class="pill orange">Producer: DJ Pooh</span>
+              <span class="pill gold">The Isley Brothers Sample</span>
+              <span class="pill cyan">Flanged Electric Guitar Riff</span>
+            </div>
+            <h3 style="font-size: 19px; color: #fff; margin-bottom: 6px;">Sampling as Harmonic &amp; Narrative Backbone</h3>
+            <p class="card-text">
+              <strong>The Sample Foundation:</strong> DJ Pooh sampled The Isley Brothers' 1977 track "Footsteps in the Dark", using both the lush electric guitar riff and the drum break as the uninterrupted sonic backbone for the entire song.
+            </p>
+            <p class="card-text">
+              <strong>Processing &amp; Flanging:</strong> The sampled electric guitar was processed through a subtle analogue flanger and equalised with a warm high-shelf boost, giving it an atmospheric, laid-back California sheen.
+            </p>
+            <p class="card-text">
+              <strong>Solo Narrative Focus:</strong> Unlike posse cuts with multiple features, the mix keeps Ice Cube's intimate, reflective vocal completely dry and front-and-center, using low-pass filtering on the sample bass to let his storytelling breathe.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 7: DR. DRE & WEST COAST G-FUNK -->
+      <section class="slide" data-index="6">
+        <div class="slide-eyebrow">Classroom Deck Focus • West Coast Production Legend</div>
+        <h2 class="slide-heading">Dr. Dre: <span>The Architecture of G-Funk</span></h2>
+        
+        <div class="artist-hero-card">
+          <div class="artist-visual-col">
+            <img src="/images/slides/hiphop/dr_dre.jpg" alt="Dr. Dre" class="artist-photo">
+            <button class="listen-btn" onclick="openVideo('_CL6n0FJZpk', 'Dr. Dre ft. Snoop Dogg - Still D.R.E.')">
+              ▶ Listen: Still D.R.E. (1999)
+            </button>
+          </div>
+          <div class="artist-info">
+            <div class="artist-meta-pills">
+              <span class="pill orange">Death Row / Aftermath</span>
+              <span class="pill gold">Minimoog High-Sine Lead</span>
+              <span class="pill cyan">Replayed Live Instrumentation</span>
+            </div>
+            <h3 style="font-size: 19px; color: #fff; margin-bottom: 6px;">P-Funk Grooves &amp; High-Register Synthesizer Whistles</h3>
+            <p class="card-text">
+              <strong>The G-Funk Signature:</strong> On <em>The Chronic</em> (1992) and <em>2001</em> (1999), Dr. Dre revolutionized hip hop by replaying classic Parliament-Funkadelic grooves with live session musicians (Colin Wolfe, Mike Elizondo) rather than simply looping dirty vinyl samples.
+            </p>
+            <p class="card-text">
+              <strong>The Minimoog "Whistle":</strong> High-register, monophonic portamento sine/sawtooth leads played on a Minimoog, soaring over heavy sub-bass and crisp 16th-note hi-hats.
+            </p>
+            <p class="card-text">
+              <strong>Immaculate Drum Mixing:</strong> Dre's drums are legendary for their transient punch: combining live acoustic snare cracks with layered drum machine samples, processed through SSL E-Series EQs and compressors.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 8: EMINEM & LATE 90S MULTITRACKING -->
+      <section class="slide" data-index="7">
+        <div class="slide-eyebrow">Classroom Deck Focus • Studio Advancement at Century's End</div>
+        <h2 class="slide-heading">Eminem: <span>"Guilty Conscience" (1999)</span></h2>
+        
+        <div class="artist-hero-card">
+          <div class="artist-visual-col">
+            <img src="/images/slides/hiphop/ice_cube.jpg" alt="Hip Hop Studio Advancement" class="artist-photo">
+            <button class="listen-btn" onclick="openVideo('eJO5HU_7_1w', 'Eminem - The Real Slim Shady')">
+              ▶ Listen: The Real Slim Shady
+            </button>
+          </div>
+          <div class="artist-info">
+            <div class="artist-meta-pills">
+              <span class="pill orange">Producer: Dr. Dre &amp; Mel-Man</span>
+              <span class="pill gold">Multitrack Vocal Layering</span>
+              <span class="pill cyan">Cinematic Synth Pads &amp; Ad-Libs</span>
+            </div>
+            <h3 style="font-size: 19px; color: #fff; margin-bottom: 6px;">Cinematic Storytelling &amp; Pristine Studio Polish</h3>
+            <p class="card-text">
+              <strong>Late 90s Studio Evolution:</strong> By 1999, hip hop production transitioned from gritty 12-bit bedroom sampling to multi-million dollar digital consoles (SSL 9000J) and pristine multitrack digital tape machines.
+            </p>
+            <p class="card-text">
+              <strong>"Guilty Conscience" (Eminem &amp; Dr. Dre):</strong> Uses dramatic orchestral string samples, lush synthesizer pads, and punchy sampled drum breaks to stage a theatrical moral debate between angel (Dre) and devil (Eminem).
+            </p>
+            <p class="card-text">
+              <strong>Vocal Staging &amp; Ad-Libs:</strong> Extensive vocal doubling, whispered ad-libs panned hard left and right, and pristine pop-shield close miking with high-pass filtering below 90 Hz to keep the rap razor-sharp over sub-bass.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 9: SAMPLER ICONS: SP-1200 & MPC60 -->
+      <section class="slide" data-index="8">
+        <div class="slide-eyebrow">Hardware Architecture • Golden Age Production Engines</div>
+        <h2 class="slide-heading">Sampling Giants: <span>E-mu SP-1200 vs. Akai MPC</span></h2>
+        
+        <div class="grid-2">
+          <div class="info-card highlight">
+            <div class="card-title">💾 E-mu SP-1200 (1987) • The Gritty 12-Bit King</div>
+            <ul class="feature-list" style="margin-top: 8px;">
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>12-Bit / 26.04 kHz Sampling:</strong> Limited memory of only 10 seconds total sample time forced producers to be radically inventive.</li>
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>The 45 RPM Pitch Trick:</strong> Producers played 33 RPM vinyl records at 45 RPM into the SP-1200 to save sample time, then pitched them down internally, introducing dark, gritty harmonic aliasing and warm SSM2044 analogue low-pass filtering.</li>
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>The Sound of Boom Bap:</strong> The definitive machine of Marley Marl, Pete Rock, RZA (Wu-Tang Clan), and early DJ Premier.</li>
+            </ul>
+          </div>
+
+          <div class="info-card gold-edge">
+            <div class="card-title">🎛 Akai MPC60 &amp; MPC2000 (Roger Linn)</div>
+            <ul class="feature-list" style="margin-top: 8px;">
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>16 Velocity-Sensitive Pads:</strong> Enabled producers to physically 'play' chopped drum breaks and vocal hits like an acoustic instrument.</li>
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>The "MPC Swing":</strong> Roger Linn's proprietary timing algorithms introduced subtle, non-linear micro-delays between 16th notes, creating the relaxed, unquantized pocket of 90s hip hop.</li>
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>J Dilla &amp; Chop Culture:</strong> Dilla famously turned off quantization entirely, finger-drumming unaligned sample chops into loose, drunken grooves.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 10: ROLAND TR-808 SUB-BASS -->
+      <section class="slide" data-index="9">
+        <div class="slide-eyebrow">The Bass Foundation • Analog Circuitry to Modern Trap</div>
+        <h2 class="slide-heading">The Roland TR-808: <span>The Sub-Bass Weapon</span></h2>
+        
+        <div class="grid-2">
+          <div class="info-card highlight">
+            <div class="card-title">🔊 The 808 Analog Circuitry (AO4)</div>
+            <ul class="feature-list" style="margin-top: 8px;">
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>Bridged-T Resonant Network:</strong> The TR-808 kick drum was created not with samples, but using an analogue oscillator oscillating around 45–60 Hz triggered by a brief voltage spike.</li>
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>Decay Modulation:</strong> Extending the decay knob turned the short percussive kick thud into a long, vibrating, pure low-frequency sine wave boom.</li>
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>Tuning the Kick:</strong> Producers in Miami Bass and Atlanta began pitching 808 hits to specific musical notes, turning the kick drum into the song's actual bassline!</li>
+            </ul>
+          </div>
+
+          <div class="info-card cyan-edge">
+            <div class="card-title">🎛 Modern Trap &amp; 808 Glides</div>
+            <ul class="feature-list" style="margin-top: 8px;">
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>808 Slide Automation:</strong> In modern DAWs (FL Studio / Logic), 808 bass notes glide smoothly across octaves using portamento pitch automation.</li>
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>Saturation &amp; Harmonic Excitement:</strong> Sub-bass is completely inaudible on mobile phone speakers; producers apply tube saturation or soft clipping to add 2nd and 3rd order harmonics (150–400 Hz) so the 808 cuts through small speakers.</li>
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>Sidechaining:</strong> Ducking the 808 bass slightly when the acoustic kick strikes prevents low-end phase cancellation.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 11: MODERN TRAP & VST BEATMAKING -->
+      <section class="slide" data-index="10">
+        <div class="slide-eyebrow">Classroom Deck Focus • Modern Trap, Plugins &amp; UK Afro-Fusion</div>
+        <h2 class="slide-heading">Modern Trap: <span>VST Synths, Migos &amp; Yxng Bane</span></h2>
+        
+        <div class="grid-3">
+          <div class="info-card highlight">
+            <div class="card-title">🎹 Modern VST Workstations</div>
+            <p class="card-text">
+              Producers rely on virtual instruments like Spectrasonics Omnisphere, Keyscape, and reFX Nexus. Digital bells, detuned music boxes, and eerie reversed piano loops define the melodic palette of modern trap.
+            </p>
+          </div>
+          <div class="info-card gold-edge">
+            <div class="card-title">⚡ Migos &amp; Rolling Hi-Hats</div>
+            <p class="card-text">
+              Tracks like "Slippery" and "Bad and Boujee" feature machine-gun 32nd-note and triplet hi-hat rolls with dynamic pitch-shifting and panning automation, paired with heavy distorted 808 sub-bass.
+            </p>
+          </div>
+          <div class="info-card cyan-edge">
+            <div class="card-title">🌍 UK Trap &amp; Afro-Beat Fusion</div>
+            <p class="card-text">
+              Artists like Yxng Bane ("Intro Big Wave") combine Atlanta trap 808s with African syncopated polyrhythms, heavily autotuned melodic vocals, digital low-pass filtering, and wide ambient reverbs.
+            </p>
+          </div>
+        </div>
+
+        <div style="margin-top: 14px; background: rgba(249, 115, 22, 0.08); border: 1px solid var(--border-orange); border-radius: 10px; padding: 12px 16px; font-size: 12px; color: #cbd5e1;">
+          <strong>Classroom Takeaway:</strong> Modern rap production has democratized: anyone with a laptop, internet sample packs, and VST plugins can produce billboard-charting beats without a $100k studio.
+        </div>
+      </section>
+
+      <!-- SLIDE 12: SECTION B COMPARATIVE ANALYSIS -->
+      <section class="slide" data-index="11">
+        <div class="slide-eyebrow">Section B Long-Answer Comparative Matrix</div>
+        <h2 class="slide-heading">Golden Age Sampling vs. <span>Modern In-The-Box Trap</span></h2>
+        <p class="slide-lead">
+          Essential comparative criteria for Section B extended response exam questions examining the technological shift from 1990s hardware vinyl sampling to 2020s DAW beatmaking.
+        </p>
+
+        <table class="compare-table">
+          <thead>
+            <tr>
+              <th>Production Parameter</th>
+              <th>Golden Age Hip Hop (1988–1996 • SP-1200 / MPC)</th>
+              <th>Modern Trap / Urban (2015–Present • DAW / VST)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Primary Sound Source</strong></td>
+              <td>Physical vinyl records crate-dug from soul, funk, jazz; chopped on hardware samplers.</td>
+              <td>Royalty-free internet sample packs, Splice loops, and VST soft-synths (Omnisphere, Serum).</td>
+            </tr>
+            <tr>
+              <td><strong>Audio Resolution &amp; Tone</strong></td>
+              <td>Gritty 12-bit / 26 kHz sampling rate, natural vinyl surface noise, needle crackle, and hardware aliasing.</td>
+              <td>Pristine 24-bit / 44.1–96 kHz digital audio, clean high-end transients with deliberate digital saturation plugins.</td>
+            </tr>
+            <tr>
+              <td><strong>Drum Rhythm &amp; Feel</strong></td>
+              <td>Human swing percentages (MPC swing); unquantized live finger-drummed loops; natural drum break variations.</td>
+              <td>Rigid grid quantization with mathematical 32nd-note and triplet hi-hat rolls; pitch-gliding 808 sub-bass.</td>
+            </tr>
+            <tr>
+              <td><strong>Bass Processing</strong></td>
+              <td>Low-pass filtered vinyl bass samples or live electric bass; subtle compression.</td>
+              <td>Synthesized Roland TR-808 sub-bass pushed with soft clipping and harmonic distortion for mobile phone playback.</td>
+            </tr>
+            <tr>
+              <td><strong>Benchmark Tracks</strong></td>
+              <td>Ice Cube – "It Was A Good Day" • Pete Rock &amp; CL Smooth – "T.R.O.Y."</td>
+              <td>Migos – "Slippery" • Travis Scott – "Sicko Mode"</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- SLIDE 13: COMPONENT 3 EXAM CHECKLIST -->
+      <section class="slide" data-index="12">
+        <div class="slide-eyebrow">Exam Revision Checklist • Pearson Edexcel 9MT0/03</div>
+        <h2 class="slide-heading">Component 3 <span>Exam Quick Reference</span></h2>
+        
+        <div class="grid-2">
+          <div class="info-card highlight">
+            <div class="card-title">📝 High-Yield Technical Terms</div>
+            <ul class="feature-list" style="margin-top: 8px;">
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>Breakbeat:</strong> Isolated drum solo section of a funk/soul vinyl record looped continuously.</li>
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>E-mu SP-1200:</strong> 12-bit hardware sampler with 10s memory; gritty pitch-down aliasing.</li>
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>Akai MPC:</strong> 16-pad drum machine with proprietary non-linear swing algorithms.</li>
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>Roland TR-808:</strong> Analogue kick drum with extended decay tuned into sub-bass.</li>
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>Sidechain Ducking:</strong> Compressing musical layers under kick hits to protect low-end headroom.</li>
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>Turntablism:</strong> Using Technics SL-1200 turntables as musical performance instruments.</li>
+            </ul>
+          </div>
+
+          <div class="info-card gold-edge">
+            <div class="card-title">🎯 Key Pioneers &amp; Producers</div>
+            <ul class="feature-list" style="margin-top: 8px;">
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>DJ Kool Herc:</strong> 1520 Sedgwick Ave; inventor of the "Merry-Go-Round" break looping technique.</li>
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>Grandmaster Flash:</strong> Quick-mix theory, backspinning, and the wheels of steel.</li>
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>Dr. Dre:</strong> G-Funk pioneer; Minimoog high-sine leads and live instrumentation over funk samples.</li>
+              <li class="feature-item"><span class="feature-icon">✔</span><strong>J Dilla &amp; DJ Premier:</strong> Unquantized MPC swing, chopped micro-samples, and Boom Bap architecture.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div style="margin-top: 14px; text-align: center; color: var(--text-muted); font-size: 12px;">
+          Ready to test your knowledge? Take the <strong>Edexcel Specification Quiz</strong> directly below this deck!
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Bottom Navigation Bar -->
+    <footer class="deck-bottombar">
+      <button class="nav-btn" id="prevBtn" onclick="prevSlide()" disabled>
+        ← Previous
+      </button>
+
+      <div class="deck-progress-group">
+        <span class="slide-counter" id="slideCounter">Slide 1 of 13</span>
+        <div class="progress-track">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+      </div>
+
+      <button class="nav-btn" id="nextBtn" onclick="nextSlide()">
+        Next →
+      </button>
+    </footer>
+  </div>
+
+  <!-- Video Modal -->
+  <div class="video-modal-backdrop" id="videoModal">
+    <div class="video-modal-content">
+      <div class="video-modal-header">
+        <span class="video-modal-title" id="videoModalTitle">Video Clip</span>
+        <button class="close-modal-btn" onclick="closeVideo()">&times;</button>
+      </div>
+      <div class="video-player-wrapper">
+        <iframe id="videoIframe" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+    const totalSlides = slides.length;
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const slideCounter = document.getElementById('slideCounter');
+    const progressFill = document.getElementById('progressFill');
+    const videoModal = document.getElementById('videoModal');
+    const videoModalTitle = document.getElementById('videoModalTitle');
+    const videoIframe = document.getElementById('videoIframe');
+
+    function updateDeck() {
+      slides.forEach((slide, idx) => {
+        slide.classList.toggle('active', idx === currentSlide);
+      });
+
+      prevBtn.disabled = currentSlide === 0;
+      nextBtn.disabled = currentSlide === totalSlides - 1;
+      
+      slideCounter.textContent = `Slide ${currentSlide + 1} of ${totalSlides}`;
+      const percentage = ((currentSlide + 1) / totalSlides) * 100;
+      progressFill.style.width = `${percentage}%`;
+    }
+
+    function nextSlide() {
+      if (currentSlide < totalSlides - 1) {
+        currentSlide++;
+        updateDeck();
+      }
+    }
+
+    function prevSlide() {
+      if (currentSlide > 0) {
+        currentSlide--;
+        updateDeck();
+      }
+    }
+
+    // Keyboard Navigation
+    document.addEventListener('keydown', (e) => {
+      if (videoModal.classList.contains('open')) {
+        if (e.key === 'Escape') closeVideo();
+        return;
+      }
+      if (e.key === 'ArrowRight' || e.key === ' ') {
+        nextSlide();
+      } else if (e.key === 'ArrowLeft') {
+        prevSlide();
+      }
+    });
+
+    // Swipe Support for Touch
+    let touchStartX = 0;
+    let touchEndX = 0;
+    const viewport = document.getElementById('slidesViewport');
+
+    viewport.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    viewport.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      handleSwipe();
+    }, { passive: true });
+
+    function handleSwipe() {
+      if (touchEndX < touchStartX - 50) {
+        nextSlide();
+      }
+      if (touchEndX > touchStartX + 50) {
+        prevSlide();
+      }
+    }
+
+    // Video Modal Handlers
+    function openVideo(videoId, title) {
+      videoIframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
+      videoModalTitle.textContent = title;
+      videoModal.classList.add('open');
+    }
+
+    function closeVideo() {
+      videoModal.classList.remove('open');
+      videoIframe.src = '';
+    }
+
+    videoModal.addEventListener('click', (e) => {
+      if (e.target === videoModal) {
+        closeVideo();
+      }
+    });
+  </script>
+</body>
+</html>
