@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Electronic & Dance Music • Edexcel Component 3 Specification Quiz | Music Tech Guru</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #060713;
+      --bg-card: #0c0f24;
+      --bg-surface: #141938;
+      --accent-cyan: #00C1F0;
+      --accent-cyan-glow: rgba(0, 193, 240, 0.35);
+      --accent-indigo: #6366f1;
+      --accent-indigo-glow: rgba(99, 102, 241, 0.35);
+      --accent-acid: #22c55e;
+      --accent-red: #ef4444;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-cyan: rgba(0, 193, 240, 0.35);
+      --border-indigo: rgba(99, 102, 241, 0.35);
+      --font: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: var(--font);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .quiz-container {
+      width: 100%;
+      max-width: 880px;
+      background: radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.15) 0%, rgba(12, 15, 36, 0) 70%), var(--bg-card);
+      border: 1px solid var(--border-indigo);
+      border-radius: 20px;
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.8), 0 0 40px rgba(99, 102, 241, 0.15);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    /* Top Quiz Header */
+    .quiz-header {
+      padding: 18px 26px;
+      background: rgba(8, 10, 24, 0.85);
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .quiz-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(99, 102, 241, 0.15);
+      border: 1px solid var(--border-indigo);
+      color: #818cf8;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .quiz-score-pill {
+      font-size: 12.5px;
+      color: var(--text-muted);
+      font-weight: 700;
+    }
+
+    /* Progress Bar */
+    .progress-bar-track {
+      width: 100%;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent-cyan) 0%, var(--accent-indigo) 100%);
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    /* Quiz Stage */
+    .quiz-stage {
+      padding: 30px 32px 24px 32px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .question-meta {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .q-category-tag {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--accent-cyan);
+    }
+
+    .q-ao-tag {
+      font-size: 10.5px;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border-subtle);
+      color: #cbd5e1;
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+
+    .question-text {
+      font-size: clamp(17px, 2.5vw, 20px);
+      font-weight: 800;
+      line-height: 1.4;
+      color: #ffffff;
+      margin-bottom: 22px;
+    }
+
+    /* Options Grid */
+    .options-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .option-btn {
+      background: rgba(20, 25, 56, 0.6);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 13px 18px;
+      color: #e2e8f0;
+      font-family: var(--font);
+      font-size: 13.5px;
+      line-height: 1.45;
+      font-weight: 600;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .option-btn:hover:not(:disabled) {
+      background: rgba(20, 25, 56, 0.95);
+      border-color: rgba(0, 193, 240, 0.5);
+      transform: translateX(4px);
+    }
+
+    .option-letter {
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 800;
+      color: #94a3b8;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .option-btn.correct {
+      background: rgba(34, 197, 94, 0.15) !important;
+      border-color: var(--accent-acid) !important;
+      color: #86efac !important;
+    }
+
+    .option-btn.correct .option-letter {
+      background: var(--accent-acid);
+      color: #060713;
+    }
+
+    .option-btn.wrong {
+      background: rgba(239, 68, 68, 0.15) !important;
+      border-color: var(--accent-red) !important;
+      color: #fca5a5 !important;
+    }
+
+    .option-btn.wrong .option-letter {
+      background: var(--accent-red);
+      color: #ffffff;
+    }
+
+    .option-btn:disabled {
+      cursor: default;
+    }
+
+    /* Explanation & Feedback Card */
+    .insight-card {
+      display: none;
+      background: rgba(8, 10, 24, 0.85);
+      border: 1px solid var(--border-cyan);
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-bottom: 20px;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .insight-card.open {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .insight-title {
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--accent-cyan);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .insight-body {
+      font-size: 12.5px;
+      color: #cbd5e1;
+      line-height: 1.55;
+      margin-bottom: 6px;
+    }
+
+    .insight-tip {
+      font-size: 11.5px;
+      color: #818cf8;
+      font-style: italic;
+    }
+
+    /* Quiz Footer */
+    .quiz-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 10px;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .q-counter {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-muted);
+    }
+
+    .next-q-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent-cyan);
+      color: #060713;
+      border: none;
+      padding: 10px 22px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .next-q-btn:hover:not(:disabled) {
+      box-shadow: 0 0 20px var(--accent-cyan-glow);
+      transform: translateY(-1px);
+    }
+
+    .next-q-btn:disabled {
+      opacity: 0.25;
+      cursor: not-allowed;
+    }
+
+    /* Results Screen */
+    .results-screen {
+      display: none;
+      padding: 40px 32px;
+      text-align: center;
+      flex-direction: column;
+      align-items: center;
+      animation: fadeIn 0.4s ease;
+    }
+
+    .results-screen.open {
+      display: flex;
+    }
+
+    .results-score-circle {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      background: rgba(99, 102, 241, 0.15);
+      border: 3px solid var(--accent-cyan);
+      box-shadow: 0 0 30px var(--accent-cyan-glow);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .results-score-num {
+      font-size: 32px;
+      font-weight: 900;
+      color: #ffffff;
+      line-height: 1;
+    }
+
+    .results-score-total {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 700;
+    }
+
+    .results-grade-badge {
+      display: inline-block;
+      background: rgba(34, 197, 94, 0.15);
+      border: 1px solid var(--accent-acid);
+      color: #86efac;
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 800;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .results-title {
+      font-size: 24px;
+      font-weight: 900;
+      color: #ffffff;
+      margin-bottom: 8px;
+    }
+
+    .results-message {
+      font-size: 14px;
+      color: #cbd5e1;
+      max-width: 580px;
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+
+    .results-actions {
+      display: flex;
+      gap: 12px;
+    }
+
+    .restart-btn {
+      background: var(--accent-cyan);
+      color: #060713;
+      border: none;
+      padding: 10px 24px;
+      border-radius: 8px;
+      font-size: 13.5px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .restart-btn:hover {
+      box-shadow: 0 0 20px var(--accent-cyan-glow);
+      transform: translateY(-1px);
+    }
+
+    .back-slides-btn {
+      background: rgba(255, 255, 255, 0.08);
+      color: #ffffff;
+      border: 1px solid var(--border-subtle);
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 13.5px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .back-slides-btn:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="quiz-container">
+    <!-- Top Header -->
+    <div class="quiz-header">
+      <div class="quiz-badge">
+        <span>⚡</span> Edexcel Component 3 &bull; Specification Quiz
+      </div>
+      <div class="quiz-score-pill">
+        Score: <strong style="color: var(--accent-cyan);" id="currentScore">0</strong> / 12
+      </div>
+    </div>
+
+    <!-- Progress Track -->
+    <div class="progress-bar-track">
+      <div class="progress-bar-fill" id="progressFill"></div>
+    </div>
+
+    <!-- Active Quiz Stage -->
+    <div class="quiz-stage" id="quizStage">
+      <div class="question-meta">
+        <span class="q-category-tag" id="qCategory">Category</span>
+        <span class="q-ao-tag" id="qAoTag">AO Tag</span>
+      </div>
+
+      <h3 class="question-text" id="qText">Question Stem Loading...</h3>
+
+      <div class="options-grid" id="optionsGrid">
+        <!-- Buttons injected dynamically -->
+      </div>
+
+      <div class="insight-card" id="insightCard">
+        <div class="insight-title">
+          <span>💡</span> Technical Analysis &amp; Syllabus Context
+        </div>
+        <div class="insight-body" id="insightBody"></div>
+        <div class="insight-tip" id="insightTip"></div>
+      </div>
+
+      <div class="quiz-footer">
+        <span class="q-counter" id="qCounter">Question 1 of 12</span>
+        <button class="next-q-btn" id="nextBtn" onclick="nextQuestion()" disabled>
+          Next Question &rarr;
+        </button>
+      </div>
+    </div>
+
+    <!-- Results Screen -->
+    <div class="results-screen" id="resultsScreen">
+      <div class="results-score-circle">
+        <span class="results-score-num" id="finalScoreVal">0</span>
+        <span class="results-score-total">out of 12</span>
+      </div>
+      <div class="results-grade-badge" id="gradeBadge">Distinction</div>
+      <h2 class="results-title" id="resultTitle">Performance Summary</h2>
+      <p class="results-message" id="resultMessage">Analysis message goes here.</p>
+
+      <div class="results-actions">
+        <button class="restart-btn" onclick="restartQuiz()">Retake Quiz</button>
+        <a href="/interactive-slide-dance.html" class="back-slides-btn">&larr; Return to Slide Deck</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const questions = [
+      {
+        category: "Electronic Precursors & Disco",
+        ao: "AO4: Musical Foundations",
+        text: "Donna Summer and Giorgio Moroder's landmark 1977 production 'I Feel Love' is widely regarded as the cornerstone of electronic dance music. What technological and rhythmic foundation established this aesthetic?",
+        options: [
+          "A continuous sixteenth-note synthesized bassline driven by a Moog modular sequencer combined with an unyielding four-on-the-floor kick drum and offbeat hi-hats",
+          "A live acoustic jazz drum solo recorded with tape flanging and spring reverb",
+          "A digital FM synth piano played freely without a metronome or sequencer",
+          "An acoustic bass guitar run through a chorus pedal with a swung rock shuffle rhythm"
+        ],
+        correct: 0,
+        explanation: "'I Feel Love' (1977) eliminated traditional live rhythm sections in favor of an automated Moog modular sequencer driving a relentless 16th-note synthesized bassline locked to a four-on-the-floor kick drum and open hi-hats on offbeats.",
+        tip: "Precursor Milestone: Giorgio Moroder + Moog modular sequencer + 4-to-the-floor kick = blueprint for Euro-Disco and Chicago House."
+      },
+      {
+        category: "Chicago House Origins",
+        ao: "AO3: Studio Technology",
+        text: "Jesse Saunders' 1984 record 'On and On' is widely recognized as the first commercial Chicago House release. Which pieces of hardware formed the core of its production setup?",
+        options: [
+          "A Roland TR-808 drum machine providing electronic percussion, paired with a Korg Poly-61 synthesizer and reel-to-reel tape editing",
+          "An Apple Macintosh running Logic Pro with virtual software instruments",
+          "An Akai MPC3000 sampling an acoustic rock orchestra",
+          "A Fairlight CMI Series III with optical light pen and 16-bit disk drives"
+        ],
+        correct: 0,
+        explanation: "Jesse Saunders created 'On and On' in Chicago using a Roland TR-808 rhythm composer, a Korg Poly-61 synthesizer, and reel-to-reel tape edits to capture the club energy played by Frankie Knuckles at The Warehouse.",
+        tip: "First Chicago House Record: Jesse Saunders 'On and On' (1984) = Roland TR-808 + Korg Poly-61."
+      },
+      {
+        category: "Acid House & Sound Design",
+        ao: "AO3: Subtractive Synthesis",
+        text: "In Phuture's 1987 track 'Acid Tracks', how was the signature 'squelchy' Acid House timbre achieved on the Roland TB-303 Bassline?",
+        options: [
+          "Setting the 18 dB/oct resonant low-pass filter to extreme self-oscillation while dynamically sweeping the Cutoff Frequency, Resonance, and Envelope Modulation controls during playback",
+          "Pitch-shifting acoustic double bass samples down two octaves in an Akai S1000 sampler",
+          "Connecting a vocoder directly into a chorus pedal without using an oscillator",
+          "Applying an acoustic Wah-Wah pedal to a clean Fender Stratocaster guitar"
+        ],
+        correct: 0,
+        explanation: "The signature squelch of Acid House was discovered by Phuture (DJ Pierre) live-tweaking the front-panel controls of the Roland TB-303: driving the 18 dB/oct 3-pole low-pass resonant filter into extreme resonance while continuously adjusting cutoff frequency, decay, and accent.",
+        tip: "TB-303 Sound Design: 18 dB/oct low-pass filter + extreme resonance self-oscillation + manual cutoff sweeps."
+      },
+      {
+        category: "Drum Machine Hardware",
+        ao: "AO3: Drum Architecture",
+        text: "The Roland TR-909 Rhythm Composer (1983) became the standard drum machine of Chicago House and Detroit Techno. What architectural design distinguished it from the earlier TR-808?",
+        options: [
+          "It featured a hybrid architecture using analog circuitry for the kick, snare, and toms, combined with 6-bit digital PCM samples for hi-hats, crash, and ride cymbals, plus MIDI integration",
+          "It was the first fully acoustic drum kit recorded with ribbon microphones onto 8-track tape",
+          "It generated all percussion sounds exclusively via FM frequency modulation",
+          "It lacked any analog synthesis and could only play back 24-bit WAV files from SD cards"
+        ],
+        correct: 0,
+        explanation: "The TR-909 was a breakthrough hybrid drum machine: analog synthesis (VCO/VCF) generated the kick, snare, toms, and rimshot, while short 6-bit digital PCM samples stored on EPROM chips provided the crisp metallic hi-hats and cymbals. It also introduced built-in MIDI.",
+        tip: "TR-909 Architecture: Analog synthesis (Kick/Snare/Toms) + 6-bit Digital PCM Samples (Hi-Hats/Cymbals) + MIDI sync."
+      },
+      {
+        category: "Detroit Techno",
+        ao: "AO4: Genre Aesthetics",
+        text: "The 'Belleville Three' (Juan Atkins, Derrick May, and Kevin Saunderson) originated Detroit Techno in the late 1980s. Which philosophical and musical synthesis defined their movement?",
+        options: [
+          "Merging European electronic minimalism (Kraftwerk) and American funk/Motown soul with futurist sci-fi themes using synthesizers and sequencers",
+          "Rejecting electronic sequencers in favor of live 1970s funk jam sessions",
+          "Recreating traditional Delta blues acoustic guitar fingerpicking with digital reverb",
+          "Exclusively recording acoustic classical string quartets in German cathedrals"
+        ],
+        correct: 0,
+        explanation: "The Belleville Three created Detroit Techno by fusing European synth-pop (Kraftwerk, YMO) with black American funk (P-Funk, Motown) and Alvin Toffler's futurist philosophy, famously summarized by Derrick May as 'George Clinton and Kraftwerk stuck in an elevator with a sequencer.'",
+        tip: "Detroit Techno: The Belleville Three (Atkins, May, Saunderson) = Futurist machine soul + Roland TR-909 + Derrick May's 'Strings of Life'."
+      },
+      {
+        category: "Breakbeat & Jungle Sampling",
+        ao: "AO3: Digital Samplers",
+        text: "In early 1990s UK Jungle and Drum & Bass, producers chopped the 'Amen Break' (The Winstons) on Akai S950/S1000 hardware samplers. What distinct technological artifact occurred when timestretching the break up to 160–175 BPM?",
+        options: [
+          "A metallic, fluttering granular texture caused by the sampler's DSP repeating and overlapping small digital audio grains to alter duration without shifting pitch",
+          "Severe analog tape hiss caused by misaligned pinch rollers",
+          "Complete low-frequency phase cancellation that made the kick drum inaudible",
+          "A chorus effect caused by double-tracking two acoustic drum kits"
+        ],
+        correct: 0,
+        explanation: "Early hardware samplers like the Akai S950 used primitive granular time-stretching algorithms. When stretching or compressing samples, the algorithm spliced and crossfaded small audio chunks (grains), producing a characteristic metallic, ringing, choppy artifact that became an intentional aesthetic in Jungle and Hardcore.",
+        tip: "Granular Timestretching Artifacts: Akai S950/S1000 + Amen Break + metallic ringing flutter at 160-175 BPM."
+      },
+      {
+        category: "Trance & Virtual Analog",
+        ao: "AO3: Synthesis Innovations",
+        text: "Released in 1996, the Roland JP-8000 synthesizer became the signature lead instrument of uplifting Euro-Trance. What unique oscillator waveform gave it this massive, anthem-defining sound?",
+        options: [
+          "The 'Supersaw' waveform, which digitally stacked and detuned seven sawtooth waves simultaneously within a single oscillator block",
+          "A single pure sine wave run through a 24 dB/octave ladder filter",
+          "An acoustic trumpet sample loaded into a 12-bit sampler with bitcrushing",
+          "An inverted triangle wave modulated by pink noise"
+        ],
+        correct: 0,
+        explanation: "Roland's JP-8000 introduced the 'Supersaw' oscillator, which stacked seven detuned sawtooth waves in DSP within a single oscillator. This created a lush, wide, detuned chorusing effect with rich harmonic density that cut effortlessly through massive club sound systems.",
+        tip: "Roland JP-8000: Supersaw = 7 detuned sawtooth waves in 1 oscillator = signature uplifting Trance lead sound."
+      },
+      {
+        category: "UK Garage Rhythmic Evolution",
+        ao: "AO4: Rhythmic Frameworks",
+        text: "How did late-1990s UK Garage (2-Step) rhythmically depart from traditional four-on-the-floor House music?",
+        options: [
+          "It removed the steady kick drum on beats 2 and 4, introducing syncopated kicks (e.g., beat 1 and the upbeat of 3), heavy 16th-note swing, and chopped vocal stabs",
+          "It sped the tempo up to 220 BPM using double-bass acoustic drums",
+          "It strictly used waltz time signatures (3/4 time) with accordion leads",
+          "It removed all percussion entirely, using only spoken word poetry"
+        ],
+        correct: 0,
+        explanation: "2-Step UK Garage broke away from the relentless 4-to-the-floor kick pattern of House. By omitting kicks on beats 2 and 4 and placing syncopated kicks and heavily swung 16th-note hi-hats around a snappy snare on beat 2 and 4, producers created an infectious, stuttering UK groove.",
+        tip: "2-Step Rhythm: Omission of 4-to-the-floor kick + syncopated kicks + 16th shuffle/swing + chopped vocal stabs."
+      },
+      {
+        category: "Production Science: Sidechaining",
+        ao: "AO3: Dynamics Processing",
+        text: "In electronic dance music production, what is the primary technical and sonic purpose of routing the kick drum into the external sidechain (key) input of a compressor on the synth/pad bus?",
+        options: [
+          "To automatically attenuate (duck) the synth volume whenever the kick strikes, preventing low-frequency phase masking and imparting a rhythmic 'pumping' groove",
+          "To pitch-shift the synthesizers up by one octave whenever the snare hits",
+          "To add artificial tape flanging to the kick drum's high frequencies",
+          "To reverse the synthesizer audio buffer in real time during the breakdown"
+        ],
+        correct: 0,
+        explanation: "Sidechain ducking compression uses the kick drum signal to trigger gain reduction on competing tracks (bass, synth pads, leads). This clears dynamic headroom in the low end so the kick hits cleanly without distortion, while creating the iconic rhythmic pumping sensation.",
+        tip: "Sidechain Compression: Kick triggers compressor detector input -> ducks pads/synths -> clears low-end headroom + creates rhythmic pumping."
+      },
+      {
+        category: "Arrangement Science: The Drop",
+        ao: "AO4: Structural Tension",
+        text: "Across modern EDM tracks, which combination of production techniques is standardly deployed across an 8-to-16 bar tension buildup preceding the 'drop'?",
+        options: [
+          "High-pass filter sweeps removing bass, accelerating snare subdivisions (1/4 to 1/32), upward pitch/noise risers, and a brief moment of pre-drop silence",
+          "Gradual slowing of tempo down to 40 BPM and fading out all sound completely for three minutes",
+          "Introducing an unquantized acoustic jazz saxophone solo without any synthesizers",
+          "Switching suddenly from stereo to mono while boosting 50 Hz frequencies by +18 dB"
+        ],
+        correct: 0,
+        explanation: "The EDM buildup maximizes psychoacoustic tension by starving the listener of low frequencies (high-pass filtering), increasing rhythmic urgency (accelerating snare rolls), sweeping white noise and pitch risers upward, and inserting a 1-2 beat pre-drop silence before the full low-frequency payoff.",
+        tip: "Buildup & Drop Anatomy: High-pass filter sweep + accelerating snare roll + pitch/noise risers + pre-drop silence = massive impact."
+      },
+      {
+        category: "Burial & Aesthetic Non-Grid Production",
+        ao: "AO4: Dubstep Aesthetics",
+        text: "Burial's critically acclaimed 2007 album 'Untrue' is celebrated in electronic music history for which radical departure from standard DAW production workflows?",
+        options: [
+          "Deliberately disabling DAW grid snap to sequence unquantized, stumbling percussion by eye, layered with vinyl crackle and pitch-bent vocal micro-samples",
+          "Recording a live 60-piece symphony orchestra in Abbey Road Studio 2 onto 2-inch tape",
+          "Using exclusively AI automated generative songwriting plugins without human input",
+          "Quantizing every hi-hat and kick drum strictly to 100% rigid 16th-note grid divisions"
+        ],
+        correct: 0,
+        explanation: "Burial produced 'Untrue' in Sound Forge without using a traditional sequenced timeline grid, arranging audio clips by eye and ear. This produced a uniquely organic, unquantized, shuffling rhythmic feel enhanced by atmospheric vinyl surface hiss and pitch-shifted R&B vocal fragments.",
+        tip: "Burial ('Untrue', 2007): Off-the-grid unquantized swing + vinyl crackle / ambient noise + pitch-shifted chopped vocals."
+      },
+      {
+        category: "Workstation Landmarks",
+        ao: "AO3: Digital Synthesis",
+        text: "Which factory preset sound from the 1988 Korg M1 music workstation became one of the most ubiquitous bass and lead sounds across 1990s House and UK Garage tracks?",
+        options: [
+          "'Organ 2' (a bright, percussive digital organ patch created from PCM sampled harmonic waveforms)",
+          "'Fuzz Lead' (an analog distortion guitar patch)",
+          "'Slap Bass 3' (an acoustic funk slap bass played with a nylon pick)",
+          "'Acoustic Grand 1' (an uncompressed classical concert piano preset)"
+        ],
+        correct: 0,
+        explanation: "The Korg M1 'Organ 2' preset became an immortal dance staple. Its bright, punchy, percussive harmonic transient cut through dense mixes, serving as the punchy bassline for hundreds of classic 90s House and UK Garage anthems (such as Robin S - 'Show Me Love').",
+        tip: "Korg M1 Landmark Sound: 'Organ 2' preset = foundational percussive bassline of 90s House & UK Garage."
+      }
+    ];
+
+    let currentQ = 0;
+    let score = 0;
+    let answered = false;
+
+    const qText = document.getElementById('qText');
+    const qCategory = document.getElementById('qCategory');
+    const qAoTag = document.getElementById('qAoTag');
+    const optionsGrid = document.getElementById('optionsGrid');
+    const insightCard = document.getElementById('insightCard');
+    const insightBody = document.getElementById('insightBody');
+    const insightTip = document.getElementById('insightTip');
+    const qCounter = document.getElementById('qCounter');
+    const currentScore = document.getElementById('currentScore');
+    const progressFill = document.getElementById('progressFill');
+    const nextBtn = document.getElementById('nextBtn');
+    const quizStage = document.getElementById('quizStage');
+    const resultsScreen = document.getElementById('resultsScreen');
+    const finalScoreVal = document.getElementById('finalScoreVal');
+    const gradeBadge = document.getElementById('gradeBadge');
+    const resultTitle = document.getElementById('resultTitle');
+    const resultMessage = document.getElementById('resultMessage');
+
+    const letters = ['A', 'B', 'C', 'D'];
+
+    function loadQuestion(index) {
+      answered = false;
+      const q = questions[index];
+      
+      qCategory.textContent = q.category;
+      qAoTag.textContent = q.ao;
+      qText.textContent = q.text;
+      qCounter.textContent = `Question ${index + 1} of ${questions.length}`;
+      currentScore.textContent = score;
+      
+      const pct = ((index + 1) / questions.length) * 100;
+      progressFill.style.width = `${pct}%`;
+      
+      insightCard.classList.remove('open');
+      nextBtn.disabled = true;
+
+      optionsGrid.innerHTML = '';
+      q.options.forEach((optText, optIdx) => {
+        const btn = document.createElement('button');
+        btn.className = 'option-btn';
+        btn.onclick = () => selectOption(optIdx);
+        
+        btn.innerHTML = `
+          <span class="option-letter">${letters[optIdx]}</span>
+          <span>${optText}</span>
+        `;
+        optionsGrid.appendChild(btn);
+      });
+    }
+
+    function selectOption(selectedIdx) {
+      if (answered) return;
+      answered = true;
+      
+      const q = questions[currentQ];
+      const buttons = optionsGrid.querySelectorAll('.option-btn');
+      
+      buttons.forEach(btn => btn.disabled = true);
+      
+      if (selectedIdx === q.correct) {
+        buttons[selectedIdx].classList.add('correct');
+        score++;
+        currentScore.textContent = score;
+      } else {
+        buttons[selectedIdx].classList.add('wrong');
+        buttons[q.correct].classList.add('correct');
+      }
+
+      insightBody.textContent = q.explanation;
+      insightTip.innerHTML = `<strong>Revision Note:</strong> ${q.tip}`;
+      insightCard.classList.add('open');
+
+      nextBtn.disabled = false;
+    }
+
+    function nextQuestion() {
+      if (currentQ < questions.length - 1) {
+        currentQ++;
+        loadQuestion(currentQ);
+      } else {
+        showResults();
+      }
+    }
+
+    function showResults() {
+      quizStage.style.display = 'none';
+      resultsScreen.classList.add('open');
+      finalScoreVal.textContent = score;
+
+      const percentage = (score / questions.length) * 100;
+      if (percentage >= 85) {
+        gradeBadge.textContent = 'Grade 9 • Distinction Star';
+        resultTitle.textContent = 'Spectacular Dance Music Specification Mastery!';
+        resultMessage.textContent = 'You have demonstrated complete, exam-ready mastery of Electronic Dance Music production, from TB-303 filter resonance sweeps and TR-909 hybrid voices to Akai S950 timestretching, the JP-8000 supersaw, and sidechain ducking compression.';
+      } else if (percentage >= 65) {
+        gradeBadge.textContent = 'Grade 7-8 • Merit / Distinction';
+        resultTitle.textContent = 'Strong Syllabus Understanding';
+        resultMessage.textContent = 'Great foundation! Review the exact oscillator detuning mechanics of the Roland JP-8000 Supersaw, and the precise timestretching artifacts produced by the Akai S950 on the Amen break.';
+      } else {
+        gradeBadge.textContent = 'Revision Recommended';
+        resultTitle.textContent = 'Targeted Revision Needed';
+        resultMessage.textContent = 'Revisit the Electronic Dance Music study deck above to solidify TB-303 filter parameters, TR-909 voice architecture, 2-step garage swing, and Section B comparative criteria.';
+      }
+    }
+
+    function restartQuiz() {
+      currentQ = 0;
+      score = 0;
+      resultsScreen.classList.remove('open');
+      quizStage.style.display = 'flex';
+      loadQuestion(0);
+    }
+
+    // Initialize
+    loadQuestion(0);
+  </script>
+</body>
+</html>

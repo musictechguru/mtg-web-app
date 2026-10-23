@@ -1,0 +1,1134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Electronic & Dance Music (1970s to Present) • Interactive Study Deck | Music Tech Guru</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #060713;
+      --bg-card: #0c0f24;
+      --bg-surface: #141938;
+      --accent-cyan: #00C1F0;
+      --accent-cyan-glow: rgba(0, 193, 240, 0.35);
+      --accent-indigo: #6366f1;
+      --accent-indigo-glow: rgba(99, 102, 241, 0.35);
+      --accent-acid: #22c55e;
+      --accent-acid-glow: rgba(34, 197, 94, 0.35);
+      --accent-magenta: #ec4899;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-cyan: rgba(0, 193, 240, 0.35);
+      --border-indigo: rgba(99, 102, 241, 0.35);
+      --font: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: var(--font);
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 8px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .deck-wrapper {
+      width: 100%;
+      max-width: 1100px;
+      height: calc(100vh - 16px);
+      min-height: 580px;
+      max-height: 660px;
+      background: radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.15) 0%, rgba(12, 15, 36, 0) 70%), var(--bg-card);
+      border: 1px solid var(--border-indigo);
+      border-radius: 16px;
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.8), 0 0 40px rgba(99, 102, 241, 0.15);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    /* Top Utility Bar */
+    .deck-topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      background: rgba(8, 10, 24, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-subtle);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      z-index: 10;
+    }
+
+    .badge-hub {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(99, 102, 241, 0.15);
+      border: 1px solid var(--border-indigo);
+      color: #818cf8;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      text-transform: uppercase;
+    }
+
+    .badge-pulse {
+      width: 7px;
+      height: 7px;
+      background: var(--accent-cyan);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--accent-cyan);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
+    }
+
+    .deck-topic-title {
+      color: var(--text-muted);
+      font-size: 12px;
+    }
+
+    .deck-topic-title strong {
+      color: #fff;
+    }
+
+    /* Slides Viewport */
+    .slides-viewport {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      padding: 24px 36px 16px 36px;
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateX(30px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      overflow-y: auto;
+    }
+
+    .slide.active {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(0);
+    }
+
+    /* Slide Typography */
+    .slide-eyebrow {
+      font-size: 11.5px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--accent-cyan);
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .slide-heading {
+      font-size: clamp(20px, 3vw, 27px);
+      font-weight: 900;
+      line-height: 1.15;
+      letter-spacing: -0.5px;
+      color: #ffffff;
+      margin-bottom: 12px;
+    }
+
+    .slide-heading span {
+      background: linear-gradient(135deg, #00C1F0 0%, #818cf8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .slide-lead {
+      color: #cbd5e1;
+      font-size: 14px;
+      line-height: 1.5;
+      max-width: 840px;
+      margin-bottom: 14px;
+    }
+
+    /* Grids & Cards */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    @media (max-width: 768px) {
+      .grid-2, .grid-3 {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+    }
+
+    .info-card {
+      background: rgba(20, 25, 56, 0.65);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 14px 16px;
+      transition: all 0.2s;
+    }
+
+    .info-card:hover {
+      border-color: rgba(0, 193, 240, 0.4);
+      background: rgba(20, 25, 56, 0.9);
+      transform: translateY(-2px);
+    }
+
+    .info-card.highlight {
+      border-left: 4px solid var(--accent-cyan);
+    }
+
+    .info-card.indigo-edge {
+      border-left: 4px solid var(--accent-indigo);
+    }
+
+    .info-card.acid-edge {
+      border-left: 4px solid var(--accent-acid);
+    }
+
+    .info-card h4 {
+      color: #ffffff;
+      font-size: 14px;
+      font-weight: 800;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .info-card p {
+      color: #94a3b8;
+      font-size: 12.5px;
+      line-height: 1.55;
+    }
+
+    .info-card strong {
+      color: #e2e8f0;
+    }
+
+    /* Key Spec Pill */
+    .spec-pill {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      padding: 2px 7px;
+      border-radius: 4px;
+      background: rgba(0, 193, 240, 0.12);
+      color: #38bdf8;
+      border: 1px solid rgba(0, 193, 240, 0.3);
+      margin-bottom: 4px;
+    }
+
+    .spec-pill.ao3 {
+      background: rgba(99, 102, 241, 0.15);
+      color: #a5b4fc;
+      border-color: rgba(99, 102, 241, 0.35);
+    }
+
+    .spec-pill.ao4 {
+      background: rgba(34, 197, 94, 0.15);
+      color: #86efac;
+      border-color: rgba(34, 197, 94, 0.35);
+    }
+
+    /* Comparison Table */
+    .comp-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+      margin-top: 6px;
+    }
+
+    .comp-table th {
+      background: rgba(0, 193, 240, 0.1);
+      color: var(--accent-cyan);
+      font-weight: 800;
+      text-transform: uppercase;
+      font-size: 10.5px;
+      letter-spacing: 0.5px;
+      padding: 8px 10px;
+      text-align: left;
+      border-bottom: 1px solid var(--border-cyan);
+    }
+
+    .comp-table td {
+      padding: 8px 10px;
+      border-bottom: 1px solid var(--border-subtle);
+      color: #cbd5e1;
+      line-height: 1.45;
+    }
+
+    .comp-table tr:hover td {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    /* Video Play Trigger */
+    .video-trigger-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 8px;
+      background: rgba(0, 193, 240, 0.12);
+      border: 1px solid var(--border-cyan);
+      color: #38bdf8;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .video-trigger-btn:hover {
+      background: var(--accent-cyan);
+      color: #060713;
+      transform: scale(1.02);
+    }
+
+    /* Bottom Control Bar */
+    .deck-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 24px;
+      background: rgba(8, 10, 24, 0.95);
+      border-top: 1px solid var(--border-subtle);
+      z-index: 10;
+    }
+
+    .nav-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 8px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .nav-btn:hover:not(:disabled) {
+      background: var(--accent-cyan);
+      color: #060713;
+      border-color: var(--accent-cyan);
+      box-shadow: 0 0 15px var(--accent-cyan-glow);
+    }
+
+    .nav-btn:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+
+    .progress-container {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex: 1;
+      max-width: 320px;
+      margin: 0 20px;
+    }
+
+    .progress-track {
+      flex: 1;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent-cyan) 0%, var(--accent-indigo) 100%);
+      width: 7.69%;
+      border-radius: 10px;
+      transition: width 0.3s ease;
+    }
+
+    .slide-counter {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    /* Modal for YouTube Video */
+    .video-modal-backdrop {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(8px);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .video-modal-backdrop.open {
+      display: flex;
+    }
+
+    .video-modal-content {
+      background: var(--bg-card);
+      border: 1px solid var(--border-cyan);
+      border-radius: 16px;
+      max-width: 800px;
+      width: 100%;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9), 0 0 30px var(--accent-cyan-glow);
+    }
+
+    .video-modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 18px;
+      background: rgba(255, 255, 255, 0.04);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .video-modal-title {
+      font-size: 14px;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .close-modal-btn {
+      background: none;
+      border: none;
+      color: #94a3b8;
+      font-size: 20px;
+      cursor: pointer;
+      line-height: 1;
+      padding: 0 4px;
+    }
+
+    .close-modal-btn:hover {
+      color: #fff;
+    }
+
+    .video-player-wrapper {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+    }
+
+    .video-player-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    /* Quick image thumb */
+    .slide-thumb {
+      width: 100%;
+      height: 110px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      border: 1px solid var(--border-subtle);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="deck-wrapper">
+    <!-- Topbar -->
+    <header class="deck-topbar">
+      <div class="badge-hub">
+        <span class="badge-pulse"></span>
+        Edexcel Component 3 &bull; Music in Context
+      </div>
+      <div class="deck-topic-title">
+        Topic: <strong>Electronic & Dance Music (EDM) (1970s–Present)</strong>
+      </div>
+    </header>
+
+    <!-- Viewport -->
+    <main class="slides-viewport" id="slidesViewport">
+
+      <!-- SLIDE 1: COVER -->
+      <section class="slide active" data-slide="1">
+        <div class="slide-eyebrow">
+          <span>⚡</span> Topic Overview &bull; GCE Music Technology
+        </div>
+        <h1 class="slide-heading">
+          Electronic &amp; Dance <span>Music (EDM)</span>
+        </h1>
+        <p class="slide-lead">
+          From German electronic experimentalism and Chicago warehouse clubs to UK breakbeat jungle, anthemic trance, and 21st-century festival EDM. Master the critical synthesizers, drum machines, sampling workflows, and mixing techniques required for Component 3 (9MT0/03).
+        </p>
+
+        <div class="grid-3" style="margin-top: 10px;">
+          <div class="info-card highlight">
+            <span class="spec-pill ao4">AO4 Historical Arc</span>
+            <h4>Origins &amp; Evolution</h4>
+            <p>Trace the lineage from <strong>Kraftwerk</strong> and <strong>Moroder's Disco</strong> into <strong>Chicago House</strong>, <strong>Detroit Techno</strong>, <strong>UK Jungle/D&amp;B</strong>, <strong>Trance</strong>, and <strong>Dubstep</strong>.</p>
+          </div>
+
+          <div class="info-card indigo-edge">
+            <span class="spec-pill ao3">AO3 Hardware Pillars</span>
+            <h4>Iconic Drum &amp; Synth Tech</h4>
+            <p>Understand the sound design and signal paths of the <strong>Roland TR-808/909</strong>, <strong>TB-303 Bassline</strong>, <strong>Akai S950/S1000</strong> samplers, and <strong>Roland JP-8000</strong>.</p>
+          </div>
+
+          <div class="info-card acid-edge">
+            <span class="spec-pill ao3">AO3 Production Science</span>
+            <h4>Mixing &amp; Structural Mastery</h4>
+            <p>Analyze key production techniques: <strong>sidechain ducking compression</strong>, <strong>timestretching granular artifacts</strong>, <strong>filter sweeps</strong>, and the <strong>anatomy of the drop</strong>.</p>
+          </div>
+        </div>
+
+        <div style="margin-top: 20px; display: flex; gap: 12px; align-items: center;">
+          <button class="nav-btn" onclick="nextSlide()" style="background: var(--accent-cyan); color: #060713; border-color: var(--accent-cyan);">
+            Start Interactive Deck &rarr;
+          </button>
+          <span style="font-size: 12px; color: var(--text-muted);">Press <kbd style="background: rgba(255,255,255,0.1); padding: 2px 6px; border-radius: 4px;">Space</kbd> or <kbd style="background: rgba(255,255,255,0.1); padding: 2px 6px; border-radius: 4px;">&rarr;</kbd> to navigate</span>
+        </div>
+      </section>
+
+      <!-- SLIDE 2: EDEXCEL SPECIFICATION MATRIX -->
+      <section class="slide" data-slide="2">
+        <div class="slide-eyebrow">
+          <span>📋</span> Specification Mapping
+        </div>
+        <h2 class="slide-heading">
+          Component 3 <span>Syllabus Matrix</span>
+        </h2>
+        <p class="slide-lead">
+          Pearson Edexcel evaluates your technical understanding across two distinct assessment objectives. You must connect technological mechanisms directly to sonic outcomes.
+        </p>
+
+        <div class="grid-2">
+          <div class="info-card indigo-edge">
+            <span class="spec-pill ao3">AO3: Technology &amp; Processes (50%)</span>
+            <h4>Studio Engineering &amp; Sound Design</h4>
+            <ul style="margin-left: 18px; font-size: 12px; color: #94a3b8; line-height: 1.6;">
+              <li><strong>Subtractive Synthesis:</strong> VCO waveforms (saw/square), resonant low-pass VCF cutoff manipulation on the Roland TB-303.</li>
+              <li><strong>Virtual Analog (DSP):</strong> Supersaw waveform (7 detuned saws) on the Roland JP-8000 for uplifting trance.</li>
+              <li><strong>Rhythm Units:</strong> TR-808 analog sub kicks vs TR-909 hybrid analog/6-bit digital PCM cymbals.</li>
+              <li><strong>Digital Sampling:</strong> Akai S950 timestretching artifacts on the "Amen Break" (160–175 BPM).</li>
+              <li><strong>Dynamic Processing:</strong> Sidechain compressor ducking on synth buses driven by 4-to-the-floor kick trigger.</li>
+            </ul>
+          </div>
+
+          <div class="info-card acid-edge">
+            <span class="spec-pill ao4">AO4: Context &amp; Musical Style (50%)</span>
+            <h4>Genre Conventions &amp; Evolution</h4>
+            <ul style="margin-left: 18px; font-size: 12px; color: #94a3b8; line-height: 1.6;">
+              <li><strong>Rhythmic Frameworks:</strong> 4-on-the-floor (House/Techno/Trance) vs Syncopated breakbeats (Jungle) vs 2-Step swing (UK Garage).</li>
+              <li><strong>Arrangement Design:</strong> Extended 12-inch club mixes, 32-bar mixable DJ intros/outros, tension builds, breakdowns, and drops.</li>
+              <li><strong>Cultural Movements:</strong> Chicago The Warehouse (Frankie Knuckles), UK Acid House raves (Haçienda/Shoom), London Dubstep (Tempa/DMZ).</li>
+              <li><strong>Comparative Analysis:</strong> Section B comparative essay requirements contrasting underground hardware with modern in-the-box EDM.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 3: ELECTRONIC PRECURSORS -->
+      <section class="slide" data-slide="3">
+        <div class="slide-eyebrow">
+          <span>🎛️</span> 1970s – Early 1980s Foundations
+        </div>
+        <h2 class="slide-heading">
+          Electronic <span>Precursors &amp; Synth Pioneers</span>
+        </h2>
+        <p class="slide-lead">
+          Before modern club culture, electronic synthesizers and automated sequencers emerged in German experimental krautrock and futuristic Euro-disco, replacing acoustic drum kits with mechanical precision.
+        </p>
+
+        <div class="grid-3">
+          <div class="info-card highlight">
+            <img src="/images/slides/dance/kraftwerk.jpg" alt="Kraftwerk" class="slide-thumb">
+            <h4>Kraftwerk &amp; Machine Pop</h4>
+            <p><strong>Düsseldorf, Germany:</strong> <em>The Man-Machine</em> (1978), "The Robots". Replaced acoustic drummers with custom electronic triggers, Minimoog basslines, and <strong>vocoder speech synthesis</strong>, proving electronic instruments could carry full compositions.</p>
+            <button class="video-trigger-btn" onclick="openVideo('D_8Pma1vHmw', 'Kraftwerk - The Robots')">▶ Watch "The Robots"</button>
+          </div>
+
+          <div class="info-card indigo-edge">
+            <div style="height: 110px; background: rgba(99, 102, 241, 0.15); border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-bottom: 10px; border: 1px solid var(--border-indigo);">
+              <span style="font-size: 32px;">🎹</span>
+            </div>
+            <h4>Moroder &amp; "I Feel Love" (1977)</h4>
+            <p><strong>Donna Summer &amp; Giorgio Moroder:</strong> The birth of the electronic dance record. Built entirely around a <strong>Moog Modular sequencer</strong> driving a pulsing 16th-note bassline synchronized to an unyielding 4-to-the-floor kick and offbeat hi-hats.</p>
+            <button class="video-trigger-btn" onclick="openVideo('VXa9tXcMhXQ', 'Donna Summer & Giorgio Moroder - I Feel Love')">▶ Watch "I Feel Love"</button>
+          </div>
+
+          <div class="info-card acid-edge">
+            <div style="height: 110px; background: rgba(34, 197, 94, 0.15); border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-bottom: 10px; border: 1px solid var(--border-acid);">
+              <span style="font-size: 32px;">⚡</span>
+            </div>
+            <h4>Early Electro &amp; New Order</h4>
+            <p><strong>1982–1983:</strong> Afrika Bambaataa's "Planet Rock" fused Kraftwerk melodies with the newly released <strong>Roland TR-808</strong>. Simultaneously, New Order's "Blue Monday" became the best-selling 12" vinyl single using Oberheim DMX drums and Moog Source bass.</p>
+            <button class="video-trigger-btn" onclick="openVideo('FYH8DsU2WCk', 'New Order - Blue Monday')">▶ Watch "Blue Monday"</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 4: CHICAGO HOUSE -->
+      <section class="slide" data-slide="4">
+        <div class="slide-eyebrow">
+          <span>🏠</span> Mid-1980s Urban Movement
+        </div>
+        <h2 class="slide-heading">
+          Chicago House: <span>The Warehouse &amp; TR-909</span>
+        </h2>
+        <p class="slide-lead">
+          When disco faded in mainstream America, Chicago underground clubs revitalized dance floors by layering electronic drum machines and tape reel-to-reel splices over soulful disco records.
+        </p>
+
+        <div class="grid-2">
+          <div class="info-card highlight">
+            <img src="/images/slides/dance/frankie_knuckles.jpg" alt="Frankie Knuckles" class="slide-thumb">
+            <h4>Frankie Knuckles &amp; Jesse Saunders</h4>
+            <p>At Chicago's <strong>The Warehouse</strong> club, DJ Frankie Knuckles (the "Godfather of House") extended disco breakdowns using tape loops. In 1984, <strong>Jesse Saunders</strong> released <em>"On and On"</em>, widely recognized as the first official Chicago House single, recorded using a <strong>Roland TR-808</strong> and <strong>Korg Poly-61</strong> synthesizer.</p>
+            <button class="video-trigger-btn" onclick="openVideo('LOLE1YE_oFQ', 'Frankie Knuckles - Your Love')">▶ Listen: Frankie Knuckles "Your Love"</button>
+          </div>
+
+          <div class="info-card indigo-edge">
+            <img src="/images/slides/dance/roland_tr909.png" alt="Roland TR-909" class="slide-thumb">
+            <h4>The Roland TR-909 &amp; Piano House</h4>
+            <p><strong>Roland TR-909 (1983):</strong> The defining rhythmic engine of House. Its punchy analog kick drum and crisp 6-bit digital PCM open hi-hats placed on the offbeats (the "and" of every beat) created relentless dance energy. Marshall Jefferson's <em>"Move Your Body"</em> (1986) established the syncopated <strong>Piano House</strong> chord formula.</p>
+            <div style="margin-top: 8px; font-size: 11.5px; color: #a5b4fc;">
+              <strong>Key Tech:</strong> Korg M1 "Organ 2" bass preset + TR-909 offbeat hats + 120–128 BPM.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 5: ACID HOUSE & ROLAND TB-303 -->
+      <section class="slide" data-slide="5">
+        <div class="slide-eyebrow">
+          <span>🧪</span> 1987 Sonic Revolution
+        </div>
+        <h2 class="slide-heading">
+          Acid House &amp; <span>The Roland TB-303</span>
+        </h2>
+        <p class="slide-lead">
+          Originally designed in 1981 as a commercial flop to accompany practicing guitarists, the Roland TB-303 Transistor Bass became the sonic catalyst for Acid House when young Chicago producers abused its resonant filter.
+        </p>
+
+        <div class="grid-2">
+          <div class="info-card acid-edge">
+            <img src="/images/slides/dance/roland_tb303.png" alt="Roland TB-303" class="slide-thumb">
+            <h4>Phuture &amp; "Acid Tracks" (1987)</h4>
+            <p>Chicago trio <strong>Phuture</strong> (DJ Pierre, Spanky, Herb J) bought a second-hand TB-303. While running a programmed pattern, DJ Pierre began turning knobs in real time. Sweeping the <strong>Cutoff Frequency</strong> and cranking the <strong>Resonance</strong> to maximum pushed the 18 dB/oct filter into screaming, squelchy self-oscillation.</p>
+            <button class="video-trigger-btn" onclick="openVideo('JCUPc9zVfyo', 'Phuture - Acid Tracks (1987)')">▶ Listen: Phuture "Acid Tracks"</button>
+          </div>
+
+          <div class="info-card highlight">
+            <span class="spec-pill ao4">AO4 UK Club Culture</span>
+            <h4>The UK Rave Boom &amp; Haçienda</h4>
+            <p>In 1988, Acid House exploded across the UK. London clubs <strong>Shoom</strong> (Danny Rampling) and <strong>The Haçienda</strong> in Manchester championed the squelchy sound. This sparked the <strong>"Second Summer of Love"</strong> (1988–1989), leading to massive illegal open-air warehouse parties across the M25 orbital motorway.</p>
+            <div style="margin-top: 10px; background: rgba(0,0,0,0.3); padding: 8px; border-radius: 6px; font-size: 11.5px; color: #94a3b8;">
+              <strong>Exam Focus:</strong> Edexcel frequently asks students to describe TB-303 parameters: <em>Cutoff, Resonance, Envelope Mod, Decay, and Accent</em>.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 6: DETROIT TECHNO -->
+      <section class="slide" data-slide="6">
+        <div class="slide-eyebrow">
+          <span>🏭</span> Late 1980s Futurist Machine Soul
+        </div>
+        <h2 class="slide-heading">
+          Detroit Techno: <span>The Belleville Three</span>
+        </h2>
+        <p class="slide-lead">
+          Across Lake Michigan in industrial Detroit, high school peers fused European synth-pop, Kraftwerk, and Parliament-Funkadelic with futuristic sci-fi literature into cold, mechanical, and soulful electronic music.
+        </p>
+
+        <div class="grid-3">
+          <div class="info-card highlight">
+            <img src="/images/slides/dance/juan_atkins.jpg" alt="Juan Atkins" class="slide-thumb">
+            <h4>Juan Atkins ("The Originator")</h4>
+            <p>Pioneered Cybotron ("Clear") and Model 500 ("No UFO's"). Coined the term <strong>Techno</strong> (inspired by Alvin Toffler's book <em>The Third Wave</em>). Focused on sleek, dark, syncopated electronic sequences using Roland SH-101 synths.</p>
+          </div>
+
+          <div class="info-card indigo-edge">
+            <div style="height: 110px; background: rgba(99, 102, 241, 0.15); border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-bottom: 10px; border: 1px solid var(--border-indigo);">
+              <span style="font-size: 32px;">🎻</span>
+            </div>
+            <h4>Derrick May ("The Innovator")</h4>
+            <p>Created the anthemic <strong>"Strings of Life"</strong> (1987) under the alias Rhythim Is Rhythim. Defined Detroit Techno as <em>"George Clinton and Kraftwerk stuck in an elevator with only a sequencer to keep them company."</em></p>
+          </div>
+
+          <div class="info-card acid-edge">
+            <div style="height: 110px; background: rgba(34, 197, 94, 0.15); border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-bottom: 10px; border: 1px solid var(--border-acid);">
+              <span style="font-size: 32px;">🏙️</span>
+            </div>
+            <h4>Kevin Saunderson ("The Elevator")</h4>
+            <p>Formed <strong>Inner City</strong> with singer Paris Grey, taking Detroit techno into international commercial charts with "Big Fun" and "Good Life" (1988), blending uplifting soulful vocal hooks with industrial Roland TR-909 drum machines.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 7: UK HARDCORE, BREAKBEAT & JUNGLE -->
+      <section class="slide" data-slide="7">
+        <div class="slide-eyebrow">
+          <span>🥁</span> Early–Mid 1990s UK Underground
+        </div>
+        <h2 class="slide-heading">
+          Breakbeat Hardcore &amp; <span>Jungle / Drum &amp; Bass</span>
+        </h2>
+        <p class="slide-lead">
+          UK producers abandoned four-on-the-floor kick rhythms, turning to digital samplers to slice and timestretch classic funk drum solos into breakneck syncopated rhythms at 160–175 BPM.
+        </p>
+
+        <div class="grid-2">
+          <div class="info-card indigo-edge">
+            <img src="/images/slides/dance/akai_s950.png" alt="Akai S950 Sampler" class="slide-thumb">
+            <h4>The "Amen Break" &amp; Akai S950</h4>
+            <p>Producers sampled the 6-second drum solo played by Gregory Coleman on The Winstons' 1969 track <em>"Amen, Brother"</em>. Using hardware samplers like the <strong>Akai S950</strong> and <strong>S1000</strong>, they chopped the loop into individual snare and kick slices, pitching them up and re-arranging them.</p>
+            <div style="margin-top: 8px; font-size: 11.5px; color: #a5b4fc;">
+              <strong>Timestretching Artifacts:</strong> Stretching samples across tempos caused granular, metallic, ringing artifacts that became an intentional stylistic hallmark of Jungle.
+            </div>
+          </div>
+
+          <div class="info-card highlight">
+            <img src="/images/slides/dance/the_prodigy.jpg" alt="The Prodigy" class="slide-thumb">
+            <h4>From The Prodigy to Goldie</h4>
+            <p><strong>The Prodigy:</strong> Liam Howlett pioneered Breakbeat Hardcore with "Out of Space" (1992) and "Firestarter", pairing high-speed sped-up reggae vocal samples with aggressive synthesizer riffs.<br><br>
+            <strong>Goldie:</strong> Elevated Jungle into Drum &amp; Bass with <em>"Terminator"</em> (1992) and his masterpiece <em>Timeless</em> (1995), layering 808 sub-bass, time-stretched breakbeats, and cinematic synthesized string arrangements.</p>
+            <button class="video-trigger-btn" onclick="openVideo('wmin5WkOuPw', 'The Prodigy - Firestarter')">▶ Watch: The Prodigy "Firestarter"</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 8: TRANCE & THE ROLAND JP-8000 -->
+      <section class="slide" data-slide="8">
+        <div class="slide-eyebrow">
+          <span>🌌</span> 1990s – 2000s Stadium Euphoria
+        </div>
+        <h2 class="slide-heading">
+          Trance &amp; <span>The Roland JP-8000 Supersaw</span>
+        </h2>
+        <p class="slide-lead">
+          Emerging in Germany and the UK, Trance prioritized long emotional breakdowns, 138–142 BPM 4-on-the-floor drives, arpeggiated melodic motifs, and massive synthesizer leads created by a single revolutionary oscillator.
+        </p>
+
+        <div class="grid-2">
+          <div class="info-card indigo-edge">
+            <img src="/images/slides/dance/roland_jp8000.png" alt="Roland JP-8000" class="slide-thumb">
+            <h4>The "Supersaw" Waveform (1996)</h4>
+            <p>In 1996, Roland released the <strong>JP-8000</strong> Virtual Analog synthesizer, featuring the revolutionary <strong>Supersaw</strong> oscillator. Instead of a single sawtooth wave, the DSP stacked <strong>seven detuned sawtooth waves</strong> inside a single oscillator voice. This created an extraordinarily wide, lush, chorused lead sound that cut through club sound systems.</p>
+          </div>
+
+          <div class="info-card highlight">
+            <span class="spec-pill ao4">AO4 Trance Structure</span>
+            <h4>Extended Breakdowns &amp; Tension</h4>
+            <ul style="margin-left: 18px; font-size: 12px; color: #cbd5e1; line-height: 1.6;">
+              <li><strong>Tempo:</strong> 138–142 BPM with continuous 16th-note rolling offbeat basslines.</li>
+              <li><strong>Euphoric Breakdowns:</strong> Drums drop out completely for 32 to 64 bars, leaving only filtered Supersaw leads, lush pad chords, and arpeggios.</li>
+              <li><strong>Snare Rolls &amp; Noise Sweeps:</strong> White noise filters open while snare hits accelerate (1/4 &rarr; 1/8 &rarr; 1/16 &rarr; 1/32) before the explosive kick return.</li>
+              <li><strong>Key Tracks:</strong> Robert Miles <em>"Children"</em>, Tiësto, Paul van Dyk <em>"For an Angel"</em>.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 9: UK GARAGE & DUBSTEP -->
+      <section class="slide" data-slide="9">
+        <div class="slide-eyebrow">
+          <span>🏙️</span> Late 1990s – 2000s UK Sub-Bass
+        </div>
+        <h2 class="slide-heading">
+          UK Garage &amp; <span>The Rise of Dubstep</span>
+        </h2>
+        <p class="slide-lead">
+          From the syncopated swing of London's 2-step garage to the dark, half-time wobble bass and unquantized atmosphere of South London dubstep.
+        </p>
+
+        <div class="grid-3">
+          <div class="info-card highlight">
+            <h4>2-Step Garage (1998–2000)</h4>
+            <p>Pioneered by <strong>MJ Cole</strong> and Artful Dodger. Removed the 4-to-the-floor kick on beats 2 and 4, replacing it with <strong>syncopated kicks</strong> on beat 1 and the upbeat of 3. Added heavy shuffle/swing on 16th hi-hats, pitched vocal stabs, and Rhodes piano chords.</p>
+          </div>
+
+          <div class="info-card indigo-edge">
+            <h4>Early Dubstep (2002–2006)</h4>
+            <p>Born out of Croydon (South London) via the <strong>Tempa label</strong> and <strong>FWD>> club night</strong>. Producers like <strong>Skream</strong>, <strong>Benga</strong>, and <strong>El-B</strong> stripped garage back to 140 BPM, shifting the snare to beat 3 (half-time feel) with massive sub-bass pressure (<60 Hz).</p>
+          </div>
+
+          <div class="info-card acid-edge">
+            <h4>Burial &amp; <em>Untrue</em> (2007)</h4>
+            <p>Will Bevan (Burial) redefined electronic production by <strong>deliberately avoiding DAW grid snap</strong>. He layered unquantized found-sound percussion, crackling vinyl surface noise, and pitched/time-stretched R&amp;B vocal fragments without conventional sequencers.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 10: STUDIO HARDWARE SIGNAL FLOW -->
+      <section class="slide" data-slide="10">
+        <div class="slide-eyebrow">
+          <span>🎚️</span> Hardware Deep Dive &bull; Specification Architecture
+        </div>
+        <h2 class="slide-heading">
+          Roland TR-909 &amp; <span>TB-303 Signal Architecture</span>
+        </h2>
+        <p class="slide-lead">
+          Edexcel questions routinely test the internal architecture, sound generation methods, and parameter controls of these two genre-defining units.
+        </p>
+
+        <div class="grid-2">
+          <div class="info-card highlight">
+            <span class="spec-pill ao3">TR-909 Rhythm Composer</span>
+            <h4>Hybrid Voice Architecture</h4>
+            <table class="comp-table">
+              <tr>
+                <th>Element</th>
+                <th>Synthesis Method</th>
+                <th>Sound Character</th>
+              </tr>
+              <tr>
+                <td><strong>Kick Drum</strong></td>
+                <td>Analog (VCO/VCF)</td>
+                <td>Tuned punchy attack with pitch-decay envelope</td>
+              </tr>
+              <tr>
+                <td><strong>Snare / Toms</strong></td>
+                <td>Analog (White Noise + Dual Tones)</td>
+                <td>Snappy, snappy wire buzz &amp; deep resonant bodies</td>
+              </tr>
+              <tr>
+                <td><strong>Hi-Hats / Cymbals</strong></td>
+                <td>6-bit Digital PCM Samples</td>
+                <td>Crisp, sizzly metallic crash, ride, &amp; open/closed hats</td>
+              </tr>
+              <tr>
+                <td><strong>Sync Protocol</strong></td>
+                <td>MIDI + DIN Sync 24</td>
+                <td>Synchronized drum machine to external sequencers</td>
+              </tr>
+            </table>
+          </div>
+
+          <div class="info-card acid-edge">
+            <span class="spec-pill ao3">TB-303 Transistor Bass</span>
+            <h4>Subtractive Signal Chain &amp; Controls</h4>
+            <ul style="margin-left: 18px; font-size: 12px; color: #94a3b8; line-height: 1.55;">
+              <li><strong>Oscillator (VCO):</strong> Single oscillator switchable between <em>Sawtooth</em> (buzzy, bright) or <em>Square</em> (hollow, woody).</li>
+              <li><strong>Filter (VCF):</strong> 3-pole <strong>18 dB/octave low-pass filter</strong> with non-linear resonance character.</li>
+              <li><strong>Cutoff:</strong> Determines the frequency above which harmonics are attenuated.</li>
+              <li><strong>Resonance:</strong> Boosts frequencies near cutoff, producing self-oscillating squelch.</li>
+              <li><strong>Envelope Mod &amp; Decay:</strong> Controls how much and how fast the filter cutoff sweeps per note.</li>
+              <li><strong>Accent &amp; Slide:</strong> Accents boost VCF opening and amplitude; slide slews pitch between steps (portamento).</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 11: PRODUCTION SCIENCE - SIDECHAIN & THE DROP -->
+      <section class="slide" data-slide="11">
+        <div class="slide-eyebrow">
+          <span>🎛️</span> Studio Engineering Science
+        </div>
+        <h2 class="slide-heading">
+          Sidechain Ducking &amp; <span>Anatomy of The Drop</span>
+        </h2>
+        <p class="slide-lead">
+          Modern electronic dance music relies on dynamic signal routing and extreme psychoacoustic tension-and-release cycles.
+        </p>
+
+        <div class="grid-2">
+          <div class="info-card indigo-edge">
+            <img src="/images/slides/dance/daft_punk.jpg" alt="Daft Punk" class="slide-thumb">
+            <h4>Sidechain Compression (The French Touch)</h4>
+            <p>Popularized by <strong>Daft Punk</strong> using hardware compressors (Alesis 3630) and now standard in all DAWs. The 4-to-the-floor kick drum is routed into the <strong>key/detector input</strong> of a compressor placed on pads, synth chords, or basslines.</p>
+            <div style="margin-top: 8px; font-size: 11.5px; color: #cbd5e1; line-height: 1.5;">
+              <strong>Technical Purpose:</strong>
+              <br>1. <em>Low-End Headroom:</em> Avoids phase mud and distortion between kick and bass.
+              <br>2. <em>Rhythmic Pumping:</em> Induces a dramatic breathing groove synchronized to tempo.
+            </div>
+            <button class="video-trigger-btn" onclick="openVideo('K0HSD_i2DvA', 'Daft Punk - Around the World')">▶ Watch: Daft Punk "Around the World"</button>
+          </div>
+
+          <div class="info-card highlight">
+            <span class="spec-pill ao4">Arrangement Science</span>
+            <h4>The Anatomy of an EDM Drop</h4>
+            <ul style="margin-left: 18px; font-size: 12px; color: #cbd5e1; line-height: 1.6;">
+              <li><strong>High-Pass Filter Sweep:</strong> Low-end frequencies (&lt;150 Hz) are filtered out during the buildup to starve the listener of bass.</li>
+              <li><strong>Pitch Riser / White Noise:</strong> Sine-wave pitch envelopes ascend by octaves while noise sweeps open to build high-frequency energy.</li>
+              <li><strong>Rhythmic Acceleration:</strong> Snare rolls subdivide from 1/4 to 1/8 to 1/16 to 1/32 triplets.</li>
+              <li><strong>Pre-Drop Silence ("The Fill"):</strong> 1 to 2 beats of complete silence or a vocal hook right before beat 1.</li>
+              <li><strong>The Drop:</strong> Full sub-bass and kick slam back in simultaneously at maximum dynamic impact.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 12: SECTION B COMPARATIVE MATRIX -->
+      <section class="slide" data-slide="12">
+        <div class="slide-eyebrow">
+          <span>⚖️</span> Component 3 Section B Preparation
+        </div>
+        <h2 class="slide-heading">
+          Section B Essay: <span>Underground vs Modern EDM</span>
+        </h2>
+        <p class="slide-lead">
+          When answering 10-mark comparison questions, evaluate how technological limitations shaped 1980s/90s club music versus modern digital in-the-box EDM production.
+        </p>
+
+        <table class="comp-table">
+          <thead>
+            <tr>
+              <th>Production Parameter</th>
+              <th>Underground Hardware Era (1980s–1990s)</th>
+              <th>Modern In-The-Box Festival EDM (2010s–Present)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Synthesis &amp; Sound Generation</strong></td>
+              <td>Discrete analog circuitry (TB-303, Juno-106, Minimoog); unstable oscillator drift; manual real-time knob twisting recorded to tape.</td>
+              <td>Wavetable software synths (Serum, Massive, Vital); perfect phase coherence; complex automated multi-point LFO sweeps.</td>
+            </tr>
+            <tr>
+              <td><strong>Rhythm &amp; Sampling</strong></td>
+              <td>Hardware drum machines (TR-808/909); hardware samplers (Akai S950) with 12-bit crunch and severe RAM limits (2MB–16MB).</td>
+              <td>Drag-and-drop DAW timelines, multi-gigabyte lossless libraries, endless transient shaping, layering multiple kick transients.</td>
+            </tr>
+            <tr>
+              <td><strong>Dynamics &amp; Loudness</strong></td>
+              <td>Analog mixing desk overdrive (Mackie/Soundcraft); hardware sidechain pumping (Alesis 3630); natural tape saturation.</td>
+              <td>Multiband sidechain ducking plugins; OTT upwards/downwards compression; true-peak brickwall limiters hitting -6 to -4 LUFS.</td>
+            </tr>
+            <tr>
+              <td><strong>Arrangement &amp; Delivery</strong></td>
+              <td>Extended 12" vinyl club mixes (6–9 minutes) with 32-bar beat intros/outros for live turntable beatmatching.</td>
+              <td>Streamlined radio/streaming edits (2:30–3:30); arrangement hyper-focused on fast buildups and explosive drops.</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- SLIDE 13: EXAM QUICK REFERENCE CHECKLIST -->
+      <section class="slide" data-slide="13">
+        <div class="slide-eyebrow">
+          <span>🎯</span> Edexcel Component 3 Final Revision
+        </div>
+        <h2 class="slide-heading">
+          Component 3 <span>Exam Quick Reference</span>
+        </h2>
+        <p class="slide-lead">
+          Keep these essential technical triggers and key vocabulary at the front of your mind for Section A listening questions and Section B essays.
+        </p>
+
+        <div class="grid-3">
+          <div class="info-card highlight">
+            <h4>Pivotal Equipment</h4>
+            <p><strong>Roland TR-808/909:</strong> 4-on-the-floor beat, offbeat PCM hats.<br>
+            <strong>Roland TB-303:</strong> Resonant 18 dB/oct LPF filter sweeps.<br>
+            <strong>Akai S950:</strong> Amen Break timestretch granular artifacts.<br>
+            <strong>Roland JP-8000:</strong> 7 detuned saws (Supersaw lead).<br>
+            <strong>Korg M1:</strong> Organ 2 house bass preset.</p>
+          </div>
+
+          <div class="info-card indigo-edge">
+            <h4>Tempo &amp; Groove Guide</h4>
+            <p><strong>Chicago House:</strong> 120–128 BPM (4/4)<br>
+            <strong>Detroit Techno:</strong> 125–135 BPM (4/4 machine)<br>
+            <strong>Trance:</strong> 138–142 BPM (16th rolling bass)<br>
+            <strong>UK Garage (2-Step):</strong> 130–138 BPM (syncopated kick)<br>
+            <strong>Dubstep:</strong> 140 BPM (half-time snare on 3)<br>
+            <strong>Drum &amp; Bass / Jungle:</strong> 160–175 BPM (Amen break)</p>
+          </div>
+
+          <div class="info-card acid-edge">
+            <h4>Top Scoring Vocabulary</h4>
+            <p>&bull; <em>Sidechain Ducking Compression</em><br>
+            &bull; <em>Filter Cutoff &amp; Self-Oscillating Resonance</em><br>
+            &bull; <em>Granular Timestretching Artifacts</em><br>
+            &bull; <em>High-Pass Filter Tension Buildup</em><br>
+            &bull; <em>Pre-Drop Fill &amp; Loudness War Mastering</em><br>
+            &bull; <em>12-inch Club Mix Beat Cues</em></p>
+          </div>
+        </div>
+
+        <div style="margin-top: 18px; text-align: center;">
+          <a href="/dance-interactive-quiz.html" style="display: inline-flex; align-items: center; gap: 8px; background: var(--accent-cyan); color: #060713; font-weight: 800; font-size: 13.5px; padding: 10px 24px; border-radius: 50px; text-decoration: none; box-shadow: 0 0 20px var(--accent-cyan-glow);">
+            Test Your Knowledge: Take the 12-Question Specification Quiz &rarr;
+          </a>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Bottom Controls -->
+    <footer class="deck-controls">
+      <button class="nav-btn" id="prevBtn" onclick="prevSlide()" disabled>
+        &larr; Previous
+      </button>
+
+      <div class="progress-container">
+        <span class="slide-counter" id="slideCounter">Slide 1 of 13</span>
+        <div class="progress-track">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+      </div>
+
+      <button class="nav-btn" id="nextBtn" onclick="nextSlide()">
+        Next &rarr;
+      </button>
+    </footer>
+  </div>
+
+  <!-- Video Modal -->
+  <div class="video-modal-backdrop" id="videoModal">
+    <div class="video-modal-content">
+      <div class="video-modal-header">
+        <span class="video-modal-title" id="videoModalTitle">Video Clip</span>
+        <button class="close-modal-btn" onclick="closeVideo()">&times;</button>
+      </div>
+      <div class="video-player-wrapper">
+        <iframe id="videoIframe" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+    const totalSlides = slides.length;
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const slideCounter = document.getElementById('slideCounter');
+    const progressFill = document.getElementById('progressFill');
+    const videoModal = document.getElementById('videoModal');
+    const videoModalTitle = document.getElementById('videoModalTitle');
+    const videoIframe = document.getElementById('videoIframe');
+
+    function updateDeck() {
+      slides.forEach((slide, idx) => {
+        slide.classList.toggle('active', idx === currentSlide);
+      });
+
+      prevBtn.disabled = currentSlide === 0;
+      nextBtn.disabled = currentSlide === totalSlides - 1;
+      
+      slideCounter.textContent = `Slide ${currentSlide + 1} of ${totalSlides}`;
+      const percentage = ((currentSlide + 1) / totalSlides) * 100;
+      progressFill.style.width = `${percentage}%`;
+    }
+
+    function nextSlide() {
+      if (currentSlide < totalSlides - 1) {
+        currentSlide++;
+        updateDeck();
+      }
+    }
+
+    function prevSlide() {
+      if (currentSlide > 0) {
+        currentSlide--;
+        updateDeck();
+      }
+    }
+
+    // Keyboard Navigation
+    document.addEventListener('keydown', (e) => {
+      if (videoModal.classList.contains('open')) {
+        if (e.key === 'Escape') closeVideo();
+        return;
+      }
+      if (e.key === 'ArrowRight' || e.key === ' ') {
+        nextSlide();
+      } else if (e.key === 'ArrowLeft') {
+        prevSlide();
+      }
+    });
+
+    // Swipe Support for Touch
+    let touchStartX = 0;
+    let touchEndX = 0;
+    const viewport = document.getElementById('slidesViewport');
+
+    viewport.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    viewport.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      handleSwipe();
+    }, { passive: true });
+
+    function handleSwipe() {
+      if (touchEndX < touchStartX - 50) {
+        nextSlide();
+      }
+      if (touchEndX > touchStartX + 50) {
+        prevSlide();
+      }
+    }
+
+    // Video Modal Handlers
+    function openVideo(videoId, title) {
+      videoIframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
+      videoModalTitle.textContent = title;
+      videoModal.classList.add('open');
+    }
+
+    function closeVideo() {
+      videoModal.classList.remove('open');
+      videoIframe.src = '';
+    }
+
+    videoModal.addEventListener('click', (e) => {
+      if (e.target === videoModal) {
+        closeVideo();
+      }
+    });
+  </script>
+</body>
+</html>
