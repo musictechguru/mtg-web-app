@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Heavy Metal (1970s & 1980s) • Interactive Slide Presentation | Music Tech Guru</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #070b12;
+      --bg-card: #0f172a;
+      --bg-surface: #131d31;
+      --accent-red: #ef4444;
+      --accent-red-glow: rgba(239, 68, 68, 0.35);
+      --accent-amber: #f59e0b;
+      --accent-cyan: #00C1F0;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-red: rgba(239, 68, 68, 0.35);
+      --font: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: var(--font);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .deck-container {
+      width: 100%;
+      max-width: 1040px;
+      height: 640px;
+      background: radial-gradient(circle at 50% 0%, rgba(239, 68, 68, 0.1) 0%, rgba(15, 23, 42, 0) 70%), var(--bg-card);
+      border: 1px solid var(--border-red);
+      border-radius: 20px;
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.8), 0 0 40px rgba(239, 68, 68, 0.12);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    @media (max-width: 768px) {
+      .deck-container {
+        height: auto;
+        min-height: 600px;
+      }
+    }
+
+    /* Top Navigation Bar */
+    .top-bar {
+      padding: 14px 24px;
+      border-bottom: 1px solid var(--border-subtle);
+      background: rgba(11, 15, 25, 0.85);
+      backdrop-filter: blur(10px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 10;
+    }
+
+    .brand-pill {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      color: var(--accent-red);
+      background: rgba(239, 68, 68, 0.12);
+      border: 1px solid var(--border-red);
+      padding: 4px 12px;
+      border-radius: 50px;
+    }
+
+    .slide-indicator {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-muted);
+      letter-spacing: 1px;
+    }
+
+    .slide-indicator span {
+      color: #ffffff;
+      font-weight: 900;
+    }
+
+    /* Slide Content Stage */
+    .slide-stage {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+    }
+
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      padding: 36px 48px;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateX(30px);
+      transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow-y: auto;
+    }
+
+    @media (max-width: 600px) {
+      .slide {
+        padding: 24px 20px;
+      }
+    }
+
+    .slide.active {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(0);
+    }
+
+    /* Slide Elements */
+    .slide-badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--accent-red);
+      margin-bottom: 8px;
+    }
+
+    .slide-title {
+      font-size: clamp(24px, 3.5vw, 32px);
+      font-weight: 900;
+      color: #ffffff;
+      line-height: 1.2;
+      margin-bottom: 16px;
+      letter-spacing: -0.5px;
+    }
+
+    .slide-grid-2 {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 28px;
+      align-items: center;
+      flex: 1;
+    }
+
+    @media (max-width: 800px) {
+      .slide-grid-2 {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+    }
+
+    .text-body {
+      font-size: 15px;
+      line-height: 1.65;
+      color: #cbd5e1;
+    }
+
+    .feature-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 12px;
+      transition: border-color 0.2s;
+    }
+
+    .feature-card:hover {
+      border-color: var(--border-red);
+    }
+
+    .feature-title {
+      font-size: 13.5px;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .feature-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .image-frame {
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid var(--border-subtle);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+      background: #000;
+      position: relative;
+      height: 100%;
+      max-height: 380px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .image-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .image-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 100%);
+      padding: 20px 14px 10px 14px;
+      font-size: 12px;
+      color: #e2e8f0;
+      font-weight: 600;
+    }
+
+    .callout-box {
+      background: rgba(239, 68, 68, 0.08);
+      border-left: 4px solid var(--accent-red);
+      padding: 14px 18px;
+      border-radius: 0 10px 10px 0;
+      margin-top: 14px;
+      font-size: 13.5px;
+      color: #e2e8f0;
+      line-height: 1.5;
+    }
+
+    .callout-box strong {
+      color: #ffffff;
+    }
+
+    /* Bottom Control Bar */
+    .bottom-bar {
+      padding: 16px 28px;
+      border-top: 1px solid var(--border-subtle);
+      background: rgba(11, 15, 25, 0.9);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 10;
+    }
+
+    .nav-buttons {
+      display: flex;
+      gap: 12px;
+    }
+
+    .btn-nav {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      color: #ffffff;
+      padding: 10px 20px;
+      border-radius: 50px;
+      font-size: 13.5px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .btn-nav:hover:not(:disabled) {
+      background: rgba(239, 68, 68, 0.15);
+      border-color: var(--accent-red);
+      color: #ffffff;
+      transform: translateY(-1px);
+    }
+
+    .btn-nav:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+
+    .dots-container {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.2);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .dot.active {
+      width: 24px;
+      border-radius: 10px;
+      background: var(--accent-red);
+      box-shadow: 0 0 10px var(--accent-red-glow);
+    }
+
+    /* Key Terms / Badges */
+    .term-pill {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border-subtle);
+      color: #cbd5e1;
+      font-size: 11.5px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 6px;
+      margin: 2px 4px 2px 0;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="deck-container" id="deckContainer">
+    <!-- Top Bar -->
+    <div class="top-bar">
+      <div class="brand-pill">
+        <span>⚡</span> Edexcel Component 3 • Study Deck
+      </div>
+      <div class="slide-indicator">
+        SLIDE <span id="currentSlideNum">1</span> OF <span id="totalSlidesNum">13</span>
+      </div>
+    </div>
+
+    <!-- Slide Stage -->
+    <div class="slide-stage">
+
+      <!-- SLIDE 1: Title & Syllabus Roadmap -->
+      <div class="slide active">
+        <div>
+          <span class="slide-badge">Genre Evolution & Studio Innovation</span>
+          <h1 class="slide-title">Heavy Metal (1970s &amp; 1980s)</h1>
+          <p class="text-body" style="max-width: 780px; margin-bottom: 24px;">
+            From the thunderous, down-tuned blues riffs of early 1970s Birmingham to the screaming twin-guitar harmonies of the NWOBHM and the high-tech, gated-reverb stadium productions of the 1980s.
+          </p>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin-bottom: 20px;">
+            <div class="feature-card">
+              <div class="feature-title" style="color: var(--accent-red);">🎸 High-Gain Amplification</div>
+              <div class="feature-desc">Transition from cranked Plexis to master-volume Marshall JCM800s, Mesa/Boogie dual rectifiers, and solid-state overdrive boosters.</div>
+            </div>
+            <div class="feature-card">
+              <div class="feature-title" style="color: var(--accent-amber);">🥁 Double-Kick &amp; Triggers</div>
+              <div class="feature-desc">Super-fast 16th-note double kick pedals, close-micing, aggressive noise gating, and mid-80s sample triggering (Wendel Jr).</div>
+            </div>
+            <div class="feature-card">
+              <div class="feature-title" style="color: var(--accent-cyan);">🎛️ 1980s Studio Production</div>
+              <div class="feature-desc">V-shape scooped midrange EQ, gated digital snares (AMS RMX16), SSL bus compression, and extreme multitracking.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout-box">
+          <strong>Edexcel Exam Focus:</strong> Be prepared to explain how studio technology evolved from raw 1970s room-spill tracking to surgical, hyper-controlled 1980s multitracking with drum replacement, time-correction, and digital processing.
+        </div>
+      </div>
+
+      <!-- SLIDE 2: 1970s Roots & Birmingham Proto-Metal -->
+      <div class="slide">
+        <div class="slide-grid-2">
+          <div>
+            <span class="slide-badge">1970s Origins</span>
+            <h2 class="slide-title">Black Sabbath &amp; The Dark Riff</h2>
+            <p class="text-body" style="margin-bottom: 16px;">
+              Born in industrial Birmingham, Black Sabbath stripped away the lighthearted optimism of 1960s pop, forging a dark, heavy, monolithic sound that defined proto-heavy metal.
+            </p>
+
+            <div class="feature-card">
+              <div class="feature-title">The Tritone (Diminished 5th)</div>
+              <div class="feature-desc">The opening riff of "Black Sabbath" (G - G - C#) exploits the medieval <em>diabolus in musica</em> (devil's interval) to build menacing dissonance and terror.</div>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-title">Detuned Guitars &amp; Sludge</div>
+              <div class="feature-desc">Guitarist Tony Iommi lost the tips of his right-hand fingers in an industrial accident. He used thimble prosthetics and detuned his Gibson SG down 1.5 steps (to C# standard), slackening string tension and creating a dark, thunderous low-end.</div>
+            </div>
+          </div>
+
+          <div class="image-frame">
+            <img src="/images/slides/metal/black_sabbath.jpg" alt="Black Sabbath 1970">
+            <div class="image-caption">Black Sabbath (1970) • Ozzy Osbourne, Tony Iommi, Geezer Butler, Bill Ward</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 3: The NWOBHM (New Wave of British Heavy Metal) -->
+      <div class="slide">
+        <div class="slide-grid-2">
+          <div>
+            <span class="slide-badge">Early 1980s Movement</span>
+            <h2 class="slide-title">NWOBHM: Twin Leads &amp; Gallops</h2>
+            <p class="text-body" style="margin-bottom: 16px;">
+              Reacting against 1970s disco and bloated arena rock, the NWOBHM (1979–1983) injected the raw speed and aggression of punk into virtuosic hard rock.
+            </p>
+
+            <div class="feature-card">
+              <div class="feature-title">Twin Guitars Harmonising in 3rds</div>
+              <div class="feature-desc">Iron Maiden (Dave Murray &amp; Adrian Smith) and Judas Priest (Glenn Tipton &amp; K.K. Downing) popularized dual lead guitars playing fast, melodic unison lines harmonised in diatonic 3rds and 6ths.</div>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-title">The Bass "Gallop" (Steve Harris)</div>
+              <div class="feature-desc">Fast, relentless sixteenth-note triplet patterns (gallop) played with bare fingers on a Fender Precision Bass, boosted at 2–3kHz for a distinct percussive clack.</div>
+            </div>
+          </div>
+
+          <div class="image-frame">
+            <img src="/images/slides/metal/iron_maiden.jpg" alt="Iron Maiden">
+            <div class="image-caption">Iron Maiden • Dual guitar harmony and high-register operatic vocals</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 4: Judas Priest & Vocal Dynamics -->
+      <div class="slide">
+        <div class="slide-grid-2">
+          <div>
+            <span class="slide-badge">Vocal Delivery &amp; Fashion</span>
+            <h2 class="slide-title">Judas Priest &amp; The Metal Screamer</h2>
+            <p class="text-body" style="margin-bottom: 16px;">
+              Rob Halford ("The Metal God") revolutionized metal vocal technique, moving effortlessly from menacing low baritone growls to multi-octave falsetto piercing screams.
+            </p>
+
+            <div class="feature-card">
+              <div class="feature-title">Vocal Compression &amp; Tape Flange</div>
+              <div class="feature-desc">Studio vocal tracks were heavily compressed with UREI 1176 limiters to catch sudden dynamic screams, layered with tape flanging and short stereo slapback delays to emphasize aggression.</div>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-title">Visual Identity: Leather &amp; Studs</div>
+              <div class="feature-desc">Halford introduced the definitive metal aesthetic: black leather jackets, motorcycle boots, chrome studs, and chains, replacing 1970s hippy flares with tough industrial iconography.</div>
+            </div>
+          </div>
+
+          <div class="image-frame">
+            <img src="/images/slides/metal/judas_priest.jpg" alt="Judas Priest Live">
+            <div class="image-caption">Judas Priest • Leather, studs, and high-octane twin guitar firepower</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 5: 1980s Thrash Metal & Extreme Precision -->
+      <div class="slide">
+        <div class="slide-grid-2">
+          <div>
+            <span class="slide-badge">Mid-1980s Evolution</span>
+            <h2 class="slide-title">Thrash Metal: Speed &amp; Down-Picking</h2>
+            <p class="text-body" style="margin-bottom: 16px;">
+              Pioneered in California by Metallica, Slayer, Megadeth, and Anthrax, Thrash Metal pushed tempo, technicality, and aggressive rhythm tracking to new extremes.
+            </p>
+
+            <div class="feature-card">
+              <div class="feature-title">Palm-Muted "Chugging" Down-Picking</div>
+              <div class="feature-desc">James Hetfield's exclusive use of strict down-strokes on palm-muted low strings created an unprecedentedly tight, percussive, machine-gun attack that alternate picking could never match.</div>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-title">Surgical Noise Gating</div>
+              <div class="feature-desc">Hardware noise gates (Drawmer DS201) were keyed aggressively to eliminate all amplifier hiss and string ring between rapid staccato chugs, resulting in a razor-sharp rhythm wall.</div>
+            </div>
+          </div>
+
+          <div class="image-frame">
+            <img src="/images/slides/metal/metallica.jpg" alt="Metallica Live">
+            <div class="image-caption">Metallica • Precision palm-muting and aggressive double-kick thrash</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 6: 1980s Hair Metal & Sunset Strip Glam -->
+      <div class="slide">
+        <div class="slide-grid-2">
+          <div>
+            <span class="slide-badge">Commercial Crossover</span>
+            <h2 class="slide-title">Hair Metal &amp; Sunset Strip Glam</h2>
+            <p class="text-body" style="margin-bottom: 16px;">
+              Bands like Mötley Crüe, Poison, Guns N' Roses, and Van Halen fused heavy metal guitars with infectious pop hooks, dominating 1980s MTV and Billboard charts.
+            </p>
+
+            <div class="feature-card">
+              <div class="feature-title">Radio-Friendly Song Structures</div>
+              <div class="feature-desc">Classic Verse-Chorus-Verse-Chorus-Guitar Solo-Chorus format with massive sing-along gang backing vocals and glossy major/minor tonality.</div>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-title">Digital Chorusing &amp; Pitch Detuning</div>
+              <div class="feature-desc">Rhythm guitars and vocal submixes were processed with Eventide H3000 pitch shifters (+9 / -9 cents detune) to create an ultra-wide, glossy, shimmering stereo image.</div>
+            </div>
+          </div>
+
+          <div class="image-frame">
+            <img src="/images/slides/metal/van_halen.jpg" alt="Van Halen Lineup">
+            <div class="image-caption">Van Halen • Sunset Strip showmanship and sonic virtuosity</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 7: Virtuosic Guitar Tech: The "Superstrat" & Floyd Rose -->
+      <div class="slide">
+        <div>
+          <span class="slide-badge">Hardware Innovation</span>
+          <h2 class="slide-title">The "Superstrat" &amp; Floyd Rose Tremolo</h2>
+          <p class="text-body" style="max-width: 820px; margin-bottom: 20px;">
+            1980s guitar virtuosos demanded instruments that could withstand extreme mechanical abuse while delivering high-output distortion without 50Hz hum.
+          </p>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-bottom: 20px;">
+            <div class="feature-card">
+              <div class="feature-title">Eddie Van Halen's "Frankenstrat"</div>
+              <div class="feature-desc">Combining a Fender Stratocaster body with a Gibson PAF humbucker pickup mounted directly into the raw wood. High output, fat mid-range, and zero single-coil buzz.</div>
+            </div>
+            <div class="feature-card">
+              <div class="feature-title">Floyd Rose Double-Locking Tremolo</div>
+              <div class="feature-desc">Strings locked mechanically at both the nut and bridge saddle. Enabled extreme "dive-bombs" (dropping pitch to total slack) and squealing pull-ups while returning to perfect pitch.</div>
+            </div>
+            <div class="feature-card">
+              <div class="feature-title">Two-Handed Fretboard Tapping</div>
+              <div class="feature-desc">Right-hand index finger taps notes high on the fretboard while the left hand executes pull-offs and hammer-ons, producing blazing arpeggios beyond normal picking limits.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout-box">
+          <strong>Key Listening Example:</strong> Van Halen's <em>"Eruption"</em> (1978) — MXR Phase 90 pedal into cranked Marshall Super Lead, utilizing two-handed tapping, dive bombs, and Univox tape echo.
+        </div>
+      </div>
+
+      <!-- SLIDE 8: High-Gain Amps: The Marshall JCM800 -->
+      <div class="slide">
+        <div class="slide-grid-2">
+          <div>
+            <span class="slide-badge">Amplification Architecture</span>
+            <h2 class="slide-title">The Marshall JCM800 (1981)</h2>
+            <p class="text-body" style="margin-bottom: 16px;">
+              The JCM800 2203 / 2204 became the undisputed backline monarch of 1980s rock and metal across arenas worldwide.
+            </p>
+
+            <div class="feature-card">
+              <div class="feature-title">Master Volume Circuitry</div>
+              <div class="feature-desc">Allowed engineers and players to crank the Preamp Gain (cascading 12AX7/ECC83 valves into aggressive harmonic clipping) without requiring the Master Volume to be deafeningly loud.</div>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-title">The "Overdrive Boost" Secret</div>
+              <div class="feature-desc">Guitarists placed an overdrive pedal (Ibanez Tube Screamer TS9 or Boss SD-1) before the amp with Drive at 0 and Level on 10. This cuts muddy sub-bass before the preamp tubes, resulting in a tighter, punchier palm-muted transient.</div>
+            </div>
+          </div>
+
+          <div class="image-frame">
+            <img src="/images/hq_dist_marshall_stack_1772046322562.png" alt="Marshall Stack Amp">
+            <div class="image-caption">Marshall JCM800 Half-Stack • The gold-panel standard of 1980s metal</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 9: Scooped Midrange EQ & Quad Tracking -->
+      <div class="slide">
+        <div>
+          <span class="slide-badge">Mix Architecture &amp; Frequency Carving</span>
+          <h2 class="slide-title">The "V-Curve" Scooped Mid EQ &amp; Quad Tracking</h2>
+          <p class="text-body" style="max-width: 820px; margin-bottom: 20px;">
+            To achieve the monstrous, biting rhythm guitar sound on albums like Metallica's <em>Master of Puppets</em> (1986), engineers redesigned how guitars sit in the frequency spectrum.
+          </p>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-bottom: 20px;">
+            <div class="feature-card">
+              <div class="feature-title">The "V-Shape" Mid Scoop (Mesa/Boogie)</div>
+              <div class="feature-desc">Using graphic or parametric EQ: Boosting 80–100Hz (chunk) and 4–6kHz (pick bite), while aggressively cutting 400–800Hz by up to 8–12dB. Eliminates "boxy" mud and makes room for the snare drum.</div>
+            </div>
+            <div class="feature-card">
+              <div class="feature-title">Multi-Mic Cab Capture (SM57 + Ribbon)</div>
+              <div class="feature-desc">A Shure SM57 close-mic'd on the speaker cone edge (bright transients) paired with a Royer R-121 ribbon mic (warm body). Phase-aligned to prevent comb filtering.</div>
+            </div>
+            <div class="feature-card">
+              <div class="feature-title">Quad-Tracking Rhythms (4 Passes)</div>
+              <div class="feature-desc">Recording four distinct, flawless takes of the rhythm guitar part. Panned Hard Left 100%, Mid Left 75%, Mid Right 75%, and Hard Right 100% for a crushing stereo wall.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout-box">
+          <strong>Exam Insight:</strong> Why scoop the mids? Because human hearing is most sensitive between 1kHz and 4kHz. Scooping guitars allows the lead vocal and snare crack to cut through clearly without fighting the distorted guitar wall.
+        </div>
+      </div>
+
+      <!-- SLIDE 10: Double-Kick Drum Tracking & Triggers -->
+      <div class="slide">
+        <div class="slide-grid-2">
+          <div>
+            <span class="slide-badge">Rhythm Section Production</span>
+            <h2 class="slide-title">Double-Kick Tracking &amp; Sample Triggering</h2>
+            <p class="text-body" style="margin-bottom: 16px;">
+              At 200+ BPM, acoustic bass drum heads cannot settle before the next beater strikes. Studio engineers had to develop high-tech solutions.
+            </p>
+
+            <div class="feature-card">
+              <div class="feature-title">Click Beater EQ Carving</div>
+              <div class="feature-desc">Aggressive EQ boost at 3–4kHz (producing the characteristic plastic/wooden beater "click") and boost at 60Hz, while drastically notching out 300–500Hz to eliminate boxiness.</div>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-title">Drum Triggers &amp; The Wendel Jr.</div>
+              <div class="feature-desc">Piezo-electric contact sensors placed on the drum head triggered hardware digital samplers (like the 1984 Wendel Jr). Replaced or doubled the live kick with a pre-recorded, flawless sample on every single strike.</div>
+            </div>
+          </div>
+
+          <div class="image-frame">
+            <img src="/images/drum_kick_micing_1770032490952.png" alt="Kick Drum Micing">
+            <div class="image-caption">Inside kick capture • AKG D112 / Shure Beta 52 positioned near the beater point</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 11: 1980s Gated Digital Reverb -->
+      <div class="slide">
+        <div class="slide-grid-2">
+          <div>
+            <span class="slide-badge">Spatial &amp; Dynamics Processing</span>
+            <h2 class="slide-title">Gated Digital Reverb: The 80s Snare</h2>
+            <p class="text-body" style="margin-bottom: 16px;">
+              The definitive studio sound of 1980s rock: massive, cavernous digital reverb tails that abruptly cut off into dead silence.
+            </p>
+
+            <div class="feature-card">
+              <div class="feature-title">AMS RMX16 &amp; Lexicon Digital Units</div>
+              <div class="feature-desc">Replaced mechanical steel plates with digital algorithms offering huge non-linear and hall patches with bright diffusion and dense early reflections.</div>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-title">The Noise Gate Threshold &amp; Release</div>
+              <div class="feature-desc">The snare track feeds a huge reverb; the output of the reverb passes through a noise gate. The gate opens upon the transient hit, holds open for 150–250ms, then slams shut instantly (0ms release). Result: colossal power without muddying the mix!</div>
+            </div>
+          </div>
+
+          <div class="image-frame">
+            <img src="/images/gated_snare_reverb_diagram.png" alt="Gated Reverb Diagram">
+            <div class="image-caption">Gated Reverb Signal Flow • Snare hit triggers reverb, truncated by fast noise gate</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 12: Mutt Lange & Def Leppard (Hysteria) -->
+      <div class="slide">
+        <div>
+          <span class="slide-badge">Peak 1980s Studio Production</span>
+          <h2 class="slide-title">Mutt Lange &amp; Def Leppard: <em>Hysteria</em> (1987)</h2>
+          <p class="text-body" style="max-width: 820px; margin-bottom: 20px;">
+            Producer Robert John "Mutt" Lange spent over three years and $4.5 million creating the ultimate rock production masterpiece — setting the gold standard for pop-metal hybrid engineering.
+          </p>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-bottom: 20px;">
+            <div class="feature-card">
+              <div class="feature-title">Fairlight CMI Sampled Drums</div>
+              <div class="feature-desc">After drummer Rick Allen lost his arm in an accident, Lange reconstructed the drums digitally using a Fairlight CMI sampler. Cymbals were recorded live, but kick and snare were digitally programmed for robotic perfection.</div>
+            </div>
+            <div class="feature-card">
+              <div class="feature-title">Rockman Direct-Injection Guitars</div>
+              <div class="feature-desc">Instead of roaring amplifier cabinets in live rooms, guitars were recorded directly through Tom Scholz's Rockman headphone preamp units, treated with Eventide pitch detuning and harmonisers.</div>
+            </div>
+            <div class="feature-card">
+              <div class="feature-title">Massive Multitrack Vocal Stacks</div>
+              <div class="feature-desc">Dozens of vocal takes were layered, bounced down, and treated on SSL 4000 series mixing consoles with SSL G-Master bus compression to create huge operatic football-chant choruses.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout-box">
+          <strong>Production Philosophy:</strong> Lange proved that heavy rock guitars could be married to spotless Michael Jackson-style pop production, selling over 20 million copies of <em>Hysteria</em> worldwide.
+        </div>
+      </div>
+
+      <!-- SLIDE 13: Component 3 Exam Strategy & Terminology -->
+      <div class="slide">
+        <div>
+          <span class="slide-badge">Exam Success Framework</span>
+          <h2 class="slide-title">Component 3 Exam Strategy: Heavy Metal</h2>
+          <p class="text-body" style="max-width: 820px; margin-bottom: 20px;">
+            In Section A (short answer) and Section B (extended response), examiners award top marks to candidates who integrate musical elements (AO3) with specific studio technology (AO4).
+          </p>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 20px;">
+            <div class="feature-card">
+              <div class="feature-title" style="color: var(--accent-red);">AO3 • Musical Style Identifiers</div>
+              <ul style="color: #cbd5e1; font-size: 13px; line-height: 1.6; padding-left: 18px; margin-top: 6px;">
+                <li>Tritone / Diminished 5th interval (sinister harmony)</li>
+                <li>Palm-muted "chugging" rhythm guitar down-picking</li>
+                <li>Twin lead guitars harmonising in diatonic 3rds/6ths</li>
+                <li>Virtuosic two-handed tapping &amp; dive bombs</li>
+                <li>High-register screamed / operatic vocals</li>
+                <li>Double kick pedal 16th-note gallop rhythms</li>
+              </ul>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-title" style="color: var(--accent-cyan);">AO4 • Studio Technology Identifiers</div>
+              <ul style="color: #cbd5e1; font-size: 13px; line-height: 1.6; padding-left: 18px; margin-top: 6px;">
+                <li>High-gain valve preamp saturation (Marshall JCM800)</li>
+                <li>Scooped midrange "V-curve" EQ (cut 400-800Hz)</li>
+                <li>Dual cab micing (SM57 + Royer ribbon) &amp; quad tracking</li>
+                <li>Gated digital reverb (AMS RMX16) on snare</li>
+                <li>Piezo drum triggers replacing kick/snare with samples</li>
+                <li>Eventide pitch detune &amp; SSL G-Master bus compression</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout-box">
+          <strong>Golden Rule for Component 3:</strong> Always state <em>what</em> effect was used, <em>how</em> it was set up (e.g. noise gate hold/release times, EQ boost/cut frequencies), and <em>why</em> it was needed in the context of the mix!
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Bottom Bar Controls -->
+    <div class="bottom-bar">
+      <div class="nav-buttons">
+        <button class="btn-nav" id="prevBtn" onclick="prevSlide()" disabled>
+          ← Previous
+        </button>
+        <button class="btn-nav" id="nextBtn" onclick="nextSlide()">
+          Next Slide →
+        </button>
+      </div>
+
+      <div class="dots-container" id="dotsContainer"></div>
+
+      <button class="btn-nav" onclick="toggleFullscreen()" title="Toggle Fullscreen" style="padding: 10px 14px;">
+        ⛶
+      </button>
+    </div>
+  </div>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    const dotsContainer = document.getElementById('dotsContainer');
+    const currentSlideNum = document.getElementById('currentSlideNum');
+    const totalSlidesNum = document.getElementById('totalSlidesNum');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const deckContainer = document.getElementById('deckContainer');
+
+    let currentSlide = 0;
+    const totalSlides = slides.length;
+
+    totalSlidesNum.textContent = totalSlides;
+
+    // Create dots
+    slides.forEach((_, idx) => {
+      const dot = document.createElement('div');
+      dot.className = `dot ${idx === 0 ? 'active' : ''}`;
+      dot.onclick = () => goToSlide(idx);
+      dotsContainer.appendChild(dot);
+    });
+
+    const dots = document.querySelectorAll('.dot');
+
+    function updateSlide() {
+      slides.forEach((slide, idx) => {
+        slide.classList.toggle('active', idx === currentSlide);
+      });
+
+      dots.forEach((dot, idx) => {
+        dot.classList.toggle('active', idx === currentSlide);
+      });
+
+      currentSlideNum.textContent = currentSlide + 1;
+      prevBtn.disabled = currentSlide === 0;
+      
+      if (currentSlide === totalSlides - 1) {
+        nextBtn.textContent = 'Restart Deck ↺';
+      } else {
+        nextBtn.textContent = 'Next Slide →';
+      }
+    }
+
+    function nextSlide() {
+      if (currentSlide < totalSlides - 1) {
+        currentSlide++;
+      } else {
+        currentSlide = 0;
+      }
+      updateSlide();
+    }
+
+    function prevSlide() {
+      if (currentSlide > 0) {
+        currentSlide--;
+        updateSlide();
+      }
+    }
+
+    function goToSlide(idx) {
+      currentSlide = idx;
+      updateSlide();
+    }
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ') {
+        nextSlide();
+      } else if (e.key === 'ArrowLeft') {
+        prevSlide();
+      }
+    });
+
+    // Fullscreen support
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        deckContainer.requestFullscreen().catch(err => {
+          console.warn(`Fullscreen error: ${err.message}`);
+        });
+      } else {
+        document.exitFullscreen();
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Heavy Metal (1970s & 1980s) • Interactive Learning Quiz | Music Tech Guru</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #070b12;
+      --bg-card: #0f172a;
+      --bg-surface: #131d31;
+      --accent-red: #ef4444;
+      --accent-red-glow: rgba(239, 68, 68, 0.35);
+      --accent-amber: #fbbf24;
+      --accent-green: #22c55e;
+      --accent-cyan: #00C1F0;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-red: rgba(239, 68, 68, 0.35);
+      --font: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: var(--font);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .quiz-container {
+      width: 100%;
+      max-width: 860px;
+      background: radial-gradient(circle at 50% 0%, rgba(239, 68, 68, 0.08) 0%, rgba(15, 23, 42, 0) 70%), var(--bg-card);
+      border: 1px solid var(--border-red);
+      border-radius: 20px;
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.8), 0 0 40px rgba(239, 68, 68, 0.12);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    /* Header */
+    .quiz-header {
+      padding: 20px 28px;
+      border-bottom: 1px solid var(--border-subtle);
+      background: rgba(11, 15, 25, 0.85);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .quiz-badge {
+      background: rgba(239, 68, 68, 0.15);
+      color: var(--accent-red);
+      border: 1px solid var(--border-red);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 50px;
+    }
+
+    .quiz-score-pill {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      padding: 6px 14px;
+      border-radius: 50px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #cbd5e1;
+    }
+
+    .progress-bar-track {
+      width: 100%;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #ef4444, #f87171);
+      width: 8.33%;
+      transition: width 0.3s ease;
+    }
+
+    /* Question Stage */
+    .quiz-stage {
+      padding: 36px 32px;
+      min-height: 440px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    @media (max-width: 600px) {
+      .quiz-stage {
+        padding: 24px 20px;
+      }
+    }
+
+    .q-category {
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--accent-red);
+      margin-bottom: 8px;
+    }
+
+    .q-text {
+      font-size: clamp(18px, 2.8vw, 22px);
+      font-weight: 800;
+      color: #ffffff;
+      line-height: 1.45;
+      margin-bottom: 24px;
+    }
+
+    /* Options */
+    .options-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .option-btn {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 16px 20px;
+      color: #e2e8f0;
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 600;
+      line-height: 1.5;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .option-btn:hover:not(:disabled) {
+      border-color: var(--accent-red);
+      background: rgba(239, 68, 68, 0.08);
+      transform: translateX(4px);
+      color: #ffffff;
+    }
+
+    .option-letter {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 13px;
+      color: var(--accent-red);
+      flex-shrink: 0;
+    }
+
+    .option-btn.correct {
+      background: rgba(34, 197, 94, 0.15) !important;
+      border-color: var(--accent-green) !important;
+      color: #ffffff !important;
+    }
+
+    .option-btn.correct .option-letter {
+      background: var(--accent-green);
+      color: #0b0f19;
+      border-color: var(--accent-green);
+    }
+
+    .option-btn.wrong {
+      background: rgba(239, 68, 68, 0.15) !important;
+      border-color: var(--accent-red) !important;
+      color: #fca5a5 !important;
+    }
+
+    .option-btn.wrong .option-letter {
+      background: var(--accent-red);
+      color: #ffffff;
+      border-color: var(--accent-red);
+    }
+
+    /* Explanation Banner */
+    .insight-card {
+      display: none;
+      background: rgba(239, 68, 68, 0.06);
+      border: 1px solid var(--border-red);
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-bottom: 24px;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .insight-card.open {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .insight-title {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--accent-red);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .insight-body {
+      font-size: 13.5px;
+      line-height: 1.6;
+      color: #cbd5e1;
+    }
+
+    /* Footer */
+    .quiz-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .next-btn {
+      background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+      color: #ffffff;
+      border: none;
+      padding: 12px 28px;
+      border-radius: 50px;
+      font-size: 14.5px;
+      font-weight: 800;
+      cursor: pointer;
+      display: none;
+      box-shadow: 0 4px 15px rgba(239, 68, 68, 0.35);
+      transition: all 0.2s;
+    }
+
+    .next-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(239, 68, 68, 0.55);
+    }
+
+    .next-btn.visible {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Results Screen */
+    .results-screen {
+      display: none;
+      text-align: center;
+      padding: 40px 24px;
+    }
+
+    .results-screen.open {
+      display: block;
+    }
+
+    .score-circle {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(239, 68, 68, 0.2) 0%, rgba(15, 23, 42, 0.8) 100%);
+      border: 3px solid var(--accent-red);
+      margin: 0 auto 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .score-number {
+      font-size: 42px;
+      font-weight: 900;
+      color: #ffffff;
+      line-height: 1;
+    }
+
+    .grade-badge {
+      display: inline-block;
+      padding: 6px 18px;
+      border-radius: 50px;
+      font-size: 14px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      background: rgba(239, 68, 68, 0.15);
+      color: var(--accent-red);
+      border: 1px solid var(--border-red);
+    }
+
+    .retry-btn {
+      background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+      color: #ffffff;
+      border: none;
+      padding: 14px 32px;
+      border-radius: 50px;
+      font-size: 15px;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(239, 68, 68, 0.35);
+      transition: all 0.2s;
+    }
+
+    .retry-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 25px rgba(239, 68, 68, 0.6);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="quiz-container">
+    <!-- Header -->
+    <div class="quiz-header">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <span class="quiz-badge">Edexcel A-Level Component 3</span>
+        <span style="font-size: 13px; font-weight: 700; color: #94a3b8;">Heavy Metal (70s &amp; 80s) Mastery</span>
+      </div>
+      <div class="quiz-score-pill">
+        Score: <span id="currentScore" style="color: var(--accent-red);">0</span> / 12
+      </div>
+    </div>
+
+    <!-- Progress Bar -->
+    <div class="progress-bar-track">
+      <div class="progress-bar-fill" id="progressFill"></div>
+    </div>
+
+    <!-- Active Question Stage -->
+    <div class="quiz-stage" id="quizStage">
+      <div>
+        <div class="q-category" id="qCategory">Category • Topic</div>
+        <h2 class="q-text" id="qText">Question title will render here...</h2>
+        
+        <div class="options-grid" id="optionsGrid"></div>
+
+        <div class="insight-card" id="insightCard">
+          <div class="insight-title">💡 Guru Exam Insight</div>
+          <div class="insight-body" id="insightBody"></div>
+        </div>
+      </div>
+
+      <div class="quiz-footer">
+        <span style="color: var(--text-muted); font-size: 13px;" id="qCounter">Question 1 of 12</span>
+        <button class="next-btn" id="nextBtn" onclick="nextQuestion()">Next Question →</button>
+      </div>
+    </div>
+
+    <!-- Results Stage -->
+    <div class="results-screen" id="resultsScreen">
+      <div class="score-circle">
+        <span class="score-number" id="finalScore">12/12</span>
+        <span style="font-size: 12px; color: var(--text-muted); font-weight: 700;">FINAL SCORE</span>
+      </div>
+
+      <div class="grade-badge" id="gradeBadge">A* Distinction</div>
+      <h3 style="font-size: 24px; color: #fff; margin-bottom: 8px;" id="resultHeadline">Master of 70s &amp; 80s Heavy Metal!</h3>
+      <p style="color: var(--text-muted); font-size: 15px; max-width: 520px; margin: 0 auto 20px; line-height: 1.6;" id="resultMessage">
+        You have demonstrated comprehensive mastery over high-gain amplification, scooped EQ carving, double-kick triggering, gated digital reverb, and NWOBHM/Thrash musical characteristics.
+      </p>
+
+      <button class="retry-btn" onclick="restartQuiz()">↺ Retake Quiz</button>
+    </div>
+
+  </div>
+
+  <script>
+    const questions = [
+      {
+        category: "Proto-Metal Roots & Harmonic Tension (AO3)",
+        text: "Black Sabbath established the menacing harmonic signature of 1970s Heavy Metal on their self-titled 1970 debut by prominently featuring which musical interval?",
+        options: [
+          "The major 3rd, creating an uplifting and bright melodic feel",
+          "The Tritone (augmented 4th / diminished 5th), historically dubbed 'the Devil's interval' (diabolus in musica)",
+          "The perfect 5th with major 7th jazz extensions",
+          "Unison whole tones moving strictly in parallel octaves"
+        ],
+        correct: 1,
+        insight: "Tony Iommi's iconic G to G octave and C# riff exploits the diminished 5th (tritone). Spanning exactly three whole tones, this interval creates intense harmonic tension and an ominous, sinister mood fundamental to heavy metal."
+      },
+      {
+        category: "NWOBHM Lead Guitar Arranging (AO3)",
+        text: "What distinctive guitar orchestration technique defined the New Wave of British Heavy Metal (NWOBHM), popularized by bands like Iron Maiden and Judas Priest?",
+        options: [
+          "Solo acoustic nylon-string fingerpicking backed by synthesizers",
+          "Twin electric lead guitars playing harmonised melodic lines in diatonic thirds or sixths",
+          "A single guitar playing continuous twelve-bar blues shuffle rhythms",
+          "Three guitars playing identical unison power chords through rotary Leslie speakers"
+        ],
+        correct: 1,
+        insight: "Dual guitar lineups (Murray/Smith in Maiden, Tipton/Downing in Priest) combined the heavy riffing of hard rock with melodic counterpoint, harmonising blazing guitar solos and signature riffs in 3rds and 6ths."
+      },
+      {
+        category: "High-Gain Valve Amplification (AO4)",
+        text: "Introduced in 1981, what key engineering development in the Marshall JCM800 (2203/2204) amplifier made it the backline standard for 1980s metal?",
+        options: [
+          "Elimination of all valves in favor of digital microprocessors",
+          "Master Volume circuitry allowing players to drive 12AX7 preamp tubes into aggressive cascade saturation without requiring deafening power-amp volume",
+          "Built-in optical tremolo and 100-watt spring reverb tanks",
+          "A Class-A transistor circuit specifically tuned for clean acoustic guitars"
+        ],
+        correct: 1,
+        insight: "Preamp gain controls enabled musicians to cascade the gain stages of the 12AX7 preamp tubes, producing rich, sustaining high-gain harmonic overdrive and bite even at controllable studio levels."
+      },
+      {
+        category: "The 'Overdrive Boost' Secret (AO4)",
+        text: "In 1980s metal studios, why did guitarists and engineers place an overdrive pedal (such as an Ibanez Tube Screamer TS9 or Boss SD-1) in front of an already distorted valve amp?",
+        options: [
+          "To add acoustic guitar emulation to the pickup signal",
+          "With Drive at 0 and Level on 10, the pedal cuts muddy sub-bass before the amp's preamp tubes, boosting mids and tightening palm-muted transient attacks",
+          "To convert high-impedance instrument levels to balanced line level for direct console recording",
+          "To generate automatic stereo flanging across the speaker cab"
+        ],
+        correct: 1,
+        insight: "The TS9 cuts low frequencies below ~720Hz before hitting the amp. This prevents the amplifier's input stage from 'farting out' on low frequencies, making fast staccato palm-muted down-picking sound punchy, focused, and tight."
+      },
+      {
+        category: "Frequency Carving: The 'V-Curve' Scooped Mid (AO4)",
+        text: "What characterizes the classic 'scooped midrange' guitar EQ curve used on landmark 1980s metal albums like Metallica's 'Master of Puppets'?",
+        options: [
+          "Extreme boost between 400Hz and 800Hz with treble roll-off at 2kHz",
+          "Boosting low-end thump (80–100Hz) and pick-attack treble (4–6kHz), while drastically notching out the 'boxy' midrange around 400–800Hz",
+          "Flat response with a high-pass filter set at 10kHz",
+          "Boosting 1kHz to 3kHz by 15dB to give guitars a nasal telephone effect"
+        ],
+        correct: 1,
+        insight: "The 'V-Shape' EQ curve (especially on Mesa/Boogie graphic EQs) eliminates boxy mid frequencies, clearing crucial sonic space for the lead vocals and snare drum crack while giving rhythm guitars thunderous chunk and razor-sharp bite."
+      },
+      {
+        category: "Guitar Virtuosity & Hardware Innovation (AO3/AO4)",
+        text: "What technical breakthrough did the Floyd Rose locking vibrato system provide for 1980s guitar virtuosos like Eddie Van Halen and Steve Vai?",
+        options: [
+          "It automated guitar tuning through motorized machine heads",
+          "It locked the strings mechanically at both the nut and bridge saddles, allowing radical 'dive-bombs' and whammy pitch pulls without losing tuning stability",
+          "It allowed electric guitars to transmit wireless MIDI signals to synthesizers",
+          "It dynamically compressed the guitar signal via built-in optical photocells"
+        ],
+        correct: 1,
+        insight: "Traditional Strat tremolos slipped friction at the nut when bent slack. Floyd Rose's double-locking mechanism completely eliminated string slippage, enabling extreme whammy bar gymnastics and squealing harmonics."
+      },
+      {
+        category: "Rhythm Guitar Multi-Tracking: Quad-Tracking (AO4)",
+        text: "How did 1980s metal producers achieve a colossal, wide rhythm guitar 'wall of sound' across 24-track and 48-track tape machines?",
+        options: [
+          "Recording one mono guitar pass and running it through a mono spring reverb",
+          "Quad-tracking: Recording four separate, tightly synchronized rhythm guitar takes and hard-panning them across the stereo spectrum (e.g. L100, L75, R75, R100)",
+          "Copying and pasting a single digital audio track four times with zero time delay",
+          "Placing four guitarists around a single omnidirectional ribbon microphone"
+        ],
+        correct: 1,
+        insight: "Natural micro-timing differences, minute pick-strike pitch variations, and distinct cabinet mic voicings between four separate live takes create immense acoustic thickness and stereo width that artificial cloning cannot replicate."
+      },
+      {
+        category: "Double-Kick Drum Tracking & EQ (AO4)",
+        text: "When recording high-speed double-bass drum performances in 1980s metal, how was the kick drum typically equalized to cut through dense walls of distorted guitars?",
+        options: [
+          "Boosting only 200Hz to 400Hz for a boomy, reverberant room sound",
+          "Boosting ~60Hz for sub punch, boosting 3–4kHz for the beater attack 'click', and drastically scooping 300–500Hz mud",
+          "Applying a low-pass filter at 1kHz to remove all top-end cymbal bleed",
+          "Leaving the channel flat without any compression or EQ processing"
+        ],
+        correct: 1,
+        insight: "The 3–4kHz click provides rapid transient definition on small speakers, allowing each 16th-note double-kick strike to be articulated clearly even at 200+ BPM."
+      },
+      {
+        category: "Studio Innovation: Drum Sample Triggering (AO4)",
+        text: "In mid-1980s heavy metal production, what was the primary purpose of hardware drum triggers (such as the Wendel Jr.) on kick and snare drums?",
+        options: [
+          "To convert drum hits into musical notation on computer screens",
+          "To trigger pre-recorded, flawlessly consistent digital audio samples from a sensor on the drum head, ensuring punch and dynamic uniformity at extreme tempos",
+          "To automatically correct the drummer's tempo to a metronome grid in real time",
+          "To reverse drum hits into tape slapback echoes"
+        ],
+        correct: 1,
+        insight: "Roger Nichols' Wendel Jr. and contact triggers allowed engineers to blend or replace acoustic kick/snare hits with punchy, high-transient 12-bit digital samples, preventing the drummer's tired velocity drops on fast double-kick runs."
+      },
+      {
+        category: "Spatial Processing: Gated Digital Reverb (AO4)",
+        text: "How was the signature 1980s 'gated reverb' snare drum sound technically configured in the studio?",
+        options: [
+          "Sending a snare hit into a short spring reverb tank with no decay",
+          "Routing the snare to a large digital reverb (AMS RMX16 / Lexicon), then passing the reverb tail through a noise gate that abruptly closes after 150–250ms with 0ms release",
+          "Micing a snare in a dry closet through an acoustic megaphone",
+          "Using tape delay with 100% feedback and a high-shelf EQ cut"
+        ],
+        correct: 1,
+        insight: "The noise gate hold time lets the listener perceive a massive, stadium-sized reverb tail, but the immediate release cuts the tail off cleanly before the next hit, keeping the rhythm section punchy and dry."
+      },
+      {
+        category: "Def Leppard & Mutt Lange's 'Hysteria' Production (AO4)",
+        text: "What unconventional studio method did producer Mutt Lange use when tracking guitars on Def Leppard's groundbreaking 1987 album 'Hysteria'?",
+        options: [
+          "Using only nylon classical acoustic guitars recorded in an echo chamber",
+          "Tracking guitars directly into Tom Scholz's Rockman headphone preamp units, heavily processed with Eventide pitch detuning and harmonisers rather than mic'd cabs",
+          "Recording four guitarists playing simultaneously through a single 5-watt practice amp",
+          "Using digital amp profiling plugins on modern computer DAWs"
+        ],
+        correct: 1,
+        insight: "Lange eliminated live cabinet bleed entirely, recording crystal-clean and crunch rhythms via Rockman preamps and layering dozens of tracks with Eventide micro-pitch shift (+/- 9 cents) for unprecedented pop-metal clarity and stereo width."
+      },
+      {
+        category: "Cultural Phenomona & Visual Identity",
+        text: "How did 1970s and 1980s Heavy Metal visually and culturally establish itself as distinct from mainstream pop?",
+        options: [
+          "Strict adherence to classical orchestral dress codes and tuxedos",
+          "Rob Halford's leather-and-studs biker aesthetic, denim battle jackets, long hair, and Hair Metal's theatrical makeup and spandex",
+          "Acoustic folk uniforms consisting of cardigans and sandals",
+          "Clean-cut corporate business suits promoting 1980s consumerism"
+        ],
+        correct: 1,
+        insight: "Heavy Metal fostered an intense counter-cultural tribe: from the working-class denim and leather battle vests of NWOBHM and Thrash to the flamboyant, androgynous spandex and hairspray of Sunset Strip Glam Metal."
+      }
+    ];
+
+    let currentQ = 0;
+    let score = 0;
+    let answered = false;
+
+    const qCategory = document.getElementById('qCategory');
+    const qText = document.getElementById('qText');
+    const optionsGrid = document.getElementById('optionsGrid');
+    const insightCard = document.getElementById('insightCard');
+    const insightBody = document.getElementById('insightBody');
+    const nextBtn = document.getElementById('nextBtn');
+    const qCounter = document.getElementById('qCounter');
+    const scorePill = document.getElementById('currentScore');
+    const progressFill = document.getElementById('progressFill');
+
+    const quizStage = document.getElementById('quizStage');
+    const resultsScreen = document.getElementById('resultsScreen');
+    const finalScore = document.getElementById('finalScore');
+    const gradeBadge = document.getElementById('gradeBadge');
+    const resultHeadline = document.getElementById('resultHeadline');
+    const resultMessage = document.getElementById('resultMessage');
+
+    const letters = ['A', 'B', 'C', 'D'];
+
+    function loadQuestion(index) {
+      answered = false;
+      const q = questions[index];
+      
+      qCategory.textContent = `${q.category} • Question ${index + 1} of ${questions.length}`;
+      qText.textContent = q.text;
+      qCounter.textContent = `Question ${index + 1} of ${questions.length}`;
+      
+      // Update progress
+      const percent = ((index + 1) / questions.length) * 100;
+      progressFill.style.width = `${percent}%`;
+
+      // Hide insight & next button
+      insightCard.classList.remove('open');
+      nextBtn.classList.remove('visible');
+
+      // Populate options
+      optionsGrid.innerHTML = '';
+      q.options.forEach((optText, i) => {
+        const btn = document.createElement('button');
+        btn.className = 'option-btn';
+        btn.innerHTML = `
+          <div class="option-letter">${letters[i]}</div>
+          <div style="flex: 1;">${optText}</div>
+        `;
+        btn.onclick = () => selectOption(i);
+        optionsGrid.appendChild(btn);
+      });
+    }
+
+    function selectOption(selectedIndex) {
+      if (answered) return;
+      answered = true;
+
+      const q = questions[currentQ];
+      const buttons = optionsGrid.querySelectorAll('.option-btn');
+
+      // Disable buttons
+      buttons.forEach((btn, idx) => {
+        btn.disabled = true;
+        if (idx === q.correct) {
+          btn.classList.add('correct');
+        }
+      });
+
+      if (selectedIndex === q.correct) {
+        score++;
+        scorePill.textContent = score;
+      } else {
+        buttons[selectedIndex].classList.add('wrong');
+      }
+
+      // Show insight
+      insightBody.textContent = q.insight;
+      insightCard.classList.add('open');
+
+      // Next button text
+      if (currentQ === questions.length - 1) {
+        nextBtn.textContent = 'View My Results →';
+      } else {
+        nextBtn.textContent = 'Next Question →';
+      }
+      nextBtn.classList.add('visible');
+    }
+
+    function nextQuestion() {
+      if (currentQ < questions.length - 1) {
+        currentQ++;
+        loadQuestion(currentQ);
+      } else {
+        showResults();
+      }
+    }
+
+    function showResults() {
+      quizStage.style.display = 'none';
+      resultsScreen.classList.add('open');
+      finalScore.textContent = `${score}/${questions.length}`;
+
+      if (score >= 11) {
+        gradeBadge.textContent = 'A* Distinction';
+        gradeBadge.style.background = 'rgba(34, 197, 94, 0.15)';
+        gradeBadge.style.color = '#22c55e';
+        gradeBadge.style.borderColor = 'rgba(34, 197, 94, 0.4)';
+        resultHeadline.textContent = 'Master of 70s & 80s Heavy Metal!';
+        resultMessage.textContent = 'Sensational achievement! You have complete command over high-gain valve circuits, scooped V-curve EQ, double-kick triggering, gated digital reverb, and NWOBHM/Thrash musical characteristics.';
+      } else if (score >= 9) {
+        gradeBadge.textContent = 'Grade A (Strong Merit)';
+        gradeBadge.style.background = 'rgba(239, 68, 68, 0.15)';
+        gradeBadge.style.color = '#ef4444';
+        gradeBadge.style.borderColor = 'rgba(239, 68, 68, 0.4)';
+        resultHeadline.textContent = 'Excellent Metal & Production Grasp!';
+        resultMessage.textContent = 'Great result! You have a firm grasp of the instrumentation, guitar hardware, and studio processing. Review the technical slides on drum triggering and gated reverbs to guarantee full marks.';
+      } else if (score >= 7) {
+        gradeBadge.textContent = 'Grade B (Solid Foundation)';
+        gradeBadge.style.background = 'rgba(251, 191, 36, 0.15)';
+        gradeBadge.style.color = '#fbbf24';
+        gradeBadge.style.borderColor = 'rgba(251, 191, 36, 0.4)';
+        resultHeadline.textContent = 'Good Effort — Focus on Studio Tech!';
+        resultMessage.textContent = 'Solid foundational knowledge. Focus on specific gear terminology (JCM800 master volume, Wendel Jr. triggers, AMS RMX16 gated reverb) and why frequency carving is required in high-gain mixes.';
+      } else {
+        gradeBadge.textContent = 'Review Recommended';
+        gradeBadge.style.background = 'rgba(239, 68, 68, 0.15)';
+        gradeBadge.style.color = '#ef4444';
+        gradeBadge.style.borderColor = 'rgba(239, 68, 68, 0.4)';
+        resultHeadline.textContent = 'Component 3 Revision Advised';
+        resultMessage.textContent = 'Step through the 13 interactive slides above, paying close attention to how high-gain amps, EQ scooping, and digital processing revolutionized 1980s metal. Then re-take the quiz!';
+      }
+    }
+
+    function restartQuiz() {
+      currentQ = 0;
+      score = 0;
+      scorePill.textContent = '0';
+      resultsScreen.classList.remove('open');
+      quizStage.style.display = 'flex';
+      loadQuestion(0);
+    }
+
+    // Initialize
+    loadQuestion(0);
+  </script>
+</body>
+</html>
