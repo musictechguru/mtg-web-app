@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The History of House Music • Edexcel Component 3 Specification Quiz | Music Tech Guru</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #070814;
+      --bg-card: #0e1124;
+      --bg-surface: #151936;
+      --accent-purple: #c084fc;
+      --accent-purple-glow: rgba(192, 132, 252, 0.35);
+      --accent-cyan: #00C1F0;
+      --accent-cyan-glow: rgba(0, 193, 240, 0.35);
+      --accent-acid: #22c55e;
+      --accent-red: #ef4444;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-purple: rgba(192, 132, 252, 0.35);
+      --border-cyan: rgba(0, 193, 240, 0.35);
+      --font: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: var(--font);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .quiz-container {
+      width: 100%;
+      max-width: 880px;
+      background: radial-gradient(circle at 50% 0%, rgba(192, 132, 252, 0.15) 0%, rgba(14, 17, 36, 0) 70%), var(--bg-card);
+      border: 1px solid var(--border-purple);
+      border-radius: 20px;
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.8), 0 0 40px rgba(192, 132, 252, 0.15);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    /* Top Quiz Header */
+    .quiz-header {
+      padding: 18px 26px;
+      background: rgba(8, 10, 24, 0.85);
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .quiz-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(192, 132, 252, 0.15);
+      border: 1px solid var(--border-purple);
+      color: #d8b4fe;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .quiz-score-pill {
+      font-size: 12.5px;
+      color: var(--text-muted);
+      font-weight: 700;
+    }
+
+    /* Progress Bar */
+    .progress-bar-track {
+      width: 100%;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent-purple) 0%, var(--accent-cyan) 100%);
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    /* Quiz Stage */
+    .quiz-stage {
+      padding: 30px 32px 24px 32px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .question-meta {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .q-category-tag {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--accent-purple);
+    }
+
+    .q-ao-tag {
+      font-size: 10.5px;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border-subtle);
+      color: #cbd5e1;
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+
+    .question-text {
+      font-size: clamp(17px, 2.5vw, 20px);
+      font-weight: 800;
+      line-height: 1.4;
+      color: #ffffff;
+      margin-bottom: 22px;
+    }
+
+    /* Options Grid */
+    .options-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .option-btn {
+      background: rgba(21, 25, 54, 0.6);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 13px 18px;
+      color: #e2e8f0;
+      font-family: var(--font);
+      font-size: 13.5px;
+      line-height: 1.45;
+      font-weight: 600;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .option-btn:hover:not(:disabled) {
+      background: rgba(21, 25, 54, 0.95);
+      border-color: rgba(192, 132, 252, 0.5);
+      transform: translateX(4px);
+    }
+
+    .option-letter {
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 800;
+      color: #94a3b8;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .option-btn.correct {
+      background: rgba(34, 197, 94, 0.15) !important;
+      border-color: var(--accent-acid) !important;
+      color: #86efac !important;
+    }
+
+    .option-btn.correct .option-letter {
+      background: var(--accent-acid);
+      color: #070814;
+    }
+
+    .option-btn.wrong {
+      background: rgba(239, 68, 68, 0.15) !important;
+      border-color: var(--accent-red) !important;
+      color: #fca5a5 !important;
+    }
+
+    .option-btn.wrong .option-letter {
+      background: var(--accent-red);
+      color: #ffffff;
+    }
+
+    .option-btn:disabled {
+      cursor: default;
+    }
+
+    /* Explanation & Feedback Card */
+    .insight-card {
+      display: none;
+      background: rgba(8, 10, 24, 0.85);
+      border: 1px solid var(--border-purple);
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-bottom: 20px;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .insight-card.open {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .insight-title {
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--accent-purple);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .insight-body {
+      font-size: 12.5px;
+      color: #cbd5e1;
+      line-height: 1.55;
+      margin-bottom: 6px;
+    }
+
+    .insight-tip {
+      font-size: 11.5px;
+      color: #38bdf8;
+      font-style: italic;
+    }
+
+    /* Quiz Footer */
+    .quiz-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 10px;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .q-counter {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-muted);
+    }
+
+    .next-q-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent-purple);
+      color: #070814;
+      border: none;
+      padding: 10px 22px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .next-q-btn:hover:not(:disabled) {
+      box-shadow: 0 0 20px var(--accent-purple-glow);
+      transform: translateY(-1px);
+    }
+
+    .next-q-btn:disabled {
+      opacity: 0.25;
+      cursor: not-allowed;
+    }
+
+    /* Results Screen */
+    .results-screen {
+      display: none;
+      padding: 40px 32px;
+      text-align: center;
+      flex-direction: column;
+      align-items: center;
+      animation: fadeIn 0.4s ease;
+    }
+
+    .results-screen.open {
+      display: flex;
+    }
+
+    .results-score-circle {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      background: rgba(192, 132, 252, 0.15);
+      border: 3px solid var(--accent-purple);
+      box-shadow: 0 0 30px var(--accent-purple-glow);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .results-score-num {
+      font-size: 32px;
+      font-weight: 900;
+      color: #ffffff;
+      line-height: 1;
+    }
+
+    .results-score-total {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 700;
+    }
+
+    .results-grade-badge {
+      display: inline-block;
+      background: rgba(34, 197, 94, 0.15);
+      border: 1px solid var(--accent-acid);
+      color: #86efac;
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 800;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .results-title {
+      font-size: 24px;
+      font-weight: 900;
+      color: #ffffff;
+      margin-bottom: 8px;
+    }
+
+    .results-message {
+      font-size: 14px;
+      color: #cbd5e1;
+      max-width: 580px;
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+
+    .results-actions {
+      display: flex;
+      gap: 12px;
+    }
+
+    .restart-btn {
+      background: var(--accent-purple);
+      color: #070814;
+      border: none;
+      padding: 10px 24px;
+      border-radius: 8px;
+      font-size: 13.5px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .restart-btn:hover {
+      box-shadow: 0 0 20px var(--accent-purple-glow);
+      transform: translateY(-1px);
+    }
+
+    .back-slides-btn {
+      background: rgba(255, 255, 255, 0.08);
+      color: #ffffff;
+      border: 1px solid var(--border-subtle);
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 13.5px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .back-slides-btn:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="quiz-container">
+    <!-- Top Header -->
+    <div class="quiz-header">
+      <div class="quiz-badge">
+        <span>🏠</span> Edexcel Component 3 &bull; Specification Quiz
+      </div>
+      <div class="quiz-score-pill">
+        Score: <strong style="color: var(--accent-purple);" id="currentScore">0</strong> / 12
+      </div>
+    </div>
+
+    <!-- Progress Track -->
+    <div class="progress-bar-track">
+      <div class="progress-bar-fill" id="progressFill"></div>
+    </div>
+
+    <!-- Active Quiz Stage -->
+    <div class="quiz-stage" id="quizStage">
+      <div class="question-meta">
+        <span class="q-category-tag" id="qCategory">Category</span>
+        <span class="q-ao-tag" id="qAoTag">AO Tag</span>
+      </div>
+
+      <h3 class="question-text" id="qText">Question Stem Loading...</h3>
+
+      <div class="options-grid" id="optionsGrid">
+        <!-- Buttons injected dynamically -->
+      </div>
+
+      <div class="insight-card" id="insightCard">
+        <div class="insight-title">
+          <span>💡</span> Technical Analysis &amp; Syllabus Context
+        </div>
+        <div class="insight-body" id="insightBody"></div>
+        <div class="insight-tip" id="insightTip"></div>
+      </div>
+
+      <div class="quiz-footer">
+        <span class="q-counter" id="qCounter">Question 1 of 12</span>
+        <button class="next-q-btn" id="nextBtn" onclick="nextQuestion()" disabled>
+          Next Question &rarr;
+        </button>
+      </div>
+    </div>
+
+    <!-- Results Screen -->
+    <div class="results-screen" id="resultsScreen">
+      <div class="results-score-circle">
+        <span class="results-score-num" id="finalScoreVal">0</span>
+        <span class="results-score-total">out of 12</span>
+      </div>
+      <div class="results-grade-badge" id="gradeBadge">Distinction</div>
+      <h2 class="results-title" id="resultTitle">Performance Summary</h2>
+      <p class="results-message" id="resultMessage">Analysis message goes here.</p>
+
+      <div class="results-actions">
+        <button class="restart-btn" onclick="restartQuiz()">Retake Quiz</button>
+        <a href="/interactive-slide-house.html" class="back-slides-btn">&larr; Return to Slide Deck</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const questions = [
+      {
+        category: "Origins & The Warehouse",
+        ao: "AO4: Cultural & Technological Origins",
+        text: "What historical, cultural, and technological circumstance led directly to the birth of House music in early 1980s Chicago?",
+        options: [
+          "DJ Frankie Knuckles at The Warehouse spliced reel-to-reel tape to extend disco breakdowns and layered drum machine rhythms over soulful records for minority LGBTQ+ audiences following disco's commercial decline",
+          "A classical piano quintet began performing in German concert halls with 24-track tape machines",
+          "British punk rock groups abandoned electric guitars to play acoustic folk instruments",
+          "Major US record labels created a government initiative to record Delta blues with digital synthesizers"
+        ],
+        correct: 0,
+        explanation: "Following Disco Demolition Night (1979) and disco's commercial collapse, DJ Frankie Knuckles at Chicago's The Warehouse club created extended dance edits using reel-to-reel tape splicing and synced drum machines, establishing the underground club sound known as 'House'.",
+        tip: "House Music Genesis: The Warehouse (Chicago) + Frankie Knuckles + reel-to-reel tape edits + drum machines + safe LGBTQ+ club culture."
+      },
+      {
+        category: "First Commercial Release",
+        ao: "AO3: Studio Hardware",
+        text: "Jesse Saunders' 1984 landmark track 'On and On' is recognized by music historians as the first commercial Chicago House single. Which hardware configuration was used to produce it?",
+        options: [
+          "A Roland TR-808 rhythm composer providing electronic drum beats, paired with a Korg Poly-61 synthesizer and reel-to-reel tape splices",
+          "An Apple iPad running GarageBand with virtual instrument packs",
+          "An Akai MPC3000 sampling a live 40-piece philharmonic orchestra",
+          "A Fairlight CMI Series III using optical light pens and 16-bit floppy drives"
+        ],
+        correct: 0,
+        explanation: "Jesse Saunders produced 'On and On' (1984) on Jes Say Records using a Roland TR-808 drum machine and a Korg Poly-61 analog/DCO polyphonic synthesizer, editing the arrangement using physical reel-to-reel tape splicing.",
+        tip: "First House Record: Jesse Saunders 'On and On' (1984) = Roland TR-808 + Korg Poly-61 + tape edits."
+      },
+      {
+        category: "Piano House & Musical Style",
+        ao: "AO4: Harmonic & Rhythmic Style",
+        text: "Marshall Jefferson's 1986 classic 'Move Your Body' (The House Music Anthem) fundamentally transformed house music arrangements through which musical innovation?",
+        options: [
+          "Introducing energetic, syncopated acoustic piano chords played in rapid triplets and offbeat stabs over a driving Roland TR-909 beat",
+          "Removing all percussion and featuring only an acoustic solo flute",
+          "Tuning all synthesizers to 432 Hz and recording exclusively at 70 BPM",
+          "Replacing synthesizers with heavy metal distorted Marshall guitar riffs"
+        ],
+        correct: 0,
+        explanation: "Marshall Jefferson revolutionized House with 'Move Your Body' (1986) by layering gospel-infused, syncopated acoustic piano chords in triplet rhythms over a driving Roland TR-909 4-to-the-floor groove, birthing the global 'Piano House' subgenre.",
+        tip: "Piano House Milestone: Marshall Jefferson 'Move Your Body' (1986) = syncopated acoustic piano chord stabs + TR-909 groove."
+      },
+      {
+        category: "Acid House & Sound Design",
+        ao: "AO3: Subtractive Synthesis",
+        text: "How did Chicago trio Phuture create the groundbreaking sound of 'Acid Tracks' (1987) using the Roland TB-303 Transistor Bass?",
+        options: [
+          "By manipulating the 18 dB/octave low-pass filter's Cutoff Frequency and driving the Resonance control into extreme self-oscillation while dynamically tweaking Decay and Accent during playback",
+          "By connecting an acoustic clarinet to a spring reverb tank",
+          "By pitch-shifting an electric bass guitar down 3 octaves in an Akai S1000",
+          "By using a ring modulator on an uncompressed acoustic drum kit"
+        ],
+        correct: 0,
+        explanation: "Phuture (DJ Pierre) discovered the Acid House sound by abusing the Roland TB-303: driving its 3-pole 18 dB/oct resonant low-pass filter into self-oscillating feedback and manually sweeping cutoff, resonance, envelope mod, and accent in real time.",
+        tip: "TB-303 Sound Design: 18 dB/oct resonant LPF + manual cutoff sweeps + extreme resonance self-oscillation."
+      },
+      {
+        category: "Rhythm Architecture",
+        ao: "AO3: Drum Machine Science",
+        text: "In standard four-on-the-floor House music production, why is the Roland TR-909 open hi-hat universally placed on the offbeats (the 'and' of every beat)?",
+        options: [
+          "It creates an energetic syncopated bounce and forward rhythmic propulsion that contrasts against the grounded quarter-note kick drum strikes on beats 1, 2, 3, and 4",
+          "It cancels out the low frequencies of the kick drum via destructive acoustic interference",
+          "It prevents the analog tape machine from overloading on the stereo bus",
+          "It was required by MIDI 1.0 protocol specifications to prevent buffer overruns"
+        ],
+        correct: 0,
+        explanation: "Placing crisp 6-bit digital PCM open hi-hats on the offbeats (1&, 2&, 3&, 4&) against steady quarter-note kicks creates the iconic syncopated push-pull bounce essential to house music groove propulsion.",
+        tip: "TR-909 Groove Formula: 4-to-the-floor kick (1, 2, 3, 4) + offbeat open hi-hat (1&, 2&, 3&, 4&) = foundational house propulsion."
+      },
+      {
+        category: "Commercial Chart Landmark",
+        ao: "AO4: Cultural History",
+        text: "In January 1987, which Chicago house record made music history by becoming the very first house music track to reach Number 1 on the UK Official Singles Chart?",
+        options: [
+          "Steve 'Silk' Hurley's 'Jack Your Body'",
+          "Daft Punk's 'One More Time'",
+          "The Prodigy's 'Firestarter'",
+          "Kraftwerk's 'The Robots'"
+        ],
+        correct: 0,
+        explanation: "Steve 'Silk' Hurley's 'Jack Your Body' entered the UK chart and climbed to Number 1 in January 1987, demonstrating that underground Chicago drum machine dance tracks could cross the Atlantic and dominate commercial radio.",
+        tip: "First UK #1 House Record: Steve 'Silk' Hurley 'Jack Your Body' (Trax/DJ International, January 1987)."
+      },
+      {
+        category: "Italo House & Sampling",
+        ao: "AO3: Digital Samplers",
+        text: "Black Box's 1989 international Italo House smash 'Ride On Time' exemplifies early house sampling workflows. What was the origin of its soaring lead vocal hook?",
+        options: [
+          "An unlicensed vocal phrase sampled from Loleatta Holloway's 1980 disco anthem 'Love Sensation', loaded into an Akai S900 hardware sampler and triggered via MIDI",
+          "A live operatic soprano recorded direct-to-disc in Rome",
+          "A computer speech synthesizer programmed on an Atari ST",
+          "A vocoded acoustic guitar track run through a plate reverb"
+        ],
+        correct: 0,
+        explanation: "Black Box sampled Loleatta Holloway's powerful 1980 disco vocal from 'Love Sensation' using an Akai S900 digital sampler, looping the phrase over energetic M1 piano chords and TR-909 beats to create a 6-week UK #1 hit.",
+        tip: "House Vocal Sampling: Black Box 'Ride On Time' (1989) = Loleatta Holloway 'Love Sensation' + Akai S900 + Korg M1 piano."
+      },
+      {
+        category: "Diva House Production",
+        ao: "AO3: Studio Engineering",
+        text: "Across 1990s Diva House anthems (such as CeCe Peniston's 'Finally'), which vocal recording and mixing technique was standardly deployed in commercial studios?",
+        options: [
+          "Recording powerful gospel belting with large-diaphragm condenser microphones (Neumann U87), extensive multitrack doubling, and heavy analog compression (e.g. UREI 1176)",
+          "Whispering into dynamic kick drum microphones without preamps",
+          "Using exclusively 8-bit vocoders without any natural human vocal tone",
+          "Recording vocals in an outdoor stadium with boundary pressure zone microphones"
+        ],
+        correct: 0,
+        explanation: "1990s Diva House placed virtuosic gospel vocals at the front of the mix: captured via studio condenser mics (Neumann U87), processed with FET peak limiters (UREI 1176) for aggressive forward presence, and doubled across multiple tracks for choral width.",
+        tip: "Diva House Vocals: Neumann U87 + multi-tracked gospel harmonies + 1176 FET compression for bright, upfront projection."
+      },
+      {
+        category: "The Korg M1 Bass Revolution",
+        ao: "AO3: Synthesizer Presets",
+        text: "Swedish producer StoneBridge's 1993 remix of Robin S's 'Show Me Love' popularized which specific instrument preset as the defining bass sound of 90s House and UK Garage?",
+        options: [
+          "The Korg M1 'Organ 2' preset played in lower octaves, whose percussive, woody PCM harmonic attack cut cleanly through club subwoofers",
+          "A Moog Minimoog pure triangle wave without filter modulation",
+          "A Roland TB-303 square wave run through a fuzz box",
+          "A nylon-string classical guitar recorded with ribbon mics"
+        ],
+        correct: 0,
+        explanation: "The Korg M1 'Organ 2' preset became a universal club phenomenon after StoneBridge used it as the bassline for Robin S's 'Show Me Love' (1993). Its bright, percussive PCM attack provided punch and harmonic clarity across all playback systems.",
+        tip: "Foundational House Bass: Korg M1 'Organ 2' preset in lower octaves = immortal bassline of 90s House & UK Garage."
+      },
+      {
+        category: "French House Dynamics",
+        ao: "AO3: Dynamics Processing",
+        text: "In the late 1990s, French Touch pioneers like Daft Punk (e.g. 'Around the World', Discovery) routed their drum bus and disco samples through hardware compressors (Alesis 3630). What was the intended aesthetic result?",
+        options: [
+          "Heavy sidechain ducking compression, forcing the disco sample and pads to pump downwards rhythmically every time the four-on-the-floor kick struck",
+          "Eliminating all low-end frequencies below 300 Hz entirely",
+          "Adding pitch vibrato to the master output buffer",
+          "Automating artificial tape flanging on every sixteenth note"
+        ],
+        correct: 0,
+        explanation: "Daft Punk popularized extreme sidechain ducking using the inexpensive Alesis 3630 compressor. Feeding the TR-909 kick into the compressor's key detector forced the sampled disco instrumental to duck down and swell up rhythmically on every upbeat.",
+        tip: "French Touch Pumping: Alesis 3630 hardware compressor + kick drum sidechain key trigger = signature rhythmic pumping groove."
+      },
+      {
+        category: "Todd Terry & The Remix Era",
+        ao: "AO4: Arrangement & Remixing",
+        text: "NYC producer Todd Terry's 1994 remix of Everything But The Girl's 'Missing' became a global club and chart phenomenon. How did Terry technically adapt the original acoustic ballad for house dancefloors?",
+        options: [
+          "He extracted Tracey Thorn's vocal, chopped it into rhythmic hook phrases, and underpinned it with a swung 4-to-the-floor TR-909 kick, snappy offbeat hi-hats, and a rolling house bassline",
+          "He sped the track up to 180 BPM and replaced the vocals with a heavy metal guitar solo",
+          "He reversed the entire acoustic guitar track and removed the vocals",
+          "He transposed the track down two octaves and mixed it exclusively in mono"
+        ],
+        correct: 0,
+        explanation: "Todd Terry reinvented 'Missing' (1994) by isolating the melancholic vocal, micro-chopping vocal phrases into rhythmic stabs, and laying down a signature NYC house groove with swung 4-to-the-floor kicks and offbeat hi-hats.",
+        tip: "House Remix Artistry: Todd Terry 'Missing' remix = vocal phrase slicing + swung TR-909 4/4 drums + rolling club bassline."
+      },
+      {
+        category: "Comparative Production Matrix",
+        ao: "AO3 & AO4: Section B Matrix",
+        text: "In an Edexcel Component 3 comparative essay, what is the most technologically significant distinction between early 1980s Chicago DIY house and late 1990s commercial House?",
+        options: [
+          "1980s Chicago house relied on standalone hardware drum machines (TR-707/808/909) and 4-track tape in budget home studios, whereas late 1990s house relied on computerized MIDI sequencing (Atari/Mac), 16-bit digital PCM workstations (Korg M1), and high-end SSL studio mixing with DAT mastering",
+          "1980s house was performed with acoustic brass bands, while 1990s house used only electric guitars",
+          "1980s house used virtual cloud plugins, while 1990s house was recorded onto wax phonograph cylinders",
+          "1980s house was produced at 180 BPM, while 1990s house dropped down to 60 BPM"
+        ],
+        correct: 0,
+        explanation: "This contrast defines Section B: early Chicago house was low-budget DIY (standalone drum machines, 4-track tape, manual filter tweaking, acetate pressings). 1990s house was high-budget commercial production (computer MIDI sequencing, PCM workstations like M1, SSL consoles, DAT mastering, and international CD singles).",
+        tip: "Section B Essay Matrix: 1980s Chicago DIY (TR-808/909, tape, vinyl) vs 1990s Commercial (Atari MIDI, Korg M1, SSL consoles, DAT masters)."
+      }
+    ];
+
+    let currentQ = 0;
+    let score = 0;
+    let answered = false;
+
+    const qText = document.getElementById('qText');
+    const qCategory = document.getElementById('qCategory');
+    const qAoTag = document.getElementById('qAoTag');
+    const optionsGrid = document.getElementById('optionsGrid');
+    const insightCard = document.getElementById('insightCard');
+    const insightBody = document.getElementById('insightBody');
+    const insightTip = document.getElementById('insightTip');
+    const qCounter = document.getElementById('qCounter');
+    const currentScore = document.getElementById('currentScore');
+    const progressFill = document.getElementById('progressFill');
+    const nextBtn = document.getElementById('nextBtn');
+    const quizStage = document.getElementById('quizStage');
+    const resultsScreen = document.getElementById('resultsScreen');
+    const finalScoreVal = document.getElementById('finalScoreVal');
+    const gradeBadge = document.getElementById('gradeBadge');
+    const resultTitle = document.getElementById('resultTitle');
+    const resultMessage = document.getElementById('resultMessage');
+
+    const letters = ['A', 'B', 'C', 'D'];
+
+    function loadQuestion(index) {
+      answered = false;
+      const q = questions[index];
+      
+      qCategory.textContent = q.category;
+      qAoTag.textContent = q.ao;
+      qText.textContent = q.text;
+      qCounter.textContent = `Question ${index + 1} of ${questions.length}`;
+      currentScore.textContent = score;
+      
+      const pct = ((index + 1) / questions.length) * 100;
+      progressFill.style.width = `${pct}%`;
+      
+      insightCard.classList.remove('open');
+      nextBtn.disabled = true;
+
+      optionsGrid.innerHTML = '';
+      q.options.forEach((optText, optIdx) => {
+        const btn = document.createElement('button');
+        btn.className = 'option-btn';
+        btn.onclick = () => selectOption(optIdx);
+        
+        btn.innerHTML = `
+          <span class="option-letter">${letters[optIdx]}</span>
+          <span>${optText}</span>
+        `;
+        optionsGrid.appendChild(btn);
+      });
+    }
+
+    function selectOption(selectedIdx) {
+      if (answered) return;
+      answered = true;
+      
+      const q = questions[currentQ];
+      const buttons = optionsGrid.querySelectorAll('.option-btn');
+      
+      buttons.forEach(btn => btn.disabled = true);
+      
+      if (selectedIdx === q.correct) {
+        buttons[selectedIdx].classList.add('correct');
+        score++;
+        currentScore.textContent = score;
+      } else {
+        buttons[selectedIdx].classList.add('wrong');
+        buttons[q.correct].classList.add('correct');
+      }
+
+      insightBody.textContent = q.explanation;
+      insightTip.innerHTML = `<strong>Revision Note:</strong> ${q.tip}`;
+      insightCard.classList.add('open');
+
+      nextBtn.disabled = false;
+    }
+
+    function nextQuestion() {
+      if (currentQ < questions.length - 1) {
+        currentQ++;
+        loadQuestion(currentQ);
+      } else {
+        showResults();
+      }
+    }
+
+    function showResults() {
+      quizStage.style.display = 'none';
+      resultsScreen.classList.add('open');
+      finalScoreVal.textContent = score;
+
+      const percentage = (score / questions.length) * 100;
+      if (percentage >= 85) {
+        gradeBadge.textContent = 'Grade 9 • Distinction Star';
+        resultTitle.textContent = 'Extraordinary House Music Specification Mastery!';
+        resultMessage.textContent = 'You have demonstrated complete, exam-ready command of the History of House Music: The Warehouse, TR-909 rhythm science, TB-303 resonant filter sweeps, Korg M1 Organ 2 basslines, Diva house vocal engineering, and French Touch sidechain dynamics.';
+      } else if (percentage >= 65) {
+        gradeBadge.textContent = 'Grade 7-8 • Merit / Distinction';
+        resultTitle.textContent = 'Strong Syllabus Understanding';
+        resultMessage.textContent = 'Great foundation! Review the exact synthesis architecture of the Roland TR-909 (analog vs PCM voices), and the precise role of the Korg M1 in 1990s house basslines.';
+      } else {
+        gradeBadge.textContent = 'Revision Recommended';
+        resultTitle.textContent = 'Targeted Revision Needed';
+        resultMessage.textContent = 'Revisit the History of House Music study deck above to solidify early Chicago labels (Trax/DJ International), Marshall Jefferson piano stabs, and Section B comparative criteria.';
+      }
+    }
+
+    function restartQuiz() {
+      currentQ = 0;
+      score = 0;
+      resultsScreen.classList.remove('open');
+      quizStage.style.display = 'flex';
+      loadQuestion(0);
+    }
+
+    // Initialize
+    loadQuestion(0);
+  </script>
+</body>
+</html>

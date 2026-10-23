@@ -1,0 +1,1235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The History of House Music • Interactive Classroom Deck | Music Tech Guru</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #070814;
+      --bg-card: #0e1124;
+      --bg-surface: #151936;
+      --accent-purple: #c084fc;
+      --accent-purple-glow: rgba(192, 132, 252, 0.35);
+      --accent-cyan: #00C1F0;
+      --accent-cyan-glow: rgba(0, 193, 240, 0.35);
+      --accent-acid: #22c55e;
+      --accent-amber: #f59e0b;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-purple: rgba(192, 132, 252, 0.35);
+      --border-cyan: rgba(0, 193, 240, 0.35);
+      --font: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: var(--font);
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 8px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .deck-wrapper {
+      width: 100%;
+      max-width: 1120px;
+      height: calc(100vh - 16px);
+      min-height: 590px;
+      max-height: 670px;
+      background: radial-gradient(circle at 50% 0%, rgba(192, 132, 252, 0.15) 0%, rgba(14, 17, 36, 0) 70%), var(--bg-card);
+      border: 1px solid var(--border-purple);
+      border-radius: 16px;
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.8), 0 0 40px rgba(192, 132, 252, 0.15);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    /* Top Utility Bar */
+    .deck-topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      background: rgba(8, 10, 24, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-subtle);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      z-index: 10;
+    }
+
+    .badge-hub {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(192, 132, 252, 0.15);
+      border: 1px solid var(--border-purple);
+      color: #d8b4fe;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      text-transform: uppercase;
+    }
+
+    .badge-pulse {
+      width: 7px;
+      height: 7px;
+      background: var(--accent-purple);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--accent-purple);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
+    }
+
+    .deck-topic-title {
+      color: var(--text-muted);
+      font-size: 12px;
+    }
+
+    .deck-topic-title strong {
+      color: #fff;
+    }
+
+    /* Slides Viewport */
+    .slides-viewport {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      padding: 24px 36px 16px 36px;
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateX(30px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      overflow-y: auto;
+    }
+
+    .slide.active {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(0);
+    }
+
+    /* Slide Typography */
+    .slide-eyebrow {
+      font-size: 11.5px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--accent-purple);
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .slide-heading {
+      font-size: clamp(20px, 3vw, 26px);
+      font-weight: 900;
+      line-height: 1.15;
+      letter-spacing: -0.5px;
+      color: #ffffff;
+      margin-bottom: 12px;
+    }
+
+    .slide-heading span {
+      background: linear-gradient(135deg, #c084fc 0%, #00C1F0 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .slide-lead {
+      color: #cbd5e1;
+      font-size: 13.5px;
+      line-height: 1.5;
+      max-width: 860px;
+      margin-bottom: 14px;
+    }
+
+    /* Grids & Cards */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    @media (max-width: 768px) {
+      .grid-2, .grid-3, .grid-4 {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+    }
+
+    .info-card {
+      background: rgba(21, 25, 54, 0.65);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 14px 16px;
+      transition: all 0.2s;
+    }
+
+    .info-card:hover {
+      border-color: rgba(192, 132, 252, 0.4);
+      background: rgba(21, 25, 54, 0.9);
+      transform: translateY(-2px);
+    }
+
+    .info-card.highlight {
+      border-left: 4px solid var(--accent-purple);
+    }
+
+    .info-card.cyan-edge {
+      border-left: 4px solid var(--accent-cyan);
+    }
+
+    .info-card.acid-edge {
+      border-left: 4px solid var(--accent-acid);
+    }
+
+    .info-card.amber-edge {
+      border-left: 4px solid var(--accent-amber);
+    }
+
+    .info-card h4 {
+      color: #ffffff;
+      font-size: 14px;
+      font-weight: 800;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .info-card p {
+      color: #94a3b8;
+      font-size: 12.5px;
+      line-height: 1.55;
+    }
+
+    .info-card strong {
+      color: #e2e8f0;
+    }
+
+    .spec-pill {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      padding: 2px 7px;
+      border-radius: 4px;
+      background: rgba(192, 132, 252, 0.12);
+      color: #d8b4fe;
+      border: 1px solid rgba(192, 132, 252, 0.3);
+      margin-bottom: 4px;
+    }
+
+    .spec-pill.ao3 {
+      background: rgba(0, 193, 240, 0.15);
+      color: #38bdf8;
+      border-color: rgba(0, 193, 240, 0.35);
+    }
+
+    .spec-pill.ao4 {
+      background: rgba(192, 132, 252, 0.15);
+      color: #d8b4fe;
+      border-color: rgba(192, 132, 252, 0.35);
+    }
+
+    .comp-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+      margin-top: 6px;
+    }
+
+    .comp-table th {
+      background: rgba(192, 132, 252, 0.1);
+      color: var(--accent-purple);
+      font-weight: 800;
+      text-transform: uppercase;
+      font-size: 10.5px;
+      letter-spacing: 0.5px;
+      padding: 8px 10px;
+      text-align: left;
+      border-bottom: 1px solid var(--border-purple);
+    }
+
+    .comp-table td {
+      padding: 8px 10px;
+      border-bottom: 1px solid var(--border-subtle);
+      color: #cbd5e1;
+      line-height: 1.45;
+    }
+
+    .comp-table tr:hover td {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .video-trigger-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 8px;
+      background: rgba(192, 132, 252, 0.12);
+      border: 1px solid var(--border-purple);
+      color: #d8b4fe;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .video-trigger-btn:hover {
+      background: var(--accent-purple);
+      color: #070814;
+      transform: scale(1.02);
+    }
+
+    .deck-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 24px;
+      background: rgba(8, 10, 24, 0.95);
+      border-top: 1px solid var(--border-subtle);
+      z-index: 10;
+    }
+
+    .nav-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 8px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .nav-btn:hover:not(:disabled) {
+      background: var(--accent-purple);
+      color: #070814;
+      border-color: var(--accent-purple);
+      box-shadow: 0 0 15px var(--accent-purple-glow);
+    }
+
+    .nav-btn:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+
+    .progress-container {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex: 1;
+      max-width: 320px;
+      margin: 0 20px;
+    }
+
+    .progress-track {
+      flex: 1;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent-purple) 0%, var(--accent-cyan) 100%);
+      width: 6.25%;
+      border-radius: 10px;
+      transition: width 0.3s ease;
+    }
+
+    .slide-counter {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .video-modal-backdrop {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(8px);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .video-modal-backdrop.open {
+      display: flex;
+    }
+
+    .video-modal-content {
+      background: var(--bg-card);
+      border: 1px solid var(--border-purple);
+      border-radius: 16px;
+      max-width: 800px;
+      width: 100%;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9), 0 0 30px var(--accent-purple-glow);
+    }
+
+    .video-modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 18px;
+      background: rgba(255, 255, 255, 0.04);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .video-modal-title {
+      font-size: 14px;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .close-modal-btn {
+      background: none;
+      border: none;
+      color: #94a3b8;
+      font-size: 20px;
+      cursor: pointer;
+      line-height: 1;
+      padding: 0 4px;
+    }
+
+    .close-modal-btn:hover {
+      color: #fff;
+    }
+
+    .video-player-wrapper {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+    }
+
+    .video-player-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    .slide-thumb {
+      width: 100%;
+      height: 110px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      border: 1px solid var(--border-subtle);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="deck-wrapper">
+    <!-- Topbar -->
+    <header class="deck-topbar">
+      <div class="badge-hub">
+        <span class="badge-pulse"></span>
+        Edexcel Component 3 &bull; Music in Context
+      </div>
+      <div class="deck-topic-title">
+        Topic: <strong>The History of House Music (1980s to Global)</strong>
+      </div>
+    </header>
+
+    <!-- Viewport -->
+    <main class="slides-viewport" id="slidesViewport">
+
+      <!-- SLIDE 1: COVER -->
+      <section class="slide active" data-slide="1">
+        <div class="slide-eyebrow">
+          <span>🏠</span> Slide Deck &bull; The Warehouse, Chicago 1986
+        </div>
+        <h1 class="slide-heading">
+          The History of <span>House Music</span>
+        </h1>
+        <p class="slide-lead">
+          <em>"House music is a feeling."</em> Born in Chicago's underground clubs from the ashes of disco, House revolutionized dance music through the Roland TR-909 drum machine, Korg M1 piano and organ stabs, gospel vocal hooks, and tape-spliced extended 12-inch club mixes.
+        </p>
+
+        <div class="grid-3" style="margin-top: 10px;">
+          <div class="info-card highlight">
+            <span class="spec-pill ao4">The Chicago Core</span>
+            <h4>Origins &amp; Pioneers</h4>
+            <p>From <strong>Frankie Knuckles</strong> at The Warehouse and <strong>Marshall Jefferson's</strong> piano anthems to <strong>Phuture's</strong> TB-303 Acid revolution.</p>
+          </div>
+
+          <div class="info-card cyan-edge">
+            <span class="spec-pill ao3">Studio Equipment</span>
+            <h4>Hardware Architecture</h4>
+            <p>The definitive tools: <strong>Roland TR-808/909</strong>, <strong>TB-303</strong>, <strong>Korg M1</strong>, <strong>Akai S900/S1000</strong>, and the <strong>Atari ST</strong> sequencer.</p>
+          </div>
+
+          <div class="info-card acid-edge">
+            <span class="spec-pill ao4">Global Evolution</span>
+            <h4>Subgenres &amp; 1990s Mainstream</h4>
+            <p>Italo House, UK Acid House warehouse raves, 1990s Diva House (CeCe Peniston, Robin S), UK Garage, and Daft Punk's French Touch.</p>
+          </div>
+        </div>
+
+        <div style="margin-top: 20px; display: flex; gap: 12px; align-items: center;">
+          <button class="nav-btn" onclick="nextSlide()" style="background: var(--accent-purple); color: #070814; border-color: var(--accent-purple);">
+            Start Interactive Presentation &rarr;
+          </button>
+          <span style="font-size: 12px; color: var(--text-muted);">Press <kbd style="background: rgba(255,255,255,0.1); padding: 2px 6px; border-radius: 4px;">Space</kbd> or <kbd style="background: rgba(255,255,255,0.1); padding: 2px 6px; border-radius: 4px;">&rarr;</kbd> to navigate</span>
+        </div>
+      </section>
+
+      <!-- SLIDE 2: A HOUSE CLASSIC - BLACK BOX -->
+      <section class="slide" data-slide="2">
+        <div class="slide-eyebrow">
+          <span>🎧</span> Classroom Slide 2 &bull; The Landmark Blueprint
+        </div>
+        <h2 class="slide-heading">
+          A House Classic: <span>Black Box &amp; "Ride On Time" (1989)</span>
+        </h2>
+        <p class="slide-lead">
+          Released in 1989 by Italian House group Black Box, "Ride On Time" exemplifies every defining sonic and technological element of early commercial house music.
+        </p>
+
+        <div class="grid-2">
+          <div class="info-card highlight">
+            <img src="/images/slides/house/akai_s950.png" alt="Akai Sampler" class="slide-thumb">
+            <h4>Anatomy of a House Smash</h4>
+            <ul style="margin-left: 18px; font-size: 12px; color: #cbd5e1; line-height: 1.6;">
+              <li><strong>Tempo:</strong> 120–130 BPM with a steady four-on-the-floor kick drum.</li>
+              <li><strong>Disco &amp; Soul Influences:</strong> Deep roots in 1970s Philadelphia soul and upbeat Euro-disco.</li>
+              <li><strong>Synthesizers &amp; Samplers:</strong> Korg M1, Akai S900 digital sampler, and Roland TR-909.</li>
+              <li><strong>Vocal Sampling:</strong> Sampled Loleatta Holloway's 1980 disco anthem <em>"Love Sensation"</em> into the Akai S900.</li>
+              <li><strong>Featured Piano:</strong> Bright, syncopated chord stabs cutting through the mix.</li>
+              <li><strong>Club Mixing:</strong> Extended beat intro and outro engineered specifically for DJs to beatmatch.</li>
+            </ul>
+            <button class="video-trigger-btn" onclick="openVideo('M0quXl_od3g', 'Black Box - Ride on Time (Official Video)')">▶ Watch: Black Box "Ride On Time"</button>
+          </div>
+
+          <div class="info-card cyan-edge">
+            <img src="/images/slides/house/vinyl_12inch.jpg" alt="12-inch Single" class="slide-thumb">
+            <h4>The 12-Inch Single Format</h4>
+            <p>House music was created for and distributed on <strong>12-inch vinyl singles</strong>. Wider groove spacing allowed cutting engineers to maximize bass frequencies and dynamic range without needle skipping.</p>
+            <div style="margin-top: 10px; background: rgba(0,0,0,0.3); padding: 10px; border-radius: 8px; font-size: 12px; color: #a5b4fc;">
+              <strong>Classroom Slide Note:</strong> In the original music video, the model featured (Katrin Quinol) was lip-syncing; the actual powerhouse vocal was sampled directly from Loleatta Holloway!
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 3: PRECURSORS & DEMOLITION DISCO -->
+      <section class="slide" data-slide="3">
+        <div class="slide-eyebrow">
+          <span>⚡</span> Classroom Slides 3 &amp; 4 &bull; 1977–1979
+        </div>
+        <h2 class="slide-heading">
+          Roots in Disco, <span>"I Feel Love" &amp; Demolition Disco</span>
+        </h2>
+        <p class="slide-lead">
+          Electronic dance music did not begin in a vacuum. It was born when futuristic synthesizer production met the underground resistance of post-disco America.
+        </p>
+
+        <div class="grid-2">
+          <div class="info-card highlight">
+            <img src="/images/slides/house/donna_summer.jpg" alt="Donna Summer" class="slide-thumb">
+            <h4>Donna Summer &amp; Giorgio Moroder (1977)</h4>
+            <p><strong>"I Feel Love"</strong> (1977): Produced by Giorgio Moroder in Munich and recorded on 16-track tape. Moroder used a <strong>Moog Modular sequencer</strong> to drive an unyielding 16th-note bassline and generated white noise from the Moog for hi-hats. <em>Remarkably, the kick drum is the only instrument played live on acoustic drums!</em></p>
+            <button class="video-trigger-btn" onclick="openVideo('9ZqqvrWCs3Q', 'Donna Summer - I Feel Love')">▶ Listen: Donna Summer "I Feel Love"</button>
+          </div>
+
+          <div class="info-card cyan-edge">
+            <div style="height: 110px; background: rgba(0, 193, 240, 0.1); border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-bottom: 10px; border: 1px solid var(--border-cyan);">
+              <span style="font-size: 36px;">💥</span>
+            </div>
+            <h4>Demolition Disco (1979)</h4>
+            <p>On July 12, 1979, the anti-disco backlash reached a fever pitch at Chicago's Comiskey Park with <strong>Disco Demolition Night</strong>. Major record labels dropped disco artists, forcing the music underground.</p>
+            <p style="margin-top: 6px;"><strong>The Bedroom Producer Revolution:</strong> Dance music moved out of expensive commercial recording studios and into the homes of young producers. Instead of hiring live string sections and session drummers, they turned to <strong>affordable drum machines and synthesizers</strong>.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 4: PIONEERS - FRANKIE KNUCKLES -->
+      <section class="slide" data-slide="4">
+        <div class="slide-eyebrow">
+          <span>👑</span> Classroom Slide 5 &bull; The Godfather of House
+        </div>
+        <h2 class="slide-heading">
+          Frankie Knuckles: <span>The Warehouse &amp; "Your Love"</span>
+        </h2>
+        <p class="slide-lead">
+          From New York disco roots to the birthplace of House music at 206 South Jefferson Street, Chicago.
+        </p>
+
+        <div class="grid-2">
+          <div class="info-card highlight">
+            <img src="/images/slides/house/frankie_knuckles.jpg" alt="Frankie Knuckles" class="slide-thumb">
+            <h4>Frankie Knuckles at The Warehouse</h4>
+            <p>Knuckles began as a NYC disco DJ alongside Larry Levan. In 1977, he took up residency at <strong>The Warehouse</strong> (and later his own club, the <strong>Power Plant</strong>). He took classic Philly soul and Euro-disco records, spliced reel-to-reel tape to create extended instrumental breakdowns, and mixed in <strong>Roland TR-909 drum machine beats</strong> live during his sets.</p>
+          </div>
+
+          <div class="info-card cyan-edge">
+            <div style="height: 110px; background: rgba(192, 132, 252, 0.1); border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-bottom: 10px; border: 1px solid var(--border-purple);">
+              <span style="font-size: 36px;">❤️</span>
+            </div>
+            <h4>"Your Love" (1987) with Jamie Principle</h4>
+            <p>Collaborating with singer/songwriter Jamie Principle, Knuckles produced <strong>"Your Love"</strong>. Built on a pulsating, hypnotic 16th-note synthesizer arpeggio and sensual, whispered vocals over a punchy drum machine beat, it became the eternal anthem of deep, emotional Chicago house.</p>
+            <button class="video-trigger-btn" onclick="openVideo('LOLE1YE_oFQ', 'Frankie Knuckles - Your Love')">▶ Watch: Frankie Knuckles "Your Love"</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 5: PIONEERS - MARSHALL JEFFERSON -->
+      <section class="slide" data-slide="5">
+        <div class="slide-eyebrow">
+          <span>🎹</span> Classroom Slide 6 &bull; The House Music Anthem
+        </div>
+        <h2 class="slide-heading">
+          Marshall Jefferson: <span>Piano House &amp; Deep House</span>
+        </h2>
+        <p class="slide-lead">
+          Marshall Jefferson fundamentally transformed house music from minimalist drum tracks into emotive, song-driven anthems with syncopated piano chords.
+        </p>
+
+        <div class="grid-2">
+          <div class="info-card highlight">
+            <img src="/images/slides/house/marshall_jefferson.jpg" alt="Marshall Jefferson" class="slide-thumb">
+            <h4>"Move Your Body" (1986)</h4>
+            <p>Subtitled <em>"The House Music Anthem"</em>, this track introduced acoustic piano to house music. Jefferson famously <strong>recorded the piano chords at a slow 40 BPM</strong> and then sped the tape up to 120 BPM! This created a razor-sharp, percussive piano attack that cut through club sound systems with tremendous clarity.</p>
+            <button class="video-trigger-btn" onclick="openVideo('QAR8cq5Bl94', 'Marshall Jefferson - Move Your Body')">▶ Watch: Marshall Jefferson "Move Your Body"</button>
+          </div>
+
+          <div class="info-card cyan-edge">
+            <div style="height: 110px; background: rgba(0, 193, 240, 0.1); border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-bottom: 10px; border: 1px solid var(--border-cyan);">
+              <span style="font-size: 36px;">🎷</span>
+            </div>
+            <h4>Pioneering "Deep House"</h4>
+            <p>Beyond high-energy club anthems, Jefferson pioneered <strong>Deep House</strong>—infusing house music with jazz chords, electric piano Rhodes voicings, and lush string pads (e.g., CeCe Rogers "Someday").</p>
+            <div style="margin-top: 10px; font-size: 11.5px; color: #a5b4fc;">
+              <strong>Key Specification Fact:</strong> Marshall Jefferson DJed at both The Warehouse and Power Plant, shaping the emotional, melodic identity of Chicago dance culture.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 6: PIONEERS - PHUTURE & ACID HOUSE -->
+      <section class="slide" data-slide="6">
+        <div class="slide-eyebrow">
+          <span>🧪</span> Classroom Slide 7 &bull; The TB-303 Revolution
+        </div>
+        <h2 class="slide-heading">
+          Phuture: <span>Acid House &amp; The TB-303 Resonance</span>
+        </h2>
+        <p class="slide-lead">
+          A radical, minimalist branch of house emerged in Chicago when young producers discovered the alien squelch of an analog bassline synthesizer.
+        </p>
+
+        <div class="grid-2">
+          <div class="info-card acid-edge">
+            <img src="/images/slides/house/roland_tb303.png" alt="Roland TB-303" class="slide-thumb">
+            <h4>Phuture: "Acid Tracks" (1987)</h4>
+            <p>Chicago group <strong>Phuture</strong> (DJ Pierre, Spanky, Herb J) acquired a second-hand Roland TB-303. By running a repetitive 16-step bassline and manually twisting the <strong>Cutoff Frequency</strong> while driving the <strong>Resonance</strong> into extreme self-oscillation, DJ Pierre created the screaming, squelchy timbre of <strong>Acid House</strong>.</p>
+            <button class="video-trigger-btn" onclick="openVideo('PJJ5FxpVGUY', 'Phuture - Acid Tracks (1987)')">▶ Listen: Phuture "Acid Tracks"</button>
+          </div>
+
+          <div class="info-card highlight">
+            <img src="/images/slides/house/acid_house_smiley.png" alt="Acid House Smiley" class="slide-thumb" style="object-fit: contain; background: #000; padding: 6px;">
+            <h4>Second Summer of Love (1988–1989)</h4>
+            <p>Exported on Trax Records TX142, "Acid Tracks" became an anthem for the UK's <strong>Second Summer of Love</strong>. It moved from London clubs (Shoom) and Manchester (The Haçienda) into massive orbital warehouse raves, establishing house music as the dominant UK youth culture.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 7: HONOURABLE MENTIONS - SAUNDERS, FARLEY, JOE SMOOTH -->
+      <section class="slide" data-slide="7">
+        <div class="slide-eyebrow">
+          <span>🏆</span> Classroom Slide 8 &bull; Chicago Trailblazers
+        </div>
+        <h2 class="slide-heading">
+          Honourable Mentions: <span>Saunders, Farley &amp; Joe Smooth</span>
+        </h2>
+        <p class="slide-lead">
+          The essential Chicago pioneers highlighted in the classroom slide deck who built the infrastructure of house music.
+        </p>
+
+        <div class="grid-3">
+          <div class="info-card highlight">
+            <img src="/images/slides/house/jesse_saunders.jpg" alt="Jesse Saunders" class="slide-thumb">
+            <h4>Jesse Saunders</h4>
+            <p>Released <strong>"On and On" (1984)</strong>, officially recognized as the first Chicago House record. Created with a Roland TR-808, Korg Poly-61, and tape splices on Jes Say Records.</p>
+          </div>
+
+          <div class="info-card cyan-edge">
+            <img src="/images/slides/house/trax_records.jpg" alt="Trax Records" class="slide-thumb" style="object-fit: contain; background: #000; padding: 4px;">
+            <h4>Farley 'Jackmaster' Funk</h4>
+            <p>Collaborated with Darryl Pandy on <strong>"Love Can't Turn Around" (1986)</strong>, which reached #10 on the UK charts and introduced flamboyant Chicago house performance to Top of the Pops.</p>
+          </div>
+
+          <div class="info-card acid-edge">
+            <div style="height: 110px; background: rgba(34, 197, 94, 0.1); border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-bottom: 10px; border: 1px solid var(--border-cyan);">
+              <span style="font-size: 36px;">🕊️</span>
+            </div>
+            <h4>Joe Smooth</h4>
+            <p>Produced <strong>"Promised Land" (1987)</strong> on DJ International. Blended uplifting soul vocals, major 7th piano chords, and civil rights optimism into a timeless worldwide anthem.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 8: 1990S MAINSTREAM PART 1 -->
+      <section class="slide" data-slide="8">
+        <div class="slide-eyebrow">
+          <span>🌟</span> Classroom Slide 10 &bull; 1991–1993 Chart Domination
+        </div>
+        <h2 class="slide-heading">
+          Onwards into the 1990s: <span>Masters At Work, Waters &amp; Robin S</span>
+        </h2>
+        <p class="slide-lead">
+          In the early 1990s, house music matured into a sophisticated, multi-million dollar global recording industry centered on iconic vocal hooks and digital presets.
+        </p>
+
+        <div class="grid-4">
+          <div class="info-card highlight">
+            <img src="/images/slides/house/masters_at_work.png" alt="Masters at Work" class="slide-thumb">
+            <h4>Masters at Work (1991)</h4>
+            <p><strong>"The Ha Dance"</strong>: Pioneered intricate vocal slicing and stuttered percussion that became the foundational rhythm of NYC ballroom and vogue culture.</p>
+          </div>
+
+          <div class="info-card cyan-edge">
+            <img src="/images/slides/house/crystal_waters.jpg" alt="Crystal Waters" class="slide-thumb">
+            <h4>Crystal Waters (1991)</h4>
+            <p><strong>"Gypsy Woman (She's Homeless)"</strong>: Written by Waters and produced by the Basement Boys, built around a haunting organ chord vamp and iconic vocal refrain.</p>
+            <button class="video-trigger-btn" onclick="openVideo('6DnfjMbu-Pg', 'Crystal Waters - Gypsy Woman')">▶ Watch Video</button>
+          </div>
+
+          <div class="info-card acid-edge">
+            <img src="/images/slides/house/cece_peniston.jpg" alt="CeCe Peniston" class="slide-thumb">
+            <h4>CeCe Peniston (1991/92)</h4>
+            <p><strong>"Finally"</strong>: A global chart-topper showcasing powerhouse multi-tracked gospel vocals over a bouncy, syncopated house bass groove.</p>
+            <button class="video-trigger-btn" onclick="openVideo('F6qOzxTkLOE', 'CeCe Peniston - Finally')">▶ Watch Video</button>
+          </div>
+
+          <div class="info-card amber-edge">
+            <img src="/images/slides/house/korg_m1.png" alt="Korg M1" class="slide-thumb" style="object-fit: contain; background: rgba(0,0,0,0.5); padding: 4px;">
+            <h4>Robin S (1993)</h4>
+            <p><strong>"Show Me Love"</strong>: Remixed by StoneBridge. <em>The Organ Bass has arrived!</em> Powered by the Korg M1 Organ 2 preset—the most famous bass sound in club history.</p>
+            <button class="video-trigger-btn" onclick="openVideo('xk8mm1Qmt-Y', 'Robin S - Show Me Love')">▶ Watch Video</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 9: 1990S MAINSTREAM PART 2 -->
+      <section class="slide" data-slide="9">
+        <div class="slide-eyebrow">
+          <span>🚀</span> Classroom Slide 11 &bull; 1995–1999 Remix Culture &amp; Subgenres
+        </div>
+        <h2 class="slide-heading">
+          The Late 1990s: <span>Todd Terry, St Germain, Garage &amp; Hard House</span>
+        </h2>
+        <p class="slide-lead">
+          As highlighted in Slide 11 of the presentation, the late 1990s saw house fragment into distinctive, powerful subgenres.
+        </p>
+
+        <div class="grid-4">
+          <div class="info-card highlight">
+            <img src="/images/slides/house/todd_terry.png" alt="Todd Terry" class="slide-thumb">
+            <h4>Everything But The Girl (1995)</h4>
+            <p><strong>"Missing" (Todd Terry Remix)</strong>: Todd Terry revolutionized pop remixing, setting Tracey Thorn's folk ballad over swung 4/4 drums and bouncy bass.</p>
+            <button class="video-trigger-btn" onclick="openVideo('Ps2Jc28tQrw', 'EBTG - Missing (Todd Terry Remix)')">▶ Watch Video</button>
+          </div>
+
+          <div class="info-card cyan-edge">
+            <div style="height: 110px; background: rgba(0, 193, 240, 0.1); border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-bottom: 10px; border: 1px solid var(--border-cyan);">
+              <span style="font-size: 32px;">🎷</span>
+            </div>
+            <h4>St Germain (1995)</h4>
+            <p><strong>"Alabama Blues" (Todd Edwards Remix)</strong>: Ludovic Navarre combined deep blues sampling with Todd Edwards' complex vocal micro-chopping. Jazzy and soulful.</p>
+          </div>
+
+          <div class="info-card acid-edge">
+            <div style="height: 110px; background: rgba(34, 197, 94, 0.1); border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-bottom: 10px; border: 1px solid var(--border-acid);">
+              <span style="font-size: 32px;">🇬🇧</span>
+            </div>
+            <h4>Roy Davis Jr. (1996)</h4>
+            <p><strong>"Gabriel" (ft. Peven Everett)</strong>: <em>"Garage is here."</em> Featuring live trumpet and soulful vocals, this track became the blueprint for UK Garage and 2-step.</p>
+          </div>
+
+          <div class="info-card amber-edge">
+            <div style="height: 110px; background: rgba(245, 158, 11, 0.1); border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-bottom: 10px; border: 1px solid var(--border-purple);">
+              <span style="font-size: 32px;">⚡</span>
+            </div>
+            <h4>DJ Ariel (1999)</h4>
+            <p><strong>"A9" (Hard House)</strong>: <em>"Faster and harder."</em> Pushed tempos to 135–140 BPM with aggressive offbeat bass stabs and frantic percussion.</p>
+            <button class="video-trigger-btn" onclick="openVideo('EtXBrzAk9OU', 'Ariel - A9 (Hard House)')">▶ Watch Video</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 10: DAFT PUNK - MASTERS OF THE SAMPLER -->
+      <section class="slide" data-slide="10">
+        <div class="slide-eyebrow">
+          <span>🇫🇷</span> Classroom Slide 12 &bull; French Filter Touch
+        </div>
+        <h2 class="slide-heading">
+          Daft Punk: <span>Masters of the Sampler</span>
+        </h2>
+        <p class="slide-lead">
+          As highlighted in Slide 12 of the classroom deck, Daft Punk delved deep into 1970s and 1980s disco records, turning micro-samples into massive 21st-century anthems.
+        </p>
+
+        <div class="grid-2">
+          <div class="info-card highlight">
+            <img src="/images/slides/house/daft_punk.jpg" alt="Daft Punk" class="slide-thumb">
+            <h4>Sampling Science on <em>Discovery</em> (2001)</h4>
+            <p>Daft Punk took obscure disco and funk vinyl records, sampled 1-bar or 2-beat fragments into E-mu and Ensoniq hardware samplers, and rearranged them into completely new musical themes (e.g. sampling Edwin Birdsong's "Cola Bottle Baby" for "Harder Better Faster Stronger").</p>
+            <button class="video-trigger-btn" onclick="openVideo('5AqHSvR9bqs', 'Daft Punk - Discovery Sample Breakdown')">▶ Watch Discovery Sample Breakdown</button>
+          </div>
+
+          <div class="info-card cyan-edge">
+            <span class="spec-pill ao3">AO3 Production Science</span>
+            <h4>Filter Sweeps &amp; Sidechain Pumping</h4>
+            <ul style="margin-left: 18px; font-size: 12px; color: #cbd5e1; line-height: 1.6;">
+              <li><strong>Low-Pass Filter Automation:</strong> Sweeping resonant low-pass filters (Mutronics Mutator) to build tension before beat drops.</li>
+              <li><strong>Alesis 3630 Compressor:</strong> Routing the heavy TR-909 kick into the compressor's sidechain detector to aggressively pump the disco sample in time with the groove.</li>
+              <li><strong>Phasers &amp; Flangers:</strong> Adding thick 8-stage analog phasing across the master drum bus.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 11: THE TECH - DRUM MACHINES & SAMPLERS -->
+      <section class="slide" data-slide="11">
+        <div class="slide-eyebrow">
+          <span>🎛️</span> Classroom Slides 13 &amp; 16 &bull; Hardware Archive
+        </div>
+        <h2 class="slide-heading">
+          The Tech: <span>Drum Machines &amp; Samplers</span>
+        </h2>
+        <p class="slide-lead">
+          The core hardware units specified in Slides 13 and 16 of the presentation that provided the rhythmic backbone of House.
+        </p>
+
+        <div class="grid-2">
+          <div class="info-card highlight">
+            <img src="/images/slides/house/roland_tr909.png" alt="Roland TR-909" class="slide-thumb">
+            <span class="spec-pill ao3">Slide 13: Drum Machines</span>
+            <h4>The Roland Rhythm Composers</h4>
+            <ul style="margin-left: 18px; font-size: 12px; color: #94a3b8; line-height: 1.55;">
+              <li><strong>Roland TR-808 (1980):</strong> Analog bridged-T network kick drum producing deep 50 Hz sub-bass booms (used on Jesse Saunders' "On and On").</li>
+              <li><strong>Roland TR-909 (1983):</strong> The absolute king of House music. Analog kick, snare, and toms paired with 6-bit digital PCM cymbals and offbeat open hi-hats.</li>
+              <li><strong>Roland TR-707 (1985):</strong> All-digital PCM drum machine used extensively in early Chicago acid tracks for snappy snares.</li>
+              <li><strong>Roland TR-606 (1981):</strong> Compact companion to the TB-303, known for its metallic, cutting analog hats.</li>
+            </ul>
+          </div>
+
+          <div class="info-card cyan-edge">
+            <img src="/images/slides/house/akai_s950.png" alt="Akai Sampler" class="slide-thumb">
+            <span class="spec-pill ao3">Slide 16: Samplers</span>
+            <h4>Digital Samplers</h4>
+            <ul style="margin-left: 18px; font-size: 12px; color: #94a3b8; line-height: 1.55;">
+              <li><strong>Akai S900 / S1000:</strong> The industry workhorses (12-bit and 16-bit). Used by Black Box, Todd Terry, and Robin S to chop vocal stabs and disco piano loops.</li>
+              <li><strong>E-mu SP-12 / SP-1200:</strong> 12-bit / 26 kHz crunchy sampling with ringing aliasing filters, beloved for drum hits.</li>
+              <li><strong>Casio FZ-10:</strong> Affordable 16-bit rackmount sampler used by UK bedroom producers.</li>
+              <li><strong>Akai MPC (60 / 3000):</strong> Roger Linn's 16-velocity pad workflow providing legendary unquantized swing.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 12: THE TECH - SYNTHESIZERS -->
+      <section class="slide" data-slide="12">
+        <div class="slide-eyebrow">
+          <span>🎹</span> Classroom Slides 14 &amp; 15 &bull; Synthesis Archive
+        </div>
+        <h2 class="slide-heading">
+          The Tech: <span>Synthesizers (Analog to Digital PCM)</span>
+        </h2>
+        <p class="slide-lead">
+          The synthesizers detailed in Slides 14 and 15 that defined basslines, chords, and leads across the history of House.
+        </p>
+
+        <div class="grid-2">
+          <div class="info-card acid-edge">
+            <img src="/images/slides/house/roland_tb303.png" alt="Roland TB-303" class="slide-thumb">
+            <span class="spec-pill ao3">Slide 14: Analog Synths</span>
+            <h4>Analog Classics</h4>
+            <ul style="margin-left: 18px; font-size: 12px; color: #94a3b8; line-height: 1.55;">
+              <li><strong>Roland TB-303:</strong> Monophonic bass synthesizer with 18 dB/oct resonant low-pass filter and internal 16-step sequencer with slides/accents.</li>
+              <li><strong>Roland MC-202 (1983):</strong> MicroComposer synthesizer with SH-101 voice circuitry and dual-track sequencer.</li>
+              <li><strong>Korg Poly-61 (1982):</strong> Digitally controlled analog polyphonic synth used on Jesse Saunders' "On and On".</li>
+              <li><strong>Roland Juno-60 / Juno-106:</strong> Rich analog DCO poly-synth with built-in stereo chorus, famous for lush house pads.</li>
+            </ul>
+          </div>
+
+          <div class="info-card highlight">
+            <img src="/images/slides/house/korg_m1.png" alt="Korg M1" class="slide-thumb" style="object-fit: contain; background: rgba(0,0,0,0.5); padding: 4px;">
+            <span class="spec-pill ao3">Slide 15: Digital Workstations</span>
+            <h4>Digital &amp; Lead Synths</h4>
+            <ul style="margin-left: 18px; font-size: 12px; color: #94a3b8; line-height: 1.55;">
+              <li><strong>Korg M1 (1988):</strong> The bestselling digital workstation of all time. Provided the iconic "Piano 1" house chord stabs and the legendary "Organ 2" bassline.</li>
+              <li><strong>Roland SH-101:</strong> Fast, punchy monophonic analog bass synth with snappy envelopes.</li>
+              <li><strong>Yamaha DX7:</strong> FM digital frequency modulation synth behind punchy solid basslines.</li>
+              <li><strong>Korg MS-20:</strong> Semi-modular dual-filter analog synth with aggressive screaming character.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 13: THE TECH - SEQUENCERS, MULTITRACKS & EFFECTS -->
+      <section class="slide" data-slide="13">
+        <div class="slide-eyebrow">
+          <span>💾</span> Classroom Slides 17 &amp; 18 &bull; Recording &amp; Processing
+        </div>
+        <h2 class="slide-heading">
+          The Tech: <span>Atari ST, Fostex R8 &amp; Effects Units</span>
+        </h2>
+        <p class="slide-lead">
+          How bedroom and indie studios actually recorded, sequenced, and processed house music tracks in the 1980s and 1990s.
+        </p>
+
+        <div class="grid-2">
+          <div class="info-card highlight">
+            <img src="/images/slides/house/atari_st.jpg" alt="Atari ST" class="slide-thumb">
+            <span class="spec-pill ao3">Slide 17: Sequencers &amp; Tape</span>
+            <h4>Atari ST &amp; Fostex R8 Multitrack</h4>
+            <ul style="margin-left: 18px; font-size: 12px; color: #cbd5e1; line-height: 1.55;">
+              <li><strong>Atari ST Computer:</strong> The centerpiece of 1980s/90s dance studios because it had <strong>built-in MIDI IN/OUT ports</strong>. Ran Steinberg Pro24, Cubase, and C-Lab Notator with ultra-tight MIDI clock timing.</li>
+              <li><strong>Fostex R8 8-Track Tape Recorder:</strong> Affordable 1/4-inch reel-to-reel recorder allowing bedroom producers to record vocals and live instruments.</li>
+              <li><strong>SMPTE to MTC Converter:</strong> Stripped a SMPTE timecode track onto audio track 8 of the tape to slave the Atari MIDI sequencer to tape playback!</li>
+            </ul>
+          </div>
+
+          <div class="info-card cyan-edge">
+            <div style="height: 110px; background: rgba(0, 193, 240, 0.1); border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-bottom: 10px; border: 1px solid var(--border-cyan);">
+              <span style="font-size: 36px;">🎛️</span>
+            </div>
+            <span class="spec-pill ao3">Slide 18: Outboard Effects Units</span>
+            <h4>Essential Hardware Processors</h4>
+            <ul style="margin-left: 18px; font-size: 12px; color: #cbd5e1; line-height: 1.55;">
+              <li><strong>Alesis MIDIverb II:</strong> 16-bit digital reverb providing preset 29 (warm bloom) and reverse reverbs for vocal stabs.</li>
+              <li><strong>Yamaha SPX90:</strong> Legendary multi-effects unit providing "Symphonic" chorus and pitch-shifted thickening.</li>
+              <li><strong>Ensoniq DP4:</strong> 4-channel parallel processor used by Daft Punk for lush phasers and filter modulation.</li>
+              <li><strong>ProCo RAT Distortion:</strong> Heavy analog guitar distortion stompbox used to overdrive drum machines and TB-303 basslines.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 14: THE 18 CHARACTERISTICS OF HOUSE MUSIC -->
+      <section class="slide" data-slide="14">
+        <div class="slide-eyebrow">
+          <span>📋</span> Classroom Slide 19 &bull; Definitive Specification Checklist
+        </div>
+        <h2 class="slide-heading">
+          The Characteristics of <span>House Music (Slide 19)</span>
+        </h2>
+        <p class="slide-lead">
+          The complete, definitive 18-point stylistic checklist straight from Slide 19 of the presentation.
+        </p>
+
+        <div class="grid-3" style="font-size: 11.5px;">
+          <div class="info-card highlight">
+            <h4 style="font-size: 13px;">Rhythm &amp; Tempo</h4>
+            <p>1. <strong>Repetitive Beats:</strong> Strict 4-to-the-floor kick.<br>
+            2. <strong>120–130 BPM:</strong> Standard dance club tempo.<br>
+            3. <strong>Distinctive Hi-Hat Patterns:</strong> Offbeat open hats.<br>
+            4. <strong>Swing Quantise:</strong> 57–62% shuffle swing on 16ths.<br>
+            5. <strong>Drum Samples &amp; Breakbeats:</strong> Sliced funk fills.<br>
+            6. <strong>Made for DJs:</strong> Extended 32-bar mix intros.</p>
+          </div>
+
+          <div class="info-card cyan-edge">
+            <h4 style="font-size: 13px;">Harmony &amp; Instruments</h4>
+            <p>7. <strong>Disco &amp; Soul Influences:</strong> Minor 7th/9th chords.<br>
+            8. <strong>Piano Riffs:</strong> Syncopated triplet chord stabs.<br>
+            9. <strong>Organ Bassline:</strong> Korg M1 Organ 2 preset.<br>
+            10. <strong>Heavy Basslines:</strong> Deep sub-bass energy.<br>
+            11. <strong>The TB-303 Squelch:</strong> Resonant filter sweeps.<br>
+            12. <strong>Lush Strings &amp; Pads:</strong> Deep House textures.</p>
+          </div>
+
+          <div class="info-card acid-edge">
+            <h4 style="font-size: 13px;">Production &amp; Culture</h4>
+            <p>13. <strong>Vocal Samples:</strong> Looped phrases and belts.<br>
+            14. <strong>Instrumental Samples:</strong> Brass and chord stabs.<br>
+            15. <strong>Drum Machines:</strong> TR-808, TR-909, TR-707.<br>
+            16. <strong>Groove Based Music:</strong> Unrelenting kinetic drive.<br>
+            17. <strong>Spawned Subgenres:</strong> Garage, Hard, Deep.<br>
+            18. <strong>Club Subculture:</strong> Warehouse parties &amp; raves.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 15: SECTION B COMPARATIVE MATRIX -->
+      <section class="slide" data-slide="15">
+        <div class="slide-eyebrow">
+          <span>⚖️</span> Component 3 Section B Preparation
+        </div>
+        <h2 class="slide-heading">
+          Section B Matrix: <span>1980s Bedroom DIY vs 1990s Commercial Club</span>
+        </h2>
+        <p class="slide-lead">
+          How technological changes between the 1980s and 1990s transformed house music for your 10-mark comparison essay.
+        </p>
+
+        <table class="comp-table">
+          <thead>
+            <tr>
+              <th>Feature</th>
+              <th>1980s Chicago DIY (Saunders, Phuture, Trax)</th>
+              <th>1990s Commercial Club (Robin S, Peniston, Black Box)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Sequencing &amp; MIDI</strong></td>
+              <td>Standalone hardware sequencers (TR-909 internal step keys, TB-303, DIN Sync).</td>
+              <td>Computer-based MIDI sequencers (Atari ST running Notator/Cubase) driving multiple MIDI synths.</td>
+            </tr>
+            <tr>
+              <td><strong>Sound Generation</strong></td>
+              <td>Analog subtractive synthesizers with knob-tweaking (TB-303, Juno-106, Poly-61).</td>
+              <td>Digital PCM sample-playback workstations (Korg M1 Organ 2, Roland JV-1080).</td>
+            </tr>
+            <tr>
+              <td><strong>Sampling Technology</strong></td>
+              <td>Rare or primitive; reel-to-reel tape splicing and tape loops for extended breaks.</td>
+              <td>Dedicated 16-bit rackmount samplers (Akai S950/S1000) chopping vocal hooks and disco loops.</td>
+            </tr>
+            <tr>
+              <td><strong>Recording &amp; Mixing</strong></td>
+              <td>4-track / 8-track tape (Fostex R8), inexpensive Mackie/budget desks driven to tape saturation.</td>
+              <td>24-track 2-inch tape, high-end SSL consoles, outboard Lexicon/Yamaha SPX reverbs, DAT mastering.</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- SLIDE 16: WORKSHOP TASK & PRODUCTION CHECKLIST -->
+      <section class="slide" data-slide="16">
+        <div class="slide-eyebrow">
+          <span>🎧</span> Classroom Slide 21 &bull; Practical Production Task
+        </div>
+        <h2 class="slide-heading">
+          House Music Workshop: <span>Create a 16-Bar Track</span>
+        </h2>
+        <p class="slide-lead">
+          As instructed in Slide 21 of the classroom presentation, apply your knowledge to construct an authentic 16-bar house track meeting every stylistic criterion.
+        </p>
+
+        <div class="grid-2">
+          <div class="info-card highlight">
+            <h4>The 16-Bar Production Checklist</h4>
+            <ul style="margin-left: 18px; font-size: 12px; color: #cbd5e1; line-height: 1.6;">
+              <li>✓ <strong>A Programmed Drum Beat:</strong> 4-on-the-floor kick with offbeat open hi-hats (TR-909).</li>
+              <li>✓ <strong>Swing Quantise:</strong> Apply 57%–62% shuffle swing to 16th-note percussion.</li>
+              <li>✓ <strong>Vocal Sample:</strong> A chopped acapella hook phrase or soul/gospel loop.</li>
+              <li>✓ <strong>Breakbeat or Rhythmic Samples:</strong> Layered acoustic funk fill or shaker.</li>
+              <li>✓ <strong>Piano or Organ Riff:</strong> Syncopated chords or Korg M1 Organ 2 bassline.</li>
+              <li>✓ <strong>TB-303 Riff or Stabs:</strong> Resonant low-pass filter modulation.</li>
+              <li>✓ <strong>DJ Mix Intro &amp; Breakdown:</strong> 8 bars of drums leading into a filtered breakdown.</li>
+              <li>✓ <strong>Real-Time Filtering:</strong> Low-pass filter sweeps opening before the drop.</li>
+            </ul>
+          </div>
+
+          <div class="info-card cyan-edge" style="display: flex; flex-direction: column; justify-content: center; text-align: center;">
+            <div style="font-size: 40px; margin-bottom: 10px;">🏠</div>
+            <h3 style="color: #fff; font-size: 18px; margin-bottom: 8px;">"House is a Feeling"</h3>
+            <p style="color: #94a3b8; font-size: 13px; max-width: 380px; margin: 0 auto 16px auto;">
+              Now test your mastery of this classroom deck with the 12-question Edexcel specification quiz.
+            </p>
+            <div>
+              <a href="/house-interactive-quiz.html" style="display: inline-flex; align-items: center; gap: 8px; background: var(--accent-purple); color: #070814; font-weight: 800; font-size: 13.5px; padding: 10px 24px; border-radius: 50px; text-decoration: none; box-shadow: 0 0 20px var(--accent-purple-glow);">
+                Launch 12-Question Specification Quiz &rarr;
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Bottom Controls -->
+    <footer class="deck-controls">
+      <button class="nav-btn" id="prevBtn" onclick="prevSlide()" disabled>
+        &larr; Previous
+      </button>
+
+      <div class="progress-container">
+        <span class="slide-counter" id="slideCounter">Slide 1 of 16</span>
+        <div class="progress-track">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+      </div>
+
+      <button class="nav-btn" id="nextBtn" onclick="nextSlide()">
+        Next &rarr;
+      </button>
+    </footer>
+  </div>
+
+  <!-- Video Modal -->
+  <div class="video-modal-backdrop" id="videoModal">
+    <div class="video-modal-content">
+      <div class="video-modal-header">
+        <span class="video-modal-title" id="videoModalTitle">Video Clip</span>
+        <button class="close-modal-btn" onclick="closeVideo()">&times;</button>
+      </div>
+      <div class="video-player-wrapper">
+        <iframe id="videoIframe" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+    const totalSlides = slides.length;
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const slideCounter = document.getElementById('slideCounter');
+    const progressFill = document.getElementById('progressFill');
+    const videoModal = document.getElementById('videoModal');
+    const videoModalTitle = document.getElementById('videoModalTitle');
+    const videoIframe = document.getElementById('videoIframe');
+
+    function updateDeck() {
+      slides.forEach((slide, idx) => {
+        slide.classList.toggle('active', idx === currentSlide);
+      });
+
+      prevBtn.disabled = currentSlide === 0;
+      nextBtn.disabled = currentSlide === totalSlides - 1;
+      
+      slideCounter.textContent = `Slide ${currentSlide + 1} of ${totalSlides}`;
+      const percentage = ((currentSlide + 1) / totalSlides) * 100;
+      progressFill.style.width = `${percentage}%`;
+    }
+
+    function nextSlide() {
+      if (currentSlide < totalSlides - 1) {
+        currentSlide++;
+        updateDeck();
+      }
+    }
+
+    function prevSlide() {
+      if (currentSlide > 0) {
+        currentSlide--;
+        updateDeck();
+      }
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (videoModal.classList.contains('open')) {
+        if (e.key === 'Escape') closeVideo();
+        return;
+      }
+      if (e.key === 'ArrowRight' || e.key === ' ') {
+        nextSlide();
+      } else if (e.key === 'ArrowLeft') {
+        prevSlide();
+      }
+    });
+
+    let touchStartX = 0;
+    let touchEndX = 0;
+    const viewport = document.getElementById('slidesViewport');
+
+    viewport.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    viewport.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      handleSwipe();
+    }, { passive: true });
+
+    function handleSwipe() {
+      if (touchEndX < touchStartX - 50) {
+        nextSlide();
+      }
+      if (touchEndX > touchStartX + 50) {
+        prevSlide();
+      }
+    }
+
+    function openVideo(videoId, title) {
+      videoIframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
+      videoModalTitle.textContent = title;
+      videoModal.classList.add('open');
+    }
+
+    function closeVideo() {
+      videoModal.classList.remove('open');
+      videoIframe.src = '';
+    }
+
+    videoModal.addEventListener('click', (e) => {
+      if (e.target === videoModal) {
+        closeVideo();
+      }
+    });
+  </script>
+</body>
+</html>
