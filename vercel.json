@@ -6,6 +6,15 @@
   "cleanUrls": true,
   "headers": [
     {
+      "source": "/interactive-slide-(.*)",
+      "headers": [
+        {
+          "key": "Content-Security-Policy",
+          "value": "frame-ancestors 'self' https://musictechguru.com https://www.musictechguru.com"
+        }
+      ]
+    },
+    {
       "source": "/(.*)",
       "headers": [
         {
@@ -110,6 +119,10 @@
     {
       "source": "/robots.txt",
       "destination": "/robots.txt"
+    },
+    {
+      "source": "/interactive-slide-(.*)",
+      "destination": "/interactive-slide-$1.html"
     },
     {
       "source": "/(.*)",
