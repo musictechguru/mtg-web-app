@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Blues • Interactive Study Deck | Music Tech Guru</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #060a14;
+      --bg-card: #0b1226;
+      --bg-surface: #111a32;
+      --accent-purple: #60a5fa;
+      --accent-purple-glow: rgba(96, 165, 250, 0.35);
+      --accent-cyan: #f59e0b;
+      --accent-cyan-glow: rgba(245, 158, 11, 0.35);
+      --accent-acid: #22c55e;
+      --accent-amber: #f59e0b;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-purple: rgba(96, 165, 250, 0.35);
+      --border-cyan: rgba(245, 158, 11, 0.35);
+      --font: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: var(--font);
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 8px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .deck-wrapper {
+      width: 100%;
+      max-width: 1120px;
+      height: calc(100vh - 16px);
+      min-height: 590px;
+      max-height: 670px;
+      background: radial-gradient(circle at 50% 0%, rgba(96, 165, 250, 0.15) 0%, rgba(14, 17, 36, 0) 70%), var(--bg-card);
+      border: 1px solid var(--border-purple);
+      border-radius: 16px;
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.8), 0 0 40px rgba(96, 165, 250, 0.15);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    /* Top Utility Bar */
+    .deck-topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      background: rgba(6, 10, 22, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-subtle);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      z-index: 10;
+    }
+
+    .badge-hub {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(96, 165, 250, 0.15);
+      border: 1px solid var(--border-purple);
+      color: #93c5fd;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      text-transform: uppercase;
+    }
+
+    .badge-pulse {
+      width: 7px;
+      height: 7px;
+      background: var(--accent-purple);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--accent-purple);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
+    }
+
+    .deck-topic-title {
+      color: var(--text-muted);
+      font-size: 12px;
+    }
+
+    .deck-topic-title strong {
+      color: #fff;
+    }
+
+    /* Slides Viewport */
+    .slides-viewport {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      padding: 24px 36px 16px 36px;
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateX(30px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      overflow-y: auto;
+    }
+
+    .slide.active {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(0);
+    }
+
+    /* Slide Typography */
+    .slide-eyebrow {
+      font-size: 11.5px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--accent-purple);
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .slide-heading {
+      font-size: clamp(20px, 3vw, 26px);
+      font-weight: 900;
+      line-height: 1.15;
+      letter-spacing: -0.5px;
+      color: #ffffff;
+      margin-bottom: 12px;
+    }
+
+    .slide-heading span {
+      background: linear-gradient(135deg, #60a5fa 0%, #f59e0b 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .slide-lead {
+      color: #cbd5e1;
+      font-size: 13.5px;
+      line-height: 1.5;
+      max-width: 860px;
+      margin-bottom: 14px;
+    }
+
+    /* Grids & Cards */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    @media (max-width: 768px) {
+      .grid-2, .grid-3, .grid-4 {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+    }
+
+    .info-card {
+      background: rgba(17, 26, 50, 0.65);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 14px 16px;
+      transition: all 0.2s;
+    }
+
+    .info-card:hover {
+      border-color: rgba(96, 165, 250, 0.4);
+      background: rgba(17, 26, 50, 0.9);
+      transform: translateY(-2px);
+    }
+
+    .info-card.highlight {
+      border-left: 4px solid var(--accent-purple);
+    }
+
+    .info-card.cyan-edge {
+      border-left: 4px solid var(--accent-cyan);
+    }
+
+    .info-card.acid-edge {
+      border-left: 4px solid var(--accent-acid);
+    }
+
+    .info-card.amber-edge {
+      border-left: 4px solid var(--accent-amber);
+    }
+
+    .info-card h4 {
+      color: #ffffff;
+      font-size: 14px;
+      font-weight: 800;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .info-card p {
+      color: #94a3b8;
+      font-size: 12.5px;
+      line-height: 1.55;
+    }
+
+    .info-card strong {
+      color: #e2e8f0;
+    }
+
+    .spec-pill {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      padding: 2px 7px;
+      border-radius: 4px;
+      background: rgba(96, 165, 250, 0.12);
+      color: #93c5fd;
+      border: 1px solid rgba(96, 165, 250, 0.3);
+      margin-bottom: 4px;
+    }
+
+    .spec-pill.ao3 {
+      background: rgba(245, 158, 11, 0.15);
+      color: #fbbf24;
+      border-color: rgba(245, 158, 11, 0.35);
+    }
+
+    .spec-pill.ao4 {
+      background: rgba(96, 165, 250, 0.15);
+      color: #93c5fd;
+      border-color: rgba(96, 165, 250, 0.35);
+    }
+
+    .comp-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+      margin-top: 6px;
+    }
+
+    .comp-table th {
+      background: rgba(96, 165, 250, 0.1);
+      color: var(--accent-purple);
+      font-weight: 800;
+      text-transform: uppercase;
+      font-size: 10.5px;
+      letter-spacing: 0.5px;
+      padding: 8px 10px;
+      text-align: left;
+      border-bottom: 1px solid var(--border-purple);
+    }
+
+    .comp-table td {
+      padding: 8px 10px;
+      border-bottom: 1px solid var(--border-subtle);
+      color: #cbd5e1;
+      line-height: 1.45;
+    }
+
+    .comp-table tr:hover td {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .video-trigger-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 8px;
+      background: rgba(96, 165, 250, 0.12);
+      border: 1px solid var(--border-purple);
+      color: #93c5fd;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .video-trigger-btn:hover {
+      background: var(--accent-purple);
+      color: #060a14;
+      transform: scale(1.02);
+    }
+
+    .deck-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 24px;
+      background: rgba(6, 10, 22, 0.95);
+      border-top: 1px solid var(--border-subtle);
+      z-index: 10;
+    }
+
+    .nav-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 8px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .nav-btn:hover:not(:disabled) {
+      background: var(--accent-purple);
+      color: #060a14;
+      border-color: var(--accent-purple);
+      box-shadow: 0 0 15px var(--accent-purple-glow);
+    }
+
+    .nav-btn:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+
+    .progress-container {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex: 1;
+      max-width: 320px;
+      margin: 0 20px;
+    }
+
+    .progress-track {
+      flex: 1;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent-purple) 0%, var(--accent-cyan) 100%);
+      width: 7.14%;
+      border-radius: 10px;
+      transition: width 0.3s ease;
+    }
+
+    .slide-counter {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .video-modal-backdrop {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(8px);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .video-modal-backdrop.open {
+      display: flex;
+    }
+
+    .video-modal-content {
+      background: var(--bg-card);
+      border: 1px solid var(--border-purple);
+      border-radius: 16px;
+      max-width: 800px;
+      width: 100%;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9), 0 0 30px var(--accent-purple-glow);
+    }
+
+    .video-modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 18px;
+      background: rgba(255, 255, 255, 0.04);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .video-modal-title {
+      font-size: 14px;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .close-modal-btn {
+      background: none;
+      border: none;
+      color: #94a3b8;
+      font-size: 20px;
+      cursor: pointer;
+      line-height: 1;
+      padding: 0 4px;
+    }
+
+    .close-modal-btn:hover {
+      color: #fff;
+    }
+
+    .video-player-wrapper {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+    }
+
+    .video-player-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    .slide-thumb {
+      width: 100%;
+      height: 110px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      border: 1px solid var(--border-subtle);
+    }
+  </style>
+</head>
+<body>
+  <div class="deck-wrapper">
+    <header class="deck-topbar">
+      <div class="badge-hub"><span class="badge-pulse"></span>Edexcel Component 3 &bull; Music in Context</div>
+      <div class="deck-topic-title">Topic: <strong>The Blues (1920s to present)</strong></div>
+    </header>
+    <main class="slides-viewport" id="slidesViewport">
+      <section class="slide active" data-slide="1">
+        <div class="slide-eyebrow"><span>🎸</span> Topic Deep Dive &bull; GCE Music Technology</div>
+        <h1 class="slide-heading">The <span>Blues</span></h1>
+        <p class="slide-lead">From solo Delta singers captured on portable disc recorders to the amplified, overdriven sound of 1950s Chicago and the British blues boom. The Blues is the root of rock and roll, R&amp;B, soul and most popular music since &mdash; and every step of its story is driven by technology: resonator guitars, amplification, valve overdrive, studio recording and sampling.</p>
+        <div class="grid-3" style="margin-top: 10px;">
+          <div class="info-card highlight"><span class="spec-pill ao4">AO4 Four Sub-genres</span><h4>Country, Chicago, British &amp; Blues Rock</h4><p>Trace the style from <strong>Robert Johnson</strong> (Country Blues) through <strong>Muddy Waters</strong> and <strong>B.B. King</strong> (Chicago) to the <strong>Yardbirds</strong>, <strong>Rolling Stones</strong> and blues rock.</p></div>
+          <div class="info-card cyan-edge"><span class="spec-pill ao3">AO3 Technology</span><h4>From Acoustic to Amplified</h4><p>Resonator and slide guitar, the electric guitar, amplified harmonica, <strong>valve amp overdrive</strong> and the move from mono field discs to Chess Records studio quality.</p></div>
+          <div class="info-card acid-edge"><span class="spec-pill ao4">AO4 Musical Features</span><h4>12 Bar, Blues Scale, Call &amp; Response</h4><p>The <strong>I-IV-V 12 bar</strong> pattern, blues scale, call and response between voice and lead instrument, and emotive melismatic singing about poverty and lost love.</p></div>
+        </div>
+        <div style="margin-top: 20px; display: flex; gap: 12px; align-items: center;">
+          <button class="nav-btn" onclick="nextSlide()" style="background: var(--accent-purple); color: #060a14; border-color: var(--accent-purple);">Start Interactive Deck &rarr;</button>
+          <span style="font-size: 12px; color: var(--text-muted);">Press <kbd style="background: rgba(255,255,255,0.1); padding: 2px 6px; border-radius: 4px;">Space</kbd> or <kbd style="background: rgba(255,255,255,0.1); padding: 2px 6px; border-radius: 4px;">&rarr;</kbd> to navigate</span>
+        </div>
+      </section>
+      <section class="slide" data-slide="2">
+        <div class="slide-eyebrow"><span>📋</span> Specification Roadmap</div>
+        <h2 class="slide-heading">Component 3 <span>Syllabus Matrix for The Blues</span></h2>
+        <p class="slide-lead">Edexcel expects you to connect the technology used to the sound you hear, and to place the style in its cultural and musical context.</p>
+        <div class="grid-2"><div class="info-card cyan-edge"><span class="spec-pill ao3">AO3: Technology &amp; Processes</span><h4>Instruments, Recording &amp; Processing</h4>
+      <ul style="margin-left: 18px; font-size: 12px; color: #94a3b8; line-height: 1.6;">
+      <li><strong>Early recording:</strong> mono discs, one microphone or horn, heavy surface noise, poor separation of instruments.</li>
+      <li><strong>Electric instruments:</strong> introduced with Chicago Blues in the 1940s/50s &mdash; electric guitar, bass guitar and amplified harmonica.</li>
+      <li><strong>Distortion:</strong> the main effect used &mdash; natural valve amp overdrive on guitar and harmonica.</li>
+      <li><strong>Post-war quality:</strong> recording quality is vastly improved from 1945 onwards.</li>
+      <li><strong>Later keys:</strong> Hammond organ in British Blues and Blues Rock.</li></ul></div><div class="info-card highlight"><span class="spec-pill ao4">AO4: Musical &amp; Cultural Context</span><h4>Features, Influences &amp; Exchange</h4>
+      <ul style="margin-left: 18px; font-size: 12px; color: #94a3b8; line-height: 1.6;">
+      <li><strong>Structure:</strong> 12 bar blues (I I I I, IV IV I I, V IV I I) and other I, IV, V progressions.</li>
+      <li><strong>Melody:</strong> the blues scale; call and response; harmonica, guitar and piano solos.</li>
+      <li><strong>Lyrics &amp; voice:</strong> poverty and lost love; emotive, sometimes melismatic &ldquo;wailing&rdquo; delivery.</li>
+      <li><strong>Influenced by:</strong> Country, Jazz and Spirituals.</li>
+      <li><strong>Influence on:</strong> Rock and Roll, Heavy Metal, Jazz, R&amp;B, Soul &mdash; and sampling (Moby).</li></ul></div>
+      </section>
+      <section class="slide" data-slide="3">
+        <div class="slide-eyebrow"><span>🌾</span> 1920s&ndash;1930s &bull; Country Blues</div>
+        <h2 class="slide-heading">Country Blues: <span>One Voice, One Guitar</span></h2>
+        <p class="slide-lead">Early Country Blues was often just a singer with a guitar, born in the Mississippi Delta from a mixture of European, American and African traditions, and influenced by Country, Jazz and Spirituals.</p>
+        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/blues/delta_blues.jpg" alt="Map of the Mississippi Delta" class="slide-thumb" style="object-fit: contain; background: #0a0f1e; padding: 4px;"><h4>The Mississippi Delta</h4><p>The Delta is the cradle of Country Blues. Songs of <strong>poverty and lost love</strong> were performed solo with guitar, often in a <strong>melismatic, wailing</strong> vocal style and a call-and-response relationship between voice and guitar.</p></div><div class="info-card cyan-edge"><img src="/images/slides/blues/robert_johnson.jpg" alt="Robert Johnson" class="slide-thumb"><h4>Robert Johnson (1911&ndash;1938)</h4><p>Recorded just 29 songs in two sessions (San Antonio 1936, Dallas 1937) &mdash; in temporary hotel and warehouse studios, direct to disc. <em>Cross Road Blues</em> (1936) became a cornerstone of the style.</p><button class="video-trigger-btn" onclick="openVideo('Kxi4XkIVWLQ', 'Robert Johnson - Cross Road Blues')">▶ Listen: Cross Road Blues</button></div><div class="info-card acid-edge"><img src="/images/slides/blues/alan_lomax.jpg" alt="Alan Lomax" class="slide-thumb"><h4>Alan Lomax &amp; Field Recording</h4><p>Alan Lomax recorded blues musicians for the <strong>Library of Congress</strong> on portable disc recorders. In 1941 he recorded a young Muddy Waters on Stovall Plantation, Mississippi.</p></div></div>
+      </section>
+      <section class="slide" data-slide="4">
+        <div class="slide-eyebrow"><span>💿</span> AO3 &bull; Early Recording Technology</div>
+        <h2 class="slide-heading">Mono Discs, <span>Surface Noise &amp; One Microphone</span></h2>
+        <p class="slide-lead">The worksheet is clear: early blues recordings are scratchy and mono, with a lot of surface noise and poor separation of instruments.</p>
+        <div class="grid-2"><div class="info-card highlight"><img src="/images/slides/blues/wax_cylinder.jpg" alt="Edison wax cylinder" class="slide-thumb"><h4>Acoustic Recording &amp; Early Formats</h4><p>Before 1925 recordings were made <strong>acoustically</strong>: performers played into a large horn which cut the groove directly. Early formats such as the <strong>wax cylinder</strong> and the 78 rpm shellac disc had a narrow frequency range, loud <strong>surface noise</strong> and no way to adjust the balance afterwards.</p></div><div class="info-card cyan-edge"><img src="/images/slides/blues/phonograph_record.jpg" alt="Phonograph records of different sizes" class="slide-thumb"><h4>One Source, Poor Separation</h4><p>Musicians were gathered around a <strong>single recorder or microphone</strong>, so every sound was captured together in <strong>mono</strong>. Balance was controlled by <em>where players stood</em>, not by a mixing desk. From <strong>1925</strong> electrical recording with microphones widened the frequency range, and quality improved greatly again after <strong>1945</strong>.</p></div></div>
+      </section>
+      <section class="slide" data-slide="5">
+        <div class="slide-eyebrow"><span>🔩</span> AO3 &bull; Guitar Technique &amp; Instruments</div>
+        <h2 class="slide-heading">Slide Guitar &amp; <span>the Resonator</span></h2>
+        <p class="slide-lead">Slide (bottleneck) guitar is especially associated with Country Blues, and the resonator guitar solved the problem of volume before electric amplification existed.</p>
+        <div class="grid-2"><div class="info-card highlight"><img src="/images/slides/blues/slide_guitar.jpg" alt="Slide guitar played on a resonator" class="slide-thumb"><h4>Slide / Bottleneck Guitar</h4><p>A glass or metal slide worn on a finger is moved along the strings instead of fretting notes, giving a <strong>continuous, vocal-like glide</strong> between pitches. It imitates the human voice and suits the call-and-response between singer and guitar. Often played in open tunings.</p></div><div class="info-card cyan-edge"><img src="/images/slides/blues/resonator_guitar.jpg" alt="Resonator guitar" class="slide-thumb"><h4>The Resonator Guitar</h4><p>Developed in the late 1920s, a metal <strong>resonator cone</strong> inside the body makes the guitar much louder than a normal acoustic &mdash; useful for street and juke-joint performers, and for cutting through on a <strong>single-microphone recording</strong>. Its bright, metallic, sustained tone is a hallmark of Country Blues.</p></div></div>
+      </section>
+      <section class="slide" data-slide="6">
+        <div class="slide-eyebrow"><span>⚡</span> AO3 &amp; AO4 &bull; 1940s&ndash;1950s</div>
+        <h2 class="slide-heading">Chicago Blues: <span>The Sound Goes Electric</span></h2>
+        <p class="slide-lead">After the Great Migration, Delta musicians reached Chicago&rsquo;s noisy clubs. To be heard, they plugged in &mdash; electric guitar, bass guitar, drums and amplified harmonica form the Chicago Blues band.</p>
+        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/blues/muddy_waters.jpg" alt="Muddy Waters" class="slide-thumb"><h4>Muddy Waters</h4><p>Moved to Chicago in 1943 and went electric in the mid-1940s. His amplified slide guitar and full band recorded for <strong>Chess Records</strong> defined the genre.</p><button class="video-trigger-btn" onclick="openVideo('bSfqNEvykv0', 'Muddy Waters - Mannish Boy')">▶ Listen: Mannish Boy</button></div><div class="info-card cyan-edge"><img src="/images/slides/blues/little_walter.jpg" alt="Little Walter" class="slide-thumb"><h4>Little Walter &amp; Amplified Harmonica</h4><p>Played the harmonica through a hand-held microphone into a small guitar amplifier, driving it into <strong>overdrive</strong> for a thick, saxophone-like sound. <em>Juke</em> (1952).</p><button class="video-trigger-btn" onclick="openVideo('kWLQSplVP3Y', 'Little Walter - Juke')">▶ Listen: Juke</button></div><div class="info-card acid-edge"><img src="/images/slides/blues/howlin_wolf.jpg" alt="Howlin Wolf" class="slide-thumb"><h4>Howlin&rsquo; Wolf</h4><p>A huge voice and raw, distorted electric band sound. His first records were cut in <strong>Memphis</strong> before he moved to Chicago and Chess Records.</p><button class="video-trigger-btn" onclick="openVideo('VMUt8KdDtTY', 'Howlin Wolf - Smokestack Lightning')">▶ Listen: Smokestack Lightning</button></div></div>
+      </section>
+      <section class="slide" data-slide="7">
+        <div class="slide-eyebrow"><span>🏢</span> AO4 &bull; The Record Label</div>
+        <h2 class="slide-heading">Chess Records: <span>Dixon, Hooker &amp; the Studio</span></h2>
+        <p class="slide-lead">Chess Records, run by brothers Leonard and Phil Chess in Chicago, recorded the great electric blues artists in small rooms with strong natural ambience and carefully captured band balance.</p>
+        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/blues/willie_dixon.jpg" alt="Willie Dixon" class="slide-thumb"><h4>Willie Dixon</h4><p>Bassist, songwriter and in-house talent scout at Chess. He wrote classics such as <em>Hoochie Coochie Man</em> and <em>Spoonful</em> for Muddy Waters and Howlin&rsquo; Wolf.</p></div><div class="info-card cyan-edge"><img src="/images/slides/blues/john_lee_hooker.jpg" alt="John Lee Hooker" class="slide-thumb"><h4>John Lee Hooker</h4><p>Based in Detroit, he played hypnotic one-chord <strong>boogie</strong> on amplified guitar, tapping his foot &mdash; showing the style was not confined to Chicago.</p></div><div class="info-card acid-edge"><img src="/images/slides/blues/howlin_wolf.jpg" alt="Howlin Wolf at Chess" class="slide-thumb"><h4>The Chess Sound</h4><p>Intimate rooms, <strong>few microphones</strong>, the whole band playing together, natural room reflections and little processing apart from <strong>overdrive on the instruments</strong> themselves.</p></div></div>
+      </section>
+      <section class="slide" data-slide="8">
+        <div class="slide-eyebrow"><span>🔊</span> AO3 &bull; Amplification &amp; Distortion</div>
+        <h2 class="slide-heading">Valve Amps &amp; <span>Natural Overdrive</span></h2>
+        <p class="slide-lead">The worksheet notes little use of effects apart from distortion on electric guitars from Chicago Blues onwards. That distortion came from the valve amplifier itself.</p>
+        <div class="grid-2"><div class="info-card highlight"><img src="/images/slides/blues/fender_champ.jpg" alt="Small Fender valve combo amplifier" class="slide-thumb"><h4>Small Valve Combos Pushed Hard</h4><p>Small <strong>valve (tube) combo amplifiers</strong> have limited power. Turned up loud, the valves run out of headroom and begin to <strong>clip softly</strong>, adding warm harmonic distortion and <strong>compression</strong>. The small speaker cone also compresses and rounds off the sound &mdash; this is natural overdrive, not an effects pedal.</p></div><div class="info-card cyan-edge"><img src="/images/slides/blues/gibson_es335.jpg" alt="Gibson ES-335 semi-hollow guitar" class="slide-thumb"><h4>The Electric Guitar</h4><p>Solid and <strong>semi-hollow</strong> electric guitars, such as the Gibson ES-335 (1958), gave blues players sustain and volume with controllable feedback. Amplified guitar let the instrument take over the lead role from the voice in call-and-response.</p></div></div>
+      </section>
+      <section class="slide" data-slide="9">
+        <div class="slide-eyebrow"><span>🎹</span> AO3 &bull; Featured Instruments</div>
+        <h2 class="slide-heading">Harmonica, <span>Piano &amp; Hammond Organ</span></h2>
+        <p class="slide-lead">Beyond guitar, the worksheet lists harmonica and piano as featured solo instruments, with Hammond organ arriving in British Blues and Blues Rock.</p>
+        <div class="grid-2"><div class="info-card highlight"><img src="/images/slides/blues/harmonica.jpg" alt="Blues harmonica" class="slide-thumb"><h4>The Blues Harmonica</h4><p>Played in <strong>second position (&ldquo;cross harp&rdquo;)</strong> to get bent, bluesy notes from the instrument. It trades phrases with the singer in call and response. Amplified through a microphone and amp it became a lead electric instrument.</p></div><div class="info-card cyan-edge"><img src="/images/slides/blues/hammond_organ.jpg" alt="Hammond organ" class="slide-thumb"><h4>Hammond Organ</h4><p>The <strong>Hammond organ</strong>, often played through a rotating Leslie speaker, added sustained chords and solos in British Blues and Blues Rock. Its drawbar tones and natural valve overdrive suited the style.</p></div></div>
+      </section>
+      <section class="slide" data-slide="10">
+        <div class="slide-eyebrow"><span>🇬🇧</span> AO4 &bull; Cultural Exchange</div>
+        <h2 class="slide-heading">British Blues: <span>Passed Back Across the Atlantic</span></h2>
+        <p class="slide-lead">The Blues began as a mix of European, American and African styles and was passed backwards and forwards across the Atlantic. In the 1960s young British players fell in love with Chicago blues records.</p>
+        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/blues/rolling_stones.jpg" alt="The Rolling Stones" class="slide-thumb"><h4>The Rolling Stones</h4><p>Took their name from a Muddy Waters song and covered Chicago blues on their early records, introducing the style to a young white audience.</p></div><div class="info-card cyan-edge"><img src="/images/slides/blues/john_mayall.jpg" alt="John Mayall" class="slide-thumb"><h4>John Mayall&rsquo;s Bluesbreakers</h4><p>A training ground for British blues guitarists. <em>Blues Breakers with Eric Clapton</em> (1966) featured a loud, overdriven guitar sound that influenced rock.</p></div><div class="info-card acid-edge"><img src="/images/slides/blues/eric_clapton.jpg" alt="Eric Clapton" class="slide-thumb"><h4>Eric Clapton &amp; the Yardbirds</h4><p>Clapton played with the <strong>Yardbirds</strong> and Mayall, helping turn blues guitar into a virtuoso, amplified lead instrument.</p></div></div>
+      </section>
+      <section class="slide" data-slide="11">
+        <div class="slide-eyebrow"><span>🤘</span> AO4 &bull; Influence on Rock</div>
+        <h2 class="slide-heading">Blues Rock &amp; <span>the Birth of Rock and Roll</span></h2>
+        <p class="slide-lead">The Blues influenced Rock and Roll and most subsequent rock music, including Heavy Metal. Artists bent the style into new forms.</p>
+        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/blues/chuck_berry.jpg" alt="Chuck Berry" class="slide-thumb"><h4>Chuck Berry</h4><p>Signed to Chess, he sped up the 12 bar and added country influences to create early <strong>rock and roll</strong> guitar riffs.</p></div><div class="info-card cyan-edge"><img src="/images/slides/blues/jimi_hendrix.jpg" alt="Jimi Hendrix" class="slide-thumb"><h4>Jimi Hendrix</h4><p>Took amplified blues guitar into psychedelic territory using <strong>loud valve amps, feedback and effects</strong>, while keeping blues scales and 12 bar forms.</p></div><div class="info-card acid-edge"><img src="/images/slides/blues/led_zeppelin.jpg" alt="Led Zeppelin" class="slide-thumb"><h4>Led Zeppelin</h4><p>Built heavy rock on the blues: blues scales, riffs and call-and-response, recorded with big room ambience &mdash; a bridge to Heavy Metal.</p></div></div>
+      </section>
+      <section class="slide" data-slide="12">
+        <div class="slide-eyebrow"><span>🎧</span> AO3 &amp; AO4 &bull; The Blues Today</div>
+        <h2 class="slide-heading">Sampling &amp; <span>Modern Echoes of the Blues</span></h2>
+        <p class="slide-lead">Blues filters into all kinds of popular music. The worksheet points to sampling (Moby) and singers like Amy Winehouse.</p>
+        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/blues/moby.jpg" alt="Moby" class="slide-thumb"><h4>Moby: <em>Play</em> (1999)</h4><p>Built a hit album by <strong>sampling</strong> old blues and gospel field recordings from Alan Lomax&rsquo;s Library of Congress archive, set against electronic beats &mdash; turning noisy mono discs into a stylistic feature.</p></div><div class="info-card cyan-edge"><img src="/images/slides/blues/amy_winehouse.jpg" alt="Amy Winehouse" class="slide-thumb"><h4>Amy Winehouse</h4><p>A modern singer whose jazz and blues phrasing, melismatic delivery and soulful sound show the continuing influence of the style.</p></div><div class="info-card acid-edge"><img src="/images/slides/blues/alan_lomax.jpg" alt="Alan Lomax archive" class="slide-thumb"><h4>The Archive as an Instrument</h4><p>The same field recordings captured in the 1930s&ndash;40s became raw material for sampling decades later &mdash; a perfect link between early recording technology and modern production.</p></div></div>
+      </section>
+      <section class="slide" data-slide="13">
+        <div class="slide-eyebrow"><span>⚖️</span> Component 3 Section B Preparation</div>
+        <h2 class="slide-heading">Comparison: <span>1930s Delta Field vs 1950s Chicago Studio</span></h2>
+        <p class="slide-lead">In longer comparison answers, contrast the technology and the musical result.</p>
+        <table class="comp-table"><thead><tr><th>Feature</th><th>1930s Country / Delta Blues</th><th>1950s Chicago Blues (Chess)</th></tr></thead><tbody>
+      <tr><td><strong>Instruments</strong></td><td>Solo voice with acoustic or resonator guitar; sometimes harmonica or piano.</td><td>Electric guitar, bass guitar, drums, piano and amplified harmonica &mdash; a full band.</td></tr>
+      <tr><td><strong>Recording</strong></td><td>Mono disc recorders, one source, hotel-room or field setups; scratchy with surface noise and poor separation.</td><td>Purpose-built studio, several mics, better quality and clearer band balance (vastly improved post-war).</td></tr>
+      <tr><td><strong>Sound &amp; effects</strong></td><td>Natural acoustic tone; essentially no effects.</td><td>Distortion from overdriven valve amps on guitar and harmonica; the only real &ldquo;effect&rdquo;.</td></tr>
+      <tr><td><strong>Audience &amp; purpose</strong></td><td>Local juke joints and regional record releases.</td><td>Noisy urban clubs, jukeboxes and wider R&amp;B audiences &mdash; amplification needed.</td></tr></tbody></table>
+      </section>
+      <section class="slide" data-slide="14">
+        <div class="slide-eyebrow"><span>🎯</span> Edexcel Component 3 Final Revision</div>
+        <h2 class="slide-heading">Musical Features <span>&amp; Exam Quick Reference</span></h2>
+        <p class="slide-lead">Keep these key musical features and technology terms at your fingertips for listening questions.</p>
+        <div class="grid-3"><div class="info-card highlight"><h4>Musical Features</h4><p><strong>12 bar:</strong> I I I I | IV IV I I | V IV I I.<br><strong>Scale:</strong> the blues scale.<br><strong>Texture:</strong> call and response.<br><strong>Solos:</strong> guitar, harmonica, piano.<br><strong>Lyrics:</strong> poverty, lost love.<br><strong>Voice:</strong> emotive, melismatic.</p></div><div class="info-card cyan-edge"><h4>Technology Features</h4><p><strong>Early:</strong> mono, scratchy, one source.<br><strong>1940s/50s:</strong> electric instruments (Chicago).<br><strong>Post-1945:</strong> vastly better quality.<br><strong>Effects:</strong> mainly guitar distortion.<br><strong>Later:</strong> Hammond organ (British/Blues Rock).</p></div><div class="info-card acid-edge"><h4>Key Artists</h4><p><strong>Country:</strong> Robert Johnson.<br><strong>Chicago:</strong> Muddy Waters, B.B. King.<br><strong>British:</strong> Yardbirds, Rolling Stones.<br><strong>Influence:</strong> Rock and Roll, Metal, Jazz, R&amp;B, Soul, Moby, Amy Winehouse.</p></div></div><div style="margin-top: 18px; text-align: center;"><a href="/blues-interactive-quiz.html" style="display: inline-flex; align-items: center; gap: 8px; background: var(--accent-purple); color: #060a14; font-weight: 800; font-size: 13.5px; padding: 10px 24px; border-radius: 50px; text-decoration: none; box-shadow: 0 0 20px var(--accent-purple-glow);">Test Your Knowledge: Take the 12-Question Specification Quiz &rarr;</a></div>
+      </section>
+    </main>
+    <footer class="deck-controls">
+      <button class="nav-btn" id="prevBtn" onclick="prevSlide()" disabled>&larr; Previous</button>
+      <div class="progress-container">
+        <span class="slide-counter" id="slideCounter">Slide 1 of 14</span>
+        <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+      </div>
+      <button class="nav-btn" id="nextBtn" onclick="nextSlide()">Next &rarr;</button>
+    </footer>
+  </div>
+  <div class="video-modal-backdrop" id="videoModal">
+    <div class="video-modal-content">
+      <div class="video-modal-header"><span class="video-modal-title" id="videoModalTitle">Video Clip</span><button class="close-modal-btn" onclick="closeVideo()">&times;</button></div>
+      <div class="video-player-wrapper"><iframe id="videoIframe" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+    </div>
+  </div>
+  <script>
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+    const totalSlides = slides.length;
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const slideCounter = document.getElementById('slideCounter');
+    const progressFill = document.getElementById('progressFill');
+    const videoModal = document.getElementById('videoModal');
+    const videoModalTitle = document.getElementById('videoModalTitle');
+    const videoIframe = document.getElementById('videoIframe');
+
+    function updateDeck() {
+      slides.forEach((slide, idx) => {
+        slide.classList.toggle('active', idx === currentSlide);
+      });
+
+      prevBtn.disabled = currentSlide === 0;
+      nextBtn.disabled = currentSlide === totalSlides - 1;
+      
+      slideCounter.textContent = `Slide ${currentSlide + 1} of ${totalSlides}`;
+      const percentage = ((currentSlide + 1) / totalSlides) * 100;
+      progressFill.style.width = `${percentage}%`;
+    }
+
+    function nextSlide() {
+      if (currentSlide < totalSlides - 1) {
+        currentSlide++;
+        updateDeck();
+      }
+    }
+
+    function prevSlide() {
+      if (currentSlide > 0) {
+        currentSlide--;
+        updateDeck();
+      }
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (videoModal.classList.contains('open')) {
+        if (e.key === 'Escape') closeVideo();
+        return;
+      }
+      if (e.key === 'ArrowRight' || e.key === ' ') {
+        nextSlide();
+      } else if (e.key === 'ArrowLeft') {
+        prevSlide();
+      }
+    });
+
+    let touchStartX = 0;
+    let touchEndX = 0;
+    const viewport = document.getElementById('slidesViewport');
+
+    viewport.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    viewport.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      handleSwipe();
+    }, { passive: true });
+
+    function handleSwipe() {
+      if (touchEndX < touchStartX - 50) {
+        nextSlide();
+      }
+      if (touchEndX > touchStartX + 50) {
+        prevSlide();
+      }
+    }
+
+    function openVideo(videoId, title) {
+      videoIframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
+      videoModalTitle.textContent = title;
+      videoModal.classList.add('open');
+    }
+
+    function closeVideo() {
+      videoModal.classList.remove('open');
+      videoIframe.src = '';
+    }
+
+    videoModal.addEventListener('click', (e) => {
+      if (e.target === videoModal) {
+        closeVideo();
+      }
+    });
+  </script>
+</body>
+</html>

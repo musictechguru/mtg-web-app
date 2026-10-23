@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Blues • Edexcel Component 3 Specification Quiz | Music Tech Guru</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #060a14;
+      --bg-card: #0b1226;
+      --bg-surface: #111a32;
+      --accent-purple: #60a5fa;
+      --accent-purple-glow: rgba(96, 165, 250, 0.35);
+      --accent-cyan: #f59e0b;
+      --accent-cyan-glow: rgba(245, 158, 11, 0.35);
+      --accent-acid: #22c55e;
+      --accent-red: #ef4444;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-purple: rgba(96, 165, 250, 0.35);
+      --border-cyan: rgba(245, 158, 11, 0.35);
+      --font: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: var(--font);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .quiz-container {
+      width: 100%;
+      max-width: 880px;
+      background: radial-gradient(circle at 50% 0%, rgba(96, 165, 250, 0.15) 0%, rgba(14, 17, 36, 0) 70%), var(--bg-card);
+      border: 1px solid var(--border-purple);
+      border-radius: 20px;
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.8), 0 0 40px rgba(96, 165, 250, 0.15);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    /* Top Quiz Header */
+    .quiz-header {
+      padding: 18px 26px;
+      background: rgba(6, 10, 22, 0.85);
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .quiz-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(96, 165, 250, 0.15);
+      border: 1px solid var(--border-purple);
+      color: #93c5fd;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .quiz-score-pill {
+      font-size: 12.5px;
+      color: var(--text-muted);
+      font-weight: 700;
+    }
+
+    /* Progress Bar */
+    .progress-bar-track {
+      width: 100%;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent-purple) 0%, var(--accent-cyan) 100%);
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    /* Quiz Stage */
+    .quiz-stage {
+      padding: 30px 32px 24px 32px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .question-meta {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .q-category-tag {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--accent-purple);
+    }
+
+    .q-ao-tag {
+      font-size: 10.5px;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border-subtle);
+      color: #cbd5e1;
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+
+    .question-text {
+      font-size: clamp(17px, 2.5vw, 20px);
+      font-weight: 800;
+      line-height: 1.4;
+      color: #ffffff;
+      margin-bottom: 22px;
+    }
+
+    /* Options Grid */
+    .options-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .option-btn {
+      background: rgba(17, 26, 50, 0.6);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 13px 18px;
+      color: #e2e8f0;
+      font-family: var(--font);
+      font-size: 13.5px;
+      line-height: 1.45;
+      font-weight: 600;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .option-btn:hover:not(:disabled) {
+      background: rgba(17, 26, 50, 0.95);
+      border-color: rgba(96, 165, 250, 0.5);
+      transform: translateX(4px);
+    }
+
+    .option-letter {
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 800;
+      color: #94a3b8;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .option-btn.correct {
+      background: rgba(34, 197, 94, 0.15) !important;
+      border-color: var(--accent-acid) !important;
+      color: #86efac !important;
+    }
+
+    .option-btn.correct .option-letter {
+      background: var(--accent-acid);
+      color: #060a14;
+    }
+
+    .option-btn.wrong {
+      background: rgba(239, 68, 68, 0.15) !important;
+      border-color: var(--accent-red) !important;
+      color: #fca5a5 !important;
+    }
+
+    .option-btn.wrong .option-letter {
+      background: var(--accent-red);
+      color: #ffffff;
+    }
+
+    .option-btn:disabled {
+      cursor: default;
+    }
+
+    /* Explanation & Feedback Card */
+    .insight-card {
+      display: none;
+      background: rgba(6, 10, 22, 0.85);
+      border: 1px solid var(--border-purple);
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-bottom: 20px;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .insight-card.open {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .insight-title {
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--accent-purple);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .insight-body {
+      font-size: 12.5px;
+      color: #cbd5e1;
+      line-height: 1.55;
+      margin-bottom: 6px;
+    }
+
+    .insight-tip {
+      font-size: 11.5px;
+      color: #fbbf24;
+      font-style: italic;
+    }
+
+    /* Quiz Footer */
+    .quiz-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 10px;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .q-counter {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-muted);
+    }
+
+    .next-q-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent-purple);
+      color: #060a14;
+      border: none;
+      padding: 10px 22px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .next-q-btn:hover:not(:disabled) {
+      box-shadow: 0 0 20px var(--accent-purple-glow);
+      transform: translateY(-1px);
+    }
+
+    .next-q-btn:disabled {
+      opacity: 0.25;
+      cursor: not-allowed;
+    }
+
+    /* Results Screen */
+    .results-screen {
+      display: none;
+      padding: 40px 32px;
+      text-align: center;
+      flex-direction: column;
+      align-items: center;
+      animation: fadeIn 0.4s ease;
+    }
+
+    .results-screen.open {
+      display: flex;
+    }
+
+    .results-score-circle {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      background: rgba(96, 165, 250, 0.15);
+      border: 3px solid var(--accent-purple);
+      box-shadow: 0 0 30px var(--accent-purple-glow);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .results-score-num {
+      font-size: 32px;
+      font-weight: 900;
+      color: #ffffff;
+      line-height: 1;
+    }
+
+    .results-score-total {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 700;
+    }
+
+    .results-grade-badge {
+      display: inline-block;
+      background: rgba(34, 197, 94, 0.15);
+      border: 1px solid var(--accent-acid);
+      color: #86efac;
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 800;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .results-title {
+      font-size: 24px;
+      font-weight: 900;
+      color: #ffffff;
+      margin-bottom: 8px;
+    }
+
+    .results-message {
+      font-size: 14px;
+      color: #cbd5e1;
+      max-width: 580px;
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+
+    .results-actions {
+      display: flex;
+      gap: 12px;
+    }
+
+    .restart-btn {
+      background: var(--accent-purple);
+      color: #060a14;
+      border: none;
+      padding: 10px 24px;
+      border-radius: 8px;
+      font-size: 13.5px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .restart-btn:hover {
+      box-shadow: 0 0 20px var(--accent-purple-glow);
+      transform: translateY(-1px);
+    }
+
+    .back-slides-btn {
+      background: rgba(255, 255, 255, 0.08);
+      color: #ffffff;
+      border: 1px solid var(--border-subtle);
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 13.5px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .back-slides-btn:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="quiz-container">
+    <!-- Top Header -->
+    <div class="quiz-header">
+      <div class="quiz-badge">
+        <span>🎸</span> Edexcel Component 3 &bull; Specification Quiz
+      </div>
+      <div class="quiz-score-pill">
+        Score: <strong style="color: var(--accent-purple);" id="currentScore">0</strong> / 12
+      </div>
+    </div>
+
+    <!-- Progress Track -->
+    <div class="progress-bar-track">
+      <div class="progress-bar-fill" id="progressFill"></div>
+    </div>
+
+    <!-- Active Quiz Stage -->
+    <div class="quiz-stage" id="quizStage">
+      <div class="question-meta">
+        <span class="q-category-tag" id="qCategory">Category</span>
+        <span class="q-ao-tag" id="qAoTag">AO Tag</span>
+      </div>
+
+      <h3 class="question-text" id="qText">Question Stem Loading...</h3>
+
+      <div class="options-grid" id="optionsGrid">
+        <!-- Buttons injected dynamically -->
+      </div>
+
+      <div class="insight-card" id="insightCard">
+        <div class="insight-title">
+          <span>💡</span> Technical Analysis &amp; Syllabus Context
+        </div>
+        <div class="insight-body" id="insightBody"></div>
+        <div class="insight-tip" id="insightTip"></div>
+      </div>
+
+      <div class="quiz-footer">
+        <span class="q-counter" id="qCounter">Question 1 of 12</span>
+        <button class="next-q-btn" id="nextBtn" onclick="nextQuestion()" disabled>
+          Next Question &rarr;
+        </button>
+      </div>
+    </div>
+
+    <!-- Results Screen -->
+    <div class="results-screen" id="resultsScreen">
+      <div class="results-score-circle">
+        <span class="results-score-num" id="finalScoreVal">0</span>
+        <span class="results-score-total">out of 12</span>
+      </div>
+      <div class="results-grade-badge" id="gradeBadge">Distinction</div>
+      <h2 class="results-title" id="resultTitle">Performance Summary</h2>
+      <p class="results-message" id="resultMessage">Analysis message goes here.</p>
+
+      <div class="results-actions">
+        <button class="restart-btn" onclick="restartQuiz()">Retake Quiz</button>
+        <a href="/interactive-slide-blues.html" class="back-slides-btn">&larr; Return to Slide Deck</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const questions = [
+  {
+    "category": "Musical Structure",
+    "ao": "AO4: Musical Features",
+    "text": "Which chord pattern is the standard 12 bar blues?",
+    "correct": "I I I I | IV IV I I | V IV I I",
+    "wrong": [
+      "I IV V I | I IV V I | I IV V I",
+      "I I IV IV | V V I I | I IV V V",
+      "ii V I I | ii V I I | IV V I I"
+    ],
+    "explanation": "The 12 bar blues is built on chords I, IV and V: four bars of I, two of IV, two of I, then V, IV and two bars of I. Other simple I, IV, V progressions are also common.",
+    "tip": "12 bar blues = I I I I | IV IV I I | V IV I I."
+  },
+  {
+    "category": "Musical Texture",
+    "ao": "AO4: Musical Features",
+    "text": "What is \"call and response\" in the blues?",
+    "correct": "A vocal phrase answered by the lead instrument, such as guitar or harmonica",
+    "wrong": [
+      "Two singers performing the same melody a third apart",
+      "A drum fill that signals a change of section",
+      "A repeated bass riff under a sustained chord"
+    ],
+    "explanation": "Call and response is a conversation between the voice (the call) and a lead instrument such as guitar or harmonica (the response).",
+    "tip": "Call and response: voice asks, instrument answers."
+  },
+  {
+    "category": "Country Blues Recording",
+    "ao": "AO3: Recording Technology",
+    "text": "Which description best fits early Country Blues recordings such as those of Robert Johnson?",
+    "correct": "Mono, scratchy and noisy, with poor separation because the musician was recorded with one source",
+    "wrong": [
+      "Stereo recordings with a separate microphone on every instrument",
+      "Clean multitrack recordings overdubbed in a purpose-built studio",
+      "Digital recordings with heavy artificial reverb"
+    ],
+    "explanation": "Early blues was captured on mono discs with lots of surface noise. Musicians were gathered around a single recorder or microphone, so instruments are not separated.",
+    "tip": "Early blues = mono, scratchy, surface noise, poor separation."
+  },
+  {
+    "category": "Recording History",
+    "ao": "AO3: Recording Technology",
+    "text": "What changed in the mid 1920s that improved the sound of blues records?",
+    "correct": "Electrical recording with microphones replaced purely acoustic horn recording",
+    "wrong": [
+      "Multitrack tape recording replaced mono discs",
+      "Digital sampling was introduced",
+      "Stereo vinyl LPs became the standard format"
+    ],
+    "explanation": "Before 1925 performers played into an acoustic horn. Electrical recording using microphones captured a wider frequency range, and quality improved again after 1945.",
+    "tip": "c.1925: acoustic horn → electrical microphone recording."
+  },
+  {
+    "category": "Instruments",
+    "ao": "AO3: Instruments",
+    "text": "Why was the metal-bodied resonator guitar popular with early blues players?",
+    "correct": "Its metal resonator cone made the acoustic guitar much louder before electric amplification",
+    "wrong": [
+      "It could be plugged straight into a valve amplifier",
+      "It produced a clean, quiet tone ideal for studio vocals",
+      "It had two necks so it could play bass and lead"
+    ],
+    "explanation": "The resonator cone amplifies the string vibrations acoustically, so the guitar cuts through in noisy venues and on early single-microphone recordings.",
+    "tip": "Resonator = louder acoustic guitar via a metal cone."
+  },
+  {
+    "category": "Guitar Technique",
+    "ao": "AO3: Instruments",
+    "text": "What does slide (bottleneck) guitar technique produce?",
+    "correct": "A continuous, voice-like glide between pitches",
+    "wrong": [
+      "Rapid hammered-on notes with no sustain",
+      "Muted percussive chords only",
+      "Notes that are always exactly in tune with the frets"
+    ],
+    "explanation": "A glass or metal slide is moved along the strings, creating smooth glissandi that imitate the human voice. It is especially associated with Country Blues.",
+    "tip": "Slide guitar = vocal-like glissando; typical of Country Blues."
+  },
+  {
+    "category": "Chicago Blues",
+    "ao": "AO3: Technology & AO4: Context",
+    "text": "Why did Chicago Blues musicians such as Muddy Waters adopt electric guitar and amplification?",
+    "correct": "To be heard in noisy urban clubs and to give the guitar and harmonica lead-instrument power",
+    "wrong": [
+      "Because acoustic guitars were banned in Chicago",
+      "Because record labels required all blues to be played on piano",
+      "Because amplification removed the need for a drummer"
+    ],
+    "explanation": "Chicago Blues introduced electric guitar, bass guitar, drums and amplified harmonica. Amplification let the band be heard over crowds and gave the instruments a strong lead voice.",
+    "tip": "Chicago Blues = electric guitar, bass, drums, amplified harmonica."
+  },
+  {
+    "category": "Amplified Harmonica",
+    "ao": "AO3: Technology",
+    "text": "How did Little Walter create his famous overdriven harmonica sound?",
+    "correct": "He played through a hand-held microphone into a small guitar amp pushed into overdrive",
+    "wrong": [
+      "He recorded onto wax cylinders and sped them up",
+      "He used a Hammond organ and Leslie speaker",
+      "He added a digital delay pedal after recording"
+    ],
+    "explanation": "Cupping a microphone and driving a small valve amp into overdrive gave the harmonica a thick, distorted, saxophone-like tone.",
+    "tip": "Amplified harp = mic + small valve amp driven into overdrive."
+  },
+  {
+    "category": "Valve Amplifiers",
+    "ao": "AO3: Distortion",
+    "text": "What produces the natural overdrive on Chicago blues guitar recordings?",
+    "correct": "Small valve amplifiers turned up until the valves clip and the speaker compresses the signal",
+    "wrong": [
+      "A built-in digital distortion chip",
+      "Tape speed being changed during mixing",
+      "A plate reverb unit set to maximum"
+    ],
+    "explanation": "The worksheet notes little use of effects apart from distortion. That distortion came from pushing valve amps beyond their clean headroom, adding warm harmonics and compression.",
+    "tip": "Distortion = pushed valve amp, not a pedal."
+  },
+  {
+    "category": "Record Labels",
+    "ao": "AO4: Context",
+    "text": "Which Chicago label, run by Leonard and Phil Chess, recorded Muddy Waters and Howlin' Wolf?",
+    "correct": "Chess Records",
+    "wrong": [
+      "Sun Records",
+      "Motown",
+      "Atlantic Records"
+    ],
+    "explanation": "Chess Records of Chicago released the key electric blues artists, with Willie Dixon as bassist, songwriter and talent scout.",
+    "tip": "Chess Records = Muddy Waters, Howlin' Wolf, Willie Dixon."
+  },
+  {
+    "category": "British Blues & Exchange",
+    "ao": "AO4: Cultural Context",
+    "text": "What does the career of the Rolling Stones show about the history of the blues?",
+    "correct": "The blues was passed back and forth across the Atlantic between black and white musicians",
+    "wrong": [
+      "The blues was invented in Britain and exported to America",
+      "The blues stopped being played in America after 1960",
+      "The blues has never influenced rock music"
+    ],
+    "explanation": "The blues began as a mix of European, American and African styles and was exchanged across the Atlantic by artists including B.B. King, the Rolling Stones, Chuck Berry, Jimi Hendrix, Eric Clapton and Led Zeppelin.",
+    "tip": "Cultural exchange: blues ↔ British blues ↔ rock."
+  },
+  {
+    "category": "Modern Legacy & Sampling",
+    "ao": "AO3 & AO4: Influence",
+    "text": "How did Moby's album Play show the influence of blues field recordings?",
+    "correct": "It sampled old blues and gospel field recordings from the Lomax archive and combined them with electronic beats",
+    "wrong": [
+      "It was recorded live on wax cylinders",
+      "It used no samples and only live blues musicians",
+      "It was a straight cover of Chicago blues songs"
+    ],
+    "explanation": "Moby sampled historic recordings, turning the noise and character of early mono field recordings into part of a modern production. The worksheet highlights sampling (Moby) as a modern blues influence.",
+    "tip": "Modern link: sampling old blues recordings (Moby)."
+  }
+];
+
+    function shuffle(arr) {
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+
+    let currentQ = 0;
+    let score = 0;
+    let answered = false;
+    let currentOptions = [];
+
+    const qText = document.getElementById('qText');
+    const qCategory = document.getElementById('qCategory');
+    const qAoTag = document.getElementById('qAoTag');
+    const optionsGrid = document.getElementById('optionsGrid');
+    const insightCard = document.getElementById('insightCard');
+    const insightBody = document.getElementById('insightBody');
+    const insightTip = document.getElementById('insightTip');
+    const qCounter = document.getElementById('qCounter');
+    const currentScore = document.getElementById('currentScore');
+    const progressFill = document.getElementById('progressFill');
+    const nextBtn = document.getElementById('nextBtn');
+    const quizStage = document.getElementById('quizStage');
+    const resultsScreen = document.getElementById('resultsScreen');
+    const finalScoreVal = document.getElementById('finalScoreVal');
+    const gradeBadge = document.getElementById('gradeBadge');
+    const resultTitle = document.getElementById('resultTitle');
+    const resultMessage = document.getElementById('resultMessage');
+    const letters = ['A', 'B', 'C', 'D'];
+
+    function loadQuestion(index) {
+      answered = false;
+      const q = questions[index];
+      qCategory.textContent = q.category;
+      qAoTag.textContent = q.ao;
+      qText.textContent = q.text;
+      qCounter.textContent = `Question ${index + 1} of ${questions.length}`;
+      currentScore.textContent = score;
+      progressFill.style.width = `${((index + 1) / questions.length) * 100}%`;
+      insightCard.classList.remove('open');
+      nextBtn.disabled = true;
+
+      currentOptions = shuffle([{ text: q.correct, ok: true }, ...q.wrong.map(w => ({ text: w, ok: false }))]);
+      optionsGrid.innerHTML = '';
+      currentOptions.forEach((opt, i) => {
+        const btn = document.createElement('button');
+        btn.className = 'option-btn';
+        btn.onclick = () => selectOption(i);
+        btn.innerHTML = `<span class="option-letter">${letters[i]}</span><span>${opt.text}</span>`;
+        optionsGrid.appendChild(btn);
+      });
+    }
+
+    function selectOption(i) {
+      if (answered) return;
+      answered = true;
+      const q = questions[currentQ];
+      const buttons = optionsGrid.querySelectorAll('.option-btn');
+      buttons.forEach(b => b.disabled = true);
+      const correctIdx = currentOptions.findIndex(o => o.ok);
+      if (currentOptions[i].ok) {
+        buttons[i].classList.add('correct');
+        score++;
+        currentScore.textContent = score;
+      } else {
+        buttons[i].classList.add('wrong');
+        buttons[correctIdx].classList.add('correct');
+      }
+      insightBody.textContent = q.explanation;
+      insightTip.innerHTML = `<strong>Revision Note:</strong> ${q.tip}`;
+      insightCard.classList.add('open');
+      nextBtn.disabled = false;
+    }
+
+    function nextQuestion() {
+      if (currentQ < questions.length - 1) {
+        currentQ++;
+        loadQuestion(currentQ);
+      } else {
+        showResults();
+      }
+    }
+
+    function showResults() {
+      quizStage.style.display = 'none';
+      resultsScreen.classList.add('open');
+      finalScoreVal.textContent = score;
+      const pct = (score / questions.length) * 100;
+      if (pct >= 85) {
+        gradeBadge.textContent = 'Grade 9 • Distinction Star';
+        resultTitle.textContent = 'Outstanding Blues Specification Mastery!';
+        resultMessage.textContent = 'You can explain the 12 bar form, early mono recording, resonator and slide guitar, Chicago electrification, valve overdrive and the blues legacy in sampling and rock.';
+      } else if (pct >= 65) {
+        gradeBadge.textContent = 'Grade 7-8 • Merit / Distinction';
+        resultTitle.textContent = 'Solid Syllabus Understanding';
+        resultMessage.textContent = 'Good work. Revisit how amplification and valve overdrive shaped Chicago Blues, and the technology differences between early field recordings and Chess studio recordings.';
+      } else {
+        gradeBadge.textContent = 'Revision Recommended';
+        resultTitle.textContent = 'Targeted Revision Needed';
+        resultMessage.textContent = 'Return to the Blues study deck to review the 12 bar pattern, call and response, early recording limits and the move to electric instruments.';
+      }
+    }
+
+    function restartQuiz() {
+      currentQ = 0;
+      score = 0;
+      resultsScreen.classList.remove('open');
+      quizStage.style.display = 'flex';
+      loadQuestion(0);
+    }
+
+    loadQuestion(0);
+  </script>
+</body>
+</html>
