@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Blues • Edexcel Component 3 Specification Quiz | Music Tech Guru</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+
+    :root {
+      --bg-dark: #080e1a;
+      --bg-card: #0f172a;
+      --bg-surface: #1e293b;
+      --accent-purple: #fbbf24;
+      --accent-purple-glow: rgba(251, 191, 36, 0.35);
+      --accent-cyan: #f59e0b;
+      --accent-cyan-glow: rgba(245, 158, 11, 0.35);
+      --accent-acid: #22c55e;
+      --accent-red: #ef4444;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-purple: rgba(251, 191, 36, 0.35);
+      --border-cyan: rgba(245, 158, 11, 0.35);
+      --font: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: var(--font);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .quiz-container {
+      width: 100%;
+      max-width: 880px;
+      background: radial-gradient(circle at 50% 0%, rgba(251, 191, 36, 0.15) 0%, rgba(14, 17, 36, 0) 70%), var(--bg-card);
+      border: 1px solid var(--border-purple);
+      border-radius: 20px;
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.8), 0 0 40px rgba(251, 191, 36, 0.15);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    /* Top Quiz Header */
+    .quiz-header {
+      padding: 18px 26px;
+      background: rgba(8, 13, 10, 0.85);
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .quiz-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(251, 191, 36, 0.15);
+      border: 1px solid var(--border-purple);
+      color: #6ee7b7;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .quiz-score-pill {
+      font-size: 12.5px;
+      color: var(--text-muted);
+      font-weight: 700;
+    }
+
+    /* Progress Bar */
+    .progress-bar-track {
+      width: 100%;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent-purple) 0%, var(--accent-cyan) 100%);
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    /* Quiz Stage */
+    .quiz-stage {
+      padding: 30px 32px 24px 32px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .question-meta {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .q-category-tag {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--accent-purple);
+    }
+
+    .q-ao-tag {
+      font-size: 10.5px;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border-subtle);
+      color: #cbd5e1;
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+
+    .question-text {
+      font-size: clamp(17px, 2.5vw, 20px);
+      font-weight: 800;
+      line-height: 1.4;
+      color: #ffffff;
+      margin-bottom: 22px;
+    }
+
+    /* Options Grid */
+    .options-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .option-btn {
+      background: rgba(20, 32, 25, 0.6);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 13px 18px;
+      color: #e2e8f0;
+      font-family: var(--font);
+      font-size: 13.5px;
+      line-height: 1.45;
+      font-weight: 600;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .option-btn:hover:not(:disabled) {
+      background: rgba(20, 32, 25, 0.95);
+      border-color: rgba(251, 191, 36, 0.5);
+      transform: translateX(4px);
+    }
+
+    .option-letter {
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 800;
+      color: #94a3b8;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .option-btn.correct {
+      background: rgba(34, 197, 94, 0.15) !important;
+      border-color: var(--accent-acid) !important;
+      color: #86efac !important;
+    }
+
+    .option-btn.correct .option-letter {
+      background: var(--accent-acid);
+      color: #080e1a;
+    }
+
+    .option-btn.wrong {
+      background: rgba(239, 68, 68, 0.15) !important;
+      border-color: var(--accent-red) !important;
+      color: #fca5a5 !important;
+    }
+
+    .option-btn.wrong .option-letter {
+      background: var(--accent-red);
+      color: #ffffff;
+    }
+
+    .option-btn:disabled {
+      cursor: default;
+    }
+
+    /* Explanation & Feedback Card */
+    .insight-card {
+      display: none;
+      background: rgba(8, 13, 10, 0.85);
+      border: 1px solid var(--border-purple);
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-bottom: 20px;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .insight-card.open {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .insight-title {
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--accent-purple);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .insight-body {
+      font-size: 12.5px;
+      color: #cbd5e1;
+      line-height: 1.55;
+      margin-bottom: 6px;
+    }
+
+    .insight-tip {
+      font-size: 11.5px;
+      color: #fbbf24;
+      font-style: italic;
+    }
+
+    /* Quiz Footer */
+    .quiz-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 10px;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .q-counter {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-muted);
+    }
+
+    .next-q-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent-purple);
+      color: #080e1a;
+      border: none;
+      padding: 10px 22px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .next-q-btn:hover:not(:disabled) {
+      box-shadow: 0 0 20px var(--accent-purple-glow);
+      transform: translateY(-1px);
+    }
+
+    .next-q-btn:disabled {
+      opacity: 0.25;
+      cursor: not-allowed;
+    }
+
+    /* Results Screen */
+    .results-screen {
+      display: none;
+      padding: 40px 32px;
+      text-align: center;
+      flex-direction: column;
+      align-items: center;
+      animation: fadeIn 0.4s ease;
+    }
+
+    .results-screen.open {
+      display: flex;
+    }
+
+    .results-score-circle {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      background: rgba(251, 191, 36, 0.15);
+      border: 3px solid var(--accent-purple);
+      box-shadow: 0 0 30px var(--accent-purple-glow);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .results-score-num {
+      font-size: 32px;
+      font-weight: 900;
+      color: #ffffff;
+      line-height: 1;
+    }
+
+    .results-score-total {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 700;
+    }
+
+    .results-grade-badge {
+      display: inline-block;
+      background: rgba(34, 197, 94, 0.15);
+      border: 1px solid var(--accent-acid);
+      color: #86efac;
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 800;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .results-title {
+      font-size: 24px;
+      font-weight: 900;
+      color: #ffffff;
+      margin-bottom: 8px;
+    }
+
+    .results-message {
+      font-size: 14px;
+      color: #cbd5e1;
+      max-width: 580px;
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+
+    .results-actions {
+      display: flex;
+      gap: 12px;
+    }
+
+    .restart-btn {
+      background: var(--accent-purple);
+      color: #080e1a;
+      border: none;
+      padding: 10px 24px;
+      border-radius: 8px;
+      font-size: 13.5px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .restart-btn:hover {
+      box-shadow: 0 0 20px var(--accent-purple-glow);
+      transform: translateY(-1px);
+    }
+
+    .back-slides-btn {
+      background: rgba(255, 255, 255, 0.08);
+      color: #ffffff;
+      border: 1px solid var(--border-subtle);
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 13.5px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .back-slides-btn:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="quiz-container">
+    <!-- Top Header -->
+    <div class="quiz-header">
+      <div class="quiz-badge">
+        <span>🎸</span> Edexcel Component 3 &bull; Specification Quiz
+      </div>
+      <div class="quiz-score-pill">
+        Score: <strong style="color: var(--accent-purple);" id="currentScore">0</strong> / 12
+      </div>
+    </div>
+
+    <!-- Progress Track -->
+    <div class="progress-bar-track">
+      <div class="progress-bar-fill" id="progressFill"></div>
+    </div>
+
+    <!-- Active Quiz Stage -->
+    <div class="quiz-stage" id="quizStage">
+      <div class="question-meta">
+        <span class="q-category-tag" id="qCategory">Category</span>
+        <span class="q-ao-tag" id="qAoTag">AO Tag</span>
+      </div>
+
+      <h3 class="question-text" id="qText">Question Stem Loading...</h3>
+
+      <div class="options-grid" id="optionsGrid">
+        <!-- Buttons injected dynamically -->
+      </div>
+
+      <div class="insight-card" id="insightCard">
+        <div class="insight-title">
+          <span>💡</span> Technical Analysis &amp; Syllabus Context
+        </div>
+        <div class="insight-body" id="insightBody"></div>
+        <div class="insight-tip" id="insightTip"></div>
+      </div>
+
+      <div class="quiz-footer">
+        <span class="q-counter" id="qCounter">Question 1 of 12</span>
+        <button class="next-q-btn" id="nextBtn" onclick="nextQuestion()" disabled>
+          Next Question &rarr;
+        </button>
+      </div>
+    </div>
+
+    <!-- Results Screen -->
+    <div class="results-screen" id="resultsScreen">
+      <div class="results-score-circle">
+        <span class="results-score-num" id="finalScoreVal">0</span>
+        <span class="results-score-total">out of 12</span>
+      </div>
+      <div class="results-grade-badge" id="gradeBadge">Distinction</div>
+      <h2 class="results-title" id="resultTitle">Performance Summary</h2>
+      <p class="results-message" id="resultMessage">Analysis message goes here.</p>
+
+      <div class="results-actions">
+        <button class="restart-btn" onclick="restartQuiz()">Retake Quiz</button>
+        <a href="/interactive-slide-blues.html" class="back-slides-btn">&larr; Return to Slide Deck</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const questions = [
+  {
+    "category": "4-Track Tape Mechanics",
+    "ao": "AO3: Magnetic Tape Width & Signal Quality",
+    "text": "Why did Abbey Road's Studer J37 4-track tape recorder use 1-inch wide magnetic tape rather than 1/4-inch tape?",
+    "correct": "Wider tape tracks preserve wide dynamic range, high fidelity, and favorable signal-to-noise ratio across 4 discrete channels",
+    "wrong": [
+      "Wider tape ribbon allows the transport motors to operate at quadruple speeds up to 120 ips to eliminate all high-frequency wow",
+      "Wider tape substrate completely eliminates the requirement for AC bias current application when magnetizing ferric oxide layers",
+      "Wider tape allows up to 64 discrete high-impedance channels to be etched simultaneously using specialized stereo record gaps"
+    ],
+    "explanation": "Spreading only 4 tracks across a full 1-inch tape width yielded approximately 0.2-inch track width per channel. This substantial surface area captured strong magnetic flux, maximizing signal-to-noise ratio and headroom while minimizing tape hiss at 15 ips.",
+    "tip": "Tape Track Width: Wider track width yields higher dynamic range and lower background tape hiss."
+  },
+  {
+    "category": "Reduction Mixing & Bouncing",
+    "ao": "AO3: Audio Trade-Offs in Track Bouncing",
+    "text": "What physical audio trade-off occurred every time Abbey Road engineers 'bounced down' 4 tracks from Machine 1 onto Machine 2?",
+    "correct": "Generational loss added approximately +3 dB of background tape hiss and subtle wow, flutter, and top-end clarity loss",
+    "wrong": [
+      "The master tape speed dropped automatically by 50 percent, transposing all musical performances downwards by one full octave",
+      "The audio signal was permanently converted from analog electromagnetic flux into 8-bit digital linear pulse-code modulation",
+      "Dynamic range expanded drastically by +18 dB while odd-order harmonic distortion was eliminated completely by the circuits"
+    ],
+    "explanation": "Track bouncing (reduction mixing) forced the signal through an additional stage of playback electronics, console mixing, record amplifiers, and a new magnetic tape coat. Each generation accumulated tape hiss (+3 dB noise floor increase) and slight mechanical wow/flutter.",
+    "tip": "Generational Loss: Each tape-to-tape bounce degrades signal-to-noise ratio and subtly softens transients."
+  },
+  {
+    "category": "Overdubbing Synchronization",
+    "ao": "AO3: Sel-Sync Head Monitoring",
+    "text": "How did the Sel-Sync (Selective Synchronous) system prevent timing lag when musicians overdubbed new parts onto a 4-track tape?",
+    "correct": "It switched the Record head of prerecorded tracks into temporary playback mode, eliminating the physical gap to the Play head",
+    "wrong": [
+      "It accelerated the capstan drive motor during overdubs to compensate for the acoustic travel time of sound across the studio",
+      "It routed audio through an electronic digital delay line calibrated to hold incoming microphone signals for exactly 200 ms",
+      "It used synchronized wireless radio transmitters to broadcast click tracks directly to magnetic in-ear monitoring earpieces"
+    ],
+    "explanation": "If musicians monitored previously recorded tracks via the Playback head while recording new tracks at the Record head, the 1.5-inch distance between heads caused ~100 ms of playback delay. Sel-Sync allowed existing tracks to be played back through the Record head itself, ensuring sample-accurate synchronisation.",
+    "tip": "Sel-Sync: Temporarily converts record head into playback head so overdubs align perfectly in time."
+  },
+  {
+    "category": "Studio Innovation & Effects",
+    "ao": "AO3: Automatic Double Tracking (ADT)",
+    "text": "How did Abbey Road technical engineer Ken Townsend create Automatic Double Tracking (ADT) for John Lennon in 1966?",
+    "correct": "He routed the sync record head output to a secondary tape recorder driven by a variable frequency oscillator to delay audio",
+    "wrong": [
+      "He inserted a dual-channel analog bucket-brigade delay pedal configured with high feedback and continuous chorus modulation",
+      "He duplicated the single microphone audio line inside the console and panned the two identical fader channels hard left/right",
+      "He routed audio into an acoustic concrete echo chamber and gated the returning reverberant signal with a high-pass filter"
+    ],
+    "explanation": "Townsend tapped the audio from the Studer J37's sync record head and fed it into a secondary BTR2 tape recorder. By adjusting the secondary machine's speed with a Variable Speed Oscillator (VSO), he introduced a controllable 10\u201340 ms delay with natural wow/flutter that simulated a real second vocal take.",
+    "tip": "ADT: Uses a second tape machine with variable speed control to create artificial vocal doubling."
+  },
+  {
+    "category": "Rotary Speaker Acoustic Physics",
+    "ao": "AO3: The Leslie 122 Rotating Cabinet",
+    "text": "Which physical acoustic phenomenon gives the Leslie 122 rotating speaker its distinctive sweeping chorale and tremolo sound?",
+    "correct": "The Doppler effect continuously modulates pitch as rotating horns approach and recede, causing phase and amplitude shifts",
+    "wrong": [
+      "An internal digital DSP chip continuously calculates micro-pitch shifting and routes odd harmonics through a brickwall filter",
+      "Dual mechanical spring tanks inside the base chassis oscillate rapidly back and forth when driven by low-frequency signals",
+      "An optical photocell circuit continuously sweeps a sharp high-pass filter cutoff frequency in direct response to organ volume"
+    ],
+    "explanation": "As the Leslie's upper horn rotates toward the listener/mic, sound waves compress (pitch rises); as it rotates away, sound waves stretch (pitch drops). Combined with amplitude fluctuations (tremolo) and reflections bouncing off cabinet walls, this produces rich Doppler chorusing.",
+    "tip": "Leslie Speaker: Doppler pitch modulation + tremolo amplitude changes from mechanical rotation."
+  },
+  {
+    "category": "Pre-Digital Sampling",
+    "ao": "AO3: The Mellotron M400 Mechanism",
+    "text": "What physical mechanism does the Mellotron M400 use to generate realistic orchestral instrument sounds from its keyboard?",
+    "correct": "Each key pulls an individual 3/8-inch magnetic tape strip across an analog playback head, limited to 8 seconds of audio",
+    "wrong": [
+      "Each key strikes a tuned steel tuning fork whose electromagnetic vibrations are captured by dual high-output magnetic pickups",
+      "Each key triggers an 8-bit digital audio sample stored in solid-state ROM memory chips running through an analog ladder filter",
+      "Each key releases compressed air across tuned brass organ pipes housed inside an acoustic soundproof isolation box cabinet"
+    ],
+    "explanation": "The Mellotron is an electro-mechanical tape replay keyboard. Beneath every key is an authentic 3/8-inch magnetic tape recorded with 8 seconds of a real instrument (violins, flutes, choir). When a key is released, a mechanical spring snaps the tape back to the start.",
+    "tip": "Mellotron: Magnetic tape replay sampler; 8-second sustained note limit per key."
+  },
+  {
+    "category": "Mixing Console Architecture",
+    "ao": "AO3: EMI REDD Consoles & Preamps",
+    "text": "What type of preamplification modules powered Abbey Road's famous EMI REDD.37 and REDD.51 valve mixing consoles?",
+    "correct": "Siemens V72 and V72s vacuum tube telecommunication amplifiers delivering ultra-low distortion and warm transformer gain",
+    "wrong": [
+      "Solid-state silicon operational amplifier integrated circuits designed to deliver completely sterile, uncoloured audio gain",
+      "Passive transformer step-up stages operating with zero vacuum tubes or active transistors to avoid any harmonic coloration",
+      "Germanium transistor preamplifiers driven into continuous hard square-wave clipping to generate aggressive heavy metal tones"
+    ],
+    "explanation": "The REDD desks utilized German Siemens V72 / V72s tube amplifier modules. These high-grade European broadcast amplifiers provided +34 dB of ultra-clean, linear gain with musical second-order harmonic richness and low noise.",
+    "tip": "REDD Consoles: Powered by Siemens V72 valve amplifier modules; defined the 1960s Abbey Road sound."
+  },
+  {
+    "category": "Dynamics & Limiting",
+    "ao": "AO3: Variable-Mu vs Optical Compression",
+    "text": "How does the Fairchild 670 limiter achieve its famous ultra-fast transient control compared to the Teletronix LA-2A?",
+    "correct": "The Fairchild uses variable-mu vacuum tubes for microsecond attack, whereas the LA-2A uses a slower optical light panel and cell",
+    "wrong": [
+      "The Fairchild uses digital DSP lookahead buffers, whereas the LA-2A uses high-speed silicon field-effect transistors (FETs)",
+      "The Fairchild uses passive light-dependent resistors, whereas the LA-2A relies exclusively on motorized fader automation units",
+      "The Fairchild operates strictly as a downward expander, whereas the LA-2A is an upward multiband dynamic peak transient clipper"
+    ],
+    "explanation": "The Fairchild 670 uses variable-mu tubes (gain reduction occurs directly inside remote-cutoff vacuum tubes), allowing near-instantaneous attack times down to 50 microseconds. The LA-2A uses a T4 optical cell (electroluminescent panel + photocell), producing a slower, smoother, multi-stage release.",
+    "tip": "Fairchild = Ultra-fast variable-mu valve limiting; LA-2A = Smooth electro-optical leveling."
+  },
+  {
+    "category": "Spatial Acoustics",
+    "ao": "AO3: The EMT 140 Steel Plate Reverb",
+    "text": "Why did studios widely adopt the EMT 140 plate reverb in the 1960s as an alternative to acoustic echo chambers?",
+    "correct": "It provided dense, bright reverberation in a self-contained unit with an adjustable mechanical damping pad to control decay",
+    "wrong": [
+      "It completely eliminated the requirement for electrical power by operating entirely via acoustic soundwave reflection tubes",
+      "It allowed engineers to digitally synthesize convolution impulse responses of world-famous concert halls and stone cathedrals",
+      "It was light enough to be clipped directly onto electric guitars to generate authentic slapback delay during live concerts"
+    ],
+    "explanation": "The EMT 140 used a 1x2 meter cold-rolled steel plate suspended in a heavy frame. A transducer vibrated the plate, and contact pickups captured dense reflections. A motorized mechanical damping pad allowed decay times to be varied from 0.5 to 5.0 seconds from the control room.",
+    "tip": "EMT 140 Plate Reverb: High reflection density, bright sheen, and remote motorized mechanical decay damping."
+  },
+  {
+    "category": "Modulation Effects",
+    "ao": "AO3: Tape Flanging Origin",
+    "text": "How was the 'flanging' modulation effect physically produced on recordings like The Small Faces' 'Itchycoo Park' (1967)?",
+    "correct": "By playing two tape machines in sync and pressing a thumb onto the metal reel flange of one machine to alter its phase timing",
+    "wrong": [
+      "By routing audio through an analog all-pass phase shift filter pedal driven by a low-frequency triangular modulation LFO",
+      "By placing an omnidirectional microphone directly inside a rotating metal garbage can positioned on the live tracking floor",
+      "By rapidly modulating console channel pan pots back and forth between left and right outputs to produce extreme stereo motion"
+    ],
+    "explanation": "Flanging was created manually: two tape recorders played the same audio simultaneously into the mix. An engineer touched the rim (flange) of one tape reel, slightly slowing it down. As the two signals drifted fractions of a millisecond apart, comb filtering produced the iconic sweeping whoosh sound.",
+    "tip": "Tape Flanging: Manually slowing a tape reel flange to create time delay and sweeping comb filter phase cancellation."
+  },
+  {
+    "category": "Guitar Effects & Pedals",
+    "ao": "AO3: Fuzz & Wah-Wah Circuitry",
+    "text": "What type of audio filtering occurs inside a Vox V846 wah-wah pedal when the guitarist rocks the foot treadle forward?",
+    "correct": "The treadle sweeps a high-Q resonant band-pass filter peak upwards from low-mids (400 Hz) to bright treble (2.5 kHz)",
+    "wrong": [
+      "The treadle engages a steep 24 dB/octave low-pass brickwall filter that eliminates all harmonic frequencies above 1 kHz",
+      "The treadle crossfades between an acoustic upright piano transducer and a heavily overdriven 100W valve amplifier stack",
+      "The treadle alters tape capstan motor speed on an internal miniature reel-to-reel tape transport housed inside the pedal"
+    ],
+    "explanation": "A wah-wah pedal contains a potentiometer driven by a foot rack-and-pinion gear. It sweeps a resonant band-pass filter peak (built around an inductor) between ~400 Hz and ~2.5 kHz. Sweeping across vocal formant frequencies mimics human vocal vowel sounds ('wah').",
+    "tip": "Wah-Wah Pedal: Sweeps a high-Q resonant band-pass filter across midrange vocal formant frequencies."
+  },
+  {
+    "category": "Mastering & Stereo Mixes",
+    "ao": "AO3: The RIAA Equalization Curve",
+    "text": "Why must low frequencies be heavily attenuated by -20 dB when mastering audio onto a vinyl microgroove disc?",
+    "correct": "Large bass waveform excursions would cut excessively wide grooves, shortening playing time and throwing the stylus off track",
+    "wrong": [
+      "Low frequencies cause vacuum tube amplifiers inside stereo home receivers to immediately oscillate and burn out fuses",
+      "Bass frequencies cannot physically be recorded onto magnetic tape and must be synthesized artificially during turntable playback",
+      "High frequencies generate static electrical discharges that permanently melt the polyvinyl chloride lacquer groove walls"
+    ],
+    "explanation": "Low-frequency sound waves have large amplitudes. If cut without equalization, the cutting stylus would carve wide, swinging lateral grooves, quickly consuming disc space and causing domestic playback needles to jump out of the groove. The RIAA curve cuts bass by -20 dB during cutting and restores it on playback.",
+    "tip": "RIAA Curve: Bass cut -20 dB to save groove space and prevent needle jumping; treble boosted +20 dB to mask tape and surface hiss."
+  }
+];
+
+    function shuffle(arr) {
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+
+    let currentQ = 0;
+    let score = 0;
+    let answered = false;
+    let currentOptions = [];
+
+    const qText = document.getElementById('qText');
+    const qCategory = document.getElementById('qCategory');
+    const qAoTag = document.getElementById('qAoTag');
+    const optionsGrid = document.getElementById('optionsGrid');
+    const insightCard = document.getElementById('insightCard');
+    const insightBody = document.getElementById('insightBody');
+    const insightTip = document.getElementById('insightTip');
+    const qCounter = document.getElementById('qCounter');
+    const currentScore = document.getElementById('currentScore');
+    const progressFill = document.getElementById('progressFill');
+    const nextBtn = document.getElementById('nextBtn');
+    const quizStage = document.getElementById('quizStage');
+    const resultsScreen = document.getElementById('resultsScreen');
+    const finalScoreVal = document.getElementById('finalScoreVal');
+    const gradeBadge = document.getElementById('gradeBadge');
+    const resultTitle = document.getElementById('resultTitle');
+    const resultMessage = document.getElementById('resultMessage');
+    const letters = ['A', 'B', 'C', 'D'];
+
+    function loadQuestion(index) {
+      answered = false;
+      const q = questions[index];
+      qText.innerHTML = q.text;
+      qCategory.innerText = q.category;
+      qAoTag.innerText = q.ao;
+      qCounter.innerText = `Question ${index + 1} of ${questions.length}`;
+      currentScore.innerText = `Score: ${score}/${questions.length}`;
+      progressFill.style.width = `${((index) / questions.length) * 100}%`;
+
+      insightCard.classList.remove('show');
+      nextBtn.disabled = true;
+
+      // SHUFFLE OPTIONS so correct answer is NOT always in the same position
+      currentOptions = shuffle([
+        { text: q.correct, ok: true },
+        ...q.wrong.map(w => ({ text: w, ok: false }))
+      ]);
+
+      optionsGrid.innerHTML = '';
+      currentOptions.forEach((opt, idx) => {
+        const btn = document.createElement('button');
+        btn.className = 'option-btn';
+        btn.innerHTML = `<span class="option-letter">${letters[idx]}</span><span>${opt.text}</span>`;
+        btn.onclick = () => selectOption(idx, btn);
+        optionsGrid.appendChild(btn);
+      });
+    }
+
+    function selectOption(idx, btn) {
+      if (answered) return;
+      answered = true;
+
+      const q = questions[currentQ];
+      const isCorrect = currentOptions[idx].ok;
+      const btns = optionsGrid.querySelectorAll('.option-btn');
+
+      btns.forEach((b, i) => {
+        b.disabled = true;
+        if (currentOptions[i].ok) {
+          b.classList.add('correct');
+        }
+      });
+
+      if (isCorrect) {
+        btn.classList.add('correct');
+        score++;
+      } else {
+        btn.classList.add('wrong');
+      }
+
+      currentScore.innerText = `Score: ${score}/${questions.length}`;
+      insightBody.innerHTML = q.explanation;
+      insightTip.innerHTML = `<strong>Specification Tip:</strong> ${q.tip}`;
+      insightCard.classList.add('show');
+
+      nextBtn.disabled = false;
+      if (currentQ === questions.length - 1) {
+        nextBtn.innerText = 'View Results & Analysis';
+      }
+    }
+
+    function handleNext() {
+      if (currentQ < questions.length - 1) {
+        currentQ++;
+        loadQuestion(currentQ);
+      } else {
+        showResults();
+      }
+    }
+
+    function showResults() {
+      quizStage.style.display = 'none';
+      resultsScreen.style.display = 'block';
+      progressFill.style.width = '100%';
+
+      finalScoreVal.innerText = `${score} / ${questions.length}`;
+      const pct = (score / questions.length) * 100;
+
+      if (pct >= 80) {
+        gradeBadge.innerText = 'Grade A* / A - Master of Folk Technology';
+        gradeBadge.style.color = '#fbbf24';
+        gradeBadge.style.borderColor = '#fbbf24';
+        resultTitle.innerText = 'Outstanding Performance!';
+        resultMessage.innerText = 'You demonstrated comprehensive mastery of acoustic folk recording, stereo transducer arrays, microphone positioning, and historical context.';
+      } else if (pct >= 60) {
+        gradeBadge.innerText = 'Grade B / C - Solid Knowledge Base';
+        gradeBadge.style.color = '#f59e0b';
+        gradeBadge.style.borderColor = '#f59e0b';
+        resultTitle.innerText = 'Strong Foundation!';
+        resultMessage.innerText = 'Good grasp of core concepts. Review the 12th fret acoustic placement and stereo microphone configurations to secure the highest marks.';
+      } else {
+        gradeBadge.innerText = 'Revision Required';
+        gradeBadge.style.color = '#f87171';
+        gradeBadge.style.borderColor = '#f87171';
+        resultTitle.innerText = 'Keep Revising!';
+        resultMessage.innerText = 'Use the 14-slide presentation deck to reinforce your understanding of acoustic capture, vintage equipment, and key artists.';
+      }
+    }
+
+    function restartQuiz() {
+      currentQ = 0;
+      score = 0;
+      nextBtn.innerText = 'Next Question &rarr;';
+      quizStage.style.display = 'block';
+      resultsScreen.style.display = 'none';
+      loadQuestion(0);
+    }
+
+    window.onload = () => loadQuestion(0);
+</script>
+</body>
+</html>
