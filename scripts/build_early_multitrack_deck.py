@@ -69,7 +69,7 @@ slides.append(f'''
 slide('📋', 'Specification Roadmap', 'Component 3 <span>Syllabus Matrix for 1964–1969</span>',
       'Edexcel requires deep technical analysis of 4-track tape machines, reduction bouncing, valve mixing desks, vintage outboard, and signature instruments from this revolutionary era.',
       G([
-          card('highlight', f'''{thumb('studer_a800_multitrack.jpg', 'Studer Multitrack Tape Transport')}
+          card('highlight', f'''{thumb('teac_4track_multitrack.jpg', '4-Track Reel-to-Reel Tape Machine')}
                <span class="spec-pill ao3">AO3 Recording Technology</span>
                <h4>4-Track Tape &amp; Bouncing</h4>
                <p>1-inch magnetic tape at 15 ips; Studer J37; Sel-Sync overdubbing; reduction mixes (4-to-1 bouncing); generational loss trade-offs.</p>'''),
@@ -199,7 +199,7 @@ slide('🔄', 'Studio Architecture', 'From 1950s Live Room <span>to 1960s Multit
 slide('📼', 'Magnetic Precision', 'The Studer J37 <span>&amp; Sel-Sync Overdubbing</span>',
       'The Studer J37, installed at Abbey Road in 1965, was a massive 300-pound Swiss-engineered masterpiece containing 52 vacuum tubes running 1-inch magnetic tape.',
       G([
-          card('highlight', f'''{thumb('studer_tape_head_reels.jpg', 'Reel-to-Reel Tape Transport & Guides')}
+          card('highlight', f'''{thumb('studer_j37_4track_authentic.jpg', 'Studer J37 1-Inch 4-Track Tape Recorder at Abbey Road Studios')}
                <span class="spec-pill ao3">AO3 Tape Mechanics</span>
                <h4>1-Inch 4-Track Format</h4>
                <p>Dividing 1-inch tape into 4 discrete audio tracks provided high track width, preserving wide dynamic range and low tape hiss at 15 inches per second (ips).</p>'''),
@@ -217,7 +217,7 @@ slide('📼', 'Magnetic Precision', 'The Studer J37 <span>&amp; Sel-Sync Overdub
 slide('🎚️', 'Studio Commitment', 'Reduction Mixing: <span>"Bouncing Down" at Abbey Road</span>',
       'With only 4 discrete tracks available on a single machine, ambitious arrangements required bouncing submixes across multiple tape recorders.',
       G([
-          card('highlight', f'''{thumb('abbey_road_studer_j37_pair.jpg', 'Studer Tape Machines for Track Bouncing')}
+          card('highlight', f'''{thumb('scully_280_4track.jpg', 'Scully 280 4-Track Console Tape Recorder')}
                <span class="spec-pill ao3">AO3 Reduction Technique</span>
                <h4>The 4-to-1 Bounce</h4>
                <p>Drums, bass, rhythm guitar, and keyboards were recorded across tracks 1–4 of Machine 1. These 4 tracks were mixed in real time onto Track 1 of Machine 2, freeing 3 fresh tracks for lead vocals, solos, and orchestra.</p>'''),
