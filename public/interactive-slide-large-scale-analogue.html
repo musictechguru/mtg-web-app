@@ -1,0 +1,1222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Large-Scale Analogue Multitrack (1968–1995) | A-Level Music Technology Deck</title>
+  <style>
+
+
+
+    :root {
+      --bg-dark: #080d1a;
+      --bg-card: #0e1626;
+      --bg-surface: #142038;
+      --accent-purple: #f59e0b;
+      --accent-purple-glow: rgba(245, 158, 11, 0.35);
+      --accent-cyan: #00C1F0;
+      --accent-cyan-glow: rgba(56, 189, 248, 0.35);
+      --accent-acid: #22c55e;
+      --accent-amber: #f59e0b;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-purple: rgba(245, 158, 11, 0.35);
+      --border-cyan: rgba(56, 189, 248, 0.35);
+      --font: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: var(--font);
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 8px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .deck-wrapper {
+      width: 100%;
+      max-width: 1120px;
+      height: calc(100vh - 16px);
+      min-height: 590px;
+      max-height: 670px;
+      background: radial-gradient(circle at 50% 0%, rgba(245, 158, 11, 0.15) 0%, rgba(14, 17, 36, 0) 70%), var(--bg-card);
+      border: 1px solid var(--border-purple);
+      border-radius: 16px;
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.8), 0 0 40px rgba(245, 158, 11, 0.15);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    /* Top Utility Bar */
+    .deck-topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      background: rgba(8, 13, 26, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-subtle);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      z-index: 10;
+    }
+
+    .badge-hub {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(245, 158, 11, 0.15);
+      border: 1px solid var(--border-purple);
+      color: #fbbf24;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      text-transform: uppercase;
+    }
+
+    .badge-pulse {
+      width: 7px;
+      height: 7px;
+      background: var(--accent-purple);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--accent-purple);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
+    }
+
+    .deck-topic-title {
+      color: var(--text-muted);
+      font-size: 12px;
+    }
+
+    .deck-topic-title strong {
+      color: #fff;
+    }
+
+    /* Slides Viewport */
+    .slides-viewport {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      padding: 24px 36px 16px 36px;
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateX(30px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      overflow-y: auto;
+    }
+
+    .slide.active {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(0);
+    }
+
+    /* Slide Typography */
+    .slide-eyebrow {
+      font-size: 11.5px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--accent-purple);
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .slide-heading {
+      font-size: clamp(20px, 3vw, 26px);
+      font-weight: 900;
+      line-height: 1.15;
+      letter-spacing: -0.5px;
+      color: #ffffff;
+      margin-bottom: 12px;
+    }
+
+    .slide-heading span {
+      background: linear-gradient(135deg, #f59e0b 0%, #00C1F0 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .slide-lead {
+      color: #cbd5e1;
+      font-size: 13.5px;
+      line-height: 1.5;
+      max-width: 860px;
+      margin-bottom: 14px;
+    }
+
+    /* Grids & Cards */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    @media (max-width: 768px) {
+      .grid-2, .grid-3, .grid-4 {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+    }
+
+    .info-card {
+      background: rgba(20, 32, 56, 0.65);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 14px 16px;
+      transition: all 0.2s;
+    }
+
+    .info-card:hover {
+      border-color: rgba(245, 158, 11, 0.4);
+      background: rgba(20, 32, 56, 0.9);
+      transform: translateY(-2px);
+    }
+
+    .info-card.highlight {
+      border-left: 4px solid var(--accent-purple);
+    }
+
+    .info-card.cyan-edge {
+      border-left: 4px solid var(--accent-cyan);
+    }
+
+    .info-card.acid-edge {
+      border-left: 4px solid var(--accent-acid);
+    }
+
+    .info-card.amber-edge {
+      border-left: 4px solid var(--accent-amber);
+    }
+
+    .info-card h4 {
+      color: #ffffff;
+      font-size: 14px;
+      font-weight: 800;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .info-card p {
+      color: #94a3b8;
+      font-size: 12.5px;
+      line-height: 1.55;
+    }
+
+    .info-card strong {
+      color: #e2e8f0;
+    }
+
+    .spec-pill {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      padding: 2px 7px;
+      border-radius: 4px;
+      background: rgba(245, 158, 11, 0.12);
+      color: #fbbf24;
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      margin-bottom: 4px;
+    }
+
+    .spec-pill.ao3 {
+      background: rgba(56, 189, 248, 0.15);
+      color: #00C1F0;
+      border-color: rgba(56, 189, 248, 0.35);
+    }
+
+    .spec-pill.ao4 {
+      background: rgba(245, 158, 11, 0.15);
+      color: #fbbf24;
+      border-color: rgba(245, 158, 11, 0.35);
+    }
+
+    .comp-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+      margin-top: 6px;
+    }
+
+    .comp-table th {
+      background: rgba(245, 158, 11, 0.1);
+      color: var(--accent-purple);
+      font-weight: 800;
+      text-transform: uppercase;
+      font-size: 10.5px;
+      letter-spacing: 0.5px;
+      padding: 8px 10px;
+      text-align: left;
+      border-bottom: 1px solid var(--border-purple);
+    }
+
+    .comp-table td {
+      padding: 8px 10px;
+      border-bottom: 1px solid var(--border-subtle);
+      color: #cbd5e1;
+      line-height: 1.45;
+    }
+
+    .comp-table tr:hover td {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .video-trigger-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 8px;
+      background: rgba(245, 158, 11, 0.12);
+      border: 1px solid var(--border-purple);
+      color: #fbbf24;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .video-trigger-btn:hover {
+      background: var(--accent-purple);
+      color: #080d1a;
+      transform: scale(1.02);
+    }
+
+    .deck-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 24px;
+      background: rgba(8, 13, 26, 0.95);
+      border-top: 1px solid var(--border-subtle);
+      z-index: 10;
+    }
+
+    .nav-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 8px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .nav-btn:hover:not(:disabled) {
+      background: var(--accent-purple);
+      color: #080d1a;
+      border-color: var(--accent-purple);
+      box-shadow: 0 0 15px var(--accent-purple-glow);
+    }
+
+    .nav-btn:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+
+    .progress-container {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex: 1;
+      max-width: 320px;
+      margin: 0 20px;
+    }
+
+    .progress-track {
+      flex: 1;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent-purple) 0%, var(--accent-cyan) 100%);
+      width: 7.14%;
+      border-radius: 10px;
+      transition: width 0.3s ease;
+    }
+
+    .slide-counter {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .video-modal-backdrop {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(8px);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .video-modal-backdrop.open {
+      display: flex;
+    }
+
+    .video-modal-content {
+      background: var(--bg-card);
+      border: 1px solid var(--border-purple);
+      border-radius: 16px;
+      max-width: 800px;
+      width: 100%;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9), 0 0 30px var(--accent-purple-glow);
+    }
+
+    .video-modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 18px;
+      background: rgba(255, 255, 255, 0.04);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .video-modal-title {
+      font-size: 14px;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .close-modal-btn {
+      background: none;
+      border: none;
+      color: #94a3b8;
+      font-size: 20px;
+      cursor: pointer;
+      line-height: 1;
+      padding: 0 4px;
+    }
+
+    .close-modal-btn:hover {
+      color: #fff;
+    }
+
+    .video-player-wrapper {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+    }
+
+    .video-player-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    .slide-thumb {
+      width: 100%;
+      height: 125px;
+      object-fit: contain;
+      object-position: center;
+      background: rgba(0, 0, 0, 0.45);
+      border-radius: 8px;
+      margin-bottom: 10px;
+      border: 1px solid var(--border-subtle);
+      padding: 4px;
+      display: block;
+    }
+  
+    /* YouTube direct links & enhanced modal styling */
+    .video-btn-row {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      margin-top: 10px;
+      flex-wrap: wrap;
+    }
+    .yt-direct-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #ffffff !important;
+      background: rgba(239, 68, 68, 0.2);
+      border: 1px solid rgba(239, 68, 68, 0.45);
+      padding: 6px 12px;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      line-height: 1.2;
+    }
+    .yt-direct-btn:hover {
+      background: rgba(239, 68, 68, 0.4);
+      border-color: #ef4444;
+      color: #ffffff !important;
+      transform: translateY(-1px);
+    }
+    .external-yt-link {
+      color: #ef4444 !important;
+      font-size: 12px;
+      font-weight: 700;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 5px 12px;
+      border-radius: 6px;
+      background: rgba(239, 68, 68, 0.12);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      transition: all 0.2s ease;
+    }
+    .external-yt-link:hover {
+      background: rgba(239, 68, 68, 0.25);
+      color: #ffffff !important;
+    }
+    .video-modal-footer {
+      padding: 10px 16px;
+      background: rgba(0, 0, 0, 0.6);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: #94a3b8;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+
+    /* Image Lightbox Modal */
+    .image-modal-backdrop {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.88);
+      backdrop-filter: blur(10px);
+      z-index: 10000;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      cursor: zoom-out;
+    }
+    .image-modal-backdrop.open {
+      display: flex;
+    }
+    .image-modal-content {
+      position: relative;
+      max-width: 90vw;
+      max-height: 88vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: #0f172a;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 14px;
+      padding: 14px;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.95), 0 0 40px rgba(0, 0, 0, 0.8);
+      cursor: default;
+      animation: modalZoomIn 0.2s ease-out;
+    }
+    @keyframes modalZoomIn {
+      from { transform: scale(0.92); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+    .image-modal-content img {
+      max-width: 86vw;
+      max-height: 74vh;
+      object-fit: contain;
+      border-radius: 8px;
+      display: block;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+    }
+    .image-modal-caption {
+      margin-top: 10px;
+      font-size: 13.5px;
+      color: #f1f5f9;
+      font-weight: 700;
+      text-align: center;
+      letter-spacing: 0.3px;
+      max-width: 80vw;
+    }
+    .image-modal-close {
+      position: absolute;
+      top: -12px;
+      right: -12px;
+      background: #ef4444;
+      color: #fff;
+      border: 2px solid #fff;
+      border-radius: 50%;
+      width: 32px;
+      height: 32px;
+      font-size: 18px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+      transition: transform 0.2s, background 0.2s;
+      z-index: 10001;
+    }
+    .image-modal-close:hover {
+      background: #dc2626;
+      transform: scale(1.1);
+    }
+    .slide-thumb, .artist-photo, .cover-card img, .image-frame img, .info-card img {
+      cursor: zoom-in !important;
+      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .slide-thumb:hover, .artist-photo:hover, .cover-card img:hover, .image-frame img:hover, .info-card img:hover {
+      transform: translateY(-2px) scale(1.02);
+      border-color: rgba(245, 158, 11, 0.6) !important;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5) !important;
+    }
+
+
+    /* YouTube direct links & enhanced modal styling */
+    .video-btn-row {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      margin-top: 10px;
+      flex-wrap: wrap;
+    }
+    .yt-direct-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #ffffff !important;
+      background: rgba(239, 68, 68, 0.2);
+      border: 1px solid rgba(239, 68, 68, 0.45);
+      padding: 6px 12px;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      line-height: 1.2;
+    }
+    .yt-direct-btn:hover {
+      background: rgba(239, 68, 68, 0.4);
+      border-color: #ef4444;
+      color: #ffffff !important;
+      transform: translateY(-1px);
+    }
+    .external-yt-link {
+      color: #ef4444 !important;
+      font-size: 12px;
+      font-weight: 700;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 5px 12px;
+      border-radius: 6px;
+      background: rgba(239, 68, 68, 0.12);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      transition: all 0.2s ease;
+    }
+    .external-yt-link:hover {
+      background: rgba(239, 68, 68, 0.25);
+      color: #ffffff !important;
+    }
+    .video-modal-footer {
+      padding: 10px 16px;
+      background: rgba(0, 0, 0, 0.6);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: #94a3b8;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    /* Image Lightbox Modal */
+    .image-modal-backdrop {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.88);
+      backdrop-filter: blur(10px);
+      z-index: 10000;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      cursor: zoom-out;
+    }
+    .image-modal-backdrop.open {
+      display: flex;
+    }
+    .image-modal-content {
+      position: relative;
+      max-width: 90vw;
+      max-height: 88vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: #0f172a;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 14px;
+      padding: 14px;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.95), 0 0 40px rgba(0, 0, 0, 0.8);
+      cursor: default;
+      animation: modalZoomIn 0.2s ease-out;
+    }
+    @keyframes modalZoomIn {
+      from { transform: scale(0.92); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+    .image-modal-content img {
+      max-width: 86vw;
+      max-height: 74vh;
+      object-fit: contain;
+      border-radius: 8px;
+      display: block;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+    }
+    .image-modal-caption {
+      margin-top: 10px;
+      font-size: 13.5px;
+      color: #f1f5f9;
+      font-weight: 700;
+      text-align: center;
+      letter-spacing: 0.3px;
+      max-width: 80vw;
+    }
+    .image-modal-close {
+      position: absolute;
+      top: -12px;
+      right: -12px;
+      background: #ef4444;
+      color: #fff;
+      border: 2px solid #fff;
+      border-radius: 50%;
+      width: 32px;
+      height: 32px;
+      font-size: 18px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+      transition: transform 0.2s, background 0.2s;
+      z-index: 10001;
+    }
+    .image-modal-close:hover {
+      background: #dc2626;
+      transform: scale(1.1);
+    }
+    .slide-thumb, .artist-photo, .cover-card img, .image-frame img, .info-card img {
+      cursor: zoom-in !important;
+      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .slide-thumb:hover, .artist-photo:hover, .cover-card img:hover, .image-frame img:hover, .info-card img:hover {
+      transform: translateY(-2px) scale(1.02);
+      border-color: rgba(245, 158, 11, 0.6) !important;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5) !important;
+    }
+  
+  
+  </style>
+</head>
+<body>
+  <div class="deck-wrapper">
+    <header class="deck-topbar">
+      <div class="badge-hub"><span class="badge-pulse"></span>Edexcel Component 3 &bull; Music Technology in Context</div>
+      <div class="deck-topic-title">Topic: <strong>Large-Scale Analogue Multitrack (1968–1995)</strong></div>
+    </header>
+
+    <main class="slides-viewport" id="slidesViewport">
+
+      <section class="slide active" data-slide="1">
+        <div class="slide-eyebrow"><span>🎛️</span> Evolutionary Era 03 &bull; Component 3 Music Technology in Context</div>
+        <h1 class="slide-heading">Large-Scale Analogue Multitrack <span>(c.1968 – 1995)</span></h1>
+        <p class="slide-lead">The pinnacle of analog recording. Explore the shift to 2-inch 16 and 24-track tape machines, large-format in-line mixing consoles (SSL &amp; Neve), computer fader automation, solid-state dynamics (1176 &amp; dbx 160), Dolby noise reduction, multi-mic drum tracking, and the emergence of polyphonic synthesis.</p>
+        <div class="grid-3" style="margin-top: 10px;">
+          <div class="info-card highlight"><span class="spec-pill ao4">AO4 Musical Styles</span><h4>Hard Rock to Disco &amp; Punk</h4><p>Hard rock / metal (<strong>Led Zeppelin</strong>, <strong>Black Sabbath</strong>), tight disco &amp; funk grooves (<strong>Chic</strong>, <strong>Earth Wind &amp; Fire</strong>), and raw punk rebellion (<strong>Sex Pistols</strong>, <strong>The Clash</strong>).</p></div>
+          <div class="info-card cyan-edge"><span class="spec-pill ao3">AO3 Studio Technology</span><h4>24-Track Tape &amp; SSL Consoles</h4><p>Master 2-inch tape, <strong>Studer A800</strong>, high-frequency bias calibration, <strong>SSL 4000 E/G Series</strong>, in-line architecture, Total Recall, and VCA automation.</p></div>
+          <div class="info-card acid-edge"><span class="spec-pill ao3">AO3 Outboard &amp; Processing</span><h4>Dynamics, Gating &amp; Early Digital</h4><p><strong>UREI 1176 FET limiting</strong>, dbx 160, <strong>Dolby A / SR noise reduction</strong>, close-mic multi-track drums with Drawmer noise gates, and <strong>Lexicon 224</strong> digital reverb.</p></div>
+        </div>
+        <div style="margin-top: 20px; display: flex; gap: 12px; align-items: center;">
+          <button class="nav-btn" onclick="nextSlide()" style="background: #f59e0b; color: #080d1a; border-color: #f59e0b; font-weight: 700;">Start Interactive Deck &rarr;</button>
+          <span style="font-size: 12px; color: var(--text-muted);">Press <kbd style="background: rgba(255,255,255,0.1); padding: 2px 6px; border-radius: 4px;">Space</kbd> or <kbd style="background: rgba(255,255,255,0.1); padding: 2px 6px; border-radius: 4px;">&rarr;</kbd> to navigate</span>
+        </div>
+      </section>
+
+      <section class="slide" data-slide="2">
+        <div class="slide-eyebrow"><span>📋</span> Specification Roadmap &bull; Component 3 Music Technology in Context</div>
+        <h2 class="slide-heading">Component 3 <span>Syllabus Matrix for 1968–1995</span></h2>
+        <p class="slide-lead">Edexcel requires deep technical mastery of 24-track 2-inch tape machines, SSL/Neve in-line consoles, VCA fader automation, outboard dynamics, noise reduction, and signature synthesizers.</p>
+        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/large_scale_analogue/ampex_mm1200_24track.jpg" alt="Ampex 24-Track 2-Inch Multitrack Recorder" class="slide-thumb">
+               <span class="spec-pill ao3">AO3 Recording Technology</span>
+               <h4>24-Track 2-Inch Tape</h4>
+               <p>2-inch magnetic tape at 15/30 ips; Studer A800 and Otari MTR-90; SMPTE timecode tape synchronisation (48 tracks); AC bias calibration; tape compression saturation.</p></div><div class="info-card cyan-edge"><img src="/images/slides/large_scale_analogue/neve_8078_console.jpg" alt="Neve Large-Format Multitrack Mixing Console" class="slide-thumb">
+               <span class="spec-pill ao3">AO3 Mixing Architecture</span>
+               <h4>Large-Format In-Line Desks</h4>
+               <p>Solid State Logic SL4000 E/G and Neve 8078; dual channel/monitor paths per strip; 4-band parametric EQ; integrated channel dynamics; VCA automation; Total Recall.</p></div><div class="info-card acid-edge"><img src="/images/slides/large_scale_analogue/rack_outboard_gear_70s.jpg" alt="Analog Outboard Racks Dynamics & Processing" class="slide-thumb">
+               <span class="spec-pill ao3">AO3 Outboard &amp; Synthesis</span>
+               <h4>Dynamics, Synths &amp; Digital FX</h4>
+               <p>UREI 1176 FET fast limiting, dbx 160 VCA compressor, Dolby A/SR noise reduction, Minimoog bass, Prophet-5 polyphonic synth, and Lexicon digital reverbs.</p></div></div>
+      </section>
+
+      <section class="slide" data-slide="3">
+        <div class="slide-eyebrow"><span>🎸</span> Musical Styles: Rock &bull; Component 3 Music Technology in Context</div>
+        <h2 class="slide-heading">Hard Rock &amp; Heavy Metal <span>(Led Zeppelin, Sabbath, Deep Purple)</span></h2>
+        <p class="slide-lead">Massive drum sounds, high-gain valve amplification, overdriven bass, and virtuoso electric guitar solos recorded across dedicated multitrack channels.</p>
+        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/large_scale_analogue/led_zeppelin_1971.jpg" alt="Led Zeppelin 1971" class="slide-thumb">
+               <span class="spec-pill ao4">AO4 Rock Production</span>
+               <h4>Led Zeppelin &amp; Room Acoustics</h4>
+               <p>Jimmy Page and Andy Johns captured John Bonham's iconic drum sound in Headley Grange stone stairwells using a stereo pair of Beyer M160 ribbon mics compressed via Helios consoles.</p>
+               <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('f0pQ3373w9w', 'Led Zeppelin Drum Sound Analysis')">▶ Watch: Bonham Drum Room Acoustics</button><a href="https://www.youtube.com/watch?v=f0pQ3373w9w" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div></div><div class="info-card cyan-edge"><img src="/images/slides/large_scale_analogue/black_sabbath_1970.jpg" alt="Black Sabbath 1970" class="slide-thumb">
+               <span class="spec-pill ao4">AO4 Heavy Metal Pioneers</span>
+               <h4>Black Sabbath &amp; Down-Tuning</h4>
+               <p>Tony Iommi down-tuned his Gibson SG with custom light-gauge strings into Dallas Rangemaster treble boosters and Laney Supergroup valve heads, tracked live to 8-track tape.</p></div><div class="info-card acid-edge"><img src="/images/slides/large_scale_analogue/deep_purple_machine_head.jpg" alt="Deep Purple 1970" class="slide-thumb">
+               <span class="spec-pill ao4">AO4 Valve Keyboard Drive</span>
+               <h4>Deep Purple &amp; Distorted Organ</h4>
+               <p>Jon Lord routed his Hammond C3 organ directly into overdriven Marshall valve stacks rather than clean Leslie cabinets, pioneering heavy rock organ crunch on <em>Machine Head</em>.</p></div></div>
+      </section>
+
+      <section class="slide" data-slide="4">
+        <div class="slide-eyebrow"><span>🕺</span> Musical Styles: Dance &bull; Component 3 Music Technology in Context</div>
+        <h2 class="slide-heading">Disco &amp; Funk <span>(Chic, Earth Wind &amp; Fire, Donna Summer)</span></h2>
+        <p class="slide-lead">Precision timekeeping, punchy 4-on-the-floor kick drums, direct-injected (DI) bass, syncopated rhythm guitars, and sweeping string/horn arrangements.</p>
+        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/large_scale_analogue/chic_nile_rodgers.jpg" alt="Nile Rodgers and Chic" class="slide-thumb">
+               <span class="spec-pill ao4">AO4 Funk Rhythm Guitar</span>
+               <h4>Nile Rodgers &amp; "Chucking"</h4>
+               <p>Clean Stratocaster single-coil rhythm guitar recorded direct injection (DI) into the Neve console with heavy optical/FET compression, creating razor-sharp percussive 16th-note grooves.</p>
+               <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('V94w8E7Xl04', 'Nile Rodgers Funk Production Breakdown')">▶ Watch: Chic Funk Guitar Tracking</button><a href="https://www.youtube.com/watch?v=V94w8E7Xl04" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div></div><div class="info-card cyan-edge"><img src="/images/slides/large_scale_analogue/earth_wind_fire_1977.jpg" alt="Earth Wind & Fire 1977" class="slide-thumb">
+               <span class="spec-pill ao4">AO4 Brass &amp; Percussion</span>
+               <h4>Earth, Wind &amp; Fire Horns</h4>
+               <p>Phenix Horns tracked with Neumann U87 condenser mics, double-tracked across discrete tape channels, and layered with Kalimba thumb piano and syncopated slap bass.</p></div><div class="info-card acid-edge"><img src="/images/slides/large_scale_analogue/donna_summer_studio.jpg" alt="Donna Summer & Giorgio Moroder" class="slide-thumb">
+               <span class="spec-pill ao4">AO4 Electronic Disco</span>
+               <h4>Moroder &amp; "I Feel Love" (1977)</h4>
+               <p>Giorgio Moroder synthesized an entire backing track using a modular Moog 3P synthesizer driven by a click track, pioneering pure electronic disco on 24-track tape.</p></div></div>
+      </section>
+
+      <section class="slide" data-slide="5">
+        <div class="slide-eyebrow"><span>⚡</span> Musical Styles: Rebellion &bull; Component 3 Music Technology in Context</div>
+        <h2 class="slide-heading">Punk &amp; New Wave <span>(Sex Pistols, The Clash, Blondie)</span></h2>
+        <p class="slide-lead">Stripped-back aggression, raw garage energy, fast tempos, and anti-establishment lyricism rejecting 1970s prog-rock self-indulgence.</p>
+        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/large_scale_analogue/sex_pistols_1977.jpg" alt="Sex Pistols 1977" class="slide-thumb">
+               <span class="spec-pill ao4">AO4 Punk Production</span>
+               <h4>Sex Pistols: The Wall of Sound</h4>
+               <p>Producer Chris Thomas layered up to 15 tracks of Steve Jones's Gibson Les Paul through a Fender Twin Reverb on <em>Never Mind the Bollocks</em>, achieving massive distorted clarity.</p></div><div class="info-card cyan-edge"><img src="/images/slides/large_scale_analogue/the_clash_1980.jpg" alt="The Clash 1980" class="slide-thumb">
+               <span class="spec-pill ao4">AO4 Eclectic Punk</span>
+               <h4>The Clash: Dub &amp; Reggae Fusion</h4>
+               <p>Incorporated Jamaican dub echo, spring reverbs, slapback tape delays, and driving funk basslines on <em>London Calling</em>, expanding punk beyond three-chord simplicity.</p></div><div class="info-card acid-edge"><img src="/images/slides/large_scale_analogue/blondie_debbie_harry.jpg" alt="Debbie Harry of Blondie" class="slide-thumb">
+               <span class="spec-pill ao4">AO4 New Wave Crossover</span>
+               <h4>Blondie &amp; Mike Chapman</h4>
+               <p>Producer Mike Chapman enforced metronomic click-track discipline, tight gated snares, Roland synthesizers, and disco-rock crossover production on "Heart of Glass".</p></div></div>
+      </section>
+
+      <section class="slide" data-slide="6">
+        <div class="slide-eyebrow"><span>📼</span> Analogue Tape Mastery &bull; Component 3 Music Technology in Context</div>
+        <h2 class="slide-heading">The 2-Inch Multitrack: <span>Studer A800 &amp; Otari MTR-90</span></h2>
+        <p class="slide-lead">The transition to 2-inch magnetic tape running at 15 and 30 ips allowed up to 24 isolated tracks per machine, ending the reliance on destructive track reduction bouncing.</p>
+        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/large_scale_analogue/studer_a800_full_deck.jpg" alt="Studer A800 24-Track Tape Recorder" class="slide-thumb">
+               <span class="spec-pill ao3">AO3 Studio Flagship</span>
+               <h4>The Studer A800 (1978)</h4>
+               <p>Microprocessor-controlled tape transport, 2-inch tape width, 24 independent channel audio cards, and silent punch-in/out transitions made the A800 the gold standard in top studios.</p>
+               <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('qZYdgUuhXXQ', 'Studer A800 24-Track Demonstration')">▶ Watch: Studer A800 in Action</button><a href="https://www.youtube.com/watch?v=qZYdgUuhXXQ" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div></div><div class="info-card cyan-edge"><img src="/images/slides/large_scale_analogue/tape_head_24track_a800.jpg" alt="24-Track Magnetic Head Stack" class="slide-thumb">
+               <span class="spec-pill ao3">AO3 Head Gap Physics</span>
+               <h4>24-Track Head Stack</h4>
+               <p>Contains 24 micro-engineered electromagnetic gaps stacked vertically across the 2-inch tape. Narrow track width (0.043 in) reduced crosstalk but increased tape hiss, necessitating noise reduction.</p></div><div class="info-card acid-edge"><img src="/images/slides/large_scale_analogue/otari_mtr90_24track.jpg" alt="Otari MTR-90 2-Inch Multitrack" class="slide-thumb">
+               <span class="spec-pill ao3">AO3 Tape Transport</span>
+               <h4>Otari MTR-90 &amp; Ampex MM1200</h4>
+               <p>Heavy-duty pinch-roller-less capstan transports delivered ultra-stable flutter-free tape travel at 30 ips, extending high-frequency response up to 24 kHz with lower low-frequency head bump.</p></div></div>
+      </section>
+
+      <section class="slide" data-slide="7">
+        <div class="slide-eyebrow"><span>🎛️</span> Analogue Physics &bull; Component 3 Music Technology in Context</div>
+        <h2 class="slide-heading">High-Frequency Bias, <span>Tape Saturation &amp; MRL Calibration</span></h2>
+        <p class="slide-lead">Operating professional multitrack tape required rigorous calibration of electromagnetic bias current, tape head azimuth, and record fluxivity levels.</p>
+        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/large_scale_analogue/tape_bias_high_frequency.svg" alt="High-Frequency AC Bias Waveform Diagram" class="slide-thumb">
+               <span class="spec-pill ao3">AO3 Tape Physics</span>
+               <h4>High-Frequency AC Bias</h4>
+               <p>Magnetic tape particles (ferric oxide / cobalt) are non-linear at low magnetic fields. Mixing an inaudible 100–150 kHz AC bias sine wave with audio linearizes magnetic response, eliminating distortion.</p></div><div class="info-card cyan-edge"><img src="/images/slides/large_scale_analogue/open_reel_tape_flux.jpg" alt="Reel-to-Reel Tape Magnetic Fluxivity" class="slide-thumb">
+               <span class="spec-pill ao3">AO3 Harmonic Saturation</span>
+               <h4>Analogue Tape Saturation</h4>
+               <p>Pushing hot signal levels past +3 VU saturates magnetic oxide particles, causing gentle soft-knee peak rounding, 3rd-harmonic distortion, and natural dynamic compression prized on drums.</p></div><div class="info-card acid-edge"><img src="/images/slides/large_scale_analogue/mrl_alignment_tape.jpg" alt="MRL Master Alignment Calibration Tape" class="slide-thumb">
+               <span class="spec-pill ao3">AO3 Studio Calibration</span>
+               <h4>MRL Tape Alignment</h4>
+               <p>Engineers played precision Magnetic Reference Laboratory (MRL) tapes containing 1 kHz and 10 kHz test tones to calibrate head azimuth (vertical angle), reproduce levels, and high-frequency EQ.</p>
+               <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('RmX7eXtSH5Y', 'Analogue Tape Calibration Masterclass')">▶ Watch: Calibrating 24-Track Tape</button><a href="https://www.youtube.com/watch?v=RmX7eXtSH5Y" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div></div></div>
+      </section>
+
+      <section class="slide" data-slide="8">
+        <div class="slide-eyebrow"><span>🔇</span> Dynamic Noise Control &bull; Component 3 Music Technology in Context</div>
+        <h2 class="slide-heading">Dolby A, Dolby SR <span>&amp; dbx Compander Technology</span></h2>
+        <p class="slide-lead">Running 24 narrow tracks on a single 2-inch tape tape hiss accumulated significantly. Analogue noise reduction used dual-ended compression/expansion (companding).</p>
+        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/large_scale_analogue/dolby_noise_reduction_unit.jpg" alt="Dolby A-Type Model 361 Unit" class="slide-thumb">
+               <span class="spec-pill ao3">AO3 4-Band Companding</span>
+               <h4>Dolby A-Type (1966)</h4>
+               <p>Splits audio into 4 independent frequency bands (sub-80 Hz, 80 Hz–3 kHz, 3 kHz+, 9 kHz+). Low-level signals are boosted +10 dB during recording; during playback, the exact inverse expansion cuts tape hiss by 10 dB.</p></div><div class="info-card cyan-edge"><img src="/images/slides/large_scale_analogue/dolby_spectral_recording.jpg" alt="Dolby SR Spectral Recording Unit" class="slide-thumb">
+               <span class="spec-pill ao3">AO3 Modern Analogue NR</span>
+               <h4>Dolby SR (Spectral Recording)</h4>
+               <p>Introduced in 1986, Dolby SR utilized sliding-band and fixed-band filters to achieve up to 25 dB of noise reduction, matching the dynamic range of early 16-bit digital recording.</p></div><div class="info-card acid-edge"><img src="/images/slides/large_scale_analogue/dbx_noise_reduction_unit.jpg" alt="dbx Type I Professional Unit" class="slide-thumb">
+               <span class="spec-pill ao3">AO3 Wideband Companding</span>
+               <h4>dbx Type I</h4>
+               <p>A 2:1 wideband compander: compresses full audio dynamic range by 50% on recording with high-frequency pre-emphasis, and expands 1:2 on playback, yielding 30 dB of noise reduction.</p></div></div>
+      </section>
+
+      <section class="slide" data-slide="9">
+        <div class="slide-eyebrow"><span>🎚️</span> Mixing Desks &bull; Component 3 Music Technology in Context</div>
+        <h2 class="slide-heading">Solid State Logic (SSL) <span>&amp; Neve 80-Series Consoles</span></h2>
+        <p class="slide-lead">Large-format mixing desks transformed the control room into an automated production center, providing integrated dynamics, 4-band parametric EQ, and in-line routing.</p>
+        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/large_scale_analogue/ssl_4000_console_desk.jpg" alt="Solid State Logic SL 4000 E Series" class="slide-thumb">
+               <span class="spec-pill ao3">AO3 Console Revolution</span>
+               <h4>The SSL 4000 E &amp; G Series</h4>
+               <p>Introduced in 1979, the SSL 4000 featured a dedicated compressor, expander/gate, and 4-band parametric EQ on every single channel strip, plus the legendary G-Master Bus compressor.</p>
+               <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('T9iK0r718rI', 'SSL 4000 Console Breakdown')">▶ Watch: Inside the SSL 4000 Console</button><a href="https://www.youtube.com/watch?v=T9iK0r718rI" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div></div><div class="info-card cyan-edge"><img src="/images/slides/large_scale_analogue/neve_console_faders.jpg" alt="Classic Neve 8078 Console" class="slide-thumb">
+               <span class="spec-pill ao3">AO3 Discrete Class-A Warmth</span>
+               <h4>Neve 80-Series (1073 &amp; 1081)</h4>
+               <p>Discrete Class-A transistor preamplifiers with Marinair input transformers and stepped inductor EQ delivered rich harmonic coloration and musical low-end weight.</p></div><div class="info-card acid-edge"><img src="/images/slides/large_scale_analogue/ssl_channel_strip_eq.jpg" alt="SSL 4000 Channel Strip & Parametric EQ" class="slide-thumb">
+               <span class="spec-pill ao3">AO3 Parametric EQ</span>
+               <h4>4-Band Parametric EQ</h4>
+               <p>Allowed independent sweepable Frequency (Hz), Gain (&plusmn;15 dB), and Q factor (bandwidth), giving mixing engineers surgical control to unmask bass, kick drum, and vocals.</p></div></div>
+      </section>
+
+      <section class="slide" data-slide="10">
+        <div class="slide-eyebrow"><span>💻</span> Studio Automation &bull; Component 3 Music Technology in Context</div>
+        <h2 class="slide-heading">VCA Faders, Total Recall <span>&amp; In-Line Architecture</span></h2>
+        <p class="slide-lead">As track counts grew to 24 and 48 tracks, mixing required automated fader control and instant console recall driven by internal microcomputers.</p>
+        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/large_scale_analogue/vca_faders_motorized.jpg" alt="VCA Automated Console Faders" class="slide-thumb">
+               <span class="spec-pill ao3">AO3 Voltage-Controlled Amp</span>
+               <h4>VCA Fader Automation</h4>
+               <p>Instead of passing audio through carbon tracks, audio passed through a Voltage Controlled Amplifier (VCA). Fader positions generated DC control voltages saved to floppy disk for dynamic mix automation.</p></div><div class="info-card cyan-edge"><img src="/images/slides/large_scale_analogue/ssl_computer_screen_keyboard.jpg" alt="SSL On-Board Computer & Monitor" class="slide-thumb">
+               <span class="spec-pill ao3">AO3 Studio Memory</span>
+               <h4>SSL Total Recall</h4>
+               <p>The console computer scanned every rotary knob, pot, and switch position on all 48 channels, displaying graphical overlays on screen so engineers could reset a complex mix in minutes.</p></div><div class="info-card acid-edge"><img src="/images/slides/large_scale_analogue/patchbay_cables_studio.jpg" alt="Studio TT Audio Patchbay" class="slide-thumb">
+               <span class="spec-pill ao3">AO3 Signal Routing</span>
+               <h4>In-Line Architecture &amp; Patchbay</h4>
+               <p>Every channel strip contained two signal paths: the <em>Channel Path</em> (mic preamp to multitrack send) and the <em>Monitor Path</em> (multitrack return to stereo mix). TT patchbays routed outboard units.</p></div></div>
+      </section>
+
+      <section class="slide" data-slide="11">
+        <div class="slide-eyebrow"><span>⚡</span> Dynamics Processing &bull; Component 3 Music Technology in Context</div>
+        <h2 class="slide-heading">FET &amp; VCA Compression: <span>The 1176 &amp; dbx 160</span></h2>
+        <p class="slide-lead">The move from vintage tubes to high-speed solid-state transistors introduced ultra-fast transient-catching limiters and punchy VCA gain control.</p>
+        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/large_scale_analogue/urei_1176_limiter.jpg" alt="UREI 1176 LN Peak Limiting Amplifier" class="slide-thumb">
+               <span class="spec-pill ao3">AO3 Ultra-Fast FET</span>
+               <h4>UREI 1176 LN Limiter</h4>
+               <p>Field Effect Transistor (FET) gain reduction with blistering 20-microsecond attack. Depressing all ratio buttons simultaneously ("All-Buttons-In" mode) produced aggressive pumping distortion on drums.</p>
+               <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('8z5v4u3F8gE', '1176 Compressor All Buttons In Demo')">▶ Watch: 1176 All-Buttons-In Mode</button><a href="https://www.youtube.com/watch?v=8z5v4u3F8gE" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div></div><div class="info-card cyan-edge"><img src="/images/slides/large_scale_analogue/dbx_160_compressor.jpg" alt="dbx 160 Compressor / Limiter" class="slide-thumb">
+               <span class="spec-pill ao3">AO3 Hard-Knee Punch</span>
+               <h4>dbx 160 VCA Compressor</h4>
+               <p>Famous for its feed-forward VCA design and hard-knee compression. Delivered tight, punchy dynamic clamp with distinct low-end thud, making it the favorite for bass guitars and kick drums.</p></div><div class="info-card acid-edge"><img src="/images/slides/large_scale_analogue/ssl_g_master_bus_comp.jpg" alt="SSL G-Series Master Bus Compressor" class="slide-thumb">
+               <span class="spec-pill ao3">AO3 "The Mix Glue"</span>
+               <h4>SSL G-Master Bus Compressor</h4>
+               <p>A quad-VCA stereo compressor strapped across the master stereo output. Gentle ratios (2:1 or 4:1) with auto-release "glued" diverse multitrack elements into a cohesive, punchy record.</p></div></div>
+      </section>
+
+      <section class="slide" data-slide="12">
+        <div class="slide-eyebrow"><span>🌌</span> Digital Revolution &bull; Component 3 Music Technology in Context</div>
+        <h2 class="slide-heading">Algorithmic Reverb: <span>Lexicon 224, 480L &amp; Eventide</span></h2>
+        <p class="slide-lead">In the late 1970s and 1980s, DSP algorithms replaced vibrating metal plates and acoustic echo chambers, introducing programmable algorithmic ambience.</p>
+        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/large_scale_analogue/lexicon_224_reverb.jpg" alt="Lexicon 224 Digital Reverb" class="slide-thumb">
+               <span class="spec-pill ao3">AO3 Digital Space</span>
+               <h4>Lexicon 224 (1978)</h4>
+               <p>Designed by Dr. David Griesinger, this early digital reverb used 12-bit floating-point converters and the iconic slider-based LARC remote to create lush Concert Hall and Plate spaces.</p></div><div class="info-card cyan-edge"><img src="/images/slides/large_scale_analogue/lexicon_480l_larc.jpg" alt="Lexicon 480L Digital Effects System" class="slide-thumb">
+               <span class="spec-pill ao3">AO3 Industry Benchmark</span>
+               <h4>Lexicon 480L (1986)</h4>
+               <p>Dual-DSP architecture providing pristine 20-bit dynamic range, stereo time-variant reverbs, chorus delays, and high diffusion density that defined 1980s pop production.</p></div><div class="info-card acid-edge"><img src="/images/slides/large_scale_analogue/eventide_harmonizer_h910.jpg" alt="Eventide H910 Harmonizer" class="slide-thumb">
+               <span class="spec-pill ao3">AO3 Digital Pitch Shifting</span>
+               <h4>Eventide H910 Harmonizer</h4>
+               <p>The world's first digital pitch-shifting unit (1974). Allowed engineers to detune vocals by &plusmn;1 octave, create micro-pitch stereo width, and generate sci-fi delay feedback sweeps.</p></div></div>
+      </section>
+
+      <section class="slide" data-slide="13">
+        <div class="slide-eyebrow"><span>🎹</span> Keyboard Synthesis &bull; Component 3 Music Technology in Context</div>
+        <h2 class="slide-heading">Subtractive &amp; Polyphonic Synths: <span>Minimoog &amp; Prophet-5</span></h2>
+        <p class="slide-lead">Voltage-controlled oscillators, ladder filters, and microprocessors brought synthesizers from massive laboratory modulars into mainstream hit records.</p>
+        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/large_scale_analogue/hohner_clavinet_d6.jpg" alt="Hohner Clavinet D6 Keyboard" class="slide-thumb">
+               <span class="spec-pill ao3">AO3 Funk Clavinet</span>
+               <h4>Hohner Clavinet D6</h4>
+               <p>Electro-mechanical keyboard using rubber-tipped keys to strike steel strings against magnetic pickups. Paired with a wah-wah pedal or Mu-Tron III filter for quintessential funk rhythmic grit.</p></div><div class="info-card cyan-edge"><img src="/images/slides/large_scale_analogue/minimoog_model_d.jpg" alt="Minimoog Model D Synthesizer" class="slide-thumb">
+               <span class="spec-pill ao3">AO3 Subtractive Bass</span>
+               <h4>Minimoog Model D (1970)</h4>
+               <p>Monophonic subtractive synthesizer with 3 VCOs, noise generator, and the legendary 24 dB/octave 4-pole transistor ladder low-pass filter. Defined punchy synth bass across disco, funk, and rock.</p>
+               <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('Vscv_eC3sUo', 'Minimoog Model D Demonstration')">▶ Watch: Minimoog Bass & Lead Synthesis</button><a href="https://www.youtube.com/watch?v=Vscv_eC3sUo" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div></div><div class="info-card acid-edge"><img src="/images/slides/large_scale_analogue/prophet_5_synth.jpg" alt="Sequential Circuits Prophet-5" class="slide-thumb">
+               <span class="spec-pill ao3">AO3 Polyphonic Presets</span>
+               <h4>Sequential Prophet-5 (1978)</h4>
+               <p>The first fully programmable 5-voice polyphonic analog synthesizer with patch memory storage. Allowed musicians to save and instantly recall rich analog string pads, brass stabs, and chords.</p></div></div>
+      </section>
+
+      <section class="slide" data-slide="14">
+        <div class="slide-eyebrow"><span>🥁</span> Acoustic Engineering &bull; Component 3 Music Technology in Context</div>
+        <h2 class="slide-heading">Close-Miking Drums, <span>Damping &amp; Drawmer Noise Gates</span></h2>
+        <p class="slide-lead">The 24-track era revolutionized drum recording, assigning individual microphones to every drum shell while controlling bleed through physical damping and hardware noise gates.</p>
+        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/large_scale_analogue/drum_kit_close_mics.jpg" alt="Multi-Mic Drum Kit Studio Setup" class="slide-thumb">
+               <span class="spec-pill ao3">AO3 Multi-Track Capture</span>
+               <h4>Individual Shell Miking</h4>
+               <p>Instead of 2–3 overall mics, 10+ tracks were allocated: kick drum (inside &amp; outside), snare top &amp; bottom, hi-hat, 3 rack toms, floor tom, and stereo overheads spaced or XY.</p></div><div class="info-card cyan-edge"><img src="/images/slides/large_scale_analogue/snare_drum_shure_sm57.png" alt="Snare Drum Shure SM57 Placement" class="slide-thumb">
+               <span class="spec-pill ao3">AO3 Transducer Physics</span>
+               <h4>Snare Dual-Miking &amp; Phase</h4>
+               <p>Top mic (Shure SM57) captures stick attack; bottom mic captures high-frequency snare wire sizzle. Inverting the electrical phase on the bottom mic prevents destructive phase cancellation.</p></div><div class="info-card acid-edge"><img src="/images/slides/large_scale_analogue/drawmer_ds201_gate.svg" alt="Drawmer DS201 Dual Noise Gate" class="slide-thumb">
+               <span class="spec-pill ao3">AO3 Bleed Elimination</span>
+               <h4>Hardware Noise Gating</h4>
+               <p>Units like the Drawmer DS201 muted tom and snare channels when the drum was not being struck. Threshold, attack, hold, and release parameters silenced hi-hat spill between drum hits.</p></div></div>
+      </section>
+
+      <section class="slide" data-slide="15">
+        <div class="slide-eyebrow"><span>💿</span> Consumer Formats &bull; Component 3 Music Technology in Context</div>
+        <h2 class="slide-heading">The Compact Cassette, <span>Walkman &amp; the Dawn of Digital CD</span></h2>
+        <p class="slide-lead">Music consumption transitioned from 12-inch vinyl microgroove records to portable magnetic Compact Cassettes, culminating in the 1982 release of the 16-bit 44.1 kHz Compact Disc.</p>
+        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/large_scale_analogue/compact_cassette_tape_open.jpg" alt="Philips Compact Cassette Tape" class="slide-thumb">
+               <span class="spec-pill ao3">AO3 Portable Magnetic Tape</span>
+               <h4>The Compact Cassette (1963–1980s)</h4>
+               <p>Operating at 1.875 ips on 1/8-inch tape, cassettes evolved from voice recording to high-fidelity music with Type II (Chrome) and Type IV (Metal) formulations and Dolby B/C consumer noise reduction.</p></div><div class="info-card cyan-edge"><img src="/images/slides/large_scale_analogue/cassette_player_heads.jpg" alt="Stereo Cassette Transport Head Mechanism" class="slide-thumb">
+               <span class="spec-pill ao3">AO3 Consumer Transport</span>
+               <h4>Head Gap &amp; The Walkman</h4>
+               <p>Precision micro-gap heads and capstan flywheels enabled high-fidelity stereo reproduction. The 1979 Sony Walkman made music personal and mobile, reshaping pop music production and headphone mixes.</p></div><div class="info-card acid-edge"><img src="/images/slides/large_scale_analogue/compact_disc_laser_optical.jpg" alt="Compact Disc Optical Pit Surface" class="slide-thumb">
+               <span class="spec-pill ao3">AO3 Digital Audio Dawn</span>
+               <h4>The Compact Disc (1982)</h4>
+               <p>Philips and Sony co-developed the Red Book CD: 16-bit resolution, 44.1 kHz sampling rate, 96 dB dynamic range, and zero tape hiss or surface crackle, permanently changing mixing and mastering dynamics.</p></div></div>
+      </section>
+    </main>
+
+    <footer class="deck-controls">
+      <button class="nav-btn" id="prevBtn" onclick="prevSlide()" disabled>&larr; Previous</button>
+      <div class="progress-container">
+        <span class="slide-counter" id="slideCounter">Slide 1 of 15</span>
+        <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+      </div>
+      <button class="nav-btn" id="nextBtn" onclick="nextSlide()">Next &rarr;</button>
+    </footer>
+  </div>
+
+  <!-- Video Modal -->
+  <div class="video-modal-backdrop" id="videoModal">
+    <div class="video-modal-content">
+      <div class="video-modal-header">
+        <span class="video-modal-title" id="videoModalTitle">Video Clip</span>
+        <div style="display: flex; gap: 10px; align-items: center;">
+          <a id="videoExternalLink" href="#" target="_blank" rel="noopener noreferrer" class="external-yt-link" title="Open directly on YouTube">
+            <span>Open in YouTube</span>
+            <span>↗</span>
+          </a>
+          <button class="close-modal-btn" onclick="closeVideo()">&times;</button>
+        </div>
+      </div>
+      <div class="video-player-wrapper">
+        <iframe id="videoIframe" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+      <div class="video-modal-footer">
+        <span style="display: inline-flex; align-items: center; gap: 6px;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="#ef4444"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+          YouTube Audio Example
+        </span>
+        <a id="videoFooterLink" href="#" target="_blank" rel="noopener noreferrer" style="color: #38bdf8; font-weight: 700; text-decoration: none;">Watch Directly on YouTube &rarr;</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Image Lightbox Modal -->
+  <div class="image-modal-backdrop" id="imageModal" onclick="closeImageModal()">
+    <div class="image-modal-content" onclick="event.stopPropagation()">
+      <button class="image-modal-close" onclick="closeImageModal()" title="Close (Esc)">&times;</button>
+      <img id="imageModalImg" src="" alt="Expanded Image">
+      <div class="image-modal-caption" id="imageModalCaption"></div>
+    </div>
+  </div>
+
+  <script>
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+    const totalSlides = slides.length;
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const slideCounter = document.getElementById('slideCounter');
+    const progressFill = document.getElementById('progressFill');
+    const videoModal = document.getElementById('videoModal');
+    const videoModalTitle = document.getElementById('videoModalTitle');
+    const videoIframe = document.getElementById('videoIframe');
+
+    // Image Lightbox Logic
+    const imageModal = document.getElementById('imageModal');
+    const imageModalImg = document.getElementById('imageModalImg');
+    const imageModalCaption = document.getElementById('imageModalCaption');
+
+    function openImageModal(src, alt) {
+      if (!imageModal || !imageModalImg) return;
+      imageModalImg.src = src;
+      if (imageModalCaption) imageModalCaption.textContent = alt || '';
+      imageModal.classList.add('open');
+      imageModal.style.display = 'flex';
+    }
+
+    function closeImageModal() {
+      if (!imageModal) return;
+      imageModal.classList.remove('open');
+      imageModal.style.display = 'none';
+      if (imageModalImg) imageModalImg.src = '';
+    }
+
+    document.addEventListener('click', (e) => {
+      const target = e.target;
+      if (target && target.tagName === 'IMG') {
+        if (target.closest('#videoModal') || target.closest('#imageModal')) return;
+        if (
+          target.classList.contains('slide-thumb') ||
+          target.classList.contains('artist-photo') ||
+          target.closest('.cover-card') ||
+          target.closest('.image-frame') ||
+          target.closest('.info-card')
+        ) {
+          e.preventDefault();
+          openImageModal(target.src, target.alt);
+        }
+      }
+    });
+
+    function updateDeck() {
+      slides.forEach((slide, idx) => {
+        slide.classList.toggle('active', idx === currentSlide);
+      });
+      if (prevBtn) prevBtn.disabled = currentSlide === 0;
+      if (nextBtn) nextBtn.disabled = currentSlide === totalSlides - 1;
+      if (slideCounter) slideCounter.textContent = `Slide ${currentSlide + 1} of ${totalSlides}`;
+      if (progressFill) progressFill.style.width = `${((currentSlide + 1) / totalSlides) * 100}%`;
+    }
+
+    function nextSlide() {
+      if (currentSlide < totalSlides - 1) {
+        currentSlide++;
+        updateDeck();
+      }
+    }
+
+    function prevSlide() {
+      if (currentSlide > 0) {
+        currentSlide--;
+        updateDeck();
+      }
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (imageModal && imageModal.classList.contains('open')) {
+        if (e.key === 'Escape') {
+          closeImageModal();
+          return;
+        }
+      }
+      if (videoModal && videoModal.classList.contains('open')) {
+        if (e.key === 'Escape') closeVideo();
+        return;
+      }
+      if (e.key === 'ArrowRight' || e.key === ' ') {
+        e.preventDefault();
+        nextSlide();
+      } else if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        prevSlide();
+      }
+    });
+
+    let touchStartX = 0;
+    let touchEndX = 0;
+    const viewport = document.getElementById('slidesViewport');
+
+    viewport.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    viewport.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      if (touchEndX < touchStartX - 50) nextSlide();
+      if (touchEndX > touchStartX + 50) prevSlide();
+    }, { passive: true });
+
+    function openVideo(videoId, title) {
+      const extLink = document.getElementById('videoExternalLink');
+      if (extLink) extLink.href = `https://www.youtube.com/watch?v=${videoId}`;
+      const footLink = document.getElementById('videoFooterLink');
+      if (footLink) footLink.href = `https://www.youtube.com/watch?v=${videoId}`;
+
+      videoIframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
+      videoModalTitle.textContent = title;
+      videoModal.classList.add('open');
+      videoModal.style.display = 'flex';
+    }
+
+    function closeVideo() {
+      videoModal.classList.remove('open');
+      videoModal.style.display = 'none';
+      videoIframe.src = '';
+    }
+
+    videoModal.addEventListener('click', (e) => {
+      if (e.target === videoModal) closeVideo();
+    });
+
+    updateDeck();
+  </script>
+</body>
+</html>

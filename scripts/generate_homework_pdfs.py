@@ -499,4 +499,172 @@ build_homework_pdf(
     ]
 )
 
+# --- LARGE SCALE ANALOGUE HW 1 ---
+build_homework_pdf(
+    filename="c3_large_scale_analogue_hw1_pink_floyd.pdf",
+    title="C3 Large Scale Analogue HW 1 – Pink Floyd 'Money' & 16/24-Track Tape",
+    artist="Pink Floyd (The Dark Side of the Moon, Abbey Road Studios, Engineer: Alan Parsons)",
+    youtube_url="https://www.youtube.com/watch?v=-0kcet4aPpQ",
+    questions_page1=[
+        {
+            'type': 'table',
+            'prompt': '1. In 1972–1973, Pink Floyd recorded "Money" on 16-track 2-inch tape at Abbey Road. Identify the track elements and acoustic sources in the table below. (3)',
+            'colWidths': [240, 275],
+            'data': [
+                ['Track Element', 'Source / Studio Processing'],
+                ['Rhythmic 7/4 Tape Loop', 'Physical spliced magnetic tape loop (cash register, coins)'],
+                ['Bass Guitar Riff (Roger Waters)', 'Fender Precision Bass via Valve Preamplifier'],
+                ['Electric Guitars (David Gilmour)', ''],
+                ['Tenor Saxophone Solo (Dick Parry)', '']
+            ]
+        },
+        {
+            'type': 'qa',
+            'prompt': '2. What prominent time signature change occurs between the main rhythm section groove and the guitar solo at 3\'05"? (1)',
+            'lines': 2
+        },
+        {
+            'type': 'qa',
+            'prompt': '3. What year was "The Dark Side of the Moon" released, and explain ONE operational advantage 16-track and 24-track 2-inch tape machines provided over earlier 4-track recorders. (2)',
+            'lines': 3
+        },
+        {
+            'type': 'qa',
+            'prompt': '4. Analogue tape recorders require high-frequency AC bias (100–150 kHz) during tracking. Explain why magnetic tape exhibits non-linear distortion without bias, and detail how bias current solves this. (4)',
+            'lines': 5
+        }
+    ],
+    questions_page2=[
+        {
+            'type': 'qa',
+            'prompt': '5. Large-scale analogue studios transitioned from "split" mixing desks to "in-line" console architecture. Explain how an in-line channel strip accommodates both the Channel path and Monitor path simultaneously. (4)',
+            'lines': 5
+        },
+        {
+            'type': 'table_box',
+            'prompt': '6. Describe how you would close-mic a loud electric bass amplifier or acoustic saxophone in a modern studio to achieve warmth while preventing low-end rumble: (4)',
+            'colWidths': [515],
+            'row_bgs': [(0, colors.HexColor("#e2e8f0")), (2, colors.HexColor("#e2e8f0"))],
+            'data': [
+                ['Choice of Microphone / DI Box & Polar Pattern (2)'],
+                ['Direct Injection (DI) / Microphone:\n\nPolar Pattern:\n '],
+                ['Positioning, Distance & High-Pass Filter Settings (2)'],
+                ['\n\n\n ']
+            ]
+        }
+    ]
+)
+
+# --- LARGE SCALE ANALOGUE HW 2 ---
+build_homework_pdf(
+    filename="c3_large_scale_analogue_hw2_fleetwood_mac.pdf",
+    title="C3 Large Scale Analogue HW 2 – Fleetwood Mac 'Dreams' & Analogue Dynamics",
+    artist="Fleetwood Mac (Rumours, 1977, Record Plant, Producers: Fleetwood Mac, Ken Caillat)",
+    youtube_url="https://www.youtube.com/watch?v=mrZRURcb1fc",
+    questions_page1=[
+        {
+            'type': 'table',
+            'prompt': '1. In 1976–1977, Fleetwood Mac tracked "Dreams" on 24-track 2-inch tape at Record Plant Sausalito. Identify the panning and instrumentation in the stereo mix. (3)',
+            'colWidths': [240, 275],
+            'data': [
+                ['Instrument / Vocal Group', 'Stereo Position / Studio Treatment'],
+                ['Lead Vocal (Stevie Nicks)', 'Centre (Controlled by UREI 1176 Limiter)'],
+                ['Acoustic & Electric Guitars', ''],
+                ['Bass Guitar (John McVie)', 'Centre (Direct Injection + Amp)'],
+                ['Fender Rhodes Electric Piano', '']
+            ]
+        },
+        {
+            'type': 'qa',
+            'prompt': '2. What physical damping technique was applied to Mick Fleetwood\'s snare drum and kick drum to create the ultra-dry, punchy 1970s drum sound? (1)',
+            'lines': 2
+        },
+        {
+            'type': 'qa',
+            'prompt': '3. What year was "Rumours" released, and why did frequent overdubbing across months cause tape wear, requiring backup safety slave reels? (2)',
+            'lines': 3
+        },
+        {
+            'type': 'qa',
+            'prompt': '4. 1970s studios relied on the UREI 1176 and dbx 160 compressors. Compare the circuit architecture (FET vs VCA) and attack speeds of these two classic analogue dynamics units. (4)',
+            'lines': 5
+        }
+    ],
+    questions_page2=[
+        {
+            'type': 'qa',
+            'prompt': '5. To overcome analogue tape hiss across 24 tracks, studios utilized Dolby A-type noise reduction. Explain how 4-band companding (compression on record, expansion on playback) eliminates hiss. (4)',
+            'lines': 5
+        },
+        {
+            'type': 'table_box',
+            'prompt': '6. Describe how you would close-mic a snare drum in a modern studio using two microphones to capture both the top head impact and bottom snare wires: (4)',
+            'colWidths': [515],
+            'row_bgs': [(0, colors.HexColor("#e2e8f0")), (2, colors.HexColor("#e2e8f0"))],
+            'data': [
+                ['Microphone Choices (Top & Bottom) & Polar Patterns (2)'],
+                ['Top Microphone:\n\nBottom Microphone:\n '],
+                ['Placement, Angle & Crucial Phase Alignment Step (2)'],
+                ['\n\n\n ']
+            ]
+        }
+    ]
+)
+
+# --- LARGE SCALE ANALOGUE HW 3 ---
+build_homework_pdf(
+    filename="c3_large_scale_analogue_hw3_billie_jean.pdf",
+    title="C3 Large Scale Analogue HW 3 – Michael Jackson 'Billie Jean' & SSL Automation",
+    artist="Michael Jackson (Thriller, 1982, Westlake Audio, Engineer: Bruce Swedien)",
+    youtube_url="https://www.youtube.com/watch?v=Zi_XLOBDo_Y",
+    questions_page1=[
+        {
+            'type': 'table',
+            'prompt': '1. In 1982, Bruce Swedien mixed "Billie Jean" on a Solid State Logic SSL 4000 console. Identify the track arrangement in the table below. (3)',
+            'colWidths': [240, 275],
+            'data': [
+                ['Instrument / Track Element', 'Arrangement & Processing'],
+                ['Kick Drum & Snare Intro', 'Uncompressed transient capture, wood bass drum cover'],
+                ['Stereo Synthesizer Bass', 'Doubled Minimoog and Yamaha basslines'],
+                ['Lead Vocal (Michael Jackson)', ''],
+                ['String & Horn Accents', '']
+            ]
+        },
+        {
+            'type': 'qa',
+            'prompt': '2. What distinctive metallic vocal reverb / slapback effect can be heard on Michael Jackson\'s vocal hiccup ad-libs at 0\'29"? (1)',
+            'lines': 2
+        },
+        {
+            'type': 'qa',
+            'prompt': '3. Bruce Swedien used the "Acusonic Recording Process" synchronizing multiple 24-track tape machines. What technology was used to synchronize tape transports? (2)',
+            'lines': 3
+        },
+        {
+            'type': 'qa',
+            'prompt': '4. Noise gates (e.g. Drawmer DS201, Kepex) were vital in large-scale multitrack tracking. Explain the function of Threshold, Attack, Hold, and Release parameters on a noise gate. (4)',
+            'lines': 5
+        }
+    ],
+    questions_page2=[
+        {
+            'type': 'qa',
+            'prompt': '5. The SSL 4000 console revolutionized mixing with VCA fader automation and the G-Master Bus Compressor. Explain how these two tools enabled cohesive, punchy commercial mixes. (4)',
+            'lines': 5
+        },
+        {
+            'type': 'table_box',
+            'prompt': '6. Describe how you would close-mic a kick drum in a modern studio to capture both deep low-end weight and sharp beater attack: (4)',
+            'colWidths': [515],
+            'row_bgs': [(0, colors.HexColor("#e2e8f0")), (2, colors.HexColor("#e2e8f0"))],
+            'data': [
+                ['Dual-Microphone Selection (Inside vs Outside) & Polar Patterns (2)'],
+                ['Mic 1 (Inside beater click):\n\nMic 2 (Outside resonant head):\n '],
+                ['Positioning, Acoustic Porting / Damping & Phase Check (2)'],
+                ['\n\n\n ']
+            ]
+        }
+    ]
+)
+
 print("ALL HOMEWORK PDFS GENERATED SUCCESSFULLY!")

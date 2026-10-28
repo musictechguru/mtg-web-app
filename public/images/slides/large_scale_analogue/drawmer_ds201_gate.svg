@@ -1,0 +1,160 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b1120" />
+      <stop offset="50%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#020617" />
+    </linearGradient>
+
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.5" />
+    </filter>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect width="800" height="480" fill="url(#bgGrad)" />
+
+  <!-- Outer Header -->
+  <g transform="translate(30, 20)">
+    <rect width="280" height="30" rx="6" fill="#3b82f6" fill-opacity="0.15" stroke="#3b82f6" stroke-width="1.2" />
+    <text x="140" y="20" fill="#60a5fa" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="800" text-anchor="middle" letter-spacing="1">GATING CLOSE DRUM MICS</text>
+    <text x="295" y="21" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="500">Eliminating acoustic spill &amp; bleed between direct hits</text>
+  </g>
+
+  <!-- Panel 1: Ungated Snare Mic Signal (Before) -->
+  <g transform="translate(30, 62)">
+    <rect width="740" height="146" rx="8" fill="url(#cardGrad)" stroke="#ef4444" stroke-width="1.5" filter="url(#shadow)" />
+    
+    <!-- Header Tag -->
+    <rect x="14" y="10" width="170" height="22" rx="4" fill="#ef4444" fill-opacity="0.2" stroke="#ef4444" stroke-width="1" />
+    <text x="99" y="25" fill="#f87171" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10.5" font-weight="800" text-anchor="middle">BEFORE: UNGATED SNARE MIC</text>
+    <text x="195" y="25" fill="#cbd5e1" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="600">Close mic picks up bleed from hi-hat, kick, and cymbals</text>
+
+    <!-- Waveform Box -->
+    <rect x="14" y="38" width="530" height="96" rx="5" fill="#0b1120" stroke="#334155" />
+    
+    <!-- Threshold Reference Line -->
+    <line x1="14" y1="72" x2="544" y2="72" stroke="#eab308" stroke-width="1.5" stroke-dasharray="4" />
+    <text x="22" y="66" fill="#fbbf24" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" font-weight="700">GATE THRESHOLD (-22 dB)</text>
+
+    <!-- Center Zero Line -->
+    <line x1="14" y1="102" x2="544" y2="102" stroke="#1e293b" stroke-width="1" />
+
+    <!-- Waveform Components (Before) -->
+    <!-- Hi-Hat Bleed 1 -->
+    <path d="M 50,102 L 58,102 L 64,88 L 70,108 L 76,92 L 82,102 L 90,102" fill="none" stroke="#f87171" stroke-width="1.8" />
+    <text x="70" y="122" fill="#f87171" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" font-weight="700" text-anchor="middle">Hi-Hat</text>
+
+    <!-- Desired Snare Hit 1 -->
+    <path d="M 110,102 L 120,102 L 130,48 L 140,118 L 150,60 L 160,112 L 170,76 L 180,108 L 190,92 L 210,102" fill="none" stroke="#38bdf8" stroke-width="2.2" />
+    <text x="145" y="44" fill="#38bdf8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9" font-weight="800" text-anchor="middle">SNARE HIT</text>
+
+    <!-- Kick Bleed Spill -->
+    <path d="M 235,102 L 244,102 L 252,86 L 260,110 L 268,90 L 276,102" fill="none" stroke="#f87171" stroke-width="1.8" />
+    <text x="256" y="122" fill="#f87171" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" font-weight="700" text-anchor="middle">Kick Bleed</text>
+
+    <!-- Hi-Hat Bleed 2 -->
+    <path d="M 305,102 L 312,102 L 318,88 L 324,108 L 330,92 L 336,102" fill="none" stroke="#f87171" stroke-width="1.8" />
+    <text x="324" y="122" fill="#f87171" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" font-weight="700" text-anchor="middle">Hi-Hat</text>
+
+    <!-- Desired Snare Hit 2 -->
+    <path d="M 360,102 L 370,102 L 380,48 L 390,118 L 400,60 L 410,112 L 420,76 L 430,108 L 440,92 L 460,102" fill="none" stroke="#38bdf8" stroke-width="2.2" />
+    <text x="395" y="44" fill="#38bdf8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9" font-weight="800" text-anchor="middle">SNARE HIT</text>
+
+    <!-- Crash Cymbal Wash (far right) -->
+    <path d="M 480,102 L 488,102 L 494,88 L 500,108 L 506,90 L 512,106 L 518,92 L 524,102" fill="none" stroke="#f87171" stroke-width="1.8" />
+    <text x="502" y="122" fill="#f87171" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" font-weight="700" text-anchor="middle">Cymbal Spill</text>
+
+    <!-- Right Callout Box: Problem -->
+    <rect x="556" y="38" width="170" height="96" rx="5" fill="#0f172a" stroke="#ef4444" stroke-width="1" />
+    <text x="641" y="58" fill="#f87171" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="800" text-anchor="middle">THE PROBLEM: BLEED</text>
+    <text x="566" y="78" fill="#cbd5e1" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9.5">• Muddy, cluttered mix</text>
+    <text x="566" y="96" fill="#cbd5e1" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9.5">• EQ on snare ruins cymbals</text>
+    <text x="566" y="114" fill="#cbd5e1" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9.5">• Phase smearing in stereo kit</text>
+  </g>
+
+  <!-- Panel 2: Gated Snare Mic Signal (After) -->
+  <g transform="translate(30, 222)">
+    <rect width="740" height="154" rx="8" fill="url(#cardGrad)" stroke="#10b981" stroke-width="1.5" filter="url(#shadow)" />
+    
+    <!-- Header Tag -->
+    <rect x="14" y="10" width="170" height="22" rx="4" fill="#10b981" fill-opacity="0.2" stroke="#10b981" stroke-width="1" />
+    <text x="99" y="25" fill="#34d399" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10.5" font-weight="800" text-anchor="middle">AFTER: NOISE GATE APPLIED</text>
+    <text x="195" y="25" fill="#cbd5e1" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="600">Threshold set above bleed: only direct snare strikes open the gate</text>
+
+    <!-- Waveform Box -->
+    <rect x="14" y="38" width="530" height="74" rx="5" fill="#0b1120" stroke="#334155" />
+
+    <!-- Gate Threshold Line -->
+    <line x1="14" y1="54" x2="544" y2="54" stroke="#eab308" stroke-width="1.5" stroke-dasharray="4" />
+    <text x="22" y="48" fill="#fbbf24" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" font-weight="700">GATE THRESHOLD (-22 dB)</text>
+
+    <!-- Center Line -->
+    <line x1="14" y1="74" x2="544" y2="74" stroke="#1e293b" stroke-width="1" />
+
+    <!-- Waveform Components (After) -->
+    <!-- Muted Spill 1 (Flat silence) -->
+    <line x1="20" y1="74" x2="110" y2="74" stroke="#64748b" stroke-width="2" stroke-dasharray="2" />
+
+    <!-- Passed Snare Hit 1 -->
+    <path d="M 110,74 L 120,74 L 130,40 L 140,94 L 150,46 L 160,90 L 170,60 L 180,86 L 190,70 L 210,74" fill="none" stroke="#38bdf8" stroke-width="2.2" />
+
+    <!-- Muted Kick & Hi-Hat 2 (Flat silence) -->
+    <line x1="210" y1="74" x2="360" y2="74" stroke="#64748b" stroke-width="2" stroke-dasharray="2" />
+
+    <!-- Passed Snare Hit 2 -->
+    <path d="M 360,74 L 370,74 L 380,40 L 390,94 L 400,46 L 410,90 L 420,60 L 430,86 L 440,70 L 460,74" fill="none" stroke="#38bdf8" stroke-width="2.2" />
+
+    <!-- Muted Cymbal Wash (Flat silence) -->
+    <line x1="460" y1="74" x2="540" y2="74" stroke="#64748b" stroke-width="2" stroke-dasharray="2" />
+
+    <!-- Gate Status State Bar underneath -->
+    <g transform="translate(14, 118)">
+      <rect width="530" height="24" rx="3" fill="#0b1120" stroke="#1e293b" />
+      
+      <!-- Shut 1 -->
+      <rect x="0" y="0" width="96" height="24" fill="#ef4444" fill-opacity="0.25" />
+      <text x="48" y="16" fill="#f87171" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" font-weight="800" text-anchor="middle">SHUT (MUTED)</text>
+
+      <!-- Open Snare 1 -->
+      <rect x="96" y="0" width="114" height="24" fill="#10b981" fill-opacity="0.35" />
+      <text x="153" y="16" fill="#34d399" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" font-weight="800" text-anchor="middle">GATE OPEN (SNARE)</text>
+
+      <!-- Shut 2 -->
+      <rect x="210" y="0" width="150" height="24" fill="#ef4444" fill-opacity="0.25" />
+      <text x="285" y="16" fill="#f87171" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" font-weight="800" text-anchor="middle">SHUT (BLEED MUTED)</text>
+
+      <!-- Open Snare 2 -->
+      <rect x="360" y="0" width="100" height="24" fill="#10b981" fill-opacity="0.35" />
+      <text x="410" y="16" fill="#34d399" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" font-weight="800" text-anchor="middle">GATE OPEN (SNARE)</text>
+
+      <!-- Shut 3 -->
+      <rect x="460" y="0" width="70" height="24" fill="#ef4444" fill-opacity="0.25" />
+      <text x="495" y="16" fill="#f87171" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" font-weight="800" text-anchor="middle">SHUT</text>
+    </g>
+
+    <!-- Right Callout Box: Solution -->
+    <rect x="556" y="38" width="170" height="104" rx="5" fill="#0f172a" stroke="#10b981" stroke-width="1" />
+    <text x="641" y="58" fill="#34d399" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="800" text-anchor="middle">THE BENEFIT: CLEAN TRACK</text>
+    <text x="566" y="78" fill="#cbd5e1" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9.5"><tspan fill="#34d399" font-weight="bold">✓</tspan> 100% discrete drum hits</text>
+    <text x="566" y="94" fill="#cbd5e1" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9.5"><tspan fill="#34d399" font-weight="bold">✓</tspan> Boost highs on snare EQ</text>
+    <text x="578" y="107" fill="#cbd5e1" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9.5">without harsh cymbal spill</text>
+    <text x="566" y="125" fill="#cbd5e1" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9.5"><tspan fill="#34d399" font-weight="bold">✓</tspan> Eliminates bleed phase issues</text>
+  </g>
+
+  <!-- Bottom Key Exam Takeaway -->
+  <g transform="translate(30, 392)">
+    <rect width="740" height="68" rx="8" fill="#1e293b" stroke="#3b82f6" stroke-width="1.5" />
+    <circle cx="36" cy="34" r="14" fill="#3b82f6" fill-opacity="0.2" stroke="#3b82f6" stroke-width="1.5" />
+    <text x="36" y="39" fill="#60a5fa" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="900" text-anchor="middle">i</text>
+    
+    <text x="64" y="26" fill="#f8fafc" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="700">Edexcel Key Takeaway: Why Gate Close Drum Mics?</text>
+    <text x="64" y="44" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10.5">Acoustic spill between instruments degrades separation and causes phase smearing. Gating silences the track between hits,</text>
+    <text x="64" y="58" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10.5">allowing individual drums (kick, snare, toms) to be compressed and equalised independently without bringing up cymbal spill.</text>
+  </g>
+</svg>
