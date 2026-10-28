@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480" width="100%" height="100%">
+  <rect width="800" height="480" fill="#080e1a" rx="14"/>
+  <rect x="20" y="20" width="760" height="440" fill="#0f172a" stroke="rgba(245,158,11,0.3)" stroke-width="1.5" rx="12"/>
+  
+  <text x="40" y="55" fill="#f59e0b" font-family="system-ui, sans-serif" font-size="13" font-weight="800" letter-spacing="1.5">AO3 MULTI-TRACK TRACKING &amp; PHASE</text>
+  <text x="40" y="85" fill="#ffffff" font-family="system-ui, sans-serif" font-size="20" font-weight="900">Bass Tracking: Combining DI + Mic (Phase Alignment)</text>
+
+  <!-- Left: Acoustic Delay Physics -->
+  <g transform="translate(45, 115)">
+    <rect x="0" y="0" width="340" height="190" fill="#1e293b" rx="8" stroke="rgba(255,255,255,0.08)"/>
+    <text x="20" y="28" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="13.5" font-weight="800">1. Physical Time Delay</text>
+    
+    <text x="20" y="58" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11.5">• <tspan fill="#38bdf8" font-weight="700">DI Signal:</tspan> Travels through cable at near light speed (~0 ms delay)</text>
+    <text x="20" y="85" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11.5">• <tspan fill="#f59e0b" font-weight="700">Mic on Speaker:</tspan> Sound travels through air at ~343 m/s (~1 ft / ms)</text>
+    <text x="20" y="112" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11.5">• A microphone placed 30 cm from grille is delayed by ~1.0 ms!</text>
+    <text x="20" y="140" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11.5">• <tspan fill="#ef4444" font-weight="700">The Problem:</tspan> Summing DI + delayed Mic causes comb filtering</text>
+    <text x="20" y="165" fill="#f87171" font-family="system-ui, sans-serif" font-size="11" font-weight="700">Destructive phase cancellation wipes out Low-E fundamentals!</text>
+  </g>
+
+  <!-- Right: DAW Phase Fix -->
+  <g transform="translate(415, 115)">
+    <rect x="0" y="0" width="340" height="190" fill="#1e293b" rx="8" stroke="rgba(34,197,94,0.3)"/>
+    <text x="20" y="28" fill="#22c55e" font-family="system-ui, sans-serif" font-size="13.5" font-weight="800">2. Modern DAW Production Solution</text>
+    
+    <text x="20" y="58" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11.5">• <tspan fill="#86efac" font-weight="700">Waveform Nudge:</tspan> Zoom in and align mic transient peak with DI</text>
+    <text x="20" y="85" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11.5">• <tspan fill="#86efac" font-weight="700">Sample Delay Plugin:</tspan> Delay DI track by 0.5–1.5 ms to match mic</text>
+    <text x="20" y="112" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11.5">• <tspan fill="#86efac" font-weight="700">Polarity Check:</tspan> Flip &#248; 180&#176; phase switch; select loudest bass</text>
+    <text x="20" y="140" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11.5">• <tspan fill="#86efac" font-weight="700">Frequency Split:</tspan> Use DI for sub-bass (&lt;150Hz), Mic for grit (&gt;150Hz)</text>
+    <text x="20" y="165" fill="#86efac" font-family="system-ui, sans-serif" font-size="11" font-weight="700">Result: Rock-solid fundamental + rich tube cabinet character</text>
+  </g>
+
+  <!-- Visual Waveform Alignment -->
+  <g transform="translate(45, 320)">
+    <rect x="0" y="0" width="705" height="110" fill="#142038" rx="8" stroke="rgba(245,158,11,0.2)"/>
+    <text x="20" y="28" fill="#f59e0b" font-family="system-ui, sans-serif" font-size="13" font-weight="800">PHASE ALIGNED SUMMATION (IN-PHASE vs OUT-OF-PHASE):</text>
+    <text x="20" y="55" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="12">DI Track: ────────^v^v^v──────── (Instantaneous electrical capture)</text>
+    <text x="20" y="78" fill="#f59e0b" font-family="system-ui, sans-serif" font-size="12">Mic Track: ──────────^v^v^v────── (Delayed by acoustic air transit time)</text>
+    <text x="20" y="100" fill="#22c55e" font-family="system-ui, sans-serif" font-size="12" font-weight="700">Aligned Sum: ───────[+6 dB BASS PUNCH]─────── (Zero low-frequency cancellation)</text>
+  </g>
+</svg>

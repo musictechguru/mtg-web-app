@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Bass Guitar • Edexcel Component 3 Specification Quiz | Music Tech Guru</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+
+    :root {
+      --bg-dark: #080e1a;
+      --bg-card: #0f172a;
+      --bg-surface: #1e293b;
+      --accent-purple: #fbbf24;
+      --accent-purple-glow: rgba(251, 191, 36, 0.35);
+      --accent-cyan: #f59e0b;
+      --accent-cyan-glow: rgba(245, 158, 11, 0.35);
+      --accent-acid: #22c55e;
+      --accent-red: #ef4444;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-purple: rgba(251, 191, 36, 0.35);
+      --border-cyan: rgba(245, 158, 11, 0.35);
+      --font: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: var(--font);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .quiz-container {
+      width: 100%;
+      max-width: 880px;
+      background: radial-gradient(circle at 50% 0%, rgba(251, 191, 36, 0.15) 0%, rgba(14, 17, 36, 0) 70%), var(--bg-card);
+      border: 1px solid var(--border-purple);
+      border-radius: 20px;
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.8), 0 0 40px rgba(251, 191, 36, 0.15);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    /* Top Quiz Header */
+    .quiz-header {
+      padding: 18px 26px;
+      background: rgba(8, 13, 10, 0.85);
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .quiz-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(251, 191, 36, 0.15);
+      border: 1px solid var(--border-purple);
+      color: #6ee7b7;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .quiz-score-pill {
+      font-size: 12.5px;
+      color: var(--text-muted);
+      font-weight: 700;
+    }
+
+    /* Progress Bar */
+    .progress-bar-track {
+      width: 100%;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent-purple) 0%, var(--accent-cyan) 100%);
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    /* Quiz Stage */
+    .quiz-stage {
+      padding: 30px 32px 24px 32px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .question-meta {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .q-category-tag {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--accent-purple);
+    }
+
+    .q-ao-tag {
+      font-size: 10.5px;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border-subtle);
+      color: #cbd5e1;
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+
+    .question-text {
+      font-size: clamp(17px, 2.5vw, 20px);
+      font-weight: 800;
+      line-height: 1.4;
+      color: #ffffff;
+      margin-bottom: 22px;
+    }
+
+    /* Options Grid */
+    .options-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .option-btn {
+      background: rgba(20, 32, 25, 0.6);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 13px 18px;
+      color: #e2e8f0;
+      font-family: var(--font);
+      font-size: 13.5px;
+      line-height: 1.45;
+      font-weight: 600;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .option-btn:hover:not(:disabled) {
+      background: rgba(20, 32, 25, 0.95);
+      border-color: rgba(251, 191, 36, 0.5);
+      transform: translateX(4px);
+    }
+
+    .option-letter {
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 800;
+      color: #94a3b8;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .option-btn.correct {
+      background: rgba(34, 197, 94, 0.15) !important;
+      border-color: var(--accent-acid) !important;
+      color: #86efac !important;
+    }
+
+    .option-btn.correct .option-letter {
+      background: var(--accent-acid);
+      color: #080e1a;
+    }
+
+    .option-btn.wrong {
+      background: rgba(239, 68, 68, 0.15) !important;
+      border-color: var(--accent-red) !important;
+      color: #fca5a5 !important;
+    }
+
+    .option-btn.wrong .option-letter {
+      background: var(--accent-red);
+      color: #ffffff;
+    }
+
+    .option-btn:disabled {
+      cursor: default;
+    }
+
+    /* Explanation & Feedback Card */
+    .insight-card {
+      display: none;
+      background: rgba(8, 13, 10, 0.85);
+      border: 1px solid var(--border-purple);
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-bottom: 20px;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .insight-card.open {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .insight-title {
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--accent-purple);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .insight-body {
+      font-size: 12.5px;
+      color: #cbd5e1;
+      line-height: 1.55;
+      margin-bottom: 6px;
+    }
+
+    .insight-tip {
+      font-size: 11.5px;
+      color: #fbbf24;
+      font-style: italic;
+    }
+
+    /* Quiz Footer */
+    .quiz-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 10px;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .q-counter {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-muted);
+    }
+
+    .next-q-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent-purple);
+      color: #080e1a;
+      border: none;
+      padding: 10px 22px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .next-q-btn:hover:not(:disabled) {
+      box-shadow: 0 0 20px var(--accent-purple-glow);
+      transform: translateY(-1px);
+    }
+
+    .next-q-btn:disabled {
+      opacity: 0.25;
+      cursor: not-allowed;
+    }
+
+    /* Results Screen */
+    .results-screen {
+      display: none;
+      padding: 40px 32px;
+      text-align: center;
+      flex-direction: column;
+      align-items: center;
+      animation: fadeIn 0.4s ease;
+    }
+
+    .results-screen.open {
+      display: flex;
+    }
+
+    .results-score-circle {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      background: rgba(251, 191, 36, 0.15);
+      border: 3px solid var(--accent-purple);
+      box-shadow: 0 0 30px var(--accent-purple-glow);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .results-score-num {
+      font-size: 32px;
+      font-weight: 900;
+      color: #ffffff;
+      line-height: 1;
+    }
+
+    .results-score-total {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 700;
+    }
+
+    .results-grade-badge {
+      display: inline-block;
+      background: rgba(34, 197, 94, 0.15);
+      border: 1px solid var(--accent-acid);
+      color: #86efac;
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 800;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .results-title {
+      font-size: 24px;
+      font-weight: 900;
+      color: #ffffff;
+      margin-bottom: 8px;
+    }
+
+    .results-message {
+      font-size: 14px;
+      color: #cbd5e1;
+      max-width: 580px;
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+
+    .results-actions {
+      display: flex;
+      gap: 12px;
+    }
+
+    .restart-btn {
+      background: var(--accent-purple);
+      color: #080e1a;
+      border: none;
+      padding: 10px 24px;
+      border-radius: 8px;
+      font-size: 13.5px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .restart-btn:hover {
+      box-shadow: 0 0 20px var(--accent-purple-glow);
+      transform: translateY(-1px);
+    }
+
+    .back-slides-btn {
+      background: rgba(255, 255, 255, 0.08);
+      color: #ffffff;
+      border: 1px solid var(--border-subtle);
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 13.5px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .back-slides-btn:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="quiz-container">
+    <!-- Top Header -->
+    <div class="quiz-header">
+      <div class="quiz-badge">
+        <span>🎸</span> Edexcel Component 3 &bull; Specification Quiz
+      </div>
+      <div class="quiz-score-pill">
+        Score: <strong style="color: var(--accent-purple);" id="currentScore">0</strong> / 12
+      </div>
+    </div>
+
+    <!-- Progress Track -->
+    <div class="progress-bar-track">
+      <div class="progress-bar-fill" id="progressFill"></div>
+    </div>
+
+    <!-- Active Quiz Stage -->
+    <div class="quiz-stage" id="quizStage">
+      <div class="question-meta">
+        <span class="q-category-tag" id="qCategory">Category</span>
+        <span class="q-ao-tag" id="qAoTag">AO Tag</span>
+      </div>
+
+      <h3 class="question-text" id="qText">Question Stem Loading...</h3>
+
+      <div class="options-grid" id="optionsGrid">
+        <!-- Buttons injected dynamically -->
+      </div>
+
+      <div class="insight-card" id="insightCard">
+        <div class="insight-title">
+          <span>💡</span> Technical Analysis &amp; Syllabus Context
+        </div>
+        <div class="insight-body" id="insightBody"></div>
+        <div class="insight-tip" id="insightTip"></div>
+      </div>
+
+      <div class="quiz-footer">
+        <span class="q-counter" id="qCounter">Question 1 of 12</span>
+        <button class="next-q-btn" id="nextBtn" onclick="nextQuestion()" disabled>
+          Next Question &rarr;
+        </button>
+      </div>
+    </div>
+
+    <!-- Results Screen -->
+    <div class="results-screen" id="resultsScreen">
+      <div class="results-score-circle">
+        <span class="results-score-num" id="finalScoreVal">0</span>
+        <span class="results-score-total">out of 12</span>
+      </div>
+      <div class="results-grade-badge" id="gradeBadge">Distinction</div>
+      <h2 class="results-title" id="resultTitle">Performance Summary</h2>
+      <p class="results-message" id="resultMessage">Analysis message goes here.</p>
+
+      <div class="results-actions">
+        <button class="restart-btn" onclick="restartQuiz()">Retake Quiz</button>
+        <a href="/interactive-slide-blues.html" class="back-slides-btn">&larr; Return to Slide Deck</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const questions = [
+  {
+    "category": "Historical Innovation (1951)",
+    "ao": "AO4: Fender Precision Bass & Intonation",
+    "text": "Why did Leo Fender add nickel-silver frets and a solid ash body to the 1951 Precision Bass?",
+    "correct": "Frets guaranteed exact intonation while the solidbody eliminated acoustic feedback at high stage volume",
+    "wrong": [
+      "Frets increased total sustain while the solidbody reduced high-frequency hum from stage lighting circuits",
+      "Frets lowered mechanical string tension while the solidbody converted low notes into pure acoustic tones",
+      "Frets allowed polyphonic chord strumming while the solidbody stopped neck warping caused by heat changes"
+    ],
+    "explanation": "Before 1951, upright double basses were fretless, prone to acoustic feedback through early PA microphones, and cumbersome to transport. Fender fretted the 34-inch neck so players could play with pitch precision and built a solid body that resisted feedback even at high volume.",
+    "tip": "Precision Bass 1951: Frets delivered pitch precision; solid body eradicated acoustic feedback loops."
+  },
+  {
+    "category": "Scale Length & String Tension",
+    "ao": "AO3: Mersenne's Laws & 34-inch Scale",
+    "text": "According to Mersenne's Law, how does Fender's 34-inch long scale affect low-frequency performance compared to a 30-inch short scale?",
+    "correct": "Longer scale length requires higher string tension for equal pitch, delivering tighter low-end and clear overtones",
+    "wrong": [
+      "Longer scale length reduces string mass per unit length, creating thicker bass fundamentals with shortened decays",
+      "Longer scale length lowers string tension significantly, producing a tubbier sound with minimal mechanical attack",
+      "Longer scale length narrows magnetic pickup flux lines, generating massive low-frequency sub-bass output volume"
+    ],
+    "explanation": "Mersenne's Law states f = (1 / 2L) * sqrt(T / mu). Increasing scale length L at a fixed pitch f requires higher string tension T. This higher tension on a 34-inch bass keeps strings taut, preventing floppiness, boosting transient attack, and enhancing harmonic overtone clarity.",
+    "tip": "Scale Length: Longer vibrating length (34\" vs 30\") requires higher tension, producing articulate punch and defined overtones."
+  },
+  {
+    "category": "RWRP Split-Coil Pickup (1957)",
+    "ao": "AO3: Reverse-Wound Reverse-Polarity Physics",
+    "text": "How does the 1957 split-coil Precision Bass pickup cancel 50/60 Hz mains hum while keeping the bass tone punchy?",
+    "correct": "Two bobbin halves have opposite magnetic poles and opposite coil windings, cancelling hum but adding string signals",
+    "wrong": [
+      "Two bobbin halves pass grounding wires through chassis shielding to bleed out high-frequency electromagnetic noise",
+      "Two bobbin halves contain active transistors that notch out 50 Hz hum while boosting sub-bass fundamental octaves",
+      "Two bobbin halves share identical north polarity and parallel coils to short-circuit external electrostatic interference"
+    ],
+    "explanation": "The 1957 P-Bass split pickup uses two reverse-wound, reverse-polarity (RWRP) bobbins. External electromagnetic interference (EMI) induces equal-amplitude voltages with opposite polarity in the coils, cancelling hum. The vibrating ferromagnetic strings have opposite magnetic polarities, so string signals are in-phase and sum cleanly.",
+    "tip": "Split-Coil RWRP: Opposite magnetic polarity + opposite coil winding = phase cancellation of hum, in-phase addition of string signal."
+  },
+  {
+    "category": "Fender Jazz Bass Dual Pickups (1960)",
+    "ao": "AO3: Parallel Wiring & Mid Scoop",
+    "text": "What acoustic and electrical phenomenon occurs when both pickups on a Fender Jazz Bass are set to full volume?",
+    "correct": "Parallel wiring and physical spacing cause phase cancellation in upper mids, producing a scooped signature slap punch",
+    "wrong": [
+      "Parallel wiring doubles coil resistance, attenuating low-end fundamentals and producing a nasal, honky mid boost",
+      "Series wiring doubles output signal impedance, causing severe high-frequency rolloff across all studio audio cables",
+      "Series wiring sums harmonic nodes identically, creating an ultra-flat studio response without any tonal coloration"
+    ],
+    "explanation": "When both single-coil pickups on a Jazz Bass are at full volume, the physical distance between them causes slight phase cancellation in the 500 Hz to 1 kHz region. Combined with the parallel circuit impedance drop, this creates the classic scooped-mid tone favored by slap and funk players.",
+    "tip": "Jazz Bass (both on 10): Parallel wiring + physical pickup spacing creates a signature scooped midrange punch."
+  },
+  {
+    "category": "String Construction & Physics",
+    "ao": "AO3: Flatwound vs Roundwound Dynamics",
+    "text": "Why do flatwound bass strings produce a darker, warmer fundamental tone than ribbed roundwound strings?",
+    "correct": "Ribbon windings damp high-frequency vibration and pack higher mass, attenuating bright harmonics and finger noise",
+    "wrong": [
+      "Ribbon windings increase acoustic air resistance around strings, slowing down fundamental wave travel velocities",
+      "Ribbon windings lower string tension, allowing greater physical travel that prevents high-frequency transduction",
+      "Ribbon windings short-circuit pickup magnetic field lines, filtering out audio frequencies above 800 Hz completely"
+    ],
+    "explanation": "Flatwounds are wrapped with a flat, ribbon-like outer wire, creating a smooth surface with high internal damping. This damps upper vibrational modes rapidly, yielding a deep, thumpy fundamental tone with virtually zero finger-slide squeak. Roundwounds have round outer wire with gaps, allowing bright harmonic overtones to ring freely.",
+    "tip": "Flatwound vs Roundwound: Flat ribbon outer wrap = high damping, muted treble, massive fundamental thud (Motown/Reggae)."
+  },
+  {
+    "category": "Active 9V Electronics (1976)",
+    "ao": "AO3: Music Man StingRay & Baxandall EQ",
+    "text": "What engineering advantage did the 1976 Music Man StingRay's onboard 9V active preamp offer over passive bass controls?",
+    "correct": "It converted high-impedance to low-impedance output and featured a Baxandall circuit capable of active boost and cut",
+    "wrong": [
+      "It increased pickup inductance to 50 henries and introduced an analog optical compressor inside the battery compartment",
+      "It rectified alternating audio signals into direct current and removed the need for external speaker power amplification",
+      "It completely eliminated the need for bridge grounding wires and prevented RF interference using balanced XLR circuitry"
+    ],
+    "explanation": "Traditional passive basses only cut frequencies using high-impedance RC networks that suffer high-frequency loss over long cables. Leo Fender's active preamp in the StingRay used an onboard 9V battery to buffer the pickup into a low-impedance output and drive an active Baxandall EQ that could boost or cut bass and treble.",
+    "tip": "Active Preamp (StingRay): 9V buffer gives low-Z output (no treble loss over cables) and active boost/cut Baxandall EQ."
+  },
+  {
+    "category": "Playing Technique Biomechanics",
+    "ao": "AO3: Larry Graham Slap & Pop Mechanics",
+    "text": "How do the biomechanics of Larry Graham's 'slap and pop' technique affect the audio dynamic envelope of an electric bass?",
+    "correct": "Striking the string against frets creates a sharp transient spike, while popping unleashes bright percussive snap",
+    "wrong": [
+      "Striking the string against the body compresses audio dynamics, while popping introduces sustained sub-bass drone",
+      "Striking the string with flesh mutes low-frequency overtones, while popping eliminates all high-frequency transients",
+      "Striking the string near bridge saddles limits string excursion, while popping generates soft sinusoidal fundamental"
+    ],
+    "explanation": "Larry Graham invented the technique to simulate drums: striking the string with the bony thumb joint forces it against metal frets, generating a massive initial transient spike like a kick drum. Snapping higher strings with the index finger produces an explosive pop like a snare drum, yielding extreme dynamic range.",
+    "tip": "Slap & Pop: Thumb percussion against fretboard (kick) + index pop/snap (snare) = massive dynamic spikes and bright attack."
+  },
+  {
+    "category": "Studio Damping Techniques",
+    "ao": "AO3: Motown Foam Mutes & Jamerson",
+    "text": "Why did James Jamerson and Motown engineers fit dense foam rubber under the strings at the bridge of the Precision Bass?",
+    "correct": "Foam damped string sustain to create a tight, punchy decay that left room for the kick drum in dense mono mixes",
+    "wrong": [
+      "Foam elevated string action to stop fret buzz and raised total electrical audio output by 12 dB into the console",
+      "Foam shielded the bridge assembly from magnetic hum emitted by studio lighting transformers and tape motor relays",
+      "Foam softened the mechanical strike of plectrums to prevent magnetic distortion across high-gain tube preamplifier"
+    ],
+    "explanation": "In 1960s mono Motown recordings, prolonged bass sustain would muddy the mix and clash with the kick drum. Dense neoprene foam under the bridge cover rapidly damped string sustain, providing a defined, percussive thud that anchored the rhythm section cleanly in mono.",
+    "tip": "Bridge Foam Mute: Shortens decay and damps sustain, mimicking upright bass decay and clearing low-end space for kick drums."
+  },
+  {
+    "category": "Stage Amplification & Cabinets",
+    "ao": "AO3/AO4: Ampeg SVT & 8x10 Enclosure",
+    "text": "Why did the 1969 Ampeg SVT feature an 8x10-inch sealed cabinet rather than one or two large 15-inch or 18-inch speakers?",
+    "correct": "Eight 10-inch drivers provided large total cone area with lower individual cone mass, yielding fast transient punch",
+    "wrong": [
+      "Eight 10-inch drivers resonated at 20 Hz fundamental frequency, generating sub-bass power without any amplifier strain",
+      "Eight 10-inch drivers eliminated phase cancellation, allowing all drivers to share a single unbaffled ported enclosure",
+      "Eight 10-inch drivers lowered cabinet electrical resistance to 0.5 ohms, maximizing power transfer from 300W tube heads"
+    ],
+    "explanation": "Eight 10-inch speakers provide a huge radiating cone area (equivalent to three 15-inch speakers) but each smaller 10-inch cone has low moving mass, enabling fast transient tracking. Ampeg sealed the cabinet in four separate chambers (infinite baffle), preventing floppy cone travel and delivering punchy, articulate bass.",
+    "tip": "Ampeg SVT 8x10: Large collective surface area + low individual cone mass in sealed baffle = rapid transient punch without flub."
+  },
+  {
+    "category": "Direct Injection (DI) Physics",
+    "ao": "AO3: Passive DI Transformer Function",
+    "text": "What is the primary technical function of the audio transformer inside a professional passive direct box (e.g. Wolfbox)?",
+    "correct": "It matches high-impedance unbalanced signals to low-impedance balanced mic inputs while providing galvanic ground lift",
+    "wrong": [
+      "It amplifies low instrument voltages to line level and removes electrical distortion produced by passive bass pickups",
+      "It filters out sub-bass frequencies below 40 Hz and converts high-voltage speaker signals into digital PCM bitstreams",
+      "It delays instrument signals by 5 milliseconds to synchronize acoustic amplifier sound with console multitrack tracks"
+    ],
+    "explanation": "A passive DI box uses a high-grade step-down transformer (like Triad or Jensen). It converts the high-impedance (high-Z) unbalanced instrument signal into a low-impedance (low-Z) balanced mic-level signal to prevent treble loss across long studio snakes, and provides galvanic isolation (ground lift) to eliminate ground loop hum.",
+    "tip": "Passive DI Box: Impedance matching (high-Z to low-Z), signal balancing, and galvanic isolation (ground lift) to kill hum."
+  },
+  {
+    "category": "Multi-Track Studio Engineering",
+    "ao": "AO3: DI & Miked Amp Phase Alignment",
+    "text": "When simultaneously recording an electric bass with a DI box and a miked speaker cabinet, why must tracks be phase-aligned?",
+    "correct": "Acoustic latency from speaker to mic delays the mic track behind the instant DI signal, causing comb filtering in lows",
+    "wrong": [
+      "DI transformers invert signal polarity automatically, causing complete cancellation of fundamental frequencies on solo",
+      "Speaker magnetic coils introduce 90-degree phase shift, creating harmonic distortion across stereo monitoring consoles",
+      "Preamp gain differences cause clipping distortion, generating high-frequency digital jitter during multitrack mixing"
+    ],
+    "explanation": "Electrical signals through a DI box travel at near light speed, reaching the DAW converter instantly. Sound from the amp speaker takes ~1 ms per foot to reach the microphone (e.g. 3 ms at 3 feet). Combining these tracks causes phase interference and comb filtering, thinning the low bass. Shifting the mic track earlier aligns waveforms.",
+    "tip": "Bass DI + Mic Tracking: Acoustic air latency delays the mic track relative to the DI; waveform alignment prevents comb filtering."
+  },
+  {
+    "category": "Extended Range Engineering",
+    "ao": "AO3/AO4: 5-String Bass & Low-B Physics",
+    "text": "Why do modern 5-string basses often adopt an extended 35-inch scale length or multi-scale (fanned-fret) fingerboards?",
+    "correct": "Increasing scale length provides sufficient string tension to vibrate at 30.9 Hz without excessive floppiness or fret buzz",
+    "wrong": [
+      "Increasing scale length lowers string tension, allowing players to bend low notes across two whole octaves with ease",
+      "Increasing scale length reduces neck relief curvature, completely eliminating the need for internal steel truss rod bars",
+      "Increasing scale length boosts pickup output voltage, converting passive single-coil pickups into active humbuckers"
+    ],
+    "explanation": "The fundamental of a low B string is 30.9 Hz. On a standard 34-inch bass, the heavy .130 gauge string lacks sufficient tension, feeling loose and producing inharmonic, muddy overtones. Extending the scale to 35 inches (or up to 37 inches on fanned-fret basses) increases tension, ensuring a tight, punchy, articulate Low-B.",
+    "tip": "5-String Bass (Low-B): 35\" extended or fanned-fret scale maintains high physical tension, preventing floppy strings and mud at 30.9 Hz."
+  }
+];
+
+    function shuffle(arr) {
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+
+    let currentQ = 0;
+    let score = 0;
+    let answered = false;
+    let currentOptions = [];
+
+    const qText = document.getElementById('qText');
+    const qCategory = document.getElementById('qCategory');
+    const qAoTag = document.getElementById('qAoTag');
+    const optionsGrid = document.getElementById('optionsGrid');
+    const insightCard = document.getElementById('insightCard');
+    const insightBody = document.getElementById('insightBody');
+    const insightTip = document.getElementById('insightTip');
+    const qCounter = document.getElementById('qCounter');
+    const currentScore = document.getElementById('currentScore');
+    const progressFill = document.getElementById('progressFill');
+    const nextBtn = document.getElementById('nextBtn');
+    const quizStage = document.getElementById('quizStage');
+    const resultsScreen = document.getElementById('resultsScreen');
+    const finalScoreVal = document.getElementById('finalScoreVal');
+    const gradeBadge = document.getElementById('gradeBadge');
+    const resultTitle = document.getElementById('resultTitle');
+    const resultMessage = document.getElementById('resultMessage');
+    const letters = ['A', 'B', 'C', 'D'];
+
+    function loadQuestion(index) {
+      answered = false;
+      const q = questions[index];
+      qText.innerHTML = q.text;
+      qCategory.innerText = q.category;
+      qAoTag.innerText = q.ao;
+      qCounter.innerText = `Question ${index + 1} of ${questions.length}`;
+      currentScore.innerText = `Score: ${score}/${questions.length}`;
+      progressFill.style.width = `${((index) / questions.length) * 100}%`;
+
+      insightCard.classList.remove('show');
+      nextBtn.disabled = true;
+
+      // SHUFFLE OPTIONS so correct answer is NOT always in the same position
+      currentOptions = shuffle([
+        { text: q.correct, ok: true },
+        ...q.wrong.map(w => ({ text: w, ok: false }))
+      ]);
+
+      optionsGrid.innerHTML = '';
+      currentOptions.forEach((opt, idx) => {
+        const btn = document.createElement('button');
+        btn.className = 'option-btn';
+        btn.innerHTML = `<span class="option-letter">${letters[idx]}</span><span>${opt.text}</span>`;
+        btn.onclick = () => selectOption(idx, btn);
+        optionsGrid.appendChild(btn);
+      });
+    }
+
+    function selectOption(idx, btn) {
+      if (answered) return;
+      answered = true;
+
+      const q = questions[currentQ];
+      const isCorrect = currentOptions[idx].ok;
+      const btns = optionsGrid.querySelectorAll('.option-btn');
+
+      btns.forEach((b, i) => {
+        b.disabled = true;
+        if (currentOptions[i].ok) {
+          b.classList.add('correct');
+        }
+      });
+
+      if (isCorrect) {
+        btn.classList.add('correct');
+        score++;
+      } else {
+        btn.classList.add('wrong');
+      }
+
+      currentScore.innerText = `Score: ${score}/${questions.length}`;
+      insightBody.innerHTML = q.explanation;
+      insightTip.innerHTML = `<strong>Specification Tip:</strong> ${q.tip}`;
+      insightCard.classList.add('show');
+
+      nextBtn.disabled = false;
+      if (currentQ === questions.length - 1) {
+        nextBtn.innerText = 'View Results & Analysis';
+      }
+    }
+
+    function handleNext() {
+      if (currentQ < questions.length - 1) {
+        currentQ++;
+        loadQuestion(currentQ);
+      } else {
+        showResults();
+      }
+    }
+
+    function showResults() {
+      quizStage.style.display = 'none';
+      resultsScreen.style.display = 'block';
+      progressFill.style.width = '100%';
+
+      finalScoreVal.innerText = `${score} / ${questions.length}`;
+      const pct = (score / questions.length) * 100;
+
+      if (pct >= 80) {
+        gradeBadge.innerText = 'Grade A* / A - Master of Folk Technology';
+        gradeBadge.style.color = '#fbbf24';
+        gradeBadge.style.borderColor = '#fbbf24';
+        resultTitle.innerText = 'Outstanding Performance!';
+        resultMessage.innerText = 'You demonstrated comprehensive mastery of acoustic folk recording, stereo transducer arrays, microphone positioning, and historical context.';
+      } else if (pct >= 60) {
+        gradeBadge.innerText = 'Grade B / C - Solid Knowledge Base';
+        gradeBadge.style.color = '#f59e0b';
+        gradeBadge.style.borderColor = '#f59e0b';
+        resultTitle.innerText = 'Strong Foundation!';
+        resultMessage.innerText = 'Good grasp of core concepts. Review the 12th fret acoustic placement and stereo microphone configurations to secure the highest marks.';
+      } else {
+        gradeBadge.innerText = 'Revision Required';
+        gradeBadge.style.color = '#f87171';
+        gradeBadge.style.borderColor = '#f87171';
+        resultTitle.innerText = 'Keep Revising!';
+        resultMessage.innerText = 'Use the 14-slide presentation deck to reinforce your understanding of acoustic capture, vintage equipment, and key artists.';
+      }
+    }
+
+    function restartQuiz() {
+      currentQ = 0;
+      score = 0;
+      nextBtn.innerText = 'Next Question &rarr;';
+      quizStage.style.display = 'block';
+      resultsScreen.style.display = 'none';
+      loadQuestion(0);
+    }
+
+    window.onload = () => loadQuestion(0);
+</script>
+</body>
+</html>

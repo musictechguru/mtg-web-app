@@ -1005,4 +1005,173 @@ build_homework_pdf(
     ]
 )
 
+# --- THE BASS GUITAR HW 1 ---
+build_homework_pdf(
+    filename="c3_the_bass_guitar_hw1_precision_bass_motown.pdf",
+    title="C3 The Bass Guitar HW 1 – Fender Precision Bass, James Jamerson & Motown 'My Girl'",
+    artist="The Temptations (Hitsville U.S.A., 1964, Bass: James Jamerson, Producer: Smokey Robinson)",
+    youtube_url="https://www.youtube.com/watch?v=swSytFVMHuU",
+    questions_page1=[
+        {
+            'type': 'table',
+            'prompt': '1. "My Girl" features James Jamerson\'s legendary bassline anchoring the arrangement. Identify the technical production elements below. (3)',
+            'colWidths': [240, 275],
+            'data': [
+                ['Production Element', 'Technical Mechanism & Sonic Characteristic'],
+                ['1962 Fender Precision Bass', 'Solid alder body, 34-inch maple neck with frets providing pitch precision and eliminating acoustic feedback'],
+                ['Motown Custom Wolfbox DI', 'Direct injection transformer matching high-Z to low-Z with galvanic ground lift, feeding console preamp directly'],
+                ['Dense Neoprene Foam Mute', ''],
+                ['Heavy Flatwound Strings', '']
+            ]
+        },
+        {
+            'type': 'qa',
+            'prompt': '2. Explain how Leo Fender\'s 1951 Precision Bass revolutionized bass playing in live performance and recording compared to the upright double bass (solid ash body, fretted fingerboard, 34" scale). (3)',
+            'lines': 3
+        },
+        {
+            'type': 'qa',
+            'prompt': '3. Explain how the 1957 split-coil pickup utilizes Reverse Wind, Reverse Polarity (RWRP) to cancel 50/60 Hz electromagnetic hum while preserving the musical string signal in phase. (3)',
+            'lines': 3
+        },
+        {
+            'type': 'qa',
+            'prompt': '4. Describe why James Jamerson utilized heavy flatwound strings with high action and foam bridge damping, and explain how this decay envelope cleared space for kick drums in mono mixes. (3)',
+            'lines': 3
+        }
+    ],
+    questions_page2=[
+        {
+            'type': 'qa',
+            'prompt': '5. Passive DI Transformer Function: Describe the role of the Triad/Jensen step-down audio transformer inside the Motown Wolfbox, detailing impedance matching (high-Z to low-Z) and studio isolation. (3)',
+            'lines': 4
+        },
+        {
+            'type': 'table_box',
+            'prompt': '6. Upright Double Bass vs Solidbody Fender Precision Bass Studio Tracking: complete the comparison below: (4)',
+            'colWidths': [515],
+            'row_bgs': [(0, colors.HexColor("#e2e8f0")), (2, colors.HexColor("#e2e8f0"))],
+            'data': [
+                ['Acoustic Upright Double Bass in Studio (2)'],
+                ['Resonant body cavity, microphone bleed from drums, acoustic feedback loops, fretless intonation drift:\n\n\n '],
+                ['Fender Precision Bass + Direct Injection (DI) (2)'],
+                ['Solidbody mass damping, total acoustic isolation, zero drum bleed, uniform string sustain, direct-to-tape punch:\n\n\n ']
+            ]
+        }
+    ]
+)
+
+# --- THE BASS GUITAR HW 2 ---
+build_homework_pdf(
+    filename="c3_the_bass_guitar_hw2_jazz_bass_slap_funk.pdf",
+    title="C3 The Bass Guitar HW 2 – Fender Jazz Bass, Larry Graham Slap & Sly Stone 'Thank You'",
+    artist="Sly & The Family Stone (Stand! / Single, 1969, Bass: Larry Graham, Producer: Sly Stone)",
+    youtube_url="https://www.youtube.com/watch?v=_Jhn2AfPWPo",
+    questions_page1=[
+        {
+            'type': 'table',
+            'prompt': '1. "Thank You (Falettinme Be Mice Elf Agin)" introduced the slap bass style to mainstream music. Identify the technical components below. (3)',
+            'colWidths': [240, 275],
+            'data': [
+                ['Performance / Hardware Element', 'Technical Mechanism & Sonic Characteristic'],
+                ['Thumb Slap Technique', 'Bony thumb joint strikes low string against metal frets, generating explosive transient spike (simulating kick drum)'],
+                ['Index Finger Pop Technique', 'Index finger snaps higher string away from fretboard, snapping back against frets (simulating snare drum)'],
+                ['Fender Jazz Bass Dual Pickups', ''],
+                ['Studio Optical / Tube Limiting', '']
+            ]
+        },
+        {
+            'type': 'qa',
+            'prompt': '2. Explain the acoustic and electrical phenomenon that occurs when both single-coil pickups on a Fender Jazz Bass are set to full volume (parallel wiring, impedance drop, upper-mid phase cancellation). (3)',
+            'lines': 3
+        },
+        {
+            'type': 'qa',
+            'prompt': '3. Slap bass produces massive dynamic transient spikes with high crest factors. Explain why recording engineers in 1969 relied on fast analog limiters or optical compressors to protect tape heads. (3)',
+            'lines': 3
+        },
+        {
+            'type': 'qa',
+            'prompt': '4. Jaco Pastorius Defretted Jazz Bass: Explain how removing frets and coating the rosewood fingerboard with epoxy alters string vibration, producing the signature vocal "mwah" harmonic bloom. (3)',
+            'lines': 3
+        }
+    ],
+    questions_page2=[
+        {
+            'type': 'qa',
+            'prompt': '5. Roundwound vs Flatwound Strings in Funk: Contrast the physical construction and harmonic frequency response of ribbed steel roundwounds versus flat ribbon wire flatwounds for slap performance. (3)',
+            'lines': 4
+        },
+        {
+            'type': 'table_box',
+            'prompt': '6. Traditional Fingerstyle Rest Stroke vs Slap & Pop Funk: complete the comparative analysis below: (4)',
+            'colWidths': [515],
+            'row_bgs': [(0, colors.HexColor("#e2e8f0")), (2, colors.HexColor("#e2e8f0"))],
+            'data': [
+                ['Fingerstyle Two-Finger Rest Stroke (Motown / Classic Soul) (2)'],
+                ['Warm rounded attack, prominent low fundamental, controlled crest factor, predictable dynamic envelope:\n\n\n '],
+                ['Slap & Pop Thumb / Finger Snapping (Larry Graham / Funk) (2)'],
+                ['Extreme transient attack spikes, bright metal fret collision chime, wide dynamic range, scooped mid punch:\n\n\n ']
+            ]
+        }
+    ]
+)
+
+# --- THE BASS GUITAR HW 3 ---
+build_homework_pdf(
+    filename="c3_the_bass_guitar_hw3_active_electronics_stingray.pdf",
+    title="C3 The Bass Guitar HW 3 – Music Man StingRay, Active Electronics & RHCP 'Give It Away'",
+    artist="Red Hot Chili Peppers (Blood Sugar Sex Magik, 1991, Bass: Flea, Producer: Rick Rubin)",
+    youtube_url="https://www.youtube.com/watch?v=Mr_uHJPUlO8",
+    questions_page1=[
+        {
+            'type': 'table',
+            'prompt': '1. "Give It Away" features Flea\'s aggressive, cutting bass tone recorded direct and through vintage tube amplification. Identify the elements below. (3)',
+            'colWidths': [240, 275],
+            'data': [
+                ['Equipment / Production Element', 'Hardware Implementation & Engineering Function'],
+                ['Music Man StingRay Bass', 'Large Alnico humbucker at bridge "sweet spot" providing massive low end and cutting treble transients'],
+                ['Active 9V Onboard Preamp', 'Battery-powered buffer converting high-Z to low-Z; active Baxandall circuit boosting bass and treble frequencies'],
+                ['Ampeg SVT 8x10 Cabinet', ''],
+                ['Simultaneous DI + Mic Tracking', '']
+            ]
+        },
+        {
+            'type': 'qa',
+            'prompt': '2. Explain why the Music Man StingRay\'s active 9V preamplifier prevents high-frequency signal degradation across long stage or studio cables compared to traditional passive bass volume circuits. (3)',
+            'lines': 3
+        },
+        {
+            'type': 'qa',
+            'prompt': '3. Why did Ampeg engineer the SVT 8x10 cabinet with eight sealed 10-inch drivers in four compartments rather than two large 15-inch woofers? Detail cone mass and acoustic transient response. (3)',
+            'lines': 3
+        },
+        {
+            'type': 'qa',
+            'prompt': '4. According to Mersenne\'s Law, explain why extended scale lengths (35 inches) or fanned-fret multi-scale designs are commonly used on 5-string basses tuned down to Low-B (30.9 Hz). (3)',
+            'lines': 3
+        }
+    ],
+    questions_page2=[
+        {
+            'type': 'qa',
+            'prompt': '5. Multi-Track Phase Alignment: Explain why simultaneous tracking with a DI box and a miked speaker cabinet introduces acoustic latency delay, and how DAW engineers correct the resulting comb filtering. (4)',
+            'lines': 4
+        },
+        {
+            'type': 'table_box',
+            'prompt': '6. Passive Bass Circuit vs Active 9V Bass Circuit Architecture: complete the comparative analysis below: (4)',
+            'colWidths': [515],
+            'row_bgs': [(0, colors.HexColor("#e2e8f0")), (2, colors.HexColor("#e2e8f0"))],
+            'data': [
+                ['Passive Bass Wiring (e.g. Vintage Fender P-Bass / J-Bass) (2)'],
+                ['High-Z output, cable capacitance treble rolloff, cut-only RC tone pot bleeding highs to ground, organic dynamic response:\n\n\n '],
+                ['Active 9V Onboard Electronics (e.g. Music Man StingRay / Warwick) (2)'],
+                ['Low-Z buffered output, zero cable length treble loss, active boost and cut Baxandall EQ, high transient headroom:\n\n\n ']
+            ]
+        }
+    ]
+)
+
 print("ALL HOMEWORK PDFS GENERATED SUCCESSFULLY!")
+

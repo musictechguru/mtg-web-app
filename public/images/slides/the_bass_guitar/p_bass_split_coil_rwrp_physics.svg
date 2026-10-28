@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480" width="100%" height="100%">
+  <rect width="800" height="480" fill="#080e1a" rx="14"/>
+  <rect x="20" y="20" width="760" height="440" fill="#0f172a" stroke="rgba(56,189,248,0.3)" stroke-width="1.5" rx="12"/>
+  
+  <text x="40" y="55" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="13" font-weight="800" letter-spacing="1.5">AO3 TRANSDUCER &amp; HUM CANCELLATION</text>
+  <text x="40" y="85" fill="#ffffff" font-family="system-ui, sans-serif" font-size="20" font-weight="900">The 1957 Fender Split-Coil Pickup (RWRP Operation)</text>
+
+  <!-- Left: Physical Bobbin Architecture -->
+  <g transform="translate(45, 120)">
+    <rect x="0" y="0" width="340" height="310" fill="#1e293b" rx="10" stroke="rgba(255,255,255,0.08)"/>
+    <text x="20" y="30" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="14" font-weight="800">Physical Coil Stagger &amp; Magnetic Poles</text>
+
+    <!-- Coil 1: E & A strings -->
+    <rect x="40" y="60" width="110" height="70" fill="#0b1329" rx="8" stroke="#38bdf8" stroke-width="2"/>
+    <circle cx="70" cy="95" r="10" fill="#38bdf8"/>
+    <circle cx="120" cy="95" r="10" fill="#38bdf8"/>
+    <text x="95" y="80" fill="#ffffff" font-family="system-ui, sans-serif" font-size="10" font-weight="800" text-anchor="middle">NORTH</text>
+    <text x="95" y="150" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="11" font-weight="700" text-anchor="middle">Coil 1 (E &amp; A Strings)</text>
+
+    <!-- Coil 2: D & G strings (staggered) -->
+    <rect x="180" y="110" width="110" height="70" fill="#0b1329" rx="8" stroke="#f59e0b" stroke-width="2"/>
+    <circle cx="210" cy="145" r="10" fill="#f59e0b"/>
+    <circle cx="260" cy="145" r="10" fill="#f59e0b"/>
+    <text x="235" y="130" fill="#ffffff" font-family="system-ui, sans-serif" font-size="10" font-weight="800" text-anchor="middle">SOUTH</text>
+    <text x="235" y="200" fill="#f59e0b" font-family="system-ui, sans-serif" font-size="11" font-weight="700" text-anchor="middle">Coil 2 (D &amp; G Strings)</text>
+
+    <!-- Wiring line between them -->
+    <path d="M 150,95 L 165,95 L 165,145 L 180,145" fill="none" stroke="#22c55e" stroke-width="2" stroke-dasharray="3 3"/>
+    <text x="170" y="240" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="12" text-anchor="middle">Wired in Series: Reverse Wind, Reverse Polarity</text>
+    <text x="170" y="270" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="11" text-anchor="middle">Each coil senses 2 strings without phase interference</text>
+  </g>
+
+  <!-- Right: Hum Cancellation Waveform Math -->
+  <g transform="translate(415, 120)">
+    <rect x="0" y="0" width="340" height="310" fill="#1e293b" rx="10" stroke="rgba(255,255,255,0.08)"/>
+    <text x="20" y="30" fill="#f59e0b" font-family="system-ui, sans-serif" font-size="14" font-weight="800">The RWRP Phase Cancellation Math</text>
+
+    <!-- External Noise Cancellation -->
+    <rect x="20" y="55" width="300" height="95" fill="#0f172a" rx="8" stroke="rgba(239,68,68,0.3)"/>
+    <text x="35" y="80" fill="#ef4444" font-family="system-ui, sans-serif" font-size="12" font-weight="800">1. Ambient 50/60 Hz EMI Mains Hum:</text>
+    <text x="35" y="105" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="12">Affects both coils equally in same direction.</text>
+    <text x="35" y="130" fill="#f87171" font-family="system-ui, sans-serif" font-size="13" font-weight="900">Coil 1 (+Hum) + Coil 2 (&#8722;Hum) = 0 Hum</text>
+
+    <!-- String Signal Isolation -->
+    <rect x="20" y="165" width="300" height="120" fill="#0f172a" rx="8" stroke="rgba(34,197,94,0.3)"/>
+    <text x="35" y="190" fill="#22c55e" font-family="system-ui, sans-serif" font-size="12" font-weight="800">2. String Audio Vibrations:</text>
+    <text x="35" y="215" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="12">Each pair of strings only vibrates over ONE coil.</text>
+    <text x="35" y="238" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="12">Zero acoustic cancellation between string pairs!</text>
+    <text x="35" y="265" fill="#86efac" font-family="system-ui, sans-serif" font-size="13" font-weight="900">Full Single-Coil Clarity + 100% Hum Silence</text>
+  </g>
+</svg>

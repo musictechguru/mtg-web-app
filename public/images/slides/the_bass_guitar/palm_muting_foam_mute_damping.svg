@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480" width="100%" height="100%">
+  <rect width="800" height="480" fill="#080e1a" rx="14"/>
+  <rect x="20" y="20" width="760" height="440" fill="#0f172a" stroke="rgba(34,197,94,0.3)" stroke-width="1.5" rx="12"/>
+  
+  <text x="40" y="55" fill="#22c55e" font-family="system-ui, sans-serif" font-size="13" font-weight="800" letter-spacing="1.5">AO3 MECHANICAL DAMPING &amp; TRANSIENTS</text>
+  <text x="40" y="85" fill="#ffffff" font-family="system-ui, sans-serif" font-size="20" font-weight="900">Palm Muting &amp; Foam Bridge Damping (The Motown Thud)</text>
+
+  <!-- Envelope Comparison: Unmuted vs Muted -->
+  <g transform="translate(45, 120)">
+    <!-- Unmuted Bass Envelope -->
+    <rect x="0" y="0" width="340" height="180" fill="#1e293b" rx="8" stroke="rgba(255,255,255,0.08)"/>
+    <text x="20" y="30" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="14" font-weight="800">1. Unmuted Bass String Envelope</text>
+    
+    <!-- Waveform with long decay -->
+    <path d="M 30,100 L 45,40 L 60,140 L 75,55 L 100,120 L 160,85 L 240,95 L 320,100" fill="none" stroke="#38bdf8" stroke-width="2.5"/>
+    <text x="20" y="160" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="11">Long sustain (3–8 seconds), singing upper harmonics</text>
+
+    <!-- Foam Muted Motown Envelope -->
+    <rect x="365" y="0" width="340" height="180" fill="#1e293b" rx="8" stroke="rgba(34,197,94,0.3)"/>
+    <text x="385" y="30" fill="#22c55e" font-family="system-ui, sans-serif" font-size="14" font-weight="800">2. Foam-Damped Motown Envelope</text>
+    
+    <!-- Waveform with steep decay -->
+    <path d="M 395,100 L 410,40 L 425,140 L 440,75 L 470,98 L 520,100 L 685,100" fill="none" stroke="#22c55e" stroke-width="2.5"/>
+    <text x="385" y="160" fill="#86efac" font-family="system-ui, sans-serif" font-size="11">Rapid decay (&lt;0.5s), dense sub-fundamental "thud"</text>
+  </g>
+
+  <!-- Technical Explanation Box -->
+  <g transform="translate(45, 320)">
+    <rect x="0" y="0" width="705" height="110" fill="#142038" rx="8" stroke="rgba(34,197,94,0.2)"/>
+    <text x="25" y="28" fill="#22c55e" font-family="system-ui, sans-serif" font-size="13" font-weight="800">WHY FOAM MUTING DEFINED 1960s HIT RECORDINGS:</text>
+    <text x="25" y="52" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11.5">• <tspan fill="#ffffff" font-weight="700">Leo Fender Factory Design:</tspan> Early P-Basses had neoprene rubber foam strips glued underneath the chrome bridge cover.</text>
+    <text x="25" y="74" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11.5">• <tspan fill="#ffffff" font-weight="700">James Jamerson &amp; Motown:</tspan> Jamerson wedged heavy foam under flatwound strings, emulating upright double-bass decay.</text>
+    <text x="25" y="96" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11.5">• <tspan fill="#ffffff" font-weight="700">Mix Advantage:</tspan> Rapid decay cleared bass space instantly for kick drum transients, eliminating muddy low-end buildup.</text>
+  </g>
+</svg>
