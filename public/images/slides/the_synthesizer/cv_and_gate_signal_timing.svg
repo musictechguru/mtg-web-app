@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
+  <rect width="800" height="450" fill="#0b1120" rx="16"/>
+  <rect x="20" y="20" width="760" height="410" fill="none" stroke="rgba(255, 255, 255, 0.12)" stroke-width="1" rx="12"/>
+  
+  <text x="400" y="55" fill="#ffffff" font-family="sans-serif" font-size="20" font-weight="800" text-anchor="middle">CONTROL VOLTAGE (CV) &amp; GATE PROTOCOL</text>
+  <text x="400" y="80" fill="#94a3b8" font-family="sans-serif" font-size="13" text-anchor="middle">How Analog Synthesizers Transmitted Pitch &amp; Note Duration Before MIDI (1V/Octave)</text>
+
+  <!-- Pitch CV Graph -->
+  <g transform="translate(60, 110)">
+    <rect width="680" height="130" fill="#131e36" rx="8" stroke="rgba(255, 255, 255, 0.12)" stroke-width="1"/>
+    <text x="20" y="28" fill="#c084fc" font-family="sans-serif" font-size="13" font-weight="800">PITCH CV (1 Volt Per Octave Standard)</text>
+    <!-- Stepped DC voltage -->
+    <path d="M 60 90 L 160 90 L 160 70 L 280 70 L 280 50 L 400 50 L 400 90 L 520 90 L 520 110 L 620 110" fill="none" stroke="#c084fc" stroke-width="3"/>
+    <text x="110" y="115" fill="#ffffff" font-family="sans-serif" font-size="11" text-anchor="middle">C3 (1.0V)</text>
+    <text x="220" y="95" fill="#ffffff" font-family="sans-serif" font-size="11" text-anchor="middle">C4 (2.0V)</text>
+    <text x="340" y="75" fill="#ffffff" font-family="sans-serif" font-size="11" text-anchor="middle">C5 (3.0V)</text>
+    <text x="460" y="115" fill="#ffffff" font-family="sans-serif" font-size="11" text-anchor="middle">C3 (1.0V)</text>
+    <text x="570" y="130" fill="#ffffff" font-family="sans-serif" font-size="11" text-anchor="middle">C2 (0.0V)</text>
+  </g>
+
+  <!-- Gate Signal Graph -->
+  <g transform="translate(60, 260)">
+    <rect width="680" height="130" fill="#131e36" rx="8" stroke="rgba(255, 255, 255, 0.12)" stroke-width="1"/>
+    <text x="20" y="28" fill="#38bdf8" font-family="sans-serif" font-size="13" font-weight="800">GATE SIGNAL (5V Pulse for Note Duration / Triggers ADSR Envelopes)</text>
+    <!-- Binary Gate Pulses -->
+    <path d="M 60 100 L 80 100 L 80 40 L 150 40 L 150 100 L 180 100 L 180 40 L 270 40 L 270 100 L 300 100 L 300 40 L 390 40 L 390 100 L 620 100" fill="none" stroke="#38bdf8" stroke-width="3"/>
+    <text x="115" y="75" fill="#ffffff" font-family="sans-serif" font-size="11" text-anchor="middle">+5V ON</text>
+    <text x="225" y="75" fill="#ffffff" font-family="sans-serif" font-size="11" text-anchor="middle">+5V ON</text>
+    <text x="345" y="75" fill="#ffffff" font-family="sans-serif" font-size="11" text-anchor="middle">+5V ON</text>
+    <text x="500" y="90" fill="#94a3b8" font-family="sans-serif" font-size="11">0V OFF (Release Trigger)</text>
+  </g>
+</svg>

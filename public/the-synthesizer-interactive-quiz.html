@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Synthesizer • Edexcel Component 3 Specification Quiz | Music Tech Guru</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #080e1a;
+      --bg-card: #0f172a;
+      --bg-surface: #1e293b;
+      --accent-purple: #c084fc;
+      --accent-purple-glow: rgba(192, 132, 252, 0.35);
+      --accent-cyan: #38bdf8;
+      --accent-cyan-glow: rgba(56, 189, 248, 0.35);
+      --accent-acid: #34d399;
+      --accent-red: #ef4444;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-purple: rgba(192, 132, 252, 0.35);
+      --border-cyan: rgba(56, 189, 248, 0.35);
+      --font: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: var(--font);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .quiz-container {
+      width: 100%;
+      max-width: 880px;
+      background: radial-gradient(circle at 50% 0%, rgba(192, 132, 252, 0.15) 0%, rgba(14, 17, 36, 0) 70%), var(--bg-card);
+      border: 1px solid var(--border-purple);
+      border-radius: 20px;
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.8), 0 0 40px rgba(192, 132, 252, 0.15);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .quiz-header {
+      padding: 24px 32px;
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(10px);
+    }
+
+    .header-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--accent-purple);
+      background: rgba(192, 132, 252, 0.12);
+      border: 1px solid var(--border-purple);
+      padding: 6px 14px;
+      border-radius: 50px;
+    }
+
+    .progress-counter {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-muted);
+    }
+    .progress-counter span {
+      color: var(--text-main);
+      font-size: 16px;
+    }
+
+    .progress-bar-container {
+      width: 100%;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.05);
+    }
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent-purple), var(--accent-cyan));
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    .question-screen {
+      padding: 36px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .category-tag {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--accent-cyan);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+
+    .question-text {
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 1.45;
+      color: #ffffff;
+    }
+
+    .options-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .option-btn {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 16px 20px;
+      color: var(--text-main);
+      font-family: var(--font);
+      font-size: 14.5px;
+      font-weight: 500;
+      line-height: 1.5;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      transition: all 0.2s ease;
+    }
+    .option-btn:hover:not(.disabled) {
+      background: rgba(192, 132, 252, 0.1);
+      border-color: var(--accent-purple);
+      transform: translateY(-1px);
+    }
+    .option-btn.correct {
+      background: rgba(34, 197, 94, 0.15) !important;
+      border-color: var(--accent-acid) !important;
+      color: #ffffff !important;
+    }
+    .option-btn.wrong {
+      background: rgba(239, 68, 68, 0.15) !important;
+      border-color: var(--accent-red) !important;
+      color: #ffffff !important;
+    }
+    .option-btn.disabled {
+      cursor: default;
+    }
+
+    .option-letter {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 26px;
+      height: 26px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.08);
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--accent-purple);
+      flex-shrink: 0;
+    }
+
+    .feedback-box {
+      margin-top: 10px;
+      padding: 18px 22px;
+      border-radius: 12px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid var(--border-subtle);
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .feedback-title {
+      font-size: 13.5px;
+      font-weight: 800;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .feedback-title.correct { color: var(--accent-acid); }
+    .feedback-title.wrong { color: var(--accent-red); }
+    .feedback-text {
+      font-size: 13.5px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    .next-btn {
+      background: linear-gradient(135deg, var(--accent-purple), #9333ea);
+      color: #ffffff;
+      border: 0;
+      padding: 13px 26px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 800;
+      cursor: pointer;
+      align-self: flex-end;
+      display: none;
+      margin-top: 10px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 4px 15px var(--accent-purple-glow);
+    }
+    .next-btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .results-screen {
+      padding: 48px 32px;
+      text-align: center;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+    .score-circle {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(192, 132, 252, 0.2) 0%, rgba(15, 23, 42, 0.8) 70%);
+      border: 3px solid var(--accent-purple);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 35px var(--accent-purple-glow);
+    }
+    .score-number {
+      font-size: 40px;
+      font-weight: 900;
+      color: #ffffff;
+      line-height: 1;
+    }
+    .score-total {
+      font-size: 13px;
+      color: var(--text-muted);
+      font-weight: 700;
+    }
+    .result-grade {
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--accent-cyan);
+    }
+    .result-summary {
+      font-size: 15px;
+      color: var(--text-muted);
+      max-width: 600px;
+      line-height: 1.6;
+    }
+    .restart-btn {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--border-subtle);
+      color: #ffffff;
+      padding: 12px 28px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      margin-top: 10px;
+    }
+    .restart-btn:hover {
+      background: var(--accent-purple);
+      color: #080e1a;
+      border-color: var(--accent-purple);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="quiz-container">
+    <div class="quiz-header">
+      <div class="header-badge">
+        <span>⚡</span> Edexcel Component 3 &bull; Synthesizer Specification
+      </div>
+      <div class="progress-counter">
+        Question <span id="currentQNum">1</span> / <span id="totalQNum">10</span>
+      </div>
+    </div>
+    <div class="progress-bar-container">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <div class="question-screen" id="questionScreen">
+      <div class="category-tag" id="categoryTag">Subtractive Signal Flow</div>
+      <div class="question-text" id="questionText">Loading question...</div>
+      <div class="options-grid" id="optionsGrid"></div>
+      
+      <div class="feedback-box" id="feedbackBox">
+        <div class="feedback-title" id="feedbackTitle"></div>
+        <div class="feedback-text" id="feedbackText"></div>
+      </div>
+      
+      <button class="next-btn" id="nextBtn" onclick="nextQuestion()">Next Question &rarr;</button>
+    </div>
+
+    <div class="results-screen" id="resultsScreen">
+      <div class="score-circle">
+        <div class="score-number" id="scoreNum">0</div>
+        <div class="score-total">/ 10</div>
+      </div>
+      <div class="result-grade" id="resultGrade">Mastery Achieved</div>
+      <p class="result-summary" id="resultSummary"></p>
+      <button class="restart-btn" onclick="restartQuiz()">&#8634; Retake Specification Quiz</button>
+    </div>
+  </div>
+
+  <script>
+    const questions = [
+      {
+        "category": "AO3: Subtractive Signal Architecture",
+        "text": "What is the standard signal flow through an analog subtractive synthesizer?",
+        "correct": "VCO (Generates raw harmonics) → VCF (Sculpts frequency spectrum) → VCA (Controls dynamic output level)",
+        "wrong": [
+          "VCF (Filters raw silence) → VCO (Modulates pitch harmonics) → VCA (Adds digital reverberation)",
+          "VCA (Amplifies direct line level) → VCO (Tunes fundamental partials) → VCF (Removes unwanted DC voltage)",
+          "LFO (Generates audible sine wave) → VCF (Creates 4-stage ADSR envelope) → VCO (Outputs final stereo mix)"
+        ],
+        "explanation": "In subtractive synthesis, Voltage Controlled Oscillators (VCO) generate harmonically dense waveforms, which pass through a Voltage Controlled Filter (VCF) to carve away unwanted overtones, and finally through a Voltage Controlled Amplifier (VCA) to govern loudness."
+      },
+      {
+        "category": "AO3: Harmonic Waveform Physics",
+        "text": "Which harmonic overtone characteristics define a symmetrical Square wave (50% duty cycle) compared to a Sawtooth wave?",
+        "correct": "A Square wave contains odd harmonics only (1, 3, 5, 7...), whereas a Sawtooth wave contains all integer harmonics (1, 2, 3, 4, 5...)",
+        "wrong": [
+          "A Square wave contains even harmonics only (2, 4, 6, 8...), whereas a Sawtooth contains only pure sine fundamentals",
+          "A Square wave possesses no upper overtones at all, whereas a Sawtooth wave only contains inharmonic metallic sidebands",
+          "A Square wave has all harmonics falling at 1/n², whereas a Sawtooth wave contains only three fixed sub-octaves"
+        ],
+        "explanation": "Sawtooth waves contain every integer multiple of the fundamental (producing a bright, buzzy brass/string timbre). Symmetrical square waves contain only odd harmonics (1, 3, 5, 7...), imparting a hollow, clarinet-like, or reedy acoustic quality."
+      },
+      {
+        "category": "AO3: Voltage Controlled Filter Mechanics",
+        "text": "What acoustic effect occurs when the Resonance (Q / Emphasis) control on a 24 dB/octave low-pass filter is turned to its maximum setting?",
+        "correct": "Frequencies near the cutoff point are heavily amplified into self-oscillation, generating a pure sine wave without requiring an oscillator input",
+        "wrong": [
+          "All high frequencies are instantly inverted by 180 degrees, cancelling the fundamental pitch completely",
+          "The filter switches automatically from low-pass into an un-attenuated high-pass rumble filter",
+          "The cutoff frequency is permanently locked to 440 Hz, preventing envelope modulation from functioning"
+        ],
+        "explanation": "Filter resonance feeds signal from the filter output back into its input. At extreme settings, the circuit rings continuously at the cutoff frequency ('self-oscillation'), producing a pitch-trackable sine wave even with all VCOs muted."
+      },
+      {
+        "category": "AO3: ADSR Envelope Parameters",
+        "text": "What is the critical functional difference between the 'Sustain' stage of an ADSR envelope and the Attack, Decay, and Release stages?",
+        "correct": "Sustain is a voltage LEVEL held continuously while a key is pressed; Attack, Decay, and Release are TIME durations",
+        "wrong": [
+          "Sustain governs the pitch modulation depth, while Attack, Decay, and Release control amplifier gain",
+          "Sustain operates in milliseconds after note release, while Attack, Decay, and Release operate in Hertz",
+          "Sustain is exclusively routed to the LFO rate, while Attack, Decay, and Release control filter resonance"
+        ],
+        "explanation": "Attack, Decay, and Release are measurements of time (e.g. milliseconds to seconds). Sustain is not a duration—it is a voltage/amplitude LEVEL maintained indefinitely for as long as the performer holds the key down."
+      },
+      {
+        "category": "AO3: Low Frequency Modulation (LFO)",
+        "text": "If an LFO with a 6 Hz triangle wave is routed to modulate a VCO's pitch input, what musical effect is produced?",
+        "correct": "Musical pitch vibrato (subtle cyclic fluctuation above and below the center pitch)",
+        "wrong": [
+          "Tremolo (cyclic volume pulsing caused by amplitude modulation)",
+          "Filter auto-wah (cyclic sweeps of the low-pass cutoff frequency)",
+          "Hard sync (forced resetting of the oscillator waveform cycle)"
+        ],
+        "explanation": "Modulating VCO pitch creates vibrato. Modulating VCF cutoff creates wah/filter sweeps/wobble. Modulating VCA gain creates tremolo (amplitude pulsing)."
+      },
+      {
+        "category": "AO4: Minimoog Model D & Normalization (1970)",
+        "text": "What design breakthrough made the 1970 Minimoog Model D the first commercially triumphant stage synthesizer?",
+        "correct": "Internal hardwired normalization that eliminated patch cables in favor of reliable rotary switches, housed in a portable wooden chassis",
+        "wrong": [
+          "16-voice digital polyphony powered by microprocessors and floppy disk storage",
+          "Direct MIDI connectivity allowing 16 channels of sequencing over 5-pin DIN cables",
+          "Optical playback of recorded magnetic tape strips located beneath each physical key"
+        ],
+        "explanation": "Before the Minimoog, modular synths required dozens of patch cords and unstable laboratory calibration. Bill Hemsath and Bob Moog normalized the signal path internally, giving musicians 3 stable VCOs and a 24dB ladder filter ready to gig instantly."
+      },
+      {
+        "category": "AO4: Polyphonic Breakthrough (1978)",
+        "text": "Which two technological breakthroughs distinguished the Sequential Circuits Prophet-5 (1978) from earlier analog synthesizers?",
+        "correct": "5-voice polyphony (allowing full chords) and an onboard Zilog Z80 microprocessor for storing and instantly recalling patch presets",
+        "wrong": [
+          "Digital FM carrier operators and built-in multitrack hard disk recording",
+          "Optical CD-ROM sampling and 128-voice wavetable frame interpolation",
+          "Diode ladder distortion filters and automated 16-step bassline slide circuitry"
+        ],
+        "explanation": "Designed by Dave Smith, the Prophet-5 packed 5 independent voice cards into one chassis and utilized a Z80 microprocessor to digitize and store knob positions, solving the twin historical dilemmas of polyphony and patch memory."
+      },
+      {
+        "category": "AO3/AO4: Yamaha DX7 & FM Synthesis (1983)",
+        "text": "How does Frequency Modulation (FM) synthesis in the Yamaha DX7 generate complex harmonic timbres without analog filters?",
+        "correct": "Six pure sine wave Operators modulate each other's frequencies at audio rates according to 32 pre-configured routing Algorithms",
+        "wrong": [
+          "Two analog VCOs pass through dual 24 dB/octave transistor ladder filters with inverted feedback",
+          "Recorded acoustic 16-bit audio samples stored on magnetic ROM chips are pitch-shifted across the keyboard",
+          "Sub-audible LFOs sweep a physical tape playback head across a magnetized rotating drum cylinder"
+        ],
+        "explanation": "FM synthesis (developed by John Chowning) uses Modulator operators to alter the frequency of Carrier operators at audio speeds. This mathematical modulation generates rich sideband overtones (crystalline electric pianos, metallic bells, punchy basses) with zero analog filtering."
+      },
+      {
+        "category": "AO3/AO4: MIDI 1.0 Protocol (1983)",
+        "text": "What exact form of information is transmitted across a 5-pin DIN cable operating under the MIDI 1.0 specification?",
+        "correct": "Digital performance control data (Status and Data bytes: Note On/Off, Note Number 0–127, Velocity 0–127) at 31.25 kbaud, not audio",
+        "wrong": [
+          "High-voltage analogue DC control voltages calibrated to 1 Volt per Octave and 5V Gate pulses",
+          "Uncompressed 24-bit / 96 kHz pulse-code modulated digital audio streams for stereo monitoring",
+          "Direct electrical power connections designed to eliminate external amplifier power cords"
+        ],
+        "explanation": "MIDI transmits instructions, never audio. A standard Note On message consists of 3 bytes: Status (Note On + Channel), Pitch (0–127, where 60 is Middle C), and Velocity (0–127), sent serially at 31,250 bits per second."
+      },
+      {
+        "category": "AO4: Roland TB-303 & Acid House (1982–1987)",
+        "text": "Which electronic circuitry combination gave the Roland TB-303 Bassline its unmistakable squelchy, energetic Acid House timbre?",
+        "correct": "An 18 dB/octave (3-pole) diode ladder filter, coupled with a Slide capacitor glide circuit and an Accent circuit boosting cutoff and volume",
+        "wrong": [
+          "A 24-bit digital wavetable processor combined with a motorized tape delay echo chamber",
+          "A dual optical pickup assembly wired directly into an open-back tweed tube cabinet",
+          "A 6-operator FM algorithm utilizing sine waves routed through a mechanical spring reverb tank"
+        ],
+        "explanation": "The TB-303's quirky 18 dB/octave diode ladder filter produced aggressive resonance peaks. When combined with overlapping step Slides (capacitor portamento without retriggering envelopes) and Accents, it created the signature sound of Chicago Acid House (Phuture, 1987)."
+      }
+    ];
+
+    let currentQ = 0;
+    let score = 0;
+    let answered = false;
+
+    const currentQNumEl = document.getElementById('currentQNum');
+    const totalQNumEl = document.getElementById('totalQNum');
+    const progressBarEl = document.getElementById('progressBar');
+    const categoryTagEl = document.getElementById('categoryTag');
+    const questionTextEl = document.getElementById('questionText');
+    const optionsGridEl = document.getElementById('optionsGrid');
+    const feedbackBoxEl = document.getElementById('feedbackBox');
+    const feedbackTitleEl = document.getElementById('feedbackTitle');
+    const feedbackTextEl = document.getElementById('feedbackText');
+    const nextBtnEl = document.getElementById('nextBtn');
+    const questionScreenEl = document.getElementById('questionScreen');
+    const resultsScreenEl = document.getElementById('resultsScreen');
+    const scoreNumEl = document.getElementById('scoreNum');
+    const resultGradeEl = document.getElementById('resultGrade');
+    const resultSummaryEl = document.getElementById('resultSummary');
+
+    totalQNumEl.textContent = questions.length;
+
+    function renderQuestion() {
+      answered = false;
+      const q = questions[currentQ];
+      currentQNumEl.textContent = currentQ + 1;
+      categoryTagEl.textContent = q.category;
+      questionTextEl.textContent = q.text;
+      progressBarEl.style.width = `${((currentQ) / questions.length) * 100}%`;
+
+      feedbackBoxEl.style.display = 'none';
+      nextBtnEl.style.display = 'none';
+      optionsGridEl.innerHTML = '';
+
+      // Shuffle options
+      const allOpts = [
+        { text: q.correct, isCorrect: true },
+        ...q.wrong.map(w => ({ text: w, isCorrect: false }))
+      ].sort(() => Math.random() - 0.5);
+
+      const letters = ['A', 'B', 'C', 'D'];
+      allOpts.forEach((opt, idx) => {
+        const btn = document.createElement('button');
+        btn.className = 'option-btn';
+        btn.innerHTML = `<span class="option-letter">${letters[idx]}</span><span>${opt.text}</span>`;
+        btn.onclick = () => selectOption(btn, opt.isCorrect, q.explanation);
+        optionsGridEl.appendChild(btn);
+      });
+    }
+
+    function selectOption(selectedBtn, isCorrect, explanation) {
+      if (answered) return;
+      answered = true;
+
+      const allBtns = optionsGridEl.querySelectorAll('.option-btn');
+      allBtns.forEach(btn => btn.classList.add('disabled'));
+
+      if (isCorrect) {
+        score++;
+        selectedBtn.classList.add('correct');
+        feedbackTitleEl.className = 'feedback-title correct';
+        feedbackTitleEl.innerHTML = '&#10003; Correct Specification Answer';
+      } else {
+        selectedBtn.classList.add('wrong');
+        feedbackTitleEl.className = 'feedback-title wrong';
+        feedbackTitleEl.innerHTML = '&#10007; Incorrect';
+        // Highlight the correct one
+        const q = questions[currentQ];
+        allBtns.forEach(btn => {
+          if (btn.innerText.includes(q.correct)) {
+            btn.classList.add('correct');
+          }
+        });
+      }
+
+      feedbackTextEl.textContent = explanation;
+      feedbackBoxEl.style.display = 'block';
+      nextBtnEl.style.display = 'inline-block';
+    }
+
+    function nextQuestion() {
+      currentQ++;
+      if (currentQ < questions.length) {
+        renderQuestion();
+      } else {
+        showResults();
+      }
+    }
+
+    function showResults() {
+      progressBarEl.style.width = '100%';
+      questionScreenEl.style.display = 'none';
+      resultsScreenEl.style.display = 'flex';
+      scoreNumEl.textContent = score;
+
+      if (score >= 9) {
+        resultGradeEl.textContent = 'Grade 9 / A* Distinction';
+        resultSummaryEl.textContent = 'Outstanding! You demonstrate complete mastery of Component 3 synthesis architecture, harmonic physics, filter mechanics, and historical eras from Moog to MIDI.';
+      } else if (score >= 7) {
+        resultGradeEl.textContent = 'Grade 7-8 / High Merit';
+        resultSummaryEl.textContent = 'Strong performance! You have a solid grasp of core subtractive signal flow and digital FM operators. Review minor details on ADSR voltage levels and MIDI message byte structures.';
+      } else {
+        resultGradeEl.textContent = 'Revision Recommended';
+        resultSummaryEl.textContent = 'Review the 15-slide interactive curriculum deck above, focusing on the differences between Sawtooth and Square waveforms, filter resonance self-oscillation, and Prophet-5 patch memory.';
+      }
+    }
+
+    function restartQuiz() {
+      currentQ = 0;
+      score = 0;
+      questionScreenEl.style.display = 'flex';
+      resultsScreenEl.style.display = 'none';
+      renderQuestion();
+    }
+
+    renderQuestion();
+  </script>
+</body>
+</html>
