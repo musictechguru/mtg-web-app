@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Electric Guitar • Edexcel Component 3 Specification Quiz | Music Tech Guru</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+
+    :root {
+      --bg-dark: #080e1a;
+      --bg-card: #0f172a;
+      --bg-surface: #1e293b;
+      --accent-purple: #fbbf24;
+      --accent-purple-glow: rgba(251, 191, 36, 0.35);
+      --accent-cyan: #f59e0b;
+      --accent-cyan-glow: rgba(245, 158, 11, 0.35);
+      --accent-acid: #22c55e;
+      --accent-red: #ef4444;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-purple: rgba(251, 191, 36, 0.35);
+      --border-cyan: rgba(245, 158, 11, 0.35);
+      --font: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: var(--font);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .quiz-container {
+      width: 100%;
+      max-width: 880px;
+      background: radial-gradient(circle at 50% 0%, rgba(251, 191, 36, 0.15) 0%, rgba(14, 17, 36, 0) 70%), var(--bg-card);
+      border: 1px solid var(--border-purple);
+      border-radius: 20px;
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.8), 0 0 40px rgba(251, 191, 36, 0.15);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    /* Top Quiz Header */
+    .quiz-header {
+      padding: 18px 26px;
+      background: rgba(8, 13, 10, 0.85);
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .quiz-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(251, 191, 36, 0.15);
+      border: 1px solid var(--border-purple);
+      color: #6ee7b7;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .quiz-score-pill {
+      font-size: 12.5px;
+      color: var(--text-muted);
+      font-weight: 700;
+    }
+
+    /* Progress Bar */
+    .progress-bar-track {
+      width: 100%;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent-purple) 0%, var(--accent-cyan) 100%);
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    /* Quiz Stage */
+    .quiz-stage {
+      padding: 30px 32px 24px 32px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .question-meta {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .q-category-tag {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--accent-purple);
+    }
+
+    .q-ao-tag {
+      font-size: 10.5px;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border-subtle);
+      color: #cbd5e1;
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+
+    .question-text {
+      font-size: clamp(17px, 2.5vw, 20px);
+      font-weight: 800;
+      line-height: 1.4;
+      color: #ffffff;
+      margin-bottom: 22px;
+    }
+
+    /* Options Grid */
+    .options-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .option-btn {
+      background: rgba(20, 32, 25, 0.6);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 13px 18px;
+      color: #e2e8f0;
+      font-family: var(--font);
+      font-size: 13.5px;
+      line-height: 1.45;
+      font-weight: 600;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .option-btn:hover:not(:disabled) {
+      background: rgba(20, 32, 25, 0.95);
+      border-color: rgba(251, 191, 36, 0.5);
+      transform: translateX(4px);
+    }
+
+    .option-letter {
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 800;
+      color: #94a3b8;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .option-btn.correct {
+      background: rgba(34, 197, 94, 0.15) !important;
+      border-color: var(--accent-acid) !important;
+      color: #86efac !important;
+    }
+
+    .option-btn.correct .option-letter {
+      background: var(--accent-acid);
+      color: #080e1a;
+    }
+
+    .option-btn.wrong {
+      background: rgba(239, 68, 68, 0.15) !important;
+      border-color: var(--accent-red) !important;
+      color: #fca5a5 !important;
+    }
+
+    .option-btn.wrong .option-letter {
+      background: var(--accent-red);
+      color: #ffffff;
+    }
+
+    .option-btn:disabled {
+      cursor: default;
+    }
+
+    /* Explanation & Feedback Card */
+    .insight-card {
+      display: none;
+      background: rgba(8, 13, 10, 0.85);
+      border: 1px solid var(--border-purple);
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-bottom: 20px;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .insight-card.open {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .insight-title {
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--accent-purple);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .insight-body {
+      font-size: 12.5px;
+      color: #cbd5e1;
+      line-height: 1.55;
+      margin-bottom: 6px;
+    }
+
+    .insight-tip {
+      font-size: 11.5px;
+      color: #fbbf24;
+      font-style: italic;
+    }
+
+    /* Quiz Footer */
+    .quiz-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 10px;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .q-counter {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-muted);
+    }
+
+    .next-q-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent-purple);
+      color: #080e1a;
+      border: none;
+      padding: 10px 22px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .next-q-btn:hover:not(:disabled) {
+      box-shadow: 0 0 20px var(--accent-purple-glow);
+      transform: translateY(-1px);
+    }
+
+    .next-q-btn:disabled {
+      opacity: 0.25;
+      cursor: not-allowed;
+    }
+
+    /* Results Screen */
+    .results-screen {
+      display: none;
+      padding: 40px 32px;
+      text-align: center;
+      flex-direction: column;
+      align-items: center;
+      animation: fadeIn 0.4s ease;
+    }
+
+    .results-screen.open {
+      display: flex;
+    }
+
+    .results-score-circle {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      background: rgba(251, 191, 36, 0.15);
+      border: 3px solid var(--accent-purple);
+      box-shadow: 0 0 30px var(--accent-purple-glow);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .results-score-num {
+      font-size: 32px;
+      font-weight: 900;
+      color: #ffffff;
+      line-height: 1;
+    }
+
+    .results-score-total {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 700;
+    }
+
+    .results-grade-badge {
+      display: inline-block;
+      background: rgba(34, 197, 94, 0.15);
+      border: 1px solid var(--accent-acid);
+      color: #86efac;
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 800;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .results-title {
+      font-size: 24px;
+      font-weight: 900;
+      color: #ffffff;
+      margin-bottom: 8px;
+    }
+
+    .results-message {
+      font-size: 14px;
+      color: #cbd5e1;
+      max-width: 580px;
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+
+    .results-actions {
+      display: flex;
+      gap: 12px;
+    }
+
+    .restart-btn {
+      background: var(--accent-purple);
+      color: #080e1a;
+      border: none;
+      padding: 10px 24px;
+      border-radius: 8px;
+      font-size: 13.5px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .restart-btn:hover {
+      box-shadow: 0 0 20px var(--accent-purple-glow);
+      transform: translateY(-1px);
+    }
+
+    .back-slides-btn {
+      background: rgba(255, 255, 255, 0.08);
+      color: #ffffff;
+      border: 1px solid var(--border-subtle);
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 13.5px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .back-slides-btn:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="quiz-container">
+    <!-- Top Header -->
+    <div class="quiz-header">
+      <div class="quiz-badge">
+        <span>🎸</span> Edexcel Component 3 &bull; Specification Quiz
+      </div>
+      <div class="quiz-score-pill">
+        Score: <strong style="color: var(--accent-purple);" id="currentScore">0</strong> / 12
+      </div>
+    </div>
+
+    <!-- Progress Track -->
+    <div class="progress-bar-track">
+      <div class="progress-bar-fill" id="progressFill"></div>
+    </div>
+
+    <!-- Active Quiz Stage -->
+    <div class="quiz-stage" id="quizStage">
+      <div class="question-meta">
+        <span class="q-category-tag" id="qCategory">Category</span>
+        <span class="q-ao-tag" id="qAoTag">AO Tag</span>
+      </div>
+
+      <h3 class="question-text" id="qText">Question Stem Loading...</h3>
+
+      <div class="options-grid" id="optionsGrid">
+        <!-- Buttons injected dynamically -->
+      </div>
+
+      <div class="insight-card" id="insightCard">
+        <div class="insight-title">
+          <span>💡</span> Technical Analysis &amp; Syllabus Context
+        </div>
+        <div class="insight-body" id="insightBody"></div>
+        <div class="insight-tip" id="insightTip"></div>
+      </div>
+
+      <div class="quiz-footer">
+        <span class="q-counter" id="qCounter">Question 1 of 12</span>
+        <button class="next-q-btn" id="nextBtn" onclick="nextQuestion()" disabled>
+          Next Question &rarr;
+        </button>
+      </div>
+    </div>
+
+    <!-- Results Screen -->
+    <div class="results-screen" id="resultsScreen">
+      <div class="results-score-circle">
+        <span class="results-score-num" id="finalScoreVal">0</span>
+        <span class="results-score-total">out of 12</span>
+      </div>
+      <div class="results-grade-badge" id="gradeBadge">Distinction</div>
+      <h2 class="results-title" id="resultTitle">Performance Summary</h2>
+      <p class="results-message" id="resultMessage">Analysis message goes here.</p>
+
+      <div class="results-actions">
+        <button class="restart-btn" onclick="restartQuiz()">Retake Quiz</button>
+        <a href="/interactive-slide-blues.html" class="back-slides-btn">&larr; Return to Slide Deck</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const questions = [
+  {
+    "category": "Electromagnetic Induction",
+    "ao": "AO3: Faraday's Law in Guitar Pickups",
+    "text": "According to Faraday's Law of Induction, how does a standard passive guitar pickup generate an electrical audio signal?",
+    "correct": "Vibrating steel strings disrupt the permanent magnetic field, inducing an alternating audio voltage across the copper coil",
+    "wrong": [
+      "Vibrating steel strings press down on piezoelectric crystals located beneath the bridge saddles to generate direct current",
+      "Vibrating steel strings alter an internal electrostatic capacitance field created by high-voltage phantom power batteries",
+      "Vibrating steel strings transmit acoustic soundwaves through the solid wood body directly into a dynamic microphone element"
+    ],
+    "explanation": "Faraday's Law of Induction states that a changing magnetic flux induces an electromotive force (EMF). When a ferromagnetic guitar string (steel or nickel) vibrates within the magnetic field of permanent Alnico or ceramic pole pieces, it modulates the magnetic field, inducing a minute AC voltage across the thousands of copper wire windings.",
+    "tip": "Faraday's Law: Ferromagnetic steel string vibrates in magnetic field, modulating flux and inducing alternating electrical current in coil."
+  },
+  {
+    "category": "Single-Coil Pickup Physics",
+    "ao": "AO3: Construction & Frequency Response",
+    "text": "What physical construction characteristic gives traditional Fender single-coil pickups their distinctive bright, snappy tone?",
+    "correct": "Narrow magnetic sampling apertures combined with lower inductance create a prominent resonant treble peak between 4 kHz and 5 kHz",
+    "wrong": [
+      "Twin opposed magnetic coils wired together in parallel cancel out harsh high-frequency harmonics above 2 kHz across all audio octaves",
+      "Thick steel baseplates placed directly underneath the bobbins absorb stray treble frequencies while boosting sub-bass response curves",
+      "Heavy ceramic magnet bars positioned inside the pickup body reduce string excursion to eliminate mechanical harmonic overtones completely"
+    ],
+    "explanation": "Single-coil pickups focus their magnetic field into a narrow sampling window along the string. Coupled with moderate coil winding (~7,000\u20138,500 turns of 42 AWG wire giving 2.5\u20133.5 H inductance), the pickup's RLC circuit exhibits a sharp resonant frequency peak in the 4\u20135 kHz presence region, delivering exceptional attack chime and articulate definition.",
+    "tip": "Single-Coil Tone: Narrow magnetic window + lower inductance = high resonant peak (4\u20135 kHz) giving bright chime, but susceptible to 50/60 Hz hum."
+  },
+  {
+    "category": "Humbucker Hum Cancellation",
+    "ao": "AO3: Seth Lover RWRP Physics",
+    "text": "How does Seth Lover's PAF humbucking pickup eliminate mains hum while preserving string audio fidelity?",
+    "correct": "Dual coils wound in reverse electrical polarity with opposing magnetic poles cancel ambient EMI noise but sum string signals",
+    "wrong": [
+      "Dual coils pass high-voltage direct current through ground wires to repel electrostatic radio frequencies from nearby stage gear",
+      "Dual coils utilize an active internal 9-volt transistor filter that notches out 50 Hz and 60 Hz hum frequencies across the board",
+      "Dual coils shield the wooden body cavity with solid lead sheets to block magnetic field interference from valve power transformers"
+    ],
+    "explanation": "Humbuckers feature two coils wired Reverse Wind, Reverse Polarity (RWRP). External electromagnetic interference (mains hum) affects both coils equally in phase; because the coils are wired in reverse polarity, the noise signals cancel out (180\u00b0 out of phase). However, because the magnets beneath each coil are also flipped, the string signal undergoes a double inversion (-1 * -1 = +1) and sums coherently (+6 dB).",
+    "tip": "RWRP: Reverse Wind + Reverse Polarity. External EMI hum cancels (180\u00b0 phase inversion); vibrating string audio sums in-phase (+6 dB)."
+  },
+  {
+    "category": "Potentiometer Loading",
+    "ao": "AO3: 250 k\u03a9 vs 500 k\u03a9 Potentiometers",
+    "text": "Why do guitar manufacturers traditionally pair 250 k\u03a9 volume potentiometers with single-coils and 500 k\u03a9 with humbuckers?",
+    "correct": "A 250 k\u03a9 pot bleeds more treble to ground, smoothing single-coil bite, while a 500 k\u03a9 pot preserves high-frequency humbucker clarity",
+    "wrong": [
+      "A 250 k\u03a9 pot doubles electrical output current for low-impedance cables, while a 500 k\u03a9 pot prevents battery drain in passive guitars",
+      "A 250 k\u03a9 pot compresses acoustic dynamic range during loud playing, while a 500 k\u03a9 pot acts as an active transistor boost circuit",
+      "A 250 k\u03a9 pot inverts audio polarity to cancel feedback squeal, while a 500 k\u03a9 pot blocks direct current from reaching external pedals"
+    ],
+    "explanation": "The volume pot presents a parallel resistance load across the pickup's RLC circuit. A 250 k\u03a9 pot exerts heavier electrical damping on the resonant peak, bleeding off piercing ultra-highs to produce a sweet, balanced single-coil tone. Humbuckers already have darker natural response due to higher inductance and phase cancellation; a 500 k\u03a9 pot imposes less resistive loading, preserving vital top-end clarity.",
+    "tip": "Pot Values: 250k smooths harsh highs on bright single-coils; 500k loads the circuit less, preserving presence on darker humbuckers."
+  },
+  {
+    "category": "Pickup Placement & Harmonics",
+    "ao": "AO3: Bridge vs Neck Harmonic Sampling",
+    "text": "Why does a bridge pickup produce a sharp, trebly tone while a neck pickup produces a warm, bass-heavy tone on the same guitar?",
+    "correct": "Near the bridge string excursion is restricted with dense upper harmonics; near the neck wide excursion emphasizes the fundamental",
+    "wrong": [
+      "Near the bridge strings carry positive electrical voltages; near the neck strings carry negative electrical voltages into the mix",
+      "Near the bridge the wood block absorbs low frequencies; near the neck the hollow cavity amplifies acoustic bass resonances loudly",
+      "Near the bridge magnetic pull speeds up string vibration speed; near the neck gravitational forces slow down wave oscillation rates"
+    ],
+    "explanation": "String vibration physics dictates that at the bridge anchor point, string displacement is physically restricted, suppressing low-frequency fundamental wave motion while highlighting short-wavelength upper harmonics. Near the neck (closer to the string's center antinode), the string vibrates with wide physical amplitude, strongly generating the fundamental and low-order harmonics.",
+    "tip": "Pickup Placement: Bridge = restricted excursion, dense treble harmonics; Neck = wide excursion near antinode, rich fundamental and bass warmth."
+  },
+  {
+    "category": "Stratocaster 5-Way Switching",
+    "ao": "AO3: Parallel Comb Filtering ('Quack')",
+    "text": "What acoustic and electrical phenomenon causes the iconic hollow 'quack' tone in Stratocaster positions 2 and 4?",
+    "correct": "Combining two spaced single-coils in parallel creates phase cancellation notches across the midrange, producing a comb-filtered scoop",
+    "wrong": [
+      "Combining two single-coils reverses audio polarity by 180 degrees, completely wiping out fundamental frequencies through cancellation",
+      "Combining two single-coils switches internal magnetic poles into series, creating high-gain distortion like an overdriven valve head",
+      "Combining two single-coils engages an internal passive inductor choke coil that automatically compresses low-end dynamic transients"
+    ],
+    "explanation": "In positions 2 (bridge + middle) and 4 (middle + neck), two pickups are wired in parallel. Because the pickups sample the vibrating string at different physical locations along its length, high and midrange harmonic waveforms arrive with small time/phase differences. This causes comb-filtering phase cancellation in the 1\u20132 kHz midrange, creating the scooped, hollow 'quack' made famous by Mark Knopfler and Jimi Hendrix.",
+    "tip": "Strat 'Quack' (Pos 2 & 4): Spaced pickups wired in parallel create phase interference notches (comb filtering) that scoop mid frequencies."
+  },
+  {
+    "category": "Solidbody Architecture",
+    "ao": "AO4: The Elimination of Feedback",
+    "text": "What major performance problem did the development of solidbody guitars (Fender Broadcaster, Gibson Les Paul) solve in the 1950s?",
+    "correct": "It eliminated hollowbody soundboard vibration and internal air cavity resonance that caused uncontrollable feedback at loud volumes",
+    "wrong": [
+      "It allowed guitarists to play acoustic rhythm styles without needing external microphone stands or amplification hardware on stage",
+      "It completely eliminated all mechanical string breakage caused by friction across traditional bone nuts and wooden bridge tailpieces",
+      "It prevented magnetic interference generated by early cathode ray tube television broadcast cameras during live television studio gigs"
+    ],
+    "explanation": "Early hollowbody archtop guitars suffered severe acoustic feedback when played through high-volume amplifiers: sound pressure from loudspeakers caused the guitar's flexible top wood and internal air chamber to resonate violently in an uncontrollable feedback loop. Solid wood bodies (ash, alder, mahogany) decoupled the instrument from acoustic air pressure, allowing clean sustain and extreme amplified volume.",
+    "tip": "Solidbody Evolution: Eliminates air cavity resonance and top vibration, ending acoustic feedback loops at high stage volume."
+  },
+  {
+    "category": "Electric Bass Revolution",
+    "ao": "AO4: Fender Precision Bass (1951/1957)",
+    "text": "Why was Leo Fender's Precision Bass (1951) considered revolutionary for touring rhythm sections and commercial recordings?",
+    "correct": "Its fretted solidbody design ensured accurate intonation and portable amplified bass that could compete cleanly with loud drum kits",
+    "wrong": [
+      "Its hollow acoustic chamber produced upright double-bass natural resonance without needing any audio preamplification or DI boxes",
+      "Its six strings were tuned an entire octave above standard guitars, allowing bassists to play rapid jazz guitar chord solos onstage",
+      "Its piezo pickup eliminated the need for bass strings, using synthetic rubber bands to create sub-bass synthesizer tones in clubs"
+    ],
+    "explanation": "Before the 1951 P-Bass, upright double basses were bulky, quiet, and easily drowned out by brass and drums. Leo Fender combined a solid body (no feedback), 34-inch scale with guitar-style frets (providing precise pitch intonation, hence 'Precision'), and a single electromagnetic pickup, enabling portable, loud, and articulate bass tracking.",
+    "tip": "Precision Bass (1951): Fretted neck gave accurate pitch; solid body stopped feedback; allowed bassists to match drum volume on stage."
+  },
+  {
+    "category": "High-Performance Hardware",
+    "ao": "AO4: Floyd Rose Double-Locking Tremolo",
+    "text": "How does a Floyd Rose locking tremolo system maintain pitch stability during radical pitch dives and aggressive whammy use?",
+    "correct": "Strings are clamped rigidly at both the nut and bridge saddles, preventing friction slippage and slack over tuning pegs during dives",
+    "wrong": [
+      "An electronic motorized microprocessor inside the body detects pitch drift and re-tunes machine pegs instantaneously between notes",
+      "Hydraulic fluid cylinders installed behind the bridge absorb mechanical string tension shock to keep string wire core from stretching",
+      "Internal carbon-fiber reinforcement rods running through the neck flex symmetrically to counteract vibrato arm upward pulling forces"
+    ],
+    "explanation": "Traditional vibrato systems go out of tune because slackened strings slip through nut slots and unwind unevenly around tuner posts during dives. Floyd Rose introduced a double-locking mechanism: hardened steel pads clamp strings firmly at the locking nut and bridge saddles, isolating the active vibrating string length and preventing friction slippage entirely.",
+    "tip": "Floyd Rose Tremolo: Clamps strings at locking nut and bridge saddles. Eliminates friction slippage, allowing extreme dive-bombs without detuning."
+  },
+  {
+    "category": "Active Electronics",
+    "ao": "AO3: Low-Impedance Active Pickups (EMG)",
+    "text": "What is the primary technical design advantage of active guitar pickups (e.g. EMG 81) powered by an internal 9V battery?",
+    "correct": "Low-turn coils offer ultra-wide flat bandwidth and low noise, boosted cleanly by an internal preamp with low output impedance",
+    "wrong": [
+      "The 9V battery generates high-voltage DC phantom power that magnetizes steel strings to double physical acoustic sustain length",
+      "The onboard preamp adds heavy analog valve tube distortion directly inside the guitar body before reaching the instrument amplifier",
+      "The circuit eliminates the need for volume and tone potentiometers, automatically compressing dynamic audio signals to 0 dBFS peak"
+    ],
+    "explanation": "Active pickups wind far fewer copper coil turns, which drastically lowers inductance, eliminates 50/60 Hz hum susceptibility, and extends frequency response far into the treble and sub-bass. Because the raw signal is weak, an onboard discrete transistor preamp (powered by a 9V battery) boosts signal level and buffers it into a low-impedance output (~10 k\u03a9), preventing high-frequency signal loss over long guitar cables.",
+    "tip": "Active Pickups: Low coil turns = wide frequency bandwidth & low noise; internal 9V preamp boosts level and provides low output impedance."
+  },
+  {
+    "category": "Tone Control Circuitry",
+    "ao": "AO3: Passive RC Low-Pass Filter Physics",
+    "text": "Electrically, how does a standard passive guitar tone control knob attenuate high frequencies when rolled down?",
+    "correct": "It forms a variable RC low-pass filter with a capacitor, shunting high frequencies to ground with a 6 dB per octave rolloff slope",
+    "wrong": [
+      "It inserts a variable inductor choke in series with the pickup output to compress incoming dynamic transients across all frequencies",
+      "It reduces direct current voltage from the internal volume potentiometer to starve pickup magnets of magnetic flux saturation levels",
+      "It flips the phase polarity of upper harmonic overtones by 180 degrees, causing them to self-cancel before reaching the output jack"
+    ],
+    "explanation": "A passive tone circuit consists of a variable resistor (tone pot, typically 250k or 500k) wired in series with a capacitor (typically 0.022 \u00b5F or 0.047 \u00b5F) connected to ground. As the pot resistance decreases, high-frequency audio currents encounter lower reactance through the capacitor than the amplifier, shunting treble to ground as a passive 1st-order (-6 dB/octave) low-pass filter.",
+    "tip": "Tone Knob: Variable resistor + capacitor forms an RC low-pass filter (-6 dB/oct); rolling down bleeds higher frequencies to ground."
+  },
+  {
+    "category": "Digital Amp Modelling & IRs",
+    "ao": "AO3/AO4: DSP Emulation & Convolution",
+    "text": "In digital guitar processors (e.g. Line 6 Helix, Quad Cortex), what role does an Impulse Response (IR) play in sound shaping?",
+    "correct": "It uses mathematical convolution to replicate the complex acoustic frequency response of a specific speaker cab and studio microphone",
+    "wrong": [
+      "It generates polyphonic MIDI note triggers from monophonic guitar audio transients to control external synthesizer rack modules live",
+      "It applies look-ahead multi-band dynamic limiting to eliminate all clipping distortion generated by simulated high-gain valve circuits",
+      "It automatically corrects slightly out-of-tune guitar chords in real time by shifting pitch fundamentals to 440 Hz concert pitch scale"
+    ],
+    "explanation": "While digital algorithms model the non-linear distortion, sag, and clipping behavior of tube preamps and power amps, an Impulse Response (IR) captures the linear time-invariant acoustic transfer function of a physical speaker cabinet, driver cone, cabinet wood resonance, and studio recording microphone placement. Convolution reproduces this exact physical sonic footprint digitally.",
+    "tip": "Impulse Response (IR): Convolution filter capturing the linear frequency and phase response of a real speaker cabinet, cone, and mic placement."
+  }
+];
+
+    function shuffle(arr) {
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+
+    let currentQ = 0;
+    let score = 0;
+    let answered = false;
+    let currentOptions = [];
+
+    const qText = document.getElementById('qText');
+    const qCategory = document.getElementById('qCategory');
+    const qAoTag = document.getElementById('qAoTag');
+    const optionsGrid = document.getElementById('optionsGrid');
+    const insightCard = document.getElementById('insightCard');
+    const insightBody = document.getElementById('insightBody');
+    const insightTip = document.getElementById('insightTip');
+    const qCounter = document.getElementById('qCounter');
+    const currentScore = document.getElementById('currentScore');
+    const progressFill = document.getElementById('progressFill');
+    const nextBtn = document.getElementById('nextBtn');
+    const quizStage = document.getElementById('quizStage');
+    const resultsScreen = document.getElementById('resultsScreen');
+    const finalScoreVal = document.getElementById('finalScoreVal');
+    const gradeBadge = document.getElementById('gradeBadge');
+    const resultTitle = document.getElementById('resultTitle');
+    const resultMessage = document.getElementById('resultMessage');
+    const letters = ['A', 'B', 'C', 'D'];
+
+    function loadQuestion(index) {
+      answered = false;
+      const q = questions[index];
+      qText.innerHTML = q.text;
+      qCategory.innerText = q.category;
+      qAoTag.innerText = q.ao;
+      qCounter.innerText = `Question ${index + 1} of ${questions.length}`;
+      currentScore.innerText = `Score: ${score}/${questions.length}`;
+      progressFill.style.width = `${((index) / questions.length) * 100}%`;
+
+      insightCard.classList.remove('show');
+      nextBtn.disabled = true;
+
+      // SHUFFLE OPTIONS so correct answer is NOT always in the same position
+      currentOptions = shuffle([
+        { text: q.correct, ok: true },
+        ...q.wrong.map(w => ({ text: w, ok: false }))
+      ]);
+
+      optionsGrid.innerHTML = '';
+      currentOptions.forEach((opt, idx) => {
+        const btn = document.createElement('button');
+        btn.className = 'option-btn';
+        btn.innerHTML = `<span class="option-letter">${letters[idx]}</span><span>${opt.text}</span>`;
+        btn.onclick = () => selectOption(idx, btn);
+        optionsGrid.appendChild(btn);
+      });
+    }
+
+    function selectOption(idx, btn) {
+      if (answered) return;
+      answered = true;
+
+      const q = questions[currentQ];
+      const isCorrect = currentOptions[idx].ok;
+      const btns = optionsGrid.querySelectorAll('.option-btn');
+
+      btns.forEach((b, i) => {
+        b.disabled = true;
+        if (currentOptions[i].ok) {
+          b.classList.add('correct');
+        }
+      });
+
+      if (isCorrect) {
+        btn.classList.add('correct');
+        score++;
+      } else {
+        btn.classList.add('wrong');
+      }
+
+      currentScore.innerText = `Score: ${score}/${questions.length}`;
+      insightBody.innerHTML = q.explanation;
+      insightTip.innerHTML = `<strong>Specification Tip:</strong> ${q.tip}`;
+      insightCard.classList.add('show');
+
+      nextBtn.disabled = false;
+      if (currentQ === questions.length - 1) {
+        nextBtn.innerText = 'View Results & Analysis';
+      }
+    }
+
+    function handleNext() {
+      if (currentQ < questions.length - 1) {
+        currentQ++;
+        loadQuestion(currentQ);
+      } else {
+        showResults();
+      }
+    }
+
+    function showResults() {
+      quizStage.style.display = 'none';
+      resultsScreen.style.display = 'block';
+      progressFill.style.width = '100%';
+
+      finalScoreVal.innerText = `${score} / ${questions.length}`;
+      const pct = (score / questions.length) * 100;
+
+      if (pct >= 80) {
+        gradeBadge.innerText = 'Grade A* / A - Master of Folk Technology';
+        gradeBadge.style.color = '#fbbf24';
+        gradeBadge.style.borderColor = '#fbbf24';
+        resultTitle.innerText = 'Outstanding Performance!';
+        resultMessage.innerText = 'You demonstrated comprehensive mastery of acoustic folk recording, stereo transducer arrays, microphone positioning, and historical context.';
+      } else if (pct >= 60) {
+        gradeBadge.innerText = 'Grade B / C - Solid Knowledge Base';
+        gradeBadge.style.color = '#f59e0b';
+        gradeBadge.style.borderColor = '#f59e0b';
+        resultTitle.innerText = 'Strong Foundation!';
+        resultMessage.innerText = 'Good grasp of core concepts. Review the 12th fret acoustic placement and stereo microphone configurations to secure the highest marks.';
+      } else {
+        gradeBadge.innerText = 'Revision Required';
+        gradeBadge.style.color = '#f87171';
+        gradeBadge.style.borderColor = '#f87171';
+        resultTitle.innerText = 'Keep Revising!';
+        resultMessage.innerText = 'Use the 14-slide presentation deck to reinforce your understanding of acoustic capture, vintage equipment, and key artists.';
+      }
+    }
+
+    function restartQuiz() {
+      currentQ = 0;
+      score = 0;
+      nextBtn.innerText = 'Next Question &rarr;';
+      quizStage.style.display = 'block';
+      resultsScreen.style.display = 'none';
+      loadQuestion(0);
+    }
+
+    window.onload = () => loadQuestion(0);
+</script>
+</body>
+</html>

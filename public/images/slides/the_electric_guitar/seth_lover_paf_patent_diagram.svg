@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 360" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgPAF" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+  </defs>
+  <rect width="700" height="360" rx="12" fill="url(#bgPAF)" stroke="#334155" stroke-width="1.5"/>
+  <text x="30" y="36" fill="#f8fafc" font-family="sans-serif" font-size="16" font-weight="700">SETH LOVER'S 1957 GIBSON PAF HUMBUCKER (U.S. PATENT 2,896,491)</text>
+  <text x="30" y="56" fill="#94a3b8" font-family="sans-serif" font-size="11">Dual bobbins, reverse magnetic polarity, reverse wire winding (RWRP), and series sum</text>
+
+  <!-- Left: Mechanical Exploded Blueprint -->
+  <g transform="translate(40, 85)">
+    <!-- Baseplate -->
+    <rect x="20" y="140" width="260" height="15" rx="3" fill="#64748b" stroke="#cbd5e1"/>
+    <text x="150" y="152" fill="#fff" font-family="sans-serif" font-size="8.5" font-weight="700" text-anchor="middle">Nickel-Silver Baseplate with Mounting Legs</text>
+
+    <!-- Alnico Bar Magnet at Bottom -->
+    <rect x="60" y="120" width="180" height="15" rx="2" fill="#94a3b8"/>
+    <text x="150" y="132" fill="#0f172a" font-family="sans-serif" font-size="9" font-weight="800" text-anchor="middle">Alnico Bar Magnet (North / South)</text>
+
+    <!-- Coil 1 (Slugs) -->
+    <rect x="50" y="30" width="85" height="85" rx="4" fill="#1e293b" stroke="#38bdf8" stroke-width="2"/>
+    <circle cx="92" cy="72" r="14" fill="#38bdf8"/>
+    <text x="92" y="76" fill="#0f172a" font-family="sans-serif" font-size="10" font-weight="800" text-anchor="middle">N</text>
+    <text x="92" y="24" fill="#38bdf8" font-family="sans-serif" font-size="9.5" font-weight="700" text-anchor="middle">Coil 1 (Slugs)</text>
+    <text x="92" y="105" fill="#94a3b8" font-family="sans-serif" font-size="8" text-anchor="middle">Clockwise Winding</text>
+
+    <!-- Coil 2 (Adjustable Screws) -->
+    <rect x="165" y="30" width="85" height="85" rx="4" fill="#1e293b" stroke="#f59e0b" stroke-width="2"/>
+    <circle cx="207" cy="72" r="14" fill="#f59e0b"/>
+    <text x="207" y="76" fill="#0f172a" font-family="sans-serif" font-size="10" font-weight="800" text-anchor="middle">S</text>
+    <text x="207" y="24" fill="#fbbf24" font-family="sans-serif" font-size="9.5" font-weight="700" text-anchor="middle">Coil 2 (Screws)</text>
+    <text x="207" y="105" fill="#94a3b8" font-family="sans-serif" font-size="8" text-anchor="middle">Counter-Clockwise</text>
+  </g>
+
+  <!-- Right: Technical Principles Box -->
+  <g transform="translate(370, 85)">
+    <rect width="290" height="230" rx="8" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5"/>
+    <text x="20" y="26" fill="#38bdf8" font-family="sans-serif" font-size="12" font-weight="700">THE DUAL-REVERSAL MATHEMATICS</text>
+    
+    <text x="20" y="55" fill="#e2e8f0" font-family="sans-serif" font-size="10" font-weight="700">1. External Hum Interference (EMI):</text>
+    <text x="20" y="72" fill="#94a3b8" font-family="sans-serif" font-size="9">Ambient 50/60 Hz electromagnetic noise penetrates both</text>
+    <text x="20" y="86" fill="#94a3b8" font-family="sans-serif" font-size="9">coils in the same electrical direction.</text>
+    <text x="20" y="102" fill="#f87171" font-family="sans-serif" font-size="9" font-weight="700">Because coils are reverse-wound: Hum1 - Hum2 = 0!</text>
+
+    <text x="20" y="130" fill="#e2e8f0" font-family="sans-serif" font-size="10" font-weight="700">2. String Audio Signal (Induction):</text>
+    <text x="20" y="147" fill="#94a3b8" font-family="sans-serif" font-size="9">Vibrating string is magnetized with OPPOSITE polarity</text>
+    <text x="20" y="161" fill="#94a3b8" font-family="sans-serif" font-size="9">over Coil 1 (North) vs Coil 2 (South).</text>
+    <text x="20" y="177" fill="#34d399" font-family="sans-serif" font-size="9" font-weight="700">Two negatives make a positive: Signal1 + Signal2 = 2x!</text>
+
+    <line x1="20" y1="192" x2="270" y2="192" stroke="#334155"/>
+    <text x="20" y="210" fill="#fbbf24" font-family="sans-serif" font-size="9.5" font-weight="700">Result: 100% Hum Free + Higher Voltage Output</text>
+  </g>
+</svg>

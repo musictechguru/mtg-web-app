@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 360" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgPot" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+  </defs>
+  <rect width="700" height="360" rx="12" fill="url(#bgPot)" stroke="#334155" stroke-width="1.5"/>
+  <text x="30" y="36" fill="#f8fafc" font-family="sans-serif" font-size="16" font-weight="700">GUITAR CONTROL CIRCUITS: VOLUME &amp; TONE POTENTIOMETERS</text>
+  <text x="30" y="56" fill="#94a3b8" font-family="sans-serif" font-size="11">Variable resistive voltage dividers (250k&#937; vs 500k&#937;) &amp; RC low-pass filter capacitor bleed</text>
+
+  <!-- Left: Volume Potentiometer -->
+  <g transform="translate(40, 80)">
+    <rect width="280" height="235" rx="8" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5"/>
+    <text x="140" y="25" fill="#38bdf8" font-family="sans-serif" font-size="12" font-weight="700" text-anchor="middle">VOLUME POTENTIOMETER (VOLTAGE DIVIDER)</text>
+    
+    <!-- Schematic -->
+    <path d="M 30 80 L 70 80 L 80 70 L 90 90 L 100 70 L 110 90 L 120 70 L 130 90 L 140 80 L 180 80" fill="none" stroke="#e2e8f0" stroke-width="2"/>
+    <text x="30" y="70" fill="#38bdf8" font-family="sans-serif" font-size="9" font-weight="700">Lug 1 (In from Pickup)</text>
+    <line x1="110" y1="90" x2="110" y2="130" stroke="#f59e0b" stroke-width="2"/>
+    <text x="110" y="145" fill="#f59e0b" font-family="sans-serif" font-size="9" font-weight="700" text-anchor="middle">Lug 2 (Wiper to Output Jack)</text>
+    <line x1="180" y1="80" x2="180" y2="110" stroke="#64748b" stroke-width="2"/>
+    <line x1="170" y1="110" x2="190" y2="110" stroke="#64748b" stroke-width="2"/>
+    <text x="180" y="125" fill="#94a3b8" font-family="sans-serif" font-size="8.5" text-anchor="middle">Lug 3 (Ground)</text>
+
+    <text x="20" y="175" fill="#e2e8f0" font-family="sans-serif" font-size="10" font-weight="600">&#8226; Logarithmic (Audio) Taper</text>
+    <text x="20" y="193" fill="#94a3b8" font-family="sans-serif" font-size="9">Matches human hearing perception smoothly</text>
+    <text x="20" y="213" fill="#e2e8f0" font-family="sans-serif" font-size="10" font-weight="600">&#8226; Treble Bleed Circuit</text>
+    <text x="20" y="225" fill="#94a3b8" font-family="sans-serif" font-size="8.5">Prevents high-end loss when turning volume down</text>
+  </g>
+
+  <!-- Right: Tone Potentiometer -->
+  <g transform="translate(360, 80)">
+    <rect width="300" height="235" rx="8" fill="#1e293b" stroke="#10b981" stroke-width="1.5"/>
+    <text x="150" y="25" fill="#34d399" font-family="sans-serif" font-size="12" font-weight="700" text-anchor="middle">TONE POTENTIOMETER (RC LOW-PASS FILTER)</text>
+    
+    <!-- Schematic -->
+    <path d="M 40 80 L 90 80 L 100 70 L 110 90 L 120 70 L 130 90 L 140 80 L 180 80" fill="none" stroke="#e2e8f0" stroke-width="2"/>
+    <text x="40" y="70" fill="#38bdf8" font-family="sans-serif" font-size="9" font-weight="700">From Volume</text>
+    <!-- Cap -->
+    <line x1="180" y1="80" x2="220" y2="80" stroke="#10b981" stroke-width="2"/>
+    <line x1="220" y1="70" x2="220" y2="90" stroke="#10b981" stroke-width="2.5"/>
+    <line x1="226" y1="70" x2="226" y2="90" stroke="#10b981" stroke-width="2.5"/>
+    <line x1="226" y1="80" x2="250" y2="80" stroke="#64748b" stroke-width="2"/>
+    <text x="223" y="60" fill="#34d399" font-family="sans-serif" font-size="9" font-weight="700" text-anchor="middle">0.022&#956;F / 0.047&#956;F Cap</text>
+    <text x="250" y="95" fill="#94a3b8" font-family="sans-serif" font-size="8.5" text-anchor="middle">Ground</text>
+
+    <text x="20" y="145" fill="#e2e8f0" font-family="sans-serif" font-size="10" font-weight="600">&#8226; Shunts high frequencies to ground</text>
+    <text x="20" y="163" fill="#94a3b8" font-family="sans-serif" font-size="9">Turning tone down removes treble, creating warm jazz/blues tone</text>
+
+    <text x="20" y="188" fill="#fbbf24" font-family="sans-serif" font-size="10" font-weight="700">Pot Resistance Values &amp; Pickup Match:</text>
+    <text x="20" y="206" fill="#cbd5e1" font-family="sans-serif" font-size="9">&#8226; 250k&#937; for Single-Coils (warms bright harsh top-end)</text>
+    <text x="20" y="222" fill="#cbd5e1" font-family="sans-serif" font-size="9">&#8226; 500k&#937; for Humbuckers (preserves clarity and bite)</text>
+  </g>
+</svg>

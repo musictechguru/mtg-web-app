@@ -837,4 +837,172 @@ build_homework_pdf(
     ]
 )
 
+# --- ELECTRIC GUITAR HW 1 ---
+build_homework_pdf(
+    filename="c3_electric_guitar_hw1_solidbody_singlecoil_fender.pdf",
+    title="C3 The Electric Guitar HW 1 – Fender Solidbody, Single-Coils & Hendrix 'Voodoo Child'",
+    artist="The Jimi Hendrix Experience (Electric Ladyland, 1968, Engineer: Eddie Kramer)",
+    youtube_url="https://www.youtube.com/watch?v=tgY7-kVICqU",
+    questions_page1=[
+        {
+            'type': 'table',
+            'prompt': '1. "Voodoo Child (Slight Return)" showcases Jimi Hendrix\'s iconic Fender Stratocaster tone. Identify the technical production elements below. (3)',
+            'colWidths': [240, 275],
+            'data': [
+                ['Guitar Element', 'Technical Mechanism & Sonic Characteristic'],
+                ['Vox Wah-Wah Pedal Intro', 'Variable bandpass inductor filter sweeping vocal-like formant frequencies (500Hz–3kHz)'],
+                ['Fender Stratocaster Bridge Pickup', 'Single-coil sampling narrow string excursion; bright, cutting bite and snappy transients'],
+                ['Marshall 100W Super Lead Head', ''],
+                ['Controlled Acoustic Feedback', '']
+            ]
+        },
+        {
+            'type': 'qa',
+            'prompt': '2. According to Faraday\'s Law of Electromagnetic Induction, explain how a vibrating nickel-steel guitar string induces an electrical signal across a copper pickup coil. (3)',
+            'lines': 3
+        },
+        {
+            'type': 'qa',
+            'prompt': '3. Why did Leo Fender design a solid ash/alder body for the Broadcaster and Stratocaster, and how did this solve the acoustic feedback dilemma of hollowbody archtops? (3)',
+            'lines': 3
+        },
+        {
+            'type': 'qa',
+            'prompt': '4. Explain what causes the distinctive "quack" tone in Stratocaster pickup selector positions 2 and 4, and why it is technically a comb-filtering effect rather than reverse polarity. (3)',
+            'lines': 3
+        }
+    ],
+    questions_page2=[
+        {
+            'type': 'qa',
+            'prompt': '5. Potentiometer Resistance: Explain why Fender utilizes 250 kΩ potentiometers with single-coil pickups, detailing the effect on circuit resonant peak damping. (3)',
+            'lines': 4
+        },
+        {
+            'type': 'table_box',
+            'prompt': '6. Single-Coil vs Humbucker Electrical Architecture: complete the comparative technical analysis below: (4)',
+            'colWidths': [515],
+            'row_bgs': [(0, colors.HexColor("#e2e8f0")), (2, colors.HexColor("#e2e8f0"))],
+            'data': [
+                ['Fender Single-Coil Construction & Sonic Attributes (2)'],
+                ['Coil turns, resonant peak frequency (4–5 kHz), articulate bite, and 50/60 Hz EMI hum susceptibility:\n\n\n '],
+                ['Gibson PAF Humbucker Construction & Sonic Attributes (2)'],
+                ['Dual RWRP coils, external hum phase cancellation, higher inductance, and rich midrange warmth:\n\n\n ']
+            ]
+        }
+    ]
+)
+
+# --- ELECTRIC GUITAR HW 2 ---
+build_homework_pdf(
+    filename="c3_electric_guitar_hw2_humbucker_gibson_lespaul.pdf",
+    title="C3 The Electric Guitar HW 2 – Gibson Les Paul, PAF Humbuckers & Led Zeppelin 'Whole Lotta Love'",
+    artist="Led Zeppelin (Led Zeppelin II, 1969, Producer/Guitarist: Jimmy Page, Engineer: Eddie Kramer)",
+    youtube_url="https://www.youtube.com/watch?v=HQmmM_qwG4k",
+    questions_page1=[
+        {
+            'type': 'table',
+            'prompt': '1. "Whole Lotta Love" defined heavy blues-rock guitar production. Identify the technical recording components below. (3)',
+            'colWidths': [240, 275],
+            'data': [
+                ['Production Component', 'Hardware & Technical Implementation'],
+                ['Main Riff Guitar', '1959 Gibson Les Paul Standard through 100W Marshall Super Lead head'],
+                ['Middle Psychedelic Breakdown', 'Theremin, tape echo feedback oscillation, and backwards pre-delay reverb'],
+                ['Sola Sound Tone Bender MKII', ''],
+                ['Stereophonic Studio Panning', '']
+            ]
+        },
+        {
+            'type': 'qa',
+            'prompt': '2. Explain the physics of Seth Lover\'s 1957 PAF Humbucker. How does Reverse Wind, Reverse Polarity (RWRP) eliminate 50/60 Hz mains hum while summing the musical string signal? (4)',
+            'lines': 4
+        },
+        {
+            'type': 'qa',
+            'prompt': '3. Why does Gibson use 500 kΩ potentiometers with humbuckers instead of the 250 kΩ potentiometers used on Fender guitars? (3)',
+            'lines': 3
+        },
+        {
+            'type': 'qa',
+            'prompt': '4. Harmonic Nodes & Pickup Placement: Explain why Jimmy Page\'s Les Paul bridge pickup sounds bright and biting, whereas the neck pickup sounds dark, round, and fluty. (3)',
+            'lines': 3
+        }
+    ],
+    questions_page2=[
+        {
+            'type': 'qa',
+            'prompt': '5. In the middle section of "Whole Lotta Love", Jimmy Page used backwards echo. Explain how an engineer creates backwards tape echo in an analog tape recording studio. (3)',
+            'lines': 4
+        },
+        {
+            'type': 'table_box',
+            'prompt': '6. Semi-Hollow (ES-335) vs Solidbody (Les Paul) Acoustic & Electrical Properties: compare below: (4)',
+            'colWidths': [515],
+            'row_bgs': [(0, colors.HexColor("#e2e8f0")), (2, colors.HexColor("#e2e8f0"))],
+            'data': [
+                ['Gibson ES-335 Centre-Block Architecture & Acoustic Response (2)'],
+                ['Solid maple centre block, hollow acoustic wings, woody acoustic resonance with feedback suppression:\n\n\n '],
+                ['Gibson Les Paul Solid Mahogany/Maple Architecture & Sustain (2)'],
+                ['High-density solid construction, maximum acoustic mass, extended note sustain, and high-gain stability:\n\n\n ']
+            ]
+        }
+    ]
+)
+
+# --- ELECTRIC GUITAR HW 3 ---
+build_homework_pdf(
+    filename="c3_electric_guitar_hw3_superstrat_shred_modelling.pdf",
+    title="C3 The Electric Guitar HW 3 – Eddie Van Halen 'Eruption', Floyd Rose & Digital Amp Modelling",
+    artist="Van Halen (Van Halen, 1978, Guitarist: Eddie Van Halen, Producer: Ted Templeman)",
+    youtube_url="https://www.youtube.com/watch?v=M4Czx8EWXb0",
+    questions_page1=[
+        {
+            'type': 'table',
+            'prompt': '1. "Eruption" redefined modern rock guitar technique and timbre. Identify the custom hardware elements below. (3)',
+            'colWidths': [240, 275],
+            'data': [
+                ['Technical Element', 'Custom Modification & Sonic Function'],
+                ['Frankenstrat DIY Hybrid', 'Stratocaster body retrofitted with a slanted Gibson PAF humbucker direct to single volume pot'],
+                ['Variac Voltage Starvation', 'Variable transformer reducing AC mains to ~90V; lowers tube plate voltage for smooth "Brown Sound"'],
+                ['MXR Phase 90 Pedal', ''],
+                ['Univox EP-3 Echoplex Tape Echo', '']
+            ]
+        },
+        {
+            'type': 'qa',
+            'prompt': '2. Explain how a Floyd Rose double-locking tremolo system prevents strings from slipping out of tune during extreme dive-bombs and pitch pull-ups. (3)',
+            'lines': 3
+        },
+        {
+            'type': 'qa',
+            'prompt': '3. What are active pickups (e.g. EMG 81), and what technical advantages do their low-impedance preamp circuitry offer over traditional passive pickups? (3)',
+            'lines': 3
+        },
+        {
+            'type': 'qa',
+            'prompt': '4. Explain the difference between digital tube amplifier simulation algorithms (DSP waveshaping/component modeling) and Speaker Cabinet Impulse Responses (IR convolution). (3)',
+            'lines': 3
+        }
+    ],
+    questions_page2=[
+        {
+            'type': 'qa',
+            'prompt': '5. Direct Injection (DI) & Amp Profiling: Explain how modern profilers (Kemper, Quad Cortex) allow guitarists to record silent studio-quality tracks without physical speaker cabinets or microphone bleed. (3)',
+            'lines': 4
+        },
+        {
+            'type': 'table_box',
+            'prompt': '6. Traditional Tube Half-Stack vs Modern Digital Modeller / Profiler: compare below: (4)',
+            'colWidths': [515],
+            'row_bgs': [(0, colors.HexColor("#e2e8f0")), (2, colors.HexColor("#e2e8f0"))],
+            'data': [
+                ['100W Tube Amplifier & 4x12 Cabinet (Microphoned in Studio) (2)'],
+                ['Valve saturation, acoustic sound pressure, room reflections, microphone placement proximity effect:\n\n\n '],
+                ['Digital DSP Modeller & Convolution IR (Direct to DAW) (2)'],
+                ['Mathematical modeling, zero bleed, total recall, silent recording, and identical repeatable tone:\n\n\n ']
+            ]
+        }
+    ]
+)
+
 print("ALL HOMEWORK PDFS GENERATED SUCCESSFULLY!")

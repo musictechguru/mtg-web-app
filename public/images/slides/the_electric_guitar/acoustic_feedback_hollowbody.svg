@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 360" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgFeed" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+  </defs>
+  <rect width="700" height="360" rx="12" fill="url(#bgFeed)" stroke="#334155" stroke-width="1.5"/>
+  <text x="30" y="36" fill="#f8fafc" font-family="sans-serif" font-size="16" font-weight="700">THE ACOUSTIC CAVITY FEEDBACK LOOP (HOLLOWBODY PROBLEM)</text>
+  <text x="30" y="56" fill="#94a3b8" font-family="sans-serif" font-size="11">Why 1930s jazz archtops (Gibson ES-150) squealed uncontrollably when amplified on stage</text>
+
+  <!-- Flow Loop Diagram -->
+  <g transform="translate(40, 80)">
+    <!-- Stage 1: Hollowbody Guitar -->
+    <rect x="0" y="30" width="180" height="150" rx="8" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5"/>
+    <text x="90" y="55" fill="#fbbf24" font-family="sans-serif" font-size="11" font-weight="700" text-anchor="middle">HOLLOW ARCHTOP</text>
+    <!-- Hollow cavity sketch -->
+    <ellipse cx="90" cy="110" rx="60" ry="35" fill="#0f172a" stroke="#64748b"/>
+    <text x="90" y="105" fill="#ef4444" font-family="sans-serif" font-size="9" font-weight="700" text-anchor="middle">Resonant Air Cavity</text>
+    <text x="90" y="120" fill="#ef4444" font-family="sans-serif" font-size="8.5" text-anchor="middle">(Helmholtz Resonance)</text>
+
+    <!-- Arrow 1 to Amp -->
+    <path d="M 180 105 L 250 105" stroke="#38bdf8" stroke-width="2.5"/>
+    <polygon points="250,105 242,100 242,110" fill="#38bdf8"/>
+    <text x="215" y="95" fill="#38bdf8" font-family="sans-serif" font-size="8.5" font-weight="700" text-anchor="middle">Pickup AC</text>
+
+    <!-- Stage 2: Stage Amplifier -->
+    <rect x="260" y="30" width="170" height="150" rx="8" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5"/>
+    <text x="345" y="55" fill="#38bdf8" font-family="sans-serif" font-size="11" font-weight="700" text-anchor="middle">STAGE AMPLIFIER</text>
+    <!-- Speaker cone -->
+    <circle cx="345" cy="110" r="35" fill="#0f172a" stroke="#64748b"/>
+    <circle cx="345" cy="110" r="14" fill="#475569"/>
+    <text x="345" y="165" fill="#cbd5e1" font-family="sans-serif" font-size="9" text-anchor="middle">High SPL Sound Pressure</text>
+
+    <!-- Acoustic Sound Waves Return Path -->
+    <path d="M 430 105 C 500 105, 520 220, 310 220 C 120 220, 90 200, 90 180" fill="none" stroke="#ef4444" stroke-width="2.5" stroke-dasharray="4,2"/>
+    <polygon points="90,180 85,190 95,190" fill="#ef4444"/>
+    <text x="310" y="240" fill="#f87171" font-family="sans-serif" font-size="10" font-weight="700" text-anchor="middle">&#8635; Positive Acoustic Feedback Loop: SPL drives thin guitar top into runaway oscillation</text>
+  </g>
+
+  <!-- Explanation Bottom -->
+  <g transform="translate(40, 265)">
+    <rect width="620" height="65" rx="6" fill="#1e293b" stroke="#334155"/>
+    <text x="20" y="24" fill="#fbbf24" font-family="sans-serif" font-size="11" font-weight="700">The Dilemma that Sparked the Solidbody Revolution:</text>
+    <text x="20" y="44" fill="#cbd5e1" font-family="sans-serif" font-size="9.5">Hollowbody archtops produced rich acoustic resonance for jazz, but could not play in big bands without loud squeals.</text>
+    <text x="20" y="58" fill="#94a3b8" font-family="sans-serif" font-size="9.5">Leo Fender &amp; Les Paul realised: remove the acoustic cavity entirely, and feedback is eliminated!</text>
+  </g>
+</svg>

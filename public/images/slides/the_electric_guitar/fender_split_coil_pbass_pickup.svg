@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 360" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgPBass" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+  </defs>
+  <rect width="700" height="360" rx="12" fill="url(#bgPBass)" stroke="#334155" stroke-width="1.5"/>
+  <text x="30" y="36" fill="#f8fafc" font-family="sans-serif" font-size="16" font-weight="700">1957 FENDER PRECISION BASS SPLIT-COIL HUMBUCKER</text>
+  <text x="30" y="56" fill="#94a3b8" font-family="sans-serif" font-size="11">How Leo Fender adapted humbucking phase cancellation to a 4-string bass format</text>
+
+  <!-- Left: Schematic Diagram -->
+  <g transform="translate(50, 90)">
+    <!-- 4 Strings Representation -->
+    <line x1="0" y1="30" x2="280" y2="30" stroke="#cbd5e1" stroke-width="4"/>
+    <text x="290" y="34" fill="#cbd5e1" font-family="sans-serif" font-size="10" font-weight="700">E string</text>
+    <line x1="0" y1="65" x2="280" y2="65" stroke="#cbd5e1" stroke-width="3.5"/>
+    <text x="290" y="69" fill="#cbd5e1" font-family="sans-serif" font-size="10" font-weight="700">A string</text>
+    <line x1="0" y1="100" x2="280" y2="100" stroke="#cbd5e1" stroke-width="3"/>
+    <text x="290" y="104" fill="#cbd5e1" font-family="sans-serif" font-size="10" font-weight="700">D string</text>
+    <line x1="0" y1="135" x2="280" y2="135" stroke="#cbd5e1" stroke-width="2.5"/>
+    <text x="290" y="139" fill="#cbd5e1" font-family="sans-serif" font-size="10" font-weight="700">G string</text>
+
+    <!-- Split Bobbin 1: E & A (North polarity, clockwise) -->
+    <rect x="70" y="15" width="60" height="65" rx="6" fill="#1e293b" stroke="#38bdf8" stroke-width="2"/>
+    <circle cx="100" cy="30" r="7" fill="#38bdf8"/>
+    <circle cx="100" cy="65" r="7" fill="#38bdf8"/>
+    <text x="100" y="93" fill="#38bdf8" font-family="sans-serif" font-size="8.5" font-weight="700" text-anchor="middle">Coil 1 (N)</text>
+
+    <!-- Split Bobbin 2: D & G (South polarity, counter-clockwise) -->
+    <rect x="145" y="85" width="60" height="65" rx="6" fill="#1e293b" stroke="#f59e0b" stroke-width="2"/>
+    <circle cx="175" cy="100" r="7" fill="#f59e0b"/>
+    <circle cx="175" cy="135" r="7" fill="#f59e0b"/>
+    <text x="175" y="163" fill="#fbbf24" font-family="sans-serif" font-size="8.5" font-weight="700" text-anchor="middle">Coil 2 (S)</text>
+
+    <!-- Series Jumper Wire connecting the two bobbins -->
+    <path d="M 130 50 C 150 50, 150 80, 145 100" fill="none" stroke="#e2e8f0" stroke-width="2" stroke-dasharray="3,2"/>
+    <text x="140" y="200" fill="#34d399" font-family="sans-serif" font-size="10" font-weight="700" text-anchor="middle">Series Reverse-Wound Connection</text>
+  </g>
+
+  <!-- Right: Why It Defined Pop Music -->
+  <g transform="translate(390, 85)">
+    <rect width="270" height="235" rx="8" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5"/>
+    <text x="20" y="26" fill="#38bdf8" font-family="sans-serif" font-size="12" font-weight="700">THE P-BASS LEGACY</text>
+    
+    <text x="20" y="55" fill="#e2e8f0" font-family="sans-serif" font-size="10" font-weight="600">&#8226; Hum-Free Bass Foundation</text>
+    <text x="20" y="72" fill="#94a3b8" font-family="sans-serif" font-size="9">Cancels mains hum without requiring a bulky side-by-side humbucker casing.</text>
+
+    <text x="20" y="102" fill="#e2e8f0" font-family="sans-serif" font-size="10" font-weight="600">&#8226; Punchy Midrange Growl</text>
+    <text x="20" y="119" fill="#94a3b8" font-family="sans-serif" font-size="9">Staggered bobbins sense strings independently, producing a tight, articulate low-end that cuts through a dense commercial mix.</text>
+
+    <text x="20" y="155" fill="#e2e8f0" font-family="sans-serif" font-size="10" font-weight="600">&#8226; James Jamerson &amp; Motown Sound</text>
+    <text x="20" y="172" fill="#94a3b8" font-family="sans-serif" font-size="9">Plucked with "The Hook" (one index finger) using flatwound strings directly into a custom Wolfbox direct injection (DI) transformer.</text>
+  </g>
+</svg>

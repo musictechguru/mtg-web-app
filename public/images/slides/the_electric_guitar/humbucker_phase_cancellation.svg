@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 360" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgWave" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+  </defs>
+  <rect width="700" height="360" rx="12" fill="url(#bgWave)" stroke="#334155" stroke-width="1.5"/>
+  <text x="30" y="36" fill="#f8fafc" font-family="sans-serif" font-size="16" font-weight="700">HUMBUCKER PHASE CANCELLATION WAVEFORMS</text>
+  <text x="30" y="56" fill="#94a3b8" font-family="sans-serif" font-size="11">Visualising how reverse-winding cancels hum while magnetic inversion preserves music</text>
+
+  <!-- Left: Mains Hum Cancellation (50/60 Hz) -->
+  <g transform="translate(40, 80)">
+    <rect width="290" height="235" rx="8" fill="#1e293b" stroke="#f87171" stroke-width="1.5"/>
+    <text x="145" y="24" fill="#f87171" font-family="sans-serif" font-size="11.5" font-weight="700" text-anchor="middle">MAINS HUM (EMI) CANCELLATION</text>
+
+    <!-- Coil 1 Hum Wave -->
+    <path d="M 30 70 Q 55 45 80 70 T 130 70 T 180 70 T 230 70" fill="none" stroke="#ef4444" stroke-width="2"/>
+    <text x="240" y="73" fill="#ef4444" font-family="sans-serif" font-size="9" font-weight="700">Coil 1 Hum (+)</text>
+
+    <!-- Plus sign -->
+    <text x="130" y="105" fill="#94a3b8" font-family="sans-serif" font-size="14" font-weight="700" text-anchor="middle">+</text>
+
+    <!-- Coil 2 Hum Wave (Inverted by Reverse Wire Winding) -->
+    <path d="M 30 140 Q 55 165 80 140 T 130 140 T 180 140 T 230 140" fill="none" stroke="#ef4444" stroke-width="2"/>
+    <text x="240" y="143" fill="#ef4444" font-family="sans-serif" font-size="9" font-weight="700">Coil 2 Hum (-)</text>
+
+    <!-- Equals sign -->
+    <text x="130" y="175" fill="#94a3b8" font-family="sans-serif" font-size="14" font-weight="700" text-anchor="middle">=</text>
+
+    <!-- Result Flat Line (Zero Hum) -->
+    <line x1="30" y1="205" x2="230" y2="205" stroke="#34d399" stroke-width="3"/>
+    <text x="240" y="208" fill="#34d399" font-family="sans-serif" font-size="10" font-weight="800">ZERO HUM (0V)</text>
+  </g>
+
+  <!-- Right: String Audio In-Phase Summation -->
+  <g transform="translate(370, 80)">
+    <rect width="290" height="235" rx="8" fill="#1e293b" stroke="#34d399" stroke-width="1.5"/>
+    <text x="145" y="24" fill="#34d399" font-family="sans-serif" font-size="11.5" font-weight="700" text-anchor="middle">STRING AUDIO SIGNAL RECOVERY</text>
+
+    <!-- Coil 1 Audio -->
+    <path d="M 30 70 Q 55 50 80 70 T 130 70 T 180 70 T 230 70" fill="none" stroke="#38bdf8" stroke-width="2"/>
+    <text x="240" y="73" fill="#38bdf8" font-family="sans-serif" font-size="9" font-weight="700">Coil 1 Audio</text>
+
+    <text x="130" y="105" fill="#94a3b8" font-family="sans-serif" font-size="14" font-weight="700" text-anchor="middle">+</text>
+
+    <!-- Coil 2 Audio (Re-inverted by Opposite Magnet Polarity!) -->
+    <path d="M 30 140 Q 55 120 80 140 T 130 140 T 180 140 T 230 140" fill="none" stroke="#38bdf8" stroke-width="2"/>
+    <text x="240" y="143" fill="#38bdf8" font-family="sans-serif" font-size="9" font-weight="700">Coil 2 Audio</text>
+
+    <text x="130" y="175" fill="#94a3b8" font-family="sans-serif" font-size="14" font-weight="700" text-anchor="middle">=</text>
+
+    <!-- Doubled Audio Wave -->
+    <path d="M 30 205 Q 55 175 80 205 T 130 205 T 180 205 T 230 205" fill="none" stroke="#fbbf24" stroke-width="3"/>
+    <text x="240" y="208" fill="#fbbf24" font-family="sans-serif" font-size="10" font-weight="800">DOUBLED (+6dB)</text>
+  </g>
+</svg>
