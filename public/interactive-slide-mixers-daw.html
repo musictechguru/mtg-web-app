@@ -1061,9 +1061,7 @@
           <button class="close-modal-btn" onclick="closeVideo()">&times;</button>
         </div>
       </div>
-      <div class="video-player-wrapper">
-        <iframe id="videoIframe" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-      </div>
+      <div class="video-player-wrapper"></div>
       <div class="video-modal-footer">
         <span style="display: inline-flex; align-items: center; gap: 6px;">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="#ef4444"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
@@ -1135,6 +1133,9 @@
     function updateDeck() {
       slides.forEach((slide, idx) => {
         slide.classList.toggle('active', idx === currentSlide);
+      if (window.history && window.history.replaceState) {
+        window.history.replaceState({ slide: currentSlide }, '', '#slide-' + (currentSlide + 1));
+      }
       });
       if (prevBtn) prevBtn.disabled = currentSlide === 0;
       if (nextBtn) nextBtn.disabled = currentSlide === totalSlides - 1;
@@ -1196,7 +1197,10 @@
       const footLink = document.getElementById('videoFooterLink');
       if (footLink) footLink.href = `https://www.youtube.com/watch?v=${videoId}`;
 
-      videoIframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
+      const vWrap = document.querySelector('.video-player-wrapper');
+      if (vWrap) {
+        vWrap.innerHTML = `<iframe id="videoIframe" src="https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="width: 100%; height: 100%; border: 0; display: block;"></iframe>`;
+      };
       videoModalTitle.textContent = title;
       videoModal.classList.add('open');
       videoModal.style.display = 'flex';
@@ -1205,7 +1209,8 @@
     function closeVideo() {
       videoModal.classList.remove('open');
       videoModal.style.display = 'none';
-      videoIframe.src = '';
+      const vWrap = document.querySelector('.video-player-wrapper');
+      if (vWrap) vWrap.innerHTML = '';
     }
 
     videoModal.addEventListener('click', (e) => {
