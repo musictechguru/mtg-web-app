@@ -99,10 +99,10 @@ html_content = f'''<div id="mtg-dark-theme-wrapper" style="background: {BG}; col
     </div>
 
     <!-- 3. INTERACTIVE 14-SLIDE PRESENTATION DECK -->
-    {embed("rgba(245,158,11,0.35)", AMBER, "Interactive Curriculum Slide Deck &bull; Direct to Tape (1950–1963)", "14 Comprehensive Slides &bull; 39 Technical Diagrams &bull; Audio Examples", "https://app.musictechguru.com/interactive-slide-direct-to-tape?v=3", 680)}
+    {embed("rgba(245,158,11,0.35)", AMBER, "Interactive Curriculum Slide Deck &bull; Direct to Tape (1950–1963)", "14 Comprehensive Slides &bull; 39 Technical Diagrams &bull; Audio Examples", "https://app.musictechguru.com/interactive-slide-direct-to-tape?v=6", 680)}
 
     <!-- 4. SPECIFICATION QUIZ -->
-    {embed("rgba(251,191,36,0.35)", GOLD, "Component 4 Exam Specification Quiz &bull; Direct to Tape", "12 Exam-Style Multiple Choice Questions &bull; Instant Marking &bull; Detailed Explanations", "https://app.musictechguru.com/direct-to-tape-interactive-quiz?v=3", 680)}
+    {embed("rgba(251,191,36,0.35)", GOLD, "Component 4 Exam Specification Quiz &bull; Direct to Tape", "12 Exam-Style Multiple Choice Questions &bull; Instant Marking &bull; Detailed Explanations", "https://app.musictechguru.com/direct-to-tape-interactive-quiz?v=6", 680)}
 
     <!-- 5. HISTORICAL STUDIO DEMONSTRATIONS (VIDEOS) -->
     <div style="margin-bottom: 40px;">
