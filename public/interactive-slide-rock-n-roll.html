@@ -306,7 +306,7 @@
       width: 160px;
       height: 160px;
       border-radius: 14px;
-      object-fit: cover;
+      object-fit: contain; padding: 4px;
       border: 2px solid var(--border-cyan);
       box-shadow: 0 10px 25px rgba(0,0,0,0.5);
       background: #000;
@@ -371,7 +371,7 @@
     .cover-card img {
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain; object-position: center; background: rgba(0,0,0,0.5);
       transition: transform 0.3s ease;
     }
 
@@ -770,7 +770,7 @@
           </div>
           
           <div style="text-align: center;">
-            <img src="images/slides/rock_n_roll/bb_king.jpg" alt="B.B. King with guitar" style="width: 100%; max-width: 380px; height: 260px; object-fit: cover; border-radius: 14px; border: 2px solid var(--border-cyan); box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+            <img src="images/slides/rock_n_roll/bb_king.jpg" alt="B.B. King with guitar" style="width: 100%; max-width: 380px; height: 260px; object-fit: contain; background: rgba(0,0,0,0.5); padding: 4px; border-radius: 14px; border: 2px solid var(--border-cyan); box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
             <span style="color: var(--text-muted); font-size: 12px; display: block; margin-top: 8px;">B.B. King • The Electric Blues Foundation</span>
           </div>
         </div>
@@ -795,11 +795,11 @@
           
           <div style="display: flex; gap: 14px; justify-content: center;">
             <div style="flex: 1; text-align: center;">
-              <img src="images/slides/rock_n_roll/rock_teenagers.jpg" alt="1950s Rock 'n' Roll Teenagers" style="width: 100%; height: 210px; object-fit: cover; border-radius: 12px; border: 1px solid var(--border-cyan); box-shadow: 0 8px 25px rgba(0,0,0,0.4);">
+              <img src="images/slides/rock_n_roll/rock_teenagers.jpg" alt="1950s Rock 'n' Roll Teenagers" style="width: 100%; height: 210px; object-fit: contain; background: rgba(0,0,0,0.5); padding: 4px; border-radius: 12px; border: 1px solid var(--border-cyan); box-shadow: 0 8px 25px rgba(0,0,0,0.4);">
               <span style="color: var(--text-muted); font-size: 11.5px; display: block; margin-top: 6px;">1950s Teen Culture</span>
             </div>
             <div style="width: 140px; text-align: center;">
-              <img src="images/slides/rock_n_roll/1950s_milkshake.jpg" alt="1950s Milkshake diner" style="width: 100%; height: 210px; object-fit: cover; border-radius: 12px; border: 1px solid var(--border-cyan); box-shadow: 0 8px 25px rgba(0,0,0,0.4);">
+              <img src="images/slides/rock_n_roll/1950s_milkshake.jpg" alt="1950s Milkshake diner" style="width: 100%; height: 210px; object-fit: contain; background: rgba(0,0,0,0.5); padding: 4px; border-radius: 12px; border: 1px solid var(--border-cyan); box-shadow: 0 8px 25px rgba(0,0,0,0.4);">
               <span style="color: var(--text-muted); font-size: 11.5px; display: block; margin-top: 6px;">Diner / Jukebox Boom</span>
             </div>
           </div>
@@ -931,7 +931,7 @@
           <!-- Brenda Lee Card -->
           <div class="info-card" style="display: flex; gap: 14px; align-items: flex-start;">
             <div style="display: flex; flex-direction: column; align-items: center; gap: 8px; flex-shrink: 0; width: 100px;">
-              <img src="images/slides/rock_n_roll/brenda_lee.jpg" alt="Brenda Lee" style="width: 100px; height: 100px; border-radius: 10px; object-fit: cover; border: 1px solid var(--border-cyan);">
+              <img src="images/slides/rock_n_roll/brenda_lee.jpg" alt="Brenda Lee" style="width: 100px; height: 100px; border-radius: 10px; object-fit: contain; background: rgba(0,0,0,0.5); padding: 4px; border: 1px solid var(--border-cyan);">
               <div class="video-btn-row"><button class="listen-btn" style="padding: 5px 8px; font-size: 11px;" onclick="openVideo('tfJ-q0VFe_g', 'Brenda Lee - Sweet Nothin\'s')">
                 ▶ Listen
               </button><a href="https://www.youtube.com/watch?v=tfJ-q0VFe_g" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div><a href="https://www.youtube.com/watch?v=tfJ-q0VFe_g" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div>
@@ -948,7 +948,7 @@
           <!-- Bo Diddley Card -->
           <div class="info-card" style="display: flex; gap: 14px; align-items: flex-start;">
             <div style="display: flex; flex-direction: column; align-items: center; gap: 8px; flex-shrink: 0; width: 100px;">
-              <img src="images/slides/rock_n_roll/bo_diddley.jpg" alt="Bo Diddley with rectangular guitar" style="width: 100px; height: 100px; border-radius: 10px; object-fit: cover; border: 1px solid var(--border-cyan);">
+              <img src="images/slides/rock_n_roll/bo_diddley.jpg" alt="Bo Diddley with rectangular guitar" style="width: 100px; height: 100px; border-radius: 10px; object-fit: contain; background: rgba(0,0,0,0.5); padding: 4px; border: 1px solid var(--border-cyan);">
               <div class="video-btn-row"><button class="listen-btn" style="padding: 5px 8px; font-size: 11px;" onclick="openVideo('yeZHB3ozglQ', 'Bo Diddley - Bo Diddley')">
                 ▶ Listen
               </button><a href="https://www.youtube.com/watch?v=yeZHB3ozglQ" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div><a href="https://www.youtube.com/watch?v=yeZHB3ozglQ" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div>
@@ -987,7 +987,7 @@
 
           <div class="info-card" style="display: flex; gap: 14px; align-items: flex-start;">
             <div style="display: flex; flex-direction: column; align-items: center; gap: 8px; flex-shrink: 0; width: 100px;">
-              <img src="images/slides/rock_n_roll/jerry_lee_lewis_live.jpg" alt="Jerry Lee Lewis" style="width: 100px; height: 100px; border-radius: 10px; object-fit: cover; border: 1px solid var(--border-cyan);">
+              <img src="images/slides/rock_n_roll/jerry_lee_lewis_live.jpg" alt="Jerry Lee Lewis" style="width: 100px; height: 100px; border-radius: 10px; object-fit: contain; background: rgba(0,0,0,0.5); padding: 4px; border: 1px solid var(--border-cyan);">
               <div class="video-btn-row"><button class="listen-btn" style="padding: 5px 8px; font-size: 11px;" onclick="openVideo('Jt0mg8Z09SY', 'Jerry Lee Lewis - Great Balls of Fire')">
                 ▶ Listen
               </button><a href="https://www.youtube.com/watch?v=Jt0mg8Z09SY" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div><a href="https://www.youtube.com/watch?v=Jt0mg8Z09SY" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div>
@@ -1059,7 +1059,7 @@
           </div>
 
           <div style="text-align: center;">
-            <img src="images/1950's tape machine.png" alt="1950's Reel-to-Reel Tape Machine" style="width: 100%; max-width: 380px; height: 260px; object-fit: cover; border-radius: 14px; border: 2px solid var(--border-cyan); box-shadow: 0 10px 30px rgba(0,0,0,0.5); background: #000;">
+            <img src="images/1950's tape machine.png" alt="1950's Reel-to-Reel Tape Machine" style="width: 100%; max-width: 380px; height: 260px; object-fit: contain; background: rgba(0,0,0,0.5); padding: 4px; border-radius: 14px; border: 2px solid var(--border-cyan); box-shadow: 0 10px 30px rgba(0,0,0,0.5); background: #000;">
             <span style="color: var(--text-muted); font-size: 12px; display: block; margin-top: 8px;">1950s Professional Reel-to-Reel Tape Recorder</span>
           </div>
         </div>

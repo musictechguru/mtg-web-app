@@ -20,12 +20,29 @@ for a, b in [
 ]:
     css = css.replace(a, b)
 
+# Ensure slide-thumb displays full image with contain, centered on dark backdrop
+css = re.sub(
+    r'\.slide-thumb\s*\{[^}]*\}',
+    '''.slide-thumb {
+      width: 100%;
+      height: 125px;
+      object-fit: contain;
+      object-position: center;
+      background: rgba(0, 0, 0, 0.45);
+      border-radius: 8px;
+      margin-bottom: 10px;
+      border: 1px solid var(--border-subtle);
+      padding: 4px;
+      display: block;
+    }''',
+    css
+)
+
 TOTAL = 14
 IMG = '/images/slides/direct_to_tape/'
 
 def thumb(name, alt, contain=False):
-    style = ' style="object-fit: contain; background: rgba(0,0,0,0.5); padding: 4px;"' if contain else ''
-    return f'<img src="{IMG}{name}" alt="{alt}" class="slide-thumb"{style}>'
+    return f'<img src="{IMG}{name}" alt="{alt}" class="slide-thumb">'
 
 def vid(i, title, label):
     return (
