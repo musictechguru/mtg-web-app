@@ -171,29 +171,13 @@ def main():
         </div>
     </div>
 
-    <!-- 8. BOTTOM NAVIGATION: SIBLING INSTRUMENTS & HUB -->
-    <div style="margin-top: 40px; padding: 28px 24px; background: linear-gradient(135deg, #181126 0%, {BG} 100%); border: 1px solid rgba(192,132,252,0.3); border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
-        <div style="text-align: center; margin-bottom: 22px;">
-            <span style="color: {PURPLE}; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.8px; display: block; margin-bottom: 6px;">Instrumental Technology Navigation</span>
-            <h4 style="color: #ffffff; font-size: 20px; margin: 0 0 8px 0; font-weight: 800;">Explore the Complete Component 3 Instrumental Suite</h4>
-            <p style="color: #94a3b8; font-size: 13.5px; margin: 0 auto; max-width: 650px;">Jump between all nine essential instrumental technology guides covering electro-mechanical, analog, and digital instruments.</p>
-        </div>
-
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; margin-bottom: 22px;">
-            <a href="https://www.musictechguru.com/homepage/a-level-music-technology/component-3-music-technology-in-context/the-electric-guitar/" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 8px; padding: 10px 12px; color: #cbd5e1; text-decoration: none; font-size: 12.5px;">&bull; Electric Guitar</a>
-            <a href="https://www.musictechguru.com/2020/03/04/the-bass-guitar/" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 8px; padding: 10px 12px; color: #cbd5e1; text-decoration: none; font-size: 12.5px;">&bull; Bass Guitar</a>
-            <a href="https://www.musictechguru.com/homepage/a-level-music-technology/component-3-music-technology-in-context/the-synthesizer/" style="background: rgba(192,132,252,0.18); border: 1px solid rgba(192,132,252,0.4); border-radius: 8px; padding: 10px 12px; color: #ffffff; font-weight: 800; text-decoration: none; font-size: 12.5px;">&bull; Synthesizers</a>
-            <a href="https://www.musictechguru.com/homepage/a-level-music-technology/component-3-music-technology-in-context/the-mellotron/" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 8px; padding: 10px 12px; color: #cbd5e1; text-decoration: none; font-size: 12.5px;">&bull; The Mellotron</a>
-            <a href="https://www.musictechguru.com/2020/03/04/the-theremin/" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 8px; padding: 10px 12px; color: #cbd5e1; text-decoration: none; font-size: 12.5px;">&bull; The Theremin</a>
-            <a href="https://www.musictechguru.com/2020/03/04/electric-organ/" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 8px; padding: 10px 12px; color: #cbd5e1; text-decoration: none; font-size: 12.5px;">&bull; Electric Organ</a>
-            <a href="https://www.musictechguru.com/homepage/a-level-music-technology/component-3-music-technology-in-context/electric-piano/" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 8px; padding: 10px 12px; color: #cbd5e1; text-decoration: none; font-size: 12.5px;">&bull; Electric Piano</a>
-            <a href="https://www.musictechguru.com/homepage/a-level-music-technology/component-3-music-technology-in-context/the-clavinet/" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 8px; padding: 10px 12px; color: #cbd5e1; text-decoration: none; font-size: 12.5px;">&bull; The Clavinet</a>
-            <a href="https://www.musictechguru.com/homepage/a-level-music-technology/component-3-music-technology-in-context/amplifiers/" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 8px; padding: 10px 12px; color: #cbd5e1; text-decoration: none; font-size: 12.5px;">&bull; Amplifiers</a>
-        </div>
-
+    <!-- 8. BOTTOM NAVIGATION -->
+    <div style="margin-top: 40px; padding: 28px 24px; background: linear-gradient(135deg, #181126 0%, {BG} 100%); border: 1px solid rgba(192,132,252,0.3); border-radius: 16px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+        <h4 style="color: #ffffff; font-size: 18px; margin: 0 0 8px 0; font-weight: 700;">Continue Your Instrumental &amp; Historical Revision</h4>
+        <p style="color: #94a3b8; font-size: 14px; margin: 0 0 20px 0; max-width: 620px; margin-left: auto; margin-right: auto;">Master each technological development across Component 3 from synthesizers and modular systems through recording consoles and multitrack tape.</p>
         <div style="display: flex; justify-content: center; gap: 14px; flex-wrap: wrap;">
             <a href="https://www.musictechguru.com/homepage/a-level-music-technology/component-3-music-technology-in-context/" style="display: inline-flex; align-items: center; gap: 8px; background: {PURPLE}; color: #080e1a; font-weight: 800; font-size: 13.5px; padding: 11px 24px; border-radius: 50px; text-decoration: none;">&larr; Back to Component 3 Hub</a>
-            <a href="https://app.musictechguru.com/" style="display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.08); color: #ffffff; font-weight: 600; font-size: 13.5px; padding: 11px 22px; border-radius: 50px; text-decoration: none; border: 1px solid rgba(255,255,255,0.15);">Launch Revision App &rarr;</a>
+            <a href="https://app.musictechguru.com/" style="display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.08); color: #ffffff; font-weight: 600; font-size: 13.5px; padding: 11px 22px; border-radius: 50px; text-decoration: none; border: 1px solid rgba(255,255,255,0.15);">Go to Revision App &rarr;</a>
         </div>
     </div>
 
