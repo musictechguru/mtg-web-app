@@ -66,15 +66,15 @@ slides.append('''
 slide('📋', 'Specification Roadmap', 'Component 3 <span>Syllabus Matrix for Screen Audio</span>',
       'Edexcel requires deep understanding of synchronization technology, hardware sound generator constraints, and compositional techniques.',
       G([
-          card('highlight', f'''{thumb('smpte_timecode.jpg', 'SMPTE Timecode')}
+          card('highlight', f'''{thumb('clapperboard.jpg', 'Film Synchronization')}
                <span class="spec-pill ao3">AO3 Synchronization</span>
                <h4>Timecode &amp; Visual Sync</h4>
                <p>SMPTE timecode (HH:MM:SS:FF); frame rates (24, 25, 29.97, 30 fps); metronome click tracks; conductor visual streamers and punches for exact hit points.</p>'''),
-          card('cyan-edge', f'''{thumb('nes_console.jpg', 'NES Console')}
+          card('cyan-edge', f'''{thumb('arcade_cabinet.jpg', 'Arcade & Console Hardware')}
                <span class="spec-pill ao3">AO3 Game Hardware</span>
                <h4>Chiptune &amp; Console Synthesis</h4>
                <p>8-bit PSG hardware limits (square, triangle, noise, DPCM); 16-bit FM synthesis (Genesis) vs sample playback (SNES); CD-ROM Redbook audio.</p>'''),
-          card('acid-edge', f'''{thumb('decca_tree.png', 'Decca Tree')}
+          card('acid-edge', f'''{thumb('orchestral_score.jpg', 'Orchestral Score')}
                <span class="spec-pill ao4">AO4 Composition &amp; Scoring</span>
                <h4>Orchestral, Hybrid &amp; Interactive</h4>
                <p>Decca Tree orchestral capture; Vangelis CS-80 synths; Hans Zimmer hybrid mockups; Foley; Diegetic vs Non-diegetic; Dynamic Adaptive audio.</p>''')
@@ -88,11 +88,11 @@ slide('⏱️', 'Screen Synchronization', 'SMPTE Timecode, <span>Click Tracks &a
                <span class="spec-pill ao3">AO3 Universal Standard</span>
                <h4>SMPTE Timecode (HH:MM:SS:FF)</h4>
                <p>Developed by the Society of Motion Picture and Television Engineers. Displays Hours, Minutes, Seconds, and Frames to lock DAWs, video decks, and MIDI sample-accurately.</p>'''),
-          card('cyan-edge', f'''{thumb('film_scoring_orchestra.png', 'Conductor Screen')}
+          card('cyan-edge', f'''{thumb('conductor_baton.jpg', 'Conductor Podium')}
                <span class="spec-pill ao3">AO3 Conductor Timing</span>
                <h4>Click Tracks &amp; Streamers</h4>
                <p>Conductors and orchestra players listen to metronome click tracks in headphones. Visual "streamer" lines wipe across video monitors toward flash punches at hit points.</p>'''),
-          card('acid-edge', f'''{thumb('midi_sequencer.png', 'DAW Tempo Mapping')}
+          card('acid-edge', f'''{thumb('daw_tempo_mapping.png', 'DAW Tempo Mapping')}
                <span class="spec-pill ao3">AO3 DAW Workflow</span>
                <h4>DAW Tempo Mapping &amp; Hits</h4>
                <p>Composers program tempo maps and meter changes in DAWs to align musical downbeats exactly with dramatic scene cuts, explosions, and visual stingers.</p>''')
@@ -213,11 +213,11 @@ slide('💿', 'The Optical Disc Era', 'CD-ROM &amp; Redbook Audio: <span>PlaySta
 slide('📊', 'Dynamic Game Scoring', 'Vertical Layering: <span>Dynamic Multi-Stemming</span>',
       'Unlike linear film scores, video games are non-linear: music must dynamically react to player decisions in real time.',
       G([
-          card('highlight', f'''{thumb('decca_tree.png', 'Dynamic Stems')}
+          card('highlight', f'''{thumb('vertical_layering_diagram.png', 'Dynamic Stems')}
                <span class="spec-pill ao3">AO3 Synchronized Stems</span>
                <h4>Simultaneous Multi-Track Stems</h4>
                <p>The composer writes multiple stems (percussion, bassline, ambient pads, aggressive brass) that all play in exact tempo and harmonic lock simultaneously.</p>'''),
-          card('cyan-edge', f'''{thumb('martin_odonnell.png', 'Combat Layering')}
+          card('cyan-edge', f'''{thumb('game_controller.jpg', 'Combat Layering')}
                <span class="spec-pill ao3">AO3 Gameplay Modulation</span>
                <h4>Combat vs Exploration Intensity</h4>
                <p>During stealth or exploration, only ambient pads and low bass play. When combat erupts, the game engine un-mutes the aggressive drums and brass stems seamlessly.</p>'''),
@@ -231,15 +231,15 @@ slide('📊', 'Dynamic Game Scoring', 'Vertical Layering: <span>Dynamic Multi-St
 slide('🔄', 'Adaptive Audio Systems', 'Horizontal Resequencing <span>&amp; Middleware (Wwise/FMOD)</span>',
       'To change mood or location without cutting off musical flow, game engines utilize sophisticated horizontal branching and middleware.',
       G([
-          card('highlight', f'''{thumb('smpte_timecode.jpg', 'Musical Quantization')}
+          card('highlight', f'''{thumb('horizontal_resequencing_diagram.png', 'Musical Quantization')}
                <span class="spec-pill ao3">AO3 Bar/Beat Transitions</span>
                <h4>Horizontal Resequencing</h4>
                <p>Music is broken into modular cue segments. When game states change, the engine waits for the next bar downbeat or beat boundary before branching to a new cue.</p>'''),
-          card('cyan-edge', f'''{thumb('midi_sequencer.png', 'Stingers & Hits')}
+          card('cyan-edge', f'''{thumb('audio_mixer_faders.jpg', 'Stingers & Hits')}
                <span class="spec-pill ao3">AO3 Musical Stingers</span>
                <h4>Stingers &amp; Transition Chords</h4>
                <p>Short musical flourishes (stingers) mask the transition between cues, creating a natural cadence that feels custom-composed for that exact second.</p>'''),
-          card('acid-edge', f'''{thumb('voiceover_booth.jpg', 'Audio Middleware')}
+          card('acid-edge', f'''{thumb('middleware_audio_graph.png', 'Audio Middleware')}
                <span class="spec-pill ao3">AO3 Engine Integration</span>
                <h4>Audio Middleware: Wwise &amp; FMOD</h4>
                <p>Specialized middleware programs handle priority queuing, spatial 3D audio positioning, real-time DSP effects, and RTPC (Real-Time Parameter Controls).</p>''')
@@ -296,7 +296,7 @@ slide('🏆', 'Modern Masters & Milestones', '21st Century Game Audio: <span>Win
                <h4>Martin O'Donnell (Halo, 2001)</h4>
                <p>Iconic monophonic Gregorian monk chants fused with driving orchestral strings and heavy rock percussion, adapting dynamically to player battle states.</p>
                {vid('0jXTBAGv9ZQ', 'Martin ODonnell - Halo Theme Original', 'Listen: Halo Theme')}'''),
-          card('acid-edge', f'''{thumb('jerry_goldsmith.jpg', 'Jerry Goldsmith')}
+          card('acid-edge', f'''{thumb('mick_gordon.jpg', 'Mick Gordon')}
                <span class="spec-pill ao4">AO4 Avant-Garde Legacy</span>
                <h4>Jerry Goldsmith to Mick Gordon</h4>
                <p>From Goldsmith's echoplex trumpet delays on <em>Patton</em> to Mick Gordon's analog feedback loops on <em>Doom</em> (2016), technology continues to redefine scoring.</p>''')

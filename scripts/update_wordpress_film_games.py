@@ -72,10 +72,10 @@ html_content = f'''<div id="mtg-dark-theme-wrapper" style="background: {BG}; col
     </div>
 
     <!-- 3. INTERACTIVE 14-SLIDE DECK -->
-    {embed("rgba(56,189,248,0.35)", CYAN, "Interactive Study Presentation Deck", "14 Interactive Slides &bull; Illustrated Guide", "https://app.musictechguru.com/interactive-slide-film-games?v=1", 680)}
+    {embed("rgba(56,189,248,0.35)", CYAN, "Interactive Study Presentation Deck", "14 Interactive Slides &bull; Illustrated Guide", "https://app.musictechguru.com/interactive-slide-film-games?v=2", 680)}
 
     <!-- 4. SPECIFICATION QUIZ -->
-    {embed("rgba(245,158,11,0.35)", AMBER, "Edexcel Component 3 Exam Specification Quiz", "12 Multiple Choice Questions &bull; Shuffled Answers &bull; Instant Feedback", "https://app.musictechguru.com/film-games-interactive-quiz?v=1", 680)}
+    {embed("rgba(245,158,11,0.35)", AMBER, "Edexcel Component 3 Exam Specification Quiz", "12 Multiple Choice Questions &bull; Shuffled Answers &bull; Instant Feedback", "https://app.musictechguru.com/film-games-interactive-quiz?v=2", 680)}
 
     <!-- 5. LISTENING LOUNGE -->
     <div style="margin-bottom: 40px;">

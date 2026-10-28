@@ -66,15 +66,15 @@ slides.append('''
 slide('📋', 'Specification Roadmap', 'Component 3 <span>Syllabus Matrix for Folk</span>',
       'Edexcel expects students to understand both acoustic capture techniques and the social and historical contexts of folk and folk rock.',
       G([
-          card('highlight', f'''{thumb('martin_d28.jpg', 'Martin D-28')}
+          card('highlight', f'''{thumb('martin_workshop.jpg', 'Acoustic Guitar Craft')}
                <span class="spec-pill ao3">AO3 Transducers</span>
                <h4>Acoustic Guitar Miking</h4>
                <p>Small vs large diaphragm condensers; 12th fret positioning for balance; sound hole proximity effect avoidance; Blumlein &amp; XY stereo pairs.</p>'''),
-          card('cyan-edge', f'''{thumb('fairport_convention.png', 'Fairport Convention')}
+          card('cyan-edge', f'''{thumb('csn.jpg', 'Folk Rock Pioneers')}
                <span class="spec-pill ao4">AO4 Acoustic to Electric</span>
                <h4>Revival &amp; Folk Rock</h4>
                <p>Traditional ballads meeting rock amplification; Dylan going electric at Newport '65; Sound Techniques studio (Joe Boyd, John Wood).</p>'''),
-          card('acid-edge', f'''{thumb('la2a_compressor.jpg', 'LA-2A Leveling Amplifier')}
+          card('acid-edge', f'''{thumb('vintage_mixing_desk.jpg', 'Studio Analog Console')}
                <span class="spec-pill ao3">AO3 Studio Processing</span>
                <h4>Transparent Mix Chains</h4>
                <p>Smooth optical leveling (LA-2A); embracing natural acoustic bleed; plate reverb (EMT 140) and stereo soundstage panning.</p>''')
@@ -112,7 +112,7 @@ slide('☕', '1960s Folk Revival', 'Greenwich Village <span>Coffeehouses &amp; P
                <span class="spec-pill ao4">AO4 Pure Vocal Delivery</span>
                <h4>Joan Baez &amp; Balladry</h4>
                <p>Celebrated for her pure vibrato soprano and intricate fingerpicking on small-body Martin 0-45 acoustics, championing civil rights anthems.</p>'''),
-          card('acid-edge', f'''{thumb('gibson_j45.jpg', 'Vintage Acoustic')}
+          card('acid-edge', f'''{thumb('columbia_studio.jpg', 'Columbia 30th St Studio')}
                <span class="spec-pill ao3">AO3 Studio Capture</span>
                <h4>Coffeehouse Sound in Studio</h4>
                <p>Columbia 30th Street Studio captured Dylan and Baez live with minimal processing: one condenser on voice, one on guitar, zero overdubs.</p>''')
@@ -130,7 +130,7 @@ slide('🎸', 'Acoustic Guitar Anatomy', 'The Flat-Top Steel-String: <span>Marti
                <span class="spec-pill ao4">AO4 Slope-Shoulder Tone</span>
                <h4>Gibson J-45 "The Workhorse"</h4>
                <p>Featuring mahogany back and sides with a round-shoulder dreadnought shape, the J-45 offers a warm, woody midrange beloved by singer-songwriters.</p>'''),
-          card('acid-edge', f'''{thumb('rickenbacker_12_string.jpg', '12-String Acoustic')}
+          card('acid-edge', f'''{thumb('acoustic_12_string.jpg', '12-String Acoustic')}
                <span class="spec-pill ao3">AO3 Acoustic Chorusing</span>
                <h4>12-String Acoustic Guitars</h4>
                <p>Tuned in octaves on the lower four courses and unisons on the top two, the 12-string produces a natural shimmering chorus effect without studio modulation.</p>''')
@@ -162,11 +162,11 @@ slide('🎙️', 'Studio Microphone Placement', 'Acoustic Guitar: <span>12th Fre
                <span class="spec-pill ao3">AO3 Exam Standard</span>
                <h4>The 12th Fret Sweet Spot</h4>
                <p>Aiming a directional condenser at the 12th–14th fret (6–12 inches away) yields the optimal balance of string attack, finger pick clarity, and natural body warmth.</p>'''),
-          card('cyan-edge', f'''{thumb('stereo_xy_pair.jpg', 'Body & Bridge Miking')}
+          card('cyan-edge', f'''{thumb('bridge_mic_acoustic.jpg', 'Body & Bridge Miking')}
                <span class="spec-pill ao3">AO3 Lower Bout Miking</span>
                <h4>Bridge / Lower Bout Capture</h4>
                <p>A second microphone placed behind the bridge captures resonant woody warmth. Combining this with a 12th-fret mic creates a full stereo image.</p>'''),
-          card('acid-edge', f'''{thumb('akg_c451.jpg', 'Avoiding Proximity Effect')}
+          card('acid-edge', f'''{thumb('sound_hole_avoidance.png', 'Avoiding Proximity Effect')}
                <span class="spec-pill ao3">AO3 Common Pitfall</span>
                <h4>Avoid The Sound Hole!</h4>
                <p>Pointing directly into the sound hole causes severe proximity effect and resonant air cavity "booming" around 100–250 Hz that clouds the entire mix.</p>''')
@@ -212,7 +212,7 @@ slide('📐', 'Stereo Imaging Techniques', 'Coincident, Spaced <span>&amp; Bluml
 slide('⚡', 'The Folk-Rock Revolution', 'Newport 1965: <span>Dylan Goes Electric</span>',
       'The collision of acoustic folk storytelling with electric rock and roll amplification reshaped popular music forever.',
       G([
-          card('highlight', f'''{thumb('bob_dylan.jpg', 'Bob Dylan')}
+          card('highlight', f'''{thumb('newport_stage.jpg', 'Dylan at Newport 1965')}
                <span class="spec-pill ao4">AO4 Cultural Watershed</span>
                <h4>Newport Folk Festival 1965</h4>
                <p>On July 25, 1965, Bob Dylan walked onstage with an electric band and a Fender Stratocaster. Folk purists booed, but folk rock was born overnight.</p>
@@ -279,7 +279,7 @@ slide('🎚️', 'Mix Processing &amp; Acoustics', 'Dynamic Control, <span>Plate
                <span class="spec-pill ao3">AO3 Spatial Depth</span>
                <h4>EMT 140 Plate Reverb</h4>
                <p>A suspended steel plate driven by a transducer adds lush, smooth spatial decay to dry acoustic guitars and vocals, mimicking wooden concert halls.</p>'''),
-          card('acid-edge', f'''{thumb('stereo_xy_pair.jpg', 'Stereo Panning')}
+          card('acid-edge', f'''{thumb('eq_air_boost.png', 'Acoustic EQ Curve')}
                <span class="spec-pill ao3">AO3 EQ &amp; Soundstage Panning</span>
                <h4>High-Shelf Air &amp; Stereo Stage</h4>
                <p>Gentle 1–2 dB high-shelf boost at 10–12 kHz adds string shimmer; high-pass filtering at 60 Hz cleans mud. Discrete instrument panning creates an authentic stage.</p>''')
