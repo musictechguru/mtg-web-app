@@ -1,0 +1,141 @@
+<svg width="720" height="420" viewBox="0 0 720 420" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg-grad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#090d16" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+
+    <filter id="glow-gold2" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="2.5" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+    <filter id="glow-cyan2" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="2.5" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <rect width="720" height="420" rx="14" fill="url(#bg-grad2)" />
+  <rect x="1" y="1" width="718" height="418" rx="13" stroke="#334155" stroke-width="1.5" />
+
+  <!-- Top Title Bar -->
+  <g transform="translate(24, 16)">
+    <rect x="0" y="0" width="672" height="34" rx="7" fill="#1e293b" stroke="#38bdf8" stroke-width="1.2" />
+    <circle cx="18" cy="17" r="5" fill="#facc15" filter="url(#glow-gold2)" />
+    <text x="32" y="22" fill="#f8fafc" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" letter-spacing="0.8">VOCAL COMPING: ASSEMBLING A COMPOSITE MASTER TAKE</text>
+    <rect x="522" y="6" width="138" height="22" rx="4" fill="#0284c7" fill-opacity="0.35" stroke="#38bdf8" stroke-width="0.8" />
+    <text x="591" y="21" fill="#38bdf8" font-family="system-ui, -apple-system, sans-serif" font-size="10.5" font-weight="800" text-anchor="middle">MULTI-TAKE PLAYLIST</text>
+  </g>
+
+  <!-- ==================== MAIN COMPING LANES CONTAINER ==================== -->
+  <g transform="translate(24, 60)">
+    <rect x="0" y="0" width="672" height="206" rx="10" fill="#0b1329" stroke="#1e293b" stroke-width="1.2" />
+
+    <!-- TOP: MASTER COMPOSITE TRACK (LANE 0) -->
+    <rect x="12" y="12" width="648" height="54" rx="6" fill="#172554" stroke="#38bdf8" stroke-width="1.5" />
+    <rect x="20" y="20" width="110" height="20" rx="3" fill="#0284c7" />
+    <text x="75" y="34" fill="#ffffff" font-family="system-ui, sans-serif" font-size="9" font-weight="900" text-anchor="middle">&#x2605; MASTER COMP</text>
+
+    <!-- Slices assembled into master take -->
+    <!-- Phrase 1 from Take 2 -->
+    <rect x="140" y="18" width="150" height="42" rx="4" fill="#0284c7" fill-opacity="0.4" stroke="#38bdf8" stroke-width="1.2" />
+    <text x="215" y="36" fill="#7dd3fc" font-family="system-ui, sans-serif" font-size="9" font-weight="800" text-anchor="middle">Phrase 1 (from Take 2)</text>
+    <path d="M 150 46 Q 170 34 185 46 Q 200 58 215 46 Q 235 34 250 46 L 275 46" stroke="#38bdf8" stroke-width="1.8" fill="none" />
+
+    <!-- Phrase 2 from Take 4 -->
+    <rect x="295" y="18" width="180" height="42" rx="4" fill="#ca8a04" fill-opacity="0.35" stroke="#facc15" stroke-width="1.2" />
+    <text x="385" y="36" fill="#fef08a" font-family="system-ui, sans-serif" font-size="9" font-weight="800" text-anchor="middle">Phrase 2 (from Take 4)</text>
+    <path d="M 305 46 Q 325 34 345 46 Q 365 58 385 46 Q 410 32 430 46 L 465 46" stroke="#facc15" stroke-width="1.8" fill="none" />
+
+    <!-- Phrase 3 from Take 1 -->
+    <rect x="480" y="18" width="170" height="42" rx="4" fill="#059669" fill-opacity="0.35" stroke="#34d399" stroke-width="1.2" />
+    <text x="565" y="36" fill="#a7f3d0" font-family="system-ui, sans-serif" font-size="9" font-weight="800" text-anchor="middle">Phrase 3 (from Take 1)</text>
+    <path d="M 490 46 Q 510 34 525 46 Q 545 58 565 46 Q 590 32 610 46 L 640 46" stroke="#34d399" stroke-width="1.8" fill="none" />
+
+    <!-- DIVIDER -->
+    <line x1="12" y1="74" x2="660" y2="74" stroke="#334155" stroke-width="1" stroke-dasharray="3 3" />
+
+    <!-- BOTTOM: SUB-LANES (TAKES 1, 2, 3, 4) -->
+    <!-- Lane Take 1 -->
+    <g transform="translate(12, 82)">
+      <rect x="0" y="0" width="648" height="26" rx="4" fill="#0f172a" stroke="#1e293b" stroke-width="1" />
+      <text x="15" y="17" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="8.5" font-weight="700">Take 1</text>
+      <!-- Selected slice 3 -->
+      <rect x="468" y="2" width="170" height="22" rx="3" fill="#059669" fill-opacity="0.6" stroke="#34d399" stroke-width="1" />
+      <text x="553" y="17" fill="#ffffff" font-family="system-ui, sans-serif" font-size="8.5" font-weight="700" text-anchor="middle">&#x2191; PROMOTED TO MASTER</text>
+    </g>
+
+    <!-- Lane Take 2 -->
+    <g transform="translate(12, 112)">
+      <rect x="0" y="0" width="648" height="26" rx="4" fill="#0f172a" stroke="#1e293b" stroke-width="1" />
+      <text x="15" y="17" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="8.5" font-weight="700">Take 2</text>
+      <!-- Selected slice 1 -->
+      <rect x="128" y="2" width="150" height="22" rx="3" fill="#0284c7" fill-opacity="0.6" stroke="#38bdf8" stroke-width="1" />
+      <text x="203" y="17" fill="#ffffff" font-family="system-ui, sans-serif" font-size="8.5" font-weight="700" text-anchor="middle">&#x2191; PROMOTED TO MASTER</text>
+    </g>
+
+    <!-- Lane Take 3 (Unused) -->
+    <g transform="translate(12, 142)">
+      <rect x="0" y="0" width="648" height="26" rx="4" fill="#0f172a" stroke="#1e293b" stroke-width="1" opacity="0.6" />
+      <text x="15" y="17" fill="#64748b" font-family="system-ui, sans-serif" font-size="8.5" font-weight="700">Take 3</text>
+      <text x="324" y="17" fill="#475569" font-family="system-ui, sans-serif" font-size="8.5" text-anchor="middle">(Unselected take phrases)</text>
+    </g>
+
+    <!-- Lane Take 4 -->
+    <g transform="translate(12, 172)">
+      <rect x="0" y="0" width="648" height="26" rx="4" fill="#0f172a" stroke="#1e293b" stroke-width="1" />
+      <text x="15" y="17" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="8.5" font-weight="700">Take 4</text>
+      <!-- Selected slice 2 -->
+      <rect x="283" y="2" width="180" height="22" rx="3" fill="#854d0e" fill-opacity="0.6" stroke="#facc15" stroke-width="1" />
+      <text x="373" y="17" fill="#ffffff" font-family="system-ui, sans-serif" font-size="8.5" font-weight="700" text-anchor="middle">&#x2191; PROMOTED TO MASTER</text>
+    </g>
+  </g>
+
+  <!-- ==================== BOTTOM: 3 EXPLANATION CARDS ==================== -->
+  <g transform="translate(24, 280)">
+    <!-- CARD 1: COMPING DEFINITION (CORRECT ANSWER) -->
+    <g transform="translate(0, 0)">
+      <rect x="0" y="0" width="216" height="124" rx="8" fill="#0c2340" stroke="#38bdf8" stroke-width="1.8" />
+      <rect x="10" y="10" width="95" height="18" rx="4" fill="#0284c7" />
+      <text x="57" y="23" fill="#ffffff" font-family="system-ui, sans-serif" font-size="9" font-weight="800" text-anchor="middle">CORRECT ANSWER</text>
+      
+      <text x="12" y="46" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="11" font-weight="800">Best Phrases Combined</text>
+      <text x="12" y="64" fill="#e2e8f0" font-family="system-ui, sans-serif" font-size="10" font-weight="600">Comping (Composite Track):</text>
+      <text x="12" y="78" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="9.5">Selecting and combining the</text>
+      <text x="12" y="92" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="9.5">best phrases from multiple takes</text>
+      <text x="12" y="106" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="9.5" font-weight="700">into one seamless master take.</text>
+    </g>
+
+    <!-- CARD 2: PLAYLIST WORKFLOW -->
+    <g transform="translate(228, 0)">
+      <rect x="0" y="0" width="216" height="124" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.2" />
+      <rect x="10" y="10" width="112" height="18" rx="4" fill="#065f46" />
+      <text x="66" y="23" fill="#a7f3d0" font-family="system-ui, sans-serif" font-size="9" font-weight="800" text-anchor="middle">PLAYLIST LANES</text>
+      
+      <text x="12" y="46" fill="#34d399" font-family="system-ui, sans-serif" font-size="11" font-weight="800">Visual Swipe Comping</text>
+      <text x="12" y="64" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="10">Modern DAWs allow engineers to:</text>
+      <text x="12" y="78" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="9.5">• Highlight syllables with mouse</text>
+      <text x="12" y="92" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="9.5">• Automatically promote to top lane</text>
+      <text x="12" y="106" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="9.5">• Audition takes seamlessly</text>
+    </g>
+
+    <!-- CARD 3: VOCAL PERFECTION -->
+    <g transform="translate(456, 0)">
+      <rect x="0" y="0" width="216" height="124" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.2" />
+      <rect x="10" y="10" width="105" height="18" rx="4" fill="#854d0e" />
+      <text x="62" y="23" fill="#fef08a" font-family="system-ui, sans-serif" font-size="9" font-weight="800" text-anchor="middle">TRANSCEND FLAWS</text>
+      
+      <text x="12" y="46" fill="#facc15" font-family="system-ui, sans-serif" font-size="11" font-weight="800">Peak Performance</text>
+      <text x="12" y="64" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="10">Captures the emotional fire:</text>
+      <text x="12" y="78" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="9.5">• Verse emotion from Take 2</text>
+      <text x="12" y="92" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="9.5">• Pitch precision from Take 4</text>
+      <text x="12" y="106" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="9.5">• Big chorus hook from Take 1</text>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 360" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgAuto" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <filter id="glow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#000" flood-opacity="0.5"/>
+    </filter>
+  </defs>
+
+  <rect width="700" height="360" rx="12" fill="url(#bgAuto)" stroke="#334155" stroke-width="1.5"/>
+
+  <!-- Header -->
+  <text x="30" y="36" fill="#f8fafc" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="700">DAW NON-DESTRUCTIVE BREAKPOINT AUTOMATION</text>
+  <text x="30" y="56" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11">Edexcel C3: Sample-accurate automation curves &#8226; Read / Touch / Latch / Write modes &#8226; Volume, Pan &amp; Plugin Parameters</text>
+
+  <!-- Track 1: Lead Vocal Volume Lane -->
+  <g transform="translate(30, 75)" filter="url(#glow)">
+    <rect width="640" height="74" rx="6" fill="#1e293b" stroke="#475569" stroke-width="1"/>
+    <!-- Track Header -->
+    <rect width="130" height="74" rx="6" fill="#0f172a" stroke="#334155"/>
+    <text x="15" y="24" fill="#38bdf8" font-family="sans-serif" font-size="12" font-weight="700">01 Lead Vox</text>
+    <rect x="15" y="34" width="46" height="18" rx="3" fill="#0284c7"/>
+    <text x="38" y="47" fill="#fff" font-family="sans-serif" font-size="10" font-weight="700" text-anchor="middle">TOUCH</text>
+    <text x="15" y="65" fill="#94a3b8" font-family="sans-serif" font-size="10">Volume: -2.4 dB</text>
+
+    <!-- Lane Background Grid -->
+    <line x1="200" y1="0" x2="200" y2="74" stroke="#334155" stroke-dasharray="2,2"/>
+    <line x1="320" y1="0" x2="320" y2="74" stroke="#334155" stroke-dasharray="2,2"/>
+    <line x1="440" y1="0" x2="440" y2="74" stroke="#334155" stroke-dasharray="2,2"/>
+    <line x1="560" y1="0" x2="560" y2="74" stroke="#334155" stroke-dasharray="2,2"/>
+    
+    <!-- Audio Waveform preview in background -->
+    <path d="M 140 37 Q 160 20 180 37 T 220 37 T 260 37 T 300 37 T 340 37 T 380 37 T 420 37 T 460 37 T 500 37 T 540 37 T 580 37 T 620 37" fill="none" stroke="#475569" stroke-width="6" opacity="0.3"/>
+
+    <!-- Volume Automation Curve -->
+    <path d="M 130 50 L 220 50 L 270 20 L 370 20 L 420 55 L 530 55 L 580 25 L 640 25" fill="none" stroke="#38bdf8" stroke-width="2.5"/>
+    <!-- Breakpoint nodes -->
+    <circle cx="220" cy="50" r="4" fill="#38bdf8" stroke="#fff" stroke-width="1.5"/>
+    <circle cx="270" cy="20" r="4" fill="#38bdf8" stroke="#fff" stroke-width="1.5"/>
+    <circle cx="370" cy="20" r="4" fill="#38bdf8" stroke="#fff" stroke-width="1.5"/>
+    <circle cx="420" cy="55" r="4" fill="#38bdf8" stroke="#fff" stroke-width="1.5"/>
+    <circle cx="530" cy="55" r="4" fill="#38bdf8" stroke="#fff" stroke-width="1.5"/>
+    <circle cx="580" cy="25" r="4" fill="#38bdf8" stroke="#fff" stroke-width="1.5"/>
+    <text x="295" y="16" fill="#38bdf8" font-family="sans-serif" font-size="9" font-weight="700">+3.5 dB Vocal Push (Chorus)</text>
+  </g>
+
+  <!-- Track 2: Filter Cutoff Automation Lane -->
+  <g transform="translate(30, 160)" filter="url(#glow)">
+    <rect width="640" height="74" rx="6" fill="#1e293b" stroke="#475569" stroke-width="1"/>
+    <!-- Track Header -->
+    <rect width="130" height="74" rx="6" fill="#0f172a" stroke="#334155"/>
+    <text x="15" y="24" fill="#a855f7" font-family="sans-serif" font-size="12" font-weight="700">02 Synth Bass</text>
+    <rect x="15" y="34" width="46" height="18" rx="3" fill="#7c3aed"/>
+    <text x="38" y="47" fill="#fff" font-family="sans-serif" font-size="10" font-weight="700" text-anchor="middle">LATCH</text>
+    <text x="15" y="65" fill="#94a3b8" font-family="sans-serif" font-size="10">Cutoff: 1.2 kHz</text>
+
+    <!-- Grid -->
+    <line x1="200" y1="0" x2="200" y2="74" stroke="#334155" stroke-dasharray="2,2"/>
+    <line x1="320" y1="0" x2="320" y2="74" stroke="#334155" stroke-dasharray="2,2"/>
+    <line x1="440" y1="0" x2="440" y2="74" stroke="#334155" stroke-dasharray="2,2"/>
+    <line x1="560" y1="0" x2="560" y2="74" stroke="#334155" stroke-dasharray="2,2"/>
+
+    <!-- Filter Automation Curve (Exponential rise) -->
+    <path d="M 130 60 L 260 60 C 330 60, 390 15, 440 15 L 540 15 L 580 60 L 640 60" fill="none" stroke="#a855f7" stroke-width="2.5"/>
+    <circle cx="260" cy="60" r="4" fill="#a855f7" stroke="#fff" stroke-width="1.5"/>
+    <circle cx="440" cy="15" r="4" fill="#a855f7" stroke="#fff" stroke-width="1.5"/>
+    <circle cx="540" cy="15" r="4" fill="#a855f7" stroke="#fff" stroke-width="1.5"/>
+    <circle cx="580" cy="60" r="4" fill="#a855f7" stroke="#fff" stroke-width="1.5"/>
+    <text x="350" y="32" fill="#c084fc" font-family="sans-serif" font-size="9" font-weight="700">LPF Cutoff Sweep (Build-up)</text>
+  </g>
+
+  <!-- Track 3: Stereo Pan Automation Lane -->
+  <g transform="translate(30, 245)" filter="url(#glow)">
+    <rect width="640" height="74" rx="6" fill="#1e293b" stroke="#475569" stroke-width="1"/>
+    <!-- Track Header -->
+    <rect width="130" height="74" rx="6" fill="#0f172a" stroke="#334155"/>
+    <text x="15" y="24" fill="#10b981" font-family="sans-serif" font-size="12" font-weight="700">03 Guitar Delay</text>
+    <rect x="15" y="34" width="46" height="18" rx="3" fill="#059669"/>
+    <text x="38" y="47" fill="#fff" font-family="sans-serif" font-size="10" font-weight="700" text-anchor="middle">READ</text>
+    <text x="15" y="65" fill="#94a3b8" font-family="sans-serif" font-size="10">Pan: L50 &#8596; R50</text>
+
+    <!-- Grid -->
+    <line x1="200" y1="0" x2="200" y2="74" stroke="#334155" stroke-dasharray="2,2"/>
+    <line x1="320" y1="0" x2="320" y2="74" stroke="#334155" stroke-dasharray="2,2"/>
+    <line x1="440" y1="0" x2="440" y2="74" stroke="#334155" stroke-dasharray="2,2"/>
+    <line x1="560" y1="0" x2="560" y2="74" stroke="#334155" stroke-dasharray="2,2"/>
+    <line x1="130" y1="37" x2="640" y2="37" stroke="#64748b" stroke-dasharray="3,3"/>
+    <text x="140" y="34" fill="#64748b" font-family="sans-serif" font-size="8">CENTER</text>
+
+    <!-- Pan Ping Pong Curve -->
+    <path d="M 130 18 L 200 56 L 270 18 L 340 56 L 410 18 L 480 56 L 550 18 L 620 56" fill="none" stroke="#10b981" stroke-width="2.5"/>
+    <circle cx="130" cy="18" r="3.5" fill="#10b981" stroke="#fff" stroke-width="1.5"/>
+    <circle cx="200" cy="56" r="3.5" fill="#10b981" stroke="#fff" stroke-width="1.5"/>
+    <circle cx="270" cy="18" r="3.5" fill="#10b981" stroke="#fff" stroke-width="1.5"/>
+    <circle cx="340" cy="56" r="3.5" fill="#10b981" stroke="#fff" stroke-width="1.5"/>
+    <circle cx="410" cy="18" r="3.5" fill="#10b981" stroke="#fff" stroke-width="1.5"/>
+    <circle cx="480" cy="56" r="3.5" fill="#10b981" stroke="#fff" stroke-width="1.5"/>
+    <circle cx="550" cy="18" r="3.5" fill="#10b981" stroke="#fff" stroke-width="1.5"/>
+    <circle cx="620" cy="56" r="3.5" fill="#10b981" stroke="#fff" stroke-width="1.5"/>
+    <text x="280" y="68" fill="#34d399" font-family="sans-serif" font-size="9" font-weight="700">Ping-Pong Auto-Pan Modulation (Tempo Sync)</text>
+  </g>
+</svg>

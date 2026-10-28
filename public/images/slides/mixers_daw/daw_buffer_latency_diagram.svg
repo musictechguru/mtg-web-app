@@ -1,0 +1,179 @@
+<svg width="720" height="420" viewBox="0 0 720 420" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#090d16" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+
+    <!-- Glowing Filters -->
+    <filter id="glow-cyan" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="2.5" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+    <filter id="glow-gold" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="2.5" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+    <filter id="glow-badge" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="2" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+
+    <!-- Arrow Markers -->
+    <marker id="arrow-cyan" markerWidth="7" markerHeight="5" refX="6" refY="2.5" orient="auto">
+      <polygon points="0 0, 7 2.5, 0 5" fill="#38bdf8" />
+    </marker>
+    <marker id="arrow-gold" markerWidth="7" markerHeight="5" refX="6" refY="2.5" orient="auto">
+      <polygon points="0 0, 7 2.5, 0 5" fill="#facc15" />
+    </marker>
+  </defs>
+
+  <!-- Container Box -->
+  <rect width="720" height="420" rx="14" fill="url(#bg-grad)" />
+  <rect x="1" y="1" width="718" height="418" rx="13" stroke="#334155" stroke-width="1.5" />
+
+  <!-- Top Title Bar -->
+  <g transform="translate(24, 16)">
+    <rect x="0" y="0" width="672" height="34" rx="7" fill="#1e293b" stroke="#38bdf8" stroke-width="1.2" />
+    <circle cx="18" cy="17" r="5" fill="#38bdf8" filter="url(#glow-badge)" />
+    <text x="32" y="22" fill="#f8fafc" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" letter-spacing="0.8">DAW BUFFER SIZE: LATENCY vs CPU OPTIMIZATION STRATEGY</text>
+    <rect x="522" y="6" width="138" height="22" rx="4" fill="#0284c7" fill-opacity="0.35" stroke="#38bdf8" stroke-width="0.8" />
+    <text x="591" y="21" fill="#38bdf8" font-family="system-ui, -apple-system, sans-serif" font-size="10.5" font-weight="800" text-anchor="middle">SESSION WORKFLOW</text>
+  </g>
+
+  <!-- ==================== MAIN COMPARISON SECTION ==================== -->
+  <g transform="translate(24, 60)">
+    <rect x="0" y="0" width="672" height="206" rx="10" fill="#0b1329" stroke="#1e293b" stroke-width="1.2" />
+
+    <!-- ==================== LEFT: RECORDING MODE (LOW BUFFER) ==================== -->
+    <g transform="translate(14, 14)">
+      <rect x="0" y="0" width="314" height="178" rx="8" fill="#0c2340" stroke="#0284c7" stroke-width="1.5" />
+
+      <!-- Header badge -->
+      <rect x="10" y="10" width="160" height="22" rx="4" fill="#0284c7" />
+      <text x="90" y="25" fill="#ffffff" font-family="system-ui, sans-serif" font-size="10" font-weight="800" text-anchor="middle">&#x25CF; RECORDING (TRACKING)</text>
+
+      <!-- Buffer size indicator -->
+      <rect x="180" y="10" width="124" height="22" rx="4" fill="#0f172a" stroke="#38bdf8" stroke-width="0.8" />
+      <text x="242" y="25" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="10" font-weight="800" text-anchor="middle">64 SAMPLES (LOW)</text>
+
+      <!-- Latency Speed Gauge -->
+      <g transform="translate(12, 44)">
+        <rect x="0" y="0" width="290" height="34" rx="5" fill="#081b33" stroke="#1e3a8a" stroke-width="0.8" />
+        <text x="12" y="21" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="11" font-weight="800">&#x26A1; ULTRA-LOW LATENCY: ~1.5 - 3 ms</text>
+        <rect x="220" y="7" width="60" height="20" rx="3" fill="#166534" />
+        <text x="250" y="21" fill="#bbf7d0" font-family="system-ui, sans-serif" font-size="9" font-weight="800" text-anchor="middle">REAL-TIME</text>
+      </g>
+
+      <!-- Buffer Queue Visual: Small Packets -->
+      <g transform="translate(12, 86)">
+        <text x="0" y="12" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="8.5" font-weight="700">AUDIO DATA PACKETS (TINY BUFFER BATCHES):</text>
+        <!-- 4 small buffer blocks -->
+        <rect x="0" y="18" width="58" height="26" rx="3" fill="#0284c7" fill-opacity="0.4" stroke="#38bdf8" stroke-width="1.2" />
+        <text x="29" y="34" fill="#e0f2fe" font-family="system-ui, sans-serif" font-size="8.5" font-weight="700" text-anchor="middle">64 smp</text>
+
+        <rect x="68" y="18" width="58" height="26" rx="3" fill="#0284c7" fill-opacity="0.4" stroke="#38bdf8" stroke-width="1.2" />
+        <text x="97" y="34" fill="#e0f2fe" font-family="system-ui, sans-serif" font-size="8.5" font-weight="700" text-anchor="middle">64 smp</text>
+
+        <rect x="136" y="18" width="58" height="26" rx="3" fill="#0284c7" fill-opacity="0.4" stroke="#38bdf8" stroke-width="1.2" />
+        <text x="165" y="34" fill="#e0f2fe" font-family="system-ui, sans-serif" font-size="8.5" font-weight="700" text-anchor="middle">64 smp</text>
+
+        <rect x="204" y="18" width="58" height="26" rx="3" fill="#0284c7" fill-opacity="0.4" stroke="#38bdf8" stroke-width="1.2" />
+        <text x="233" y="34" fill="#e0f2fe" font-family="system-ui, sans-serif" font-size="8.5" font-weight="700" text-anchor="middle">64 smp</text>
+        <line x1="268" y1="31" x2="282" y2="31" stroke="#38bdf8" stroke-width="1.5" marker-end="url(#arrow-cyan)" />
+      </g>
+
+      <!-- Bottom takeaway -->
+      <rect x="10" y="136" width="294" height="32" rx="4" fill="#081b33" stroke="#0284c7" stroke-width="0.8" />
+      <text x="147" y="150" fill="#e2e8f0" font-family="system-ui, sans-serif" font-size="9.5" font-weight="600" text-anchor="middle">Performer hears vocal / guitar instantaneously</text>
+      <text x="147" y="162" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="8.5" font-weight="700" text-anchor="middle">Zero disorienting delay in headphone cue mix</text>
+    </g>
+
+    <!-- ==================== RIGHT: MIXING MODE (HIGH BUFFER) ==================== -->
+    <g transform="translate(344, 14)">
+      <rect x="0" y="0" width="314" height="178" rx="8" fill="#1c1917" stroke="#ca8a04" stroke-width="1.5" />
+
+      <!-- Header badge -->
+      <rect x="10" y="10" width="160" height="22" rx="4" fill="#854d0e" />
+      <text x="90" y="25" fill="#fef08a" font-family="system-ui, sans-serif" font-size="10" font-weight="800" text-anchor="middle">&#x2699; MIXING &amp; MASTERING</text>
+
+      <!-- Buffer size indicator -->
+      <rect x="180" y="10" width="124" height="22" rx="4" fill="#0f172a" stroke="#facc15" stroke-width="0.8" />
+      <text x="242" y="25" fill="#facc15" font-family="system-ui, sans-serif" font-size="10" font-weight="800" text-anchor="middle">1024 SAMPLES (HIGH)</text>
+
+      <!-- Latency Speed Gauge -->
+      <g transform="translate(12, 44)">
+        <rect x="0" y="0" width="290" height="34" rx="5" fill="#292218" stroke="#78350f" stroke-width="0.8" />
+        <text x="12" y="21" fill="#facc15" font-family="system-ui, sans-serif" font-size="11" font-weight="800">&#x1F4AA; MAXIMUM CPU POWER: ~20 - 40 ms</text>
+        <rect x="225" y="7" width="55" height="20" rx="3" fill="#1e293b" stroke="#facc15" stroke-width="0.6" />
+        <text x="252" y="21" fill="#fef08a" font-family="system-ui, sans-serif" font-size="9" font-weight="800" text-anchor="middle">STABLE</text>
+      </g>
+
+      <!-- Buffer Queue Visual: Large Batch Block -->
+      <g transform="translate(12, 86)">
+        <text x="0" y="12" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="8.5" font-weight="700">LARGE BATCH AUDIO QUEUE (CPU RELIEF):</text>
+        <!-- Large single buffer block -->
+        <rect x="0" y="18" width="254" height="26" rx="3" fill="#ca8a04" fill-opacity="0.3" stroke="#facc15" stroke-width="1.2" />
+        <text x="127" y="34" fill="#fef08a" font-family="system-ui, sans-serif" font-size="9.5" font-weight="800" text-anchor="middle">LARGE BATCH BUFFER (1024 SAMPLES)</text>
+        <line x1="262" y1="31" x2="282" y2="31" stroke="#facc15" stroke-width="1.5" marker-end="url(#arrow-gold)" />
+      </g>
+
+      <!-- Bottom takeaway -->
+      <rect x="10" y="136" width="294" height="32" rx="4" fill="#292218" stroke="#ca8a04" stroke-width="0.8" />
+      <text x="147" y="150" fill="#e2e8f0" font-family="system-ui, sans-serif" font-size="9.5" font-weight="600" text-anchor="middle">Ample calculation time for heavy plugins &amp; DSP</text>
+      <text x="147" y="162" fill="#facc15" font-family="system-ui, sans-serif" font-size="8.5" font-weight="700" text-anchor="middle">Prevents CPU overloads, clicks, and dropouts</text>
+    </g>
+  </g>
+
+  <!-- ==================== BOTTOM: 3 EXPLANATION CARDS ==================== -->
+  <g transform="translate(24, 280)">
+    <!-- CARD 1: THE STRATEGY (CORRECT ANSWER) -->
+    <g transform="translate(0, 0)">
+      <rect x="0" y="0" width="216" height="124" rx="8" fill="#0c2340" stroke="#38bdf8" stroke-width="1.8" />
+      <rect x="10" y="10" width="95" height="18" rx="4" fill="#0284c7" />
+      <text x="57" y="23" fill="#ffffff" font-family="system-ui, sans-serif" font-size="9" font-weight="800" text-anchor="middle">CORRECT ANSWER</text>
+      
+      <text x="12" y="46" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="11" font-weight="800">Low Rec / High Mix</text>
+      <text x="12" y="64" fill="#e2e8f0" font-family="system-ui, sans-serif" font-size="10" font-weight="600">The industry standard workflow:</text>
+      <text x="12" y="78" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="9.5">• <tspan fill="#38bdf8" font-weight="700">Low Buffer (64)</tspan> for tracking</text>
+      <text x="12" y="92" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="9.5">• <tspan fill="#facc15" font-weight="700">High Buffer (1024)</tspan> for mixing</text>
+      <text x="12" y="106" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="9.5">Optimizes performance at each stage.</text>
+    </g>
+
+    <!-- CARD 2: LATENCY CALCULATION -->
+    <g transform="translate(228, 0)">
+      <rect x="0" y="0" width="216" height="124" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.2" />
+      <rect x="10" y="10" width="105" height="18" rx="4" fill="#0369a1" />
+      <text x="62" y="23" fill="#bae6fd" font-family="system-ui, sans-serif" font-size="9" font-weight="800" text-anchor="middle">LATENCY FORMULA</text>
+      
+      <text x="12" y="46" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="11" font-weight="800">Buffer ÷ Sample Rate</text>
+      <text x="12" y="64" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="10">At 48 kHz standard rate:</text>
+      <text x="12" y="78" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="9.5">• 64 samples = <tspan fill="#38bdf8" font-weight="700">1.33 ms</tspan> buffer</text>
+      <text x="12" y="92" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="9.5">• 1024 samples = <tspan fill="#facc15" font-weight="700">21.3 ms</tspan> buffer</text>
+      <text x="12" y="106" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="9.5">Total roundtrip adds converter delays.</text>
+    </g>
+
+    <!-- CARD 3: BUFFER UNDERRUNS (POPS & CLICKS) -->
+    <g transform="translate(456, 0)">
+      <rect x="0" y="0" width="216" height="124" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.2" />
+      <rect x="10" y="10" width="112" height="18" rx="4" fill="#881337" />
+      <text x="66" y="23" fill="#fecdd3" font-family="system-ui, sans-serif" font-size="9" font-weight="800" text-anchor="middle">BUFFER UNDERRUNS</text>
+      
+      <text x="12" y="46" fill="#fb7185" font-family="system-ui, sans-serif" font-size="11" font-weight="800">Preventing Dropouts</text>
+      <text x="12" y="64" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="10">If a 64-sample buffer is left on</text>
+      <text x="12" y="78" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="9.5">during a dense mix, CPU chokes:</text>
+      <text x="12" y="92" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="9.5">produces audible clicks, pops,</text>
+      <text x="12" y="106" fill="#fb7185" font-family="system-ui, sans-serif" font-size="9.5" font-weight="700">or complete audio dropout.</text>
+    </g>
+  </g>
+</svg>

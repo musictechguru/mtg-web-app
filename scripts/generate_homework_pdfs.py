@@ -667,4 +667,174 @@ build_homework_pdf(
     ]
 )
 
+
+
+# --- MIXERS & DAW HW 1 ---
+build_homework_pdf(
+    filename="c3_mixers_daw_hw1_digital_tape_adat.pdf",
+    title="C3 Mixers & DAWs HW 1 – Alanis Morissette 'You Oughta Know' & Alesis ADAT",
+    artist="Alanis Morissette (Jagged Little Pill, 1995, Producer: Glen Ballard)",
+    youtube_url="https://www.youtube.com/watch?v=NPcyTyilmYY",
+    questions_page1=[
+        {
+            'type': 'table',
+            'prompt': '1. "You Oughta Know" was tracked in Glen Ballard\'s home studio on Alesis ADAT digital tape. Identify the instrument arrangements and production methods below. (3)',
+            'colWidths': [240, 275],
+            'data': [
+                ['Instrument / Track Element', 'Arrangement & Production Processing'],
+                ['Lead Vocal (Alanis Morissette)', 'Raw demo vocal take, high-pass filter, subtle 1176 compression'],
+                ['Bass Guitar (Flea)', 'Direct Injection (DI) blended with miked Gallien-Krueger amp'],
+                ['Drums (Taylor Hawkins / Matt Laug)', ''],
+                ['Electric Rhythm Guitars (Dave Navarro)', '']
+            ]
+        },
+        {
+            'type': 'qa',
+            'prompt': '2. The Alesis ADAT recorded 8 tracks of uncompressed digital audio onto consumer S-VHS tape. What were the exact bit-depth and sampling rate specifications of the original ADAT? (2)',
+            'lines': 2
+        },
+        {
+            'type': 'qa',
+            'prompt': '3. Why was Modular Digital Multitrack (MDM) considered revolutionary for independent producers compared to traditional 2-inch analogue tape machines? (3)',
+            'lines': 3
+        },
+        {
+            'type': 'qa',
+            'prompt': '4. Explain the function of the High-Pass Filter (HPF) and the Input Pad (-20 dB) located at the top of a console channel strip during vocal and drum tracking. (4)',
+            'lines': 4
+        }
+    ],
+    questions_page2=[
+        {
+            'type': 'qa',
+            'prompt': '5. Explain the difference between routing an external processor via a Channel Insert versus an Auxiliary Send. Give one practical studio example of each routing method. (4)',
+            'lines': 5
+        },
+        {
+            'type': 'table_box',
+            'prompt': '6. In digital recording, explain the relationship between Bit Depth and Dynamic Range, and describe why engineers add Dither when truncating from 24-bit to 16-bit: (4)',
+            'colWidths': [515],
+            'row_bgs': [(0, colors.HexColor("#e2e8f0")), (2, colors.HexColor("#e2e8f0"))],
+            'data': [
+                ['Bit Depth & Theoretical Dynamic Range (6 dB Rule) (2)'],
+                ['Dynamic range formula (6 dB per bit) and comparison of 16-bit (96 dB) vs 24-bit (144 dB):\n\n\n '],
+                ['Dither Application & Quantization Distortion (2)'],
+                ['Why low-level random TPDF noise replaces correlated harmonic distortion during bit reduction:\n\n\n ']
+            ]
+        }
+    ]
+)
+
+# --- MIXERS & DAW HW 2 ---
+build_homework_pdf(
+    filename="c3_mixers_daw_hw2_digital_console_yamaha02r.pdf",
+    title="C3 Mixers & DAWs HW 2 – Cher 'Believe' & Digital Consoles / Auto-Tune",
+    artist="Cher (Believe, 1998, Producers: Mark Taylor & Brian Rawling, Metro Productions)",
+    youtube_url="https://www.youtube.com/watch?v=nZXRV4MezEw",
+    questions_page1=[
+        {
+            'type': 'table',
+            'prompt': '1. "Believe" was a pivotal 1998 dance-pop milestone. Identify the production elements and vocal effects in the table below. (3)',
+            'colWidths': [240, 275],
+            'data': [
+                ['Production Element', 'Processing & Technology Used'],
+                ['Lead Vocal Hook ("Do you believe...")', 'Antares Auto-Tune set to Retune Speed 0 (zero portamento)'],
+                ['Eurodance Synthesizer Arpeggios', 'Clavia Nord Lead & Roland JV-1080 virtual/MIDI synth patches'],
+                ['Four-on-the-Floor Kick Drum', ''],
+                ['Backing Vocals / Vocoder Texture', '']
+            ]
+        },
+        {
+            'type': 'qa',
+            'prompt': '2. Describe the mathematical and algorithmic process used by Antares Auto-Tune to correct vocal pitch in real time. (2)',
+            'lines': 2
+        },
+        {
+            'type': 'qa',
+            'prompt': '3. Metro Productions mixed on a Yamaha 02R digital mixing desk. State two major operational advantages of digital consoles over analogue desks in the late 1990s. (2)',
+            'lines': 3
+        },
+        {
+            'type': 'qa',
+            'prompt': '4. Why is a dedicated Master Word Clock connection (via 75-ohm BNC cable) critical when syncing multiple digital devices such as digital consoles, converters, and effects units? (3)',
+            'lines': 4
+        }
+    ],
+    questions_page2=[
+        {
+            'type': 'qa',
+            'prompt': '5. On a fully parametric equaliser, explain how the Quality Factor (Q) parameter operates, and describe a scenario where an engineer would choose a high Q versus a low Q setting. (4)',
+            'lines': 5
+        },
+        {
+            'type': 'table_box',
+            'prompt': '6. Pre-fader vs Post-fader Auxiliary Sends: complete the technical analysis table below: (4)',
+            'colWidths': [515],
+            'row_bgs': [(0, colors.HexColor("#e2e8f0")), (2, colors.HexColor("#e2e8f0"))],
+            'data': [
+                ['Pre-Fader Aux Send: Signal Path & Practical Application (2)'],
+                ['Where it taps signal, and why it is essential for performer headphone cue mixes:\n\n\n '],
+                ['Post-Fader Aux Send: Signal Path & Practical Application (2)'],
+                ['Where it taps signal, and why it is essential for shared reverb / delay time-based effects:\n\n\n ']
+            ]
+        }
+    ]
+)
+
+# --- MIXERS & DAW HW 3 ---
+build_homework_pdf(
+    filename="c3_mixers_daw_hw3_in_the_box_protools.pdf",
+    title="C3 Mixers & DAWs HW 3 – Gorillaz 'Clint Eastwood' & In-The-Box DAW Production",
+    artist="Gorillaz (Gorillaz, 2001, Producers: Dan the Automator & Damon Albarn)",
+    youtube_url="https://www.youtube.com/watch?v=1V_xRb0x9aw",
+    questions_page1=[
+        {
+            'type': 'table',
+            'prompt': '1. "Clint Eastwood" integrated digital DAW sampling, rap vocals, and melodica. Identify the production components below. (3)',
+            'colWidths': [240, 275],
+            'data': [
+                ['Track Element', 'Source & Digital DAW Treatment'],
+                ['Drum Loop & Bassline', 'Preset rock beat from Suzuki Omnichord OM-300 electronic instrument'],
+                ['Rap Vocals (Del the Funky Homosapien)', 'Non-linear comping in Pro Tools, close condenser mic, EQ shelf boost'],
+                ['Melodica Solo (Damon Albarn)', ''],
+                ['Dub Delay FX & Spoken Echoes', '']
+            ]
+        },
+        {
+            'type': 'qa',
+            'prompt': '2. Explain the difference between destructive editing (as found on analogue magnetic tape) and non-destructive editing in a modern Digital Audio Workstation. (3)',
+            'lines': 3
+        },
+        {
+            'type': 'qa',
+            'prompt': '3. What is audio take comping, and how do crossfades prevent audible artifacts at edit seams between spliced regions? (3)',
+            'lines': 3
+        },
+        {
+            'type': 'qa',
+            'prompt': '4. Explain the Nyquist-Shannon Sampling Theorem and why an anti-aliasing low-pass filter must precede the analog-to-digital converter. (3)',
+            'lines': 3
+        }
+    ],
+    questions_page2=[
+        {
+            'type': 'qa',
+            'prompt': '5. Audio Buffer Size & Latency: Explain why an engineer chooses a low buffer size (e.g. 64-128 samples) during tracking, but increases it (e.g. 512-1024 samples) during mixing. (3)',
+            'lines': 4
+        },
+        {
+            'type': 'table_box',
+            'prompt': '6. In-The-Box (ITB) Mixing vs Hybrid Analog Summing: compare the two mixing workflows below: (4)',
+            'colWidths': [515],
+            'row_bgs': [(0, colors.HexColor("#e2e8f0")), (2, colors.HexColor("#e2e8f0"))],
+            'data': [
+                ['In-The-Box (ITB) Digital Mixing Workflow & Advantages (2)'],
+                ['Summing math, total instantaneous recall, zero generation loss, and unlimited plugin instances:\n\n\n '],
+                ['Hybrid Analog Summing Workflow & Characteristics (2)'],
+                ['Multi-channel D/A stems, analog resistor/transformer summing bus, and harmonic saturation:\n\n\n ']
+            ]
+        }
+    ]
+)
+
 print("ALL HOMEWORK PDFS GENERATED SUCCESSFULLY!")
