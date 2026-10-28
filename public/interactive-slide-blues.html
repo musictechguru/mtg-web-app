@@ -482,7 +482,66 @@
       margin-bottom: 10px;
       border: 1px solid var(--border-subtle);
     }
-  </style>
+  
+    /* YouTube direct links & enhanced modal styling */
+    .video-btn-row {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      margin-top: 10px;
+      flex-wrap: wrap;
+    }
+    .yt-direct-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #ffffff !important;
+      background: rgba(239, 68, 68, 0.2);
+      border: 1px solid rgba(239, 68, 68, 0.45);
+      padding: 6px 12px;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      line-height: 1.2;
+    }
+    .yt-direct-btn:hover {
+      background: rgba(239, 68, 68, 0.4);
+      border-color: #ef4444;
+      color: #ffffff !important;
+      transform: translateY(-1px);
+    }
+    .external-yt-link {
+      color: #ef4444 !important;
+      font-size: 12px;
+      font-weight: 700;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 5px 12px;
+      border-radius: 6px;
+      background: rgba(239, 68, 68, 0.12);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      transition: all 0.2s ease;
+    }
+    .external-yt-link:hover {
+      background: rgba(239, 68, 68, 0.25);
+      color: #ffffff !important;
+    }
+    .video-modal-footer {
+      padding: 10px 16px;
+      background: rgba(0, 0, 0, 0.6);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: #94a3b8;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+</style>
 </head>
 <body>
   <div class="deck-wrapper">
@@ -527,7 +586,7 @@
         <div class="slide-eyebrow"><span>🌾</span> 1920s&ndash;1930s &bull; Country Blues</div>
         <h2 class="slide-heading">Country Blues: <span>One Voice, One Guitar</span></h2>
         <p class="slide-lead">Early Country Blues was often just a singer with a guitar, born in the Mississippi Delta from a mixture of European, American and African traditions, and influenced by Country, Jazz and Spirituals.</p>
-        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/blues/delta_blues.jpg" alt="Map of the Mississippi Delta" class="slide-thumb" style="object-fit: contain; background: #0a0f1e; padding: 4px;"><h4>The Mississippi Delta</h4><p>The Delta is the cradle of Country Blues. Songs of <strong>poverty and lost love</strong> were performed solo with guitar, often in a <strong>melismatic, wailing</strong> vocal style and a call-and-response relationship between voice and guitar.</p></div><div class="info-card cyan-edge"><img src="/images/slides/blues/robert_johnson.jpg" alt="Robert Johnson" class="slide-thumb"><h4>Robert Johnson (1911&ndash;1938)</h4><p>Recorded just 29 songs in two sessions (San Antonio 1936, Dallas 1937) &mdash; in temporary hotel and warehouse studios, direct to disc. <em>Cross Road Blues</em> (1936) became a cornerstone of the style.</p><button class="video-trigger-btn" onclick="openVideo('Kxi4XkIVWLQ', 'Robert Johnson - Cross Road Blues')">▶ Listen: Cross Road Blues</button></div><div class="info-card acid-edge"><img src="/images/slides/blues/alan_lomax.jpg" alt="Alan Lomax" class="slide-thumb"><h4>Alan Lomax &amp; Field Recording</h4><p>Alan Lomax recorded blues musicians for the <strong>Library of Congress</strong> on portable disc recorders. In 1941 he recorded a young Muddy Waters on Stovall Plantation, Mississippi.</p></div></div>
+        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/blues/delta_blues.jpg" alt="Map of the Mississippi Delta" class="slide-thumb" style="object-fit: contain; background: #0a0f1e; padding: 4px;"><h4>The Mississippi Delta</h4><p>The Delta is the cradle of Country Blues. Songs of <strong>poverty and lost love</strong> were performed solo with guitar, often in a <strong>melismatic, wailing</strong> vocal style and a call-and-response relationship between voice and guitar.</p></div><div class="info-card cyan-edge"><img src="/images/slides/blues/robert_johnson.jpg" alt="Robert Johnson" class="slide-thumb"><h4>Robert Johnson (1911&ndash;1938)</h4><p>Recorded just 29 songs in two sessions (San Antonio 1936, Dallas 1937) &mdash; in temporary hotel and warehouse studios, direct to disc. <em>Cross Road Blues</em> (1936) became a cornerstone of the style.</p><div class="video-btn-row"><div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('Kxi4XkIVWLQ', 'Robert Johnson - Cross Road Blues')">▶ Listen: Cross Road Blues</button><a href="https://www.youtube.com/watch?v=Kxi4XkIVWLQ" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div><a href="https://www.youtube.com/watch?v=Kxi4XkIVWLQ" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div></div><div class="info-card acid-edge"><img src="/images/slides/blues/alan_lomax.jpg" alt="Alan Lomax" class="slide-thumb"><h4>Alan Lomax &amp; Field Recording</h4><p>Alan Lomax recorded blues musicians for the <strong>Library of Congress</strong> on portable disc recorders. In 1941 he recorded a young Muddy Waters on Stovall Plantation, Mississippi.</p></div></div>
       </section>
       <section class="slide" data-slide="4">
         <div class="slide-eyebrow"><span>💿</span> AO3 &bull; Early Recording Technology</div>
@@ -545,7 +604,7 @@
         <div class="slide-eyebrow"><span>⚡</span> AO3 &amp; AO4 &bull; 1940s&ndash;1950s</div>
         <h2 class="slide-heading">Chicago Blues: <span>The Sound Goes Electric</span></h2>
         <p class="slide-lead">After the Great Migration, Delta musicians reached Chicago&rsquo;s noisy clubs. To be heard, they plugged in &mdash; electric guitar, bass guitar, drums and amplified harmonica form the Chicago Blues band.</p>
-        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/blues/muddy_waters.jpg" alt="Muddy Waters" class="slide-thumb"><h4>Muddy Waters</h4><p>Moved to Chicago in 1943 and went electric in the mid-1940s. His amplified slide guitar and full band recorded for <strong>Chess Records</strong> defined the genre.</p><button class="video-trigger-btn" onclick="openVideo('bSfqNEvykv0', 'Muddy Waters - Mannish Boy')">▶ Listen: Mannish Boy</button></div><div class="info-card cyan-edge"><img src="/images/slides/blues/little_walter.jpg" alt="Little Walter" class="slide-thumb"><h4>Little Walter &amp; Amplified Harmonica</h4><p>Played the harmonica through a hand-held microphone into a small guitar amplifier, driving it into <strong>overdrive</strong> for a thick, saxophone-like sound. <em>Juke</em> (1952).</p><button class="video-trigger-btn" onclick="openVideo('kWLQSplVP3Y', 'Little Walter - Juke')">▶ Listen: Juke</button></div><div class="info-card acid-edge"><img src="/images/slides/blues/howlin_wolf.jpg" alt="Howlin Wolf" class="slide-thumb"><h4>Howlin&rsquo; Wolf</h4><p>A huge voice and raw, distorted electric band sound. His first records were cut in <strong>Memphis</strong> before he moved to Chicago and Chess Records.</p><button class="video-trigger-btn" onclick="openVideo('VMUt8KdDtTY', 'Howlin Wolf - Smokestack Lightning')">▶ Listen: Smokestack Lightning</button></div></div>
+        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/blues/muddy_waters.jpg" alt="Muddy Waters" class="slide-thumb"><h4>Muddy Waters</h4><p>Moved to Chicago in 1943 and went electric in the mid-1940s. His amplified slide guitar and full band recorded for <strong>Chess Records</strong> defined the genre.</p><div class="video-btn-row"><div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('bSfqNEvykv0', 'Muddy Waters - Mannish Boy')">▶ Listen: Mannish Boy</button><a href="https://www.youtube.com/watch?v=bSfqNEvykv0" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div><a href="https://www.youtube.com/watch?v=bSfqNEvykv0" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div></div><div class="info-card cyan-edge"><img src="/images/slides/blues/little_walter.jpg" alt="Little Walter" class="slide-thumb"><h4>Little Walter &amp; Amplified Harmonica</h4><p>Played the harmonica through a hand-held microphone into a small guitar amplifier, driving it into <strong>overdrive</strong> for a thick, saxophone-like sound. <em>Juke</em> (1952).</p><div class="video-btn-row"><div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('kWLQSplVP3Y', 'Little Walter - Juke')">▶ Listen: Juke</button><a href="https://www.youtube.com/watch?v=kWLQSplVP3Y" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div><a href="https://www.youtube.com/watch?v=kWLQSplVP3Y" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div></div><div class="info-card acid-edge"><img src="/images/slides/blues/howlin_wolf.jpg" alt="Howlin Wolf" class="slide-thumb"><h4>Howlin&rsquo; Wolf</h4><p>A huge voice and raw, distorted electric band sound. His first records were cut in <strong>Memphis</strong> before he moved to Chicago and Chess Records.</p><div class="video-btn-row"><div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('VMUt8KdDtTY', 'Howlin Wolf - Smokestack Lightning')">▶ Listen: Smokestack Lightning</button><a href="https://www.youtube.com/watch?v=VMUt8KdDtTY" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div><a href="https://www.youtube.com/watch?v=VMUt8KdDtTY" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div></div></div>
       </section>
       <section class="slide" data-slide="7">
         <div class="slide-eyebrow"><span>🏢</span> AO4 &bull; The Record Label</div>
@@ -611,8 +670,8 @@
   </div>
   <div class="video-modal-backdrop" id="videoModal">
     <div class="video-modal-content">
-      <div class="video-modal-header"><span class="video-modal-title" id="videoModalTitle">Video Clip</span><button class="close-modal-btn" onclick="closeVideo()">&times;</button></div>
-      <div class="video-player-wrapper"><iframe id="videoIframe" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+      <div class="video-modal-header"><span class="video-modal-title" id="videoModalTitle">Video Clip</span><div style="display: flex; gap: 10px; align-items: center;"><a id="videoExternalLink" href="#" target="_blank" rel="noopener noreferrer" class="external-yt-link" title="Open directly on YouTube"><span>Open in YouTube</span> <span>↗</span></a><button class="close-modal-btn" onclick="closeVideo()">&times;</button></div></div>
+      <div class="video-player-wrapper"><iframe id="videoIframe" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div><div class="video-modal-footer"><span style="display: inline-flex; align-items: center; gap: 6px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="#ef4444"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube Audio Clip</span><a id="videoFooterLink" href="#" target="_blank" rel="noopener noreferrer" style="color: #38bdf8; font-weight: 700; text-decoration: none;">Watch Directly on YouTube &rarr;</a></div>
     </div>
   </div>
   <script>
@@ -689,6 +748,11 @@
     }
 
     function openVideo(videoId, title) {
+      const extLink = document.getElementById('videoExternalLink');
+      if (extLink) extLink.href = 'https://www.youtube.com/watch?v=' + videoId;
+      const footLink = document.getElementById('videoFooterLink');
+      if (footLink) footLink.href = 'https://www.youtube.com/watch?v=' + videoId;
+
       videoIframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
       videoModalTitle.textContent = title;
       videoModal.classList.add('open');

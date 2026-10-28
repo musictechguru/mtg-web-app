@@ -589,7 +589,66 @@
       z-index: 10;
       font-weight: 800;
     }
-  </style>
+  
+    /* YouTube direct links & enhanced modal styling */
+    .video-btn-row {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      margin-top: 10px;
+      flex-wrap: wrap;
+    }
+    .yt-direct-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #ffffff !important;
+      background: rgba(239, 68, 68, 0.2);
+      border: 1px solid rgba(239, 68, 68, 0.45);
+      padding: 6px 12px;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      line-height: 1.2;
+    }
+    .yt-direct-btn:hover {
+      background: rgba(239, 68, 68, 0.4);
+      border-color: #ef4444;
+      color: #ffffff !important;
+      transform: translateY(-1px);
+    }
+    .external-yt-link {
+      color: #ef4444 !important;
+      font-size: 12px;
+      font-weight: 700;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 5px 12px;
+      border-radius: 6px;
+      background: rgba(239, 68, 68, 0.12);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      transition: all 0.2s ease;
+    }
+    .external-yt-link:hover {
+      background: rgba(239, 68, 68, 0.25);
+      color: #ffffff !important;
+    }
+    .video-modal-footer {
+      padding: 10px 16px;
+      background: rgba(0, 0, 0, 0.6);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: #94a3b8;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+</style>
 </head>
 <body>
 
@@ -755,9 +814,9 @@
         <div class="artist-hero-card">
           <div class="artist-visual-col">
             <img src="images/slides/rock_n_roll/bill_haley.jpg" alt="Bill Haley and the Comets" class="artist-photo">
-            <button class="listen-btn" onclick="openVideo('ZgdufzXvjqw', 'Bill Haley - Rock Around the Clock')">
+            <div class="video-btn-row"><div class="video-btn-row"><button class="listen-btn" onclick="openVideo('ZgdufzXvjqw', 'Bill Haley - Rock Around the Clock')">
               ▶ Listen: Rock Around the Clock
-            </button>
+            </button><a href="https://www.youtube.com/watch?v=ZgdufzXvjqw" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div><a href="https://www.youtube.com/watch?v=ZgdufzXvjqw" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div>
           </div>
           <div class="artist-info">
             <div class="artist-meta-pills">
@@ -784,9 +843,9 @@
         <div class="artist-hero-card">
           <div class="artist-visual-col">
             <img src="images/slides/rock_n_roll/buddy_holly_crickets.jpg" alt="Buddy Holly and the Crickets" class="artist-photo">
-            <button class="listen-btn" onclick="openVideo('OUesbTObC9A', 'Buddy Holly - Peggy Sue')">
+            <div class="video-btn-row"><div class="video-btn-row"><button class="listen-btn" onclick="openVideo('OUesbTObC9A', 'Buddy Holly - Peggy Sue')">
               ▶ Listen: Peggy Sue
-            </button>
+            </button><a href="https://www.youtube.com/watch?v=OUesbTObC9A" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div><a href="https://www.youtube.com/watch?v=OUesbTObC9A" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div>
           </div>
           <div class="artist-info">
             <div class="artist-meta-pills">
@@ -813,9 +872,9 @@
         <div class="artist-hero-card">
           <div class="artist-visual-col">
             <img src="images/slides/rock_n_roll/chuck_berry.jpg" alt="Chuck Berry with Gibson guitar" class="artist-photo">
-            <button class="listen-btn" onclick="openVideo('T38v3-SSGcM', 'Chuck Berry - Johnny B. Goode')">
+            <div class="video-btn-row"><div class="video-btn-row"><button class="listen-btn" onclick="openVideo('T38v3-SSGcM', 'Chuck Berry - Johnny B. Goode')">
               ▶ Listen: Johnny B. Goode
-            </button>
+            </button><a href="https://www.youtube.com/watch?v=T38v3-SSGcM" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div><a href="https://www.youtube.com/watch?v=T38v3-SSGcM" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div>
           </div>
           <div class="artist-info">
             <div class="artist-meta-pills">
@@ -842,9 +901,9 @@
         <div class="artist-hero-card">
           <div class="artist-visual-col">
             <img src="images/slides/rock_n_roll/elvis_sun_studio.jpg" alt="Elvis Presley Sun Studio Memphis" class="artist-photo">
-            <button class="listen-btn" onclick="openVideo('gj0Rz-uP4Mk', 'Elvis Presley - Jailhouse Rock')">
+            <div class="video-btn-row"><div class="video-btn-row"><button class="listen-btn" onclick="openVideo('gj0Rz-uP4Mk', 'Elvis Presley - Jailhouse Rock')">
               ▶ Listen: Jailhouse Rock
-            </button>
+            </button><a href="https://www.youtube.com/watch?v=gj0Rz-uP4Mk" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div><a href="https://www.youtube.com/watch?v=gj0Rz-uP4Mk" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div>
           </div>
           <div class="artist-info">
             <div class="artist-meta-pills">
@@ -873,9 +932,9 @@
           <div class="info-card" style="display: flex; gap: 14px; align-items: flex-start;">
             <div style="display: flex; flex-direction: column; align-items: center; gap: 8px; flex-shrink: 0; width: 100px;">
               <img src="images/slides/rock_n_roll/brenda_lee.jpg" alt="Brenda Lee" style="width: 100px; height: 100px; border-radius: 10px; object-fit: cover; border: 1px solid var(--border-cyan);">
-              <button class="listen-btn" style="padding: 5px 8px; font-size: 11px;" onclick="openVideo('tfJ-q0VFe_g', 'Brenda Lee - Sweet Nothin\'s')">
+              <div class="video-btn-row"><div class="video-btn-row"><button class="listen-btn" style="padding: 5px 8px; font-size: 11px;" onclick="openVideo('tfJ-q0VFe_g', 'Brenda Lee - Sweet Nothin\'s')">
                 ▶ Listen
-              </button>
+              </button><a href="https://www.youtube.com/watch?v=tfJ-q0VFe_g" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div><a href="https://www.youtube.com/watch?v=tfJ-q0VFe_g" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div>
             </div>
             <div>
               <span class="pill cyan" style="margin-bottom: 4px; display: inline-block;">Atlanta, Georgia • Decca</span>
@@ -890,9 +949,9 @@
           <div class="info-card" style="display: flex; gap: 14px; align-items: flex-start;">
             <div style="display: flex; flex-direction: column; align-items: center; gap: 8px; flex-shrink: 0; width: 100px;">
               <img src="images/slides/rock_n_roll/bo_diddley.jpg" alt="Bo Diddley with rectangular guitar" style="width: 100px; height: 100px; border-radius: 10px; object-fit: cover; border: 1px solid var(--border-cyan);">
-              <button class="listen-btn" style="padding: 5px 8px; font-size: 11px;" onclick="openVideo('yeZHB3ozglQ', 'Bo Diddley - Bo Diddley')">
+              <div class="video-btn-row"><div class="video-btn-row"><button class="listen-btn" style="padding: 5px 8px; font-size: 11px;" onclick="openVideo('yeZHB3ozglQ', 'Bo Diddley - Bo Diddley')">
                 ▶ Listen
-              </button>
+              </button><a href="https://www.youtube.com/watch?v=yeZHB3ozglQ" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div><a href="https://www.youtube.com/watch?v=yeZHB3ozglQ" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div>
             </div>
             <div>
               <span class="pill amber" style="margin-bottom: 4px; display: inline-block;">Mississippi • Chess Records</span>
@@ -917,9 +976,9 @@
                 <span class="pill cyan" style="margin-bottom: 6px; display: inline-block;">Little Richard (Macon, Georgia)</span>
                 <h3 class="card-title" style="font-size: 15px;">"Tutti Frutti" (1955) • Specialty</h3>
               </div>
-              <button class="listen-btn" style="width: auto; padding: 5px 12px; font-size: 11.5px; flex-shrink: 0;" onclick="openVideo('LVIttmFAzek', 'Little Richard - Tutti Frutti')">
+              <div class="video-btn-row"><div class="video-btn-row"><button class="listen-btn" style="width: auto; padding: 5px 12px; font-size: 11.5px; flex-shrink: 0;" onclick="openVideo('LVIttmFAzek', 'Little Richard - Tutti Frutti')">
                 ▶ Listen
-              </button>
+              </button><a href="https://www.youtube.com/watch?v=LVIttmFAzek" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div><a href="https://www.youtube.com/watch?v=LVIttmFAzek" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div>
             </div>
             <p class="card-text">
               Unrestrained vocal screaming, high falsetto "whoops", and driving boogie-woogie piano. Introduced flamboyant, electrifying stage presentation.
@@ -929,9 +988,9 @@
           <div class="info-card" style="display: flex; gap: 14px; align-items: flex-start;">
             <div style="display: flex; flex-direction: column; align-items: center; gap: 8px; flex-shrink: 0; width: 100px;">
               <img src="images/slides/rock_n_roll/jerry_lee_lewis_live.jpg" alt="Jerry Lee Lewis" style="width: 100px; height: 100px; border-radius: 10px; object-fit: cover; border: 1px solid var(--border-cyan);">
-              <button class="listen-btn" style="padding: 5px 8px; font-size: 11px;" onclick="openVideo('Jt0mg8Z09SY', 'Jerry Lee Lewis - Great Balls of Fire')">
+              <div class="video-btn-row"><div class="video-btn-row"><button class="listen-btn" style="padding: 5px 8px; font-size: 11px;" onclick="openVideo('Jt0mg8Z09SY', 'Jerry Lee Lewis - Great Balls of Fire')">
                 ▶ Listen
-              </button>
+              </button><a href="https://www.youtube.com/watch?v=Jt0mg8Z09SY" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div><a href="https://www.youtube.com/watch?v=Jt0mg8Z09SY" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div>
             </div>
             <div>
               <span class="pill amber" style="margin-bottom: 6px; display: inline-block;">Jerry Lee Lewis (Louisiana)</span>
@@ -1100,11 +1159,10 @@
 
   <!-- Video Modal -->
   <div class="video-modal-backdrop" id="videoModal">
-    <div class="video-modal-box">
-      <button class="modal-close" onclick="closeVideo()">✕</button>
+    <div class="video-modal-box"><div class="video-modal-header" style="display:flex; justify-content:space-between; align-items:center; padding:12px 18px; border-bottom:1px solid rgba(255,255,255,0.1);"><span class="video-modal-title" id="videoModalTitle" style="color:#ffffff; font-weight:700; font-size:14px;">YouTube Video Clip</span><div style="display:flex; gap:10px; align-items:center;"><a id="videoExternalLink" href="#" target="_blank" rel="noopener noreferrer" class="external-yt-link" title="Open directly on YouTube"><span>Open in YouTube</span> <span>↗</span></a><button class="modal-close" style="position:static; margin:0;" onclick="closeVideo()">✕</button></div></div>
       <div style="position: relative; padding-bottom: 56.25%; height: 0; background: #000;">
         <iframe id="videoIframe" src="" style="position: absolute; top:0; left:0; width:100%; height:100%; border:none;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-      </div>
+      </div><div class="video-modal-footer"><span style="display: inline-flex; align-items: center; gap: 6px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="#ef4444"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube Audio Clip</span><a id="videoFooterLink" href="#" target="_blank" rel="noopener noreferrer" style="color: #38bdf8; font-weight: 700; text-decoration: none;">Watch Directly on YouTube &rarr;</a></div>
     </div>
   </div>
 
@@ -1214,6 +1272,11 @@
 
     // Video Modal
     function openVideo(videoId, title) {
+      const extLink = document.getElementById('videoExternalLink');
+      if (extLink) extLink.href = 'https://www.youtube.com/watch?v=' + videoId;
+      const footLink = document.getElementById('videoFooterLink');
+      if (footLink) footLink.href = 'https://www.youtube.com/watch?v=' + videoId;
+
       videoIframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
       videoModal.classList.add('open');
     }

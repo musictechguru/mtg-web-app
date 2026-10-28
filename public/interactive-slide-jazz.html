@@ -482,7 +482,66 @@
       margin-bottom: 10px;
       border: 1px solid var(--border-subtle);
     }
-  </style>
+  
+    /* YouTube direct links & enhanced modal styling */
+    .video-btn-row {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      margin-top: 10px;
+      flex-wrap: wrap;
+    }
+    .yt-direct-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #ffffff !important;
+      background: rgba(239, 68, 68, 0.2);
+      border: 1px solid rgba(239, 68, 68, 0.45);
+      padding: 6px 12px;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      line-height: 1.2;
+    }
+    .yt-direct-btn:hover {
+      background: rgba(239, 68, 68, 0.4);
+      border-color: #ef4444;
+      color: #ffffff !important;
+      transform: translateY(-1px);
+    }
+    .external-yt-link {
+      color: #ef4444 !important;
+      font-size: 12px;
+      font-weight: 700;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 5px 12px;
+      border-radius: 6px;
+      background: rgba(239, 68, 68, 0.12);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      transition: all 0.2s ease;
+    }
+    .external-yt-link:hover {
+      background: rgba(239, 68, 68, 0.25);
+      color: #ffffff !important;
+    }
+    .video-modal-footer {
+      padding: 10px 16px;
+      background: rgba(0, 0, 0, 0.6);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: #94a3b8;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+</style>
 </head>
 <body>
   <div class="deck-wrapper">
@@ -539,7 +598,7 @@
         <div class="slide-eyebrow"><span>🎺</span> AO4 &bull; 1930s&ndash;1940s &bull; The Swing Era</div>
         <h2 class="slide-heading">Big Bands: <span>Ellington, Goodman &amp; Basie</span></h2>
         <p class="slide-lead">Swing was dance music played by big bands of brass, saxophones and a rhythm section, built on sectional riffs and call and response.</p>
-        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/jazz/duke_ellington.jpg" alt="Duke Ellington" class="slide-thumb"><h4>Duke Ellington</h4><p>Pianist, bandleader and composer. Radio broadcasts from the Cotton Club made his band famous, and he composed with the <strong>3-minute 78 rpm side</strong> in mind. Hits include <em>Mood Indigo</em> and <em>Take the &ldquo;A&rdquo; Train</em>.</p><button class="video-trigger-btn" onclick="openVideo('r2G1fKYFgVU', 'Duke Ellington - Take the A Train')">▶ Listen: Take the A Train</button></div><div class="info-card cyan-edge"><img src="/images/slides/jazz/benny_goodman.jpg" alt="Benny Goodman" class="slide-thumb"><h4>Benny Goodman</h4><p>The &ldquo;King of Swing&rdquo; brought swing to a wide white audience; his 1938 Carnegie Hall concert is a landmark. Clarinet solos sit over a tight band that answers in <strong>call and response</strong>.</p></div><div class="info-card acid-edge"><img src="/images/slides/jazz/count_basie.jpg" alt="Count Basie" class="slide-thumb"><h4>Count Basie</h4><p>Led a hard-swinging Kansas City band with a light, <strong>walking bass</strong> and spare piano, plus simple <strong>riff-based</strong> arrangements. A model of the swing rhythm section.</p></div></div>
+        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/jazz/duke_ellington.jpg" alt="Duke Ellington" class="slide-thumb"><h4>Duke Ellington</h4><p>Pianist, bandleader and composer. Radio broadcasts from the Cotton Club made his band famous, and he composed with the <strong>3-minute 78 rpm side</strong> in mind. Hits include <em>Mood Indigo</em> and <em>Take the &ldquo;A&rdquo; Train</em>.</p><div class="video-btn-row"><div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('r2G1fKYFgVU', 'Duke Ellington - Take the A Train')">▶ Listen: Take the A Train</button><a href="https://www.youtube.com/watch?v=r2G1fKYFgVU" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div><a href="https://www.youtube.com/watch?v=r2G1fKYFgVU" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div></div><div class="info-card cyan-edge"><img src="/images/slides/jazz/benny_goodman.jpg" alt="Benny Goodman" class="slide-thumb"><h4>Benny Goodman</h4><p>The &ldquo;King of Swing&rdquo; brought swing to a wide white audience; his 1938 Carnegie Hall concert is a landmark. Clarinet solos sit over a tight band that answers in <strong>call and response</strong>.</p></div><div class="info-card acid-edge"><img src="/images/slides/jazz/count_basie.jpg" alt="Count Basie" class="slide-thumb"><h4>Count Basie</h4><p>Led a hard-swinging Kansas City band with a light, <strong>walking bass</strong> and spare piano, plus simple <strong>riff-based</strong> arrangements. A model of the swing rhythm section.</p></div></div>
       </section>
       <section class="slide" data-slide="6">
         <div class="slide-eyebrow"><span>⚡</span> AO4 &bull; 1940s &bull; Bebop</div>
@@ -551,7 +610,7 @@
         <div class="slide-eyebrow"><span>💽</span> AO3 &bull; 1948&ndash;1960s</div>
         <h2 class="slide-heading">The LP, Magnetic Tape <span>&amp; Kind of Blue</span></h2>
         <p class="slide-lead">The long-playing record and magnetic tape changed jazz: longer performances could be released, and the best takes could be edited together.</p>
-        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/jazz/lp_record.jpg" alt="33 and a third rpm LP" class="slide-thumb" style="object-fit: contain; background: #ffffff; padding: 6px;"><h4>The 33&#8531; rpm LP (1948)</h4><p>Columbia&rsquo;s microgroove LP allowed <strong>up to about 22 minutes per side</strong> (compared with 3&ndash;4 minutes on a 78). Extended solos and album-length ideas became possible.</p></div><div class="info-card cyan-edge"><img src="/images/slides/jazz/tape_machine.jpg" alt="Reel-to-reel tape recorder" class="slide-thumb" style="object-fit: contain; background: #ffffff; padding: 6px;"><h4>Magnetic Tape</h4><p>Tape allowed <strong>editing and splicing</strong> between takes, longer continuous recording and, later, <strong>stereo</strong> and multitrack. Jazz studios could now balance and polish recordings.</p></div><div class="info-card acid-edge"><img src="/images/slides/jazz/miles_davis.jpg" alt="Miles Davis" class="slide-thumb"><h4>Miles Davis: <em>Kind of Blue</em> (1959)</h4><p>Recorded in Columbia&rsquo;s 30th Street Studio, New York. <em>So What</em> is <strong>modal</strong> &mdash; improvisation on scales (D Dorian) rather than fast chord changes &mdash; in a 32-bar AABA form.</p><button class="video-trigger-btn" onclick="openVideo('zqNTltOGh5c', 'Miles Davis - So What')">▶ Listen: So What</button></div></div>
+        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/jazz/lp_record.jpg" alt="33 and a third rpm LP" class="slide-thumb" style="object-fit: contain; background: #ffffff; padding: 6px;"><h4>The 33&#8531; rpm LP (1948)</h4><p>Columbia&rsquo;s microgroove LP allowed <strong>up to about 22 minutes per side</strong> (compared with 3&ndash;4 minutes on a 78). Extended solos and album-length ideas became possible.</p></div><div class="info-card cyan-edge"><img src="/images/slides/jazz/tape_machine.jpg" alt="Reel-to-reel tape recorder" class="slide-thumb" style="object-fit: contain; background: #ffffff; padding: 6px;"><h4>Magnetic Tape</h4><p>Tape allowed <strong>editing and splicing</strong> between takes, longer continuous recording and, later, <strong>stereo</strong> and multitrack. Jazz studios could now balance and polish recordings.</p></div><div class="info-card acid-edge"><img src="/images/slides/jazz/miles_davis.jpg" alt="Miles Davis" class="slide-thumb"><h4>Miles Davis: <em>Kind of Blue</em> (1959)</h4><p>Recorded in Columbia&rsquo;s 30th Street Studio, New York. <em>So What</em> is <strong>modal</strong> &mdash; improvisation on scales (D Dorian) rather than fast chord changes &mdash; in a 32-bar AABA form.</p><div class="video-btn-row"><div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('zqNTltOGh5c', 'Miles Davis - So What')">▶ Listen: So What</button><a href="https://www.youtube.com/watch?v=zqNTltOGh5c" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div><a href="https://www.youtube.com/watch?v=zqNTltOGh5c" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div></div></div>
       </section>
       <section class="slide" data-slide="8">
         <div class="slide-eyebrow"><span>🏠</span> AO3 &bull; 1950s&ndash;1960s</div>
@@ -563,7 +622,7 @@
         <div class="slide-eyebrow"><span>🎷</span> AO4 &bull; Late 1950s&ndash;1960s</div>
         <h2 class="slide-heading">Coltrane, Brubeck <span>&amp; Pushing the Rules</span></h2>
         <p class="slide-lead">Jazz explored faster chord changes and unusual metres while remaining accessible to wider audiences.</p>
-        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/jazz/john_coltrane.jpg" alt="John Coltrane" class="slide-thumb"><h4>John Coltrane: <em>Giant Steps</em> (1960)</h4><p>The title track moves through keys a major third apart at speed, creating very demanding chord changes for improvisers. Later he moved towards modal and spiritual music (<em>A Love Supreme</em>, 1965).</p><button class="video-trigger-btn" onclick="openVideo('KwIC6B_dvW4', 'John Coltrane - Giant Steps')">▶ Listen: Giant Steps</button></div><div class="info-card cyan-edge"><img src="/images/slides/jazz/dave_brubeck.jpg" alt="Dave Brubeck" class="slide-thumb"><h4>Dave Brubeck: <em>Take Five</em> (1959)</h4><p>Written by saxophonist <strong>Paul Desmond</strong> and recorded by the Dave Brubeck Quartet, it is in <strong>5/4 time</strong> with a repeated two-chord vamp, and became a big hit single.</p><button class="video-trigger-btn" onclick="openVideo('-DHuW1h1wHw', 'Dave Brubeck - Take Five')">▶ Listen: Take Five</button></div><div class="info-card acid-edge"><img src="/images/slides/jazz/bill_evans.jpg" alt="Bill Evans" class="slide-thumb"><h4>Bill Evans</h4><p>Pianist on <em>Kind of Blue</em>, known for a lyrical touch and rich, <strong>extended jazz chords</strong> &mdash; a model for modern jazz piano voicings.</p></div></div>
+        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/jazz/john_coltrane.jpg" alt="John Coltrane" class="slide-thumb"><h4>John Coltrane: <em>Giant Steps</em> (1960)</h4><p>The title track moves through keys a major third apart at speed, creating very demanding chord changes for improvisers. Later he moved towards modal and spiritual music (<em>A Love Supreme</em>, 1965).</p><div class="video-btn-row"><div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('KwIC6B_dvW4', 'John Coltrane - Giant Steps')">▶ Listen: Giant Steps</button><a href="https://www.youtube.com/watch?v=KwIC6B_dvW4" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div><a href="https://www.youtube.com/watch?v=KwIC6B_dvW4" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div></div><div class="info-card cyan-edge"><img src="/images/slides/jazz/dave_brubeck.jpg" alt="Dave Brubeck" class="slide-thumb"><h4>Dave Brubeck: <em>Take Five</em> (1959)</h4><p>Written by saxophonist <strong>Paul Desmond</strong> and recorded by the Dave Brubeck Quartet, it is in <strong>5/4 time</strong> with a repeated two-chord vamp, and became a big hit single.</p><div class="video-btn-row"><div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('-DHuW1h1wHw', 'Dave Brubeck - Take Five')">▶ Listen: Take Five</button><a href="https://www.youtube.com/watch?v=-DHuW1h1wHw" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div><a href="https://www.youtube.com/watch?v=-DHuW1h1wHw" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div></div><div class="info-card acid-edge"><img src="/images/slides/jazz/bill_evans.jpg" alt="Bill Evans" class="slide-thumb"><h4>Bill Evans</h4><p>Pianist on <em>Kind of Blue</em>, known for a lyrical touch and rich, <strong>extended jazz chords</strong> &mdash; a model for modern jazz piano voicings.</p></div></div>
       </section>
       <section class="slide" data-slide="10">
         <div class="slide-eyebrow"><span>🎚️</span> AO3 &bull; Exam Analysis Points</div>
@@ -575,7 +634,7 @@
         <div class="slide-eyebrow"><span>🔌</span> AO3 &bull; 1969&ndash;1970s</div>
         <h2 class="slide-heading">Jazz Fusion: <span>Electric Miles</span></h2>
         <p class="slide-lead">In the late 1960s Miles Davis combined jazz improvisation with rock rhythms and electric instruments, and treated the studio itself as an instrument.</p>
-        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/jazz/miles_davis_electric.jpg" alt="Electric Miles Davis" class="slide-thumb"><h4>Miles Davis: <em>Bitches Brew</em> (1970)</h4><p>Recorded in 1969 with a large electric band. Long jam sessions were later <strong>edited and assembled</strong>, using loops, echo and tape splices.</p><button class="video-trigger-btn" onclick="openVideo('WtORTuLJw7o', 'Miles Davis - Pharaoh\'s Dance')">▶ Listen: Pharaoh&rsquo;s Dance</button></div><div class="info-card cyan-edge"><img src="/images/slides/jazz/teo_macero.jpg" alt="Teo Macero" class="slide-thumb"><h4>Teo Macero, Producer</h4><p>Miles&rsquo;s long-time Columbia producer. He pioneered radical <strong>tape splicing, looping and editing</strong> on records such as <em>In a Silent Way</em> and <em>Bitches Brew</em>.</p></div><div class="info-card acid-edge"><img src="/images/slides/jazz/rhodes_piano.jpg" alt="Fender Rhodes electric piano" class="slide-thumb"><h4>The Fender Rhodes</h4><p>The electric piano replaced the acoustic grand in fusion. Its bell-like tone could be plugged straight in, giving a warm, sustained sound that sits well with electric bass and rock drums.</p></div></div>
+        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/jazz/miles_davis_electric.jpg" alt="Electric Miles Davis" class="slide-thumb"><h4>Miles Davis: <em>Bitches Brew</em> (1970)</h4><p>Recorded in 1969 with a large electric band. Long jam sessions were later <strong>edited and assembled</strong>, using loops, echo and tape splices.</p><div class="video-btn-row"><div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('WtORTuLJw7o', 'Miles Davis - Pharaoh\'s Dance')">▶ Listen: Pharaoh&rsquo;s Dance</button><a href="https://www.youtube.com/watch?v=WtORTuLJw7o" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div><a href="https://www.youtube.com/watch?v=WtORTuLJw7o" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div></div><div class="info-card cyan-edge"><img src="/images/slides/jazz/teo_macero.jpg" alt="Teo Macero" class="slide-thumb"><h4>Teo Macero, Producer</h4><p>Miles&rsquo;s long-time Columbia producer. He pioneered radical <strong>tape splicing, looping and editing</strong> on records such as <em>In a Silent Way</em> and <em>Bitches Brew</em>.</p></div><div class="info-card acid-edge"><img src="/images/slides/jazz/rhodes_piano.jpg" alt="Fender Rhodes electric piano" class="slide-thumb"><h4>The Fender Rhodes</h4><p>The electric piano replaced the acoustic grand in fusion. Its bell-like tone could be plugged straight in, giving a warm, sustained sound that sits well with electric bass and rock drums.</p></div></div>
       </section>
       <section class="slide" data-slide="12">
         <div class="slide-eyebrow"><span>🎹</span> AO3 &amp; AO4 &bull; 1970s</div>
@@ -612,8 +671,8 @@
   </div>
   <div class="video-modal-backdrop" id="videoModal">
     <div class="video-modal-content">
-      <div class="video-modal-header"><span class="video-modal-title" id="videoModalTitle">Video Clip</span><button class="close-modal-btn" onclick="closeVideo()">&times;</button></div>
-      <div class="video-player-wrapper"><iframe id="videoIframe" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+      <div class="video-modal-header"><span class="video-modal-title" id="videoModalTitle">Video Clip</span><div style="display: flex; gap: 10px; align-items: center;"><a id="videoExternalLink" href="#" target="_blank" rel="noopener noreferrer" class="external-yt-link" title="Open directly on YouTube"><span>Open in YouTube</span> <span>↗</span></a><button class="close-modal-btn" onclick="closeVideo()">&times;</button></div></div>
+      <div class="video-player-wrapper"><iframe id="videoIframe" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div><div class="video-modal-footer"><span style="display: inline-flex; align-items: center; gap: 6px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="#ef4444"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube Audio Clip</span><a id="videoFooterLink" href="#" target="_blank" rel="noopener noreferrer" style="color: #38bdf8; font-weight: 700; text-decoration: none;">Watch Directly on YouTube &rarr;</a></div>
     </div>
   </div>
   <script>
@@ -690,6 +749,11 @@
     }
 
     function openVideo(videoId, title) {
+      const extLink = document.getElementById('videoExternalLink');
+      if (extLink) extLink.href = 'https://www.youtube.com/watch?v=' + videoId;
+      const footLink = document.getElementById('videoFooterLink');
+      if (footLink) footLink.href = 'https://www.youtube.com/watch?v=' + videoId;
+
       videoIframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
       videoModalTitle.textContent = title;
       videoModal.classList.add('open');

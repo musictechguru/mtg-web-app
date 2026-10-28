@@ -479,7 +479,66 @@
       margin-bottom: 10px;
       border: 1px solid var(--border-subtle);
     }
-  </style>
+  
+    /* YouTube direct links & enhanced modal styling */
+    .video-btn-row {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      margin-top: 10px;
+      flex-wrap: wrap;
+    }
+    .yt-direct-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #ffffff !important;
+      background: rgba(239, 68, 68, 0.2);
+      border: 1px solid rgba(239, 68, 68, 0.45);
+      padding: 6px 12px;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      line-height: 1.2;
+    }
+    .yt-direct-btn:hover {
+      background: rgba(239, 68, 68, 0.4);
+      border-color: #ef4444;
+      color: #ffffff !important;
+      transform: translateY(-1px);
+    }
+    .external-yt-link {
+      color: #ef4444 !important;
+      font-size: 12px;
+      font-weight: 700;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 5px 12px;
+      border-radius: 6px;
+      background: rgba(239, 68, 68, 0.12);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      transition: all 0.2s ease;
+    }
+    .external-yt-link:hover {
+      background: rgba(239, 68, 68, 0.25);
+      color: #ffffff !important;
+    }
+    .video-modal-footer {
+      padding: 10px 16px;
+      background: rgba(0, 0, 0, 0.6);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: #94a3b8;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+</style>
 </head>
 <body>
 
@@ -593,21 +652,21 @@
             <img src="/images/slides/dance/kraftwerk.jpg" alt="Kraftwerk" class="slide-thumb">
             <h4>Kraftwerk &amp; Machine Pop</h4>
             <p><strong>Düsseldorf, Germany:</strong> <em>The Man-Machine</em> (1978), "The Robots". Replaced acoustic drummers with custom electronic triggers, Minimoog basslines, and <strong>vocoder speech synthesis</strong>, proving electronic instruments could carry full compositions.</p>
-            <button class="video-trigger-btn" onclick="openVideo('D_8Pma1vHmw', 'Kraftwerk - The Robots')">▶ Watch "The Robots"</button>
+            <div class="video-btn-row"><div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('D_8Pma1vHmw', 'Kraftwerk - The Robots')">▶ Watch "The Robots"</button><a href="https://www.youtube.com/watch?v=D_8Pma1vHmw" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div><a href="https://www.youtube.com/watch?v=D_8Pma1vHmw" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div>
           </div>
 
           <div class="info-card indigo-edge">
             <img src="/images/slides/dance/giorgio_moroder.jpg" alt="Giorgio Moroder" class="slide-thumb">
             <h4>Moroder &amp; "I Feel Love" (1977)</h4>
             <p><strong>Donna Summer &amp; Giorgio Moroder:</strong> The birth of the electronic dance record. Built entirely around a <strong>Moog Modular sequencer</strong> driving a pulsing 16th-note bassline synchronized to an unyielding 4-to-the-floor kick and offbeat hi-hats.</p>
-            <button class="video-trigger-btn" onclick="openVideo('VXa9tXcMhXQ', 'Donna Summer & Giorgio Moroder - I Feel Love')">▶ Watch "I Feel Love"</button>
+            <div class="video-btn-row"><div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('VXa9tXcMhXQ', 'Donna Summer & Giorgio Moroder - I Feel Love')">▶ Watch "I Feel Love"</button><a href="https://www.youtube.com/watch?v=VXa9tXcMhXQ" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div><a href="https://www.youtube.com/watch?v=VXa9tXcMhXQ" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div>
           </div>
 
           <div class="info-card acid-edge">
             <img src="/images/slides/dance/new_order.jpg" alt="New Order" class="slide-thumb">
             <h4>Early Electro &amp; New Order</h4>
             <p><strong>1982–1983:</strong> Afrika Bambaataa's "Planet Rock" fused Kraftwerk melodies with the newly released <strong>Roland TR-808</strong>. Simultaneously, New Order's "Blue Monday" became the best-selling 12" vinyl single using Oberheim DMX drums and Moog Source bass.</p>
-            <button class="video-trigger-btn" onclick="openVideo('FYH8DsU2WCk', 'New Order - Blue Monday')">▶ Watch "Blue Monday"</button>
+            <div class="video-btn-row"><div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('FYH8DsU2WCk', 'New Order - Blue Monday')">▶ Watch "Blue Monday"</button><a href="https://www.youtube.com/watch?v=FYH8DsU2WCk" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div><a href="https://www.youtube.com/watch?v=FYH8DsU2WCk" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div>
           </div>
         </div>
       </section>
@@ -629,7 +688,7 @@
             <img src="/images/slides/dance/frankie_knuckles.jpg" alt="Frankie Knuckles" class="slide-thumb">
             <h4>Frankie Knuckles &amp; Jesse Saunders</h4>
             <p>At Chicago's <strong>The Warehouse</strong> club, DJ Frankie Knuckles (the "Godfather of House") extended disco breakdowns using tape loops. In 1984, <strong>Jesse Saunders</strong> released <em>"On and On"</em>, widely recognized as the first official Chicago House single, recorded using a <strong>Roland TR-808</strong> and <strong>Korg Poly-61</strong> synthesizer.</p>
-            <button class="video-trigger-btn" onclick="openVideo('LOLE1YE_oFQ', 'Frankie Knuckles - Your Love')">▶ Listen: Frankie Knuckles "Your Love"</button>
+            <div class="video-btn-row"><div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('LOLE1YE_oFQ', 'Frankie Knuckles - Your Love')">▶ Listen: Frankie Knuckles "Your Love"</button><a href="https://www.youtube.com/watch?v=LOLE1YE_oFQ" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div><a href="https://www.youtube.com/watch?v=LOLE1YE_oFQ" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div>
           </div>
 
           <div class="info-card indigo-edge">
@@ -660,7 +719,7 @@
             <img src="/images/slides/dance/roland_tb303.png" alt="Roland TB-303" class="slide-thumb">
             <h4>Phuture &amp; "Acid Tracks" (1987)</h4>
             <p>Chicago trio <strong>Phuture</strong> (DJ Pierre, Spanky, Herb J) bought a second-hand TB-303. While running a programmed pattern, DJ Pierre began turning knobs in real time. Sweeping the <strong>Cutoff Frequency</strong> and cranking the <strong>Resonance</strong> to maximum pushed the 18 dB/oct filter into screaming, squelchy self-oscillation.</p>
-            <button class="video-trigger-btn" onclick="openVideo('JCUPc9zVfyo', 'Phuture - Acid Tracks (1987)')">▶ Listen: Phuture "Acid Tracks"</button>
+            <div class="video-btn-row"><div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('JCUPc9zVfyo', 'Phuture - Acid Tracks (1987)')">▶ Listen: Phuture "Acid Tracks"</button><a href="https://www.youtube.com/watch?v=JCUPc9zVfyo" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div><a href="https://www.youtube.com/watch?v=JCUPc9zVfyo" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div>
           </div>
 
           <div class="info-card highlight">
@@ -735,7 +794,7 @@
             <h4>From The Prodigy to Goldie</h4>
             <p><strong>The Prodigy:</strong> Liam Howlett pioneered Breakbeat Hardcore with "Out of Space" (1992) and "Firestarter", pairing high-speed sped-up reggae vocal samples with aggressive synthesizer riffs.<br><br>
             <strong>Goldie:</strong> Elevated Jungle into Drum &amp; Bass with <em>"Terminator"</em> (1992) and his masterpiece <em>Timeless</em> (1995), layering 808 sub-bass, time-stretched breakbeats, and cinematic synthesized string arrangements.</p>
-            <button class="video-trigger-btn" onclick="openVideo('wmin5WkOuPw', 'The Prodigy - Firestarter')">▶ Watch: The Prodigy "Firestarter"</button>
+            <div class="video-btn-row"><div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('wmin5WkOuPw', 'The Prodigy - Firestarter')">▶ Watch: The Prodigy "Firestarter"</button><a href="https://www.youtube.com/watch?v=wmin5WkOuPw" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div><a href="https://www.youtube.com/watch?v=wmin5WkOuPw" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div>
           </div>
         </div>
       </section>
@@ -888,7 +947,7 @@
               <br>1. <em>Low-End Headroom:</em> Avoids phase mud and distortion between kick and bass.
               <br>2. <em>Rhythmic Pumping:</em> Induces a dramatic breathing groove synchronized to tempo.
             </div>
-            <button class="video-trigger-btn" onclick="openVideo('K0HSD_i2DvA', 'Daft Punk - Around the World')">▶ Watch: Daft Punk "Around the World"</button>
+            <div class="video-btn-row"><div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('K0HSD_i2DvA', 'Daft Punk - Around the World')">▶ Watch: Daft Punk "Around the World"</button><a href="https://www.youtube.com/watch?v=K0HSD_i2DvA" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div><a href="https://www.youtube.com/watch?v=K0HSD_i2DvA" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div>
           </div>
 
           <div class="info-card highlight">
@@ -1027,11 +1086,11 @@
     <div class="video-modal-content">
       <div class="video-modal-header">
         <span class="video-modal-title" id="videoModalTitle">Video Clip</span>
-        <button class="close-modal-btn" onclick="closeVideo()">&times;</button>
+        <div style="display: flex; gap: 10px; align-items: center;"><a id="videoExternalLink" href="#" target="_blank" rel="noopener noreferrer" class="external-yt-link" title="Open directly on YouTube"><span>Open in YouTube</span> <span>↗</span></a><button class="close-modal-btn" onclick="closeVideo()">&times;</button></div>
       </div>
       <div class="video-player-wrapper">
         <iframe id="videoIframe" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-      </div>
+      </div><div class="video-modal-footer"><span style="display: inline-flex; align-items: center; gap: 6px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="#ef4444"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube Audio Clip</span><a id="videoFooterLink" href="#" target="_blank" rel="noopener noreferrer" style="color: #38bdf8; font-weight: 700; text-decoration: none;">Watch Directly on YouTube &rarr;</a></div>
     </div>
   </div>
 
@@ -1112,6 +1171,11 @@
 
     // Video Modal Handlers
     function openVideo(videoId, title) {
+      const extLink = document.getElementById('videoExternalLink');
+      if (extLink) extLink.href = 'https://www.youtube.com/watch?v=' + videoId;
+      const footLink = document.getElementById('videoFooterLink');
+      if (footLink) footLink.href = 'https://www.youtube.com/watch?v=' + videoId;
+
       videoIframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
       videoModalTitle.textContent = title;
       videoModal.classList.add('open');
