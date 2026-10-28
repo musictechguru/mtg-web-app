@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Blues • Edexcel Component 3 Specification Quiz | Music Tech Guru</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+
+    :root {
+      --bg-dark: #070a14;
+      --bg-card: #0d1322;
+      --bg-surface: #131b2e;
+      --accent-purple: #38bdf8;
+      --accent-purple-glow: rgba(56, 189, 248, 0.35);
+      --accent-cyan: #f59e0b;
+      --accent-cyan-glow: rgba(245, 158, 11, 0.35);
+      --accent-acid: #22c55e;
+      --accent-red: #ef4444;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-purple: rgba(56, 189, 248, 0.35);
+      --border-cyan: rgba(245, 158, 11, 0.35);
+      --font: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: var(--font);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .quiz-container {
+      width: 100%;
+      max-width: 880px;
+      background: radial-gradient(circle at 50% 0%, rgba(56, 189, 248, 0.15) 0%, rgba(14, 17, 36, 0) 70%), var(--bg-card);
+      border: 1px solid var(--border-purple);
+      border-radius: 20px;
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.8), 0 0 40px rgba(56, 189, 248, 0.15);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    /* Top Quiz Header */
+    .quiz-header {
+      padding: 18px 26px;
+      background: rgba(7, 10, 20, 0.85);
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .quiz-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(56, 189, 248, 0.15);
+      border: 1px solid var(--border-purple);
+      color: #7dd3fc;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .quiz-score-pill {
+      font-size: 12.5px;
+      color: var(--text-muted);
+      font-weight: 700;
+    }
+
+    /* Progress Bar */
+    .progress-bar-track {
+      width: 100%;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent-purple) 0%, var(--accent-cyan) 100%);
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    /* Quiz Stage */
+    .quiz-stage {
+      padding: 30px 32px 24px 32px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .question-meta {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .q-category-tag {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--accent-purple);
+    }
+
+    .q-ao-tag {
+      font-size: 10.5px;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border-subtle);
+      color: #cbd5e1;
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+
+    .question-text {
+      font-size: clamp(17px, 2.5vw, 20px);
+      font-weight: 800;
+      line-height: 1.4;
+      color: #ffffff;
+      margin-bottom: 22px;
+    }
+
+    /* Options Grid */
+    .options-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .option-btn {
+      background: rgba(19, 27, 46, 0.6);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 13px 18px;
+      color: #e2e8f0;
+      font-family: var(--font);
+      font-size: 13.5px;
+      line-height: 1.45;
+      font-weight: 600;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .option-btn:hover:not(:disabled) {
+      background: rgba(19, 27, 46, 0.95);
+      border-color: rgba(56, 189, 248, 0.5);
+      transform: translateX(4px);
+    }
+
+    .option-letter {
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 800;
+      color: #94a3b8;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .option-btn.correct {
+      background: rgba(34, 197, 94, 0.15) !important;
+      border-color: var(--accent-acid) !important;
+      color: #86efac !important;
+    }
+
+    .option-btn.correct .option-letter {
+      background: var(--accent-acid);
+      color: #070a14;
+    }
+
+    .option-btn.wrong {
+      background: rgba(239, 68, 68, 0.15) !important;
+      border-color: var(--accent-red) !important;
+      color: #fca5a5 !important;
+    }
+
+    .option-btn.wrong .option-letter {
+      background: var(--accent-red);
+      color: #ffffff;
+    }
+
+    .option-btn:disabled {
+      cursor: default;
+    }
+
+    /* Explanation & Feedback Card */
+    .insight-card {
+      display: none;
+      background: rgba(7, 10, 20, 0.85);
+      border: 1px solid var(--border-purple);
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-bottom: 20px;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .insight-card.open {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .insight-title {
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--accent-purple);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .insight-body {
+      font-size: 12.5px;
+      color: #cbd5e1;
+      line-height: 1.55;
+      margin-bottom: 6px;
+    }
+
+    .insight-tip {
+      font-size: 11.5px;
+      color: #fbbf24;
+      font-style: italic;
+    }
+
+    /* Quiz Footer */
+    .quiz-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 10px;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .q-counter {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-muted);
+    }
+
+    .next-q-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent-purple);
+      color: #070a14;
+      border: none;
+      padding: 10px 22px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .next-q-btn:hover:not(:disabled) {
+      box-shadow: 0 0 20px var(--accent-purple-glow);
+      transform: translateY(-1px);
+    }
+
+    .next-q-btn:disabled {
+      opacity: 0.25;
+      cursor: not-allowed;
+    }
+
+    /* Results Screen */
+    .results-screen {
+      display: none;
+      padding: 40px 32px;
+      text-align: center;
+      flex-direction: column;
+      align-items: center;
+      animation: fadeIn 0.4s ease;
+    }
+
+    .results-screen.open {
+      display: flex;
+    }
+
+    .results-score-circle {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      background: rgba(56, 189, 248, 0.15);
+      border: 3px solid var(--accent-purple);
+      box-shadow: 0 0 30px var(--accent-purple-glow);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .results-score-num {
+      font-size: 32px;
+      font-weight: 900;
+      color: #ffffff;
+      line-height: 1;
+    }
+
+    .results-score-total {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 700;
+    }
+
+    .results-grade-badge {
+      display: inline-block;
+      background: rgba(34, 197, 94, 0.15);
+      border: 1px solid var(--accent-acid);
+      color: #86efac;
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 800;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .results-title {
+      font-size: 24px;
+      font-weight: 900;
+      color: #ffffff;
+      margin-bottom: 8px;
+    }
+
+    .results-message {
+      font-size: 14px;
+      color: #cbd5e1;
+      max-width: 580px;
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+
+    .results-actions {
+      display: flex;
+      gap: 12px;
+    }
+
+    .restart-btn {
+      background: var(--accent-purple);
+      color: #070a14;
+      border: none;
+      padding: 10px 24px;
+      border-radius: 8px;
+      font-size: 13.5px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .restart-btn:hover {
+      box-shadow: 0 0 20px var(--accent-purple-glow);
+      transform: translateY(-1px);
+    }
+
+    .back-slides-btn {
+      background: rgba(255, 255, 255, 0.08);
+      color: #ffffff;
+      border: 1px solid var(--border-subtle);
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 13.5px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .back-slides-btn:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="quiz-container">
+    <!-- Top Header -->
+    <div class="quiz-header">
+      <div class="quiz-badge">
+        <span>🎸</span> Edexcel Component 3 &bull; Specification Quiz
+      </div>
+      <div class="quiz-score-pill">
+        Score: <strong style="color: var(--accent-purple);" id="currentScore">0</strong> / 12
+      </div>
+    </div>
+
+    <!-- Progress Track -->
+    <div class="progress-bar-track">
+      <div class="progress-bar-fill" id="progressFill"></div>
+    </div>
+
+    <!-- Active Quiz Stage -->
+    <div class="quiz-stage" id="quizStage">
+      <div class="question-meta">
+        <span class="q-category-tag" id="qCategory">Category</span>
+        <span class="q-ao-tag" id="qAoTag">AO Tag</span>
+      </div>
+
+      <h3 class="question-text" id="qText">Question Stem Loading...</h3>
+
+      <div class="options-grid" id="optionsGrid">
+        <!-- Buttons injected dynamically -->
+      </div>
+
+      <div class="insight-card" id="insightCard">
+        <div class="insight-title">
+          <span>💡</span> Technical Analysis &amp; Syllabus Context
+        </div>
+        <div class="insight-body" id="insightBody"></div>
+        <div class="insight-tip" id="insightTip"></div>
+      </div>
+
+      <div class="quiz-footer">
+        <span class="q-counter" id="qCounter">Question 1 of 12</span>
+        <button class="next-q-btn" id="nextBtn" onclick="nextQuestion()" disabled>
+          Next Question &rarr;
+        </button>
+      </div>
+    </div>
+
+    <!-- Results Screen -->
+    <div class="results-screen" id="resultsScreen">
+      <div class="results-score-circle">
+        <span class="results-score-num" id="finalScoreVal">0</span>
+        <span class="results-score-total">out of 12</span>
+      </div>
+      <div class="results-grade-badge" id="gradeBadge">Distinction</div>
+      <h2 class="results-title" id="resultTitle">Performance Summary</h2>
+      <p class="results-message" id="resultMessage">Analysis message goes here.</p>
+
+      <div class="results-actions">
+        <button class="restart-btn" onclick="restartQuiz()">Retake Quiz</button>
+        <a href="/interactive-slide-blues.html" class="back-slides-btn">&larr; Return to Slide Deck</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const questions = [
+  {
+    "category": "Timecode & Sync",
+    "ao": "AO3: Film Synchronization",
+    "text": "What standardized timing format, measured in hours:minutes:seconds:frames, is universally used to lock DAWs, video playback, and MIDI sequencers together in film post-production?",
+    "correct": "SMPTE Timecode (Society of Motion Picture and Television Engineers)",
+    "wrong": [
+      "MIDI Polyphonic Expression (MPE)",
+      "Open Sound Control (OSC)",
+      "Direct Stream Digital (DSD)"
+    ],
+    "explanation": "SMPTE timecode provides frame-accurate synchronization across video playback decks, digital audio workstations, and analog tape machines. Standard frame rates include 24 fps (film), 25 fps (PAL broadcast), and 29.97/30 fps (NTSC).",
+    "tip": "Synchronization: SMPTE timecode = hours:minutes:seconds:frames (HH:MM:SS:FF)."
+  },
+  {
+    "category": "Conducting to Picture",
+    "ao": "AO3: Studio Performance",
+    "text": "During a live film scoring session on an orchestral sound stage, what tools do conductors and session musicians rely on to ensure tempo and cue changes hit exact dramatic on-screen moments?",
+    "correct": "Headphone click tracks and visual \"streamer\" lines that wipe across video monitors towards hit-point flashes",
+    "wrong": [
+      "Wireless footpedals that automatically speed up the conductor's physical arm movements",
+      "Automated robotic batons connected directly to the film director's smartphone",
+      "Analog tape loops containing vocal shouts of elapsed seconds broadcast into studio loudspeakers"
+    ],
+    "explanation": "Conductors watch video monitors showing \"streamers\" (colored lines moving across the picture towards a punch flash) while wearing headphones fed with a click track, ensuring musical cues hit dramatic scene transitions to the exact frame.",
+    "tip": "Conducting to picture: Click track = tempo guide; Streamers & punches = visual hit warnings."
+  },
+  {
+    "category": "Orchestral Capture",
+    "ao": "AO3: Microphone Arrays",
+    "text": "What classic stereo orchestral recording configuration consists of three omnidirectional microphones arranged in a \"T\" shape suspended above the conductor's podium?",
+    "correct": "The Decca Tree (Left, Right, and Center omnidirectional microphones)",
+    "wrong": [
+      "The Blumlein Pair (two bidirectional figure-8 microphones angled at 90\u00b0)",
+      "The ORTF Array (two cardioid microphones spaced 17 cm apart at 110\u00b0)",
+      "The Mid-Side Matrix (one cardioid mic and one figure-8 mic decoded via sum and difference)"
+    ],
+    "explanation": "Developed by Decca engineers in the 1950s, the Decca Tree uses three omnidirectional microphones (traditionally Neumann M50s) spaced roughly 2 meters wide and 1.5 meters forward on a T-bar, delivering spacious stereo width and precise center imaging.",
+    "tip": "Orchestral miking: Decca Tree = 3 omnidirectional microphones in a T-shape over the conductor."
+  },
+  {
+    "category": "8-Bit Game Audio",
+    "ao": "AO3: Chiptune Hardware",
+    "text": "The Ricoh 2A03 sound chip inside the 8-bit Nintendo Entertainment System (NES) generated audio using which specific set of voice channels?",
+    "correct": "Two square wave channels (melody/harmony), one triangle wave channel (bass), one pseudo-random noise channel (percussion), and one 1-bit DPCM sample channel",
+    "wrong": [
+      "Eight uncompressed 24-bit PCM wavetable channels streaming from a hard drive",
+      "Four analog sawtooth oscillators running through resonant Moog ladder filters",
+      "Six FM synthesis operators with 32 selectable algorithms"
+    ],
+    "explanation": "The NES 2A03 Programmable Sound Generator (PSG) offered strictly 5 channels: two pulse/square channels for leads/chords, one non-filtered triangle wave for bass, one noise channel for drums/explosions, and one low-bit DPCM sample channel.",
+    "tip": "NES 8-bit sound chip: 2 square waves + 1 triangle wave + 1 noise channel + 1 DPCM channel."
+  },
+  {
+    "category": "16-Bit Consoles",
+    "ao": "AO3: FM vs Sample Playback",
+    "text": "How did the audio technology of the Sega Genesis (Mega Drive) fundamentally differ from that of the Super Nintendo (SNES)?",
+    "correct": "The Sega Genesis used a Yamaha YM2612 FM synthesis chip, whereas the SNES used a Sony SPC700 chip that played back 8 channels of compressed 16-bit audio samples with hardware echo",
+    "wrong": [
+      "The Sega Genesis streamed full uncompressed CD-ROM Redbook audio, while the SNES only produced 1-bit monophonic square waves",
+      "The SNES relied entirely on analog vacuum tubes, whereas the Sega Genesis used digital optical disc laser pickups",
+      "The Sega Genesis used an 8-operator additive synthesizer, while the SNES used physical guitar strings plucked by magnetic solenoids"
+    ],
+    "explanation": "The Sega Genesis generated audio mathematically via 6-channel FM synthesis (Yamaha YM2612), excelling at metallic leads and electronic punch. The SNES used the Sony SPC700 to play back 8 channels of compressed acoustic samples with hardware interpolation and reverb.",
+    "tip": "16-bit console war: Sega Genesis = Yamaha FM synthesis; SNES = Sony sample playback with hardware echo."
+  },
+  {
+    "category": "Interactive Audio",
+    "ao": "AO3: Vertical Layering",
+    "text": "In video game audio engines, what is \"Vertical Layering\" (also known as dynamic stemming)?",
+    "correct": "Simultaneously running multiple synchronized audio tracks (e.g. ambient pads, drums, aggressive brass) that fade in or out depending on gameplay intensity",
+    "wrong": [
+      "Stacking identical audio waveforms slightly out of phase to create an extreme comb-filtering effect",
+      "Pitching a melody up by an octave whenever the player jumps vertically in the game",
+      "Cutting the game soundtrack abruptly whenever the player enters a new physical room"
+    ],
+    "explanation": "Vertical layering consists of synchronized musical stems (rhythm, harmony, lead, percussion) playing in parallel. As combat begins or player health drops, the game engine un-mutes heavier layers without interrupting tempo or musical continuity.",
+    "tip": "Game audio: Vertical Layering = simultaneous stems faded in/out based on gameplay intensity."
+  },
+  {
+    "category": "Adaptive Architecture",
+    "ao": "AO3: Horizontal Resequencing",
+    "text": "In adaptive game scoring, what is \"Horizontal Resequencing\"?",
+    "correct": "Seamlessly branching between different musical sections or cue segments at specific bar/beat boundaries based on the player's choices or game state changes",
+    "wrong": [
+      "Panning all audio hard left during cutscenes and hard right during combat gameplay",
+      "Rewinding the entire audio file from end to beginning whenever the player character dies",
+      "Converting a stereo recording into a mono signal by summing left and right channels horizontally"
+    ],
+    "explanation": "Horizontal resequencing breaks music into discrete modular segments. When the player triggers an event (entering a dungeon, discovering a town), the engine waits for the next musical quantize point (downbeat) to branch smoothly into a new cue.",
+    "tip": "Adaptive scoring: Horizontal Resequencing = branching between modular cues at musical bar/beat points."
+  },
+  {
+    "category": "Film Synthesizers",
+    "ao": "AO4: Synthesizer Scoring",
+    "text": "Which iconic polyphonic analog synthesizer, known for its polyphonic aftertouch and ribbon controller, was famously played by Vangelis to score Ridley Scott's 1982 film Blade Runner?",
+    "correct": "Yamaha CS-80",
+    "wrong": [
+      "Roland TB-303",
+      "Yamaha DX7",
+      "Korg M1"
+    ],
+    "explanation": "Vangelis composed Blade Runner live to picture using the heavyweight Yamaha CS-80. Its expressive polyphonic aftertouch and weighted ribbon controller allowed him to perform nuanced brass swells, vibrato, and pitch bends directly to screen.",
+    "tip": "Film synth icon: Vangelis + Blade Runner = Yamaha CS-80 (polyphonic aftertouch & ribbon controller)."
+  },
+  {
+    "category": "Sound Post-Production",
+    "ao": "AO3: Foley Sound Design",
+    "text": "What is the primary role of a \"Foley Artist\" in film post-production?",
+    "correct": "To perform and record everyday sound effects (such as footsteps, cloth rustle, and handling props) in sync with the projected picture on a specialized sound stage",
+    "wrong": [
+      "To conduct the symphony orchestra during the main title theme recording",
+      "To remove all background noise from the dialogue tracks using digital high-pass filters",
+      "To design the 3D visual CGI animations for creature effects in action movies"
+    ],
+    "explanation": "Named after pioneer Jack Foley, Foley artists watch projected film scenes in soundproof studios with pits of dirt, gravel, concrete, and water, performing human-sync physical sounds (footsteps, movement, prop handling) with specialized microphones.",
+    "tip": "Sound design: Foley Artist = performs physical props and footsteps in sync with picture."
+  },
+  {
+    "category": "Film Vocabulary",
+    "ao": "AO4: Musical Functions",
+    "text": "In film sound terminology, what is \"Diegetic\" (or source) music?",
+    "correct": "Music that exists within the world of the film and can be heard by the characters on screen (e.g. a band playing in a bar or a radio playing in a car)",
+    "wrong": [
+      "The dramatic symphonic background score composed specifically to heighten the emotional tension for the audience",
+      "Music generated entirely by artificial intelligence software without human supervision",
+      "A short musical motif that only plays during the end credits of a feature film"
+    ],
+    "explanation": "Diegetic music is part of the on-screen narrative world (characters can hear it, such as a jukebox or car stereo). Non-diegetic music is the cinematic score added purely for the audience's psychological benefit (characters cannot hear it).",
+    "tip": "Screen vocabulary: Diegetic = inside the scene (characters hear it); Non-Diegetic = outside the scene (score)."
+  },
+  {
+    "category": "Virtual Mockups",
+    "ao": "AO3: Orchestral Sample Libraries",
+    "text": "When composing orchestral mockups using virtual instruments (such as Spitfire Audio or Vienna Symphonic Library), which MIDI Continuous Controller is universally mapped to the Modulation Wheel (Mod Wheel) to control dynamic crossfades between ppp and fff sample layers?",
+    "correct": "MIDI CC1 (Modulation)",
+    "wrong": [
+      "MIDI CC7 (Channel Volume)",
+      "MIDI CC10 (Pan)",
+      "MIDI CC64 (Sustain Pedal)"
+    ],
+    "explanation": "In modern orchestral sample libraries, MIDI CC1 (Modulation Wheel) crossfades between dynamic velocity layers (pianissimo to fortissimo), allowing composers to perform realistic orchestral crescendos and timbral swells on held notes.",
+    "tip": "DAW mockups: MIDI CC1 (Mod Wheel) = dynamic layer crossfading; CC11 = expression volume."
+  },
+  {
+    "category": "Optical Storage & Games",
+    "ao": "AO3 & AO4: Redbook Audio",
+    "text": "How did the transition to CD-ROM media in mid-1990s consoles like the Sony PlayStation fundamentally revolutionize video game soundtracks?",
+    "correct": "It allowed games to stream full 44.1 kHz / 16-bit uncompressed Redbook audio, enabling pre-recorded live orchestral performances, real choirs, and studio vocals",
+    "wrong": [
+      "It eliminated the need for game composers by having the console generate music purely from random CPU clock ticks",
+      "It restricted game audio to 8-bit mono square waves because CD-ROMs had slower data transfer rates than silicon cartridges",
+      "It required all game audio to be broadcast over analog AM radio frequencies into the television speaker"
+    ],
+    "explanation": "Prior to CD-ROMs, consoles relied on hardware synthesis chips. The 650MB capacity of CDs permitted direct streaming of uncompressed 44.1 kHz / 16-bit Redbook digital audio, ushering in live symphonic scores (like Nobuo Uematsu's One-Winged Angel) and licensed songs.",
+    "tip": "Optical gaming: CD-ROM (PlayStation 1) = 44.1 kHz / 16-bit Redbook streaming of real recorded orchestras."
+  }
+];
+
+    function shuffle(arr) {
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+
+    let currentQ = 0;
+    let score = 0;
+    let answered = false;
+    let currentOptions = [];
+
+    const qText = document.getElementById('qText');
+    const qCategory = document.getElementById('qCategory');
+    const qAoTag = document.getElementById('qAoTag');
+    const optionsGrid = document.getElementById('optionsGrid');
+    const insightCard = document.getElementById('insightCard');
+    const insightBody = document.getElementById('insightBody');
+    const insightTip = document.getElementById('insightTip');
+    const qCounter = document.getElementById('qCounter');
+    const currentScore = document.getElementById('currentScore');
+    const progressFill = document.getElementById('progressFill');
+    const nextBtn = document.getElementById('nextBtn');
+    const quizStage = document.getElementById('quizStage');
+    const resultsScreen = document.getElementById('resultsScreen');
+    const finalScoreVal = document.getElementById('finalScoreVal');
+    const gradeBadge = document.getElementById('gradeBadge');
+    const resultTitle = document.getElementById('resultTitle');
+    const resultMessage = document.getElementById('resultMessage');
+    const letters = ['A', 'B', 'C', 'D'];
+
+    function loadQuestion(index) {
+      answered = false;
+      const q = questions[index];
+      qText.innerHTML = q.text;
+      qCategory.innerText = q.category;
+      qAoTag.innerText = q.ao;
+      qCounter.innerText = `Question ${index + 1} of ${questions.length}`;
+      currentScore.innerText = `Score: ${score}/${questions.length}`;
+      progressFill.style.width = `${((index) / questions.length) * 100}%`;
+
+      insightCard.classList.remove('show');
+      nextBtn.disabled = true;
+
+      // SHUFFLE OPTIONS so correct answer is NOT always in position A
+      currentOptions = shuffle([
+        { text: q.correct, ok: true },
+        ...q.wrong.map(w => ({ text: w, ok: false }))
+      ]);
+
+      optionsGrid.innerHTML = '';
+      currentOptions.forEach((opt, idx) => {
+        const btn = document.createElement('button');
+        btn.className = 'option-btn';
+        btn.innerHTML = `<span class="option-letter">${letters[idx]}</span><span>${opt.text}</span>`;
+        btn.onclick = () => selectOption(idx, btn);
+        optionsGrid.appendChild(btn);
+      });
+    }
+
+    function selectOption(idx, btn) {
+      if (answered) return;
+      answered = true;
+
+      const q = questions[currentQ];
+      const isCorrect = currentOptions[idx].ok;
+      const btns = optionsGrid.querySelectorAll('.option-btn');
+
+      btns.forEach((b, i) => {
+        b.disabled = true;
+        if (currentOptions[i].ok) {
+          b.classList.add('correct');
+        }
+      });
+
+      if (isCorrect) {
+        btn.classList.add('correct');
+        score++;
+      } else {
+        btn.classList.add('wrong');
+      }
+
+      currentScore.innerText = `Score: ${score}/${questions.length}`;
+      insightBody.innerHTML = q.explanation;
+      insightTip.innerHTML = `<strong>Specification Tip:</strong> ${q.tip}`;
+      insightCard.classList.add('show');
+
+      nextBtn.disabled = false;
+      if (currentQ === questions.length - 1) {
+        nextBtn.innerText = 'View Results & Analysis';
+      }
+    }
+
+    function handleNext() {
+      if (currentQ < questions.length - 1) {
+        currentQ++;
+        loadQuestion(currentQ);
+      } else {
+        showResults();
+      }
+    }
+
+    function showResults() {
+      quizStage.style.display = 'none';
+      resultsScreen.style.display = 'block';
+      progressFill.style.width = '100%';
+
+      finalScoreVal.innerText = `${score} / ${questions.length}`;
+      const pct = (score / questions.length) * 100;
+
+      if (pct >= 80) {
+        gradeBadge.innerText = 'Grade A* / A - Master of Screen & Game Audio';
+        gradeBadge.style.color = '#38bdf8';
+        gradeBadge.style.borderColor = '#38bdf8';
+        resultTitle.innerText = 'Cinematic & Interactive Mastery!';
+        resultMessage.innerText = 'You demonstrated complete command of film synchronization, Decca Tree orchestral capture, vintage game sound chips, and modern adaptive audio.';
+      } else if (pct >= 60) {
+        gradeBadge.innerText = 'Grade B / C - Solid Knowledge Base';
+        gradeBadge.style.color = '#f59e0b';
+        gradeBadge.style.borderColor = '#f59e0b';
+        resultTitle.innerText = 'Strong Foundation!';
+        resultMessage.innerText = 'Good grasp of screen music concepts. Review Vertical Layering vs Horizontal Resequencing and 16-bit sound chips to secure full marks.';
+      } else {
+        gradeBadge.innerText = 'Revision Required';
+        gradeBadge.style.color = '#f87171';
+        gradeBadge.style.borderColor = '#f87171';
+        resultTitle.innerText = 'Keep Revising!';
+        resultMessage.innerText = 'Use the 14-slide interactive presentation deck to reinforce your understanding of SMPTE, sound chips, Foley, and landmark composers.';
+      }
+    }
+
+    function restartQuiz() {
+      currentQ = 0;
+      score = 0;
+      nextBtn.innerText = 'Next Question &rarr;';
+      quizStage.style.display = 'block';
+      resultsScreen.style.display = 'none';
+      loadQuestion(0);
+    }
+
+    window.onload = () => loadQuestion(0);
+</script>
+</body>
+</html>
