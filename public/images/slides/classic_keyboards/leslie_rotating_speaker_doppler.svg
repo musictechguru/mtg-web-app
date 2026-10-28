@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500" width="100%" height="100%">
+  <rect width="900" height="500" fill="#080e1a" rx="16"/>
+  <text x="450" y="40" fill="#ffffff" font-size="22" font-weight="800" text-anchor="middle" font-family="system-ui, sans-serif">Leslie 122 Rotary Speaker Acoustic Doppler Mechanics</text>
+  <text x="450" y="65" fill="#94a3b8" font-size="13" text-anchor="middle" font-family="system-ui, sans-serif">800 Hz Passive Crossover &bull; Rotating Treble Horn &bull; Rotating Bass Drum Rotor &bull; Chorale vs Tremolo</text>
+
+  <!-- Cabinet Outline -->
+  <rect x="180" y="100" width="340" height="350" fill="#0f172a" stroke="#d97706" stroke-width="4" rx="12"/>
+  <text x="350" y="128" fill="#fbbf24" font-size="14" font-weight="800" text-anchor="middle" font-family="system-ui, sans-serif">Leslie 122 Wooden Cabinet</text>
+
+  <!-- Top Compartment: Rotating Treble Horn -->
+  <rect x="200" y="145" width="300" height="110" fill="#1e293b" stroke="#38bdf8" stroke-width="2" rx="8"/>
+  <!-- Rotating Horn Shape -->
+  <g transform="translate(350, 200)">
+    <circle cx="0" cy="0" r="16" fill="#38bdf8"/>
+    <polygon points="0,-10 90,-35 90,35 0,10" fill="#0284c7" opacity="0.8" stroke="#38bdf8" stroke-width="2"/>
+    <polygon points="0,-10 -90,-35 -90,35 0,10" fill="#0284c7" opacity="0.3" stroke="#38bdf8" stroke-width="1" stroke-dasharray="2 2"/>
+    <path d="M-40,-45 A60,60 0 0,1 40,-45" fill="none" stroke="#ffffff" stroke-width="2" marker-end="url(#arrow)"/>
+    <text x="0" y="-52" fill="#ffffff" font-size="10" font-weight="800" text-anchor="middle" font-family="system-ui, sans-serif">Counter-Clockwise</text>
+  </g>
+  <text x="210" y="165" fill="#38bdf8" font-size="11" font-weight="700" font-family="system-ui, sans-serif">High Freq (&gt;800 Hz)</text>
+  <text x="210" y="180" fill="#94a3b8" font-size="10" font-family="system-ui, sans-serif">Twin Horn (1 dummy counterweight)</text>
+
+  <!-- 800 Hz Passive Crossover Divider -->
+  <line x1="180" y1="270" x2="520" y2="270" stroke="#64748b" stroke-width="3" stroke-dasharray="6 4"/>
+  <text x="350" y="275" fill="#cbd5e1" font-size="11" font-weight="800" text-anchor="middle" font-family="system-ui, sans-serif">800 Hz Crossover Network</text>
+
+  <!-- Bottom Compartment: Rotating Bass Drum Rotor -->
+  <rect x="200" y="295" width="300" height="135" fill="#1e293b" stroke="#34d399" stroke-width="2" rx="8"/>
+  <!-- Stationary 15" Woofer -->
+  <circle cx="350" cy="345" r="35" fill="#334155" stroke="#475569" stroke-width="2"/>
+  <text x="350" y="350" fill="#94a3b8" font-size="10" font-weight="700" text-anchor="middle" font-family="system-ui, sans-serif">Stationary 15&quot; Speaker</text>
+  <!-- Wooden Drum Rotor -->
+  <g transform="translate(350, 375)">
+    <ellipse cx="0" cy="0" rx="80" ry="30" fill="none" stroke="#34d399" stroke-width="3"/>
+    <path d="M-60,0 Q0,25 60,0" fill="#34d399" opacity="0.5"/>
+    <path d="M40,-25 A50,20 0 0,1 -40,-25" fill="none" stroke="#ffffff" stroke-width="2" marker-end="url(#arrow)"/>
+    <text x="0" y="-32" fill="#ffffff" font-size="10" font-weight="800" text-anchor="middle" font-family="system-ui, sans-serif">Clockwise</text>
+  </g>
+  <text x="210" y="315" fill="#34d399" font-size="11" font-weight="700" font-family="system-ui, sans-serif">Low Freq (&lt;800 Hz)</text>
+  <text x="210" y="330" fill="#94a3b8" font-size="10" font-family="system-ui, sans-serif">Wood Drum with curved scoop</text>
+
+  <!-- Right Side Explanations -->
+  <g transform="translate(550, 120)">
+    <!-- Speed Modes Box -->
+    <rect x="0" y="0" width="310" height="155" fill="#0f172a" stroke="#38bdf8" stroke-width="1.5" rx="8"/>
+    <text x="18" y="28" fill="#38bdf8" font-size="14" font-weight="800" font-family="system-ui, sans-serif">Two Motor Speeds:</text>
+    
+    <text x="18" y="55" fill="#ffffff" font-size="12" font-weight="700" font-family="system-ui, sans-serif">&bull; Chorale (Slow): ~40 RPM</text>
+    <text x="28" y="72" fill="#94a3b8" font-size="11" font-family="system-ui, sans-serif">Gentle, lush spatial phasing and shimmer.</text>
+    
+    <text x="18" y="100" fill="#ffffff" font-size="12" font-weight="700" font-family="system-ui, sans-serif">&bull; Tremolo (Fast): ~400 RPM</text>
+    <text x="28" y="117" fill="#94a3b8" font-size="11" font-family="system-ui, sans-serif">Dramatic, intense pitch warble and flutter.</text>
+    
+    <text x="18" y="142" fill="#f59e0b" font-size="11" font-weight="700" font-family="system-ui, sans-serif">Ramp up / Ramp down inertia creates drama!</text>
+
+    <!-- Acoustic Doppler Physics Box -->
+    <rect x="0" y="175" width="310" height="155" fill="#0f172a" stroke="#34d399" stroke-width="1.5" rx="8"/>
+    <text x="18" y="202" fill="#34d399" font-size="14" font-weight="800" font-family="system-ui, sans-serif">Acoustic Doppler Effect:</text>
+    <text x="18" y="226" fill="#cbd5e1" font-size="11.5" font-family="system-ui, sans-serif">&bull; When horn points toward listener: sound waves compress &rarr; pitch shifts UP.</text>
+    <text x="18" y="258" fill="#cbd5e1" font-size="11.5" font-family="system-ui, sans-serif">&bull; When horn turns away: sound waves stretch &rarr; pitch shifts DOWN.</text>
+    <text x="18" y="290" fill="#cbd5e1" font-size="11.5" font-family="system-ui, sans-serif">&bull; Combines frequency modulation (vibrato) + amplitude modulation (tremolo).</text>
+  </g>
+</svg>
