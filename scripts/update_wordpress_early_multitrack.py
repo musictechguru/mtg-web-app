@@ -74,7 +74,7 @@ html_content = f'''<div id="mtg-dark-theme-wrapper" style="background: {BG}; col
     <!-- 1. HERO BANNER -->
     <div style="background: linear-gradient(135deg, #1e1b11 0%, {BG} 100%); border: 1px solid rgba(245, 158, 11, 0.35); border-radius: 20px; padding: 36px 32px; margin-bottom: 35px; box-shadow: 0 12px 35px rgba(0,0,0,0.5);">
         <div style="display: inline-block; background: rgba(245, 158, 11, 0.12); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.35); padding: 4px 14px; border-radius: 50px; font-size: 11.5px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 12px;">
-            Evolutionary Era 02 &bull; Edexcel Component 4: Production &amp; Analysing
+            Evolutionary Era 02 &bull; Edexcel Component 3: Music Technology in Context
         </div>
         <h1 style="color: #ffffff !important; font-size: clamp(28px, 4vw, 38px); font-weight: 900; margin: 0 0 12px 0; line-height: 1.2; letter-spacing: -0.5px;">
             Early Multitrack Recording <span style="color: {AMBER}; font-size: 0.85em;">(1964–1969)</span>
@@ -102,7 +102,7 @@ html_content = f'''<div id="mtg-dark-theme-wrapper" style="background: {BG}; col
     {embed("rgba(245,158,11,0.35)", AMBER, "Interactive Curriculum Slide Deck &bull; Early Multitrack (1964–1969)", "15 Comprehensive Slides &bull; 42 Technical Diagrams &bull; Audio Examples", "https://app.musictechguru.com/interactive-slide-early-multitrack?v=1", 680)}
 
     <!-- 4. SPECIFICATION QUIZ -->
-    {embed("rgba(251,191,36,0.35)", GOLD, "Component 4 Exam Specification Quiz &bull; Early Multitrack", "12 Exam-Style Multiple Choice Questions &bull; Instant Marking &bull; Detailed Explanations", "https://app.musictechguru.com/early-multitrack-interactive-quiz?v=1", 680)}
+    {embed("rgba(251,191,36,0.35)", GOLD, "Component 3 Exam Specification Quiz &bull; Early Multitrack", "12 Exam-Style Multiple Choice Questions &bull; Instant Marking &bull; Detailed Explanations", "https://app.musictechguru.com/early-multitrack-interactive-quiz?v=1", 680)}
 
     <!-- 5. HISTORICAL STUDIO DEMONSTRATIONS (VIDEOS) -->
     <div style="margin-bottom: 40px;">
@@ -127,7 +127,7 @@ html_content = f'''<div id="mtg-dark-theme-wrapper" style="background: {BG}; col
         <div style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); display: grid; gap: 16px;">
             {homework_card("1", "Guided Homework 1 &bull; 4-Track Tape &amp; Sel-Sync", "Studer J37 tape transport, 1-inch tape width, Sel-Sync synchronous overdubbing, and reduction mixing track allocation.", "1P9m1KIshDci6sP8hIdrMcl6oIxVUJmsyo8AUzcuHTOg")}
             {homework_card("2", "Guided Homework 2 &bull; Outboard Dynamics &amp; Reverb", "Fairchild 670 variable-mu limiting, Teletronix LA-2A optical leveling, and EMT 140 cold-rolled steel plate reverb acoustics.", "1EbXjwFhArBNSzjME7KuAhrGTLSzSc9U0r1g2J5pLU-g")}
-            {homework_card("3", "Guided Homework 3 &bull; Studio Innovation &amp; Stereo Mixes", "Ken Townsend's ADT tape delay system, manual tape flanging comb filtering, Vox wah-wah filters, and early stereo hard-panning.", "1Q6F1GqQb2wZss3UmjWkQuBCgu7ZrrPu-hm9O6X4d4T4")}
+            {homework_card("3", "Guided Homework 3 &bull; Studio Innovation &amp; Stereo Mixes", "Ken Townsend's ADT tape delay system, manual tape flanging comb filtering, Vox wah-wah filters, and Component 3 extended listening questions.", "1Q6F1GqQb2wZss3UmjWkQuBCgu7ZrrPu-hm9O6X4d4T4")}
         </div>
     </div>
 
@@ -136,35 +136,35 @@ html_content = f'''<div id="mtg-dark-theme-wrapper" style="background: {BG}; col
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; align-items: center;">
             <div style="text-align: center;">
                 <div style="position: relative; display: inline-block; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.1);">
-                    <img src="https://www.musictechguru.com/wp-content/uploads/2025/02/2023-How-to-pass-C4-exam-TK-.png" alt="Component 4 Production &amp; Analysing Exam Guide" style="display: block; width: 100%; max-width: 320px; height: auto;">
+                    <img src="https://www.musictechguru.com/wp-content/uploads/2025/03/Music-tech-1950s-resource-pack.png" alt="Music Technology Complete Teaching Pack" style="display: block; width: 100%; max-width: 320px; height: auto;">
                     <div style="position: absolute; top: 12px; right: 12px; background: #e11d48; color: #ffffff; font-size: 11px; font-weight: 800; padding: 4px 10px; border-radius: 50px; text-transform: uppercase; letter-spacing: 0.5px; box-shadow: 0 4px 12px rgba(225,29,72,0.5);">
-                        Exam Essential
+                        Save 60%
                     </div>
                 </div>
             </div>
             <div>
                 <div style="display: inline-block; background: rgba(245,158,11,0.15); color: {AMBER}; border: 1px solid rgba(245,158,11,0.35); padding: 4px 12px; border-radius: 50px; font-size: 11px; font-weight: 800; letter-spacing: 0.8px; text-transform: uppercase; margin-bottom: 10px;">
-                    Component 4 Masterclass Resource
+                    Component 3 Teacher &amp; Student Pack
                 </div>
                 <h3 style="color: #ffffff; font-size: 22px; font-weight: 800; margin: 0 0 10px 0; line-height: 1.3;">
-                    Component 4 Production &amp; Analysing Exam Walkthrough
+                    Music Technology Complete Historical Teaching Pack
                 </h3>
                 <div style="display: flex; align-items: baseline; gap: 10px; margin-bottom: 14px;">
                     <span style="color: {GOLD}; font-size: 26px; font-weight: 900;">&pound;9.95</span>
-                    <span style="color: #64748b; font-size: 16px; text-decoration: line-through;">&pound;20.00</span>
-                    <span style="color: #34d399; font-size: 12px; font-weight: 700; background: rgba(52,211,153,0.1); padding: 3px 8px; border-radius: 6px;">Instant Digital Access</span>
+                    <span style="color: #64748b; font-size: 16px; text-decoration: line-through;">&pound;25.00</span>
+                    <span style="color: #34d399; font-size: 12px; font-weight: 700; background: rgba(52,211,153,0.1); padding: 3px 8px; border-radius: 6px;">Instant Digital Download</span>
                 </div>
                 <ul style="color: #cbd5e1; font-size: 13px; line-height: 1.7; padding-left: 20px; margin: 0 0 20px 0;">
-                    <li>Step-by-step examiner walkthrough of authentic Component 4 exam questions</li>
-                    <li>Audio analysis for 1960s multitrack recordings, bouncing loss, and plate reverbs</li>
-                    <li>Detailed mark schemes, examiner commentary, and common pitfall warnings</li>
-                    <li>Complete guide to answering technical questions on EQ, compression, and stereo imaging</li>
+                    <li>Comprehensive classroom presentation deck &amp; editable teacher slide notes</li>
+                    <li>Full audio timeline analysis: 4-track tape, bouncing loss, plate reverbs &amp; soul</li>
+                    <li>Component 3 exam practice question booklets with complete examiner mark schemes</li>
+                    <li>Technical guides covering tape head gaps, Sel-Sync, ADT, and 1960s Abbey Road setups</li>
                 </ul>
                 <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-                    <a href="https://www.musictechguru.com/cart/?add-to-cart=297504" style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; background: linear-gradient(135deg, #f59e0b, #d97706); color: #080e1a; font-size: 13.5px; font-weight: 800; padding: 12px 24px; border-radius: 10px; text-decoration: none; box-shadow: 0 6px 20px rgba(245,158,11,0.35);">
+                    <a href="https://www.musictechguru.com/cart/?add-to-cart=297533" style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; background: linear-gradient(135deg, #f59e0b, #d97706); color: #080e1a; font-size: 13.5px; font-weight: 800; padding: 12px 24px; border-radius: 10px; text-decoration: none; box-shadow: 0 6px 20px rgba(245,158,11,0.35);">
                         <span>Add to Cart (&pound;9.95)</span> &rarr;
                     </a>
-                    <a href="https://www.musictechguru.com/product/2023-music-technology-component-4-past-paper-walkthough/" style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; background: rgba(255,255,255,0.06); color: #ffffff; font-size: 13px; font-weight: 600; padding: 12px 20px; border-radius: 10px; text-decoration: none; border: 1px solid rgba(255,255,255,0.15);">
+                    <a href="https://www.musictechguru.com/product/music-technology-1930-1961/" style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; background: rgba(255,255,255,0.06); color: #ffffff; font-size: 13px; font-weight: 600; padding: 12px 20px; border-radius: 10px; text-decoration: none; border: 1px solid rgba(255,255,255,0.15);">
                         <span>View Pack Details</span>
                     </a>
                 </div>
@@ -174,7 +174,7 @@ html_content = f'''<div id="mtg-dark-theme-wrapper" style="background: {BG}; col
 
     <!-- 8. BOTTOM NAVIGATION -->
     <div style="margin-top: 40px; padding: 28px 24px; background: linear-gradient(135deg, #1e1b11 0%, {BG} 100%); border: 1px solid rgba(245,158,11,0.3); border-radius: 16px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
-        <h4 style="color: #ffffff; font-size: 18px; margin: 0 0 8px 0; font-weight: 700;">Continue Your Production Revision</h4>
+        <h4 style="color: #ffffff; font-size: 18px; margin: 0 0 8px 0; font-weight: 700;">Continue Your Historical Revision</h4>
         <p style="color: #94a3b8; font-size: 14px; margin: 0 0 20px 0; max-width: 620px; margin-left: auto; margin-right: auto;">Master each technological era in sequence from direct-to-tape mono through multitrack tape, analog consoles, and digital workstations.</p>
         <div style="display: flex; justify-content: center; gap: 14px; flex-wrap: wrap;">
             <a href="https://www.musictechguru.com/homepage/a-level-music-technology/component-3-music-technology-in-context/" style="display: inline-flex; align-items: center; gap: 8px; background: {AMBER}; color: {BG}; font-weight: 800; font-size: 13.5px; padding: 11px 24px; border-radius: 50px; text-decoration: none;">&larr; Back to Component 3</a>

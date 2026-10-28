@@ -49,7 +49,7 @@ G = lambda items, n=3: f'<div class="grid-{n}">' + ''.join(items) + '</div>'
 # 1 COVER
 slides.append(f'''
       <section class="slide active" data-slide="1">
-        <div class="slide-eyebrow"><span>🎛️</span> Evolutionary Era 02 &bull; Component 4 Production &amp; Analysing</div>
+        <div class="slide-eyebrow"><span>🎛️</span> Evolutionary Era 02 &bull; Component 3 Music Technology in Context</div>
         <h1 class="slide-heading">Early Multitrack Recording <span>(c.1964 – 1969)</span></h1>
         <p class="slide-lead">The golden era where the recording studio transitioned from a documentation room into a musical instrument. Explore 4-track tape machines, reduction bouncing, tube mixing consoles, optical &amp; variable-mu compression, plate reverbs, ADT, fuzz, and the birth of modern psychedelic rock and soul.</p>
         <div class="grid-3" style="margin-top: 10px;">
@@ -64,7 +64,7 @@ slides.append(f'''
       </section>''')
 
 # 2 SYLLABUS ROADMAP
-slide('📋', 'Specification Roadmap', 'Component 4 <span>Syllabus Matrix for 1964–1969</span>',
+slide('📋', 'Specification Roadmap', 'Component 3 <span>Syllabus Matrix for 1964–1969</span>',
       'Edexcel requires deep technical analysis of 4-track tape machines, reduction bouncing, valve mixing desks, vintage outboard, and signature instruments from this revolutionary era.',
       G([
           card('highlight', f'''{thumb('studer_j37_tape.png', '4-Track Tape Mechanics')}
@@ -358,7 +358,7 @@ full_html = f'''<!DOCTYPE html>
 <body>
   <div class="deck-topbar">
     <div class="topbar-left">
-      <div class="badge-hub"><span class="badge-pulse"></span>Edexcel Component 4 &bull; Production &amp; Analysing</div>
+      <div class="badge-hub"><span class="badge-pulse"></span>Edexcel Component 3 &bull; Music Technology in Context</div>
       <div class="deck-title-mini">Early Multitrack Recording (1964–1969)</div>
     </div>
     <div class="topbar-right">

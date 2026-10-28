@@ -74,7 +74,7 @@ G = lambda items, n=3: f'<div class="grid-{n}">' + ''.join(items) + '</div>'
 # 1 COVER
 slides.append(f'''
       <section class="slide active" data-slide="1">
-        <div class="slide-eyebrow"><span>🎙️</span> Evolutionary Era 01 &bull; Component 4 Production &amp; Analysing</div>
+        <div class="slide-eyebrow"><span>🎙️</span> Evolutionary Era 01 &bull; Component 3 Music Technology in Context</div>
         <h1 class="slide-heading">Direct to Tape Recording <span>(c.1950 – 1963)</span></h1>
         <p class="slide-lead">Before multitrack overdubbing existed, records were tracked live in one room directly to mono or 2-track reel-to-reel magnetic tape. Balance was achieved through musician positioning, polar pattern dead spots, and natural room acoustic spill.</p>
         <div class="grid-3" style="margin-top: 10px;">
@@ -89,7 +89,7 @@ slides.append(f'''
       </section>''')
 
 # 2 SYLLABUS ROADMAP
-slide('📋', 'Specification Roadmap', 'Component 4 <span>Syllabus Matrix for 1950–1963</span>',
+slide('📋', 'Specification Roadmap', 'Component 3 <span>Syllabus Matrix for 1950–1963</span>',
       'Edexcel requires in-depth technical analysis of recording equipment, miking, studio effects, and instruments from this foundational era.',
       G([
           card('highlight', f'''{thumb('tape_mechanics.png', 'Tape Mechanics')}
@@ -492,7 +492,7 @@ full_html = f'''<!DOCTYPE html>
 <body>
   <div class="deck-wrapper">
     <header class="deck-topbar">
-      <div class="badge-hub"><span class="badge-pulse"></span>Edexcel Component 4 &bull; Production &amp; Analysing</div>
+      <div class="badge-hub"><span class="badge-pulse"></span>Edexcel Component 3 &bull; Music Technology in Context</div>
       <div class="deck-topic-title">Topic: <strong>Direct to Tape Recording (1950–1963)</strong></div>
     </header>
 

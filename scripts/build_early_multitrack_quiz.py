@@ -1,6 +1,6 @@
 """
 Builds public/early-multitrack-interactive-quiz.html
-12 Edexcel Component 4 Exam Specification Questions on Early Multitrack Recording (1964-1969).
+12 Edexcel Component 3 Exam Specification Questions on Early Multitrack Recording (1964-1969).
 Theme: Deep Warm Walnut/Navy with Amber & Gold accents (#f59e0b / #fbbf24).
 Balanced Option Lengths (Zero Length Bias): Diff <= 15 chars across all questions.
 """

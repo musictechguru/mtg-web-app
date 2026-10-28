@@ -74,7 +74,7 @@ html_content = f'''<div id="mtg-dark-theme-wrapper" style="background: {BG}; col
     <!-- 1. HERO BANNER -->
     <div style="background: linear-gradient(135deg, #1e1b11 0%, {BG} 100%); border: 1px solid rgba(245, 158, 11, 0.35); border-radius: 20px; padding: 36px 32px; margin-bottom: 35px; box-shadow: 0 12px 35px rgba(0,0,0,0.5);">
         <div style="display: inline-block; background: rgba(245, 158, 11, 0.12); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.35); padding: 4px 14px; border-radius: 50px; font-size: 11.5px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 12px;">
-            Evolutionary Era 01 &bull; Edexcel Component 4: Production &amp; Analysing
+            Evolutionary Era 01 &bull; Edexcel Component 3: Music Technology in Context
         </div>
         <h1 style="color: #ffffff !important; font-size: clamp(28px, 4vw, 38px); font-weight: 900; margin: 0 0 12px 0; line-height: 1.2; letter-spacing: -0.5px;">
             Direct to Tape Recording <span style="color: {AMBER}; font-size: 0.85em;">(1950–1963)</span>
@@ -102,7 +102,7 @@ html_content = f'''<div id="mtg-dark-theme-wrapper" style="background: {BG}; col
     {embed("rgba(245,158,11,0.35)", AMBER, "Interactive Curriculum Slide Deck &bull; Direct to Tape (1950–1963)", "14 Comprehensive Slides &bull; 39 Technical Diagrams &bull; Audio Examples", "https://app.musictechguru.com/interactive-slide-direct-to-tape?v=7", 680)}
 
     <!-- 4. SPECIFICATION QUIZ -->
-    {embed("rgba(251,191,36,0.35)", GOLD, "Component 4 Exam Specification Quiz &bull; Direct to Tape", "12 Exam-Style Multiple Choice Questions &bull; Instant Marking &bull; Detailed Explanations", "https://app.musictechguru.com/direct-to-tape-interactive-quiz?v=7", 680)}
+    {embed("rgba(251,191,36,0.35)", GOLD, "Component 3 Exam Specification Quiz &bull; Direct to Tape", "12 Exam-Style Multiple Choice Questions &bull; Instant Marking &bull; Detailed Explanations", "https://app.musictechguru.com/direct-to-tape-interactive-quiz?v=7", 680)}
 
     <!-- 5. HISTORICAL STUDIO DEMONSTRATIONS (VIDEOS) -->
     <div style="margin-bottom: 40px;">
@@ -126,7 +126,7 @@ html_content = f'''<div id="mtg-dark-theme-wrapper" style="background: {BG}; col
         <div style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); display: grid; gap: 16px;">
             {homework_card("1", "Guided Homework 1 &bull; Direct to Tape (1950–1963)", "Acoustic spill analysis, single-mic ensemble balancing, live room layouts, and early dynamic microphone applications.", "1P9m1KIshDci6sP8hIdrMcl6oIxVUJmsyo8AUzcuHTOg")}
             {homework_card("2", "Guided Homework 2 &bull; Direct to Tape (1950–1963)", "Tape transport mechanics, erase/record/playback head physics, 15 vs 7.5 ips speed differences, and valve tape saturation curves.", "1EbXjwFhArBNSzjME7KuAhrGTLSzSc9U0r1g2J5pLU-g")}
-            {homework_card("3", "Guided Homework 3 &bull; Direct to Tape (1950–1963)", "Sun Studio slapback echo routing, Les Paul&#8217;s Sel-Sync overdubbing development, and Component 4 extended listening exam questions.", "1Q6F1GqQb2wZss3UmjWkQuBCgu7ZrrPu-hm9O6X4d4T4")}
+            {homework_card("3", "Guided Homework 3 &bull; Direct to Tape (1950–1963)", "Sun Studio slapback echo routing, Les Paul&#8217;s Sel-Sync overdubbing development, and Component 3 extended listening exam questions.", "1Q6F1GqQb2wZss3UmjWkQuBCgu7ZrrPu-hm9O6X4d4T4")}
         </div>
     </div>
 
@@ -173,7 +173,7 @@ html_content = f'''<div id="mtg-dark-theme-wrapper" style="background: {BG}; col
 
     <!-- 8. BOTTOM NAVIGATION -->
     <div style="margin-top: 40px; padding: 28px 24px; background: linear-gradient(135deg, #1e1b11 0%, {BG} 100%); border: 1px solid rgba(245,158,11,0.3); border-radius: 16px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
-        <h4 style="color: #ffffff; font-size: 18px; margin: 0 0 8px 0; font-weight: 700;">Continue Your Production Revision</h4>
+        <h4 style="color: #ffffff; font-size: 18px; margin: 0 0 8px 0; font-weight: 700;">Continue Your Historical Revision</h4>
         <p style="color: #94a3b8; font-size: 14px; margin: 0 0 20px 0; max-width: 620px; margin-left: auto; margin-right: auto;">Master each technological era in sequence from direct-to-tape mono through multitrack tape, analog consoles, and digital workstations.</p>
         <div style="display: flex; justify-content: center; gap: 14px; flex-wrap: wrap;">
             <a href="https://www.musictechguru.com/homepage/a-level-music-technology/component-3-music-technology-in-context/" style="display: inline-flex; align-items: center; gap: 8px; background: {AMBER}; color: {BG}; font-weight: 800; font-size: 13.5px; padding: 11px 24px; border-radius: 50px; text-decoration: none;">&larr; Back to Component 3</a>
