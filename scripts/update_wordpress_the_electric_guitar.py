@@ -154,7 +154,7 @@ html_content = f'''<div id="mtg-dark-theme-wrapper" style="background: {BG}; col
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; align-items: center;">
             <div>
                 <div style="position: relative; border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 8px 24px rgba(0,0,0,0.5);">
-                    <img src="https://www.musictechguru.com/wp-content/uploads/2021/04/1930-1961-Music-Tech-Cover.jpg" alt="Music Technology 1930-1961 Complete Teaching Pack" style="width: 100%; height: auto; display: block;" onerror="this.onerror=null; this.src='https://www.musictechguru.com/wp-content/uploads/2020/03/The-GEETAR.pdf';">
+                    <img src="https://www.musictechguru.com/wp-content/uploads/2025/03/Music-tech-1950s-resource-pack.png" alt="Music Technology 1930-1961 Complete Teaching Pack" style="width: 100%; height: auto; display: block; border-radius: 12px;">
                     <div style="position: absolute; top: 12px; right: 12px; background: #e11d48; color: #ffffff; font-size: 11px; font-weight: 800; padding: 4px 10px; border-radius: 6px; text-transform: uppercase; letter-spacing: 0.5px; box-shadow: 0 4px 12px rgba(225,29,72,0.5);">
                         Save 60%
                     </div>
