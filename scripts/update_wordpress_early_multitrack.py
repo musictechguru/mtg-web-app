@@ -37,19 +37,20 @@ def video_card(vid, title, description, badge):
             </div>'''
 
 
-def homework_card(num, title, focus, doc_id):
-    url = f"https://docs.google.com/document/d/{doc_id}/copy"
+def homework_card(num, title, focus, pdf_filename):
+    url = f"https://app.musictechguru.com/homework/{pdf_filename}"
     return f'''<div style="background: {CARD}; border: 1px solid {BORDER}; border-radius: 14px; padding: 20px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 8px 20px rgba(0,0,0,0.3);">
                 <div>
                     <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
                         <span style="color: {GOLD}; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.8px;">Guided Homework {num}</span>
-                        <span style="background: rgba(251,191,36,0.12); color: {GOLD}; border: 1px solid rgba(251,191,36,0.3); font-size: 10.5px; font-weight: 700; padding: 2px 7px; border-radius: 5px;">Google Doc Template</span>
+                        <span style="background: rgba(251,191,36,0.12); color: {GOLD}; border: 1px solid rgba(251,191,36,0.3); font-size: 10.5px; font-weight: 700; padding: 2px 7px; border-radius: 5px;">Printable PDF</span>
                     </div>
                     <strong style="color: #ffffff; font-size: 15px; display: block; margin-bottom: 8px; line-height: 1.35;">{title}</strong>
                     <p style="color: #94a3b8; font-size: 12.5px; line-height: 1.5; margin: 0 0 16px 0;">{focus}</p>
                 </div>
-                <a href="{url}" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; background: linear-gradient(135deg, rgba(245,158,11,0.2), rgba(251,191,36,0.1)); color: #fbbf24; border: 1px solid rgba(245,158,11,0.4); padding: 10px 16px; border-radius: 8px; font-size: 13px; font-weight: 700; text-decoration: none;">
-                    <span>Make a Copy in Google Docs</span> &rarr;
+                <a href="{url}" target="_blank" download rel="noopener noreferrer" style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; background: linear-gradient(135deg, rgba(245,158,11,0.2), rgba(251,191,36,0.1)); color: #fbbf24; border: 1px solid rgba(245,158,11,0.4); padding: 10px 16px; border-radius: 8px; font-size: 13px; font-weight: 700; text-decoration: none;">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    <span>Download Homework PDF</span> &darr;
                 </a>
             </div>'''
 
@@ -125,9 +126,9 @@ html_content = f'''<div id="mtg-dark-theme-wrapper" style="background: {BG}; col
             <div style="height: 1px; flex: 1; background: rgba(255,255,255,0.08);"></div>
         </div>
         <div style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); display: grid; gap: 16px;">
-            {homework_card("1", "Guided Homework 1 &bull; 4-Track Tape &amp; Sel-Sync", "Studer J37 tape transport, 1-inch tape width, Sel-Sync synchronous overdubbing, and reduction mixing track allocation.", "1P9m1KIshDci6sP8hIdrMcl6oIxVUJmsyo8AUzcuHTOg")}
-            {homework_card("2", "Guided Homework 2 &bull; Outboard Dynamics &amp; Reverb", "Fairchild 670 variable-mu limiting, Teletronix LA-2A optical leveling, and EMT 140 cold-rolled steel plate reverb acoustics.", "1EbXjwFhArBNSzjME7KuAhrGTLSzSc9U0r1g2J5pLU-g")}
-            {homework_card("3", "Guided Homework 3 &bull; Studio Innovation &amp; Stereo Mixes", "Ken Townsend's ADT tape delay system, manual tape flanging comb filtering, Vox wah-wah filters, and Component 3 extended listening questions.", "1Q6F1GqQb2wZss3UmjWkQuBCgu7ZrrPu-hm9O6X4d4T4")}
+            {homework_card("1", "Guided Homework 1 &bull; 4-Track Tape &amp; Sel-Sync", "The Beatles 'Eleanor Rigby' listening analysis: Studer J37 tape transport, 1-inch tape width, Sel-Sync overdubbing, and reduction mixing track allocation.", "c3_early_multitrack_hw1_beatles_4track.pdf")}
+            {homework_card("2", "Guided Homework 2 &bull; Outboard Dynamics &amp; Reverb", "Aretha Franklin 'Respect' listening analysis: Fairchild 670 variable-mu limiting, Teletronix LA-2A optical leveling, and EMT 140 cold-rolled steel plate reverb acoustics.", "c3_early_multitrack_hw2_aretha_outboard.pdf")}
+            {homework_card("3", "Guided Homework 3 &bull; Studio Innovation &amp; Stereo Mixes", "Jimi Hendrix 'Purple Haze' listening analysis: Ken Townsend's ADT tape delay system, manual tape flanging comb filtering, Vox wah-wah filters, and Component 3 extended listening questions.", "c3_early_multitrack_hw3_hendrix_innovations.pdf")}
         </div>
     </div>
 
