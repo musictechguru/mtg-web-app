@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Direct to Tape Recording (1950–1963) • Interactive Study Deck</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎙️</text></svg>">
+  <style>
+
+    :root {
+      --bg-dark: #080d1a;
+      --bg-card: #0e1626;
+      --bg-surface: #142038;
+      --accent-purple: #f59e0b;
+      --accent-purple-glow: rgba(245, 158, 11, 0.35);
+      --accent-cyan: #00C1F0;
+      --accent-cyan-glow: rgba(56, 189, 248, 0.35);
+      --accent-acid: #22c55e;
+      --accent-amber: #f59e0b;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-purple: rgba(245, 158, 11, 0.35);
+      --border-cyan: rgba(56, 189, 248, 0.35);
+      --font: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: var(--font);
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 8px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .deck-wrapper {
+      width: 100%;
+      max-width: 1120px;
+      height: calc(100vh - 16px);
+      min-height: 590px;
+      max-height: 670px;
+      background: radial-gradient(circle at 50% 0%, rgba(245, 158, 11, 0.15) 0%, rgba(14, 17, 36, 0) 70%), var(--bg-card);
+      border: 1px solid var(--border-purple);
+      border-radius: 16px;
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.8), 0 0 40px rgba(245, 158, 11, 0.15);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    /* Top Utility Bar */
+    .deck-topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      background: rgba(8, 13, 26, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-subtle);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      z-index: 10;
+    }
+
+    .badge-hub {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(245, 158, 11, 0.15);
+      border: 1px solid var(--border-purple);
+      color: #fbbf24;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      text-transform: uppercase;
+    }
+
+    .badge-pulse {
+      width: 7px;
+      height: 7px;
+      background: var(--accent-purple);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--accent-purple);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
+    }
+
+    .deck-topic-title {
+      color: var(--text-muted);
+      font-size: 12px;
+    }
+
+    .deck-topic-title strong {
+      color: #fff;
+    }
+
+    /* Slides Viewport */
+    .slides-viewport {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      padding: 24px 36px 16px 36px;
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateX(30px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      overflow-y: auto;
+    }
+
+    .slide.active {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(0);
+    }
+
+    /* Slide Typography */
+    .slide-eyebrow {
+      font-size: 11.5px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--accent-purple);
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .slide-heading {
+      font-size: clamp(20px, 3vw, 26px);
+      font-weight: 900;
+      line-height: 1.15;
+      letter-spacing: -0.5px;
+      color: #ffffff;
+      margin-bottom: 12px;
+    }
+
+    .slide-heading span {
+      background: linear-gradient(135deg, #f59e0b 0%, #00C1F0 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .slide-lead {
+      color: #cbd5e1;
+      font-size: 13.5px;
+      line-height: 1.5;
+      max-width: 860px;
+      margin-bottom: 14px;
+    }
+
+    /* Grids & Cards */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    @media (max-width: 768px) {
+      .grid-2, .grid-3, .grid-4 {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+    }
+
+    .info-card {
+      background: rgba(20, 32, 56, 0.65);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 14px 16px;
+      transition: all 0.2s;
+    }
+
+    .info-card:hover {
+      border-color: rgba(245, 158, 11, 0.4);
+      background: rgba(20, 32, 56, 0.9);
+      transform: translateY(-2px);
+    }
+
+    .info-card.highlight {
+      border-left: 4px solid var(--accent-purple);
+    }
+
+    .info-card.cyan-edge {
+      border-left: 4px solid var(--accent-cyan);
+    }
+
+    .info-card.acid-edge {
+      border-left: 4px solid var(--accent-acid);
+    }
+
+    .info-card.amber-edge {
+      border-left: 4px solid var(--accent-amber);
+    }
+
+    .info-card h4 {
+      color: #ffffff;
+      font-size: 14px;
+      font-weight: 800;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .info-card p {
+      color: #94a3b8;
+      font-size: 12.5px;
+      line-height: 1.55;
+    }
+
+    .info-card strong {
+      color: #e2e8f0;
+    }
+
+    .spec-pill {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      padding: 2px 7px;
+      border-radius: 4px;
+      background: rgba(245, 158, 11, 0.12);
+      color: #fbbf24;
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      margin-bottom: 4px;
+    }
+
+    .spec-pill.ao3 {
+      background: rgba(56, 189, 248, 0.15);
+      color: #00C1F0;
+      border-color: rgba(56, 189, 248, 0.35);
+    }
+
+    .spec-pill.ao4 {
+      background: rgba(245, 158, 11, 0.15);
+      color: #fbbf24;
+      border-color: rgba(245, 158, 11, 0.35);
+    }
+
+    .comp-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+      margin-top: 6px;
+    }
+
+    .comp-table th {
+      background: rgba(245, 158, 11, 0.1);
+      color: var(--accent-purple);
+      font-weight: 800;
+      text-transform: uppercase;
+      font-size: 10.5px;
+      letter-spacing: 0.5px;
+      padding: 8px 10px;
+      text-align: left;
+      border-bottom: 1px solid var(--border-purple);
+    }
+
+    .comp-table td {
+      padding: 8px 10px;
+      border-bottom: 1px solid var(--border-subtle);
+      color: #cbd5e1;
+      line-height: 1.45;
+    }
+
+    .comp-table tr:hover td {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .video-trigger-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 8px;
+      background: rgba(245, 158, 11, 0.12);
+      border: 1px solid var(--border-purple);
+      color: #fbbf24;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .video-trigger-btn:hover {
+      background: var(--accent-purple);
+      color: #080d1a;
+      transform: scale(1.02);
+    }
+
+    .deck-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 24px;
+      background: rgba(8, 13, 26, 0.95);
+      border-top: 1px solid var(--border-subtle);
+      z-index: 10;
+    }
+
+    .nav-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 8px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .nav-btn:hover:not(:disabled) {
+      background: var(--accent-purple);
+      color: #080d1a;
+      border-color: var(--accent-purple);
+      box-shadow: 0 0 15px var(--accent-purple-glow);
+    }
+
+    .nav-btn:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+
+    .progress-container {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex: 1;
+      max-width: 320px;
+      margin: 0 20px;
+    }
+
+    .progress-track {
+      flex: 1;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent-purple) 0%, var(--accent-cyan) 100%);
+      width: 7.14%;
+      border-radius: 10px;
+      transition: width 0.3s ease;
+    }
+
+    .slide-counter {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .video-modal-backdrop {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(8px);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .video-modal-backdrop.open {
+      display: flex;
+    }
+
+    .video-modal-content {
+      background: var(--bg-card);
+      border: 1px solid var(--border-purple);
+      border-radius: 16px;
+      max-width: 800px;
+      width: 100%;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9), 0 0 30px var(--accent-purple-glow);
+    }
+
+    .video-modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 18px;
+      background: rgba(255, 255, 255, 0.04);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .video-modal-title {
+      font-size: 14px;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .close-modal-btn {
+      background: none;
+      border: none;
+      color: #94a3b8;
+      font-size: 20px;
+      cursor: pointer;
+      line-height: 1;
+      padding: 0 4px;
+    }
+
+    .close-modal-btn:hover {
+      color: #fff;
+    }
+
+    .video-player-wrapper {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+    }
+
+    .video-player-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    .slide-thumb {
+      width: 100%;
+      height: 110px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      border: 1px solid var(--border-subtle);
+    }
+  
+    /* YouTube direct links & enhanced modal styling */
+    .video-btn-row {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      margin-top: 10px;
+      flex-wrap: wrap;
+    }
+    .yt-direct-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #ffffff !important;
+      background: rgba(239, 68, 68, 0.2);
+      border: 1px solid rgba(239, 68, 68, 0.45);
+      padding: 6px 12px;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      line-height: 1.2;
+    }
+    .yt-direct-btn:hover {
+      background: rgba(239, 68, 68, 0.4);
+      border-color: #ef4444;
+      color: #ffffff !important;
+      transform: translateY(-1px);
+    }
+    .external-yt-link {
+      color: #ef4444 !important;
+      font-size: 12px;
+      font-weight: 700;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 5px 12px;
+      border-radius: 6px;
+      background: rgba(239, 68, 68, 0.12);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      transition: all 0.2s ease;
+    }
+    .external-yt-link:hover {
+      background: rgba(239, 68, 68, 0.25);
+      color: #ffffff !important;
+    }
+    .video-modal-footer {
+      padding: 10px 16px;
+      background: rgba(0, 0, 0, 0.6);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: #94a3b8;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+
+    /* YouTube direct links & enhanced modal styling */
+    .video-btn-row {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      margin-top: 10px;
+      flex-wrap: wrap;
+    }
+    .yt-direct-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #ffffff !important;
+      background: rgba(239, 68, 68, 0.2);
+      border: 1px solid rgba(239, 68, 68, 0.45);
+      padding: 6px 12px;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      line-height: 1.2;
+    }
+    .yt-direct-btn:hover {
+      background: rgba(239, 68, 68, 0.4);
+      border-color: #ef4444;
+      color: #ffffff !important;
+      transform: translateY(-1px);
+    }
+    .external-yt-link {
+      color: #ef4444 !important;
+      font-size: 12px;
+      font-weight: 700;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 5px 12px;
+      border-radius: 6px;
+      background: rgba(239, 68, 68, 0.12);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      transition: all 0.2s ease;
+    }
+    .external-yt-link:hover {
+      background: rgba(239, 68, 68, 0.25);
+      color: #ffffff !important;
+    }
+    .video-modal-footer {
+      padding: 10px 16px;
+      background: rgba(0, 0, 0, 0.6);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: #94a3b8;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+  </style>
+</head>
+<body>
+  <div class="deck-wrapper">
+    <header class="deck-header">
+      <div class="deck-brand">
+        <span class="deck-dot"></span>
+        <span class="deck-title">DIRECT TO TAPE RECORDING (1950–1963) &bull; A-LEVEL MUSIC TECH</span>
+      </div>
+      <div class="deck-controls">
+        <span class="slide-indicator" id="slideIndicator">1 / 14</span>
+        <button class="nav-btn" onclick="prevSlide()" title="Previous slide (Left Arrow)">&larr;</button>
+        <button class="nav-btn" onclick="nextSlide()" title="Next slide (Right Arrow / Space)">&rarr;</button>
+        <button class="fullscreen-btn" onclick="toggleFullscreen()" title="Toggle Fullscreen">⛶</button>
+      </div>
+    </header>
+
+    <div class="progress-bar-track">
+      <div class="progress-bar-fill" id="progressBar"></div>
+    </div>
+
+    <main class="slide-viewport" id="slidesViewport">
+
+      <section class="slide active" data-slide="1">
+        <div class="slide-eyebrow"><span>🎙️</span> Evolutionary Era 01 &bull; Component 4 Production &amp; Analysing</div>
+        <h1 class="slide-heading">Direct to Tape Recording <span>(c.1950 – 1963)</span></h1>
+        <p class="slide-lead">Before multitrack overdubbing existed, records were tracked live in one room directly to mono or 2-track reel-to-reel magnetic tape. Balance was achieved through musician positioning, polar pattern dead spots, and natural room acoustic spill.</p>
+        <div class="grid-3" style="margin-top: 10px;">
+          <div class="info-card highlight"><span class="spec-pill ao4">AO4 Musical Styles</span><h4>Blues to Rock 'n' Roll</h4><p>Delta &amp; Electric Blues (<strong>Skip James</strong>, <strong>B.B. King</strong>), 1950s Rock 'n' Roll explosion (<strong>Elvis Presley</strong>, <strong>Bill Haley</strong>, <strong>Buddy Holly</strong>), and Big Band jazz.</p></div>
+          <div class="info-card cyan-edge"><span class="spec-pill ao3">AO3 Transducers &amp; Gear</span><h4>Ribbons, Tubes &amp; Ampex</h4><p>Master <strong>RCA 44BX / 77DX ribbon mics</strong>, <strong>Neumann U47</strong>, <strong>Altec 1567A</strong> tube mixers, <strong>Fender Bassman</strong>, and <strong>Ampex 200/300</strong> tape machines.</p></div>
+          <div class="info-card acid-edge"><span class="spec-pill ao3">AO3 Studio Physics</span><h4>Spill, Slapback &amp; Humbuckers</h4><p>Explore <strong>acoustic spill control</strong> without headphone monitoring, <strong>Sun Studio tape slapback echo</strong>, and Seth Lover's revolutionary <strong>humbucking pickup</strong>.</p></div>
+        </div>
+        <div style="margin-top: 20px; display: flex; gap: 12px; align-items: center;">
+          <button class="nav-btn" onclick="nextSlide()" style="background: #f59e0b; color: #080d1a; border-color: #f59e0b; font-weight: 700;">Start Interactive Deck &rarr;</button>
+          <span style="font-size: 12px; color: var(--text-muted);">Press <kbd style="background: rgba(255,255,255,0.1); padding: 2px 6px; border-radius: 4px;">Space</kbd> or <kbd style="background: rgba(255,255,255,0.1); padding: 2px 6px; border-radius: 4px;">&rarr;</kbd> to navigate</span>
+        </div>
+      </section>
+
+      <section class="slide" data-slide="2">
+        <div class="slide-eyebrow"><span>📋</span> Specification Roadmap</div>
+        <h2 class="slide-heading">Component 4 <span>Syllabus Matrix for 1950–1963</span></h2>
+        <p class="slide-lead">Edexcel requires in-depth technical analysis of recording equipment, miking, studio effects, and instruments from this foundational era.</p>
+        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/direct_to_tape/tape_mechanics.png" alt="Tape Mechanics" class="slide-thumb">
+               <span class="spec-pill ao3">AO3 Recording Technology</span>
+               <h4>Tape &amp; Signal Flow</h4>
+               <p>Reel-to-reel magnetic tape coated with iron-oxide; Erase, Record, Playback heads; tube mixing desks and simultaneous live tracking.</p></div><div class="info-card cyan-edge"><img src="/images/slides/direct_to_tape/room_spill_mic.jpg" alt="Acoustic Spill" class="slide-thumb">
+               <span class="spec-pill ao3">AO3 Transducer Positioning</span>
+               <h4>Acoustic Spill Balancing</h4>
+               <p>Controlling room bleed without headphones; balancing instruments physically in room; using figure-8 ribbon 90° null angles to reject drums.</p></div><div class="info-card acid-edge"><img src="/images/slides/direct_to_tape/slapback_echo.png" alt="Studio Effects" class="slide-thumb">
+               <span class="spec-pill ao3">AO3 Vintage Effects</span>
+               <h4>Slapback &amp; Chambers</h4>
+               <p>Tape slapback delay using head gap distance (50–120ms); natural tube console saturation; physical basement echo chambers and Pultec EQ.</p></div></div>
+      </section>
+
+      <section class="slide" data-slide="3">
+        <div class="slide-eyebrow"><span>🎸</span> Musical Evolution</div>
+        <h2 class="slide-heading">From Delta Blues <span>to Electric Chicago</span></h2>
+        <p class="slide-lead">The 1950s saw the direct evolution of acoustic Southern country blues into amplified electric urban blues.</p>
+        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/direct_to_tape/skip_james.jpg" alt="Skip James" class="slide-thumb">
+               <span class="spec-pill ao4">AO4 Acoustic Roots</span>
+               <h4>Skip James (1931)</h4>
+               <p>Early country blues recorded direct-to-disc with a single microphone. Intimate ambient capture, heavy shellac surface noise, and expressive minor tunings.</p>
+               <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('_mmZFox4Rkg', 'Skip James - Devil Got My Woman')">▶ Listen: Devil Got My Woman</button><a href="https://www.youtube.com/watch?v=_mmZFox4Rkg" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div></div><div class="info-card cyan-edge"><img src="/images/slides/direct_to_tape/bb_king_electric.jpg" alt="B.B. King" class="slide-thumb">
+               <span class="spec-pill ao4">AO4 Electric Amplification</span>
+               <h4>B.B. King: "You Upset Me Baby"</h4>
+               <p>1954 electric blues recorded on early magnetic tape. Features hollow-body electric guitar, brass horns, walking bass, and tight tube preamp compression.</p>
+               <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('wtaWVKiYt5w', 'B.B. King - You Upset Me Baby (1954)')">▶ Listen: You Upset Me Baby</button><a href="https://www.youtube.com/watch?v=wtaWVKiYt5w" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div></div><div class="info-card acid-edge"><img src="/images/slides/direct_to_tape/chess_blues_studio.jpg" alt="Chess Records" class="slide-thumb">
+               <span class="spec-pill ao3">AO3 Studio Sound</span>
+               <h4>The Chicago Sound (Chess)</h4>
+               <p>Leonard &amp; Phil Chess captured Muddy Waters, Howlin' Wolf, and Little Walter with small tube amps pushed into gritty harmonic overdrive.</p></div></div>
+      </section>
+
+      <section class="slide" data-slide="4">
+        <div class="slide-eyebrow"><span>⚡</span> 1950s Cultural Watershed</div>
+        <h2 class="slide-heading">The Birth of <span>Rock 'n' Roll (1954–1956)</span></h2>
+        <p class="slide-lead">Electrified rhythm & blues fused with country boogie, sparking the modern youth culture explosion.</p>
+        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/direct_to_tape/bill_haley_comets.jpg" alt="Bill Haley" class="slide-thumb">
+               <span class="spec-pill ao4">AO4 Landmark Anthem</span>
+               <h4>Bill Haley: Rock Around the Clock</h4>
+               <p>Cut in April 1954 at Decca's Pythian Temple ballroom studio. Tracked live direct to mono tape with room reverb and slapping upright slap-bass.</p>
+               <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('IPmUQX44dqc', 'Bill Haley - Rock Around the Clock')">▶ Listen: Rock Around the Clock</button><a href="https://www.youtube.com/watch?v=IPmUQX44dqc" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div></div><div class="info-card cyan-edge"><img src="/images/slides/direct_to_tape/elvis_presley_sun.jpg" alt="Elvis Presley Sun Studios" class="slide-thumb">
+               <span class="spec-pill ao3">AO3 Sun Slapback</span>
+               <h4>Elvis Presley at Sun (1954)</h4>
+               <p>Sam Phillips paired Scotty Moore's Gibson ES-295, Bill Black's upright bass, and Elvis's acoustic rhythm with iconic 1/4" tape slapback delay.</p></div><div class="info-card acid-edge"><img src="/images/slides/direct_to_tape/buddy_holly_clovis.jpg" alt="Buddy Holly" class="slide-thumb">
+               <span class="spec-pill ao3">AO3 Independent Studio</span>
+               <h4>Buddy Holly &amp; Norman Petty</h4>
+               <p>Recorded at Clovis, New Mexico. Established the definitive 4-piece rock lineup: two electric guitars (Stratocaster), electric bass, and drum kit.</p></div></div>
+      </section>
+
+      <section class="slide" data-slide="5">
+        <div class="slide-eyebrow"><span>🎷</span> Acoustic Precision</div>
+        <h2 class="slide-heading">Jazz in the 1950s: <span>Cool Jazz to Big Band</span></h2>
+        <p class="slide-lead">Jazz recording required transparent, ultra-clean capture of wide dynamic ranges, virtuosic soloists, and complex horn ensembles.</p>
+        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/direct_to_tape/miles_davis_1950s.jpg" alt="Miles Davis" class="slide-thumb">
+               <span class="spec-pill ao4">AO4 Modal Revolution</span>
+               <h4>Miles Davis &amp; Rudy Van Gelder</h4>
+               <p>Van Gelder engineered Blue Note sessions in Hackensack, NJ using strategically positioned German condenser microphones for up-front intimacy.</p></div><div class="info-card cyan-edge"><img src="/images/slides/direct_to_tape/count_basie_band.jpg" alt="Count Basie" class="slide-thumb">
+               <span class="spec-pill ao3">AO3 Horn Section Balance</span>
+               <h4>Count Basie Big Band</h4>
+               <p>Massive 16-piece horn sections balanced dynamically in one room. Trumpets stepped back while trombones and reeds played forward to level SPL.</p>
+               <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('xJ-ohqwTz24', 'Count Basie ft Ella Fitzgerald - Party Blues')">▶ Listen: Party Blues (1956)</button><a href="https://www.youtube.com/watch?v=xJ-ohqwTz24" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div></div><div class="info-card acid-edge"><img src="/images/slides/direct_to_tape/ella_fitzgerald.jpg" alt="Ella Fitzgerald" class="slide-thumb">
+               <span class="spec-pill ao3">AO3 Dynamic Range</span>
+               <h4>Vocal Dynamics on Tape</h4>
+               <p>Singers controlled vocal dynamics acoustically by moving 6 to 18 inches away from ribbon microphones on loud belt phrases to prevent tape saturation.</p></div></div>
+      </section>
+
+      <section class="slide" data-slide="6">
+        <div class="slide-eyebrow"><span>🔌</span> Transducer Science</div>
+        <h2 class="slide-heading">The Electric Guitar: <span>Electromagnetic Induction</span></h2>
+        <p class="slide-lead">How steel strings vibrating above a magnetic core convert mechanical kinetic energy into an electrical audio signal.</p>
+        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/direct_to_tape/electromagnetic_induction.png" alt="Electromagnetic Induction" class="slide-thumb">
+               <span class="spec-pill ao3">AO3 Induction Physics</span>
+               <h4>Faraday's Law in Action</h4>
+               <p>A permanent Alnico magnet magnetizes the steel guitar string. As the string vibrates, its moving magnetic field cuts through a copper coil, inducing an AC microvoltage.</p></div><div class="info-card cyan-edge"><img src="/images/slides/direct_to_tape/single_coil_pickup.jpg" alt="Single Coil Pickup" class="slide-thumb">
+               <span class="spec-pill ao3">AO3 Single-Coil Pickups</span>
+               <h4>Single-Coil Architecture</h4>
+               <p>6 individual magnetic pole pieces wrapped in thousands of turns of fine copper wire. Delivers bright, percussive attack, sparkling highs, but picks up 50/60Hz electromagnetic hum.</p></div><div class="info-card acid-edge"><img src="/images/slides/direct_to_tape/gibson_es150.jpg" alt="Gibson ES-150" class="slide-thumb">
+               <span class="spec-pill ao4">AO4 Charlie Christian 1936</span>
+               <h4>Gibson ES-150 ("Electric Spanish")</h4>
+               <p>First commercially successful electric guitar. Fitted with a heavy cobalt-steel bar pickup, enabling guitarists to cut through loud horn big bands.</p>
+               <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('Ce9Jtl9D6FQ', 'Charlie Christian - Swing to Bop')">▶ Listen: Charlie Christian Solo</button><a href="https://www.youtube.com/watch?v=Ce9Jtl9D6FQ" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div></div></div>
+      </section>
+
+      <section class="slide" data-slide="7">
+        <div class="slide-eyebrow"><span>🎸</span> Industrial Design</div>
+        <h2 class="slide-heading">The Solid-Body Revolution: <span>Leo Fender &amp; Les Paul</span></h2>
+        <p class="slide-lead">Eliminating hollow acoustic body resonance allowed guitarists to play at high volumes without feedback squeals.</p>
+        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/direct_to_tape/fender_telecaster.jpg" alt="Fender Telecaster" class="slide-thumb">
+               <span class="spec-pill ao4">AO4 Landmark Solid Body</span>
+               <h4>Fender Telecaster (1951)</h4>
+               <p>Originally the Broadcaster. Ash body, maple bolt-on neck, and dual single-coil pickups. Bright, biting bridge pickup "twang" defined early country and rockabilly.</p></div><div class="info-card cyan-edge"><img src="/images/slides/direct_to_tape/fender_stratocaster.jpg" alt="Fender Stratocaster" class="slide-thumb">
+               <span class="spec-pill ao3">AO3 Tonal Versatility</span>
+               <h4>Fender Stratocaster (1954)</h4>
+               <p>Contoured ash body, three single-coil pickups, and a synchronized tremolo arm. Buddy Holly made it the quintessential visual and sonic symbol of rock 'n' roll.</p>
+               <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('9irsg1vBmq0', 'Buddy Holly - That Will Be The Day')">▶ Listen: Stratocaster Twang</button><a href="https://www.youtube.com/watch?v=9irsg1vBmq0" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div></div><div class="info-card acid-edge"><img src="/images/slides/direct_to_tape/fender_precision_bass.jpg" alt="Fender Precision Bass" class="slide-thumb">
+               <span class="spec-pill ao3">AO3 Low-End Revolution</span>
+               <h4>Fender Precision Bass (1951)</h4>
+               <p>Replaced the unwieldy acoustic upright bass. Fretted neck guaranteed precise intonation; electric pickup provided deep, consistent low-end punch through bass amps.</p></div></div>
+      </section>
+
+      <section class="slide" data-slide="8">
+        <div class="slide-eyebrow"><span>🛡️</span> Noise Cancellation</div>
+        <h2 class="slide-heading">The Humbucker: <span>Seth Lover &amp; Gibson (1957)</span></h2>
+        <p class="slide-lead">The revolutionary dual-coil design that eliminated studio hum and doubled guitar output voltage.</p>
+        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/direct_to_tape/humbucker_pickup.png" alt="Humbucker Pickup" class="slide-thumb">
+               <span class="spec-pill ao3">AO3 RWRP Principle</span>
+               <h4>Reverse-Wound, Reverse-Polarity</h4>
+               <p>Two single coils placed side by side. One coil has North magnetic polarity with clockwise winding; the second has South polarity with counter-clockwise winding.</p></div><div class="info-card cyan-edge"><img src="/images/slides/direct_to_tape/humbucker_diagram.png" alt="Humbucker Hum Cancellation" class="slide-thumb">
+               <span class="spec-pill ao3">AO3 Common-Mode Rejection</span>
+               <h4>Bucking the 50/60 Hz Hum</h4>
+               <p>External electromagnetic interference (mains hum) hits both coils with identical phase and is canceled out. String signals, having dual reversals, add together (+6 dB).</p></div><div class="info-card acid-edge"><img src="/images/slides/direct_to_tape/gibson_les_paul.jpg" alt="Gibson Les Paul" class="slide-thumb">
+               <span class="spec-pill ao4">AO4 Warm, Thick Tone</span>
+               <h4>Gibson Les Paul PAF (1957)</h4>
+               <p>Fitted with Seth Lover's "Patent Applied For" humbuckers. Delivered a warm, sustain-rich, midrange-heavy tone with zero 60-cycle hum, ideal for blues-rock.</p></div></div>
+      </section>
+
+      <section class="slide" data-slide="9">
+        <div class="slide-eyebrow"><span>📻</span> Analog Amplification</div>
+        <h2 class="slide-heading">Tube Electronics: <span>Fender Tweed &amp; Valve Overdrive</span></h2>
+        <p class="slide-lead">How vacuum tube circuitry amplified low-level pickup signals and introduced musical harmonic saturation.</p>
+        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/direct_to_tape/valve_tube_glow.jpg" alt="Vacuum Tube Glow" class="slide-thumb">
+               <span class="spec-pill ao3">AO3 Thermionic Valves</span>
+               <h4>Preamp &amp; Power Valves</h4>
+               <p>12AX7 dual-triode preamp tubes boost microvoltage guitar signals; 6L6 or 6V6 power beam tetrodes drive high currents into the output transformer.</p></div><div class="info-card cyan-edge"><img src="/images/slides/direct_to_tape/fender_bassman.png" alt="Fender Bassman Tweed" class="slide-thumb">
+               <span class="spec-pill ao3">AO3 The Benchmark Amp</span>
+               <h4>Fender Bassman 4x10 (1952–1959)</h4>
+               <p>Originally designed for the Precision Bass, its 45-watt tube circuit and open-back 4x10" Jensen speakers became the ultimate blues and rock guitar amplifier.</p></div><div class="info-card acid-edge"><img src="/images/slides/direct_to_tape/amp_speaker_cab.jpg" alt="Amp Architecture" class="slide-thumb">
+               <span class="spec-pill ao3">AO3 Harmonic Soft Clipping</span>
+               <h4>Musical Valve Saturation</h4>
+               <p>Unlike transistor clipping which squares off peaks harshly, tube grids compress signal peaks with smooth, rounded saturation rich in pleasant 2nd-order harmonics.</p></div></div>
+      </section>
+
+      <section class="slide" data-slide="10">
+        <div class="slide-eyebrow"><span>🎛️</span> Studio Signal Flow</div>
+        <h2 class="slide-heading">1950s Studio Anatomy: <span>Control Room to Live Room</span></h2>
+        <p class="slide-lead">Before multitrack consoles existed, studios relied on simple rotary tube mixers and live acoustic tracking.</p>
+        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/direct_to_tape/control_room_1950s.jpg" alt="Control Room 1950s" class="slide-thumb">
+               <span class="spec-pill ao3">AO3 Control Room Setup</span>
+               <h4>Monitoring &amp; Tape Deck</h4>
+               <p>Engineers sat behind tube mixing desks (Altec 1567A, EMI REDD) monitoring in mono on a single large coaxial studio monitor speaker (Altec 604).</p></div><div class="info-card cyan-edge"><img src="/images/slides/direct_to_tape/altec_1567a_mixer.jpg" alt="Altec Tube Mixer" class="slide-thumb">
+               <span class="spec-pill ao3">AO3 Signal Flow</span>
+               <h4>1950s Analog Signal Path</h4>
+               <p>Microphone &rarr; Tube Microphone Preamp &rarr; Rotary Gain Attenuator &rarr; Program Bus &rarr; Outboard EQ / Compressor &rarr; Tape Record Head.</p></div><div class="info-card acid-edge"><img src="/images/slides/direct_to_tape/live_room_tracking.jpg" alt="Live Room Band Setup" class="slide-thumb">
+               <span class="spec-pill ao3">AO3 Live Tracking Workflow</span>
+               <h4>All In One Room (No Overdubs)</h4>
+               <p>Entire band tracked simultaneously. Heavy movable acoustic baffles ("gobos") provided slight separation, but acoustic spill was embraced as cohesive glue.</p></div></div>
+      </section>
+
+      <section class="slide" data-slide="11">
+        <div class="slide-eyebrow"><span>🎙️</span> Transducers in Context</div>
+        <h2 class="slide-heading">Ribbon &amp; Tube Microphones: <span>Managing Acoustic Spill</span></h2>
+        <p class="slide-lead">Microphone polar patterns were the primary mixing tool: engineers used directional dead spots to reject loud instruments.</p>
+        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/direct_to_tape/rca_44bx_ribbon.jpg" alt="RCA 44BX Ribbon" class="slide-thumb">
+               <span class="spec-pill ao3">AO3 Figure-8 Transducer</span>
+               <h4>RCA 44BX &amp; 77DX Ribbons</h4>
+               <p>Ultra-thin corrugated aluminum ribbon suspended between powerful magnetic poles. Delivers smooth, warm top-end roll-off and rich proximity effect on vocals.</p></div><div class="info-card cyan-edge"><img src="/images/slides/direct_to_tape/figure_8_null_spill.png" alt="Figure 8 Null Spill Diagram" class="slide-thumb">
+               <span class="spec-pill ao3">AO3 Rejection Nulls</span>
+               <h4>Figure-8 Null Spot Positioning</h4>
+               <p>A figure-8 ribbon microphone is completely deaf at 90° and 270°. Engineers aimed the sides of vocal mics directly at drums or guitar amps, rejecting bleed by -40 dB!</p></div><div class="info-card acid-edge"><img src="/images/slides/direct_to_tape/neumann_u47_tube.jpg" alt="Neumann U47 Tube" class="slide-thumb">
+               <span class="spec-pill ao3">AO3 Flagship Condenser</span>
+               <h4>Neumann U47 (M7 Capsule)</h4>
+               <p>Introduced in 1949 with a Telefunken VF14M vacuum tube. Switchable cardioid/omni polar patterns; clear, present 2–5 kHz presence lift defined Capitol Records vocals.</p></div></div>
+      </section>
+
+      <section class="slide" data-slide="12">
+        <div class="slide-eyebrow"><span>📼</span> Magnetic Recording</div>
+        <h2 class="slide-heading">Tape Physics: <span>Iron-Oxide, Bias &amp; The 3-Head Block</span></h2>
+        <p class="slide-lead">The mechanical and magnetic technology developed by Ampex that replaced direct-to-disc lacquer cutting.</p>
+        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/direct_to_tape/tape_heads_diagram.png" alt="Tape Heads Diagram" class="slide-thumb">
+               <span class="spec-pill ao3">AO3 The Three Tape Heads</span>
+               <h4>Erase, Record &amp; Playback</h4>
+               <p>Tape travels past 3 magnetic heads: Erase head clears residual magnetism; Record head imprints audio flux; Playback head reads back the magnetic pattern.</p></div><div class="info-card cyan-edge"><img src="/images/slides/direct_to_tape/ampex_300_tape.png" alt="Ampex 300 Tape Machine" class="slide-thumb" style="object-fit: contain; background: rgba(0,0,0,0.5); padding: 4px;">
+               <span class="spec-pill ao3">AO3 Machine Benchmark</span>
+               <h4>Ampex 200A &amp; 300 (1/4" Tape)</h4>
+               <p>Introduced in 1948–1949 running at 15 or 30 inches per second (ips). Higher tape speed produced wider frequency response, reduced wow &amp; flutter, and lowered tape hiss.</p></div><div class="info-card acid-edge"><img src="/images/slides/direct_to_tape/tape_saturation_curve.png" alt="Tape Saturation Curve" class="slide-thumb">
+               <span class="spec-pill ao3">AO3 Magnetic Saturation</span>
+               <h4>Tape Compression &amp; Harmonics</h4>
+               <p>When high input levels exceed the magnetic storage capacity of iron-oxide particles, the tape softly compresses peaks, generating warm third-harmonic saturation.</p></div></div>
+      </section>
+
+      <section class="slide" data-slide="13">
+        <div class="slide-eyebrow"><span>🎛️</span> Multitrack Evolution</div>
+        <h2 class="slide-heading">From Mono to 2-Track: <span>Les Paul &amp; "Sel-Sync"</span></h2>
+        <p class="slide-lead">The technological milestone that transformed multi-channel simultaneous tracking into true multitrack overdubbing.</p>
+        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/direct_to_tape/half_track_stereo.jpg" alt="Half Track Reel to Reel" class="slide-thumb">
+               <span class="spec-pill ao3">AO3 Multi-Channel Tracking</span>
+               <h4>1/4" Half-Track (2-Track Mono)</h4>
+               <p>In early 2-track studios (e.g., Abbey Road for early Beatles), rhythm section was placed on Track 1 and vocals on Track 2, mixed live for mono balance.</p></div><div class="info-card cyan-edge"><img src="/images/slides/direct_to_tape/sel_sync_system.png" alt="Sel-Sync System Diagram" class="slide-thumb">
+               <span class="spec-pill ao3">AO3 Overdubbing Sync</span>
+               <h4>Les Paul's "Sel-Sync" Patent</h4>
+               <p>Allowed the record head to act as a playback monitor head for already-recorded tracks. Eliminated the head-gap delay, enabling performers to overdub in perfect sync!</p></div><div class="info-card acid-edge"><img src="/images/slides/direct_to_tape/les_paul_the_log.jpg" alt="Les Paul Multi-Track" class="slide-thumb">
+               <span class="spec-pill ao4">AO4 First 8-Track Recorder</span>
+               <h4>Ampex "Octopus" (1957)</h4>
+               <p>Ampex built the world's first 8-track 1-inch recorder custom for Les Paul. It took over a decade for mainstream commercial studios to adopt 8-track technology.</p></div></div>
+      </section>
+
+      <section class="slide" data-slide="14">
+        <div class="slide-eyebrow"><span>🎚️</span> Vintage Processing</div>
+        <h2 class="slide-heading">1950s Studio Effects: <span>Slapback Echo &amp; Chambers</span></h2>
+        <p class="slide-lead">Before algorithmic and digital reverbs existed, studios generated spatial effects using physical rooms and tape head latency.</p>
+        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/direct_to_tape/sun_slapback_delay.png" alt="Sun Studio Slapback Echo" class="slide-thumb">
+               <span class="spec-pill ao3">AO3 Tape Head Gap Delay</span>
+               <h4>Tape Slapback Echo (50–120 ms)</h4>
+               <p>Created by sending a signal to a second tape machine's record head and feeding its playback head output back into the mixer. Produced a crisp single slap repeat.</p>
+               <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('FuStmPbG528', 'Sun Studios Slapback Echo Demonstration')">▶ Watch: Slapback Echo Breakdown</button><a href="https://www.youtube.com/watch?v=FuStmPbG528" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div></div><div class="info-card cyan-edge"><img src="/images/slides/direct_to_tape/acoustic_echo_chamber.jpg" alt="Acoustic Echo Chamber" class="slide-thumb">
+               <span class="spec-pill ao3">AO3 Physical Reverb Space</span>
+               <h4>Acoustic Echo Chambers</h4>
+               <p>A basement tiled room with a loudspeaker at one end and a microphone at the other. Sound radiated into the reflective space, adding natural decay (Abbey Road, Capitol).</p></div><div class="info-card acid-edge"><img src="/images/slides/direct_to_tape/pultec_eqp1a.png" alt="Pultec EQP-1A Tube Equalizer" class="slide-thumb">
+               <span class="spec-pill ao3">AO3 Tube Equalisation</span>
+               <h4>Pultec EQP-1A "Low-End Trick"</h4>
+               <p>Passive inductive EQ with tube makeup gain. Boosting and attenuating the same frequency (e.g. 60Hz) simultaneously creates a low boost with a clarifying scooped low-mid.</p></div></div>
+      </section>
+    </main>
+
+    <footer class="deck-footer">
+      <span>GCE A-Level Music Technology &bull; Component 4: Production &amp; Analysing</span>
+      <span>Use <kbd>&larr;</kbd> <kbd>&rarr;</kbd> or <kbd>Space</kbd> to navigate &bull; <kbd>F</kbd> for fullscreen</span>
+    </footer>
+  </div>
+
+  <!-- Video Modal -->
+  <div class="video-modal-backdrop" id="videoModal">
+    <div class="video-modal-content">
+      <div class="video-modal-header">
+        <span class="video-modal-title" id="videoModalTitle">Video Clip</span>
+        <div style="display: flex; gap: 10px; align-items: center;">
+          <a id="videoExternalLink" href="#" target="_blank" rel="noopener noreferrer" class="external-yt-link" title="Open directly on YouTube">
+            <span>Open in YouTube</span>
+            <span>↗</span>
+          </a>
+          <button class="close-modal-btn" onclick="closeVideo()">&times;</button>
+        </div>
+      </div>
+      <div class="video-player-wrapper">
+        <iframe id="videoIframe" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+      <div class="video-modal-footer">
+        <span style="display: inline-flex; align-items: center; gap: 6px;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="#ef4444"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+          YouTube Audio Example
+        </span>
+        <a id="videoFooterLink" href="#" target="_blank" rel="noopener noreferrer" style="color: #38bdf8; font-weight: 700; text-decoration: none;">Watch Directly on YouTube &rarr;</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const TOTAL_SLIDES = 14;
+    let currentSlide = 1;
+    const slides = document.querySelectorAll('.slide');
+    const slideIndicator = document.getElementById('slideIndicator');
+    const progressBar = document.getElementById('progressBar');
+    const videoModal = document.getElementById('videoModal');
+    const videoIframe = document.getElementById('videoIframe');
+    const videoModalTitle = document.getElementById('videoModalTitle');
+
+    function updateSlide(index) {
+      if (index < 1) index = 1;
+      if (index > TOTAL_SLIDES) index = TOTAL_SLIDES;
+      currentSlide = index;
+      slides.forEach((s, idx) => {
+        s.classList.toggle('active', idx + 1 === currentSlide);
+      });
+      slideIndicator.textContent = `${currentSlide} / ${TOTAL_SLIDES}`;
+      progressBar.style.width = `${(currentSlide / TOTAL_SLIDES) * 100}%`;
+    }
+
+    function nextSlide() { updateSlide(currentSlide + 1); }
+    function prevSlide() { updateSlide(currentSlide - 1); }
+
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(err => {});
+      } else {
+        if (document.exitFullscreen) { document.exitFullscreen(); }
+      }
+    }
+
+    function openVideo(videoId, title) {
+      const extLink = document.getElementById('videoExternalLink');
+      if (extLink) extLink.href = `https://www.youtube.com/watch?v=${videoId}`;
+      const footLink = document.getElementById('videoFooterLink');
+      if (footLink) footLink.href = `https://www.youtube.com/watch?v=${videoId}`;
+
+      videoIframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
+      videoModalTitle.textContent = title;
+      videoModal.classList.add('open');
+      videoModal.style.display = 'flex';
+    }
+
+    function closeVideo() {
+      videoIframe.src = '';
+      videoModal.classList.remove('open');
+      videoModal.style.display = 'none';
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (videoModal && videoModal.classList.contains('open')) {
+        if (e.key === 'Escape') closeVideo();
+        return;
+      }
+      if (e.key === 'ArrowRight' || e.key === ' ') {
+        e.preventDefault();
+        nextSlide();
+      } else if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        prevSlide();
+      } else if (e.key === 'f' || e.key === 'F') {
+        toggleFullscreen();
+      }
+    });
+
+    videoModal.addEventListener('click', (e) => {
+      if (e.target === videoModal) closeVideo();
+    });
+
+    updateSlide(1);
+  </script>
+</body>
+</html>
