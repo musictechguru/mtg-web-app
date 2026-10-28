@@ -110,7 +110,7 @@ html_content = f'''<div id="mtg-dark-theme-wrapper" style="background: {BG}; col
     </div>
 
     <!-- 3. INTERACTIVE 15-SLIDE PRESENTATION DECK -->
-    {embed("rgba(245,158,11,0.35)", AMBER, "Interactive Curriculum Slide Deck &bull; Large-Scale Analogue Multitrack", "15 Comprehensive Slides &bull; 42 Technical Photographs &amp; Diagrams &bull; Audio Examples", "https://app.musictechguru.com/interactive-slide-large-scale-analogue?v=1", 680)}
+    {embed("rgba(245,158,11,0.35)", AMBER, "Interactive Curriculum Slide Deck &bull; Large-Scale Analogue Multitrack", "15 Comprehensive Slides &bull; 42 Technical Photographs &amp; Diagrams &bull; Audio Examples", "https://app.musictechguru.com/interactive-slide-large-scale-analogue?v=3", 680)}
 
     <!-- 4. SPECIFICATION QUIZ -->
     {embed("rgba(251,191,36,0.35)", GOLD, "Component 3 Exam Specification Quiz &bull; Large-Scale Analogue", "12 Exam-Style Multiple Choice Questions &bull; Instant Marking &bull; Detailed Explanations", "https://app.musictechguru.com/large-scale-analogue-interactive-quiz?v=1", 680)}
