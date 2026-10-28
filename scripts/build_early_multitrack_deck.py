@@ -2,6 +2,7 @@
 Builds public/interactive-slide-early-multitrack.html (15 slides)
 Based on authentic Google Slide curriculum: Early multitrack recording (c.1964 - 1969).
 Theme: Deep Warm Walnut/Navy with Amber & Gold accents (#f59e0b / #fbbf24).
+Matches exact clean layout and styles of interactive-slide-direct-to-tape.html.
 """
 import re, os
 
@@ -10,7 +11,7 @@ OUT = 'public/interactive-slide-early-multitrack.html'
 
 direct = open(SRC, encoding='utf-8').read()
 
-# Extract css and js base from direct-to-tape which already has the perfect layout and lightbox modal
+# Extract css from direct-to-tape which has the exact verified layout
 css = re.search(r'<style>(.*?)</style>', direct, re.S).group(1)
 
 TOTAL = 15
@@ -127,7 +128,7 @@ slide('🎹', 'Iconic Instruments', 'The Hammond Organ <span>&amp; Leslie 122 Ro
           card('highlight', f'''{thumb('hammond_organ.jpg', 'Hammond Organ')}
                <span class="spec-pill ao3">AO3 Electro-Mechanical Sound</span>
                <h4>Hammond B3 Tone-Wheels</h4>
-               <p>Steel tone-wheels with grooved edges spin past electromagnetic pickups at precise speeds, generating pure sine-wave harmonics. Drawbars mix harmonic octaves (16' to 1').</p>'''),
+               <p>Steel tone-wheels with grooved edges spin past electromagnetic pickups at precise speeds, generating pure sine-wave harmonics. Drawbars mix harmonic octaves (16\' to 1\').</p>'''),
           card('cyan-edge', f'''{thumb('leslie_diagram.svg', 'Leslie Speaker Acoustic Physics')}
                <span class="spec-pill ao3">AO3 Acoustic Modulation</span>
                <h4>The Doppler Effect</h4>
@@ -172,7 +173,7 @@ slide('⚡', 'Electrified Tone', 'British Invasion <span>&amp; High-Gain Valve S
           card('acid-edge', f'''{thumb('electromagnetic_induction.png', 'Pickup Induction Physics')}
                <span class="spec-pill ao3">AO3 Transducer Physics</span>
                <h4>Electromagnetic Induction</h4>
-               <p>Steel strings vibrating inside a permanent magnetic field disturb flux lines, inducing a microscopic alternating current (AC) in copper wire coils (Faraday's Law of Induction).</p>''')
+               <p>Steel strings vibrating inside a permanent magnetic field disturb flux lines, inducing a microscopic alternating current (AC) in copper wire coils (Faraday\'s Law of Induction).</p>''')
       ]))
 
 # 8 SIGNAL FLOW EVOLUTION
@@ -293,7 +294,7 @@ slide('🌀', 'Abbey Road Inventions', 'Studio Magic: <span>EMT 140 Plate, ADT &
                <p>A massive 1×2 meter cold-rolled steel plate suspended in springs. Audio drives a transducer into the plate; contact pickups capture dense, shimmering reflections. A movable mechanical damping pad adjusts decay from 0.5s to 5.0s.</p>'''),
           card('cyan-edge', f'''{thumb('tape_mechanics.png', 'Automatic Double Tracking')}
                <span class="spec-pill ao3">AO3 Tape Delay Innovation</span>
-               <h4>Ken Townsend's ADT</h4>
+               <h4>Ken Townsend\'s ADT</h4>
                <p>Invented in 1966 for John Lennon. The sync playback head audio was sent to a second tape recorder driven by a Variable Speed Oscillator (VSO). The micro-delayed copy (10–45ms) with natural pitch drift perfectly simulated a doubled vocal take.</p>'''),
           card('acid-edge', f'''{thumb('studer_bouncing_diagram.svg', 'Tape Flanging')}
                <span class="spec-pill ao3">AO3 Modulation Physics</span>
@@ -320,30 +321,7 @@ slide('💿', 'The Vinyl Revolution', 'Consumer Formats: <span>Mono 45s vs 33⅓
                {vid('beMV5wcf0js', 'The History of Vinyl Disc Manufacture', 'Watch: Vinyl Manufacture & Mastering')}''')
       ]))
 
-# Drawer items
-drawer_items = ''.join([
-    f'<div class="drawer-item{" active" if i == 0 else ""}" onclick="goToSlide({i + 1})">'
-    f'<span class="drawer-num">{str(i + 1).zfill(2)}</span>'
-    f'<span class="drawer-title">{title}</span>'
-    f'</div>'
-    for i, title in enumerate([
-        "01 Cover & Overview",
-        "02 Syllabus Roadmap",
-        "03 Soul & R&B (Cooke & Franklin)",
-        "04 Psychedelic Rock (Beatles & Cream)",
-        "05 Hammond Organ & Leslie 122",
-        "06 Mellotron M400 & Wurlitzer",
-        "07 Guitars & Marshall Valve Stacks",
-        "08 Studio Signal Flow Evolution",
-        "09 Studer J37 4-Track Tape",
-        "10 Reduction Mixing & Bouncing",
-        "11 EMI REDD.37 / REDD.51 Consoles",
-        "12 Fuzz Face & Vox Wah-Wah",
-        "13 Fairchild 670 & LA-2A",
-        "14 EMT 140, ADT & Tape Flanging",
-        "15 Vinyl Formats & Stereo Mixes"
-    ])
-])
+slides_html = '\n'.join(slides)
 
 full_html = f'''<!DOCTYPE html>
 <html lang="en">
@@ -356,179 +334,134 @@ full_html = f'''<!DOCTYPE html>
   </style>
 </head>
 <body>
-  <div class="deck-topbar">
-    <div class="topbar-left">
+  <div class="deck-wrapper">
+    <header class="deck-topbar">
       <div class="badge-hub"><span class="badge-pulse"></span>Edexcel Component 3 &bull; Music Technology in Context</div>
-      <div class="deck-title-mini">Early Multitrack Recording (1964–1969)</div>
-    </div>
-    <div class="topbar-right">
-      <span class="slide-counter-badge" id="slideBadge">1 / {TOTAL}</span>
-      <button class="icon-btn" onclick="toggleDrawer()" title="View All Slides">☰</button>
-      <button class="icon-btn" onclick="toggleFullscreen()" title="Fullscreen">⛶</button>
-    </div>
+      <div class="deck-topic-title">Topic: <strong>Early Multitrack Recording (1964–1969)</strong></div>
+    </header>
+
+    <main class="slides-viewport" id="slidesViewport">
+{slides_html}
+    </main>
+
+    <footer class="deck-controls">
+      <button class="nav-btn" id="prevBtn" onclick="prevSlide()" disabled>&larr; Previous</button>
+      <div class="progress-container">
+        <span class="slide-counter" id="slideCounter">Slide 1 of {TOTAL}</span>
+        <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+      </div>
+      <button class="nav-btn" id="nextBtn" onclick="nextSlide()">Next &rarr;</button>
+    </footer>
   </div>
-
-  <div class="progress-bar-container">
-    <div class="progress-bar-fill" id="progressBar" style="width: 6.67%;"></div>
-  </div>
-
-  <main class="slides-viewport" id="slidesViewport">
-{''.join(slides)}
-  </main>
-
-  <footer class="deck-controls">
-    <button class="nav-btn prev-btn" id="prevBtn" onclick="prevSlide()" disabled>&larr; Previous</button>
-    <div class="slide-dots" id="dotsContainer">
-{''.join([f'<div class="dot{" active" if i == 0 else ""}" onclick="goToSlide({i + 1})" title="Slide {i + 1}"></div>' for i in range(TOTAL)])}
-    </div>
-    <button class="nav-btn next-btn" id="nextBtn" onclick="nextSlide()">Next &rarr;</button>
-  </footer>
-
-  <div class="drawer-overlay" id="drawerOverlay" onclick="toggleDrawer()"></div>
-  <aside class="slide-drawer" id="slideDrawer">
-    <div class="drawer-header">
-      <div class="drawer-header-title">Slide Navigator</div>
-      <button class="drawer-close-btn" onclick="toggleDrawer()">&times;</button>
-    </div>
-    <div class="drawer-content">
-{drawer_items}
-    </div>
-  </aside>
 
   <!-- Video Modal -->
   <div class="video-modal-backdrop" id="videoModal">
-    <div class="video-modal-dialog">
+    <div class="video-modal-content">
       <div class="video-modal-header">
-        <div class="video-modal-title" id="videoModalTitle">Video Demonstration</div>
-        <button class="video-modal-close" onclick="closeVideo()">&times;</button>
+        <span class="video-modal-title" id="videoModalTitle">Video Clip</span>
+        <div style="display: flex; gap: 10px; align-items: center;">
+          <a id="videoExternalLink" href="#" target="_blank" rel="noopener noreferrer" class="external-yt-link" title="Open directly on YouTube">
+            <span>Open in YouTube</span>
+            <span>↗</span>
+          </a>
+          <button class="close-modal-btn" onclick="closeVideo()">&times;</button>
+        </div>
       </div>
-      <div class="video-iframe-wrapper">
+      <div class="video-player-wrapper">
         <iframe id="videoIframe" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
       </div>
-      <div style="padding: 10px 16px; background: rgba(0,0,0,0.5); border-top: 1px solid var(--border-subtle); display: flex; justify-content: space-between; align-items: center;">
-        <span style="font-size: 11.5px; color: var(--text-muted);">If video is restricted in embed, open directly on YouTube:</span>
-        <a id="videoFooterLink" href="#" target="_blank" rel="noopener noreferrer" style="color: #f59e0b; font-size: 12px; font-weight: 700; text-decoration: none;">Watch on YouTube ↗</a>
+      <div class="video-modal-footer">
+        <span style="display: inline-flex; align-items: center; gap: 6px;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="#ef4444"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+          YouTube Audio Example
+        </span>
+        <a id="videoFooterLink" href="#" target="_blank" rel="noopener noreferrer" style="color: #38bdf8; font-weight: 700; text-decoration: none;">Watch Directly on YouTube &rarr;</a>
       </div>
     </div>
   </div>
 
-  <!-- Expandable Lightbox Modal -->
-  <div class="image-modal-backdrop" id="imageModal" style="display: none;">
-    <div class="image-modal-dialog">
-      <div class="image-modal-header">
-        <div class="image-modal-title" id="imageModalTitle">Diagram / Image Preview</div>
-        <button class="image-modal-close" onclick="closeImageModal()">&times;</button>
-      </div>
-      <div class="image-modal-body">
-        <img id="imageModalImg" src="" alt="Enlarged view">
-      </div>
+  <!-- Image Lightbox Modal -->
+  <div class="image-modal-backdrop" id="imageModal" onclick="closeImageModal()">
+    <div class="image-modal-content" onclick="event.stopPropagation()">
+      <button class="image-modal-close" onclick="closeImageModal()" title="Close (Esc)">&times;</button>
+      <img id="imageModalImg" src="" alt="Expanded Image">
+      <div class="image-modal-caption" id="imageModalCaption"></div>
     </div>
   </div>
 
   <script>
-    let currentSlide = 1;
-    const totalSlides = {TOTAL};
+    let currentSlide = 0;
     const slides = document.querySelectorAll('.slide');
-    const dots = document.querySelectorAll('.dot');
-    const drawerItems = document.querySelectorAll('.drawer-item');
+    const totalSlides = slides.length;
     const prevBtn = document.getElementById('prevBtn');
     const nextBtn = document.getElementById('nextBtn');
-    const progressBar = document.getElementById('progressBar');
-    const slideBadge = document.getElementById('slideBadge');
-    const slideDrawer = document.getElementById('slideDrawer');
-    const drawerOverlay = document.getElementById('drawerOverlay');
+    const slideCounter = document.getElementById('slideCounter');
+    const progressFill = document.getElementById('progressFill');
     const videoModal = document.getElementById('videoModal');
-    const videoIframe = document.getElementById('videoIframe');
     const videoModalTitle = document.getElementById('videoModalTitle');
+    const videoIframe = document.getElementById('videoIframe');
+
+    // Image Lightbox Logic
     const imageModal = document.getElementById('imageModal');
     const imageModalImg = document.getElementById('imageModalImg');
-    const imageModalTitle = document.getElementById('imageModalTitle');
+    const imageModalCaption = document.getElementById('imageModalCaption');
 
-    function updateDeck() {{
-      slides.forEach((s, idx) => {{
-        s.classList.toggle('active', idx + 1 === currentSlide);
-      }});
-      dots.forEach((d, idx) => {{
-        d.classList.toggle('active', idx + 1 === currentSlide);
-      }});
-      drawerItems.forEach((item, idx) => {{
-        item.classList.toggle('active', idx + 1 === currentSlide);
-      }});
-
-      prevBtn.disabled = currentSlide === 1;
-      nextBtn.disabled = currentSlide === totalSlides;
-      progressBar.style.width = `${{(currentSlide / totalSlides) * 100}}%`;
-      slideBadge.textContent = `${{currentSlide}} / ${{totalSlides}}`;
-
-      const activeSlideEl = document.querySelector('.slide.active');
-      if (activeSlideEl) activeSlideEl.scrollTop = 0;
-    }}
-
-    function nextSlide() {{
-      if (currentSlide < totalSlides) {{
-        currentSlide++;
-        updateDeck();
-      }}
-    }}
-
-    function prevSlide() {{
-      if (currentSlide > 1) {{
-        currentSlide--;
-        updateDeck();
-      }}
-    }}
-
-    function goToSlide(n) {{
-      if (n >= 1 && n <= totalSlides) {{
-        currentSlide = n;
-        updateDeck();
-        if (slideDrawer.classList.contains('open')) toggleDrawer();
-      }}
-    }}
-
-    function toggleDrawer() {{
-      slideDrawer.classList.toggle('open');
-      drawerOverlay.classList.toggle('open');
-    }}
-
-    function toggleFullscreen() {{
-      if (!document.fullscreenElement) {{
-        document.documentElement.requestFullscreen().catch(() => {{}});
-      }} else {{
-        document.exitFullscreen().catch(() => {{}});
-      }}
-    }}
-
-    // Image Modal Lightbox
-    function openImageModal(imgSrc, title) {{
+    function openImageModal(src, alt) {{
       if (!imageModal || !imageModalImg) return;
-      imageModalImg.src = imgSrc;
-      if (imageModalTitle) imageModalTitle.textContent = title || 'Image Inspection';
-      imageModal.style.display = 'flex';
+      imageModalImg.src = src;
+      if (imageModalCaption) imageModalCaption.textContent = alt || '';
       imageModal.classList.add('open');
     }}
 
     function closeImageModal() {{
       if (!imageModal) return;
       imageModal.classList.remove('open');
-      imageModal.style.display = 'none';
       if (imageModalImg) imageModalImg.src = '';
-    }}
-
-    if (imageModal) {{
-      imageModal.addEventListener('click', (e) => {{
-        if (e.target === imageModal || e.target.classList.contains('image-modal-dialog')) {{
-          closeImageModal();
-        }}
-      }});
     }}
 
     document.addEventListener('click', (e) => {{
       const target = e.target;
-      if (target && target.tagName === 'IMG' && target.classList.contains('slide-thumb')) {{
-        openImageModal(target.src, target.alt || 'Enlarged Illustration');
+      if (target && target.tagName === 'IMG') {{
+        if (target.closest('#videoModal') || target.closest('#imageModal')) return;
+        if (
+          target.classList.contains('slide-thumb') ||
+          target.classList.contains('artist-photo') ||
+          target.closest('.cover-card') ||
+          target.closest('.image-frame') ||
+          target.closest('.info-card')
+        ) {{
+          e.preventDefault();
+          openImageModal(target.src, target.alt);
+        }}
       }}
     }});
+
+    function updateDeck() {{
+      slides.forEach((slide, idx) => {{
+        slide.classList.toggle('active', idx === currentSlide);
+      }});
+
+      prevBtn.disabled = currentSlide === 0;
+      nextBtn.disabled = currentSlide === totalSlides - 1;
+      
+      slideCounter.textContent = `Slide ${{currentSlide + 1}} of ${{totalSlides}}`;
+      const percentage = ((currentSlide + 1) / totalSlides) * 100;
+      progressFill.style.width = `${{percentage}}%`;
+    }}
+
+    function nextSlide() {{
+      if (currentSlide < totalSlides - 1) {{
+        currentSlide++;
+        updateDeck();
+      }}
+    }}
+
+    function prevSlide() {{
+      if (currentSlide > 0) {{
+        currentSlide--;
+        updateDeck();
+      }}
+    }}
 
     document.addEventListener('keydown', (e) => {{
       if (imageModal && imageModal.classList.contains('open')) {{
@@ -565,6 +498,8 @@ full_html = f'''<!DOCTYPE html>
     }}, {{ passive: true }});
 
     function openVideo(videoId, title) {{
+      const extLink = document.getElementById('videoExternalLink');
+      if (extLink) extLink.href = `https://www.youtube.com/watch?v=${{videoId}}`;
       const footLink = document.getElementById('videoFooterLink');
       if (footLink) footLink.href = `https://www.youtube.com/watch?v=${{videoId}}`;
 
