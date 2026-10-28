@@ -65,8 +65,18 @@ def embed(border, dot, title, sub, src, height):
             <span style="color: #94a3b8; font-size: 12.5px;">{sub}</span>
         </div>
         <div style="position: relative; width: 100%; height: {height}px; background: {CARD}; border: 1px solid {border}; border-radius: 16px; overflow: hidden; box-shadow: 0 16px 45px rgba(0,0,0,0.6);">
-            <iframe src="{src}" style="width: 100%; height: 100%; border: none;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+            <iframe src="{src}" class="no-lazyload skip-lazy not-lazy" data-no-lazy="1" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
+        <script>
+        (function() {{
+            var iframes = document.querySelectorAll('iframe.no-lazyload');
+            iframes.forEach(function(f) {{
+                if (f.getAttribute('data-src') && (!f.src || f.src.indexOf('data:image') === 0)) {{
+                    f.src = f.getAttribute('data-src');
+                }}
+            }});
+        }})();
+        </script>
     </div>'''
 
 
