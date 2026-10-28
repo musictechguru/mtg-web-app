@@ -181,15 +181,15 @@ slide('⚡', 'Electrified Tone', 'British Invasion <span>&amp; High-Gain Valve S
 slide('🔄', 'Studio Architecture', 'From 1950s Live Room <span>to 1960s Multitrack Control Room</span>',
       'The transition from tracking all performers live around 1–2 shared microphones to routing dedicated microphones through mixing desks onto discrete multitrack tape channels.',
       G([
-          card('highlight', f'''{thumb('abbey_road_live_room_historic.jpg', 'Abbey Road Historic Live Room Tracking')}
+          card('highlight', f'''{thumb('live_room_1950s_session.jpg', 'Frank Sinatra Live Studio Tracking Session (1956)')}
                <span class="spec-pill ao3">AO3 1950s Signal Chain</span>
                <h4>1950s: Direct-to-Mono</h4>
                <p>Musicians &rarr; Mics &rarr; Passive Console &rarr; Mono Tape Machine. Balance achieved strictly via musician physical distance and room acoustics; zero overdubbing capability.</p>'''),
-          card('cyan-edge', f'''{thumb('abbey_road_control_room_vintage.jpg', 'Vintage 1960s Multitrack Control Room')}
+          card('cyan-edge', f'''{thumb('abbey_road_redd17_console.jpg', 'Abbey Road Studios REDD Valve Mixing Console')}
                <span class="spec-pill ao3">AO3 1960s Multitrack Chain</span>
                <h4>Mid-1960s: Multitrack Tracking</h4>
                <p>Isolated Mics &rarr; REDD Console Preamps &rarr; 4-Track Tape Recorder &rarr; Individual Channel Faders &amp; Outboard Sends &rarr; Stereo/Mono Master Recorder.</p>'''),
-          card('acid-edge', f'''{thumb('studio_acoustic_gobo_screens.jpg', 'Studio Acoustic Gobos & Separation Baffles')}
+          card('acid-edge', f'''{thumb('abbey_road_studio2_baffles.jpg', 'Abbey Road Studio 2 Acoustic Isolation Screens & Baffles')}
                <span class="spec-pill ao3">AO3 Overdub Isolation</span>
                <h4>Gobos, Booths &amp; Cues</h4>
                <p>Musicians wore headphones to monitor prerecorded rhythm tracks. Acoustic baffles (gobos) and vocal isolation booths minimized bleed between electric and acoustic instruments.</p>''')
