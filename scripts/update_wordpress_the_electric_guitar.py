@@ -114,7 +114,7 @@ html_content = f'''<div id="mtg-dark-theme-wrapper" style="background: {BG}; col
     </div>
 
     <!-- 3. INTERACTIVE 15-SLIDE PRESENTATION DECK -->
-    {embed("rgba(245,158,11,0.35)", AMBER, "Interactive Curriculum Slide Deck &bull; The Electric Guitar", "15 Comprehensive Slides &bull; 42 Technical Photographs &amp; Diagrams &bull; Lightbox Image Inspection", "https://app.musictechguru.com/interactive-slide-the-electric-guitar?v=1", 680)}
+    {embed("rgba(245,158,11,0.35)", AMBER, "Interactive Curriculum Slide Deck &bull; The Electric Guitar", "15 Comprehensive Slides &bull; 42 Technical Photographs &amp; Diagrams &bull; Lightbox Image Inspection", "https://app.musictechguru.com/interactive-slide-the-electric-guitar?v=20261028", 680)}
 
     <!-- 4. SPECIFICATION QUIZ -->
     {embed("rgba(6,182,212,0.35)", CYAN, "Component 3 Exam Specification Quiz &bull; The Electric Guitar", "12 Exam-Style Multiple Choice Questions &bull; Instant Marking &bull; Detailed Technical Explanations", "https://app.musictechguru.com/the-electric-guitar-interactive-quiz?v=1", 680)}
