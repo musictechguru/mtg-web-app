@@ -108,7 +108,7 @@ def main():
     </div>
 
     <!-- 3. INTERACTIVE 15-SLIDE PRESENTATION DECK -->
-    {embed("rgba(192,132,252,0.35)", PURPLE, "Interactive Curriculum Slide Deck &bull; The Synthesizer &amp; Sound Synthesis", "15 Comprehensive Slides &bull; 25 Technical Photographs &amp; Schematics &bull; Lightbox Image Inspection", "https://app.musictechguru.com/interactive-slide-the-synthesizer?v=20261028", 680)}
+    {embed("rgba(192,132,252,0.35)", PURPLE, "Interactive Curriculum Slide Deck &bull; The Synthesizer &amp; Sound Synthesis", "15 Comprehensive Slides &bull; 25 Technical Photographs &amp; Schematics &bull; 12 Integrated Video Clips", "https://app.musictechguru.com/interactive-slide-the-synthesizer?v=20261028-videos", 680)}
 
     <!-- 4. SPECIFICATION QUIZ -->
     {embed("rgba(56,189,248,0.35)", CYAN, "Interactive Specification Quiz &bull; The Synthesizer &amp; Sound Synthesis", "10 Edexcel Component 3 Specification Questions &bull; Real-Time Feedback &amp; Examiner Explanations", "https://app.musictechguru.com/the-synthesizer-interactive-quiz?v=20261028", 640)}
