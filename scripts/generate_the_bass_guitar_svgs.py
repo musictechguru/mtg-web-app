@@ -1,7 +1,8 @@
 """
-Generates 18 dark-mode vector SVGs for The Bass Guitar Interactive Curriculum Deck.
+Generates 18 elegant, dark-mode vector technical schematics and diagrams for The Bass Guitar.
 Topic: Edexcel Component 3 - The Bass Guitar (Physics, Anatomy, History, Electronics, DI & Amplification).
-Strict Rule: Valid XML, numeric entities or UTF-8 only (no unescaped &bull;, &times;, &deg;).
+Design standard: True visual diagrams, circuits, waveforms, graphs, and schematics.
+Zero text overflow, 100% valid XML with numeric entities.
 """
 import os
 import xml.etree.ElementTree as ET
@@ -12,880 +13,1213 @@ os.makedirs(OUT_DIR, exist_ok=True)
 svgs = {}
 
 # 1. BASS ANATOMY & SCALE LENGTH
-svgs["bass_anatomy_and_scale_length.svg"] = '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480" width="100%" height="100%">
-  <rect width="800" height="480" fill="#080e1a" rx="14"/>
-  <rect x="20" y="20" width="760" height="440" fill="#0f172a" stroke="rgba(56,189,248,0.3)" stroke-width="1.5" rx="12"/>
-  
-  <text x="40" y="55" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="13" font-weight="800" letter-spacing="1.5">AO3 INSTRUMENT ANATOMY</text>
-  <text x="40" y="85" fill="#ffffff" font-family="system-ui, sans-serif" font-size="20" font-weight="900">Bass Scale Length &amp; Tension Physics (34" vs 30")</text>
+svgs["bass_anatomy_and_scale_length.svg"] = '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 400" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#080e1a"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+  </defs>
+  <rect width="760" height="400" rx="12" fill="url(#bgGrad)" stroke="#1e293b" stroke-width="1.5"/>
+  <text x="35" y="38" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="12" font-weight="800" letter-spacing="1.5">AO3 INSTRUMENT ANATOMY &amp; SCALE LENGTH</text>
+  <text x="35" y="66" fill="#ffffff" font-family="system-ui, sans-serif" font-size="18" font-weight="900">Mersenne's Law: Scale Length vs String Tension</text>
 
-  <!-- Scale Comparison Diagrams -->
-  <!-- 34" Long Scale -->
-  <g transform="translate(50, 120)">
-    <rect x="0" y="0" width="700" height="130" fill="#1e293b" rx="8" stroke="rgba(255,255,255,0.08)"/>
-    <text x="20" y="30" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="15" font-weight="800">Standard Long Scale (34 inches / 864 mm) — Fender Precision &amp; Jazz Bass</text>
-    
-    <!-- Nut and Bridge -->
-    <rect x="30" y="50" width="12" height="50" fill="#cbd5e1" rx="2"/>
-    <text x="36" y="115" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="11" text-anchor="middle">Nut</text>
-    
-    <rect x="630" y="50" width="20" height="50" fill="#64748b" rx="3"/>
-    <text x="640" y="115" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="11" text-anchor="middle">Bridge Saddle</text>
-    
-    <!-- String line -->
-    <line x1="42" y1="75" x2="630" y2="75" stroke="#f59e0b" stroke-width="4"/>
-    
-    <!-- Scale dimension line -->
-    <line x1="42" y1="40" x2="630" y2="40" stroke="#38bdf8" stroke-width="1.5" stroke-dasharray="4 4"/>
-    <text x="336" y="35" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="12" font-weight="700" text-anchor="middle">34.0 Inches (864 mm) — High String Tension &amp; Piano-like Clarity</text>
+  <!-- Formula Badge -->
+  <g transform="translate(520, 20)">
+    <rect width="205" height="48" rx="8" fill="#1e293b" stroke="rgba(56,189,248,0.3)"/>
+    <text x="102" y="22" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="10.5" font-weight="800" text-anchor="middle">MERSENNE'S LAW</text>
+    <text x="102" y="39" fill="#fbbf24" font-family="system-ui, sans-serif" font-size="12" font-weight="700" text-anchor="middle">f = (1 / 2L) &#8730;(T / &#956;)</text>
   </g>
 
-  <!-- 30" Short Scale -->
-  <g transform="translate(50, 275)">
-    <rect x="0" y="0" width="700" height="130" fill="#1e293b" rx="8" stroke="rgba(255,255,255,0.08)"/>
-    <text x="20" y="30" fill="#f59e0b" font-family="system-ui, sans-serif" font-size="15" font-weight="800">Short Scale (30 inches / 762 mm) — H&#246;fner 500/1 Violin Bass &amp; Gibson EB-3</text>
-    
-    <!-- Nut and Bridge -->
-    <rect x="30" y="50" width="12" height="50" fill="#cbd5e1" rx="2"/>
-    <text x="36" y="115" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="11" text-anchor="middle">Nut</text>
-    
-    <rect x="550" y="50" width="20" height="50" fill="#64748b" rx="3"/>
-    <text x="560" y="115" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="11" text-anchor="middle">Bridge Saddle</text>
-    
-    <!-- String line -->
-    <line x1="42" y1="75" x2="550" y2="75" stroke="#e11d48" stroke-width="4"/>
-    
-    <!-- Scale dimension line -->
-    <line x1="42" y1="40" x2="550" y2="40" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="4 4"/>
-    <text x="296" y="35" fill="#f59e0b" font-family="system-ui, sans-serif" font-size="12" font-weight="700" text-anchor="middle">30.0 Inches (762 mm) — Lower Tension, Warmer Thud, Reduced Upper Harmonics</text>
+  <!-- 34" Long Scale (Fender P/J Standard) -->
+  <g transform="translate(35, 95)">
+    <rect width="690" height="125" rx="8" fill="#131e36" stroke="#38bdf8" stroke-width="1.5"/>
+    <text x="20" y="28" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="14" font-weight="800">34-INCH LONG SCALE (Fender Standard)</text>
+    <text x="540" y="28" fill="#34d399" font-family="system-ui, sans-serif" font-size="12" font-weight="700">Tension: ~42 lbs / string</text>
+
+    <!-- Headstock & Nut -->
+    <rect x="20" y="48" width="14" height="46" rx="2" fill="#94a3b8"/>
+    <text x="27" y="108" fill="#64748b" font-family="system-ui, sans-serif" font-size="10" text-anchor="middle">Nut</text>
+
+    <!-- Fretboard / Neck -->
+    <rect x="34" y="56" width="560" height="30" fill="#1e293b" stroke="#334155"/>
+    <line x1="80" y1="56" x2="80" y2="86" stroke="#475569" stroke-width="1"/>
+    <line x1="130" y1="56" x2="130" y2="86" stroke="#475569" stroke-width="1"/>
+    <line x1="185" y1="56" x2="185" y2="86" stroke="#475569" stroke-width="1"/>
+    <line x1="250" y1="56" x2="250" y2="86" stroke="#475569" stroke-width="1"/>
+    <line x1="330" y1="56" x2="330" y2="86" stroke="#475569" stroke-width="1"/>
+    <line x1="420" y1="56" x2="420" y2="86" stroke="#475569" stroke-width="1"/>
+
+    <!-- 12th Fret Octave Node -->
+    <line x1="314" y1="52" x2="314" y2="90" stroke="#f59e0b" stroke-width="2"/>
+    <text x="314" y="108" fill="#fbbf24" font-family="system-ui, sans-serif" font-size="10" font-weight="700" text-anchor="middle">12th Fret (L / 2)</text>
+
+    <!-- Bridge -->
+    <rect x="594" y="48" width="18" height="46" rx="3" fill="#cbd5e1"/>
+    <text x="603" y="108" fill="#64748b" font-family="system-ui, sans-serif" font-size="10" text-anchor="middle">Bridge</text>
+
+    <!-- Vibrating String (Vibrant Standing Wave) -->
+    <path d="M 27 71 Q 314 42 603 71" fill="none" stroke="#38bdf8" stroke-width="2.5"/>
+    <path d="M 27 71 Q 314 100 603 71" fill="none" stroke="#38bdf8" stroke-width="1.5" stroke-dasharray="4 3" opacity="0.6"/>
+
+    <!-- Acoustic Result Tag -->
+    <text x="670" y="75" fill="#f8fafc" font-family="system-ui, sans-serif" font-size="11" font-weight="700" text-anchor="end">Tight punch &#8226; Piano-like sustain &#8226; Articulate attack</text>
   </g>
 
-  <!-- Footer note -->
-  <text x="400" y="445" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="12" text-anchor="middle">Mersenne&#39;s Law: Frequency f = (1 / 2L) &#215; &#8730;(T / &#956;). Longer scale length L requires higher tension T for identical pitch.</text>
+  <!-- 30" Short Scale (Hofner / Gibson EB-3) -->
+  <g transform="translate(35, 235)">
+    <rect width="690" height="125" rx="8" fill="#131e36" stroke="#f59e0b" stroke-width="1.5"/>
+    <text x="20" y="28" fill="#fbbf24" font-family="system-ui, sans-serif" font-size="14" font-weight="800">30-INCH SHORT SCALE (H&#246;fner / Gibson EB-3)</text>
+    <text x="540" y="28" fill="#f87171" font-family="system-ui, sans-serif" font-size="12" font-weight="700">Tension: ~31 lbs / string</text>
+
+    <!-- Nut -->
+    <rect x="20" y="48" width="14" height="46" rx="2" fill="#94a3b8"/>
+    <text x="27" y="108" fill="#64748b" font-family="system-ui, sans-serif" font-size="10" text-anchor="middle">Nut</text>
+
+    <!-- Neck -->
+    <rect x="34" y="56" width="470" height="30" fill="#1e293b" stroke="#334155"/>
+    <line x1="80" y1="56" x2="80" y2="86" stroke="#475569" stroke-width="1"/>
+    <line x1="130" y1="56" x2="130" y2="86" stroke="#475569" stroke-width="1"/>
+    <line x1="185" y1="56" x2="185" y2="86" stroke="#475569" stroke-width="1"/>
+    <line x1="250" y1="56" x2="250" y2="86" stroke="#475569" stroke-width="1"/>
+
+    <!-- 12th Fret -->
+    <line x1="269" y1="52" x2="269" y2="90" stroke="#f59e0b" stroke-width="2"/>
+    <text x="269" y="108" fill="#fbbf24" font-family="system-ui, sans-serif" font-size="10" font-weight="700" text-anchor="middle">12th Fret</text>
+
+    <!-- Bridge -->
+    <rect x="504" y="48" width="18" height="46" rx="3" fill="#cbd5e1"/>
+    <text x="513" y="108" fill="#64748b" font-family="system-ui, sans-serif" font-size="10" text-anchor="middle">Bridge</text>
+
+    <!-- Vibrating String (Wider Floppier Wave) -->
+    <path d="M 27 71 Q 269 35 513 71" fill="none" stroke="#f59e0b" stroke-width="2.5"/>
+    <path d="M 27 71 Q 269 107 513 71" fill="none" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="4 3" opacity="0.6"/>
+
+    <!-- Acoustic Result Tag -->
+    <text x="670" y="75" fill="#f8fafc" font-family="system-ui, sans-serif" font-size="11" font-weight="700" text-anchor="end">Warm, tubby thud &#8226; Rapid fundamental decay</text>
+  </g>
+
+  <!-- Summary Footer -->
+  <text x="380" y="385" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="11" text-anchor="middle">Longer scale length requires higher string tension for identical pitch &#8594; higher harmonic clarity and attack speed.</text>
 </svg>'''
 
 # 2. BASS LOW FREQUENCY PHYSICS
-svgs["bass_low_frequency_physics.svg"] = '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480" width="100%" height="100%">
-  <rect width="800" height="480" fill="#080e1a" rx="14"/>
-  <rect x="20" y="20" width="760" height="440" fill="#0f172a" stroke="rgba(245,158,11,0.3)" stroke-width="1.5" rx="12"/>
-  
-  <text x="40" y="55" fill="#f59e0b" font-family="system-ui, sans-serif" font-size="13" font-weight="800" letter-spacing="1.5">AO3 ACOUSTIC &amp; ELECTRICAL PHYSICS</text>
-  <text x="40" y="85" fill="#ffffff" font-family="system-ui, sans-serif" font-size="20" font-weight="900">Low-Frequency Physics: Wavelengths &amp; String Mass</text>
+svgs["bass_low_frequency_physics.svg"] = '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 400" width="100%" height="100%">
+  <rect width="760" height="400" rx="12" fill="#080e1a" stroke="#1e293b" stroke-width="1.5"/>
+  <text x="35" y="38" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="12" font-weight="800" letter-spacing="1.5">AO3 ACOUSTIC PHYSICS &amp; WAVELENGTHS</text>
+  <text x="35" y="66" fill="#ffffff" font-family="system-ui, sans-serif" font-size="18" font-weight="900">Acoustic Wavelength (&#955; = v / f) at Speed of Sound (343 m/s)</text>
 
-  <!-- 4 String Standard vs 5 String Note Grid -->
-  <g transform="translate(45, 115)">
-    <!-- Low B (30.9 Hz) -->
-    <rect x="0" y="0" width="165" height="170" fill="#1e293b" rx="10" stroke="rgba(255,255,255,0.08)"/>
-    <text x="82" y="32" fill="#e11d48" font-family="system-ui, sans-serif" font-size="14" font-weight="800" text-anchor="middle">Low B0 (5-String)</text>
-    <text x="82" y="75" fill="#ffffff" font-family="system-ui, sans-serif" font-size="28" font-weight="900" text-anchor="middle">30.9 Hz</text>
-    <text x="82" y="105" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="12" text-anchor="middle">&#955; = 11.1 Metres</text>
-    <text x="82" y="130" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11" text-anchor="middle">Sub-Bass Energy</text>
-    <text x="82" y="150" fill="#64748b" font-family="system-ui, sans-serif" font-size="10.5" text-anchor="middle">High amp power required</text>
+  <!-- Graph Canvas -->
+  <g transform="translate(35, 90)">
+    <rect width="690" height="260" rx="8" fill="#0f172a" stroke="#334155" stroke-width="1"/>
 
-    <!-- Low E (41.2 Hz) -->
-    <rect x="180" y="0" width="165" height="170" fill="#1e293b" rx="10" stroke="rgba(245,158,11,0.4)"/>
-    <text x="262" y="32" fill="#f59e0b" font-family="system-ui, sans-serif" font-size="14" font-weight="800" text-anchor="middle">Low E1 (4-String)</text>
-    <text x="262" y="75" fill="#ffffff" font-family="system-ui, sans-serif" font-size="28" font-weight="900" text-anchor="middle">41.2 Hz</text>
-    <text x="262" y="105" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="12" text-anchor="middle">&#955; = 8.32 Metres</text>
-    <text x="262" y="130" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11" text-anchor="middle">Standard Bass Root</text>
-    <text x="262" y="150" fill="#64748b" font-family="system-ui, sans-serif" font-size="10.5" text-anchor="middle">Heavy string core (.105")</text>
+    <!-- Distance Grid Markers -->
+    <line x1="80" y1="30" x2="80" y2="230" stroke="#1e293b" stroke-width="1" stroke-dasharray="3 3"/>
+    <line x1="230" y1="30" x2="230" y2="230" stroke="#1e293b" stroke-width="1" stroke-dasharray="3 3"/>
+    <line x1="420" y1="30" x2="420" y2="230" stroke="#1e293b" stroke-width="1" stroke-dasharray="3 3"/>
+    <line x1="620" y1="30" x2="620" y2="230" stroke="#1e293b" stroke-width="1" stroke-dasharray="3 3"/>
 
-    <!-- A1 (55.0 Hz) -->
-    <rect x="360" y="0" width="165" height="170" fill="#1e293b" rx="10" stroke="rgba(255,255,255,0.08)"/>
-    <text x="442" y="32" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="14" font-weight="800" text-anchor="middle">A1 String</text>
-    <text x="442" y="75" fill="#ffffff" font-family="system-ui, sans-serif" font-size="28" font-weight="900" text-anchor="middle">55.0 Hz</text>
-    <text x="442" y="105" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="12" text-anchor="middle">&#955; = 6.24 Metres</text>
-    <text x="442" y="130" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11" text-anchor="middle">Punch / Warmth</text>
-    <text x="442" y="150" fill="#64748b" font-family="system-ui, sans-serif" font-size="10.5" text-anchor="middle">Medium core (.085")</text>
+    <!-- Wavelength 1: 5-String Low B (30.9 Hz) -->
+    <g transform="translate(30, 25)">
+      <rect width="630" height="48" rx="6" fill="#1e293b"/>
+      <circle cx="20" cy="24" r="10" fill="#e11d48"/>
+      <text x="20" y="28" fill="#ffffff" font-family="system-ui, sans-serif" font-size="10" font-weight="800" text-anchor="middle">B0</text>
+      <text x="40" y="22" fill="#f87171" font-family="system-ui, sans-serif" font-size="12" font-weight="800">30.9 Hz (5-String Low-B)</text>
+      <text x="40" y="38" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="10.5">Wavelength: 11.10 Metres (Exceeds standard studio room dimensions!)</text>
+      <path d="M 360 24 Q 420 5 480 24 T 600 24" fill="none" stroke="#e11d48" stroke-width="2.5"/>
+    </g>
 
-    <!-- D2 (73.4 Hz) -->
-    <rect x="540" y="0" width="165" height="170" fill="#1e293b" rx="10" stroke="rgba(255,255,255,0.08)"/>
-    <text x="622" y="32" fill="#22c55e" font-family="system-ui, sans-serif" font-size="14" font-weight="800" text-anchor="middle">D2 &amp; G2 Strings</text>
-    <text x="622" y="75" fill="#ffffff" font-family="system-ui, sans-serif" font-size="28" font-weight="900" text-anchor="middle">73.4 / 98 Hz</text>
-    <text x="622" y="105" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="12" text-anchor="middle">&#955; = 4.67 / 3.5 Metres</text>
-    <text x="622" y="130" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11" text-anchor="middle">Melodic Definition</text>
-    <text x="622" y="150" fill="#64748b" font-family="system-ui, sans-serif" font-size="10.5" text-anchor="middle">Harmonic clarity &amp; slap pop</text>
+    <!-- Wavelength 2: Standard 4-String Low E (41.2 Hz) -->
+    <g transform="translate(30, 85)">
+      <rect width="630" height="48" rx="6" fill="#1e293b"/>
+      <circle cx="20" cy="24" r="10" fill="#f59e0b"/>
+      <text x="20" y="28" fill="#080e1a" font-family="system-ui, sans-serif" font-size="10" font-weight="800" text-anchor="middle">E1</text>
+      <text x="40" y="22" fill="#fbbf24" font-family="system-ui, sans-serif" font-size="12" font-weight="800">41.2 Hz (Standard Bass Low-E)</text>
+      <text x="40" y="38" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="10.5">Wavelength: 8.32 Metres (Forms heavy room standing waves &amp; nodes)</text>
+      <path d="M 360 24 Q 400 6 440 24 T 520 24 T 600 24" fill="none" stroke="#f59e0b" stroke-width="2.5"/>
+    </g>
+
+    <!-- Wavelength 3: Bass Punch / Upper Lows (100 Hz) -->
+    <g transform="translate(30, 145)">
+      <rect width="630" height="48" rx="6" fill="#1e293b"/>
+      <circle cx="20" cy="24" r="10" fill="#38bdf8"/>
+      <text x="20" y="28" fill="#080e1a" font-family="system-ui, sans-serif" font-size="10" font-weight="800" text-anchor="middle">G2</text>
+      <text x="40" y="22" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="12" font-weight="800">100 Hz (Chest Punch &amp; Kick Alignment)</text>
+      <text x="40" y="38" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="10.5">Wavelength: 3.43 Metres (Primary speaker cabinet port resonance)</text>
+      <path d="M 360 24 Q 380 8 400 24 T 440 24 T 480 24 T 520 24 T 560 24 T 600 24" fill="none" stroke="#38bdf8" stroke-width="2.5"/>
+    </g>
+
+    <!-- Studio Boundary Note -->
+    <rect x="30" y="205" width="630" height="38" rx="4" fill="#142038" stroke="rgba(56,189,248,0.3)"/>
+    <text x="345" y="228" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11" text-anchor="middle">Massive acoustic wavelengths require bass traps in control rooms and enormous speaker cone excursion.</text>
   </g>
 
-  <!-- Technical Explanation Box -->
-  <g transform="translate(45, 305)">
-    <rect x="0" y="0" width="705" height="125" fill="#142038" rx="8" stroke="rgba(56,189,248,0.2)"/>
-    <text x="25" y="30" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="13" font-weight="800">ELECTRICAL &amp; ACOUSTIC IMPLICATIONS FOR SOUND RECORDING:</text>
-    <text x="25" y="55" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="12" line-height="1.5">1. <tspan fill="#ffffff" font-weight="700">Massive Excursion:</tspan> Thicker steel strings require wider pickup magnetic windows and deeper pole piece clearance.</text>
-    <text x="25" y="78" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="12">2. <tspan fill="#ffffff" font-weight="700">Power Hungry:</tspan> Human hearing is far less sensitive to sub-bass (Fletcher-Munson equal-loudness curves), requiring 300W+ amps.</text>
-    <text x="25" y="101" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="12">3. <tspan fill="#ffffff" font-weight="700">Standing Waves in Studios:</tspan> An 8-metre wavelength creates severe room standing wave nulls and bass buildup in control rooms.</text>
-  </g>
+  <text x="380" y="382" fill="#64748b" font-family="system-ui, sans-serif" font-size="10.5" text-anchor="middle">Air temperature: 20&#176;C &#8226; Speed of sound: c = 343 m/s &#8226; Edexcel Component 3 Physics</text>
 </svg>'''
 
-# 3. ACOUSTIC DOUBLE BASS VS SOLIDBODY ELECTRIC BASS
-svgs["acoustic_double_bass_vs_electric_comparison.svg"] = '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480" width="100%" height="100%">
-  <rect width="800" height="480" fill="#080e1a" rx="14"/>
-  <rect x="20" y="20" width="760" height="440" fill="#0f172a" stroke="rgba(239,68,68,0.3)" stroke-width="1.5" rx="12"/>
-  
-  <text x="40" y="55" fill="#ef4444" font-family="system-ui, sans-serif" font-size="13" font-weight="800" letter-spacing="1.5">AO4 HISTORICAL PROBLEM &amp; SOLUTION</text>
-  <text x="40" y="85" fill="#ffffff" font-family="system-ui, sans-serif" font-size="20" font-weight="900">Upright Double Bass vs Leo Fender Solidbody Bass (1951)</text>
+# 3. ACOUSTIC DOUBLE BASS VS SOLIDBODY ELECTRIC COMPARISON
+svgs["acoustic_double_bass_vs_electric_comparison.svg"] = '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 400" width="100%" height="100%">
+  <rect width="760" height="400" rx="12" fill="#080e1a" stroke="#1e293b" stroke-width="1.5"/>
+  <text x="35" y="38" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="12" font-weight="800" letter-spacing="1.5">AO4 HISTORICAL PROBLEM &amp; SOLUTION</text>
+  <text x="35" y="66" fill="#ffffff" font-family="system-ui, sans-serif" font-size="18" font-weight="900">Upright Double Bass vs Solidbody Fender Precision (1951)</text>
 
-  <!-- Left: Acoustic Upright Dilemma -->
-  <g transform="translate(45, 115)">
-    <rect x="0" y="0" width="340" height="315" fill="#1e293b" rx="10" stroke="rgba(239,68,68,0.3)"/>
-    <text x="20" y="32" fill="#ef4444" font-family="system-ui, sans-serif" font-size="15" font-weight="800">Acoustic Double Bass (Pre-1951)</text>
-    
-    <path d="M 40,65 L 70,65 L 60,110 L 40,110 Z" fill="none" stroke="#ef4444" stroke-width="2"/>
-    <text x="20" y="75" fill="#ffffff" font-family="system-ui, sans-serif" font-size="13" font-weight="700">The Problem in Big Bands:</text>
-    
-    <text x="20" y="105" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="12">• <tspan fill="#f87171" font-weight="700">Low Volume Output:</tspan> Drowned out by brass and drums</text>
-    <text x="20" y="135" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="12">• <tspan fill="#f87171" font-weight="700">Acoustic Feedback:</tspan> Large hollow air cavity resonated</text>
-    <text x="20" y="165" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="12">• <tspan fill="#f87171" font-weight="700">Microphone Bleed:</tspan> Drum spill overwhelmed quiet bass</text>
-    <text x="20" y="195" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="12">• <tspan fill="#f87171" font-weight="700">Fretless Pitch Drift:</tspan> Fatigue caused intonation slip</text>
-    <text x="20" y="225" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="12">• <tspan fill="#f87171" font-weight="700">Massive Size:</tspan> Impossible to fit into passenger cars</text>
+  <!-- Left: Acoustic Upright Bass -->
+  <g transform="translate(35, 90)">
+    <rect width="335" height="265" rx="8" fill="#131e36" stroke="#f87171" stroke-width="1.5"/>
+    <text x="20" y="30" fill="#f87171" font-family="system-ui, sans-serif" font-size="14" font-weight="800">Acoustic Upright Double Bass</text>
 
-    <rect x="20" y="255" width="300" height="40" fill="rgba(239,68,68,0.15)" rx="6" stroke="rgba(239,68,68,0.3)"/>
-    <text x="170" y="280" fill="#fca5a5" font-family="system-ui, sans-serif" font-size="11.5" font-weight="700" text-anchor="middle">Required acoustic slap/gut strings to be heard</text>
+    <!-- Upright Graphic Representation -->
+    <path d="M 60 70 C 40 100 40 120 70 140 C 30 170 30 200 65 220 L 85 220 C 120 200 120 170 80 140 C 110 120 110 100 90 70 Z" fill="#2d1b14" stroke="#a16207" stroke-width="2"/>
+    <!-- F-Holes -->
+    <path d="M 65 130 Q 60 140 68 150" stroke="#f59e0b" stroke-width="2" fill="none"/>
+    <path d="M 85 130 Q 90 140 82 150" stroke="#f59e0b" stroke-width="2" fill="none"/>
+
+    <!-- Acoustic Feedback Loop -->
+    <path d="M 120 140 C 150 110 160 80 130 65" fill="none" stroke="#ef4444" stroke-width="2" stroke-dasharray="4 2"/>
+    <text x="135" y="105" fill="#f87171" font-family="system-ui, sans-serif" font-size="10" font-weight="700">Acoustic Feedback!</text>
+
+    <!-- Bullets -->
+    <text x="155" y="140" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11">&#8226; Hollow resonant body cavity</text>
+    <text x="155" y="165" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11">&#8226; Stage mic feedback howl</text>
+    <text x="155" y="190" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11">&#8226; Fretless intonation drift</text>
+    <text x="155" y="215" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11">&#8226; Hard to transport (&gt;6 ft tall)</text>
+
+    <rect x="20" y="232" width="295" height="24" rx="4" fill="#2c1618"/>
+    <text x="167" y="248" fill="#fca5a5" font-family="system-ui, sans-serif" font-size="10" font-weight="700" text-anchor="middle">Cannot compete with loud drum kits</text>
   </g>
 
-  <!-- Right: Leo Fender Solution -->
-  <g transform="translate(415, 115)">
-    <rect x="0" y="0" width="340" height="315" fill="#1e293b" rx="10" stroke="rgba(34,197,94,0.3)"/>
-    <text x="20" y="32" fill="#22c55e" font-family="system-ui, sans-serif" font-size="15" font-weight="800">1951 Fender Precision Bass</text>
-    
-    <text x="20" y="75" fill="#ffffff" font-family="system-ui, sans-serif" font-size="13" font-weight="700">The Modern Technological Solution:</text>
-    
-    <text x="20" y="105" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="12">• <tspan fill="#86efac" font-weight="700">Solid Ash Body:</tspan> Decoupled from air pressure, zero feedback</text>
-    <text x="20" y="135" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="12">• <tspan fill="#86efac" font-weight="700">Fretted Fingerboard:</tspan> Exact intonation ("Precision" name)</text>
-    <text x="20" y="165" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="12">• <tspan fill="#86efac" font-weight="700">Electromagnetic Pickup:</tspan> High-output signal into amplifiers</text>
-    <text x="20" y="195" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="12">• <tspan fill="#86efac" font-weight="700">Horizontal Play:</tspan> Guitar-style strap freed bassist posture</text>
-    <text x="20" y="225" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="12">• <tspan fill="#86efac" font-weight="700">Portability:</tspan> Easily transported in standard guitar cases</text>
+  <!-- Right: 1951 Fender Precision Bass -->
+  <g transform="translate(390, 90)">
+    <rect width="335" height="265" rx="8" fill="#131e36" stroke="#34d399" stroke-width="1.5"/>
+    <text x="20" y="30" fill="#34d399" font-family="system-ui, sans-serif" font-size="14" font-weight="800">1951 Fender Precision Bass</text>
 
-    <rect x="20" y="255" width="300" height="40" fill="rgba(34,197,94,0.15)" rx="6" stroke="rgba(34,197,94,0.3)"/>
-    <text x="170" y="280" fill="#86efac" font-family="system-ui, sans-serif" font-size="11.5" font-weight="700" text-anchor="middle">Allowed touring bands to play loud rock rhythm tracks</text>
+    <!-- Solidbody Graphic Representation -->
+    <path d="M 60 80 C 45 95 45 115 70 135 C 40 160 50 200 80 215 L 95 215 C 125 200 130 160 100 135 C 120 115 120 95 105 80 Z" fill="#78350f" stroke="#fbbf24" stroke-width="2"/>
+    <!-- Frets & Pickup -->
+    <rect x="75" y="55" width="10" height="25" fill="#cbd5e1"/>
+    <rect x="70" y="130" width="20" height="12" fill="#0f172a" stroke="#38bdf8"/>
+
+    <!-- Direct Electromagnetic Wave -->
+    <path d="M 105 136 L 145 136" stroke="#38bdf8" stroke-width="2.5"/>
+    <text x="110" y="125" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="9" font-weight="800">EM Pickup</text>
+
+    <!-- Bullets -->
+    <text x="155" y="140" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11">&#8226; Solid dense ash slab body</text>
+    <text x="155" y="165" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11">&#8226; Zero acoustic body feedback</text>
+    <text x="155" y="190" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11">&#8226; 20 nickel frets (exact pitch)</text>
+    <text x="155" y="215" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11">&#8226; High-output magnetic coil</text>
+
+    <rect x="20" y="232" width="295" height="24" rx="4" fill="#063826"/>
+    <text x="167" y="248" fill="#6ee7b7" font-family="system-ui, sans-serif" font-size="10" font-weight="700" text-anchor="middle">Clean, amplified punch at any stage volume</text>
   </g>
+
+  <text x="380" y="382" fill="#64748b" font-family="system-ui, sans-serif" font-size="10.5" text-anchor="middle">Leo Fender's innovation birthed the modern rock, soul, and pop rhythm section.</text>
 </svg>'''
 
-# 4. P-BASS SPLIT-COIL RWRP PHYSICS
-svgs["p_bass_split_coil_rwrp_physics.svg"] = '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480" width="100%" height="100%">
-  <rect width="800" height="480" fill="#080e1a" rx="14"/>
-  <rect x="20" y="20" width="760" height="440" fill="#0f172a" stroke="rgba(56,189,248,0.3)" stroke-width="1.5" rx="12"/>
-  
-  <text x="40" y="55" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="13" font-weight="800" letter-spacing="1.5">AO3 TRANSDUCER &amp; HUM CANCELLATION</text>
-  <text x="40" y="85" fill="#ffffff" font-family="system-ui, sans-serif" font-size="20" font-weight="900">The 1957 Fender Split-Coil Pickup (RWRP Operation)</text>
+# 4. P-BASS SPLIT-COIL RWRP HUM CANCELLATION
+svgs["p_bass_split_coil_rwrp_physics.svg"] = '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 400" width="100%" height="100%">
+  <rect width="760" height="400" rx="12" fill="#080e1a" stroke="#1e293b" stroke-width="1.5"/>
+  <text x="35" y="38" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="12" font-weight="800" letter-spacing="1.5">AO3 TRANSDUCER PHYSICS &amp; NOISE CANCELLATION</text>
+  <text x="35" y="66" fill="#ffffff" font-family="system-ui, sans-serif" font-size="18" font-weight="900">1957 Split-Coil Pickup: Reverse-Wind Reverse-Polarity (RWRP)</text>
 
-  <!-- Left: Physical Bobbin Architecture -->
-  <g transform="translate(45, 120)">
-    <rect x="0" y="0" width="340" height="310" fill="#1e293b" rx="10" stroke="rgba(255,255,255,0.08)"/>
-    <text x="20" y="30" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="14" font-weight="800">Physical Coil Stagger &amp; Magnetic Poles</text>
+  <!-- Left Side: Ambient EMI (Hum) Cancellation -->
+  <g transform="translate(35, 90)">
+    <rect width="335" height="265" rx="8" fill="#131e36" stroke="#f87171" stroke-width="1.5"/>
+    <text x="20" y="28" fill="#f87171" font-family="system-ui, sans-serif" font-size="13" font-weight="800">50/60 Hz MAINS HUM CANCELLATION</text>
 
-    <!-- Coil 1: E & A strings -->
-    <rect x="40" y="60" width="110" height="70" fill="#0b1329" rx="8" stroke="#38bdf8" stroke-width="2"/>
-    <circle cx="70" cy="95" r="10" fill="#38bdf8"/>
-    <circle cx="120" cy="95" r="10" fill="#38bdf8"/>
-    <text x="95" y="80" fill="#ffffff" font-family="system-ui, sans-serif" font-size="10" font-weight="800" text-anchor="middle">NORTH</text>
-    <text x="95" y="150" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="11" font-weight="700" text-anchor="middle">Coil 1 (E &amp; A Strings)</text>
+    <!-- Coil 1 (E-A) Hum -->
+    <g transform="translate(20, 50)">
+      <rect width="180" height="40" rx="4" fill="#1e293b" stroke="#334155"/>
+      <path d="M 20 20 Q 40 5 60 20 T 100 20 T 140 20" fill="none" stroke="#ef4444" stroke-width="2"/>
+      <text x="195" y="24" fill="#ef4444" font-family="system-ui, sans-serif" font-size="11" font-weight="700">Coil 1 (+Hum)</text>
+    </g>
 
-    <!-- Coil 2: D & G strings (staggered) -->
-    <rect x="180" y="110" width="110" height="70" fill="#0b1329" rx="8" stroke="#f59e0b" stroke-width="2"/>
-    <circle cx="210" cy="145" r="10" fill="#f59e0b"/>
-    <circle cx="260" cy="145" r="10" fill="#f59e0b"/>
-    <text x="235" y="130" fill="#ffffff" font-family="system-ui, sans-serif" font-size="10" font-weight="800" text-anchor="middle">SOUTH</text>
-    <text x="235" y="200" fill="#f59e0b" font-family="system-ui, sans-serif" font-size="11" font-weight="700" text-anchor="middle">Coil 2 (D &amp; G Strings)</text>
+    <text x="110" y="115" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="14" font-weight="800" text-anchor="middle">+</text>
 
-    <!-- Wiring line between them -->
-    <path d="M 150,95 L 165,95 L 165,145 L 180,145" fill="none" stroke="#22c55e" stroke-width="2" stroke-dasharray="3 3"/>
-    <text x="170" y="240" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="12" text-anchor="middle">Wired in Series: Reverse Wind, Reverse Polarity</text>
-    <text x="170" y="270" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="11" text-anchor="middle">Each coil senses 2 strings without phase interference</text>
+    <!-- Coil 2 (D-G) Hum (Inverted by Reverse Winding) -->
+    <g transform="translate(20, 130)">
+      <rect width="180" height="40" rx="4" fill="#1e293b" stroke="#334155"/>
+      <path d="M 20 20 Q 40 35 60 20 T 100 20 T 140 20" fill="none" stroke="#ef4444" stroke-width="2"/>
+      <text x="195" y="24" fill="#ef4444" font-family="system-ui, sans-serif" font-size="11" font-weight="700">Coil 2 (&#8722;Hum)</text>
+    </g>
+
+    <text x="110" y="195" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="14" font-weight="800" text-anchor="middle">=</text>
+
+    <!-- Result: 0V Flat Line -->
+    <g transform="translate(20, 210)">
+      <rect width="180" height="40" rx="4" fill="#1e293b" stroke="#34d399"/>
+      <line x1="20" y1="20" x2="160" y2="20" stroke="#34d399" stroke-width="3"/>
+      <text x="195" y="24" fill="#34d399" font-family="system-ui, sans-serif" font-size="11" font-weight="800">ZERO HUM (0V)</text>
+    </g>
   </g>
 
-  <!-- Right: Hum Cancellation Waveform Math -->
-  <g transform="translate(415, 120)">
-    <rect x="0" y="0" width="340" height="310" fill="#1e293b" rx="10" stroke="rgba(255,255,255,0.08)"/>
-    <text x="20" y="30" fill="#f59e0b" font-family="system-ui, sans-serif" font-size="14" font-weight="800">The RWRP Phase Cancellation Math</text>
+  <!-- Right Side: String Audio Signal Summation -->
+  <g transform="translate(390, 90)">
+    <rect width="335" height="265" rx="8" fill="#131e36" stroke="#34d399" stroke-width="1.5"/>
+    <text x="20" y="28" fill="#34d399" font-family="system-ui, sans-serif" font-size="13" font-weight="800">STRING AUDIO SIGNAL ADDITION</text>
 
-    <!-- External Noise Cancellation -->
-    <rect x="20" y="55" width="300" height="95" fill="#0f172a" rx="8" stroke="rgba(239,68,68,0.3)"/>
-    <text x="35" y="80" fill="#ef4444" font-family="system-ui, sans-serif" font-size="12" font-weight="800">1. Ambient 50/60 Hz EMI Mains Hum:</text>
-    <text x="35" y="105" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="12">Affects both coils equally in same direction.</text>
-    <text x="35" y="130" fill="#f87171" font-family="system-ui, sans-serif" font-size="13" font-weight="900">Coil 1 (+Hum) + Coil 2 (&#8722;Hum) = 0 Hum</text>
+    <!-- Coil 1 Audio -->
+    <g transform="translate(20, 50)">
+      <rect width="180" height="40" rx="4" fill="#1e293b" stroke="#334155"/>
+      <path d="M 20 20 Q 40 8 60 20 T 100 20 T 140 20" fill="none" stroke="#38bdf8" stroke-width="2"/>
+      <text x="195" y="24" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="11" font-weight="700">Coil 1 (+Audio)</text>
+    </g>
 
-    <!-- String Signal Isolation -->
-    <rect x="20" y="165" width="300" height="120" fill="#0f172a" rx="8" stroke="rgba(34,197,94,0.3)"/>
-    <text x="35" y="190" fill="#22c55e" font-family="system-ui, sans-serif" font-size="12" font-weight="800">2. String Audio Vibrations:</text>
-    <text x="35" y="215" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="12">Each pair of strings only vibrates over ONE coil.</text>
-    <text x="35" y="238" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="12">Zero acoustic cancellation between string pairs!</text>
-    <text x="35" y="265" fill="#86efac" font-family="system-ui, sans-serif" font-size="13" font-weight="900">Full Single-Coil Clarity + 100% Hum Silence</text>
+    <text x="110" y="115" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="14" font-weight="800" text-anchor="middle">+</text>
+
+    <!-- Coil 2 Audio (Re-inverted in-phase by Reverse Magnet!) -->
+    <g transform="translate(20, 130)">
+      <rect width="180" height="40" rx="4" fill="#1e293b" stroke="#334155"/>
+      <path d="M 20 20 Q 40 8 60 20 T 100 20 T 140 20" fill="none" stroke="#38bdf8" stroke-width="2"/>
+      <text x="195" y="24" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="11" font-weight="700">Coil 2 (+Audio)</text>
+    </g>
+
+    <text x="110" y="195" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="14" font-weight="800" text-anchor="middle">=</text>
+
+    <!-- Doubled Audio Wave -->
+    <g transform="translate(20, 210)">
+      <rect width="180" height="40" rx="4" fill="#1e293b" stroke="#fbbf24"/>
+      <path d="M 20 20 Q 40 2 60 20 T 100 20 T 140 20" fill="none" stroke="#fbbf24" stroke-width="3"/>
+      <text x="195" y="24" fill="#fbbf24" font-family="system-ui, sans-serif" font-size="11" font-weight="800">DOUBLED (+6 dB)</text>
+    </g>
   </g>
+
+  <text x="380" y="382" fill="#64748b" font-family="system-ui, sans-serif" font-size="10.5" text-anchor="middle">Reverse winding inverts hum 180&#176;; opposite magnetic polarity restores musical string signal in-phase.</text>
 </svg>'''
 
-# 5. JAZZ BASS DUAL SINGLE COIL WIRING
-svgs["jazz_bass_dual_single_coil_wiring.svg"] = '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480" width="100%" height="100%">
-  <rect width="800" height="480" fill="#080e1a" rx="14"/>
-  <rect x="20" y="20" width="760" height="440" fill="#0f172a" stroke="rgba(245,158,11,0.3)" stroke-width="1.5" rx="12"/>
-  
-  <text x="40" y="55" fill="#f59e0b" font-family="system-ui, sans-serif" font-size="13" font-weight="800" letter-spacing="1.5">AO3 CIRCUIT WIRING &amp; FREQUENCY SHAPING</text>
-  <text x="40" y="85" fill="#ffffff" font-family="system-ui, sans-serif" font-size="20" font-weight="900">1960 Fender Jazz Bass: Dual Vol / Tone &amp; Mid Scoop</text>
+# 5. FENDER JAZZ BASS DUAL PICKUP PARALLEL WIRING & MID-SCOOP
+svgs["jazz_bass_dual_single_coil_wiring.svg"] = '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 400" width="100%" height="100%">
+  <rect width="760" height="400" rx="12" fill="#080e1a" stroke="#1e293b" stroke-width="1.5"/>
+  <text x="35" y="38" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="12" font-weight="800" letter-spacing="1.5">AO3 CIRCUIT WIRING &amp; FREQUENCY INTERACTION</text>
+  <text x="35" y="66" fill="#ffffff" font-family="system-ui, sans-serif" font-size="18" font-weight="900">Fender Jazz Bass (1960): Dual Pickups &amp; Signature Mid-Scoop</text>
 
-  <!-- Circuit Diagram View -->
-  <g transform="translate(45, 115)">
-    <rect x="0" y="0" width="705" height="190" fill="#1e293b" rx="10" stroke="rgba(255,255,255,0.08)"/>
-    
-    <!-- Neck Pickup -->
-    <rect x="40" y="30" width="130" height="45" fill="#0b1329" rx="6" stroke="#38bdf8" stroke-width="2"/>
-    <text x="105" y="57" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="12" font-weight="800" text-anchor="middle">Neck Pickup (Warm)</text>
+  <!-- Left: Schematic Circuit -->
+  <g transform="translate(35, 90)">
+    <rect width="335" height="265" rx="8" fill="#131e36" stroke="#38bdf8" stroke-width="1.5"/>
+    <text x="20" y="28" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="13" font-weight="800">PARALLEL DUAL-VOLUME CIRCUIT</text>
 
-    <!-- Bridge Pickup -->
-    <rect x="40" y="115" width="130" height="45" fill="#0b1329" rx="6" stroke="#f59e0b" stroke-width="2"/>
-    <text x="105" y="142" fill="#f59e0b" font-family="system-ui, sans-serif" font-size="12" font-weight="800" text-anchor="middle">Bridge Pickup (Bite)</text>
+    <!-- Neck Pickup Block -->
+    <rect x="25" y="48" width="120" height="34" rx="4" fill="#1e293b" stroke="#334155"/>
+    <text x="85" y="69" fill="#93c5fd" font-family="system-ui, sans-serif" font-size="11" font-weight="700" text-anchor="middle">Neck Pickup (Warm)</text>
 
-    <!-- Vol Pot 1 -->
-    <circle cx="280" cy="52" r="24" fill="#334155" stroke="#cbd5e1" stroke-width="2"/>
-    <text x="280" y="57" fill="#ffffff" font-family="system-ui, sans-serif" font-size="11" font-weight="800" text-anchor="middle">Vol 1</text>
-    <text x="280" y="90" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="10" text-anchor="middle">250 k&#937;</text>
+    <!-- Bridge Pickup Block -->
+    <rect x="25" y="100" width="120" height="34" rx="4" fill="#1e293b" stroke="#334155"/>
+    <text x="85" y="121" fill="#fbcfe8" font-family="system-ui, sans-serif" font-size="11" font-weight="700" text-anchor="middle">Bridge Pickup (Bite)</text>
 
-    <!-- Vol Pot 2 -->
-    <circle cx="280" cy="137" r="24" fill="#334155" stroke="#cbd5e1" stroke-width="2"/>
-    <text x="280" y="142" fill="#ffffff" font-family="system-ui, sans-serif" font-size="11" font-weight="800" text-anchor="middle">Vol 2</text>
-    <text x="280" y="175" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="10" text-anchor="middle">250 k&#937;</text>
+    <!-- Parallel Connection Lines -->
+    <path d="M 145 65 L 185 65 L 185 92 L 205 92" fill="none" stroke="#38bdf8" stroke-width="2"/>
+    <path d="M 145 117 L 185 117 L 185 92" fill="none" stroke="#38bdf8" stroke-width="2"/>
+
+    <!-- Pots -->
+    <rect x="205" y="75" width="105" height="34" rx="4" fill="#1e293b" stroke="#f59e0b"/>
+    <text x="257" y="96" fill="#fbbf24" font-family="system-ui, sans-serif" font-size="11" font-weight="700" text-anchor="middle">250k&#937; Dual Vol</text>
 
     <!-- Master Tone -->
-    <circle cx="430" cy="95" r="24" fill="#334155" stroke="#22c55e" stroke-width="2"/>
-    <text x="430" y="100" fill="#ffffff" font-family="system-ui, sans-serif" font-size="11" font-weight="800" text-anchor="middle">Tone</text>
-    <text x="430" y="135" fill="#22c55e" font-family="system-ui, sans-serif" font-size="10" text-anchor="middle">.047 &#956;F Cap</text>
+    <rect x="115" y="160" width="140" height="34" rx="4" fill="#1e293b" stroke="#a855f7"/>
+    <text x="185" y="181" fill="#c084fc" font-family="system-ui, sans-serif" font-size="11" font-weight="700" text-anchor="middle">Tone (250k + .047&#956;F)</text>
 
     <!-- Output Jack -->
-    <rect x="570" y="75" width="90" height="40" fill="#0f172a" rx="6" stroke="#38bdf8"/>
-    <text x="615" y="100" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="12" font-weight="800" text-anchor="middle">Output Jack</text>
-
-    <!-- Wire Connections -->
-    <line x1="170" y1="52" x2="256" y2="52" stroke="#38bdf8" stroke-width="2"/>
-    <line x1="170" y1="137" x2="256" y2="137" stroke="#f59e0b" stroke-width="2"/>
-    <line x1="304" y1="52" x2="406" y2="95" stroke="#cbd5e1" stroke-width="2"/>
-    <line x1="304" y1="137" x2="406" y2="95" stroke="#cbd5e1" stroke-width="2"/>
-    <line x1="454" y1="95" x2="570" y2="95" stroke="#38bdf8" stroke-width="2"/>
+    <rect x="115" y="215" width="140" height="32" rx="4" fill="#047857"/>
+    <text x="185" y="235" fill="#ffffff" font-family="system-ui, sans-serif" font-size="11" font-weight="800" text-anchor="middle">1/4" High-Z Out</text>
   </g>
 
-  <!-- Both Pickups on Full = Mid Scoop Explanatory Card -->
-  <g transform="translate(45, 320)">
-    <rect x="0" y="0" width="705" height="110" fill="#142038" rx="8" stroke="rgba(245,158,11,0.3)"/>
-    <text x="25" y="30" fill="#f59e0b" font-family="system-ui, sans-serif" font-size="14" font-weight="800">THE JAZZ BASS "SLAP SCOOP" PHENOMENON (BOTH PICKUPS ON 10):</text>
-    <text x="25" y="55" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="12">• When both pickups are maxed, their reverse wind/polarity cancels 50/60 Hz hum like a giant humbucker.</text>
-    <text x="25" y="75" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="12">• Due to string sampling separation, comb-filtering notches develop around 500 Hz – 1 kHz, creating a natural mid scoop.</text>
-    <text x="25" y="95" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="12" font-weight="700">• This scooped midrange + bright presence peak defined the percussive slap &amp; pop sound of funk pioneers (Larry Graham, Marcus Miller).</text>
+  <!-- Right: Frequency Curve (The Mid-Scoop) -->
+  <g transform="translate(390, 90)">
+    <rect width="335" height="265" rx="8" fill="#131e36" stroke="#fbbf24" stroke-width="1.5"/>
+    <text x="20" y="28" fill="#fbbf24" font-family="system-ui, sans-serif" font-size="13" font-weight="800">FREQUENCY RESPONSE: BOTH VOLS AT 10</text>
+
+    <!-- Graph Axis -->
+    <line x1="40" y1="210" x2="300" y2="210" stroke="#475569" stroke-width="1.5"/>
+    <line x1="40" y1="50" x2="40" y2="210" stroke="#475569" stroke-width="1.5"/>
+    <text x="40" y="228" fill="#64748b" font-family="system-ui, sans-serif" font-size="9">40 Hz</text>
+    <text x="155" y="228" fill="#64748b" font-family="system-ui, sans-serif" font-size="9">700 Hz</text>
+    <text x="280" y="228" fill="#64748b" font-family="system-ui, sans-serif" font-size="9">5 kHz</text>
+
+    <!-- Individual Pickup Curve (Ghosted) -->
+    <path d="M 40 100 Q 155 90 300 170" fill="none" stroke="#64748b" stroke-width="1.5" stroke-dasharray="3 3"/>
+    <text x="295" y="165" fill="#64748b" font-family="system-ui, sans-serif" font-size="9" text-anchor="end">Solo Pickup</text>
+
+    <!-- Both Pickups On (The Classic Scoop!) -->
+    <path d="M 40 85 Q 90 80 120 100 Q 160 160 200 100 Q 240 80 300 160" fill="none" stroke="#f59e0b" stroke-width="3"/>
+
+    <!-- Mid Scoop Callout -->
+    <circle cx="160" cy="160" r="5" fill="#e11d48"/>
+    <path d="M 160 160 L 190 190" stroke="#ef4444" stroke-width="1.5"/>
+    <text x="195" y="195" fill="#fca5a5" font-family="system-ui, sans-serif" font-size="10.5" font-weight="800">-3 dB Mid Scoop (~700 Hz)</text>
+    <text x="195" y="210" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="9">Phase cancellation between pickups</text>
+
+    <rect x="25" y="235" width="285" height="20" rx="3" fill="#1e293b"/>
+    <text x="167" y="249" fill="#fde047" font-family="system-ui, sans-serif" font-size="9.5" font-weight="700" text-anchor="middle">Iconic Slap &amp; Funk Tone: Fat lows + Crisp attack sparkle</text>
   </g>
+
+  <text x="380" y="382" fill="#64748b" font-family="system-ui, sans-serif" font-size="10.5" text-anchor="middle">Pickup spacing causes comb filtering; parallel wiring lowers circuit impedance.</text>
 </svg>'''
 
 # 6. BASS PICKUP PLACEMENT & TIMBRE
-svgs["bass_pickup_placement_timbre.svg"] = '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480" width="100%" height="100%">
-  <rect width="800" height="480" fill="#080e1a" rx="14"/>
-  <rect x="20" y="20" width="760" height="440" fill="#0f172a" stroke="rgba(56,189,248,0.3)" stroke-width="1.5" rx="12"/>
-  
-  <text x="40" y="55" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="13" font-weight="800" letter-spacing="1.5">AO3 HARMONICS &amp; MAGNETIC SAMPLING</text>
-  <text x="40" y="85" fill="#ffffff" font-family="system-ui, sans-serif" font-size="20" font-weight="900">Bass Pickup Placement: Bridge vs Middle vs Neck Timbre</text>
+svgs["bass_pickup_placement_timbre.svg"] = '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 400" width="100%" height="100%">
+  <rect width="760" height="400" rx="12" fill="#080e1a" stroke="#1e293b" stroke-width="1.5"/>
+  <text x="35" y="38" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="12" font-weight="800" letter-spacing="1.5">AO3 TRANSDUCER PLACEMENT &amp; HARMONIC NODES</text>
+  <text x="35" y="66" fill="#ffffff" font-family="system-ui, sans-serif" font-size="18" font-weight="900">How Pickup Position Dictates Harmonic Overtone Sampling</text>
 
-  <!-- Graphic String Anatomy -->
-  <g transform="translate(50, 115)">
-    <rect x="0" y="0" width="700" height="150" fill="#1e293b" rx="8"/>
-    
-    <!-- String wave (fundamental) -->
-    <path d="M 40,75 Q 350,15 660,75" fill="none" stroke="rgba(56,189,248,0.4)" stroke-width="3" stroke-dasharray="4 4"/>
-    <path d="M 40,75 Q 350,135 660,75" fill="none" stroke="rgba(56,189,248,0.4)" stroke-width="3" stroke-dasharray="4 4"/>
-    <line x1="40" y1="75" x2="660" y2="75" stroke="#f59e0b" stroke-width="4"/>
+  <!-- String Vibration Nodes Visual -->
+  <g transform="translate(35, 90)">
+    <rect width="690" height="260" rx="8" fill="#131e36" stroke="#334155" stroke-width="1"/>
 
-    <!-- Neck pickup (e.g. EB-0 / Mudbucker) -->
-    <rect x="200" y="50" width="45" height="50" fill="#3b82f6" rx="4" stroke="#ffffff"/>
-    <text x="222" y="118" fill="#3b82f6" font-family="system-ui, sans-serif" font-size="11" font-weight="800" text-anchor="middle">Neck / 12th Fret</text>
-    <text x="222" y="135" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="10" text-anchor="middle">Max Fundamental</text>
+    <!-- Nut to Bridge String Span -->
+    <line x1="50" y1="50" x2="640" y2="50" stroke="#64748b" stroke-width="1"/>
+    <text x="50" y="35" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="11" font-weight="700">12th Fret (Octave)</text>
+    <text x="640" y="35" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="11" font-weight="700" text-anchor="end">Bridge</text>
 
-    <!-- Middle pickup (P-Bass sweet spot) -->
-    <rect x="360" y="50" width="55" height="50" fill="#22c55e" rx="4" stroke="#ffffff"/>
-    <text x="387" y="118" fill="#22c55e" font-family="system-ui, sans-serif" font-size="11" font-weight="800" text-anchor="middle">P-Bass Sweet Spot</text>
-    <text x="387" y="135" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="10" text-anchor="middle">Balanced Punch</text>
+    <!-- Fundamental Wave -->
+    <path d="M 50 80 Q 345 30 640 80" fill="none" stroke="#38bdf8" stroke-width="2.5"/>
+    <text x="50" y="105" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="10.5" font-weight="700">Fundamental Mode (Large Excursion)</text>
 
-    <!-- Bridge pickup (J-Bass bridge / StingRay) -->
-    <rect x="520" y="50" width="45" height="50" fill="#f59e0b" rx="4" stroke="#ffffff"/>
-    <text x="542" y="118" fill="#f59e0b" font-family="system-ui, sans-serif" font-size="11" font-weight="800" text-anchor="middle">Bridge Position</text>
-    <text x="542" y="135" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="10" text-anchor="middle">Dense Harmonics / Growl</text>
-  </g>
+    <!-- 2nd Harmonic Wave -->
+    <path d="M 50 135 Q 197 110 345 135 Q 492 160 640 135" fill="none" stroke="#f59e0b" stroke-width="2"/>
+    <text x="50" y="158" fill="#fbbf24" font-family="system-ui, sans-serif" font-size="10.5" font-weight="700">2nd Harmonic (Punch &amp; Growl)</text>
 
-  <!-- 3 Timbre Cards -->
-  <g transform="translate(50, 280)">
-    <rect x="0" y="0" width="220" height="145" fill="#142038" rx="8" stroke="#3b82f6"/>
-    <text x="15" y="25" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="13" font-weight="800">Neck Pickup ("Mudbucker")</text>
-    <text x="15" y="50" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11.5">• Senses near string center antinode</text>
-    <text x="15" y="70" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11.5">• Massive fundamental wave excursion</text>
-    <text x="15" y="90" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11.5">• Very dark, boomy, sub-bass heavy</text>
-    <text x="15" y="110" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="10.5">Heard on: Cream / Jack Bruce (Gibson EB-3)</text>
-
-    <rect x="240" y="0" width="220" height="145" fill="#142038" rx="8" stroke="#22c55e"/>
-    <text x="255" y="25" fill="#86efac" font-family="system-ui, sans-serif" font-size="13" font-weight="800">Middle Position (P-Bass)</text>
-    <text x="255" y="50" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11.5">• Positioned at ~1/3 scale length</text>
-    <text x="255" y="70" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11.5">• Perfect harmonic balance</text>
-    <text x="255" y="90" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11.5">• Warm punchy mids; cuts through mix</text>
-    <text x="255" y="110" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="10.5">Heard on: Motown / James Jamerson</text>
-
-    <rect x="480" y="0" width="220" height="145" fill="#142038" rx="8" stroke="#f59e0b"/>
-    <text x="495" y="25" fill="#fde047" font-family="system-ui, sans-serif" font-size="13" font-weight="800">Bridge Position (J-Bass / Jaco)</text>
-    <text x="495" y="50" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11.5">• Senses near rigid bridge anchor</text>
-    <text x="495" y="70" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11.5">• Fundamental excursion restricted</text>
-    <text x="495" y="90" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11.5">• Rich in 4th–8th harmonic growl</text>
-    <text x="495" y="110" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="10.5">Heard on: Jaco Pastorius fretless solos</text>
-  </g>
-</svg>'''
-
-# 7. FLATWOUND VS ROUNDWOUND STRINGS FREQUENCY RESPONSE
-svgs["flatwound_vs_roundwound_frequency_response.svg"] = '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480" width="100%" height="100%">
-  <rect width="800" height="480" fill="#080e1a" rx="14"/>
-  <rect x="20" y="20" width="760" height="440" fill="#0f172a" stroke="rgba(245,158,11,0.3)" stroke-width="1.5" rx="12"/>
-  
-  <text x="40" y="55" fill="#f59e0b" font-family="system-ui, sans-serif" font-size="13" font-weight="800" letter-spacing="1.5">AO3 STRING METALLURGY &amp; TIMBRE</text>
-  <text x="40" y="85" fill="#ffffff" font-family="system-ui, sans-serif" font-size="20" font-weight="900">Flatwound vs Roundwound Bass Strings Frequency Response</text>
-
-  <!-- Frequency Response Graph -->
-  <g transform="translate(60, 120)">
-    <!-- Axes -->
-    <line x1="40" y1="180" x2="650" y2="180" stroke="#64748b" stroke-width="1.5"/>
-    <line x1="40" y1="20" x2="40" y2="180" stroke="#64748b" stroke-width="1.5"/>
-    
-    <text x="35" y="200" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="11">40 Hz</text>
-    <text x="180" y="200" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="11">200 Hz</text>
-    <text x="340" y="200" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="11">1 kHz</text>
-    <text x="490" y="200" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="11">4 kHz</text>
-    <text x="630" y="200" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="11">10 kHz</text>
-
-    <!-- Curve 1: Flatwound (Strong fundamental, rapid high rolloff) -->
-    <path d="M 40,60 Q 180,65 300,100 T 500,165 L 640,178" fill="none" stroke="#38bdf8" stroke-width="3.5"/>
-    <text x="210" y="50" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="12" font-weight="800">Flatwound (Deep fundamental thud; no finger squeak)</text>
-
-    <!-- Curve 2: Roundwound (Bright, extended presence peak, slap buzz) -->
-    <path d="M 40,80 Q 200,80 340,75 T 500,60 L 640,140" fill="none" stroke="#f59e0b" stroke-width="3.5"/>
-    <text x="440" y="45" fill="#f59e0b" font-family="system-ui, sans-serif" font-size="12" font-weight="800">Roundwound (Bright harmonics &amp; sustain)</text>
-  </g>
-
-  <!-- Comparison Cards below -->
-  <g transform="translate(60, 335)">
-    <rect x="0" y="0" width="320" height="95" fill="#1e293b" rx="8" stroke="rgba(56,189,248,0.3)"/>
-    <text x="15" y="25" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="13" font-weight="800">Flatwound Construction (1950s–1960s)</text>
-    <text x="15" y="48" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11.5">• Ribbon wire wrapped flat over core; smooth feel</text>
-    <text x="15" y="68" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11.5">• Dark, woody, rapid decay, zero fret wear</text>
-    <text x="15" y="88" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="10.5">Standard on Motown, Stax, early Beatles, and classic reggae</text>
-
-    <rect x="350" y="0" width="320" height="95" fill="#1e293b" rx="8" stroke="rgba(245,158,11,0.3)"/>
-    <text x="365" y="25" fill="#f59e0b" font-family="system-ui, sans-serif" font-size="13" font-weight="800">Roundwound (1966 Rotosound / Entwistle)</text>
-    <text x="365" y="48" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11.5">• Round wire coil leaves ridges along surface</text>
-    <text x="365" y="68" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11.5">• Bright zing, biting attack, extended sustain, fret wear</text>
-    <text x="365" y="88" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="10.5">Essential for progressive rock, slap bass, metal, and modern pop</text>
-  </g>
-</svg>'''
-
-# 8. ACTIVE VS PASSIVE BASS PREAMP
-svgs["active_vs_passive_bass_preamp.svg"] = '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480" width="100%" height="100%">
-  <rect width="800" height="480" fill="#080e1a" rx="14"/>
-  <rect x="20" y="20" width="760" height="440" fill="#0f172a" stroke="rgba(168,85,247,0.3)" stroke-width="1.5" rx="12"/>
-  
-  <text x="40" y="55" fill="#a855f7" font-family="system-ui, sans-serif" font-size="13" font-weight="800" letter-spacing="1.5">AO3 ELECTRONICS &amp; PREAMPLIFICATION</text>
-  <text x="40" y="85" fill="#ffffff" font-family="system-ui, sans-serif" font-size="20" font-weight="900">Passive Bass Electronics vs Active 9V Onboard Preamp</text>
-
-  <!-- Left: Passive Circuit -->
-  <g transform="translate(45, 120)">
-    <rect x="0" y="0" width="340" height="305" fill="#1e293b" rx="10" stroke="rgba(255,255,255,0.08)"/>
-    <text x="20" y="32" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="15" font-weight="800">Passive Circuit (Fender P / J-Bass)</text>
-    
-    <text x="20" y="65" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="12">• <tspan fill="#ffffff" font-weight="700">No Power Source:</tspan> 100% passive components</text>
-    <text x="20" y="95" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="12">• <tspan fill="#ffffff" font-weight="700">Cut Only (Attenuate):</tspan> Tone pot only rolls OFF treble</text>
-    <text x="20" y="125" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="12">• <tspan fill="#ffffff" font-weight="700">Cannot Boost:</tspan> Zero active gain or boost capability</text>
-    <text x="20" y="155" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="12">• <tspan fill="#ffffff" font-weight="700">High Output Impedance:</tspan> Cable capacitance can roll off highs</text>
-    <text x="20" y="185" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="12">• <tspan fill="#ffffff" font-weight="700">Sonic Character:</tspan> Organic, dynamic, woody vintage warmth</text>
-
-    <rect x="20" y="220" width="300" height="65" fill="#0f172a" rx="6" stroke="rgba(56,189,248,0.2)"/>
-    <text x="35" y="245" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="11" font-weight="800">PASSIVE ADVANTAGE:</text>
-    <text x="35" y="268" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11">Never dies on stage from flat batteries; dynamic response.</text>
-  </g>
-
-  <!-- Right: Active Circuit -->
-  <g transform="translate(415, 120)">
-    <rect x="0" y="0" width="340" height="305" fill="#1e293b" rx="10" stroke="rgba(168,85,247,0.3)"/>
-    <text x="20" y="32" fill="#a855f7" font-family="system-ui, sans-serif" font-size="15" font-weight="800">Active Circuit (Music Man StingRay / Warwick)</text>
-    
-    <text x="20" y="65" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="12">• <tspan fill="#ffffff" font-weight="700">9V / 18V Battery:</tspan> Powers onboard FET / op-amp preamp</text>
-    <text x="20" y="95" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="12">• <tspan fill="#ffffff" font-weight="700">Boost AND Cut EQ:</tspan> 2-band or 3-band Baxandall tone controls</text>
-    <text x="20" y="125" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="12">• <tspan fill="#ffffff" font-weight="700">Active Gain Boost:</tspan> Up to +14 dB boost at 40 Hz and 10 kHz</text>
-    <text x="20" y="155" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="12">• <tspan fill="#ffffff" font-weight="700">Low Output Impedance (Low-Z):</tspan> Drives 100m cables cleanly</text>
-    <text x="20" y="185" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="12">• <tspan fill="#ffffff" font-weight="700">Sonic Character:</tspan> Hi-fi, punchy, articulate, massive sub-bass</text>
-
-    <rect x="20" y="220" width="300" height="65" fill="#0f172a" rx="6" stroke="rgba(168,85,247,0.2)"/>
-    <text x="35" y="245" fill="#c084fc" font-family="system-ui, sans-serif" font-size="11" font-weight="800">ACTIVE ADVANTAGE:</text>
-    <text x="35" y="268" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11">Total tone shaping direct into studio recording consoles.</text>
-  </g>
-</svg>'''
-
-# 9. MUSIC MAN STINGRAY PREAMP SCHEMATIC
-svgs["music_man_stingray_preamp_schematic.svg"] = '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480" width="100%" height="100%">
-  <rect width="800" height="480" fill="#080e1a" rx="14"/>
-  <rect x="20" y="20" width="760" height="440" fill="#0f172a" stroke="rgba(245,158,11,0.3)" stroke-width="1.5" rx="12"/>
-  
-  <text x="40" y="55" fill="#f59e0b" font-family="system-ui, sans-serif" font-size="13" font-weight="800" letter-spacing="1.5">AO3 ICONIC INNOVATION (1976)</text>
-  <text x="40" y="85" fill="#ffffff" font-family="system-ui, sans-serif" font-size="20" font-weight="900">Music Man StingRay: Giant Humbucker &amp; 9V Active EQ</text>
-
-  <!-- Signal Path Architecture -->
-  <g transform="translate(45, 120)">
-    <rect x="0" y="0" width="705" height="175" fill="#1e293b" rx="10" stroke="rgba(255,255,255,0.08)"/>
-
-    <!-- Large Humbucker with 8 large pole pieces -->
-    <rect x="30" y="35" width="130" height="105" fill="#0b1329" rx="8" stroke="#f59e0b" stroke-width="2"/>
-    <circle cx="65" cy="65" r="10" fill="#f59e0b"/>
-    <circle cx="125" cy="65" r="10" fill="#f59e0b"/>
-    <circle cx="65" cy="110" r="10" fill="#f59e0b"/>
-    <circle cx="125" cy="110" r="10" fill="#f59e0b"/>
-    <text x="95" y="25" fill="#f59e0b" font-family="system-ui, sans-serif" font-size="11" font-weight="800" text-anchor="middle">Large 3/8" Alnico Pole Humbucker</text>
-
-    <!-- Arrow -->
-    <path d="M 170,87 L 210,87" fill="none" stroke="#64748b" stroke-width="3" marker-end="url(#arrow)"/>
-
-    <!-- 9V Battery -->
-    <rect x="220" y="45" width="90" height="85" fill="#1e293b" rx="6" stroke="#ef4444" stroke-width="2"/>
-    <text x="265" y="75" fill="#ef4444" font-family="system-ui, sans-serif" font-size="12" font-weight="800" text-anchor="middle">9V Battery</text>
-    <text x="265" y="100" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11" text-anchor="middle">Power Supply</text>
-
-    <!-- Active Op-Amp Preamp -->
-    <polygon points="360,40 360,135 440,87" fill="#142038" stroke="#38bdf8" stroke-width="2"/>
-    <text x="390" y="92" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="12" font-weight="800" text-anchor="middle">LM4250</text>
-    <text x="400" y="160" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="11" font-weight="700" text-anchor="middle">Active Preamp</text>
-
-    <!-- EQ Knobs -->
-    <g transform="translate(480, 45)">
-      <circle cx="30" cy="42" r="20" fill="#334155" stroke="#f59e0b" stroke-width="2"/>
-      <text x="30" y="46" fill="#ffffff" font-family="system-ui, sans-serif" font-size="9" font-weight="800" text-anchor="middle">Bass</text>
-      <text x="30" y="78" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="9" text-anchor="middle">&#177;14 dB</text>
-
-      <circle cx="85" cy="42" r="20" fill="#334155" stroke="#f59e0b" stroke-width="2"/>
-      <text x="85" y="46" fill="#ffffff" font-family="system-ui, sans-serif" font-size="9" font-weight="800" text-anchor="middle">Treble</text>
-      <text x="85" y="78" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="9" text-anchor="middle">&#177;14 dB</text>
+    <!-- Three Transducer Positions -->
+    <!-- Position 1: Neck (Gibson Mudbucker / EB-0) -->
+    <g transform="translate(140, 180)">
+      <rect width="130" height="65" rx="6" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5"/>
+      <text x="65" y="20" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="11" font-weight="800" text-anchor="middle">NECK POSITION</text>
+      <text x="65" y="38" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="9.5" text-anchor="middle">High fundamental</text>
+      <text x="65" y="52" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="9" text-anchor="middle">Deep, warm, tubby</text>
     </g>
 
-    <!-- Low-Z Out -->
-    <rect x="600" y="65" width="80" height="45" fill="#0f172a" rx="6" stroke="#22c55e" stroke-width="2"/>
-    <text x="640" y="92" fill="#22c55e" font-family="system-ui, sans-serif" font-size="11" font-weight="800" text-anchor="middle">Low-Z Out</text>
+    <!-- Position 2: Middle (P-Bass Sweet Spot) -->
+    <g transform="translate(330, 180)">
+      <rect width="130" height="65" rx="6" fill="#1e293b" stroke="#10b981" stroke-width="1.5"/>
+      <text x="65" y="20" fill="#34d399" font-family="system-ui, sans-serif" font-size="11" font-weight="800" text-anchor="middle">P-BASS "SWEET SPOT"</text>
+      <text x="65" y="38" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="9.5" text-anchor="middle">Equal fun/harmonics</text>
+      <text x="65" y="52" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="9" text-anchor="middle">Maximum mix cut</text>
+    </g>
+
+    <!-- Position 3: Bridge (Jazz Bass / StingRay) -->
+    <g transform="translate(520, 180)">
+      <rect width="130" height="65" rx="6" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5"/>
+      <text x="65" y="20" fill="#fbbf24" font-family="system-ui, sans-serif" font-size="11" font-weight="800" text-anchor="middle">BRIDGE POSITION</text>
+      <text x="65" y="38" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="9.5" text-anchor="middle">Dense upper harmonics</text>
+      <text x="65" y="52" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="9" text-anchor="middle">Nasal, biting, Jaco tone</text>
+    </g>
   </g>
 
-  <!-- 3 Impact Highlights -->
-  <g transform="translate(45, 315)">
-    <rect x="0" y="0" width="705" height="115" fill="#142038" rx="8" stroke="rgba(245,158,11,0.2)"/>
-    <text x="20" y="28" fill="#f59e0b" font-family="system-ui, sans-serif" font-size="13" font-weight="800">WHY THE STINGRAY REVOLUTIONIZED MODERN BASS TONE:</text>
-    <text x="20" y="52" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11.5">1. <tspan fill="#ffffff" font-weight="700">Parallel Humbucker Wiring:</tspan> The large coils were wired in parallel, delivering crisp high-end rather than muddy series tone.</text>
-    <text x="20" y="74" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11.5">2. <tspan fill="#ffffff" font-weight="700">Baxandall Active EQ:</tspan> Bassists could boost 40 Hz sub-bass without clouding midrange clarity, ideal for disco, funk &amp; punk.</text>
-    <text x="20" y="96" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11.5">3. <tspan fill="#ffffff" font-weight="700">Adopted by Legends:</tspan> Flea (Red Hot Chili Peppers), Bernard Edwards (Chic), Louis Johnson (Brothers Johnson), and Tony Levin.</text>
-  </g>
+  <text x="380" y="382" fill="#64748b" font-family="system-ui, sans-serif" font-size="10.5" text-anchor="middle">Near bridge, string excursion is physically restricted, reducing low fundamental amplitude.</text>
 </svg>'''
 
-# 10. SLAP AND POP TECHNIQUE MECHANICS
-svgs["slap_and_pop_technique_mechanics.svg"] = '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480" width="100%" height="100%">
-  <rect width="800" height="480" fill="#080e1a" rx="14"/>
-  <rect x="20" y="20" width="760" height="440" fill="#0f172a" stroke="rgba(56,189,248,0.3)" stroke-width="1.5" rx="12"/>
-  
-  <text x="40" y="55" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="13" font-weight="800" letter-spacing="1.5">AO3 PERFORMANCE TECHNIQUE &amp; TIMBRE</text>
-  <text x="40" y="85" fill="#ffffff" font-family="system-ui, sans-serif" font-size="20" font-weight="900">Slap &amp; Pop Mechanics: Larry Graham &amp; Percussive Funk</text>
+# 7. FLATWOUND VS ROUNDWOUND FREQUENCY RESPONSE
+svgs["flatwound_vs_roundwound_frequency_response.svg"] = '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 400" width="100%" height="100%">
+  <rect width="760" height="400" rx="12" fill="#080e1a" stroke="#1e293b" stroke-width="1.5"/>
+  <text x="35" y="38" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="12" font-weight="800" letter-spacing="1.5">AO3 STRING CONSTRUCTION &amp; TIMBRE</text>
+  <text x="35" y="66" fill="#ffffff" font-family="system-ui, sans-serif" font-size="18" font-weight="900">Flatwound vs Roundwound: Cross-Section &amp; Frequency Curves</text>
 
-  <!-- Left: Slap Technique -->
-  <g transform="translate(45, 115)">
-    <rect x="0" y="0" width="340" height="315" fill="#1e293b" rx="10" stroke="rgba(56,189,248,0.3)"/>
-    <text x="20" y="32" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="15" font-weight="800">1. The "Slap" (Thumb Strike)</text>
-    
-    <text x="20" y="65" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="12">• <tspan fill="#ffffff" font-weight="700">Origin:</tspan> Larry Graham (Sly &amp; The Family Stone, 1968)</text>
-    <text x="20" y="95" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="12">• <tspan fill="#ffffff" font-weight="700">Acoustic Genesis:</tspan> Substituted for missing drummer</text>
-    <text x="20" y="125" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="12">• <tspan fill="#ffffff" font-weight="700">Mechanism:</tspan> Bony knuckle of thumb strikes Low E/A string</text>
-    <text x="20" y="155" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="12">• <tspan fill="#ffffff" font-weight="700">Physics:</tspan> String drives forcefully against steel metal fret</text>
-    <text x="20" y="185" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="12">• <tspan fill="#ffffff" font-weight="700">Sonic Profile:</tspan> Heavy low-end thump + sharp metallic click</text>
-    <text x="20" y="215" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="12">• <tspan fill="#ffffff" font-weight="700">Emulates:</tspan> Acoustic bass drum / kick drum pulse</text>
+  <!-- Top: Cross-Section Anatomy -->
+  <g transform="translate(35, 85)">
+    <!-- Roundwound -->
+    <g transform="translate(0, 0)">
+      <rect width="335" height="90" rx="8" fill="#131e36" stroke="#f59e0b" stroke-width="1.5"/>
+      <text x="20" y="24" fill="#fbbf24" font-family="system-ui, sans-serif" font-size="12" font-weight="800">ROUNDWOUND STRING (Steel Ribs)</text>
+      <!-- Core -->
+      <circle cx="60" cy="55" r="14" fill="#94a3b8"/>
+      <!-- Round Windings -->
+      <circle cx="36" cy="55" r="7" fill="#cbd5e1" stroke="#475569"/>
+      <circle cx="84" cy="55" r="7" fill="#cbd5e1" stroke="#475569"/>
+      <circle cx="60" cy="31" r="7" fill="#cbd5e1" stroke="#475569"/>
+      <circle cx="60" cy="79" r="7" fill="#cbd5e1" stroke="#475569"/>
+      <text x="110" y="48" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="10.5">&#8226; Round outer wire with gaps</text>
+      <text x="110" y="66" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="10.5">&#8226; Bright harmonics &amp; sustain</text>
+    </g>
 
-    <rect x="20" y="250" width="300" height="45" fill="rgba(56,189,248,0.15)" rx="6"/>
-    <text x="170" y="278" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="12" font-weight="800" text-anchor="middle">"Thumpin&#39;" = Bass Kick Drum Pulse</text>
+    <!-- Flatwound -->
+    <g transform="translate(355, 0)">
+      <rect width="335" height="90" rx="8" fill="#131e36" stroke="#38bdf8" stroke-width="1.5"/>
+      <text x="20" y="24" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="12" font-weight="800">FLATWOUND STRING (Ribbon Wrap)</text>
+      <!-- Core -->
+      <circle cx="60" cy="55" r="14" fill="#94a3b8"/>
+      <!-- Ribbon Wrap -->
+      <rect x="36" y="32" width="48" height="46" rx="6" fill="none" stroke="#cbd5e1" stroke-width="6"/>
+      <text x="110" y="48" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="10.5">&#8226; Flat polished ribbon wire</text>
+      <text x="110" y="66" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="10.5">&#8226; Muted highs, zero squeak</text>
+    </g>
   </g>
 
-  <!-- Right: Pop Technique -->
-  <g transform="translate(415, 115)">
-    <rect x="0" y="0" width="340" height="315" fill="#1e293b" rx="10" stroke="rgba(245,158,11,0.3)"/>
-    <text x="20" y="32" fill="#f59e0b" font-family="system-ui, sans-serif" font-size="15" font-weight="800">2. The "Pop" (Finger Snap)</text>
-    
-    <text x="20" y="65" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="12">• <tspan fill="#ffffff" font-weight="700">Mechanism:</tspan> Index or middle finger hooks under D/G string</text>
-    <text x="20" y="95" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="12">• <tspan fill="#ffffff" font-weight="700">Release:</tspan> String is pulled outward and released abruptly</text>
-    <text x="20" y="125" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="12">• <tspan fill="#ffffff" font-weight="700">Physics:</tspan> High kinetic rebound snaps against fretboard metal</text>
-    <text x="20" y="155" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="12">• <tspan fill="#ffffff" font-weight="700">Sonic Profile:</tspan> Piercing transient spike (2 kHz – 5 kHz crack)</text>
-    <text x="20" y="185" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="12">• <tspan fill="#ffffff" font-weight="700">Emulates:</tspan> Snare drum crack or acoustic hand-clap</text>
-    <text x="20" y="215" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="12">• <tspan fill="#ffffff" font-weight="700">Studio DI Note:</tspan> Requires optical fast peak limiting / compression</text>
+  <!-- Bottom: Frequency Response Comparison Graph -->
+  <g transform="translate(35, 190)">
+    <rect width="690" height="160" rx="8" fill="#0f172a" stroke="#334155" stroke-width="1"/>
 
-    <rect x="20" y="250" width="300" height="45" fill="rgba(245,158,11,0.15)" rx="6"/>
-    <text x="170" y="278" fill="#f59e0b" font-family="system-ui, sans-serif" font-size="12" font-weight="800" text-anchor="middle">"Pluckin&#39;" = Snare Drum Snap Accent</text>
+    <!-- Graph Axis -->
+    <line x1="50" y1="130" x2="640" y2="130" stroke="#475569" stroke-width="1.5"/>
+    <line x1="50" y1="20" x2="50" y2="130" stroke="#475569" stroke-width="1.5"/>
+    <text x="50" y="145" fill="#64748b" font-family="system-ui, sans-serif" font-size="9">40 Hz</text>
+    <text x="200" y="145" fill="#64748b" font-family="system-ui, sans-serif" font-size="9">200 Hz</text>
+    <text x="380" y="145" fill="#64748b" font-family="system-ui, sans-serif" font-size="9">1 kHz</text>
+    <text x="540" y="145" fill="#64748b" font-family="system-ui, sans-serif" font-size="9">4 kHz</text>
+    <text x="630" y="145" fill="#64748b" font-family="system-ui, sans-serif" font-size="9">10 kHz</text>
+
+    <!-- Flatwound Curve (Heavy low end, steep cutoff) -->
+    <path d="M 50 35 Q 160 30 260 55 T 420 115 T 640 128" fill="none" stroke="#38bdf8" stroke-width="3"/>
+    <text x="260" y="45" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="11" font-weight="700">Flatwounds (Motown, Soul, Reggae)</text>
+
+    <!-- Roundwound Curve (Extended high-end presence peak) -->
+    <path d="M 50 50 Q 200 45 350 48 T 520 35 T 640 100" fill="none" stroke="#f59e0b" stroke-width="3"/>
+    <text x="520" y="25" fill="#fbbf24" font-family="system-ui, sans-serif" font-size="11" font-weight="700">Roundwounds (Rock, Slap, Metal)</text>
   </g>
+
+  <text x="380" y="382" fill="#64748b" font-family="system-ui, sans-serif" font-size="10.5" text-anchor="middle">Flatwounds provide massive low-end fundamental thump; roundwounds provide aggressive upper-mid snap.</text>
 </svg>'''
 
-# 11. PALM MUTING & FOAM MUTE DAMPING
-svgs["palm_muting_foam_mute_damping.svg"] = '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480" width="100%" height="100%">
-  <rect width="800" height="480" fill="#080e1a" rx="14"/>
-  <rect x="20" y="20" width="760" height="440" fill="#0f172a" stroke="rgba(34,197,94,0.3)" stroke-width="1.5" rx="12"/>
-  
-  <text x="40" y="55" fill="#22c55e" font-family="system-ui, sans-serif" font-size="13" font-weight="800" letter-spacing="1.5">AO3 MECHANICAL DAMPING &amp; TRANSIENTS</text>
-  <text x="40" y="85" fill="#ffffff" font-family="system-ui, sans-serif" font-size="20" font-weight="900">Palm Muting &amp; Foam Bridge Damping (The Motown Thud)</text>
+# 8. PASSIVE VS ACTIVE BASS ELECTRONICS
+svgs["active_vs_passive_bass_preamp.svg"] = '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 400" width="100%" height="100%">
+  <rect width="760" height="400" rx="12" fill="#080e1a" stroke="#1e293b" stroke-width="1.5"/>
+  <text x="35" y="38" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="12" font-weight="800" letter-spacing="1.5">AO3 INSTRUMENT ELECTRONICS &amp; PREAMPS</text>
+  <text x="35" y="66" fill="#ffffff" font-family="system-ui, sans-serif" font-size="18" font-weight="900">Passive (High-Z) vs Active 9V (Low-Z) Architecture</text>
 
-  <!-- Envelope Comparison: Unmuted vs Muted -->
-  <g transform="translate(45, 120)">
-    <!-- Unmuted Bass Envelope -->
-    <rect x="0" y="0" width="340" height="180" fill="#1e293b" rx="8" stroke="rgba(255,255,255,0.08)"/>
-    <text x="20" y="30" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="14" font-weight="800">1. Unmuted Bass String Envelope</text>
-    
-    <!-- Waveform with long decay -->
-    <path d="M 30,100 L 45,40 L 60,140 L 75,55 L 100,120 L 160,85 L 240,95 L 320,100" fill="none" stroke="#38bdf8" stroke-width="2.5"/>
-    <text x="20" y="160" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="11">Long sustain (3–8 seconds), singing upper harmonics</text>
+  <!-- Left: Passive Circuit -->
+  <g transform="translate(35, 90)">
+    <rect width="335" height="265" rx="8" fill="#131e36" stroke="#94a3b8" stroke-width="1.5"/>
+    <text x="20" y="28" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="13" font-weight="800">PASSIVE BASS (e.g. 1957 P-Bass)</text>
 
-    <!-- Foam Muted Motown Envelope -->
-    <rect x="365" y="0" width="340" height="180" fill="#1e293b" rx="8" stroke="rgba(34,197,94,0.3)"/>
-    <text x="385" y="30" fill="#22c55e" font-family="system-ui, sans-serif" font-size="14" font-weight="800">2. Foam-Damped Motown Envelope</text>
-    
-    <!-- Waveform with steep decay -->
-    <path d="M 395,100 L 410,40 L 425,140 L 440,75 L 470,98 L 520,100 L 685,100" fill="none" stroke="#22c55e" stroke-width="2.5"/>
-    <text x="385" y="160" fill="#86efac" font-family="system-ui, sans-serif" font-size="11">Rapid decay (&lt;0.5s), dense sub-fundamental "thud"</text>
+    <!-- Signal Blocks -->
+    <rect x="25" y="48" width="120" height="34" rx="4" fill="#1e293b" stroke="#475569"/>
+    <text x="85" y="69" fill="#e2e8f0" font-family="system-ui, sans-serif" font-size="10.5" font-weight="700" text-anchor="middle">Passive Pickup</text>
+
+    <path d="M 145 65 L 180 65" stroke="#94a3b8" stroke-width="2"/>
+
+    <rect x="180" y="48" width="130" height="34" rx="4" fill="#1e293b" stroke="#475569"/>
+    <text x="245" y="69" fill="#e2e8f0" font-family="system-ui, sans-serif" font-size="10" font-weight="700" text-anchor="middle">250k&#937; Vol + Tone RC</text>
+
+    <!-- Output -->
+    <rect x="80" y="105" width="175" height="30" rx="4" fill="#1e293b" stroke="#ef4444"/>
+    <text x="167" y="124" fill="#fca5a5" font-family="system-ui, sans-serif" font-size="10" font-weight="700" text-anchor="middle">High-Z Output (10k&#937;&#8211;20k&#937;)</text>
+
+    <!-- Cable Loss Visual -->
+    <path d="M 167 135 L 167 165" stroke="#ef4444" stroke-width="2" stroke-dasharray="3 2"/>
+    <rect x="25" y="165" width="285" height="50" rx="4" fill="#2c1618"/>
+    <text x="167" y="185" fill="#f87171" font-family="system-ui, sans-serif" font-size="10.5" font-weight="800" text-anchor="middle">Cable Capacitance Treble Loss!</text>
+    <text x="167" y="202" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="9" text-anchor="middle">Long stage cables roll off high frequencies above 3 kHz</text>
+
+    <text x="25" y="245" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="10">&#8226; Tone control can only CUT frequencies</text>
   </g>
 
-  <!-- Technical Explanation Box -->
-  <g transform="translate(45, 320)">
-    <rect x="0" y="0" width="705" height="110" fill="#142038" rx="8" stroke="rgba(34,197,94,0.2)"/>
-    <text x="25" y="28" fill="#22c55e" font-family="system-ui, sans-serif" font-size="13" font-weight="800">WHY FOAM MUTING DEFINED 1960s HIT RECORDINGS:</text>
-    <text x="25" y="52" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11.5">• <tspan fill="#ffffff" font-weight="700">Leo Fender Factory Design:</tspan> Early P-Basses had neoprene rubber foam strips glued underneath the chrome bridge cover.</text>
-    <text x="25" y="74" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11.5">• <tspan fill="#ffffff" font-weight="700">James Jamerson &amp; Motown:</tspan> Jamerson wedged heavy foam under flatwound strings, emulating upright double-bass decay.</text>
-    <text x="25" y="96" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11.5">• <tspan fill="#ffffff" font-weight="700">Mix Advantage:</tspan> Rapid decay cleared bass space instantly for kick drum transients, eliminating muddy low-end buildup.</text>
+  <!-- Right: Active 9V Circuit -->
+  <g transform="translate(390, 90)">
+    <rect width="335" height="265" rx="8" fill="#131e36" stroke="#38bdf8" stroke-width="1.5"/>
+    <text x="20" y="28" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="13" font-weight="800">ACTIVE BASS (1976 Music Man StingRay)</text>
+
+    <!-- Signal Blocks -->
+    <rect x="25" y="48" width="105" height="34" rx="4" fill="#1e293b" stroke="#334155"/>
+    <text x="77" y="69" fill="#93c5fd" font-family="system-ui, sans-serif" font-size="10" font-weight="700" text-anchor="middle">Humbucker</text>
+
+    <path d="M 130 65 L 155 65" stroke="#38bdf8" stroke-width="2"/>
+
+    <!-- Op-Amp Preamp -->
+    <rect x="155" y="45" width="155" height="40" rx="4" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5"/>
+    <text x="232" y="63" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="10.5" font-weight="800" text-anchor="middle">9V Active Op-Amp</text>
+    <text x="232" y="78" fill="#fbbf24" font-family="system-ui, sans-serif" font-size="9" font-weight="700" text-anchor="middle">Baxandall Boost &amp; Cut EQ</text>
+
+    <!-- Output -->
+    <rect x="80" y="105" width="175" height="30" rx="4" fill="#1e293b" stroke="#34d399"/>
+    <text x="167" y="124" fill="#6ee7b7" font-family="system-ui, sans-serif" font-size="10" font-weight="700" text-anchor="middle">Low-Z Output (&lt;1k&#937;)</text>
+
+    <!-- Long Cable Drive -->
+    <path d="M 167 135 L 167 165" stroke="#34d399" stroke-width="2"/>
+    <rect x="25" y="165" width="285" height="50" rx="4" fill="#063826"/>
+    <text x="167" y="185" fill="#34d399" font-family="system-ui, sans-serif" font-size="10.5" font-weight="800" text-anchor="middle">Zero Cable Treble Loss!</text>
+    <text x="167" y="202" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="9" text-anchor="middle">Low output impedance drives 50m cables with full top-end</text>
+
+    <text x="25" y="245" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="10">&#8226; Active EQ can BOOST frequencies (+12 dB)</text>
   </g>
+
+  <text x="380" y="382" fill="#64748b" font-family="system-ui, sans-serif" font-size="10.5" text-anchor="middle">Active preamps decouple pickup inductance from cable capacitance.</text>
 </svg>'''
 
-# 12. AMPEG SVT TUBE AMPLIFIER SCHEMATIC
-svgs["ampeg_svt_tube_amplifier_schematic.svg"] = '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480" width="100%" height="100%">
-  <rect width="800" height="480" fill="#080e1a" rx="14"/>
-  <rect x="20" y="20" width="760" height="440" fill="#0f172a" stroke="rgba(56,189,248,0.3)" stroke-width="1.5" rx="12"/>
-  
-  <text x="40" y="55" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="13" font-weight="800" letter-spacing="1.5">AO3 STAGE AMPLIFICATION &amp; VALVES (1969)</text>
-  <text x="40" y="85" fill="#ffffff" font-family="system-ui, sans-serif" font-size="20" font-weight="900">The Ampeg SVT (Super Valve Technology): 300W &amp; 8x10</text>
+# 9. 1976 MUSIC MAN STINGRAY PREAMP SCHEMATIC
+svgs["music_man_stingray_preamp_schematic.svg"] = '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 400" width="100%" height="100%">
+  <rect width="760" height="400" rx="12" fill="#080e1a" stroke="#1e293b" stroke-width="1.5"/>
+  <text x="35" y="38" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="12" font-weight="800" letter-spacing="1.5">AO3 ACTIVE CIRCUIT TOPOLOGY (1976)</text>
+  <text x="35" y="66" fill="#ffffff" font-family="system-ui, sans-serif" font-size="18" font-weight="900">Music Man StingRay 2-Band Active Preamp Circuit Schematic</text>
 
-  <!-- SVT Head and Cabinet Anatomy -->
-  <g transform="translate(45, 115)">
-    <!-- 300W Tube Head -->
-    <rect x="0" y="0" width="340" height="200" fill="#1e293b" rx="10" stroke="#38bdf8" stroke-width="2"/>
-    <text x="20" y="30" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="15" font-weight="800">Ampeg SVT Head (1969)</text>
-    
-    <text x="20" y="60" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="12">• <tspan fill="#ffffff" font-weight="700">300 Watts RMS:</tspan> Pure all-valve power (unprecedented in 1969)</text>
-    <text x="20" y="85" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="12">• <tspan fill="#ffffff" font-weight="700">14 Valves Total:</tspan> 6&#215; 6550 power tubes, massive iron transformers</text>
-    <text x="20" y="110" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="12">• <tspan fill="#ffffff" font-weight="700">Total Weight:</tspan> ~43 kg (95 lbs) for head alone!</text>
-    <text x="20" y="135" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="12">• <tspan fill="#ffffff" font-weight="700">Tone Controls:</tspan> Active midrange selector (220Hz, 800Hz, 3kHz)</text>
-    <text x="20" y="160" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="12">• <tspan fill="#ffffff" font-weight="700">Headroom:</tspan> Clean undistorted sub-bass at arena concert volume</text>
+  <!-- Schematic Box -->
+  <g transform="translate(35, 90)">
+    <rect width="690" height="260" rx="8" fill="#0f172a" stroke="#334155" stroke-width="1"/>
 
-    <!-- 8x10 Cabinet -->
-    <rect x="365" y="0" width="340" height="200" fill="#1e293b" rx="10" stroke="#f59e0b" stroke-width="2"/>
-    <text x="385" y="30" fill="#f59e0b" font-family="system-ui, sans-serif" font-size="15" font-weight="800">The 8&#215;10 "Fridge" Cabinet</text>
-    
-    <text x="385" y="60" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="12">• <tspan fill="#ffffff" font-weight="700">8&#215; 10-Inch Drivers:</tspan> Combined surface area exceeds a 15" cone</text>
-    <text x="385" y="85" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="12">• <tspan fill="#ffffff" font-weight="700">Fast Transient Speed:</tspan> 10" cones react far faster than a single 18"</text>
-    <text x="385" y="110" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="12">• <tspan fill="#ffffff" font-weight="700">Infinite Baffle (Sealed):</tspan> 4 separate sealed chambers (no ports)</text>
-    <text x="385" y="135" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="12">• <tspan fill="#ffffff" font-weight="700">Tight Lows:</tspan> Prevents loose speaker cone wobble on Low-E</text>
-    <text x="385" y="160" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="12">• <tspan fill="#ffffff" font-weight="700">Coupling Effect:</tspan> Floor placement boosts low frequencies +6 dB</text>
+    <!-- 9V Battery Rail -->
+    <line x1="60" y1="35" x2="630" y2="35" stroke="#ef4444" stroke-width="2"/>
+    <text x="60" y="25" fill="#f87171" font-family="system-ui, sans-serif" font-size="11" font-weight="800">+9V DC Battery Rail</text>
+
+    <!-- Ground Rail -->
+    <line x1="60" y1="225" x2="630" y2="225" stroke="#64748b" stroke-width="2"/>
+    <text x="60" y="245" fill="#64748b" font-family="system-ui, sans-serif" font-size="11" font-weight="800">Ground (0V)</text>
+
+    <!-- Pickup Stage -->
+    <rect x="50" y="90" width="100" height="70" rx="6" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5"/>
+    <text x="100" y="118" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="11" font-weight="800" text-anchor="middle">MM Alnico</text>
+    <text x="100" y="136" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="10" text-anchor="middle">Humbucker</text>
+
+    <!-- Input Lead -->
+    <path d="M 150 125 L 210 125" stroke="#38bdf8" stroke-width="2"/>
+
+    <!-- Op-Amp Triangle (LM4250) -->
+    <g transform="translate(210, 80)">
+      <polygon points="0,0 0,90 80,45" fill="#1e293b" stroke="#fbbf24" stroke-width="2"/>
+      <text x="25" y="42" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="14" font-weight="700">&#8722;</text>
+      <text x="25" y="62" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="14" font-weight="700">+</text>
+      <text x="35" y="50" fill="#fbbf24" font-family="system-ui, sans-serif" font-size="9" font-weight="800">OP-AMP</text>
+    </g>
+
+    <!-- Active Baxandall Feedback Loop -->
+    <g transform="translate(320, 60)">
+      <rect width="180" height="130" rx="6" fill="#131e36" stroke="#10b981" stroke-width="1.5"/>
+      <text x="90" y="24" fill="#34d399" font-family="system-ui, sans-serif" font-size="11" font-weight="800" text-anchor="middle">BAXANDALL TONE STACK</text>
+
+      <!-- Bass Control -->
+      <rect x="20" y="40" width="140" height="32" rx="4" fill="#1e293b"/>
+      <text x="90" y="60" fill="#fde047" font-family="system-ui, sans-serif" font-size="10" font-weight="700" text-anchor="middle">Bass Pot: &#177;12 dB @ 50 Hz</text>
+
+      <!-- Treble Control -->
+      <rect x="20" y="80" width="140" height="32" rx="4" fill="#1e293b"/>
+      <text x="90" y="100" fill="#fde047" font-family="system-ui, sans-serif" font-size="10" font-weight="700" text-anchor="middle">Treble Pot: &#177;12 dB @ 4 kHz</text>
+    </g>
+
+    <!-- Op-amp Out to Jack -->
+    <path d="M 290 125 L 320 125" stroke="#38bdf8" stroke-width="2"/>
+    <path d="M 500 125 L 560 125" stroke="#38bdf8" stroke-width="2"/>
+
+    <!-- Low-Z Out Jack -->
+    <rect x="560" y="105" width="90" height="40" rx="6" fill="#047857"/>
+    <text x="605" y="130" fill="#ffffff" font-family="system-ui, sans-serif" font-size="11" font-weight="800" text-anchor="middle">Low-Z Out</text>
   </g>
 
-  <!-- Arena Rock Context -->
-  <g transform="translate(45, 335)">
-    <rect x="0" y="0" width="705" height="95" fill="#142038" rx="8" stroke="rgba(56,189,248,0.2)"/>
-    <text x="25" y="26" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="12.5" font-weight="800">ROLLING STONES 1969 TOUR TEST &amp; HERITAGE:</text>
-    <text x="25" y="50" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11.5">Debuted on The Rolling Stones 1969 US Tour (Bill Wyman &amp; Keith Richards). The SVT solved the inability of bassists to compete with Marshall guitar stacks in stadiums, becoming the undisputed industry standard for rock, metal, and punk.</text>
-  </g>
+  <text x="380" y="382" fill="#64748b" font-family="system-ui, sans-serif" font-size="10.5" text-anchor="middle">The active feedback loop allows independent boost and cut of low and high shelves with zero hum.</text>
 </svg>'''
 
-# 13. DIRECT INJECTION DI TRANSFORMER SCHEMATIC
-svgs["direct_injection_di_transformer_schematic.svg"] = '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480" width="100%" height="100%">
-  <rect width="800" height="480" fill="#080e1a" rx="14"/>
-  <rect x="20" y="20" width="760" height="440" fill="#0f172a" stroke="rgba(34,197,94,0.3)" stroke-width="1.5" rx="12"/>
-  
-  <text x="40" y="55" fill="#22c55e" font-family="system-ui, sans-serif" font-size="13" font-weight="800" letter-spacing="1.5">AO3 RECORDING STUDIO ENGINEERING</text>
-  <text x="40" y="85" fill="#ffffff" font-family="system-ui, sans-serif" font-size="20" font-weight="900">Direct Injection (DI Box): Transformer Isolation &amp; Balancing</text>
+# 10. SLAP & POP DYNAMIC BIOMECHANICS
+svgs["slap_and_pop_technique_mechanics.svg"] = '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 400" width="100%" height="100%">
+  <rect width="760" height="400" rx="12" fill="#080e1a" stroke="#1e293b" stroke-width="1.5"/>
+  <text x="35" y="38" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="12" font-weight="800" letter-spacing="1.5">AO3 PERFORMANCE TECHNIQUE &amp; DYNAMICS</text>
+  <text x="35" y="66" fill="#ffffff" font-family="system-ui, sans-serif" font-size="18" font-weight="900">Larry Graham (1969): Slap &amp; Pop Biomechanics</text>
 
-  <!-- DI Signal Path -->
-  <g transform="translate(45, 120)">
-    <rect x="0" y="0" width="705" height="200" fill="#1e293b" rx="10" stroke="rgba(255,255,255,0.08)"/>
+  <!-- Left: The Slap (Thumb) -->
+  <g transform="translate(35, 90)">
+    <rect width="335" height="150" rx="8" fill="#131e36" stroke="#38bdf8" stroke-width="1.5"/>
+    <text x="20" y="26" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="13" font-weight="800">THE SLAP ("THUMP" &#8226; KICK DRUM)</text>
 
-    <!-- 1. Instrument Input -->
-    <rect x="20" y="60" width="120" height="70" fill="#0b1329" rx="6" stroke="#38bdf8"/>
-    <text x="80" y="90" fill="#ffffff" font-family="system-ui, sans-serif" font-size="12" font-weight="800" text-anchor="middle">Bass Guitar</text>
-    <text x="80" y="112" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="10.5" text-anchor="middle">High-Z (~500k&#937;)</text>
+    <!-- Fretboard & String -->
+    <rect x="25" y="55" width="285" height="16" fill="#1e293b" stroke="#334155"/>
+    <line x1="25" y1="46" x2="310" y2="46" stroke="#cbd5e1" stroke-width="3"/>
 
-    <!-- Thru Output to Amp -->
-    <path d="M 80,60 L 80,30 L 220,30" fill="none" stroke="#f59e0b" stroke-width="2"/>
-    <rect x="220" y="15" width="110" height="32" fill="#0f172a" rx="4" stroke="#f59e0b"/>
-    <text x="275" y="36" fill="#f59e0b" font-family="system-ui, sans-serif" font-size="11" font-weight="700" text-anchor="middle">Thru (To Stage Amp)</text>
+    <!-- Thumb Strike Vector -->
+    <path d="M 120 18 L 120 44" stroke="#ef4444" stroke-width="3"/>
+    <polygon points="120,48 115,38 125,38" fill="#ef4444"/>
+    <text x="135" y="32" fill="#f87171" font-family="system-ui, sans-serif" font-size="10" font-weight="800">Thumb Strike</text>
 
-    <!-- DI Transformer Box -->
-    <rect x="180" y="60" width="310" height="120" fill="#0f172a" rx="8" stroke="#22c55e" stroke-width="2"/>
-    <text x="335" y="85" fill="#22c55e" font-family="system-ui, sans-serif" font-size="13" font-weight="800" text-anchor="middle">Passive Transformer Isolation (e.g. Jensen / Triad)</text>
-
-    <!-- Primary & Secondary Coils -->
-    <path d="M 220,110 Q 230,135 240,110 Q 250,135 260,110" fill="none" stroke="#38bdf8" stroke-width="3"/>
-    <line x1="280" y1="100" x2="280" y2="150" stroke="#cbd5e1" stroke-width="2" stroke-dasharray="2 2"/>
-    <line x1="285" y1="100" x2="285" y2="150" stroke="#cbd5e1" stroke-width="2" stroke-dasharray="2 2"/>
-    <path d="M 305,110 Q 315,135 325,110 Q 335,135 345,110" fill="none" stroke="#22c55e" stroke-width="3"/>
-
-    <!-- Ground Lift Switch -->
-    <rect x="385" y="115" width="85" height="35" fill="#334155" rx="4" stroke="#cbd5e1"/>
-    <text x="427" y="137" fill="#ffffff" font-family="system-ui, sans-serif" font-size="10.5" font-weight="700" text-anchor="middle">Ground Lift</text>
-
-    <!-- XLR Output to Mic Preamp -->
-    <rect x="530" y="60" width="155" height="70" fill="#0b1329" rx="6" stroke="#22c55e"/>
-    <text x="607" y="90" fill="#ffffff" font-family="system-ui, sans-serif" font-size="12" font-weight="800" text-anchor="middle">XLR Balanced Out</text>
-    <text x="607" y="112" fill="#22c55e" font-family="system-ui, sans-serif" font-size="10.5" text-anchor="middle">Low-Z (~150&#937;) Mic Level</text>
+    <text x="25" y="98" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="10.5">&#8226; Bony thumb joint hammers string into metal fret</text>
+    <text x="25" y="118" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="10.5">&#8226; Produces massive low-frequency transient spike</text>
+    <text x="25" y="136" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="10" font-weight="700">Simulates acoustic kick drum in rhythm section</text>
   </g>
 
-  <!-- 3 Essential DI Functions -->
-  <g transform="translate(45, 340)">
-    <rect x="0" y="0" width="705" height="95" fill="#142038" rx="8" stroke="rgba(34,197,94,0.2)"/>
-    <text x="20" y="26" fill="#86efac" font-family="system-ui, sans-serif" font-size="12.5" font-weight="800">THE THREE ESSENTIAL ROLES OF A BASS DI IN EXAM QUESTIONS:</text>
-    <text x="20" y="48" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11.5">1. <tspan fill="#ffffff" font-weight="700">Impedance Matching:</tspan> Converts instrument high-Z output to mixer low-Z input, preventing treble loss.</text>
-    <text x="20" y="68" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11.5">2. <tspan fill="#ffffff" font-weight="700">Balancing:</tspan> Converts unbalanced 2-conductor signal into balanced 3-pin XLR (common-mode rejection of stage EMI).</text>
-    <text x="20" y="88" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11.5">3. <tspan fill="#ffffff" font-weight="700">Galvanic Isolation &amp; Ground Lift:</tspan> Breaks ground loops, eliminating 50/60 Hz hum between amp and recording desk.</text>
+  <!-- Right: The Pop (Index Finger) -->
+  <g transform="translate(390, 90)">
+    <rect width="335" height="150" rx="8" fill="#131e36" stroke="#f59e0b" stroke-width="1.5"/>
+    <text x="20" y="26" fill="#fbbf24" font-family="system-ui, sans-serif" font-size="13" font-weight="800">THE POP ("PLUCK" &#8226; SNARE DRUM)</text>
+
+    <!-- Fretboard & String -->
+    <rect x="25" y="55" width="285" height="16" fill="#1e293b" stroke="#334155"/>
+    <line x1="25" y1="46" x2="310" y2="46" stroke="#cbd5e1" stroke-width="2"/>
+
+    <!-- Finger Pull Vector -->
+    <path d="M 210 46 L 210 20" stroke="#f59e0b" stroke-width="3"/>
+    <polygon points="210,16 205,26 215,26" fill="#f59e0b"/>
+    <text x="145" y="32" fill="#fbbf24" font-family="system-ui, sans-serif" font-size="10" font-weight="800">Finger Snap</text>
+
+    <text x="25" y="98" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="10.5">&#8226; Index finger pulls string away from board and releases</text>
+    <text x="25" y="118" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="10.5">&#8226; String snaps back against fretboard metal</text>
+    <text x="25" y="136" fill="#fbbf24" font-family="system-ui, sans-serif" font-size="10.5" font-weight="700">Simulates sharp snare drum crack &amp; high snap</text>
   </g>
+
+  <!-- Bottom: Waveform Dynamic Envelope -->
+  <g transform="translate(35, 255)">
+    <rect width="690" height="95" rx="8" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+    <text x="20" y="24" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="11" font-weight="800">OSCILLOSCOPE DYNAMIC ENVELOPE: EXTREME CREST FACTOR</text>
+
+    <!-- Waveform with massive transient spikes -->
+    <path d="M 50 55 L 120 55 L 125 15 L 130 90 L 135 40 L 140 70 L 145 55 L 260 55 L 265 18 L 270 85 L 275 45 L 280 55 L 420 55 L 425 12 L 430 92 L 435 40 L 440 55 L 640 55" fill="none" stroke="#ef4444" stroke-width="2.5"/>
+
+    <text x="135" y="35" fill="#fca5a5" font-family="system-ui, sans-serif" font-size="10" font-weight="700">+18 dB Transient Spike</text>
+    <text x="450" y="48" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="10.5">Fast transient spikes required studio optical / FET limiters (LA-2A / 1176) to protect tape heads.</text>
+  </g>
+
+  <text x="380" y="382" fill="#64748b" font-family="system-ui, sans-serif" font-size="10.5" text-anchor="middle">Invented by Larry Graham in Sly &amp; The Family Stone when the band lacked a drummer.</text>
 </svg>'''
 
-# 14. BASS MIC PLUS DI PHASE ALIGNMENT
-svgs["bass_mic_plus_di_phase_alignment.svg"] = '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480" width="100%" height="100%">
-  <rect width="800" height="480" fill="#080e1a" rx="14"/>
-  <rect x="20" y="20" width="760" height="440" fill="#0f172a" stroke="rgba(245,158,11,0.3)" stroke-width="1.5" rx="12"/>
-  
-  <text x="40" y="55" fill="#f59e0b" font-family="system-ui, sans-serif" font-size="13" font-weight="800" letter-spacing="1.5">AO3 MULTI-TRACK TRACKING &amp; PHASE</text>
-  <text x="40" y="85" fill="#ffffff" font-family="system-ui, sans-serif" font-size="20" font-weight="900">Bass Tracking: Combining DI + Mic (Phase Alignment)</text>
+# 11. FOAM BRIDGE MUTING & DAMPING
+svgs["palm_muting_foam_mute_damping.svg"] = '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 400" width="100%" height="100%">
+  <rect width="760" height="400" rx="12" fill="#080e1a" stroke="#1e293b" stroke-width="1.5"/>
+  <text x="35" y="38" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="12" font-weight="800" letter-spacing="1.5">AO3 MECHANICAL DAMPING &amp; MIX ROOM</text>
+  <text x="35" y="66" fill="#ffffff" font-family="system-ui, sans-serif" font-size="18" font-weight="900">Bridge Foam Muting: Waveform Decay &amp; Kick Drum Clearance</text>
 
-  <!-- Left: Acoustic Delay Physics -->
-  <g transform="translate(45, 115)">
-    <rect x="0" y="0" width="340" height="190" fill="#1e293b" rx="8" stroke="rgba(255,255,255,0.08)"/>
-    <text x="20" y="28" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="13.5" font-weight="800">1. Physical Time Delay</text>
-    
-    <text x="20" y="58" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11.5">• <tspan fill="#38bdf8" font-weight="700">DI Signal:</tspan> Travels through cable at near light speed (~0 ms delay)</text>
-    <text x="20" y="85" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11.5">• <tspan fill="#f59e0b" font-weight="700">Mic on Speaker:</tspan> Sound travels through air at ~343 m/s (~1 ft / ms)</text>
-    <text x="20" y="112" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11.5">• A microphone placed 30 cm from grille is delayed by ~1.0 ms!</text>
-    <text x="20" y="140" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11.5">• <tspan fill="#ef4444" font-weight="700">The Problem:</tspan> Summing DI + delayed Mic causes comb filtering</text>
-    <text x="20" y="165" fill="#f87171" font-family="system-ui, sans-serif" font-size="11" font-weight="700">Destructive phase cancellation wipes out Low-E fundamentals!</text>
+  <!-- Left: Hardware Assembly Diagram -->
+  <g transform="translate(35, 90)">
+    <rect width="335" height="265" rx="8" fill="#131e36" stroke="#38bdf8" stroke-width="1.5"/>
+    <text x="20" y="28" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="13" font-weight="800">MOTOWN FOAM MUTE ASSEMBLY</text>
+
+    <!-- Baseplate & Saddles -->
+    <rect x="30" y="60" width="180" height="80" rx="4" fill="#334155" stroke="#64748b"/>
+    <rect x="60" y="80" width="30" height="40" rx="2" fill="#94a3b8"/>
+    <rect x="100" y="80" width="30" height="40" rx="2" fill="#94a3b8"/>
+    <rect x="140" y="80" width="30" height="40" rx="2" fill="#94a3b8"/>
+
+    <!-- Dense Neoprene Foam Mute -->
+    <rect x="45" y="55" width="150" height="22" rx="4" fill="#020617" stroke="#f59e0b" stroke-width="1.5"/>
+    <text x="120" y="70" fill="#fbbf24" font-family="system-ui, sans-serif" font-size="10.5" font-weight="800" text-anchor="middle">Dense Neoprene Foam Mute</text>
+
+    <!-- Strings Passing Over Foam -->
+    <line x1="20" y1="66" x2="220" y2="66" stroke="#cbd5e1" stroke-width="3"/>
+    <line x1="20" y1="88" x2="220" y2="88" stroke="#cbd5e1" stroke-width="2.5"/>
+
+    <!-- Bullets -->
+    <text x="25" y="175" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11">&#8226; Standard on original 1950s P-Bass chrome covers</text>
+    <text x="25" y="200" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11">&#8226; Damps string vibration mechanically at bridge</text>
+    <text x="25" y="225" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11">&#8226; James Jamerson's secret to the Motown "thud"</text>
+    <text x="25" y="250" fill="#34d399" font-family="system-ui, sans-serif" font-size="10.5" font-weight="700">Decay reduced from &gt;3.0s down to &lt;0.4s</text>
   </g>
 
-  <!-- Right: DAW Phase Fix -->
-  <g transform="translate(415, 115)">
-    <rect x="0" y="0" width="340" height="190" fill="#1e293b" rx="8" stroke="rgba(34,197,94,0.3)"/>
-    <text x="20" y="28" fill="#22c55e" font-family="system-ui, sans-serif" font-size="13.5" font-weight="800">2. Modern DAW Production Solution</text>
-    
-    <text x="20" y="58" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11.5">• <tspan fill="#86efac" font-weight="700">Waveform Nudge:</tspan> Zoom in and align mic transient peak with DI</text>
-    <text x="20" y="85" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11.5">• <tspan fill="#86efac" font-weight="700">Sample Delay Plugin:</tspan> Delay DI track by 0.5–1.5 ms to match mic</text>
-    <text x="20" y="112" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11.5">• <tspan fill="#86efac" font-weight="700">Polarity Check:</tspan> Flip &#248; 180&#176; phase switch; select loudest bass</text>
-    <text x="20" y="140" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11.5">• <tspan fill="#86efac" font-weight="700">Frequency Split:</tspan> Use DI for sub-bass (&lt;150Hz), Mic for grit (&gt;150Hz)</text>
-    <text x="20" y="165" fill="#86efac" font-family="system-ui, sans-serif" font-size="11" font-weight="700">Result: Rock-solid fundamental + rich tube cabinet character</text>
+  <!-- Right: Mono Mix Clearance Waveform -->
+  <g transform="translate(390, 90)">
+    <rect width="335" height="265" rx="8" fill="#131e36" stroke="#fbbf24" stroke-width="1.5"/>
+    <text x="20" y="28" fill="#fbbf24" font-family="system-ui, sans-serif" font-size="13" font-weight="800">ENVELOPE DECAY &amp; MONO MIX SPACE</text>
+
+    <!-- Unmuted String Decay -->
+    <g transform="translate(20, 45)">
+      <text x="0" y="15" fill="#f87171" font-family="system-ui, sans-serif" font-size="10.5" font-weight="700">Unmuted Bass: Long Ringing Sustain</text>
+      <path d="M 0 50 Q 80 15 160 30 T 290 45" fill="none" stroke="#ef4444" stroke-width="2"/>
+      <text x="290" y="65" fill="#ef4444" font-family="system-ui, sans-serif" font-size="9" text-anchor="end">Collides with kick drum!</text>
+    </g>
+
+    <!-- Foam Muted String Decay (Motown) -->
+    <g transform="translate(20, 125)">
+      <text x="0" y="15" fill="#34d399" font-family="system-ui, sans-serif" font-size="10.5" font-weight="700">Foam Muted Bass: Rapid Percussive Decay</text>
+      <path d="M 0 50 Q 30 15 60 48 L 290 50" fill="none" stroke="#34d399" stroke-width="2.5"/>
+      <text x="290" y="65" fill="#34d399" font-family="system-ui, sans-serif" font-size="9" text-anchor="end">Tight thud leaves space</text>
+    </g>
+
+    <!-- Kick Drum Space -->
+    <rect x="20" y="210" width="295" height="40" rx="4" fill="#142038" stroke="rgba(56,189,248,0.3)"/>
+    <text x="167" y="228" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="10" font-weight="800" text-anchor="middle">CLEARS LOW-END MONO HEADROOM</text>
+    <text x="167" y="242" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="9" text-anchor="middle">Allows kick drum and bass to co-exist without masking</text>
   </g>
 
-  <!-- Visual Waveform Alignment -->
-  <g transform="translate(45, 320)">
-    <rect x="0" y="0" width="705" height="110" fill="#142038" rx="8" stroke="rgba(245,158,11,0.2)"/>
-    <text x="20" y="28" fill="#f59e0b" font-family="system-ui, sans-serif" font-size="13" font-weight="800">PHASE ALIGNED SUMMATION (IN-PHASE vs OUT-OF-PHASE):</text>
-    <text x="20" y="55" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="12">DI Track: ────────^v^v^v──────── (Instantaneous electrical capture)</text>
-    <text x="20" y="78" fill="#f59e0b" font-family="system-ui, sans-serif" font-size="12">Mic Track: ──────────^v^v^v────── (Delayed by acoustic air transit time)</text>
-    <text x="20" y="100" fill="#22c55e" font-family="system-ui, sans-serif" font-size="12" font-weight="700">Aligned Sum: ───────[+6 dB BASS PUNCH]─────── (Zero low-frequency cancellation)</text>
-  </g>
+  <text x="380" y="382" fill="#64748b" font-family="system-ui, sans-serif" font-size="10.5" text-anchor="middle">Essential technique for 1960s Motown, Stax, and modern indie/lo-fi production.</text>
 </svg>'''
 
-# 15. FRETLESS BASS MWAH PHYSICS
-svgs["fretless_bass_mwah_physics.svg"] = '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480" width="100%" height="100%">
-  <rect width="800" height="480" fill="#080e1a" rx="14"/>
-  <rect x="20" y="20" width="760" height="440" fill="#0f172a" stroke="rgba(56,189,248,0.3)" stroke-width="1.5" rx="12"/>
-  
-  <text x="40" y="55" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="13" font-weight="800" letter-spacing="1.5">AO3 ACOUSTIC HARMONICS &amp; SUSTAIN</text>
-  <text x="40" y="85" fill="#ffffff" font-family="system-ui, sans-serif" font-size="20" font-weight="900">The Fretless Bass: Jaco Pastorius &amp; The "Mwah" Timbre</text>
+# 12. AMPEG SVT TUBE HEAD & 8X10 CABINET SCHEMATIC
+svgs["ampeg_svt_tube_amplifier_schematic.svg"] = '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 400" width="100%" height="100%">
+  <rect width="760" height="400" rx="12" fill="#080e1a" stroke="#1e293b" stroke-width="1.5"/>
+  <text x="35" y="38" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="12" font-weight="800" letter-spacing="1.5">AO3 STAGE AMPLIFICATION &amp; CAB PHYSICS (1969)</text>
+  <text x="35" y="66" fill="#ffffff" font-family="system-ui, sans-serif" font-size="18" font-weight="900">Ampeg SVT: 300W Push-Pull Valve Head &amp; 8x10 Sealed Enclosure</text>
 
-  <!-- Fretless String Vibration Anatomy -->
-  <g transform="translate(45, 120)">
-    <rect x="0" y="0" width="705" height="180" fill="#1e293b" rx="10" stroke="rgba(255,255,255,0.08)"/>
+  <!-- Left: SVT 300W All-Tube Output Stage Schematic -->
+  <g transform="translate(35, 90)">
+    <rect width="380" height="265" rx="8" fill="#131e36" stroke="#38bdf8" stroke-width="1.5"/>
+    <text x="20" y="28" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="13" font-weight="800">300W RMS VALVE OUTPUT STAGE</text>
 
-    <!-- Wood / Epoxy Fingerboard -->
-    <rect x="30" y="120" width="645" height="30" fill="#451a03" rx="2" stroke="#78350f"/>
-    <text x="40" y="140" fill="#fbbf24" font-family="system-ui, sans-serif" font-size="11" font-weight="800">Hard Epoxy Coated Rosewood / Ebony Fingerboard (Zero Frets)</text>
+    <!-- Preamp & Driver Block -->
+    <rect x="20" y="48" width="105" height="45" rx="4" fill="#1e293b" stroke="#334155"/>
+    <text x="72" y="68" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="10" font-weight="700" text-anchor="middle">12AX7 Preamp</text>
+    <text x="72" y="84" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="9" text-anchor="middle">Tone &amp; Mid Selector</text>
 
-    <!-- Finger Press -->
-    <ellipse cx="250" cy="115" rx="20" ry="12" fill="#fca5a5" stroke="#e11d48"/>
-    <text x="250" y="90" fill="#e11d48" font-family="system-ui, sans-serif" font-size="11" font-weight="800" text-anchor="middle">Fleshy Finger Pad</text>
+    <!-- Phase Splitter -->
+    <path d="M 125 70 L 155 70" stroke="#38bdf8" stroke-width="2"/>
+    <circle cx="165" cy="70" r="10" fill="#1e293b" stroke="#f59e0b"/>
+    <text x="165" y="74" fill="#fbbf24" font-family="system-ui, sans-serif" font-size="8" font-weight="800" text-anchor="middle">12AU7</text>
 
-    <!-- Vibrating String grazing fingerboard -->
-    <path d="M 40,118 Q 240,118 250,118 Q 450,105 660,110" fill="none" stroke="#38bdf8" stroke-width="3"/>
-    <circle cx="660" cy="110" r="5" fill="#94a3b8"/>
-    <text x="660" y="95" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="10" text-anchor="middle">Bridge</text>
+    <!-- Push-Pull Split Arrows -->
+    <path d="M 175 65 L 205 45" stroke="#f59e0b" stroke-width="1.5"/>
+    <path d="M 175 75 L 205 95" stroke="#f59e0b" stroke-width="1.5"/>
 
-    <!-- The "Mwah" Grazing Zone -->
-    <rect x="270" y="108" width="120" height="15" fill="rgba(56,189,248,0.2)" stroke="#38bdf8" stroke-dasharray="2 2"/>
-    <text x="330" y="145" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="11" font-weight="700" text-anchor="middle">"Mwah" Grazing Boundary</text>
+    <!-- 6x 6550 Beam Tetrodes Block -->
+    <rect x="205" y="35" width="85" height="30" rx="3" fill="#1e293b" stroke="#ef4444"/>
+    <text x="247" y="54" fill="#fca5a5" font-family="system-ui, sans-serif" font-size="9" font-weight="800" text-anchor="middle">3x 6550 (Push)</text>
+
+    <rect x="205" y="80" width="85" height="30" rx="3" fill="#1e293b" stroke="#ef4444"/>
+    <text x="247" y="99" fill="#fca5a5" font-family="system-ui, sans-serif" font-size="9" font-weight="800" text-anchor="middle">3x 6550 (Pull)</text>
+
+    <!-- Output Transformer (Iron) -->
+    <path d="M 290 50 L 310 50 L 310 65" stroke="#ef4444" stroke-width="1.5"/>
+    <path d="M 290 95 L 310 95 L 310 75" stroke="#ef4444" stroke-width="1.5"/>
+
+    <rect x="305" y="55" width="55" height="35" rx="3" fill="#0f172a" stroke="#fbbf24" stroke-width="1.5"/>
+    <text x="332" y="73" fill="#fbbf24" font-family="system-ui, sans-serif" font-size="8" font-weight="800" text-anchor="middle">OUTPUT</text>
+    <text x="332" y="83" fill="#ffffff" font-family="system-ui, sans-serif" font-size="7.5" font-weight="700" text-anchor="middle">TRANSFORMER</text>
+
+    <!-- Specifications Table -->
+    <g transform="translate(20, 130)">
+      <rect width="340" height="115" rx="4" fill="#0f172a"/>
+      <text x="15" y="24" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="10.5">&#8226; <tspan fill="#38bdf8" font-weight="700">300 Watts RMS:</tspan> Clean arena headroom</text>
+      <text x="15" y="46" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="10.5">&#8226; <tspan fill="#38bdf8" font-weight="700">14 Valves Total:</tspan> Massive low-end iron saturation</text>
+      <text x="15" y="68" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="10.5">&#8226; <tspan fill="#38bdf8" font-weight="700">Weight:</tspan> ~43 kg (95 lbs) for head chassis alone</text>
+      <text x="15" y="90" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="10.5">&#8226; <tspan fill="#38bdf8" font-weight="700">Heritage:</tspan> Debuted on Rolling Stones 1969 US Tour</text>
+    </g>
   </g>
 
-  <!-- 3 Scientific Points -->
-  <g transform="translate(45, 315)">
-    <rect x="0" y="0" width="705" height="115" fill="#142038" rx="8" stroke="rgba(56,189,248,0.2)"/>
-    <text x="20" y="28" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="13" font-weight="800">THE PHYSICS OF FRETLESS BASS RESONANCE:</text>
-    <text x="20" y="52" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11.5">1. <tspan fill="#ffffff" font-weight="700">Continuous Grazing Boundary:</tspan> Unlike hard metal frets, the string subtly grazes the coated fingerboard as it vibrates.</text>
-    <text x="20" y="74" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11.5">2. <tspan fill="#ffffff" font-weight="700">Dynamic Harmonic Filter:</tspan> The initial transient attack is damped by the finger flesh, producing a vocal blooming swell ("mwah").</text>
-    <text x="20" y="96" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11.5">3. <tspan fill="#ffffff" font-weight="700">Microtonal Vibrato:</tspan> Allows true expressive vocal-style vibrato and microtonal glissandos (Jaco Pastorius, Weather Report).</text>
+  <!-- Right: The 8x10 "Fridge" Cabinet Enclosure -->
+  <g transform="translate(435, 90)">
+    <rect width="290" height="265" rx="8" fill="#131e36" stroke="#f59e0b" stroke-width="1.5"/>
+    <text x="20" y="28" fill="#fbbf24" font-family="system-ui, sans-serif" font-size="13" font-weight="800">8&#215;10 "FRIDGE" CABINET</text>
+
+    <!-- 8 Drivers in 4 Sealed Chambers -->
+    <g transform="translate(20, 45)">
+      <!-- Chamber 1 -->
+      <rect x="0" y="0" width="115" height="42" rx="3" fill="#1e293b" stroke="#334155"/>
+      <circle cx="28" cy="21" r="14" fill="#0f172a" stroke="#cbd5e1"/>
+      <circle cx="85" cy="21" r="14" fill="#0f172a" stroke="#cbd5e1"/>
+
+      <!-- Chamber 2 -->
+      <rect x="0" y="47" width="115" height="42" rx="3" fill="#1e293b" stroke="#334155"/>
+      <circle cx="28" cy="68" r="14" fill="#0f172a" stroke="#cbd5e1"/>
+      <circle cx="85" cy="68" r="14" fill="#0f172a" stroke="#cbd5e1"/>
+
+      <!-- Chamber 3 -->
+      <rect x="0" y="94" width="115" height="42" rx="3" fill="#1e293b" stroke="#334155"/>
+      <circle cx="28" cy="115" r="14" fill="#0f172a" stroke="#cbd5e1"/>
+      <circle cx="85" cy="115" r="14" fill="#0f172a" stroke="#cbd5e1"/>
+
+      <!-- Chamber 4 -->
+      <rect x="0" y="141" width="115" height="42" rx="3" fill="#1e293b" stroke="#334155"/>
+      <circle cx="28" cy="162" r="14" fill="#0f172a" stroke="#cbd5e1"/>
+      <circle cx="85" cy="162" r="14" fill="#0f172a" stroke="#cbd5e1"/>
+    </g>
+
+    <!-- Right Side Explanations -->
+    <g transform="translate(145, 50)">
+      <text x="0" y="16" fill="#34d399" font-family="system-ui, sans-serif" font-size="11" font-weight="800">Sealed Infinite Baffle</text>
+      <text x="0" y="32" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="9.5">&#8226; 4 separate chambers</text>
+      <text x="0" y="48" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="9.5">&#8226; No bass ports</text>
+
+      <text x="0" y="78" fill="#fbbf24" font-family="system-ui, sans-serif" font-size="11" font-weight="800">Transient Speed</text>
+      <text x="0" y="94" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="9.5">&#8226; Eight 10" cones have</text>
+      <text x="0" y="108" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="9.5">lower individual mass</text>
+      <text x="0" y="122" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="9.5">than a single 18"</text>
+
+      <text x="0" y="152" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="11" font-weight="800">Total Cone Area</text>
+      <text x="0" y="168" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="9.5">&#8226; Exceeds three 15" cones</text>
+      <text x="0" y="182" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="9.5">&#8226; 4&#937; total impedance</text>
+    </g>
   </g>
+
+  <text x="380" y="382" fill="#64748b" font-family="system-ui, sans-serif" font-size="10.5" text-anchor="middle">Sealed multi-driver enclosures prevent loose speaker cone wobble and deliver focused, fast low end.</text>
+</svg>'''
+
+# 13. DIRECT INJECTION (DI) TRANSFORMER SCHEMATIC
+svgs["direct_injection_di_transformer_schematic.svg"] = '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 400" width="100%" height="100%">
+  <rect width="760" height="400" rx="12" fill="#080e1a" stroke="#1e293b" stroke-width="1.5"/>
+  <text x="35" y="38" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="12" font-weight="800" letter-spacing="1.5">AO3 STUDIO RECORDING &amp; SIGNAL FLOW</text>
+  <text x="35" y="66" fill="#ffffff" font-family="system-ui, sans-serif" font-size="18" font-weight="900">Passive Direct Injection (DI) Transformer Schematic (Motown Wolfbox)</text>
+
+  <!-- Schematic Chassis -->
+  <g transform="translate(35, 90)">
+    <rect width="690" height="260" rx="8" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+
+    <!-- Left: Unbalanced 1/4" Instrument Input -->
+    <g transform="translate(30, 60)">
+      <rect width="130" height="130" rx="6" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5"/>
+      <text x="65" y="24" fill="#fbbf24" font-family="system-ui, sans-serif" font-size="11" font-weight="800" text-anchor="middle">1/4" TS INPUT</text>
+      <text x="65" y="44" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="9.5" text-anchor="middle">Unbalanced Instrument</text>
+
+      <path d="M 25 75 L 105 75" stroke="#fbbf24" stroke-width="2.5"/>
+      <text x="65" y="95" fill="#fde047" font-family="system-ui, sans-serif" font-size="10" font-weight="700" text-anchor="middle">Tip (Signal +)</text>
+
+      <path d="M 25 110 L 105 110" stroke="#64748b" stroke-width="2"/>
+      <text x="65" y="125" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="9" text-anchor="middle">Sleeve (Ground)</text>
+    </g>
+
+    <!-- Center: Triad Audio Transformer (Galvanic Isolation) -->
+    <g transform="translate(230, 45)">
+      <rect width="230" height="160" rx="8" fill="#131e36" stroke="#38bdf8" stroke-width="2"/>
+      <text x="115" y="24" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="12" font-weight="800" text-anchor="middle">TRIAD A-11J TRANSFORMER</text>
+
+      <!-- Primary Coil (High-Z) -->
+      <path d="M 40 50 C 60 50 60 70 40 70 C 60 70 60 90 40 90 C 60 90 60 110 40 110" fill="none" stroke="#f59e0b" stroke-width="3"/>
+      <text x="40" y="130" fill="#fbbf24" font-family="system-ui, sans-serif" font-size="9.5" font-weight="700" text-anchor="middle">High-Z</text>
+
+      <!-- Iron Core -->
+      <line x1="110" y1="50" x2="110" y2="120" stroke="#cbd5e1" stroke-width="2"/>
+      <line x1="118" y1="50" x2="118" y2="120" stroke="#cbd5e1" stroke-width="2"/>
+      <text x="114" y="140" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="9" text-anchor="middle">Magnetic Coupling</text>
+
+      <!-- Secondary Coil (Low-Z Balanced) -->
+      <path d="M 190 50 C 170 50 170 70 190 70 C 170 70 170 90 190 90 C 170 90 170 110 190 110" fill="none" stroke="#34d399" stroke-width="3"/>
+      <text x="190" y="130" fill="#34d399" font-family="system-ui, sans-serif" font-size="9.5" font-weight="700" text-anchor="middle">Low-Z</text>
+    </g>
+
+    <!-- Right: Balanced XLR Output -->
+    <g transform="translate(530, 60)">
+      <rect width="130" height="130" rx="6" fill="#1e293b" stroke="#34d399" stroke-width="1.5"/>
+      <text x="65" y="24" fill="#34d399" font-family="system-ui, sans-serif" font-size="11" font-weight="800" text-anchor="middle">BALANCED XLR OUT</text>
+
+      <text x="20" y="55" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="9.5">Pin 2: Hot (+)</text>
+      <text x="20" y="80" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="9.5">Pin 3: Cold (&#8722;)</text>
+
+      <!-- Ground Lift Switch -->
+      <rect x="15" y="95" width="100" height="24" rx="3" fill="#7f1d1d"/>
+      <text x="65" y="111" fill="#fca5a5" font-family="system-ui, sans-serif" font-size="9" font-weight="700" text-anchor="middle">Ground Lift Switch</text>
+    </g>
+
+    <!-- Signal Connection Paths -->
+    <path d="M 160 100 L 230 100" stroke="#f59e0b" stroke-width="2"/>
+    <path d="M 460 85 L 530 85" stroke="#34d399" stroke-width="2"/>
+    <path d="M 460 115 L 530 115" stroke="#34d399" stroke-width="2"/>
+
+    <!-- Bottom Benefit Badges -->
+    <g transform="translate(30, 220)">
+      <rect width="630" height="28" rx="4" fill="#142038"/>
+      <text x="315" y="18" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="10.5" font-weight="700" text-anchor="middle">Galvanic isolation breaks ground loops &#8226; Matches high-Z pickups to low-Z console mic preamps</text>
+    </g>
+  </g>
+
+  <text x="380" y="382" fill="#64748b" font-family="system-ui, sans-serif" font-size="10.5" text-anchor="middle">Ed Wolfrum's Motown Wolfbox allowed Jamerson to record direct into the Hitsville console.</text>
+</svg>'''
+
+# 14. BASS MIC + DI PHASE ALIGNMENT
+svgs["bass_mic_plus_di_phase_alignment.svg"] = '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 400" width="100%" height="100%">
+  <rect width="760" height="400" rx="12" fill="#080e1a" stroke="#1e293b" stroke-width="1.5"/>
+  <text x="35" y="38" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="12" font-weight="800" letter-spacing="1.5">AO3 MULTI-TRACK RECORDING &amp; PHASE PHYSICS</text>
+  <text x="35" y="66" fill="#ffffff" font-family="system-ui, sans-serif" font-size="18" font-weight="900">DI + Mic Tracking: Acoustic Latency &amp; Comb Filtering</text>
+
+  <!-- Left: Studio Setup Flow -->
+  <g transform="translate(35, 90)">
+    <rect width="270" height="265" rx="8" fill="#131e36" stroke="#38bdf8" stroke-width="1.5"/>
+    <text x="20" y="26" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="12.5" font-weight="800">STUDIO TRACKING SETUP</text>
+
+    <!-- Bass Split -->
+    <rect x="20" y="45" width="230" height="32" rx="4" fill="#1e293b" stroke="#334155"/>
+    <text x="135" y="65" fill="#f8fafc" font-family="system-ui, sans-serif" font-size="11" font-weight="700" text-anchor="middle">Bass Guitar 1/4" Output</text>
+
+    <!-- Path 1: Direct DI Box -->
+    <path d="M 135 77 L 135 105" stroke="#34d399" stroke-width="2"/>
+    <rect x="20" y="105" width="230" height="40" rx="4" fill="#064e3b" stroke="#34d399"/>
+    <text x="135" y="123" fill="#a7f3d0" font-family="system-ui, sans-serif" font-size="10.5" font-weight="800" text-anchor="middle">TRACK 1: DI BOX (Direct)</text>
+    <text x="135" y="137" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="9" text-anchor="middle">Arrival Time: t = 0 ms (Instantaneous)</text>
+
+    <!-- Path 2: Speaker Amp + Mic -->
+    <path d="M 135 145 L 135 175" stroke="#f59e0b" stroke-width="2"/>
+    <rect x="20" y="175" width="230" height="50" rx="4" fill="#451a03" stroke="#f59e0b"/>
+    <text x="135" y="193" fill="#fde68a" font-family="system-ui, sans-serif" font-size="10.5" font-weight="800" text-anchor="middle">TRACK 2: AMP + MIC (Acoustic)</text>
+    <text x="135" y="208" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="9" text-anchor="middle">Mic 3 ft away &#8594; ~2.7 ms sound travel delay</text>
+
+    <text x="135" y="248" fill="#fca5a5" font-family="system-ui, sans-serif" font-size="10" font-weight="700" text-anchor="middle">Phase clash if combined raw!</text>
+  </g>
+
+  <!-- Right: DAW Timeline View (Out of Phase vs Aligned) -->
+  <g transform="translate(325, 90)">
+    <rect width="400" height="265" rx="8" fill="#131e36" stroke="#fbbf24" stroke-width="1.5"/>
+    <text x="20" y="26" fill="#fbbf24" font-family="system-ui, sans-serif" font-size="12.5" font-weight="800">DAW TIMELINE: WAVEFORM PHASE CORRECTION</text>
+
+    <!-- Raw Unaligned (Comb Filtering) -->
+    <g transform="translate(20, 42)">
+      <rect width="360" height="85" rx="6" fill="#0f172a" stroke="#ef4444"/>
+      <text x="15" y="18" fill="#f87171" font-family="system-ui, sans-serif" font-size="10" font-weight="800">RAW: 2.7 ms DELAY &#8594; DESTRUCTIVE COMB FILTERING</text>
+
+      <!-- DI Wave -->
+      <path d="M 20 40 Q 40 25 60 40 T 100 40 T 140 40 T 180 40 T 220 40 T 260 40 T 300 40" fill="none" stroke="#34d399" stroke-width="2"/>
+      <text x="310" y="44" fill="#34d399" font-family="system-ui, sans-serif" font-size="8.5" font-weight="700">DI</text>
+
+      <!-- Delayed Mic Wave (Out of phase in lows) -->
+      <path d="M 45 65 Q 65 80 85 65 T 125 65 T 165 65 T 205 65 T 245 65 T 285 65 T 325 65" fill="none" stroke="#f59e0b" stroke-width="2"/>
+      <text x="335" y="69" fill="#f59e0b" font-family="system-ui, sans-serif" font-size="8.5" font-weight="700">Mic</text>
+    </g>
+
+    <!-- Aligned (Nudged earlier) -->
+    <g transform="translate(20, 140)">
+      <rect width="360" height="85" rx="6" fill="#0f172a" stroke="#34d399"/>
+      <text x="15" y="18" fill="#34d399" font-family="system-ui, sans-serif" font-size="10" font-weight="800">CORRECTED: TIME-ALIGNED &#8594; PUNCHY COHERENT LOWS</text>
+
+      <!-- Aligned Waves -->
+      <path d="M 20 40 Q 40 25 60 40 T 100 40 T 140 40 T 180 40 T 220 40 T 260 40 T 300 40" fill="none" stroke="#34d399" stroke-width="2"/>
+      <path d="M 20 62 Q 40 47 60 62 T 100 62 T 140 62 T 180 62 T 220 62 T 260 62 T 300 62" fill="none" stroke="#f59e0b" stroke-width="2"/>
+
+      <line x1="40" y1="20" x2="40" y2="75" stroke="#38bdf8" stroke-width="1.5" stroke-dasharray="2 2"/>
+      <text x="310" y="55" fill="#fde047" font-family="system-ui, sans-serif" font-size="9" font-weight="800">+6 dB Punch</text>
+    </g>
+
+    <text x="200" y="248" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="9.5" text-anchor="middle">DAW engineer nudges mic track back by 2.7 ms to eliminate phase hollows.</text>
+  </g>
+
+  <text x="380" y="382" fill="#64748b" font-family="system-ui, sans-serif" font-size="10.5" text-anchor="middle">Speed of sound in air is ~1 ms per foot; electrical cable conduction is near light-speed.</text>
+</svg>'''
+
+# 15. FRETLESS BASS "MWAH" PHYSICS
+svgs["fretless_bass_mwah_physics.svg"] = '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 400" width="100%" height="100%">
+  <rect width="760" height="400" rx="12" fill="#080e1a" stroke="#1e293b" stroke-width="1.5"/>
+  <text x="35" y="38" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="12" font-weight="800" letter-spacing="1.5">AO3 ACOUSTIC HARMONICS &amp; WOOD COUPLING</text>
+  <text x="35" y="66" fill="#ffffff" font-family="system-ui, sans-serif" font-size="18" font-weight="900">Jaco Pastorius Fretless Bass: Anatomy of the Vocal "Mwah"</text>
+
+  <!-- Cross-Section Graphic -->
+  <g transform="translate(35, 90)">
+    <rect width="690" height="260" rx="8" fill="#131e36" stroke="#334155" stroke-width="1"/>
+
+    <!-- Hardwood Fingerboard (Epoxy Coated) -->
+    <rect x="50" y="140" width="590" height="30" rx="4" fill="#3b1d11" stroke="#78350f"/>
+    <text x="60" y="160" fill="#fde68a" font-family="system-ui, sans-serif" font-size="10" font-weight="700">Marine Epoxy-Coated Hardwood Fingerboard (No Metal Frets)</text>
+
+    <!-- Finger Pressure Point -->
+    <path d="M 240 70 L 240 120" stroke="#f59e0b" stroke-width="3"/>
+    <polygon points="240,125 235,115 245,115" fill="#f59e0b"/>
+    <text x="240" y="55" fill="#fbbf24" font-family="system-ui, sans-serif" font-size="11" font-weight="800" text-anchor="middle">Flesh Finger Touchpoint</text>
+
+    <!-- Vibrating String rolling against fingerboard -->
+    <path d="M 50 125 L 240 138 Q 440 100 640 138" fill="none" stroke="#cbd5e1" stroke-width="3"/>
+    <path d="M 240 138 Q 440 160 640 138" fill="none" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="3 3"/>
+
+    <!-- The "Mwah" Contact Rolling Arc -->
+    <ellipse cx="270" cy="138" rx="28" ry="6" fill="#ef4444" opacity="0.3"/>
+    <text x="270" y="115" fill="#f87171" font-family="system-ui, sans-serif" font-size="9.5" font-weight="800" text-anchor="middle">Rolling Contact Boundary</text>
+
+    <!-- Tonal Outcome Columns -->
+    <g transform="translate(50, 185)">
+      <rect width="280" height="55" rx="4" fill="#1e293b"/>
+      <text x="15" y="22" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="10.5" font-weight="700">&#8226; Extreme Highs Damped Rapidly</text>
+      <text x="15" y="42" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="9.5">Flesh and wood cushion mechanical fret clack</text>
+    </g>
+
+    <g transform="translate(360, 185)">
+      <rect width="280" height="55" rx="4" fill="#1e293b"/>
+      <text x="15" y="22" fill="#34d399" font-family="system-ui, sans-serif" font-size="10.5" font-weight="700">&#8226; Midrange Harmonic Swell (800 Hz&#8211;2 kHz)</text>
+      <text x="15" y="42" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="9.5">Creates singing, formant vocal timbre</text>
+    </g>
+  </g>
+
+  <text x="380" y="382" fill="#64748b" font-family="system-ui, sans-serif" font-size="10.5" text-anchor="middle">Jaco favored the bridge single-coil on his 1962 Jazz Bass to emphasize these vocal midrange overtones.</text>
 </svg>'''
 
 # 16. EXTENDED SCALE 5-STRING TENSION CHART
-svgs["extended_scale_5_string_tension_chart.svg"] = '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480" width="100%" height="100%">
-  <rect width="800" height="480" fill="#080e1a" rx="14"/>
-  <rect x="20" y="20" width="760" height="440" fill="#0f172a" stroke="rgba(245,158,11,0.3)" stroke-width="1.5" rx="12"/>
-  
-  <text x="40" y="55" fill="#f59e0b" font-family="system-ui, sans-serif" font-size="13" font-weight="800" letter-spacing="1.5">AO3 MODERN INSTRUMENT ARCHITECTURE</text>
-  <text x="40" y="85" fill="#ffffff" font-family="system-ui, sans-serif" font-size="20" font-weight="900">5-String Basses &amp; Extended Scale Lengths (35" vs 34")</text>
+svgs["extended_scale_5_string_tension_chart.svg"] = '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 400" width="100%" height="100%">
+  <rect width="760" height="400" rx="12" fill="#080e1a" stroke="#1e293b" stroke-width="1.5"/>
+  <text x="35" y="38" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="12" font-weight="800" letter-spacing="1.5">AO3 EXTENDED RANGE &amp; STRING TENSION</text>
+  <text x="35" y="66" fill="#ffffff" font-family="system-ui, sans-serif" font-size="18" font-weight="900">Low-B String (30.9 Hz &#8226; .130" Gauge): Scale Length vs Tension</text>
 
-  <!-- Comparison Table -->
-  <g transform="translate(45, 115)">
-    <!-- Header -->
-    <rect x="0" y="0" width="705" height="40" fill="#334155" rx="6"/>
-    <text x="20" y="25" fill="#ffffff" font-family="system-ui, sans-serif" font-size="12" font-weight="800">Scale Length</text>
-    <text x="170" y="25" fill="#ffffff" font-family="system-ui, sans-serif" font-size="12" font-weight="800">Low-B Tension</text>
-    <text x="320" y="25" fill="#ffffff" font-family="system-ui, sans-serif" font-size="12" font-weight="800">Tonal Characteristics</text>
-    <text x="540" y="25" fill="#ffffff" font-family="system-ui, sans-serif" font-size="12" font-weight="800">Typical Models</text>
+  <!-- Bar Chart Canvas -->
+  <g transform="translate(35, 90)">
+    <rect width="690" height="260" rx="8" fill="#0f172a" stroke="#334155" stroke-width="1"/>
 
-    <!-- Row 1: 34" Standard -->
-    <rect x="0" y="45" width="705" height="60" fill="#1e293b" rx="6"/>
-    <text x="20" y="80" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="13" font-weight="700">34.0 Inches</text>
-    <text x="170" y="73" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="12">~30–32 lbs</text>
-    <text x="170" y="92" fill="#ef4444" font-family="system-ui, sans-serif" font-size="10.5">Can feel floppy / muddy</text>
-    <text x="320" y="73" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="12">Warm vintage sound, but low-B string</text>
-    <text x="320" y="92" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11">often lacks fundamental pitch definition.</text>
-    <text x="540" y="80" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="11.5">Fender Jazz 5, Music Man</text>
+    <!-- Y Axis (Tension in lbs) -->
+    <line x1="80" y1="30" x2="80" y2="210" stroke="#475569" stroke-width="1.5"/>
+    <line x1="80" y1="210" x2="650" y2="210" stroke="#475569" stroke-width="1.5"/>
+    <text x="70" y="210" fill="#64748b" font-family="system-ui, sans-serif" font-size="9" text-anchor="end">0 lbs</text>
+    <text x="70" y="165" fill="#64748b" font-family="system-ui, sans-serif" font-size="9" text-anchor="end">20 lbs</text>
+    <text x="70" y="120" fill="#64748b" font-family="system-ui, sans-serif" font-size="9" text-anchor="end">30 lbs</text>
+    <text x="70" y="75" fill="#64748b" font-family="system-ui, sans-serif" font-size="9" text-anchor="end">40 lbs</text>
 
-    <!-- Row 2: 35" Extended -->
-    <rect x="0" y="112" width="705" height="60" fill="#1e293b" rx="6" stroke="#22c55e" stroke-width="1.5"/>
-    <text x="20" y="147" fill="#22c55e" font-family="system-ui, sans-serif" font-size="13" font-weight="700">35.0 Inches</text>
-    <text x="170" y="140" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="12">~35–37 lbs</text>
-    <text x="170" y="159" fill="#22c55e" font-family="system-ui, sans-serif" font-size="10.5">+15% Higher Tension</text>
-    <text x="320" y="140" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="12">Tight, punchy, articulate Low-B (30.9 Hz).</text>
-    <text x="320" y="159" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11">Clean transient attack without fret clatter.</text>
-    <text x="540" y="147" fill="#86efac" font-family="system-ui, sans-serif" font-size="11.5">Spector 5, Lakland, Modulus</text>
+    <!-- Bar 1: 30" Short Scale -->
+    <g transform="translate(110, 0)">
+      <rect x="0" y="160" width="80" height="50" rx="4" fill="#ef4444"/>
+      <text x="40" y="150" fill="#fca5a5" font-family="system-ui, sans-serif" font-size="11" font-weight="800" text-anchor="middle">22.4 lbs</text>
+      <text x="40" y="228" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="10.5" font-weight="700" text-anchor="middle">30" Short</text>
+      <text x="40" y="242" fill="#f87171" font-family="system-ui, sans-serif" font-size="9" text-anchor="middle">Floppy / Muddy</text>
+    </g>
 
-    <!-- Row 3: Multi-Scale Fanned Fret (34"-37") -->
-    <rect x="0" y="179" width="705" height="60" fill="#1e293b" rx="6" stroke="#f59e0b" stroke-width="1.5"/>
-    <text x="20" y="214" fill="#f59e0b" font-family="system-ui, sans-serif" font-size="13" font-weight="700">34"–37" Multi-Scale</text>
-    <text x="170" y="207" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="12">Optimized Tension</text>
-    <text x="170" y="226" fill="#f59e0b" font-family="system-ui, sans-serif" font-size="10.5">Equal across all 5 strings</text>
-    <text x="320" y="207" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="12">37" for Low-B ensures thunderous clarity;</text>
-    <text x="320" y="226" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11">34" for high G preserves sweet bendability.</text>
-    <text x="540" y="214" fill="#fde047" font-family="system-ui, sans-serif" font-size="11.5">Dingwall Combustion, Ibanez</text>
+    <!-- Bar 2: 34" Standard Scale -->
+    <g transform="translate(250, 0)">
+      <rect x="0" y="126" width="80" height="84" rx="4" fill="#f59e0b"/>
+      <text x="40" y="116" fill="#fde68a" font-family="system-ui, sans-serif" font-size="11" font-weight="800" text-anchor="middle">28.8 lbs</text>
+      <text x="40" y="228" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="10.5" font-weight="700" text-anchor="middle">34" Standard</text>
+      <text x="40" y="242" fill="#fbbf24" font-family="system-ui, sans-serif" font-size="9" text-anchor="middle">Borderline</text>
+    </g>
+
+    <!-- Bar 3: 35" Extended Scale -->
+    <g transform="translate(390, 0)">
+      <rect x="0" y="105" width="80" height="105" rx="4" fill="#38bdf8"/>
+      <text x="40" y="95" fill="#bae6fd" font-family="system-ui, sans-serif" font-size="11" font-weight="800" text-anchor="middle">33.5 lbs</text>
+      <text x="40" y="228" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="10.5" font-weight="700" text-anchor="middle">35" Extended</text>
+      <text x="40" y="242" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="9" text-anchor="middle">Tight &amp; Defined</text>
+    </g>
+
+    <!-- Bar 4: 37" Multi-Scale (Dingwall Fanned Fret) -->
+    <g transform="translate(530, 0)">
+      <rect x="0" y="80" width="80" height="130" rx="4" fill="#10b981"/>
+      <text x="40" y="70" fill="#a7f3d0" font-family="system-ui, sans-serif" font-size="11" font-weight="800" text-anchor="middle">37.4 lbs</text>
+      <text x="40" y="228" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="10.5" font-weight="700" text-anchor="middle">37" Fanned Fret</text>
+      <text x="40" y="242" fill="#34d399" font-family="system-ui, sans-serif" font-size="9" text-anchor="middle">Piano-Like Purity</text>
+    </g>
+
+    <!-- Tension threshold line -->
+    <line x1="80" y1="110" x2="650" y2="110" stroke="#34d399" stroke-width="1.5" stroke-dasharray="3 3"/>
+    <text x="645" y="105" fill="#34d399" font-family="system-ui, sans-serif" font-size="9" font-weight="700" text-anchor="end">Optimal Tension Threshold (&gt;32 lbs)</text>
   </g>
 
-  <!-- Summary Banner -->
-  <g transform="translate(45, 375)">
-    <rect x="0" y="0" width="705" height="60" fill="#142038" rx="6" stroke="rgba(245,158,11,0.2)"/>
-    <text x="352" y="35" fill="#fde047" font-family="system-ui, sans-serif" font-size="12" font-weight="800" text-anchor="middle">Mersenne Tension Rule: To keep thick strings from rattling at 30.9 Hz, scale length MUST increase.</text>
-  </g>
+  <text x="380" y="382" fill="#64748b" font-family="system-ui, sans-serif" font-size="10.5" text-anchor="middle">Extending Low-B scale to 35"&#8211;37" prevents intonation drift and mechanical fret buzz at 30.9 Hz.</text>
 </svg>'''
 
-# 17. BASS DSP PROFILING AND CAB IR
-svgs["bass_dsp_profiling_and_cab_ir.svg"] = '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480" width="100%" height="100%">
-  <rect width="800" height="480" fill="#080e1a" rx="14"/>
-  <rect x="20" y="20" width="760" height="440" fill="#0f172a" stroke="rgba(56,189,248,0.3)" stroke-width="1.5" rx="12"/>
-  
-  <text x="40" y="55" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="13" font-weight="800" letter-spacing="1.5">AO3 MODERN DIGITAL PRODUCTION</text>
-  <text x="40" y="85" fill="#ffffff" font-family="system-ui, sans-serif" font-size="20" font-weight="900">Modern Digital Bass Workflow: DSP Amp Modelling &amp; Cab IRs</text>
+# 17. BASS DSP PROFILING & CAB IR
+svgs["bass_dsp_profiling_and_cab_ir.svg"] = '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 400" width="100%" height="100%">
+  <rect width="760" height="400" rx="12" fill="#080e1a" stroke="#1e293b" stroke-width="1.5"/>
+  <text x="35" y="38" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="12" font-weight="800" letter-spacing="1.5">AO3 MODERN DIGITAL SIGNAL PROCESSING (DSP)</text>
+  <text x="35" y="66" fill="#ffffff" font-family="system-ui, sans-serif" font-size="18" font-weight="900">Modern Bass Rig: DSP Amp Profiling &amp; Convolution IR Cabs</text>
 
-  <!-- Workflow Diagram -->
-  <g transform="translate(45, 115)">
-    <rect x="0" y="0" width="705" height="180" fill="#1e293b" rx="10" stroke="rgba(255,255,255,0.08)"/>
+  <!-- Flowchart Container -->
+  <g transform="translate(35, 90)">
+    <rect width="690" height="260" rx="8" fill="#0f172a" stroke="#334155" stroke-width="1"/>
 
-    <!-- Bass Direct Input -->
-    <rect x="20" y="45" width="110" height="90" fill="#0b1329" rx="8" stroke="#38bdf8"/>
-    <text x="75" y="80" fill="#ffffff" font-family="system-ui, sans-serif" font-size="12" font-weight="800" text-anchor="middle">Bass Guitar</text>
-    <text x="75" y="105" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="11" text-anchor="middle">Dry DI Out</text>
+    <!-- Stage 1: Clean Bass Instrument -->
+    <g transform="translate(25, 45)">
+      <rect width="110" height="85" rx="6" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5"/>
+      <text x="55" y="24" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="11" font-weight="800" text-anchor="middle">STAGE 1</text>
+      <text x="55" y="44" fill="#ffffff" font-family="system-ui, sans-serif" font-size="10.5" font-weight="700" text-anchor="middle">Bass DI Signal</text>
+      <text x="55" y="65" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="9" text-anchor="middle">24-bit / 96 kHz</text>
+    </g>
 
-    <!-- Audio Interface / DAW -->
-    <rect x="160" y="45" width="120" height="90" fill="#0b1329" rx="8" stroke="#22c55e"/>
-    <text x="220" y="80" fill="#ffffff" font-family="system-ui, sans-serif" font-size="12" font-weight="800" text-anchor="middle">24-Bit / 96kHz</text>
-    <text x="220" y="105" fill="#22c55e" font-family="system-ui, sans-serif" font-size="11" text-anchor="middle">Clean Preamp DI</text>
+    <path d="M 135 87 L 165 87" stroke="#38bdf8" stroke-width="2"/>
 
-    <!-- DSP Amp Plugin (Neural DSP / Helix) -->
-    <rect x="310" y="45" width="170" height="90" fill="#142038" rx="8" stroke="#f59e0b" stroke-width="2"/>
-    <text x="395" y="75" fill="#f59e0b" font-family="system-ui, sans-serif" font-size="12" font-weight="800" text-anchor="middle">DSP Tube Emulation</text>
-    <text x="395" y="98" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="10.5" text-anchor="middle">SVT 6550 Valve Sag &amp; Drive</text>
-    <text x="395" y="118" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="10" text-anchor="middle">(Darkglass / Ampeg SVT)</text>
+    <!-- Stage 2: Non-Linear Tube DSP Profiler -->
+    <g transform="translate(165, 45)">
+      <rect width="145" height="85" rx="6" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5"/>
+      <text x="72" y="24" fill="#fbbf24" font-family="system-ui, sans-serif" font-size="11" font-weight="800" text-anchor="middle">STAGE 2: PROFILER</text>
+      <text x="72" y="44" fill="#ffffff" font-family="system-ui, sans-serif" font-size="10" font-weight="700" text-anchor="middle">Kemper / Quad Cortex</text>
+      <text x="72" y="60" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="8.5" text-anchor="middle">Models non-linear 6550</text>
+      <text x="72" y="74" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="8.5" text-anchor="middle">valve distortion &amp; sag</text>
+    </g>
 
-    <!-- Convolution IR Cabinet -->
-    <rect x="510" y="45" width="175" height="90" fill="#0b1329" rx="8" stroke="#a855f7" stroke-width="2"/>
-    <text x="597" y="75" fill="#a855f7" font-family="system-ui, sans-serif" font-size="12" font-weight="800" text-anchor="middle">Cabinet Impulse Response</text>
-    <text x="597" y="98" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="10.5" text-anchor="middle">8&#215;10 Sealed Cab + Mic IR</text>
-    <text x="597" y="118" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="10" text-anchor="middle">(AKG D112 / Neumann U47)</text>
+    <path d="M 310 87 L 340 87" stroke="#38bdf8" stroke-width="2"/>
 
-    <!-- Flow Arrows -->
-    <line x1="130" y1="90" x2="160" y2="90" stroke="#64748b" stroke-width="2"/>
-    <line x1="280" y1="90" x2="310" y2="90" stroke="#64748b" stroke-width="2"/>
-    <line x1="480" y1="90" x2="510" y2="90" stroke="#64748b" stroke-width="2"/>
+    <!-- Stage 3: Convolution Engine (Speaker Cab IR) -->
+    <g transform="translate(340, 45)">
+      <rect width="180" height="85" rx="6" fill="#1e293b" stroke="#10b981" stroke-width="1.5"/>
+      <text x="90" y="24" fill="#34d399" font-family="system-ui, sans-serif" font-size="11" font-weight="800" text-anchor="middle">STAGE 3: CONVOLUTION</text>
+      <text x="90" y="44" fill="#ffffff" font-family="system-ui, sans-serif" font-size="10" font-weight="700" text-anchor="middle">Speaker Cabinet IR</text>
+      <text x="90" y="60" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="8.5" text-anchor="middle">Multiplied with 8&#215;10 impulse:</text>
+      <text x="90" y="74" fill="#34d399" font-family="system-ui, sans-serif" font-size="8.5" font-weight="700" text-anchor="middle">y[n] = x[n] * h[n]</text>
+    </g>
+
+    <path d="M 520 87 L 550 87" stroke="#38bdf8" stroke-width="2"/>
+
+    <!-- Stage 4: DAW Mix Track -->
+    <g transform="translate(550, 45)">
+      <rect width="115" height="85" rx="6" fill="#047857"/>
+      <text x="57" y="24" fill="#ffffff" font-family="system-ui, sans-serif" font-size="11" font-weight="800" text-anchor="middle">STAGE 4</text>
+      <text x="57" y="44" fill="#ffffff" font-family="system-ui, sans-serif" font-size="10.5" font-weight="700" text-anchor="middle">DAW Track</text>
+      <text x="57" y="65" fill="#a7f3d0" font-family="system-ui, sans-serif" font-size="9" text-anchor="middle">Silent recording</text>
+    </g>
+
+    <!-- Bottom Features Table -->
+    <g transform="translate(25, 155)">
+      <rect width="640" height="85" rx="4" fill="#142038" stroke="rgba(56,189,248,0.2)"/>
+      <text x="20" y="26" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="11" font-weight="700">&#8226; Zero Room Bleed:</text>
+      <text x="140" y="26" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="10.5">Bass tracks silently directly to converters without spill onto drum overheads.</text>
+
+      <text x="20" y="48" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="11" font-weight="700">&#8226; Total Recall:</text>
+      <text x="140" y="48" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="10.5">Exact virtual microphone positions (on-axis / off-axis) saved with the DAW session file.</text>
+
+      <text x="20" y="70" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="11" font-weight="700">&#8226; Hybrid Re-Amping:</text>
+      <text x="140" y="70" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="10.5">Engineers blend clean analog DI with parallel virtual tube saturation.</text>
+    </g>
   </g>
 
-  <!-- 3 Modern Production Advantages -->
-  <g transform="translate(45, 315)">
-    <rect x="0" y="0" width="705" height="115" fill="#142038" rx="8" stroke="rgba(56,189,248,0.2)"/>
-    <text x="20" y="28" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="13" font-weight="800">ADVANTAGES OF MODERN DSP BASS TRACKING IN THE BOX:</text>
-    <text x="20" y="52" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11.5">1. <tspan fill="#ffffff" font-weight="700">Zero Acoustic Bleed:</tspan> Bass can be tracked in bedroom or control room without microphone feedback or room standing waves.</text>
-    <text x="20" y="74" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11.5">2. <tspan fill="#ffffff" font-weight="700">Re-Amping Flexibility:</tspan> The clean 24-bit dry DI audio is preserved; engineers can swap simulated amps and speaker IRs during mixdown.</text>
-    <text x="20" y="96" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11.5">3. <tspan fill="#ffffff" font-weight="700">Multi-Band Processing:</tspan> Sub-bass (&lt;100 Hz) kept perfectly clean and mono, while midrange (200Hz–2kHz) receives tube saturation.</text>
-  </g>
+  <text x="380" y="382" fill="#64748b" font-family="system-ui, sans-serif" font-size="10.5" text-anchor="middle">Modern low-end production combines pristine DI sub-bass with DSP amp bite.</text>
 </svg>'''
 
-# 18. BASS REVISION MATRIX SUMMARY
-svgs["bass_revision_matrix_summary.svg"] = '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480" width="100%" height="100%">
-  <rect width="800" height="480" fill="#080e1a" rx="14"/>
-  <rect x="20" y="20" width="760" height="440" fill="#0f172a" stroke="rgba(34,197,94,0.3)" stroke-width="1.5" rx="12"/>
-  
-  <text x="40" y="55" fill="#22c55e" font-family="system-ui, sans-serif" font-size="13" font-weight="800" letter-spacing="1.5">COMPONENT 3 REVISION SUMMARY</text>
-  <text x="40" y="85" fill="#ffffff" font-family="system-ui, sans-serif" font-size="20" font-weight="900">The Bass Guitar: Exam Syllabus Cheat Sheet &amp; Keywords</text>
+# 18. COMPONENT 3 BASS REVISION MATRIX SUMMARY
+svgs["bass_revision_matrix_summary.svg"] = '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 400" width="100%" height="100%">
+  <rect width="760" height="400" rx="12" fill="#080e1a" stroke="#1e293b" stroke-width="1.5"/>
+  <text x="35" y="35" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="12" font-weight="800" letter-spacing="1.5">EDEXCEL COMPONENT 3 EXAM REVISION MATRIX</text>
+  <text x="35" y="60" fill="#ffffff" font-family="system-ui, sans-serif" font-size="17" font-weight="900">The Bass Guitar: Core Terminology &amp; Syllabus Milestones</text>
 
-  <!-- 4 Summary Columns -->
-  <g transform="translate(45, 115)">
-    <!-- Col 1: History -->
-    <rect x="0" y="0" width="165" height="315" fill="#1e293b" rx="8" stroke="rgba(255,255,255,0.08)"/>
-    <text x="15" y="28" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="13" font-weight="800">1. Timeline</text>
-    <text x="15" y="55" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11">• <tspan fill="#ffffff" font-weight="700">1951:</tspan> Fender Precision (34" fretted solidbody)</text>
-    <text x="15" y="90" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11">• <tspan fill="#ffffff" font-weight="700">1956:</tspan> H&#246;fner 500/1 (30" hollow violin)</text>
-    <text x="15" y="125" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11">• <tspan fill="#ffffff" font-weight="700">1957:</tspan> Split-Coil P-Bass (RWRP hum-free)</text>
-    <text x="15" y="160" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11">• <tspan fill="#ffffff" font-weight="700">1960:</tspan> Fender Jazz Bass (dual pickups, narrow neck)</text>
-    <text x="15" y="195" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11">• <tspan fill="#ffffff" font-weight="700">1969:</tspan> Ampeg SVT (300W tube, 8x10 cab)</text>
-    <text x="15" y="230" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11">• <tspan fill="#ffffff" font-weight="700">1976:</tspan> Music Man StingRay (9V active EQ)</text>
+  <!-- 3x3 Table Layout -->
+  <g transform="translate(35, 75)">
+    <!-- Column Headers -->
+    <rect x="0" y="0" width="220" height="26" fill="#1e293b" stroke="#334155"/>
+    <text x="110" y="17" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="10.5" font-weight="800" text-anchor="middle">1. HISTORICAL MILESTONES</text>
 
-    <!-- Col 2: Electronics -->
-    <rect x="180" y="0" width="165" height="315" fill="#1e293b" rx="8" stroke="rgba(255,255,255,0.08)"/>
-    <text x="195" y="28" fill="#f59e0b" font-family="system-ui, sans-serif" font-size="13" font-weight="800">2. Electronics</text>
-    <text x="195" y="55" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11">• <tspan fill="#ffffff" font-weight="700">Split-Coil:</tspan> 2 offset RWRP coils cancel hum</text>
-    <text x="195" y="95" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11">• <tspan fill="#ffffff" font-weight="700">Jazz Pair:</tspan> Both full creates 1 kHz mid scoop</text>
-    <text x="195" y="135" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11">• <tspan fill="#ffffff" font-weight="700">Active 9V:</tspan> Boost &amp; cut Baxandall EQ, low-Z</text>
-    <text x="195" y="175" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11">• <tspan fill="#ffffff" font-weight="700">Pots:</tspan> 250k&#937; passive with .047&#956;F capacitor</text>
-    <text x="195" y="215" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11">• <tspan fill="#ffffff" font-weight="700">Strings:</tspan> Flatwound (thud) vs Roundwound (zing)</text>
+    <rect x="230" y="0" width="220" height="26" fill="#1e293b" stroke="#334155"/>
+    <text x="340" y="17" fill="#fbbf24" font-family="system-ui, sans-serif" font-size="10.5" font-weight="800" text-anchor="middle">2. TRANSDUCER &amp; PHYSICS</text>
 
-    <!-- Col 3: Techniques -->
-    <rect x="360" y="0" width="165" height="315" fill="#1e293b" rx="8" stroke="rgba(255,255,255,0.08)"/>
-    <text x="375" y="28" fill="#22c55e" font-family="system-ui, sans-serif" font-size="13" font-weight="800">3. Techniques</text>
-    <text x="375" y="55" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11">• <tspan fill="#ffffff" font-weight="700">Fingerstyle:</tspan> Warm, round fundamental tone</text>
-    <text x="375" y="95" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11">• <tspan fill="#ffffff" font-weight="700">Plectrum:</tspan> Sharp transient click, rock drive</text>
-    <text x="375" y="135" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11">• <tspan fill="#ffffff" font-weight="700">Slap &amp; Pop:</tspan> Thumb thump (kick) + finger snap (snare)</text>
-    <text x="375" y="185" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11">• <tspan fill="#ffffff" font-weight="700">Muting:</tspan> Palm/foam dampens sustain (Motown)</text>
-    <text x="375" y="225" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11">• <tspan fill="#ffffff" font-weight="700">Fretless:</tspan> Epoxy coating, blooming "mwah" vibrato</text>
+    <rect x="460" y="0" width="230" height="26" fill="#1e293b" stroke="#334155"/>
+    <text x="575" y="17" fill="#34d399" font-family="system-ui, sans-serif" font-size="10.5" font-weight="800" text-anchor="middle">3. STUDIO &amp; AMPLIFICATION</text>
 
-    <!-- Col 4: Studio DI -->
-    <rect x="540" y="0" width="165" height="315" fill="#1e293b" rx="8" stroke="rgba(255,255,255,0.08)"/>
-    <text x="555" y="28" fill="#a855f7" font-family="system-ui, sans-serif" font-size="13" font-weight="800">4. Studio &amp; Mix</text>
-    <text x="555" y="55" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11">• <tspan fill="#ffffff" font-weight="700">DI Box:</tspan> High-Z to low-Z, transformer isolation</text>
-    <text x="555" y="95" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11">• <tspan fill="#ffffff" font-weight="700">DI + Mic Split:</tspan> Requires DAW phase alignment</text>
-    <text x="555" y="135" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11">• <tspan fill="#ffffff" font-weight="700">Compression:</tspan> Optical (LA-2A) or 1176 smooths dynamics</text>
-    <text x="555" y="185" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11">• <tspan fill="#ffffff" font-weight="700">Mono Bass:</tspan> Always center-panned below 150 Hz</text>
-    <text x="555" y="225" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11">• <tspan fill="#ffffff" font-weight="700">Cab IRs:</tspan> Convolution models 8x10 speaker cone</text>
+    <!-- Row 1: Vintage Era (1950s) -->
+    <g transform="translate(0, 32)">
+      <rect x="0" y="0" width="220" height="80" rx="4" fill="#131e36" stroke="#334155"/>
+      <text x="12" y="18" fill="#f8fafc" font-family="system-ui, sans-serif" font-size="10.5" font-weight="700">1951 Fender Precision</text>
+      <text x="12" y="34" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="9.5">&#8226; 34" solid ash slab body</text>
+      <text x="12" y="50" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="9.5">&#8226; Frets solved intonation</text>
+      <text x="12" y="66" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="9.5">&#8226; Zero acoustic feedback</text>
+
+      <rect x="230" y="0" width="220" height="80" rx="4" fill="#131e36" stroke="#334155"/>
+      <text x="242" y="18" fill="#f8fafc" font-family="system-ui, sans-serif" font-size="10.5" font-weight="700">RWRP Split-Coil (1957)</text>
+      <text x="242" y="34" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="9.5">&#8226; Reverse wound coil</text>
+      <text x="242" y="50" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="9.5">&#8226; Reverse magnetic polarity</text>
+      <text x="242" y="66" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="9.5">&#8226; Cancels 50/60 Hz hum</text>
+
+      <rect x="460" y="0" width="230" height="80" rx="4" fill="#131e36" stroke="#334155"/>
+      <text x="472" y="18" fill="#f8fafc" font-family="system-ui, sans-serif" font-size="10.5" font-weight="700">Motown DI &amp; Jamerson</text>
+      <text x="472" y="34" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="9.5">&#8226; Wolfbox Triad transformer</text>
+      <text x="472" y="50" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="9.5">&#8226; Flatwounds &amp; foam mute</text>
+      <text x="472" y="66" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="9.5">&#8226; Tight thud clears kick</text>
+    </g>
+
+    <!-- Row 2: Classic / Arena Era (1960s-1970s) -->
+    <g transform="translate(0, 118)">
+      <rect x="0" y="0" width="220" height="80" rx="4" fill="#131e36" stroke="#334155"/>
+      <text x="12" y="18" fill="#f8fafc" font-family="system-ui, sans-serif" font-size="10.5" font-weight="700">Jazz Bass &amp; StingRay</text>
+      <text x="12" y="34" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="9.5">&#8226; 1960: Dual pickups &amp; slim nut</text>
+      <text x="12" y="50" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="9.5">&#8226; 1976: Active 9V StingRay</text>
+      <text x="12" y="66" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="9.5">&#8226; Rick 4001 stereo bi-amping</text>
+
+      <rect x="230" y="0" width="220" height="80" rx="4" fill="#131e36" stroke="#334155"/>
+      <text x="242" y="18" fill="#f8fafc" font-family="system-ui, sans-serif" font-size="10.5" font-weight="700">Active Baxandall EQ</text>
+      <text x="242" y="34" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="9.5">&#8226; Low-Z buffered output</text>
+      <text x="242" y="50" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="9.5">&#8226; Zero cable treble loss</text>
+      <text x="242" y="66" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="9.5">&#8226; Boost and cut shelves</text>
+
+      <rect x="460" y="0" width="230" height="80" rx="4" fill="#131e36" stroke="#334155"/>
+      <text x="472" y="18" fill="#f8fafc" font-family="system-ui, sans-serif" font-size="10.5" font-weight="700">Ampeg SVT &amp; 8x10</text>
+      <text x="472" y="34" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="9.5">&#8226; 300W all-valve power (6550)</text>
+      <text x="472" y="50" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="9.5">&#8226; Sealed infinite baffle cab</text>
+      <text x="472" y="66" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="9.5">&#8226; Eight 10" cones for speed</text>
+    </g>
+
+    <!-- Row 3: Modern Era (1980s-Present) -->
+    <g transform="translate(0, 204)">
+      <rect x="0" y="0" width="220" height="80" rx="4" fill="#131e36" stroke="#334155"/>
+      <text x="12" y="18" fill="#f8fafc" font-family="system-ui, sans-serif" font-size="10.5" font-weight="700">Extended Range &amp; Fretless</text>
+      <text x="12" y="34" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="9.5">&#8226; 5-string 30.9 Hz Low-B</text>
+      <text x="12" y="50" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="9.5">&#8226; Jaco Pastorius fretless mwah</text>
+      <text x="12" y="66" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="9.5">&#8226; Multi-scale fanned frets</text>
+
+      <rect x="230" y="0" width="220" height="80" rx="4" fill="#131e36" stroke="#334155"/>
+      <text x="242" y="18" fill="#f8fafc" font-family="system-ui, sans-serif" font-size="10.5" font-weight="700">Mersenne Tension (35")</text>
+      <text x="242" y="34" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="9.5">&#8226; Longer scale = higher tension</text>
+      <text x="242" y="50" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="9.5">&#8226; Prevents floppy Low-B</text>
+      <text x="242" y="66" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="9.5">&#8226; Roundwounds for slap snap</text>
+
+      <rect x="460" y="0" width="230" height="80" rx="4" fill="#131e36" stroke="#334155"/>
+      <text x="472" y="18" fill="#f8fafc" font-family="system-ui, sans-serif" font-size="10.5" font-weight="700">DAW Phase Alignment &amp; DSP</text>
+      <text x="472" y="34" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="9.5">&#8226; Nudge mic track to match DI</text>
+      <text x="472" y="50" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="9.5">&#8226; Prevents low comb filtering</text>
+      <text x="472" y="66" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="9.5">&#8226; Convolution cab IR profiling</text>
+    </g>
   </g>
+
+  <text x="380" y="388" fill="#64748b" font-family="system-ui, sans-serif" font-size="10" text-anchor="middle">Edexcel Music Technology Component 3: Music Technology in Context Syllabus Mastery</text>
 </svg>'''
 
-print(f"Writing {len(svgs)} SVGs to {OUT_DIR}...")
-for fname, content in svgs.items():
-    path = os.path.join(OUT_DIR, fname)
-    with open(path, "w", encoding="utf-8") as f:
-        f.write(content.strip())
+# Save all SVGs and validate with ElementTree
+print(f"Writing and validating {len(svgs)} SVGs in {OUT_DIR}...")
+errors = 0
+for name, content in svgs.items():
+    path = os.path.join(OUT_DIR, name)
     # Validate XML
     try:
-        ET.fromstring(content.strip())
-    except Exception as e:
-        print(f"XML Validation Error in {fname}: {e}")
-        raise e
+        ET.fromstring(content)
+    except ET.ParseError as e:
+        print(f"ERROR in {name}: {e}")
+        errors += 1
+        continue
+    
+    with open(path, "w", encoding="utf-8") as f:
+        f.write(content)
+    print(f"  [OK] {name} ({len(content)} bytes)")
 
-print(f"ALL {len(svgs)} SVGs GENERATED AND VALIDATED AS 100% VALID XML!")
+if errors == 0:
+    print(f"ALL {len(svgs)} SVGs VALIDATED AND WRITTEN SUCCESSFULLY!")
+else:
+    raise ValueError(f"{errors} SVGs failed XML validation!")

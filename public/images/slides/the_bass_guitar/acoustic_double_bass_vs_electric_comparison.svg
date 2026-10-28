@@ -1,42 +1,57 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480" width="100%" height="100%">
-  <rect width="800" height="480" fill="#080e1a" rx="14"/>
-  <rect x="20" y="20" width="760" height="440" fill="#0f172a" stroke="rgba(239,68,68,0.3)" stroke-width="1.5" rx="12"/>
-  
-  <text x="40" y="55" fill="#ef4444" font-family="system-ui, sans-serif" font-size="13" font-weight="800" letter-spacing="1.5">AO4 HISTORICAL PROBLEM &amp; SOLUTION</text>
-  <text x="40" y="85" fill="#ffffff" font-family="system-ui, sans-serif" font-size="20" font-weight="900">Upright Double Bass vs Leo Fender Solidbody Bass (1951)</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 400" width="100%" height="100%">
+  <rect width="760" height="400" rx="12" fill="#080e1a" stroke="#1e293b" stroke-width="1.5"/>
+  <text x="35" y="38" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="12" font-weight="800" letter-spacing="1.5">AO4 HISTORICAL PROBLEM &amp; SOLUTION</text>
+  <text x="35" y="66" fill="#ffffff" font-family="system-ui, sans-serif" font-size="18" font-weight="900">Upright Double Bass vs Solidbody Fender Precision (1951)</text>
 
-  <!-- Left: Acoustic Upright Dilemma -->
-  <g transform="translate(45, 115)">
-    <rect x="0" y="0" width="340" height="315" fill="#1e293b" rx="10" stroke="rgba(239,68,68,0.3)"/>
-    <text x="20" y="32" fill="#ef4444" font-family="system-ui, sans-serif" font-size="15" font-weight="800">Acoustic Double Bass (Pre-1951)</text>
-    
-    <path d="M 40,65 L 70,65 L 60,110 L 40,110 Z" fill="none" stroke="#ef4444" stroke-width="2"/>
-    <text x="20" y="75" fill="#ffffff" font-family="system-ui, sans-serif" font-size="13" font-weight="700">The Problem in Big Bands:</text>
-    
-    <text x="20" y="105" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="12">• <tspan fill="#f87171" font-weight="700">Low Volume Output:</tspan> Drowned out by brass and drums</text>
-    <text x="20" y="135" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="12">• <tspan fill="#f87171" font-weight="700">Acoustic Feedback:</tspan> Large hollow air cavity resonated</text>
-    <text x="20" y="165" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="12">• <tspan fill="#f87171" font-weight="700">Microphone Bleed:</tspan> Drum spill overwhelmed quiet bass</text>
-    <text x="20" y="195" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="12">• <tspan fill="#f87171" font-weight="700">Fretless Pitch Drift:</tspan> Fatigue caused intonation slip</text>
-    <text x="20" y="225" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="12">• <tspan fill="#f87171" font-weight="700">Massive Size:</tspan> Impossible to fit into passenger cars</text>
+  <!-- Left: Acoustic Upright Bass -->
+  <g transform="translate(35, 90)">
+    <rect width="335" height="265" rx="8" fill="#131e36" stroke="#f87171" stroke-width="1.5"/>
+    <text x="20" y="30" fill="#f87171" font-family="system-ui, sans-serif" font-size="14" font-weight="800">Acoustic Upright Double Bass</text>
 
-    <rect x="20" y="255" width="300" height="40" fill="rgba(239,68,68,0.15)" rx="6" stroke="rgba(239,68,68,0.3)"/>
-    <text x="170" y="280" fill="#fca5a5" font-family="system-ui, sans-serif" font-size="11.5" font-weight="700" text-anchor="middle">Required acoustic slap/gut strings to be heard</text>
+    <!-- Upright Graphic Representation -->
+    <path d="M 60 70 C 40 100 40 120 70 140 C 30 170 30 200 65 220 L 85 220 C 120 200 120 170 80 140 C 110 120 110 100 90 70 Z" fill="#2d1b14" stroke="#a16207" stroke-width="2"/>
+    <!-- F-Holes -->
+    <path d="M 65 130 Q 60 140 68 150" stroke="#f59e0b" stroke-width="2" fill="none"/>
+    <path d="M 85 130 Q 90 140 82 150" stroke="#f59e0b" stroke-width="2" fill="none"/>
+
+    <!-- Acoustic Feedback Loop -->
+    <path d="M 120 140 C 150 110 160 80 130 65" fill="none" stroke="#ef4444" stroke-width="2" stroke-dasharray="4 2"/>
+    <text x="135" y="105" fill="#f87171" font-family="system-ui, sans-serif" font-size="10" font-weight="700">Acoustic Feedback!</text>
+
+    <!-- Bullets -->
+    <text x="155" y="140" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11">&#8226; Hollow resonant body cavity</text>
+    <text x="155" y="165" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11">&#8226; Stage mic feedback howl</text>
+    <text x="155" y="190" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11">&#8226; Fretless intonation drift</text>
+    <text x="155" y="215" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11">&#8226; Hard to transport (&gt;6 ft tall)</text>
+
+    <rect x="20" y="232" width="295" height="24" rx="4" fill="#2c1618"/>
+    <text x="167" y="248" fill="#fca5a5" font-family="system-ui, sans-serif" font-size="10" font-weight="700" text-anchor="middle">Cannot compete with loud drum kits</text>
   </g>
 
-  <!-- Right: Leo Fender Solution -->
-  <g transform="translate(415, 115)">
-    <rect x="0" y="0" width="340" height="315" fill="#1e293b" rx="10" stroke="rgba(34,197,94,0.3)"/>
-    <text x="20" y="32" fill="#22c55e" font-family="system-ui, sans-serif" font-size="15" font-weight="800">1951 Fender Precision Bass</text>
-    
-    <text x="20" y="75" fill="#ffffff" font-family="system-ui, sans-serif" font-size="13" font-weight="700">The Modern Technological Solution:</text>
-    
-    <text x="20" y="105" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="12">• <tspan fill="#86efac" font-weight="700">Solid Ash Body:</tspan> Decoupled from air pressure, zero feedback</text>
-    <text x="20" y="135" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="12">• <tspan fill="#86efac" font-weight="700">Fretted Fingerboard:</tspan> Exact intonation ("Precision" name)</text>
-    <text x="20" y="165" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="12">• <tspan fill="#86efac" font-weight="700">Electromagnetic Pickup:</tspan> High-output signal into amplifiers</text>
-    <text x="20" y="195" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="12">• <tspan fill="#86efac" font-weight="700">Horizontal Play:</tspan> Guitar-style strap freed bassist posture</text>
-    <text x="20" y="225" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="12">• <tspan fill="#86efac" font-weight="700">Portability:</tspan> Easily transported in standard guitar cases</text>
+  <!-- Right: 1951 Fender Precision Bass -->
+  <g transform="translate(390, 90)">
+    <rect width="335" height="265" rx="8" fill="#131e36" stroke="#34d399" stroke-width="1.5"/>
+    <text x="20" y="30" fill="#34d399" font-family="system-ui, sans-serif" font-size="14" font-weight="800">1951 Fender Precision Bass</text>
 
-    <rect x="20" y="255" width="300" height="40" fill="rgba(34,197,94,0.15)" rx="6" stroke="rgba(34,197,94,0.3)"/>
-    <text x="170" y="280" fill="#86efac" font-family="system-ui, sans-serif" font-size="11.5" font-weight="700" text-anchor="middle">Allowed touring bands to play loud rock rhythm tracks</text>
+    <!-- Solidbody Graphic Representation -->
+    <path d="M 60 80 C 45 95 45 115 70 135 C 40 160 50 200 80 215 L 95 215 C 125 200 130 160 100 135 C 120 115 120 95 105 80 Z" fill="#78350f" stroke="#fbbf24" stroke-width="2"/>
+    <!-- Frets & Pickup -->
+    <rect x="75" y="55" width="10" height="25" fill="#cbd5e1"/>
+    <rect x="70" y="130" width="20" height="12" fill="#0f172a" stroke="#38bdf8"/>
+
+    <!-- Direct Electromagnetic Wave -->
+    <path d="M 105 136 L 145 136" stroke="#38bdf8" stroke-width="2.5"/>
+    <text x="110" y="125" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="9" font-weight="800">EM Pickup</text>
+
+    <!-- Bullets -->
+    <text x="155" y="140" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11">&#8226; Solid dense ash slab body</text>
+    <text x="155" y="165" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11">&#8226; Zero acoustic body feedback</text>
+    <text x="155" y="190" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11">&#8226; 20 nickel frets (exact pitch)</text>
+    <text x="155" y="215" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11">&#8226; High-output magnetic coil</text>
+
+    <rect x="20" y="232" width="295" height="24" rx="4" fill="#063826"/>
+    <text x="167" y="248" fill="#6ee7b7" font-family="system-ui, sans-serif" font-size="10" font-weight="700" text-anchor="middle">Clean, amplified punch at any stage volume</text>
   </g>
+
+  <text x="380" y="382" fill="#64748b" font-family="system-ui, sans-serif" font-size="10.5" text-anchor="middle">Leo Fender's innovation birthed the modern rock, soul, and pop rhythm section.</text>
 </svg>

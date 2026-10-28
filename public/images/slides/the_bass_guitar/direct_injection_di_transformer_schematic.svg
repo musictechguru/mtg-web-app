@@ -1,50 +1,68 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480" width="100%" height="100%">
-  <rect width="800" height="480" fill="#080e1a" rx="14"/>
-  <rect x="20" y="20" width="760" height="440" fill="#0f172a" stroke="rgba(34,197,94,0.3)" stroke-width="1.5" rx="12"/>
-  
-  <text x="40" y="55" fill="#22c55e" font-family="system-ui, sans-serif" font-size="13" font-weight="800" letter-spacing="1.5">AO3 RECORDING STUDIO ENGINEERING</text>
-  <text x="40" y="85" fill="#ffffff" font-family="system-ui, sans-serif" font-size="20" font-weight="900">Direct Injection (DI Box): Transformer Isolation &amp; Balancing</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 400" width="100%" height="100%">
+  <rect width="760" height="400" rx="12" fill="#080e1a" stroke="#1e293b" stroke-width="1.5"/>
+  <text x="35" y="38" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="12" font-weight="800" letter-spacing="1.5">AO3 STUDIO RECORDING &amp; SIGNAL FLOW</text>
+  <text x="35" y="66" fill="#ffffff" font-family="system-ui, sans-serif" font-size="18" font-weight="900">Passive Direct Injection (DI) Transformer Schematic (Motown Wolfbox)</text>
 
-  <!-- DI Signal Path -->
-  <g transform="translate(45, 120)">
-    <rect x="0" y="0" width="705" height="200" fill="#1e293b" rx="10" stroke="rgba(255,255,255,0.08)"/>
+  <!-- Schematic Chassis -->
+  <g transform="translate(35, 90)">
+    <rect width="690" height="260" rx="8" fill="#0f172a" stroke="#334155" stroke-width="1"/>
 
-    <!-- 1. Instrument Input -->
-    <rect x="20" y="60" width="120" height="70" fill="#0b1329" rx="6" stroke="#38bdf8"/>
-    <text x="80" y="90" fill="#ffffff" font-family="system-ui, sans-serif" font-size="12" font-weight="800" text-anchor="middle">Bass Guitar</text>
-    <text x="80" y="112" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="10.5" text-anchor="middle">High-Z (~500k&#937;)</text>
+    <!-- Left: Unbalanced 1/4" Instrument Input -->
+    <g transform="translate(30, 60)">
+      <rect width="130" height="130" rx="6" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5"/>
+      <text x="65" y="24" fill="#fbbf24" font-family="system-ui, sans-serif" font-size="11" font-weight="800" text-anchor="middle">1/4" TS INPUT</text>
+      <text x="65" y="44" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="9.5" text-anchor="middle">Unbalanced Instrument</text>
 
-    <!-- Thru Output to Amp -->
-    <path d="M 80,60 L 80,30 L 220,30" fill="none" stroke="#f59e0b" stroke-width="2"/>
-    <rect x="220" y="15" width="110" height="32" fill="#0f172a" rx="4" stroke="#f59e0b"/>
-    <text x="275" y="36" fill="#f59e0b" font-family="system-ui, sans-serif" font-size="11" font-weight="700" text-anchor="middle">Thru (To Stage Amp)</text>
+      <path d="M 25 75 L 105 75" stroke="#fbbf24" stroke-width="2.5"/>
+      <text x="65" y="95" fill="#fde047" font-family="system-ui, sans-serif" font-size="10" font-weight="700" text-anchor="middle">Tip (Signal +)</text>
 
-    <!-- DI Transformer Box -->
-    <rect x="180" y="60" width="310" height="120" fill="#0f172a" rx="8" stroke="#22c55e" stroke-width="2"/>
-    <text x="335" y="85" fill="#22c55e" font-family="system-ui, sans-serif" font-size="13" font-weight="800" text-anchor="middle">Passive Transformer Isolation (e.g. Jensen / Triad)</text>
+      <path d="M 25 110 L 105 110" stroke="#64748b" stroke-width="2"/>
+      <text x="65" y="125" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="9" text-anchor="middle">Sleeve (Ground)</text>
+    </g>
 
-    <!-- Primary & Secondary Coils -->
-    <path d="M 220,110 Q 230,135 240,110 Q 250,135 260,110" fill="none" stroke="#38bdf8" stroke-width="3"/>
-    <line x1="280" y1="100" x2="280" y2="150" stroke="#cbd5e1" stroke-width="2" stroke-dasharray="2 2"/>
-    <line x1="285" y1="100" x2="285" y2="150" stroke="#cbd5e1" stroke-width="2" stroke-dasharray="2 2"/>
-    <path d="M 305,110 Q 315,135 325,110 Q 335,135 345,110" fill="none" stroke="#22c55e" stroke-width="3"/>
+    <!-- Center: Triad Audio Transformer (Galvanic Isolation) -->
+    <g transform="translate(230, 45)">
+      <rect width="230" height="160" rx="8" fill="#131e36" stroke="#38bdf8" stroke-width="2"/>
+      <text x="115" y="24" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="12" font-weight="800" text-anchor="middle">TRIAD A-11J TRANSFORMER</text>
 
-    <!-- Ground Lift Switch -->
-    <rect x="385" y="115" width="85" height="35" fill="#334155" rx="4" stroke="#cbd5e1"/>
-    <text x="427" y="137" fill="#ffffff" font-family="system-ui, sans-serif" font-size="10.5" font-weight="700" text-anchor="middle">Ground Lift</text>
+      <!-- Primary Coil (High-Z) -->
+      <path d="M 40 50 C 60 50 60 70 40 70 C 60 70 60 90 40 90 C 60 90 60 110 40 110" fill="none" stroke="#f59e0b" stroke-width="3"/>
+      <text x="40" y="130" fill="#fbbf24" font-family="system-ui, sans-serif" font-size="9.5" font-weight="700" text-anchor="middle">High-Z</text>
 
-    <!-- XLR Output to Mic Preamp -->
-    <rect x="530" y="60" width="155" height="70" fill="#0b1329" rx="6" stroke="#22c55e"/>
-    <text x="607" y="90" fill="#ffffff" font-family="system-ui, sans-serif" font-size="12" font-weight="800" text-anchor="middle">XLR Balanced Out</text>
-    <text x="607" y="112" fill="#22c55e" font-family="system-ui, sans-serif" font-size="10.5" text-anchor="middle">Low-Z (~150&#937;) Mic Level</text>
+      <!-- Iron Core -->
+      <line x1="110" y1="50" x2="110" y2="120" stroke="#cbd5e1" stroke-width="2"/>
+      <line x1="118" y1="50" x2="118" y2="120" stroke="#cbd5e1" stroke-width="2"/>
+      <text x="114" y="140" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="9" text-anchor="middle">Magnetic Coupling</text>
+
+      <!-- Secondary Coil (Low-Z Balanced) -->
+      <path d="M 190 50 C 170 50 170 70 190 70 C 170 70 170 90 190 90 C 170 90 170 110 190 110" fill="none" stroke="#34d399" stroke-width="3"/>
+      <text x="190" y="130" fill="#34d399" font-family="system-ui, sans-serif" font-size="9.5" font-weight="700" text-anchor="middle">Low-Z</text>
+    </g>
+
+    <!-- Right: Balanced XLR Output -->
+    <g transform="translate(530, 60)">
+      <rect width="130" height="130" rx="6" fill="#1e293b" stroke="#34d399" stroke-width="1.5"/>
+      <text x="65" y="24" fill="#34d399" font-family="system-ui, sans-serif" font-size="11" font-weight="800" text-anchor="middle">BALANCED XLR OUT</text>
+
+      <text x="20" y="55" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="9.5">Pin 2: Hot (+)</text>
+      <text x="20" y="80" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="9.5">Pin 3: Cold (&#8722;)</text>
+
+      <!-- Ground Lift Switch -->
+      <rect x="15" y="95" width="100" height="24" rx="3" fill="#7f1d1d"/>
+      <text x="65" y="111" fill="#fca5a5" font-family="system-ui, sans-serif" font-size="9" font-weight="700" text-anchor="middle">Ground Lift Switch</text>
+    </g>
+
+    <!-- Signal Connection Paths -->
+    <path d="M 160 100 L 230 100" stroke="#f59e0b" stroke-width="2"/>
+    <path d="M 460 85 L 530 85" stroke="#34d399" stroke-width="2"/>
+    <path d="M 460 115 L 530 115" stroke="#34d399" stroke-width="2"/>
+
+    <!-- Bottom Benefit Badges -->
+    <g transform="translate(30, 220)">
+      <rect width="630" height="28" rx="4" fill="#142038"/>
+      <text x="315" y="18" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="10.5" font-weight="700" text-anchor="middle">Galvanic isolation breaks ground loops &#8226; Matches high-Z pickups to low-Z console mic preamps</text>
+    </g>
   </g>
 
-  <!-- 3 Essential DI Functions -->
-  <g transform="translate(45, 340)">
-    <rect x="0" y="0" width="705" height="95" fill="#142038" rx="8" stroke="rgba(34,197,94,0.2)"/>
-    <text x="20" y="26" fill="#86efac" font-family="system-ui, sans-serif" font-size="12.5" font-weight="800">THE THREE ESSENTIAL ROLES OF A BASS DI IN EXAM QUESTIONS:</text>
-    <text x="20" y="48" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11.5">1. <tspan fill="#ffffff" font-weight="700">Impedance Matching:</tspan> Converts instrument high-Z output to mixer low-Z input, preventing treble loss.</text>
-    <text x="20" y="68" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11.5">2. <tspan fill="#ffffff" font-weight="700">Balancing:</tspan> Converts unbalanced 2-conductor signal into balanced 3-pin XLR (common-mode rejection of stage EMI).</text>
-    <text x="20" y="88" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11.5">3. <tspan fill="#ffffff" font-weight="700">Galvanic Isolation &amp; Ground Lift:</tspan> Breaks ground loops, eliminating 50/60 Hz hum between amp and recording desk.</text>
-  </g>
+  <text x="380" y="382" fill="#64748b" font-family="system-ui, sans-serif" font-size="10.5" text-anchor="middle">Ed Wolfrum's Motown Wolfbox allowed Jamerson to record direct into the Hitsville console.</text>
 </svg>

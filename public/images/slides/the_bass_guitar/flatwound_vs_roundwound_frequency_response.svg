@@ -1,43 +1,59 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480" width="100%" height="100%">
-  <rect width="800" height="480" fill="#080e1a" rx="14"/>
-  <rect x="20" y="20" width="760" height="440" fill="#0f172a" stroke="rgba(245,158,11,0.3)" stroke-width="1.5" rx="12"/>
-  
-  <text x="40" y="55" fill="#f59e0b" font-family="system-ui, sans-serif" font-size="13" font-weight="800" letter-spacing="1.5">AO3 STRING METALLURGY &amp; TIMBRE</text>
-  <text x="40" y="85" fill="#ffffff" font-family="system-ui, sans-serif" font-size="20" font-weight="900">Flatwound vs Roundwound Bass Strings Frequency Response</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 400" width="100%" height="100%">
+  <rect width="760" height="400" rx="12" fill="#080e1a" stroke="#1e293b" stroke-width="1.5"/>
+  <text x="35" y="38" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="12" font-weight="800" letter-spacing="1.5">AO3 STRING CONSTRUCTION &amp; TIMBRE</text>
+  <text x="35" y="66" fill="#ffffff" font-family="system-ui, sans-serif" font-size="18" font-weight="900">Flatwound vs Roundwound: Cross-Section &amp; Frequency Curves</text>
 
-  <!-- Frequency Response Graph -->
-  <g transform="translate(60, 120)">
-    <!-- Axes -->
-    <line x1="40" y1="180" x2="650" y2="180" stroke="#64748b" stroke-width="1.5"/>
-    <line x1="40" y1="20" x2="40" y2="180" stroke="#64748b" stroke-width="1.5"/>
-    
-    <text x="35" y="200" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="11">40 Hz</text>
-    <text x="180" y="200" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="11">200 Hz</text>
-    <text x="340" y="200" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="11">1 kHz</text>
-    <text x="490" y="200" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="11">4 kHz</text>
-    <text x="630" y="200" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="11">10 kHz</text>
+  <!-- Top: Cross-Section Anatomy -->
+  <g transform="translate(35, 85)">
+    <!-- Roundwound -->
+    <g transform="translate(0, 0)">
+      <rect width="335" height="90" rx="8" fill="#131e36" stroke="#f59e0b" stroke-width="1.5"/>
+      <text x="20" y="24" fill="#fbbf24" font-family="system-ui, sans-serif" font-size="12" font-weight="800">ROUNDWOUND STRING (Steel Ribs)</text>
+      <!-- Core -->
+      <circle cx="60" cy="55" r="14" fill="#94a3b8"/>
+      <!-- Round Windings -->
+      <circle cx="36" cy="55" r="7" fill="#cbd5e1" stroke="#475569"/>
+      <circle cx="84" cy="55" r="7" fill="#cbd5e1" stroke="#475569"/>
+      <circle cx="60" cy="31" r="7" fill="#cbd5e1" stroke="#475569"/>
+      <circle cx="60" cy="79" r="7" fill="#cbd5e1" stroke="#475569"/>
+      <text x="110" y="48" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="10.5">&#8226; Round outer wire with gaps</text>
+      <text x="110" y="66" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="10.5">&#8226; Bright harmonics &amp; sustain</text>
+    </g>
 
-    <!-- Curve 1: Flatwound (Strong fundamental, rapid high rolloff) -->
-    <path d="M 40,60 Q 180,65 300,100 T 500,165 L 640,178" fill="none" stroke="#38bdf8" stroke-width="3.5"/>
-    <text x="210" y="50" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="12" font-weight="800">Flatwound (Deep fundamental thud; no finger squeak)</text>
-
-    <!-- Curve 2: Roundwound (Bright, extended presence peak, slap buzz) -->
-    <path d="M 40,80 Q 200,80 340,75 T 500,60 L 640,140" fill="none" stroke="#f59e0b" stroke-width="3.5"/>
-    <text x="440" y="45" fill="#f59e0b" font-family="system-ui, sans-serif" font-size="12" font-weight="800">Roundwound (Bright harmonics &amp; sustain)</text>
+    <!-- Flatwound -->
+    <g transform="translate(355, 0)">
+      <rect width="335" height="90" rx="8" fill="#131e36" stroke="#38bdf8" stroke-width="1.5"/>
+      <text x="20" y="24" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="12" font-weight="800">FLATWOUND STRING (Ribbon Wrap)</text>
+      <!-- Core -->
+      <circle cx="60" cy="55" r="14" fill="#94a3b8"/>
+      <!-- Ribbon Wrap -->
+      <rect x="36" y="32" width="48" height="46" rx="6" fill="none" stroke="#cbd5e1" stroke-width="6"/>
+      <text x="110" y="48" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="10.5">&#8226; Flat polished ribbon wire</text>
+      <text x="110" y="66" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="10.5">&#8226; Muted highs, zero squeak</text>
+    </g>
   </g>
 
-  <!-- Comparison Cards below -->
-  <g transform="translate(60, 335)">
-    <rect x="0" y="0" width="320" height="95" fill="#1e293b" rx="8" stroke="rgba(56,189,248,0.3)"/>
-    <text x="15" y="25" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="13" font-weight="800">Flatwound Construction (1950s–1960s)</text>
-    <text x="15" y="48" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11.5">• Ribbon wire wrapped flat over core; smooth feel</text>
-    <text x="15" y="68" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11.5">• Dark, woody, rapid decay, zero fret wear</text>
-    <text x="15" y="88" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="10.5">Standard on Motown, Stax, early Beatles, and classic reggae</text>
+  <!-- Bottom: Frequency Response Comparison Graph -->
+  <g transform="translate(35, 190)">
+    <rect width="690" height="160" rx="8" fill="#0f172a" stroke="#334155" stroke-width="1"/>
 
-    <rect x="350" y="0" width="320" height="95" fill="#1e293b" rx="8" stroke="rgba(245,158,11,0.3)"/>
-    <text x="365" y="25" fill="#f59e0b" font-family="system-ui, sans-serif" font-size="13" font-weight="800">Roundwound (1966 Rotosound / Entwistle)</text>
-    <text x="365" y="48" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11.5">• Round wire coil leaves ridges along surface</text>
-    <text x="365" y="68" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11.5">• Bright zing, biting attack, extended sustain, fret wear</text>
-    <text x="365" y="88" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="10.5">Essential for progressive rock, slap bass, metal, and modern pop</text>
+    <!-- Graph Axis -->
+    <line x1="50" y1="130" x2="640" y2="130" stroke="#475569" stroke-width="1.5"/>
+    <line x1="50" y1="20" x2="50" y2="130" stroke="#475569" stroke-width="1.5"/>
+    <text x="50" y="145" fill="#64748b" font-family="system-ui, sans-serif" font-size="9">40 Hz</text>
+    <text x="200" y="145" fill="#64748b" font-family="system-ui, sans-serif" font-size="9">200 Hz</text>
+    <text x="380" y="145" fill="#64748b" font-family="system-ui, sans-serif" font-size="9">1 kHz</text>
+    <text x="540" y="145" fill="#64748b" font-family="system-ui, sans-serif" font-size="9">4 kHz</text>
+    <text x="630" y="145" fill="#64748b" font-family="system-ui, sans-serif" font-size="9">10 kHz</text>
+
+    <!-- Flatwound Curve (Heavy low end, steep cutoff) -->
+    <path d="M 50 35 Q 160 30 260 55 T 420 115 T 640 128" fill="none" stroke="#38bdf8" stroke-width="3"/>
+    <text x="260" y="45" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="11" font-weight="700">Flatwounds (Motown, Soul, Reggae)</text>
+
+    <!-- Roundwound Curve (Extended high-end presence peak) -->
+    <path d="M 50 50 Q 200 45 350 48 T 520 35 T 640 100" fill="none" stroke="#f59e0b" stroke-width="3"/>
+    <text x="520" y="25" fill="#fbbf24" font-family="system-ui, sans-serif" font-size="11" font-weight="700">Roundwounds (Rock, Slap, Metal)</text>
   </g>
+
+  <text x="380" y="382" fill="#64748b" font-family="system-ui, sans-serif" font-size="10.5" text-anchor="middle">Flatwounds provide massive low-end fundamental thump; roundwounds provide aggressive upper-mid snap.</text>
 </svg>

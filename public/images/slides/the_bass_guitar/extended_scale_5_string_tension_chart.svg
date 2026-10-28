@@ -1,50 +1,56 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480" width="100%" height="100%">
-  <rect width="800" height="480" fill="#080e1a" rx="14"/>
-  <rect x="20" y="20" width="760" height="440" fill="#0f172a" stroke="rgba(245,158,11,0.3)" stroke-width="1.5" rx="12"/>
-  
-  <text x="40" y="55" fill="#f59e0b" font-family="system-ui, sans-serif" font-size="13" font-weight="800" letter-spacing="1.5">AO3 MODERN INSTRUMENT ARCHITECTURE</text>
-  <text x="40" y="85" fill="#ffffff" font-family="system-ui, sans-serif" font-size="20" font-weight="900">5-String Basses &amp; Extended Scale Lengths (35" vs 34")</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 400" width="100%" height="100%">
+  <rect width="760" height="400" rx="12" fill="#080e1a" stroke="#1e293b" stroke-width="1.5"/>
+  <text x="35" y="38" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="12" font-weight="800" letter-spacing="1.5">AO3 EXTENDED RANGE &amp; STRING TENSION</text>
+  <text x="35" y="66" fill="#ffffff" font-family="system-ui, sans-serif" font-size="18" font-weight="900">Low-B String (30.9 Hz &#8226; .130" Gauge): Scale Length vs Tension</text>
 
-  <!-- Comparison Table -->
-  <g transform="translate(45, 115)">
-    <!-- Header -->
-    <rect x="0" y="0" width="705" height="40" fill="#334155" rx="6"/>
-    <text x="20" y="25" fill="#ffffff" font-family="system-ui, sans-serif" font-size="12" font-weight="800">Scale Length</text>
-    <text x="170" y="25" fill="#ffffff" font-family="system-ui, sans-serif" font-size="12" font-weight="800">Low-B Tension</text>
-    <text x="320" y="25" fill="#ffffff" font-family="system-ui, sans-serif" font-size="12" font-weight="800">Tonal Characteristics</text>
-    <text x="540" y="25" fill="#ffffff" font-family="system-ui, sans-serif" font-size="12" font-weight="800">Typical Models</text>
+  <!-- Bar Chart Canvas -->
+  <g transform="translate(35, 90)">
+    <rect width="690" height="260" rx="8" fill="#0f172a" stroke="#334155" stroke-width="1"/>
 
-    <!-- Row 1: 34" Standard -->
-    <rect x="0" y="45" width="705" height="60" fill="#1e293b" rx="6"/>
-    <text x="20" y="80" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="13" font-weight="700">34.0 Inches</text>
-    <text x="170" y="73" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="12">~30–32 lbs</text>
-    <text x="170" y="92" fill="#ef4444" font-family="system-ui, sans-serif" font-size="10.5">Can feel floppy / muddy</text>
-    <text x="320" y="73" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="12">Warm vintage sound, but low-B string</text>
-    <text x="320" y="92" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11">often lacks fundamental pitch definition.</text>
-    <text x="540" y="80" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="11.5">Fender Jazz 5, Music Man</text>
+    <!-- Y Axis (Tension in lbs) -->
+    <line x1="80" y1="30" x2="80" y2="210" stroke="#475569" stroke-width="1.5"/>
+    <line x1="80" y1="210" x2="650" y2="210" stroke="#475569" stroke-width="1.5"/>
+    <text x="70" y="210" fill="#64748b" font-family="system-ui, sans-serif" font-size="9" text-anchor="end">0 lbs</text>
+    <text x="70" y="165" fill="#64748b" font-family="system-ui, sans-serif" font-size="9" text-anchor="end">20 lbs</text>
+    <text x="70" y="120" fill="#64748b" font-family="system-ui, sans-serif" font-size="9" text-anchor="end">30 lbs</text>
+    <text x="70" y="75" fill="#64748b" font-family="system-ui, sans-serif" font-size="9" text-anchor="end">40 lbs</text>
 
-    <!-- Row 2: 35" Extended -->
-    <rect x="0" y="112" width="705" height="60" fill="#1e293b" rx="6" stroke="#22c55e" stroke-width="1.5"/>
-    <text x="20" y="147" fill="#22c55e" font-family="system-ui, sans-serif" font-size="13" font-weight="700">35.0 Inches</text>
-    <text x="170" y="140" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="12">~35–37 lbs</text>
-    <text x="170" y="159" fill="#22c55e" font-family="system-ui, sans-serif" font-size="10.5">+15% Higher Tension</text>
-    <text x="320" y="140" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="12">Tight, punchy, articulate Low-B (30.9 Hz).</text>
-    <text x="320" y="159" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11">Clean transient attack without fret clatter.</text>
-    <text x="540" y="147" fill="#86efac" font-family="system-ui, sans-serif" font-size="11.5">Spector 5, Lakland, Modulus</text>
+    <!-- Bar 1: 30" Short Scale -->
+    <g transform="translate(110, 0)">
+      <rect x="0" y="160" width="80" height="50" rx="4" fill="#ef4444"/>
+      <text x="40" y="150" fill="#fca5a5" font-family="system-ui, sans-serif" font-size="11" font-weight="800" text-anchor="middle">22.4 lbs</text>
+      <text x="40" y="228" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="10.5" font-weight="700" text-anchor="middle">30" Short</text>
+      <text x="40" y="242" fill="#f87171" font-family="system-ui, sans-serif" font-size="9" text-anchor="middle">Floppy / Muddy</text>
+    </g>
 
-    <!-- Row 3: Multi-Scale Fanned Fret (34"-37") -->
-    <rect x="0" y="179" width="705" height="60" fill="#1e293b" rx="6" stroke="#f59e0b" stroke-width="1.5"/>
-    <text x="20" y="214" fill="#f59e0b" font-family="system-ui, sans-serif" font-size="13" font-weight="700">34"–37" Multi-Scale</text>
-    <text x="170" y="207" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="12">Optimized Tension</text>
-    <text x="170" y="226" fill="#f59e0b" font-family="system-ui, sans-serif" font-size="10.5">Equal across all 5 strings</text>
-    <text x="320" y="207" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="12">37" for Low-B ensures thunderous clarity;</text>
-    <text x="320" y="226" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11">34" for high G preserves sweet bendability.</text>
-    <text x="540" y="214" fill="#fde047" font-family="system-ui, sans-serif" font-size="11.5">Dingwall Combustion, Ibanez</text>
+    <!-- Bar 2: 34" Standard Scale -->
+    <g transform="translate(250, 0)">
+      <rect x="0" y="126" width="80" height="84" rx="4" fill="#f59e0b"/>
+      <text x="40" y="116" fill="#fde68a" font-family="system-ui, sans-serif" font-size="11" font-weight="800" text-anchor="middle">28.8 lbs</text>
+      <text x="40" y="228" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="10.5" font-weight="700" text-anchor="middle">34" Standard</text>
+      <text x="40" y="242" fill="#fbbf24" font-family="system-ui, sans-serif" font-size="9" text-anchor="middle">Borderline</text>
+    </g>
+
+    <!-- Bar 3: 35" Extended Scale -->
+    <g transform="translate(390, 0)">
+      <rect x="0" y="105" width="80" height="105" rx="4" fill="#38bdf8"/>
+      <text x="40" y="95" fill="#bae6fd" font-family="system-ui, sans-serif" font-size="11" font-weight="800" text-anchor="middle">33.5 lbs</text>
+      <text x="40" y="228" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="10.5" font-weight="700" text-anchor="middle">35" Extended</text>
+      <text x="40" y="242" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="9" text-anchor="middle">Tight &amp; Defined</text>
+    </g>
+
+    <!-- Bar 4: 37" Multi-Scale (Dingwall Fanned Fret) -->
+    <g transform="translate(530, 0)">
+      <rect x="0" y="80" width="80" height="130" rx="4" fill="#10b981"/>
+      <text x="40" y="70" fill="#a7f3d0" font-family="system-ui, sans-serif" font-size="11" font-weight="800" text-anchor="middle">37.4 lbs</text>
+      <text x="40" y="228" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="10.5" font-weight="700" text-anchor="middle">37" Fanned Fret</text>
+      <text x="40" y="242" fill="#34d399" font-family="system-ui, sans-serif" font-size="9" text-anchor="middle">Piano-Like Purity</text>
+    </g>
+
+    <!-- Tension threshold line -->
+    <line x1="80" y1="110" x2="650" y2="110" stroke="#34d399" stroke-width="1.5" stroke-dasharray="3 3"/>
+    <text x="645" y="105" fill="#34d399" font-family="system-ui, sans-serif" font-size="9" font-weight="700" text-anchor="end">Optimal Tension Threshold (&gt;32 lbs)</text>
   </g>
 
-  <!-- Summary Banner -->
-  <g transform="translate(45, 375)">
-    <rect x="0" y="0" width="705" height="60" fill="#142038" rx="6" stroke="rgba(245,158,11,0.2)"/>
-    <text x="352" y="35" fill="#fde047" font-family="system-ui, sans-serif" font-size="12" font-weight="800" text-anchor="middle">Mersenne Tension Rule: To keep thick strings from rattling at 30.9 Hz, scale length MUST increase.</text>
-  </g>
+  <text x="380" y="382" fill="#64748b" font-family="system-ui, sans-serif" font-size="10.5" text-anchor="middle">Extending Low-B scale to 35"&#8211;37" prevents intonation drift and mechanical fret buzz at 30.9 Hz.</text>
 </svg>
