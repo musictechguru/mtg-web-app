@@ -482,11 +482,11 @@
     "category": "Timecode & Sync",
     "ao": "AO3: Film Synchronization",
     "text": "What standardized timing format, measured in hours:minutes:seconds:frames, is universally used to lock DAWs, video playback, and MIDI sequencers together in film post-production?",
-    "correct": "SMPTE Timecode (Society of Motion Picture and Television Engineers)",
+    "correct": "SMPTE Timecode (hours:minutes:seconds:frames), locking audio tape to film reels",
     "wrong": [
-      "MIDI Polyphonic Expression (MPE)",
-      "Open Sound Control (OSC)",
-      "Direct Stream Digital (DSD)"
+      "MIDI Beat Clock (bars:beats:ticks), syncing analog synthesizers to drum sequencers",
+      "Word Clock (kHz), synchronizing digital audio converters across studio network buses",
+      "Linear Bar Markers, synchronizing sheet music notation with physical studio stopwatches"
     ],
     "explanation": "SMPTE timecode provides frame-accurate synchronization across video playback decks, digital audio workstations, and analog tape machines. Standard frame rates include 24 fps (film), 25 fps (PAL broadcast), and 29.97/30 fps (NTSC).",
     "tip": "Synchronization: SMPTE timecode = hours:minutes:seconds:frames (HH:MM:SS:FF)."
@@ -495,11 +495,11 @@
     "category": "Conducting to Picture",
     "ao": "AO3: Studio Performance",
     "text": "During a live film scoring session on an orchestral sound stage, what tools do conductors and session musicians rely on to ensure tempo and cue changes hit exact dramatic on-screen moments?",
-    "correct": "Headphone click tracks and visual \"streamer\" lines that wipe across video monitors towards hit-point flashes",
+    "correct": "An orchestral click track and video visual cues (streamers, punches, and fluttering flashes)",
     "wrong": [
-      "Wireless footpedals that automatically speed up the conductor's physical arm movements",
-      "Automated robotic batons connected directly to the film director's smartphone",
-      "Analog tape loops containing vocal shouts of elapsed seconds broadcast into studio loudspeakers"
+      "Handheld acoustic metronomes placed beside each string section leader across the live room",
+      "Automated MIDI tempo map commands sent to motorized sheet music stands on the soundstage",
+      "Continuous verbal instructions and countdowns delivered over a live studio talkback speaker"
     ],
     "explanation": "Conductors watch video monitors showing \"streamers\" (colored lines moving across the picture towards a punch flash) while wearing headphones fed with a click track, ensuring musical cues hit dramatic scene transitions to the exact frame.",
     "tip": "Conducting to picture: Click track = tempo guide; Streamers & punches = visual hit warnings."
@@ -508,11 +508,11 @@
     "category": "Orchestral Capture",
     "ao": "AO3: Microphone Arrays",
     "text": "What classic stereo orchestral recording configuration consists of three omnidirectional microphones arranged in a \"T\" shape suspended above the conductor's podium?",
-    "correct": "The Decca Tree (Left, Right, and Center omnidirectional microphones)",
+    "correct": "A center microphone flanked by left and right mics spaced 2 meters apart, 3 meters up",
     "wrong": [
-      "The Blumlein Pair (two bidirectional figure-8 microphones angled at 90\u00b0)",
-      "The ORTF Array (two cardioid microphones spaced 17 cm apart at 110\u00b0)",
-      "The Mid-Side Matrix (one cardioid mic and one figure-8 mic decoded via sum and difference)"
+      "Two coincident figure-8 ribbon microphones angled at 90 degrees placed in the room rear",
+      "A single boundary pressure-zone microphone taped directly to the podium floor beside conductor",
+      "Four hypercardioid dynamic microphones placed inside the resonating bodies of cello instruments"
     ],
     "explanation": "Developed by Decca engineers in the 1950s, the Decca Tree uses three omnidirectional microphones (traditionally Neumann M50s) spaced roughly 2 meters wide and 1.5 meters forward on a T-bar, delivering spacious stereo width and precise center imaging.",
     "tip": "Orchestral miking: Decca Tree = 3 omnidirectional microphones in a T-shape over the conductor."
@@ -521,11 +521,11 @@
     "category": "8-Bit Game Audio",
     "ao": "AO3: Chiptune Hardware",
     "text": "The Ricoh 2A03 sound chip inside the 8-bit Nintendo Entertainment System (NES) generated audio using which specific set of voice channels?",
-    "correct": "Two square wave channels (melody/harmony), one triangle wave channel (bass), one pseudo-random noise channel (percussion), and one 1-bit DPCM sample channel",
+    "correct": "Two square wave channels (melody/harmony), one triangle wave (bass), one noise (percussion), and one DPCM sample channel",
     "wrong": [
-      "Eight uncompressed 24-bit PCM wavetable channels streaming from a hard drive",
-      "Four analog sawtooth oscillators running through resonant Moog ladder filters",
-      "Six FM synthesis operators with 32 selectable algorithms"
+      "Sixteen polyphonic FM synthesizer operators generating 128-voice stereo orchestral simulations with dynamic chorus effects",
+      "Four dedicated wavetable synthesis channels capable of streaming 44.1 kHz / 16-bit uncompressed audio from cartridge ROM",
+      "Two analog subtractive saw-tooth oscillators running through voltage-controlled low-pass filters with optical spring reverb"
     ],
     "explanation": "The NES 2A03 Programmable Sound Generator (PSG) offered strictly 5 channels: two pulse/square channels for leads/chords, one non-filtered triangle wave for bass, one noise channel for drums/explosions, and one low-bit DPCM sample channel.",
     "tip": "NES 8-bit sound chip: 2 square waves + 1 triangle wave + 1 noise channel + 1 DPCM channel."
@@ -534,11 +534,11 @@
     "category": "16-Bit Consoles",
     "ao": "AO3: FM vs Sample Playback",
     "text": "How did the audio technology of the Sega Genesis (Mega Drive) fundamentally differ from that of the Super Nintendo (SNES)?",
-    "correct": "The Sega Genesis used a Yamaha YM2612 FM synthesis chip, whereas the SNES used a Sony SPC700 chip that played back 8 channels of compressed 16-bit audio samples with hardware echo",
+    "correct": "The Genesis used a Yamaha YM2612 FM synthesis chip producing bright, punchy metallic tones, whereas the SNES used sampled audio",
     "wrong": [
-      "The Sega Genesis streamed full uncompressed CD-ROM Redbook audio, while the SNES only produced 1-bit monophonic square waves",
-      "The SNES relied entirely on analog vacuum tubes, whereas the Sega Genesis used digital optical disc laser pickups",
-      "The Sega Genesis used an 8-operator additive synthesizer, while the SNES used physical guitar strings plucked by magnetic solenoids"
+      "The Genesis streamed uncompressed CD-DA digital audio tracks directly from solid-state cartridges, whereas the SNES used 1-bit chiptune beeps",
+      "The Genesis relied exclusively on acoustic sound recordings tracked on cassette tape, whereas the SNES generated pure analog square waves",
+      "The Genesis was restricted to a single monophonic sine wave channel, whereas the SNES featured 64 discrete physical voice synthesizer voices"
     ],
     "explanation": "The Sega Genesis generated audio mathematically via 6-channel FM synthesis (Yamaha YM2612), excelling at metallic leads and electronic punch. The SNES used the Sony SPC700 to play back 8 channels of compressed acoustic samples with hardware interpolation and reverb.",
     "tip": "16-bit console war: Sega Genesis = Yamaha FM synthesis; SNES = Sony sample playback with hardware echo."
@@ -547,11 +547,11 @@
     "category": "Interactive Audio",
     "ao": "AO3: Vertical Layering",
     "text": "In video game audio engines, what is \"Vertical Layering\" (also known as dynamic stemming)?",
-    "correct": "Simultaneously running multiple synchronized audio tracks (e.g. ambient pads, drums, aggressive brass) that fade in or out depending on gameplay intensity",
+    "correct": "Simultaneously running multiple synchronized audio stems whose fader levels dynamically crossfade based on gameplay intensity",
     "wrong": [
-      "Stacking identical audio waveforms slightly out of phase to create an extreme comb-filtering effect",
-      "Pitching a melody up by an octave whenever the player jumps vertically in the game",
-      "Cutting the game soundtrack abruptly whenever the player enters a new physical room"
+      "Sequentially swapping entire completed stereo audio tracks using rapid crossfades whenever the player character enters a new zone",
+      "Triggering one-shot sound effects that pitch-shift upwards in direct proportion to the player character's remaining movement speed",
+      "Splitting an audio signal into high, mid, and low frequency bands using multi-band compressors to duck volume during spoken dialogue"
     ],
     "explanation": "Vertical layering consists of synchronized musical stems (rhythm, harmony, lead, percussion) playing in parallel. As combat begins or player health drops, the game engine un-mutes heavier layers without interrupting tempo or musical continuity.",
     "tip": "Game audio: Vertical Layering = simultaneous stems faded in/out based on gameplay intensity."
@@ -560,11 +560,11 @@
     "category": "Adaptive Architecture",
     "ao": "AO3: Horizontal Resequencing",
     "text": "In adaptive game scoring, what is \"Horizontal Resequencing\"?",
-    "correct": "Seamlessly branching between different musical sections or cue segments at specific bar/beat boundaries based on the player's choices or game state changes",
+    "correct": "Seamlessly branching between different musical sections (intro, loop, transitions, outro) based on player actions and events",
     "wrong": [
-      "Panning all audio hard left during cutscenes and hard right during combat gameplay",
-      "Rewinding the entire audio file from end to beginning whenever the player character dies",
-      "Converting a stereo recording into a mono signal by summing left and right channels horizontally"
+      "Adjusting the master reverb send decay time in real-time as the player moves from open outdoor environments into tight corridors",
+      "Playing the entire musical score backward with inverted phase whenever the player character's health drops below a critical point",
+      "Summing the stereo audio output into monophonic playback whenever multiple non-player characters are speaking at the exact same time"
     ],
     "explanation": "Horizontal resequencing breaks music into discrete modular segments. When the player triggers an event (entering a dungeon, discovering a town), the engine waits for the next musical quantize point (downbeat) to branch smoothly into a new cue.",
     "tip": "Adaptive scoring: Horizontal Resequencing = branching between modular cues at musical bar/beat points."
@@ -573,11 +573,11 @@
     "category": "Film Synthesizers",
     "ao": "AO4: Synthesizer Scoring",
     "text": "Which iconic polyphonic analog synthesizer, known for its polyphonic aftertouch and ribbon controller, was famously played by Vangelis to score Ridley Scott's 1982 film Blade Runner?",
-    "correct": "Yamaha CS-80",
+    "correct": "Yamaha CS-80 Polyphonic",
     "wrong": [
-      "Roland TB-303",
-      "Yamaha DX7",
-      "Korg M1"
+      "Minimoog Model D Analog",
+      "Roland TB-303 Bassline",
+      "Korg M1 Music Synth"
     ],
     "explanation": "Vangelis composed Blade Runner live to picture using the heavyweight Yamaha CS-80. Its expressive polyphonic aftertouch and weighted ribbon controller allowed him to perform nuanced brass swells, vibrato, and pitch bends directly to screen.",
     "tip": "Film synth icon: Vangelis + Blade Runner = Yamaha CS-80 (polyphonic aftertouch & ribbon controller)."
@@ -586,11 +586,11 @@
     "category": "Sound Post-Production",
     "ao": "AO3: Foley Sound Design",
     "text": "What is the primary role of a \"Foley Artist\" in film post-production?",
-    "correct": "To perform and record everyday sound effects (such as footsteps, cloth rustle, and handling props) in sync with the projected picture on a specialized sound stage",
+    "correct": "To perform and record everyday sound effects (such as footsteps, cloth rustle, and impacts) in sync with picture on a Foley stage",
     "wrong": [
-      "To conduct the symphony orchestra during the main title theme recording",
-      "To remove all background noise from the dialogue tracks using digital high-pass filters",
-      "To design the 3D visual CGI animations for creature effects in action movies"
+      "To compose the main orchestral harmonic themes and conduct instrumental ensembles during high-budget symphonic soundtrack recording",
+      "To calibrate acoustic monitor speaker delay times and frequency response curves across commercial surround-sound theatrical auditoriums",
+      "To remove background hiss, mechanical HVAC room rumble, and unwanted electrical mains hum from location dialogue audio recordings"
     ],
     "explanation": "Named after pioneer Jack Foley, Foley artists watch projected film scenes in soundproof studios with pits of dirt, gravel, concrete, and water, performing human-sync physical sounds (footsteps, movement, prop handling) with specialized microphones.",
     "tip": "Sound design: Foley Artist = performs physical props and footsteps in sync with picture."
@@ -599,11 +599,11 @@
     "category": "Film Vocabulary",
     "ao": "AO4: Musical Functions",
     "text": "In film sound terminology, what is \"Diegetic\" (or source) music?",
-    "correct": "Music that exists within the world of the film and can be heard by the characters on screen (e.g. a band playing in a bar or a radio playing in a car)",
+    "correct": "Music that exists within the world of the film and can be heard by the characters on screen (e.g. car radio or live bar band)",
     "wrong": [
-      "The dramatic symphonic background score composed specifically to heighten the emotional tension for the audience",
-      "Music generated entirely by artificial intelligence software without human supervision",
-      "A short musical motif that only plays during the end credits of a feature film"
+      "The background dramatic musical score that accompanies the scene but cannot be heard by the characters inhabiting the story world",
+      "Sound effects generated entirely through analog modular synthesizers rather than real-world acoustic physical props on a soundstage",
+      "Orchestral overture music that plays exclusively over opening title credits and closing crawl text while no characters are visible"
     ],
     "explanation": "Diegetic music is part of the on-screen narrative world (characters can hear it, such as a jukebox or car stereo). Non-diegetic music is the cinematic score added purely for the audience's psychological benefit (characters cannot hear it).",
     "tip": "Screen vocabulary: Diegetic = inside the scene (characters hear it); Non-Diegetic = outside the scene (score)."
@@ -612,11 +612,11 @@
     "category": "Virtual Mockups",
     "ao": "AO3: Orchestral Sample Libraries",
     "text": "When composing orchestral mockups using virtual instruments (such as Spitfire Audio or Vienna Symphonic Library), which MIDI Continuous Controller is universally mapped to the Modulation Wheel (Mod Wheel) to control dynamic crossfades between ppp and fff sample layers?",
-    "correct": "MIDI CC1 (Modulation)",
+    "correct": "MIDI CC11 (Expression)",
     "wrong": [
-      "MIDI CC7 (Channel Volume)",
-      "MIDI CC10 (Pan)",
-      "MIDI CC64 (Sustain Pedal)"
+      "Pitch Bend Wheel Lever",
+      "Modulation Wheel (CC1)",
+      "Channel Monophonic Touch"
     ],
     "explanation": "In modern orchestral sample libraries, MIDI CC1 (Modulation Wheel) crossfades between dynamic velocity layers (pianissimo to fortissimo), allowing composers to perform realistic orchestral crescendos and timbral swells on held notes.",
     "tip": "DAW mockups: MIDI CC1 (Mod Wheel) = dynamic layer crossfading; CC11 = expression volume."
@@ -625,11 +625,11 @@
     "category": "Optical Storage & Games",
     "ao": "AO3 & AO4: Redbook Audio",
     "text": "How did the transition to CD-ROM media in mid-1990s consoles like the Sony PlayStation fundamentally revolutionize video game soundtracks?",
-    "correct": "It allowed games to stream full 44.1 kHz / 16-bit uncompressed Redbook audio, enabling pre-recorded live orchestral performances, real choirs, and studio vocals",
+    "correct": "It allowed games to stream full 44.1 kHz / 16-bit uncompressed audio (Red Book CD audio), enabling live recorded orchestral scores",
     "wrong": [
-      "It eliminated the need for game composers by having the console generate music purely from random CPU clock ticks",
-      "It restricted game audio to 8-bit mono square waves because CD-ROMs had slower data transfer rates than silicon cartridges",
-      "It required all game audio to be broadcast over analog AM radio frequencies into the television speaker"
+      "It eliminated the need for game audio programmers because CD-ROM discs synthesized live orchestral arrangements automatically using AI",
+      "It restricted game developers strictly to 8-bit monophonic square waves because optical laser read speeds were too sluggish for music",
+      "It replaced all spoken video game voice acting with scrolling text dialogue because audio files took up too much optical disc storage"
     ],
     "explanation": "Prior to CD-ROMs, consoles relied on hardware synthesis chips. The 650MB capacity of CDs permitted direct streaming of uncompressed 44.1 kHz / 16-bit Redbook digital audio, ushering in live symphonic scores (like Nobuo Uematsu's One-Winged Angel) and licensed songs.",
     "tip": "Optical gaming: CD-ROM (PlayStation 1) = 44.1 kHz / 16-bit Redbook streaming of real recorded orchestras."

@@ -462,175 +462,175 @@
 
   <script>
     const questions = [
-      {
-        category: "Synthesizer Architecture & FM Synthesis",
-        ao: "AO4: Recording Technology",
-        text: "What synthesis architecture is used by the Yamaha DX7 (1983) to generate its signature glassy tine electric pianos (E.PIANO 1) and metallic bell timbres?",
-        options: [
-          "Frequency Modulation (FM) synthesis: 6 digital sine wave operators configured in 32 algorithms, where modulating operators alter the frequency of carrier operators without analogue low-pass filters",
-          "Subtractive synthesis: twin analog sawtooth oscillators passed through a 24dB/octave Moog resonant ladder low-pass filter",
-          "Additive synthesis: 128 microtonal pipe organ drawbars blended through a mechanical rotary Leslie speaker",
-          "Granular synthesis: real-time digital audio slicing of acoustic grand piano samples"
-        ],
-        correct: 0,
-        explanation: "The Yamaha DX7 revolutionized 1980s pop. Developed by John Chowning, it used Frequency Modulation (FM). Rather than filtering harmonically rich waves (subtractive), it generated complex non-harmonic sidebands by using digital sine wave 'operators' modulating one another's frequencies across 32 routing algorithms, with zero low-pass filters.",
-        tip: "Core AO4 Term: FM Synthesis (6 operators, 32 algorithms, carrier/modulator relationships)."
-      },
-      {
-        category: "Dynamic Processing & Gated Reverb",
-        ao: "AO4: Recording Technology",
-        text: "How is the classic 1980s 'gated reverb' snare drum sound (pioneered by Hugh Padgham and Phil Collins) created technically?",
-        options: [
-          "Routing a snare drum through a large digital or acoustic room reverb with a long decay, followed by a noise gate with a high threshold and fast release that abruptly cuts off the reverb tail",
-          "Applying a low-pass filter with high resonance that sweeps upward whenever the snare drum is struck",
-          "Recording the snare drum in reverse onto analogue tape and passing it through a tape flanger",
-          "Placing a heavy leather wallet on the snare head to eliminate all acoustic room reflections"
-        ],
-        correct: 0,
-        explanation: "Accidentally discovered at Townhouse Studios using the SSL console Listen Mic Compressor, gated reverb routes the snare into an expansive digital reverb (AMS RMX16 NonLin 2 or EMT 250). A noise gate is inserted immediately after; when the signal falls below the threshold, the gate closes instantaneously, truncating the reverb tail after ~250ms and leaving the surrounding mix clean.",
-        tip: "Gated Reverb Signal Chain: Snare &rarr; Big Reverb (2–4s decay) &rarr; Noise Gate (Fast Release / Instant Mute)."
-      },
-      {
-        category: "Digital Sampling & Drum Machines",
-        ao: "AO4: Recording Technology",
-        text: "What made the Roger Linn LM-1 and LinnDrum drum machines radically different from earlier analog rhythm boxes like the Roland TR-808?",
-        options: [
-          "They stored actual digital audio recordings (samples) of real acoustic drums on physical EPROM chips, featuring individual voice outputs and tunable pitches",
-          "They generated drum sounds using transistor-based noise generators and bridged-T resonant circuits",
-          "They required a live drummer to hit physical rubber trigger pads in real time without quantization",
-          "They were mechanical player pianos that struck miniature acoustic snare drums inside the chassis"
-        ],
-        correct: 0,
-        explanation: "The Linn LM-1 (1980) and LinnDrum (1982) were the first drum machines to use digital sampling. Short 8-bit and 12-bit audio recordings of session drummer Art Wood were stored on EPROM memory chips. Each instrument had a dedicated volume slider, tuning knob, and direct output jack for external console processing.",
-        tip: "LinnDrum Landmark: Digital EPROM samples of acoustic drums + individual outputs + tuning."
-      },
-      {
-        category: "Studio Engineering & Acoustic Separation",
-        ao: "AO4: Recording Technology",
-        text: "How did recording engineer Bruce Swedien achieve the iconic, razor-sharp drum sound on Michael Jackson's 'Billie Jean' at Westlake Audio?",
-        options: [
-          "Decoupling the kit from the floor on a custom 8x8 foot plywood riser, placing a custom canvas blanket over the kick drum with an internal slot for a Shure SM7 mic, and applying zero mix compression to the drums",
-          "Programming an 8-bit digital drum loop on a Fairlight CMI with extreme dynamic range limiting",
-          "Recording the drums in a reflective tiled bathroom using a single omnidirectional boundary microphone",
-          "Triggering pre-recorded 24-bit acoustic samples using MIDI drum software"
-        ],
-        correct: 0,
-        explanation: "Bruce Swedien was famous for his punchy, uncompressed drum capture. He built an 8x8 ft plywood riser raised off the studio floor to prevent bass resonances, covered the kick drum with a custom canvas baffle, miked drummer Ndugu Chancler with Shure SM7s and SM57s, and famously avoided bus compressor squashing to preserve transient attack.",
-        tip: "Bruce Swedien 'Billie Jean': Plywood drum platform + canvas kick baffle + Shure SM7 + dynamic preservation."
-      },
-      {
-        category: "Sampling Workstations & Page R",
-        ao: "AO4: Recording Technology",
-        text: "What revolutionary technological feature of the Fairlight CMI (1979) transformed commercial pop composition and arrangement for producers like Trevor Horn?",
-        options: [
-          "The Page R music composition sequencer, which allowed users to visually compose and arrange polyphonic 8-bit sample patterns on a computer screen using a light pen",
-          "An integrated 24-track analogue tape machine with automated flying faders",
-          "A built-in valve guitar amplifier simulator with digital speaker cabinet impulse responses",
-          "A vocal de-essing processor that used neural networks to remove sibilance"
-        ],
-        correct: 0,
-        explanation: "The Fairlight CMI introduced 'Page R' — the world's first graphical step sequencer. Producers could arrange patterns visually on a green phosphor CRT monitor using a light pen. Paired with 8-bit/16 kHz sampling and famous factory sounds like the 'ORCH5' orchestral hit, it defined early 80s pop production.",
-        tip: "Fairlight CMI: 8-bit sampler + Page R visual step sequencer + 'ORCH5' orchestral stab."
-      },
-      {
-        category: "Mixing Console Architecture",
-        ao: "AO4: Recording Technology",
-        text: "Why did the Solid State Logic (SSL) 4000 series console become the dominant industry standard for mixing commercial pop music throughout the 1980s and 1990s?",
-        options: [
-          "It provided dedicated in-line dynamics (VCA compressor and expander/noise gate) on every single channel strip, parametric EQ, and Total Recall computer automation",
-          "It was completely passive with zero electronic transformers or transistors in the signal path",
-          "It eliminated all analogue circuits in favor of a 16-bit digital mixer with motorized optical faders",
-          "It was the first console specifically designed exclusively for 8-track cassette home recording"
-        ],
-        correct: 0,
-        explanation: "The SSL 4000 E/G consoles revolutionized studio efficiency. Having a compressor and noise gate on every channel meant engineers no longer needed giant racks of outboard gear to control dynamic punch and eliminate track bleed across 48 channels, while Total Recall allowed fast recall of complex pop mixes.",
-        tip: "SSL 4000 Impact: In-line channel dynamics (compressor/gate per channel) + 4-band parametric EQ + Total Recall."
-      },
-      {
-        category: "Master Bus Dynamics & Cohesion",
-        ao: "AO4: Recording Technology",
-        text: "What is the primary sonic function of the SSL Quad G-Master Bus Compressor when applied to the master stereo bus of a commercial pop mix?",
-        options: [
-          "It provides dynamic 'glue', using a VCA circuit with program-dependent auto-release to bond individual tracks into a unified, punchy commercial radio presentation",
-          "It converts the stereo mix into mono and applies tape flanging to the high frequencies",
-          "It acts as a brickwall digital limiter to prevent samples from clipping above 0 dBFS",
-          "It sweeps a notch filter across 60 Hz to remove mains hum from live performances"
-        ],
-        correct: 0,
-        explanation: "The SSL G-Master Bus Compressor (often set to a 2:1 or 4:1 ratio with 30ms attack and auto-release) is revered as 'The Glue'. By subtly compressing the master bus by 2–4 dB, it causes elements to breathe together, binding the kick, snare, bass, synths, and vocals into a cohesive commercial record.",
-        tip: "SSL Bus Compressor: Master stereo VCA compression providing mix 'glue' and commercial punch."
-      },
-      {
-        category: "Universal Communication Protocols",
-        ao: "AO4: Recording Technology",
-        text: "What major digital communication protocol, officially adopted by the audio industry in 1983, enabled synthesizers, sequencers, and drum machines from different manufacturers to trigger and sync with one another?",
-        options: [
-          "MIDI (Musical Instrument Digital Interface), transmitting 8-bit digital serial data over 5-pin DIN cables at 31.25 kbaud",
-          "SMPTE Timecode, transmitting analogue FM audio carrier tones over 3-pin XLR cables",
-          "FireWire (IEEE 1394), streaming 24-bit multitrack audio at 400 megabits per second",
-          "ADAT Optical, carrying 8 channels of 24-bit lightpipe digital audio over fiber optic cables"
-        ],
-        correct: 0,
-        explanation: "Conceived by Dave Smith (Sequential Circuits) and Ikutaro Kakehashi (Roland), MIDI (1983) standardized digital musical communication. It allowed a single master sequencer or keyboard to trigger synthesizers, samplers, and drum machines across manufacturers using 5-pin DIN cables.",
-        tip: "MIDI (1983): Universal digital control protocol (Note On/Off, Velocity, Control Change, Clock Sync)."
-      },
-      {
-        category: "Pitch Correction & Vocoder Effects",
-        ao: "AO4: Recording Technology",
-        text: "On Cher's 1998 chart-topping single 'Believe', how did producers Mark Taylor and Brian Rawling achieve the iconic robotic pitch-quantized vocal sound?",
-        options: [
-          "Setting the 'Retune Speed' parameter on Antares Auto-Tune to 0, forcing instant mathematical quantization to the nearest pitch with zero natural human portamento",
-          "Singing through a Moog vocoder patched into a modular sawtooth synthesizer",
-          "Passing the vocal through an analogue ring modulator set to a 440 Hz carrier tone",
-          "Manually splicing magnetic tape slices for every vocal syllable at half-speed"
-        ],
-        correct: 0,
-        explanation: "Intended as an invisible pitch-correction tool, Antares Auto-Tune became a creative vocal effect on Cher's 'Believe'. Setting the Retune Speed to 0 ms stripped away the human transition time between pitches, snapping the voice instantaneously to the scale notes and creating the signature robotic 'Auto-Tune' effect.",
-        tip: "The Cher Effect: Antares Auto-Tune with Retune Speed set to 0 (hard pitch quantization)."
-      },
-      {
-        category: "Commercial Pop Songwriting Architecture",
-        ao: "AO3: Musical Elements",
-        text: "What core arrangement principle describes the 'Melodic Math' songwriting formula developed by Max Martin and Denniz Pop at Cheiron Studios in the late 1990s?",
-        options: [
-          "Grabbing listener attention with an unforgettable hook within the first 3 seconds, interlocking syncopated verse syllables with the bassline, and opening into broad sustained vocal vowels in choruses",
-          "Writing strictly in complex compound time signatures (7/8 and 11/8) to challenge radio audiences",
-          "Eliminating the chorus entirely in favor of through-composed orchestral movements",
-          "Restricting all songs to a maximum of two acoustic instruments with no percussion"
-        ],
-        correct: 0,
-        explanation: "Max Martin's Cheiron formula revolutionized modern pop (Britney Spears, Backstreet Boys). It emphasizes 'melodic math': an instant hook within the first seconds, rhythmic syllable interlocking where vocals mimic percussion transients, and wide, uplifting melodic resolutions in choruses.",
-        tip: "Cheiron / Max Martin: Instant hook + rhythmic syllable/bass syncopation + explosive chorus resolution."
-      },
-      {
-        category: "Stereo Spatialization & Harmonizers",
-        ao: "AO4: Recording Technology",
-        text: "How was the wide, shimmering lead vocal sound on 1980s power pop anthems (e.g. Whitney Houston) achieved using an Eventide H3000 Harmonizer?",
-        options: [
-          "Micro-pitch shifting the vocal slightly sharp (+6 to +9 cents) on one side and slightly flat (-6 to -9 cents) on the other, combined with a 10–20 ms delay offset to produce lush stereo width without comb filtering",
-          "Applying a mono spring reverb with 100% wet mix and zero dry vocal signal",
-          "Pivoting the pan pot rapidly back and forth across the stereo field at 120 cycles per minute",
-          "Crushing the vocal through an 8-bit digital bitcrusher with low sample rate aliasing"
-        ],
-        correct: 0,
-        explanation: "The Eventide H3000 micro-pitch shift preset was the secret weapon of 80s vocal production. By detuning the left channel by +9 cents and the right channel by -9 cents with tiny delay offsets, the vocal sounded massively thick, wide, and modern without causing destructive phase cancellation when collapsed to mono.",
-        tip: "Vocal Stereo Widening: Eventide Micro-Pitch Shifting (+/- cents detuning + short delay offset)."
-      },
-      {
-        category: "Comparative Stylistic Analysis",
-        ao: "AO3 & AO4: Comprehensive Analysis",
-        text: "In an Edexcel Component 3 Section B essay comparing 1980s Commercial Pop (Michael Jackson, a-ha) with Modern 2020s Pop (Dua Lipa, The Weeknd), what is the most significant technological divergence?",
-        options: [
-          "1980s pop relied on hybrid tracking to 24/48-track analogue/digital tape through large-format SSL consoles with outboard hardware processors, whereas modern pop is produced almost entirely in-the-box (DAWs) with pitch correction plugins on every vocal and brickwall digital peak limiting",
-          "1980s pop had no synthesizers or drum machines, whereas modern pop uses strictly acoustic big band instruments",
-          "1980s pop was mixed exclusively in mono for AM radio, while modern pop is mixed in 5.1 surround sound",
-          "Modern pop uses analogue tape exclusively to avoid digital computer latency"
-        ],
-        correct: 0,
-        explanation: "This is a classic Section B comparison: 1980s pop was a high-budget hybrid era (expensive studios, SSL 4000 desks, Sony DASH digital tape, hardware outboard like Lexicon and Eventide, manual vocal comping). Modern pop is almost entirely In-The-Box (DAW plugins, software samplers, pitch correction on every layer, and aggressive digital brickwall limiting).",
-        tip: "Section B Essay Key Comparison: 80s High-End Hardware Hybrid (SSL/DASH/Outboard) vs. Modern In-The-Box Digital Production (DAW/Auto-Tune/Brickwall Limiting)."
-      }
-    ];
+  {
+    "category": "Synthesizer Architecture & FM Synthesis",
+    "ao": "AO4: Recording Technology",
+    "text": "What synthesis architecture is used by the Yamaha DX7 (1983) to generate its signature glassy tine electric pianos (E.PIANO 1) and metallic bell timbres?",
+    "options": [
+      "Frequency Modulation (FM) synthesis: 6 digital sine wave operators configured in 32 algorithms, where modulating operators alter the frequency of carriers without filters",
+      "Analog subtractive synthesis: dual voltage-controlled sawtooth oscillators routed through a 24 dB/octave resonant transistor ladder low-pass filter and analog envelope stages",
+      "Linear PCM wavetable synthesis: streaming uncompressed 16-bit acoustic multi-samples from internal ROM memory through dedicated analog voltage-controlled amplifier circuits",
+      "Additive harmonic synthesis: combining 64 discrete sine wave oscillators in fixed mathematical harmonic ratios controlled by multi-stage digital amplifier envelopes"
+    ],
+    "correct": 0,
+    "explanation": "The Yamaha DX7 revolutionized 1980s pop. Developed by John Chowning, it used Frequency Modulation (FM). Rather than filtering harmonically rich waves (subtractive), it generated complex non-harmonic sidebands by using digital sine wave 'operators' modulating one another's frequencies across 32 routing algorithms, with zero low-pass filters.",
+    "tip": "Core AO4 Term: FM Synthesis (6 operators, 32 algorithms, carrier/modulator relationships)."
+  },
+  {
+    "category": "Dynamic Processing & Gated Reverb",
+    "ao": "AO4: Recording Technology",
+    "text": "How is the classic 1980s 'gated reverb' snare drum sound (pioneered by Hugh Padgham and Phil Collins) created technically?",
+    "options": [
+      "Routing a snare drum through a large digital or plate reverb, followed immediately by an aggressive noise gate with a fast threshold, short hold, and instant cut-off",
+      "Recording an acoustic snare drum inside a heavily carpeted vocal booth, compressing the signal with an optical leveling amplifier, and cutting all frequencies above 5 kHz",
+      "Triggering an 8-bit synthetic snare sample from an E-mu SP-1200 drum machine and applying high-resonance band-pass filtering with synchronized stereo chorus modulation",
+      "Routing the dry snare drum track into a vintage tape delay unit operating at 7.5 ips and blending the delayed slapback output back with the direct signal path"
+    ],
+    "correct": 0,
+    "explanation": "Accidentally discovered at Townhouse Studios using the SSL console Listen Mic Compressor, gated reverb routes the snare into an expansive digital reverb (AMS RMX16 NonLin 2 or EMT 250). A noise gate is inserted immediately after; when the signal falls below the threshold, the gate closes instantaneously, truncating the reverb tail after ~250ms and leaving the surrounding mix clean.",
+    "tip": "Gated Reverb Signal Chain: Snare &rarr; Big Reverb (2–4s decay) &rarr; Noise Gate (Fast Release / Instant Mute)."
+  },
+  {
+    "category": "Digital Sampling & Drum Machines",
+    "ao": "AO4: Recording Technology",
+    "text": "What made the Roger Linn LM-1 and LinnDrum drum machines radically different from earlier analog rhythm boxes like the Roland TR-808?",
+    "options": [
+      "They stored actual digital audio recordings (PCM samples) of real acoustic drums on internal EPROM chips, rather than using synthetic analog noise circuits",
+      "They utilized analog transistor oscillator circuits that generated warm, synthetic sine wave bass drums and filtered white-noise snare crack sounds",
+      "They were the first drum machines to feature mechanical motorized wooden drumsticks that physically struck internal acoustic brass percussion bells",
+      "They connected directly to mainframe computers via fiber-optic cables to download digitized acoustic drum samples over early telephone network modems"
+    ],
+    "correct": 0,
+    "explanation": "The Linn LM-1 (1980) and LinnDrum (1982) were the first drum machines to use digital sampling. Short 8-bit and 12-bit audio recordings of session drummer Art Wood were stored on EPROM memory chips. Each instrument had a dedicated volume slider, tuning knob, and direct output jack for external console processing.",
+    "tip": "LinnDrum Landmark: Digital EPROM samples of acoustic drums + individual outputs + tuning."
+  },
+  {
+    "category": "Studio Engineering & Acoustic Separation",
+    "ao": "AO4: Recording Technology",
+    "text": "How did recording engineer Bruce Swedien achieve the iconic, razor-sharp drum sound on Michael Jackson's 'Billie Jean' at Westlake Audio?",
+    "options": [
+      "Tracking the kit with a single handheld dynamic microphone suspended four meters in the air inside an untreated reflective concrete warehouse space",
+      "Decoupling the kit from the floor on a custom wooden drum riser, miking each drum closely, and utilizing specialized acoustic baffles called 'Swedien Spacers'",
+      "Replacing all acoustic drum hits with synthetic 808 kick and clap samples triggered via MIDI velocity pads directly into an analog multi-track tape desk",
+      "Recording the drum kit outdoors on open grass fields using Blumlein stereo ribbon microphone arrays to eliminate all physical room boundary reflections"
+    ],
+    "correct": 0,
+    "explanation": "Bruce Swedien was famous for his punchy, uncompressed drum capture. He built an 8x8 ft plywood riser raised off the studio floor to prevent bass resonances, covered the kick drum with a custom canvas baffle, miked drummer Ndugu Chancler with Shure SM7s and SM57s, and famously avoided bus compressor squashing to preserve transient attack.",
+    "tip": "Bruce Swedien 'Billie Jean': Plywood drum platform + canvas kick baffle + Shure SM7 + dynamic preservation."
+  },
+  {
+    "category": "Sampling Workstations & Page R",
+    "ao": "AO4: Recording Technology",
+    "text": "What revolutionary technological feature of the Fairlight CMI (1979) transformed commercial pop composition and arrangement for producers like Trevor Horn?",
+    "options": [
+      "The Page R music composition sequencer, which allowed producers to visually arrange polyphonic sample patterns and loops along a graphical timeline grid",
+      "An integrated analog four-track cassette tape transport mechanism that enabled musicians to bounce vocal overdubs without introducing audible tape hiss",
+      "A direct-to-vinyl disc mastering lathe built into the keyboard chassis that allowed immediate pressing of 7-inch 45 RPM demo singles in the control room",
+      "A dedicated hardware FM synthesis sound chip capable of generating 128 simultaneous voices of polyphonic acoustic piano simulations without latency"
+    ],
+    "correct": 0,
+    "explanation": "The Fairlight CMI introduced 'Page R' — the world's first graphical step sequencer. Producers could arrange patterns visually on a green phosphor CRT monitor using a light pen. Paired with 8-bit/16 kHz sampling and famous factory sounds like the 'ORCH5' orchestral hit, it defined early 80s pop production.",
+    "tip": "Fairlight CMI: 8-bit sampler + Page R visual step sequencer + 'ORCH5' orchestral stab."
+  },
+  {
+    "category": "Mixing Console Architecture",
+    "ao": "AO4: Recording Technology",
+    "text": "Why did the Solid State Logic (SSL) 4000 series console become the dominant industry standard for mixing commercial pop music throughout the 1980s and 1990s?",
+    "options": [
+      "It provided dedicated in-line dynamics (VCA compressor and expander/gate) and flexible parametric EQ on every single channel strip, plus Total Recall automation",
+      "It replaced all analog vacuum tube console preamplifiers with digital signal processing chips that automatically corrected vocal pitch in real time during tracking",
+      "It was completely wireless, transmitting 48 channels of uncompressed digital audio to studio monitor speakers via experimental microwave radio frequency antennas",
+      "It was built entirely from discrete Class-A valve circuits with massive transformer stages, completely eliminating all transistors and solid-state electronics"
+    ],
+    "correct": 0,
+    "explanation": "The SSL 4000 E/G consoles revolutionized studio efficiency. Having a compressor and noise gate on every channel meant engineers no longer needed giant racks of outboard gear to control dynamic punch and eliminate track bleed across 48 channels, while Total Recall allowed fast recall of complex pop mixes.",
+    "tip": "SSL 4000 Impact: In-line channel dynamics (compressor/gate per channel) + 4-band parametric EQ + Total Recall."
+  },
+  {
+    "category": "Master Bus Dynamics & Cohesion",
+    "ao": "AO4: Recording Technology",
+    "text": "What is the primary sonic function of the SSL Quad G-Master Bus Compressor when applied to the master stereo bus of a commercial pop mix?",
+    "options": [
+      "It provides dynamic 'glue', using a VCA circuit with program-dependent release to transparently knit separate instrumental tracks into a cohesive, punchy stereo mix",
+      "It functions as a multi-band brickwall peak limiter, boosting the overall loudness of commercial tracks to -4 dB LUFS while completely flattening dynamic range",
+      "It acts as an analog stereo spatializer, using phase inversion across side frequencies to widen the perceived stereo spread of acoustic guitars and backing vocals",
+      "It eliminates all fundamental frequencies below 100 Hz on the stereo bus to ensure high-volume vinyl record pressings do not cause phonograph needles to skip"
+    ],
+    "correct": 0,
+    "explanation": "The SSL G-Master Bus Compressor (often set to a 2:1 or 4:1 ratio with 30ms attack and auto-release) is revered as 'The Glue'. By subtly compressing the master bus by 2–4 dB, it causes elements to breathe together, binding the kick, snare, bass, synths, and vocals into a cohesive commercial record.",
+    "tip": "SSL Bus Compressor: Master stereo VCA compression providing mix 'glue' and commercial punch."
+  },
+  {
+    "category": "Universal Communication Protocols",
+    "ao": "AO4: Recording Technology",
+    "text": "What major digital communication protocol, officially adopted by the audio industry in 1983, enabled synthesizers, sequencers, and drum machines from different manufacturers to trigger and sync with one another?",
+    "options": [
+      "SMPTE Timecode (Society of Motion Picture and Television Engineers), locking analog multi-track tape transports to 35mm film projectors",
+      "MIDI (Musical Instrument Digital Interface), allowing synthesizers, drum machines, and computers from different manufacturers to communicate",
+      "AES/EBU (Audio Engineering Society), standardizing two-channel professional digital audio transmission over balanced XLR cables",
+      "ADAT Optical Interface, enabling transmission of eight discrete channels of 24-bit digital audio over lightpipe fiber-optic cabling"
+    ],
+    "correct": 0,
+    "explanation": "Conceived by Dave Smith (Sequential Circuits) and Ikutaro Kakehashi (Roland), MIDI (1983) standardized digital musical communication. It allowed a single master sequencer or keyboard to trigger synthesizers, samplers, and drum machines across manufacturers using 5-pin DIN cables.",
+    "tip": "MIDI (1983): Universal digital control protocol (Note On/Off, Velocity, Control Change, Clock Sync)."
+  },
+  {
+    "category": "Pitch Correction & Vocoder Effects",
+    "ao": "AO4: Recording Technology",
+    "text": "On Cher's 1998 chart-topping single 'Believe', how did producers Mark Taylor and Brian Rawling achieve the iconic robotic pitch-quantized vocal sound?",
+    "options": [
+      "Setting the 'Retune Speed' parameter on Antares Auto-Tune to '0' (fastest), forcing instantaneous pitch quantization without natural glides",
+      "Processing the lead vocal through a vintage analog vocoder pedal modulated by a polyphonic synthesizer chord progression tracked in real time",
+      "Routing the vocal through an overdriven guitar amplifier half-stack with extreme spring reverb and high-frequency notch filtering applied in mixdown",
+      "Manually cutting and micro-splicing 1/4-inch analog master tape recordings using razor blades to create sudden microtonal pitch variations"
+    ],
+    "correct": 0,
+    "explanation": "Intended as an invisible pitch-correction tool, Antares Auto-Tune became a creative vocal effect on Cher's 'Believe'. Setting the Retune Speed to 0 ms stripped away the human transition time between pitches, snapping the voice instantaneously to the scale notes and creating the signature robotic 'Auto-Tune' effect.",
+    "tip": "The Cher Effect: Antares Auto-Tune with Retune Speed set to 0 (hard pitch quantization)."
+  },
+  {
+    "category": "Commercial Pop Songwriting Architecture",
+    "ao": "AO3: Musical Elements",
+    "text": "What core arrangement principle describes the 'Melodic Math' songwriting formula developed by Max Martin and Denniz Pop at Cheiron Studios in the late 1990s?",
+    "options": [
+      "Grabbing listener attention with an unforgettable hook within the first 5–15 seconds, followed by a new melodic hook or textural shift every 7–10 seconds",
+      "Starting with an extended, unhurried four-minute instrumental ambient synthesizer drone before introducing any rhythmic percussion elements or vocal lines",
+      "Ensuring the entire musical composition follows a continuous 32-bar AABA classical structure without repeating any lyrical phrases or melodic choruses",
+      "Restricting the entire song arrangement strictly to acoustic rhythm guitar and lead vocal, avoiding all synthesized textures or commercial production tricks"
+    ],
+    "correct": 0,
+    "explanation": "Max Martin's Cheiron formula revolutionized modern pop (Britney Spears, Backstreet Boys). It emphasizes 'melodic math': an instant hook within the first seconds, rhythmic syllable interlocking where vocals mimic percussion transients, and wide, uplifting melodic resolutions in choruses.",
+    "tip": "Cheiron / Max Martin: Instant hook + rhythmic syllable/bass syncopation + explosive chorus resolution."
+  },
+  {
+    "category": "Stereo Spatialization & Harmonizers",
+    "ao": "AO4: Recording Technology",
+    "text": "How was the wide, shimmering lead vocal sound on 1980s power pop anthems (e.g. Whitney Houston) achieved using an Eventide H3000 Harmonizer?",
+    "options": [
+      "Tracking a single vocal take with a dynamic stage mic and running it through an overdriven guitar distortion pedal with heavy spring reverberation",
+      "Micro-pitch shifting the vocal slightly sharp on the left (+9 cents) and flat on the right (-9 cents) with short delays (10–25 ms) on an Eventide H3000",
+      "Placing the vocalist ten meters away from a single omnidirectional boundary microphone positioned on the floor of a cavernous tiled echo chamber",
+      "Using an analog telephone band-pass filter to remove all frequencies below 300 Hz and above 3 kHz, centered in the middle of the monophonic mix"
+    ],
+    "correct": 0,
+    "explanation": "The Eventide H3000 micro-pitch shift preset was the secret weapon of 80s vocal production. By detuning the left channel by +9 cents and the right channel by -9 cents with tiny delay offsets, the vocal sounded massively thick, wide, and modern without causing destructive phase cancellation when collapsed to mono.",
+    "tip": "Vocal Stereo Widening: Eventide Micro-Pitch Shifting (+/- cents detuning + short delay offset)."
+  },
+  {
+    "category": "Comparative Stylistic Analysis",
+    "ao": "AO3 & AO4: Comprehensive Analysis",
+    "text": "In an Edexcel Component 3 Section B essay comparing 1980s Commercial Pop (Michael Jackson, a-ha) with Modern 2020s Pop (Dua Lipa, The Weeknd), what is the most significant technological divergence?",
+    "options": [
+      "1980s pop used analog tape, SSL consoles, hardware samplers, and digital reverbs; 2010s pop is produced 'in-the-box' with pitch plugins, software synths, and heavy limiting",
+      "1980s pop was recorded strictly live with one stereo microphone to vinyl disc; 2010s pop was tracked onto 2-inch 24-track tape machines using discrete analog consoles",
+      "1980s pop eliminated all synthesizers and drum machines in favor of classical orchestras; 2010s pop banned all computers and returned strictly to vintage acoustic tracking",
+      "1980s pop was produced exclusively in home bedrooms on cassette four-track portastudios; 2010s pop is recorded exclusively in massive commercial studio facilities"
+    ],
+    "correct": 0,
+    "explanation": "This is a classic Section B comparison: 1980s pop was a high-budget hybrid era (expensive studios, SSL 4000 desks, Sony DASH digital tape, hardware outboard like Lexicon and Eventide, manual vocal comping). Modern pop is almost entirely In-The-Box (DAW plugins, software samplers, pitch correction on every layer, and aggressive digital brickwall limiting).",
+    "tip": "Section B Essay Key Comparison: 80s High-End Hardware Hybrid (SSL/DASH/Outboard) vs. Modern In-The-Box Digital Production (DAW/Auto-Tune/Brickwall Limiting)."
+  }
+];
 
     let currentQ = 0;
     let score = 0;
