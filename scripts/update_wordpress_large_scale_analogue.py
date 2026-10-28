@@ -124,8 +124,8 @@ html_content = f'''<div id="mtg-dark-theme-wrapper" style="background: {BG}; col
         <div style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); display: grid; gap: 18px;">
             {video_card("qZYdgUuhXXQ", "Studer A800 - 24-Track Tape Machine", "A complete operational overview of the gold standard of analogue multitrack recording: the Studer A800 2-inch 24-track tape transport, tape path, and audio alignment.", "24-Track Tape")}
             {video_card("RmX7eXtSH5Y", "Studer Multichannel - Tape Calibration", "Step-by-step masterclass demonstrating how studio engineers calibrate reproduce electronics, azimuth alignment, and high-frequency AC bias using MRL reference tapes.", "Bias Calibration")}
-            {video_card("f0pQ3373w9w", "Led Zeppelin Drum Sound Analysis", "Andy Johns and Jimmy Page's legendary ambient drum miking in the stone stairwell of Headley Grange using Beyer M160 ribbons and Helios console compression.", "Drum Acoustics")}
-            {video_card("Vscv_eC3sUo", "Minimoog Model D &amp; Analog Synthesis", "An in-depth sonic demonstration of the Minimoog Model D 3-oscillator architecture and the patented 24 dB/octave ladder filter defining disco, funk, and rock bass.", "Moog Synthesis")}
+            {video_card("vRzs8nJjhwY", "Led Zeppelin Drum Sound Analysis", "Andy Johns and Jimmy Page's legendary ambient drum miking in the stone stairwell of Headley Grange using Beyer M160 ribbons and Helios console compression.", "Drum Acoustics")}
+            {video_card("EthWhoIK43c", "Minimoog Model D &amp; Analog Synthesis", "An in-depth sonic demonstration of the Minimoog Model D 3-oscillator architecture and the patented 24 dB/octave ladder filter defining disco, funk, and rock bass.", "Moog Synthesis")}
         </div>
     </div>
 

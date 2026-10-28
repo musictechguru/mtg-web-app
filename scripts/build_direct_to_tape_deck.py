@@ -114,7 +114,7 @@ slide('🎸', 'Musical Evolution', 'From Delta Blues <span>to Electric Chicago</
                <span class="spec-pill ao4">AO4 Acoustic Roots</span>
                <h4>Skip James (1931)</h4>
                <p>Early country blues recorded direct-to-disc with a single microphone. Intimate ambient capture, heavy shellac surface noise, and expressive minor tunings.</p>
-               {vid('_mmZFox4Rkg', 'Skip James - Devil Got My Woman', 'Listen: Devil Got My Woman')}'''),
+               {vid('-dHawEw7ang', 'Skip James - Devil Got My Woman', 'Listen: Devil Got My Woman')}'''),
           card('cyan-edge', f'''{thumb('bb_king_electric.jpg', 'B.B. King')}
                <span class="spec-pill ao4">AO4 Electric Amplification</span>
                <h4>B.B. King: "You Upset Me Baby"</h4>
@@ -134,7 +134,7 @@ slide('⚡', '1950s Cultural Watershed', 'The Birth of <span>Rock \'n\' Roll (19
                <span class="spec-pill ao4">AO4 Landmark Anthem</span>
                <h4>Bill Haley: Rock Around the Clock</h4>
                <p>Cut in April 1954 at Decca's Pythian Temple ballroom studio. Tracked live direct to mono tape with room reverb and slapping upright slap-bass.</p>
-               {vid('IPmUQX44dqc', 'Bill Haley - Rock Around the Clock', 'Listen: Rock Around the Clock')}'''),
+               {vid('ZgdufzXvjqw', 'Bill Haley - Rock Around the Clock', 'Listen: Rock Around the Clock')}'''),
           card('cyan-edge', f'''{thumb('elvis_presley_sun.jpg', 'Elvis Presley Sun Studios')}
                <span class="spec-pill ao3">AO3 Sun Slapback</span>
                <h4>Elvis Presley at Sun (1954)</h4>
@@ -195,7 +195,7 @@ slide('🎸', 'Industrial Design', 'The Solid-Body Revolution: <span>Leo Fender 
                <span class="spec-pill ao3">AO3 Tonal Versatility</span>
                <h4>Fender Stratocaster (1954)</h4>
                <p>Contoured ash body, three single-coil pickups, and a synchronized tremolo arm. Buddy Holly made it the quintessential visual and sonic symbol of rock 'n' roll.</p>
-               {vid('9irsg1vBmq0', 'Buddy Holly - That Will Be The Day', 'Listen: Stratocaster Twang')}'''),
+               {vid('M4TfFTmITLo', 'Buddy Holly - That Will Be The Day', 'Listen: Stratocaster Twang')}'''),
           card('acid-edge', f'''{thumb('fender_precision_bass.jpg', 'Fender Precision Bass')}
                <span class="spec-pill ao3">AO3 Low-End Revolution</span>
                <h4>Fender Precision Bass (1951)</h4>

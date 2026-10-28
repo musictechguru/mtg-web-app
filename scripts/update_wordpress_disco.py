@@ -114,7 +114,7 @@ html_content = """<div id="mtg-dark-theme-wrapper" style="background: #07050d; c
             </div>
             <div style="background: #12091c; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 14px; padding: 14px; box-shadow: 0 8px 20px rgba(0,0,0,0.3);">
                 <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 10px; margin-bottom: 12px; background: #000;">
-                    <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" src="https://www.youtube.com/embed/A_sY2RJxq6M" title="The Trammps - Disco Inferno" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" src="https://www.youtube.com/embed/pG8TyIEAqps" title="The Trammps - Disco Inferno" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 </div>
                 <div style="display: flex; justify-content: space-between; align-items: center;">
                     <strong style="color: #ffffff; font-size: 14px;">The Trammps</strong>

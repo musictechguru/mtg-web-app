@@ -273,7 +273,7 @@ slide('🎤', 'Vocal Processing', 'Pitch Correction: <span>Auto-Tune, Phase Voco
                <span class="spec-pill ao3">AO4 Pop Production Milestones</span>
                <h4>The "Cher Effect" (1998)</h4>
                <p>Producers Mark Taylor and Brian Rawling set Auto-Tune\'s <em>Retune Speed</em> to zero on Cher\'s "Believe". Snapping pitch instantaneously with zero human transition created the signature robotic pop vocal texture.</p>
-               {vid('f0pQ3373w9w', 'Auto-Tune Vocal Transformation', 'Watch: Pitch Correction Physics & Production')}'''),
+               {vid('uP1Fl1333W8', 'Auto-Tune Vocal Transformation', 'Watch: Pitch Correction Physics & Production')}'''),
           card('acid-edge', f'''{thumb('melodyne_ara_blobs.jpg', 'Celemony Melodyne Note Blobs Graphic Editor')}
                <span class="spec-pill ao3">AO3 Graphical Note Editing</span>
                <h4>Celemony Melodyne &amp; ARA</h4>

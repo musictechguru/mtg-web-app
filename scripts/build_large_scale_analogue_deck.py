@@ -87,7 +87,7 @@ slide('🎸', 'Musical Styles: Rock', 'Hard Rock &amp; Heavy Metal <span>(Led Ze
                <span class="spec-pill ao4">AO4 Rock Production</span>
                <h4>Led Zeppelin &amp; Room Acoustics</h4>
                <p>Jimmy Page and Andy Johns captured John Bonham\'s iconic drum sound in Headley Grange stone stairwells using a stereo pair of Beyer M160 ribbon mics compressed via Helios consoles.</p>
-               {vid('f0pQ3373w9w', 'Led Zeppelin Drum Sound Analysis', 'Watch: Bonham Drum Room Acoustics')}'''),
+               {vid('vRzs8nJjhwY', 'Led Zeppelin Drum Sound Analysis', 'Watch: Bonham Drum Room Acoustics')}'''),
           card('cyan-edge', f'''{thumb('black_sabbath_1970.jpg', 'Black Sabbath 1970')}
                <span class="spec-pill ao4">AO4 Heavy Metal Pioneers</span>
                <h4>Black Sabbath &amp; Down-Tuning</h4>
@@ -106,7 +106,7 @@ slide('🕺', 'Musical Styles: Dance', 'Disco &amp; Funk <span>(Chic, Earth Wind
                <span class="spec-pill ao4">AO4 Funk Rhythm Guitar</span>
                <h4>Nile Rodgers &amp; "Chucking"</h4>
                <p>Clean Stratocaster single-coil rhythm guitar recorded direct injection (DI) into the Neve console with heavy optical/FET compression, creating razor-sharp percussive 16th-note grooves.</p>
-               {vid('V94w8E7Xl04', 'Nile Rodgers Funk Production Breakdown', 'Watch: Chic Funk Guitar Tracking')}'''),
+               {vid('i9-Um_2wkeo', 'Nile Rodgers Funk Production Breakdown', 'Watch: Chic Funk Guitar Tracking')}'''),
           card('cyan-edge', f'''{thumb('earth_wind_fire_1977.jpg', 'Earth Wind & Fire 1977')}
                <span class="spec-pill ao4">AO4 Brass &amp; Percussion</span>
                <h4>Earth, Wind &amp; Fire Horns</h4>
@@ -199,7 +199,7 @@ slide('🎚️', 'Mixing Desks', 'Solid State Logic (SSL) <span>&amp; Neve 80-Se
                <span class="spec-pill ao3">AO3 Console Revolution</span>
                <h4>The SSL 4000 E &amp; G Series</h4>
                <p>Introduced in 1979, the SSL 4000 featured a dedicated compressor, expander/gate, and 4-band parametric EQ on every single channel strip, plus the legendary G-Master Bus compressor.</p>
-               {vid('T9iK0r718rI', 'SSL 4000 Console Breakdown', 'Watch: Inside the SSL 4000 Console')}'''),
+               {vid('a5tP_dOSd1A', 'SSL 4000 Console Breakdown', 'Watch: Inside the SSL 4000 Console')}'''),
           card('cyan-edge', f'''{thumb('neve_console_faders.jpg', 'Classic Neve 8078 Console')}
                <span class="spec-pill ao3">AO3 Discrete Class-A Warmth</span>
                <h4>Neve 80-Series (1073 &amp; 1081)</h4>
@@ -236,7 +236,7 @@ slide('⚡', 'Dynamics Processing', 'FET &amp; VCA Compression: <span>The 1176 &
                <span class="spec-pill ao3">AO3 Ultra-Fast FET</span>
                <h4>UREI 1176 LN Limiter</h4>
                <p>Field Effect Transistor (FET) gain reduction with blistering 20-microsecond attack. Depressing all ratio buttons simultaneously ("All-Buttons-In" mode) produced aggressive pumping distortion on drums.</p>
-               {vid('8z5v4u3F8gE', '1176 Compressor All Buttons In Demo', 'Watch: 1176 All-Buttons-In Mode')}'''),
+               {vid('igaxHTrJId0', '1176 Compressor All Buttons In Demo', 'Watch: 1176 All-Buttons-In Mode')}'''),
           card('cyan-edge', f'''{thumb('dbx_160_compressor.jpg', 'dbx 160 Compressor / Limiter')}
                <span class="spec-pill ao3">AO3 Hard-Knee Punch</span>
                <h4>dbx 160 VCA Compressor</h4>
@@ -277,7 +277,7 @@ slide('🎹', 'Keyboard Synthesis', 'Subtractive &amp; Polyphonic Synths: <span>
                <span class="spec-pill ao3">AO3 Subtractive Bass</span>
                <h4>Minimoog Model D (1970)</h4>
                <p>Monophonic subtractive synthesizer with 3 VCOs, noise generator, and the legendary 24 dB/octave 4-pole transistor ladder low-pass filter. Defined punchy synth bass across disco, funk, and rock.</p>
-               {vid('Vscv_eC3sUo', 'Minimoog Model D Demonstration', 'Watch: Minimoog Bass & Lead Synthesis')}'''),
+               {vid('EthWhoIK43c', 'Minimoog Model D Demonstration', 'Watch: Minimoog Bass & Lead Synthesis')}'''),
           card('acid-edge', f'''{thumb('prophet_5_synth.png', 'Sequential Circuits Prophet-5')}
                <span class="spec-pill ao3">AO3 Polyphonic Presets</span>
                <h4>Sequential Prophet-5 (1978)</h4>

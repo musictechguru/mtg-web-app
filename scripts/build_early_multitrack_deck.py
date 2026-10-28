@@ -138,7 +138,7 @@ slide('🎹', 'Iconic Instruments', 'The Hammond Organ <span>&amp; Leslie 122 Ro
                <span class="spec-pill ao3">AO3 Microphone Technique</span>
                <h4>Stereo Miking Rotary Cabs</h4>
                <p>Standard practice: a stereo pair of dynamic mics (Shure SM57 or Sennheiser MD421) on the upper horn (panned hard left/right) and a single dynamic mic on the lower bass drum.</p>
-               {vid('6jKme27M6xU', 'Inside the Hammond Organ & Leslie 122', 'Watch: Hammond & Leslie Demo')}''')
+               {vid('5C2I4EYUJf8', 'Inside the Hammond Organ & Leslie 122', 'Watch: Hammond & Leslie Demo')}''')
       ]))
 
 # 6 MELLOTRON & ELECTRIC PIANOS

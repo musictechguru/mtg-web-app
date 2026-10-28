@@ -115,7 +115,7 @@ html_content = f'''<div id="mtg-dark-theme-wrapper" style="background: {BG}; col
             {video_card("6AhGzLJur5U", "The Beatles - Abbey Road 4-Track Session", "Experience the classic Abbey Road Studios 4-track tape tracking process, microphone placement, and live rhythm capture in Studio Two.", "Abbey Road")}
             {video_card("qBKPSRF5LEU", "EMI Studio Production - De-Mixing 4-Track Tape", "A technical deep dive into EMI 4-track tape stems, isolating individual tracks, and analyzing acoustic bleed between drums and bass.", "Tape De-Mixing")}
             {video_card("guiNy0jSKkI", "Deconstructing Sgt. Pepper Sessions", "Step through the track bouncing and reduction mixing stages used on Sgt. Pepper, combining orchestral layers with rock rhythm tracks.", "Reduction Bouncing")}
-            {video_card("6jKme27M6xU", "Inside the Hammond Organ &amp; Leslie 122", "Explore the electro-mechanical tone-wheel generator, drawbar harmonics, and the rotating horn/rotor mechanics producing the Doppler effect.", "Rotary Speaker")}
+            {video_card("5C2I4EYUJf8", "Inside the Hammond Organ &amp; Leslie 122", "Explore the electro-mechanical tone-wheel generator, drawbar harmonics, and the rotating horn/rotor mechanics producing the Doppler effect.", "Rotary Speaker")}
         </div>
     </div>
 

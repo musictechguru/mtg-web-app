@@ -448,7 +448,7 @@ build_homework_pdf(
     filename="c3_direct_to_tape_hw3_sun_slapback.pdf",
     title="C3 Direct to Tape Mono Recordings HW 3 – Elvis Presley 'Mystery Train' & Sun Studio",
     artist="Elvis Presley (Sun Studio, Memphis, TN, Producer & Engineer: Sam Phillips)",
-    youtube_url="https://www.youtube.com/watch?v=Q_eE06ZAbCc",
+    youtube_url="https://www.youtube.com/watch?v=XA5HErVE9oI",
     questions_page1=[
         {
             'type': 'table',
@@ -560,7 +560,7 @@ build_homework_pdf(
     filename="c3_large_scale_analogue_hw2_fleetwood_mac.pdf",
     title="C3 Large Scale Analogue HW 2 – Fleetwood Mac 'Dreams' & Analogue Dynamics",
     artist="Fleetwood Mac (Rumours, 1977, Record Plant, Producers: Fleetwood Mac, Ken Caillat)",
-    youtube_url="https://www.youtube.com/watch?v=mrZRURcb1fc",
+    youtube_url="https://www.youtube.com/watch?v=Y3ywicffOj4",
     questions_page1=[
         {
             'type': 'table',

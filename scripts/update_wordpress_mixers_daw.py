@@ -124,7 +124,7 @@ html_content = f'''<div id="mtg-dark-theme-wrapper" style="background: {BG}; col
         <div style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); display: grid; gap: 18px;">
             {video_card("XljKOG2Y25g", "Console Signal Flow &amp; Channel Strips", "A comprehensive step-by-step masterclass explaining input gain staging, high-pass filtering, parametric EQ bands, insert loops, and auxiliary sends.", "Console Architecture")}
             {video_card("KmwGACcltdQ", "The Alesis ADAT Home Studio Revolution", "How 8 channels of uncompressed digital audio on consumer S-VHS tape democratized multitrack music production for project studios in the early 1990s.", "Digital Tape (ADAT)")}
-            {video_card("f0pQ3373w9w", "Auto-Tune Pitch Correction &amp; Cher Effect", "The mathematical and acoustic physics of pitch tracking, phase vocoding, and how setting retune speed to zero created the iconic 1998 robotic Cher vocal texture.", "Vocal Processing")}
+            {video_card("uP1Fl1333W8", "Auto-Tune Pitch Correction &amp; Cher Effect", "The mathematical and acoustic physics of pitch tracking, phase vocoding, and how setting retune speed to zero created the iconic 1998 robotic Cher vocal texture.", "Vocal Processing")}
             {video_card("1V_xRb0x9aw", "Modern In-The-Box DAW Production Workflow", "Explore non-linear audio editing, region slicing, sample-accurate breakpoint automation, and hybrid analog summing vs in-the-box digital mixing.", "DAW Production")}
         </div>
     </div>
