@@ -1172,6 +1172,36 @@ const TimetableBuilder = ({ onNavigate, onBack }) => {
                     </div>
                   )}
 
+                  {/* Genre Homework & Exam Practice Packs (PRO) */}
+                  {selectedBlock.resources.homeworkPacks && selectedBlock.resources.homeworkPacks.length > 0 && (
+                    <div className="sow-resource-subgroup">
+                      <div className="sow-resource-subgroup-title" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <div>
+                          <span>📚</span> Genre Homework & Exam Practice Packs (PDF)
+                        </div>
+                        <span style={{ fontSize: '10px', background: 'rgba(192, 132, 252, 0.15)', color: '#c084fc', border: '1px solid rgba(192, 132, 252, 0.35)', padding: '2px 8px', borderRadius: '4px', fontWeight: 800 }}>PRO</span>
+                      </div>
+                      <div className="sow-link-list">
+                        {selectedBlock.resources.homeworkPacks.map((item, idx) => (
+                          <a
+                            key={idx}
+                            href={item.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="sow-resource-link guide"
+                            style={{ borderColor: 'rgba(192, 132, 252, 0.25)', background: 'rgba(192, 132, 252, 0.04)' }}
+                          >
+                            <div className="sow-link-main">
+                              <span className="sow-link-tag" style={{ background: '#c084fc', color: '#080e1a' }}>Homework</span>
+                              <span className="sow-link-title" style={{ color: '#f8fafc', fontWeight: 600 }}>{item.title}</span>
+                            </div>
+                            <span className="sow-link-ext" style={{ color: '#c084fc' }}>📥 Download PDF</span>
+                          </a>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
                   {/* Shop Multitracks & Teaching Packs */}
                   {selectedBlock.resources.shopResources && selectedBlock.resources.shopResources.length > 0 && (
                     <div className="sow-resource-subgroup">

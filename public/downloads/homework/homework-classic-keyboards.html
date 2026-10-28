@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Component 3 Homework Pack • Classic Electro-Mechanical Keyboards | Music Tech Guru</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --accent: #c084fc;
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --font: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      line-height: 1.6;
+      margin: 0;
+      padding: 24px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: var(--card);
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+      padding: 40px;
+    }
+
+    .header-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid #0f172a;
+      padding-bottom: 20px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .header-title h1 {
+      font-size: 26px;
+      font-weight: 800;
+      margin: 0 0 6px 0;
+      color: #0f172a;
+    }
+
+    .header-title p {
+      margin: 0;
+      font-size: 14px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .tag-badge {
+      display: inline-block;
+      padding: 6px 14px;
+      background: #7e22ce;
+      color: #ffffff;
+      font-size: 13px;
+      font-weight: 700;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+      background: #f1f5f9;
+      padding: 16px;
+      border-radius: 10px;
+      margin-bottom: 32px;
+      font-size: 14px;
+    }
+
+    .meta-item strong {
+      display: block;
+      color: #475569;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 2px;
+    }
+
+    .question-block {
+      margin-bottom: 36px;
+      padding-bottom: 28px;
+      border-bottom: 1px dashed var(--border);
+    }
+
+    .question-block:last-of-type {
+      border-bottom: none;
+    }
+
+    .question-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 12px;
+      gap: 12px;
+    }
+
+    .question-num {
+      font-size: 18px;
+      font-weight: 800;
+      color: #0f172a;
+    }
+
+    .marks-badge {
+      font-size: 13px;
+      font-weight: 700;
+      background: #ede9fe;
+      color: #7e22ce;
+      padding: 4px 10px;
+      border-radius: 6px;
+      white-space: nowrap;
+    }
+
+    .question-text {
+      font-size: 15px;
+      color: #1e293b;
+      margin-bottom: 16px;
+      line-height: 1.6;
+    }
+
+    .guided-hints {
+      background: #f8fafc;
+      border-left: 3px solid #7e22ce;
+      padding: 12px 16px;
+      border-radius: 0 8px 8px 0;
+      margin-bottom: 16px;
+      font-size: 13px;
+      color: #334155;
+    }
+
+    .guided-hints strong {
+      color: #7e22ce;
+      display: block;
+      margin-bottom: 4px;
+      text-transform: uppercase;
+      font-size: 11px;
+      letter-spacing: 0.5px;
+    }
+
+    .guided-hints ul {
+      margin: 0;
+      padding-left: 20px;
+    }
+
+    .guided-hints li {
+      margin-bottom: 4px;
+    }
+
+    .writing-lines {
+      background: #fafafa;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      min-height: 120px;
+      padding: 12px;
+      font-family: inherit;
+      width: 100%;
+      resize: vertical;
+      font-size: 14px;
+      line-height: 24px;
+    }
+
+    .print-bar {
+      margin-top: 40px;
+      padding-top: 24px;
+      border-top: 2px solid #0f172a;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .btn-print {
+      background: #0f172a;
+      color: #ffffff;
+      padding: 10px 22px;
+      border-radius: 8px;
+      border: none;
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: background 0.2s;
+    }
+
+    .btn-print:hover {
+      background: #1e293b;
+    }
+
+    @media print {
+      body {
+        background: #ffffff;
+        padding: 0;
+      }
+      .container {
+        box-shadow: none;
+        border: none;
+        padding: 0;
+        max-width: 100%;
+      }
+      .btn-print {
+        display: none;
+      }
+      .writing-lines {
+        background: transparent;
+        border: 1px solid #cbd5e1;
+        min-height: 180px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="header-bar">
+      <div class="header-title">
+        <h1>Edexcel A-Level Music Technology</h1>
+        <p>Component 3: Listening and Analysing • Specification Study Pack</p>
+      </div>
+      <div class="tag-badge">Electro-Mechanical Keyboards</div>
+    </div>
+
+    <div class="meta-grid">
+      <div class="meta-item">
+        <strong>Student Name</strong>
+        <span>___________________________</span>
+      </div>
+      <div class="meta-item">
+        <strong>Date Assigned</strong>
+        <span>___________________________</span>
+      </div>
+      <div class="meta-item">
+        <strong>Target Grade</strong>
+        <span>A* / A / B</span>
+      </div>
+      <div class="meta-item">
+        <strong>Total Marks</strong>
+        <span>20 Marks Available</span>
+      </div>
+    </div>
+
+    <!-- Question 1 -->
+    <div class="question-block">
+      <div class="question-head">
+        <div class="question-num">Question 1: Comparative Transduction (Fender Rhodes vs. Wurlitzer 200A)</div>
+        <div class="marks-badge">[4 Marks]</div>
+      </div>
+      <div class="question-text">
+        Compare the mechanical striking and electrical pickup transduction mechanisms of the <strong>Fender Rhodes</strong> and the <strong>Wurlitzer 200A</strong> electric pianos. Explain how these design differences affect their respective acoustic timbre and sustain.
+      </div>
+      <div class="guided-hints">
+        <strong>Specification Examiner Guidance:</strong>
+        <ul>
+          <li><strong>Fender Rhodes:</strong> Neoprene hammer strikes a steel tine coupled to a tuned tonebar (asymmetric tuning fork). Transduced via an individual electromagnetic pickup (coil around a permanent magnet) through electromagnetic induction. Yields bell-like attack, high sustain, and mellow fundamental.</li>
+          <li><strong>Wurlitzer 200A:</strong> Felt hammer strikes a tuned steel reed. Transduced electrostatically via a capacitive pickup plate charged with ~170V DC polarising voltage. Yields a sharper, reed-like bite, quicker decay, and barking mid-range when driven hard.</li>
+        </ul>
+      </div>
+      <textarea class="writing-lines" rows="6" placeholder="Write your answer here..."></textarea>
+    </div>
+
+    <!-- Question 2 -->
+    <div class="question-block">
+      <div class="question-head">
+        <div class="question-num">Question 2: Hammond B3 Tonewheels & The Leslie 122 Rotary Cabinet</div>
+        <div class="marks-badge">[6 Marks]</div>
+      </div>
+      <div class="question-text">
+        (a) Explain how the Hammond B3 tonewheel generator produces pitch, referencing tooth counts, motor gearing, and electromagnetic induction. [3 Marks]<br><br>
+        (b) Describe how the Leslie 122 rotating speaker cabinet produces frequency modulation (Doppler effect) and amplitude modulation, noting the two operational speeds. [3 Marks]
+      </div>
+      <div class="guided-hints">
+        <strong>Specification Examiner Guidance:</strong>
+        <ul>
+          <li><strong>Tonewheel Generator:</strong> 91 notched/scalloped steel discs rotate adjacent to permanent magnetic pickups with wire coils. Tooth rate across pole piece induces an alternating electric current whose frequency matches the musical pitch. Controlled via 9 harmonic drawbars (additive synthesis).</li>
+          <li><strong>Leslie 122 Mechanics:</strong> Two-way system with a rotating upper horn (treble) and rotating downward-firing bass baffle drum (low frequencies). Rotate in opposite directions.</li>
+          <li><strong>Acoustic Effects:</strong> Dual speeds: <em>Chorale</em> (slow ~40 RPM) and <em>Tremolo</em> (fast ~400 RPM). Sound source moving toward and away from ears/microphones produces the Doppler pitch shift (FM) combined with directional amplitude sweep (AM).</li>
+        </ul>
+      </div>
+      <textarea class="writing-lines" rows="8" placeholder="Write your answer here..."></textarea>
+    </div>
+
+    <!-- Question 3 -->
+    <div class="question-block">
+      <div class="question-head">
+        <div class="question-num">Question 3: Extended Analysis • The Mellotron M400 & Pre-Digital Sampling</div>
+        <div class="marks-badge">[10 Marks]</div>
+      </div>
+      <div class="question-text">
+        <em>"The Mellotron M400 is considered the direct electro-mechanical forerunner to the modern digital sampler, yet its physical tape playback mechanism imposed radical sonic and performance limitations on musicians."</em><br><br>
+        Evaluate this statement. In your answer, explain:
+        <ul style="margin: 8px 0; padding-left: 20px;">
+          <li>The mechanical operation of individual magnetic tape strips, pinch rollers, capstan drive shaft, and playback heads.</li>
+          <li>The physical constraint of the 8-second tape run and spring return system.</li>
+          <li>The acoustic character of tape wow, flutter, tape saturation, and mechanical keyboard touch.</li>
+          <li>Reference at least one historically significant 1960s or 1970s recording (e.g., The Beatles, King Crimson, Genesis).</li>
+        </ul>
+      </div>
+      <div class="guided-hints">
+        <strong>Examiner Level 3 Descriptor Guidance:</strong>
+        <ul>
+          <li><strong>Tape Mechanics:</strong> Depressing a key engages a pinch roller that forces 3/8-inch magnetic tape against a constantly spinning capstan shaft directly over an audio replay head. Tape is pulled from a serpentine storage frame.</li>
+          <li><strong>8-Second Limit:</strong> Each tape strip is exactly 8 seconds long and non-looping. When released, an internal return spring pulls the tape back to the start. Impossible to sustain indefinitely without re-striking; forced players into detached, rhythmic, or arpeggiated phrasing.</li>
+          <li><strong>Authentic Timbre:</strong> Wow, flutter, frequency roll-off, tape compression/saturation, and distinct natural instrumental attack transients (e.g., flutes, violins, cellos) recorded at Abbey Road / IBC.</li>
+          <li><strong>Case Study Example:</strong> <em>Strawberry Fields Forever</em> (Beatles / 1967) - John Lennon / Paul McCartney playing the famous Mellotron Mark II flute intro with characteristic tape flutter and attack transient.</li>
+        </ul>
+      </div>
+      <textarea class="writing-lines" rows="12" placeholder="Write your extended essay response here..."></textarea>
+    </div>
+
+    <div class="print-bar">
+      <div>
+        <p style="margin: 0; font-size: 13px; color: var(--text-muted); font-weight: 500;">Music Tech Guru • A-Level Music Technology Revision Platform</p>
+      </div>
+      <button class="btn-print" onclick="window.print()">🖨️ Print / Save as PDF</button>
+    </div>
+  </div>
+
+</body>
+</html>

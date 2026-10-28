@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Component 3 Homework Pack • 1970s Funk & P-Funk | Music Tech Guru</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --accent: #eab308;
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --font: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      line-height: 1.6;
+      margin: 0;
+      padding: 24px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: var(--card);
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+      padding: 40px;
+    }
+
+    .header-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid #0f172a;
+      padding-bottom: 20px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+      background: #f1f5f9;
+      padding: 16px;
+      border-radius: 10px;
+      margin-bottom: 30px;
+      font-size: 13px;
+    }
+
+    .task-title {
+      font-size: 19px;
+      font-weight: 800;
+      color: #0f172a;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 32px 0 14px 0;
+      padding-bottom: 6px;
+      border-bottom: 2px solid #eab308;
+    }
+
+    .matrix-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .matrix-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 16px;
+      border-left: 4px solid #eab308;
+    }
+
+    .print-btn {
+      background: #0f172a;
+      color: #ffffff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 13px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .print-btn:hover {
+      background: #334155;
+    }
+
+    @media print {
+      body {
+        background: #ffffff !important;
+        padding: 0 !important;
+      }
+      .container {
+        box-shadow: none !important;
+        border: none !important;
+        padding: 0 !important;
+        max-width: 100% !important;
+      }
+      .no-print {
+        display: none !important;
+      }
+      .task-title {
+        page-break-after: avoid;
+      }
+      .question-block {
+        page-break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+<body class="mtg-homework-page">
+
+<div class="container">
+
+  <!-- Top Action Bar -->
+  <div class="header-bar">
+    <div>
+      <span style="font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: #eab308;">
+        Pearson Edexcel A-Level Music Technology (9MT0) &bull; Component 3
+      </span>
+      <h1 style="font-size: 26px; font-weight: 900; margin: 4px 0 0 0; color: #0f172a;">
+        🕺 1970s Funk & P-Funk
+      </h1>
+      <span style="color: #64748b; font-size: 13px; font-weight: 600;">Official Specification Revision &amp; Homework Study Pack &bull; 1968–1979</span>
+    </div>
+    <div class="no-print">
+      <button class="print-btn" onclick="window.print()">
+        <span>🖨️</span> Print / Save PDF
+      </button>
+    </div>
+  </div>
+
+  <!-- Student Meta Fill-in -->
+  <div class="meta-grid">
+    <div><strong>Student Name:</strong> _______________________</div>
+    <div><strong>Date Assigned:</strong> _______________________</div>
+    <div><strong>Target Grade:</strong> _______</div>
+    <div><strong>Teacher Mark:</strong> ____ / 22 Marks</div>
+  </div>
+
+  <!-- TASK 1: KEY DISCOGRAPHY -->
+  <div class="task-title">
+    <span>🎧 Task 1: Essential Listening &amp; Production Discography</span>
+  </div>
+  <p style="font-size: 13.5px; color: #475569; margin: 0 0 14px 0;">Listen to each track below with high-quality headphones. Identify the specific production fingerprints and studio innovations noted:</p>
+  <div style="overflow-x: auto; margin-bottom: 24px;">
+    <table style="width: 100%; border-collapse: collapse; font-size: 13.5px; text-align: left;">
+      <thead>
+        <tr style="background: #f1f5f9; color: #334155; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px;">
+          <th style="padding: 10px 12px; border-bottom: 2px solid #cbd5e1;">Artist / Producer</th>
+          <th style="padding: 10px 12px; border-bottom: 2px solid #cbd5e1;">Seminal Track</th>
+          <th style="padding: 10px 12px; border-bottom: 2px solid #cbd5e1;">Year</th>
+          <th style="padding: 10px 12px; border-bottom: 2px solid #cbd5e1;">Key Technological Fingerprint</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+            <td style="font-weight: 700; color: #1e293b; padding: 10px 12px; border-bottom: 1px solid #e2e8f0;">James Brown</td>
+            <td style="color: #475569; padding: 10px 12px; border-bottom: 1px solid #e2e8f0; font-style: italic;">Get Up (I Feel Like Being a) Sex Machine</td>
+            <td style="color: #64748b; padding: 10px 12px; border-bottom: 1px solid #e2e8f0; font-weight: 600;">1970</td>
+            <td style="color: #334155; padding: 10px 12px; border-bottom: 1px solid #e2e8f0; font-size: 13px;">Starday-King Studios, live one-take energy, Clyde Stubblefield tight snare ghost notes, clean single-coil Strat 'chank' guitar.</td>
+        </tr><tr>
+            <td style="font-weight: 700; color: #1e293b; padding: 10px 12px; border-bottom: 1px solid #e2e8f0;">Parliament / Funkadelic</td>
+            <td style="color: #475569; padding: 10px 12px; border-bottom: 1px solid #e2e8f0; font-style: italic;">Flash Light / Give Up the Funk</td>
+            <td style="color: #64748b; padding: 10px 12px; border-bottom: 1px solid #e2e8f0; font-weight: 600;">1977/1976</td>
+            <td style="color: #334155; padding: 10px 12px; border-bottom: 1px solid #e2e8f0; font-size: 13px;">United Sound Systems, Bernie Worrell layered Minimoog basslines with envelope follower, Bootsy Collins Space Bass with Mu-Tron III.</td>
+        </tr><tr>
+            <td style="font-weight: 700; color: #1e293b; padding: 10px 12px; border-bottom: 1px solid #e2e8f0;">Sly & The Family Stone</td>
+            <td style="color: #475569; padding: 10px 12px; border-bottom: 1px solid #e2e8f0; font-style: italic;">Family Affair / Thank You</td>
+            <td style="color: #64748b; padding: 10px 12px; border-bottom: 1px solid #e2e8f0; font-weight: 600;">1971/1969</td>
+            <td style="color: #334155; padding: 10px 12px; border-bottom: 1px solid #e2e8f0; font-size: 13px;">Maestro Rhythm King MRK-2 early drum machine, Larry Graham inventer of slap-and-pop electric bass technique, close vocal micing.</td>
+        </tr><tr>
+            <td style="font-weight: 700; color: #1e293b; padding: 10px 12px; border-bottom: 1px solid #e2e8f0;">Earth, Wind & Fire</td>
+            <td style="color: #475569; padding: 10px 12px; border-bottom: 1px solid #e2e8f0; font-style: italic;">September / Shining Star</td>
+            <td style="color: #64748b; padding: 10px 12px; border-bottom: 1px solid #e2e8f0; font-weight: 600;">1978/1975</td>
+            <td style="color: #334155; padding: 10px 12px; border-bottom: 1px solid #e2e8f0; font-size: 13px;">Maurice White production, Kalimba acoustic capture, pristine Phenix Horns brass micing, crystal clear SSL mixing.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- PAYWALL BANNER (Displayed for non-premium visitors) -->
+  <div id="homeworkPaywallBanner" class="no-print" style="display: none; margin: 30px 0; background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%); border: 1px solid rgba(192, 132, 252, 0.4); border-radius: 16px; padding: 32px 24px; text-align: center; box-shadow: 0 15px 40px rgba(0,0,0,0.25); color: #fff;">
+    <div style="display: inline-block; background: rgba(192,132,252,0.15); color: #c084fc; border: 1px solid rgba(192,132,252,0.35); padding: 4px 12px; border-radius: 50px; font-size: 11px; font-weight: 800; text-transform: uppercase; margin-bottom: 12px;">
+      🔒 MTG Pro Member Exclusive
+    </div>
+    <h3 style="font-size: 22px; font-weight: 900; margin: 0 0 10px 0; color: #fff;">
+      Unlock Full Exam Practice Questions &amp; Essay Guide
+    </h3>
+    <p style="color: #94a3b8; font-size: 14px; max-width: 600px; margin: 0 auto 20px auto; line-height: 1.6;">
+      Task 1 above is available as a free preview. To view and print Task 2 (The Big 4 Matrix), Task 3 (Section A 10-Mark Questions), Task 4 (Section B 12-Mark Essay Prompt), and official examiner model marks, please log in with your MTG account or upgrade.
+    </p>
+    <div style="display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;">
+      <a href="https://app.musictechguru.com/" target="_blank" style="background: linear-gradient(135deg, #c084fc, #9333ea); color: #fff; text-decoration: none; padding: 11px 24px; border-radius: 8px; font-weight: 800; font-size: 13.5px; box-shadow: 0 4px 15px rgba(192,132,252,0.4);">
+        Get MTG Revision Pass &rarr;
+      </a>
+      <button id="mtgShowLoginBtn" onclick="window.MTG_Paywall.toggleLogin()" style="background: rgba(255,255,255,0.08); color: #fff; border: 1px solid rgba(255,255,255,0.2); padding: 11px 20px; border-radius: 8px; font-weight: 700; font-size: 13px; cursor: pointer;">
+        Already Subscribed? Sign In with MTG
+      </button>
+    </div>
+    <div id="mtgLoginForm" class="mtg-pw-login-form" style="display: none; max-width: 400px; margin: 20px auto 0 auto; background: rgba(0,0,0,0.4); padding: 16px; border-radius: 10px; text-align: left;">
+      <div style="font-size: 12.5px; font-weight: 700; margin-bottom: 6px;">Sign in with your MTG student/teacher account:</div>
+      <input type="email" id="mtgLoginEmail" style="width: 100%; box-sizing: border-box; background: #0b0f19; border: 1px solid rgba(255,255,255,0.2); color: #fff; padding: 8px 12px; border-radius: 6px; margin-bottom: 8px;" placeholder="Email address">
+      <input type="password" id="mtgLoginPassword" style="width: 100%; box-sizing: border-box; background: #0b0f19; border: 1px solid rgba(255,255,255,0.2); color: #fff; padding: 8px 12px; border-radius: 6px; margin-bottom: 8px;" placeholder="Password">
+      <div id="mtgLoginError" style="color: #ef4444; font-size: 12px; margin-bottom: 8px; display: none;"></div>
+      <button onclick="window.MTG_Paywall.handleLogin()" style="width: 100%; background: #c084fc; color: #fff; border: none; padding: 9px; border-radius: 6px; font-weight: 800; cursor: pointer;">
+        Sign In &amp; Unlock Worksheet
+      </button>
+    </div>
+  </div>
+
+  <div id="homeworkLockedArea">
+
+  <!-- TASK 2: THE BIG 4 FINGERPRINTS -->
+  <div class="task-title">
+    <span>🔍 Task 2: The 'Big 4' Specification Fingerprints</span>
+  </div>
+  <p style="font-size: 13.5px; color: #475569; margin: 0 0 16px 0;">Memorize these core specification criteria across Equipment, Capture, Processing, and Soundstage:</p>
+  
+  <div class="matrix-grid">
+    <div class="matrix-card">
+      <strong style="color: #eab308; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px;">1. Equipment &amp; Instruments</strong>
+      <p style="color: #334155; font-size: 13px; line-height: 1.5; margin: 6px 0 0 0;">Fender Jazz & Precision Bass, Minimoog Model D analog synthesizer, Fender Stratocaster (middle/bridge pickup), Hohner Clavinet D6, Mu-Tron III envelope filter, MXR Phase 90, Ludwig drums, Maestro Rhythm King drum machine.</p>
+    </div>
+    <div class="matrix-card">
+      <strong style="color: #eab308; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px;">2. Audio Capture &amp; Micing</strong>
+      <p style="color: #334155; font-size: 13px; line-height: 1.5; margin: 6px 0 0 0;">Tight close-micing. Snare miked top and bottom (SM57) with phase reversed on bottom mic. Close-miking brass horns with Neumann U87s and RCA ribbons. Bass guitar double-tracked or DI blended with mic on Ampeg SVT amp.</p>
+    </div>
+    <div class="matrix-card">
+      <strong style="color: #eab308; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px;">3. Processing &amp; Effects</strong>
+      <p style="color: #334155; font-size: 13px; line-height: 1.5; margin: 6px 0 0 0;">Envelope follower filters (auto-wah), optical compression (Teletronix LA-2A) on vocals, fast VCA compression (dbx 160) on kick and slap bass to clamp down percussive peaks, subtle tape saturation.</p>
+    </div>
+    <div class="matrix-card">
+      <strong style="color: #eab308; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px;">4. Soundstage &amp; Balance</strong>
+      <p style="color: #334155; font-size: 13px; line-height: 1.5; margin: 6px 0 0 0;">Hyper-focused percussive stereo soundstage. Kick drum and bass guitar locked in mono center; Clavinet and rhythm guitar panned opposite each other (9 o'clock and 3 o'clock); wide stereo horn section flourishes.</p>
+    </div>
+  </div>
+
+  <!-- TASK 3: SECTION A EXAM QUESTIONS -->
+  <div class="task-title">
+    <span>📝 Task 3: Section A Exam Practice Questions (10 Marks)</span>
+  </div>
+  <p style="font-size: 13.5px; color: #475569; margin: 0 0 20px 0;">Answer the following Edexcel exam questions in full technical sentences using professional studio terminology:</p>
+  
+  <div class="question-block" style="margin-bottom: 24px;">
+            <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px;">
+                <strong style="color: #0f172a; font-size: 15px;">Question 1</strong>
+                <span style="font-size: 12px; font-weight: 700; color: #64748b; background: #f1f5f9; padding: 2px 8px; border-radius: 4px;">[1 Marks]</span>
+            </div>
+            <p style="color: #334155; font-size: 14px; margin: 0 0 10px 0; line-height: 1.5;">State the synthesizer model used by Bernie Worrell to lay down the iconic bassline of Parliament's 'Flash Light' (1977).</p>
+            <div class="write-lines" style="border: 1px dashed #cbd5e1; border-radius: 6px; padding: 8px 12px; min-height: 75px; background: #fafafa;">
+                <span class="print-lines" style="color: #94a3b8; font-size: 12px; font-style: italic;">Write your answer here (or complete on paper)...</span>
+            </div>
+            <div class="guidance-box" style="margin-top: 8px; font-size: 12px; color: #0284c7; background: #f0f9ff; padding: 6px 10px; border-radius: 4px; border-left: 3px solid #0284c7;">
+                <strong>Examiner Guidance:</strong> Minimoog (Minimoog Model D analog synthesizer).
+            </div>
+        </div><div class="question-block" style="margin-bottom: 24px;">
+            <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px;">
+                <strong style="color: #0f172a; font-size: 15px;">Question 2</strong>
+                <span style="font-size: 12px; font-weight: 700; color: #64748b; background: #f1f5f9; padding: 2px 8px; border-radius: 4px;">[3 Marks]</span>
+            </div>
+            <p style="color: #334155; font-size: 14px; margin: 0 0 10px 0; line-height: 1.5;">Explain the technical operation of the Mu-Tron III envelope filter pedal used on funk bass and clavinet tracks.</p>
+            <div class="write-lines" style="border: 1px dashed #cbd5e1; border-radius: 6px; padding: 8px 12px; min-height: 110px; background: #fafafa;">
+                <span class="print-lines" style="color: #94a3b8; font-size: 12px; font-style: italic;">Write your answer here (or complete on paper)...</span>
+            </div>
+            <div class="guidance-box" style="margin-top: 8px; font-size: 12px; color: #0284c7; background: #f0f9ff; padding: 6px 10px; border-radius: 4px; border-left: 3px solid #0284c7;">
+                <strong>Examiner Guidance:</strong> An envelope follower circuit detects the incoming pick/string audio amplitude and converts it into a control voltage (CV) that sweeps the filter cutoff frequency proportionally to playing dynamics.
+            </div>
+        </div><div class="question-block" style="margin-bottom: 24px;">
+            <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px;">
+                <strong style="color: #0f172a; font-size: 15px;">Question 3</strong>
+                <span style="font-size: 12px; font-weight: 700; color: #64748b; background: #f1f5f9; padding: 2px 8px; border-radius: 4px;">[3 Marks]</span>
+            </div>
+            <p style="color: #334155; font-size: 14px; margin: 0 0 10px 0; line-height: 1.5;">Describe the drum production technique used on 1970s funk snare drums to achieve maximum articulation of ghost notes.</p>
+            <div class="write-lines" style="border: 1px dashed #cbd5e1; border-radius: 6px; padding: 8px 12px; min-height: 110px; background: #fafafa;">
+                <span class="print-lines" style="color: #94a3b8; font-size: 12px; font-style: italic;">Write your answer here (or complete on paper)...</span>
+            </div>
+            <div class="guidance-box" style="margin-top: 8px; font-size: 12px; color: #0284c7; background: #f0f9ff; padding: 6px 10px; border-radius: 4px; border-left: 3px solid #0284c7;">
+                <strong>Examiner Guidance:</strong> Dual micing: top mic (Shure SM57) capturing stick attack transient; bottom mic capturing snare wire sizzle; phase polarity inverted on bottom mic to avoid phase cancellation.
+            </div>
+        </div><div class="question-block" style="margin-bottom: 24px;">
+            <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px;">
+                <strong style="color: #0f172a; font-size: 15px;">Question 4</strong>
+                <span style="font-size: 12px; font-weight: 700; color: #64748b; background: #f1f5f9; padding: 2px 8px; border-radius: 4px;">[2 Marks]</span>
+            </div>
+            <p style="color: #334155; font-size: 14px; margin: 0 0 10px 0; line-height: 1.5;">Identify the historical significance of Sly & The Family Stone's 'Family Affair' (1971) regarding drum technology.</p>
+            <div class="write-lines" style="border: 1px dashed #cbd5e1; border-radius: 6px; padding: 8px 12px; min-height: 75px; background: #fafafa;">
+                <span class="print-lines" style="color: #94a3b8; font-size: 12px; font-style: italic;">Write your answer here (or complete on paper)...</span>
+            </div>
+            <div class="guidance-box" style="margin-top: 8px; font-size: 12px; color: #0284c7; background: #f0f9ff; padding: 6px 10px; border-radius: 4px; border-left: 3px solid #0284c7;">
+                <strong>Examiner Guidance:</strong> One of the earliest commercial pop hit records to utilize an electronic rhythm unit (Maestro Rhythm King MRK-2 drum machine) instead of a live drummer.
+            </div>
+        </div>
+
+  <!-- TASK 4: SECTION B 12-MARK ESSAY -->
+  <div class="task-title">
+    <span>✍️ Task 4: Section B Extended 12-Mark Comparative Essay</span>
+  </div>
+  <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 12px; padding: 20px; margin-bottom: 24px;">
+    <span style="background: #0f172a; color: #fff; font-size: 11px; font-weight: 800; padding: 3px 8px; border-radius: 4px; text-transform: uppercase;">
+      Official 12-Mark Prompt
+    </span>
+    <p style="font-size: 15px; font-weight: 700; color: #0f172a; margin: 10px 0 14px 0; line-height: 1.5;">
+      Compare the rhythm section production and bass technology of James Brown's 'Sex Machine' (1970) with Parliament's 'Flash Light' (1977). Focus your answer on: • Acoustic vs. Electronic Sound Sources • Signal Routing & Dynamic Control • Frequency Spectrum & Production Philosophy.
+    </p>
+
+    <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px; margin-top: 12px;">
+      <strong style="color: #334155; font-size: 13px; display: block; margin-bottom: 6px;">Indicative Examiner Mark Scheme Content:</strong>
+      <p style="color: #64748b; font-size: 12.5px; line-height: 1.5; margin: 0;">Contrast James Brown's live, unedited acoustic single-take ensemble performance featuring Bootsy's organic fingerstyle bass and dry funk drums against George Clinton and Bernie Worrell's multi-layered Minimoog synth bass, synthesized laser effects, and heavily processed 24-track studio wizardry.</p>
+    </div>
+  </div>
+
+  </div> <!-- End #homeworkLockedArea -->
+
+  <div style="border-top: 1px solid #e2e8f0; padding-top: 16px; margin-top: 30px; display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: #94a3b8;">
+    <span>&copy; Music Tech Guru &bull; Authorized Classroom &amp; Student Study Pack</span>
+    <span>app.musictechguru.com</span>
+  </div>
+
+</div>
+
+<!-- Supabase Paywall Integration for Web & Homework -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/mtg-quiz-paywall.js"></script>
+
+</body>
+</html>

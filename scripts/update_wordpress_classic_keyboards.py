@@ -118,9 +118,14 @@ def generate_page_content():
 
     <!-- 6. GUIDED EXAM HOMEWORK & REVISION PACK (3 GUIDED ASSIGNMENTS) -->
     <div style="margin-bottom: 45px;">
-        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 18px;">
-            <span style="color: {PURPLE}; font-size: 12px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase;">Guided Exam Homework &amp; Comprehensive Study Pack</span>
-            <div style="height: 1px; flex: 1; background: rgba(255,255,255,0.08);"></div>
+        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 18px;">
+            <div style="display: flex; align-items: center; gap: 10px; flex: 1;">
+                <span style="color: {PURPLE}; font-size: 12px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase;">Guided Exam Homework &amp; Comprehensive Study Pack</span>
+                <div style="height: 1px; flex: 1; background: rgba(255,255,255,0.08);"></div>
+            </div>
+            <a href="https://app.musictechguru.com/downloads/homework/homework-classic-keyboards.html" target="_blank" rel="noopener noreferrer" style="background: linear-gradient(135deg, #7e22ce 0%, #a855f7 100%); color: #ffffff; padding: 7px 16px; border-radius: 8px; text-decoration: none; font-size: 12px; font-weight: 700; display: inline-flex; align-items: center; gap: 6px; box-shadow: 0 4px 14px rgba(126,34,206,0.35);">
+                📥 Open / Print PDF Homework Pack
+            </a>
         </div>
         <p style="color: #94a3b8; font-size: 14px; margin: 0 0 20px 0;">Three classroom-ready exam practice tasks, mark schemes, and technical listening exercises aligned directly with the Edexcel Component 3 Question 5 specification.</p>
         <div style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); display: grid; gap: 18px;">

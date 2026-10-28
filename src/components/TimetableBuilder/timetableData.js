@@ -76,6 +76,20 @@ export const TIMETABLE_BLOCKS = [
     ],
 
         resources: {
+      homeworkPacks: [
+      {
+            "title": "1950s Rock 'n' Roll & Rockabilly Homework Pack (PDF)",
+            "url": "/downloads/homework/homework-rock-n-roll.html",
+            "tag": "Homework PDF",
+            "isPremium": true
+      },
+      {
+            "title": "Electric Blues & Delta Heritage Homework Pack (PDF)",
+            "url": "/downloads/homework/homework-blues.html",
+            "tag": "Homework PDF",
+            "isPremium": true
+      }
+],
       freeTutorials: [
       {
             "title": "Setting Up a Vocal Microphone (Part 1)",
@@ -237,6 +251,20 @@ export const TIMETABLE_BLOCKS = [
     ],
 
         resources: {
+      homeworkPacks: [
+      {
+            "title": "1960s & 1970s Classic Rock & Psychedelia Homework Pack (PDF)",
+            "url": "/downloads/homework/homework-rock.html",
+            "tag": "Homework PDF",
+            "isPremium": true
+      },
+      {
+            "title": "The Electric Guitar & Amplification Homework Pack (PDF)",
+            "url": "/downloads/homework/homework-the-electric-guitar.html",
+            "tag": "Homework PDF",
+            "isPremium": true
+      }
+],
       freeTutorials: [
       {
             "title": "Basic Drum Programming in Logic Pro X",
@@ -410,6 +438,26 @@ export const TIMETABLE_BLOCKS = [
     ],
 
         resources: {
+      homeworkPacks: [
+      {
+            "title": "1970s Funk & P-Funk Homework Pack (PDF)",
+            "url": "/downloads/homework/homework-funk.html",
+            "tag": "Homework PDF",
+            "isPremium": true
+      },
+      {
+            "title": "1970s Disco & Extended Mix Homework Pack (PDF)",
+            "url": "/downloads/homework/homework-disco.html",
+            "tag": "Homework PDF",
+            "isPremium": true
+      },
+      {
+            "title": "1970s & 1980s Reggae & Dub Homework Pack (PDF)",
+            "url": "/downloads/homework/homework-reggae.html",
+            "tag": "Homework PDF",
+            "isPremium": true
+      }
+],
       freeTutorials: [
       {
             "title": "Importing Audio Tutorial for Logic X",
@@ -583,6 +631,20 @@ export const TIMETABLE_BLOCKS = [
     ],
 
         resources: {
+      homeworkPacks: [
+      {
+            "title": "1980s Synth-Pop & New Wave Homework Pack (PDF)",
+            "url": "/downloads/homework/homework-synth-pop.html",
+            "tag": "Homework PDF",
+            "isPremium": true
+      },
+      {
+            "title": "The Synthesizer & Sound Synthesis Homework Pack (PDF)",
+            "url": "/downloads/homework/homework-the-synthesizer.html",
+            "tag": "Homework PDF",
+            "isPremium": true
+      }
+],
       freeTutorials: [
       {
             "title": "The Retro Synth in Logic X",
@@ -756,6 +818,20 @@ export const TIMETABLE_BLOCKS = [
     ],
 
         resources: {
+      homeworkPacks: [
+      {
+            "title": "Chicago House & Acid House Homework Pack (PDF)",
+            "url": "/downloads/homework/homework-house.html",
+            "tag": "Homework PDF",
+            "isPremium": true
+      },
+      {
+            "title": "1990s EDM, Techno & Breakbeat Homework Pack (PDF)",
+            "url": "/downloads/homework/homework-dance.html",
+            "tag": "Homework PDF",
+            "isPremium": true
+      }
+],
       freeTutorials: [
       {
             "title": "Using Aux and Bus Channels in Logic X",
@@ -917,6 +993,20 @@ export const TIMETABLE_BLOCKS = [
     ],
 
         resources: {
+      homeworkPacks: [
+      {
+            "title": "Commercial Pop & Contemporary R&B Homework Pack (PDF)",
+            "url": "/downloads/homework/homework-commercial-pop.html",
+            "tag": "Homework PDF",
+            "isPremium": true
+      },
+      {
+            "title": "The Electric Bass & DI Engineering Homework Pack (PDF)",
+            "url": "/downloads/homework/homework-the-bass-guitar.html",
+            "tag": "Homework PDF",
+            "isPremium": true
+      }
+],
       freeTutorials: [
       {
             "title": "How to Mix Your Drums & Bass for Component 1",
@@ -1073,6 +1163,20 @@ export const TIMETABLE_BLOCKS = [
     ],
 
         resources: {
+      homeworkPacks: [
+      {
+            "title": "Modern Dance & EDM Festival Remixing Homework Pack (PDF)",
+            "url": "/downloads/homework/homework-dance.html",
+            "tag": "Homework PDF",
+            "isPremium": true
+      },
+      {
+            "title": "Hip-Hop & Urban Trap Production Homework Pack (PDF)",
+            "url": "/downloads/homework/homework-hiphop.html",
+            "tag": "Homework PDF",
+            "isPremium": true
+      }
+],
       freeTutorials: [
       {
             "title": "Remixing 'Shape of You' on Logic Pro X",
@@ -1255,6 +1359,20 @@ export const TIMETABLE_BLOCKS = [
     ],
 
         resources: {
+      homeworkPacks: [
+      {
+            "title": "1960s & 1970s Soul & Motown Homework Pack (PDF)",
+            "url": "/downloads/homework/homework-soul.html",
+            "tag": "Homework PDF",
+            "isPremium": true
+      },
+      {
+            "title": "Folk, Acoustic & Indie Heritage Homework Pack (PDF)",
+            "url": "/downloads/homework/homework-folk.html",
+            "tag": "Homework PDF",
+            "isPremium": true
+      }
+],
       freeTutorials: [
       {
             "title": "Music Technology Component 2 Composition Guidance and Tick List",
@@ -1422,6 +1540,26 @@ export const TIMETABLE_BLOCKS = [
     ],
 
         resources: {
+      homeworkPacks: [
+      {
+            "title": "Heavy Metal & The NWOBHM Homework Pack (PDF)",
+            "url": "/downloads/homework/homework-metal.html",
+            "tag": "Homework PDF",
+            "isPremium": true
+      },
+      {
+            "title": "1970s Glam Rock & Theatrical Pop Homework Pack (PDF)",
+            "url": "/downloads/homework/homework-glam-rock.html",
+            "tag": "Homework PDF",
+            "isPremium": true
+      },
+      {
+            "title": "1970s Punk Rock & New Wave Homework Pack (PDF)",
+            "url": "/downloads/homework/homework-punk.html",
+            "tag": "Homework PDF",
+            "isPremium": true
+      }
+],
       freeTutorials: [
       {
             "title": "Component 1: How to Mix Your Drums & Bass",
@@ -1593,6 +1731,20 @@ export const TIMETABLE_BLOCKS = [
     ],
 
         resources: {
+      homeworkPacks: [
+      {
+            "title": "Chicago House & Acid House Grooves Homework Pack (PDF)",
+            "url": "/downloads/homework/homework-house.html",
+            "tag": "Homework PDF",
+            "isPremium": true
+      },
+      {
+            "title": "Electronic Dance Music & Sampling Homework Pack (PDF)",
+            "url": "/downloads/homework/homework-dance.html",
+            "tag": "Homework PDF",
+            "isPremium": true
+      }
+],
       freeTutorials: [
       {
             "title": "Sequencing 101 on Logic Pro X",
@@ -1760,6 +1912,20 @@ export const TIMETABLE_BLOCKS = [
     ],
 
         resources: {
+      homeworkPacks: [
+      {
+            "title": "Advanced Synth-Pop & Sound Design Homework Pack (PDF)",
+            "url": "/downloads/homework/homework-synth-pop.html",
+            "tag": "Homework PDF",
+            "isPremium": true
+      },
+      {
+            "title": "The Synthesizer Architecture Master Homework Pack (PDF)",
+            "url": "/downloads/homework/homework-the-synthesizer.html",
+            "tag": "Homework PDF",
+            "isPremium": true
+      }
+],
       freeTutorials: [
       {
             "title": "The Retro Synth in Logic X",
@@ -1927,6 +2093,20 @@ export const TIMETABLE_BLOCKS = [
     ],
 
         resources: {
+      homeworkPacks: [
+      {
+            "title": "Hip-Hop & Urban Production Homework Pack (PDF)",
+            "url": "/downloads/homework/homework-hiphop.html",
+            "tag": "Homework PDF",
+            "isPremium": true
+      },
+      {
+            "title": "Sub-Bass & Transducer Physics Homework Pack (PDF)",
+            "url": "/downloads/homework/homework-the-bass-guitar.html",
+            "tag": "Homework PDF",
+            "isPremium": true
+      }
+],
       freeTutorials: [
       {
             "title": "Master Edexcel Component 3: Listening and Analysing Guide",
@@ -2088,6 +2268,20 @@ export const TIMETABLE_BLOCKS = [
     ],
 
         resources: {
+      homeworkPacks: [
+      {
+            "title": "Jazz, Swing & Fusion Production Homework Pack (PDF)",
+            "url": "/downloads/homework/homework-jazz.html",
+            "tag": "Homework PDF",
+            "isPremium": true
+      },
+      {
+            "title": "Film Score & Video Game Audio Homework Pack (PDF)",
+            "url": "/downloads/homework/homework-film-games.html",
+            "tag": "Homework PDF",
+            "isPremium": true
+      }
+],
       freeTutorials: [
       {
             "title": "Setting Up a Vocal Microphone (Parts 1 & 2)",
@@ -2255,6 +2449,20 @@ export const TIMETABLE_BLOCKS = [
     ],
 
         resources: {
+      homeworkPacks: [
+      {
+            "title": "The Electric Guitar & Cabinet Micing Homework Pack (PDF)",
+            "url": "/downloads/homework/homework-the-electric-guitar.html",
+            "tag": "Homework PDF",
+            "isPremium": true
+      },
+      {
+            "title": "The Synthesizer Modulation & Routing Homework Pack (PDF)",
+            "url": "/downloads/homework/homework-the-synthesizer.html",
+            "tag": "Homework PDF",
+            "isPremium": true
+      }
+],
       freeTutorials: [
       {
             "title": "Mastering in Logic Pro X (LUFS, Limiting & Dither)",
@@ -2422,6 +2630,20 @@ export const TIMETABLE_BLOCKS = [
     ],
 
         resources: {
+      homeworkPacks: [
+      {
+            "title": "1950s Audio Capture & Tape Saturation Homework Pack (PDF)",
+            "url": "/downloads/homework/homework-rock-n-roll.html",
+            "tag": "Homework PDF",
+            "isPremium": true
+      },
+      {
+            "title": "Electric Blues Heritage & Analog Restoration Homework Pack (PDF)",
+            "url": "/downloads/homework/homework-blues.html",
+            "tag": "Homework PDF",
+            "isPremium": true
+      }
+],
       freeTutorials: [
       {
             "title": "Edexcel Component 4: Producing and Analysing Guide",
@@ -2589,6 +2811,20 @@ export const TIMETABLE_BLOCKS = [
     ],
 
         resources: {
+      homeworkPacks: [
+      {
+            "title": "Component 3 Master Exam Practice: All Specification Genres (PDF)",
+            "url": "/downloads/homework/homework-metal.html",
+            "tag": "Master Exam PDF",
+            "isPremium": true
+      },
+      {
+            "title": "Component 3 Comparative Essay Bootcamp: Synths & Guitars (PDF)",
+            "url": "/downloads/homework/homework-the-synthesizer.html",
+            "tag": "Master Essay PDF",
+            "isPremium": true
+      }
+],
       freeTutorials: [
       {
             "title": "Past Papers & Edexcel Resources Archive",

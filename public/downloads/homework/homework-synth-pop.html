@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Component 3 Homework Pack • 1980s Synth-Pop & New Wave | Music Tech Guru</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --accent: #c084fc;
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --font: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      line-height: 1.6;
+      margin: 0;
+      padding: 24px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: var(--card);
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+      padding: 40px;
+    }
+
+    .header-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid #0f172a;
+      padding-bottom: 20px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+      background: #f1f5f9;
+      padding: 16px;
+      border-radius: 10px;
+      margin-bottom: 30px;
+      font-size: 13px;
+    }
+
+    .task-title {
+      font-size: 19px;
+      font-weight: 800;
+      color: #0f172a;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 32px 0 14px 0;
+      padding-bottom: 6px;
+      border-bottom: 2px solid #c084fc;
+    }
+
+    .matrix-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .matrix-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 16px;
+      border-left: 4px solid #c084fc;
+    }
+
+    .print-btn {
+      background: #0f172a;
+      color: #ffffff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 13px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .print-btn:hover {
+      background: #334155;
+    }
+
+    @media print {
+      body {
+        background: #ffffff !important;
+        padding: 0 !important;
+      }
+      .container {
+        box-shadow: none !important;
+        border: none !important;
+        padding: 0 !important;
+        max-width: 100% !important;
+      }
+      .no-print {
+        display: none !important;
+      }
+      .task-title {
+        page-break-after: avoid;
+      }
+      .question-block {
+        page-break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+<body class="mtg-homework-page">
+
+<div class="container">
+
+  <!-- Top Action Bar -->
+  <div class="header-bar">
+    <div>
+      <span style="font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: #c084fc;">
+        Pearson Edexcel A-Level Music Technology (9MT0) &bull; Component 3
+      </span>
+      <h1 style="font-size: 26px; font-weight: 900; margin: 4px 0 0 0; color: #0f172a;">
+        🎹 1980s Synth-Pop & New Wave
+      </h1>
+      <span style="color: #64748b; font-size: 13px; font-weight: 600;">Official Specification Revision &amp; Homework Study Pack &bull; 1980–1989</span>
+    </div>
+    <div class="no-print">
+      <button class="print-btn" onclick="window.print()">
+        <span>🖨️</span> Print / Save PDF
+      </button>
+    </div>
+  </div>
+
+  <!-- Student Meta Fill-in -->
+  <div class="meta-grid">
+    <div><strong>Student Name:</strong> _______________________</div>
+    <div><strong>Date Assigned:</strong> _______________________</div>
+    <div><strong>Target Grade:</strong> _______</div>
+    <div><strong>Teacher Mark:</strong> ____ / 22 Marks</div>
+  </div>
+
+  <!-- TASK 1: KEY DISCOGRAPHY -->
+  <div class="task-title">
+    <span>🎧 Task 1: Essential Listening &amp; Production Discography</span>
+  </div>
+  <p style="font-size: 13.5px; color: #475569; margin: 0 0 14px 0;">Listen to each track below with high-quality headphones. Identify the specific production fingerprints and studio innovations noted:</p>
+  <div style="overflow-x: auto; margin-bottom: 24px;">
+    <table style="width: 100%; border-collapse: collapse; font-size: 13.5px; text-align: left;">
+      <thead>
+        <tr style="background: #f1f5f9; color: #334155; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px;">
+          <th style="padding: 10px 12px; border-bottom: 2px solid #cbd5e1;">Artist / Producer</th>
+          <th style="padding: 10px 12px; border-bottom: 2px solid #cbd5e1;">Seminal Track</th>
+          <th style="padding: 10px 12px; border-bottom: 2px solid #cbd5e1;">Year</th>
+          <th style="padding: 10px 12px; border-bottom: 2px solid #cbd5e1;">Key Technological Fingerprint</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+            <td style="font-weight: 700; color: #1e293b; padding: 10px 12px; border-bottom: 1px solid #e2e8f0;">The Human League</td>
+            <td style="color: #475569; padding: 10px 12px; border-bottom: 1px solid #e2e8f0; font-style: italic;">Don't You Want Me</td>
+            <td style="color: #64748b; padding: 10px 12px; border-bottom: 1px solid #e2e8f0; font-weight: 600;">1981</td>
+            <td style="color: #334155; padding: 10px 12px; border-bottom: 1px solid #e2e8f0; font-size: 13px;">Martin Rushent production, Roland System 700 modular, Linn LM-1 drum machine, Roland Jupiter-4 arpeggios.</td>
+        </tr><tr>
+            <td style="font-weight: 700; color: #1e293b; padding: 10px 12px; border-bottom: 1px solid #e2e8f0;">Depeche Mode</td>
+            <td style="color: #475569; padding: 10px 12px; border-bottom: 1px solid #e2e8f0; font-style: italic;">Enjoy the Silence / Just Can't Get Enough</td>
+            <td style="color: #64748b; padding: 10px 12px; border-bottom: 1px solid #e2e8f0; font-weight: 600;">1990/1981</td>
+            <td style="color: #334155; padding: 10px 12px; border-bottom: 1px solid #e2e8f0; font-size: 13px;">Flood & Alan Wilder production, E-mu Emulator II sampling, Roland ARP sequence, pristine digital delays.</td>
+        </tr><tr>
+            <td style="font-weight: 700; color: #1e293b; padding: 10px 12px; border-bottom: 1px solid #e2e8f0;">New Order</td>
+            <td style="color: #475569; padding: 10px 12px; border-bottom: 1px solid #e2e8f0; font-style: italic;">Blue Monday</td>
+            <td style="color: #64748b; padding: 10px 12px; border-bottom: 1px solid #e2e8f0; font-weight: 600;">1983</td>
+            <td style="color: #334155; padding: 10px 12px; border-bottom: 1px solid #e2e8f0; font-size: 13px;">Oberheim DMX drum machine step programming, Powertran Cortex digital delay, Moog Source bass, E-mu Emulator choir sample.</td>
+        </tr><tr>
+            <td style="font-weight: 700; color: #1e293b; padding: 10px 12px; border-bottom: 1px solid #e2e8f0;">Tears for Fears</td>
+            <td style="color: #475569; padding: 10px 12px; border-bottom: 1px solid #e2e8f0; font-style: italic;">Shout / Everybody Wants to Rule the World</td>
+            <td style="color: #64748b; padding: 10px 12px; border-bottom: 1px solid #e2e8f0; font-weight: 600;">1985</td>
+            <td style="color: #334155; padding: 10px 12px; border-bottom: 1px solid #e2e8f0; font-size: 13px;">Chris Hughes production, Fairlight CMI Series II digital audio workstation, SSL 4000 G-series bus compression.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- PAYWALL BANNER (Displayed for non-premium visitors) -->
+  <div id="homeworkPaywallBanner" class="no-print" style="display: none; margin: 30px 0; background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%); border: 1px solid rgba(192, 132, 252, 0.4); border-radius: 16px; padding: 32px 24px; text-align: center; box-shadow: 0 15px 40px rgba(0,0,0,0.25); color: #fff;">
+    <div style="display: inline-block; background: rgba(192,132,252,0.15); color: #c084fc; border: 1px solid rgba(192,132,252,0.35); padding: 4px 12px; border-radius: 50px; font-size: 11px; font-weight: 800; text-transform: uppercase; margin-bottom: 12px;">
+      🔒 MTG Pro Member Exclusive
+    </div>
+    <h3 style="font-size: 22px; font-weight: 900; margin: 0 0 10px 0; color: #fff;">
+      Unlock Full Exam Practice Questions &amp; Essay Guide
+    </h3>
+    <p style="color: #94a3b8; font-size: 14px; max-width: 600px; margin: 0 auto 20px auto; line-height: 1.6;">
+      Task 1 above is available as a free preview. To view and print Task 2 (The Big 4 Matrix), Task 3 (Section A 10-Mark Questions), Task 4 (Section B 12-Mark Essay Prompt), and official examiner model marks, please log in with your MTG account or upgrade.
+    </p>
+    <div style="display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;">
+      <a href="https://app.musictechguru.com/" target="_blank" style="background: linear-gradient(135deg, #c084fc, #9333ea); color: #fff; text-decoration: none; padding: 11px 24px; border-radius: 8px; font-weight: 800; font-size: 13.5px; box-shadow: 0 4px 15px rgba(192,132,252,0.4);">
+        Get MTG Revision Pass &rarr;
+      </a>
+      <button id="mtgShowLoginBtn" onclick="window.MTG_Paywall.toggleLogin()" style="background: rgba(255,255,255,0.08); color: #fff; border: 1px solid rgba(255,255,255,0.2); padding: 11px 20px; border-radius: 8px; font-weight: 700; font-size: 13px; cursor: pointer;">
+        Already Subscribed? Sign In with MTG
+      </button>
+    </div>
+    <div id="mtgLoginForm" class="mtg-pw-login-form" style="display: none; max-width: 400px; margin: 20px auto 0 auto; background: rgba(0,0,0,0.4); padding: 16px; border-radius: 10px; text-align: left;">
+      <div style="font-size: 12.5px; font-weight: 700; margin-bottom: 6px;">Sign in with your MTG student/teacher account:</div>
+      <input type="email" id="mtgLoginEmail" style="width: 100%; box-sizing: border-box; background: #0b0f19; border: 1px solid rgba(255,255,255,0.2); color: #fff; padding: 8px 12px; border-radius: 6px; margin-bottom: 8px;" placeholder="Email address">
+      <input type="password" id="mtgLoginPassword" style="width: 100%; box-sizing: border-box; background: #0b0f19; border: 1px solid rgba(255,255,255,0.2); color: #fff; padding: 8px 12px; border-radius: 6px; margin-bottom: 8px;" placeholder="Password">
+      <div id="mtgLoginError" style="color: #ef4444; font-size: 12px; margin-bottom: 8px; display: none;"></div>
+      <button onclick="window.MTG_Paywall.handleLogin()" style="width: 100%; background: #c084fc; color: #fff; border: none; padding: 9px; border-radius: 6px; font-weight: 800; cursor: pointer;">
+        Sign In &amp; Unlock Worksheet
+      </button>
+    </div>
+  </div>
+
+  <div id="homeworkLockedArea">
+
+  <!-- TASK 2: THE BIG 4 FINGERPRINTS -->
+  <div class="task-title">
+    <span>🔍 Task 2: The 'Big 4' Specification Fingerprints</span>
+  </div>
+  <p style="font-size: 13.5px; color: #475569; margin: 0 0 16px 0;">Memorize these core specification criteria across Equipment, Capture, Processing, and Soundstage:</p>
+  
+  <div class="matrix-grid">
+    <div class="matrix-card">
+      <strong style="color: #c084fc; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px;">1. Equipment &amp; Instruments</strong>
+      <p style="color: #334155; font-size: 13px; line-height: 1.5; margin: 6px 0 0 0;">Roland Jupiter-8, Sequential Circuits Prophet-5, Yamaha DX7 (FM synthesis), Roland TB-303, LinnDrum / Oberheim DMX / Roland TR-808 drum machines, Fairlight CMI sampler, MIDI 1.0 protocol (1983+).</p>
+    </div>
+    <div class="matrix-card">
+      <strong style="color: #c084fc; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px;">2. Audio Capture &amp; Micing</strong>
+      <p style="color: #334155; font-size: 13px; line-height: 1.5; margin: 6px 0 0 0;">Almost entirely direct line-level signals (synths and drum machines recorded DI). Vocals recorded in pristine isolation using Neumann U87, Sony C-800G, or Shure SM7B through high-end outboard compressors.</p>
+    </div>
+    <div class="matrix-card">
+      <strong style="color: #c084fc; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px;">3. Processing &amp; Effects</strong>
+      <p style="color: #334155; font-size: 13px; line-height: 1.5; margin: 6px 0 0 0;">Non-linear and gated digital reverb (AMS RMX16 NonLin 2, Lexicon 224/480L), digital delays (AMS DMX 15-80S), aggressive SSL channel gate on snare, early pitch harmonizers (Eventide H910/H949).</p>
+    </div>
+    <div class="matrix-card">
+      <strong style="color: #c084fc; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px;">4. Soundstage &amp; Balance</strong>
+      <p style="color: #334155; font-size: 13px; line-height: 1.5; margin: 6px 0 0 0;">Ultra-wide, pristine digital stereo field. Centered punching digital kick, gated reverb snare, and quantized synth bass; polyphonic synth pads and sampled orchestral brass panned wide with stereo chorus.</p>
+    </div>
+  </div>
+
+  <!-- TASK 3: SECTION A EXAM QUESTIONS -->
+  <div class="task-title">
+    <span>📝 Task 3: Section A Exam Practice Questions (10 Marks)</span>
+  </div>
+  <p style="font-size: 13.5px; color: #475569; margin: 0 0 20px 0;">Answer the following Edexcel exam questions in full technical sentences using professional studio terminology:</p>
+  
+  <div class="question-block" style="margin-bottom: 24px;">
+            <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px;">
+                <strong style="color: #0f172a; font-size: 15px;">Question 1</strong>
+                <span style="font-size: 12px; font-weight: 700; color: #64748b; background: #f1f5f9; padding: 2px 8px; border-radius: 4px;">[1 Marks]</span>
+            </div>
+            <p style="color: #334155; font-size: 14px; margin: 0 0 10px 0; line-height: 1.5;">State the key specification standard introduced in 1983 that allowed synthesizers and drum machines from different manufacturers to communicate.</p>
+            <div class="write-lines" style="border: 1px dashed #cbd5e1; border-radius: 6px; padding: 8px 12px; min-height: 75px; background: #fafafa;">
+                <span class="print-lines" style="color: #94a3b8; font-size: 12px; font-style: italic;">Write your answer here (or complete on paper)...</span>
+            </div>
+            <div class="guidance-box" style="margin-top: 8px; font-size: 12px; color: #0284c7; background: #f0f9ff; padding: 6px 10px; border-radius: 4px; border-left: 3px solid #0284c7;">
+                <strong>Examiner Guidance:</strong> MIDI (Musical Instrument Digital Interface 1.0).
+            </div>
+        </div><div class="question-block" style="margin-bottom: 24px;">
+            <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px;">
+                <strong style="color: #0f172a; font-size: 15px;">Question 2</strong>
+                <span style="font-size: 12px; font-weight: 700; color: #64748b; background: #f1f5f9; padding: 2px 8px; border-radius: 4px;">[3 Marks]</span>
+            </div>
+            <p style="color: #334155; font-size: 14px; margin: 0 0 10px 0; line-height: 1.5;">Explain the difference between Subtractive Synthesis (e.g. Roland Jupiter-8) and Frequency Modulation (FM) Synthesis (e.g. Yamaha DX7).</p>
+            <div class="write-lines" style="border: 1px dashed #cbd5e1; border-radius: 6px; padding: 8px 12px; min-height: 110px; background: #fafafa;">
+                <span class="print-lines" style="color: #94a3b8; font-size: 12px; font-style: italic;">Write your answer here (or complete on paper)...</span>
+            </div>
+            <div class="guidance-box" style="margin-top: 8px; font-size: 12px; color: #0284c7; background: #f0f9ff; padding: 6px 10px; border-radius: 4px; border-left: 3px solid #0284c7;">
+                <strong>Examiner Guidance:</strong> Subtractive: filters out harmonics from rich waveforms (sawtooth/square) with a resonant VCF; FM: modulates frequency of a sine carrier wave with audio-rate modulator operators without using traditional filters.
+            </div>
+        </div><div class="question-block" style="margin-bottom: 24px;">
+            <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px;">
+                <strong style="color: #0f172a; font-size: 15px;">Question 3</strong>
+                <span style="font-size: 12px; font-weight: 700; color: #64748b; background: #f1f5f9; padding: 2px 8px; border-radius: 4px;">[3 Marks]</span>
+            </div>
+            <p style="color: #334155; font-size: 14px; margin: 0 0 10px 0; line-height: 1.5;">Describe the gated reverb effect deployed on 1980s synth-pop snare drums and name the iconic processor used.</p>
+            <div class="write-lines" style="border: 1px dashed #cbd5e1; border-radius: 6px; padding: 8px 12px; min-height: 110px; background: #fafafa;">
+                <span class="print-lines" style="color: #94a3b8; font-size: 12px; font-style: italic;">Write your answer here (or complete on paper)...</span>
+            </div>
+            <div class="guidance-box" style="margin-top: 8px; font-size: 12px; color: #0284c7; background: #f0f9ff; padding: 6px 10px; border-radius: 4px; border-left: 3px solid #0284c7;">
+                <strong>Examiner Guidance:</strong> A large hall or room reverb tail suddenly cut off abruptly by a noise gate before it can naturally decay. Processor: AMS RMX16 (NonLin program) or Lexicon 224.
+            </div>
+        </div><div class="question-block" style="margin-bottom: 24px;">
+            <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px;">
+                <strong style="color: #0f172a; font-size: 15px;">Question 4</strong>
+                <span style="font-size: 12px; font-weight: 700; color: #64748b; background: #f1f5f9; padding: 2px 8px; border-radius: 4px;">[1 Marks]</span>
+            </div>
+            <p style="color: #334155; font-size: 14px; margin: 0 0 10px 0; line-height: 1.5;">Identify the digital sampling workstation used by Tears for Fears and Pet Shop Boys to create orchestral stabs in the mid-1980s.</p>
+            <div class="write-lines" style="border: 1px dashed #cbd5e1; border-radius: 6px; padding: 8px 12px; min-height: 75px; background: #fafafa;">
+                <span class="print-lines" style="color: #94a3b8; font-size: 12px; font-style: italic;">Write your answer here (or complete on paper)...</span>
+            </div>
+            <div class="guidance-box" style="margin-top: 8px; font-size: 12px; color: #0284c7; background: #f0f9ff; padding: 6px 10px; border-radius: 4px; border-left: 3px solid #0284c7;">
+                <strong>Examiner Guidance:</strong> Fairlight CMI (or E-mu Emulator / Synclavier).
+            </div>
+        </div>
+
+  <!-- TASK 4: SECTION B 12-MARK ESSAY -->
+  <div class="task-title">
+    <span>✍️ Task 4: Section B Extended 12-Mark Comparative Essay</span>
+  </div>
+  <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 12px; padding: 20px; margin-bottom: 24px;">
+    <span style="background: #0f172a; color: #fff; font-size: 11px; font-weight: 800; padding: 3px 8px; border-radius: 4px; text-transform: uppercase;">
+      Official 12-Mark Prompt
+    </span>
+    <p style="font-size: 15px; font-weight: 700; color: #0f172a; margin: 10px 0 14px 0; line-height: 1.5;">
+      Evaluate the technological transition from early analog synth-pop (The Human League, 1981) to mid-80s digital sampling and MIDI production (New Order, 1983 / Tears for Fears, 1985). In your response, examine: • Hardware Sequencing & Synchronization • Analog Voltage vs. Digital Sampling • Gated Reverb & Mix Bus Processing.
+    </p>
+
+    <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px; margin-top: 12px;">
+      <strong style="color: #334155; font-size: 13px; display: block; margin-bottom: 6px;">Indicative Examiner Mark Scheme Content:</strong>
+      <p style="color: #64748b; font-size: 12.5px; line-height: 1.5; margin: 0;">Contrast CV/Gate voltage sync and analog synth patch design against MIDI 5-pin DIN communication, digital FM bells, 8-bit/12-bit sample manipulation on the Emulator/Fairlight, and SSL console channel gating.</p>
+    </div>
+  </div>
+
+  </div> <!-- End #homeworkLockedArea -->
+
+  <div style="border-top: 1px solid #e2e8f0; padding-top: 16px; margin-top: 30px; display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: #94a3b8;">
+    <span>&copy; Music Tech Guru &bull; Authorized Classroom &amp; Student Study Pack</span>
+    <span>app.musictechguru.com</span>
+  </div>
+
+</div>
+
+<!-- Supabase Paywall Integration for Web & Homework -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/mtg-quiz-paywall.js"></script>
+
+</body>
+</html>
