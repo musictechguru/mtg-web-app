@@ -308,47 +308,38 @@ html = f'''<!DOCTYPE html>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Music for Film &amp; Computer Games &bull; Interactive Presentation Deck</title>
-  <style>
-{css}
-  </style>
+  <title>Music for Film &amp; Computer Games &bull; Interactive Study Deck | Music Tech Guru</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>{css}</style>
 </head>
 <body>
-  <div class="deck-container">
-    <header class="deck-header">
-      <div class="deck-title">Music for Film &amp; Computer Games &bull; Recording Technology</div>
-      <div class="deck-progress">
-        <span class="progress-label" id="slide-num">Slide 1 of {TOTAL}</span>
-        <div class="progress-bar-bg"><div class="progress-bar-fill" id="progress-bar"></div></div>
-      </div>
+  <div class="deck-wrapper">
+    <header class="deck-topbar">
+      <div class="badge-hub"><span class="badge-pulse"></span>Edexcel Component 3 &bull; Music in Context</div>
+      <div class="deck-topic-title">Topic: <strong>Music for Film &amp; Computer Games</strong></div>
     </header>
-    <main class="slide-viewport">
-{''.join(slides)}
+    <main class="slides-viewport" id="slidesViewport">{''.join(slides)}
     </main>
     <footer class="deck-controls">
-      <button class="nav-btn" onclick="prevSlide()" id="prev-btn" disabled>&larr; Previous</button>
-      <div class="keyboard-hints">Navigate with <kbd>&larr;</kbd> <kbd>&rarr;</kbd> or <kbd>Space</kbd></div>
-      <button class="nav-btn" onclick="nextSlide()" id="next-btn">Next &rarr;</button>
+      <button class="nav-btn" id="prevBtn" onclick="prevSlide()" disabled>&larr; Previous</button>
+      <div class="progress-container">
+        <span class="slide-counter" id="slideCounter">Slide 1 of {TOTAL}</span>
+        <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+      </div>
+      <button class="nav-btn" id="nextBtn" onclick="nextSlide()">Next &rarr;</button>
     </footer>
   </div>
 
-  <!-- Video Modal -->
-  <div class="video-modal" id="video-modal">
-    <div class="video-modal-backdrop" onclick="closeVideo()"></div>
+  <div class="video-modal-backdrop" id="videoModal">
     <div class="video-modal-content">
-      <div class="video-modal-header">
-        <h3 id="video-modal-title">Track Demonstration</h3>
-        <button class="modal-close-btn" onclick="closeVideo()">&times;</button>
-      </div>
-      <div class="video-frame-container">
-        <iframe id="video-iframe" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-      </div>
+      <div class="video-modal-header"><span class="video-modal-title" id="videoModalTitle">Video Clip</span><button class="close-modal-btn" onclick="closeVideo()">&times;</button></div>
+      <div class="video-player-wrapper"><iframe id="videoIframe" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
     </div>
   </div>
 
-  <script>
-{js}
-  </script>
+  <script>{js}</script>
 </body>
 </html>'''
 
