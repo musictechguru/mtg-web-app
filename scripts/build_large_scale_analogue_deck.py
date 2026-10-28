@@ -278,7 +278,7 @@ slide('🎹', 'Keyboard Synthesis', 'Subtractive &amp; Polyphonic Synths: <span>
                <h4>Minimoog Model D (1970)</h4>
                <p>Monophonic subtractive synthesizer with 3 VCOs, noise generator, and the legendary 24 dB/octave 4-pole transistor ladder low-pass filter. Defined punchy synth bass across disco, funk, and rock.</p>
                {vid('Vscv_eC3sUo', 'Minimoog Model D Demonstration', 'Watch: Minimoog Bass & Lead Synthesis')}'''),
-          card('acid-edge', f'''{thumb('prophet_5_synth.jpg', 'Sequential Circuits Prophet-5')}
+          card('acid-edge', f'''{thumb('prophet_5_synth.png', 'Sequential Circuits Prophet-5')}
                <span class="spec-pill ao3">AO3 Polyphonic Presets</span>
                <h4>Sequential Prophet-5 (1978)</h4>
                <p>The first fully programmable 5-voice polyphonic analog synthesizer with patch memory storage. Allowed musicians to save and instantly recall rich analog string pads, brass stabs, and chords.</p>''')
@@ -292,7 +292,7 @@ slide('🥁', 'Acoustic Engineering', 'Close-Miking Drums, <span>Damping &amp; D
                <span class="spec-pill ao3">AO3 Multi-Track Capture</span>
                <h4>Individual Shell Miking</h4>
                <p>Instead of 2–3 overall mics, 10+ tracks were allocated: kick drum (inside &amp; outside), snare top &amp; bottom, hi-hat, 3 rack toms, floor tom, and stereo overheads spaced or XY.</p>'''),
-          card('cyan-edge', f'''{thumb('snare_drum_shure_sm57.png', 'Snare Drum Shure SM57 Placement')}
+          card('cyan-edge', f'''{thumb('snare_drum_shure_sm57.jpg', 'Snare Drum Shure SM57 Placement')}
                <span class="spec-pill ao3">AO3 Transducer Physics</span>
                <h4>Snare Dual-Miking &amp; Phase</h4>
                <p>Top mic (Shure SM57) captures stick attack; bottom mic captures high-frequency snare wire sizzle. Inverting the electrical phase on the bottom mic prevents destructive phase cancellation.</p>'''),
