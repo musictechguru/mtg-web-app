@@ -385,30 +385,22 @@ full_html = f'''<!DOCTYPE html>
 </head>
 <body>
   <div class="deck-wrapper">
-    <header class="deck-header">
-      <div class="deck-brand">
-        <span class="deck-dot"></span>
-        <span class="deck-title">DIRECT TO TAPE RECORDING (1950–1963) &bull; A-LEVEL MUSIC TECH</span>
-      </div>
-      <div class="deck-controls">
-        <span class="slide-indicator" id="slideIndicator">1 / {TOTAL}</span>
-        <button class="nav-btn" onclick="prevSlide()" title="Previous slide (Left Arrow)">&larr;</button>
-        <button class="nav-btn" onclick="nextSlide()" title="Next slide (Right Arrow / Space)">&rarr;</button>
-        <button class="fullscreen-btn" onclick="toggleFullscreen()" title="Toggle Fullscreen">⛶</button>
-      </div>
+    <header class="deck-topbar">
+      <div class="badge-hub"><span class="badge-pulse"></span>Edexcel Component 4 &bull; Production &amp; Analysing</div>
+      <div class="deck-topic-title">Topic: <strong>Direct to Tape Recording (1950–1963)</strong></div>
     </header>
 
-    <div class="progress-bar-track">
-      <div class="progress-bar-fill" id="progressBar"></div>
-    </div>
-
-    <main class="slide-viewport" id="slidesViewport">
+    <main class="slides-viewport" id="slidesViewport">
 {slides_html}
     </main>
 
-    <footer class="deck-footer">
-      <span>GCE A-Level Music Technology &bull; Component 4: Production &amp; Analysing</span>
-      <span>Use <kbd>&larr;</kbd> <kbd>&rarr;</kbd> or <kbd>Space</kbd> to navigate &bull; <kbd>F</kbd> for fullscreen</span>
+    <footer class="deck-controls">
+      <button class="nav-btn" id="prevBtn" onclick="prevSlide()" disabled>&larr; Previous</button>
+      <div class="progress-container">
+        <span class="slide-counter" id="slideCounter">Slide 1 of {TOTAL}</span>
+        <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+      </div>
+      <button class="nav-btn" id="nextBtn" onclick="nextSlide()">Next &rarr;</button>
     </footer>
   </div>
 
@@ -439,36 +431,71 @@ full_html = f'''<!DOCTYPE html>
   </div>
 
   <script>
-    const TOTAL_SLIDES = {TOTAL};
-    let currentSlide = 1;
+    let currentSlide = 0;
     const slides = document.querySelectorAll('.slide');
-    const slideIndicator = document.getElementById('slideIndicator');
-    const progressBar = document.getElementById('progressBar');
+    const totalSlides = slides.length;
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const slideCounter = document.getElementById('slideCounter');
+    const progressFill = document.getElementById('progressFill');
     const videoModal = document.getElementById('videoModal');
-    const videoIframe = document.getElementById('videoIframe');
     const videoModalTitle = document.getElementById('videoModalTitle');
+    const videoIframe = document.getElementById('videoIframe');
 
-    function updateSlide(index) {{
-      if (index < 1) index = 1;
-      if (index > TOTAL_SLIDES) index = TOTAL_SLIDES;
-      currentSlide = index;
-      slides.forEach((s, idx) => {{
-        s.classList.toggle('active', idx + 1 === currentSlide);
+    function updateDeck() {{
+      slides.forEach((slide, idx) => {{
+        slide.classList.toggle('active', idx === currentSlide);
       }});
-      slideIndicator.textContent = `${{currentSlide}} / ${{TOTAL_SLIDES}}`;
-      progressBar.style.width = `${{(currentSlide / TOTAL_SLIDES) * 100}}%`;
+
+      prevBtn.disabled = currentSlide === 0;
+      nextBtn.disabled = currentSlide === totalSlides - 1;
+      
+      slideCounter.textContent = `Slide ${{currentSlide + 1}} of ${{totalSlides}}`;
+      const percentage = ((currentSlide + 1) / totalSlides) * 100;
+      progressFill.style.width = `${{percentage}}%`;
     }}
 
-    function nextSlide() {{ updateSlide(currentSlide + 1); }}
-    function prevSlide() {{ updateSlide(currentSlide - 1); }}
-
-    function toggleFullscreen() {{
-      if (!document.fullscreenElement) {{
-        document.documentElement.requestFullscreen().catch(err => {{}});
-      }} else {{
-        if (document.exitFullscreen) {{ document.exitFullscreen(); }}
+    function nextSlide() {{
+      if (currentSlide < totalSlides - 1) {{
+        currentSlide++;
+        updateDeck();
       }}
     }}
+
+    function prevSlide() {{
+      if (currentSlide > 0) {{
+        currentSlide--;
+        updateDeck();
+      }}
+    }}
+
+    document.addEventListener('keydown', (e) => {{
+      if (videoModal && videoModal.classList.contains('open')) {{
+        if (e.key === 'Escape') closeVideo();
+        return;
+      }}
+      if (e.key === 'ArrowRight' || e.key === ' ') {{
+        e.preventDefault();
+        nextSlide();
+      }} else if (e.key === 'ArrowLeft') {{
+        e.preventDefault();
+        prevSlide();
+      }}
+    }});
+
+    let touchStartX = 0;
+    let touchEndX = 0;
+    const viewport = document.getElementById('slidesViewport');
+
+    viewport.addEventListener('touchstart', (e) => {{
+      touchStartX = e.changedTouches[0].screenX;
+    }}, {{ passive: true }});
+
+    viewport.addEventListener('touchend', (e) => {{
+      touchEndX = e.changedTouches[0].screenX;
+      if (touchEndX < touchStartX - 50) nextSlide();
+      if (touchEndX > touchStartX + 50) prevSlide();
+    }}, {{ passive: true }});
 
     function openVideo(videoId, title) {{
       const extLink = document.getElementById('videoExternalLink');
@@ -483,32 +510,16 @@ full_html = f'''<!DOCTYPE html>
     }}
 
     function closeVideo() {{
-      videoIframe.src = '';
       videoModal.classList.remove('open');
       videoModal.style.display = 'none';
+      videoIframe.src = '';
     }}
-
-    document.addEventListener('keydown', (e) => {{
-      if (videoModal && videoModal.classList.contains('open')) {{
-        if (e.key === 'Escape') closeVideo();
-        return;
-      }}
-      if (e.key === 'ArrowRight' || e.key === ' ') {{
-        e.preventDefault();
-        nextSlide();
-      }} else if (e.key === 'ArrowLeft') {{
-        e.preventDefault();
-        prevSlide();
-      }} else if (e.key === 'f' || e.key === 'F') {{
-        toggleFullscreen();
-      }}
-    }});
 
     videoModal.addEventListener('click', (e) => {{
       if (e.target === videoModal) closeVideo();
     }});
 
-    updateSlide(1);
+    updateDeck();
   </script>
 </body>
 </html>
