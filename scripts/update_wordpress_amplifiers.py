@@ -96,9 +96,9 @@ def build_amplifiers_html():
                 <span>&#x26F6;</span> Open Fullscreen Deck
             </a>
         </div>
-        <p style="color: #94a3b8; font-size: 13.5px; margin: 0 0 16px 0;">15 comprehensive specification slides with high-resolution vector schematics, vacuum tube anatomy, harmonic clipping waveforms, and zero-history embedded video players.</p>
+        <p style="color: #94a3b8; font-size: 13.5px; margin: 0 0 16px 0;">14 Interactive Split-Screen Slides &bull; Authentic Instrument Photography &amp; Circuit Architecture &bull; Embedded YouTube Landmark Recordings from Les Paul, Vox AC30 &amp; The Kinks to Marshall Stacks, Ampeg SVT &amp; DSP Modellers.</p>
         <div style="position: relative; width: 100%; height: 680px; border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,255,255,0.08); background: #000;">
-            <iframe src="https://app.musictechguru.com/interactive-slide-amplifiers" style="width: 100%; height: 100%; border: none;" allowfullscreen loading="lazy"></iframe>
+            <iframe id="iframe-amplifiers-deck" src="https://app.musictechguru.com/interactive-slide-amplifiers" data-src="https://app.musictechguru.com/interactive-slide-amplifiers" style="width: 100%; height: 100%; border: 0; display: block;" loading="eager" data-no-lazy="1" data-skip-lazy="1" allowfullscreen></iframe></iframe>
         </div>
     </div>
 
