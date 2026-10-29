@@ -1,0 +1,1990 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <title>Audio Recording &amp; Storage Formats | Edexcel Component 3 Music Technology</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #080e1a;
+      --panel-bg: #0f172a;
+      --card-bg: rgba(255, 255, 255, 0.03);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --accent-music: #38bdf8;
+      --accent-music-glow: rgba(56, 189, 248, 0.25);
+      --accent-format: #a855f7;
+      --accent-format-glow: rgba(168, 85, 247, 0.25);
+      --accent-highlight: #ec4899;
+      --text-white: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-dim: #64748b;
+      --border-subtle: rgba(255, 255, 255, 0.06);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-white);
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.5;
+      overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .deck-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 16px 20px 80px;
+      width: 100%;
+      flex: 1;
+    }
+
+    .slide {
+      display: none;
+      opacity: 0;
+      transition: opacity 0.3s ease-in-out;
+    }
+
+    .slide.active {
+      display: block;
+      opacity: 1;
+    }
+
+    .slide-header {
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .deck-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      color: var(--accent-music);
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 4px 12px;
+      border-radius: 9999px;
+      margin-bottom: 8px;
+    }
+
+    .slide-heading {
+      font-size: clamp(22px, 3.2vw, 34px);
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      color: #ffffff;
+      margin-bottom: 6px;
+    }
+
+    .slide-heading span {
+      color: var(--accent-format);
+    }
+
+    .slide-lead {
+      color: var(--text-muted);
+      font-size: clamp(13px, 1.4vw, 15px);
+      max-width: 950px;
+      line-height: 1.5;
+    }
+
+    /* 2-COLUMN SPLIT GRID */
+    .grid-2-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      align-items: start;
+    }
+
+    @media (max-width: 960px) {
+      .grid-2-split {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .column-panel {
+      background: var(--panel-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+    }
+
+    .music-col {
+      border-top: 4px solid var(--accent-music);
+    }
+
+    .format-col {
+      border-top: 4px solid var(--accent-format);
+    }
+
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .panel-badge {
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 6px;
+    }
+
+    .music-badge {
+      background: rgba(56, 189, 248, 0.15);
+      color: var(--accent-music);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+    }
+
+    .format-badge {
+      background: rgba(168, 85, 247, 0.15);
+      color: var(--accent-format);
+      border: 1px solid rgba(168, 85, 247, 0.35);
+    }
+
+    .panel-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* Video Frame */
+    .video-container {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%;
+      border-radius: 10px;
+      overflow: hidden;
+      background: #000;
+      border: 1px solid var(--card-border);
+      margin-bottom: 14px;
+    }
+
+    .video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    /* Track metadata */
+    .track-meta {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      padding: 12px 14px;
+      margin-bottom: 14px;
+    }
+
+    .track-title {
+      font-size: 15px;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .track-artist {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--accent-music);
+    }
+
+    .track-album {
+      font-size: 11px;
+      color: var(--text-dim);
+      margin-top: 2px;
+    }
+
+    /* Listening guide */
+    .ear-training-box {
+      background: rgba(56, 189, 248, 0.05);
+      border: 1px solid rgba(56, 189, 248, 0.2);
+      border-radius: 10px;
+      padding: 14px;
+      margin-bottom: 14px;
+    }
+
+    .ear-training-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--accent-music);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 8px;
+    }
+
+    .ear-points {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .ear-points li {
+      font-size: 12.5px;
+      color: var(--text-muted);
+      line-height: 1.45;
+      position: relative;
+      padding-left: 18px;
+    }
+
+    .ear-points li::before {
+      content: "▸";
+      position: absolute;
+      left: 2px;
+      color: var(--accent-music);
+      font-weight: bold;
+    }
+
+    .ear-points li strong {
+      color: #fff;
+    }
+
+    /* Tags */
+    .tags-cloud {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .tech-tag {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: var(--text-muted);
+    }
+
+    /* Format Hardware Right Column */
+    .hardware-photo {
+      width: 100%;
+      height: 220px;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--card-border);
+      margin-bottom: 14px;
+      background: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hardware-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      background: #030712;
+      transition: transform 0.4s ease;
+    }
+
+    .hardware-photo:hover img {
+      transform: scale(1.03);
+    }
+
+    .hardware-hero-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      padding: 12px 14px;
+      margin-bottom: 14px;
+    }
+
+    .inst-name {
+      font-size: 16px;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .inst-specs {
+      font-size: 12px;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--accent-format);
+      margin-top: 3px;
+    }
+
+    .history-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      padding: 14px;
+      margin-bottom: 14px;
+    }
+
+    .history-title {
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+
+    .history-card p {
+      font-size: 12.5px;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin-bottom: 8px;
+    }
+
+    .history-card p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* How It Works Steps */
+    .mech-chain {
+      background: rgba(168, 85, 247, 0.05);
+      border: 1px solid rgba(168, 85, 247, 0.2);
+      border-radius: 10px;
+      padding: 14px;
+    }
+
+    .mech-title {
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--accent-format);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .step-item {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 8px;
+      font-size: 12px;
+      line-height: 1.4;
+    }
+
+    .step-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .step-num {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--accent-format);
+      color: #fff;
+      font-weight: 800;
+      font-size: 11px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .step-text strong {
+      color: #fff;
+    }
+
+    .step-text span {
+      color: var(--text-muted);
+    }
+
+    /* Master Table Slide */
+    .table-container {
+      overflow-x: auto;
+      margin-top: 12px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+    }
+
+    .master-matrix-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+      text-align: left;
+    }
+
+    .master-matrix-table th {
+      background: rgba(168, 85, 247, 0.15);
+      color: var(--text-white);
+      padding: 10px 12px;
+      font-weight: 800;
+      border-bottom: 1px solid var(--card-border);
+      text-transform: uppercase;
+      font-size: 11px;
+      letter-spacing: 0.5px;
+    }
+
+    .master-matrix-table td {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      vertical-align: top;
+    }
+
+    .master-matrix-table tr:hover td {
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .master-matrix-table td strong {
+      color: #fff;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .exam-warning-box {
+      background: rgba(236, 72, 153, 0.08);
+      border: 1px solid rgba(236, 72, 153, 0.3);
+      border-radius: 10px;
+      padding: 14px;
+      margin-top: 14px;
+    }
+
+    .exam-warning-header {
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--accent-highlight);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* BOTTOM NAV CONTROLS */
+    .deck-nav-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(8, 14, 26, 0.95);
+      backdrop-filter: blur(12px);
+      border-top: 1px solid var(--border-subtle);
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+    }
+
+    .nav-left, .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .nav-btn {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      color: var(--text-white);
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .nav-btn:hover:not(:disabled) {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .nav-btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    .nav-btn.primary {
+      background: var(--accent-format);
+      border-color: var(--accent-format);
+      color: #fff;
+    }
+
+    .nav-btn.primary:hover:not(:disabled) {
+      background: #9333ea;
+    }
+
+    .slide-select {
+      background: var(--panel-bg);
+      border: 1px solid var(--card-border);
+      color: var(--text-white);
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      outline: none;
+      cursor: pointer;
+      max-width: 320px;
+    }
+
+    .slide-counter {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-muted);
+    }
+
+    .progress-bar-container {
+      position: fixed;
+      bottom: 58px;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: rgba(255, 255, 255, 0.05);
+      z-index: 101;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent-music), var(--accent-format));
+      width: 8.33%;
+      transition: width 0.3s ease;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="progress-bar-container">
+    <div class="progress-bar-fill" id="progressBar"></div>
+  </div>
+
+  <div class="deck-container">
+    
+    <!-- SLIDE 1 -->
+    <div class="slide active" id="slide-1">
+      <div class="slide-header">
+        <div class="deck-tag">Component 3 Overview</div>
+        <h1 class="slide-heading">The Evolution of <span>Sound Recording &amp; Storage</span></h1>
+        <p class="slide-lead">From Thomas Edison's acoustic horn to uncompressed 24-bit streaming, the history of music technology is driven by the quest for higher fidelity, greater dynamic range, and seamless portability.</p>
+      </div>
+
+      <div class="grid-2-split">
+        <!-- LEFT: MUSIC & LISTENING FOCUS -->
+        <div class="column-panel music-col">
+          <div class="panel-header">
+            <span class="panel-badge music-badge">Landmark Audio Recording</span>
+            <span class="panel-title">The 140-Year Format Journey</span>
+          </div>
+
+          <div class="video-container">
+            <iframe src="https://www.youtube-nocookie.com/embed/D3XB3owN6qo?rel=0&modestbranding=1" 
+                    title="A Brief History of Music Formats (1877–Present)" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    allowfullscreen></iframe>
+          </div>
+
+          <div class="track-meta">
+            <div class="track-title">A Brief History of Music Formats (1877–Present)</div>
+            <div class="track-artist">Sound Preservation Archive</div>
+            <div class="track-album">A-Level Component 3 Critical Ear-Training Benchmark</div>
+          </div>
+
+          <div class="ear-training-box">
+            <div class="ear-training-header">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+              Ear-Training Diagnostic: Transduction Signatures Across Eras
+            </div>
+            <ul class="ear-points">
+              <li>Compare the sound across eras: early acoustic shellac is pinched and band-limited (midrange horn resonances), analogue tape brings lush saturation and low-end warmth accompanied by tape hiss, Red Book CD delivers laser-etched black silence and razor transients, while low-bitrate MP3 introduces 'watery' swishing artifacts.</li>
+              <li>In the Component 3 exam, questions often ask you to identify the recording era or medium by listening for signature artifacts: steel needle surface crackle, magnetic tape hiss, wow and flutter, or digital psychoacoustic smearing.</li>
+            </ul>
+          </div>
+
+          <div class="tags-cloud">
+            <span class="tech-tag">Transduction Physics</span><span class="tech-tag">Dynamic Range</span><span class="tech-tag">Frequency Bandwidth</span><span class="tech-tag">Mechanical vs Magnetic</span><span class="tech-tag">Optical vs Digital</span>
+          </div>
+        </div>
+
+        <!-- RIGHT: FORMAT ARCHITECTURE & TRANSDUCTION -->
+        <div class="column-panel format-col">
+          <div class="panel-header">
+            <span class="panel-badge format-badge">Format Architecture</span>
+            <span class="panel-title">Timeline of Recording Formats</span>
+          </div>
+
+          <div class="hardware-photo">
+            <img src="/images/music_formats/edison_and_phonograph_edit1.jpg" alt="Thomas Edison with early phonograph" loading="lazy">
+          </div>
+
+          <div class="hardware-hero-card">
+            <div class="inst-name">🎙️ The 4 Eras of Sound Storage</div>
+            <div class="inst-specs">Mechanical (1877) &bull; Magnetic (1930s) &bull; Optical (1982) &bull; Lossless Streaming (2000s)</div>
+          </div>
+
+          <div class="history-card">
+            <div class="history-title">Four Waves of Transduction Physics</div>
+            <p>A-Level Music Technology Component 3 categorises audio reproduction into four distinct eras: (1) Acoustic/Mechanical where acoustic pressure physically cut grooves, (2) Electrical/Magnetic where electromagnetic induction allowed microphones and magnetic tape, (3) Optical Digital where lasers decoded binary pits, and (4) Perceptual/Streamed Audio.</p>
+            <p>Every format represents engineering trade-offs between three core parameters: Frequency Bandwidth (reproduced frequency spectrum), Dynamic Range (signal-to-noise ratio in dB), and Storage Portability (playing time vs physical footprint).</p>
+          </div>
+
+          <div class="mech-chain">
+            <div class="mech-title">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="m10 15 5-3-5-3v6z"/></svg>
+              The 4 Primary Transduction Modes
+            </div>
+            
+        <div class="step-item">
+          <div class="step-num">1</div>
+          <div class="step-text"><strong>Mechanical Transduction (Acoustic / Disc):</strong> <span>Air pressure waves physically vibrate a diaphragm to etch grooves in tinfoil, wax, or shellac; playback reverses the process via a needle and horn.</span></div>
+        </div>
+        
+        <div class="step-item">
+          <div class="step-num">2</div>
+          <div class="step-text"><strong>Magnetic Induction (Tape / Cassette):</strong> <span>Microphones convert sound into AC electricity, which magnetises ferromagnetic particles on a plastic ribbon via record head electromagnetic coils.</span></div>
+        </div>
+        
+        <div class="step-item">
+          <div class="step-num">3</div>
+          <div class="step-text"><strong>Optical Digital (CD-DA / Laser):</strong> <span>PCM binary audio (1s and 0s) is etched as microscopic pits on a reflective disc; an infrared laser diode reads light reflection variations onto a photodiode.</span></div>
+        </div>
+        
+        <div class="step-item">
+          <div class="step-num">4</div>
+          <div class="step-text"><strong>Perceptual Psychoacoustic Streaming:</strong> <span>Mathematical algorithms discard imperceptible frequencies masked by human ear biology, enabling small file sizes for instant internet streaming.</span></div>
+        </div>
+        
+          </div>
+        </div>
+      </div>
+    </div>
+    
+
+    <!-- SLIDE 2 -->
+    <div class="slide" id="slide-2">
+      <div class="slide-header">
+        <div class="deck-tag">The Acoustic Era</div>
+        <h1 class="slide-heading">Shellac 78 RPM Discs: <span>Heavy Needles &amp; Horns</span></h1>
+        <p class="slide-lead">Before vinyl and microphones, music was captured purely acoustically: performers projected into large metal horns, etching lateral modulations into brittle shellac discs rotating at 78 RPM.</p>
+      </div>
+
+      <div class="grid-2-split">
+        <!-- LEFT: MUSIC & LISTENING FOCUS -->
+        <div class="column-panel music-col">
+          <div class="panel-header">
+            <span class="panel-badge music-badge">Landmark Audio Recording</span>
+            <span class="panel-title">The World's First Million-Selling Record</span>
+          </div>
+
+          <div class="video-container">
+            <iframe src="https://www.youtube-nocookie.com/embed/Hlp0ctNv7pI?rel=0&modestbranding=1" 
+                    title=""Vesti la giubba" (1904 &bull; Victor 78 RPM Recording)" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    allowfullscreen></iframe>
+          </div>
+
+          <div class="track-meta">
+            <div class="track-title">"Vesti la giubba" (1904 &bull; Victor 78 RPM Recording)</div>
+            <div class="track-artist">Enrico Caruso</div>
+            <div class="track-album">A-Level Component 3 Critical Ear-Training Benchmark</div>
+          </div>
+
+          <div class="ear-training-box">
+            <div class="ear-training-header">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+              Ear-Training Diagnostic: Acoustic Horn Bandwidth & Surface Noise
+            </div>
+            <ul class="ear-points">
+              <li>Notice the intense midrange honk and narrow bandwidth: frequencies below 200 Hz and above 3,000 Hz are completely missing. There is no sub-bass or airy treble because acoustic diaphragms were physically incapable of responding to extreme frequencies.</li>
+              <li>Listen to the continuous rhythmic rushing surface noise and clicks caused by the steel needle dragging through abrasive slate and limestone fillers embedded in the shellac compound to grind down the needle point.</li>
+            </ul>
+          </div>
+
+          <div class="tags-cloud">
+            <span class="tech-tag">78 RPM Shellac</span><span class="tech-tag">Acoustic Horn</span><span class="tech-tag">Steel Stylus</span><span class="tech-tag">Abrasive Filler</span><span class="tech-tag">3-Minute Limit</span>
+          </div>
+        </div>
+
+        <!-- RIGHT: FORMAT ARCHITECTURE & TRANSDUCTION -->
+        <div class="column-panel format-col">
+          <div class="panel-header">
+            <span class="panel-badge format-badge">Format Architecture</span>
+            <span class="panel-title">Shellac Lateral Cut Disc</span>
+          </div>
+
+          <div class="hardware-photo">
+            <img src="/images/music_formats/pathe_disc.png" alt="Antique 78 RPM Disc" loading="lazy">
+          </div>
+
+          <div class="hardware-hero-card">
+            <div class="inst-name">📀 Shellac 78 RPM Disc (1898–1950s)</div>
+            <div class="inst-specs">78.26 RPM &bull; Brittle Shellac &amp; Slate &bull; 100-200g Tracking Force</div>
+          </div>
+
+          <div class="history-card">
+            <div class="history-title">The Mechanics of Acoustic Disc Recording</div>
+            <p>Shellac records were manufactured using resin secreted by the female Kerria lacca beetle mixed with ground slate, clay, and cotton flock. The slate was deliberately added to wear down the cheap steel playback needles to fit the groove shape!</p>
+            <p>Because no electronic amplification existed prior to 1925, musicians had to gather tightly around recording horns. Soft instruments (violins) required attached metal diaphragms (Stroh violins) to be audible against loud brass horns.</p>
+          </div>
+
+          <div class="mech-chain">
+            <div class="mech-title">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="m10 15 5-3-5-3v6z"/></svg>
+              How Acoustic 78 RPM Playback Works
+            </div>
+            
+        <div class="step-item">
+          <div class="step-num">1</div>
+          <div class="step-text"><strong>Lateral Groove Tracking:</strong> <span>The heavy steel needle sits in a wide groove (3 mil radius) that moves laterally (side-to-side) corresponding to the sound pressure waveform.</span></div>
+        </div>
+        
+        <div class="step-item">
+          <div class="step-num">2</div>
+          <div class="step-text"><strong>Mechanical Diaphragm Coupling:</strong> <span>Needle vibrations are directly transferred up a rigid metal lever to a thin mica or aluminium diaphragm inside the soundbox.</span></div>
+        </div>
+        
+        <div class="step-item">
+          <div class="step-num">3</div>
+          <div class="step-text"><strong>Acoustic Horn Amplification:</strong> <span>The vibrating diaphragm modulates air pressure within an exponentially expanding horn, coupling acoustic impedance to amplify the sound physically.</span></div>
+        </div>
+        
+        <div class="step-item">
+          <div class="step-num">4</div>
+          <div class="step-text"><strong>Heavy Stylus Wear & Speed Limitation:</strong> <span>Massive tracking force (100–200g) wore needles down rapidly; at 78 RPM, a 10-inch record offered only 3 to 3.5 minutes of playing time per side.</span></div>
+        </div>
+        
+          </div>
+        </div>
+      </div>
+    </div>
+    
+
+    <!-- SLIDE 3 -->
+    <div class="slide" id="slide-3">
+      <div class="slide-header">
+        <div class="deck-tag">The Analogue High-Fidelity Era</div>
+        <h1 class="slide-heading">Vinyl Microgroove LPs: <span>RIAA EQ &amp; 33⅓ RPM</span></h1>
+        <p class="slide-lead">Columbia Records revolutionised audio in 1948 with the Long Play (LP). Pressed on quiet polyvinyl chloride (PVC) with microscopic grooves and RIAA equalisation, vinyl unlocked 22 minutes of stereo fidelity per side.</p>
+      </div>
+
+      <div class="grid-2-split">
+        <!-- LEFT: MUSIC & LISTENING FOCUS -->
+        <div class="column-panel music-col">
+          <div class="panel-header">
+            <span class="panel-badge music-badge">Landmark Audio Recording</span>
+            <span class="panel-title">Stereo Space & Microgroove Fidelity</span>
+          </div>
+
+          <div class="video-container">
+            <iframe src="https://www.youtube-nocookie.com/embed/zqNTltOGh5c?rel=0&modestbranding=1" 
+                    title=""So What" (Kind of Blue &bull; 1959 Columbia 33⅓ RPM LP)" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    allowfullscreen></iframe>
+          </div>
+
+          <div class="track-meta">
+            <div class="track-title">"So What" (Kind of Blue &bull; 1959 Columbia 33⅓ RPM LP)</div>
+            <div class="track-artist">Miles Davis</div>
+            <div class="track-album">A-Level Component 3 Critical Ear-Training Benchmark</div>
+          </div>
+
+          <div class="ear-training-box">
+            <div class="ear-training-header">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+              Ear-Training Diagnostic: RIAA Balance & Stereo 45/45 Geometry
+            </div>
+            <ul class="ear-points">
+              <li>Listen to Paul Chambers' walking double-bass and Jimmy Cobb's ride cymbal: unlike 78s, vinyl delivers full 20 Hz – 20,000 Hz extension. Notice the wide stereophonic separation: trumpet left, saxophones right, piano and bass anchored in the middle.</li>
+              <li>Listen for vinyl's subtle characteristics: faint surface crackle, microscopic dust ticks, warm lower-mid harmonic bloom, and a dynamic range of approximately 55–65 dB without digital quantization artifacts.</li>
+            </ul>
+          </div>
+
+          <div class="tags-cloud">
+            <span class="tech-tag">Vinyl LP</span><span class="tech-tag">33⅓ RPM</span><span class="tech-tag">RIAA Curve</span><span class="tech-tag">Microgroove</span><span class="tech-tag">45/45 Stereo Matrix</span>
+          </div>
+        </div>
+
+        <!-- RIGHT: FORMAT ARCHITECTURE & TRANSDUCTION -->
+        <div class="column-panel format-col">
+          <div class="panel-header">
+            <span class="panel-badge format-badge">Format Architecture</span>
+            <span class="panel-title">Vinyl Microgroove Architecture</span>
+          </div>
+
+          <div class="hardware-photo">
+            <img src="/images/music_formats/vinyl_lp.jpg" alt="Vinyl 12-inch LP Record" loading="lazy">
+          </div>
+
+          <div class="hardware-hero-card">
+            <div class="inst-name">💽 Vinyl LP &amp; 45 RPM Microgroove (1948–Present)</div>
+            <div class="inst-specs">Polyvinyl Chloride (PVC) &bull; RIAA Equalisation &bull; Moving Magnet / Coil</div>
+          </div>
+
+          <div class="history-card">
+            <div class="history-title">The Breakthrough of Microgroove & PVC</div>
+            <p>Standard shellac grooves were thick and noisy. Vinyl used synthetic polyvinyl chloride (PVC), which was flexible and smooth. By reducing groove width to 1 mil (microgroove), playback speed dropped to 33⅓ RPM, extending playing time to 22 minutes per side.</p>
+            <p>Stereo vinyl (1958) used Alan Blumlein's 45/45 degree groove system: the inner wall modulates at 45° for the Left channel, and the outer wall modulates at 45° for the Right channel. A mono stylus sums both walls laterally.</p>
+          </div>
+
+          <div class="mech-chain">
+            <div class="mech-title">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="m10 15 5-3-5-3v6z"/></svg>
+              How RIAA Equalisation Works (Exam Essential)
+            </div>
+            
+        <div class="step-item">
+          <div class="step-num">1</div>
+          <div class="step-text"><strong>The Cutting Problem:</strong> <span>Low bass frequencies create large groove excursions that would cause the cutting stylus to slice through into adjacent tracks or throw the playback needle out.</span></div>
+        </div>
+        
+        <div class="step-item">
+          <div class="step-num">2</div>
+          <div class="step-text"><strong>RIAA Pre-Emphasis on Record Cutting:</strong> <span>The master cutting lathe applies an aggressive RIAA filter: bass below 500 Hz is heavily attenuated (-17 dB at 50 Hz), while treble above 2 kHz is boosted (+17 dB at 10 kHz).</span></div>
+        </div>
+        
+        <div class="step-item">
+          <div class="step-num">3</div>
+          <div class="step-text"><strong>RIAA De-Emphasis in Phono Preamp:</strong> <span>The turntable's phono preamplifier applies the exact mirror inverse curve: boosting bass and sharply rolling off high frequencies by 17 dB.</span></div>
+        </div>
+        
+        <div class="step-item">
+          <div class="step-num">4</div>
+          <div class="step-text"><strong>Surface Noise Attenuation:</strong> <span>Rolling off the high frequencies on playback simultaneously suppresses vinyl surface hiss and crackles, achieving a clean signal-to-noise ratio of ~60 dB.</span></div>
+        </div>
+        
+          </div>
+        </div>
+      </div>
+    </div>
+    
+
+    <!-- SLIDE 4 -->
+    <div class="slide" id="slide-4">
+      <div class="slide-header">
+        <div class="deck-tag">The Professional Studio Standard</div>
+        <h1 class="slide-heading">Open-Reel Tape: <span>Magnetic Induction &amp; AC Bias</span></h1>
+        <p class="slide-lead">Capturing magnetic powder on ribbons of polyester transformed recording. Running at 15 or 30 inches per second, multi-track tape allowed overdubbing, tape saturation, and pristine studio master copies.</p>
+      </div>
+
+      <div class="grid-2-split">
+        <!-- LEFT: MUSIC & LISTENING FOCUS -->
+        <div class="column-panel music-col">
+          <div class="panel-header">
+            <span class="panel-badge music-badge">Landmark Audio Recording</span>
+            <span class="panel-title">The Warmth of 4-Track Tape Saturation</span>
+          </div>
+
+          <div class="video-container">
+            <iframe src="https://www.youtube-nocookie.com/embed/usNsCeOV4GM?rel=0&modestbranding=1" 
+                    title=""A Day in the Life" (Sgt. Pepper &bull; Studer J37 4-Track Tape at 15 ips)" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    allowfullscreen></iframe>
+          </div>
+
+          <div class="track-meta">
+            <div class="track-title">"A Day in the Life" (Sgt. Pepper &bull; Studer J37 4-Track Tape at 15 ips)</div>
+            <div class="track-artist">The Beatles</div>
+            <div class="track-album">A-Level Component 3 Critical Ear-Training Benchmark</div>
+          </div>
+
+          <div class="ear-training-box">
+            <div class="ear-training-header">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+              Ear-Training Diagnostic: Tape Saturation & Head Bump
+            </div>
+            <ul class="ear-points">
+              <li>Listen to Ringo Starr's tom-tom fills and John Lennon's vocal: tape saturation acts as a gentle, musical soft-limiter that rounds off aggressive transient spikes and adds rich even/odd harmonic warmth.</li>
+              <li>Notice the low-end punch: playback heads exhibit a low-frequency resonance known as the 'head bump' (typically between 50 Hz and 100 Hz at 15 ips), giving drums and bass an authoritative warmth. In quiet orchestral pauses, listen for gentle magnetic tape hiss.</li>
+            </ul>
+          </div>
+
+          <div class="tags-cloud">
+            <span class="tech-tag">Studer J37</span><span class="tech-tag">15 ips / 30 ips</span><span class="tech-tag">AC Bias</span><span class="tech-tag">Tape Saturation</span><span class="tech-tag">Print-Through</span>
+          </div>
+        </div>
+
+        <!-- RIGHT: FORMAT ARCHITECTURE & TRANSDUCTION -->
+        <div class="column-panel format-col">
+          <div class="panel-header">
+            <span class="panel-badge format-badge">Format Architecture</span>
+            <span class="panel-title">Studio Open-Reel Tape Deck</span>
+          </div>
+
+          <div class="hardware-photo">
+            <img src="/images/music_formats/open_reel_audio_tape.jpg" alt="Open Reel Magnetic Tape" loading="lazy">
+          </div>
+
+          <div class="hardware-hero-card">
+            <div class="inst-name">🎚️ Studio Reel-to-Reel Tape (1940s–1990s)</div>
+            <div class="inst-specs">Ferric Oxide Coating &bull; 15/30 ips &bull; Erase/Record/Playback Heads</div>
+          </div>
+
+          <div class="history-card">
+            <div class="history-title">The German Magnetophon & Studio Multi-Tracking</div>
+            <p>During WWII, German engineers developed magnetic tape with high-frequency AC bias, astonishing the world with broadcast fidelity. Jack Mullin brought two Magnetophons to America in 1945, demonstrating them to Bing Crosby, who funded Ampex.</p>
+            <p>Les Paul pioneered sound-on-sound and 8-track tape, leading to Studer, MCI, and Otari consoles that recorded the entire classic rock era. Tape enabled non-destructive editing: physically splicing tape with a razor blade and editing block!</p>
+          </div>
+
+          <div class="mech-chain">
+            <div class="mech-title">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="m10 15 5-3-5-3v6z"/></svg>
+              How Magnetic Tape Transduction Works
+            </div>
+            
+        <div class="step-item">
+          <div class="step-num">1</div>
+          <div class="step-text"><strong>Ferromagnetic Particle Alignment:</strong> <span>Tape consists of a plastic backing coated with microscopic gamma-ferric oxide (Fe2O3) needles suspended in a resin binder.</span></div>
+        </div>
+        
+        <div class="step-item">
+          <div class="step-num">2</div>
+          <div class="step-text"><strong>The 3-Head Signal Path:</strong> <span>Tape moves past: (1) Erase Head (cleans previous audio with high AC field), (2) Record Head (induces magnetic domains), and (3) Playback Head (reads domains).</span></div>
+        </div>
+        
+        <div class="step-item">
+          <div class="step-num">3</div>
+          <div class="step-text"><strong>Ultrasonic AC Bias (~100 kHz):</strong> <span>Magnetic particles resist changing polarity at zero-crossing (hysteresis distortion). Mixing an ultrasonic 100 kHz bias tone into the audio linearises magnetic response.</span></div>
+        </div>
+        
+        <div class="step-item">
+          <div class="step-num">4</div>
+          <div class="step-text"><strong>Tape Speed vs Fidelity:</strong> <span>30 ips provides greater physical space per millisecond, extending high frequencies past 25 kHz and lowering wow/flutter; 15 ips enhances low-end bass head bump.</span></div>
+        </div>
+        
+          </div>
+        </div>
+      </div>
+    </div>
+    
+
+    <!-- SLIDE 5 -->
+    <div class="slide" id="slide-5">
+      <div class="slide-header">
+        <div class="deck-tag">Consumer Tape & The Walkman</div>
+        <h1 class="slide-heading">Compact Audio Cassette: <span>Portability &amp; Dolby NR</span></h1>
+        <p class="slide-lead">Invented by Lou Ottens at Philips in 1963 for voice dictation, the cassette became a global music juggernaut. With Type II Chrome tape and Dolby B noise reduction, it spawned the mixtape culture and the 1979 Sony Walkman.</p>
+      </div>
+
+      <div class="grid-2-split">
+        <!-- LEFT: MUSIC & LISTENING FOCUS -->
+        <div class="column-panel music-col">
+          <div class="panel-header">
+            <span class="panel-badge music-badge">Landmark Audio Recording</span>
+            <span class="panel-title">Dynamic Operatic Rock on Cassette</span>
+          </div>
+
+          <div class="video-container">
+            <iframe src="https://www.youtube-nocookie.com/embed/fJ9rUzIMcZQ?rel=0&modestbranding=1" 
+                    title=""Bohemian Rhapsody" (A Night at the Opera &bull; 1975 Cassette Era)" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    allowfullscreen></iframe>
+          </div>
+
+          <div class="track-meta">
+            <div class="track-title">"Bohemian Rhapsody" (A Night at the Opera &bull; 1975 Cassette Era)</div>
+            <div class="track-artist">Queen</div>
+            <div class="track-album">A-Level Component 3 Critical Ear-Training Benchmark</div>
+          </div>
+
+          <div class="ear-training-box">
+            <div class="ear-training-header">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+              Ear-Training Diagnostic: Tape Speed Limitations & Dolby Hiss
+            </div>
+            <ul class="ear-points">
+              <li>Listen to Freddie Mercury's delicate piano and a cappella vocal intro. Running at just 1⅞ inches per second on a narrow 0.15-inch ribbon, cassettes have a narrower dynamic range (~50 dB unassisted) and higher inherent tape hiss.</li>
+              <li>Listen to how Dolby B and C noise reduction suppress high-frequency hiss during quiet passages. If a cassette deck's playback head azimuth is misaligned, notice how the treble becomes dull, muffled, or suffers from high-frequency 'breathing'.</li>
+            </ul>
+          </div>
+
+          <div class="tags-cloud">
+            <span class="tech-tag">Philips 1963</span><span class="tech-tag">1⅞ ips Speed</span><span class="tech-tag">Type I / II / IV</span><span class="tech-tag">Dolby B / C NR</span><span class="tech-tag">Sony Walkman</span>
+          </div>
+        </div>
+
+        <!-- RIGHT: FORMAT ARCHITECTURE & TRANSDUCTION -->
+        <div class="column-panel format-col">
+          <div class="panel-header">
+            <span class="panel-badge format-badge">Format Architecture</span>
+            <span class="panel-title">Audio Cassette Tape Formulations</span>
+          </div>
+
+          <div class="hardware-photo">
+            <img src="/images/music_formats/cassettetypes1.jpg" alt="Compact Cassette Tape Types" loading="lazy">
+          </div>
+
+          <div class="hardware-hero-card">
+            <div class="inst-name">📼 Philips Compact Cassette (1963–Present)</div>
+            <div class="inst-specs">1⅞ ips (4.76 cm/s) &bull; 0.15" Tape &bull; 4-Track Stereo (2 Tracks Per Side)</div>
+          </div>
+
+          <div class="history-card">
+            <div class="history-title">From Office Dictation to Global Cultural Icon</div>
+            <p>Philips made the brilliant strategic decision to license the cassette patent royalty-free in 1965, instantly defeating competing proprietary formats like Grundig's DC-International. In 1979, Sony's Walkman TPS-L2 turned music into a personal, mobile soundtrack.</p>
+            <p>Cassette engineering conquered severe physics constraints: tape running at only 1⅞ ips (one-eighth the speed of studio 15 ips tape) through tiny record heads required advanced magnetic chemistry and active compander noise reduction.</p>
+          </div>
+
+          <div class="mech-chain">
+            <div class="mech-title">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="m10 15 5-3-5-3v6z"/></svg>
+              Cassette Formulations & Dolby Processing
+            </div>
+            
+        <div class="step-item">
+          <div class="step-num">1</div>
+          <div class="step-text"><strong>Type I (Normal Bias / Ferric Oxide Fe2O3):</strong> <span>Standard consumer tape, 120 µs equalization; warm sound but prone to higher background hiss and limited treble headroom.</span></div>
+        </div>
+        
+        <div class="step-item">
+          <div class="step-num">2</div>
+          <div class="step-text"><strong>Type II (High Bias / Chromium Dioxide CrO2):</strong> <span>Requires 70 µs EQ; finer magnetic particle distribution provides extended high-frequency response and 4-5 dB lower noise floor.</span></div>
+        </div>
+        
+        <div class="step-item">
+          <div class="step-num">3</div>
+          <div class="step-text"><strong>Type IV (Metal Particle / Pure Iron):</strong> <span>Microscopic pure metal particles deliver extraordinary magnetic coercivity and maximum dynamic headroom (+6 dB over Type I).</span></div>
+        </div>
+        
+        <div class="step-item">
+          <div class="step-num">4</div>
+          <div class="step-text"><strong>Dolby B / C Compander Noise Reduction:</strong> <span>Boosts low-level high frequencies during recording, and attenuates them identically during playback, cutting audible tape hiss by 10 dB (Dolby B) or 20 dB (Dolby C).</span></div>
+        </div>
+        
+          </div>
+        </div>
+      </div>
+    </div>
+    
+
+    <!-- SLIDE 6 -->
+    <div class="slide" id="slide-6">
+      <div class="slide-header">
+        <div class="deck-tag">In-Car Automotive Audio</div>
+        <h1 class="slide-heading">8-Track Cartridge: <span>Endless-Loop Stereo 8</span></h1>
+        <p class="slide-lead">Championed by aviation pioneer Bill Lear in 1964, the 8-Track cartridge brought stereo albums into American automobiles. Its endless continuous loop of tape eliminated rewinding but introduced mechanical clunks and azimuth bleed.</p>
+      </div>
+
+      <div class="grid-2-split">
+        <!-- LEFT: MUSIC & LISTENING FOCUS -->
+        <div class="column-panel music-col">
+          <div class="panel-header">
+            <span class="panel-badge music-badge">Landmark Audio Recording</span>
+            <span class="panel-title">Cruising California in 8-Track Stereo</span>
+          </div>
+
+          <div class="video-container">
+            <iframe src="https://www.youtube-nocookie.com/embed/09839DpTctU?rel=0&modestbranding=1" 
+                    title=""Hotel California" (1976 &bull; Asylum Records 8-Track)" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    allowfullscreen></iframe>
+          </div>
+
+          <div class="track-meta">
+            <div class="track-title">"Hotel California" (1976 &bull; Asylum Records 8-Track)</div>
+            <div class="track-artist">Eagles</div>
+            <div class="track-album">A-Level Component 3 Critical Ear-Training Benchmark</div>
+          </div>
+
+          <div class="ear-training-box">
+            <div class="ear-training-header">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+              Ear-Training Diagnostic: Solenoid Head Clunk & Track Bleed
+            </div>
+            <ul class="ear-points">
+              <li>Listen to Don Felder and Joe Walsh's duelling guitars: 8-track tape ran at 3.75 ips (twice the speed of cassette), offering surprisingly solid mid-range fidelity. However, albums were divided into four equal program lengths.</li>
+              <li>Hear the famous 8-track flaw: mid-song fades or sudden pauses accompanied by a mechanical 'ker-ch在该unk' as a solenoid physically shifted the playback head to the next program! Over time, head misalignment caused adjacent programs to bleed into the background.</li>
+            </ul>
+          </div>
+
+          <div class="tags-cloud">
+            <span class="tech-tag">Bill Lear 1964</span><span class="tech-tag">Endless Loop Tape</span><span class="tech-tag">3.75 ips</span><span class="tech-tag">Program Stepper</span><span class="tech-tag">Head Azimuth Bleed</span>
+          </div>
+        </div>
+
+        <!-- RIGHT: FORMAT ARCHITECTURE & TRANSDUCTION -->
+        <div class="column-panel format-col">
+          <div class="panel-header">
+            <span class="panel-badge format-badge">Format Architecture</span>
+            <span class="panel-title">8-Track Internal Mechanism</span>
+          </div>
+
+          <div class="hardware-photo">
+            <img src="/images/music_formats/8track_inside.jpg" alt="8-Track Cartridge Internal Mechanism" loading="lazy">
+          </div>
+
+          <div class="hardware-hero-card">
+            <div class="inst-name">📻 Lear Jet Stereo 8 Cartridge (1964–1980s)</div>
+            <div class="inst-specs">Endless 1/4" Loop &bull; 3.75 ips &bull; 4 Stereo Programs &bull; Automotive Audio</div>
+          </div>
+
+          <div class="history-card">
+            <div class="history-title">Automotive Stereo Meets Aviation Engineering</div>
+            <p>Prior to the 8-Track, cars only had AM radios (and occasional skipping 45 RPM dashboard turntables!). Bill Lear (designer of the Learjet) adapted Earl Muntz's 4-track cartridge into an 8-track format, partnered with Ford Motor Company, and made it an in-dash option.</p>
+            <p>The 8-Track had no take-up reel: a continuous loop of 1/4" lubricated tape was pulled from the center of a single hub and wound back onto the outer perimeter. Because tape rubbed against itself continuously, graphite lubricant was essential.</p>
+          </div>
+
+          <div class="mech-chain">
+            <div class="mech-title">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="m10 15 5-3-5-3v6z"/></svg>
+              How 8-Track Mechanics Worked
+            </div>
+            
+        <div class="step-item">
+          <div class="step-num">1</div>
+          <div class="step-text"><strong>Endless Loop Pull-From-Center:</strong> <span>Tape pulled from the center hub and wound around the outer edge created continuous forward motion; rewinding was mechanically impossible!</span></div>
+        </div>
+        
+        <div class="step-item">
+          <div class="step-num">2</div>
+          <div class="step-text"><strong>Conductive Foil Sensor Splice:</strong> <span>A strip of conductive aluminium foil spliced into the tape completed an electrical circuit as it passed a sensor post at the end of each program.</span></div>
+        </div>
+        
+        <div class="step-item">
+          <div class="step-num">3</div>
+          <div class="step-text"><strong>Solenoid Head Stepper:</strong> <span>The sensor triggered an electromagnetic solenoid that stepped the playback head vertically down by a fraction of a millimeter to align with the next stereo track pair.</span></div>
+        </div>
+        
+        <div class="step-item">
+          <div class="step-num">4</div>
+          <div class="step-text"><strong>Mechanical Wear & Bleed Flaws:</strong> <span>Friction degraded the tape quickly; continuous head shifting threw azimuth out of alignment, causing listeners to hear faint reverse or adjacent track audio.</span></div>
+        </div>
+        
+          </div>
+        </div>
+      </div>
+    </div>
+    
+
+    <!-- SLIDE 7 -->
+    <div class="slide" id="slide-7">
+      <div class="slide-header">
+        <div class="deck-tag">The Digital Revolution</div>
+        <h1 class="slide-heading">Compact Disc: <span>Red Book Audio &amp; 16-Bit / 44.1 kHz</span></h1>
+        <p class="slide-lead">Co-developed by Sony and Philips in 1980 and launched in 1982, the Compact Disc replaced mechanical styluses with a semiconductor laser reading binary pits beneath clear polycarbonate, delivering 96 dB of silent dynamic range.</p>
+      </div>
+
+      <div class="grid-2-split">
+        <!-- LEFT: MUSIC & LISTENING FOCUS -->
+        <div class="column-panel music-col">
+          <div class="panel-header">
+            <span class="panel-badge music-badge">Landmark Audio Recording</span>
+            <span class="panel-title">The First All-Digital CD Master Bestseller</span>
+          </div>
+
+          <div class="video-container">
+            <iframe src="https://www.youtube-nocookie.com/embed/wTP2RUD_cL0?rel=0&modestbranding=1" 
+                    title=""Money for Nothing" (Brothers in Arms &bull; 1985 DDD CD Master)" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    allowfullscreen></iframe>
+          </div>
+
+          <div class="track-meta">
+            <div class="track-title">"Money for Nothing" (Brothers in Arms &bull; 1985 DDD CD Master)</div>
+            <div class="track-artist">Dire Straits</div>
+            <div class="track-album">A-Level Component 3 Critical Ear-Training Benchmark</div>
+          </div>
+
+          <div class="ear-training-box">
+            <div class="ear-training-header">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+              Ear-Training Diagnostic: Inky Digital Silence & Razor Transients
+            </div>
+            <ul class="ear-points">
+              <li>Listen to Sting's intro falsetto ('I want my MTV') over atmospheric synthesisers: there is absolute, pitch-black silence—zero vinyl crackle, zero tape hiss, zero wow and flutter, and a flat 20 Hz – 20,000 Hz frequency response.</li>
+              <li>Listen to Neil Dorfsman's recording of Omar Hakim's snare drum attack: the 16-bit linear PCM format preserves razor-sharp transient peaks without tape compression, providing over 90 dB of pristine signal-to-noise ratio.</li>
+            </ul>
+          </div>
+
+          <div class="tags-cloud">
+            <span class="tech-tag">Red Book 1982</span><span class="tech-tag">44.1 kHz / 16-bit</span><span class="tech-tag">Pits & Lands</span><span class="tech-tag">780nm Laser</span><span class="tech-tag">96 dB Dynamic Range</span>
+          </div>
+        </div>
+
+        <!-- RIGHT: FORMAT ARCHITECTURE & TRANSDUCTION -->
+        <div class="column-panel format-col">
+          <div class="panel-header">
+            <span class="panel-badge format-badge">Format Architecture</span>
+            <span class="panel-title">Optical CD Track & Pit Geometry</span>
+          </div>
+
+          <div class="hardware-photo">
+            <img src="/images/music_formats/red_book_cd_diagram.svg" alt="Red Book CD Pit Architecture" loading="lazy">
+          </div>
+
+          <div class="hardware-hero-card">
+            <div class="inst-name">💿 Compact Disc Digital Audio (CD-DA &bull; 1982)</div>
+            <div class="inst-specs">120 mm Disc &bull; 44.1 kHz / 16-Bit Linear PCM &bull; 780 nm Infrared Laser Pickup</div>
+          </div>
+
+          <div class="history-card">
+            <div class="history-title">The Sony-Philips Red Book Standard</div>
+            <p>In 1980, Sony (Norio Ohga) and Philips (Kees Schouhamer Immink) established the 'Red Book' standard. They decided on 16-bit linear PCM resolution and a 44.1 kHz sampling rate, enabling a 120 mm disc to hold up to 74 minutes of music (long enough for Beethoven's 9th Symphony!).</p>
+            <p>Brothers in Arms by Dire Straits (1985) was recorded on a 24-track Sony PCM-3324 digital tape recorder (DDD: Digital recording, Digital mixing, Digital mastering) and became the first CD to sell over 1 million copies.</p>
+          </div>
+
+          <div class="mech-chain">
+            <div class="mech-title">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="m10 15 5-3-5-3v6z"/></svg>
+              How Optical Laser Transduction Works
+            </div>
+            
+        <div class="step-item">
+          <div class="step-num">1</div>
+          <div class="step-text"><strong>Polycarbonate Disc with Pits & Lands:</strong> <span>Audio data is pressed as a spiral track of microscopic depressions ('pits') and flat reflective surfaces ('lands') coated with vaporised aluminium and lacquer.</span></div>
+        </div>
+        
+        <div class="step-item">
+          <div class="step-num">2</div>
+          <div class="step-text"><strong>Semiconductor Laser Pickup (780 nm):</strong> <span>An infrared semiconductor laser diode projects a focused 780 nm beam through the clear polycarbonate underside onto the aluminium layer.</span></div>
+        </div>
+        
+        <div class="step-item">
+          <div class="step-num">3</div>
+          <div class="step-text"><strong>Destructive Phase Cancellation:</strong> <span>Pits are exactly 1/4 the laser's wavelength deep (~0.11 µm). Light reflecting from a pit cancels out light from the land, dropping reflected intensity detected by a photodiode.</span></div>
+        </div>
+        
+        <div class="step-item">
+          <div class="step-num">4</div>
+          <div class="step-text"><strong>CIRC Error Correction & DAC:</strong> <span>Cross-Interleaved Reed-Solomon Code (CIRC) reconstructs up to 4,000 consecutive missing bits (scratches); the digital bitstream feeds a DAC to output analogue audio.</span></div>
+        </div>
+        
+          </div>
+        </div>
+      </div>
+    </div>
+    
+
+    <!-- SLIDE 8 -->
+    <div class="slide" id="slide-8">
+      <div class="slide-header">
+        <div class="deck-tag">Professional Digital Tape & Magneto-Optical</div>
+        <h1 class="slide-heading">DAT &amp; MiniDisc: <span>Helical Scan vs ATRAC</span></h1>
+        <p class="slide-lead">Sony pioneered two legendary digital formats: Digital Audio Tape (DAT, 1987) with rotating helical heads for uncompressed studio mastering, and MiniDisc (1992) using magneto-optical discs and ATRAC lossy compression.</p>
+      </div>
+
+      <div class="grid-2-split">
+        <!-- LEFT: MUSIC & LISTENING FOCUS -->
+        <div class="column-panel music-col">
+          <div class="panel-header">
+            <span class="panel-badge music-badge">Landmark Audio Recording</span>
+            <span class="panel-title">Pristine Digital Studio Master to DAT</span>
+          </div>
+
+          <div class="video-container">
+            <iframe src="https://www.youtube-nocookie.com/embed/fHiGbolFFGw?rel=0&modestbranding=1" 
+                    title=""Paranoid Android" (OK Computer &bull; 1997 Mastered to DAT)" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    allowfullscreen></iframe>
+          </div>
+
+          <div class="track-meta">
+            <div class="track-title">"Paranoid Android" (OK Computer &bull; 1997 Mastered to DAT)</div>
+            <div class="track-artist">Radiohead</div>
+            <div class="track-album">A-Level Component 3 Critical Ear-Training Benchmark</div>
+          </div>
+
+          <div class="ear-training-box">
+            <div class="ear-training-header">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+              Ear-Training Diagnostic: Uncompressed Digital Precision vs Lossy ATRAC
+            </div>
+            <ul class="ear-points">
+              <li>Listen to Jonny Greenwood's acoustic guitar picking and Thom Yorke's dry vocal: recorded and mixed direct to a 16-bit 44.1 kHz DAT recorder, the audio exhibits pristine stereo imaging, ultra-low distortion, and zero magnetic speed fluctuation.</li>
+              <li>In contrast, listen to MiniDisc recordings: while imperceptible on street headphones, Sony's early ATRAC algorithms slightly narrowed the ultra-high frequency air (>18 kHz) and subtly softened complex percussion transients.</li>
+            </ul>
+          </div>
+
+          <div class="tags-cloud">
+            <span class="tech-tag">Sony DAT 1987</span><span class="tech-tag">Helical Scan Head</span><span class="tech-tag">MiniDisc 1992</span><span class="tech-tag">ATRAC Compression</span><span class="tech-tag">Anti-Shock RAM</span>
+          </div>
+        </div>
+
+        <!-- RIGHT: FORMAT ARCHITECTURE & TRANSDUCTION -->
+        <div class="column-panel format-col">
+          <div class="panel-header">
+            <span class="panel-badge format-badge">Format Architecture</span>
+            <span class="panel-title">DAT Tape & MiniDisc Media</span>
+          </div>
+
+          <div class="hardware-photo">
+            <img src="/images/music_formats/dat-cartridge.jpg" alt="Digital Audio Tape & MiniDisc" loading="lazy">
+          </div>
+
+          <div class="hardware-hero-card">
+            <div class="inst-name">💽 DAT (1987) vs MiniDisc (1992)</div>
+            <div class="inst-specs">Helical Scan Uncompressed PCM vs Magneto-Optical ATRAC Compression</div>
+          </div>
+
+          <div class="history-card">
+            <div class="history-title">Studio Masters vs Consumer Portability</div>
+            <p>DAT utilised miniature rotating helical drums (spinning at 2,000 RPM, derived from VCR technology) across 4mm tape, storing uncompressed 16-bit PCM at 44.1 or 48 kHz. It became the universal studio mixing and radio broadcast standard throughout the 1990s.</p>
+            <p>MiniDisc aimed to replace the compact cassette: a 64mm magneto-optical disc housed in a tough plastic caddy. To combat skipping during exercise, Sony added a 4-megabit RAM chip that buffered 10 seconds of unplayed audio.</p>
+          </div>
+
+          <div class="mech-chain">
+            <div class="mech-title">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="m10 15 5-3-5-3v6z"/></svg>
+              Comparing DAT and MiniDisc Transduction
+            </div>
+            
+        <div class="step-item">
+          <div class="step-num">1</div>
+          <div class="step-text"><strong>DAT Rotating Helical Head Drum:</strong> <span>Slanted rotating heads sweep diagonally across slowly moving 4mm tape, writing dense digital track patterns without needing ultra-fast tape transport speeds.</span></div>
+        </div>
+        
+        <div class="step-item">
+          <div class="step-num">2</div>
+          <div class="step-text"><strong>Uncompressed Studio Fidelity (DAT):</strong> <span>Pure linear PCM at up to 48 kHz / 16-bit with >90 dB dynamic range; DAT allowed bit-perfect digital-to-digital cloning via AES/EBU or SPDIF connections.</span></div>
+        </div>
+        
+        <div class="step-item">
+          <div class="step-num">3</div>
+          <div class="step-text"><strong>Magneto-Optical Overwrite (MiniDisc):</strong> <span>A laser heats the disc to the Curie point (~180°C) where magnetic coercivity drops; an electromagnetic head on the opposite side flips magnetic domains to record data.</span></div>
+        </div>
+        
+        <div class="step-item">
+          <div class="step-num">4</div>
+          <div class="step-text"><strong>ATRAC Perceptual Audio Coding (MiniDisc):</strong> <span>Adaptive Transform Acoustic Coding divided audio into 52 sub-bands, discarding frequencies masked by louder sounds to compress file size by approx 5:1.</span></div>
+        </div>
+        
+          </div>
+        </div>
+      </div>
+    </div>
+    
+
+    <!-- SLIDE 9 -->
+    <div class="slide" id="slide-9">
+      <div class="slide-header">
+        <div class="deck-tag">Psychoacoustic Compression</div>
+        <h1 class="slide-heading">MP3 &amp; AAC: <span>Psychoacoustic Masking &amp; Bitrates</span></h1>
+        <p class="slide-lead">Developed by Fraunhofer IIS and Karlheinz Brandenburg, MP3 (1993) transformed music distribution by throwing away sound data human ears can't perceive, shrinking CD files by 90% (10:1 ratio) to fit through dial-up internet.</p>
+      </div>
+
+      <div class="grid-2-split">
+        <!-- LEFT: MUSIC & LISTENING FOCUS -->
+        <div class="column-panel music-col">
+          <div class="panel-header">
+            <span class="panel-badge music-badge">Landmark Audio Recording</span>
+            <span class="panel-title">The MP3 Reference Benchmark</span>
+          </div>
+
+          <div class="video-container">
+            <iframe src="https://www.youtube-nocookie.com/embed/FLP6QluMlrg?rel=0&modestbranding=1" 
+                    title=""Tom's Diner" (1987 A Cappella &bull; The Mother of the MP3)" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    allowfullscreen></iframe>
+          </div>
+
+          <div class="track-meta">
+            <div class="track-title">"Tom's Diner" (1987 A Cappella &bull; The Mother of the MP3)</div>
+            <div class="track-artist">Suzanne Vega</div>
+            <div class="track-album">A-Level Component 3 Critical Ear-Training Benchmark</div>
+          </div>
+
+          <div class="ear-training-box">
+            <div class="ear-training-header">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+              Ear-Training Diagnostic: Low-Bitrate Lossy Compression Artifacts
+            </div>
+            <ul class="ear-points">
+              <li>Listen to Suzanne Vega's isolated vocal: during algorithm development, subtle breathing, vocal fry, and dental sibilance ('t', 's', 'k') exposed flaws in early MP3 encoders, causing harsh fluttering distortions.</li>
+              <li>Ear-training tests for lossy compression: (1) Metallic, watery 'swishing' on cymbals and high-hats, (2) Pre-echo: a faint 'ghost' transient audible milliseconds before sharp drum hits, (3) Steep low-pass filter cutting off frequencies above 16 kHz (128 kbps), and (4) Loss of stereo depth.</li>
+            </ul>
+          </div>
+
+          <div class="tags-cloud">
+            <span class="tech-tag">MPEG-1 Layer III</span><span class="tech-tag">Psychoacoustic Masking</span><span class="tech-tag">Temporal Masking</span><span class="tech-tag">Pre-Echo</span><span class="tech-tag">128 vs 320 kbps</span>
+          </div>
+        </div>
+
+        <!-- RIGHT: FORMAT ARCHITECTURE & TRANSDUCTION -->
+        <div class="column-panel format-col">
+          <div class="panel-header">
+            <span class="panel-badge format-badge">Format Architecture</span>
+            <span class="panel-title">WAV vs MP3 Data Architecture</span>
+          </div>
+
+          <div class="hardware-photo">
+            <img src="/images/music_formats/wav_vs_mp3_diagram.svg" alt="WAV vs MP3 Compression Diagram" loading="lazy">
+          </div>
+
+          <div class="hardware-hero-card">
+            <div class="inst-name">📱 MP3 &amp; AAC Perceptual Codecs (1993–Present)</div>
+            <div class="inst-specs">Sub-Band MDCT &bull; Psychoacoustic Masking &bull; 128 / 256 / 320 kbps</div>
+          </div>
+
+          <div class="history-card">
+            <div class="history-title">How Psychoacoustics Conquered the Internet</div>
+            <p>Uncompressed CD audio requires ~10 MB of data per minute (1,411 kbps). In 1993, transmitting a 40 MB album across dial-up modems took hours! The Fraunhofer Society engineered MP3 using human hearing biology: if the brain can't hear a sound, don't store it!</p>
+            <p>Later perceptual codecs like AAC (Advanced Audio Coding, used by Apple) achieved even higher fidelity than MP3 at identical bitrates through improved filter banks, temporal noise shaping (TNS), and stereo coding.</p>
+          </div>
+
+          <div class="mech-chain">
+            <div class="mech-title">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="m10 15 5-3-5-3v6z"/></svg>
+              How Psychoacoustic Masking Discards Data
+            </div>
+            
+        <div class="step-item">
+          <div class="step-num">1</div>
+          <div class="step-text"><strong>Simultaneous Frequency Masking:</strong> <span>A loud sound at 1 kHz physically excites the basilar membrane in the inner ear, rendering quieter adjacent frequencies (e.g., at 1.1 kHz) completely imperceptible.</span></div>
+        </div>
+        
+        <div class="step-item">
+          <div class="step-num">2</div>
+          <div class="step-text"><strong>Temporal Masking (Pre- & Post-Masking):</strong> <span>A loud snare transient temporarily deafens human hearing for ~5 ms before the transient (pre-masking) and up to 100 ms after (post-masking); quiet sounds within this window are discarded.</span></div>
+        </div>
+        
+        <div class="step-item">
+          <div class="step-num">3</div>
+          <div class="step-text"><strong>Sub-Band MDCT Filtering:</strong> <span>Audio is split into 32 frequency sub-bands using Modified Discrete Cosine Transform (MDCT); quantization bits are allocated strictly to audible frequency bands.</span></div>
+        </div>
+        
+        <div class="step-item">
+          <div class="step-num">4</div>
+          <div class="step-text"><strong>Bitrate Fidelity Scaling:</strong> <span>At 128 kbps (~10:1 ratio), aggressive filtering causes audible metallic smearing; at 320 kbps MP3 or 256 kbps AAC, the audio is virtually indistinguishable from CD quality.</span></div>
+        </div>
+        
+          </div>
+        </div>
+      </div>
+    </div>
+    
+
+    <!-- SLIDE 10 -->
+    <div class="slide" id="slide-10">
+      <div class="slide-header">
+        <div class="deck-tag">Uncompressed PCM & Lossless</div>
+        <h1 class="slide-heading">Lossless &amp; Hi-Res: <span>Bit Depth, Nyquist &amp; FLAC</span></h1>
+        <p class="slide-lead">Lossless formats preserve every single bit of original studio audio. Uncompressed WAV/AIFF store raw linear PCM, while FLAC and ALAC compress file sizes by 40-50% like zip files without discarding a single musical frequency.</p>
+      </div>
+
+      <div class="grid-2-split">
+        <!-- LEFT: MUSIC & LISTENING FOCUS -->
+        <div class="column-panel music-col">
+          <div class="panel-header">
+            <span class="panel-badge music-badge">Landmark Audio Recording</span>
+            <span class="panel-title">Audiophile Reference 24-Bit / 96 kHz</span>
+          </div>
+
+          <div class="video-container">
+            <iframe src="https://www.youtube-nocookie.com/embed/5NV6Rdv1a3I?rel=0&modestbranding=1" 
+                    title=""Get Lucky" (Random Access Memories &bull; 2013 Studio Master)" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    allowfullscreen></iframe>
+          </div>
+
+          <div class="track-meta">
+            <div class="track-title">"Get Lucky" (Random Access Memories &bull; 2013 Studio Master)</div>
+            <div class="track-artist">Daft Punk</div>
+            <div class="track-album">A-Level Component 3 Critical Ear-Training Benchmark</div>
+          </div>
+
+          <div class="ear-training-box">
+            <div class="ear-training-header">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+              Ear-Training Diagnostic: 24-Bit Dynamic Range & Nyquist Extension
+            </div>
+            <ul class="ear-points">
+              <li>Listen to Nile Rodgers' guitar strumming, Nathan East's bass line, and Omar Hakim's hi-hats: recorded in pristine 24-bit / 96 kHz, the sound boasts an immense 144 dB theoretical dynamic range with microscopic detail in reverb decay tails.</li>
+              <li>Notice the absence of codec artifacts: cymbals have natural brass sizzle extending past 20 kHz without metallic swishing or brickwall filtering; transients have instantaneous punch without pre-echo smearing.</li>
+            </ul>
+          </div>
+
+          <div class="tags-cloud">
+            <span class="tech-tag">Linear PCM</span><span class="tech-tag">WAV & AIFF</span><span class="tech-tag">FLAC Lossless</span><span class="tech-tag">Nyquist Theorem</span><span class="tech-tag">24-Bit / 96 kHz</span>
+          </div>
+        </div>
+
+        <!-- RIGHT: FORMAT ARCHITECTURE & TRANSDUCTION -->
+        <div class="column-panel format-col">
+          <div class="panel-header">
+            <span class="panel-badge format-badge">Format Architecture</span>
+            <span class="panel-title">Bit Depth & Quantization Steps</span>
+          </div>
+
+          <div class="hardware-photo">
+            <img src="/images/music_formats/bit-depth.png" alt="Bit Depth Quantization Grid" loading="lazy">
+          </div>
+
+          <div class="hardware-hero-card">
+            <div class="inst-name">🎼 Linear PCM, WAV &amp; FLAC Lossless</div>
+            <div class="inst-specs">Dynamic Range = 6.02 x N dB &bull; Nyquist fs >= 2fmax &bull; Bit-Perfect Audio</div>
+          </div>
+
+          <div class="history-card">
+            <div class="history-title">PCM Math & Lossless Compression</div>
+            <p>Digital audio is defined by two mathematical axes: (1) Sample Rate (measurements per second, determining frequency bandwidth via the Nyquist-Shannon theorem), and (2) Bit Depth (binary word length, determining dynamic range and quantization noise floor).</p>
+            <p>While MP3 permanently throws away data, FLAC (Free Lossless Audio Codec) uses linear prediction algorithms to identify repeating mathematical patterns. When decoded, it outputs the identical bitstream as the original WAV file.</p>
+          </div>
+
+          <div class="mech-chain">
+            <div class="mech-title">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="m10 15 5-3-5-3v6z"/></svg>
+              Crucial Exam Formulas & Principles
+            </div>
+            
+        <div class="step-item">
+          <div class="step-num">1</div>
+          <div class="step-text"><strong>Dynamic Range Formula: 6.02 x N dB:</strong> <span>Every 1 bit of resolution provides approx 6 dB of dynamic range. 16-bit Red Book CD = ~96 dB; 24-bit Studio Master = ~144 dB (exceeding human ear pain threshold).</span></div>
+        </div>
+        
+        <div class="step-item">
+          <div class="step-num">2</div>
+          <div class="step-text"><strong>Nyquist-Shannon Theorem (fs >= 2fmax):</strong> <span>To accurately reconstruct an audio frequency, the sampling rate must be at least double the highest frequency. Human hearing (20 kHz) requires at least 40 kHz (hence 44.1 kHz).</span></div>
+        </div>
+        
+        <div class="step-item">
+          <div class="step-num">3</div>
+          <div class="step-text"><strong>Anti-Aliasing Filter Guard Band:</strong> <span>Frequencies above Nyquist reflect back as discordant 'alias' distortion. The gap between 20 kHz and 44.1 kHz allows steep low-pass reconstruction filters.</span></div>
+        </div>
+        
+        <div class="step-item">
+          <div class="step-num">4</div>
+          <div class="step-text"><strong>FLAC / ALAC Lossless Packing:</strong> <span>Compresses file size by ~50% without psychoacoustic loss; identical to unzipping a document—zero bits of sound are lost or approximated.</span></div>
+        </div>
+        
+          </div>
+        </div>
+      </div>
+    </div>
+    
+
+    <!-- SLIDE 11 -->
+    <div class="slide" id="slide-11">
+      <div class="slide-header">
+        <div class="deck-tag">The Streaming Era</div>
+        <h1 class="slide-heading">Streaming &amp; Normalisation: <span>LUFS Targets &amp; True Peak</span></h1>
+        <p class="slide-lead">Streaming platforms (Spotify, Apple Music, YouTube) ended the 'Loudness Wars'. By measuring Integrated Loudness in LUFS and turning over-compressed tracks down, streaming demands dynamic, punchy mastering with -1 dBFS True Peak headroom.</p>
+      </div>
+
+      <div class="grid-2-split">
+        <!-- LEFT: MUSIC & LISTENING FOCUS -->
+        <div class="column-panel music-col">
+          <div class="panel-header">
+            <span class="panel-badge music-badge">Landmark Audio Recording</span>
+            <span class="panel-title">Modern Master Engineered for Streaming</span>
+          </div>
+
+          <div class="video-container">
+            <iframe src="https://www.youtube-nocookie.com/embed/4NRXx6U8ABQ?rel=0&modestbranding=1" 
+                    title=""Blinding Lights" (2020 &bull; Mastered by Dave Kutch)" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    allowfullscreen></iframe>
+          </div>
+
+          <div class="track-meta">
+            <div class="track-title">"Blinding Lights" (2020 &bull; Mastered by Dave Kutch)</div>
+            <div class="track-artist">The Weeknd</div>
+            <div class="track-album">A-Level Component 3 Critical Ear-Training Benchmark</div>
+          </div>
+
+          <div class="ear-training-box">
+            <div class="ear-training-header">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+              Ear-Training Diagnostic: Integrated Loudness & True Peak Limiting
+            </div>
+            <ul class="ear-points">
+              <li>Listen to the synth-pop bassline and drum transient impact: despite its energetic wall of sound, notice that the kick drum and snare retain punchy crest factor without squashed limiter distortion or pumping artifacts.</li>
+              <li>If a track is mastered aggressively to -7 LUFS, streaming algorithms automatically turn the whole song down by -7 dB to hit -14 LUFS. The result? The squashed track sounds thin and flat next to a dynamic -14 LUFS master that breathes naturally!</li>
+            </ul>
+          </div>
+
+          <div class="tags-cloud">
+            <span class="tech-tag">LUFS Loudness</span><span class="tech-tag">-14 LUFS Spotify</span><span class="tech-tag">-16 LUFS Apple</span><span class="tech-tag">True Peak Limiter</span><span class="tech-tag">End of Loudness War</span>
+          </div>
+        </div>
+
+        <!-- RIGHT: FORMAT ARCHITECTURE & TRANSDUCTION -->
+        <div class="column-panel format-col">
+          <div class="panel-header">
+            <span class="panel-badge format-badge">Format Architecture</span>
+            <span class="panel-title">Streaming Loudness Normalisation</span>
+          </div>
+
+          <div class="hardware-photo">
+            <img src="/images/music_formats/streaming_normalization_diagram.svg" alt="Streaming Normalisation Curve" loading="lazy">
+          </div>
+
+          <div class="hardware-hero-card">
+            <div class="inst-name">📶 Streaming Audio Targets (ITU-R BS.1770 / EBU R128)</div>
+            <div class="inst-specs">Spotify -14 LUFS &bull; Apple Music -16 LUFS &bull; -1.0 dBFS True Peak Ceiling</div>
+          </div>
+
+          <div class="history-card">
+            <div class="history-title">How Streaming Solved The Loudness War</div>
+            <p>For decades during the CD era, record labels competed to make CDs as loud as possible by crushing dynamic range with aggressive brickwall limiters. When listeners shuffled playlists, volume jumped wildly from track to track.</p>
+            <p>Modern streaming services introduced Loudness Normalisation using K-weighted filters (LUFS: Loudness Units relative to Full Scale). Now, loudness is standardised across all tracks, making extreme dynamic compression pointless.</p>
+          </div>
+
+          <div class="mech-chain">
+            <div class="mech-title">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="m10 15 5-3-5-3v6z"/></svg>
+              Mastering for Streaming Requirements
+            </div>
+            
+        <div class="step-item">
+          <div class="step-num">1</div>
+          <div class="step-text"><strong>Integrated Loudness Measurement (LUFS):</strong> <span>Measures the perceived average loudness of the entire song using ITU-R BS.1770 algorithms, mimicking human ear sensitivity to upper-mid frequencies.</span></div>
+        </div>
+        
+        <div class="step-item">
+          <div class="step-num">2</div>
+          <div class="step-text"><strong>Platform Targets: -14 & -16 LUFS:</strong> <span>Spotify, YouTube, and Amazon Music normalize playback to -14 LUFS Integrated; Apple Music normalizes to -16 LUFS Integrated.</span></div>
+        </div>
+        
+        <div class="step-item">
+          <div class="step-num">3</div>
+          <div class="step-text"><strong>Penalty for Over-Compression:</strong> <span>A track mastered to -8 LUFS is attenuated by -6 dB on Spotify. It plays at the exact same perceived loudness as a dynamic track, but lacks transient punch!</span></div>
+        </div>
+        
+        <div class="step-item">
+          <div class="step-num">4</div>
+          <div class="step-text"><strong>True Peak Headroom (-1.0 dBFS TP):</strong> <span>Lossy codec compression (AAC/Ogg) and DAC filters create inter-sample peaks that exceed the digital ceiling. Leaving -1.0 dB True Peak prevents clipping distortion.</span></div>
+        </div>
+        
+          </div>
+        </div>
+      </div>
+    </div>
+    
+
+    <!-- SLIDE 12 -->
+    <div class="slide" id="slide-12">
+      <div class="slide-header">
+        <div class="deck-tag">Component 3 Specification Matrix</div>
+        <h1 class="slide-heading">Audio Formats: <span>The Master Exam Matrix</span></h1>
+        <p class="slide-lead">The complete Edexcel Component 3 comparative reference: physical mediums, frequency bandwidths, dynamic ranges, and signature exam pitfalls.</p>
+      </div>
+
+      <div class="grid-2-split">
+        <!-- LEFT: MUSIC & EXAM OVERVIEW -->
+        <div class="column-panel music-col">
+          <div class="panel-header">
+            <span class="panel-badge music-badge">Landmark Audio Retrospective</span>
+            <span class="panel-title">Evolution of Sound Distribution</span>
+          </div>
+
+          <div class="video-container">
+            <iframe src="https://www.youtube-nocookie.com/embed/D3XB3owN6qo?rel=0&modestbranding=1" 
+                    title="From Cylinders to Streams &bull; A-Level Exam Master Review" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    allowfullscreen></iframe>
+          </div>
+
+          <div class="track-meta">
+            <div class="track-title">From Cylinders to Streams &bull; A-Level Exam Master Review</div>
+            <div class="track-artist">Recording Industry Retrospective</div>
+            <div class="track-album">Evolution of Commercial Sound Distribution</div>
+          </div>
+
+          <div class="ear-training-box">
+            <div class="ear-training-header">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+              Ear-Training Diagnostic: Identifying Artifacts in Context 3 Exams
+            </div>
+            <ul class="ear-points">
+              <li>In Section A and B of Component 3, you may be presented with historic recordings and asked to identify the era, medium, or recording flaw. Train your ears for: (1) Horn resonance & slate hiss = 78 Shellac, (2) Surface ticks & RIAA warmth = Vinyl, (3) Tape saturation & hiss = Analogue Tape, (4) Inky black silence = CD / Digital PCM, (5) Watery swishing & pre-echo = Low-bitrate MP3.</li>
+              <li>Use the Master Matrix table on the right to memorize exact bandwidths, dynamic ranges, and engineering terminology required by examiners.</li>
+            </ul>
+          </div>
+
+          <div class="exam-warning-box">
+            <div class="exam-warning-header">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              Top 5 Edexcel Component 3 Exam Traps
+            </div>
+            
+        <div class="step-item" style="margin-bottom: 8px;">
+          <div class="step-num" style="background: var(--accent-highlight);">1</div>
+          <div class="step-text"><strong>Sample Rate vs Bit Depth Confusion:</strong> <span>Sample Rate controls frequency bandwidth (Nyquist limit fs >= 2fmax). Bit Depth controls dynamic range and quantization noise floor (6.02 x N dB). Do not mix these up!</span></div>
+        </div>
+        
+        <div class="step-item" style="margin-bottom: 8px;">
+          <div class="step-num" style="background: var(--accent-highlight);">2</div>
+          <div class="step-text"><strong>RIAA Equalisation Direction:</strong> <span>Remember RIAA applies BOTH on cutting (bass cut, treble boost) AND on playback in the phono preamp (bass boost, treble cut to restore flat frequency balance and cut hiss).</span></div>
+        </div>
+        
+        <div class="step-item" style="margin-bottom: 8px;">
+          <div class="step-num" style="background: var(--accent-highlight);">3</div>
+          <div class="step-text"><strong>AC Bias Function:</strong> <span>Tape AC bias is an ultrasonic frequency (~100 kHz) mixed into the audio signal during recording to eliminate magnetic hysteresis distortion at zero crossing; it is NOT audible sound.</span></div>
+        </div>
+        
+        <div class="step-item" style="margin-bottom: 8px;">
+          <div class="step-num" style="background: var(--accent-highlight);">4</div>
+          <div class="step-text"><strong>Lossy vs Lossless Distinction:</strong> <span>MP3 and AAC are LOSSY (perceptual data is permanently discarded). FLAC and ALAC are LOSSLESS (compressed mathematically like a zip file; 100% bit-perfect upon decompression).</span></div>
+        </div>
+        
+        <div class="step-item" style="margin-bottom: 8px;">
+          <div class="step-num" style="background: var(--accent-highlight);">5</div>
+          <div class="step-text"><strong>Loudness Normalisation Penalty:</strong> <span>Streaming platforms measure Integrated LUFS. Mastering a track louder than -14 LUFS does NOT make it louder on Spotify—it gets turned down, losing transient punch.</span></div>
+        </div>
+        
+          </div>
+
+          <div class="tags-cloud" style="margin-top: 14px;">
+            <span class="tech-tag">Component 3 Matrix</span><span class="tech-tag">Exam Pitfalls</span><span class="tech-tag">LUFS Target</span><span class="tech-tag">RIAA Curve</span><span class="tech-tag">Nyquist Theorem</span>
+          </div>
+        </div>
+
+        <!-- RIGHT: MASTER COMPARISON MATRIX -->
+        <div class="column-panel format-col">
+          <div class="panel-header">
+            <span class="panel-badge format-badge">Specification Review</span>
+            <span class="panel-title">The Format Specification Matrix</span>
+          </div>
+
+          <div class="hardware-photo">
+            <img src="/images/music_formats/comparison_cd_cassette_streaming.svg" alt="Formats Comparison Diagram" loading="lazy">
+          </div>
+
+          <div class="hardware-hero-card">
+            <div class="inst-name">🏆 The Master Specification Matrix</div>
+            <div class="inst-specs">11 Formats &bull; Transduction Physics &bull; Dynamic Range &bull; Exam Traps</div>
+          </div>
+
+          <div class="history-card">
+            <div class="history-title">Edexcel Component 3 Examination Essentials</div>
+            <p>When answering questions on storage formats, always use technical terminology: 'Polyvinyl chloride', 'RIAA pre-emphasis/de-emphasis', 'Semiconductor laser photodiode phase cancellation', 'Ultrasonic AC bias', 'Psychoacoustic frequency and temporal masking', and 'ITU-R BS.1770 LUFS normalisation'.</p>
+            <p>Examiners frequently test your ability to explain WHY a technology was developed: e.g., why vinyl replaced shellac (longer playing time, quieter surface, lighter tracking), why RIAA was necessary (preventing physical groove overlap), or why MP3 compression was created (internet bandwidth limitations).</p>
+          </div>
+
+          <div class="table-container">
+            <table class="master-matrix-table">
+              <thead>
+                <tr>
+                  <th>Format</th>
+                  <th>Medium &amp; Method</th>
+                  <th>Bandwidth</th>
+                  <th>Dynamic Range</th>
+                  <th>Key Flaws &amp; Exam Clues</th>
+                </tr>
+              </thead>
+              <tbody>
+                
+        <tr>
+          <td><strong>78 RPM Shellac</strong></td>
+          <td>Acoustic horn / needle / lateral cut in shellac</td>
+          <td><code>200 Hz – 3,000 Hz</code></td>
+          <td><code>~30–35 dB</code></td>
+          <td>Extreme surface hiss, abrasive slate wear, 3-minute limit per side, acoustic horn resonance.</td>
+        </tr>
+        
+        <tr>
+          <td><strong>Vinyl Microgroove (33⅓)</strong></td>
+          <td>PVC disc / diamond stylus / RIAA phono EQ</td>
+          <td><code>20 Hz – 20,000 Hz</code></td>
+          <td><code>~55–65 dB</code></td>
+          <td>RIAA EQ curve needed, inner-groove distortion, wow & flutter, dust clicks, physical wear.</td>
+        </tr>
+        
+        <tr>
+          <td><strong>Open-Reel Tape (15/30 ips)</strong></td>
+          <td>Polyester ribbon / ferric oxide / 3-head path</td>
+          <td><code>20 Hz – 25,000 Hz</code></td>
+          <td><code>~65–75 dB (w/ NR)</code></td>
+          <td>Tape hiss, print-through, tape saturation soft-limiting, requires ultrasonic AC bias (~100 kHz).</td>
+        </tr>
+        
+        <tr>
+          <td><strong>Compact Cassette (1⅞ ips)</strong></td>
+          <td>0.15" tape / 4-track / Type I/II/IV / Dolby</td>
+          <td><code>30 Hz – 16,000 Hz (Type II)</code></td>
+          <td><code>~50–65 dB (w/ Dolby)</code></td>
+          <td>High tape hiss without Dolby B/C, head azimuth misalignment muffles treble, wow & flutter.</td>
+        </tr>
+        
+        <tr>
+          <td><strong>8-Track Cartridge</strong></td>
+          <td>1/4" endless loop / 3.75 ips / 4 stereo programs</td>
+          <td><code>40 Hz – 14,000 Hz</code></td>
+          <td><code>~50 dB</code></td>
+          <td>Solenoid head clunk during track shift, cannot rewind, head azimuth drift causes track bleed.</td>
+        </tr>
+        
+        <tr>
+          <td><strong>Compact Disc (CD-DA)</strong></td>
+          <td>120 mm polycarbonate / 780 nm laser / pits</td>
+          <td><code>20 Hz – 20,000 Hz (flat)</code></td>
+          <td><code>~96 dB (16-bit)</code></td>
+          <td>44.1 kHz / 16-bit linear PCM Red Book standard; zero surface noise, CIRC error correction.</td>
+        </tr>
+        
+        <tr>
+          <td><strong>Digital Audio Tape (DAT)</strong></td>
+          <td>4mm tape / rotating helical scan drum</td>
+          <td><code>20 Hz – 22,000 Hz</code></td>
+          <td><code>~92 dB (16-bit)</code></td>
+          <td>Uncompressed 16-bit PCM at 44.1/48 kHz; studio master standard; tape dropouts over time.</td>
+        </tr>
+        
+        <tr>
+          <td><strong>MiniDisc (ATRAC)</strong></td>
+          <td>64mm magneto-optical / 780 nm laser + head</td>
+          <td><code>20 Hz – 18,000 Hz</code></td>
+          <td><code>~90 dB</code></td>
+          <td>ATRAC lossy compression (~5:1 ratio), subtle high-frequency loss, 10s anti-shock RAM buffer.</td>
+        </tr>
+        
+        <tr>
+          <td><strong>MP3 / AAC Codecs</strong></td>
+          <td>Psychoacoustic perceptual coding / MDCT</td>
+          <td><code>20 Hz – 16 kHz (128k) / 20k (320k)</code></td>
+          <td><code>Dynamic range up to 96 dB</code></td>
+          <td>Simultaneous & temporal masking, metallic cymbal swishing, pre-echo transients, brickwall cutoff.</td>
+        </tr>
+        
+        <tr>
+          <td><strong>WAV / FLAC Lossless</strong></td>
+          <td>Linear PCM / lossless predictive compression</td>
+          <td><code>20 Hz – 48 kHz (96k)</code></td>
+          <td><code>Up to 144 dB (24-bit)</code></td>
+          <td>Dynamic range = 6.02 x N dB; bit-for-bit identical to master audio; no perceptual loss.</td>
+        </tr>
+        
+        <tr>
+          <td><strong>Streaming Normalisation</strong></td>
+          <td>Ogg Vorbis / AAC / LUFS loudness normalisation</td>
+          <td><code>20 Hz – 20,000 Hz</code></td>
+          <td><code>Target -14 LUFS</code></td>
+          <td>Tracks turned down if too squashed; requires -1 dBFS True Peak headroom to stop clipping.</td>
+        </tr>
+        
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+
+  <!-- NAVIGATION BAR -->
+  <div class="deck-nav-bar">
+    <div class="nav-left">
+      <button class="nav-btn" id="prevBtn" onclick="prevSlide()" disabled>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
+        Previous
+      </button>
+      <span class="slide-counter" id="slideCounter">01 / 12</span>
+    </div>
+
+    <div class="nav-center">
+      <select class="slide-select" id="slideSelect" onchange="jumpToSlide(parseInt(this.value))">
+        <option value="1">1. Evolution of Audio Formats Overview</option>
+        <option value="2">2. Shellac 78 RPM Discs (Acoustic Era)</option>
+        <option value="3">3. Vinyl Microgroove LPs &amp; 45s (RIAA)</option>
+        <option value="4">4. Studio Open-Reel Tape (15 &amp; 30 ips)</option>
+        <option value="5">5. Compact Audio Cassette (Philips 1963)</option>
+        <option value="6">6. 8-Track Cartridge (Endless Loop)</option>
+        <option value="7">7. Compact Disc (CD-DA Red Book 1982)</option>
+        <option value="8">8. Digital Audio Tape (DAT) &amp; MiniDisc</option>
+        <option value="9">9. Lossy MP3 &amp; AAC (Psychoacoustics)</option>
+        <option value="10">10. Lossless &amp; Hi-Res Audio (WAV &amp; FLAC)</option>
+        <option value="11">11. Modern Streaming &amp; Normalisation (LUFS)</option>
+        <option value="12">12. Master Specification Matrix &amp; Exam Traps</option>
+      </select>
+    </div>
+
+    <div class="nav-right">
+      <button class="nav-btn primary" id="nextBtn" onclick="nextSlide()">
+        Next
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <script>
+    let currentSlide = 1;
+    const totalSlides = 12;
+
+    function showSlide(n) {
+      if (n < 1) n = 1;
+      if (n > totalSlides) n = totalSlides;
+      currentSlide = n;
+
+      for (let i = 1; i <= totalSlides; i++) {
+        const slide = document.getElementById('slide-' + i);
+        if (slide) {
+          slide.classList.remove('active');
+        }
+      }
+
+      const activeSlide = document.getElementById('slide-' + currentSlide);
+      if (activeSlide) {
+        activeSlide.classList.add('active');
+      }
+
+      // Update counters & select
+      document.getElementById('slideCounter').textContent = (currentSlide < 10 ? '0' : '') + currentSlide + ' / ' + (totalSlides < 10 ? '0' : '') + totalSlides;
+      document.getElementById('slideSelect').value = currentSlide;
+
+      // Update buttons
+      document.getElementById('prevBtn').disabled = (currentSlide === 1);
+      document.getElementById('nextBtn').disabled = (currentSlide === totalSlides);
+
+      // Update progress bar
+      const pct = (currentSlide / totalSlides) * 100;
+      document.getElementById('progressBar').style.width = pct + '%';
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function nextSlide() {
+      if (currentSlide < totalSlides) {
+        showSlide(currentSlide + 1);
+      }
+    }
+
+    function prevSlide() {
+      if (currentSlide > 1) {
+        showSlide(currentSlide - 1);
+      }
+    }
+
+    function jumpToSlide(n) {
+      showSlide(n);
+    }
+
+    // Keyboard navigation
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'ArrowRight' || e.key === 'PageDown') {
+        nextSlide();
+      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        prevSlide();
+      }
+    });
+
+    // Initialise
+    showSlide(1);
+  </script>
+</body>
+</html>

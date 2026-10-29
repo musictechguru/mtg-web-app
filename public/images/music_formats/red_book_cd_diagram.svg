@@ -1,0 +1,247 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#070d18" />
+      <stop offset="50%" stop-color="#0b1326" />
+      <stop offset="100%" stop-color="#030712" />
+    </linearGradient>
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#17223b" />
+      <stop offset="100%" stop-color="#0d1527" />
+    </linearGradient>
+    <linearGradient id="panelGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.5" />
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="960" height="540" fill="url(#bgGrad)" />
+
+  <!-- Outer Header -->
+  <g transform="translate(30, 16)">
+    <rect width="250" height="34" rx="7" fill="#ef4444" fill-opacity="0.15" stroke="#ef4444" stroke-width="1.3" />
+    <text x="125" y="22" fill="#f87171" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="800" text-anchor="middle" letter-spacing="1">RED BOOK CD STANDARD</text>
+
+    <rect x="262" y="0" width="668" height="34" rx="7" fill="#0f172a" stroke="#334155" stroke-width="1.3" />
+    <text x="596" y="22" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="600" text-anchor="middle">Physical Audio CD Specifications: 16-Bit / 44.1 kHz PCM, Subcode Data &amp; DDP Sets</text>
+  </g>
+
+  <!-- Main Container -->
+  <g transform="translate(30, 60)">
+    <rect width="900" height="396" rx="10" fill="url(#cardGrad)" stroke="#334155" stroke-width="1.4" filter="url(#shadow)" />
+
+    <!-- 3 COLUMNS -->
+    <!-- COLUMN 1: Audio Specifications -->
+    <g transform="translate(20, 18)">
+      <rect width="280" height="360" rx="8" fill="url(#panelGrad)" stroke="#38bdf8" stroke-width="1.3" />
+
+      <g transform="translate(14, 12)">
+        <rect width="252" height="28" rx="6" fill="#0284c7" fill-opacity="0.25" stroke="#38bdf8" stroke-width="1.1" />
+        <text x="126" y="19" fill="#38bdf8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10.5" font-weight="800" text-anchor="middle" letter-spacing="0.8">1. AUDIO SPECIFICATIONS</text>
+      </g>
+
+      <!-- 4 Stacked Spec Cards -->
+      <g transform="translate(14, 48)">
+        <!-- Card 1: Bit Depth -->
+        <g transform="translate(0, 0)">
+          <rect width="252" height="66" rx="6" fill="#090f1d" stroke="#1e293b" stroke-width="1" />
+          <rect x="8" y="8" width="100" height="20" rx="3" fill="#0284c7" fill-opacity="0.2" stroke="#38bdf8" stroke-width="1" />
+          <text x="58" y="21" fill="#38bdf8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" font-weight="800" text-anchor="middle">BIT DEPTH</text>
+
+          <rect x="114" y="8" width="130" height="20" rx="3" fill="#1e293b" stroke="#334155" stroke-width="1" />
+          <text x="179" y="21" fill="#f1f5f9" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" font-weight="700" text-anchor="middle">16-Bit Linear PCM</text>
+
+          <rect x="8" y="34" width="236" height="24" rx="3" fill="#0f172a" stroke="#1e293b" stroke-width="1" />
+          <text x="126" y="50" fill="#cbd5e1" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.2" font-weight="500" text-anchor="middle">Yields 96 dB theoretical dynamic range</text>
+        </g>
+
+        <!-- Card 2: Sample Rate -->
+        <g transform="translate(0, 74)">
+          <rect width="252" height="66" rx="6" fill="#090f1d" stroke="#1e293b" stroke-width="1" />
+          <rect x="8" y="8" width="100" height="20" rx="3" fill="#0284c7" fill-opacity="0.2" stroke="#38bdf8" stroke-width="1" />
+          <text x="58" y="21" fill="#38bdf8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" font-weight="800" text-anchor="middle">SAMPLE RATE</text>
+
+          <rect x="114" y="8" width="130" height="20" rx="3" fill="#1e293b" stroke="#334155" stroke-width="1" />
+          <text x="179" y="21" fill="#f1f5f9" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" font-weight="700" text-anchor="middle">44.1 kHz Stereo</text>
+
+          <rect x="8" y="34" width="236" height="24" rx="3" fill="#0f172a" stroke="#1e293b" stroke-width="1" />
+          <text x="126" y="50" fill="#cbd5e1" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.2" font-weight="500" text-anchor="middle">Nyquist limit = 22.05 kHz (covers 20-20k)</text>
+        </g>
+
+        <!-- Card 3: Capacity & Tracks -->
+        <g transform="translate(0, 148)">
+          <rect width="252" height="66" rx="6" fill="#090f1d" stroke="#1e293b" stroke-width="1" />
+          <rect x="8" y="8" width="100" height="20" rx="3" fill="#0284c7" fill-opacity="0.2" stroke="#38bdf8" stroke-width="1" />
+          <text x="58" y="21" fill="#38bdf8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" font-weight="800" text-anchor="middle">CAPACITY</text>
+
+          <rect x="114" y="8" width="130" height="20" rx="3" fill="#1e293b" stroke="#334155" stroke-width="1" />
+          <text x="179" y="21" fill="#f1f5f9" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" font-weight="700" text-anchor="middle">74–80 Minutes Max</text>
+
+          <rect x="8" y="34" width="236" height="24" rx="3" fill="#0f172a" stroke="#1e293b" stroke-width="1" />
+          <text x="126" y="50" fill="#cbd5e1" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.2" font-weight="500" text-anchor="middle">Accommodates up to 99 separate audio tracks</text>
+        </g>
+
+        <!-- Card 4: Historical Origins -->
+        <g transform="translate(0, 222)">
+          <rect width="252" height="66" rx="6" fill="#090f1d" stroke="#1e293b" stroke-width="1" />
+          <rect x="8" y="8" width="100" height="20" rx="3" fill="#0284c7" fill-opacity="0.2" stroke="#38bdf8" stroke-width="1" />
+          <text x="58" y="21" fill="#38bdf8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" font-weight="800" text-anchor="middle">FOUNDED 1980</text>
+
+          <rect x="114" y="8" width="130" height="20" rx="3" fill="#1e293b" stroke="#334155" stroke-width="1" />
+          <text x="179" y="21" fill="#f1f5f9" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" font-weight="700" text-anchor="middle">Sony &amp; Philips</text>
+
+          <rect x="8" y="34" width="236" height="24" rx="3" fill="#0f172a" stroke="#1e293b" stroke-width="1" />
+          <text x="126" y="50" fill="#cbd5e1" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.2" font-weight="500" text-anchor="middle">Bound in a red cover, creating the name</text>
+        </g>
+      </g>
+    </g>
+
+    <!-- COLUMN 2: Metadata & Subcode Data -->
+    <g transform="translate(310, 18)">
+      <rect width="280" height="360" rx="8" fill="url(#panelGrad)" stroke="#f59e0b" stroke-width="1.3" />
+
+      <g transform="translate(14, 12)">
+        <rect width="252" height="28" rx="6" fill="#78350f" fill-opacity="0.3" stroke="#f59e0b" stroke-width="1.1" />
+        <text x="126" y="19" fill="#fbbf24" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10.5" font-weight="800" text-anchor="middle" letter-spacing="0.8">2. METADATA &amp; SUBCODES</text>
+      </g>
+
+      <!-- 4 Stacked Metadata Cards -->
+      <g transform="translate(14, 48)">
+        <!-- Card 1: ISRC Code -->
+        <g transform="translate(0, 0)">
+          <rect width="252" height="66" rx="6" fill="#090f1d" stroke="#1e293b" stroke-width="1" />
+          <rect x="8" y="8" width="90" height="20" rx="3" fill="#f59e0b" fill-opacity="0.2" stroke="#f59e0b" stroke-width="1" />
+          <text x="53" y="21" fill="#fbbf24" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" font-weight="800" text-anchor="middle">ISRC CODES</text>
+
+          <rect x="104" y="8" width="140" height="20" rx="3" fill="#1e293b" stroke="#334155" stroke-width="1" />
+          <text x="174" y="21" fill="#f1f5f9" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" font-weight="700" text-anchor="middle">GB-AAA-24-00123</text>
+
+          <rect x="8" y="34" width="236" height="24" rx="3" fill="#0f172a" stroke="#1e293b" stroke-width="1" />
+          <text x="126" y="50" fill="#cbd5e1" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.2" font-weight="500" text-anchor="middle">Identifies tracks for royalty collection &amp; radio</text>
+        </g>
+
+        <!-- Card 2: Subcode Channel Q -->
+        <g transform="translate(0, 74)">
+          <rect width="252" height="66" rx="6" fill="#090f1d" stroke="#1e293b" stroke-width="1" />
+          <rect x="8" y="8" width="90" height="20" rx="3" fill="#f59e0b" fill-opacity="0.2" stroke="#f59e0b" stroke-width="1" />
+          <text x="53" y="21" fill="#fbbf24" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" font-weight="800" text-anchor="middle">CHANNEL Q</text>
+
+          <rect x="104" y="8" width="140" height="20" rx="3" fill="#1e293b" stroke="#334155" stroke-width="1" />
+          <text x="174" y="21" fill="#f1f5f9" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" font-weight="700" text-anchor="middle">Subcode Data Stream</text>
+
+          <rect x="8" y="34" width="236" height="24" rx="3" fill="#0f172a" stroke="#1e293b" stroke-width="1" />
+          <text x="126" y="50" fill="#cbd5e1" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.2" font-weight="500" text-anchor="middle">Stores timing, index points, and UPC barcode</text>
+        </g>
+
+        <!-- Card 3: CD-Text -->
+        <g transform="translate(0, 148)">
+          <rect width="252" height="66" rx="6" fill="#090f1d" stroke="#1e293b" stroke-width="1" />
+          <rect x="8" y="8" width="90" height="20" rx="3" fill="#f59e0b" fill-opacity="0.2" stroke="#f59e0b" stroke-width="1" />
+          <text x="53" y="21" fill="#fbbf24" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" font-weight="800" text-anchor="middle">CD-TEXT</text>
+
+          <rect x="104" y="8" width="140" height="20" rx="3" fill="#1e293b" stroke="#334155" stroke-width="1" />
+          <text x="174" y="21" fill="#f1f5f9" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" font-weight="700" text-anchor="middle">Title &amp; Artist Names</text>
+
+          <rect x="8" y="34" width="236" height="24" rx="3" fill="#0f172a" stroke="#1e293b" stroke-width="1" />
+          <text x="126" y="50" fill="#cbd5e1" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.2" font-weight="500" text-anchor="middle">Displays song information on car CD stereos</text>
+        </g>
+
+        <!-- Card 4: Pre-Gap Pauses -->
+        <g transform="translate(0, 222)">
+          <rect width="252" height="66" rx="6" fill="#090f1d" stroke="#1e293b" stroke-width="1" />
+          <rect x="8" y="8" width="90" height="20" rx="3" fill="#f59e0b" fill-opacity="0.2" stroke="#f59e0b" stroke-width="1" />
+          <text x="53" y="21" fill="#fbbf24" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" font-weight="800" text-anchor="middle">PRE-GAPS</text>
+
+          <rect x="104" y="8" width="140" height="20" rx="3" fill="#1e293b" stroke="#334155" stroke-width="1" />
+          <text x="174" y="21" fill="#f1f5f9" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" font-weight="700" text-anchor="middle">2-Second Standard</text>
+
+          <rect x="8" y="34" width="236" height="24" rx="3" fill="#0f172a" stroke="#1e293b" stroke-width="1" />
+          <text x="126" y="50" fill="#cbd5e1" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.2" font-weight="500" text-anchor="middle">Controls silent spacing or crossfades between tracks</text>
+        </g>
+      </g>
+    </g>
+
+    <!-- COLUMN 3: DDP Replication Protocol -->
+    <g transform="translate(600, 18)">
+      <rect width="280" height="360" rx="8" fill="url(#panelGrad)" stroke="#10b981" stroke-width="1.3" />
+
+      <g transform="translate(14, 12)">
+        <rect width="252" height="28" rx="6" fill="#059669" fill-opacity="0.25" stroke="#10b981" stroke-width="1.1" />
+        <text x="126" y="19" fill="#34d399" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10.5" font-weight="800" text-anchor="middle" letter-spacing="0.8">3. DDP PROTOCOL (PRESSING)</text>
+      </g>
+
+      <!-- 4 Stacked DDP Cards -->
+      <g transform="translate(14, 48)">
+        <!-- Card 1: IMAGE.DAT -->
+        <g transform="translate(0, 0)">
+          <rect width="252" height="66" rx="6" fill="#090f1d" stroke="#1e293b" stroke-width="1" />
+          <rect x="8" y="8" width="90" height="20" rx="3" fill="#10b981" fill-opacity="0.2" stroke="#10b981" stroke-width="1" />
+          <text x="53" y="21" fill="#34d399" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" font-weight="800" text-anchor="middle">IMAGE.DAT</text>
+
+          <rect x="104" y="8" width="140" height="20" rx="3" fill="#1e293b" stroke="#334155" stroke-width="1" />
+          <text x="174" y="21" fill="#f1f5f9" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" font-weight="700" text-anchor="middle">Raw Audio Stream</text>
+
+          <rect x="8" y="34" width="236" height="24" rx="3" fill="#0f172a" stroke="#1e293b" stroke-width="1" />
+          <text x="126" y="50" fill="#cbd5e1" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.2" font-weight="500" text-anchor="middle">Continuous bitstream of all album audio tracks</text>
+        </g>
+
+        <!-- Card 2: DDPID -->
+        <g transform="translate(0, 74)">
+          <rect width="252" height="66" rx="6" fill="#090f1d" stroke="#1e293b" stroke-width="1" />
+          <rect x="8" y="8" width="90" height="20" rx="3" fill="#10b981" fill-opacity="0.2" stroke="#10b981" stroke-width="1" />
+          <text x="53" y="21" fill="#34d399" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" font-weight="800" text-anchor="middle">DDPID</text>
+
+          <rect x="104" y="8" width="140" height="20" rx="3" fill="#1e293b" stroke="#334155" stroke-width="1" />
+          <text x="174" y="21" fill="#f1f5f9" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" font-weight="700" text-anchor="middle">Disc Identifier File</text>
+
+          <rect x="8" y="34" width="236" height="24" rx="3" fill="#0f172a" stroke="#1e293b" stroke-width="1" />
+          <text x="126" y="50" fill="#cbd5e1" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.2" font-weight="500" text-anchor="middle">Defines DDP protocol version and disc format</text>
+        </g>
+
+        <!-- Card 3: DDPMS -->
+        <g transform="translate(0, 148)">
+          <rect width="252" height="66" rx="6" fill="#090f1d" stroke="#1e293b" stroke-width="1" />
+          <rect x="8" y="8" width="90" height="20" rx="3" fill="#10b981" fill-opacity="0.2" stroke="#10b981" stroke-width="1" />
+          <text x="53" y="21" fill="#34d399" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" font-weight="800" text-anchor="middle">DDPMS</text>
+
+          <rect x="104" y="8" width="140" height="20" rx="3" fill="#1e293b" stroke="#334155" stroke-width="1" />
+          <text x="174" y="21" fill="#f1f5f9" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" font-weight="700" text-anchor="middle">Map Stream Descriptor</text>
+
+          <rect x="8" y="34" width="236" height="24" rx="3" fill="#0f172a" stroke="#1e293b" stroke-width="1" />
+          <text x="126" y="50" fill="#cbd5e1" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.2" font-weight="500" text-anchor="middle">Maps precise track starts, lengths, and pregaps</text>
+        </g>
+
+        <!-- Card 4: MD5 Checksum -->
+        <g transform="translate(0, 222)">
+          <rect width="252" height="66" rx="6" fill="#090f1d" stroke="#1e293b" stroke-width="1" />
+          <rect x="8" y="8" width="90" height="20" rx="3" fill="#10b981" fill-opacity="0.2" stroke="#10b981" stroke-width="1" />
+          <text x="53" y="21" fill="#34d399" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" font-weight="800" text-anchor="middle">CHECKSUM</text>
+
+          <rect x="104" y="8" width="140" height="20" rx="3" fill="#1e293b" stroke="#334155" stroke-width="1" />
+          <text x="174" y="21" fill="#f1f5f9" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" font-weight="700" text-anchor="middle">MD5 Verification</text>
+
+          <rect x="8" y="34" width="236" height="24" rx="3" fill="#0f172a" stroke="#1e293b" stroke-width="1" />
+          <text x="126" y="50" fill="#cbd5e1" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.2" font-weight="500" text-anchor="middle">Guarantees 100% bit-accurate glass master pressing</text>
+        </g>
+      </g>
+    </g>
+  </g>
+
+  <!-- Bottom Takeaway Container -->
+  <g transform="translate(30, 466)">
+    <rect width="900" height="58" rx="8" fill="#0f172a" stroke="#334155" stroke-width="1.3" />
+
+    <!-- Takeaway Tag Badge -->
+    <rect x="14" y="11" width="106" height="36" rx="6" fill="#ef4444" />
+    <text x="67" y="33" fill="#ffffff" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="800" text-anchor="middle" letter-spacing="0.8">TAKEAWAY</text>
+
+    <!-- Takeaway Content Box -->
+    <rect x="128" y="9" width="758" height="40" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1" />
+    <text x="507" y="24" fill="#f8fafc" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10.5" font-weight="700" text-anchor="middle">The Red Book standard specifies 16-bit / 44.1 kHz PCM stereo audio for Compact Discs.</text>
+    <text x="507" y="39" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" font-weight="600" text-anchor="middle">It defines up to 99 tracks, embedded ISRC codes for royalties, and DDP file sets for plant replication.</text>
+  </g>
+</svg>
