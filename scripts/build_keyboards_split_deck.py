@@ -555,7 +555,7 @@ html_content = '''<!DOCTYPE html>
             <span class="panel-subtitle">The Big 6 Transduction Methods</span>
           </div>
           <div class="instrument-photo-card">
-            <img src="/images/slides/classic_keyboards/vintage_keyboards_comparative_matrix.svg" alt="Classic Keyboards Overview" class="instrument-photo">
+            <img src="/images/slides/classic_keyboards/vintage_keyboards_collection.jpg" alt="Classic Keyboards Studio Collection" class="instrument-photo">
             <div class="instrument-photo-caption">
               <span class="caption-name">🎹 The Big Six Classic Keyboards</span>
               <span class="caption-spec">Rhodes &bull; Clavinet &bull; Mellotron &bull; Wurlitzer &bull; Hammond &bull; Solina</span>
@@ -706,9 +706,9 @@ html_content = '''<!DOCTYPE html>
             <span class="panel-subtitle">Voicing Physics &amp; Models</span>
           </div>
           <div class="instrument-photo-card">
-            <img src="/images/slides/classic_keyboards/fender_rhodes_tine_tonebar_schematic.svg" alt="Rhodes Tine and Tonebar Schematic" class="instrument-photo">
+            <img src="/images/slides/classic_keyboards/rhodes_tines_dampers_interior.jpg" alt="Fender Rhodes Harp Interior and Tines" class="instrument-photo">
             <div class="instrument-photo-caption">
-              <span class="caption-name">🔬 Rhodes Internal Generator Schematic</span>
+              <span class="caption-name">🔬 Fender Rhodes Harp &amp; Tine Assembly</span>
               <span class="caption-spec">Tonebar Resonator &bull; Vibrating Tine Wire &bull; Magnetic Pickup</span>
             </div>
           </div>
@@ -857,9 +857,9 @@ html_content = '''<!DOCTYPE html>
             <span class="panel-subtitle">Switches, Filters &amp; Mute Slider</span>
           </div>
           <div class="instrument-photo-card">
-            <img src="/images/slides/classic_keyboards/hohner_clavinet_tangent_string_schematic.svg" alt="Clavinet Tangent String Action" class="instrument-photo">
+            <img src="/images/slides/classic_keyboards/clavinet_d6_open_action.jpg" alt="Clavinet D6 Open Action and Preamp" class="instrument-photo">
             <div class="instrument-photo-caption">
-              <span class="caption-name">🔬 Clavinet Tangent Fretting Schematic</span>
+              <span class="caption-name">🔬 Hohner Clavinet Open Action &amp; Preamp</span>
               <span class="caption-spec">Rubber Plunger &bull; Metal Anvil Fret &bull; Yarn Damper Choke</span>
             </div>
           </div>
@@ -1159,9 +1159,9 @@ html_content = '''<!DOCTYPE html>
             <span class="panel-subtitle">Physics Comparison: Rhodes vs. Wurlitzer</span>
           </div>
           <div class="instrument-photo-card">
-            <img src="/images/slides/classic_keyboards/wurlitzer_reed_electrostatic_pickup.svg" alt="Wurlitzer Reed Electrostatic Pickup Assembly" class="instrument-photo">
+            <img src="/images/slides/classic_keyboards/wurlitzer_reeds_interior.jpg" alt="Wurlitzer Reed and Pickup Assembly" class="instrument-photo">
             <div class="instrument-photo-caption">
-              <span class="caption-name">🔬 Wurlitzer Reed &amp; Polarized Comb Plate</span>
+              <span class="caption-name">🔬 Wurlitzer 200A Harp &amp; Reed Assembly</span>
               <span class="caption-spec">170V DC Bias &bull; Modulating Capacitance C = &epsilon;&middot;A/d</span>
             </div>
           </div>
@@ -1310,9 +1310,9 @@ html_content = '''<!DOCTYPE html>
             <span class="panel-subtitle">Physics of the Rotating Speaker</span>
           </div>
           <div class="instrument-photo-card">
-            <img src="/images/slides/classic_keyboards/hammond_drawbars.jpg" alt="Hammond Drawbars Close-up" class="instrument-photo">
+            <img src="/images/slides/classic_keyboards/leslie_speaker.jpg" alt="Leslie 122 Rotary Speaker Cabinet" class="instrument-photo">
             <div class="instrument-photo-caption">
-              <span class="caption-name">🔬 Hammond Drawbar Console &amp; Footages</span>
+              <span class="caption-name">🌪️ Leslie 122 Rotary Cabinet</span>
               <span class="caption-spec">9 Harmonic Sliders (16' to 1') &bull; Percussion 2nd/3rd Harmonic</span>
             </div>
           </div>
@@ -1462,10 +1462,10 @@ html_content = '''<!DOCTYPE html>
             <span class="panel-subtitle">Paraphonic Envelopes &amp; Voicing</span>
           </div>
           <div class="instrument-photo-card">
-            <img src="/images/slides/classic_keyboards/solina_string_ensemble.jpg" alt="Solina Control Sliders and Voicing Switches" class="instrument-photo" style="object-position: top center;">
+            <img src="/images/slides/classic_keyboards/eminent_310u_organ.jpg" alt="Eminent 310 Unique Console Organ" class="instrument-photo">
             <div class="instrument-photo-caption">
-              <span class="caption-name">🔬 Solina Voicing Sliders &amp; Formants</span>
-              <span class="caption-spec">Violin &bull; Viola &bull; Trumpet &bull; Horn &bull; Cello &bull; Contra-Bass</span>
+              <span class="caption-name">🎹 Eminent 310 Unique Console Organ</span>
+              <span class="caption-spec">Dutch Dual-Manual Console &bull; Original Solina 3-Phase BBD String Circuit</span>
             </div>
           </div>
           <div class="section-block history-block">
@@ -1528,6 +1528,15 @@ html_content = '''<!DOCTYPE html>
             <span class="panel-badge inst-badge">⚙️ Exam Specification Matrix</span>
             <span class="panel-subtitle">Quick-Revision Cheat Sheet</span>
           </div>
+
+          <div class="instrument-photo-card">
+            <img src="/images/slides/classic_keyboards/vintage_keyboards_collection.jpg" alt="The Electro-Mechanical Hall of Fame" class="instrument-photo">
+            <div class="instrument-photo-caption">
+              <span class="caption-name">🏆 The Electro-Mechanical Hall of Fame</span>
+              <span class="caption-spec">Rhodes &bull; Clavinet &bull; Mellotron &bull; Wurlitzer &bull; Hammond &bull; Solina</span>
+            </div>
+          </div>
+
           <div class="comp-table-wrap">
             <table class="comp-table">
               <thead>

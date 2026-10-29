@@ -196,6 +196,8 @@ def update_page(page_id, title=None, is_post=False):
 
 def main():
     print("Deploying classic keyboards payload to WordPress...")
+    # Update Page ID 298042 (Classic Keyboards dedicated)
+    update_page(298042, "Classic Keyboards &amp; Electro-Mechanical Audio")
     # Update Page ID 236757 (The Mellotron)
     update_page(236757, "The Mellotron &amp; Classic Electro-Mechanical Keyboards")
     # Update Page ID 297825 (The Electric Piano)
