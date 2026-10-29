@@ -1,4 +1,4 @@
-import os
+import re
 
 html_content = '''<!DOCTYPE html>
 <html lang="en">
@@ -231,14 +231,64 @@ html_content = '''<!DOCTYPE html>
     }
 
     /* Instrument Side Elements */
+    .instrument-photo-card {
+      position: relative;
+      width: 100%;
+      height: 185px;
+      border-radius: 10px;
+      overflow: hidden;
+      background: #060b13;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+    }
+    .instrument-photo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      transition: transform 0.3s ease;
+    }
+    .instrument-photo:hover {
+      transform: scale(1.03);
+    }
+    .instrument-photo-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(0deg, rgba(8, 14, 26, 0.95) 0%, rgba(8, 14, 26, 0.7) 65%, transparent 100%);
+      padding: 8px 12px 6px 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+    .caption-name {
+      color: #ffffff;
+      font-size: 12.5px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .caption-spec {
+      color: #c084fc;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
     .section-block {
       background: rgba(255, 255, 255, 0.025);
       border: 1px solid rgba(255, 255, 255, 0.06);
       border-radius: 10px;
-      padding: 14px 16px;
+      padding: 13px 15px;
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 7px;
     }
     .section-block.history-block {
       border-left: 3px solid #f59e0b;
@@ -247,7 +297,7 @@ html_content = '''<!DOCTYPE html>
       border-left: 3px solid #10b981;
     }
     .block-header {
-      font-size: 12px;
+      font-size: 11.5px;
       font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 0.8px;
@@ -259,14 +309,14 @@ html_content = '''<!DOCTYPE html>
     .block-header.emerald { color: #34d399; }
     .block-title {
       color: #ffffff;
-      font-size: 15px;
+      font-size: 14.5px;
       font-weight: 800;
       line-height: 1.3;
     }
     .block-body {
       color: #cbd5e1;
       font-size: 13px;
-      line-height: 1.6;
+      line-height: 1.55;
     }
     .block-body strong {
       color: #ffffff;
@@ -275,14 +325,14 @@ html_content = '''<!DOCTYPE html>
       list-style: none;
       display: flex;
       flex-direction: column;
-      gap: 8px;
-      margin-top: 4px;
+      gap: 7px;
+      margin-top: 2px;
     }
     .step-item {
       display: flex;
       gap: 10px;
-      font-size: 13px;
-      line-height: 1.55;
+      font-size: 12.5px;
+      line-height: 1.5;
       color: #cbd5e1;
     }
     .step-num {
@@ -291,8 +341,8 @@ html_content = '''<!DOCTYPE html>
       border: 1px solid rgba(16, 185, 129, 0.3);
       font-weight: 800;
       font-size: 11px;
-      width: 22px;
-      height: 22px;
+      width: 20px;
+      height: 20px;
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -328,26 +378,26 @@ html_content = '''<!DOCTYPE html>
       background: rgba(15, 23, 42, 0.9);
       border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 12px;
-      margin-top: 10px;
+      margin-top: 6px;
     }
     .comp-table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 12.5px;
+      font-size: 12px;
       text-align: left;
     }
     .comp-table th {
       background: rgba(255, 255, 255, 0.04);
       color: #38bdf8;
       font-weight: 800;
-      padding: 10px 12px;
+      padding: 9px 11px;
       border-bottom: 1px solid rgba(255, 255, 255, 0.1);
       text-transform: uppercase;
       font-size: 11px;
       letter-spacing: 0.5px;
     }
     .comp-table td {
-      padding: 10px 12px;
+      padding: 9px 11px;
       border-bottom: 1px solid rgba(255, 255, 255, 0.05);
       color: #cbd5e1;
       vertical-align: top;
@@ -504,6 +554,13 @@ html_content = '''<!DOCTYPE html>
             <span class="panel-badge inst-badge">⚙️ Instrument Architecture</span>
             <span class="panel-subtitle">The Big 6 Transduction Methods</span>
           </div>
+          <div class="instrument-photo-card">
+            <img src="/images/slides/classic_keyboards/vintage_keyboards_comparative_matrix.svg" alt="Classic Keyboards Overview" class="instrument-photo">
+            <div class="instrument-photo-caption">
+              <span class="caption-name">🎹 The Big Six Classic Keyboards</span>
+              <span class="caption-spec">Rhodes &bull; Clavinet &bull; Mellotron &bull; Wurlitzer &bull; Hammond &bull; Solina</span>
+            </div>
+          </div>
           <div class="section-block history-block">
             <div class="block-header amber">📜 Historical Evolution</div>
             <div class="block-title">The Quest for Portable Volume &amp; Real Sound</div>
@@ -513,7 +570,7 @@ html_content = '''<!DOCTYPE html>
             <div class="block-header emerald">🔬 The 4 Core Transduction Technologies</div>
             <ul class="step-list">
               <li class="step-item"><span class="step-num">1</span><div><strong>Electromagnetic Induction (Rhodes, Clavinet, Hammond):</strong> A ferric metal object moves through a permanent magnetic field, inducing an electrical current in a copper wire coil (Faraday's Law).</div></li>
-              <li class="step-item"><span class="step-num">2</span><div><strong>Electrostatic / Capacitive (Wurlitzer):</strong> A vibrating metal reed changes the air gap distance to a charged plate, altering electrical capacitance ($C = \varepsilon A / d$) powered by 170V DC.</div></li>
+              <li class="step-item"><span class="step-num">2</span><div><strong>Electrostatic / Capacitive (Wurlitzer):</strong> A vibrating metal reed changes the air gap distance to a charged plate, altering electrical capacitance (<em>C = &epsilon; &middot; A / d</em>) powered by 170V DC.</div></li>
               <li class="step-item"><span class="step-num">3</span><div><strong>Analog Tape Replay (Mellotron):</strong> Keys drag real multi-track magnetic tapes across electromagnetic playback heads for 8 seconds per key.</div></li>
               <li class="step-item"><span class="step-num">4</span><div><strong>Divide-Down &amp; Triple BBD Chorus (Solina):</strong> A master clock chip feeds frequency dividers to produce 49-note polyphonic sawtooth waves animated by bucket-brigade analog delay modulation.</div></li>
             </ul>
@@ -570,6 +627,13 @@ html_content = '''<!DOCTYPE html>
             <span class="panel-badge inst-badge">⚙️ Instrument Architecture</span>
             <span class="panel-subtitle">History &amp; Transduction Mechanics</span>
           </div>
+          <div class="instrument-photo-card">
+            <img src="/images/slides/classic_keyboards/fender_rhodes.jpg" alt="Fender Rhodes Mark I Stage 73" class="instrument-photo">
+            <div class="instrument-photo-caption">
+              <span class="caption-name">🎹 Fender Rhodes Mark I Stage 73</span>
+              <span class="caption-spec">Neoprene Hammers &bull; Asymmetrical Tuning Forks &bull; Magnetic Pickups</span>
+            </div>
+          </div>
           <div class="section-block history-block">
             <div class="block-header amber">📜 Origins &amp; History</div>
             <div class="block-title">From WWII Hospital Beds to CBS Fender</div>
@@ -582,7 +646,7 @@ html_content = '''<!DOCTYPE html>
               <li class="step-item"><span class="step-num">2</span><div><strong>Asymmetrical Tuning Fork:</strong> The hammer strikes a tapered steel wire called a <strong>tine</strong>. The tine is rigidly joined to a heavy, tuned steel resonator block called a <strong>tonebar</strong>. Together they form an asymmetrical tuning fork that sustains for over 20 seconds.</div></li>
               <li class="step-item"><span class="step-num">3</span><div><strong>Electromagnetic Pickup Transduction:</strong> Positioned millimeters from the tip of each tine is an individual <em>electromagnetic pickup</em> (copper wire coiled around an Alnico cylinder magnet). The vibrating ferric tine disturbs the magnetic field, generating an alternating audio voltage.</div></li>
             </ul>
-            <div class="tags-row" style="margin-top: 8px;">
+            <div class="tags-row" style="margin-top: 6px;">
               <span class="tag-badge key-term">#TineAndTonebar</span>
               <span class="tag-badge key-term">#NeopreneHammer</span>
               <span class="tag-badge key-term">#ElectromagneticPickup</span>
@@ -640,6 +704,13 @@ html_content = '''<!DOCTYPE html>
           <div class="panel-header">
             <span class="panel-badge inst-badge">⚙️ Instrument Architecture</span>
             <span class="panel-subtitle">Voicing Physics &amp; Models</span>
+          </div>
+          <div class="instrument-photo-card">
+            <img src="/images/slides/classic_keyboards/fender_rhodes_tine_tonebar_schematic.svg" alt="Rhodes Tine and Tonebar Schematic" class="instrument-photo">
+            <div class="instrument-photo-caption">
+              <span class="caption-name">🔬 Rhodes Internal Generator Schematic</span>
+              <span class="caption-spec">Tonebar Resonator &bull; Vibrating Tine Wire &bull; Magnetic Pickup</span>
+            </div>
           </div>
           <div class="section-block history-block">
             <div class="block-header amber">📜 Stage vs. Suitcase Models</div>
@@ -706,6 +777,13 @@ html_content = '''<!DOCTYPE html>
             <span class="panel-badge inst-badge">⚙️ Instrument Architecture</span>
             <span class="panel-subtitle">History &amp; Transduction Mechanics</span>
           </div>
+          <div class="instrument-photo-card">
+            <img src="/images/slides/classic_keyboards/hohner_clavinet_d6_wide.jpg" alt="Hohner Clavinet D6" class="instrument-photo">
+            <div class="instrument-photo-caption">
+              <span class="caption-name">🎹 Hohner Clavinet D6 (1971)</span>
+              <span class="caption-spec">60 Steel Strings &bull; Rubber Tangents &bull; Twin Pickups &bull; Tone Filters</span>
+            </div>
+          </div>
           <div class="section-block history-block">
             <div class="block-header amber">📜 Origins &amp; History</div>
             <div class="block-title">Ernst Zacharias &amp; The Renaissance Clavichord</div>
@@ -719,7 +797,7 @@ html_content = '''<!DOCTYPE html>
               <li class="step-item"><span class="step-num">3</span><div><strong>Yarn Damper Choking:</strong> A piece of woven <strong>wool yarn</strong> is threaded through the dead end of all 60 strings. The instant the key is released, the string touches the yarn and immediately stops vibrating, providing instantaneous staccato cut-off.</div></li>
               <li class="step-item"><span class="step-num">4</span><div><strong>Twin Electromagnetic Pickups:</strong> Two single-coil guitar pickups (Neck and Bridge) sense the string vibration.</div></li>
             </ul>
-            <div class="tags-row" style="margin-top: 8px;">
+            <div class="tags-row" style="margin-top: 6px;">
               <span class="tag-badge key-term">#RubberTangent</span>
               <span class="tag-badge key-term">#SteelGuitarStrings</span>
               <span class="tag-badge key-term">#MetalAnvil</span>
@@ -777,6 +855,13 @@ html_content = '''<!DOCTYPE html>
           <div class="panel-header">
             <span class="panel-badge inst-badge">⚙️ Instrument Architecture</span>
             <span class="panel-subtitle">Switches, Filters &amp; Mute Slider</span>
+          </div>
+          <div class="instrument-photo-card">
+            <img src="/images/slides/classic_keyboards/hohner_clavinet_tangent_string_schematic.svg" alt="Clavinet Tangent String Action" class="instrument-photo">
+            <div class="instrument-photo-caption">
+              <span class="caption-name">🔬 Clavinet Tangent Fretting Schematic</span>
+              <span class="caption-spec">Rubber Plunger &bull; Metal Anvil Fret &bull; Yarn Damper Choke</span>
+            </div>
           </div>
           <div class="section-block history-block">
             <div class="block-header amber">📜 Tone Switches &amp; Pickup Polarity</div>
@@ -843,6 +928,13 @@ html_content = '''<!DOCTYPE html>
             <span class="panel-badge inst-badge">⚙️ Instrument Architecture</span>
             <span class="panel-subtitle">History &amp; Transduction Mechanics</span>
           </div>
+          <div class="instrument-photo-card">
+            <img src="/images/slides/classic_keyboards/mellotron_m400.jpg" alt="Mellotron M400" class="instrument-photo">
+            <div class="instrument-photo-caption">
+              <span class="caption-name">🎹 Streetly Mellotron M400 (1970)</span>
+              <span class="caption-spec">35-Key Magnetic Tape Replay &bull; Removable Tape Frame &bull; 8-Sec Limit</span>
+            </div>
+          </div>
           <div class="section-block history-block">
             <div class="block-header amber">📜 Origins &amp; History</div>
             <div class="block-title">Harry Chamberlin to Streetly Electronics</div>
@@ -856,7 +948,7 @@ html_content = '''<!DOCTYPE html>
               <li class="step-item"><span class="step-num">3</span><div><strong>Audio Playback Head:</strong> Simultaneously, a spring-loaded felt pad pushes the magnetic tape directly against an <em>audio tape replay head</em>, playing the real recorded note.</div></li>
               <li class="step-item"><span class="step-num">4</span><div><strong>8-Second Time Limit:</strong> Each tape strip is physically 6 feet long, yielding a maximum sustain of exactly <strong>8 seconds</strong>. On key release, a return spring snaps the tape back to the start.</div></li>
             </ul>
-            <div class="tags-row" style="margin-top: 8px;">
+            <div class="tags-row" style="margin-top: 6px;">
               <span class="tag-badge key-term">#AnalogTapeReplay</span>
               <span class="tag-badge key-term">#PinchRollerAndCapstan</span>
               <span class="tag-badge key-term">#8SecondDuration</span>
@@ -914,6 +1006,13 @@ html_content = '''<!DOCTYPE html>
           <div class="panel-header">
             <span class="panel-badge inst-badge">⚙️ Instrument Architecture</span>
             <span class="panel-subtitle">Tape Frames &amp; Mechanical Quirks</span>
+          </div>
+          <div class="instrument-photo-card">
+            <img src="/images/slides/classic_keyboards/mellotron_tape_frame.jpg" alt="Mellotron Internal Tape Frame" class="instrument-photo">
+            <div class="instrument-photo-caption">
+              <span class="caption-name">🔬 Mellotron Tape Frame &amp; Return Mechanism</span>
+              <span class="caption-spec">35 Suspended Tapes &bull; Return Springs &bull; Capstan Drive</span>
+            </div>
           </div>
           <div class="section-block history-block">
             <div class="block-header amber">📜 Removable Tape Frames</div>
@@ -980,6 +1079,13 @@ html_content = '''<!DOCTYPE html>
             <span class="panel-badge inst-badge">⚙️ Instrument Architecture</span>
             <span class="panel-subtitle">History &amp; Transduction Mechanics</span>
           </div>
+          <div class="instrument-photo-card">
+            <img src="/images/slides/classic_keyboards/wurlitzer_200a.jpg" alt="Wurlitzer 200A Electric Piano" class="instrument-photo">
+            <div class="instrument-photo-caption">
+              <span class="caption-name">🎹 Wurlitzer Model 200A (1974)</span>
+              <span class="caption-spec">Felt Hammers &bull; Tuned Steel Reeds &bull; 170V DC Electrostatic Plate</span>
+            </div>
+          </div>
           <div class="section-block history-block">
             <div class="block-header amber">📜 Origins &amp; History</div>
             <div class="block-title">Benjamin Miessner &amp; The Rudolph Wurlitzer Co.</div>
@@ -991,9 +1097,9 @@ html_content = '''<!DOCTYPE html>
               <li class="step-item"><span class="step-num">1</span><div><strong>Felt Piano Hammer:</strong> A miniature grand piano wooden action throws a felt-covered hammer upward against a tuned flat <strong>Swedish steel reed</strong>.</div></li>
               <li class="step-item"><span class="step-num">2</span><div><strong>Electrostatic Comb Plate:</strong> The reed vibrates inside a precision metal pickup comb with an air gap of less than 1 millimeter.</div></li>
               <li class="step-item"><span class="step-num">3</span><div><strong>High-Voltage DC Polarization:</strong> A <strong>170V DC polarizing voltage</strong> is applied between the reed and the pickup comb, forming an electrical capacitor.</div></li>
-              <li class="step-item"><span class="step-num">4</span><div><strong>Capacitive Modulation:</strong> As the steel reed vibrates, the distance ($d$) changes, modulating capacitance ($C = \varepsilon A / d$) and converting physical vibrations into an electrical audio signal.</div></li>
+              <li class="step-item"><span class="step-num">4</span><div><strong>Capacitive Modulation:</strong> As the steel reed vibrates, the distance (<em>d</em>) changes, modulating capacitance (<em>C = &epsilon; &middot; A / d</em>) and converting physical vibrations into an electrical audio signal.</div></li>
             </ul>
-            <div class="tags-row" style="margin-top: 8px;">
+            <div class="tags-row" style="margin-top: 6px;">
               <span class="tag-badge key-term">#ElectrostaticTransduction</span>
               <span class="tag-badge key-term">#SteelReeds</span>
               <span class="tag-badge key-term">#170VDCPolarization</span>
@@ -1051,6 +1157,13 @@ html_content = '''<!DOCTYPE html>
           <div class="panel-header">
             <span class="panel-badge inst-badge">⚙️ Instrument Architecture</span>
             <span class="panel-subtitle">Physics Comparison: Rhodes vs. Wurlitzer</span>
+          </div>
+          <div class="instrument-photo-card">
+            <img src="/images/slides/classic_keyboards/wurlitzer_reed_electrostatic_pickup.svg" alt="Wurlitzer Reed Electrostatic Pickup Assembly" class="instrument-photo">
+            <div class="instrument-photo-caption">
+              <span class="caption-name">🔬 Wurlitzer Reed &amp; Polarized Comb Plate</span>
+              <span class="caption-spec">170V DC Bias &bull; Modulating Capacitance C = &epsilon;&middot;A/d</span>
+            </div>
           </div>
           <div class="section-block history-block">
             <div class="block-header amber">📜 Onboard Optical Tremolo Circuit</div>
@@ -1117,6 +1230,13 @@ html_content = '''<!DOCTYPE html>
             <span class="panel-badge inst-badge">⚙️ Instrument Architecture</span>
             <span class="panel-subtitle">History &amp; Transduction Mechanics</span>
           </div>
+          <div class="instrument-photo-card">
+            <img src="/images/slides/classic_keyboards/hammond_b3_with_leslie.jpg" alt="Hammond B3 Organ and Leslie Speaker" class="instrument-photo">
+            <div class="instrument-photo-caption">
+              <span class="caption-name">🎹 Hammond B3 Console Organ &amp; Leslie 122</span>
+              <span class="caption-spec">Walnut Console &bull; Twin Manuals &bull; Bass Pedals &bull; Leslie Rotary Cabinet</span>
+            </div>
+          </div>
           <div class="section-block history-block">
             <div class="block-header amber">📜 Origins &amp; History</div>
             <div class="block-title">Laurens Hammond &amp; The Clock Motor</div>
@@ -1127,10 +1247,10 @@ html_content = '''<!DOCTYPE html>
             <ul class="step-list">
               <li class="step-item"><span class="step-num">1</span><div><strong>Synchronous Electric Motor:</strong> A master synchronous motor turns a central drive shaft at exactly 1200 RPM, spinning <strong>91 scalloped steel tonewheels</strong>.</div></li>
               <li class="step-item"><span class="step-num">2</span><div><strong>Magnetic Pickup Induction:</strong> Each tonewheel has scalloped teeth along its edge. As teeth pass a permanent magnet wrapped in copper wire, the fluctuating magnetic reluctance induces a pure sine-wave current.</div></li>
-              <li class="step-item"><span class="step-num">3</span><div><strong>Drawbar Additive Synthesis:</strong> 9 sliding drawbars colored white, black, and brown represent pipe organ footages ($16', 5\frac{1}{3}', 8', 4', 2\frac{2}{3}', 2', 1\frac{3}{5}', 1\frac{1}{3}', 1'$). Pulling drawbars out (0 to 8) adds harmonic overtones additively.</div></li>
+              <li class="step-item"><span class="step-num">3</span><div><strong>Drawbar Additive Synthesis:</strong> 9 sliding drawbars colored white, black, and brown represent pipe organ footages (16&prime;, 5&#8531;&prime;, 8&prime;, 4&prime;, 2&#8532;&prime;, 2&prime;, 1&#8535;&prime;, 1&#8531;&prime;, 1&prime;). Pulling drawbars out (0 to 8) adds harmonic overtones additively.</div></li>
               <li class="step-item"><span class="step-num">4</span><div><strong>Mechanical Key Click:</strong> Beneath each key are 9 spring contacts that hit busbars, creating an iconic, unpitched percussive click.</div></li>
             </ul>
-            <div class="tags-row" style="margin-top: 8px;">
+            <div class="tags-row" style="margin-top: 6px;">
               <span class="tag-badge key-term">#91Tonewheels</span>
               <span class="tag-badge key-term">#AdditiveDrawbars</span>
               <span class="tag-badge key-term">#MechanicalKeyClick</span>
@@ -1188,6 +1308,13 @@ html_content = '''<!DOCTYPE html>
           <div class="panel-header">
             <span class="panel-badge inst-badge">⚙️ Instrument Architecture</span>
             <span class="panel-subtitle">Physics of the Rotating Speaker</span>
+          </div>
+          <div class="instrument-photo-card">
+            <img src="/images/slides/classic_keyboards/hammond_drawbars.jpg" alt="Hammond Drawbars Close-up" class="instrument-photo">
+            <div class="instrument-photo-caption">
+              <span class="caption-name">🔬 Hammond Drawbar Console &amp; Footages</span>
+              <span class="caption-spec">9 Harmonic Sliders (16' to 1') &bull; Percussion 2nd/3rd Harmonic</span>
+            </div>
           </div>
           <div class="section-block history-block">
             <div class="block-header amber">📜 Donald Leslie's Invention</div>
@@ -1255,6 +1382,13 @@ html_content = '''<!DOCTYPE html>
             <span class="panel-badge inst-badge">⚙️ Instrument Architecture</span>
             <span class="panel-subtitle">History &amp; Transduction Mechanics</span>
           </div>
+          <div class="instrument-photo-card">
+            <img src="/images/slides/classic_keyboards/solina_string_ensemble.jpg" alt="Solina String Ensemble" class="instrument-photo">
+            <div class="instrument-photo-caption">
+              <span class="caption-name">🎹 Eminent / ARP Solina String Ensemble (1974)</span>
+              <span class="caption-spec">49-Key Polyphony &bull; Formant Voicings &bull; Triple BBD Chorus Engine</span>
+            </div>
+          </div>
           <div class="section-block history-block">
             <div class="block-header amber">📜 Origins &amp; History</div>
             <div class="block-title">Ken Freeman &amp; The Eminent 310 Unique (1974)</div>
@@ -1266,9 +1400,9 @@ html_content = '''<!DOCTYPE html>
               <li class="step-item"><span class="step-num">1</span><div><strong>Top Octave Synthesizer (TOS):</strong> A master high-frequency clock oscillator feeds a Mostek MK50240 chip, generating the top 12 semi-tone pitches of the highest octave.</div></li>
               <li class="step-item"><span class="step-num">2</span><div><strong>Binary Frequency Dividers:</strong> Flip-flop divider chips divide frequencies by two repeatedly to produce all lower octaves. This provides <strong>full 49-key polyphony</strong> using raw sawtooth waves.</div></li>
               <li class="step-item"><span class="step-num">3</span><div><strong>Formant Bandpass Filters:</strong> Passive filter networks shape raw sawtooth waves into Violin, Viola, Trumpet, Horn, Cello, and Contra-bass voices with paraphonic envelope attack and sustain.</div></li>
-              <li class="step-item"><span class="step-num">4</span><div><strong>The Triple BBD Chorus Engine:</strong> The dry sawtooth signal is split into <strong>three Bucket Brigade Device (BBD) analog delay lines</strong> (TCA350 chips). Two independent LFOs (0.6 Hz and 6 Hz) modulate the delays with $120^\circ$ phase offsets, transforming thin buzz into rich acoustic string beating.</div></li>
+              <li class="step-item"><span class="step-num">4</span><div><strong>The Triple BBD Chorus Engine:</strong> The dry sawtooth signal is split into <strong>three Bucket Brigade Device (BBD) analog delay lines</strong> (TCA350 chips). Two independent LFOs (0.6 Hz and 6 Hz) modulate the delays with 120&deg; phase offsets, transforming thin buzz into rich acoustic string beating.</div></li>
             </ul>
-            <div class="tags-row" style="margin-top: 8px;">
+            <div class="tags-row" style="margin-top: 6px;">
               <span class="tag-badge key-term">#DivideDownTOS</span>
               <span class="tag-badge key-term">#TripleBBDChorus</span>
               <span class="tag-badge key-term">#FullPolyphony</span>
@@ -1326,6 +1460,13 @@ html_content = '''<!DOCTYPE html>
           <div class="panel-header">
             <span class="panel-badge inst-badge">⚙️ Instrument Architecture</span>
             <span class="panel-subtitle">Paraphonic Envelopes &amp; Voicing</span>
+          </div>
+          <div class="instrument-photo-card">
+            <img src="/images/slides/classic_keyboards/solina_string_ensemble.jpg" alt="Solina Control Sliders and Voicing Switches" class="instrument-photo" style="object-position: top center;">
+            <div class="instrument-photo-caption">
+              <span class="caption-name">🔬 Solina Voicing Sliders &amp; Formants</span>
+              <span class="caption-spec">Violin &bull; Viola &bull; Trumpet &bull; Horn &bull; Cello &bull; Contra-Bass</span>
+            </div>
           </div>
           <div class="section-block history-block">
             <div class="block-header amber">📜 Polyphony vs. Paraphony</div>
@@ -1524,4 +1665,4 @@ html_content = '''<!DOCTYPE html>
 with open("public/interactive-slide-classic-keyboards.html", "w") as f:
     f.write(html_content)
 
-print(f"Successfully generated public/interactive-slide-classic-keyboards.html with {len(html_content)} bytes")
+print(f"Updated public/interactive-slide-classic-keyboards.html with instrument photo cards across all slides ({len(html_content)} bytes)")
