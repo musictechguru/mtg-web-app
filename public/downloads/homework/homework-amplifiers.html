@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Component 3 Homework Pack • Guitar &amp; Bass Amplifiers | Music Tech Guru</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --accent: #d97706;
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --font: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      line-height: 1.6;
+      margin: 0;
+      padding: 24px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: var(--card);
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+      padding: 40px;
+    }
+
+    .header-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid #0f172a;
+      padding-bottom: 20px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .header-title h1 {
+      font-size: 26px;
+      font-weight: 800;
+      margin: 0 0 6px 0;
+      color: #0f172a;
+    }
+
+    .header-title p {
+      margin: 0;
+      font-size: 14px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .tag-badge {
+      display: inline-block;
+      padding: 6px 14px;
+      background: #b45309;
+      color: #ffffff;
+      font-size: 13px;
+      font-weight: 700;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+      background: #f1f5f9;
+      padding: 16px;
+      border-radius: 10px;
+      margin-bottom: 32px;
+      font-size: 14px;
+    }
+
+    .meta-item strong {
+      display: block;
+      color: #475569;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 2px;
+    }
+
+    .question-block {
+      margin-bottom: 36px;
+      padding-bottom: 28px;
+      border-bottom: 1px dashed var(--border);
+    }
+
+    .question-block:last-of-type {
+      border-bottom: none;
+    }
+
+    .question-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 12px;
+      gap: 12px;
+    }
+
+    .question-num {
+      font-size: 18px;
+      font-weight: 800;
+      color: #0f172a;
+    }
+
+    .marks-badge {
+      font-size: 13px;
+      font-weight: 700;
+      background: #fef3c7;
+      color: #b45309;
+      padding: 4px 10px;
+      border-radius: 6px;
+      white-space: nowrap;
+    }
+
+    .question-text {
+      font-size: 15px;
+      color: #1e293b;
+      margin-bottom: 16px;
+      line-height: 1.6;
+    }
+
+    .guided-hints {
+      background: #f8fafc;
+      border-left: 3px solid #d97706;
+      padding: 12px 16px;
+      border-radius: 0 8px 8px 0;
+      margin-bottom: 16px;
+      font-size: 13px;
+      color: #334155;
+    }
+
+    .guided-hints strong {
+      color: #b45309;
+      display: block;
+      margin-bottom: 4px;
+      text-transform: uppercase;
+      font-size: 11px;
+      letter-spacing: 0.5px;
+    }
+
+    .guided-hints ul {
+      margin: 0;
+      padding-left: 20px;
+    }
+
+    .guided-hints li {
+      margin-bottom: 4px;
+    }
+
+    .writing-lines {
+      background: #fafafa;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      min-height: 120px;
+      padding: 12px;
+      font-family: inherit;
+      width: 100%;
+      resize: vertical;
+      font-size: 14px;
+      line-height: 24px;
+    }
+
+    .print-bar {
+      margin-top: 40px;
+      padding-top: 24px;
+      border-top: 2px solid #0f172a;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .btn-print {
+      background: #0f172a;
+      color: #ffffff;
+      padding: 10px 22px;
+      border-radius: 8px;
+      border: none;
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: background 0.2s;
+    }
+
+    .btn-print:hover {
+      background: #1e293b;
+    }
+
+    @media print {
+      body {
+        background: #ffffff;
+        padding: 0;
+      }
+      .container {
+        box-shadow: none;
+        border: none;
+        padding: 0;
+        max-width: 100%;
+      }
+      .btn-print {
+        display: none;
+      }
+      .writing-lines {
+        background: transparent;
+        border: 1px solid #cbd5e1;
+        min-height: 180px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="header-bar">
+      <div class="header-title">
+        <h1>Edexcel A-Level Music Technology</h1>
+        <p>Component 3: Listening and Analysing • Specification Study Pack</p>
+      </div>
+      <div class="tag-badge">Guitar &amp; Bass Amplification</div>
+    </div>
+
+    <div class="meta-grid">
+      <div class="meta-item">
+        <strong>Student Name</strong>
+        <span>___________________________</span>
+      </div>
+      <div class="meta-item">
+        <strong>Date Assigned</strong>
+        <span>___________________________</span>
+      </div>
+      <div class="meta-item">
+        <strong>Target Grade</strong>
+        <span>A* / A / B</span>
+      </div>
+      <div class="meta-item">
+        <strong>Total Marks</strong>
+        <span>20 Marks Available</span>
+      </div>
+    </div>
+
+    <!-- Question 1 -->
+    <div class="question-block">
+      <div class="question-head">
+        <div class="question-num">Question 1: Impedance Matching &amp; The Output Transformer</div>
+        <div class="marks-badge">[4 Marks]</div>
+      </div>
+      <div class="question-text">
+        (a) Explain why a valve (vacuum tube) power amplifier strictly requires an output transformer, whereas solid-state transistor amplifiers do not. [2 Marks]<br><br>
+        (b) Describe the catastrophic electrical failure that occurs if a valve amplifier is powered on and driven without a loudspeaker connected to its output jack. [2 Marks]
+      </div>
+      <div class="guided-hints">
+        <strong>Specification Examiner Guidance:</strong>
+        <ul>
+          <li><strong>Impedance Mismatch:</strong> Output valves (EL34, 6L6) operate at several hundred volts DC and high internal plate impedance (~3,000Ω to 5,000Ω). Loudspeaker voice coils have very low impedance (4Ω, 8Ω, or 16Ω). The transformer steps down the high-voltage/low-current signal to low-voltage/high-current to enable maximum electromagnetic power transfer. Solid-state transistors naturally operate at low output impedance and can drive speakers directly.</li>
+          <li><strong>No-Load Hazard:</strong> Without a speaker load to dissipate the magnetic energy, collapsing magnetic fields generate massive inductive flyback voltage spikes (>2,500V) across the transformer coils. This causes destructive electrical arcing that punctures the transformer insulation, welds tube sockets, and destroys the output valves.</li>
+        </ul>
+      </div>
+      <textarea class="writing-lines" rows="6" placeholder="Write your answer here..."></textarea>
+    </div>
+
+    <!-- Question 2 -->
+    <div class="question-block">
+      <div class="question-head">
+        <div class="question-num">Question 2: Harmonic Distortion &amp; Loudspeaker Enclosure Acoustics</div>
+        <div class="marks-badge">[6 Marks]</div>
+      </div>
+      <div class="question-text">
+        (a) Compare the mathematical and acoustic differences between the harmonic distortion produced by valve soft clipping and transistor solid-state hard clipping. [3 Marks]<br><br>
+        (b) Explain why an open-back combo amplifier produces less punchy low-frequency bass response than a closed-back 4×12 speaker cabinet. [3 Marks]
+      </div>
+      <div class="guided-hints">
+        <strong>Specification Examiner Guidance:</strong>
+        <ul>
+          <li><strong>Clipping &amp; Harmonics:</strong> Valve soft clipping saturates progressively, rounding off waveform peaks and generating predominantly even-order harmonics (2nd, 4th partials). The 2nd harmonic reinforces the musical octave, sounding warm, compressed, and musical. Transistors clip abruptly against DC rails, producing flat-topped square waves rich in odd-order harmonics (3rd, 5th partials) that sound harsh, metallic, and abrasive.</li>
+          <li><strong>Cabinet Physics:</strong> In an open-back combo, sound waves radiate from both the front and open rear of the speaker chassis. The rear wave is 180° out of phase with the front wave. At low frequencies, these waves wrap around the cabinet and cancel each other out (destructive interference). A closed-back 4×12 cabinet traps the rear wave, preventing cancellation and using trapped air as an acoustic spring for tight, directional punch.</li>
+        </ul>
+      </div>
+      <textarea class="writing-lines" rows="8" placeholder="Write your answer here..."></textarea>
+    </div>
+
+    <!-- Question 3 -->
+    <div class="question-block">
+      <div class="question-head">
+        <div class="question-num">Question 3: Extended Analysis • Amplifier Evolution &amp; Studio Engineering</div>
+        <div class="marks-badge">[10 Marks]</div>
+      </div>
+      <div class="question-text">
+        <em>"The transition from 1950s low-wattage combo amplifiers to 1970s and 1980s high-gain master-volume stacks fundamentally altered both guitar performance styles and studio engineering practices."</em><br><br>
+        Evaluate this statement with reference to:
+        <ul style="margin: 8px 0; padding-left: 20px;">
+          <li>Non-master volume operation and power tube saturation vs. cascaded 12AX7 preamp overdrive.</li>
+          <li>Microphone placement on loudspeaker cones (dust cap center vs. outer cone edge, on-axis vs. off-axis).</li>
+          <li>Electric bass guitar recording workflow (the parallel active DI and mic'd cabinet blend).</li>
+          <li>Reference historically significant artists and production landmarks (e.g. Pete Townshend/The Who, Jimi Hendrix, AC/DC, Guns N' Roses).</li>
+        </ul>
+      </div>
+      <div class="guided-hints">
+        <strong>Examiner Level 3 Descriptor Guidance:</strong>
+        <ul>
+          <li><strong>Gain Stage Evolution:</strong> Non-master volume amps (Fender Tweed, early Marshall Plexi) required deafening volumes (120dB+) to achieve power valve sag and output transformer saturation. In 1981, the Marshall JCM800 2203 introduced factory cascaded 12AX7 preamp stages and a Master Volume knob, enabling heavy saturated distortion at manageable monitoring levels.</li>
+          <li><strong>Cone Topography:</strong> Center dust cap produces maximum high-frequency bite and pick transient definition, but can sound fizzy or ice-picky on high-gain sounds. Moving to the cap edge (sweet spot) or cone edge rolls off high frequencies naturally and emphasizes 250Hz–500Hz body. Angling the microphone 45° off-axis smooths harsh 4kHz–6kHz fizz. Pairing with a figure-8 ribbon mic (Royer R-121) captures warm low-mid weight.</li>
+          <li><strong>Bass Studio Workflow:</strong> Electric bass is recorded using an active DI box to capture pristine, uncolored sub-bass (30Hz–100Hz) with zero bleed, while simultaneously mic'ing an all-valve rig (Ampeg SVT 8×10) with dynamic mics (MD421, D112) for harmonic growl and midrange punch. In the DAW, both tracks must be zoomed and phase-aligned.</li>
+          <li><strong>Historic Context:</strong> Pete Townshend prompting Jim Marshall to create the 100W stack; Jimi Hendrix utilizing immense volume for melodic acoustic feedback; Malcolm/Angus Young (AC/DC) using low preamp drive with massive power amp crunch; Slash using modified Marshall heads for singing sustain on <em>Appetite for Destruction</em>.</li>
+        </ul>
+      </div>
+      <textarea class="writing-lines" rows="12" placeholder="Write your extended essay response here..."></textarea>
+    </div>
+
+    <div class="print-bar">
+      <div>
+        <p style="margin: 0; font-size: 13px; color: var(--text-muted); font-weight: 500;">Music Tech Guru • A-Level Music Technology Revision Platform</p>
+      </div>
+      <button class="btn-print" onclick="window.print()">🖨️ Print / Save as PDF</button>
+    </div>
+  </div>
+
+</body>
+</html>

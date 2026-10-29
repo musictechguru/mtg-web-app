@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="100%" height="100%" style="background: #0b0f19; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+  <rect width="960" height="480" fill="#080e1a"/>
+  <rect x="15" y="15" width="930" height="450" rx="16" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1.5"/>
+
+  <text x="40" y="52" fill="#fbbf24" font-size="13" font-weight="800" letter-spacing="1.5">ELECTRICAL SPECIFICATION • IMPEDANCE &amp; POWER</text>
+  <text x="40" y="82" fill="#ffffff" font-size="22" font-weight="800">The Output Transformer &amp; Speaker Load Matching</text>
+
+  <!-- Left Side: Valve Output Plate -->
+  <g transform="translate(60, 140)">
+    <rect width="240" height="200" rx="12" fill="#1e293b" stroke="#f97316" stroke-width="2"/>
+    <text x="120" y="40" fill="#f97316" font-size="16" font-weight="800" text-anchor="middle">Output Valves (EL34/6L6)</text>
+    <text x="120" y="70" fill="#ffffff" font-size="22" font-weight="900" text-anchor="middle">High Voltage</text>
+    <text x="120" y="95" fill="#94a3b8" font-size="13" text-anchor="middle">350V – 500V DC</text>
+    <text x="120" y="135" fill="#fbbf24" font-size="18" font-weight="800" text-anchor="middle">High Impedance</text>
+    <text x="120" y="160" fill="#cbd5e1" font-size="13" text-anchor="middle">~3,000Ω – 5,000Ω (Plate-to-Plate)</text>
+    <text x="120" y="185" fill="#94a3b8" font-size="11" text-anchor="middle">Low Current Output</text>
+  </g>
+
+  <!-- Middle: Output Transformer -->
+  <g transform="translate(360, 110)">
+    <rect width="240" height="260" rx="14" fill="#0f172a" stroke="#fbbf24" stroke-width="2"/>
+    <text x="120" y="35" fill="#fbbf24" font-size="14" font-weight="800" text-anchor="middle">OUTPUT TRANSFORMER</text>
+    <text x="120" y="55" fill="#94a3b8" font-size="11" text-anchor="middle">Magnetic Core Step-Down</text>
+
+    <!-- Primary Coils -->
+    <path d="M 40 85 A 12 12 0 0 1 40 110 A 12 12 0 0 1 40 135 A 12 12 0 0 1 40 160 A 12 12 0 0 1 40 185 A 12 12 0 0 1 40 210" stroke="#f97316" stroke-width="3" fill="none"/>
+    <text x="40" y="235" fill="#f97316" font-size="11" font-weight="700" text-anchor="middle">Primary Winding (Many Turns)</text>
+
+    <!-- Iron Core laminations -->
+    <line x1="115" y1="80" x2="115" y2="220" stroke="#64748b" stroke-width="3"/>
+    <line x1="125" y1="80" x2="125" y2="220" stroke="#64748b" stroke-width="3"/>
+
+    <!-- Secondary Coils -->
+    <path d="M 200 110 A 18 18 0 0 1 200 145 A 18 18 0 0 1 200 180" stroke="#22c55e" stroke-width="4" fill="none"/>
+    <text x="200" y="235" fill="#22c55e" font-size="11" font-weight="700" text-anchor="middle">Secondary (Few Turns)</text>
+  </g>
+
+  <!-- Right Side: Speaker Voice Coil -->
+  <g transform="translate(660, 140)">
+    <rect width="240" height="200" rx="12" fill="#1e293b" stroke="#22c55e" stroke-width="2"/>
+    <text x="120" y="40" fill="#22c55e" font-size="16" font-weight="800" text-anchor="middle">Speaker Cabinet Load</text>
+    <text x="120" y="70" fill="#ffffff" font-size="22" font-weight="900" text-anchor="middle">Low Voltage</text>
+    <text x="120" y="95" fill="#94a3b8" font-size="13" text-anchor="middle">~15V – 30V AC</text>
+    <text x="120" y="135" fill="#22c55e" font-size="18" font-weight="800" text-anchor="middle">Low Impedance</text>
+    <text x="120" y="160" fill="#cbd5e1" font-size="13" text-anchor="middle">4Ω, 8Ω, or 16Ω Load</text>
+    <text x="120" y="185" fill="#94a3b8" font-size="11" text-anchor="middle">High Current to Push Speaker Cone</text>
+  </g>
+
+  <!-- Warning Banner -->
+  <rect x="60" y="390" width="840" height="55" rx="8" fill="rgba(239,68,68,0.15)" stroke="#ef4444" stroke-width="1.5"/>
+  <text x="480" y="413" fill="#f87171" font-size="12" font-weight="800" text-anchor="middle">CRITICAL EXAM HAZARD: NEVER RUN A VALVE AMP WITHOUT A CONNECTED SPEAKER LOAD!</text>
+  <text x="480" y="432" fill="#e2e8f0" font-size="11" text-anchor="middle">Without a speaker load, inductive flyback voltage spikes (>2,000V) arc across the output transformer, destroying valves and windings.</text>
+</svg>

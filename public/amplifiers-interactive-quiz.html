@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guitar &amp; Bass Amplifiers • Edexcel Component 3 Specification Quiz | Music Tech Guru</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #080e1a;
+      --bg-card: #0f172a;
+      --bg-surface: #1e293b;
+      --accent-amber: #fbbf24;
+      --accent-amber-glow: rgba(251, 191, 36, 0.35);
+      --accent-orange: #f97316;
+      --accent-orange-glow: rgba(249, 115, 22, 0.35);
+      --accent-cyan: #38bdf8;
+      --accent-acid: #34d399;
+      --accent-red: #ef4444;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-amber: rgba(245, 158, 11, 0.35);
+      --border-cyan: rgba(56, 189, 248, 0.35);
+      --font: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: var(--font);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .quiz-container {
+      width: 100%;
+      max-width: 880px;
+      background: radial-gradient(circle at 50% 0%, rgba(245, 158, 11, 0.15) 0%, rgba(14, 17, 36, 0) 70%), var(--bg-card);
+      border: 1px solid var(--border-amber);
+      border-radius: 20px;
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.8), 0 0 40px rgba(245, 158, 11, 0.15);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .quiz-header {
+      padding: 24px 32px;
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(10px);
+    }
+
+    .topic-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      background: rgba(245, 158, 11, 0.12);
+      border: 1px solid var(--border-amber);
+      border-radius: 9999px;
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--accent-amber);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .progress-counter {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-muted);
+      letter-spacing: 0.5px;
+    }
+
+    .progress-bar-container {
+      width: 100%;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #d97706, #fbbf24);
+      width: 10%;
+      transition: width 0.3s ease;
+    }
+
+    .quiz-body {
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      min-height: 420px;
+    }
+
+    .question-stem {
+      font-size: 19px;
+      font-weight: 800;
+      line-height: 1.45;
+      color: #ffffff;
+      letter-spacing: -0.3px;
+    }
+
+    .options-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .option-btn {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      background: #141e33;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 14px 18px;
+      color: #cbd5e1;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 1.5;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      width: 100%;
+    }
+
+    .option-btn:hover:not(:disabled) {
+      background: #1b2742;
+      border-color: rgba(245, 158, 11, 0.5);
+      color: #ffffff;
+      transform: translateY(-1px);
+    }
+
+    .option-letter {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--accent-amber);
+      font-weight: 800;
+      font-size: 12px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .option-btn.correct {
+      background: rgba(52, 211, 153, 0.15) !important;
+      border-color: #10b981 !important;
+      color: #34d399 !important;
+    }
+
+    .option-btn.correct .option-letter {
+      background: #10b981;
+      color: #080e1a;
+    }
+
+    .option-btn.wrong {
+      background: rgba(239, 68, 68, 0.15) !important;
+      border-color: #ef4444 !important;
+      color: #f87171 !important;
+    }
+
+    .option-btn.wrong .option-letter {
+      background: #ef4444;
+      color: #ffffff;
+    }
+
+    .explanation-card {
+      display: none;
+      background: #0b1222;
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      border-radius: 12px;
+      padding: 16px 20px;
+      font-size: 13.5px;
+      line-height: 1.6;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .explanation-card.show {
+      display: block;
+    }
+
+    .explanation-title {
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--accent-amber);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+    }
+
+    .quiz-footer {
+      padding: 20px 32px;
+      border-top: 1px solid var(--border-subtle);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(15, 23, 42, 0.4);
+    }
+
+    .score-tracker {
+      font-size: 13px;
+      font-weight: 700;
+      color: #94a3b8;
+    }
+
+    .score-tracker span {
+      color: var(--accent-amber);
+      font-weight: 800;
+    }
+
+    .next-btn {
+      background: linear-gradient(135deg, #d97706 0%, #fbbf24 100%);
+      color: #080e1a;
+      border: none;
+      padding: 10px 24px;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 13.5px;
+      font-weight: 800;
+      cursor: pointer;
+      display: none;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+
+    .next-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+    }
+
+    /* Results Screen */
+    .results-screen {
+      display: none;
+      padding: 48px 32px;
+      text-align: center;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .score-circle {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(245, 158, 11, 0.2) 0%, rgba(15, 23, 42, 0.8) 100%);
+      border: 3px solid var(--accent-amber);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 30px var(--accent-amber-glow);
+    }
+
+    .score-num {
+      font-size: 38px;
+      font-weight: 900;
+      color: #ffffff;
+      line-height: 1;
+    }
+
+    .score-total {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--accent-amber);
+      margin-top: 4px;
+    }
+
+    .results-title {
+      font-size: 24px;
+      font-weight: 800;
+      color: #ffffff;
+    }
+
+    .results-feedback {
+      font-size: 15px;
+      color: var(--text-muted);
+      max-width: 600px;
+      line-height: 1.6;
+    }
+
+    .restart-btn {
+      background: #1e293b;
+      color: #f8fafc;
+      border: 1px solid var(--border-amber);
+      padding: 12px 28px;
+      border-radius: 10px;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      margin-top: 10px;
+    }
+
+    .restart-btn:hover {
+      background: var(--border-amber);
+      color: #ffffff;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="quiz-container">
+    <div class="quiz-header">
+      <div class="topic-badge">⚡ Amplifiers &amp; Valve Tone</div>
+      <div class="progress-counter" id="progressCounter">Question 1 of 10</div>
+    </div>
+    <div class="progress-bar-container">
+      <div class="progress-bar-fill" id="progressBar"></div>
+    </div>
+
+    <!-- Active Question Screen -->
+    <div class="quiz-body" id="questionScreen">
+      <div class="question-stem" id="questionStem">Loading Question...</div>
+      <div class="options-grid" id="optionsGrid"></div>
+      <div class="explanation-card" id="explanationCard">
+        <div class="explanation-title">Specification Rationale</div>
+        <div id="explanationText"></div>
+      </div>
+    </div>
+
+    <!-- Results Screen -->
+    <div class="results-screen" id="resultsScreen">
+      <div class="score-circle">
+        <div class="score-num" id="finalScore">0</div>
+        <div class="score-total">/ 10</div>
+      </div>
+      <h2 class="results-title" id="resultsTitle">Quiz Complete!</h2>
+      <p class="results-feedback" id="resultsFeedback">Assessment feedback text goes here.</p>
+      <button class="restart-btn" onclick="restartQuiz()">&#8635; Retake Specification Quiz</button>
+    </div>
+
+    <div class="quiz-footer" id="quizFooter">
+      <div class="score-tracker">Score: <span id="currentScore">0</span> / 10</div>
+      <button class="next-btn" id="nextBtn" onclick="nextQuestion()">Next Question &rarr;</button>
+    </div>
+  </div>
+
+  <script>
+    const questions = [
+      {
+        question: "What is the primary function of the 12AX7 (ECC83) dual-triode valve in a guitar amplifier?",
+        options: [
+          "To provide high current gain to drive the loudspeaker voice coil directly.",
+          "To convert high AC line voltage from the wall mains into 6.3V DC filament power.",
+          "To provide initial voltage amplification and harmonic distortion before the power stage.",
+          "To step down plate impedance from 3,500Ω to 8Ω."
+        ],
+        correct: 2,
+        explanation: "The 12AX7 is a high-gain dual-triode preamp valve designed to amplify low instrument voltage (millivolts) to line level. It provides the initial voltage gain, tone shaping, and soft preamp saturation without having the current capacity to drive speakers."
+      },
+      {
+        question: "How does the harmonic distortion generated by a saturated thermionic valve differ acoustically from transistor solid-state hard clipping?",
+        options: [
+          "Valves produce predominantly odd-order harmonics (3rd, 5th) that sound harsh and metallic.",
+          "Valves produce soft, progressive clipping rich in even-order harmonics (2nd, 4th), reinforcing musical octaves.",
+          "Transistors produce smooth rounded sine peaks, whereas valves abruptly clip at supply rails.",
+          "Valves only distort when a loudspeaker is completely disconnected from the circuit."
+        ],
+        correct: 1,
+        explanation: "Valve overdrive features soft, progressive compression and saturation that generates even-order harmonics (notably the 2nd harmonic, which is exactly one musical octave above the fundamental). Transistors clip abruptly against DC rails, producing sharp odd harmonics (3rd, 5th, 7th) which sound harsher and buzzier."
+      },
+      {
+        question: "Why is an output transformer strictly required in a valve power amplifier?",
+        options: [
+          "To step down the high plate impedance (~3.5kΩ–5kΩ) of the power valves to match the low impedance (4Ω/8Ω/16Ω) of the speaker voice coil.",
+          "To filter out all frequencies below 80Hz so the cabinet does not vibrate.",
+          "To supply 48V phantom power to dynamic instrument microphones.",
+          "To allow the preamp gain knob to function independently of the master volume."
+        ],
+        correct: 0,
+        explanation: "Power valves operate at several hundred volts DC with high internal plate impedance (thousands of ohms). Loudspeakers have low impedance (4Ω to 16Ω). The output transformer uses magnetic step-down coils to match impedance, enabling maximum power transfer into the speaker cones."
+      },
+      {
+        question: "What catastrophic electrical event occurs if a valve amplifier is powered on and driven without a loudspeaker connected?",
+        options: [
+          "The preamp tubes immediately lose their vacuum and implode.",
+          "Inductive flyback creates extreme voltage spikes (>2,500V) that arc and destroy the output transformer and valve sockets.",
+          "The passive tone stack resistors overheat and reverse their phase.",
+          "The amplifier automatically converts into a solid-state class D circuit."
+        ],
+        correct: 1,
+        explanation: "Without a connected speaker load to absorb the magnetic energy, collapsing magnetic fields in the transformer create massive inductive flyback voltage spikes (>2,000V). This causes destructive electrical arcing across transformer windings and tube sockets."
+      },
+      {
+        question: "What was the crucial technological innovation introduced by Master Volume amplifiers (e.g. Marshall JCM800 2203)?",
+        options: [
+          "They allowed high-gain preamp distortion at manageable listening volumes by attenuating the signal before the power stage.",
+          "They eliminated the need for power valves by using digital microprocessor chips.",
+          "They converted open-back cabinets into closed-back sealed enclosures electronically.",
+          "They automatically phase-aligned DI boxes with boundary room microphones."
+        ],
+        correct: 0,
+        explanation: "Vintage non-master volume amps required players to crank the entire amplifier to ear-splitting stage levels (120dB+) to achieve tube saturation. Master Volume circuits inserted a potentiometer between the cascaded preamp stages and the power amp, enabling thick distortion at any volume level."
+      },
+      {
+        question: "Which power valve type is traditionally associated with classic British rock amplification (Marshall JTM45 / Super Lead / JCM800), and what is its tonal character?",
+        options: [
+          "6L6 beam tetrode, renowned for high clean headroom and scooped mid-range.",
+          "EL84 pentode, renowned for low-volume blues compression and 6V6 glassiness.",
+          "EL34 pentode, renowned for aggressive, crunchy mid-range punch and tight power amp breakup.",
+          "12AT7 dual triode, renowned for sub-bass direct injection."
+        ],
+        correct: 2,
+        explanation: "The EL34 power pentode is the cornerstone of the British rock sound (Marshall, Hiwatt). It has a pronounced upper-midrange bite and breaks up earlier than American 6L6 tubes, producing the trademark crunch of classic rock and heavy metal."
+      },
+      {
+        question: "Why do open-back combo cabinets (e.g. Fender Twin, Vox AC30) produce less punchy low bass than closed-back 4×12 cabinets?",
+        options: [
+          "Open-back combos only use 6-inch speakers that cannot physically reproduce frequencies below 200Hz.",
+          "Rear acoustic sound waves radiate out of phase (180°) and wrap around the cabinet, cancelling out low frequencies.",
+          "Closed-back cabinets have internal fan cooling that increases bass air pressure.",
+          "Open-back cabinets absorb sound using acoustic foam that deadens low-mid frequencies."
+        ],
+        correct: 1,
+        explanation: "In an open-back cabinet, sound radiates freely from the rear of the speaker cone 180° out of phase with the front wave. At low frequencies (where wavelengths are long enough to wrap around the enclosure), the opposing waves collide and cancel each other out, reducing deep sub-bass thump."
+      },
+      {
+        question: "When close-micing a guitar speaker cabinet with a Shure SM57, what acoustic difference occurs as the microphone is moved from the center dust cap toward the outer cone edge?",
+        options: [
+          "The high frequencies roll off smoothly, producing a warmer, darker, less brittle tone.",
+          "The sound becomes extremely bright, fizzy, and ice-pick sharp.",
+          "The microphone picks up 180° phase cancellation from the power supply sag.",
+          "The tone becomes completely clean, removing all preamp distortion."
+        ],
+        correct: 0,
+        explanation: "The dust cap (center of the speaker cone) produces maximum high-frequency sizzle, transient attack, and brightness. As the microphone moves toward the outer cone edge, treble frequencies attenuate naturally, yielding a warmer, rounder sound with prominent 200Hz–500Hz body."
+      },
+      {
+        question: "What causes 'power supply sag' in vintage valve amplifiers, and what acoustic effect does it produce on a guitarist's pick attack?",
+        options: [
+          "Transistors overheat, causing a 6dB volume spike on every downstroke.",
+          "Valve rectifiers struggle to supply instantaneous current during heavy transients, causing high voltage to dip and creating natural dynamic compression.",
+          "A blown speaker voice coil causes intermittent crackle and loss of bass.",
+          "The passive tone stack capacitor leaks AC voltage into the guitar strings."
+        ],
+        correct: 1,
+        explanation: "When struck with a heavy pick attack, output valves draw instantaneous current. Valve rectifiers (e.g. GZ34, 5U4) cannot supply this instantaneously, causing the high-voltage B+ rail to 'sag'. This acts as an organic, tactile compressor—clamping the initial transient spike and blooming as notes sustain."
+      },
+      {
+        question: "In professional studio production, why is an electric bass guitar commonly recorded using both a Direct Injection (DI) box AND a mic'd valve amplifier simultaneously?",
+        options: [
+          "Because the DI box only captures treble frequencies and the amplifier only captures sub-bass.",
+          "To allow the engineer to blend clean, deep fundamental sub-bass (DI) with harmonic grit, midrange growl, and speaker compression (mic'd amp).",
+          "To prevent the bass guitar pickups from blowing out the recording console's mic preamps.",
+          "Because Edexcel regulations forbid recording bass instruments with microphones alone."
+        ],
+        correct: 1,
+        explanation: "The parallel bass tracking workflow leverages the strengths of both: the clean DI provides punchy, uncolored low-end fundamental (30Hz–100Hz) with instantaneous transient response, while the mic'd tube cabinet (e.g. Ampeg SVT 8×10) provides harmonic growl, midrange bite, and speaker compression to cut through the mix."
+      }
+    ];
+
+    let currentQuestion = 0;
+    let score = 0;
+    let answered = false;
+
+    function loadQuestion() {
+      answered = false;
+      const q = questions[currentQuestion];
+      document.getElementById('questionStem').textContent = q.question;
+      document.getElementById('progressCounter').textContent = `Question ${currentQuestion + 1} of ${questions.length}`;
+      document.getElementById('progressBar').style.width = `${((currentQuestion + 1) / questions.length) * 100}%`;
+      document.getElementById('explanationCard').classList.remove('show');
+      document.getElementById('nextBtn').style.display = 'none';
+
+      const optionsGrid = document.getElementById('optionsGrid');
+      optionsGrid.innerHTML = '';
+
+      const letters = ['A', 'B', 'C', 'D'];
+      q.options.forEach((opt, idx) => {
+        const btn = document.createElement('button');
+        btn.className = 'option-btn';
+        btn.innerHTML = `<span class="option-letter">${letters[idx]}</span><span>${opt}</span>`;
+        btn.onclick = () => selectOption(idx);
+        optionsGrid.appendChild(btn);
+      });
+    }
+
+    function selectOption(index) {
+      if (answered) return;
+      answered = true;
+
+      const q = questions[currentQuestion];
+      const buttons = document.querySelectorAll('.option-btn');
+
+      if (index === q.correct) {
+        buttons[index].classList.add('correct');
+        score++;
+        document.getElementById('currentScore').textContent = score;
+      } else {
+        buttons[index].classList.add('wrong');
+        buttons[q.correct].classList.add('correct');
+      }
+
+      buttons.forEach(b => b.disabled = true);
+
+      document.getElementById('explanationText').textContent = q.explanation;
+      document.getElementById('explanationCard').classList.add('show');
+      document.getElementById('nextBtn').style.display = 'inline-flex';
+    }
+
+    function nextQuestion() {
+      currentQuestion++;
+      if (currentQuestion < questions.length) {
+        loadQuestion();
+      } else {
+        showResults();
+      }
+    }
+
+    function showResults() {
+      document.getElementById('questionScreen').style.display = 'none';
+      document.getElementById('quizFooter').style.display = 'none';
+      const resultsScreen = document.getElementById('resultsScreen');
+      resultsScreen.style.display = 'flex';
+
+      document.getElementById('finalScore').textContent = score;
+
+      const title = document.getElementById('resultsTitle');
+      const feedback = document.getElementById('resultsFeedback');
+
+      if (score >= 9) {
+        title.textContent = "Outstanding Mastery! 🏆";
+        feedback.textContent = "Flawless technical command of valve architectures, impedance matching, power tube types, and cabinet acoustics. You are fully prepared for Edexcel Component 3 Question 5 extended essays on instrumental amplification.";
+      } else if (score >= 7) {
+        title.textContent = "Strong Specification Knowledge! ⚡";
+        feedback.textContent = "Solid grasp of amplifier signal flow and micing physics. Review the nuances of output transformer step-down ratios, power supply sag, and cabinet phase cancellation to secure top-band marks.";
+      } else if (score >= 5) {
+        title.textContent = "Good Foundation — Needs Revision 📚";
+        feedback.textContent = "You understand basic overdrive concepts, but need to consolidate core examiner terms: odd vs even harmonic generation, open vs closed back phase cancellation, and the Bass DI blend workflow.";
+      } else {
+        title.textContent = "Revision Recommended 🔄";
+        feedback.textContent = "Revisit the interactive slide deck, paying special attention to the Master Valve Signal Flow diagram, the output transformer hazard warnings, and speaker cone micing topography before re-testing.";
+      }
+    }
+
+    function restartQuiz() {
+      currentQuestion = 0;
+      score = 0;
+      document.getElementById('currentScore').textContent = '0';
+      document.getElementById('resultsScreen').style.display = 'none';
+      document.getElementById('questionScreen').style.display = 'flex';
+      document.getElementById('quizFooter').style.display = 'flex';
+      loadQuestion();
+    }
+
+    loadQuestion();
+  </script>
+
+  <!-- MTG Specification Quiz Paywall Integration -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="/mtg-quiz-paywall.js"></script>
+</body>
+</html>

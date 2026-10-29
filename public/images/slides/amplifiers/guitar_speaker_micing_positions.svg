@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="100%" height="100%" style="background: #0b0f19; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+  <rect width="960" height="480" fill="#080e1a"/>
+  <rect x="15" y="15" width="930" height="450" rx="16" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1.5"/>
+
+  <text x="40" y="52" fill="#a855f7" font-size="13" font-weight="800" letter-spacing="1.5">STUDIO MICROPHONE TECHNIQUES</text>
+  <text x="40" y="82" fill="#ffffff" font-size="22" font-weight="800">Speaker Cone Placement &amp; Frequency Response</text>
+
+  <!-- Left: Speaker Cone Graphic -->
+  <g transform="translate(50, 115)">
+    <rect width="420" height="320" rx="14" fill="#0f172a" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+    <text x="210" y="35" fill="#cbd5e1" font-size="14" font-weight="700" text-anchor="middle">12" Celestion / Jensen Speaker Cone Topography</text>
+
+    <!-- Outer Surround -->
+    <circle cx="210" cy="175" r="115" fill="#1e293b" stroke="#475569" stroke-width="4"/>
+    <!-- Cone Area -->
+    <circle cx="210" cy="175" r="90" fill="#334155" stroke="#64748b" stroke-width="2"/>
+    <!-- Halfway Zone -->
+    <circle cx="210" cy="175" r="55" fill="#1e293b" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="3 3"/>
+    <!-- Dust Cap (Center) -->
+    <circle cx="210" cy="175" r="26" fill="#0f172a" stroke="#fbbf24" stroke-width="3"/>
+
+    <!-- Indicator 1: Cap Center -->
+    <circle cx="210" cy="175" r="6" fill="#ef4444"/>
+    <line x1="210" y1="175" x2="290" y2="100" stroke="#ef4444" stroke-width="2"/>
+    <rect x="290" y="85" width="110" height="28" rx="4" fill="#ef4444" opacity="0.2"/>
+    <rect x="290" y="85" width="110" height="28" rx="4" fill="none" stroke="#ef4444" stroke-width="1"/>
+    <text x="345" y="103" fill="#ffffff" font-size="11" font-weight="700" text-anchor="middle">Center (Dust Cap)</text>
+
+    <!-- Indicator 2: Cap Edge / Halfway -->
+    <circle cx="245" cy="175" r="6" fill="#22c55e"/>
+    <line x1="245" y1="175" x2="320" y2="220" stroke="#22c55e" stroke-width="2"/>
+    <rect x="290" y="220" width="115" height="28" rx="4" fill="#22c55e" opacity="0.2"/>
+    <rect x="290" y="220" width="115" height="28" rx="4" fill="none" stroke="#22c55e" stroke-width="1"/>
+    <text x="347" y="238" fill="#ffffff" font-size="11" font-weight="700" text-anchor="middle">Cap Edge (Sweet Spot)</text>
+
+    <!-- Indicator 3: Cone Edge -->
+    <circle cx="300" cy="175" r="6" fill="#38bdf8"/>
+    <line x1="300" y1="175" x2="340" y2="270" stroke="#38bdf8" stroke-width="2"/>
+    <rect x="290" y="270" width="110" height="28" rx="4" fill="#38bdf8" opacity="0.2"/>
+    <rect x="290" y="270" width="110" height="28" rx="4" fill="none" stroke="#38bdf8" stroke-width="1"/>
+    <text x="345" y="288" fill="#ffffff" font-size="11" font-weight="700" text-anchor="middle">Outer Cone Edge</text>
+  </g>
+
+  <!-- Right: Frequency & Mic Breakdown -->
+  <g transform="translate(500, 115)">
+    <rect width="410" height="320" rx="14" fill="#0f172a" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+    <text x="24" y="35" fill="#ffffff" font-size="15" font-weight="800">Microphone Placement Rationale</text>
+
+    <!-- Position A -->
+    <g transform="translate(24, 55)">
+      <circle cx="12" cy="12" r="8" fill="#ef4444"/>
+      <text x="28" y="16" fill="#ef4444" font-size="13" font-weight="800">Center Dust Cap (On-Axis)</text>
+      <text x="28" y="34" fill="#cbd5e1" font-size="11.5">Maximum high frequencies, bright bite, biting pick transients.</text>
+      <text x="28" y="48" fill="#94a3b8" font-size="10.5">Can sound fizzy or ice-pick harsh if treble is excessive.</text>
+    </g>
+
+    <!-- Position B -->
+    <g transform="translate(24, 125)">
+      <circle cx="12" cy="12" r="8" fill="#22c55e"/>
+      <text x="28" y="16" fill="#22c55e" font-size="13" font-weight="800">Cap Edge / Halfway (The Sweet Spot)</text>
+      <text x="28" y="34" fill="#cbd5e1" font-size="11.5">Perfect blend of aggressive bite and full-bodied low-mid warmth.</text>
+      <text x="28" y="48" fill="#94a3b8" font-size="10.5">Industry standard starting point for Shure SM57 &amp; Sennheiser e609.</text>
+    </g>
+
+    <!-- Position C -->
+    <g transform="translate(24, 195)">
+      <circle cx="12" cy="12" r="8" fill="#38bdf8"/>
+      <text x="28" y="16" fill="#38bdf8" font-size="13" font-weight="800">Outer Cone Edge (Dark &amp; Warm)</text>
+      <text x="28" y="34" fill="#cbd5e1" font-size="11.5">Natural high-frequency roll-off; emphasizes 150-400 Hz body.</text>
+      <text x="28" y="48" fill="#94a3b8" font-size="10.5">Ideal for taming bright Stratocasters or piercing lead tones.</text>
+    </g>
+
+    <!-- Pro Tip: Fredman & Ribbon Pair -->
+    <rect x="24" y="255" width="362" height="50" rx="8" fill="rgba(168,85,247,0.15)" stroke="#a855f7" stroke-width="1"/>
+    <text x="36" y="274" fill="#c084fc" font-size="10.5" font-weight="800">PRO TECHNIQUE: DUAL MIC (SM57 + ROYER R-121 RIBBON)</text>
+    <text x="36" y="292" fill="#e2e8f0" font-size="10">Blend SM57 bite with Figure-8 ribbon smooth low-mid weight for a massive wall of sound.</text>
+  </g>
+</svg>
