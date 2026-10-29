@@ -1,348 +1,531 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Interactive Curriculum Deck &bull; Guitar &amp; Bass Amplifiers</title>
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <title>Guitar &amp; Bass Amplifiers: Sound, Tubes, Stacks &amp; Modellers | Edexcel Component 3</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg-dark: #080e1a;
+      --panel-bg: #0f172a;
+      --card-bg: rgba(255, 255, 255, 0.03);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --accent-music: #f59e0b;
+      --accent-music-glow: rgba(245, 158, 11, 0.25);
+      --accent-amp: #ef4444;
+      --accent-amp-glow: rgba(239, 68, 68, 0.25);
+      --accent-tube: #f97316;
+      --text-white: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-dim: #64748b;
+      --border-subtle: rgba(255, 255, 255, 0.06);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
     body {
-      background: #080e1a;
-      color: #cbd5e1;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-white);
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
       line-height: 1.5;
+      overflow-x: hidden;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
-      overflow-x: hidden;
     }
+
     .deck-container {
-      max-width: 1200px;
+      max-width: 1400px;
       margin: 0 auto;
+      padding: 16px 20px 80px;
       width: 100%;
-      padding: 16px 20px 80px 20px;
       flex: 1;
     }
+
     .slide {
       display: none;
-      animation: fadeIn 0.3s ease forwards;
+      opacity: 0;
+      transition: opacity 0.3s ease-in-out;
     }
+
     .slide.active {
       display: block;
+      opacity: 1;
     }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(6px); }
-      to { opacity: 1; transform: translateY(0); }
+
+    .slide-header {
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border-subtle);
     }
-    .header-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 18px;
-      padding-bottom: 14px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      flex-wrap: wrap;
-      gap: 10px;
-    }
+
     .deck-tag {
-      background: rgba(245, 158, 11, 0.15);
-      color: #fbbf24;
-      border: 1px solid rgba(245, 158, 11, 0.3);
-      font-size: 11px;
-      font-weight: 800;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      padding: 4px 12px;
-      border-radius: 9999px;
       display: inline-flex;
       align-items: center;
       gap: 6px;
-    }
-    .slide-counter {
-      color: #94a3b8;
-      font-size: 13px;
-      font-weight: 600;
-      background: rgba(255, 255, 255, 0.04);
+      background: rgba(245, 158, 11, 0.12);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      color: var(--accent-music);
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
       padding: 4px 12px;
       border-radius: 9999px;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-    }
-    .slide-title-wrap {
-      margin-bottom: 18px;
-    }
-    .slide-heading {
-      color: #ffffff;
-      font-size: clamp(22px, 3.2vw, 32px);
-      font-weight: 900;
-      line-height: 1.2;
-      margin-bottom: 6px;
-      letter-spacing: -0.5px;
-    }
-    .slide-heading span {
-      color: #fbbf24;
-    }
-    .slide-lead {
-      color: #94a3b8;
-      font-size: 14.5px;
-      line-height: 1.55;
-      max-width: 950px;
-    }
-    .grid-2 {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 16px;
-      margin-bottom: 18px;
-    }
-    .grid-3 {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 16px;
-      margin-bottom: 18px;
-    }
-    .card {
-      background: #0f172a;
-      border: 1px solid rgba(255, 255, 255, 0.07);
-      border-radius: 12px;
-      padding: 16px 18px;
-    }
-    .card-title {
-      font-size: 14px;
-      font-weight: 800;
       margin-bottom: 8px;
+    }
+
+    .slide-heading {
+      font-size: clamp(22px, 3.2vw, 34px);
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      color: #ffffff;
+      margin-bottom: 6px;
+    }
+
+    .slide-heading span {
+      color: var(--accent-amp);
+    }
+
+    .slide-lead {
+      color: var(--text-muted);
+      font-size: clamp(13px, 1.4vw, 15px);
+      max-width: 950px;
+      line-height: 1.5;
+    }
+
+    /* 2-COLUMN SPLIT GRID */
+    .grid-2-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      align-items: start;
+    }
+
+    @media (max-width: 960px) {
+      .grid-2-split {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .column-panel {
+      background: var(--panel-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+    }
+
+    .music-col {
+      border-top: 4px solid var(--accent-music);
+    }
+
+    .instrument-col {
+      border-top: 4px solid var(--accent-amp);
+    }
+
+    .panel-header {
       display: flex;
+      justify-content: space-between;
       align-items: center;
-      gap: 8px;
+      margin-bottom: 14px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border-subtle);
     }
-    .card-text {
-      color: #cbd5e1;
-      font-size: 13px;
-      line-height: 1.6;
-    }
-    .spec-box {
-      background: linear-gradient(135deg, rgba(245, 158, 11, 0.08) 0%, rgba(15, 23, 42, 0.8) 100%);
-      border: 1px solid rgba(245, 158, 11, 0.25);
-      border-radius: 10px;
-      padding: 12px 16px;
-      margin-top: 14px;
-    }
-    .spec-box-title {
-      color: #fbbf24;
+
+    .panel-badge {
       font-size: 11px;
       font-weight: 800;
       letter-spacing: 0.8px;
       text-transform: uppercase;
-      margin-bottom: 4px;
-    }
-    .spec-box-content {
-      color: #f1f5f9;
-      font-size: 12.5px;
-      line-height: 1.5;
-    }
-    .diagram-container {
-      background: #050811;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 12px;
-      overflow: hidden;
-      margin-bottom: 16px;
-      position: relative;
-    }
-    .diagram-container img {
-      width: 100%;
-      height: auto;
-      display: block;
-      transition: transform 0.25s ease;
-      cursor: zoom-in;
-    }
-    .diagram-caption {
-      padding: 8px 14px;
-      font-size: 11.5px;
-      color: #94a3b8;
-      background: rgba(0, 0, 0, 0.5);
-      border-top: 1px solid rgba(255, 255, 255, 0.06);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .video-btn-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 10px;
-    }
-    .video-trigger-btn {
-      background: linear-gradient(135deg, #d97706 0%, #f59e0b 100%);
-      color: #080e1a;
-      border: none;
-      padding: 7px 14px;
+      padding: 4px 10px;
       border-radius: 6px;
+    }
+
+    .music-badge {
+      background: rgba(245, 158, 11, 0.15);
+      color: var(--accent-music);
+      border: 1px solid rgba(245, 158, 11, 0.35);
+    }
+
+    .inst-badge {
+      background: rgba(239, 68, 68, 0.15);
+      color: var(--accent-amp);
+      border: 1px solid rgba(239, 68, 68, 0.35);
+    }
+
+    .panel-subtitle {
+      font-size: 12px;
+      color: var(--text-dim);
+      font-weight: 600;
+    }
+
+    /* SONG BANNER */
+    .song-banner {
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, rgba(15, 23, 42, 0.8) 100%);
+      border: 1px solid rgba(245, 158, 11, 0.25);
+      border-radius: 12px;
+      padding: 12px 16px;
+      margin-bottom: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .song-artist-name {
+      color: #fbbf24;
       font-size: 12px;
       font-weight: 800;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      transition: all 0.2s;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
     }
-    .video-trigger-btn:hover {
-      background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
-      transform: translateY(-1px);
-    }
-    /* Video Modal - Zero History Footprint */
-    .video-modal-backdrop {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(0, 0, 0, 0.85);
-      backdrop-filter: blur(8px);
-      z-index: 9999;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-    }
-    .video-modal-backdrop.open {
-      display: flex;
-    }
-    .video-modal-content {
-      background: #0f172a;
-      border: 1px solid rgba(245, 158, 11, 0.3);
-      border-radius: 16px;
-      width: 100%;
-      max-width: 860px;
-      overflow: hidden;
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
-    }
-    .video-modal-header {
-      padding: 12px 18px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: #080e1a;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    }
-    .video-modal-title {
-      font-size: 13.5px;
-      font-weight: 700;
-      color: #fbbf24;
-    }
-    .video-modal-close {
-      background: none;
-      border: none;
-      color: #94a3b8;
-      font-size: 20px;
-      cursor: pointer;
-      padding: 0 4px;
-    }
-    .video-modal-close:hover {
+
+    .song-track-name {
       color: #ffffff;
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: -0.2px;
     }
-    .video-player-wrapper {
+
+    /* VIDEO EMBED */
+    .card-video-embed {
       position: relative;
       padding-bottom: 56.25%;
       height: 0;
+      overflow: hidden;
+      border-radius: 12px;
       background: #000;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      margin-bottom: 14px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
     }
-    .video-player-wrapper iframe {
+
+    .card-video-embed iframe {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      border: none;
+      border: 0;
     }
-    .video-modal-footer {
-      padding: 10px 18px;
-      font-size: 12px;
-      color: #94a3b8;
-      background: #080e1a;
+
+    /* FOCUS CARD */
+    .music-focus-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin-bottom: 14px;
+    }
+
+    .focus-title {
+      color: var(--accent-music);
+      font-size: 11.5px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .focus-text {
+      color: var(--text-muted);
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    .focus-text strong {
+      color: #ffffff;
+    }
+
+    .audio-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .atag {
+      background: rgba(245, 158, 11, 0.08);
+      border: 1px solid rgba(245, 158, 11, 0.2);
+      color: #fde68a;
+      font-size: 10.5px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* INSTRUMENT PHOTO CARD */
+    .instrument-photo-card {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #020617;
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      margin-bottom: 14px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+    }
+
+    .instrument-photo {
+      width: 100%;
+      height: 230px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+
+    .instrument-photo:hover {
+      transform: scale(1.02);
+    }
+
+    .instrument-photo-caption {
+      background: rgba(15, 23, 42, 0.92);
+      backdrop-filter: blur(8px);
+      padding: 8px 14px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
       display: flex;
       justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 6px;
     }
-    /* Fixed Bottom Navigation Bar */
+
+    .caption-name {
+      font-size: 12px;
+      font-weight: 800;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .caption-spec {
+      font-size: 10.5px;
+      color: #fca5a5;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* HISTORY CARD */
+    .history-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin-bottom: 14px;
+    }
+
+    .history-title {
+      color: var(--accent-amp);
+      font-size: 11.5px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 6px;
+    }
+
+    .history-text {
+      color: var(--text-muted);
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    .history-text strong {
+      color: #ffffff;
+    }
+
+    /* MECHANICS STEPS */
+    .mechanics-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 14px 16px;
+    }
+
+    .mechanics-title {
+      color: #fca5a5;
+      font-size: 11.5px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 10px;
+    }
+
+    .mech-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .mech-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      background: rgba(0, 0, 0, 0.25);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      padding: 8px 12px;
+      border-radius: 8px;
+    }
+
+    .step-num {
+      background: rgba(239, 68, 68, 0.2);
+      color: #f87171;
+      font-weight: 800;
+      font-size: 11px;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+      border: 1px solid rgba(239, 68, 68, 0.4);
+    }
+
+    .step-body {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .step-name {
+      font-size: 12px;
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    .step-desc {
+      font-size: 11.5px;
+      color: #94a3b8;
+      line-height: 1.45;
+    }
+
+    /* COMPARISON TABLE ON SLIDE 14 */
+    .comp-table-wrap {
+      overflow-x: auto;
+      margin-top: 10px;
+      border-radius: 10px;
+      border: 1px solid var(--card-border);
+      background: rgba(0, 0, 0, 0.3);
+    }
+
+    .comp-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 11.5px;
+      text-align: left;
+    }
+
+    .comp-table th {
+      background: rgba(239, 68, 68, 0.18);
+      color: #ffffff;
+      padding: 9px 12px;
+      font-weight: 800;
+      border-bottom: 1px solid var(--card-border);
+      white-space: nowrap;
+      font-size: 11px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .comp-table td {
+      padding: 8px 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    .comp-table tr:hover td {
+      background: rgba(255, 255, 255, 0.03);
+      color: #ffffff;
+    }
+
+    /* BOTTOM CONTROLS */
     .deck-nav-bar {
       position: fixed;
       bottom: 0;
       left: 0;
       right: 0;
-      background: rgba(8, 14, 26, 0.95);
+      background: rgba(8, 14, 26, 0.94);
       backdrop-filter: blur(12px);
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
-      padding: 12px 24px;
+      border-top: 1px solid var(--card-border);
+      padding: 12px 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       z-index: 1000;
     }
+
     .nav-btn {
-      background: #1e293b;
-      color: #f8fafc;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      padding: 8px 18px;
+      background: rgba(255, 255, 255, 0.06);
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      padding: 8px 16px;
       border-radius: 8px;
-      font-size: 13px;
       font-weight: 700;
+      font-size: 13px;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      transition: all 0.15s ease;
+      transition: all 0.2s ease;
     }
+
     .nav-btn:hover:not(:disabled) {
-      background: #334155;
-      border-color: rgba(245, 158, 11, 0.4);
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.25);
     }
+
     .nav-btn:disabled {
       opacity: 0.35;
       cursor: not-allowed;
     }
-    .progress-bar-wrap {
-      flex: 1;
-      max-width: 450px;
-      margin: 0 20px;
+
+    .nav-btn.primary {
+      background: linear-gradient(135deg, #ef4444 0%, #f59e0b 100%);
+      color: #080e1a;
+      border: none;
+      font-weight: 800;
+    }
+
+    .nav-btn.primary:hover:not(:disabled) {
+      opacity: 0.9;
+      transform: translateY(-1px);
+    }
+
+    .slide-counter {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-dim);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .slide-counter strong {
+      color: #ffffff;
+    }
+
+    .nav-shortcuts {
+      font-size: 11px;
+      color: var(--text-dim);
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
     }
-    .progress-track {
-      flex: 1;
-      height: 6px;
+
+    .kbd {
       background: rgba(255, 255, 255, 0.08);
-      border-radius: 999px;
-      overflow: hidden;
-    }
-    .progress-fill {
-      height: 100%;
-      background: linear-gradient(90deg, #d97706, #fbbf24);
-      width: 6.66%;
-      transition: width 0.25s ease;
-    }
-    /* Lightbox Modal */
-    .lightbox-modal {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(0, 0, 0, 0.9);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 10000;
-      padding: 20px;
-      cursor: zoom-out;
-    }
-    .lightbox-modal.open {
-      display: flex;
-    }
-    .lightbox-modal img {
-      max-width: 95%;
-      max-height: 90vh;
-      border-radius: 8px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.8);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 4px;
+      padding: 2px 6px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: #ffffff;
     }
   </style>
 </head>
@@ -350,739 +533,1406 @@
 
   <div class="deck-container">
 
-    <!-- SLIDE 1: Title & Overview -->
-    <section class="slide active" data-slide="1">
-      <div class="header-bar">
-        <div class="deck-tag"><span>⚡</span> Instrumental Technology &bull; Edexcel Component 3</div>
-        <div class="slide-counter">Slide 1 of 15</div>
-      </div>
-      <div class="slide-title-wrap">
-        <h1 class="slide-heading">Guitar &amp; Bass Amplifiers: <span>Valve Tone &amp; Acoustics</span></h1>
-        <p class="slide-lead">An in-depth technical analysis of vacuum tube circuitry, preamp gain stages, power amp saturation, loudspeaker enclosure physics, and studio close-micing techniques required for Edexcel A-Level Music Technology.</p>
+    <!-- SLIDE 01 -->
+    <div class="slide" data-slide="1">
+      <div class="slide-header">
+        <div class="deck-tag"><span>⚡</span> Amplifier Evolution &bull; Slide 1 of 14</div>
+        <h1 class="slide-heading">Guitar &amp; Bass Amplifiers: <span>The Sonic Lineage</span></h1>
+        <p class="slide-lead">From low-wattage jazz combos fighting big band brass to wall-of-sound Marshall stacks, thunderous Ampeg bass rigs, and modern neural DSP modellers.</p>
       </div>
 
-      <div class="grid-3">
-        <div class="card">
-          <div class="card-title" style="color: #fbbf24;">1. Preamp Stage (Voltage Gain)</div>
-          <p class="card-text">Boosts instrument Hi-Z level (millivolts) to line level via 12AX7 / ECC83 dual-triode valves. Generates asymmetric soft clipping and controls high-gain sustain without scaling loudness.</p>
-        </div>
-        <div class="card">
-          <div class="card-title" style="color: #f97316;">2. Power Amp Stage (Power Saturation)</div>
-          <p class="card-text">Converts voltage gain into massive speaker-driving current via push-pull output pentodes (EL34, 6L6). Produces power supply sag, output transformer saturation, and tactile dynamic compression.</p>
-        </div>
-        <div class="card">
-          <div class="card-title" style="color: #38bdf8;">3. Loudspeaker &amp; Enclosure Acoustics</div>
-          <p class="card-text">Open-back combo dispersion (360° airy room bleed) vs. closed-back 4&times;12 sealed punch (tight directional palm-mute thump). Transduced into acoustic sound waves across Celestion/Jensen cones.</p>
-        </div>
-      </div>
-
-      <div class="diagram-container">
-        <img src="/images/slides/amplifiers/valve_signal_path_triode_pentode.svg" alt="Valve Amp Complete Signal Path" onclick="openLightbox(this.src)">
-        <div class="diagram-caption">
-          <span><strong>Master Schematic:</strong> Valve Amplifier Signal Architecture (Click to expand)</span>
-          <span style="color: #fbbf24;">Specification Focus</span>
-        </div>
-      </div>
-
-      <div class="spec-box">
-        <div class="spec-box-title">Edexcel Specification Requirement</div>
-        <div class="spec-box-content">Students must be able to describe and evaluate the principles of amplification: vacuum tube (valve) vs. solid-state (transistor) operation, harmonic distortion characteristics, open vs. closed cabinets, and microphone placement on guitar cabinets.</div>
-      </div>
-    </section>
-
-    <!-- SLIDE 2: Thermionic Valve Physics -->
-    <section class="slide" data-slide="2">
-      <div class="header-bar">
-        <div class="deck-tag"><span>⚡</span> Vacuum Tube Mechanics</div>
-        <div class="slide-counter">Slide 2 of 15</div>
-      </div>
-      <div class="slide-title-wrap">
-        <h1 class="slide-heading">Thermionic Emission: <span>The Triode &amp; Pentode</span></h1>
-        <p class="slide-lead">How vacuum tubes control electrical current using heated filaments, cathodes, control grids, and positive anodes in a sealed glass envelope.</p>
-      </div>
-
-      <div class="grid-2">
-        <div>
-          <div class="card" style="margin-bottom: 14px;">
-            <div class="card-title" style="color: #fbbf24;">The Triode Valve Architecture (12AX7 / ECC83)</div>
-            <p class="card-text">
-              &bull; <strong>Heater Filament (6.3V AC/DC):</strong> Heats the cathode to ~800&deg;C, causing thermionic emission of free electrons.<br>
-              &bull; <strong>Cathode:</strong> Emits an electron cloud toward the positively charged plate.<br>
-              &bull; <strong>Anode (Plate / +250V to +400V DC):</strong> Strongly attracts the negative electrons.<br>
-              &bull; <strong>Control Grid:</strong> Placed between cathode and anode. A tiny negative audio voltage on the grid throttles the electron stream, producing huge voltage amplification.
-            </p>
+      <div class="grid-2-split">
+        <!-- LEFT: MUSIC -->
+        <div class="column-panel music-col">
+          <div class="panel-header">
+            <span class="panel-badge music-badge">🎵 Landmark Recording</span>
+            <span class="panel-subtitle">Early Electric Guitar Explosion</span>
           </div>
-          <div class="card">
-            <div class="card-title" style="color: #f97316;">Why Valves Warm Up &amp; Glow</div>
-            <p class="card-text">Vacuum tubes cannot operate cold. The orange filament glow is the resistive heater wire exciting electrons into a state of thermionic emission. The vacuum inside prevents the filament from burning up in atmospheric oxygen.</p>
-            <div class="video-btn-row">
-              <button class="video-trigger-btn" onclick="openVideo('nA_tgIygvNo', 'How Vacuum Tubes Work - Thermionic Emission Animation')">&#9654; Watch Tube Physics Video</button>
+          <div class="song-banner">
+            <span class="song-artist-name">Chuck Berry</span>
+            <span class="song-track-name">"Johnny B. Goode" (1958 &bull; Chess Records)</span>
+          </div>
+          <div class="card-video-embed">
+            <iframe referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube-nocookie.com/embed/OoJkLl-RboU" title="Chuck Berry - "Johnny B. Goode" (1958 &bull; Chess Records)" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div class="music-focus-card">
+            <div class="focus-title">Ear-Training Diagnostic: The Birth of Guitar Rock</div>
+            <p class="focus-text">Listen to how the pushed valve amplifier adds <strong>even-order harmonic grit</strong> and dynamic compression to Chuck Berry's opening double-stop licks. Recorded at Chess Studios in Chicago, this tone defined rock 'n' roll guitar.</p>
+            <p class="focus-text" style="margin-top: 8px;">Notice the natural tape slapback echo combined with the forward midrange push of an open-back valve combo. The amplifier is not merely magnifying the guitar; it is acting as a primary sound-shaping instrument.</p>
+          </div>
+          <div class="audio-tags">
+            <span class="atag">Chess Records</span><span class="atag">Valve Breakup</span><span class="atag">Slapback Echo</span><span class="atag">Double-Stops</span><span class="atag">50s Rock 'n' Roll</span>
+          </div>
+        </div>
+
+        <!-- RIGHT: INSTRUMENT SPECS -->
+        <div class="column-panel instrument-col">
+          <div class="panel-header">
+            <span class="panel-badge inst-badge">⚙️ Amplifier Architecture</span>
+            <span class="panel-subtitle">The Evolution of Electric Volume</span>
+          </div>
+
+          <div class="instrument-photo-card">
+            <img src="/images/slides/amplifiers/guitar_amp_stage.png" alt="Guitar Amplifier Stage Setup" class="instrument-photo">
+            <div class="instrument-photo-caption">
+              <span class="caption-name">🔊 The Evolution of Guitar Amplification</span>
+              <span class="caption-spec">Combo vs. Stack &bull; Analogue Valves to Neural DSP</span>
             </div>
           </div>
-        </div>
 
-        <div class="diagram-container">
-          <img src="/images/slides/amplifiers/tube_12ax7.jpg" alt="12AX7 ECC83 Vacuum Tube" onclick="openLightbox(this.src)" style="max-height: 380px; object-fit: contain; margin: 0 auto;">
-          <div class="diagram-caption">
-            <span><strong>Physical Artifact:</strong> 12AX7 / ECC83 High-Gain Dual Triode Preamp Valve</span>
-            <span>Preamp Stage</span>
+          <div class="history-card">
+            <div class="history-title">📜 From Acoustic Struggle to Stadium Domination</div>
+            <p class="history-text">In the 1930s and 40s, archtop acoustic guitars were physically incapable of competing with the blaring horn sections of big bands. Pioneers like George Beauchamp ('The Frying Pan') and Charlie Christian attached electromagnetic pickups, demanding an electrical solution.</p>
+            <p class="history-text" style="margin-top: 8px;">Over the next 70 years, amplifiers evolved from modest 10-watt radio-circuit combos into high-voltage 100-watt tube stacks, solid-state transistor clean machines, and modern mathematical DSP modellers running on stage and in the studio.</p>
           </div>
-        </div>
-      </div>
-    </section>
 
-    <!-- SLIDE 3: Preamp Stage & Preamp Gain -->
-    <section class="slide" data-slide="3">
-      <div class="header-bar">
-        <div class="deck-tag"><span>⚡</span> Preamp Circuitry</div>
-        <div class="slide-counter">Slide 3 of 15</div>
-      </div>
-      <div class="slide-title-wrap">
-        <h1 class="slide-heading">Preamp Gain: <span>Voltage Saturation Without Volume</span></h1>
-        <p class="slide-lead">Understanding how cascading 12AX7 triode gain stages create harmonic saturation, sustain, and compression before the signal reaches the power amplifier.</p>
-      </div>
-
-      <div class="grid-2">
-        <div class="card">
-          <div class="card-title" style="color: #fbbf24;">The Function of Preamp Gain</div>
-          <p class="card-text">
-            &bull; <strong>Voltage Amplification:</strong> A standard guitar pickup outputs roughly 100mV to 500mV. The preamp stages amplify this up to ~10V&ndash;20V.<br>
-            &bull; <strong>Cascaded Triodes:</strong> In modern high-gain amps, the output of Triode 1 slams the input of Triode 2, driving the grid beyond its linear range into clipping.<br>
-            &bull; <strong>Independent Volume:</strong> Turning up the 'Gain' knob saturates the preamp tubes without altering the power amp output level, enabling thick overdrive at bedroom volumes.
-          </p>
-        </div>
-
-        <div class="card">
-          <div class="card-title" style="color: #38bdf8;">Sonic Character of Preamp Distortion</div>
-          <p class="card-text">
-            &bull; <strong>High-Frequency Bite:</strong> Sharp, buzzy, articulated pick-attack definition.<br>
-            &bull; <strong>Compression:</strong> Extreme sustain where quiet notes bloom and loud peaks are restricted.<br>
-            &bull; <strong>Clean Channel Headroom:</strong> Low gain keeps the 12AX7 operating inside its linear swing, yielding pristine clean tones with sparkling high frequencies.
-          </p>
-          <div class="video-btn-row">
-            <button class="video-trigger-btn" onclick="openVideo('_170IlG9iic', 'VALVE/TUBE Amp Circuits Explained: Preamp vs Power Amp')">&#9654; Watch Circuit Breakdown</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="diagram-container">
-        <img src="/images/slides/amplifiers/valve_signal_path_triode_pentode.svg" alt="Preamp Gain in Signal Path" onclick="openLightbox(this.src)">
-        <div class="diagram-caption">
-          <span><strong>Signal Flow:</strong> Preamp Stage (12AX7) directly feeding the passive Tone Stack</span>
-        </div>
-      </div>
-    </section>
-
-    <!-- SLIDE 4: Complete Signal Path Architecture -->
-    <section class="slide" data-slide="4">
-      <div class="header-bar">
-        <div class="deck-tag"><span>⚡</span> Signal Path Architecture</div>
-        <div class="slide-counter">Slide 4 of 15</div>
-      </div>
-      <div class="slide-title-wrap">
-        <h1 class="slide-heading">Valve Amplifier: <span>End-to-End Signal Topology</span></h1>
-        <p class="slide-lead">A complete technical walkthrough of the electrical signal transforming from guitar pickup transducer into acoustic speaker pressure.</p>
-      </div>
-
-      <div class="diagram-container">
-        <img src="/images/slides/amplifiers/valve_signal_path_triode_pentode.svg" alt="Valve Signal Flow Full View" onclick="openLightbox(this.src)">
-        <div class="diagram-caption">
-          <span><strong>Specification Architecture:</strong> 1/4\" Jack &rarr; 12AX7 Preamp &rarr; Tone Stack &rarr; Phase Inverter &rarr; Push-Pull Pentodes &rarr; Output Transformer &rarr; Speaker</span>
-        </div>
-      </div>
-
-      <div class="grid-3">
-        <div class="card">
-          <div class="card-title" style="color: #fbbf24;">Input &amp; Preamp</div>
-          <p class="card-text">High-impedance (1M&Omega;) grid input prevents pickup loading. Triodes provide initial voltage gain and frequency contouring.</p>
-        </div>
-        <div class="card">
-          <div class="card-title" style="color: #c084fc;">Phase Inverter</div>
-          <p class="card-text">Splits the audio wave into two identical but 180&deg; out-of-phase halves to drive the push-pull power stage alternately.</p>
-        </div>
-        <div class="card">
-          <div class="card-title" style="color: #22c55e;">Output Transformer</div>
-          <p class="card-text">Steps down hazardous high-voltage/low-current valve plate power to high-current/low-voltage power matching 4&Omega;/8&Omega;/16&Omega; voice coils.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- SLIDE 5: The Passive Tone Stack -->
-    <section class="slide" data-slide="5">
-      <div class="header-bar">
-        <div class="deck-tag"><span>⚡</span> EQ &amp; Frequency Shapers</div>
-        <div class="slide-counter">Slide 5 of 15</div>
-      </div>
-      <div class="slide-title-wrap">
-        <h1 class="slide-heading">The Passive Tone Stack: <span>Fender, Marshall &amp; Vox</span></h1>
-        <p class="slide-lead">Why guitar amplifier EQ controls are strictly subtractive (passive) networks with drastic phase interaction and distinct mid-range scoops.</p>
-      </div>
-
-      <div class="grid-2">
-        <div class="card">
-          <div class="card-title" style="color: #38bdf8;">How Passive Tone Stacks Work</div>
-          <p class="card-text">
-            &bull; <strong>Passive Attenuation Only:</strong> Guitar amp tone stacks cannot boost frequencies above unity; they can only cut (bleed signal to ground via capacitors and potentiometers).<br>
-            &bull; <strong>Interactive Controls:</strong> Adjusting Treble alters the effective frequency knee of the Bass and Middle pots. Turning all three knobs to zero results in near-complete silence on Fender/Marshall stacks.<br>
-            &bull; <strong>Insertion Loss:</strong> The tone stack sheds roughly 12dB of signal level, requiring a subsequent tube gain stage (recovery triode) to restore amplitude.
-          </p>
-        </div>
-
-        <div class="card">
-          <div class="card-title" style="color: #fbbf24;">Legendary Circuit Voicings</div>
-          <p class="card-text">
-            &bull; <strong>Fender 'Blackface' Scoop:</strong> Fixed resistor yields a deep mid-range notch at 500Hz, providing sparkling cleans and tight bottom-end.<br>
-            &bull; <strong>Marshall Lead Voice:</strong> Emphasizes 800Hz&ndash;1.5kHz mid-range punch to slice through dense rock drums and bass.<br>
-            &bull; <strong>Vox Top Boost:</strong> Interactive treble and bass controls that interact dynamically with the famous non-negative-feedback 'Cut' control.
-          </p>
-        </div>
-      </div>
-
-      <div class="spec-box">
-        <div class="spec-box-title">Examiner Warning: Active vs Passive EQ</div>
-        <div class="spec-box-content">Unlike console parametric EQs or DAW plugins which allow +15dB of boost, classic tube amplifier tone stacks are purely passive RC filter networks. 'Flat' frequency response is rarely achieved with knobs at 12 o'clock.</div>
-      </div>
-    </section>
-
-    <!-- SLIDE 6: Power Amp Stage & Power Tubes -->
-    <section class="slide" data-slide="6">
-      <div class="header-bar">
-        <div class="deck-tag"><span>⚡</span> Power Stage &amp; Pentodes</div>
-        <div class="slide-counter">Slide 6 of 15</div>
-      </div>
-      <div class="slide-title-wrap">
-        <h1 class="slide-heading">Power Amp Valves: <span>EL34, 6L6, 6V6 &amp; EL84</span></h1>
-        <p class="slide-lead">Comparing the physical construction, headroom, and harmonic character of the world's most influential output valves.</p>
-      </div>
-
-      <div class="grid-2">
-        <div class="diagram-container">
-          <img src="/images/slides/amplifiers/tube_el34.jpg" alt="EL34 Power Pentode" onclick="openLightbox(this.src)" style="max-height: 340px; object-fit: contain; margin: 0 auto;">
-          <div class="diagram-caption">
-            <span><strong>Siemens EL34 Power Pentode:</strong> Iconic British Rock Valve (25W Plate Dissipation)</span>
-          </div>
-        </div>
-
-        <div>
-          <div class="card" style="margin-bottom: 12px;">
-            <div class="card-title" style="color: #fbbf24;">EL34 Pentode (The British Sound)</div>
-            <p class="card-text">Used in classic Marshall (JTM45, Super Lead, JCM800) and Hiwatt amps. Produces an aggressive, crunchy mid-range bark, early power amp breakup, and tight compression when driven hard.</p>
-          </div>
-          <div class="card" style="margin-bottom: 12px;">
-            <div class="card-title" style="color: #38bdf8;">6L6 Beam Tetrode (The American Sound)</div>
-            <p class="card-text">Found in Fender (Bassman, Twin Reverb) and Mesa/Boogie Dual Rectifier. Features massive clean headroom, glassy highs, scooped mids, and robust, subterranean low-end thump.</p>
-          </div>
-          <div class="card">
-            <div class="card-title" style="color: #22c55e;">EL84 (Vox Class A Chime) &amp; 6V6 (Low-Wattage Blues)</div>
-            <p class="card-text">EL84 provides chime and top-end swirl in Vox AC30s; 6V6 delivers warm, vintage touch-sensitive compression at lower stage volumes in Fender Deluxes.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- SLIDE 7: Master Volume vs Non-Master Volume -->
-    <section class="slide" data-slide="7">
-      <div class="header-bar">
-        <div class="deck-tag"><span>⚡</span> Dynamics &amp; Sag</div>
-        <div class="slide-counter">Slide 7 of 15</div>
-      </div>
-      <div class="slide-title-wrap">
-        <h1 class="slide-heading">Master Volume vs. Non-Master: <span>Power Tube Sag</span></h1>
-        <p class="slide-lead">Why vintage players had to play at deafening stage volumes to achieve power amp overdrive, and how rectifier sag creates natural dynamic compression.</p>
-      </div>
-
-      <div class="grid-2">
-        <div class="card">
-          <div class="card-title" style="color: #fbbf24;">Non-Master Volume Amps (Fender Tweed, Marshall Plexi)</div>
-          <p class="card-text">
-            &bull; The single volume knob controls the signal feeding directly into the power amp.<br>
-            &bull; To achieve overdrive, the amplifier must be cranked to 8&ndash;10, driving the entire power section into maximum saturation at ear-splitting stage levels (120dB+).<br>
-            &bull; Produces unmatched tactile feedback, full output transformer core saturation, and seamless guitar volume pot cleanup.
-          </p>
-        </div>
-
-        <div class="card">
-          <div class="card-title" style="color: #f97316;">Power Supply Sag &amp; Tube Rectification</div>
-          <p class="card-text">
-            &bull; <strong>Valve Rectifiers (e.g. GZ34, 5U4):</strong> When struck with a heavy pick attack, the tubes draw heavy instantaneous current. The valve rectifier cannot supply it instantly, causing the high-voltage B+ rail to 'sag'.<br>
-            &bull; <strong>Acoustic Result:</strong> The initial transient is subtly clamped (compression) and then blooms as voltage recovers, creating a spongy, organic feel prized by blues and classic rock players.
-          </p>
-        </div>
-      </div>
-
-      <div class="spec-box">
-        <div class="spec-box-title">Edexcel Exam Distinction: Preamp Distortion vs Power Tube Saturation</div>
-        <div class="spec-box-content">Preamp distortion produces high-frequency harmonic fuzz and sustain without volume scaling. Power amp saturation compresses dynamic peaks, thickens lower mid-range body, and requires the Master Volume to be driven hard into the power valves and output transformer.</div>
-      </div>
-    </section>
-
-    <!-- SLIDE 8: Valve Soft Clipping vs Solid-State Hard Clipping -->
-    <section class="slide" data-slide="8">
-      <div class="header-bar">
-        <div class="deck-tag"><span>⚡</span> Harmonic Distortion Physics</div>
-        <div class="slide-counter">Slide 8 of 15</div>
-      </div>
-      <div class="slide-title-wrap">
-        <h1 class="slide-heading">Harmonic Distortion: <span>Even vs. Odd Harmonics</span></h1>
-        <p class="slide-lead">The mathematical and acoustic differences between rounded thermionic valve saturation and abrupt transistor clipping.</p>
-      </div>
-
-      <div class="diagram-container">
-        <img src="/images/slides/amplifiers/valve_vs_solid_state_clipping.svg" alt="Valve vs Solid-State Clipping" onclick="openLightbox(this.src)">
-        <div class="diagram-caption">
-          <span><strong>Waveform Analysis:</strong> Soft rounded clipping (even harmonics) vs. hard squared-off clipping (odd harmonics)</span>
-        </div>
-      </div>
-
-      <div class="grid-2">
-        <div class="card">
-          <div class="card-title" style="color: #f97316;">Valve (Tube) Soft Clipping &bull; Even Harmonics</div>
-          <p class="card-text">
-            &bull; When a valve is overloaded, it saturates progressively, rounding off the peaks of the sine wave.<br>
-            &bull; Generates <strong>even-order harmonics (2nd, 4th, 6th)</strong>.<br>
-            &bull; The 2nd harmonic is exactly one octave above the fundamental, reinforcing musical consonance and perceived fullness.
-          </p>
-        </div>
-        <div class="card">
-          <div class="card-title" style="color: #ef4444;">Solid-State (Transistor) Hard Clipping &bull; Odd Harmonics</div>
-          <p class="card-text">
-            &bull; Transistors operate linearly until hitting their DC power rails, where the waveform is abruptly sheared off into a flat square wave.<br>
-            &bull; Generates aggressive <strong>odd-order harmonics (3rd, 5th, 7th)</strong>.<br>
-            &bull; Produces abrasive, dissonant, metallic buzz-saw textures (characteristic of classic fuzz boxes and early solid-state amps).
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- SLIDE 9: Output Transformer & Impedance Matching -->
-    <section class="slide" data-slide="9">
-      <div class="header-bar">
-        <div class="deck-tag"><span>⚡</span> Electrical Transduction</div>
-        <div class="slide-counter">Slide 9 of 15</div>
-      </div>
-      <div class="slide-title-wrap">
-        <h1 class="slide-heading">The Output Transformer: <span>Impedance &amp; Speaker Load</span></h1>
-        <p class="slide-lead">Why valve power amps strictly require a heavy magnetic transformer to transfer energy into speaker cones—and why running without a load is catastrophic.</p>
-      </div>
-
-      <div class="diagram-container">
-        <img src="/images/slides/amplifiers/impedance_matching_transformer.svg" alt="Output Transformer & Impedance Matching" onclick="openLightbox(this.src)">
-        <div class="diagram-caption">
-          <span><strong>Electrical Schematic:</strong> Stepping down ~3,500&Omega; high-voltage plate impedance to 4&Omega;/8&Omega;/16&Omega; voice coil loads</span>
-        </div>
-      </div>
-
-      <div class="grid-2">
-        <div class="card">
-          <div class="card-title" style="color: #fbbf24;">The Impedance Mismatch Problem</div>
-          <p class="card-text">
-            &bull; Power valves operate at several hundred volts DC and high internal plate impedance (~3k&Omega;&ndash;5k&Omega;).<br>
-            &bull; Loudspeaker voice coils have very low impedance (4&Omega;, 8&Omega;, or 16&Omega;).<br>
-            &bull; Connecting valves directly to a speaker voice coil would result in virtually zero power transfer and melted components.
-          </p>
-        </div>
-        <div class="card">
-          <div class="card-title" style="color: #ef4444;">The 'No-Load' Disaster Hazard</div>
-          <p class="card-text">
-            &bull; If a valve amp is switched on without a speaker connected, the transformer's magnetic field collapses violently.<br>
-            &bull; Inductive 'flyback' generates voltage spikes exceeding 2,500V, causing electrical arcs that melt valve sockets and burn through transformer windings.<br>
-            &bull; Solid-state amps, by contrast, can safely run with no speaker connected.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- SLIDE 10: Cabinet Acoustics: Open-Back vs Closed-Back -->
-    <section class="slide" data-slide="10">
-      <div class="header-bar">
-        <div class="deck-tag"><span>⚡</span> Loudspeaker Acoustic Enclosures</div>
-        <div class="slide-counter">Slide 10 of 15</div>
-      </div>
-      <div class="slide-title-wrap">
-        <h1 class="slide-heading">Cabinet Enclosure Physics: <span>Open vs. Closed-Back</span></h1>
-        <p class="slide-lead">How physical cabinet construction dictates low-frequency phase cancellation, spatial dispersion, and microphone spill in live and studio tracking.</p>
-      </div>
-
-      <div class="diagram-container">
-        <img src="/images/slides/amplifiers/open_vs_closed_back_cabinet.svg" alt="Open vs Closed Back Cabinet Dispersion" onclick="openLightbox(this.src)">
-        <div class="diagram-caption">
-          <span><strong>Acoustic Dispersion:</strong> Open-back 360&deg; spatial wave vs. Closed-back sealed directional projection</span>
-        </div>
-      </div>
-
-      <div class="grid-2">
-        <div class="card">
-          <div class="card-title" style="color: #38bdf8;">Open-Back Combos (e.g. Fender Twin, Vox AC30)</div>
-          <p class="card-text">
-            &bull; <strong>Acoustic Radiation:</strong> Sound radiates out of both the front grille and open rear chassis.<br>
-            &bull; <strong>Phase Cancellation:</strong> The rear wave is 180&deg; out of phase with the front wave. Where they wrap around and meet, low bass frequencies cancel out.<br>
-            &bull; <strong>Studio Character:</strong> Airy, 3D ambient room bloom; high bleed into drum mics; sparkling clean presence.
-          </p>
-        </div>
-        <div class="card">
-          <div class="card-title" style="color: #22c55e;">Closed-Back Cabinets (e.g. Marshall 1960 4&times;12)</div>
-          <p class="card-text">
-            &bull; <strong>Sealed Cavity:</strong> Rear wave is completely contained within the wooden enclosure.<br>
-            &bull; <strong>Acoustic Suspension:</strong> The trapped air acts as an air-spring, damping the cone and preventing excessive cone excursion.<br>
-            &bull; <strong>Studio Character:</strong> Eliminates low-end cancellation, delivering tight, punchy, directional palm-muted chugs and high acoustic isolation.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- SLIDE 11: Historic Evolution: Tweed to Marshall Stack -->
-    <section class="slide" data-slide="11">
-      <div class="header-bar">
-        <div class="deck-tag"><span>⚡</span> Music Technology in Context</div>
-        <div class="slide-counter">Slide 11 of 15</div>
-      </div>
-      <div class="slide-title-wrap">
-        <h1 class="slide-heading">The Birth of the Marshall Stack: <span>Volume as an Art Form</span></h1>
-        <p class="slide-lead">How the 1960s British rock explosion forced amplifiers out of clean small combos and into high-wattage arena weapon systems.</p>
-      </div>
-
-      <div class="grid-2">
-        <div>
-          <div class="card" style="margin-bottom: 14px;">
-            <div class="card-title" style="color: #fbbf24;">The Pete Townshend &amp; Jim Marshall Connection</div>
-            <p class="card-text">
-              In 1965, The Who's Pete Townshend complained to drum shop owner Jim Marshall that American Fender combos lacked volume against Keith Moon's thunderous drumming. Jim Marshall engineered the JTM45 head and paired it with a monolithic 8&times;12 cabinet (later split into two 4&times;12s for portability), creating the legendary 'Full Stack'.
-            </p>
-            <div class=\"video-btn-row\">
-              <button class="video-trigger-btn" onclick="openVideo('SHhrZgojY1Q', 'The Who - Won\'t Get Fooled Again (Pete Townshend Marshall Stack)')">&#9654; Watch The Who (Marshall Stack)</button>
-              <button class="video-trigger-btn" onclick="openVideo('_PVjcIO4MT4', 'Jimi Hendrix - Foxey Lady (Marshall 100W Super Lead Overdrive)')">&#9654; Watch Hendrix Overdrive</button>
+          <div class="mechanics-card">
+            <div class="mechanics-title">🔬 The Core Architecture of Guitar & Bass Amplification</div>
+            <div class="mech-steps">
+              
+            <div class="mech-step">
+              <span class="step-num">1</span>
+              <div class="step-body">
+                <span class="step-name">Preamp Gain Stage</span>
+                <span class="step-desc">High-impedance instrument signal is elevated from millivolts to volts using 12AX7 valves or solid-state op-amps, introducing initial harmonic saturation.</span>
+              </div>
             </div>
-          </div>
-          <div class="card">
-            <div class="card-title" style="color: #f97316;">Feedback &amp; Controlled Resonance</div>
-            <p class="card-text">Jimi Hendrix utilized the immense volume of 100W Marshall Super Lead stacks to induce controlled acoustic feedback between the loudspeaker drivers and guitar pickup coils, transforming feedback into a melodic instrument.</p>
-          </div>
-        </div>
-
-        <div class="diagram-container">
-          <img src="/images/slides/amplifiers/marshall_half_stack.jpg" alt="Marshall Half Stack" onclick="openLightbox(this.src)" style="max-height: 380px; object-fit: contain; margin: 0 auto;">
-          <div class="diagram-caption">
-            <span><strong>Historic Icon:</strong> Marshall 100W Lead Head on 1960A Slanted 4&times;12 Cabinet</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- SLIDE 12: 1970s & 1980s High-Gain Revolution -->
-    <section class="slide" data-slide="12">
-      <div class="header-bar">
-        <div class="deck-tag"><span>⚡</span> Hard Rock &amp; Metal Era</div>
-        <div class="slide-counter">Slide 12 of 15</div>
-      </div>
-      <div class="slide-title-wrap">
-        <h1 class="slide-heading">The High-Gain Era: <span>Marshall JCM800 &amp; Master Volumes</span></h1>
-        <p class="slide-lead">Cascading preamps, modified high-gain circuits, and the aggressive guitar tones of 1970s hard rock, NWOBHM, and 1980s metal production.</p>
-      </div>
-
-      <div class="grid-2">
-        <div class="diagram-container">
-          <img src="/images/slides/amplifiers/marshall_jcm800.jpg" alt="Marshall JCM800 2203 Head" onclick="openLightbox(this.src)" style="max-height: 320px; object-fit: contain; margin: 0 auto;">
-          <div class="diagram-caption">
-            <span><strong>Studio Standard:</strong> Marshall JCM800 2203 Master Volume Head (1981)</span>
-          </div>
-        </div>
-
-        <div>
-          <div class="card" style="margin-bottom: 12px;">
-            <div class="card-title" style="color: #fbbf24;">The Marshall JCM800 2203 (1981)</div>
-            <p class="card-text">Introduced factory-cascaded 12AX7 preamp stages controlled by a Master Volume knob. Enabled guitarists to generate thick, biting heavy-metal overdrive without blowing speakers or deafening studio control rooms.</p>
-          </div>
-          <div class="card">
-            <div class="card-title" style="color: #f97316;">Key Landmark Recordings</div>
-            <p class="card-text">
-              &bull; <strong>AC/DC &bull; Back in Black (1980):</strong> Malcolm &amp; Angus Young pairing Marshall JTM45 / Super Lead heads with minimal preamp drive and massive power valve saturation.<br>
-              &bull; <strong>Guns N' Roses &bull; Sweet Child O' Mine (1987):</strong> Slash's legendary modified Marshall 100W head (equipped with 6550/EL34s) close-mic'd with Shure SM57s.
-            </p>
-            <div class="video-btn-row">
-              <button class="video-trigger-btn" onclick="openVideo('pAgnJDJN4VA', 'AC/DC - Back In Black (Official Video &bull; Marshall Rhythm Tone)')">&#9654; Watch AC/DC Tone</button>
-              <button class="video-trigger-btn" onclick="openVideo('1w7OgIMMRc4', 'Guns N Roses - Sweet Child O Mine (Slash JCM800 Tone)')">&#9654; Watch Slash Tone</button>
+            <div class="mech-step">
+              <span class="step-num">2</span>
+              <div class="step-body">
+                <span class="step-name">Passive Tone Stack</span>
+                <span class="step-desc">Frequency-shaping networks (Treble, Middle, Bass) sculpt the tonal curve, creating characteristic mid-scoops (Fender) or mid-humps (Marshall/Vox).</span>
+              </div>
+            </div>
+            <div class="mech-step">
+              <span class="step-num">3</span>
+              <div class="step-body">
+                <span class="step-name">Power Section & Output Transformer</span>
+                <span class="step-desc">High-current valves (EL34, 6L6, EL84, 6550) generate acoustic wattage, coupled through an iron output transformer to match speaker coil impedance.</span>
+              </div>
+            </div>
+            <div class="mech-step">
+              <span class="step-num">4</span>
+              <div class="step-body">
+                <span class="step-name">Loudspeaker Transduction & Cabinet Physics</span>
+                <span class="step-desc">Dynamic speaker drivers in open-back combos disperse room ambiance, while heavy closed-back birch cabinets project directional, punchy low-end punch.</span>
+              </div>
+            </div>
             </div>
           </div>
         </div>
       </div>
-    </section>
+    </div>
 
-    <!-- SLIDE 13: Studio Close-Micing Techniques -->
-    <section class="slide" data-slide="13">
-      <div class="header-bar">
-        <div class="deck-tag"><span>⚡</span> Audio Engineering &bull; Component 1 &amp; 3</div>
-        <div class="slide-counter">Slide 13 of 15</div>
-      </div>
-      <div class="slide-title-wrap">
-        <h1 class="slide-heading">Studio Close-Micing: <span>The Shure SM57 Cone Geography</span></h1>
-        <p class="slide-lead">How micro-adjustments in microphone positioning, distance, and angles across the speaker cone radically sculpt frequency response without EQ.</p>
+
+    <!-- SLIDE 02 -->
+    <div class="slide" data-slide="2">
+      <div class="slide-header">
+        <div class="deck-tag"><span>⚡</span> Early Electrification &bull; Slide 2 of 14</div>
+        <h1 class="slide-heading">Les Paul: <span>The Pioneer of Electrified Clean Sound</span></h1>
+        <p class="slide-lead">How Les Paul's relentless drive for clean volume and multitrack precision drove the development of low-distortion valve amplifiers and solidbody guitars.</p>
       </div>
 
-      <div class="diagram-container">
-        <img src="/images/slides/amplifiers/guitar_speaker_micing_positions.svg" alt="Guitar Speaker Micing Positions" onclick="openLightbox(this.src)">
-        <div class="diagram-caption">
-          <span><strong>Microphone Placement Topography:</strong> Dust Cap (Bright) vs. Cap Edge (Sweet Spot) vs. Cone Edge (Dark/Warm)</span>
+      <div class="grid-2-split">
+        <!-- LEFT: MUSIC -->
+        <div class="column-panel music-col">
+          <div class="panel-header">
+            <span class="panel-badge music-badge">🎵 Landmark Recording</span>
+            <span class="panel-subtitle">First Multitrack Hit & Pristine Tube Clean</span>
+          </div>
+          <div class="song-banner">
+            <span class="song-artist-name">Les Paul & Mary Ford</span>
+            <span class="song-track-name">"How High the Moon" (1951 &bull; Capitol Records)</span>
+          </div>
+          <div class="card-video-embed">
+            <iframe referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube-nocookie.com/embed/glcTS_21uaY" title="Les Paul & Mary Ford - "How High the Moon" (1951 &bull; Capitol Records)" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div class="music-focus-card">
+            <div class="focus-title">Ear-Training Diagnostic: Sound-on-Sound Multitracking</div>
+            <p class="focus-text">Listen to the crystal-clear articulation in Les Paul's rapid staccato picking. To execute up to 24 layers of sound-on-sound recording on his modified Ampex tape recorder, his guitar tone required <strong>maximum clarity and zero flabby distortion</strong>.</p>
+            <p class="focus-text" style="margin-top: 8px;">Every transient note pops through the dense vocal overdubs of Mary Ford. Notice how early low-wattage valve combos maintained linear fidelity at moderate recording volumes before the concept of intentional guitar overdrive existed.</p>
+          </div>
+          <div class="audio-tags">
+            <span class="atag">Sound-on-Sound</span><span class="atag">Ampex Tape</span><span class="atag">Pristine Clean</span><span class="atag">6V6 Valve Tone</span><span class="atag">Les Paul 'The Log'</span>
+          </div>
+        </div>
+
+        <!-- RIGHT: INSTRUMENT SPECS -->
+        <div class="column-panel instrument-col">
+          <div class="panel-header">
+            <span class="panel-badge inst-badge">⚙️ Amplifier Architecture</span>
+            <span class="panel-subtitle">Early Valve Combo Engineering</span>
+          </div>
+
+          <div class="instrument-photo-card">
+            <img src="/images/slides/amplifiers/les_paul_mary_ford_1951.jpg" alt="Les Paul & Mary Ford 1951" class="instrument-photo">
+            <div class="instrument-photo-caption">
+              <span class="caption-name">🎸 Les Paul & Mary Ford (1951)</span>
+              <span class="caption-spec">Pioneers of Solidbody Electric Guitars & Studio Overdubbing</span>
+            </div>
+          </div>
+
+          <div class="history-card">
+            <div class="history-title">📜 The Quest for Pure Sustain and Feedback Elimination</div>
+            <p class="history-text">In 1941, jazz virtuoso Les Paul built 'The Log'—a 4x4 pine block with guitar neck and pickups attached inside an Epiphone hollowbody shell. Hollowbody guitars fed back uncontrollably when amplified loudly; a solid core eliminated resonant howling.</p>
+            <p class="history-text" style="margin-top: 8px;">Les Paul worked closely with Gibson and custom audio builders to create amplifiers that reproduced the wide frequency spectrum of his custom wound pickups without early harmonic distortion, laying the technical foundation for the 1952 Gibson Les Paul guitar.</p>
+          </div>
+
+          <div class="mechanics-card">
+            <div class="mechanics-title">🔬 Low-Wattage Octal & 6V6 Valve Topology</div>
+            <div class="mech-steps">
+              
+            <div class="mech-step">
+              <span class="step-num">1</span>
+              <div class="step-body">
+                <span class="step-name">Field-Coil & Early Permanent Alnico Speakers</span>
+                <span class="step-desc">Early 1940s/50s amps employed 10-inch or 12-inch Alnico magnet speakers with lightweight paper cones for rapid transient response.</span>
+              </div>
+            </div>
+            <div class="mech-step">
+              <span class="step-num">2</span>
+              <div class="step-body">
+                <span class="step-name">Cathode-Biased 6V6 Beam Tetrode Output</span>
+                <span class="step-desc">Low plate voltages (~300V) produced 10 to 14 watts of smooth, warm power with natural second-order harmonic sweetness.</span>
+              </div>
+            </div>
+            <div class="mech-step">
+              <span class="step-num">3</span>
+              <div class="step-body">
+                <span class="step-name">Octal Preamp Valves (6SJ7 / 6SN7)</span>
+                <span class="step-desc">Before miniature dual-triodes (12AX7) became universal, large glass octal tubes delivered robust, low-noise voltage gain.</span>
+              </div>
+            </div>
+            <div class="mech-step">
+              <span class="step-num">4</span>
+              <div class="step-body">
+                <span class="step-name">Direct-to-Tape Clean Tracking</span>
+                <span class="step-desc">Close-micing small combo amps with ribbon microphones (RCA 44BX/77DX) delivered warm proximity low-end without room reverberation.</span>
+              </div>
+            </div>
+            </div>
+          </div>
         </div>
       </div>
+    </div>
 
-      <div class="grid-3">
-        <div class="card">
-          <div class="card-title" style="color: #ef4444;">1. Center (Dust Cap)</div>
-          <p class="card-text">Captures maximum high frequencies and pick transient attack. Yields piercing articulation, but can easily sound brittle, 'ice-picky', or fizzy on high-gain sounds.</p>
-        </div>
-        <div class="card">
-          <div class="card-title" style="color: #22c55e;">2. Cap Edge (The Sweet Spot)</div>
-          <p class="card-text">The industry standard starting position for Shure SM57. Balances aggressive pick cut with full-bodied 250Hz&ndash;500Hz lower-mid warmth.</p>
-        </div>
-        <div class="card">
-          <div class="card-title" style="color: #38bdf8;">3. Cone Edge &amp; Off-Axis</div>
-          <p class="card-text">High frequencies roll off naturally as the mic moves toward the outer surround. Angling the capsule 45&deg; off-axis attenuates harsh 4kHz&ndash;6kHz sizzle.</p>
-        </div>
-      </div>
-    </section>
 
-    <!-- SLIDE 14: Bass Guitar Amplification & DI Blend -->
-    <section class="slide" data-slide="14">
-      <div class="header-bar">
-        <div class="deck-tag"><span>⚡</span> Low-End Engineering</div>
-        <div class="slide-counter">Slide 14 of 15</div>
-      </div>
-      <div class="slide-title-wrap">
-        <h1 class="slide-heading">Bass Amplification &amp; The DI Blend: <span>Sub vs. Growl</span></h1>
-        <p class="slide-lead">The standard professional recording chain: splitting the bass signal into a clean active DI for sub-bass definition, and an all-valve Ampeg SVT 8&times;10 rig for harmonic growl.</p>
+    <!-- SLIDE 03 -->
+    <div class="slide" data-slide="3">
+      <div class="slide-header">
+        <div class="deck-tag"><span>⚡</span> The American Tweed Era &bull; Slide 3 of 14</div>
+        <h1 class="slide-heading">Fender Bassman 5F6-A: <span>The Blueprint for Rock</span></h1>
+        <p class="slide-lead">Leo Fender's 1959 4x10 tweed circuit was designed for bassists but became the most influential guitar amplifier in history—the direct forefather of Marshall.</p>
       </div>
 
-      <div class="diagram-container">
-        <img src="/images/slides/amplifiers/bass_amp_di_blend_routing.svg" alt="Bass DI Blend Routing" onclick="openLightbox(this.src)">
-        <div class="diagram-caption">
-          <span><strong>Studio Signal Path:</strong> Active DI Box splitting into Clean Sub Track + Mic'd 8&times;10 Cabinet Track with DAW Phase Alignment</span>
+      <div class="grid-2-split">
+        <!-- LEFT: MUSIC -->
+        <div class="column-panel music-col">
+          <div class="panel-header">
+            <span class="panel-badge music-badge">🎵 Landmark Recording</span>
+            <span class="panel-subtitle">Raw Power Chord Distortion & Sub-Octave Tremolo</span>
+          </div>
+          <div class="song-banner">
+            <span class="song-artist-name">Link Wray & His Ray Men</span>
+            <span class="song-track-name">"Rumble" (1958 &bull; Cadence Records)</span>
+          </div>
+          <div class="card-video-embed">
+            <iframe referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube-nocookie.com/embed/CHoBnuLkFnQ" title="Link Wray & His Ray Men - "Rumble" (1958 &bull; Cadence Records)" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div class="music-focus-card">
+            <div class="focus-title">Ear-Training Diagnostic: The First Heavy Guitar Sound</div>
+            <p class="focus-text">Link Wray's 'Rumble' was banned on several US radio stations for its menacing, aggressive tone—despite having no lyrics! Listen to the <strong>visceral power chord sustain and speaker cone compression</strong> as the valve amplifier is pushed into natural saturation.</p>
+            <p class="focus-text" style="margin-top: 8px;">Notice how the lower register chords push the output valves into compression while the pulsating opto-tremolo chops the signal, creating a dark, hypnotic rockabilly instrumental masterpiece.</p>
+          </div>
+          <div class="audio-tags">
+            <span class="atag">Power Chord Rumble</span><span class="atag">Valve Compression</span><span class="atag">Pushed 6L6s</span><span class="atag">Opto-Tremolo</span><span class="atag">Proto-Punk</span>
+          </div>
+        </div>
+
+        <!-- RIGHT: INSTRUMENT SPECS -->
+        <div class="column-panel instrument-col">
+          <div class="panel-header">
+            <span class="panel-badge inst-badge">⚙️ Amplifier Architecture</span>
+            <span class="panel-subtitle">The Iconic 5F6-A Circuit Architecture</span>
+          </div>
+
+          <div class="instrument-photo-card">
+            <img src="/images/slides/amplifiers/fender_bassman_5f6a.jpg" alt="Fender 1959 Bassman 5F6-A" class="instrument-photo">
+            <div class="instrument-photo-caption">
+              <span class="caption-name">⚡ Fender 1959 4x10 Bassman (5F6-A)</span>
+              <span class="caption-spec">4x10 Jensen Alnico Speakers &bull; Dual 6L6GC Output &bull; Cathode Follower</span>
+            </div>
+          </div>
+
+          <div class="history-card">
+            <div class="history-title">📜 Leo Fender's Masterpiece and the Marshall Connection</div>
+            <p class="history-text">In 1952, Leo Fender introduced the Precision Bass, needing an amplifier that could handle low frequencies. By 1959, he perfected the 5F6-A circuit: a 45-watt powerhouse housed in a lacquered tweed cabinet loaded with four 10-inch Jensen Alnico speakers.</p>
+            <p class="history-text" style="margin-top: 8px;">Guitarists quickly discovered that when cranked, the Bassman produced a thick, musical, touch-sensitive crunch that single 12-inch amps could not match. In 1962, Jim Marshall literally copied this exact schematic to create the Marshall JTM45.</p>
+          </div>
+
+          <div class="mechanics-card">
+            <div class="mechanics-title">🔬 Circuit Innovations of the 5F6-A</div>
+            <div class="mech-steps">
+              
+            <div class="mech-step">
+              <span class="step-num">1</span>
+              <div class="step-body">
+                <span class="step-name">Cathode-Follower Driven Tone Stack</span>
+                <span class="step-desc">A dedicated 12AX7 triode buffer stage drove the tone controls with low impedance, preventing EQ adjustments from sapping signal gain.</span>
+              </div>
+            </div>
+            <div class="mech-step">
+              <span class="step-num">2</span>
+              <div class="step-body">
+                <span class="step-name">Long-Tail Pair Phase Inverter</span>
+                <span class="step-desc">Balanced drive to the output tubes ensured symmetrical power delivery and dynamic responsiveness to pick attack.</span>
+              </div>
+            </div>
+            <div class="mech-step">
+              <span class="step-num">3</span>
+              <div class="step-body">
+                <span class="step-name">Four 10-Inch Jensen P10R Speakers</span>
+                <span class="step-desc">Multiple smaller speakers offered rapid transient response and huge combined surface area, moving air with immense acoustic authority.</span>
+              </div>
+            </div>
+            <div class="mech-step">
+              <span class="step-num">4</span>
+              <div class="step-body">
+                <span class="step-name">Fixed-Bias Push-Pull 6L6 Power Section</span>
+                <span class="step-desc">Delivered 45W of clean headroom before yielding into smooth, warm, creamy power valve saturation when pushed above 6 on the dial.</span>
+              </div>
+            </div>
+            </div>
+          </div>
         </div>
       </div>
+    </div>
 
-      <div class="grid-2">
-        <div class="card">
-          <div class="card-title" style="color: #22c55e;">Path A: Direct Injection (DI Box)</div>
-          <p class="card-text">
-            &bull; Connects between instrument and amp via high-impedance 1/4\" Thru jack.<br>
-            &bull; Delivers ultra-clean, uncolored fundamental sub-bass frequencies (30Hz&ndash;100Hz) with instantaneous transient response.<br>
-            &bull; Zero acoustic bleed or spill from other instruments in the live room.
-          </p>
+
+    <!-- SLIDE 04 -->
+    <div class="slide" data-slide="4">
+      <div class="slide-header">
+        <div class="deck-tag"><span>⚡</span> The British Invasion &bull; Slide 4 of 14</div>
+        <h1 class="slide-heading">Vox AC30 Top Boost: <span>The Sound of the 60s Chime</span></h1>
+        <p class="slide-lead">Engineered by Dick Denney in Kent to cut through the screams of Beatlemania, the AC30 gave British rock its crystalline jangle and aggressive midrange bite.</p>
+      </div>
+
+      <div class="grid-2-split">
+        <!-- LEFT: MUSIC -->
+        <div class="column-panel music-col">
+          <div class="panel-header">
+            <span class="panel-badge music-badge">🎵 Landmark Recording</span>
+            <span class="panel-subtitle">The 12-String Rickenbacker Chime</span>
+          </div>
+          <div class="song-banner">
+            <span class="song-artist-name">The Beatles</span>
+            <span class="song-track-name">"A Hard Day's Night" (1964 &bull; Parlophone / Abbey Road)</span>
+          </div>
+          <div class="card-video-embed">
+            <iframe referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube-nocookie.com/embed/Yjyj8qnqkYI" title="The Beatles - "A Hard Day's Night" (1964 &bull; Parlophone / Abbey Road)" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div class="music-focus-card">
+            <div class="focus-title">Ear-Training Diagnostic: Harmonic Jangle & Upper-Mid Chime</div>
+            <p class="focus-text">The song begins with the most famous opening chord in rock history (a combination of George Harrison's Rickenbacker 360/12 through a <strong>Vox AC30</strong>, John Lennon's Gibson J-160E, and Paul McCartney's Hofner bass, doubled by George Martin on piano).</p>
+            <p class="focus-text" style="margin-top: 8px;">Throughout the rhythm track, listen to the biting, bell-like upper midrange (2 kHz – 4 kHz). The Vox AC30's EL84 valves and Celestion Alnico Blue speakers deliver zero muddy bass, ensuring every jangly string cuts through the Abbey Road mono mix.</p>
+          </div>
+          <div class="audio-tags">
+            <span class="atag">Beatlemania</span><span class="atag">Rickenbacker 12-String</span><span class="atag">Alnico Blue Chime</span><span class="atag">Class A Cathode Bias</span><span class="atag">Abbey Road Studios</span>
+          </div>
         </div>
-        <div class="card">
-          <div class="card-title" style="color: #38bdf8;">Path B: Mic'd Bass Cabinet (Ampeg SVT 8&times;10)</div>
-          <p class="card-text">
-            &bull; Mic'd with large-diaphragm dynamics (Sennheiser MD421, AKG D112, Shure Beta 52A, EV RE20).<br>
-            &bull; Adds natural valve saturation, speaker compression, and 800Hz&ndash;2kHz pick-attack growl that allows the bassline to cut through dense mix arrangements.<br>
-            &bull; <strong>Phase Alignment:</strong> Acoustic speaker sound arrives microseconds after the electrical DI; both tracks must be zoomed and phase-aligned in the DAW.
-          </p>
+
+        <!-- RIGHT: INSTRUMENT SPECS -->
+        <div class="column-panel instrument-col">
+          <div class="panel-header">
+            <span class="panel-badge inst-badge">⚙️ Amplifier Architecture</span>
+            <span class="panel-subtitle">Vox AC30 Circuit & Celestion Blue Speakers</span>
+          </div>
+
+          <div class="instrument-photo-card">
+            <img src="/images/slides/amplifiers/vox_ac30_top_boost.jpg" alt="Vox AC30 Top Boost" class="instrument-photo">
+            <div class="instrument-photo-caption">
+              <span class="caption-name">🇬🇧 Vox AC30 Top Boost (1964)</span>
+              <span class="caption-spec">30W Cathode Bias &bull; Quad EL84 Output &bull; Twin 12-Inch Celestion Blue</span>
+            </div>
+          </div>
+
+          <div class="history-card">
+            <div class="history-title">📜 Dick Denney, Tom Jennings & Beatlemania</div>
+            <p class="history-text">In 1959, guitarists in London were desperate for more volume to be heard in dance halls. Dick Denney and Tom Jennings of Jennings Musical Instruments (JMI) in Dartford, Kent doubled the power of their popular AC15 to create the AC30.</p>
+            <p class="history-text" style="margin-top: 8px;">When Beatlemania exploded, Vox signed an exclusive equipment deal with Brian Epstein, supplying John, Paul, and George with AC30s and T-60 bass rigs. The AC30 became the sonic signature of the British Invasion—used by The Beatles, The Rolling Stones, The Kinks, and Queen's Brian May.</p>
+          </div>
+
+          <div class="mechanics-card">
+            <div class="mechanics-title">🔬 How the AC30 Achieves Its Signature Sound</div>
+            <div class="mech-steps">
+              
+            <div class="mech-step">
+              <span class="step-num">1</span>
+              <div class="step-body">
+                <span class="step-name">Class A Cathode-Biased Power Section</span>
+                <span class="step-desc">Four EL84 pentode valves operate hot with no negative feedback loop, producing instantaneous touch responsiveness and rapid dynamic compression.</span>
+              </div>
+            </div>
+            <div class="mech-step">
+              <span class="step-num">2</span>
+              <div class="step-body">
+                <span class="step-name">Top Boost Tone Circuit</span>
+                <span class="step-desc">Added an extra 12AX7 valve stage with interactive Treble and Bass controls that naturally scooping low mids while providing brilliant high-frequency lift.</span>
+              </div>
+            </div>
+            <div class="mech-step">
+              <span class="step-num">3</span>
+              <div class="step-body">
+                <span class="step-name">Celestion Alnico Blue Loudspeakers</span>
+                <span class="step-desc">Two 12-inch 15-watt Alnico magnet drivers with lightweight voice coils compressed musically at high volume, accentuating bell-like upper frequencies.</span>
+              </div>
+            </div>
+            <div class="mech-step">
+              <span class="step-num">4</span>
+              <div class="step-body">
+                <span class="step-name">Cut Control Circuit</span>
+                <span class="step-desc">A master high-frequency roll-off located across the phase inverter allowed guitarists to tame harsh top-end without altering the core preamp tone.</span>
+              </div>
+            </div>
+            </div>
+          </div>
         </div>
       </div>
-    </section>
+    </div>
 
-    <!-- SLIDE 15: Edexcel Specification Comparative Matrix -->
-    <section class="slide" data-slide="15">
-      <div class="header-bar">
-        <div class="deck-tag"><span>⚡</span> Revision Master Matrix</div>
-        <div class="slide-counter">Slide 15 of 15</div>
-      </div>
-      <div class="slide-title-wrap">
-        <h1 class="slide-heading">Component 3 Exam Matrix: <span>Key Concept Review</span></h1>
-        <p class="slide-lead">A high-yield summary table consolidating all essential technical knowledge for Question 5 long-answer comparison questions.</p>
+
+    <!-- SLIDE 05 -->
+    <div class="slide" data-slide="5">
+      <div class="slide-header">
+        <div class="deck-tag"><span>⚡</span> The Mechanical Distortion Hack &bull; Slide 5 of 14</div>
+        <h1 class="slide-heading">The Kinks: <span>The Slashed Cone &amp; The Birth of Heavy Distortion</span></h1>
+        <p class="slide-lead">Before fuzz pedals existed, 17-year-old Dave Davies sliced his amplifier speaker cone with a razor blade, inventing the aggressive, distorted power chord riff.</p>
       </div>
 
-      <div class="card" style="overflow-x: auto; margin-bottom: 16px;">
-        <table style="width: 100%; border-collapse: collapse; font-size: 12.5px; text-align: left;">
-          <thead>
-            <tr style="border-bottom: 2px solid rgba(245, 158, 11, 0.4); color: #fbbf24;">
-              <th style="padding: 8px 10px;">Feature / Parameter</th>
-              <th style="padding: 8px 10px;">Valve (Tube) Amplifiers</th>
-              <th style="padding: 8px 10px;">Solid-State (Transistor) Amplifiers</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.06);">
-              <td style="padding: 8px 10px; font-weight: 700; color: #f8fafc;">Clipping Behavior</td>
-              <td style="padding: 8px 10px; color: #cbd5e1;">Soft, progressive saturation (rounded peaks)</td>
-              <td style="padding: 8px 10px; color: #cbd5e1;">Hard, abrupt clipping (squared-off peaks)</td>
-            </tr>
-            <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.06);">
-              <td style="padding: 8px 10px; font-weight: 700; color: #22c55e;">Dominant Harmonics</td>
-              <td style="padding: 8px 10px; color: #22c55e;">Musical even-order harmonics (2nd, 4th partials)</td>
-              <td style="padding: 8px 10px; color: #ef4444;">Harsh odd-order harmonics (3rd, 5th, 7th partials)</td>
-            </tr>
-            <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.06);">
-              <td style="padding: 8px 10px; font-weight: 700; color: #f8fafc;">Output Transformer</td>
-              <td style="padding: 8px 10px; color: #fbbf24;">Mandatory (steps down ~3.5k&Omega; plate to 4&ndash;16&Omega;)</td>
-              <td style="padding: 8px 10px; color: #94a3b8;">Not required (direct low-impedance transistor drive)</td>
-            </tr>
-            <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.06);">
-              <td style="padding: 8px 10px; font-weight: 700; color: #f8fafc;">No-Load Operation</td>
-              <td style="padding: 8px 10px; color: #f43f5e; font-weight: 700;">CATASTROPHIC (Flyback voltage burns transformer)</td>
-              <td style="padding: 8px 10px; color: #38bdf8;">Safe (transistor power supply unaffected)</td>
-            </tr>
-            <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.06);">
-              <td style="padding: 8px 10px; font-weight: 700; color: #f8fafc;">Cabinet Choice</td>
-              <td style="padding: 8px 10px; color: #cbd5e1;">Open-back: 360&deg; airy clean | Closed-back: punchy tight rock</td>
-              <td style="padding: 8px 10px; color: #cbd5e1;">Often ported bass enclosures or clean transparent combos</td>
+      <div class="grid-2-split">
+        <!-- LEFT: MUSIC -->
+        <div class="column-panel music-col">
+          <div class="panel-header">
+            <span class="panel-badge music-badge">🎵 Landmark Recording</span>
+            <span class="panel-subtitle">The Slashed Speaker Power Chord Revolution</span>
+          </div>
+          <div class="song-banner">
+            <span class="song-artist-name">The Kinks (Dave Davies)</span>
+            <span class="song-track-name">"You Really Got Me" (1964 &bull; Pye Studios / Shel Talmy)</span>
+          </div>
+          <div class="card-video-embed">
+            <iframe referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube-nocookie.com/embed/_dHK6hLNTAI" title="The Kinks (Dave Davies) - "You Really Got Me" (1964 &bull; Pye Studios / Shel Talmy)" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div class="music-focus-card">
+            <div class="focus-title">Ear-Training Diagnostic: Asymmetric Acoustic Tearing</div>
+            <p class="focus-text">Listen to the ferocious, buzzing distortion on the opening G to A power chord riff. Recorded at Pye Studios in London with producer Shel Talmy, this was not the polite overdrive of a cranked valve amp—it was a <strong>violent, jagged square-wave distortion</strong>.</p>
+            <p class="focus-text" style="margin-top: 8px;">Hear how the low end is clipped and snarling. The mechanical tear in the paper cone prevents linear movement, causing the speaker itself to act as an acoustic wave-shaper. This single recording is recognized as the birth of garage rock, punk, and hard rock.</p>
+          </div>
+          <div class="audio-tags">
+            <span class="atag">Pye Studios</span><span class="atag">Shel Talmy</span><span class="atag">Slashed Cone</span><span class="atag">Proto-Punk</span><span class="atag">Square-Wave Fuzz</span>
+          </div>
+        </div>
+
+        <!-- RIGHT: INSTRUMENT SPECS -->
+        <div class="column-panel instrument-col">
+          <div class="panel-header">
+            <span class="panel-badge inst-badge">⚙️ Amplifier Architecture</span>
+            <span class="panel-subtitle">The Elpico AC55 &amp; Slashed Speaker Hack</span>
+          </div>
+
+          <div class="instrument-photo-card">
+            <img src="/images/slides/amplifiers/dave_davies_kinks.jpg" alt="Dave Davies of The Kinks" class="instrument-photo">
+            <div class="instrument-photo-caption">
+              <span class="caption-name">⚡ Dave Davies &amp; The 'Little Green Amp'</span>
+              <span class="caption-spec">Slashed Elpico AC55 Cone &bull; Plugged Into Vox AC30 &bull; 1964 Pye Sessions</span>
+            </div>
+          </div>
+
+          <div class="history-card">
+            <div class="history-title">📜 Frustration, a Razor Blade, and Rock History</div>
+            <p class="history-text">In 1964, 17-year-old guitarist Dave Davies was frustrated with the clean, polite sound of commercially available amplifiers. He took a single-edged razor blade and slashed the paper speaker cone of his tiny 6-watt Elpico amplifier ('The Little Green Amp') in radial cuts, poking knitting needles through the surround.</p>
+            <p class="history-text" style="margin-top: 8px;">When he plugged in, the torn paper buzzed and flapped violently against the voice coil basket. Davies then plugged the speaker output of the distorted Elpico into the input of a 30-watt Vox AC30, creating the world's first cascading high-gain pre-amp rig.</p>
+          </div>
+
+          <div class="mechanics-card">
+            <div class="mechanics-title">🔬 Acoustic & Mechanical Clipping Physics</div>
+            <div class="mech-steps">
+              
+            <div class="mech-step">
+              <span class="step-num">1</span>
+              <div class="step-body">
+                <span class="step-name">Mechanical Compliance Failure</span>
+                <span class="step-desc">Slashing the cone destroyed the speaker's restoring suspension spring constant, preventing linear piston movement of the cone.</span>
+              </div>
+            </div>
+            <div class="mech-step">
+              <span class="step-num">2</span>
+              <div class="step-body">
+                <span class="step-name">Physical Acoustic Wave-Shaping</span>
+                <span class="step-desc">Instead of faithfully reproducing sine waves, the flapping paper clipped the audio waveform abruptly into an asymmetric, buzzy square wave.</span>
+              </div>
+            </div>
+            <div class="mech-step">
+              <span class="step-num">3</span>
+              <div class="step-body">
+                <span class="step-name">Preamp-to-Amp Cascading Overdrive</span>
+                <span class="step-desc">Feeding the distorted line output of the Elpico directly into the input of a Vox AC30 drove the Vox's preamp valves into saturated compression.</span>
+              </div>
+            </div>
+            <div class="mech-step">
+              <span class="step-num">4</span>
+              <div class="step-body">
+                <span class="step-name">Catalyst for the Fuzz Pedal</span>
+                <span class="step-desc">Engineers at Arbiter, Sola Sound, and Maestro rushed to replicate Davies' slashed cone sound electronically, resulting in the Tone Bender, Fuzz Face, and Maestro FZ-1.</span>
+              </div>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- SLIDE 06 -->
+    <div class="slide" data-slide="6">
+      <div class="slide-header">
+        <div class="deck-tag"><span>⚡</span> The American Clean Benchmark &bull; Slide 6 of 14</div>
+        <h1 class="slide-heading">Fender Twin Reverb: <span>85 Watts of High-Headroom Brilliance</span></h1>
+        <p class="slide-lead">Leo Fender's blackface flagship delivered enormous clean volume, pristine sparkle, and real spring reverb, defining surf rock, country, funk, and Dire Straits.</p>
+      </div>
+
+      <div class="grid-2-split">
+        <!-- LEFT: MUSIC -->
+        <div class="column-panel music-col">
+          <div class="panel-header">
+            <span class="panel-badge music-badge">🎵 Landmark Recording</span>
+            <span class="panel-subtitle">Fingerstyle Stratocaster Sparkle & Tube Spring Reverb</span>
+          </div>
+          <div class="song-banner">
+            <span class="song-artist-name">Dire Straits (Mark Knopfler)</span>
+            <span class="song-track-name">"Sultans of Swing" (1978 &bull; Pathway Studios)</span>
+          </div>
+          <div class="card-video-embed">
+            <iframe referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube-nocookie.com/embed/0fAQhSRLQnM" title="Dire Straits (Mark Knopfler) - "Sultans of Swing" (1978 &bull; Pathway Studios)" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div class="music-focus-card">
+            <div class="focus-title">Ear-Training Diagnostic: Uncompressed Transients & Reverb Splash</div>
+            <p class="focus-text">Listen to Mark Knopfler's bare-finger picking on his 1961 Stratocaster (pickup selector in the out-of-phase bridge+middle position). The <strong>Fender Twin Reverb</strong> provides tremendous clean headroom, preserving every percussive thumb snap without clipping.</p>
+            <p class="focus-text" style="margin-top: 8px;">Notice the three-dimensional depth: a real mechanical dual-spring reverb tank driven by high-voltage valves washes behind the dry guitar signal, creating acoustic space without muddying the fast arpeggiated fills.</p>
+          </div>
+          <div class="audio-tags">
+            <span class="atag">Stratocaster In-Between</span><span class="atag">Fingerstyle Snap</span><span class="atag">High Headroom</span><span class="atag">Tube Spring Reverb</span><span class="atag">Clean Transients</span>
+          </div>
+        </div>
+
+        <!-- RIGHT: INSTRUMENT SPECS -->
+        <div class="column-panel instrument-col">
+          <div class="panel-header">
+            <span class="panel-badge inst-badge">⚙️ Amplifier Architecture</span>
+            <span class="panel-subtitle">Fender Blackface Twin Reverb Architecture</span>
+          </div>
+
+          <div class="instrument-photo-card">
+            <img src="/images/slides/amplifiers/fender_twin_reverb.jpg" alt="Fender Twin Reverb" class="instrument-photo">
+            <div class="instrument-photo-caption">
+              <span class="caption-name">🇺🇸 Fender Twin Reverb (1965 Blackface)</span>
+              <span class="caption-spec">85W RMS &bull; Quad 6L6GC Valves &bull; Optical Tremolo &bull; Dual 12-Inch Oxford/JBL</span>
+            </div>
+          </div>
+
+          <div class="history-card">
+            <div class="history-title">📜 Leo Fender's Quest for Undistorted Power</div>
+            <p class="history-text">While British guitarists craved distortion and crunch, Leo Fender abhorred amplifier breakup. His design philosophy was absolute clarity, maximum volume, and pristine frequency reproduction for pedal steel and country players.</p>
+            <p class="history-text" style="margin-top: 8px;">In 1963, Fender introduced the 'Blackface' circuit series, spearheaded by the Twin Reverb. Delivering 85 watts from four 6L6GC power tubes through twin 12-inch speakers, the Twin became the worldwide studio standard for clean guitar tracking.</p>
+          </div>
+
+          <div class="mechanics-card">
+            <div class="mechanics-title">🔬 Engineering Features of the Twin Reverb</div>
+            <div class="mech-steps">
+              
+            <div class="mech-step">
+              <span class="step-num">1</span>
+              <div class="step-body">
+                <span class="step-name">Quad 6L6GC Push-Pull Power Section</span>
+                <span class="step-desc">High plate voltages (~450V DC) in fixed bias produced enormous clean headroom that remained articulate at stadium volume levels.</span>
+              </div>
+            </div>
+            <div class="mech-step">
+              <span class="step-num">2</span>
+              <div class="step-body">
+                <span class="step-name">All-Tube Driven Spring Reverb Tank</span>
+                <span class="step-desc">A dedicated 12AT7 driver tube and transformer sent guitar voltage to magnetic transducers on physical steel springs, capturing natural decay reflections.</span>
+              </div>
+            </div>
+            <div class="mech-step">
+              <span class="step-num">3</span>
+              <div class="step-body">
+                <span class="step-name">Optocoupler (Photocell) Tremolo</span>
+                <span class="step-desc">A neon bulb flashing against a light-dependent resistor (LDR) gently modulated signal volume for smooth, swampy amplitude vibrato.</span>
+              </div>
+            </div>
+            <div class="mech-step">
+              <span class="step-num">4</span>
+              <div class="step-body">
+                <span class="step-name">Ultra-Linear Open-Back Enclosure</span>
+                <span class="step-desc">Solid pine open-back cabinet allowed 360-degree acoustic dispersion, filling recording rooms with natural ambient sparkle.</span>
+              </div>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- SLIDE 07 -->
+    <div class="slide" data-slide="7">
+      <div class="slide-header">
+        <div class="deck-tag"><span>⚡</span> The British Overdrive Revolution &bull; Slide 7 of 14</div>
+        <h1 class="slide-heading">Marshall JTM45 &amp; Bluesbreaker: <span>The 'Beano' Tone</span></h1>
+        <p class="slide-lead">Jim Marshall and Ken Bran adapted the Fender Bassman with British components, giving Eric Clapton the creamy, singing Les Paul sustain that changed rock guitar.</p>
+      </div>
+
+      <div class="grid-2-split">
+        <!-- LEFT: MUSIC -->
+        <div class="column-panel music-col">
+          <div class="panel-header">
+            <span class="panel-badge music-badge">🎵 Landmark Recording</span>
+            <span class="panel-subtitle">The Singing Sustain of the 'Beano' Album</span>
+          </div>
+          <div class="song-banner">
+            <span class="song-artist-name">John Mayall & The Bluesbreakers (feat. Eric Clapton)</span>
+            <span class="song-track-name">"Hideaway" (1966 &bull; Decca Studios / Mike Vernon)</span>
+          </div>
+          <div class="card-video-embed">
+            <iframe referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube-nocookie.com/embed/m9N8Qi6zLSU" title="John Mayall & The Bluesbreakers (feat. Eric Clapton) - "Hideaway" (1966 &bull; Decca Studios / Mike Vernon)" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div class="music-focus-card">
+            <div class="focus-title">Ear-Training Diagnostic: The Humbucker-into-Marshall Standard</div>
+            <p class="focus-text">This track from the famous 'Beano' album launched the British blues boom. Listen to Eric Clapton's 1960 Gibson Les Paul Standard plugged straight into a cranked <strong>Marshall Model 1962 'Bluesbreaker' combo</strong>.</p>
+            <p class="focus-text" style="margin-top: 8px;">Hear the creamy, singing sustain and rich second-order harmonic overtones. When Clapton digs in with heavy vibrato, the amplifier compresses smoothly, blooming into harmonic feedback without harsh high-frequency fizz.</p>
+          </div>
+          <div class="audio-tags">
+            <span class="atag">'Beano' Album</span><span class="atag">Les Paul & Marshall</span><span class="atag">Creamy Sustain</span><span class="atag">Even-Order Harmonics</span><span class="atag">Decca Studios</span>
+          </div>
+        </div>
+
+        <!-- RIGHT: INSTRUMENT SPECS -->
+        <div class="column-panel instrument-col">
+          <div class="panel-header">
+            <span class="panel-badge inst-badge">⚙️ Amplifier Architecture</span>
+            <span class="panel-subtitle">Marshall JTM45 / 1962 Bluesbreaker Combo</span>
+          </div>
+
+          <div class="instrument-photo-card">
+            <img src="/images/slides/amplifiers/marshall_jtm45_bluesbreaker.jpg" alt="Marshall JTM45 Bluesbreaker" class="instrument-photo">
+            <div class="instrument-photo-caption">
+              <span class="caption-name">🇬🇧 Marshall Model 1962 'Bluesbreaker' (1965)</span>
+              <span class="caption-spec">35W RMS &bull; Dual KT66/EL34 Valves &bull; GZ34 Tube Rectifier &bull; 2x12 Celestion</span>
+            </div>
+          </div>
+
+          <div class="history-card">
+            <div class="history-title">📜 Jim Marshall, Ken Bran & The Hanwell Shop</div>
+            <p class="history-text">In 1962, London drummer Jim Marshall ran a music shop in Hanwell. Young guitarists including Pete Townshend and Ritchie Blackmore complained that American Fender amps were too expensive and didn't distort warmly enough.</p>
+            <p class="history-text" style="margin-top: 8px;">Marshall hired technician Ken Bran and Dudley Craven to modify the Fender 5F6-A circuit using readily available British parts: Radiospares transformers, KT66 beam power valves, and Celestion 12-inch speakers. The result was the JTM45—darker, punchier, and far more prone to rich musical overdrive.</p>
+          </div>
+
+          <div class="mechanics-card">
+            <div class="mechanics-title">🔬 Why British Parts Created the Marshall Sound</div>
+            <div class="mech-steps">
+              
+            <div class="mech-step">
+              <span class="step-num">1</span>
+              <div class="step-body">
+                <span class="step-name">GZ34 Valve Rectifier Sag</span>
+                <span class="step-desc">Under heavy playing, the vacuum tube rectifier's internal resistance causes voltage to dip ('sag'), creating natural dynamic compression and spongy touch-feel.</span>
+              </div>
+            </div>
+            <div class="mech-step">
+              <span class="step-num">2</span>
+              <div class="step-body">
+                <span class="step-name">KT66 & Early EL34 Power Valves</span>
+                <span class="step-desc">British output valves saturated with a pronounced lower-midrange throatiness compared to the glassy, scooped highs of American 6L6s.</span>
+              </div>
+            </div>
+            <div class="mech-step">
+              <span class="step-num">3</span>
+              <div class="step-body">
+                <span class="step-name">Closed-Back Combo Enclosure</span>
+                <span class="step-desc">Unlike Fender's open-back cabinets, Marshall enclosed the rear of the speakers with birch plywood, directing low-end punch forward.</span>
+              </div>
+            </div>
+            <div class="mech-step">
+              <span class="step-num">4</span>
+              <div class="step-body">
+                <span class="step-name">Celestion 20W 'Greenback' Speakers</span>
+                <span class="step-desc">Alnico and ceramic Celestion drivers broke up earlier than heavy American speakers, contributing organic speaker-cone distortion.</span>
+              </div>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- SLIDE 08 -->
+    <div class="slide" data-slide="8">
+      <div class="slide-header">
+        <div class="deck-tag"><span>⚡</span> The Stadium Stack Era &bull; Slide 8 of 14</div>
+        <h1 class="slide-heading">The Marshall 4x12 Stack: <span>Volume as an Art Form</span></h1>
+        <p class="slide-lead">Pete Townshend demanded cabinets that towered over the stage. Jim Marshall's 100-watt Plexi and 4x12 stack gave Jimi Hendrix the canvas for supersonic feedback.</p>
+      </div>
+
+      <div class="grid-2-split">
+        <!-- LEFT: MUSIC -->
+        <div class="column-panel music-col">
+          <div class="panel-header">
+            <span class="panel-badge music-badge">🎵 Landmark Recording</span>
+            <span class="panel-subtitle">Controlled Feedback, Pushed EL34s & Wah-Wah</span>
+          </div>
+          <div class="song-banner">
+            <span class="song-artist-name">The Jimi Hendrix Experience</span>
+            <span class="song-track-name">"Voodoo Child (Slight Return)" (Live In Maui 1970)</span>
+          </div>
+          <div class="card-video-embed">
+            <iframe referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube-nocookie.com/embed/qFfnlYbFEiE" title="The Jimi Hendrix Experience - "Voodoo Child (Slight Return)" (Live In Maui 1970)" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div class="music-focus-card">
+            <div class="focus-title">Ear-Training Diagnostic: Acoustic Coupling & Power Tube Saturation</div>
+            <p class="focus-text">Listen to how Hendrix manipulates the immense acoustic pressure of his <strong>100-watt Marshall Super Lead Plexi stacks</strong>. Standing in front of eight 12-inch Celestion speakers creates a closed acoustic feedback loop between the strings and the magnetic pickup coils.</p>
+            <p class="focus-text" style="margin-top: 8px;">Notice the explosive low-end punch on muted string thumps. The 100-watt EL34 power section compresses pick transients with ferocious authority, allowing the Vox wah-wah pedal sweep to scream with singing overtone harmonics.</p>
+          </div>
+          <div class="audio-tags">
+            <span class="atag">Plexi 100W</span><span class="atag">Acoustic Feedback</span><span class="atag">Vox Wah Pedal</span><span class="atag">Quad EL34 Power</span><span class="atag">Stadium Rock</span>
+          </div>
+        </div>
+
+        <!-- RIGHT: INSTRUMENT SPECS -->
+        <div class="column-panel instrument-col">
+          <div class="panel-header">
+            <span class="panel-badge inst-badge">⚙️ Amplifier Architecture</span>
+            <span class="panel-subtitle">Marshall Super Lead 100W 'Plexi' & 4x12 Stack</span>
+          </div>
+
+          <div class="instrument-photo-card">
+            <img src="/images/slides/amplifiers/marshall_plexi_stack.jpg" alt="Marshall Plexi 4x12 Stack" class="instrument-photo">
+            <div class="instrument-photo-caption">
+              <span class="caption-name">⚡ Marshall Super Lead 100W &bull; 1960A 4x12 Stack</span>
+              <span class="caption-spec">Plexiglas Panel &bull; Quad EL34 (100W RMS) &bull; Dagnall Transformers &bull; 4x12 Slanted Cab</span>
+            </div>
+          </div>
+
+          <div class="history-card">
+            <div class="history-title">📜 Pete Townshend, Jimi Hendrix & The 8x12 Split</div>
+            <p class="history-text">In 1965, Pete Townshend of The Who told Jim Marshall: 'I want an amp that's like a weapon.' He demanded an 8x12 cabinet. When roadies complained that the 8x12 was physically impossible to lift into tour vans, Jim Marshall cut the cabinet in half, creating the iconic angled-front 1960A top cabinet and straight 1960B bottom cabinet.</p>
+            <p class="history-text" style="margin-top: 8px;">When Jimi Hendrix arrived in London in 1966, the first thing he demanded was to meet Jim Marshall. Hendrix chained multiple 100-watt Super Lead 'Plexi' heads together, establishing the visual and acoustic totem of stadium rock.</p>
+          </div>
+
+          <div class="mechanics-card">
+            <div class="mechanics-title">🔬 Engineering of the 100-Watt Plexi Beast</div>
+            <div class="mech-steps">
+              
+            <div class="mech-step">
+              <span class="step-num">1</span>
+              <div class="step-body">
+                <span class="step-name">Quad EL34 Output Stage (~490V Plate Voltage)</span>
+                <span class="step-desc">Four EL34 pentodes running massive B+ rail voltage generated over 100W RMS clean and up to 170W during hard clipping.</span>
+              </div>
+            </div>
+            <div class="mech-step">
+              <span class="step-num">2</span>
+              <div class="step-body">
+                <span class="step-name">Solid-State Silicon Diode Rectification</span>
+                <span class="step-desc">Replacing tube rectifiers with silicon bridge rectifiers stiffened the power supply, producing lightning-fast bass response with no mushy sag.</span>
+              </div>
+            </div>
+            <div class="mech-step">
+              <span class="step-num">3</span>
+              <div class="step-body">
+                <span class="step-name">Slanted 4x12 Birch Enclosure Physics</span>
+                <span class="step-desc">The top two angled speakers projected high frequencies directly at the guitarist's ears, while the bottom two coupled to the stage floor for sub punch.</span>
+              </div>
+            </div>
+            <div class="mech-step">
+              <span class="step-num">4</span>
+              <div class="step-body">
+                <span class="step-name">No Master Volume (Attenuator Era)</span>
+                <span class="step-desc">Preamp and power amp were locked together; true distortion required cranking the amplifier to ear-shattering decibel levels (120+ dB SPL).</span>
+              </div>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- SLIDE 09 -->
+    <div class="slide" data-slide="9">
+      <div class="slide-header">
+        <div class="deck-tag"><span>⚡</span> The Bass Monolith &bull; Slide 9 of 14</div>
+        <h1 class="slide-heading">Ampeg SVT: <span>Super Valve Technology &amp; The 8x10 Fridge</span></h1>
+        <p class="slide-lead">When arena rock made bass inaudible, Ampeg engineered a 300-watt all-tube behemoth with eight 10-inch speakers that defined rock bass for half a century.</p>
+      </div>
+
+      <div class="grid-2-split">
+        <!-- LEFT: MUSIC -->
+        <div class="column-panel music-col">
+          <div class="panel-header">
+            <span class="panel-badge music-badge">🎵 Landmark Recording</span>
+            <span class="panel-subtitle">Thunderous Tube Bass Punch & Definition</span>
+          </div>
+          <div class="song-banner">
+            <span class="song-artist-name">The Who (John Entwistle)</span>
+            <span class="song-track-name">"Won't Get Fooled Again" (1971 &bull; Olympic Studios)</span>
+          </div>
+          <div class="card-video-embed">
+            <iframe referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube-nocookie.com/embed/SHhrZgojY1Q" title="The Who (John Entwistle) - "Won't Get Fooled Again" (1971 &bull; Olympic Studios)" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div class="music-focus-card">
+            <div class="focus-title">Ear-Training Diagnostic: Sub-Bass Weight with Metallic Clack</div>
+            <p class="focus-text">Listen to John Entwistle's ('The Ox') revolutionary bass tone. In an era where most bassists were relegated to polite low-end thud, Entwistle's <strong>Ampeg SVT</strong> delivers a ferocious full-frequency roar from deep 40 Hz sub-bass up to 4 kHz trebly pick clack.</p>
+            <p class="focus-text" style="margin-top: 8px;">Even beneath Keith Moon's chaotic cymbal crashes and Pete Townshend's sweeping synthesizer sequences, the Ampeg SVT's 300 watts of tube power maintain unrelenting transient punch with zero low-end flub or muddy frequency masking.</p>
+          </div>
+          <div class="audio-tags">
+            <span class="atag">John Entwistle</span><span class="atag">Ampeg SVT</span><span class="atag">300W Tube Power</span><span class="atag">8x10 Sealed Cab</span><span class="atag">Olympic Studios</span>
+          </div>
+        </div>
+
+        <!-- RIGHT: INSTRUMENT SPECS -->
+        <div class="column-panel instrument-col">
+          <div class="panel-header">
+            <span class="panel-badge inst-badge">⚙️ Amplifier Architecture</span>
+            <span class="panel-subtitle">Ampeg SVT & 8x10 Sealed Cabinet ('The Fridge')</span>
+          </div>
+
+          <div class="instrument-photo-card">
+            <img src="/images/slides/amplifiers/ampeg_svt_stack.jpg" alt="Ampeg SVT Bass Stack" class="instrument-photo">
+            <div class="instrument-photo-caption">
+              <span class="caption-name">🔊 Ampeg SVT (Super Valve Technology &bull; 1969)</span>
+              <span class="caption-spec">300W RMS All-Tube &bull; Six 6146B/6550 Valves &bull; 8x10 Acoustic Suspension Cab</span>
+            </div>
+          </div>
+
+          <div class="history-card">
+            <div class="history-title">📜 The 1969 Rolling Stones US Tour Emergency</div>
+            <p class="history-text">During rehearsals for the Rolling Stones' landmark 1969 American tour, their UK equipment failed to clear customs. Tour manager Chip Monck contacted Ampeg, who had just built prototype 300-watt bass amplifiers designed by Bill Hughes and Roger Cox.</p>
+            <p class="history-text" style="margin-top: 8px;">Ampeg sent the prototypes on tour with Keith Richards and Bill Wyman. The earth-shaking reliability and immense headroom of the SVT ('Super Valve Technology') immediately made it the undisputed gold standard for rock, funk, and metal bass rigs worldwide.</p>
+          </div>
+
+          <div class="mechanics-card">
+            <div class="mechanics-title">🔬 How 300 Watts of All-Tube Power Operates</div>
+            <div class="mech-steps">
+              
+            <div class="mech-step">
+              <span class="step-num">1</span>
+              <div class="step-body">
+                <span class="step-name">Six 6146B / 6550 Beam Power Tubes</span>
+                <span class="step-desc">A monstrous push-pull hex-valve output section delivered 300W continuous RMS power, backed by massive dual power transformers weighing over 85 lbs.</span>
+              </div>
+            </div>
+            <div class="mech-step">
+              <span class="step-num">2</span>
+              <div class="step-body">
+                <span class="step-name">8x10 Sealed Acoustic Suspension Cabinet</span>
+                <span class="step-desc">Instead of a bass reflex port, the sealed 'Fridge' cabinet housed four independent dual-chamber enclosures, preventing uncontrolled cone excursion.</span>
+              </div>
+            </div>
+            <div class="mech-step">
+              <span class="step-num">3</span>
+              <div class="step-body">
+                <span class="step-name">Midrange Frequency Selector (220 Hz / 800 Hz / 3 kHz)</span>
+                <span class="step-desc">A specialized inductor-based midrange EQ allowed bassists to cut or boost critical vocal-frequency cut zones to punch through loud drum kits.</span>
+              </div>
+            </div>
+            <div class="mech-step">
+              <span class="step-num">4</span>
+              <div class="step-body">
+                <span class="step-name">High-Current Damping Factor</span>
+                <span class="step-desc">Massive transformer iron provided high speaker damping, giving the 10-inch drivers tight, punchy recovery on fast sixteenth-note bass lines.</span>
+              </div>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- SLIDE 10 -->
+    <div class="slide" data-slide="10">
+      <div class="slide-header">
+        <div class="deck-tag"><span>⚡</span> The 1980s High-Gain Era &bull; Slide 10 of 14</div>
+        <h1 class="slide-heading">Marshall JCM800: <span>Master Volume &amp; Upper-Mid Crunch</span></h1>
+        <p class="slide-lead">Cascading preamp gain stages allowed searing valve saturation at controlled stage volumes, defining the New Wave of British Heavy Metal, AC/DC, and 80s hard rock.</p>
+      </div>
+
+      <div class="grid-2-split">
+        <!-- LEFT: MUSIC -->
+        <div class="column-panel music-col">
+          <div class="panel-header">
+            <span class="panel-badge music-badge">🎵 Landmark Recording</span>
+            <span class="panel-subtitle">Tight Rhythmic Crunch & Harmonic Bite</span>
+          </div>
+          <div class="song-banner">
+            <span class="song-artist-name">AC/DC (Angus & Malcolm Young)</span>
+            <span class="song-track-name">"Back in Black" (1980 &bull; Compass Point Studios / Mutt Lange)</span>
+          </div>
+          <div class="card-video-embed">
+            <iframe referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube-nocookie.com/embed/pAgnJDJN4VA" title="AC/DC (Angus & Malcolm Young) - "Back in Black" (1980 &bull; Compass Point Studios / Mutt Lange)" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div class="music-focus-card">
+            <div class="focus-title">Ear-Training Diagnostic: Saturated Preamp Crunch with Articulation</div>
+            <p class="focus-text">Listen to the opening rhythm guitar chords of Malcolm Young (Gretsch) and Angus Young (Gibson SG) through <strong>Marshall JCM800 / Super Lead heads</strong>. Notice how dry, punchy, and articulate the distortion is.</p>
+            <p class="focus-text" style="margin-top: 8px;">Even with heavy valve saturation, you can clearly hear each individual string vibrating inside open A and D chords. Producer Mutt Lange's production showcases the aggressive upper-mid bite (1.5 kHz – 3 kHz) that makes the JCM800 cut through modern rock mixes.</p>
+          </div>
+          <div class="audio-tags">
+            <span class="atag">Compass Point</span><span class="atag">Mutt Lange</span><span class="atag">JCM800 Crunch</span><span class="atag">Master Volume</span><span class="atag">Tight Transients</span>
+          </div>
+        </div>
+
+        <!-- RIGHT: INSTRUMENT SPECS -->
+        <div class="column-panel instrument-col">
+          <div class="panel-header">
+            <span class="panel-badge inst-badge">⚙️ Amplifier Architecture</span>
+            <span class="panel-subtitle">Marshall JCM800 Model 2203 Architecture</span>
+          </div>
+
+          <div class="instrument-photo-card">
+            <img src="/images/slides/amplifiers/marshall_jcm800.jpg" alt="Marshall JCM800 2203" class="instrument-photo">
+            <div class="instrument-photo-caption">
+              <span class="caption-name">🔥 Marshall JCM800 2203 (1981)</span>
+              <span class="caption-spec">100W Master Volume &bull; Cascaded Preamp Stages &bull; Quad EL34 &bull; Vertically Mounted Inputs</span>
+            </div>
+          </div>
+
+          <div class="history-card">
+            <div class="history-title">📜 The Master Volume Revolution & 80s Metal</div>
+            <p class="history-text">In the 1960s, guitarists had to play at deafening stadium levels to push non-master volume amps into distortion. By the late 1970s, clubs and studio engineers demanded lower stage volumes, leading Marshall to introduce the Model 2203 Master Volume circuit.</p>
+            <p class="history-text" style="margin-top: 8px;">In 1981, Jim Marshall repackaged this circuit with bold modern cosmetics and his own initials/licence plate ('JCM800'). It became the defining voice of the 1980s: powering AC/DC, Iron Maiden, Judas Priest, Guns N' Roses, Slayer, and Metallica.</p>
+          </div>
+
+          <div class="mechanics-card">
+            <div class="mechanics-title">🔬 Circuit Engineering of the Cascaded Preamp</div>
+            <div class="mech-steps">
+              
+            <div class="mech-step">
+              <span class="step-num">1</span>
+              <div class="step-body">
+                <span class="step-name">Series Cascaded 12AX7 Preamp Triodes</span>
+                <span class="step-desc">Signal passed through V1A and directly into V1B, multiplying voltage gain to achieve thick preamp saturation before reaching the power amp.</span>
+              </div>
+            </div>
+            <div class="mech-step">
+              <span class="step-num">2</span>
+              <div class="step-body">
+                <span class="step-name">Master Volume Potentiometer</span>
+                <span class="step-desc">Inserted between the tone stack and phase inverter, allowing guitarists to dial in maximum preamp distortion while controlling actual speaker loudness.</span>
+              </div>
+            </div>
+            <div class="mech-step">
+              <span class="step-num">3</span>
+              <div class="step-body">
+                <span class="step-name">Bright Cap Treble Peaking Network</span>
+                <span class="step-desc">A small ceramic capacitor across the preamp volume pot bled high frequencies through at lower settings, producing the aggressive, bitey 80s crunch.</span>
+              </div>
+            </div>
+            <div class="mech-step">
+              <span class="step-num">4</span>
+              <div class="step-body">
+                <span class="step-name">EL34 Midrange Bark in Push-Pull</span>
+                <span class="step-desc">High plate voltages (~460V DC) and negative feedback tuning created the signature upper-mid 'bark' that slices cleanly through heavy bass and drums.</span>
+              </div>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- SLIDE 11 -->
+    <div class="slide" data-slide="11">
+      <div class="slide-header">
+        <div class="deck-tag"><span>⚡</span> The Solid-State Revolution &bull; Slide 11 of 14</div>
+        <h1 class="slide-heading">Roland JC-120: <span>Pristine Clean &amp; True Stereo Chorus</span></h1>
+        <p class="slide-lead">Roland proved transistors could create a legend. With dual 60-watt power amps and an analog bucket-brigade chorus, the JC-120 defined post-punk and new wave.</p>
+      </div>
+
+      <div class="grid-2-split">
+        <!-- LEFT: MUSIC -->
+        <div class="column-panel music-col">
+          <div class="panel-header">
+            <span class="panel-badge music-badge">🎵 Landmark Recording</span>
+            <span class="panel-subtitle">Crystalline Arpeggios & Dimensional Chorus</span>
+          </div>
+          <div class="song-banner">
+            <span class="song-artist-name">The Police (Andy Summers)</span>
+            <span class="song-track-name">"Every Breath You Take" (1983 &bull; AIR Studios Montserrat)</span>
+          </div>
+          <div class="card-video-embed">
+            <iframe referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube-nocookie.com/embed/OMOGaugKpzs" title="The Police (Andy Summers) - "Every Breath You Take" (1983 &bull; AIR Studios Montserrat)" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div class="music-focus-card">
+            <div class="focus-title">Ear-Training Diagnostic: Acoustic Stereo Spatial Modulation</div>
+            <p class="focus-text">Listen to Andy Summers' iconic palm-muted ninth-chord arpeggios. Recorded with a 1961 Telecaster through a <strong>Roland JC-120</strong>, the sound has zero valve saturation or grit—it is mathematically clean, linear, and three-dimensional.</p>
+            <p class="focus-text" style="margin-top: 8px;">Hear the subtle acoustic swirling motion in the stereo spectrum. Because the JC-120 splits the dry signal to one speaker and pitch-vibrato to the other, the chorus effect is created organically in the air between the speakers rather than electronically summed.</p>
+          </div>
+          <div class="audio-tags">
+            <span class="atag">AIR Montserrat</span><span class="atag">Andy Summers</span><span class="atag">JC-120 Chorus</span><span class="atag">BBD Spatial Modulation</span><span class="atag">Solid-State Clean</span>
+          </div>
+        </div>
+
+        <!-- RIGHT: INSTRUMENT SPECS -->
+        <div class="column-panel instrument-col">
+          <div class="panel-header">
+            <span class="panel-badge inst-badge">⚙️ Amplifier Architecture</span>
+            <span class="panel-subtitle">Roland JC-120 Solid-State & Stereo BBD Engine</span>
+          </div>
+
+          <div class="instrument-photo-card">
+            <img src="/images/slides/amplifiers/roland_jc120_jazz_chorus.jpg" alt="Roland JC-120 Jazz Chorus" class="instrument-photo">
+            <div class="instrument-photo-caption">
+              <span class="caption-name">🇯🇵 Roland Jazz Chorus JC-120 (1975)</span>
+              <span class="caption-spec">2x 60W Bipolar Solid-State &bull; Twin 12-Inch Drivers &bull; Analog BBD Spatial Chorus</span>
+            </div>
+          </div>
+
+          <div class="history-card">
+            <div class="history-title">📜 The 1975 Japanese Engineering Triumph</div>
+            <p class="history-text">In 1975, newly founded Roland Corporation in Japan set out to build an ultra-reliable, road-worthy amplifier that completely bypassed the fragility, heat, and maintenance of vacuum tubes. The result was the Jazz Chorus JC-120.</p>
+            <p class="history-text" style="margin-top: 8px;">Equipped with the world's first built-in Bucket Brigade Device (BBD) chorus effect, the JC-120 became the weapon of choice for post-punk, new wave, and pop guitarists (The Cure, The Police, Talking Heads) and the clean intro tone for thrash metal legends like Metallica.</p>
+          </div>
+
+          <div class="mechanics-card">
+            <div class="mechanics-title">🔬 How True Stereo Spatial Chorus Works</div>
+            <div class="mech-steps">
+              
+            <div class="mech-step">
+              <span class="step-num">1</span>
+              <div class="step-body">
+                <span class="step-name">Discrete Solid-State Bipolar Power Amplifiers</span>
+                <span class="step-desc">Two completely separate 60W RMS power amps ensure ultra-low distortion, wide dynamic bandwidth, and virtually infinite clean headroom.</span>
+              </div>
+            </div>
+            <div class="mech-step">
+              <span class="step-num">2</span>
+              <div class="step-body">
+                <span class="step-name">Analog Bucket Brigade Device (BBD) Delay Line</span>
+                <span class="step-desc">MN3002/MN3007 chips pass analogue charge packets across capacitor buckets, creating micro-delays modulated by a low-frequency oscillator (LFO).</span>
+              </div>
+            </div>
+            <div class="mech-step">
+              <span class="step-num">3</span>
+              <div class="step-body">
+                <span class="step-name">Dimensional Space Modulation (True Acoustic Mixing)</span>
+                <span class="step-desc">The dry signal is routed to the left speaker while the vibrato-modulated signal is routed to the right speaker; acoustic phase cancellation occurs in the physical room air.</span>
+              </div>
+            </div>
+            <div class="mech-step">
+              <span class="step-num">4</span>
+              <div class="step-body">
+                <span class="step-name">Ultra-Flat Frequency Reproduction</span>
+                <span class="step-desc">Heavy-duty 12-inch silver-capped speakers behave like studio monitor drivers, providing an ideal transparent platform for external multi-effects pedals.</span>
+              </div>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- SLIDE 12 -->
+    <div class="slide" data-slide="12">
+      <div class="slide-header">
+        <div class="deck-tag"><span>⚡</span> The Modern High-Gain Era &bull; Slide 12 of 14</div>
+        <h1 class="slide-heading">Mesa/Boogie Dual Rectifier: <span>American Multi-Channel High Gain</span></h1>
+        <p class="slide-lead">Randall Smith's hot-rodded California circuits evolved into the Dual Rectifier—a multi-stage high-gain monster with scooped mids and crushing low-end chug.</p>
+      </div>
+
+      <div class="grid-2-split">
+        <!-- LEFT: MUSIC -->
+        <div class="column-panel music-col">
+          <div class="panel-header">
+            <span class="panel-badge music-badge">🎵 Landmark Recording</span>
+            <span class="panel-subtitle">The Heavy Wall of Sound & Scooped Mid Chug</span>
+          </div>
+          <div class="song-banner">
+            <span class="song-artist-name">Metallica (James Hetfield)</span>
+            <span class="song-track-name">"Enter Sandman" (1991 &bull; One on One Studios / Bob Rock)</span>
+          </div>
+          <div class="card-video-embed">
+            <iframe referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube-nocookie.com/embed/CD-E-LDc384" title="Metallica (James Hetfield) - "Enter Sandman" (1991 &bull; One on One Studios / Bob Rock)" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div class="music-focus-card">
+            <div class="focus-title">Ear-Training Diagnostic: Heavy Rectified Low-End & Multi-Track Density</div>
+            <p class="focus-text">Producer Bob Rock layered multiple passes of James Hetfield's rhythm guitar using a combination of <strong>Mesa/Boogie heads and Marshall power sections</strong>. Listen to the brutal low-end impact on the palm-muted E-string chugs.</p>
+            <p class="focus-text" style="margin-top: 8px;">Notice how the tone possesses immense sub-low authority (80 Hz – 120 Hz) combined with scooped lower-mids (500 Hz cut) and sizzling high-gain harmonic distortion. The notes punch like a sledgehammer without losing definition.</p>
+          </div>
+          <div class="audio-tags">
+            <span class="atag">Bob Rock</span><span class="atag">Black Album</span><span class="atag">Mesa Boogie</span><span class="atag">Scooped Midrange</span><span class="atag">Wall of Sound</span>
+          </div>
+        </div>
+
+        <!-- RIGHT: INSTRUMENT SPECS -->
+        <div class="column-panel instrument-col">
+          <div class="panel-header">
+            <span class="panel-badge inst-badge">⚙️ Amplifier Architecture</span>
+            <span class="panel-subtitle">Mesa/Boogie Dual Rectifier 100W Head</span>
+          </div>
+
+          <div class="instrument-photo-card">
+            <img src="/images/slides/amplifiers/mesa_boogie_dual_rectifier.jpg" alt="Mesa Boogie Dual Rectifier" class="instrument-photo">
+            <div class="instrument-photo-caption">
+              <span class="caption-name">🇺🇸 Mesa/Boogie Dual Rectifier (1992)</span>
+              <span class="caption-spec">100W RMS Multi-Channel &bull; 5x 12AX7 Preamp &bull; Switchable Tube / Silicon Rectification</span>
+            </div>
+          </div>
+
+          <div class="history-card">
+            <div class="history-title">📜 Randall Smith & The Hot-Rodded Boogie Revolution</div>
+            <p class="history-text">In the late 1960s, Randall Smith began modifying small Fender Princeton combos in his California repair shop, squeezing 100-watt circuits and extra gain stages into tiny cabinets (famously eliciting Carlos Santana to exclaim, 'Man, that little thing really boogies!').</p>
+            <p class="history-text" style="margin-top: 8px;">In 1992, Mesa/Boogie released the Dual Rectifier. Designed specifically to compete with modern high-output pickups and 7-string guitars, its crushing low-end response defined the sound of 90s alternative rock, nu-metal, and modern metalcore.</p>
+          </div>
+
+          <div class="mechanics-card">
+            <div class="mechanics-title">🔬 Dual Rectification Circuit Engineering</div>
+            <div class="mech-steps">
+              
+            <div class="mech-step">
+              <span class="step-num">1</span>
+              <div class="step-body">
+                <span class="step-name">Five Cascaded 12AX7 High-Gain Preamp Stages</span>
+                <span class="step-desc">Massive cascading gain produces thick, saturated compression, turning pick attacks into singing fluid sustain and harmonic overtones.</span>
+              </div>
+            </div>
+            <div class="mech-step">
+              <span class="step-num">2</span>
+              <div class="step-body">
+                <span class="step-name">Selectable Tube vs. Silicon Diode Rectification</span>
+                <span class="step-desc">Front-panel switch allows players to choose between sagging 5U4G vacuum tubes (spongy, vintage feel) or silicon diodes (ultra-fast, tight modern low-end response).</span>
+              </div>
+            </div>
+            <div class="mech-step">
+              <span class="step-num">3</span>
+              <div class="step-body">
+                <span class="step-name">Post-Gain Scooped Mid Tone Stack</span>
+                <span class="step-desc">Tone controls placed after extreme gain stages allow dramatic carving of midrange frequencies without suffocating the initial preamp saturation.</span>
+              </div>
+            </div>
+            <div class="mech-step">
+              <span class="step-num">4</span>
+              <div class="step-body">
+                <span class="step-name">6L6GC / EL34 Bias Switchability</span>
+                <span class="step-desc">Rear-panel bias selector allows swapping between deep, punchy American 6L6 power tubes or mid-aggressive British EL34s without a soldering iron.</span>
+              </div>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- SLIDE 13 -->
+    <div class="slide" data-slide="13">
+      <div class="slide-header">
+        <div class="deck-tag"><span>⚡</span> The Digital Revolution &bull; Slide 13 of 14</div>
+        <h1 class="slide-heading">Amp Modellers &amp; Profilers: <span>Algorithms to Impulse Responses</span></h1>
+        <p class="slide-lead">From the red Line 6 POD to Kemper profiling and Neural DSP Quad Cortex: how digital signal processing and impulse responses revolutionized studio and live guitar.</p>
+      </div>
+
+      <div class="grid-2-split">
+        <!-- LEFT: MUSIC -->
+        <div class="column-panel music-col">
+          <div class="panel-header">
+            <span class="panel-badge music-badge">🎵 Landmark Recording</span>
+            <span class="panel-subtitle">Hyper-Precise 8-String Polyrhythms & Zero Stage Bleed</span>
+          </div>
+          <div class="song-banner">
+            <span class="song-artist-name">Animals As Leaders (Tosin Abasi)</span>
+            <span class="song-track-name">"Physical Education" (Live at Patronaat)</span>
+          </div>
+          <div class="card-video-embed">
+            <iframe referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube-nocookie.com/embed/wkqr5GY9opk" title="Animals As Leaders (Tosin Abasi) - "Physical Education" (Live at Patronaat)" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div class="music-focus-card">
+            <div class="focus-title">Ear-Training Diagnostic: Pristine Extended-Range Articulation</div>
+            <p class="focus-text">Listen to Tosin Abasi and Javier Reyes performing lightning-fast thumping, slaps, and arpeggios on extended-range 8-string guitars. Traditional tube amplifier stacks often collapse into muddy sub-bass mush when handling low B (61 Hz) or low F# (46 Hz).</p>
+            <p class="focus-text" style="margin-top: 8px;">Using digital modellers running direct to the PA, every complex polyrhythmic transient remains surgically sharp. The absence of vibrating speaker cabinets on stage completely eliminates acoustic bleed into drum and vocal microphones.</p>
+          </div>
+          <div class="audio-tags">
+            <span class="atag">Extended Range 8-String</span><span class="atag">Neural DSP / Fractal</span><span class="atag">Zero Stage Volume</span><span class="atag">Impulse Responses</span><span class="atag">Surgical Precision</span>
+          </div>
+        </div>
+
+        <!-- RIGHT: INSTRUMENT SPECS -->
+        <div class="column-panel instrument-col">
+          <div class="panel-header">
+            <span class="panel-badge inst-badge">⚙️ Amplifier Architecture</span>
+            <span class="panel-subtitle">Digital DSP Modellers, Profilers & Impulse Responses</span>
+          </div>
+
+          <div class="instrument-photo-card">
+            <img src="/images/slides/amplifiers/kemper_profiler.jpg" alt="Kemper Profiler" class="instrument-photo">
+            <div class="instrument-photo-caption">
+              <span class="caption-name">💻 The Digital Modeller Era (1998 – Present)</span>
+              <span class="caption-spec">Line 6 POD &bull; Kemper Profiler &bull; Fractal Axe-Fx &bull; Neural DSP Quad Cortex</span>
+            </div>
+          </div>
+
+          <div class="history-card">
+            <div class="history-title">📜 From Algorithmic Modeling to Convolution Profiling</div>
+            <p class="history-text">In 1998, Line 6 launched the POD—the iconic red 'kidney bean' desktop unit that used numerical DSP algorithms to simulate classic Fender, Marshall, and Vox circuits. For the first time, guitarists could record album-quality guitar tones directly into home studio DAWs late at night.</p>
+            <p class="history-text" style="margin-top: 8px;">In 2011, Christoph Kemper introduced the Kemper Profiling Amplifier, which sent test tones through a physical tube amp and analyzed the distortion/frequency transfer function. Today, Neural DSP and Fractal Audio use advanced machine learning and convolution IRs, making digital modeling indistinguishable from real valves in blind ABX listening tests.</p>
+          </div>
+
+          <div class="mechanics-card">
+            <div class="mechanics-title">🔬 How Digital Amp Modeling Operates</div>
+            <div class="mech-steps">
+              
+            <div class="mech-step">
+              <span class="step-num">1</span>
+              <div class="step-body">
+                <span class="step-name">Non-Linear Component DSP Algorithms</span>
+                <span class="step-desc">Mathematical models calculate the exact dynamic non-linear behavior of vacuum tube grids, cathode bypass caps, and output transformers millions of times per second.</span>
+              </div>
+            </div>
+            <div class="mech-step">
+              <span class="step-num">2</span>
+              <div class="step-body">
+                <span class="step-name">Machine Learning & Dynamic Profiling</span>
+                <span class="step-desc">Test signals (white noise, frequency sweeps) measure phase, saturation thresholds, and harmonic generation of a real amplifier rig to capture an exact digital clone.</span>
+              </div>
+            </div>
+            <div class="mech-step">
+              <span class="step-num">3</span>
+              <div class="step-body">
+                <span class="step-name">Cabinet Convolution & Impulse Responses (IRs)</span>
+                <span class="step-desc">A mathematical capture (IR) of a specific microphone (e.g., Shure SM57) placed at an exact angle in front of a real speaker cone accurately models acoustic cabinet resonances.</span>
+              </div>
+            </div>
+            <div class="mech-step">
+              <span class="step-num">4</span>
+              <div class="step-body">
+                <span class="step-name">FOH Direct-to-PA Integration</span>
+                <span class="step-desc">Guitarists run XLR cables direct to the front-of-house mixing console and in-ear monitors (IEMs), providing 100% consistent studio-grade tone in any venue without stage bleed.</span>
+              </div>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- SLIDE 14 -->
+    <div class="slide" data-slide="14">
+      <div class="slide-header">
+        <div class="deck-tag"><span>⚡</span> Master Exam Specification &bull; Slide 14 of 14</div>
+        <h1 class="slide-heading">Guitar &amp; Bass Amplifiers: <span>The Master Matrix</span></h1>
+        <p class="slide-lead">The complete Component 3 comparative review: valve topologies, acoustic speaker physics, close-micing techniques, and landmark listening identification.</p>
+      </div>
+
+      <div class="grid-2-split">
+        <!-- LEFT: MUSIC -->
+        <div class="column-panel music-col">
+          <div class="panel-header">
+            <span class="panel-badge music-badge">🎵 Landmark Recording</span>
+            <span class="panel-subtitle">The Pinnacle of Tube Dynamics & Touch Sensitivity</span>
+          </div>
+          <div class="song-banner">
+            <span class="song-artist-name">Stevie Ray Vaughan & Double Trouble</span>
+            <span class="song-track-name">"Pride and Joy" (Live at Montreux 1982)</span>
+          </div>
+          <div class="card-video-embed">
+            <iframe referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube-nocookie.com/embed/kfjXp4KTTY8" title="Stevie Ray Vaughan & Double Trouble - "Pride and Joy" (Live at Montreux 1982)" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div class="music-focus-card">
+            <div class="focus-title">Ear-Training Diagnostic: Dynamic Touch-Sensitivity in Real Time</div>
+            <p class="focus-text">Stevie Ray Vaughan demonstrates why tube amplifiers remain revered: playing with a light thumb produces a sparkling, chimey clean tone, while digging in with a heavy pick attack instantly forces the power tubes into singing, compressed overdrive without touching a volume knob.</p>
+            <p class="focus-text" style="margin-top: 8px;">Notice how the close-mic placement captures the high-frequency snap of the pick transient while the closed-back speaker cabinet delivers punchy low-end impact. This is the master reference for evaluating amplifier dynamics in the Component 3 exam.</p>
+          </div>
+          <div class="audio-tags">
+            <span class="atag">Montreux 1982</span><span class="atag">Touch Sensitivity</span><span class="atag">Dynamic Range</span><span class="atag">Close-Micing</span><span class="atag">Component 3 Exam</span>
+          </div>
+        </div>
+
+        <!-- RIGHT: INSTRUMENT MATRIX -->
+        <div class="column-panel instrument-col">
+          <div class="panel-header">
+            <span class="panel-badge inst-badge">⚙️ Exam Specification Matrix</span>
+            <span class="panel-subtitle">The Master Specification Matrix</span>
+          </div>
+
+          <div class="instrument-photo-card">
+            <img src="/images/marshall_half_stack_authentic.jpg" alt="The Amplifier Hall of Fame" class="instrument-photo">
+            <div class="instrument-photo-caption">
+              <span class="caption-name">🏆 The Guitar &amp; Bass Amplifier Hall of Fame</span>
+              <span class="caption-spec">Master Specification &bull; Transduction &bull; Valve Topology &bull; Close-Micing</span>
+            </div>
+          </div>
+
+          <div class="history-card">
+            <div class="history-title">📜 Component 3 Specification Essentials: Exam Reference</div>
+            <p class="history-text">In the Edexcel Component 3 examination, questions frequently target: (1) Valve amplifier signal path (Preamp vs Power Amp vs Output Transformer), (2) Valve types and harmonic character (Even-order warmth vs Solid-State Odd-order harshness), and (3) Microphone placement geography on the speaker cone.</p>
+            <p class="history-text" style="margin-top: 8px;">Moving a dynamic microphone (like a Shure SM57) from the center of the speaker cone towards the edge progressively rolls off high frequencies, taming harsh treble. Pointing on-axis maximizes high-frequency transient bite; angling 45 degrees off-axis smooths out upper-mid harshness.</p>
+          </div>
+
+          <div class="comp-table-wrap">
+            <table class="comp-table">
+              <thead>
+                <tr>
+                  <th>Amp Family</th>
+                  <th>Valves &bull; Power</th>
+                  <th>Speakers &bull; Cabinet</th>
+                  <th>Sonic Character &bull; Exam Focus</th>
+                </tr>
+              </thead>
+              <tbody>
+                
+            <tr>
+              <td style="font-weight: 700; color: #ffffff;">Fender Bassman / Twin</td>
+              <td><span style="color: #fde68a; font-family: 'JetBrains Mono', monospace;">6L6 / 6V6 (Fixed/Cathode Bias)</span></td>
+              <td>4x10 Jensen / 2x12 Oxford in Open-Back Pine Cabinet</td>
+              <td>High headroom, scooped lower-mids, sparkling highs, tube spring reverb & optical tremolo.</td>
             </tr>
             <tr>
-              <td style="padding: 8px 10px; font-weight: 700; color: #f8fafc;">Studio Mic Placement</td>
-              <td style="padding: 8px 10px; color: #cbd5e1;">SM57 cap edge (sweet spot) + Royer R-121 ribbon blend</td>
-              <td style="padding: 8px 10px; color: #cbd5e1;">Direct DI line output or neutral close-micing</td>
+              <td style="font-weight: 700; color: #ffffff;">Vox AC30 Top Boost</td>
+              <td><span style="color: #fde68a; font-family: 'JetBrains Mono', monospace;">4x EL84 (Class A Cathode Bias)</span></td>
+              <td>2x12 Celestion Alnico Blue in Open-Back Birch Cabinet</td>
+              <td>Class A warmth, chimey 2-4 kHz upper midrange bite, rapid dynamic compression, no negative feedback.</td>
             </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="grid-2">
-        <div class="card">
-          <div class="card-title" style="color: #fbbf24;">Test Your Knowledge</div>
-          <p class="card-text">Reinforce your understanding of valve vs. solid state architectures, impedance matching, and microphone techniques by completing the 10-question specification quiz.</p>
-          <div style="margin-top: 10px;">
-            <a href="/amplifiers-interactive-quiz" target="_blank" class="video-trigger-btn" style="text-decoration: none;">🚀 Launch Amplifier Specification Quiz</a>
+            <tr>
+              <td style="font-weight: 700; color: #ffffff;">Marshall Plexi / JCM800</td>
+              <td><span style="color: #fde68a; font-family: 'JetBrains Mono', monospace;">EL34 / KT66 (Push-Pull AB)</span></td>
+              <td>4x12 Celestion Greenback/G12T-75 in Closed-Back Birch Ply Stack</td>
+              <td>Aggressive upper-mid crunch, tight low end, stadium acoustic projection, cascading high-gain preamp.</td>
+            </tr>
+            <tr>
+              <td style="font-weight: 700; color: #ffffff;">Ampeg SVT Bass Rig</td>
+              <td><span style="color: #fde68a; font-family: 'JetBrains Mono', monospace;">Six 6146B / 6550 Tubes (300W)</span></td>
+              <td>8x10 Sealed Acoustic Suspension Cabinet ('The Fridge')</td>
+              <td>300W RMS all-tube headroom, massive low-end punch without flub, inductor-based midrange sweep EQ.</td>
+            </tr>
+            <tr>
+              <td style="font-weight: 700; color: #ffffff;">Roland JC-120</td>
+              <td><span style="color: #fde68a; font-family: 'JetBrains Mono', monospace;">Bipolar Solid-State (2x 60W)</span></td>
+              <td>2x12 Heavy-Duty Drivers in Open-Back Road Enclosure</td>
+              <td>Zero valve distortion, infinite clean headroom, built-in analog BBD spatial stereo chorus in physical air.</td>
+            </tr>
+            <tr>
+              <td style="font-weight: 700; color: #ffffff;">Mesa/Boogie Dual Rectifier</td>
+              <td><span style="color: #fde68a; font-family: 'JetBrains Mono', monospace;">Quad 6L6/EL34 + 5U4G/Diodes</span></td>
+              <td>4x12 Celestion Vintage 30 Closed-Back Enclosure</td>
+              <td>Modern multi-channel high gain, switchable tube sag vs diode punch, scooped mids, tight percussive chug.</td>
+            </tr>
+            <tr>
+              <td style="font-weight: 700; color: #ffffff;">Digital DSP Modellers</td>
+              <td><span style="color: #fde68a; font-family: 'JetBrains Mono', monospace;">SHARC DSP / Machine Learning</span></td>
+              <td>Impulse Response (IR) Convolution / Direct XLR to FOH</td>
+              <td>Exact mathematical circuit profiling, zero stage volume or bleed, micro-level speaker IR emulation.</td>
+            </tr>
+              </tbody>
+            </table>
           </div>
         </div>
-        <div class="card">
-          <div class="card-title" style="color: #c084fc;">Component 3 Guided Homework</div>
-          <p class="card-text">Download the classroom study pack featuring 3 guided exam questions with mark schemes and examiner tips covering 4-mark, 6-mark, and 10-mark extended responses.</p>
-          <div style="margin-top: 10px;">
-            <a href="/downloads/homework/homework-amplifiers.html" target="_blank" class="video-trigger-btn" style="text-decoration: none; background: linear-gradient(135deg, #7e22ce 0%, #a855f7 100%); color: #fff;">📥 Open Printable Homework Pack (PDF)</a>
-          </div>
-        </div>
       </div>
-    </section>
+    </div>
 
   </div>
 
-  <!-- FIXED BOTTOM NAVIGATION BAR -->
+  <!-- NAVIGATION BAR -->
   <div class="deck-nav-bar">
-    <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)" disabled>&larr; Previous</button>
-    <div class="progress-bar-wrap">
-      <div class="progress-track">
-        <div class="progress-fill" id="progressFill"></div>
-      </div>
-      <span style="font-size: 11.5px; font-weight: 700; color: #94a3b8;" id="navSlideIndicator">1 / 15</span>
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <button class="nav-btn" id="prevBtn" onclick="prevSlide()" disabled>&larr; Previous</button>
+      <button class="nav-btn primary" id="nextBtn" onclick="nextSlide()">Next &rarr;</button>
+      <span class="slide-counter">Slide <strong id="currentSlideNum">1</strong> of <strong id="totalSlideNum">14</strong></span>
     </div>
-    <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">Next &rarr;</button>
-  </div>
 
-  <!-- VIDEO MODAL PLAYER (ZERO HISTORY FOOTPRINT) -->
-  <div class="video-modal-backdrop" id="videoModal">
-    <div class="video-modal-content">
-      <div class="video-modal-header">
-        <div class="video-modal-title" id="modalVideoTitle">Video Player</div>
-        <button class="video-modal-close" onclick="closeVideoModal()">&times;</button>
-      </div>
-      <div class="video-player-wrapper" id="videoWrapper">
-        <!-- Dynamic iframe injected via JS to prevent browser history pollution -->
-      </div>
-      <div class="video-modal-footer">
-        <span>Music Tech Guru Audio Archive</span>
-        <span style="cursor: pointer; color: #fbbf24;" onclick="closeVideoModal()">Close &times;</span>
-      </div>
+    <div class="nav-shortcuts">
+      <span>Navigate: <span class="kbd">&larr;</span> <span class="kbd">&rarr;</span> or <span class="kbd">Space</span></span>
+      <button class="nav-btn" onclick="toggleFullscreen()" style="padding: 6px 12px; font-size: 11px;">Fullscreen &nearr;</button>
     </div>
-  </div>
-
-  <!-- LIGHTBOX MODAL -->
-  <div class="lightbox-modal" id="lightboxModal" onclick="closeLightbox()">
-    <img id="lightboxImg" src="" alt="Enlarged Diagram">
   </div>
 
   <script>
     let currentSlide = 1;
-    const totalSlides = 15;
+    const slides = document.querySelectorAll('.slide');
+    const totalSlides = slides.length;
+    document.getElementById('totalSlideNum').textContent = totalSlides;
 
-    function updateSlide() {
-      document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
-      const activeEl = document.querySelector(`.slide[data-slide="${currentSlide}"]`);
-      if (activeEl) activeEl.classList.add('active');
+    function showSlide(n) {
+      if (n < 1) n = 1;
+      if (n > totalSlides) n = totalSlides;
+      currentSlide = n;
 
+      slides.forEach((s, idx) => {
+        if (idx === currentSlide - 1) {
+          s.classList.add('active');
+        } else {
+          s.classList.remove('active');
+        }
+      });
+
+      document.getElementById('currentSlideNum').textContent = currentSlide;
       document.getElementById('prevBtn').disabled = (currentSlide === 1);
       document.getElementById('nextBtn').disabled = (currentSlide === totalSlides);
-
-      const pct = (currentSlide / totalSlides) * 100;
-      document.getElementById('progressFill').style.width = pct + '%';
-      document.getElementById('navSlideIndicator').textContent = `${currentSlide} / ${totalSlides}`;
-
       window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
 
-      // Clean state replacement without adding browser history entries
-      if (window.history && window.history.replaceState) {
-        history.replaceState(null, '', `#slide-${currentSlide}`);
+    function nextSlide() {
+      if (currentSlide < totalSlides) {
+        showSlide(currentSlide + 1);
       }
     }
 
-    function changeSlide(direction) {
-      const next = currentSlide + direction;
-      if (next >= 1 && next <= totalSlides) {
-        currentSlide = next;
-        updateSlide();
+    function prevSlide() {
+      if (currentSlide > 1) {
+        showSlide(currentSlide - 1);
       }
     }
 
-    // Keyboard navigation
-    window.addEventListener('keydown', (e) => {
-      if (document.getElementById('videoModal').classList.contains('open')) {
-        if (e.key === 'Escape') closeVideoModal();
-        return;
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(() => {});
+      } else {
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        }
       }
-      if (document.getElementById('lightboxModal').classList.contains('open')) {
-        if (e.key === 'Escape') closeLightbox();
-        return;
-      }
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
       if (e.key === 'ArrowRight' || e.key === ' ') {
         e.preventDefault();
-        changeSlide(1);
+        nextSlide();
       } else if (e.key === 'ArrowLeft') {
         e.preventDefault();
-        changeSlide(-1);
+        prevSlide();
       }
     });
 
-    // Zero-history dynamic video player
-    function openVideo(youtubeId, title) {
-      const modal = document.getElementById('videoModal');
-      const titleEl = document.getElementById('modalVideoTitle');
-      const wrapper = document.getElementById('videoWrapper');
-
-      titleEl.textContent = title || 'Video Demonstration';
-      wrapper.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${youtubeId}?autoplay=1&rel=0&modestbranding=1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>`;
-      modal.classList.add('open');
-    }
-
-    function closeVideoModal() {
-      const modal = document.getElementById('videoModal');
-      const wrapper = document.getElementById('videoWrapper');
-      modal.classList.remove('open');
-      wrapper.innerHTML = ''; // completely dismantle iframe to stop audio and history pollution
-    }
-
-    document.getElementById('videoModal').addEventListener('click', (e) => {
-      if (e.target === document.getElementById('videoModal')) {
-        closeVideoModal();
+    // Check URL hash for slide number e.g. #slide-5
+    function checkHash() {
+      const hash = window.location.hash;
+      const match = hash.match(/#slide-(\d+)/);
+      if (match) {
+        const s = parseInt(match[1], 10);
+        if (s >= 1 && s <= totalSlides) {
+          showSlide(s);
+          return;
+        }
       }
-    });
-
-    // Lightbox modal for diagrams
-    function openLightbox(src) {
-      const modal = document.getElementById('lightboxModal');
-      const img = document.getElementById('lightboxImg');
-      img.src = src;
-      modal.classList.add('open');
+      showSlide(1);
     }
 
-    function closeLightbox() {
-      document.getElementById('lightboxModal').classList.remove('open');
-    }
-
-    // Check initial hash
-    if (window.location.hash) {
-      const match = window.location.hash.match(/#slide-(\d+)/);
-      if (match && parseInt(match[1]) >= 1 && parseInt(match[1]) <= totalSlides) {
-        currentSlide = parseInt(match[1]);
-      }
-    }
-    updateSlide();
+    window.addEventListener('hashchange', checkHash);
+    checkHash();
   </script>
 </body>
 </html>
