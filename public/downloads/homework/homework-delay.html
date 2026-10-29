@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Component 3 Homework Pack • Delay &amp; Echo Effects in Context | Music Tech Guru</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --accent: #0284c7;
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --font: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      line-height: 1.6;
+      margin: 0;
+      padding: 24px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: var(--card);
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+      padding: 40px;
+    }
+
+    .header-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid #0f172a;
+      padding-bottom: 20px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .header-title h1 {
+      font-size: 26px;
+      font-weight: 800;
+      margin: 0 0 6px 0;
+      color: #0f172a;
+    }
+
+    .header-title p {
+      margin: 0;
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+
+    .tag-badge {
+      display: inline-block;
+      background: rgba(2, 132, 199, 0.1);
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      padding: 4px 12px;
+      border-radius: 6px;
+      margin-bottom: 8px;
+    }
+
+    .print-btn {
+      background: #0f172a;
+      color: #ffffff;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .print-btn:hover {
+      background: #1e293b;
+    }
+
+    .section-title {
+      font-size: 17px;
+      font-weight: 800;
+      color: #0f172a;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 8px;
+      margin: 32px 0 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .section-title span {
+      color: var(--accent);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13.5px;
+      margin-bottom: 24px;
+    }
+
+    th {
+      background: #f1f5f9;
+      text-align: left;
+      padding: 10px 14px;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border-bottom: 2px solid #cbd5e1;
+    }
+
+    .student-fields {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 16px;
+      background: #f8fafc;
+      padding: 14px 18px;
+      border-radius: 8px;
+      border: 1px solid #e2e8f0;
+      margin-bottom: 24px;
+      font-size: 13px;
+    }
+
+    .student-fields strong {
+      color: #475569;
+    }
+
+    @media print {
+      body { background: #fff; padding: 0; }
+      .container { border: none; box-shadow: none; padding: 10px; max-width: 100%; }
+      .print-btn { display: none; }
+      .section-title { page-break-after: avoid; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="header-bar">
+      <div class="header-title">
+        <div class="tag-badge">Edexcel Component 3 &bull; Time-Based Signal Processing</div>
+        <h1>Delay &amp; Echo Effects in Context</h1>
+        <p>Tape Loops, BBD Chips, Dotted-Eighth Rhythms &amp; Aux Routing</p>
+      </div>
+      <div>
+        <button class="print-btn" onclick="window.print()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+          Print / Save PDF
+        </button>
+      </div>
+    </div>
+
+    <div class="student-fields">
+      <div><strong>Student Name:</strong> ______________________</div>
+      <div><strong>Date:</strong> ______________________</div>
+      <div><strong>Teacher / Grade:</strong> _______ / 25 Marks</div>
+    </div>
+
+    <!-- 1. LANDMARK LISTENING CASE STUDIES -->
+    <div class="section-title"><span>01</span> Landmark Audio Case Studies</div>
+    <p style="font-size: 13.5px; color: var(--text-muted); margin-bottom: 16px;">
+      Listen critically to the benchmark recordings below on headphones. Identify the specific effects hardware, signal routing, and sonic artifacts that define each production.
+    </p>
+    
+    <div style="background: #f1f5f9; border-left: 4px solid #0284c7; padding: 14px 18px; border-radius: 8px; margin-bottom: 12px;">
+      <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 6px;">
+        <strong style="color: #0f172a; font-size: 15px;">U2 &ndash; 'Where The Streets Have No Name' (1987)</strong>
+        <span style="color: #0284c7; font-size: 12px; font-weight: 700; background: rgba(2, 132, 199, 0.1); padding: 2px 8px; border-radius: 4px;">Korg SDD-3000 / EHX Deluxe Memory Man</span>
+      </div>
+      <p style="margin: 6px 0 0; font-size: 13.5px; color: #475569;">Dotted 8th note delay (3/16 note, ~360ms at 125 BPM) mixed 50/50 with dry signal creating cascading rhythmic gallop.</p>
+    </div>
+    
+    <div style="background: #f1f5f9; border-left: 4px solid #0284c7; padding: 14px 18px; border-radius: 8px; margin-bottom: 12px;">
+      <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 6px;">
+        <strong style="color: #0f172a; font-size: 15px;">Elvis Presley &ndash; 'Heartbreak Hotel' (1956)</strong>
+        <span style="color: #0284c7; font-size: 12px; font-weight: 700; background: rgba(2, 132, 199, 0.1); padding: 2px 8px; border-radius: 4px;">Ampex 350 tape machine at Sun Studios</span>
+      </div>
+      <p style="margin: 6px 0 0; font-size: 13.5px; color: #475569;">Classic slapback delay (75-130ms, single repeat with no feedback) between record and playback heads.</p>
+    </div>
+    
+    <div style="background: #f1f5f9; border-left: 4px solid #0284c7; padding: 14px 18px; border-radius: 8px; margin-bottom: 12px;">
+      <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 6px;">
+        <strong style="color: #0f172a; font-size: 15px;">The Police &ndash; 'Walking on the Moon' (1979)</strong>
+        <span style="color: #0284c7; font-size: 12px; font-weight: 700; background: rgba(2, 132, 199, 0.1); padding: 2px 8px; border-radius: 4px;">Electro-Harmonix Memory Man &amp; Maestro Echoplex</span>
+      </div>
+      <p style="margin: 6px 0 0; font-size: 13.5px; color: #475569;">Spacious analog BBD delay on Andy Summers' guitar chords with warm high-frequency damping on successive repeats.</p>
+    </div>
+    
+    <div style="background: #f1f5f9; border-left: 4px solid #0284c7; padding: 14px 18px; border-radius: 8px; margin-bottom: 12px;">
+      <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 6px;">
+        <strong style="color: #0f172a; font-size: 15px;">Pink Floyd &ndash; 'Us and Them' (1973)</strong>
+        <span style="color: #0284c7; font-size: 12px; font-weight: 700; background: rgba(2, 132, 199, 0.1); padding: 2px 8px; border-radius: 4px;">Binson Echorec (magnetic spinning drum)</span>
+      </div>
+      <p style="margin: 6px 0 0; font-size: 13.5px; color: #475569;">Multi-tap panning delay creating vast, floating psych-rock vocal echoes across the stereo field.</p>
+    </div>
+    
+
+    <!-- 2. TECHNICAL SPECIFICATION CHECKLIST -->
+    <div class="section-title"><span>02</span> Technical Parameter &amp; Circuit Architecture</div>
+    <table>
+      <thead>
+        <tr>
+          <th>Specification Parameter</th>
+          <th>Engineering Description &bull; Exam Definition</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+    <tr>
+      <td style="padding: 10px 14px; border-bottom: 1px solid #e2e8f0; font-weight: 700; color: #0f172a; width: 28%;">Delay Time</td>
+      <td style="padding: 10px 14px; border-bottom: 1px solid #e2e8f0; color: #475569;">Duration between dry signal and repeat (1ms to 2000ms+). Formula for dotted-eighth: (60,000 / BPM) x 0.75 ms.</td>
+    </tr>
+    
+    <tr>
+      <td style="padding: 10px 14px; border-bottom: 1px solid #e2e8f0; font-weight: 700; color: #0f172a; width: 28%;">Feedback (Regen)</td>
+      <td style="padding: 10px 14px; border-bottom: 1px solid #e2e8f0; color: #475569;">Percentage of delayed output returned to the input. 0% = single repeat; 100%+ = runaway analog self-oscillation.</td>
+    </tr>
+    
+    <tr>
+      <td style="padding: 10px 14px; border-bottom: 1px solid #e2e8f0; font-weight: 700; color: #0f172a; width: 28%;">High Damping</td>
+      <td style="padding: 10px 14px; border-bottom: 1px solid #e2e8f0; color: #475569;">Low-pass filter inside feedback loop attenuating treble on each repeat to simulate natural acoustic air absorption.</td>
+    </tr>
+    
+    <tr>
+      <td style="padding: 10px 14px; border-bottom: 1px solid #e2e8f0; font-weight: 700; color: #0f172a; width: 28%;">Tape Echo Flaws</td>
+      <td style="padding: 10px 14px; border-bottom: 1px solid #e2e8f0; color: #475569;">Mechanical wow and flutter motor speed variations that impart musical chorusing and harmonic tape saturation.</td>
+    </tr>
+    
+    <tr>
+      <td style="padding: 10px 14px; border-bottom: 1px solid #e2e8f0; font-weight: 700; color: #0f172a; width: 28%;">Signal Routing</td>
+      <td style="padding: 10px 14px; border-bottom: 1px solid #e2e8f0; color: #475569;">Auxiliary Send / Return bus setup (100% wet) allowing multiple channels to share one delay while preserving dry punch.</td>
+    </tr>
+    
+      </tbody>
+    </table>
+
+    <!-- 3. SECTION A: EXAM PRACTICE QUESTIONS -->
+    <div class="section-title"><span>03</span> Section A: Specification Exam Questions (13 Marks)</div>
+    <p style="font-size: 13.5px; color: var(--text-muted); margin-bottom: 16px;">
+      Answer all questions in the spaces provided. Complete mark schemes and examiner guidance are included for self-assessment and peer marking.
+    </p>
+    
+    <div style="margin-bottom: 24px; padding-bottom: 20px; border-bottom: 1px dashed #cbd5e1;">
+      <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px;">
+        <strong style="color: #0f172a; font-size: 15px;">Question 1</strong>
+        <span style="background: #e2e8f0; color: #0f172a; font-size: 12px; font-weight: 800; padding: 2px 8px; border-radius: 4px;">[3 MARKS]</span>
+      </div>
+      <p style="margin: 0 0 12px; font-size: 14px; color: #1e293b; font-weight: 500;">Explain how slapback delay was physically generated at Sun Studio in the 1950s without digital processors.</p>
+      
+      <!-- Mark Scheme Box -->
+      <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-left: 3px solid #10b981; border-radius: 6px; padding: 10px 14px; font-size: 12.5px; color: #334155;">
+        <strong style="color: #059669; text-transform: uppercase; font-size: 11px; letter-spacing: 0.5px; display: block; margin-bottom: 4px;">Examiner Mark Scheme &bull; Guidance:</strong>
+        Award 1 mark for mentioning reel-to-reel tape machine / magnetic tape. 1 mark for explaining the physical gap/distance between the record head and playback head. 1 mark for identifying tape transport speed (15 ips) creating a 75–130ms delay with no feedback.
+      </div>
+    </div>
+    
+    <div style="margin-bottom: 24px; padding-bottom: 20px; border-bottom: 1px dashed #cbd5e1;">
+      <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px;">
+        <strong style="color: #0f172a; font-size: 15px;">Question 2</strong>
+        <span style="background: #e2e8f0; color: #0f172a; font-size: 12px; font-weight: 800; padding: 2px 8px; border-radius: 4px;">[3 MARKS]</span>
+      </div>
+      <p style="margin: 0 0 12px; font-size: 14px; color: #1e293b; font-weight: 500;">Calculate the delay time in milliseconds required for a dotted-eighth note repeat in a track with a tempo of 120 BPM. Show your working.</p>
+      
+      <!-- Mark Scheme Box -->
+      <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-left: 3px solid #10b981; border-radius: 6px; padding: 10px 14px; font-size: 12.5px; color: #334155;">
+        <strong style="color: #059669; text-transform: uppercase; font-size: 11px; letter-spacing: 0.5px; display: block; margin-bottom: 4px;">Examiner Mark Scheme &bull; Guidance:</strong>
+        Award 1 mark for finding quarter note (60,000 / 120 = 500ms). 1 mark for finding eighth note (250ms) or applying 0.75 multiplier (500 x 0.75). 1 mark for correct final answer: 375 ms.
+      </div>
+    </div>
+    
+    <div style="margin-bottom: 24px; padding-bottom: 20px; border-bottom: 1px dashed #cbd5e1;">
+      <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px;">
+        <strong style="color: #0f172a; font-size: 15px;">Question 3</strong>
+        <span style="background: #e2e8f0; color: #0f172a; font-size: 12px; font-weight: 800; padding: 2px 8px; border-radius: 4px;">[3 MARKS]</span>
+      </div>
+      <p style="margin: 0 0 12px; font-size: 14px; color: #1e293b; font-weight: 500;">Describe the operational mechanism of an analog Bucket Brigade Device (BBD) delay chip and state one sonic limitation compared to digital delay.</p>
+      
+      <!-- Mark Scheme Box -->
+      <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-left: 3px solid #10b981; border-radius: 6px; padding: 10px 14px; font-size: 12.5px; color: #334155;">
+        <strong style="color: #059669; text-transform: uppercase; font-size: 11px; letter-spacing: 0.5px; display: block; margin-bottom: 4px;">Examiner Mark Scheme &bull; Guidance:</strong>
+        Award 1 mark for passing analog electrical charge packets sequentially across microscopic capacitor stages. 1 mark for clock oscillator controlling delay speed. 1 mark for limitation: clock noise / high-frequency roll-off / lower dynamic range / reduced headroom.
+      </div>
+    </div>
+    
+    <div style="margin-bottom: 24px; padding-bottom: 20px; border-bottom: 1px dashed #cbd5e1;">
+      <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px;">
+        <strong style="color: #0f172a; font-size: 15px;">Question 4</strong>
+        <span style="background: #e2e8f0; color: #0f172a; font-size: 12px; font-weight: 800; padding: 2px 8px; border-radius: 4px;">[2 MARKS]</span>
+      </div>
+      <p style="margin: 0 0 12px; font-size: 14px; color: #1e293b; font-weight: 500;">State two engineering advantages of routing a vocal delay as a parallel Auxiliary Send / Return rather than an inline Channel Insert.</p>
+      
+      <!-- Mark Scheme Box -->
+      <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-left: 3px solid #10b981; border-radius: 6px; padding: 10px 14px; font-size: 12.5px; color: #334155;">
+        <strong style="color: #059669; text-transform: uppercase; font-size: 11px; letter-spacing: 0.5px; display: block; margin-bottom: 4px;">Examiner Mark Scheme &bull; Guidance:</strong>
+        Award 1 mark each (max 2): (1) Preserves 100% of the dry vocal signal's clarity and transient punch; (2) Multiple tracks can be sent to a single shared delay processor, saving DSP/hardware; (3) Dedicated return channel allows independent EQ/automation of echoes.
+      </div>
+    </div>
+    
+    <div style="margin-bottom: 24px; padding-bottom: 20px; border-bottom: 1px dashed #cbd5e1;">
+      <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px;">
+        <strong style="color: #0f172a; font-size: 15px;">Question 5</strong>
+        <span style="background: #e2e8f0; color: #0f172a; font-size: 12px; font-weight: 800; padding: 2px 8px; border-radius: 4px;">[2 MARKS]</span>
+      </div>
+      <p style="margin: 0 0 12px; font-size: 14px; color: #1e293b; font-weight: 500;">Explain what occurs sonically and electrically when a delay unit's feedback parameter is increased past 100%.</p>
+      
+      <!-- Mark Scheme Box -->
+      <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-left: 3px solid #10b981; border-radius: 6px; padding: 10px 14px; font-size: 12.5px; color: #334155;">
+        <strong style="color: #059669; text-transform: uppercase; font-size: 11px; letter-spacing: 0.5px; display: block; margin-bottom: 4px;">Examiner Mark Scheme &bull; Guidance:</strong>
+        Award 1 mark for runaway self-oscillation (infinite repeats building in energy). 1 mark for circuit overload / non-linear analog harmonic distortion / saturated oscillation tone.
+      </div>
+    </div>
+    
+
+    <!-- 4. SECTION B: 12-MARK ESSAY -->
+    <div class="section-title"><span>04</span> Section B: Extended Evaluation Essay (12 Marks)</div>
+    <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 10px; padding: 20px; margin-bottom: 24px;">
+      <h3 style="margin: 0 0 8px; font-size: 16px; color: #0f172a;">Extended 12-Mark Technical Evaluation Question</h3>
+      <p style="font-size: 14px; font-weight: 600; color: #1e293b; margin-bottom: 14px;">Evaluate the evolution of delay technology from 1950s tape loops to modern digital and plugin processors. In your answer, refer to: • Mechanical, analog BBD, and digital architectures • Key parameters (delay time, feedback, high damping) • Signal routing (Inserts vs. Parallel Aux Sends) • Specific landmark musical examples.</p>
+      
+      <div style="background: #ffffff; border: 1px solid #e2e8f0; border-left: 3px solid var(--accent); padding: 12px 16px; border-radius: 6px; font-size: 13px; color: #334155; line-height: 1.6;">
+        <strong style="color: var(--accent); text-transform: uppercase; font-size: 11px; letter-spacing: 0.5px; display: block; margin-bottom: 6px;">Indicative Content &bull; Examiner Commentary:</strong>
+        • 1950s Tape Delay: Dual-deck slapback (Sun Records, Elvis) & dedicated tape loop units (Echoplex, Roland Space Echo). Mechanical motor speed governs time; wow/flutter creates organic pitch warmth; magnetic saturation provides soft clipping.<br>• 1970s Analog BBD: Solid-state capacitor bucket lines (Memory Man, Boss DM-2). Eliminates moving tape; darker repeats due to anti-aliasing low-pass filters.<br>• 1980s+ Digital Delay: RAM storage, PCM conversion, sample-accurate tempo sync (Korg SDD-3000, TC 2290). Dotted-eighth rhythmic doubling (The Edge / U2). Multi-tap, ping-pong, and dynamic ducking delay.<br>• Signal Routing: Parallel Aux Send/Return preserves dry transient impact and enables shared space vs. channel insert.
+      </div>
+    </div>
+
+    <div style="text-align: center; border-top: 1px solid #e2e8f0; padding-top: 18px; font-size: 12px; color: var(--text-muted);">
+      Pearson Edexcel A-Level Music Technology &bull; Component 3 (Music Technology in Context) Revision Resource &bull; Music Tech Guru
+    </div>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Phaser Effect &amp; All-Pass Filters • Edexcel Component 3 Specification Quiz | Music Tech Guru</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #080e1a;
+      --bg-card: #0f172a;
+      --bg-surface: #1e293b;
+      --accent: #a855f7;
+      --accent-glow: rgba(168, 85, 247, 0.35);
+      --accent-green: #34d399;
+      --accent-red: #ef4444;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-accent: rgba(168, 85, 247, 0.35);
+      --font: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: var(--font);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .quiz-container {
+      width: 100%;
+      max-width: 880px;
+      background: radial-gradient(circle at 50% 0%, rgba(168, 85, 247, 0.35) 0%, rgba(14, 17, 36, 0) 70%), var(--bg-card);
+      border: 1px solid var(--border-accent);
+      border-radius: 20px;
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.8), 0 0 40px rgba(168, 85, 247, 0.35);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .quiz-header {
+      padding: 24px 32px;
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(10px);
+    }
+
+    .topic-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px solid var(--border-accent);
+      border-radius: 9999px;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.8px;
+      color: var(--accent);
+      text-transform: uppercase;
+    }
+
+    .progress-pill {
+      font-family: monospace;
+      font-size: 13px;
+      color: var(--text-muted);
+      background: var(--bg-surface);
+      padding: 6px 12px;
+      border-radius: 8px;
+      border: 1px solid var(--border-subtle);
+    }
+
+    .progress-bar {
+      height: 4px;
+      background: rgba(255, 255, 255, 0.05);
+      width: 100%;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent), #a855f7);
+      width: 10%;
+      transition: width 0.3s ease;
+    }
+
+    .quiz-body {
+      padding: 36px 32px;
+      min-height: 420px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .question-stem {
+      font-size: 19px;
+      font-weight: 700;
+      line-height: 1.45;
+      margin-bottom: 24px;
+      color: #ffffff;
+    }
+
+    .options-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .option-btn {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 14px 18px;
+      color: var(--text-main);
+      font-size: 14.5px;
+      font-weight: 600;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+    }
+
+    .option-btn:hover:not(:disabled) {
+      background: rgba(255, 255, 255, 0.06);
+      border-color: rgba(255, 255, 255, 0.2);
+      transform: translateX(4px);
+    }
+
+    .option-btn.correct {
+      background: rgba(52, 211, 153, 0.15) !important;
+      border-color: var(--accent-green) !important;
+      color: #ffffff !important;
+    }
+
+    .option-btn.incorrect {
+      background: rgba(239, 68, 68, 0.15) !important;
+      border-color: var(--accent-red) !important;
+      color: #ffffff !important;
+    }
+
+    .opt-letter {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+
+    .explanation-box {
+      display: none;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-subtle);
+      border-left: 4px solid var(--accent);
+      border-radius: 10px;
+      padding: 16px 20px;
+      margin-bottom: 24px;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .explanation-box h4 {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--accent);
+      margin-bottom: 6px;
+      font-weight: 800;
+    }
+
+    .explanation-box p {
+      font-size: 13.5px;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+
+    .quiz-footer {
+      margin-top: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 18px;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .score-indicator {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-muted);
+    }
+
+    .next-btn {
+      background: var(--accent);
+      color: #030712;
+      border: none;
+      border-radius: 10px;
+      padding: 12px 24px;
+      font-size: 14px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .next-btn:hover:not(:disabled) {
+      filter: brightness(1.15);
+      transform: translateY(-2px);
+    }
+
+    .next-btn:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+
+    /* Completion Screen */
+    .summary-screen {
+      display: none;
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    .summary-title {
+      font-size: 32px;
+      font-weight: 900;
+      color: #ffffff;
+      margin-bottom: 12px;
+    }
+
+    .score-circle {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      background: radial-gradient(circle, var(--accent-glow) 0%, rgba(0,0,0,0) 70%);
+      border: 3px solid var(--accent);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin: 24px auto;
+    }
+
+    .score-val {
+      font-size: 42px;
+      font-weight: 900;
+      color: #ffffff;
+      line-height: 1;
+    }
+
+    .score-max {
+      font-size: 13px;
+      color: var(--text-muted);
+      font-weight: 700;
+    }
+
+    .grade-badge {
+      display: inline-block;
+      padding: 6px 18px;
+      border-radius: 50px;
+      font-size: 14px;
+      font-weight: 800;
+      margin-bottom: 24px;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="quiz-container">
+    <div class="quiz-header">
+      <div class="topic-badge">
+        <span>🌀</span>
+        <span>Edexcel Component 3 &bull; Modulation Processing</span>
+      </div>
+      <div class="progress-pill" id="progressPill">Q 1 / 10</div>
+    </div>
+
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+
+    <div class="quiz-body" id="quizBody">
+      <div class="question-stem" id="questionStem">Loading Question...</div>
+
+      <div class="options-grid" id="optionsGrid"></div>
+
+      <div class="explanation-box" id="explanationBox">
+        <h4>Examiner Specification Insight</h4>
+        <p id="explanationText"></p>
+      </div>
+
+      <div class="quiz-footer">
+        <div class="score-indicator" id="scoreIndicator">Score: 0 / 0</div>
+        <button class="next-btn" id="nextBtn" onclick="nextQuestion()" disabled>
+          <span>Next Question</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- SUMMARY SCREEN -->
+    <div class="summary-screen" id="summaryScreen">
+      <div class="topic-badge" style="margin-bottom: 16px;">Assessment Complete</div>
+      <h2 class="summary-title">Phaser Effect &amp; All-Pass Filters Completed!</h2>
+      <p style="color: var(--text-muted); font-size: 15px;">Official Pearson Edexcel Component 3 Specification Review</p>
+
+      <div class="score-circle">
+        <div class="score-val" id="finalScoreVal">10</div>
+        <div class="score-max">/ 10 MARKS</div>
+      </div>
+
+      <div class="grade-badge" id="gradeBadge">Grade A*</div>
+
+      <p id="feedbackMessage" style="color: var(--text-muted); font-size: 14px; max-width: 500px; margin: 0 auto 30px; line-height: 1.6;"></p>
+
+      <button class="next-btn" onclick="restartQuiz()" style="margin: 0 auto;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M1 4v6h6M23 20v-6h-6"/><path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"/></svg>
+        <span>Retake Specification Quiz</span>
+      </button>
+    </div>
+  </div>
+
+  <script>
+    const questions = [{"q": "How does an analog Phaser pedal create frequency cancellation notches without using an audio delay line?", "options": ["By passing the signal through a physical spring tank", "By cascading active all-pass filter stages that introduce frequency-dependent phase shifts", "By playing two tape decks at slightly different motor speeds", "By converting the audio into frequency sub-bands with an FFT processor"], "correct": 1, "expl": "Phasers do not use time delay lines. Instead, they use operational amplifiers configured as all-pass filters. All frequencies pass through at equal volume, but specific frequencies have their phase angle shifted. Mixing this with dry audio creates cancellation notches."}, {"q": "What is the critical acoustic difference between the notches created by a Phaser and those created by a Flanger?", "options": ["Phaser notches are spaced non-harmonically (logarithmically), while flanger comb notches are spaced in a linear harmonic series", "Phaser notches only occur in the bass register below 200 Hz", "Flanger notches are always static and cannot be swept by an LFO", "Phasers produce infinite notches across all frequencies simultaneously"], "correct": 0, "expl": "Because flanging uses a true time delay, its comb filter notches fall at exact mathematical integer multiples ($f, 3f, 5f...$). Phasers use electronic RC networks whose phase shift varies non-linearly with frequency, producing non-harmonically spaced, warmer notches."}, {"q": "How many sweeping cancellation notches are generated by a classic 4-stage phaser circuit like the MXR Phase 90?", "options": ["1 notch", "2 notches", "4 notches", "8 notches"], "correct": 1, "expl": "In an analog all-pass phaser, each pair of all-pass filter stages introduces up to 180\u00b0 of phase shift, creating one cancellation notch when blended with the dry signal. Therefore, a 4-stage phaser generates 2 notches; an 8-stage generates 4 notches."}, {"q": "What sonic effect does increasing the Feedback (or Resonance) control produce on a phaser pedal?", "options": ["It delays the audio by an additional 50 milliseconds", "It deepens the cancellation notches and sharpens the resonant peaks between them, creating a more intense, vocal, chewy sweep", "It converts the phaser effect into a digital pitch vibrato", "It completely silences the dry audio path"], "correct": 1, "expl": "Routing a portion of the phase-shifted output back into the first all-pass stage introduces resonance at the boundary frequencies. This narrows and sharpens the peaks between the notches, giving the phaser an aggressive, cutting, liquid chewiness."}, {"q": "Which guitar legend famously placed an MXR Phase 90 pedal before an overdriven Marshall Super Lead amplifier on tracks like 'Ain't Talkin' 'Bout Love'?", "options": ["Jimmy Page", "Eddie Van Halen", "David Gilmour", "The Edge"], "correct": 1, "expl": "Eddie Van Halen used a script-logo MXR Phase 90 pedal set to a slow sweep rate on his debut 1978 album. Placing the phaser before his dimed Marshall Plexi created the signature harmonically saturated, swirling 'Brown Sound' texture."}, {"q": "What is the primary function of the Low-Frequency Oscillator (LFO) within an analog phaser circuit?", "options": ["To generate audible sub-bass tones under the guitar signal", "To sweep the control voltage feeding variable resistors (JFETs), continuously moving the notch center frequencies up and down the spectrum", "To sync the phaser's internal clock to SMPTE timecode", "To convert the input signal from high impedance to low impedance"], "correct": 1, "expl": "The LFO outputs an inaudible sub-audio cyclic voltage (typically 0.1 Hz to 10 Hz) that modulates the internal resistance of JFET transistors or photocells in each filter stage, causing the cancellation notches to sweep smoothly across frequencies."}, {"q": "How does a Phaser fundamentally differ from a standard Wah-Wah pedal?", "options": ["A Wah-Wah sweeps a single resonant band-pass filter peak, whereas a phaser sweeps multiple phase cancellation notches across the spectrum", "A Wah-Wah is a digital time-delay effect, while a phaser is purely acoustic", "A Wah-Wah requires dual tape heads, while a phaser uses an endless magnetic loop", "A phaser can only be adjusted with an expression pedal"], "correct": 0, "expl": "A Wah-Wah pedal uses an inductor-capacitor circuit to sweep a single resonant peak (boosting a specific frequency band like a vocal formant). A phaser leaves the entire frequency spectrum intact while carving out multiple sweeping cancellation troughs."}, {"q": "Which landmark 1975 Pink Floyd track prominently features an MXR Phase 90 on David Gilmour's clean four-note guitar arpeggio?", "options": ["'Comfortably Numb'", "'Shine On You Crazy Diamond'", "'Another Brick In The Wall (Part 2)'", "'Time'"], "correct": 1, "expl": "David Gilmour's haunting four-note Syd Barrett theme on 'Shine On You Crazy Diamond' (Wish You Were Here, 1975) was played on a Fender Stratocaster routed through an MXR Phase 90 and a Hiwatt DR103 amplifier."}, {"q": "Why were matched JFETs (Junction Field Effect Transistors) traditionally critical in the manufacturing of classic analog phasers?", "options": ["They amplify the signal by +20 dB without generating heat", "They behave as variable resistors whose resistance changes with gate voltage, requiring identical matching so all filter stages sweep in unison", "They prevent the phaser from drawing too much battery current", "They convert unbalanced guitar signals into balanced XLR microphone levels"], "correct": 1, "expl": "Each all-pass stage relies on a resistance-capacitance (RC) network to determine phase shift frequency. If the JFET variable resistors are not closely matched in their voltage-to-resistance response, the notches will track erratically and destroy the smooth swirl."}, {"q": "What sonic difference occurs when a phaser pedal is placed BEFORE distortion versus AFTER distortion in a guitar signal path?", "options": ["Before distortion yields a warm, subtle, dynamic vocal chew; after distortion yields a bright, dramatic, slicing sweep that dominates the tone", "Before distortion causes tape flanging; after distortion causes slapback echo", "Placing it after distortion causes runaway self-oscillation that mutes the amplifier", "There is zero measurable or audible difference between before and after distortion"], "correct": 0, "expl": "Placing a phaser before distortion modulates the clean guitar dynamics before clipping, resulting in rich, warm harmonic bloom as the amp compresses the sweep. Placing it after distortion filters the already heavily clipped harmonics with dramatic, sharp intensity."}];
+    let currentIdx = 0;
+    let score = 0;
+    let answered = false;
+
+    function renderQuestion() {
+      answered = false;
+      const q = questions[currentIdx];
+
+      // Update counters
+      document.getElementById('progressPill').textContent = `Q ${currentIdx + 1} / ${questions.length}`;
+      document.getElementById('progressFill').style.width = `${((currentIdx + 1) / questions.length) * 100}%`;
+      document.getElementById('scoreIndicator').textContent = `Score: ${score} / ${currentIdx}`;
+
+      // Update Question
+      document.getElementById('questionStem').textContent = q.q;
+
+      // Update Options
+      const grid = document.getElementById('optionsGrid');
+      grid.innerHTML = '';
+      const letters = ['A', 'B', 'C', 'D'];
+
+      q.options.forEach((opt, idx) => {
+        const btn = document.createElement('button');
+        btn.className = 'option-btn';
+        btn.innerHTML = `<span class="opt-letter">${letters[idx]}</span><span>${opt}</span>`;
+        btn.onclick = () => selectOption(idx);
+        grid.appendChild(btn);
+      });
+
+      // Reset explanation & button
+      document.getElementById('explanationBox').style.display = 'none';
+      document.getElementById('nextBtn').disabled = true;
+      document.getElementById('nextBtn').innerHTML = (currentIdx === questions.length - 1) 
+        ? '<span>Finish Assessment</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>' 
+        : '<span>Next Question</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>';
+    }
+
+    function selectOption(selectedIdx) {
+      if (answered) return;
+      answered = true;
+
+      const q = questions[currentIdx];
+      const buttons = document.querySelectorAll('.option-btn');
+
+      buttons.forEach(btn => btn.disabled = true);
+
+      if (selectedIdx === q.correct) {
+        buttons[selectedIdx].classList.add('correct');
+        score++;
+      } else {
+        buttons[selectedIdx].classList.add('incorrect');
+        buttons[q.correct].classList.add('correct');
+      }
+
+      // Show explanation
+      document.getElementById('explanationText').textContent = q.expl;
+      document.getElementById('explanationBox').style.display = 'block';
+
+      // Update score & enable next
+      document.getElementById('scoreIndicator').textContent = `Score: ${score} / ${currentIdx + 1}`;
+      document.getElementById('nextBtn').disabled = false;
+    }
+
+    function nextQuestion() {
+      if (currentIdx < questions.length - 1) {
+        currentIdx++;
+        renderQuestion();
+      } else {
+        showSummary();
+      }
+    }
+
+    function showSummary() {
+      document.getElementById('quizBody').style.display = 'none';
+      document.getElementById('summaryScreen').style.display = 'block';
+      document.getElementById('finalScoreVal').textContent = score;
+
+      const pct = (score / questions.length) * 100;
+      const badge = document.getElementById('gradeBadge');
+      const msg = document.getElementById('feedbackMessage');
+
+      if (pct >= 80) {
+        badge.style.background = 'rgba(52, 211, 153, 0.2)';
+        badge.style.border = '1px solid #34d399';
+        badge.style.color = '#34d399';
+        badge.textContent = 'Grade A* / Distinction (Master Level)';
+        msg.textContent = 'Outstanding specification knowledge! You have mastered the technical signal flow, parameters, and historical contexts of this effect.';
+      } else if (pct >= 60) {
+        badge.style.background = 'rgba(56, 189, 248, 0.2)';
+        badge.style.border = '1px solid #38bdf8';
+        badge.style.color = '#38bdf8';
+        badge.textContent = 'Grade B (Solid Understanding)';
+        msg.textContent = 'Good work! Review the technical formulas, routing distinctions, and parameter calculations to convert this into top-mark mastery.';
+      } else {
+        badge.style.background = 'rgba(239, 68, 68, 0.2)';
+        badge.style.border = '1px solid #ef4444';
+        badge.style.color = '#ef4444';
+        badge.textContent = 'Needs Review';
+        msg.textContent = 'Spend some time revisiting the interactive slide deck and technical homework guide to solidify your understanding of these core principles.';
+      }
+    }
+
+    function restartQuiz() {
+      currentIdx = 0;
+      score = 0;
+      document.getElementById('summaryScreen').style.display = 'none';
+      document.getElementById('quizBody').style.display = 'flex';
+      renderQuestion();
+    }
+
+    // Init
+    renderQuestion();
+  </script>
+</body>
+</html>

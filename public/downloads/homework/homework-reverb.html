@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Component 3 Homework Pack • Reverb Effects &amp; Spatial Processing | Music Tech Guru</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --accent: #0284c7;
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --font: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      line-height: 1.6;
+      margin: 0;
+      padding: 24px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: var(--card);
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+      padding: 40px;
+    }
+
+    .header-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid #0f172a;
+      padding-bottom: 20px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .header-title h1 {
+      font-size: 26px;
+      font-weight: 800;
+      margin: 0 0 6px 0;
+      color: #0f172a;
+    }
+
+    .header-title p {
+      margin: 0;
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+
+    .tag-badge {
+      display: inline-block;
+      background: rgba(2, 132, 199, 0.1);
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      padding: 4px 12px;
+      border-radius: 6px;
+      margin-bottom: 8px;
+    }
+
+    .print-btn {
+      background: #0f172a;
+      color: #ffffff;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .print-btn:hover {
+      background: #1e293b;
+    }
+
+    .section-title {
+      font-size: 17px;
+      font-weight: 800;
+      color: #0f172a;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 8px;
+      margin: 32px 0 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .section-title span {
+      color: var(--accent);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13.5px;
+      margin-bottom: 24px;
+    }
+
+    th {
+      background: #f1f5f9;
+      text-align: left;
+      padding: 10px 14px;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border-bottom: 2px solid #cbd5e1;
+    }
+
+    .student-fields {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 16px;
+      background: #f8fafc;
+      padding: 14px 18px;
+      border-radius: 8px;
+      border: 1px solid #e2e8f0;
+      margin-bottom: 24px;
+      font-size: 13px;
+    }
+
+    .student-fields strong {
+      color: #475569;
+    }
+
+    @media print {
+      body { background: #fff; padding: 0; }
+      .container { border: none; box-shadow: none; padding: 10px; max-width: 100%; }
+      .print-btn { display: none; }
+      .section-title { page-break-after: avoid; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="header-bar">
+      <div class="header-title">
+        <div class="tag-badge">Edexcel Component 3 &bull; Acoustic &amp; Spatial Processing</div>
+        <h1>Reverb Effects &amp; Spatial Processing</h1>
+        <p>Chambers, EMT Plates, Springs, Gated Drums &amp; Convolution IR</p>
+      </div>
+      <div>
+        <button class="print-btn" onclick="window.print()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+          Print / Save PDF
+        </button>
+      </div>
+    </div>
+
+    <div class="student-fields">
+      <div><strong>Student Name:</strong> ______________________</div>
+      <div><strong>Date:</strong> ______________________</div>
+      <div><strong>Teacher / Grade:</strong> _______ / 25 Marks</div>
+    </div>
+
+    <!-- 1. LANDMARK LISTENING CASE STUDIES -->
+    <div class="section-title"><span>01</span> Landmark Audio Case Studies</div>
+    <p style="font-size: 13.5px; color: var(--text-muted); margin-bottom: 16px;">
+      Listen critically to the benchmark recordings below on headphones. Identify the specific effects hardware, signal routing, and sonic artifacts that define each production.
+    </p>
+    
+    <div style="background: #f1f5f9; border-left: 4px solid #0284c7; padding: 14px 18px; border-radius: 8px; margin-bottom: 12px;">
+      <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 6px;">
+        <strong style="color: #0f172a; font-size: 15px;">Phil Collins &ndash; 'In The Air Tonight' (1981)</strong>
+        <span style="color: #0284c7; font-size: 12px; font-weight: 700; background: rgba(2, 132, 199, 0.1); padding: 2px 8px; border-radius: 4px;">Townhouse Stone Room &bull; SSL 4000 Listen Mic &bull; Noise Gate</span>
+      </div>
+      <p style="margin: 6px 0 0; font-size: 13.5px; color: #475569;">Explosive gated snare reverb: massive stone room reflection tail aggressively truncated into dead silence by a fast-release gate.</p>
+    </div>
+    
+    <div style="background: #f1f5f9; border-left: 4px solid #0284c7; padding: 14px 18px; border-radius: 8px; margin-bottom: 12px;">
+      <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 6px;">
+        <strong style="color: #0f172a; font-size: 15px;">The Beach Boys &ndash; 'Good Vibrations' (1966)</strong>
+        <span style="color: #0284c7; font-size: 12px; font-weight: 700; background: rgba(2, 132, 199, 0.1); padding: 2px 8px; border-radius: 4px;">Western Recorders Acoustic Echo Chamber</span>
+      </div>
+      <p style="margin: 6px 0 0; font-size: 13.5px; color: #475569;">Natural subterranean tiled chamber reverb delivering deep, three-dimensional acoustic bloom on vocal harmonies.</p>
+    </div>
+    
+    <div style="background: #f1f5f9; border-left: 4px solid #0284c7; padding: 14px 18px; border-radius: 8px; margin-bottom: 12px;">
+      <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 6px;">
+        <strong style="color: #0f172a; font-size: 15px;">Simon &amp; Garfunkel &ndash; 'Bridge Over Troubled Water' (1970)</strong>
+        <span style="color: #0284c7; font-size: 12px; font-weight: 700; background: rgba(2, 132, 199, 0.1); padding: 2px 8px; border-radius: 4px;">Columbia 30th Street Studio &amp; EMT 140 Plate</span>
+      </div>
+      <p style="margin: 6px 0 0; font-size: 13.5px; color: #475569;">Lush 1x2m steel plate reverberation providing smooth, dense, shimmering decay across piano and vocal crescendos.</p>
+    </div>
+    
+    <div style="background: #f1f5f9; border-left: 4px solid #0284c7; padding: 14px 18px; border-radius: 8px; margin-bottom: 12px;">
+      <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 6px;">
+        <strong style="color: #0f172a; font-size: 15px;">Dick Dale &ndash; 'Misirlou' (1962)</strong>
+        <span style="color: #0284c7; font-size: 12px; font-weight: 700; background: rgba(2, 132, 199, 0.1); padding: 2px 8px; border-radius: 4px;">Fender Outboard Tube Spring Reverb Unit</span>
+      </div>
+      <p style="margin: 6px 0 0; font-size: 13.5px; color: #475569;">Surf guitar drip: mechanical coiled steel springs driven into fluttering, twangy mechanical dispersion.</p>
+    </div>
+    
+
+    <!-- 2. TECHNICAL SPECIFICATION CHECKLIST -->
+    <div class="section-title"><span>02</span> Technical Parameter &amp; Circuit Architecture</div>
+    <table>
+      <thead>
+        <tr>
+          <th>Specification Parameter</th>
+          <th>Engineering Description &bull; Exam Definition</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+    <tr>
+      <td style="padding: 10px 14px; border-bottom: 1px solid #e2e8f0; font-weight: 700; color: #0f172a; width: 28%;">RT60 Decay Time</td>
+      <td style="padding: 10px 14px; border-bottom: 1px solid #e2e8f0; color: #475569;">Time in seconds required for sound reflections to decay by 60 dB below the direct sound level.</td>
+    </tr>
+    
+    <tr>
+      <td style="padding: 10px 14px; border-bottom: 1px solid #e2e8f0; font-weight: 700; color: #0f172a; width: 28%;">Pre-Delay Gap</td>
+      <td style="padding: 10px 14px; border-bottom: 1px solid #e2e8f0; color: #475569;">Time offset (10–60ms) between direct sound and early reflections; preserves vocal intimacy before the wash.</td>
+    </tr>
+    
+    <tr>
+      <td style="padding: 10px 14px; border-bottom: 1px solid #e2e8f0; font-weight: 700; color: #0f172a; width: 28%;">EMT 140 Plate</td>
+      <td style="padding: 10px 14px; border-bottom: 1px solid #e2e8f0; color: #475569;">Suspended 1x2m cold-rolled steel sheet excited by transducer; dense, smooth, high-diffusion decay.</td>
+    </tr>
+    
+    <tr>
+      <td style="padding: 10px 14px; border-bottom: 1px solid #e2e8f0; font-weight: 700; color: #0f172a; width: 28%;">Spring Tank</td>
+      <td style="padding: 10px 14px; border-bottom: 1px solid #e2e8f0; color: #475569;">Coiled steel wires excited by electromagnetic transducers; twangy, dispersed, fluttery character.</td>
+    </tr>
+    
+    <tr>
+      <td style="padding: 10px 14px; border-bottom: 1px solid #e2e8f0; font-weight: 700; color: #0f172a; width: 28%;">Gated Reverb Chain</td>
+      <td style="padding: 10px 14px; border-bottom: 1px solid #e2e8f0; color: #475569;">Snare Drum &rarr; Massive Non-Linear Room/Plate &rarr; Aggressive VCA Compressor &rarr; Fast-Release Noise Gate.</td>
+    </tr>
+    
+      </tbody>
+    </table>
+
+    <!-- 3. SECTION A: EXAM PRACTICE QUESTIONS -->
+    <div class="section-title"><span>03</span> Section A: Specification Exam Questions (13 Marks)</div>
+    <p style="font-size: 13.5px; color: var(--text-muted); margin-bottom: 16px;">
+      Answer all questions in the spaces provided. Complete mark schemes and examiner guidance are included for self-assessment and peer marking.
+    </p>
+    
+    <div style="margin-bottom: 24px; padding-bottom: 20px; border-bottom: 1px dashed #cbd5e1;">
+      <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px;">
+        <strong style="color: #0f172a; font-size: 15px;">Question 1</strong>
+        <span style="background: #e2e8f0; color: #0f172a; font-size: 12px; font-weight: 800; padding: 2px 8px; border-radius: 4px;">[2 MARKS]</span>
+      </div>
+      <p style="margin: 0 0 12px; font-size: 14px; color: #1e293b; font-weight: 500;">State the precise acoustic definition of RT60.</p>
+      
+      <!-- Mark Scheme Box -->
+      <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-left: 3px solid #10b981; border-radius: 6px; padding: 10px 14px; font-size: 12.5px; color: #334155;">
+        <strong style="color: #059669; text-transform: uppercase; font-size: 11px; letter-spacing: 0.5px; display: block; margin-bottom: 4px;">Examiner Mark Scheme &bull; Guidance:</strong>
+        Award 1 mark for the time in seconds for reverberant sound reflections to decay. 1 mark for specifying a reduction of 60 dB below the direct/initial sound level.
+      </div>
+    </div>
+    
+    <div style="margin-bottom: 24px; padding-bottom: 20px; border-bottom: 1px dashed #cbd5e1;">
+      <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px;">
+        <strong style="color: #0f172a; font-size: 15px;">Question 2</strong>
+        <span style="background: #e2e8f0; color: #0f172a; font-size: 12px; font-weight: 800; padding: 2px 8px; border-radius: 4px;">[3 MARKS]</span>
+      </div>
+      <p style="margin: 0 0 12px; font-size: 14px; color: #1e293b; font-weight: 500;">Explain how Pre-Delay helps a lead vocal sit clearly in a modern mix without being masked by its reverb wash.</p>
+      
+      <!-- Mark Scheme Box -->
+      <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-left: 3px solid #10b981; border-radius: 6px; padding: 10px 14px; font-size: 12.5px; color: #334155;">
+        <strong style="color: #059669; text-transform: uppercase; font-size: 11px; letter-spacing: 0.5px; display: block; margin-bottom: 4px;">Examiner Mark Scheme &bull; Guidance:</strong>
+        Award 1 mark for explaining that pre-delay introduces a time gap (15–50ms) before reflections begin. 1 mark for stating that initial consonants/transients pass through completely dry and articulate. 1 mark for noting that the reverb blooms only after the transient, preventing masking.
+      </div>
+    </div>
+    
+    <div style="margin-bottom: 24px; padding-bottom: 20px; border-bottom: 1px dashed #cbd5e1;">
+      <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px;">
+        <strong style="color: #0f172a; font-size: 15px;">Question 3</strong>
+        <span style="background: #e2e8f0; color: #0f172a; font-size: 12px; font-weight: 800; padding: 2px 8px; border-radius: 4px;">[3 MARKS]</span>
+      </div>
+      <p style="margin: 0 0 12px; font-size: 14px; color: #1e293b; font-weight: 500;">Describe the mechanical construction and operation of an EMT 140 plate reverb.</p>
+      
+      <!-- Mark Scheme Box -->
+      <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-left: 3px solid #10b981; border-radius: 6px; padding: 10px 14px; font-size: 12.5px; color: #334155;">
+        <strong style="color: #059669; text-transform: uppercase; font-size: 11px; letter-spacing: 0.5px; display: block; margin-bottom: 4px;">Examiner Mark Scheme &bull; Guidance:</strong>
+        Award 1 mark for a 1x2 meter cold-rolled steel sheet suspended under tension inside a heavy frame. 1 mark for an electromagnetic driver/transducer vibrating the plate with audio. 1 mark for contact pickups capturing the bending waves / mechanical damper pad controlling decay time.
+      </div>
+    </div>
+    
+    <div style="margin-bottom: 24px; padding-bottom: 20px; border-bottom: 1px dashed #cbd5e1;">
+      <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px;">
+        <strong style="color: #0f172a; font-size: 15px;">Question 4</strong>
+        <span style="background: #e2e8f0; color: #0f172a; font-size: 12px; font-weight: 800; padding: 2px 8px; border-radius: 4px;">[3 MARKS]</span>
+      </div>
+      <p style="margin: 0 0 12px; font-size: 14px; color: #1e293b; font-weight: 500;">Detail the complete signal chain and gate settings used to create the 1980s gated snare drum sound.</p>
+      
+      <!-- Mark Scheme Box -->
+      <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-left: 3px solid #10b981; border-radius: 6px; padding: 10px 14px; font-size: 12.5px; color: #334155;">
+        <strong style="color: #059669; text-transform: uppercase; font-size: 11px; letter-spacing: 0.5px; display: block; margin-bottom: 4px;">Examiner Mark Scheme &bull; Guidance:</strong>
+        Award 1 mark for feeding the snare to a large room or plate reverb. 1 mark for heavy compression (e.g. SSL listen mic compressor). 1 mark for noise gate set with threshold open on the snare hit, hold time ~150-250ms, and instantaneous fast release (10-20ms) cutting off the tail abruptly.
+      </div>
+    </div>
+    
+    <div style="margin-bottom: 24px; padding-bottom: 20px; border-bottom: 1px dashed #cbd5e1;">
+      <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px;">
+        <strong style="color: #0f172a; font-size: 15px;">Question 5</strong>
+        <span style="background: #e2e8f0; color: #0f172a; font-size: 12px; font-weight: 800; padding: 2px 8px; border-radius: 4px;">[2 MARKS]</span>
+      </div>
+      <p style="margin: 0 0 12px; font-size: 14px; color: #1e293b; font-weight: 500;">Explain how Convolution Reverb captures and recreates the acoustic properties of a physical concert hall.</p>
+      
+      <!-- Mark Scheme Box -->
+      <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-left: 3px solid #10b981; border-radius: 6px; padding: 10px 14px; font-size: 12.5px; color: #334155;">
+        <strong style="color: #059669; text-transform: uppercase; font-size: 11px; letter-spacing: 0.5px; display: block; margin-bottom: 4px;">Examiner Mark Scheme &bull; Guidance:</strong>
+        Award 1 mark for recording an Impulse Response (IR) of the room using a starter pistol or sine sweep. 1 mark for mathematically multiplying (convolving) the input audio signal with the IR using digital signal processing.
+      </div>
+    </div>
+    
+
+    <!-- 4. SECTION B: 12-MARK ESSAY -->
+    <div class="section-title"><span>04</span> Section B: Extended Evaluation Essay (12 Marks)</div>
+    <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 10px; padding: 20px; margin-bottom: 24px;">
+      <h3 style="margin: 0 0 8px; font-size: 16px; color: #0f172a;">Extended 12-Mark Technical Evaluation Question</h3>
+      <p style="font-size: 14px; font-weight: 600; color: #1e293b; margin-bottom: 14px;">Evaluate the development and musical application of artificial reverberation technologies: • Acoustic chambers and EMT plate reverbs • Spring reverb tanks in guitar amplifiers • Digital algorithmic (Lexicon) and convolution processors • The role of pre-delay, damping, and gated reverb in production.</p>
+      
+      <div style="background: #ffffff; border: 1px solid #e2e8f0; border-left: 3px solid var(--accent); padding: 12px 16px; border-radius: 6px; font-size: 13px; color: #334155; line-height: 1.6;">
+        <strong style="color: var(--accent); text-transform: uppercase; font-size: 11px; letter-spacing: 0.5px; display: block; margin-bottom: 6px;">Indicative Content &bull; Examiner Commentary:</strong>
+        • Physical Chambers: Tiled basement rooms with speaker/mic (Putnam, Capitol, Abbey Road). Natural, smooth 3D decay but fixed acoustic characteristics.<br>• EMT 140 Plate (1957): Suspended 1x2m steel sheet; eliminates room construction; dense high-frequency diffusion ideal for vocals; adjustable mechanical damper.<br>• Spring Reverb: Coiled steel springs (Fender Twin). Frequency-dependent dispersion creates iconic surf 'twang' and mechanical flutter.<br>• Digital Algorithmic (Lexicon 224/480L): Microprocessor feedback delay networks; user controls RT60, room size, pre-delay, and damping.<br>• 1980s Gated Reverb: Townhouse/SSL Phil Collins technique; non-linear acoustic impact without muddying fast tempos.<br>• Convolution: Mathematical impulse response reproduction of real acoustic spaces.
+      </div>
+    </div>
+
+    <div style="text-align: center; border-top: 1px solid #e2e8f0; padding-top: 18px; font-size: 12px; color: var(--text-muted);">
+      Pearson Edexcel A-Level Music Technology &bull; Component 3 (Music Technology in Context) Revision Resource &bull; Music Tech Guru
+    </div>
+  </div>
+
+</body>
+</html>

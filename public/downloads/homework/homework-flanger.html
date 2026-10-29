@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Component 3 Homework Pack • Flanger Effect &amp; Comb Filtering | Music Tech Guru</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --accent: #0284c7;
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --font: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      line-height: 1.6;
+      margin: 0;
+      padding: 24px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: var(--card);
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+      padding: 40px;
+    }
+
+    .header-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid #0f172a;
+      padding-bottom: 20px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .header-title h1 {
+      font-size: 26px;
+      font-weight: 800;
+      margin: 0 0 6px 0;
+      color: #0f172a;
+    }
+
+    .header-title p {
+      margin: 0;
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+
+    .tag-badge {
+      display: inline-block;
+      background: rgba(2, 132, 199, 0.1);
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      padding: 4px 12px;
+      border-radius: 6px;
+      margin-bottom: 8px;
+    }
+
+    .print-btn {
+      background: #0f172a;
+      color: #ffffff;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .print-btn:hover {
+      background: #1e293b;
+    }
+
+    .section-title {
+      font-size: 17px;
+      font-weight: 800;
+      color: #0f172a;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 8px;
+      margin: 32px 0 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .section-title span {
+      color: var(--accent);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13.5px;
+      margin-bottom: 24px;
+    }
+
+    th {
+      background: #f1f5f9;
+      text-align: left;
+      padding: 10px 14px;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border-bottom: 2px solid #cbd5e1;
+    }
+
+    .student-fields {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 16px;
+      background: #f8fafc;
+      padding: 14px 18px;
+      border-radius: 8px;
+      border: 1px solid #e2e8f0;
+      margin-bottom: 24px;
+      font-size: 13px;
+    }
+
+    .student-fields strong {
+      color: #475569;
+    }
+
+    @media print {
+      body { background: #fff; padding: 0; }
+      .container { border: none; box-shadow: none; padding: 10px; max-width: 100%; }
+      .print-btn { display: none; }
+      .section-title { page-break-after: avoid; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="header-bar">
+      <div class="header-title">
+        <div class="tag-badge">Edexcel Component 3 &bull; Modulation Signal Processing</div>
+        <h1>Flanger Effect &amp; Comb Filtering</h1>
+        <p>Micro-Delays, Harmonically Spaced Comb Notches &amp; Jet Sweeps</p>
+      </div>
+      <div>
+        <button class="print-btn" onclick="window.print()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+          Print / Save PDF
+        </button>
+      </div>
+    </div>
+
+    <div class="student-fields">
+      <div><strong>Student Name:</strong> ______________________</div>
+      <div><strong>Date:</strong> ______________________</div>
+      <div><strong>Teacher / Grade:</strong> _______ / 25 Marks</div>
+    </div>
+
+    <!-- 1. LANDMARK LISTENING CASE STUDIES -->
+    <div class="section-title"><span>01</span> Landmark Audio Case Studies</div>
+    <p style="font-size: 13.5px; color: var(--text-muted); margin-bottom: 16px;">
+      Listen critically to the benchmark recordings below on headphones. Identify the specific effects hardware, signal routing, and sonic artifacts that define each production.
+    </p>
+    
+    <div style="background: #f1f5f9; border-left: 4px solid #0284c7; padding: 14px 18px; border-radius: 8px; margin-bottom: 12px;">
+      <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 6px;">
+        <strong style="color: #0f172a; font-size: 15px;">Heart &ndash; 'Barracuda' (1977)</strong>
+        <span style="color: #0284c7; font-size: 12px; font-weight: 700; background: rgba(2, 132, 199, 0.1); padding: 2px 8px; border-radius: 4px;">Analog BBD Flanger &bull; Electric Rhythm Guitar</span>
+      </div>
+      <p style="margin: 6px 0 0; font-size: 13.5px; color: #475569;">Nancy Wilson's galloping open-E chug: aggressive sweeping comb filter notches creating massive metallic energy.</p>
+    </div>
+    
+    <div style="background: #f1f5f9; border-left: 4px solid #0284c7; padding: 14px 18px; border-radius: 8px; margin-bottom: 12px;">
+      <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 6px;">
+        <strong style="color: #0f172a; font-size: 15px;">The Small Faces &ndash; 'Itchycoo Park' (1967)</strong>
+        <span style="color: #0284c7; font-size: 12px; font-weight: 700; background: rgba(2, 132, 199, 0.1); padding: 2px 8px; border-radius: 4px;">Synchronized Reel-to-Reel Tape Decks at Olympic Studios</span>
+      </div>
+      <p style="margin: 6px 0 0; font-size: 13.5px; color: #475569;">First commercial pop record with tape flanging: George Chkiantz pressing his thumb on the tape reel flange to flange drum fills.</p>
+    </div>
+    
+    <div style="background: #f1f5f9; border-left: 4px solid #0284c7; padding: 14px 18px; border-radius: 8px; margin-bottom: 12px;">
+      <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 6px;">
+        <strong style="color: #0f172a; font-size: 15px;">Van Halen &ndash; 'Unchained' (1981)</strong>
+        <span style="color: #0284c7; font-size: 12px; font-weight: 700; background: rgba(2, 132, 199, 0.1); padding: 2px 8px; border-radius: 4px;">MXR M-117 Flanger &bull; EVH Signature Riff</span>
+      </div>
+      <p style="margin: 6px 0 0; font-size: 13.5px; color: #475569;">Drop-D tuning processed with deep, resonant jet-plane flanging on opening power chord strums.</p>
+    </div>
+    
+    <div style="background: #f1f5f9; border-left: 4px solid #0284c7; padding: 14px 18px; border-radius: 8px; margin-bottom: 12px;">
+      <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 6px;">
+        <strong style="color: #0f172a; font-size: 15px;">Lenny Kravitz &ndash; 'Are You Gonna Go My Way' (1993)</strong>
+        <span style="color: #0284c7; font-size: 12px; font-weight: 700; background: rgba(2, 132, 199, 0.1); padding: 2px 8px; border-radius: 4px;">Vintage Tape Flanging / Analog Flanger</span>
+      </div>
+      <p style="margin: 6px 0 0; font-size: 13.5px; color: #475569;">Retro 70s drum break and master bus flanging swooshing dramatically across the bridge.</p>
+    </div>
+    
+
+    <!-- 2. TECHNICAL SPECIFICATION CHECKLIST -->
+    <div class="section-title"><span>02</span> Technical Parameter &amp; Circuit Architecture</div>
+    <table>
+      <thead>
+        <tr>
+          <th>Specification Parameter</th>
+          <th>Engineering Description &bull; Exam Definition</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+    <tr>
+      <td style="padding: 10px 14px; border-bottom: 1px solid #e2e8f0; font-weight: 700; color: #0f172a; width: 28%;">1–15ms Micro-Delay</td>
+      <td style="padding: 10px 14px; border-bottom: 1px solid #e2e8f0; color: #475569;">The ultra-short time window where delayed signal interferes acoustically with direct sound, creating comb filtering.</td>
+    </tr>
+    
+    <tr>
+      <td style="padding: 10px 14px; border-bottom: 1px solid #e2e8f0; font-weight: 700; color: #0f172a; width: 28%;">Harmonic Comb Series</td>
+      <td style="padding: 10px 14px; border-bottom: 1px solid #e2e8f0; color: #475569;">Linear series of peaks and troughs occurring at exact odd multiples: f = 1/(2*tau), 3/(2*tau), 5/(2*tau)...</td>
+    </tr>
+    
+    <tr>
+      <td style="padding: 10px 14px; border-bottom: 1px solid #e2e8f0; font-weight: 700; color: #0f172a; width: 28%;">Tape Flanging Origin</td>
+      <td style="padding: 10px 14px; border-bottom: 1px solid #e2e8f0; color: #475569;">Engineers physically pressed their thumb on the flange (outer rim) of a tape supply reel to induce micro-lag.</td>
+    </tr>
+    
+    <tr>
+      <td style="padding: 10px 14px; border-bottom: 1px solid #e2e8f0; font-weight: 700; color: #0f172a; width: 28%;">Positive vs. Negative Feedback</td>
+      <td style="padding: 10px 14px; border-bottom: 1px solid #e2e8f0; color: #475569;">Positive feedback reinforces odd harmonics (woody whoosh); negative feedback inverts wet phase, creating hollow metallic tubular bite.</td>
+    </tr>
+    
+    <tr>
+      <td style="padding: 10px 14px; border-bottom: 1px solid #e2e8f0; font-weight: 700; color: #0f172a; width: 28%;">Haas Precedence Limit</td>
+      <td style="padding: 10px 14px; border-bottom: 1px solid #e2e8f0; color: #475569;">Delays below 30ms are perceived as timbral alteration; delays above 35ms break into discrete slapback echoes.</td>
+    </tr>
+    
+      </tbody>
+    </table>
+
+    <!-- 3. SECTION A: EXAM PRACTICE QUESTIONS -->
+    <div class="section-title"><span>03</span> Section A: Specification Exam Questions (13 Marks)</div>
+    <p style="font-size: 13.5px; color: var(--text-muted); margin-bottom: 16px;">
+      Answer all questions in the spaces provided. Complete mark schemes and examiner guidance are included for self-assessment and peer marking.
+    </p>
+    
+    <div style="margin-bottom: 24px; padding-bottom: 20px; border-bottom: 1px dashed #cbd5e1;">
+      <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px;">
+        <strong style="color: #0f172a; font-size: 15px;">Question 1</strong>
+        <span style="background: #e2e8f0; color: #0f172a; font-size: 12px; font-weight: 800; padding: 2px 8px; border-radius: 4px;">[3 MARKS]</span>
+      </div>
+      <p style="margin: 0 0 12px; font-size: 14px; color: #1e293b; font-weight: 500;">State the typical delay time range used by an audio flanger and explain what acoustic phenomenon occurs when it is blended with direct sound.</p>
+      
+      <!-- Mark Scheme Box -->
+      <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-left: 3px solid #10b981; border-radius: 6px; padding: 10px 14px; font-size: 12.5px; color: #334155;">
+        <strong style="color: #059669; text-transform: uppercase; font-size: 11px; letter-spacing: 0.5px; display: block; margin-bottom: 4px;">Examiner Mark Scheme &bull; Guidance:</strong>
+        Award 1 mark for 1ms to 15ms. 1 mark for destructive and constructive phase interference. 1 mark for stating that it generates a harmonically related comb filter series across the spectrum.
+      </div>
+    </div>
+    
+    <div style="margin-bottom: 24px; padding-bottom: 20px; border-bottom: 1px dashed #cbd5e1;">
+      <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px;">
+        <strong style="color: #0f172a; font-size: 15px;">Question 2</strong>
+        <span style="background: #e2e8f0; color: #0f172a; font-size: 12px; font-weight: 800; padding: 2px 8px; border-radius: 4px;">[3 MARKS]</span>
+      </div>
+      <p style="margin: 0 0 12px; font-size: 14px; color: #1e293b; font-weight: 500;">Describe the historical recording studio origin that gave 'flanging' its name.</p>
+      
+      <!-- Mark Scheme Box -->
+      <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-left: 3px solid #10b981; border-radius: 6px; padding: 10px 14px; font-size: 12.5px; color: #334155;">
+        <strong style="color: #059669; text-transform: uppercase; font-size: 11px; letter-spacing: 0.5px; display: block; margin-bottom: 4px;">Examiner Mark Scheme &bull; Guidance:</strong>
+        Award 1 mark for running two tape machines playing identical audio in synchronization. 1 mark for the engineer physically pressing a finger/thumb onto the metal flange (outer rim) of one tape reel. 1 mark for friction slowing that tape down by milliseconds, creating sweeping phase cancellation.
+      </div>
+    </div>
+    
+    <div style="margin-bottom: 24px; padding-bottom: 20px; border-bottom: 1px dashed #cbd5e1;">
+      <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px;">
+        <strong style="color: #0f172a; font-size: 15px;">Question 3</strong>
+        <span style="background: #e2e8f0; color: #0f172a; font-size: 12px; font-weight: 800; padding: 2px 8px; border-radius: 4px;">[2 MARKS]</span>
+      </div>
+      <p style="margin: 0 0 12px; font-size: 14px; color: #1e293b; font-weight: 500;">State the mathematical formula for the cancellation notch frequencies in a flanger comb filter where delay time is tau (seconds).</p>
+      
+      <!-- Mark Scheme Box -->
+      <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-left: 3px solid #10b981; border-radius: 6px; padding: 10px 14px; font-size: 12.5px; color: #334155;">
+        <strong style="color: #059669; text-transform: uppercase; font-size: 11px; letter-spacing: 0.5px; display: block; margin-bottom: 4px;">Examiner Mark Scheme &bull; Guidance:</strong>
+        Award 2 marks for f = (2n + 1) / (2 * tau) or specifying f = 1/(2*tau), 3/(2*tau), 5/(2*tau)... (Award 1 mark for mentioning odd half-wavelength multiples).
+      </div>
+    </div>
+    
+    <div style="margin-bottom: 24px; padding-bottom: 20px; border-bottom: 1px dashed #cbd5e1;">
+      <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px;">
+        <strong style="color: #0f172a; font-size: 15px;">Question 4</strong>
+        <span style="background: #e2e8f0; color: #0f172a; font-size: 12px; font-weight: 800; padding: 2px 8px; border-radius: 4px;">[3 MARKS]</span>
+      </div>
+      <p style="margin: 0 0 12px; font-size: 14px; color: #1e293b; font-weight: 500;">Explain how high Feedback (Regeneration) produces the iconic 'jet-plane whoosh' associated with flanging.</p>
+      
+      <!-- Mark Scheme Box -->
+      <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-left: 3px solid #10b981; border-radius: 6px; padding: 10px 14px; font-size: 12.5px; color: #334155;">
+        <strong style="color: #059669; text-transform: uppercase; font-size: 11px; letter-spacing: 0.5px; display: block; margin-bottom: 4px;">Examiner Mark Scheme &bull; Guidance:</strong>
+        Award 1 mark for recirculating the delayed signal back into the flanger input. 1 mark for resonance building up at the peaks between the comb notches. 1 mark for the LFO sweeping these resonant whistling overtones up and down the spectrum.
+      </div>
+    </div>
+    
+    <div style="margin-bottom: 24px; padding-bottom: 20px; border-bottom: 1px dashed #cbd5e1;">
+      <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px;">
+        <strong style="color: #0f172a; font-size: 15px;">Question 5</strong>
+        <span style="background: #e2e8f0; color: #0f172a; font-size: 12px; font-weight: 800; padding: 2px 8px; border-radius: 4px;">[2 MARKS]</span>
+      </div>
+      <p style="margin: 0 0 12px; font-size: 14px; color: #1e293b; font-weight: 500;">What is 'Through-Zero Flanging' (TZF) and why could it originally only be achieved using tape decks?</p>
+      
+      <!-- Mark Scheme Box -->
+      <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-left: 3px solid #10b981; border-radius: 6px; padding: 10px 14px; font-size: 12.5px; color: #334155;">
+        <strong style="color: #059669; text-transform: uppercase; font-size: 11px; letter-spacing: 0.5px; display: block; margin-bottom: 4px;">Examiner Mark Scheme &bull; Guidance:</strong>
+        Award 1 mark for explaining that the delayed signal passes through the zero-point and momentarily leads ahead of the reference signal, resulting in total phase cancellation silence. 1 mark for noting electronic pedals cannot achieve negative time delay.
+      </div>
+    </div>
+    
+
+    <!-- 4. SECTION B: 12-MARK ESSAY -->
+    <div class="section-title"><span>04</span> Section B: Extended Evaluation Essay (12 Marks)</div>
+    <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 10px; padding: 20px; margin-bottom: 24px;">
+      <h3 style="margin: 0 0 8px; font-size: 16px; color: #0f172a;">Extended 12-Mark Technical Evaluation Question</h3>
+      <p style="font-size: 14px; font-weight: 600; color: #1e293b; margin-bottom: 14px;">Evaluate the acoustic theory, technological development, and musical application of flanging in sound recording. In your answer, refer to: • Tape flanging origins vs. modern analog BBD circuits • Mathematical principles of comb filtering and notch spacing • Positive vs. negative feedback characteristics • Landmark listening examples (The Small Faces / Heart / Van Halen).</p>
+      
+      <div style="background: #ffffff; border: 1px solid #e2e8f0; border-left: 3px solid var(--accent); padding: 12px 16px; border-radius: 6px; font-size: 13px; color: #334155; line-height: 1.6;">
+        <strong style="color: var(--accent); text-transform: uppercase; font-size: 11px; letter-spacing: 0.5px; display: block; margin-bottom: 6px;">Indicative Content &bull; Examiner Commentary:</strong>
+        • Physical Origins: 1960s Abbey Road & Olympic Studios (Ken Townsend / George Chkiantz). Physical finger pressure on tape reel flange slows tape; releasing allows catch up.<br>• Mathematical Comb Filtering: 1–15ms delay creates linear harmonic notches at odd multiples f = (2n+1)/(2*tau). Swept across spectrum by LFO.<br>• Feedback & Polarity: Positive feedback accentuates even harmonics (deep warm jet sweep); Negative feedback inverts wet phase, creating hollow, metallic, tubular bite.<br>• Through-Zero Flanging: Unique tape phenomenon where tapes cross over, causing momentary absolute cancellation silence.<br>• Landmark Recordings: The Small Faces 'Itchycoo Park' (first psychedelic tape flange); Heart 'Barracuda' (galloping rhythm guitar comb filter); Van Halen 'Unchained' (MXR Flanger).
+      </div>
+    </div>
+
+    <div style="text-align: center; border-top: 1px solid #e2e8f0; padding-top: 18px; font-size: 12px; color: var(--text-muted);">
+      Pearson Edexcel A-Level Music Technology &bull; Component 3 (Music Technology in Context) Revision Resource &bull; Music Tech Guru
+    </div>
+  </div>
+
+</body>
+</html>

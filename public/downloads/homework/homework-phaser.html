@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Component 3 Homework Pack • Phaser Effect &amp; Phase Shifting | Music Tech Guru</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --accent: #0284c7;
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --font: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      line-height: 1.6;
+      margin: 0;
+      padding: 24px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: var(--card);
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+      padding: 40px;
+    }
+
+    .header-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid #0f172a;
+      padding-bottom: 20px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .header-title h1 {
+      font-size: 26px;
+      font-weight: 800;
+      margin: 0 0 6px 0;
+      color: #0f172a;
+    }
+
+    .header-title p {
+      margin: 0;
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+
+    .tag-badge {
+      display: inline-block;
+      background: rgba(2, 132, 199, 0.1);
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      padding: 4px 12px;
+      border-radius: 6px;
+      margin-bottom: 8px;
+    }
+
+    .print-btn {
+      background: #0f172a;
+      color: #ffffff;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .print-btn:hover {
+      background: #1e293b;
+    }
+
+    .section-title {
+      font-size: 17px;
+      font-weight: 800;
+      color: #0f172a;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 8px;
+      margin: 32px 0 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .section-title span {
+      color: var(--accent);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13.5px;
+      margin-bottom: 24px;
+    }
+
+    th {
+      background: #f1f5f9;
+      text-align: left;
+      padding: 10px 14px;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border-bottom: 2px solid #cbd5e1;
+    }
+
+    .student-fields {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 16px;
+      background: #f8fafc;
+      padding: 14px 18px;
+      border-radius: 8px;
+      border: 1px solid #e2e8f0;
+      margin-bottom: 24px;
+      font-size: 13px;
+    }
+
+    .student-fields strong {
+      color: #475569;
+    }
+
+    @media print {
+      body { background: #fff; padding: 0; }
+      .container { border: none; box-shadow: none; padding: 10px; max-width: 100%; }
+      .print-btn { display: none; }
+      .section-title { page-break-after: avoid; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="header-bar">
+      <div class="header-title">
+        <div class="tag-badge">Edexcel Component 3 &bull; Modulation Signal Processing</div>
+        <h1>Phaser Effect &amp; Phase Shifting</h1>
+        <p>All-Pass Filters, Phase Cancellation &amp; Non-Harmonic Notches</p>
+      </div>
+      <div>
+        <button class="print-btn" onclick="window.print()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+          Print / Save PDF
+        </button>
+      </div>
+    </div>
+
+    <div class="student-fields">
+      <div><strong>Student Name:</strong> ______________________</div>
+      <div><strong>Date:</strong> ______________________</div>
+      <div><strong>Teacher / Grade:</strong> _______ / 25 Marks</div>
+    </div>
+
+    <!-- 1. LANDMARK LISTENING CASE STUDIES -->
+    <div class="section-title"><span>01</span> Landmark Audio Case Studies</div>
+    <p style="font-size: 13.5px; color: var(--text-muted); margin-bottom: 16px;">
+      Listen critically to the benchmark recordings below on headphones. Identify the specific effects hardware, signal routing, and sonic artifacts that define each production.
+    </p>
+    
+    <div style="background: #f1f5f9; border-left: 4px solid #0284c7; padding: 14px 18px; border-radius: 8px; margin-bottom: 12px;">
+      <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 6px;">
+        <strong style="color: #0f172a; font-size: 15px;">Van Halen &ndash; 'Ain't Talkin' 'Bout Love' (1978)</strong>
+        <span style="color: #0284c7; font-size: 12px; font-weight: 700; background: rgba(2, 132, 199, 0.1); padding: 2px 8px; border-radius: 4px;">MXR Phase 90 (Script Logo) &bull; Marshall Super Lead</span>
+      </div>
+      <p style="margin: 6px 0 0; font-size: 13.5px; color: #475569;">Eddie Van Halen's signature chewy, warm, swirling 'Brown Sound' arpeggios created by 4-stage phase shifting before amp overdrive.</p>
+    </div>
+    
+    <div style="background: #f1f5f9; border-left: 4px solid #0284c7; padding: 14px 18px; border-radius: 8px; margin-bottom: 12px;">
+      <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 6px;">
+        <strong style="color: #0f172a; font-size: 15px;">Pink Floyd &ndash; 'Shine On You Crazy Diamond' (1975)</strong>
+        <span style="color: #0284c7; font-size: 12px; font-weight: 700; background: rgba(2, 132, 199, 0.1); padding: 2px 8px; border-radius: 4px;">MXR Phase 90 &bull; Fender Stratocaster &bull; Hiwatt DR103</span>
+      </div>
+      <p style="margin: 6px 0 0; font-size: 13.5px; color: #475569;">David Gilmour's iconic 4-note clean guitar theme: lush, rotating liquid phase modulation.</p>
+    </div>
+    
+    <div style="background: #f1f5f9; border-left: 4px solid #0284c7; padding: 14px 18px; border-radius: 8px; margin-bottom: 12px;">
+      <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 6px;">
+        <strong style="color: #0f172a; font-size: 15px;">The Isley Brothers &ndash; 'That Lady (Pts. 1 &amp; 2)' (1973)</strong>
+        <span style="color: #0284c7; font-size: 12px; font-weight: 700; background: rgba(2, 132, 199, 0.1); padding: 2px 8px; border-radius: 4px;">Maestro PS-1A Phase Shifter &bull; Fuzz Guitar</span>
+      </div>
+      <p style="margin: 6px 0 0; font-size: 13.5px; color: #475569;">Ernie Isley's screaming fuzz lead: intense, sweeping phase notches slicing through high-harmonic distortion.</p>
+    </div>
+    
+    <div style="background: #f1f5f9; border-left: 4px solid #0284c7; padding: 14px 18px; border-radius: 8px; margin-bottom: 12px;">
+      <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 6px;">
+        <strong style="color: #0f172a; font-size: 15px;">Queen &ndash; 'Sheer Heart Attack' (1977)</strong>
+        <span style="color: #0284c7; font-size: 12px; font-weight: 700; background: rgba(2, 132, 199, 0.1); padding: 2px 8px; border-radius: 4px;">Eventide Instant Phaser</span>
+      </div>
+      <p style="margin: 6px 0 0; font-size: 13.5px; color: #475569;">Early studio rack phaser applied to drum overheads and master tracks for dramatic sweeping psychedelic swirl.</p>
+    </div>
+    
+
+    <!-- 2. TECHNICAL SPECIFICATION CHECKLIST -->
+    <div class="section-title"><span>02</span> Technical Parameter &amp; Circuit Architecture</div>
+    <table>
+      <thead>
+        <tr>
+          <th>Specification Parameter</th>
+          <th>Engineering Description &bull; Exam Definition</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+    <tr>
+      <td style="padding: 10px 14px; border-bottom: 1px solid #e2e8f0; font-weight: 700; color: #0f172a; width: 28%;">All-Pass Filters</td>
+      <td style="padding: 10px 14px; border-bottom: 1px solid #e2e8f0; color: #475569;">Active RC filter stages that pass all frequencies at equal gain while shifting the phase angle of specific bands.</td>
+    </tr>
+    
+    <tr>
+      <td style="padding: 10px 14px; border-bottom: 1px solid #e2e8f0; font-weight: 700; color: #0f172a; width: 28%;">Non-Harmonic Notches</td>
+      <td style="padding: 10px 14px; border-bottom: 1px solid #e2e8f0; color: #475569;">Phase cancellation creates logarithmic, unevenly spaced notches, giving a warm, smooth, vocal-like chew.</td>
+    </tr>
+    
+    <tr>
+      <td style="padding: 10px 14px; border-bottom: 1px solid #e2e8f0; font-weight: 700; color: #0f172a; width: 28%;">Stage-to-Notch Ratio</td>
+      <td style="padding: 10px 14px; border-bottom: 1px solid #e2e8f0; color: #475569;">Every pair of all-pass stages produces 1 notch. 4-stage = 2 notches; 8-stage = 4 notches; 12-stage = 6 notches.</td>
+    </tr>
+    
+    <tr>
+      <td style="padding: 10px 14px; border-bottom: 1px solid #e2e8f0; font-weight: 700; color: #0f172a; width: 28%;">Feedback / Resonance</td>
+      <td style="padding: 10px 14px; border-bottom: 1px solid #e2e8f0; color: #475569;">Recirculating phased output deepens notches and sharpens peaks, adding an intense whistling resonance.</td>
+    </tr>
+    
+    <tr>
+      <td style="padding: 10px 14px; border-bottom: 1px solid #e2e8f0; font-weight: 700; color: #0f172a; width: 28%;">Pre vs. Post Distortion</td>
+      <td style="padding: 10px 14px; border-bottom: 1px solid #e2e8f0; color: #475569;">Placed before distortion produces warm, dynamic, amp-compressed chew; placed after distortion creates harsh, slicing sweep.</td>
+    </tr>
+    
+      </tbody>
+    </table>
+
+    <!-- 3. SECTION A: EXAM PRACTICE QUESTIONS -->
+    <div class="section-title"><span>03</span> Section A: Specification Exam Questions (13 Marks)</div>
+    <p style="font-size: 13.5px; color: var(--text-muted); margin-bottom: 16px;">
+      Answer all questions in the spaces provided. Complete mark schemes and examiner guidance are included for self-assessment and peer marking.
+    </p>
+    
+    <div style="margin-bottom: 24px; padding-bottom: 20px; border-bottom: 1px dashed #cbd5e1;">
+      <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px;">
+        <strong style="color: #0f172a; font-size: 15px;">Question 1</strong>
+        <span style="background: #e2e8f0; color: #0f172a; font-size: 12px; font-weight: 800; padding: 2px 8px; border-radius: 4px;">[3 MARKS]</span>
+      </div>
+      <p style="margin: 0 0 12px; font-size: 14px; color: #1e293b; font-weight: 500;">Explain how an analog phaser creates phase cancellation notches without utilizing an audio time delay line.</p>
+      
+      <!-- Mark Scheme Box -->
+      <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-left: 3px solid #10b981; border-radius: 6px; padding: 10px 14px; font-size: 12.5px; color: #334155;">
+        <strong style="color: #059669; text-transform: uppercase; font-size: 11px; letter-spacing: 0.5px; display: block; margin-bottom: 4px;">Examiner Mark Scheme &bull; Guidance:</strong>
+        Award 1 mark for active all-pass filter stages (operational amplifiers with RC networks). 1 mark for shifting the phase angle of specific frequencies up to 180°. 1 mark for summing the phase-shifted signal with the direct dry signal, creating destructive phase cancellation at out-of-phase frequencies.
+      </div>
+    </div>
+    
+    <div style="margin-bottom: 24px; padding-bottom: 20px; border-bottom: 1px dashed #cbd5e1;">
+      <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px;">
+        <strong style="color: #0f172a; font-size: 15px;">Question 2</strong>
+        <span style="background: #e2e8f0; color: #0f172a; font-size: 12px; font-weight: 800; padding: 2px 8px; border-radius: 4px;">[2 MARKS]</span>
+      </div>
+      <p style="margin: 0 0 12px; font-size: 14px; color: #1e293b; font-weight: 500;">State the key spectral difference between the cancellation notches of a Phaser and the comb filter notches of a Flanger.</p>
+      
+      <!-- Mark Scheme Box -->
+      <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-left: 3px solid #10b981; border-radius: 6px; padding: 10px 14px; font-size: 12.5px; color: #334155;">
+        <strong style="color: #059669; text-transform: uppercase; font-size: 11px; letter-spacing: 0.5px; display: block; margin-bottom: 4px;">Examiner Mark Scheme &bull; Guidance:</strong>
+        Award 1 mark for phaser notches being spaced non-harmonically (logarithmically/non-linearly). 1 mark for flanger notches being spaced in a linear harmonic series.
+      </div>
+    </div>
+    
+    <div style="margin-bottom: 24px; padding-bottom: 20px; border-bottom: 1px dashed #cbd5e1;">
+      <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px;">
+        <strong style="color: #0f172a; font-size: 15px;">Question 3</strong>
+        <span style="background: #e2e8f0; color: #0f172a; font-size: 12px; font-weight: 800; padding: 2px 8px; border-radius: 4px;">[2 MARKS]</span>
+      </div>
+      <p style="margin: 0 0 12px; font-size: 14px; color: #1e293b; font-weight: 500;">How many cancellation notches are generated by an 8-stage phaser like the MXR Phase 100?</p>
+      
+      <!-- Mark Scheme Box -->
+      <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-left: 3px solid #10b981; border-radius: 6px; padding: 10px 14px; font-size: 12.5px; color: #334155;">
+        <strong style="color: #059669; text-transform: uppercase; font-size: 11px; letter-spacing: 0.5px; display: block; margin-bottom: 4px;">Examiner Mark Scheme &bull; Guidance:</strong>
+        Award 1 mark for stating 4 notches. 1 mark for explaining that each pair of all-pass filter stages generates exactly one cancellation notch.
+      </div>
+    </div>
+    
+    <div style="margin-bottom: 24px; padding-bottom: 20px; border-bottom: 1px dashed #cbd5e1;">
+      <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px;">
+        <strong style="color: #0f172a; font-size: 15px;">Question 4</strong>
+        <span style="background: #e2e8f0; color: #0f172a; font-size: 12px; font-weight: 800; padding: 2px 8px; border-radius: 4px;">[3 MARKS]</span>
+      </div>
+      <p style="margin: 0 0 12px; font-size: 14px; color: #1e293b; font-weight: 500;">Why were matched JFET transistors critical in the analog circuitry of pedals like the MXR Phase 90?</p>
+      
+      <!-- Mark Scheme Box -->
+      <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-left: 3px solid #10b981; border-radius: 6px; padding: 10px 14px; font-size: 12.5px; color: #334155;">
+        <strong style="color: #059669; text-transform: uppercase; font-size: 11px; letter-spacing: 0.5px; display: block; margin-bottom: 4px;">Examiner Mark Scheme &bull; Guidance:</strong>
+        Award 1 mark for JFETs acting as voltage-controlled variable resistors in each all-pass stage. 1 mark for LFO voltage modulating resistance to sweep notch frequencies. 1 mark for explaining that unmatched JFETs cause filter stages to sweep unevenly, ruining the smooth phase swirl.
+      </div>
+    </div>
+    
+    <div style="margin-bottom: 24px; padding-bottom: 20px; border-bottom: 1px dashed #cbd5e1;">
+      <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px;">
+        <strong style="color: #0f172a; font-size: 15px;">Question 5</strong>
+        <span style="background: #e2e8f0; color: #0f172a; font-size: 12px; font-weight: 800; padding: 2px 8px; border-radius: 4px;">[3 MARKS]</span>
+      </div>
+      <p style="margin: 0 0 12px; font-size: 14px; color: #1e293b; font-weight: 500;">Describe the sonic difference between placing a phaser BEFORE an overdriven amplifier versus placing it AFTER the amplifier in an effects loop.</p>
+      
+      <!-- Mark Scheme Box -->
+      <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-left: 3px solid #10b981; border-radius: 6px; padding: 10px 14px; font-size: 12.5px; color: #334155;">
+        <strong style="color: #059669; text-transform: uppercase; font-size: 11px; letter-spacing: 0.5px; display: block; margin-bottom: 4px;">Examiner Mark Scheme &bull; Guidance:</strong>
+        Award 1 mark for recognizing signal chain placement. 1 mark for before overdrive: warm, subtle, dynamic, chewy tone as the amplifier's tube compression smooths the sweep. 1 mark for after overdrive: bright, dramatic, aggressive sweep filtering the clipped harmonics.
+      </div>
+    </div>
+    
+
+    <!-- 4. SECTION B: 12-MARK ESSAY -->
+    <div class="section-title"><span>04</span> Section B: Extended Evaluation Essay (12 Marks)</div>
+    <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 10px; padding: 20px; margin-bottom: 24px;">
+      <h3 style="margin: 0 0 8px; font-size: 16px; color: #0f172a;">Extended 12-Mark Technical Evaluation Question</h3>
+      <p style="font-size: 14px; font-weight: 600; color: #1e293b; margin-bottom: 14px;">Evaluate the design, engineering principles, and production applications of the phaser effect. In your answer, refer to: • All-pass filter architecture and phase cancellation • The role of the LFO and feedback controls • Comparison with flanging and wah-wah filtering • Signal routing and landmark guitar recordings (Eddie Van Halen / David Gilmour).</p>
+      
+      <div style="background: #ffffff; border: 1px solid #e2e8f0; border-left: 3px solid var(--accent); padding: 12px 16px; border-radius: 6px; font-size: 13px; color: #334155; line-height: 1.6;">
+        <strong style="color: var(--accent); text-transform: uppercase; font-size: 11px; letter-spacing: 0.5px; display: block; margin-bottom: 6px;">Indicative Content &bull; Examiner Commentary:</strong>
+        • Circuit Engineering: All-pass operational amplifiers shift phase without time delay; each 2 stages yield 1 notch (4-stage Phase 90 = 2 notches; 8-stage Phase 100 = 4 notches). JFETs modulate resistance via LFO.<br>• Spectral Characteristics: Non-harmonic notch spacing produces warm, organic vocal qualities unlike linear comb filtering.<br>• Feedback / Resonance: Recirculating phased signal narrows resonant peaks, adding intensity.<br>• Comparative Analysis: Wah-Wah sweeps a single resonant band-pass boost; Phaser sweeps multiple cancellation troughs across full spectrum; Flanger uses true time delay.<br>• Landmark Tones: Eddie Van Halen's 'Brown Sound' (Phase 90 before Plexi); David Gilmour's Pink Floyd clean arpeggios ('Shine On You Crazy Diamond').
+      </div>
+    </div>
+
+    <div style="text-align: center; border-top: 1px solid #e2e8f0; padding-top: 18px; font-size: 12px; color: var(--text-muted);">
+      Pearson Edexcel A-Level Music Technology &bull; Component 3 (Music Technology in Context) Revision Resource &bull; Music Tech Guru
+    </div>
+  </div>
+
+</body>
+</html>
