@@ -90,26 +90,27 @@
     }
     .grid-2 {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 16px;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 18px;
       margin-bottom: 18px;
     }
     .grid-3 {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 16px;
       margin-bottom: 18px;
     }
     .info-card {
       background: #0f172a;
       border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 12px;
-      padding: 16px 18px;
+      border-radius: 14px;
+      padding: 18px 20px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       position: relative;
       overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
     }
     .info-card.highlight {
       border-left: 4px solid #c084fc;
@@ -160,135 +161,114 @@
     }
     .card-title {
       color: #ffffff;
-      font-size: 15px;
+      font-size: 16px;
       font-weight: 800;
-      margin-bottom: 6px;
+      margin-bottom: 8px;
+      line-height: 1.35;
     }
     .card-text {
       color: #94a3b8;
-      font-size: 13px;
-      line-height: 1.5;
+      font-size: 13.5px;
+      line-height: 1.6;
     }
     .card-text strong {
-      color: #e2e8f0;
-    }
-    .card-thumb {
-      width: 100%;
-      height: 175px;
-      object-fit: cover;
-      border-radius: 8px;
-      margin-bottom: 10px;
-      cursor: zoom-in;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      background: #000;
-      display: block;
-      transition: transform 0.2s ease, opacity 0.2s ease;
-    }
-    .card-thumb:hover {
-      opacity: 0.92;
-      transform: scale(1.01);
-    }
-    .card-thumb.contain-img {
-      object-fit: contain;
-      background: rgba(0, 0, 0, 0.45);
-      padding: 6px;
-    }
-    .takeaway-box {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 10px;
-      padding: 12px 16px;
-      margin-top: 14px;
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-    }
-    .takeaway-tag {
-      background: rgba(192, 132, 252, 0.2);
-      color: #c084fc;
-      font-size: 10.5px;
-      font-weight: 800;
-      text-transform: uppercase;
-      padding: 3px 7px;
-      border-radius: 4px;
-      white-space: nowrap;
-      margin-top: 2px;
-    }
-    .takeaway-text {
-      color: #cbd5e1;
-      font-size: 12.5px;
-      line-height: 1.5;
-    }
-    .video-btn-row {
-      display: flex;
-      gap: 8px;
-      margin-top: 10px;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-    .video-trigger-btn {
-      background: rgba(192, 132, 252, 0.15);
-      color: #c084fc;
-      border: 1px solid rgba(192, 132, 252, 0.35);
-      padding: 6px 12px;
-      border-radius: 6px;
-      font-size: 11.5px;
-      font-weight: 700;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      transition: all 0.2s ease;
-    }
-    .video-trigger-btn:hover {
-      background: rgba(192, 132, 252, 0.25);
-      border-color: #c084fc;
-      transform: translateY(-1px);
-    }
-    .yt-direct-btn {
-      background: rgba(255, 255, 255, 0.05);
-      color: #94a3b8;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      padding: 6px 10px;
-      border-radius: 6px;
-      font-size: 11px;
-      font-weight: 600;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      transition: all 0.2s ease;
-    }
-    .yt-direct-btn:hover {
-      color: #ffffff;
-      background: rgba(255, 255, 255, 0.1);
+      color: #f1f5f9;
     }
 
-    /* Fixed Navigation Footer */
-    .deck-nav-footer {
-      position: fixed;
-      bottom: 0;
+    /* Embedded YouTube Video Player Inside Card */
+    .card-video-embed {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%; /* 16:9 ratio */
+      height: 0;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 14px;
+      background: #000000;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+    }
+    .card-video-embed iframe {
+      position: absolute;
+      top: 0;
       left: 0;
       width: 100%;
-      background: rgba(8, 14, 26, 0.94);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
-      padding: 12px 20px;
-      z-index: 100;
+      height: 100%;
+      border: none;
     }
-    .nav-inner {
-      max-width: 1200px;
-      margin: 0 auto;
+
+    .song-banner {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 6px 12px;
+      border-radius: 6px;
+      margin-bottom: 12px;
+      font-size: 12px;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .song-artist-name {
+      color: #ffffff;
+      font-weight: 800;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .song-track-name {
+      color: #c084fc;
+      font-weight: 700;
+    }
+
+    .takeaway-box {
+      background: linear-gradient(135deg, rgba(192, 132, 252, 0.08) 0%, rgba(15, 23, 42, 0.8) 100%);
+      border: 1px solid rgba(192, 132, 252, 0.25);
+      border-radius: 10px;
+      padding: 14px 18px;
+      margin-top: 14px;
+      display: flex;
+      align-items: center;
       gap: 14px;
     }
+    .takeaway-tag {
+      font-size: 10.5px;
+      font-weight: 900;
+      color: #c084fc;
+      background: rgba(192, 132, 252, 0.15);
+      border: 1px solid rgba(192, 132, 252, 0.3);
+      padding: 4px 10px;
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      white-space: nowrap;
+    }
+    .takeaway-text {
+      color: #e2e8f0;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    /* Fixed Bottom Navigation Bar */
+    .deck-nav-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(8, 14, 26, 0.95);
+      backdrop-filter: blur(12px);
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+    }
     .nav-btn {
-      background: rgba(255, 255, 255, 0.06);
-      color: #ffffff;
-      border: 1px solid rgba(255, 255, 255, 0.15);
+      background: #1e293b;
+      color: #f8fafc;
+      border: 1px solid rgba(255, 255, 255, 0.1);
       padding: 8px 18px;
       border-radius: 8px;
       font-size: 13px;
@@ -296,151 +276,37 @@
       cursor: pointer;
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      transition: all 0.2s ease;
+      gap: 6px;
+      transition: all 0.15s ease;
     }
     .nav-btn:hover:not(:disabled) {
-      background: rgba(192, 132, 252, 0.2);
-      border-color: #c084fc;
-      color: #ffffff;
+      background: #334155;
+      border-color: rgba(192, 132, 252, 0.4);
     }
     .nav-btn:disabled {
       opacity: 0.35;
       cursor: not-allowed;
     }
-    .progress-bar {
+    .progress-bar-wrap {
+      flex: 1;
+      max-width: 450px;
+      margin: 0 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .progress-track {
       flex: 1;
       height: 6px;
       background: rgba(255, 255, 255, 0.08);
-      border-radius: 9999px;
+      border-radius: 999px;
       overflow: hidden;
     }
     .progress-fill {
       height: 100%;
-      background: linear-gradient(90deg, #c084fc 0%, #38bdf8 100%);
+      background: linear-gradient(90deg, #7e22ce, #c084fc);
       width: 6.66%;
       transition: width 0.25s ease;
-    }
-
-    /* Lightbox Modal */
-    .image-modal-backdrop {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.92);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      z-index: 1000;
-      justify-content: center;
-      align-items: center;
-      padding: 24px;
-    }
-    .image-modal-backdrop.open {
-      display: flex;
-    }
-    .image-modal-content {
-      max-width: 90vw;
-      max-height: 88vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    .image-modal-content img {
-      max-width: 100%;
-      max-height: 80vh;
-      object-fit: contain;
-      border-radius: 8px;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-    }
-    .image-modal-caption {
-      margin-top: 12px;
-      color: #cbd5e1;
-      font-size: 13px;
-      text-align: center;
-    }
-    .close-modal-btn {
-      position: absolute;
-      top: 20px;
-      right: 24px;
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      color: #ffffff;
-      font-size: 20px;
-      width: 38px;
-      height: 38px;
-      border-radius: 50%;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background 0.2s ease;
-    }
-    .close-modal-btn:hover {
-      background: rgba(239, 68, 68, 0.8);
-    }
-
-    /* Video Modal - Zero History Footprint */
-    .video-modal-backdrop {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.92);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      z-index: 1001;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-    }
-    .video-modal-backdrop.open {
-      display: flex;
-    }
-    .video-modal-content {
-      width: 100%;
-      max-width: 860px;
-      background: #0f172a;
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      border-radius: 14px;
-      overflow: hidden;
-      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8);
-    }
-    .video-modal-header {
-      padding: 12px 18px;
-      background: rgba(255, 255, 255, 0.03);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .video-modal-title {
-      color: #ffffff;
-      font-size: 14px;
-      font-weight: 700;
-    }
-    .video-player-wrapper {
-      position: relative;
-      padding-bottom: 56.25%;
-      height: 0;
-      background: #000;
-    }
-    .video-player-wrapper iframe {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      border: 0;
-    }
-    .video-modal-footer {
-      padding: 10px 18px;
-      background: rgba(255, 255, 255, 0.02);
-      border-top: 1px solid rgba(255, 255, 255, 0.06);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 12px;
-      color: #94a3b8;
     }
   </style>
 </head>
@@ -448,175 +314,187 @@
 
   <div class="deck-container">
 
-    <!-- SLIDE 1: INTRODUCTION TO ELECTRO-MECHANICAL KEYBOARDS -->
+    <!-- SLIDE 1: Title & Overview -->
     <section class="slide active" id="slide-1">
       <div class="header-bar">
         <span class="deck-tag">Electro-Mechanical Keyboards &bull; Slide 1 of 15</span>
-        <span class="slide-counter">Overview &amp; Core Physics</span>
+        <span class="slide-counter">Specification Overview</span>
       </div>
       <div class="slide-title-wrap">
         <h1 class="slide-heading">Classic Keyboards: <span>Acoustic Vibrations &amp; Transduction</span></h1>
-        <p class="slide-lead">Before digital PCM sampling and microprocessors, classic 1960s &amp; 70s keyboard instruments generated musical sound from physical vibrating matter: real tape strips, struck steel tines, metal reeds, guitar strings, and spinning tonewheels.</p>
+        <p class="slide-lead">Before digital sampling and synthesis took over in the 1980s, popular music was defined by physical mechanical instruments transduced through electromagnetic, electrostatic, and rotary speakers.</p>
       </div>
 
       <div class="grid-2">
         <div class="info-card highlight">
-          <div class="card-thumb contain-img" onclick="openLightbox('/images/slides/classic_keyboards/vintage_keyboards_comparative_matrix.svg', 'Classic Keyboards Architecture &amp; Transduction Matrix')">
-            <img src="/images/slides/classic_keyboards/vintage_keyboards_comparative_matrix.svg" alt="Classic Keyboards Architecture Matrix" style="width: 100%; height: 100%; object-fit: contain;">
+          <div class="song-banner">
+            <span class="song-artist-name">🎵 Stevie Wonder</span>
+            <span class="song-track-name">"Superstition" (1972)</span>
           </div>
-          <span class="spec-pill ao3">Component 3 Foundation</span>
-          <h3 class="card-title">Acoustic Generation vs. Pure Synthesis</h3>
-          <p class="card-text">Unlike subtractive synthesizers that create raw sound with electronic oscillator circuits (VCOs), <strong>electro-mechanical keyboards produce tangible mechanical vibrations</strong>. These physical movements are converted into alternating audio voltages by transducers (magnetic heads, electromagnetic coils, electrostatic plates, or guitar pickups).</p>
+          <div class="card-video-embed">
+            <iframe src="https://www.youtube-nocookie.com/embed/ftdZ363R9kQ" title="Stevie Wonder - Superstition (Hohner Clavinet D6)" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <span class="spec-pill ao4">Hohner Clavinet D6 &bull; Tangent Action</span>
+          <h3 class="card-title">Real Guitar Strings Struck by Rubber Tangents</h3>
+          <p class="card-text">Stevie Wonder created the greatest keyboard groove in history by multi-tracking <strong>eight distinct layers of the Hohner Clavinet D6</strong>. Instead of synthetic tones, rubber-tipped plungers hit real steel guitar strings, yielding instant percussive attack with zero sustain.</p>
         </div>
 
         <div class="info-card cyan-edge">
-          <span class="spec-pill tech">The 5 Core Families</span>
-          <h3 class="card-title">Syllabus Instrument Families</h3>
-          <p class="card-text">Edexcel Component 3 requires students to recognize and explain the mechanical actions and timbres of five definitive keyboard families:</p>
-          <ul style="margin: 8px 0 0 18px; color: #cbd5e1; font-size: 13px; line-height: 1.6;">
-            <li><strong>The Mellotron:</strong> 3/8&quot; tape strips, playback heads, 8-sec limit.</li>
-            <li><strong>Fender Rhodes:</strong> Neoprene hammers, steel tines, tonebars, bell chime.</li>
-            <li><strong>Wurlitzer 200A:</strong> Felt hammers, steel reeds, electrostatic pickup bark.</li>
-            <li><strong>Hohner Clavinet D6:</strong> Rubber tangents, real guitar strings, funk twang.</li>
-            <li><strong>Hammond B3 Organ:</strong> 91 spinning tonewheels, drawbars, Leslie Doppler.</li>
-          </ul>
+          <div class="song-banner">
+            <span class="song-artist-name">🎵 The Beatles</span>
+            <span class="song-track-name">"Strawberry Fields Forever" (1967)</span>
+          </div>
+          <div class="card-video-embed">
+            <iframe src="https://www.youtube-nocookie.com/embed/44GB53rnI3c" title="The Beatles - Strawberry Fields Forever (Mellotron Flutes)" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <span class="spec-pill ao3">The Mellotron Mk II &bull; Tape Replay</span>
+          <h3 class="card-title">Pre-Digital Sampling via Magnetic Audio Tape</h3>
+          <p class="card-text">Paul McCartney's immortal intro introduces the <strong>Mellotron Mk II</strong> flutes tape frame. Each key pulls an individual 3/8" magnetic tape strip across an audio replay head, capturing the authentic breathing, room ambiance, and tape flutter of real musicians recorded at Abbey Road.</p>
         </div>
       </div>
 
       <div class="takeaway-box">
-        <span class="takeaway-tag">Exam Takeaway</span>
-        <span class="takeaway-text">Never confuse an electro-mechanical keyboard with an analog synthesizer! Synthesizers generate tones with pure electronic oscillator circuits (sawtooth, pulse, triangle); classic keyboards use real physical matter vibrating across magnetic or electrostatic sensors.</span>
+        <span class="takeaway-tag">Component 3 Ear-Training</span>
+        <span class="takeaway-text">In Section A and Question 5 of the Edexcel exam, you must instantly identify the unique sonic fingerprint of each instrument: the Mellotron's tape warble, the Rhodes' bell chime, the Wurlitzer's reed bark, the Clavinet's guitar-like spank, and the Hammond's rotary Doppler warble.</span>
       </div>
     </section>
 
-    <!-- SLIDE 2: COMPARATIVE ARCHITECTURE MATRIX -->
+    <!-- SLIDE 2: THE BIG FIVE COMPARATIVE ARCHITECTURE -->
     <section class="slide" id="slide-2">
       <div class="header-bar">
         <span class="deck-tag">Electro-Mechanical Keyboards &bull; Slide 2 of 15</span>
-        <span class="slide-counter">Comparative Matrix</span>
+        <span class="slide-counter">The Big Five</span>
       </div>
       <div class="slide-title-wrap">
-        <h1 class="slide-heading">The Big Five: <span>Comparative Architecture Matrix</span></h1>
-        <p class="slide-lead">A side-by-side technical breakdown of sound generators, pickup mechanisms, harmonic characters, and definitive recordings for Edexcel Section A and Section B Question 5.</p>
+        <h1 class="slide-heading">The Big Five: <span>Hall of Fame Shootout</span></h1>
+        <p class="slide-lead">Compare the distinct mechanical striking action, transducer physics, and sonic character across the five specification keyboard legends.</p>
       </div>
 
-      <div class="info-card highlight" style="margin-bottom: 16px;">
-        <div class="card-thumb contain-img" style="height: 320px;" onclick="openLightbox('/images/slides/classic_keyboards/vintage_keyboards_comparative_matrix.svg', 'Complete 5-Family Keyboard Comparison Matrix')">
-          <img src="/images/slides/classic_keyboards/vintage_keyboards_comparative_matrix.svg" alt="Comparison Matrix" style="width: 100%; height: 100%; object-fit: contain;">
-        </div>
-        <p class="card-text" style="text-align: center; color: #94a3b8; font-size: 12px;">Click diagram to expand to fullscreen high-resolution inspection</p>
-      </div>
-
-      <div class="grid-3">
-        <div class="info-card cyan-edge">
-          <span class="spec-pill ao3">Tine vs. Reed</span>
-          <h3 class="card-title">Electric Piano Division</h3>
-          <p class="card-text"><strong>Rhodes:</strong> Struck tapered tines + tonebars = mellow bell fundamental. <strong>Wurlitzer:</strong> Struck flat reeds + electrostatic pickup = punchy, biting midrange bark.</p>
-        </div>
-        <div class="info-card amber-edge">
-          <span class="spec-pill ao3">Strings vs. Tapes</span>
-          <h3 class="card-title">Clavinet vs. Mellotron</h3>
-          <p class="card-text"><strong>Clavinet:</strong> Rubber tangents hit real guitar strings = percussive attack, zero sustain. <strong>Mellotron:</strong> Capstan pulls pre-recorded audio tape strips = natural acoustic recordings with 8-second limit.</p>
-        </div>
+      <div class="grid-2">
         <div class="info-card emerald-edge">
-          <span class="spec-pill ao3">Additive Tonewheels</span>
-          <h3 class="card-title">Hammond &amp; Leslie</h3>
-          <p class="card-text"><strong>Hammond B3:</strong> 91 spinning toothed steel wheels induce pure sine waves, mixed via 9 harmonic drawbars and spun through a twin-rotor Doppler Leslie cabinet.</p>
+          <div class="song-banner">
+            <span class="song-artist-name">🎵 Herbie Hancock</span>
+            <span class="song-track-name">"Chameleon" (1973)</span>
+          </div>
+          <div class="card-video-embed">
+            <iframe src="https://www.youtube-nocookie.com/embed/UbkqE4fpvdI" title="Herbie Hancock - Chameleon (Fender Rhodes)" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <span class="spec-pill tech">Fender Rhodes &bull; Tine &amp; Tonebar</span>
+          <h3 class="card-title">Asymmetric Tuning Fork &amp; Bell Chime</h3>
+          <p class="card-text">Neoprene rubber hammers strike tapered steel tines coupled to tuned tonebars. An individual electromagnetic pickup per note senses the tine vibration, producing a warm, bell-like fundamental that defined 1970s jazz-funk, fusion, and neo-soul.</p>
         </div>
+
+        <div class="info-card amber-edge">
+          <div class="song-banner">
+            <span class="song-artist-name">🎵 Booker T. &amp; the M.G.'s</span>
+            <span class="song-track-name">"Green Onions" (1962)</span>
+          </div>
+          <div class="card-video-embed">
+            <iframe src="https://www.youtube-nocookie.com/embed/0oox9bJaGJ8" title="Booker T. & the M.G.'s - Green Onions (Hammond B3)" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <span class="spec-pill exam">Hammond B3 &bull; Tonewheel Generator</span>
+          <h3 class="card-title">Spinning Scalloped Steel Tonewheels</h3>
+          <p class="card-text">Booker T. Jones drives 91 rotating steel tonewheels adjacent to magnetic pickups. With drawbars pulled to 888000000, the organic key click transient and low harmonic warmth establish the gold standard for R&amp;B organ tracking.</p>
+        </div>
+      </div>
+
+      <div class="takeaway-box">
+        <span class="takeaway-tag">Specification Core</span>
+        <span class="takeaway-text">Unlike electronic synthesizers which generate sound via voltage-controlled oscillators (VCOs), all five of these instruments produce mechanical or magnetic vibrations that are transduced into electric current.</span>
       </div>
     </section>
 
-    <!-- SLIDE 3: MELLOTRON MECHANICS -->
+    <!-- SLIDE 3: THE MELLOTRON -->
     <section class="slide" id="slide-3">
       <div class="header-bar">
         <span class="deck-tag">Electro-Mechanical Keyboards &bull; Slide 3 of 15</span>
         <span class="slide-counter">The Mellotron</span>
       </div>
       <div class="slide-title-wrap">
-        <h1 class="slide-heading">The Mellotron: <span>Mechanical Tape Replay Action</span></h1>
-        <p class="slide-lead">Invented in Birmingham by Streetly Electronics (adapted from Harry Chamberlin's US design), the Mellotron was the world's first polyphonic sample-playback instrument.</p>
+        <h1 class="slide-heading">The Mellotron: <span>Analog Tape Replay Action</span></h1>
+        <p class="slide-lead">Invented in Birmingham in 1963, the Mellotron was the world's first sample-playback instrument, utilizing physical strips of magnetic tape inside a wooden console.</p>
       </div>
 
       <div class="grid-2">
         <div class="info-card highlight">
-          <div class="card-thumb contain-img" onclick="openLightbox('/images/slides/classic_keyboards/mellotron_tape_mechanism_schematic.svg', 'Mellotron M400 Tape Replay Action Schematic')">
-            <img src="/images/slides/classic_keyboards/mellotron_tape_mechanism_schematic.svg" alt="Mellotron Tape Action Schematic" style="width: 100%; height: 100%; object-fit: contain;">
+          <div class="song-banner">
+            <span class="song-artist-name">🎵 The Beatles</span>
+            <span class="song-track-name">"Strawberry Fields Forever" (1967)</span>
           </div>
-          <span class="spec-pill tech">Mechanical Signal Path</span>
-          <h3 class="card-title">How Each Note Operates</h3>
-          <p class="card-text">Under each of the 35 keyboard keys lies a distinct length of <strong>3/8-inch magnetic tape</strong>. When a player presses a key:</p>
-          <ul style="margin: 6px 0 0 16px; color: #cbd5e1; font-size: 12.5px; line-height: 1.5;">
-            <li>A <strong>pinch roller</strong> pushes down against a constantly spinning <strong>capstan drive shaft</strong>.</li>
-            <li>The rotating capstan pulls the tape across an individual <strong>magnetic playback head</strong>.</li>
-            <li>The tape signal passes into an internal preamplifier and master volume circuit.</li>
-          </ul>
+          <div class="card-video-embed">
+            <iframe src="https://www.youtube-nocookie.com/embed/44GB53rnI3c" title="The Beatles - Strawberry Fields Forever" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <span class="spec-pill ao4">Abbey Road Landmark</span>
+          <h3 class="card-title">Paul McCartney's Flute Intro</h3>
+          <p class="card-text">Recorded on the studio's Mellotron Mark II. Notice the distinct, slightly imperfect breath attack on the first note. Because each tape was recorded by a real human flautist holding that single pitch, the organic nuances and vibrato are preserved intact.</p>
         </div>
 
         <div class="info-card cyan-edge">
-          <div class="card-thumb contain-img" onclick="openLightbox('/images/slides/classic_keyboards/mellotron_tape_frame.jpg', 'Inside the Mellotron M400: 35-Note Removable Tape Frame')">
-            <img src="/images/slides/classic_keyboards/mellotron_tape_frame.jpg" alt="M400 Tape Frame" style="width: 100%; height: 100%; object-fit: contain;">
+          <div class="song-banner">
+            <span class="song-artist-name">🎵 The Moody Blues</span>
+            <span class="song-track-name">"Nights in White Satin" (1967)</span>
           </div>
-          <span class="spec-pill ao4">Historic Engineering</span>
-          <h3 class="card-title">The Removable Tape Frame</h3>
-          <p class="card-text">Early Mellotrons (Mk II) were colossal 350-lb furniture pieces. The later <strong>Mellotron M400 (1970)</strong> introduced a lightweight, removable tape frame allowing road crews to slide out the entire 35-tape assembly in 2 minutes to switch sound libraries between sets.</p>
-          <div class="video-btn-row">
-            <button class="video-trigger-btn" onclick="openVideo('kAFKuv5ZLns', 'Mellotron M400 Analog Tape Action Demonstration')">&#9654; Watch Tape Action</button>
-            <a href="https://www.youtube.com/watch?v=kAFKuv5ZLns" target="_blank" rel="noopener noreferrer" class="yt-direct-btn">&#9654; YouTube</a>
+          <div class="card-video-embed">
+            <iframe src="https://www.youtube-nocookie.com/embed/066HZlam91Y" title="The Moody Blues - Nights in White Satin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
           </div>
+          <span class="spec-pill ao3">3-Violins &amp; Cello Tape Frames</span>
+          <h3 class="card-title">Orchestral Wall of Sound Without an Orchestra</h3>
+          <p class="card-text">Mike Pinder pioneered the rock use of Mellotron strings. The swelling string section in the chorus is not a real 40-piece orchestra, but 3-Violin tape strips pulled across magnetic replay heads, giving progressive rock its lush, melancholic, vintage tape-compressed texture.</p>
         </div>
       </div>
 
       <div class="takeaway-box">
-        <span class="takeaway-tag">Core Concept</span>
-        <span class="takeaway-text">The Mellotron is purely analog tape playback: each key triggers a literal magnetic recording of an orchestral player playing that single note at that exact pitch.</span>
+        <span class="takeaway-tag">Mechanical Mechanism</span>
+        <span class="takeaway-text">Depressing a key pushes a rubber pinch roller down, forcing 3/8" magnetic tape against a continuously rotating motor-driven capstan shaft. The tape is pulled directly over a magnetic playback head to output sound.</span>
       </div>
     </section>
 
-    <!-- SLIDE 4: MELLOTRON 8-SECOND LIMIT & RECORDINGS -->
+    <!-- SLIDE 4: THE 8-SECOND LIMIT & PROG ROCK -->
     <section class="slide" id="slide-4">
       <div class="header-bar">
         <span class="deck-tag">Electro-Mechanical Keyboards &bull; Slide 4 of 15</span>
-        <span class="slide-counter">The Mellotron</span>
+        <span class="slide-counter">Mechanical Constraints</span>
       </div>
       <div class="slide-title-wrap">
-        <h1 class="slide-heading">The 8-Second Limit &amp; <span>Historic Recordings</span></h1>
-        <p class="slide-lead">Why notes cannot sustain forever, the mechanical spring return, and the iconic tape sound banks that shaped 1960s psychedelic and 1970s progressive rock.</p>
+        <h1 class="slide-heading">The 8-Second Limit &amp; <span>Progressive Rock</span></h1>
+        <p class="slide-lead">How a severe physical mechanical constraint forced keyboardists to develop revolutionary chord-cycling and arpeggiated performance styles.</p>
       </div>
 
       <div class="grid-2">
-        <div class="info-card amber-edge">
-          <span class="spec-pill exam">Frequent Exam Question</span>
-          <h3 class="card-title">The 8-Second Duration Limit</h3>
-          <p class="card-text">Because each tape strip is approximately 6 feet long and travels at <strong>7.5 inches per second</strong>, a sustained key can only sound for a maximum of <strong>approximately 8 seconds</strong> before the tape physically ends!</p>
-          <p class="card-text" style="margin-top: 8px;">When the tape reaches its end, audio abruptly cuts off. Releasing the key allows a mechanical <strong>return spring</strong> to snap the tape back into its storage bin. Players had to use 'spider' finger-pedaling techniques to play long sustained chord progressions.</p>
+        <div class="info-card highlight">
+          <div class="song-banner">
+            <span class="song-artist-name">🎵 Genesis</span>
+            <span class="song-track-name">"Watcher of the Skies" (1972)</span>
+          </div>
+          <div class="card-video-embed">
+            <iframe src="https://www.youtube-nocookie.com/embed/2agWXrNJGjg" title="Genesis - Watcher of the Skies" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <span class="spec-pill ao4">Tony Banks Landmark</span>
+          <h3 class="card-title">Dual-Mellotron Brass &amp; Strings Intro</h3>
+          <p class="card-text">Tony Banks layered an M400 brass frame and Mark II strings. Listen to how chords are sustained for roughly 6 to 7 seconds before being re-struck or shifted into walking arpeggios — essential to prevent the tapes from running out of length.</p>
         </div>
 
-        <div class="info-card highlight">
-          <div class="card-thumb contain-img" onclick="openLightbox('/images/slides/classic_keyboards/mellotron_m400.jpg', 'Classic Mellotron M400 White Touring Console')">
-            <img src="/images/slides/classic_keyboards/mellotron_m400.jpg" alt="Mellotron M400" style="width: 100%; height: 100%; object-fit: contain;">
+        <div class="info-card amber-edge">
+          <div class="song-banner">
+            <span class="song-artist-name">🎬 Mellotron M400</span>
+            <span class="song-track-name">Internal Tape Frame Action</span>
           </div>
-          <span class="spec-pill ao4">Signature Sound Banks</span>
-          <h3 class="card-title">Flutes, Strings &amp; Choir</h3>
-          <p class="card-text">Each tape had 3 parallel tracks selectable via a mechanical track selector:</p>
-          <ul style="margin: 6px 0 0 16px; color: #cbd5e1; font-size: 12.5px; line-height: 1.5;">
-            <li><strong>Mk II Flute:</strong> The Beatles &mdash; <em>&quot;Strawberry Fields Forever&quot;</em> intro (1967).</li>
-            <li><strong>3 Violins:</strong> King Crimson &mdash; <em>&quot;In the Court of the Crimson King&quot;</em> (1969).</li>
-            <li><strong>8-Voice Choir:</strong> Genesis, Pink Floyd, The Moody Blues (<em>&quot;Nights in White Satin&quot;</em>).</li>
-          </ul>
-          <div class="video-btn-row">
-            <button class="video-trigger-btn" onclick="openVideo('ByD8gH7kYxs', 'The Beatles - Strawberry Fields Forever (Mellotron Flute Intro)')">&#9654; Watch Beatles Intro</button>
-            <a href="https://www.youtube.com/watch?v=ByD8gH7kYxs" target="_blank" rel="noopener noreferrer" class="yt-direct-btn">&#9654; YouTube</a>
+          <div class="card-video-embed">
+            <iframe src="https://www.youtube-nocookie.com/embed/ByD8gH7kYxs" title="Inside a Mellotron M400" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
           </div>
+          <span class="spec-pill exam">Physical Limitation</span>
+          <h3 class="card-title">Non-Looping Tapes &amp; Spring Return</h3>
+          <p class="card-text">Each tape strip is exactly <strong>8 seconds long</strong> and held in a serpentine storage box. When released, an internal return spring snaps the tape back to the start. If held past 8 seconds, the sound abruptly cuts off into dead silence.</p>
         </div>
       </div>
 
       <div class="takeaway-box">
-        <span class="takeaway-tag">Audio Cue</span>
-        <span class="takeaway-text">Listen for subtle tape wow, pitch wobble, tape hiss, and the slight breath or bow scrape of the original session musician at note attack.</span>
+        <span class="takeaway-tag">Examiner Tip</span>
+        <span class="takeaway-text">Unlike Hammond organs or analog synths that can sustain indefinitely as long as a key is held, the Mellotron cannot sustain notes continuously. Keyboardists had to master the 'crawling spider' technique, alternating fingers across duplicate notes to sustain chords.</span>
       </div>
     </section>
 
-    <!-- SLIDE 5: FENDER RHODES -->
+    <!-- SLIDE 5: FENDER RHODES ELECTRIC PIANO -->
     <section class="slide" id="slide-5">
       <div class="header-bar">
         <span class="deck-tag">Electro-Mechanical Keyboards &bull; Slide 5 of 15</span>
@@ -624,153 +502,214 @@
       </div>
       <div class="slide-title-wrap">
         <h1 class="slide-heading">Fender Rhodes: <span>Tines, Tonebars &amp; Bell Chime</span></h1>
-        <p class="slide-lead">Designed by Harold Rhodes during WWII for injured soldiers, the Fender Rhodes became the definitive electric piano of 1970s Jazz-Funk, Fusion, Soul, and Disco.</p>
+        <p class="slide-lead">Designed by Harold Rhodes and backed by Leo Fender, the Rhodes became the most popular electric piano in history, heard on countless jazz, soul, and rock masterworks.</p>
+      </div>
+
+      <div class="grid-2">
+        <div class="info-card emerald-edge">
+          <div class="song-banner">
+            <span class="song-artist-name">🎵 Herbie Hancock</span>
+            <span class="song-track-name">"Chameleon" (1973)</span>
+          </div>
+          <div class="card-video-embed">
+            <iframe src="https://www.youtube-nocookie.com/embed/UbkqE4fpvdI" title="Herbie Hancock - Chameleon (Fender Rhodes)" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <span class="spec-pill tech">Head Hunters Landmark</span>
+          <h3 class="card-title">Jazz-Funk Chord Comping &amp; Soloing</h3>
+          <p class="card-text">Herbie Hancock plays a Rhodes Suitcase 73. When played softly, the Rhodes produces a mellow, liquid fundamental tone. When struck with velocity, the tines bend into asymmetric saturation, producing a signature 'bark' and harmonic bite.</p>
+        </div>
+
+        <div class="info-card cyan-edge">
+          <div class="song-banner">
+            <span class="song-artist-name">🎵 The Doors</span>
+            <span class="song-track-name">"Riders on the Storm" (1971)</span>
+          </div>
+          <div class="card-video-embed">
+            <iframe src="https://www.youtube-nocookie.com/embed/7G2-FPlvY58" title="The Doors - Riders on the Storm" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <span class="spec-pill ao3">Optical Stereo Tremolo</span>
+          <h3 class="card-title">Ray Manzarek's Panning Rhodes</h3>
+          <p class="card-text">Manzarek runs his Rhodes through the Suitcase preamp's built-in optical tremolo circuit, which modulates amplitude back and forth between two speakers. The gentle pulsing bell-like notes mimic raindrops falling across the stereo field.</p>
+        </div>
+      </div>
+
+      <div class="takeaway-box">
+        <span class="takeaway-tag">Rhodes Transduction</span>
+        <span class="takeaway-text">A neoprene hammer strikes a thin steel rod (tine) coupled to a massive twisted steel block (tonebar), forming an asymmetric tuning fork. An individual electromagnetic guitar-style pickup senses the vibrating tine tip.</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 6: FENDER RHODES IN POP & FUSION -->
+    <section class="slide" id="slide-6">
+      <div class="header-bar">
+        <span class="deck-tag">Electro-Mechanical Keyboards &bull; Slide 6 of 15</span>
+        <span class="slide-counter">Rhodes in Production</span>
+      </div>
+      <div class="slide-title-wrap">
+        <h1 class="slide-heading">The Rhodes Sound: <span>Phase Shifting &amp; Chorus</span></h1>
+        <p class="slide-lead">How studio engineers in the mid-to-late 1970s used analog bucket-brigade modulation to transform the Rhodes into the definitive sound of Yacht Rock and Fusion.</p>
       </div>
 
       <div class="grid-2">
         <div class="info-card highlight">
-          <div class="card-thumb contain-img" onclick="openLightbox('/images/slides/classic_keyboards/fender_rhodes_tine_tonebar_schematic.svg', 'Fender Rhodes Tine &amp; Tonebar Acoustic Action Schematic')">
-            <img src="/images/slides/classic_keyboards/fender_rhodes_tine_tonebar_schematic.svg" alt="Rhodes Tine Action Schematic" style="width: 100%; height: 100%; object-fit: contain;">
+          <div class="song-banner">
+            <span class="song-artist-name">🎵 Steely Dan</span>
+            <span class="song-track-name">"Peg" (1977)</span>
           </div>
-          <span class="spec-pill tech">Mechanical Generation</span>
-          <h3 class="card-title">Asymmetrical Tuning Fork</h3>
-          <p class="card-text">Pressing a key propels a <strong>neoprene-tipped hammer</strong> against a thin, tapered steel rod called a <strong>tine</strong>. The tine is rigidly joined to a heavy cast metal <strong>tonebar</strong>, forming an asymmetrical tuning fork that resonates with extraordinary sustain.</p>
+          <div class="card-video-embed">
+            <iframe src="https://www.youtube-nocookie.com/embed/u_pt3khMRFs" title="Steely Dan - Peg" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <span class="spec-pill ao4">Aja Masterpiece</span>
+          <h3 class="card-title">Studio Perfection &amp; Bell Attack</h3>
+          <p class="card-text">Paul Griffin plays crisp, syncopated Rhodes comping beneath Michael McDonald's layered backing vocals. Recorded directly through high-end studio tube preamps, the bell chime transients and dynamic touch sensitivity are showcased in microscopic clarity.</p>
         </div>
 
-        <div class="info-card cyan-edge">
-          <div class="card-thumb contain-img" onclick="openLightbox('/images/slides/classic_keyboards/fender_rhodes.jpg', 'Vintage Fender Rhodes Mark I Stage 73')">
-            <img src="/images/slides/classic_keyboards/fender_rhodes.jpg" alt="Fender Rhodes" style="width: 100%; height: 100%; object-fit: contain;">
-          </div>
-          <span class="spec-pill ao3">Electromagnetic Pickup</span>
-          <h3 class="card-title">1 Pickup Per Note (Induction)</h3>
-          <p class="card-text">Directly opposite the tip of each tine sits an <strong>individual electromagnetic pickup</strong> (an Alnico magnet wrapped in copper wire, identical in principle to an electric guitar pickup). The steel tine's vibration disturbs the magnetic field, generating an AC voltage.</p>
-          <div class="video-btn-row">
-            <button class="video-trigger-btn" onclick="openVideo('UbkqE4fpvdI', 'Herbie Hancock - Chameleon (Fender Rhodes Jazz-Funk Landmark)')">&#9654; Watch Herbie Hancock</button>
-            <a href="https://www.youtube.com/watch?v=UbkqE4fpvdI" target="_blank" rel="noopener noreferrer" class="yt-direct-btn">&#9654; YouTube</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="takeaway-box">
-        <span class="takeaway-tag">Timbral Profile</span>
-        <span class="takeaway-text">Warm, chimey, bell-like timbre on soft notes. When played hard, the tine vibrates closer to the magnet pole piece, inducing slight harmonic bark and grit.</span>
-      </div>
-    </section>
-
-    <!-- SLIDE 6: WURLITZER 200A -->
-    <section class="slide" id="slide-6">
-      <div class="header-bar">
-        <span class="deck-tag">Electro-Mechanical Keyboards &bull; Slide 6 of 15</span>
-        <span class="slide-counter">Wurlitzer 200A</span>
-      </div>
-      <div class="slide-title-wrap">
-        <h1 class="slide-heading">Wurlitzer 200A: <span>Reeds &amp; Midrange Bark</span></h1>
-        <p class="slide-lead">Manufactured by Rudolph Wurlitzer Company, the Wurlitzer 200A electric piano delivered a cutting, aggressive, biting tone favored by classic rock, R&amp;B, and pop bands.</p>
-      </div>
-
-      <div class="grid-2">
         <div class="info-card emerald-edge">
-          <div class="card-thumb contain-img" onclick="openLightbox('/images/slides/classic_keyboards/wurlitzer_reed_electrostatic_pickup.svg', 'Wurlitzer 200A Reed and Electrostatic Pickup Schematic')">
-            <img src="/images/slides/classic_keyboards/wurlitzer_reed_electrostatic_pickup.svg" alt="Wurlitzer Action Schematic" style="width: 100%; height: 100%; object-fit: contain;">
+          <div class="song-banner">
+            <span class="song-artist-name">🎵 Herbie Hancock</span>
+            <span class="song-track-name">"Watermelon Man" (1973)</span>
           </div>
-          <span class="spec-pill tech">Mechanical Generation</span>
-          <h3 class="card-title">Felt Hammers &amp; Steel Reeds</h3>
-          <p class="card-text">Unlike the Rhodes neoprene hammer and tine, the Wurlitzer utilizes a conventional piano-style <strong>felt hammer striking a small, flat, tuned steel reed</strong> screwed firmly into a massive grounded metal reed bar.</p>
-        </div>
-
-        <div class="info-card amber-edge">
-          <div class="card-thumb contain-img" onclick="openLightbox('/images/slides/classic_keyboards/wurlitzer_200a.jpg', 'Classic Black Wurlitzer 200A Electric Piano')">
-            <img src="/images/slides/classic_keyboards/wurlitzer_200a.jpg" alt="Wurlitzer 200A" style="width: 100%; height: 100%; object-fit: contain;">
+          <div class="card-video-embed">
+            <iframe src="https://www.youtube-nocookie.com/embed/UbkqE4fpvdI" title="Herbie Hancock - Head Hunters" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
           </div>
-          <span class="spec-pill ao3">Electrostatic Transduction</span>
-          <h3 class="card-title">Polarized Comb Plate (+170V DC)</h3>
-          <p class="card-text">Wurlitzers do NOT use electromagnetic coils! Instead, the vibrating steel reed acts as one plate of a variable capacitor inside an <strong>electrostatic pickup comb plate polarized with approximately +170V DC</strong>. The capacitance fluctuation converts directly into audio voltage.</p>
-          <div class="video-btn-row">
-            <button class="video-trigger-btn" onclick="openVideo('EPfmNxKLDG4', 'Beck - Where Its At (Iconic Wurlitzer 200A Intro Riff)')">&#9654; Watch Wurlitzer Riff</button>
-            <a href="https://www.youtube.com/watch?v=EPfmNxKLDG4" target="_blank" rel="noopener noreferrer" class="yt-direct-btn">&#9654; YouTube</a>
-          </div>
+          <span class="spec-pill tech">Dynamic Velocity Response</span>
+          <h3 class="card-title">Tine Escapement &amp; Harmonic Saturation</h3>
+          <p class="card-text">Unlike acoustic pianos with double escapement, the Rhodes action is direct and simple. Playing softly produces pure sine-like waves, while heavy chords cause the tine to oscillate closer to the pickup pole piece, producing pleasant even-order overdrive.</p>
         </div>
       </div>
 
       <div class="takeaway-box">
-        <span class="takeaway-tag">Timbral Profile</span>
-        <span class="takeaway-text">Raw, punchy, biting midrange bark with natural clipping distortion when hit forcefully. Built-in optocoupler tremolo circuit. Famous: Ray Charles (&quot;What'd I Say&quot;), Supertramp (&quot;The Logical Song&quot;), Queen (&quot;You're My Best Friend&quot;).</span>
+        <span class="takeaway-tag">Key Identifier</span>
+        <span class="takeaway-text">Listen for the pure, round, metallic 'tine chime' at the start of each note followed by a long, warm, singing sustain. Rhodes electric pianos possess significantly more low-frequency body and sustain than Wurlitzers.</span>
       </div>
     </section>
 
-    <!-- SLIDE 7: RHODES VS WURLITZER SHOOTOUT -->
+    <!-- SLIDE 7: WURLITZER 200A -->
     <section class="slide" id="slide-7">
       <div class="header-bar">
         <span class="deck-tag">Electro-Mechanical Keyboards &bull; Slide 7 of 15</span>
-        <span class="slide-counter">Technical Shootout</span>
+        <span class="slide-counter">Wurlitzer 200A</span>
       </div>
       <div class="slide-title-wrap">
-        <h1 class="slide-heading">Rhodes vs. Wurlitzer: <span>The Technical Shootout</span></h1>
-        <p class="slide-lead">A direct examiner comparison: key questions in Edexcel Component 3 frequently require candidates to contrast the tone generation, pickups, and timbres of both electric pianos.</p>
+        <h1 class="slide-heading">Wurlitzer 200A: <span>Vibrating Reeds &amp; Midrange Bark</span></h1>
+        <p class="slide-lead">Using steel reeds struck by felt hammers and an electrostatic capacitive pickup, the 'Wurli' delivers a raw, cutting tone that punches directly through dense rock and soul mixes.</p>
       </div>
 
       <div class="grid-2">
-        <div class="info-card cyan-edge">
-          <span class="spec-pill ao3">Fender Rhodes Mark I</span>
-          <h3 class="card-title">Rhodes Specifications</h3>
-          <ul style="margin: 8px 0 0 18px; color: #cbd5e1; font-size: 13px; line-height: 1.65;">
-            <li><strong>Sound Source:</strong> Tapered steel <strong>tines</strong> with heavy tonebars.</li>
-            <li><strong>Hammer Material:</strong> Neoprene rubber tips.</li>
-            <li><strong>Pickup Type:</strong> <strong>Electromagnetic</strong> coils (1 per note).</li>
-            <li><strong>Timbral Envelope:</strong> Mellow, round fundamental with crystalline bell sustain.</li>
-            <li><strong>Built-in Modulation:</strong> Stereo auto-pan tremolo (Suitcase model).</li>
-            <li><strong>Genre Associations:</strong> Jazz fusion, Soul, R&amp;B, Disco, Yacht Rock.</li>
-          </ul>
+        <div class="info-card amber-edge">
+          <div class="song-banner">
+            <span class="song-artist-name">🎵 Ray Charles</span>
+            <span class="song-track-name">"What'd I Say" (1959)</span>
+          </div>
+          <div class="card-video-embed">
+            <iframe src="https://www.youtube-nocookie.com/embed/6uTDa3771HM" title="Ray Charles - What'd I Say" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <span class="spec-pill exam">Historic Breakthrough</span>
+          <h3 class="card-title">The First Electric Piano Hit Record</h3>
+          <p class="card-text">Ray Charles improvised this legendary call-and-response anthem on an early tube-driven Wurlitzer 120. When Charles drives his right hand hard, the steel reeds saturate the internal amplifier, creating the gritty, overdriven electro-acoustic bark that birthed soul music.</p>
         </div>
 
-        <div class="info-card emerald-edge">
-          <span class="spec-pill ao3">Wurlitzer 200A</span>
-          <h3 class="card-title">Wurlitzer Specifications</h3>
-          <ul style="margin: 8px 0 0 18px; color: #cbd5e1; font-size: 13px; line-height: 1.65;">
-            <li><strong>Sound Source:</strong> Tuned flat steel <strong>reeds</strong>.</li>
-            <li><strong>Hammer Material:</strong> Conventional felt piano hammers.</li>
-            <li><strong>Pickup Type:</strong> <strong>Electrostatic</strong> polarized plate (+170V DC).</li>
-            <li><strong>Timbral Envelope:</strong> Biting, mid-frequency bark with aggressive breakup.</li>
-            <li><strong>Built-in Modulation:</strong> Monophonic optical tremolo (vibrato circuit).</li>
-            <li><strong>Genre Associations:</strong> Classic rock, Blues, 70s Pop, British Invasion.</li>
-          </ul>
+        <div class="info-card cyan-edge">
+          <div class="song-banner">
+            <span class="song-artist-name">🎵 Supertramp</span>
+            <span class="song-track-name">"The Logical Song" (1979)</span>
+          </div>
+          <div class="card-video-embed">
+            <iframe src="https://www.youtube-nocookie.com/embed/low6Coqrw9Y" title="Supertramp - The Logical Song" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <span class="spec-pill ao3">Wurlitzer 200A Tremolo</span>
+          <h3 class="card-title">Compressed Midrange Stabs &amp; Optical Tremolo</h3>
+          <p class="card-text">Rick Davies' staccato Wurlitzer 200A chords define the intro and verse. Note the sharp, reed-like attack, shorter decay time compared to a Rhodes, and the heavy built-in optical tremolo creating dynamic rhythmic movement.</p>
         </div>
       </div>
 
       <div class="takeaway-box">
-        <span class="takeaway-tag">Examiner Tip</span>
-        <span class="takeaway-text">Memory hook: &quot;Tines chime, reeds scream&quot; &mdash; Rhodes has tines and sounds like a warm bell; Wurlitzer has reeds and barks through a dense rock band mix.</span>
+        <span class="takeaway-tag">Wurlitzer Transduction</span>
+        <span class="takeaway-text">A felt hammer strikes a small steel reed vibrating between polarized metal plates (~170V DC electrostatic pickup). Capacitance varies as the reed moves, transduced into electric current. Reeds have a sharp, reed-like bite and decay faster than Rhodes tines.</span>
       </div>
     </section>
 
-    <!-- SLIDE 8: HOHNER CLAVINET D6 -->
+    <!-- SLIDE 8: WURLITZER IN ALT-ROCK & POP -->
     <section class="slide" id="slide-8">
       <div class="header-bar">
         <span class="deck-tag">Electro-Mechanical Keyboards &bull; Slide 8 of 15</span>
+        <span class="slide-counter">Wurli in Pop &amp; Rock</span>
+      </div>
+      <div class="slide-title-wrap">
+        <h1 class="slide-heading">The Wurli Punch: <span>From Queen to 90s Alt-Rock</span></h1>
+        <p class="slide-lead">How the Wurlitzer's aggressive midrange cut and reed bite made it a favorite for stadium rock anthems and 1990s alternative grooves.</p>
+      </div>
+
+      <div class="grid-2">
+        <div class="info-card highlight">
+          <div class="song-banner">
+            <span class="song-artist-name">🎵 Queen</span>
+            <span class="song-track-name">"You're My Best Friend" (1975)</span>
+          </div>
+          <div class="card-video-embed">
+            <iframe src="https://www.youtube-nocookie.com/embed/HaZpZQG2z10" title="Queen - You're My Best Friend" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <span class="spec-pill ao4">A Night at the Opera</span>
+          <h3 class="card-title">John Deacon on Wurlitzer 200A</h3>
+          <p class="card-text">Bassist John Deacon composed this track on the Wurlitzer 200A, running it through his custom Deacy transistor amplifier. The reed's bell-free, woody midrange warmth blends seamlessly with Brian May's multitracked Red Special guitar orchestrations.</p>
+        </div>
+
+        <div class="info-card emerald-edge">
+          <div class="song-banner">
+            <span class="song-artist-name">🎵 Beck</span>
+            <span class="song-track-name">"Where It's At" (1996)</span>
+          </div>
+          <div class="card-video-embed">
+            <iframe src="https://www.youtube-nocookie.com/embed/EPfmNxKLDG4" title="Beck - Where It's At" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <span class="spec-pill tech">90s Alt-Rock Revival</span>
+          <h3 class="card-title">Hip-Hop Grooves &amp; Vintage Wurli Riffs</h3>
+          <p class="card-text">Beck built this Grammy-winning track around a gritty, syncopated Wurlitzer 200A riff. The compressed reed bite cuts through heavy hip-hop drum loops, showing why the Wurlitzer remains an essential vintage keyboard in modern production.</p>
+        </div>
+      </div>
+
+      <div class="takeaway-box">
+        <span class="takeaway-tag">Rhodes vs Wurlitzer Rule of Thumb</span>
+        <span class="takeaway-text">If the electric piano sounds mellow, bell-like, and smooth with long sustain, it is a <strong>Fender Rhodes</strong>. If it sounds biting, reedy, barky, and punchy with shorter sustain, it is a <strong>Wurlitzer</strong>.</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 9: HOHNER CLAVINET D6 (REPLACING THE BROKEN SCHEMATIC FROM USER SCREENSHOT) -->
+    <section class="slide" id="slide-9">
+      <div class="header-bar">
+        <span class="deck-tag">Electro-Mechanical Keyboards &bull; Slide 9 of 15</span>
         <span class="slide-counter">Hohner Clavinet</span>
       </div>
       <div class="slide-title-wrap">
         <h1 class="slide-heading">Hohner Clavinet D6: <span>Tangents &amp; Real Guitar Strings</span></h1>
-        <p class="slide-lead">Designed by Ernst Zacharias in Germany to bring the Baroque clavichord into the electric age, the Clavinet became the definitive rhythmic engine of 1970s Funk music.</p>
+        <p class="slide-lead">Designed by Ernst Zacharias in Germany, the Clavinet became the definitive rhythmic engine of 1970s funk and rock music.</p>
       </div>
 
       <div class="grid-2">
         <div class="info-card amber-edge">
-          <div class="card-thumb contain-img" onclick="openLightbox('/images/slides/classic_keyboards/hohner_clavinet_tangent_string_schematic.svg', 'Hohner Clavinet D6 Tangent and String Action Schematic')">
-            <img src="/images/slides/classic_keyboards/hohner_clavinet_tangent_string_schematic.svg" alt="Clavinet Action Schematic" style="width: 100%; height: 100%; object-fit: contain;">
+          <div class="song-banner">
+            <span class="song-artist-name">🎵 Stevie Wonder</span>
+            <span class="song-track-name">"Superstition" (1972)</span>
           </div>
-          <span class="spec-pill tech">Mechanical Action</span>
-          <h3 class="card-title">Rubber Tangent Strikes String</h3>
-          <p class="card-text">Beneath each key sits a small, firm <strong>rubber-tipped plunger called a tangent</strong>. When the key is depressed, the rubber tip pinches an <strong>actual steel guitar string against a metal anvil</strong>. Wool yarn woven around the non-speaking end mutes the string instantly upon key release.</p>
+          <div class="card-video-embed">
+            <iframe src="https://www.youtube-nocookie.com/embed/ftdZ363R9kQ" title="Stevie Wonder - Superstition (Live Clavinet)" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <span class="spec-pill exam">The Ultimate Clavinet Landmark</span>
+          <h3 class="card-title">Rubber Tangents Striking Real Steel Strings</h3>
+          <p class="card-text">Beneath each key sits a small, firm <strong>rubber-tipped plunger called a tangent</strong>. When depressed, the tangent pinches an <strong>actual steel guitar string against a metal anvil</strong>. Wool yarn woven around the end mutes the string immediately upon key release, producing zero sustain and maximum percussive syncopation.</p>
         </div>
 
-        <div class="info-card highlight">
-          <div class="card-thumb contain-img" onclick="openLightbox('/images/slides/classic_keyboards/hohner_clavinet_d6.jpg', 'Vintage Hohner Clavinet D6 with Woodgrain Case &amp; Castle Switches')">
-            <img src="/images/slides/classic_keyboards/hohner_clavinet_d6.jpg" alt="Hohner Clavinet D6" style="width: 100%; height: 100%; object-fit: contain;">
+        <div class="info-card cyan-edge">
+          <div class="song-banner">
+            <span class="song-artist-name">🎵 Led Zeppelin</span>
+            <span class="song-track-name">"Trampled Under Foot" (1975)</span>
           </div>
-          <span class="spec-pill ao3">Magnetic Pickups &amp; EQ</span>
-          <h3 class="card-title">Dual Single-Coils &amp; Castle Filters</h3>
-          <p class="card-text">Two electromagnetic single-coil pickups (neck and bridge) span the 60 strings. Rocker switches (Brilliant, Treble, Medium, Soft) insert high-pass and low-pass capacitor networks to dramatically contour the frequency response from twangy spank to deep thump.</p>
+          <div class="card-video-embed">
+            <iframe src="https://www.youtube-nocookie.com/embed/2KdymN0xDQQ" title="Led Zeppelin - Trampled Under Foot" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <span class="spec-pill ao3">John Paul Jones Hard Rock Funk</span>
+          <h3 class="card-title">Dual Single-Coil Pickups &amp; Amp Drive</h3>
+          <p class="card-text">Two electromagnetic single-coil pickups (neck and bridge) span the 60 strings. John Paul Jones routes his Clavinet D6 through an MXR Phase 90 pedal and driven guitar amplifier, locking in with John Bonham's thunderous groove.</p>
         </div>
       </div>
 
@@ -780,491 +719,379 @@
       </div>
     </section>
 
-    <!-- SLIDE 9: CLAVINET IN FUNK & WAH-WAH -->
-    <section class="slide" id="slide-9">
+    <!-- SLIDE 10: CLAVINET IN FUNK & WAH-WAH -->
+    <section class="slide" id="slide-10">
       <div class="header-bar">
-        <span class="deck-tag">Electro-Mechanical Keyboards &bull; Slide 9 of 15</span>
+        <span class="deck-tag">Electro-Mechanical Keyboards &bull; Slide 10 of 15</span>
         <span class="slide-counter">Funk Production</span>
       </div>
       <div class="slide-title-wrap">
         <h1 class="slide-heading">The Funk Staple: <span>Clavinet &amp; Wah-Wah Processing</span></h1>
-        <p class="slide-lead">How Stevie Wonder and 1970s funk producers elevated the Clavinet into an explosive lead and rhythm voice by running its high-impedance signal into guitar effects pedals.</p>
+        <p class="slide-lead">Because the Clavinet outputs an electric guitar-level Hi-Z signal, keyboardists routinely plugged directly into guitar effect pedals to revolutionize 1970s funk.</p>
       </div>
 
       <div class="grid-2">
         <div class="info-card highlight">
-          <span class="spec-pill ao4">Landmark Track</span>
-          <h3 class="card-title">Stevie Wonder &mdash; &quot;Superstition&quot; (1972)</h3>
-          <p class="card-text">Recorded at Electric Lady Studios NYC, Stevie Wonder tracked the iconic rhythm groove by <strong>layering multiple separate passes of the Hohner Clavinet D6</strong> onto multitrack tape, each configured with different pickup combinations and EQ settings to create an interlocking, driving polyrhythm.</p>
-          <div class="video-btn-row">
-            <button class="video-trigger-btn" onclick="openVideo('ftdZ363R9kQ', 'Stevie Wonder - Superstition (Live Clavinet Landmark)')">&#9654; Watch Stevie Wonder</button>
-            <a href="https://www.youtube.com/watch?v=ftdZ363R9kQ" target="_blank" rel="noopener noreferrer" class="yt-direct-btn">&#9654; YouTube</a>
+          <div class="song-banner">
+            <span class="song-artist-name">🎵 Stevie Wonder</span>
+            <span class="song-track-name">"Higher Ground" (1973)</span>
           </div>
-        </div>
-
-        <div class="info-card amber-edge">
-          <span class="spec-pill tech">Studio Signal Routing</span>
-          <h3 class="card-title">Wah-Wah &amp; Envelope Filtering</h3>
-          <p class="card-text">Because the Clavinet's output is passive high-impedance magnetic (identical to a Fender Stratocaster), keyboardists plugged directly into guitar stompboxes:</p>
-          <ul style="margin: 8px 0 0 16px; color: #cbd5e1; font-size: 12.5px; line-height: 1.5;">
-            <li><strong>Crybaby / Vox Wah-Wah:</strong> Manual foot rocking sweeps a resonant bandpass filter, adding expressive vocal 'talking' articulation.</li>
-            <li><strong>Mu-Tron III Envelope Filter:</strong> Dynamic auto-wah sweeping cutoff based on key velocity.</li>
-            <li><strong>Fender Twin Reverb Amp:</strong> Providing spring reverb and valve power saturation.</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="takeaway-box">
-        <span class="takeaway-tag">Exam Recognition</span>
-        <span class="takeaway-text">If you hear a fast, funky, twangy keyboard with percussive attack, muted release clacks, and wah-wah filter sweeps in a 1970s Soul or Funk track, it is unmistakably a Hohner Clavinet D6!</span>
-      </div>
-    </section>
-
-    <!-- SLIDE 10: HAMMOND B3 TONEWHEEL GENERATOR -->
-    <section class="slide" id="slide-10">
-      <div class="header-bar">
-        <span class="deck-tag">Electro-Mechanical Keyboards &bull; Slide 10 of 15</span>
-        <span class="slide-counter">Hammond B3 Organ</span>
-      </div>
-      <div class="slide-title-wrap">
-        <h1 class="slide-heading">Hammond B3: <span>Synchronous Tonewheel Generator</span></h1>
-        <p class="slide-lead">Patented by Laurens Hammond in 1934, the tonewheel organ replaced pipe organ bellows with an ultra-reliable mechanical synchronous motor and electromagnetic induction generator.</p>
-      </div>
-
-      <div class="grid-2">
-        <div class="info-card highlight">
-          <div class="card-thumb contain-img" onclick="openLightbox('/images/slides/classic_keyboards/hammond_b3_tonewheel_generator.svg', 'Hammond B3 Synchronous Tonewheel Generator Schematic')">
-            <img src="/images/slides/classic_keyboards/hammond_b3_tonewheel_generator.svg" alt="Hammond Tonewheel Generator" style="width: 100%; height: 100%; object-fit: contain;">
+          <div class="card-video-embed">
+            <iframe src="https://www.youtube-nocookie.com/embed/4wZ3ZG_Wams" title="Stevie Wonder - Higher Ground" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
           </div>
-          <span class="spec-pill tech">Electromagnetic Induction</span>
-          <h3 class="card-title">91 Spinning Toothed Steel Discs</h3>
-          <p class="card-text">A constant-speed synchronous motor turns a central drive shaft at exactly 1200 RPM. Arrayed along the shaft are <strong>91 toothed steel discs called tonewheels</strong>. As the metal teeth spin past a permanent magnet and coil pole piece, variations in magnetic reluctance induce a smooth electrical sine wave.</p>
-        </div>
-
-        <div class="info-card cyan-edge">
-          <div class="card-thumb contain-img" onclick="openLightbox('/images/slides/classic_keyboards/hammond_b3_with_leslie.jpg', 'Vintage Hammond B3 Organ with Dual 61-Note Manuals &amp; Leslie 122')">
-            <img src="/images/slides/classic_keyboards/hammond_b3_with_leslie.jpg" alt="Hammond B3 with Leslie" style="width: 100%; height: 100%; object-fit: contain;">
-          </div>
-          <span class="spec-pill ao4">Why It Cannot Drift</span>
-          <h3 class="card-title">Absolute Tuning Stability</h3>
-          <p class="card-text">Because the synchronous motor locks directly to the AC mains electrical line frequency (60 Hz in the US, 50 Hz in the UK) and the tonewheel teeth ratios are physically machined into the steel discs, <strong>the Hammond tonewheel organ can NEVER drift out of tune</strong>, giving it unmatched reliability in gospel, jazz, and rock.</p>
-        </div>
-      </div>
-
-      <div class="takeaway-box">
-        <span class="takeaway-tag">Core Concept</span>
-        <span class="takeaway-text">The tonewheel assembly generates 91 pure sine waves continuously running in the background. Pressing a key simply completes electrical contact to route these sine waves to the drawbars.</span>
-      </div>
-    </section>
-
-    <!-- SLIDE 11: HAMMOND DRAWBARS & ADDITIVE MIXING -->
-    <section class="slide" id="slide-11">
-      <div class="header-bar">
-        <span class="deck-tag">Electro-Mechanical Keyboards &bull; Slide 11 of 15</span>
-        <span class="slide-counter">Harmonic Drawbars</span>
-      </div>
-      <div class="slide-title-wrap">
-        <h1 class="slide-heading">Harmonic Drawbars: <span>Additive Synthesis Before Computers</span></h1>
-        <p class="slide-lead">Nine mechanical sliding drawbars allow the organist to blend pure sine-wave harmonics in real time, mimicking traditional church pipe organ footage lengths.</p>
-      </div>
-
-      <div class="grid-2">
-        <div class="info-card highlight">
-          <div class="card-thumb contain-img" onclick="openLightbox('/images/slides/classic_keyboards/hammond_drawbar_harmonics_diagram.svg', 'Hammond 9 Harmonic Drawbars Diagram')">
-            <img src="/images/slides/classic_keyboards/hammond_drawbar_harmonics_diagram.svg" alt="Hammond Drawbar Diagram" style="width: 100%; height: 100%; object-fit: contain;">
-          </div>
-          <span class="spec-pill tech">Additive Synthesis</span>
-          <h3 class="card-title">Traditional Pipe Footage Equivalents</h3>
-          <p class="card-text">Each drawbar has 9 stepped volume settings (0 = silent, 8 = full volume). By pulling drawbars, organists combine harmonic sine waves:</p>
-          <ul style="margin: 6px 0 0 16px; color: #cbd5e1; font-size: 12px; line-height: 1.5;">
-            <li><strong>Brown Drawbars (Sub-harmonics):</strong> 16' (sub-octave), 5 1/3' (sub-fifth).</li>
-            <li><strong>White Drawbars (Octaves):</strong> 8' (fundamental), 4', 2', 1'.</li>
-            <li><strong>Black Drawbars (Mutation Stops):</strong> 2 2/3' (3rd harm), 1 3/5' (5th harm), 1 1/3' (6th harm).</li>
-          </ul>
-        </div>
-
-        <div class="info-card amber-edge">
-          <div class="card-thumb contain-img" onclick="openLightbox('/images/slides/classic_keyboards/hammond_drawbars.jpg', 'Hammond B3 Drawbar Bank Close-Up')">
-            <img src="/images/slides/classic_keyboards/hammond_drawbars.jpg" alt="Hammond Drawbar Bank" style="width: 100%; height: 100%; object-fit: contain;">
-          </div>
-          <span class="spec-pill exam">Classic Drawbar Registrations</span>
-          <h3 class="card-title">Iconic Presets &amp; Recordings</h3>
-          <ul style="margin: 6px 0 0 16px; color: #cbd5e1; font-size: 12.5px; line-height: 1.5;">
-            <li><strong>888 000 000 (&quot;Jimmy Smith&quot;):</strong> Warm, punchy jazz tone utilizing the first 3 drawbars with 3rd harmonic percussion.</li>
-            <li><strong>888 888 888 (&quot;All Out / Full Screamer&quot;):</strong> Jon Lord (Deep Purple) and rock power chords cutting through Marshall amps.</li>
-            <li><strong>800 008 888 (&quot;Gospel Whistle&quot;):</strong> Deep sub-bass combined with screaming high whistling harmonics.</li>
-          </ul>
-          <div class="video-btn-row">
-            <button class="video-trigger-btn" onclick="openVideo('_v2exWrsGOc', 'Booker T. &amp; The M.G.s - Green Onions (Hammond B3 &amp; Leslie)')">&#9654; Watch Green Onions</button>
-            <a href="https://www.youtube.com/watch?v=_v2exWrsGOc" target="_blank" rel="noopener noreferrer" class="yt-direct-btn">&#9654; YouTube</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="takeaway-box">
-        <span class="takeaway-tag">Acoustic Logic</span>
-        <span class="takeaway-text">8-foot is concert unison pitch (middle C produces 261.6 Hz). 16-foot sounds one octave lower. 4-foot sounds one octave higher. 2-foot sounds two octaves higher.</span>
-      </div>
-    </section>
-
-    <!-- SLIDE 12: HAMMOND MECHANICAL ARTIFACTS -->
-    <section class="slide" id="slide-12">
-      <div class="header-bar">
-        <span class="deck-tag">Electro-Mechanical Keyboards &bull; Slide 12 of 15</span>
-        <span class="slide-counter">Mechanical Artifacts</span>
-      </div>
-      <div class="slide-title-wrap">
-        <h1 class="slide-heading">Hammond B3 Artifacts: <span>Key Click &amp; Harmonic Percussion</span></h1>
-        <p class="slide-lead">Engineering imperfections and design choices that Laurens Hammond initially tried to eliminate became the most celebrated sonic hallmarks of the instrument.</p>
-      </div>
-
-      <div class="grid-3">
-        <div class="info-card highlight">
-          <span class="spec-pill exam">Signature Flaw</span>
-          <h3 class="card-title">Transient &quot;Key Click&quot;</h3>
-          <p class="card-text">Beneath each key sit 9 individual metal contact fingers making physical contact with 9 energized busbars. Because there is no low-pass filtering, the mechanical electrical connection generates a sharp high-frequency transient <strong>&quot;key click&quot;</strong> that gives staccato playing punch and bite.</p>
-        </div>
-
-        <div class="info-card cyan-edge">
-          <span class="spec-pill tech">Decaying Accent</span>
-          <h3 class="card-title">Harmonic Percussion</h3>
-          <p class="card-text">Adds a sharp, non-sustaining ping to the note attack. Organists can select <strong>2nd Harmonic (4' octave)</strong> or <strong>3rd Harmonic (2 2/3' fifth)</strong> with Fast or Slow decay. It is monophonic / single-trigger: keys must be fully released before the percussion will re-trigger.</p>
+          <span class="spec-pill ao4">Mu-Tron III Auto-Wah</span>
+          <h3 class="card-title">Dynamic Envelope Filter Modulation</h3>
+          <p class="card-text">Stevie Wonder plugged his Clavinet D6 into a brand-new <strong>Mu-Tron III envelope filter</strong>. The peak bandpass filter tracks the velocity of each keystroke, creating expressive 'quack' and 'wah' frequency sweeps that defined 1970s Motown and P-Funk.</p>
         </div>
 
         <div class="info-card emerald-edge">
-          <span class="spec-pill ao4">Mechanical Delay Line</span>
-          <h3 class="card-title">Scanner Vibrato</h3>
-          <p class="card-text">Rather than electronic LFO modulation, the B3 uses a physical <strong>rotary capacitor scanner delay line</strong> driven by the main motor. It continuously shifts phase across 16 LC stages, producing rich analog vibrato (pitch) or chorus (vibrato + dry mix).</p>
+          <div class="song-banner">
+            <span class="song-artist-name">🎵 Billy Preston</span>
+            <span class="song-track-name">"Outa-Space" (1971)</span>
+          </div>
+          <div class="card-video-embed">
+            <iframe src="https://www.youtube-nocookie.com/embed/gaJ35thYxAM" title="Billy Preston - Outa-Space" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <span class="spec-pill tech">Cry Baby Foot Wah</span>
+          <h3 class="card-title">Grammy-Winning Clavinet Wah Landmark</h3>
+          <p class="card-text">Billy Preston pioneered the technique of running the Clavinet D6 through a guitar Cry Baby foot-wah pedal into a cranked Fender Twin Reverb amp. By rocking the treadle in time with his left-hand bassline, he created vocal-like vocalized keyboard timbres.</p>
         </div>
       </div>
 
       <div class="takeaway-box">
-        <span class="takeaway-tag">Audio Cue</span>
-        <span class="takeaway-text">Listen for the distinctive percussive 'spit' or click at the beginning of fast jazz and gospel organ runs &mdash; that is authentic Hammond busbar key click!</span>
+        <span class="takeaway-tag">Production Workflow</span>
+        <span class="takeaway-text">Castle switches on the Clavinet D6 (Brilliant, Treble, Medium, Soft) engage high-pass and low-pass capacitor networks. When combined with single-coil pickup phase switching and a wah pedal, the Clavinet can mimic everything from a biting Telecaster to a subterranean bass.</span>
       </div>
     </section>
 
-    <!-- SLIDE 13: LESLIE 122 ROTATING SPEAKER -->
-    <section class="slide" id="slide-13">
+    <!-- SLIDE 11: HAMMOND B3 TONEWHEELS -->
+    <section class="slide" id="slide-11">
       <div class="header-bar">
-        <span class="deck-tag">Electro-Mechanical Keyboards &bull; Slide 13 of 15</span>
-        <span class="slide-counter">Leslie Speaker</span>
+        <span class="deck-tag">Electro-Mechanical Keyboards &bull; Slide 11 of 15</span>
+        <span class="slide-counter">Hammond B3</span>
       </div>
       <div class="slide-title-wrap">
-        <h1 class="slide-heading">The Leslie 122: <span>Acoustic Doppler Effect in Motion</span></h1>
-        <p class="slide-lead">Invented by Donald Leslie (and initially despised by Laurens Hammond!), the rotating speaker cabinet turns static electrical organ tones into an immersive, swirling spatial soundscape.</p>
+        <h1 class="slide-heading">Hammond B3: <span>Synchronous Tonewheel Generator</span></h1>
+        <p class="slide-lead">Patented by Laurens Hammond in 1934, the tonewheel organ uses 91 rotating steel discs to generate electrical sine waves via electromagnetic induction.</p>
       </div>
 
       <div class="grid-2">
-        <div class="info-card highlight">
-          <div class="card-thumb contain-img" onclick="openLightbox('/images/slides/classic_keyboards/leslie_rotating_speaker_doppler.svg', 'Leslie 122 Rotary Speaker Acoustic Doppler Schematic')">
-            <img src="/images/slides/classic_keyboards/leslie_rotating_speaker_doppler.svg" alt="Leslie Rotary Speaker Schematic" style="width: 100%; height: 100%; object-fit: contain;">
+        <div class="info-card amber-edge">
+          <div class="song-banner">
+            <span class="song-artist-name">🎵 Booker T. &amp; the M.G.'s</span>
+            <span class="song-track-name">"Green Onions" (1962)</span>
           </div>
-          <span class="spec-pill tech">Acoustic Crossover &amp; Rotors</span>
-          <h3 class="card-title">Two Separate Rotating Elements</h3>
-          <p class="card-text">A passive <strong>800 Hz crossover network</strong> splits the audio signal:</p>
-          <ul style="margin: 6px 0 0 16px; color: #cbd5e1; font-size: 12.5px; line-height: 1.5;">
-            <li><strong>High Frequencies (&gt;800 Hz):</strong> Routed to a compression driver firing into a <strong>rotating treble horn</strong> spinning counter-clockwise.</li>
-            <li><strong>Low Frequencies (&lt;800 Hz):</strong> Routed to a stationary 15&quot; woofer firing into a <strong>curved wooden drum rotor</strong> spinning clockwise.</li>
-          </ul>
+          <div class="card-video-embed">
+            <iframe src="https://www.youtube-nocookie.com/embed/0oox9bJaGJ8" title="Booker T. & the M.G.'s - Green Onions" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <span class="spec-pill exam">The Soul Organ Foundation</span>
+          <h3 class="card-title">888000000 Drawbar Registration &amp; Key Click</h3>
+          <p class="card-text">Booker T. Jones pulls the first three drawbars fully out (the classic 'Jimmy Smith' / soul jazz setting). Notice the percussive 'click' transient at the start of every chord stab: mechanical multi-contact switches closing sequentially under each key!</p>
         </div>
 
-        <div class="info-card cyan-edge">
-          <div class="card-thumb contain-img" onclick="openLightbox('/images/slides/classic_keyboards/leslie_speaker.jpg', 'Vintage Leslie 122 Rotary Speaker Wooden Cabinet')">
-            <img src="/images/slides/classic_keyboards/leslie_speaker.jpg" alt="Leslie Speaker Cabinet" style="width: 100%; height: 100%; object-fit: contain;">
+        <div class="info-card highlight">
+          <div class="song-banner">
+            <span class="song-artist-name">🎵 Procol Harum</span>
+            <span class="song-track-name">"A Whiter Shade of Pale" (1967)</span>
           </div>
-          <span class="spec-pill exam">Doppler Physics &amp; Speeds</span>
-          <h3 class="card-title">Chorale vs. Tremolo &amp; Inertia</h3>
-          <p class="card-text">As the speakers rotate toward and away from the listener, the <strong>Acoustic Doppler effect</strong> dynamically modulates frequency (vibrato) and amplitude (tremolo). A half-moon switch on the organ selects speeds:</p>
-          <ul style="margin: 6px 0 0 16px; color: #cbd5e1; font-size: 12px; line-height: 1.5;">
-            <li><strong>Chorale (Slow, ~40 RPM):</strong> Subtle, spacious chorusing shimmer.</li>
-            <li><strong>Tremolo (Fast, ~400 RPM):</strong> Intense, dramatic rotary warble.</li>
-            <li><strong>Motor Inertia:</strong> The heavy bass rotor accelerates slower than the lightweight treble horn, creating glorious transitional tension!</li>
-          </ul>
-          <div class="video-btn-row">
-            <button class="video-trigger-btn" onclick="openVideo('Mb3iPP-tHdA', 'Procol Harum - A Whiter Shade of Pale (Classic Hammond &amp; Leslie)')">&#9654; Watch Leslie Warble</button>
-            <a href="https://www.youtube.com/watch?v=Mb3iPP-tHdA" target="_blank" rel="noopener noreferrer" class="yt-direct-btn">&#9654; YouTube</a>
+          <div class="card-video-embed">
+            <iframe src="https://www.youtube-nocookie.com/embed/Mb3iPP-tHdA" title="Procol Harum - A Whiter Shade of Pale" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
           </div>
+          <span class="spec-pill ao4">Olympic Studios Landmark</span>
+          <h3 class="card-title">Matthew Fisher's Majestic Baroque Organ</h3>
+          <p class="card-text">Matthew Fisher plays a Hammond M102 through a Leslie rotating cabinet. The combination of clean additive sine harmonics and the gentle acoustic swirling phase of the Leslie horn defined 1967's 'Summer of Love'.</p>
         </div>
       </div>
 
       <div class="takeaway-box">
-        <span class="takeaway-tag">Landmark Tracks</span>
-        <span class="takeaway-text">Procol Harum (&quot;A Whiter Shade of Pale&quot;), The Beatles (&quot;Let It Be&quot; organ solo, and John Lennon's vocal on &quot;Tomorrow Never Knows&quot; fed through a Leslie cabinet!).</span>
+        <span class="takeaway-tag">Tonewheel Physics</span>
+        <span class="takeaway-text">A synchronous AC motor spins a central drive shaft at a constant 1,200 RPM. Gearing rotates 91 notched steel wheels past permanent magnet pole pieces wrapped in copper wire. The passing teeth induce alternating electric currents matching exact musical pitches.</span>
       </div>
     </section>
 
-    <!-- SLIDE 14: STUDIO AMPLIFICATION & FX PROCESSING -->
+    <!-- SLIDE 12: HAMMOND DRAWBARS & PERCUSSION -->
+    <section class="slide" id="slide-12">
+      <div class="header-bar">
+        <span class="deck-tag">Electro-Mechanical Keyboards &bull; Slide 12 of 15</span>
+        <span class="slide-counter">Additive Harmonics</span>
+      </div>
+      <div class="slide-title-wrap">
+        <h1 class="slide-heading">Harmonic Drawbars: <span>Additive Synthesis in 1934</span></h1>
+        <p class="slide-lead">Decades before digital Fourier synthesis, the Hammond organ allowed performers to sculpt complex timbres by pulling 9 color-coded harmonic drawbars.</p>
+      </div>
+
+      <div class="grid-2">
+        <div class="info-card cyan-edge">
+          <div class="song-banner">
+            <span class="song-artist-name">🎵 Procol Harum</span>
+            <span class="song-track-name">"A Whiter Shade of Pale" (1967)</span>
+          </div>
+          <div class="card-video-embed">
+            <iframe src="https://www.youtube-nocookie.com/embed/Mb3iPP-tHdA" title="Procol Harum - A Whiter Shade of Pale" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <span class="spec-pill ao3">Flute Registration</span>
+          <h3 class="card-title">16', 8' &amp; 4' Pipe Organ Harmonics</h3>
+          <p class="card-text">The drawbars are marked in pipe-organ footages (16' sub-octave, 5⅓' quint, 8' fundamental, 4' octave, etc.). By pulling fundamental drawbars, Fisher achieves a pure, fluty, church-like baroque sound free of harsh high-frequency harmonics.</p>
+        </div>
+
+        <div class="info-card highlight">
+          <div class="song-banner">
+            <span class="song-artist-name">🎵 Deep Purple</span>
+            <span class="song-track-name">"Child In Time" (1970)</span>
+          </div>
+          <div class="card-video-embed">
+            <iframe src="https://www.youtube-nocookie.com/embed/OorZcOzNcgE" title="Deep Purple - Child In Time" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <span class="spec-pill ao4">Hard Rock Evolution</span>
+          <h3 class="card-title">Harmonic Percussion &amp; Dynamic Drawbar Sweeps</h3>
+          <p class="card-text">Jon Lord engages <strong>2nd and 3rd harmonic percussion</strong>, which injects a fast-decaying ping at the front of each chord. As the song escalates into screaming heavy rock, Lord violently pushes in and pulls out drawbars to dynamically shift between delicate tones and an aggressive roar.</p>
+        </div>
+      </div>
+
+      <div class="takeaway-box">
+        <span class="takeaway-tag">Drawbar Color Coding</span>
+        <span class="takeaway-text">White drawbars represent consonant octaves (8', 4', 2', 1'); black drawbars represent dissonant overtone intervals (fifths and thirds like 5⅓', 2⅔', 1⅗'); brown drawbars control deep sub-bass fundamentals (16', 5⅓').</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 13: THE LESLIE 122 ROTARY SPEAKER -->
+    <section class="slide" id="slide-13">
+      <div class="header-bar">
+        <span class="deck-tag">Electro-Mechanical Keyboards &bull; Slide 13 of 15</span>
+        <span class="slide-counter">Leslie 122</span>
+      </div>
+      <div class="slide-title-wrap">
+        <h1 class="slide-heading">The Leslie 122: <span>Acoustic Doppler Effect in Motion</span></h1>
+        <p class="slide-lead">Invented by Don Leslie to recreate the acoustic reflections of a cathedral pipe organ, the rotating horn and drum cabinet produce unmatched acoustic motion.</p>
+      </div>
+
+      <div class="grid-2">
+        <div class="info-card emerald-edge">
+          <div class="song-banner">
+            <span class="song-artist-name">🎵 Deep Purple</span>
+            <span class="song-track-name">"Child In Time" (Live 1970)</span>
+          </div>
+          <div class="card-video-embed">
+            <iframe src="https://www.youtube-nocookie.com/embed/OorZcOzNcgE" title="Deep Purple - Child In Time (Live)" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <span class="spec-pill tech">Tremolo Fast Speed (~400 RPM)</span>
+          <h3 class="card-title">Overdriven Valve Organ &amp; Doppler FM</h3>
+          <p class="card-text">Jon Lord flips the Leslie half-moon switch from <em>Chorale</em> (slow ~40 RPM) to <em>Tremolo</em> (fast ~400 RPM). Sound sources moving toward and away from the studio microphones at high speed create dramatic Doppler frequency modulation (pitch vibrato) combined with directional amplitude sweeps.</p>
+        </div>
+
+        <div class="info-card highlight">
+          <div class="song-banner">
+            <span class="song-artist-name">🎵 Procol Harum</span>
+            <span class="song-track-name">"A Whiter Shade of Pale" (1967)</span>
+          </div>
+          <div class="card-video-embed">
+            <iframe src="https://www.youtube-nocookie.com/embed/Mb3iPP-tHdA" title="Procol Harum - A Whiter Shade of Pale" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <span class="spec-pill ao4">Chorale Slow Speed (~40 RPM)</span>
+          <h3 class="card-title">Gentle Shimmer &amp; Acoustic Space</h3>
+          <p class="card-text">On slow speed, the upper treble horn and downward-firing bass baffle drum spin in opposite directions. The acoustic reflections bouncing off the wooden cabinet louvers create a natural, 3D chorus and spatial depth that cannot be replicated by mono amplifiers.</p>
+        </div>
+      </div>
+
+      <div class="takeaway-box">
+        <span class="takeaway-tag">Doppler Effect Physics</span>
+        <span class="takeaway-text">As the horn rotates toward the listener, sound wave crests are compressed (pitch shifts up); as it sweeps away, waves are elongated (pitch shifts down). This acoustic frequency modulation (FM) is paired with amplitude modulation (AM) as the horn points in and out of axis.</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 14: STUDIO TRACKING & DI CHAINS -->
     <section class="slide" id="slide-14">
       <div class="header-bar">
         <span class="deck-tag">Electro-Mechanical Keyboards &bull; Slide 14 of 15</span>
-        <span class="slide-counter">Studio Production</span>
+        <span class="slide-counter">Studio Engineering</span>
       </div>
       <div class="slide-title-wrap">
         <h1 class="slide-heading">Studio Tracking: <span>Amps, DI Boxes &amp; Pedal Processing</span></h1>
-        <p class="slide-lead">How legendary studio engineers captured classic keyboards in the control room: impedance matching, tube amplification, and iconic outboard stompboxes.</p>
+        <p class="slide-lead">How legendary sound engineers captured, amplified, and processed classic electro-mechanical keyboards across historic Abbey Road, Motown, and Stax sessions.</p>
       </div>
 
-      <div class="grid-3">
-        <div class="info-card highlight">
-          <span class="spec-pill tech">Direct Injection</span>
-          <h3 class="card-title">DI Box Recording</h3>
-          <p class="card-text">Rhodes and Clavinets have high-impedance instrument outputs. Engineers used <strong>active or passive DI boxes</strong> (Jensen transformers) to convert the unbalanced signal to balanced low-impedance mic level for console mic preamps (Neve 1073 / API 512c), capturing pristine transient snap.</p>
-        </div>
-
+      <div class="grid-2">
         <div class="info-card amber-edge">
-          <span class="spec-pill ao3">Guitar Amplifiers</span>
-          <h3 class="card-title">Fender Twin Reverb</h3>
-          <p class="card-text">Running Rhodes or Clavinet through an all-valve <strong>Fender Twin Reverb (2x12)</strong> or Marshall stack added natural 6L6 tube saturation, warm mid-range glue, and luscious spring reverb. Jon Lord famously hot-rodded his Hammond directly into Marshall 100W heads.</p>
+          <div class="song-banner">
+            <span class="song-artist-name">🎵 Billy Preston</span>
+            <span class="song-track-name">"Outa-Space" (1971)</span>
+          </div>
+          <div class="card-video-embed">
+            <iframe src="https://www.youtube-nocookie.com/embed/gaJ35thYxAM" title="Billy Preston - Outa-Space" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <span class="spec-pill exam">Guitar Amps &amp; Stompboxes</span>
+          <h3 class="card-title">Micing Fender Twin &amp; Marshall Stacks</h3>
+          <p class="card-text">Recording engineers frequently rejected sterile clean DI inputs for Clavinets and Rhodes, running them through 100W Fender Twin Reverb valve combo amps mic'd with Shure SM57s or Sennheiser MD421s. Tube saturation and speaker cone breakup added warmth and punch to the mix.</p>
         </div>
 
         <div class="info-card cyan-edge">
-          <span class="spec-pill ao4">Classic Modulation</span>
-          <h3 class="card-title">Phasers &amp; Chorus</h3>
-          <p class="card-text">In 70s disco and fusion, the Rhodes was almost always paired with an analog phaser: the <strong>Electro-Harmonix Small Stone (OTA-based 4-stage phaser)</strong> or MXR Phase 90, creating rich, liquid stereo movement across the stereo spectrum.</p>
+          <div class="song-banner">
+            <span class="song-artist-name">🎵 Queen</span>
+            <span class="song-track-name">"You're My Best Friend" (1975)</span>
+          </div>
+          <div class="card-video-embed">
+            <iframe src="https://www.youtube-nocookie.com/embed/HaZpZQG2z10" title="Queen - You're My Best Friend" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <span class="spec-pill ao3">Phase-Aligned Tracking</span>
+          <h3 class="card-title">DI Clean Track + Mic'd Amp Parallel Blend</h3>
+          <p class="card-text">Engineers often split keyboard signals using an active DI box: one clean direct line to the mixing desk for transient attack and clarity, and a parallel Thru line into a driven amplifier. Both tracks were phase-aligned in the mix to avoid hollow comb filtering.</p>
         </div>
       </div>
 
       <div class="takeaway-box">
-        <span class="takeaway-tag">Component 2 NEA Audio Tip</span>
-        <span class="takeaway-text">When recreating vintage keys in your DAW, always insert amp emulation (Fender Twin or Tweed), analog saturation, and tape delay / phaser plugins to prevent synthetic sterility.</span>
+        <span class="takeaway-tag">Leslie Micing Technique</span>
+        <span class="takeaway-text">To capture the full stereo motion of a Leslie 122, engineers place a stereo pair of dynamic or condenser mics (Shure SM57 or AKG C414) on the upper treble horn at 90&deg; to 180&deg; angles, and a single large-diaphragm dynamic (e.g. EV RE20 or AKG D112) on the lower bass rotor.</span>
       </div>
     </section>
 
-    <!-- SLIDE 15: EXAM REVISION SUMMARY -->
+    <!-- SLIDE 15: EDEXCEL EXAM MATRIX & AUDIO CHEAT SHEET -->
     <section class="slide" id="slide-15">
       <div class="header-bar">
         <span class="deck-tag">Electro-Mechanical Keyboards &bull; Slide 15 of 15</span>
-        <span class="slide-counter">Exam Revision</span>
+        <span class="slide-counter">Exam Audio Matrix</span>
       </div>
       <div class="slide-title-wrap">
-        <h1 class="slide-heading">Edexcel Exam Revision: <span>Question 5 Audio Cheat Sheet</span></h1>
-        <p class="slide-lead">The definitive revision cheat sheet for identifying classic keyboards in Component 3 listening exams, complete with acoustic flaws and production trademarks.</p>
+        <h1 class="slide-heading">Component 3 Exam Revision: <span>Question 5 Audio Cheat Sheet</span></h1>
+        <p class="slide-lead">Consolidated listening checklist: identify each electro-mechanical instrument instantly on the Edexcel Component 3 Listening and Analysing examination.</p>
       </div>
 
-      <div class="info-card highlight" style="margin-bottom: 16px;">
-        <span class="spec-pill exam">Identification Matrix</span>
-        <h3 class="card-title">Examiner Sound Identification Cues</h3>
-        <table style="width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 12.5px; color: #cbd5e1;">
+      <div class="info-card highlight" style="overflow-x: auto; margin-bottom: 18px;">
+        <table style="width: 100%; border-collapse: collapse; font-size: 13px; text-align: left;">
           <thead>
-            <tr style="border-bottom: 2px solid rgba(255, 255, 255, 0.15); text-align: left; color: #c084fc;">
-              <th style="padding: 8px 6px;">Instrument</th>
-              <th style="padding: 8px 6px;">Mechanical Sound Source</th>
-              <th style="padding: 8px 6px;">Pickup Mechanism</th>
-              <th style="padding: 8px 6px;">Key Sonic Clues / Flaws</th>
+            <tr style="border-bottom: 2px solid rgba(192, 132, 252, 0.4); color: #c084fc;">
+              <th style="padding: 8px 10px;">Instrument</th>
+              <th style="padding: 8px 10px;">Mechanical Action</th>
+              <th style="padding: 8px 10px;">Transducer</th>
+              <th style="padding: 8px 10px;">Sonic Fingerprint</th>
+              <th style="padding: 8px 10px;">Classic Landmark Song</th>
             </tr>
           </thead>
           <tbody>
-            <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
-              <td style="padding: 8px 6px; font-weight: 700; color: #ffffff;">Mellotron M400</td>
-              <td style="padding: 8px 6px;">3/8&quot; Magnetic tape strips</td>
-              <td style="padding: 8px 6px;">Magnetic playback heads</td>
-              <td style="padding: 8px 6px; color: #fbbf24;">8-second max duration, tape hiss, pitch flutter, vintage flute/string timbre</td>
+            <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.06);">
+              <td style="padding: 8px 10px; font-weight: 800; color: #ffffff;">The Mellotron</td>
+              <td style="padding: 8px 10px; color: #cbd5e1;">Pinch roller onto capstan tape</td>
+              <td style="padding: 8px 10px; color: #cbd5e1;">Magnetic tape replay head</td>
+              <td style="padding: 8px 10px; color: #cbd5e1;">Tape flutter, organic breath, 8s limit</td>
+              <td style="padding: 8px 10px; color: #38bdf8; font-weight: 700;">Beatles &bull; Strawberry Fields</td>
             </tr>
-            <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
-              <td style="padding: 8px 6px; font-weight: 700; color: #ffffff;">Fender Rhodes</td>
-              <td style="padding: 8px 6px;">Steel tines + tonebars</td>
-              <td style="padding: 8px 6px;">Electromagnetic coils (1/note)</td>
-              <td style="padding: 8px 6px; color: #38bdf8;">Warm bell chime, long sustain, auto-pan stereo tremolo</td>
+            <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.06);">
+              <td style="padding: 8px 10px; font-weight: 800; color: #ffffff;">Fender Rhodes</td>
+              <td style="padding: 8px 10px; color: #cbd5e1;">Neoprene hammer strikes steel tine</td>
+              <td style="padding: 8px 10px; color: #cbd5e1;">Electromagnetic coil pickup</td>
+              <td style="padding: 8px 10px; color: #cbd5e1;">Bell-like chime, long warm sustain</td>
+              <td style="padding: 8px 10px; color: #38bdf8; font-weight: 700;">Herbie Hancock &bull; Chameleon</td>
             </tr>
-            <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
-              <td style="padding: 8px 6px; font-weight: 700; color: #ffffff;">Wurlitzer 200A</td>
-              <td style="padding: 8px 6px;">Steel reeds + felt hammers</td>
-              <td style="padding: 8px 6px;">Electrostatic plate (+170V DC)</td>
-              <td style="padding: 8px 6px; color: #34d399;">Biting midrange bark, rapid attack, natural valve clipping distortion</td>
+            <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.06);">
+              <td style="padding: 8px 10px; font-weight: 800; color: #ffffff;">Wurlitzer 200A</td>
+              <td style="padding: 8px 10px; color: #cbd5e1;">Felt hammer strikes steel reed</td>
+              <td style="padding: 8px 10px; color: #cbd5e1;">Electrostatic capacitive plate</td>
+              <td style="padding: 8px 10px; color: #cbd5e1;">Biting midrange bark, snappy decay</td>
+              <td style="padding: 8px 10px; color: #38bdf8; font-weight: 700;">Supertramp &bull; The Logical Song</td>
             </tr>
-            <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
-              <td style="padding: 8px 6px; font-weight: 700; color: #ffffff;">Hohner Clavinet D6</td>
-              <td style="padding: 8px 6px;">Real guitar strings + tangents</td>
-              <td style="padding: 8px 6px;">Dual single-coil pickups</td>
-              <td style="padding: 8px 6px; color: #fbbf24;">Hyper-percussive twang, zero sustain, wah-wah filtering, funky 16th comping</td>
+            <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.06);">
+              <td style="padding: 8px 10px; font-weight: 800; color: #ffffff;">Hohner Clavinet</td>
+              <td style="padding: 8px 10px; color: #cbd5e1;">Rubber tangent pinches guitar string</td>
+              <td style="padding: 8px 10px; color: #cbd5e1;">Dual single-coil pickups</td>
+              <td style="padding: 8px 10px; color: #cbd5e1;">Percussive, twangy, zero sustain</td>
+              <td style="padding: 8px 10px; color: #38bdf8; font-weight: 700;">Stevie Wonder &bull; Superstition</td>
             </tr>
             <tr>
-              <td style="padding: 8px 6px; font-weight: 700; color: #ffffff;">Hammond B3 Organ</td>
-              <td style="padding: 8px 6px;">91 rotating toothed tonewheels</td>
-              <td style="padding: 8px 6px;">Inductive magnetic pickups</td>
-              <td style="padding: 8px 6px; color: #f472b6;">Transient key click, harmonic percussion, additive drawbars, Leslie Doppler warble</td>
+              <td style="padding: 8px 10px; font-weight: 800; color: #ffffff;">Hammond B3 / Leslie</td>
+              <td style="padding: 8px 10px; color: #cbd5e1;">Synchronous motor spins tonewheels</td>
+              <td style="padding: 8px 10px; color: #cbd5e1;">Variable reluctance coils</td>
+              <td style="padding: 8px 10px; color: #cbd5e1;">Drawbar sine waves, key click, Doppler</td>
+              <td style="padding: 8px 10px; color: #38bdf8; font-weight: 700;">Booker T. &bull; Green Onions</td>
             </tr>
           </tbody>
         </table>
       </div>
 
-      <div style="text-align: center; margin-top: 20px;">
-        <a href="/classic-keyboards-interactive-quiz.html" style="display: inline-flex; align-items: center; gap: 8px; background: linear-gradient(135deg, #c084fc 0%, #38bdf8 100%); color: #080e1a; font-weight: 800; font-size: 14px; padding: 12px 28px; border-radius: 9999px; text-decoration: none; box-shadow: 0 4px 20px rgba(192, 132, 252, 0.4);">
-          Take the 10-Question Specification Quiz &rarr;
-        </a>
+      <div class="grid-2">
+        <div class="info-card amber-edge">
+          <span class="spec-pill exam">Knowledge Check</span>
+          <h3 class="card-title">Test Your Specification Knowledge</h3>
+          <p class="card-text">Reinforce your understanding of keyboard transducers, Leslie Doppler physics, and vintage production contexts with our interactive exam quiz.</p>
+          <div style="margin-top: 12px;">
+            <a href="/classic-keyboards-interactive-quiz" target="_blank" style="background: linear-gradient(135deg, #d97706 0%, #fbbf24 100%); color: #080e1a; padding: 8px 18px; border-radius: 8px; text-decoration: none; font-size: 13px; font-weight: 800; display: inline-flex; align-items: center; gap: 6px;">🚀 Launch 10-Question Specification Quiz</a>
+          </div>
+        </div>
+
+        <div class="info-card highlight">
+          <span class="spec-pill ao4">Guided Homework</span>
+          <h3 class="card-title">Classroom Study Pack (PDF)</h3>
+          <p class="card-text">Download the student homework sheet featuring 3 guided Component 3 Question 5 exam questions with full mark schemes and examiner hints.</p>
+          <div style="margin-top: 12px;">
+            <a href="/downloads/homework/homework-classic-keyboards.html" target="_blank" style="background: linear-gradient(135deg, #7e22ce 0%, #a855f7 100%); color: #ffffff; padding: 8px 18px; border-radius: 8px; text-decoration: none; font-size: 13px; font-weight: 800; display: inline-flex; align-items: center; gap: 6px;">📥 Open / Print PDF Homework Pack</a>
+          </div>
+        </div>
       </div>
     </section>
 
   </div>
 
-  <!-- FIXED NAVIGATION FOOTER -->
-  <footer class="deck-nav-footer">
-    <div class="nav-inner">
-      <button class="nav-btn" id="prevBtn" onclick="prevSlide()" disabled>&larr; Previous</button>
-      <div class="progress-bar">
+  <!-- FIXED BOTTOM NAVIGATION BAR -->
+  <div class="deck-nav-bar">
+    <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)" disabled>&larr; Previous</button>
+    <div class="progress-bar-wrap">
+      <div class="progress-track">
         <div class="progress-fill" id="progressFill"></div>
       </div>
-      <span id="slideCounter" style="color: #94a3b8; font-size: 12px; font-weight: 700; min-width: 90px; text-align: center;">Slide 1 of 15</span>
-      <button class="nav-btn" id="nextBtn" onclick="nextSlide()">Next &rarr;</button>
+      <span style="font-size: 11.5px; font-weight: 700; color: #94a3b8;" id="navSlideIndicator">1 / 15</span>
     </div>
-  </footer>
-
-  <!-- LIGHTBOX IMAGE INSPECTION MODAL -->
-  <div class="image-modal-backdrop" id="imageModal" onclick="closeLightbox()">
-    <button class="close-modal-btn" onclick="closeLightbox()">&times;</button>
-    <div class="image-modal-content" onclick="event.stopPropagation()">
-      <img id="imageModalImg" src="" alt="Enlarged schematic">
-      <div class="image-modal-caption" id="imageModalCaption"></div>
-    </div>
-  </div>
-
-  <!-- VIDEO MODAL PLAYER (ZERO HISTORY FOOTPRINT) -->
-  <div class="video-modal-backdrop" id="videoModal">
-    <div class="video-modal-content">
-      <div class="video-modal-header">
-        <span class="video-modal-title" id="videoModalTitle">Video Masterclass</span>
-        <div style="display: flex; gap: 10px; align-items: center;">
-          <a id="videoExternalLink" href="#" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Open directly on YouTube">
-            <span>Watch on YouTube</span> <span>&nearr;</span>
-          </a>
-          <button class="close-modal-btn" onclick="closeVideo()" style="position: static; width: 30px; height: 30px; font-size: 18px;">&times;</button>
-        </div>
-      </div>
-      <div class="video-player-wrapper" id="videoWrapper"></div>
-      <div class="video-modal-footer">
-        <span style="display: inline-flex; align-items: center; gap: 6px;">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="#ef4444"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-          Authentic Curriculum Performance &bull; YouTube Integration
-        </span>
-        <a id="videoFooterLink" href="#" target="_blank" rel="noopener noreferrer" style="color: #c084fc; font-weight: 700; text-decoration: none;">Watch Directly on YouTube &rarr;</a>
-      </div>
-    </div>
+    <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">Next &rarr;</button>
   </div>
 
   <script>
-    let currentSlide = 0;
-    const slides = document.querySelectorAll('.slide');
-    const totalSlides = slides.length;
-    const prevBtn = document.getElementById('prevBtn');
-    const nextBtn = document.getElementById('nextBtn');
-    const slideCounter = document.getElementById('slideCounter');
-    const progressFill = document.getElementById('progressFill');
+    let currentSlide = 1;
+    const totalSlides = 15;
 
-    // Lightbox modal logic
-    const imageModal = document.getElementById('imageModal');
-    const imageModalImg = document.getElementById('imageModalImg');
-    const imageModalCaption = document.getElementById('imageModalCaption');
+    function updateSlide() {
+      document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
+      const activeEl = document.getElementById(`slide-${currentSlide}`);
+      if (activeEl) activeEl.classList.add('active');
 
-    function openLightbox(src, caption) {
-      if (!imageModal || !imageModalImg) return;
-      imageModalImg.src = src;
-      if (imageModalCaption) imageModalCaption.textContent = caption || '';
-      imageModal.classList.add('open');
-      imageModal.style.display = 'flex';
-    }
+      document.getElementById('prevBtn').disabled = (currentSlide === 1);
+      document.getElementById('nextBtn').disabled = (currentSlide === totalSlides);
 
-    function closeLightbox() {
-      if (!imageModal) return;
-      imageModal.classList.remove('open');
-      imageModal.style.display = 'none';
-      if (imageModalImg) imageModalImg.src = '';
-    }
+      const pct = (currentSlide / totalSlides) * 100;
+      document.getElementById('progressFill').style.width = pct + '%';
+      document.getElementById('navSlideIndicator').textContent = `${currentSlide} / ${totalSlides}`;
 
-    // Video modal logic (Zero History Pollution - avoids iframe history hijacking)
-    const videoModal = document.getElementById('videoModal');
-    const videoModalTitle = document.getElementById('videoModalTitle');
-    const videoWrapper = document.getElementById('videoWrapper') || document.querySelector('.video-player-wrapper');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
 
-    function openVideo(videoId, title) {
-      const extLink = document.getElementById('videoExternalLink');
-      if (extLink) extLink.href = `https://www.youtube.com/watch?v=${videoId}`;
-      const footLink = document.getElementById('videoFooterLink');
-      if (footLink) footLink.href = `https://www.youtube.com/watch?v=${videoId}`;
-      if (videoModalTitle) videoModalTitle.textContent = title;
-
-      if (videoWrapper) {
-        videoWrapper.innerHTML = `<iframe id="videoIframe" src="https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="width: 100%; height: 100%; border: 0; display: block;"></iframe>`;
-      }
-      if (videoModal) {
-        videoModal.classList.add('open');
-        videoModal.style.display = 'flex';
-      }
-    }
-
-    function closeVideo() {
-      if (videoWrapper) videoWrapper.innerHTML = '';
-      if (videoModal) {
-        videoModal.classList.remove('open');
-        videoModal.style.display = 'none';
-      }
-    }
-
-    if (videoModal) {
-      videoModal.addEventListener('click', (e) => {
-        if (e.target === videoModal) closeVideo();
-      });
-    }
-
-    function updateDeck() {
-      slides.forEach((slide, idx) => {
-        slide.classList.toggle('active', idx === currentSlide);
-      });
-      if (prevBtn) prevBtn.disabled = (currentSlide === 0);
-      if (nextBtn) nextBtn.disabled = (currentSlide === totalSlides - 1);
-      if (slideCounter) slideCounter.textContent = `Slide ${currentSlide + 1} of ${totalSlides}`;
-      if (progressFill) progressFill.style.width = `${((currentSlide + 1) / totalSlides) * 100}%`;
-      // Use replaceState so slide switching NEVER adds entries to browser back-button history
+      // Clean state replacement without adding browser history entries
       if (window.history && window.history.replaceState) {
-        window.history.replaceState({ slide: currentSlide }, '', '#slide-' + (currentSlide + 1));
+        history.replaceState(null, '', `#slide-${currentSlide}`);
       }
     }
 
-    function nextSlide() {
-      if (currentSlide < totalSlides - 1) {
-        currentSlide++;
-        updateDeck();
+    function changeSlide(direction) {
+      const next = currentSlide + direction;
+      if (next >= 1 && next <= totalSlides) {
+        currentSlide = next;
+        updateSlide();
       }
     }
 
-    function prevSlide() {
-      if (currentSlide > 0) {
-        currentSlide--;
-        updateDeck();
-      }
-    }
-
-    document.addEventListener('keydown', (e) => {
-      if (videoModal && videoModal.classList.contains('open')) {
-        if (e.key === 'Escape') {
-          closeVideo();
-          return;
-        }
-      }
-      if (imageModal && imageModal.classList.contains('open')) {
-        if (e.key === 'Escape') {
-          closeLightbox();
-          return;
-        }
-      }
+    // Keyboard navigation
+    window.addEventListener('keydown', (e) => {
       if (e.key === 'ArrowRight' || e.key === ' ') {
         e.preventDefault();
-        nextSlide();
+        changeSlide(1);
       } else if (e.key === 'ArrowLeft') {
         e.preventDefault();
-        prevSlide();
+        changeSlide(-1);
       }
     });
 
-    // Check for hash on load
-    const hashMatch = window.location.hash.match(/slide-(\d+)/);
-    if (hashMatch) {
-      const target = parseInt(hashMatch[1], 10) - 1;
-      if (target >= 0 && target < totalSlides) {
-        currentSlide = target;
+    // Check initial hash
+    if (window.location.hash) {
+      const match = window.location.hash.match(/#slide-(\d+)/);
+      if (match && parseInt(match[1]) >= 1 && parseInt(match[1]) <= totalSlides) {
+        currentSlide = parseInt(match[1]);
       }
     }
-    updateDeck();
+    updateSlide();
   </script>
 </body>
 </html>
