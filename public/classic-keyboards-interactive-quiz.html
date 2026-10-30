@@ -481,7 +481,7 @@
         ...q.wrong.map(w => ({ text: w, correct: false }))
       ];
       // Deterministic shuffle based on question index
-      answers.sort((a, b) => (a.text.length % 3) - (b.text.length % 3));
+      for (let i = answers.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [answers[i], answers[j]] = [answers[j], answers[i]]; }
 
       const letters = ['A', 'B', 'C', 'D'];
       const grid = document.getElementById('answersGrid');

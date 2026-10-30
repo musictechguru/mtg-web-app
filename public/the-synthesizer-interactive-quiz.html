@@ -480,7 +480,8 @@
       const allOpts = [
         { text: q.correct, isCorrect: true },
         ...q.wrong.map(w => ({ text: w, isCorrect: false }))
-      ].sort(() => Math.random() - 0.5);
+      ];
+      for (let i = allOpts.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [allOpts[i], allOpts[j]] = [allOpts[j], allOpts[i]]; }
 
       const letters = ['A', 'B', 'C', 'D'];
       allOpts.forEach((opt, idx) => {
