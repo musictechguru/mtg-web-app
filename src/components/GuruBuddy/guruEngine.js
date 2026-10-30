@@ -578,21 +578,22 @@ export function generateGuruMissions(userProgress = {}, courseData = {}, student
   }
 
   // ==========================================
-  // 6. EXTENDED ESSAY WORKSHOP (35 MARKS: Q5 & Q6)
+  // 6. COMPARATIVE LISTENING (COMPONENT 3 QUESTION 5)
   // ==========================================
-  const hasDoneQ5Workshop = hasTakenQuiz('worksheet-ao3-ao4-q5') || hasTakenQuiz('question 5') || hasTakenQuiz('essay workshop');
-  if (!hasDoneQ5Workshop) {
+  const hasDoneComparison = hasTakenQuiz('comp_') || hasTakenQuiz('comparison');
+  if (!hasDoneComparison) {
+    const compItem = findItem('comp_tainted_love') || { id: 'comp_tainted_love', type: 'lp_quiz', title: 'Comparison 1: Tainted Love' };
     missions.push({
-      id: 'worksheet_ao3_ao4',
-      typeGroup: 'essays',
+      id: 'comparison_listening_c3',
+      typeGroup: 'comparisons',
       priority: isMay ? 110 : 89,
-      category: 'Extended Essay Technique',
-      badge: '35 Exam Marks',
-      speech: `Questions 5 & 6 carry 35 total marks! Have you practiced the AO3 vs AO4 essay structure workshop yet?`,
-      title: 'AO3 vs AO4 Essay Workshop (Q5 & Q6)',
-      description: `Learn how to balance technological explanation (AO3) with critical evaluation (AO4) for top band marks.`,
-      actionLabel: 'Open Essay Workshop ✍️',
-      targetItem: findItem('worksheet-ao3-ao4-q5') || { id: 'worksheet-ao3-ao4-q5', type: 'lp_activity', title: 'AO3 vs AO4 Essay Workshop: Component 3 Question 5 (15 Marks)' }
+      category: 'Comparative Listening',
+      badge: 'Component 3 Practice',
+      speech: 'Have you practiced comparing two eras of the same track for Component 3 Question 5? Try our comparison quizzes!',
+      title: 'Component 3 Comparison: Tainted Love',
+      description: 'Compare 1960s Motown acoustic tracking with 1980s synth-pop sequencing and drum machine production.',
+      actionLabel: 'Launch Comparison Quiz 🎧',
+      targetItem: compItem
     });
   }
 

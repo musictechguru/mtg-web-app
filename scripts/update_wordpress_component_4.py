@@ -297,12 +297,12 @@ ul.product-grid > li.product:hover {
                 </div>
                 <div class="c4-app-btn-action">Play EQ Challenge &rarr;</div>
             </a>
-            <a href="https://app.musictechguru.com/?quiz=worksheet-ao3-ao4-q6" target="_blank" rel="noopener" class="c4-app-btn">
+            <a href="https://app.musictechguru.com/?quiz=c4_edm" target="_blank" rel="noopener" class="c4-app-btn">
                 <div>
-                    <div class="c4-app-btn-title">AO3 vs AO4 Essay Workshop (Q6 Builder)</div>
-                    <div class="c4-app-btn-desc">Step-by-step essay constructor for Question 6: balance technical rigor with critical studio evaluation for 20/20 marks.</div>
+                    <div class="c4-app-btn-title">Component 4 Practice Exam: EDM &amp; Production</div>
+                    <div class="c4-app-btn-desc">Complete examiner-graded practical exam covering signal flow, compression ratios, DAW editing, and mix bus processing.</div>
                 </div>
-                <div class="c4-app-btn-action">Open Essay Workshop &rarr;</div>
+                <div class="c4-app-btn-action">Launch Practice Exam &rarr;</div>
             </a>
             <a href="https://www.musictechguru.com/homepage/a-level-music-technology/component-4-production-analysing/music-technology-dictionary/" class="c4-app-btn" style="border-color: rgba(56, 189, 248, 0.4);">
                 <div>
