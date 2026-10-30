@@ -423,9 +423,73 @@ def generate_full_html():
     rendered_sections_html = ''.join(rendered_sections)
     alpha_buttons = ''.join([f'<button class="mtg-alpha-btn" onclick="mtgJumpLetter(\x27{letter}\x27)">{letter}</button>' for letter in "ABCDEFGHIJKLMNOPQRSTUVWXYZ"])
 
+    # Generate Schema.org DefinedTermSet JSON-LD graph for SEO
+    defined_terms_json = []
+    for t in all_terms:
+        defined_terms_json.append({
+            "@type": "DefinedTerm",
+            "name": t["term"],
+            "description": t["definition"],
+            "inDefinedTermSet": "https://www.musictechguru.com/homepage/a-level-music-technology/component-4-production-analysing/music-technology-dictionary/#glossary"
+        })
+
+    schema_graph = {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "WebPage",
+                "@id": "https://www.musictechguru.com/homepage/a-level-music-technology/component-4-production-analysing/music-technology-dictionary/#webpage",
+                "url": "https://www.musictechguru.com/homepage/a-level-music-technology/component-4-production-analysing/music-technology-dictionary/",
+                "name": "The Official Music Technology Dictionary | Music Tech Guru",
+                "description": "Complete Pearson Edexcel A-Level Music Technology glossary and visual guide with 364+ examiner-verified definitions, technical signal-flow diagrams, and hardware guides.",
+                "inLanguage": "en-GB",
+                "isPartOf": {
+                    "@type": "WebSite",
+                    "@id": "https://www.musictechguru.com/#website",
+                    "name": "Music Tech Guru",
+                    "url": "https://www.musictechguru.com/"
+                },
+                "breadcrumb": {
+                    "@type": "BreadcrumbList",
+                    "itemListElement": [
+                        {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.musictechguru.com/"},
+                        {"@type": "ListItem", "position": 2, "name": "A-Level Music Technology", "item": "https://www.musictechguru.com/homepage/a-level-music-technology/"},
+                        {"@type": "ListItem", "position": 3, "name": "Component 4 Production & Analysing", "item": "https://www.musictechguru.com/homepage/a-level-music-technology/component-4-production-analysing/"},
+                        {"@type": "ListItem", "position": 4, "name": "Music Technology Dictionary", "item": "https://www.musictechguru.com/homepage/a-level-music-technology/component-4-production-analysing/music-technology-dictionary/"}
+                    ]
+                }
+            },
+            {
+                "@type": "DefinedTermSet",
+                "@id": "https://www.musictechguru.com/homepage/a-level-music-technology/component-4-production-analysing/music-technology-dictionary/#glossary",
+                "name": "Pearson Edexcel Music Technology Specification Glossary",
+                "description": "Examiner-verified definitions and signal-flow terminology for A-Level & GCSE Music Technology.",
+                "hasDefinedTerm": defined_terms_json
+            }
+        ]
+    }
+    schema_json_ld = json.dumps(schema_graph, ensure_ascii=False)
+
     full_page_html = f"""
 <!-- MTG Music Technology Dictionary - Complete Interactive Edition -->
+<!-- Schema.org DefinedTermSet Structured Data for Google Rich Results -->
+<script type="application/ld+json">
+{schema_json_ld}
+</script>
+
 <div id="mtg-dict-app-root">
+    <!-- Open Graph & Twitter Social Metadata -->
+    <meta property="og:title" content="The Official Music Technology Dictionary | Music Tech Guru" />
+    <meta property="og:description" content="364+ examiner-verified definitions, visual signal-flow diagrams, and studio hardware guides for Pearson Edexcel A-Level Music Technology Component 3 &amp; 4." />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://www.musictechguru.com/homepage/a-level-music-technology/component-4-production-analysing/music-technology-dictionary/" />
+    <meta property="og:image" content="https://app.musictechguru.com/images/svg/synth_signal_flow.svg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="The Official Music Technology Dictionary | Music Tech Guru" />
+    <meta name="twitter:description" content="364+ examiner-verified definitions, visual signal-flow diagrams, and studio hardware guides for Pearson Edexcel A-Level Music Technology Component 3 &amp; 4." />
+    <meta name="twitter:image" content="https://app.musictechguru.com/images/svg/synth_signal_flow.svg" />
+    <link rel="canonical" href="https://www.musictechguru.com/homepage/a-level-music-technology/component-4-production-analysing/music-technology-dictionary/" />
+
     <style>
         #mtg-dict-app-root {{
             background: #080e1a;

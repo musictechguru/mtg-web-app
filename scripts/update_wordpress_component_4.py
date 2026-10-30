@@ -304,6 +304,13 @@ ul.product-grid > li.product:hover {
                 </div>
                 <div class="c4-app-btn-action">Open Essay Workshop &rarr;</div>
             </a>
+            <a href="https://www.musictechguru.com/homepage/a-level-music-technology/component-4-production-analysing/music-technology-dictionary/" class="c4-app-btn" style="border-color: rgba(56, 189, 248, 0.4);">
+                <div>
+                    <div class="c4-app-btn-title">📖 Official Music Tech Dictionary &amp; Signal Diagrams</div>
+                    <div class="c4-app-btn-desc">364+ examiner-verified definitions, visual signal-flow diagrams, and hardware guides directly mapped to Component 4 exam questions.</div>
+                </div>
+                <div class="c4-app-btn-action">Browse Complete Glossary &rarr;</div>
+            </a>
         </div>
     </div>
 

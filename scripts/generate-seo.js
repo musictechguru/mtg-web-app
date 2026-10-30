@@ -36,6 +36,7 @@ console.log('✓ robots.txt generated');
 // 2. Build URL list for Sitemap
 const urls = [
   { loc: `${baseUrl}/`, priority: '1.0', changefreq: 'daily' },
+  { loc: 'https://www.musictechguru.com/homepage/a-level-music-technology/component-4-production-analysing/music-technology-dictionary/', priority: '0.95', changefreq: 'weekly' },
   { loc: `${baseUrl}/?quiz=quick_fire_daily5`, priority: '0.9', changefreq: 'daily' },
   { loc: `${baseUrl}/?quiz=dictionary_selector`, priority: '0.9', changefreq: 'weekly' },
   { loc: `${baseUrl}/?quiz=tracksheet_creator`, priority: '0.85', changefreq: 'weekly' },
