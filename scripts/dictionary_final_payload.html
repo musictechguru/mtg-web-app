@@ -32,7 +32,6 @@
         #mtg-dict-app-root * {
             box-sizing: border-box;
         }
-
         /* HERO CARD */
         .mtg-dict-hero {
             background: linear-gradient(135deg, #0b1329 0%, #151e38 50%, #0d172e 100%);
@@ -86,7 +85,6 @@
             margin: 0 auto 24px auto;
             line-height: 1.6;
         }
-
         /* HERO STATS BAR */
         .mtg-stats-bar {
             display: flex;
@@ -110,7 +108,6 @@
         .mtg-stat-chip strong {
             color: #38bdf8;
         }
-
         /* HERO CTA BUTTONS */
         .mtg-hero-actions {
             display: flex;
@@ -154,7 +151,6 @@
             background: rgba(255, 255, 255, 0.12);
             color: #ffffff !important;
         }
-
         /* WP AUTOP & THEME OVERRIDES */
         #mtg-dict-app-root br {
             display: none !important;
@@ -166,7 +162,6 @@
             margin: 0 !important;
             padding: 0 !important;
         }
-
         /* SEARCH & FILTER COMMAND BAR */
         #mtg-dict-app-root .mtg-command-bar {
             background: #0d1527 !important;
@@ -238,7 +233,6 @@
         #mtg-dict-app-root .mtg-search-clear:hover {
             background: #f43f5e !important;
         }
-
         /* CATEGORY FILTER PILLS */
         #mtg-dict-app-root .mtg-filter-strip {
             display: flex !important;
@@ -286,7 +280,6 @@
             font-weight: 700 !important;
             box-shadow: 0 4px 14px rgba(2, 132, 199, 0.4) !important;
         }
-
         /* ALPHABET JUMP STRIP */
         #mtg-dict-app-root .mtg-alpha-strip {
             display: flex !important;
@@ -332,7 +325,6 @@
             color: #ffffff !important;
             border-color: #38bdf8 !important;
         }
-
         /* RESULT COUNTER */
         .mtg-counter-bar {
             display: flex;
@@ -347,7 +339,6 @@
             font-weight: 800;
             color: #38bdf8;
         }
-
         /* MODULE SECTION */
         .mtg-dict-module {
             background: #0d1527;
@@ -402,7 +393,6 @@
             font-weight: 800;
             white-space: nowrap;
         }
-
         /* VISUAL REFERENCE GALLERY */
         .mtg-gallery-section {
             background: rgba(15, 23, 42, 0.6);
@@ -507,7 +497,6 @@
             line-height: 1.45;
             flex-grow: 1;
         }
-
         /* TABLE STYLING */
         .mtg-table-container {
             border-radius: 12px;
@@ -625,7 +614,6 @@
             text-align: center !important;
             vertical-align: middle !important;
         }
-
         /* ZERO STATE */
         #mtg-dict-app-root #mtg-zero-state {
             display: none !important;
@@ -647,7 +635,6 @@
             max-width: 480px !important;
             margin: 0 auto 16px auto !important;
         }
-
         /* BOTTOM CTA */
         .mtg-dict-bottom-cta {
             background: linear-gradient(135deg, #0e1832 0%, #172445 100%);
@@ -684,21 +671,23 @@
             margin: 0 auto 24px auto;
             line-height: 1.6;
         }
-
         /* LIGHTBOX MODAL */
         #mtg-lightbox-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(4, 8, 18, 0.92);
-            backdrop-filter: blur(8px);
-            z-index: 999999;
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            bottom: 0 !important;
+            width: 100vw !important;
+            height: 100vh !important;
+            background: rgba(4, 8, 18, 0.94) !important;
+            backdrop-filter: blur(8px) !important;
+            z-index: 9999999 !important;
             display: none;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
+            align-items: center !important;
+            justify-content: center !important;
+            padding: 20px !important;
+            box-sizing: border-box !important;
         }
         .mtg-lightbox-content {
             background: #0f172a;
@@ -764,7 +753,6 @@
             line-height: 1.55;
             margin: 0;
         }
-
         /* RESPONSIVE BREAKPOINTS */
         @media (max-width: 768px) {
             .mtg-hero-title { font-size: 26px; }
@@ -776,7 +764,7 @@
             .mtg-gallery-grid { grid-template-columns: 1fr; }
             .mtg-module-header { flex-direction: column; }
         }
-    </style>
+</style>
 
     <!-- 1. HERO HEADER -->
     <header class="mtg-dict-hero">
@@ -5182,7 +5170,7 @@
             </div>
         </div>
         
-        <div class="mtg-visual-card" onclick="mtgOpenLightbox('https://app.musictechguru.com/images/svg/tape_splicing_ruler_7_4_loop.svg', 'Analogue Tape Splicing & Editing', 'Historic physical razor blade editing on 1/4" or 2" magnetic tape using splicing blocks and adhesive leader tape.')" title="Click to view full resolution">
+        <div class="mtg-visual-card" onclick="mtgOpenLightbox('https://app.musictechguru.com/images/svg/tape_splicing_ruler_7_4_loop.svg', 'Analogue Tape Splicing & Editing', 'Historic physical razor blade editing on 1/4&quot; or 2&quot; magnetic tape using splicing blocks and adhesive leader tape.')" title="Click to view full resolution">
             <div class="mtg-card-img-wrap">
                 <img src="https://app.musictechguru.com/images/svg/tape_splicing_ruler_7_4_loop.svg" alt="Analogue Tape Splicing & Editing" loading="lazy">
                 <span class="mtg-zoom-pill">🔍 Enlarge</span>
@@ -7732,7 +7720,10 @@
                 <img id="mtg-lightbox-img" src="" alt="Enlarged technical diagram">
             </div>
             <div class="mtg-lightbox-details">
-                <h3 id="mtg-lightbox-title" class="mtg-lightbox-title">Diagram Title</h3>
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 6px; flex-wrap: wrap;">
+                    <h3 id="mtg-lightbox-title" class="mtg-lightbox-title" style="margin: 0;">Diagram Title</h3>
+                    <a id="mtg-lightbox-orig" href="" target="_blank" rel="noopener noreferrer" style="color: #38bdf8; font-size: 12px; font-weight: 700; text-decoration: underline; white-space: nowrap;">Open High-Res in New Tab ↗</a>
+                </div>
                 <p id="mtg-lightbox-desc" class="mtg-lightbox-caption">Description text</p>
             </div>
         </div>
@@ -7743,7 +7734,6 @@
     (function() {
         let currentGroup = 'all';
         let searchQuery = '';
-
         const searchInput = document.getElementById('mtg-search-input');
         const clearBtn = document.getElementById('mtg-search-clear');
         const countDisplay = document.getElementById('mtg-visible-count');
@@ -7751,23 +7741,18 @@
         const zeroState = document.getElementById('mtg-zero-state');
         const rows = document.querySelectorAll('.mtg-term-row');
         const modules = document.querySelectorAll('.mtg-dict-module');
-
         function updateFilter() {
             let visibleCount = 0;
             const q = searchQuery.toLowerCase().trim();
-
             modules.forEach(function(mod) {
                 let moduleHasVisible = false;
                 const modRows = mod.querySelectorAll('.mtg-term-row');
-
                 modRows.forEach(function(row) {
                     const term = row.getAttribute('data-term') || '';
                     const group = row.getAttribute('data-group') || '';
                     const text = row.textContent.toLowerCase();
-
                     const matchesGroup = (currentGroup === 'all' || group === currentGroup);
                     const matchesQuery = (q === '' || term.includes(q) || text.includes(q));
-
                     if (matchesGroup && matchesQuery) {
                         row.style.display = '';
                         moduleHasVisible = true;
@@ -7776,7 +7761,6 @@
                         row.style.display = 'none';
                     }
                 });
-
                 // Also check if gallery matches or hide section if empty
                 if (moduleHasVisible) {
                     mod.style.display = '';
@@ -7784,32 +7768,27 @@
                     mod.style.display = 'none';
                 }
             });
-
             countDisplay.textContent = visibleCount;
             if (q.length > 0) {
                 clearBtn.style.setProperty('display', 'inline-flex', 'important');
             } else {
                 clearBtn.style.setProperty('display', 'none', 'important');
             }
-
             if (visibleCount === 0) {
                 zeroState.style.setProperty('display', 'block', 'important');
             } else {
                 zeroState.style.setProperty('display', 'none', 'important');
             }
-
             if (currentGroup === 'all') {
                 filterStatus.textContent = q ? 'Search: "' + q + '"' : 'Filtering: All categories';
             } else {
                 filterStatus.textContent = 'Category: ' + currentGroup + (q ? ' + "' + q + '"' : '');
             }
         }
-
         searchInput.addEventListener('input', function(e) {
             searchQuery = e.target.value;
             updateFilter();
         });
-
         window.mtgClearSearch = function() {
             searchInput.value = '';
             searchQuery = '';
@@ -7820,14 +7799,12 @@
             updateFilter();
             searchInput.focus();
         };
-
         window.mtgSetFilter = function(group, btn) {
             currentGroup = group;
             document.querySelectorAll('.mtg-filter-btn').forEach(b => b.classList.remove('active'));
             if (btn) btn.classList.add('active');
             updateFilter();
         };
-
         window.mtgJumpLetter = function(letter) {
             const targetChar = letter.toLowerCase();
             let foundTarget = null;
@@ -7850,32 +7827,31 @@
                 }, 1500);
             }
         };
-
         // LIGHTBOX CONTROLS
         const lightbox = document.getElementById('mtg-lightbox-overlay');
         const lbImg = document.getElementById('mtg-lightbox-img');
         const lbTitle = document.getElementById('mtg-lightbox-title');
         const lbDesc = document.getElementById('mtg-lightbox-desc');
-
+        const lbOrig = document.getElementById('mtg-lightbox-orig');
         window.mtgOpenLightbox = function(src, title, desc) {
+            if (!lightbox || !lbImg) return;
             lbImg.src = src;
-            lbTitle.textContent = title;
-            lbDesc.textContent = desc;
-            lightbox.style.display = 'flex';
+            if (lbTitle) lbTitle.textContent = title;
+            if (lbDesc) lbDesc.textContent = desc;
+            if (lbOrig) lbOrig.href = src;
+            lightbox.style.setProperty('display', 'flex', 'important');
             document.body.style.overflow = 'hidden';
         };
-
         window.mtgCloseLightbox = function(e) {
             if (e) e.stopPropagation();
-            lightbox.style.display = 'none';
+            if (lightbox) lightbox.style.setProperty('display', 'none', 'important');
             document.body.style.overflow = '';
         };
-
         document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && lightbox.style.display === 'flex') {
-                mtgCloseLightbox();
+            if (e.key === 'Escape' && lightbox && lightbox.style.display !== 'none') {
+                window.mtgCloseLightbox();
             }
         });
     })();
-    </script>
+</script>
 </div>

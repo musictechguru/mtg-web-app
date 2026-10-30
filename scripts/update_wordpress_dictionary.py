@@ -230,8 +230,10 @@ def build_visual_gallery_html(section_key):
     cards_html = []
     for fn, title, desc in items:
         img_url = get_img_url(fn)
+        clean_title_js = title.replace("\\", "\\\\").replace("'", "\\'").replace('"', '&quot;')
+        clean_desc_js = desc.replace("\\", "\\\\").replace("'", "\\'").replace('"', '&quot;')
         cards_html.append(f"""
-        <div class="mtg-visual-card" onclick="mtgOpenLightbox('{img_url}', '{title}', '{desc}')" title="Click to view full resolution">
+        <div class="mtg-visual-card" onclick="mtgOpenLightbox('{img_url}', '{clean_title_js}', '{clean_desc_js}')" title="Click to view full resolution">
             <div class="mtg-card-img-wrap">
                 <img src="{img_url}" alt="{title}" loading="lazy">
                 <span class="mtg-zoom-pill">🔍 Enlarge</span>
@@ -1260,18 +1262,21 @@ def generate_full_html():
 
         /* LIGHTBOX MODAL */
         #mtg-lightbox-overlay {{
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(4, 8, 18, 0.92);
-            backdrop-filter: blur(8px);
-            z-index: 999999;
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            bottom: 0 !important;
+            width: 100vw !important;
+            height: 100vh !important;
+            background: rgba(4, 8, 18, 0.94) !important;
+            backdrop-filter: blur(8px) !important;
+            z-index: 9999999 !important;
             display: none;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
+            align-items: center !important;
+            justify-content: center !important;
+            padding: 20px !important;
+            box-sizing: border-box !important;
         }}
         .mtg-lightbox-content {{
             background: #0f172a;
@@ -1427,7 +1432,10 @@ def generate_full_html():
                 <img id="mtg-lightbox-img" src="" alt="Enlarged technical diagram">
             </div>
             <div class="mtg-lightbox-details">
-                <h3 id="mtg-lightbox-title" class="mtg-lightbox-title">Diagram Title</h3>
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 6px; flex-wrap: wrap;">
+                    <h3 id="mtg-lightbox-title" class="mtg-lightbox-title" style="margin: 0;">Diagram Title</h3>
+                    <a id="mtg-lightbox-orig" href="" target="_blank" rel="noopener noreferrer" style="color: #38bdf8; font-size: 12px; font-weight: 700; text-decoration: underline; white-space: nowrap;">Open High-Res in New Tab ↗</a>
+                </div>
                 <p id="mtg-lightbox-desc" class="mtg-lightbox-caption">Description text</p>
             </div>
         </div>
@@ -1551,24 +1559,27 @@ def generate_full_html():
         const lbImg = document.getElementById('mtg-lightbox-img');
         const lbTitle = document.getElementById('mtg-lightbox-title');
         const lbDesc = document.getElementById('mtg-lightbox-desc');
+        const lbOrig = document.getElementById('mtg-lightbox-orig');
 
         window.mtgOpenLightbox = function(src, title, desc) {{
+            if (!lightbox || !lbImg) return;
             lbImg.src = src;
-            lbTitle.textContent = title;
-            lbDesc.textContent = desc;
-            lightbox.style.display = 'flex';
+            if (lbTitle) lbTitle.textContent = title;
+            if (lbDesc) lbDesc.textContent = desc;
+            if (lbOrig) lbOrig.href = src;
+            lightbox.style.setProperty('display', 'flex', 'important');
             document.body.style.overflow = 'hidden';
         }};
 
         window.mtgCloseLightbox = function(e) {{
             if (e) e.stopPropagation();
-            lightbox.style.display = 'none';
+            if (lightbox) lightbox.style.setProperty('display', 'none', 'important');
             document.body.style.overflow = '';
         }};
 
         document.addEventListener('keydown', function(e) {{
-            if (e.key === 'Escape' && lightbox.style.display === 'flex') {{
-                mtgCloseLightbox();
+            if (e.key === 'Escape' && lightbox && lightbox.style.display !== 'none') {{
+                window.mtgCloseLightbox();
             }}
         }});
     }})();
@@ -1577,9 +1588,32 @@ def generate_full_html():
 """
     return full_page_html
 
+def clean_html_for_wordpress(html):
+    """
+    WordPress wpautop injects <p> and </p> tags on double newlines even inside
+    <script> and <style> tags, causing fatal JS SyntaxErrors.
+    Strip all empty lines inside script and style tags to prevent this.
+    """
+    def repl_script(m):
+        tag_open = m.group(1)
+        code = m.group(2)
+        cleaned = '\n'.join([l for l in code.splitlines() if l.strip()])
+        return f"{tag_open}\n{cleaned}\n</script>"
+
+    def repl_style(m):
+        tag_open = m.group(1)
+        code = m.group(2)
+        cleaned = '\n'.join([l for l in code.splitlines() if l.strip()])
+        return f"{tag_open}\n{cleaned}\n</style>"
+
+    html = re.sub(r'(<script[^>]*>)(.*?)</script>', repl_script, html, flags=re.DOTALL)
+    html = re.sub(r'(<style[^>]*>)(.*?)</style>', repl_style, html, flags=re.DOTALL)
+    return html
+
 def main():
     print(f"Generating enriched dictionary content for WordPress Page ID {WP_PAGE_ID}...")
     inner_html = generate_full_html()
+    inner_html = clean_html_for_wordpress(inner_html)
     
     # Save local copy of pure HTML
     local_output_path = "scripts/dictionary_final_payload.html"
