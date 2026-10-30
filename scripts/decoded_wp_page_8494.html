@@ -1,0 +1,436 @@
+<style>
+/* Modern styling for WooCommerce recent products on dark theme */
+ul.product-grid,
+ul.products,
+.woocommerce ul.products,
+.woocommerce-page ul.products {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)) !important;
+    gap: 22px !important;
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 0 0 40px 0 !important;
+    max-width: 1140px !important;
+}
+ul.product-grid li.product,
+ul.products li.product,
+.woocommerce ul.products li.product {
+    background: #0f172a !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-radius: 16px !important;
+    padding: 20px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3) !important;
+    list-style: none !important;
+    margin: 0 !important;
+    width: auto !important;
+    box-sizing: border-box !important;
+    transition: transform 0.2s ease, border-color 0.2s ease !important;
+    position: relative !important;
+}
+ul.product-grid li.product:hover,
+ul.products li.product:hover {
+    border-color: rgba(0, 193, 240, 0.45) !important;
+    transform: translateY(-4px) !important;
+}
+ul.product-grid li.product img,
+ul.products li.product img {
+    border-radius: 10px !important;
+    width: 100% !important;
+    height: auto !important;
+    max-height: 200px !important;
+    object-fit: cover !important;
+    margin: 0 0 14px 0 !important;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.4) !important;
+}
+ul.product-grid li.product .onsale,
+ul.products li.product .onsale {
+    top: 12px !important;
+    right: 12px !important;
+    left: auto !important;
+    background: #ef4444 !important;
+    color: #ffffff !important;
+    font-size: 11px !important;
+    font-weight: 800 !important;
+    text-transform: uppercase !important;
+    border-radius: 50px !important;
+    padding: 4px 10px !important;
+    line-height: 1 !important;
+    min-height: auto !important;
+    min-width: auto !important;
+}
+ul.product-grid li.product h3,
+ul.product-grid li.product .woocommerce-loop-product__title,
+ul.products li.product .woocommerce-loop-product__title {
+    color: #ffffff !important;
+    font-size: 16px !important;
+    font-weight: 700 !important;
+    margin: 0 0 8px 0 !important;
+    line-height: 1.3 !important;
+}
+ul.product-grid li.product a {
+    color: #ffffff !important;
+    text-decoration: none !important;
+}
+ul.product-grid li.product a:hover {
+    color: #00C1F0 !important;
+}
+ul.product-grid li.product .price,
+ul.products li.product .price {
+    color: #00C1F0 !important;
+    font-size: 16px !important;
+    font-weight: 800 !important;
+    margin-bottom: 12px !important;
+    display: block !important;
+}
+ul.product-grid li.product .price del,
+ul.products li.product .price del {
+    color: #64748b !important;
+    font-size: 13px !important;
+    margin-right: 6px !important;
+}
+ul.product-grid li.product .button,
+ul.product-grid li.product .add_to_cart_button,
+ul.products li.product .button {
+    background: linear-gradient(135deg, #00C1F0 0%, #0284c7 100%) !important;
+    color: #0b0f19 !important;
+    font-weight: 800 !important;
+    font-size: 13.5px !important;
+    padding: 10px 20px !important;
+    border-radius: 50px !important;
+    text-align: center !important;
+    text-decoration: none !important;
+    border: none !important;
+    display: block !important;
+    margin-top: 12px !important;
+    box-shadow: 0 4px 14px rgba(0, 193, 240, 0.3) !important;
+}
+ul.product-grid li.product p {
+    color: #94a3b8 !important;
+    font-size: 13px !important;
+    line-height: 1.5 !important;
+    margin: 0 0 12px 0 !important;
+}
+</style>
+
+<div id="mtg-hub-wrapper" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #cbd5e1; line-height: 1.65; max-width: 1140px; margin: 0 auto 30px auto;">
+
+    <!-- 1. HERO / INTRO CARD -->
+    <div style="background: linear-gradient(135deg, #111827 0%, #0b0f19 100%); border: 1px solid rgba(0, 193, 240, 0.35); border-radius: 20px; padding: 40px; margin-bottom: 35px; box-shadow: 0 15px 40px rgba(0, 0, 0, 0.45);">
+        <div style="display: flex; gap: 32px; align-items: center; flex-wrap: wrap;">
+            
+            <!-- Left Thumbnail / Artwork -->
+            <div style="flex-shrink: 0; text-align: center; margin: 0 auto;">
+                <img src="https://www.musictechguru.com/wp-content/uploads/2017/10/Music-Technology.png" alt="A Level Music Technology" style="width: 170px; height: 170px; object-fit: cover; border-radius: 16px; border: 1px solid rgba(0, 193, 240, 0.3); box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);" />
+            </div>
+
+            <!-- Right Content -->
+            <div style="flex: 1; min-width: 300px;">
+                <span style="display: inline-block; background: rgba(0, 193, 240, 0.15); color: #00C1F0; border: 1px solid rgba(0, 193, 240, 0.35); padding: 5px 14px; border-radius: 50px; font-size: 11.5px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 12px;">
+                    ★ Official Edexcel AS &amp; A-Level Music Technology
+                </span>
+                <h1 style="color: #ffffff; font-size: 32px; font-weight: 900; margin: 0 0 12px; line-height: 1.25;">
+                    The Complete <span style="color: #00C1F0; text-shadow: 0 0 25px rgba(0, 193, 240, 0.35);">Course &amp; Exam Hub</span>
+                </h1>
+                <p style="color: #cbd5e1; font-size: 15px; line-height: 1.6; margin: 0 0 18px;">
+                    Welcome to the definitive learning resource for Pearson Edexcel AS &amp; A Level Music Technology. Equip yourself with real-world studio engineering, sound design mastery, and structured exam technique across all four syllabus components.
+                </p>
+
+                <!-- Action Buttons -->
+                <div style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center;">
+                    <a href="https://app.musictechguru.com/" target="_blank" rel="noopener" style="background: linear-gradient(135deg, #00C1F0 0%, #0284c7 100%); color: #0b0f19; font-weight: 800; font-size: 13.5px; padding: 11px 22px; border-radius: 50px; text-decoration: none; box-shadow: 0 6px 18px rgba(0, 193, 240, 0.35); display: inline-flex; align-items: center; gap: 6px;">
+                        🚀 Launch Revision App &rarr;
+                    </a>
+
+                    <a href="https://www.musictechguru.com/homepage/a-level-music-technology/a-level-music-tech-course-overview/past-papers-edexcel-resources/" style="background: #1e293b; color: #38bdf8; font-weight: 700; font-size: 13.5px; padding: 11px 20px; border-radius: 50px; text-decoration: none; border: 1px solid rgba(56, 189, 248, 0.25);">
+                        📝 Past Papers &amp; Audio Stems
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- 2. QUICK SPECIFICATION OVERVIEW BAR (INTERACTIVE LINKS) -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-bottom: 40px;">
+        <a href="https://www.musictechguru.com/homepage/a-level-music-technology/component-1-recording-mixing/" style="background: #0f172a; border-radius: 12px; padding: 16px 18px; border: 1px solid rgba(255,255,255,0.06); border-left: 4px solid #38bdf8; text-decoration: none; display: block; transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
+            <span style="color: #38bdf8; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.8px;">Component 1 &rarr;</span>
+            <strong style="color: #ffffff; font-size: 14.5px; display: block; margin: 3px 0;">Recording &amp; Mixing</strong>
+            <span style="color: #94a3b8; font-size: 12px;">Coursework &bull; 20% &bull; 60 Marks</span>
+        </a>
+        <a href="https://www.musictechguru.com/homepage/a-level-music-technology/component-2-sequencing-sampling-synthesis-composition/" style="background: #0f172a; border-radius: 12px; padding: 16px 18px; border: 1px solid rgba(255,255,255,0.06); border-left: 4px solid #c084fc; text-decoration: none; display: block; transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
+            <span style="color: #c084fc; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.8px;">Component 2 &rarr;</span>
+            <strong style="color: #ffffff; font-size: 14.5px; display: block; margin: 3px 0;">Technology Composition</strong>
+            <span style="color: #94a3b8; font-size: 12px;">Coursework &bull; 20% &bull; 60 Marks</span>
+        </a>
+        <a href="https://www.musictechguru.com/homepage/a-level-music-technology/component-3-music-technology-in-context/" style="background: #0f172a; border-radius: 12px; padding: 16px 18px; border: 1px solid rgba(255,255,255,0.06); border-left: 4px solid #818cf8; text-decoration: none; display: block; transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
+            <span style="color: #818cf8; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.8px;">Component 3 &rarr;</span>
+            <strong style="color: #ffffff; font-size: 14.5px; display: block; margin: 3px 0;">Listening &amp; Context</strong>
+            <span style="color: #94a3b8; font-size: 12px;">Written Exam &bull; 25% &bull; 1h 30m</span>
+        </a>
+        <a href="https://www.musictechguru.com/homepage/a-level-music-technology/component-4-production-analysing/" style="background: #0f172a; border-radius: 12px; padding: 16px 18px; border: 1px solid rgba(255,255,255,0.06); border-left: 4px solid #34d399; text-decoration: none; display: block; transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
+            <span style="color: #34d399; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.8px;">Component 4 &rarr;</span>
+            <strong style="color: #ffffff; font-size: 14.5px; display: block; margin: 3px 0;">Producing &amp; Analysing</strong>
+            <span style="color: #94a3b8; font-size: 12px;">Practical Exam &bull; 35% &bull; 2h 15m</span>
+        </a>
+    </div>
+
+    <!-- 3. COMPONENT DEEP-DIVE CARDS -->
+    <div style="text-align: center; margin-bottom: 28px;">
+        <span style="display: inline-block; background: rgba(0, 193, 240, 0.12); color: #00C1F0; border: 1px solid rgba(0, 193, 240, 0.3); padding: 4px 14px; border-radius: 50px; font-size: 11.5px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px;">
+            Detailed Syllabus Structure
+        </span>
+        <h2 style="color: #ffffff; font-size: 28px; font-weight: 800; margin: 0 0 8px;">
+            The Four Core Curriculum Components
+        </h2>
+        <p style="color: #94a3b8; font-size: 15px; max-width: 700px; margin: 0 auto;">
+            Click through any component below for in-depth video walkthroughs, exam marking criteria, and practical tutorials.
+        </p>
+    </div>
+
+    <!-- Component Cards Container -->
+    <div style="display: flex; flex-direction: column; gap: 24px; margin-bottom: 40px;">
+        
+        <!-- COMPONENT 1 CARD -->
+        <div style="background: #0f172a; border: 1px solid rgba(56, 189, 248, 0.25); border-radius: 18px; padding: 28px; box-shadow: 0 8px 30px rgba(0,0,0,0.3);">
+            <div style="display: flex; gap: 24px; align-items: center; flex-wrap: wrap;">
+                <div style="flex-shrink: 0; text-align: center; margin: 0 auto;">
+                    <a href="https://www.musictechguru.com/homepage/a-level-music-technology/component-1-recording-mixing/">
+                        <img src="https://www.musictechguru.com/wp-content/uploads/2017/10/Component-1-1.png" alt="Component 1 Recording & Mixing" style="width: 140px; height: 140px; border-radius: 14px; object-fit: cover; box-shadow: 0 6px 18px rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.08);" />
+                    </a>
+                </div>
+                <div style="flex: 1; min-width: 280px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap: wrap; gap: 8px;">
+                        <span style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.3); padding: 3px 10px; border-radius: 4px; font-size: 11px; font-weight: 800; text-transform: uppercase;">
+                            Component 1 &bull; Coursework (20%) &bull; 60 Marks
+                        </span>
+                        <span style="color: #94a3b8; font-size: 12px; font-weight: 600;">Externally Assessed Coursework</span>
+                    </div>
+                    <h3 style="color: #ffffff; font-size: 22px; font-weight: 800; margin: 0 0 10px;">
+                        <a href="https://www.musictechguru.com/homepage/a-level-music-technology/component-1-recording-mixing/" style="color: #ffffff; text-decoration: none;">
+                            Recording &amp; Mixing
+                        </a>
+                    </h3>
+                    <p style="color: #cbd5e1; font-size: 14px; line-height: 1.6; margin: 0 0 12px;">
+                        Produce a full commercial cover recording selected from an annually updated list of designated artists provided by Edexcel. Master acoustic capture, microphone polar patterns, stereo arrays (XY, spaced pair), preamp gain staging, and multi-track balance.
+                    </p>
+                    <p style="color: #94a3b8; font-size: 13px; line-height: 1.5; margin: 0 0 16px;">
+                        <strong style="color: #e2e8f0;">AS vs A-Level:</strong> Full A-Level requires acoustic drums and percussion, whereas AS specifies no drums. Completing the AS brief first provides a rock-solid stepping stone for Year 12 students.
+                    </p>
+                    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                        <a href="https://www.musictechguru.com/homepage/a-level-music-technology/component-1-recording-mixing/" style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.35); padding: 9px 18px; border-radius: 8px; font-size: 13.5px; font-weight: 700; text-decoration: none;">
+                            Explore Component 1 Masterclasses &rarr;
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- COMPONENT 2 CARD -->
+        <div style="background: #0f172a; border: 1px solid rgba(192, 132, 252, 0.25); border-radius: 18px; padding: 28px; box-shadow: 0 8px 30px rgba(0,0,0,0.3);">
+            <div style="display: flex; gap: 24px; align-items: center; flex-wrap: wrap;">
+                <div style="flex-shrink: 0; text-align: center; margin: 0 auto;">
+                    <a href="https://www.musictechguru.com/homepage/a-level-music-technology/component-2-sequencing-sampling-synthesis-composition/">
+                        <img src="https://www.musictechguru.com/wp-content/uploads/2017/10/Component-2.png" alt="Component 2 Technology Composition" style="width: 140px; height: 140px; border-radius: 14px; object-fit: cover; box-shadow: 0 6px 18px rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.08);" />
+                    </a>
+                </div>
+                <div style="flex: 1; min-width: 280px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap: wrap; gap: 8px;">
+                        <span style="background: rgba(192, 132, 252, 0.15); color: #c084fc; border: 1px solid rgba(192, 132, 252, 0.3); padding: 3px 10px; border-radius: 4px; font-size: 11px; font-weight: 800; text-transform: uppercase;">
+                            Component 2 &bull; Coursework (20%) &bull; 60 Marks
+                        </span>
+                        <span style="color: #94a3b8; font-size: 12px; font-weight: 600;">Creative DAW Composition</span>
+                    </div>
+                    <h3 style="color: #ffffff; font-size: 22px; font-weight: 800; margin: 0 0 10px;">
+                        <a href="https://www.musictechguru.com/homepage/a-level-music-technology/component-2-sequencing-sampling-synthesis-composition/" style="color: #ffffff; text-decoration: none;">
+                            Sequencing, Sampling, Synthesis &amp; Composition
+                        </a>
+                    </h3>
+                    <p style="color: #cbd5e1; font-size: 14px; line-height: 1.6; margin: 0 0 12px;">
+                        Undertake an original 3-minute composition on a Digital Audio Workstation (Logic Pro X or Ableton) responding to official Edexcel briefs. You will incorporate two mandatory samples, demonstrating synthesis sound design, creative sampling manipulation, automation, and structured sonic development.
+                    </p>
+                    <p style="color: #94a3b8; font-size: 13px; line-height: 1.5; margin: 0 0 16px;">
+                        <strong style="color: #e2e8f0;">Key Advice:</strong> Starting with the AS brief helps refine creative pacing, MIDI sequencing, and arrangement before tackling the full A-Level portfolio.
+                    </p>
+                    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                        <a href="https://www.musictechguru.com/homepage/a-level-music-technology/component-2-sequencing-sampling-synthesis-composition/" style="background: rgba(192, 132, 252, 0.15); color: #c084fc; border: 1px solid rgba(192, 132, 252, 0.35); padding: 9px 18px; border-radius: 8px; font-size: 13.5px; font-weight: 700; text-decoration: none;">
+                            Explore Component 2 Masterclasses &rarr;
+                        </a>
+                        <a href="https://www.musictechguru.com/music-technology-component-2-composition-guide/" style="background: #1e293b; color: #cbd5e1; border: 1px solid rgba(255, 255, 255, 0.12); padding: 9px 16px; border-radius: 8px; font-size: 13.5px; font-weight: 600; text-decoration: none;">
+                            📄 Composition Guide &amp; Tick List
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- COMPONENT 3 CARD -->
+        <div style="background: #0f172a; border: 1px solid rgba(129, 140, 248, 0.25); border-radius: 18px; padding: 28px; box-shadow: 0 8px 30px rgba(0,0,0,0.3);">
+            <div style="display: flex; gap: 24px; align-items: center; flex-wrap: wrap;">
+                <div style="flex-shrink: 0; text-align: center; margin: 0 auto;">
+                    <a href="https://www.musictechguru.com/homepage/a-level-music-technology/component-3-music-technology-in-context/">
+                        <img src="https://www.musictechguru.com/wp-content/uploads/2017/10/Component-3.png" alt="Component 3 Listening & Analysing" style="width: 140px; height: 140px; border-radius: 14px; object-fit: cover; box-shadow: 0 6px 18px rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.08);" />
+                    </a>
+                </div>
+                <div style="flex: 1; min-width: 280px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap: wrap; gap: 8px;">
+                        <span style="background: rgba(129, 140, 248, 0.15); color: #818cf8; border: 1px solid rgba(129, 140, 248, 0.3); padding: 3px 10px; border-radius: 4px; font-size: 11px; font-weight: 800; text-transform: uppercase;">
+                            Component 3 &bull; Written Exam (25%) &bull; 1h 30m
+                        </span>
+                        <span style="color: #94a3b8; font-size: 12px; font-weight: 600;">Written Listening Paper</span>
+                    </div>
+                    <h3 style="color: #ffffff; font-size: 22px; font-weight: 800; margin: 0 0 10px;">
+                        <a href="https://www.musictechguru.com/homepage/a-level-music-technology/component-3-music-technology-in-context/" style="color: #ffffff; text-decoration: none;">
+                            Listening &amp; Analysing (Music Technology in Context)
+                        </a>
+                    </h3>
+                    <p style="color: #cbd5e1; font-size: 14px; line-height: 1.6; margin: 0 0 12px;">
+                        Explore the historical evolution of music technology and its profound impact on musical creativity. Study early acoustic capture, multi-track magnetic tape, electric guitar innovation, synthesizer pioneers, digital sampling, and modern production fingerprints.
+                    </p>
+                    <p style="color: #94a3b8; font-size: 13px; line-height: 1.5; margin: 0 0 16px;">
+                        <strong style="color: #e2e8f0;">Exam Preparation:</strong> Master critical listening with audio-based questions, presentations, video breakdowns, and our comprehensive 500+ term Music Technology Dictionary.
+                    </p>
+                    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                        <a href="https://www.musictechguru.com/homepage/a-level-music-technology/component-3-music-technology-in-context/" style="background: rgba(129, 140, 248, 0.15); color: #818cf8; border: 1px solid rgba(129, 140, 248, 0.35); padding: 9px 18px; border-radius: 8px; font-size: 13.5px; font-weight: 700; text-decoration: none;">
+                            Explore Component 3 Resources &rarr;
+                        </a>
+                        <a href="https://www.musictechguru.com/homepage/music-technology-dictionary/" style="background: #1e293b; color: #cbd5e1; border: 1px solid rgba(255, 255, 255, 0.12); padding: 9px 16px; border-radius: 8px; font-size: 13.5px; font-weight: 600; text-decoration: none;">
+                            📖 MT Dictionary (500+ Terms)
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- COMPONENT 4 CARD -->
+        <div style="background: #0f172a; border: 1px solid rgba(52, 211, 153, 0.25); border-radius: 18px; padding: 28px; box-shadow: 0 8px 30px rgba(0,0,0,0.3);">
+            <div style="display: flex; gap: 24px; align-items: center; flex-wrap: wrap;">
+                <div style="flex-shrink: 0; text-align: center; margin: 0 auto;">
+                    <a href="https://www.musictechguru.com/homepage/a-level-music-technology/component-4-production-analysing/">
+                        <img src="https://www.musictechguru.com/wp-content/uploads/2017/10/Component-4.png" alt="Component 4 Producing & Analysing" style="width: 140px; height: 140px; border-radius: 14px; object-fit: cover; box-shadow: 0 6px 18px rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.08);" />
+                    </a>
+                </div>
+                <div style="flex: 1; min-width: 280px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap: wrap; gap: 8px;">
+                        <span style="background: rgba(52, 211, 153, 0.15); color: #34d399; border: 1px solid rgba(52, 211, 153, 0.3); padding: 3px 10px; border-radius: 4px; font-size: 11px; font-weight: 800; text-transform: uppercase;">
+                            Component 4 &bull; Practical Exam (35%) &bull; 2h 15m
+                        </span>
+                        <span style="color: #94a3b8; font-size: 12px; font-weight: 600;">DAW Examination</span>
+                    </div>
+                    <h3 style="color: #ffffff; font-size: 22px; font-weight: 800; margin: 0 0 10px;">
+                        <a href="https://www.musictechguru.com/homepage/a-level-music-technology/component-4-production-analysing/" style="color: #ffffff; text-decoration: none;">
+                            Producing &amp; Analysing (Production Techniques &amp; Exam)
+                        </a>
+                    </h3>
+                    <p style="color: #cbd5e1; font-size: 14px; line-height: 1.6; margin: 0 0 12px;">
+                        Hone the practical engineering skills needed to edit, fix, and mix under timed examination conditions. Tutorials cover surgical parametric EQ, compression ratios and attack/release timing, creative distortion, delay/reverb spatial routing, and automation.
+                    </p>
+                    <p style="color: #94a3b8; font-size: 13px; line-height: 1.5; margin: 0 0 16px;">
+                        <strong style="color: #e2e8f0;">Practical Testing:</strong> Work through real sample exam stems and model mark schemes to guarantee precision and speed on exam day.
+                    </p>
+                    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                        <a href="https://www.musictechguru.com/homepage/a-level-music-technology/component-4-production-analysing/" style="background: rgba(52, 211, 153, 0.15); color: #34d399; border: 1px solid rgba(52, 211, 153, 0.35); padding: 9px 18px; border-radius: 8px; font-size: 13.5px; font-weight: 700; text-decoration: none;">
+                            Explore Component 4 Masterclasses &rarr;
+                        </a>
+                        <a href="https://www.musictechguru.com/homepage/a-level-music-technology/a-level-music-tech-course-overview/past-papers-edexcel-resources/" style="background: #1e293b; color: #cbd5e1; border: 1px solid rgba(255, 255, 255, 0.12); padding: 9px 16px; border-radius: 8px; font-size: 13.5px; font-weight: 600; text-decoration: none;">
+                            🎧 Exam Audio Stems &amp; Papers
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- 4. CORE LEARNING RESOURCES (3 Columns) -->
+    <div style="background: #111827; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 20px; padding: 32px 28px; margin-bottom: 35px; box-shadow: 0 10px 30px rgba(0,0,0,0.25);">
+        <div style="text-align: center; margin-bottom: 24px;">
+            <span style="display: inline-block; background: rgba(0, 193, 240, 0.12); color: #00C1F0; border: 1px solid rgba(0, 193, 240, 0.3); padding: 4px 12px; border-radius: 50px; font-size: 11px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px;">
+                Essential Study Hub
+            </span>
+            <h2 style="color: #ffffff; font-size: 24px; font-weight: 800; margin: 0 0 6px;">
+                Revision &amp; Preparation Tools
+            </h2>
+            <p style="color: #94a3b8; font-size: 14px; max-width: 600px; margin: 0 auto;">
+                Everything you need to master both creative coursework portfolios and written/practical examinations.
+            </p>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+            
+            <a href="https://app.musictechguru.com/?quiz=timetable_builder" target="_blank" rel="noopener" style="background: #0f172a; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 14px; padding: 22px; text-decoration: none; display: flex; flex-direction: column; justify-content: space-between;">
+                <div>
+                    <span style="font-size: 26px; display: block; margin-bottom: 10px;">🗺️</span>
+                    <strong style="color: #ffffff; font-size: 16px; display: block; margin-bottom: 6px;">16-Block Timetable &amp; SOW</strong>
+                    <p style="color: #94a3b8; font-size: 13px; line-height: 1.5; margin: 0 0 14px;">
+                        Interactive curriculum pacing for Year 12 &amp; 13. Map coursework deadlines, mock exam windows, and revision blocks.
+                    </p>
+                </div>
+                <span style="color: #00C1F0; font-size: 13px; font-weight: 700;">Launch Timetable Builder &rarr;</span>
+            </a>
+
+            <a href="https://www.musictechguru.com/homepage/a-level-music-technology/a-level-music-tech-course-overview/past-papers-edexcel-resources/" style="background: #0f172a; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 14px; padding: 22px; text-decoration: none; display: flex; flex-direction: column; justify-content: space-between;">
+                <div>
+                    <span style="font-size: 26px; display: block; margin-bottom: 10px;">📝</span>
+                    <strong style="color: #ffffff; font-size: 16px; display: block; margin-bottom: 6px;">Past Papers &amp; Mark Schemes</strong>
+                    <p style="color: #94a3b8; font-size: 13px; line-height: 1.5; margin: 0 0 14px;">
+                        Official past papers for Component 3 and Component 4, including audio CD tracks, raw DAW stems, and examiner commentaries.
+                    </p>
+                </div>
+                <span style="color: #00C1F0; font-size: 13px; font-weight: 700;">Access Past Papers &rarr;</span>
+            </a>
+
+            <a href="https://app.musictechguru.com/" target="_blank" rel="noopener" style="background: #0f172a; border: 1px solid rgba(0, 193, 240, 0.3); border-radius: 14px; padding: 22px; text-decoration: none; display: flex; flex-direction: column; justify-content: space-between;">
+                <div>
+                    <span style="font-size: 26px; display: block; margin-bottom: 10px;">🚀</span>
+                    <strong style="color: #ffffff; font-size: 16px; display: block; margin-bottom: 6px;">Interactive Revision App</strong>
+                    <p style="color: #94a3b8; font-size: 13px; line-height: 1.5; margin: 0 0 14px;">
+                        Turbocharge exam prep with interactive quizzes, acoustics diagnostics, EQ frequency trainers, and mock listening tests.
+                    </p>
+                </div>
+                <span style="color: #00C1F0; font-size: 13px; font-weight: 700;">Try Free Revision App &rarr;</span>
+            </a>
+
+        </div>
+    </div>
+
+    <!-- 5. FEATURED REVISION GUIDES & SHOP PRODUCTS HEADER -->
+    <div style="text-align: center; margin: 40px 0 24px 0;">
+        <span style="display: inline-block; background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.35); padding: 4px 14px; border-radius: 50px; font-size: 11.5px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px;">
+            🔥 Coursework Preparation &amp; Downloads
+        </span>
+        <h2 style="color: #ffffff; font-size: 26px; font-weight: 800; margin: 0 0 8px;">
+            Featured Study Guides &amp; Project Templates
+        </h2>
+        <p style="color: #94a3b8; font-size: 14.5px; max-width: 650px; margin: 0 auto;">
+            Step-by-step PDF workbooks, mixing templates, and project stems available from the MTG Store.
+        </p>
+    </div>
+
+</div>
+<!-- BLOCK_SEP -->
+<div id="mtg-hub-footer-callout" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 1140px; margin: 30px auto 40px auto;">
+    
+    <div style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); border: 2px solid #00C1F0; border-radius: 20px; padding: 36px 28px; text-align: center; box-shadow: 0 15px 40px rgba(0, 193, 240, 0.15);">
+        <span style="display: inline-block; background: rgba(0, 193, 240, 0.2); color: #00C1F0; border: 1px solid rgba(0, 193, 240, 0.4); padding: 5px 14px; border-radius: 50px; font-size: 11.5px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 12px;">
+            Private 1-on-1 Tuition Available
+        </span>
+        <h3 style="color: #ffffff; font-size: 26px; font-weight: 900; margin: 0 0 12px; line-height: 1.3;">
+            Need Dedicated 1-on-1 Guidance for Coursework or Exam Prep?
+        </h3>
+        <p style="color: #cbd5e1; font-size: 15px; max-width: 660px; margin: 0 auto 24px; line-height: 1.6;">
+            Work directly with Thor House (20+ years specialist music production &amp; A-Level exam mentoring). Weekly bespoke sessions on Logic Pro, Cubase, or Ableton to fast-track your grade.
+        </p>
+        <div style="display: flex; justify-content: center; gap: 14px; flex-wrap: wrap;">
+            <a href="https://www.musictechguru.com/homepage/music-tech-tutor/" style="background: linear-gradient(135deg, #00C1F0 0%, #0284c7 100%); color: #0b0f19; font-weight: 800; font-size: 14.5px; padding: 13px 26px; border-radius: 50px; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 6px 20px rgba(0, 193, 240, 0.4);">
+                🎓 Learn More About 1-on-1 Tutoring &rarr;
+            </a>
+            <a href="https://www.musictechguru.com/contact/" style="background: rgba(255, 255, 255, 0.08); color: #ffffff; font-weight: 700; font-size: 14.5px; padding: 13px 24px; border-radius: 50px; text-decoration: none; border: 1px solid rgba(255, 255, 255, 0.2);">
+                Contact Thor Directly
+            </a>
+        </div>
+    </div>
+
+</div>
