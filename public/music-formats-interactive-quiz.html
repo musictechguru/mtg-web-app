@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Consumable Music Formats • Edexcel Component 3 Specification Quiz | Music Tech Guru</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #080e1a;
+      --bg-card: #0f172a;
+      --bg-surface: #1e293b;
+      --accent-emerald: #34d399;
+      --accent-emerald-glow: rgba(52, 211, 153, 0.35);
+      --accent-cyan: #38bdf8;
+      --accent-red: #ef4444;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-emerald: rgba(52, 211, 153, 0.35);
+      --font: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: var(--font);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .quiz-container {
+      width: 100%;
+      max-width: 880px;
+      background: radial-gradient(circle at 50% 0%, rgba(52, 211, 153, 0.14) 0%, rgba(14, 17, 36, 0) 70%), var(--bg-card);
+      border: 1px solid var(--border-emerald);
+      border-radius: 20px;
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.8), 0 0 40px rgba(52, 211, 153, 0.12);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .quiz-header {
+      padding: 24px 32px;
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(10px);
+    }
+
+    .topic-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      background: rgba(52, 211, 153, 0.12);
+      border: 1px solid var(--border-emerald);
+      border-radius: 9999px;
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--accent-emerald);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .progress-counter {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-muted);
+      letter-spacing: 0.5px;
+    }
+
+    .progress-bar-container {
+      width: 100%;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #059669, #34d399);
+      width: 10%;
+      transition: width 0.3s ease;
+    }
+
+    .quiz-body {
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      min-height: 420px;
+    }
+
+    .question-stem {
+      font-size: 19px;
+      font-weight: 800;
+      line-height: 1.45;
+      color: #ffffff;
+      letter-spacing: -0.3px;
+    }
+
+    .options-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .option-btn {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      background: #141e33;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 14px 18px;
+      color: #cbd5e1;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 1.5;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      width: 100%;
+    }
+
+    .option-btn:hover:not(:disabled) {
+      background: #1b2742;
+      border-color: rgba(52, 211, 153, 0.5);
+      color: #ffffff;
+      transform: translateY(-1px);
+    }
+
+    .option-letter {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--accent-emerald);
+      font-weight: 800;
+      font-size: 12px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .option-btn.correct {
+      background: rgba(52, 211, 153, 0.15) !important;
+      border-color: #10b981 !important;
+      color: #34d399 !important;
+    }
+
+    .option-btn.correct .option-letter {
+      background: #10b981;
+      color: #080e1a;
+    }
+
+    .option-btn.wrong {
+      background: rgba(239, 68, 68, 0.15) !important;
+      border-color: #ef4444 !important;
+      color: #f87171 !important;
+    }
+
+    .option-btn.wrong .option-letter {
+      background: #ef4444;
+      color: #ffffff;
+    }
+
+    .explanation-card {
+      display: none;
+      background: #0b1222;
+      border: 1px solid rgba(52, 211, 153, 0.3);
+      border-radius: 12px;
+      padding: 16px 20px;
+      font-size: 13.5px;
+      line-height: 1.6;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .explanation-card.show {
+      display: block;
+    }
+
+    .explanation-title {
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--accent-emerald);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+    }
+
+    .quiz-footer {
+      padding: 20px 32px;
+      border-top: 1px solid var(--border-subtle);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(15, 23, 42, 0.4);
+    }
+
+    .score-tracker {
+      font-size: 13px;
+      font-weight: 700;
+      color: #94a3b8;
+    }
+
+    .score-tracker span {
+      color: var(--accent-emerald);
+      font-weight: 800;
+    }
+
+    .next-btn {
+      background: linear-gradient(135deg, #059669 0%, #34d399 100%);
+      color: #042f2e;
+      border: none;
+      padding: 10px 24px;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 13.5px;
+      font-weight: 800;
+      cursor: pointer;
+      display: none;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+
+    .next-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(52, 211, 153, 0.3);
+    }
+
+    /* Results Screen */
+    .results-screen {
+      display: none;
+      padding: 48px 32px;
+      text-align: center;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .score-circle {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(52, 211, 153, 0.2) 0%, rgba(15, 23, 42, 0.8) 100%);
+      border: 3px solid var(--accent-emerald);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 30px var(--accent-emerald-glow);
+    }
+
+    .score-num {
+      font-size: 38px;
+      font-weight: 900;
+      color: #ffffff;
+      line-height: 1;
+    }
+
+    .score-total {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--accent-emerald);
+      margin-top: 4px;
+    }
+
+    .results-title {
+      font-size: 24px;
+      font-weight: 800;
+      color: #ffffff;
+    }
+
+    .results-feedback {
+      font-size: 15px;
+      color: var(--text-muted);
+      max-width: 600px;
+      line-height: 1.6;
+    }
+
+    .restart-btn {
+      background: #1e293b;
+      color: #f8fafc;
+      border: 1px solid var(--border-emerald);
+      padding: 12px 28px;
+      border-radius: 10px;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      margin-top: 10px;
+    }
+
+    .restart-btn:hover {
+      background: var(--border-emerald);
+      color: #ffffff;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="quiz-container">
+    <div class="quiz-header">
+      <div class="topic-badge">💿 Consumable Music Formats</div>
+      <div class="progress-counter" id="progressCounter">Question 1 of 10</div>
+    </div>
+    <div class="progress-bar-container">
+      <div class="progress-bar-fill" id="progressBar"></div>
+    </div>
+
+    <!-- Active Question Screen -->
+    <div class="quiz-body" id="questionScreen">
+      <div class="question-stem" id="questionStem">Loading Question...</div>
+      <div class="options-grid" id="optionsGrid"></div>
+      <div class="explanation-card" id="explanationCard">
+        <div class="explanation-title">Specification Rationale</div>
+        <div id="explanationText"></div>
+      </div>
+    </div>
+
+    <!-- Results Screen -->
+    <div class="results-screen" id="resultsScreen">
+      <div class="score-circle">
+        <div class="score-num" id="finalScore">0</div>
+        <div class="score-total">/ 10</div>
+      </div>
+      <h2 class="results-title" id="resultsTitle">Quiz Complete!</h2>
+      <p class="results-feedback" id="resultsFeedback">Assessment feedback text goes here.</p>
+      <button class="restart-btn" onclick="restartQuiz()">&#8635; Retake Specification Quiz</button>
+    </div>
+
+    <div class="quiz-footer" id="quizFooter">
+      <div class="score-tracker">Score: <span id="currentScore">0</span> / 10</div>
+      <button class="next-btn" id="nextBtn" onclick="nextQuestion()">Next Question &rarr;</button>
+    </div>
+  </div>
+
+  <script>
+    const questions = [
+      {
+        "question": "Why is the RIAA equalization curve applied when cutting and playing back a Vinyl LP record?",
+        "options": [
+          "To convert stereo grooves into mono below 500 Hz so the stylus never vibrates horizontally.",
+          "To double the rotational speed from 33⅓ RPM to 78 RPM during loud orchestral passages.",
+          "To attenuate bass during cutting (preventing excessive groove excursion) and boost treble (so playback de-emphasis attenuates surface hiss).",
+          "To encode digital track titles into the lead-out groove using ultrasonic carrier frequencies."
+        ],
+        "correct": 2,
+        "explanation": "Without RIAA pre-emphasis, low frequencies would cut wide grooves that consume disc space and throw the stylus out of the groove, while high frequencies would be buried in vinyl surface noise. Cutting attenuates bass and boosts treble; the phono preamp applies the exact inverse curve on playback."
+      },
+      {
+        "question": "Why does high-frequency detail degrade and sibilance distortion increase as a vinyl stylus approaches the center label of an LP ('inner-groove pinch effect')?",
+        "options": [
+          "Because Vinyl is a Constant Angular Velocity (CAV) medium: as groove radius shrinks toward the center, linear groove speed slows down, cramping high-frequency wavelengths.",
+          "Because the turntable motor automatically slows its RPM by 50% near the center label.",
+          "Because the RIAA curve disables treble pre-emphasis during the final track of each side.",
+          "Because magnetic flux density is weaker near the center spindle of the platter."
+        ],
+        "correct": 0,
+        "explanation": "At 33⅓ RPM, the platter turns at a constant angular velocity (CAV). However, the circumference of inner grooves is less than half that of outer grooves, so linear velocity drops from ~51 cm/s at the outer edge to ~20 cm/s near the label, crowding short high-frequency waveforms together."
+      },
+      {
+        "question": "Why does the Philips Compact Cassette (1963) suffer from significantly higher tape hiss and weaker treble response than studio ¼-inch reel-to-reel tape?",
+        "options": [
+          "Because cassette tape uses optical laser pits rather than ferric magnetic oxide.",
+          "Because cassette players lack a capstan and pinch roller to regulate speed.",
+          "Because cassettes can only record mono audio across the entire width of the tape.",
+          "Because it runs at a very slow tape speed (1⅞ ips / 4.76 cm/s) across ultra-narrow 0.15-inch (3.81 mm) 4-track stereo tape."
+        ],
+        "correct": 3,
+        "explanation": "Tape fidelity and signal-to-noise ratio depend directly on tape speed and track width. Running at just 1⅞ inches per second across a narrow 3.81 mm tape divided into four tracks limits magnetic particle density per second, elevating the high-frequency noise floor (tape hiss) and rolling off treble above 12–15 kHz."
+      },
+      {
+        "question": "How does Dolby B Noise Reduction reduce audible tape hiss on a Compact Cassette by ~10 dB?",
+        "options": [
+          "By running a low-pass filter at 4 kHz that permanently deletes all high frequencies from the recording.",
+          "By dynamically boosting quiet high-frequency signals during recording (pre-emphasis) and attenuating them equally on playback, pushing tape hiss down with them.",
+          "By doubling the tape transport speed from 1⅞ ips to 3¾ ips during quiet passages.",
+          "By demagnetizing the playback head continuously while the cassette is spinning."
+        ],
+        "correct": 1,
+        "explanation": "Dolby B is a dynamic, level-dependent companding system operating above ~1 kHz. Quiet high-frequency content is boosted before hitting the tape so it sits well above the oxide noise floor; on playback, the complementary decoder attenuates those high frequencies back to normal, reducing tape hiss by ~10 dB."
+      },
+      {
+        "question": "According to the 1982 Sony/Philips 'Red Book' CD-DA standard, what are the sample rate, bit depth, and theoretical maximum dynamic range of a standard audio CD?",
+        "options": [
+          "48 kHz sample rate, 24-bit depth, and ~144 dB dynamic range.",
+          "32 kHz sample rate, 8-bit depth, and ~48 dB dynamic range.",
+          "44.1 kHz sample rate, 16-bit depth, and ~96 dB dynamic range.",
+          "96 kHz sample rate, 16-bit depth, and ~60 dB dynamic range."
+        ],
+        "correct": 2,
+        "explanation": "Red Book CD-DA specifies uncompressed 44.1 kHz / 16-bit stereo PCM audio. Under the 6 dB-per-bit rule (16 × 6.02 dB), 16-bit quantization provides approximately 96 dB of dynamic range, and 44.1 kHz captures frequencies up to the 22.05 kHz Nyquist limit."
+      },
+      {
+        "question": "Why did Sony and Philips select a 44.1 kHz sample rate for the Compact Disc?",
+        "options": [
+          "Because 44.1 kHz is the lowest frequency audible to the human ear.",
+          "To satisfy the Nyquist-Shannon Theorem (exceeding 2× the 20 kHz human hearing limit while leaving room for an anti-aliasing reconstruction filter).",
+          "Because 44.1 kHz reduces the file size of MP3s by 90% without compression.",
+          "To allow a standard 12 cm CD to store 14 hours of uncompressed stereo audio."
+        ],
+        "correct": 1,
+        "explanation": "The Nyquist-Shannon Sampling Theorem states that the sample rate must be at least twice the highest audio frequency to be captured (2 × 20 kHz = 40 kHz). Setting the rate at 44.1 kHz provides a 22.05 kHz Nyquist limit, leaving a 2.05 kHz transition band for analog anti-aliasing low-pass filters."
+      },
+      {
+        "question": "How does a Compact Disc player read digital audio data without physical wear or surface friction?",
+        "options": [
+          "A diamond stylus traces microscopic pits spirals from the outer rim to the center.",
+          "A magnetic playback head senses flux reversals along a spinning polycarbonate platter.",
+          "An electrostatic capacitor plate measures air pressure fluctuations across the disc.",
+          "A non-contact 780 nm infrared semiconductor laser reads polycarbonate pits and lands from the center outward at Constant Linear Velocity (CLV)."
+        ],
+        "correct": 3,
+        "explanation": "A CD is read from the bottom through a protective polycarbonate layer by a non-contact 780 nm laser beam. Because the disc spins at Constant Linear Velocity (CLV—from ~500 RPM at the inner edge down to ~200 RPM at the outer edge), data density remains uniform and the disc suffers zero mechanical wear."
+      },
+      {
+        "question": "How do lossy audio codecs (such as MP3 and AAC) achieve ~90% file size reduction compared to an uncompressed WAV or Red Book CD?",
+        "options": [
+          "By applying perceptual psychoacoustic modeling (frequency and temporal masking) to permanently discard audio data the human ear cannot perceive.",
+          "By lowering the sample rate to 8 kHz and converting stereo recordings into mono.",
+          "By zipping the PCM samples losslessly so the exact bit-for-bit waveform is restored on playback.",
+          "By removing all frequencies below 150 Hz and above 8 kHz regardless of bitrate."
+        ],
+        "correct": 0,
+        "explanation": "Perceptual lossy codecs analyze the audio spectrum in short time frames and apply psychoacoustic masking rules: quiet frequencies masked by louder nearby frequencies (simultaneous masking) or immediately following loud transients (temporal masking) are discarded or quantized with fewer bits."
+      },
+      {
+        "question": "What audible digital artifacts occur when an MP3 is encoded at a very low bitrate (e.g. 64–96 kbps)?",
+        "options": [
+          "Mechanical wow, flutter, and 60 Hz AC mains hum.",
+          "Metallic high-frequency 'swirliness' (cymbal phase/comb artifacts), pre-echo smearing before sharp drum transients, and loss of stereo ambience.",
+          "Continuous high-frequency white-noise tape hiss during silent passages.",
+          "Inner-groove sibilance distortion during the final 30 seconds of a song."
+        ],
+        "correct": 1,
+        "explanation": "At low bitrates, aggressive MDCT frequency quantization starves high-frequency transients of bits, producing watery/swirly metallic cymbals, pre-echo (quantization noise heard just before a sharp drum hit), and collapsed stereo imaging."
+      },
+      {
+        "question": "Which comparison accurately distinguishes lossless formats (FLAC, ALAC, WAV) from lossy formats (MP3, AAC) and explains modern streaming loudness normalization?",
+        "options": [
+          "MP3 is lossless above 320 kbps, whereas WAV permanently deletes quiet frequencies.",
+          "FLAC uses psychoacoustic masking, whereas MP3 restores 100% bit-identical PCM data.",
+          "Streaming platforms boost heavily brickwall-limited tracks by +6 dB to reward the Loudness War.",
+          "WAV/AIFF are uncompressed PCM and FLAC/ALAC are losslessly compressed (restoring 100% bit-identical audio), while streaming platforms normalize playback to ~-14 LUFS."
+        ],
+        "correct": 3,
+        "explanation": "WAV/AIFF store uncompressed PCM, and FLAC/ALAC use lossless data compression (~50% smaller while reconstructing 100% bit-identical PCM). Modern streaming platforms (Spotify, Apple Music) normalize playback loudness to around -14 LUFS to prevent overly loud brickwall-limited masters from jumping out in level."
+      }
+    ];
+
+    let currentQuestion = 0;
+    let score = 0;
+    let answered = false;
+
+    function loadQuestion() {
+      answered = false;
+      const q = questions[currentQuestion];
+      if (q && Array.isArray(q.options) && typeof q.correct === 'number') {
+        const _correctOpt = q.options[q.correct];
+        for (let _i = q.options.length - 1; _i > 0; _i--) {
+          const _j = Math.floor(Math.random() * (_i + 1));
+          const _tmp = q.options[_i];
+          q.options[_i] = q.options[_j];
+          q.options[_j] = _tmp;
+        }
+        q.correct = q.options.indexOf(_correctOpt);
+      }
+      document.getElementById('questionStem').textContent = q.question;
+      document.getElementById('progressCounter').textContent = `Question ${currentQuestion + 1} of ${questions.length}`;
+      document.getElementById('progressBar').style.width = `${((currentQuestion + 1) / questions.length) * 100}%`;
+      document.getElementById('explanationCard').classList.remove('show');
+      document.getElementById('nextBtn').style.display = 'none';
+
+      const optionsGrid = document.getElementById('optionsGrid');
+      optionsGrid.innerHTML = '';
+
+      const letters = ['A', 'B', 'C', 'D'];
+      q.options.forEach((opt, idx) => {
+        const btn = document.createElement('button');
+        btn.className = 'option-btn';
+        btn.innerHTML = `<span class="option-letter">${letters[idx]}</span><span>${opt}</span>`;
+        btn.onclick = () => selectOption(idx);
+        optionsGrid.appendChild(btn);
+      });
+    }
+
+    function selectOption(index) {
+      if (answered) return;
+      answered = true;
+
+      const q = questions[currentQuestion];
+      const buttons = document.querySelectorAll('.option-btn');
+
+      if (index === q.correct) {
+        buttons[index].classList.add('correct');
+        score++;
+        document.getElementById('currentScore').textContent = score;
+      } else {
+        buttons[index].classList.add('wrong');
+        buttons[q.correct].classList.add('correct');
+      }
+
+      buttons.forEach(b => b.disabled = true);
+
+      document.getElementById('explanationText').textContent = q.explanation;
+      document.getElementById('explanationCard').classList.add('show');
+      document.getElementById('nextBtn').style.display = 'inline-flex';
+    }
+
+    function nextQuestion() {
+      currentQuestion++;
+      if (currentQuestion < questions.length) {
+        loadQuestion();
+      } else {
+        showResults();
+      }
+    }
+
+    function showResults() {
+      document.getElementById('questionScreen').style.display = 'none';
+      document.getElementById('quizFooter').style.display = 'none';
+      const resultsScreen = document.getElementById('resultsScreen');
+      resultsScreen.style.display = 'flex';
+
+      document.getElementById('finalScore').textContent = score;
+
+      const title = document.getElementById('resultsTitle');
+      const feedback = document.getElementById('resultsFeedback');
+
+      if (score >= 9) {
+        title.textContent = "Outstanding Mastery! 🏆";
+        feedback.textContent = "Flawless technical command of Vinyl RIAA pre-emphasis, Cassette bias & Dolby B companding, Red Book CD Nyquist math, and MP3 psychoacoustic masking. You are fully prepared for Edexcel Component 3 questions on consumable music formats.";
+      } else if (score >= 7) {
+        title.textContent = "Strong Specification Knowledge! 💿";
+        feedback.textContent = "Solid grasp of analog vs digital audio formats. Review the nuances of Constant Angular Velocity (CAV) inner-groove pinch effect, 44.1 kHz / 16-bit dynamic range calculations, and lossless vs lossy codecs.";
+      } else if (score >= 5) {
+        title.textContent = "Good Foundation — Needs Revision 📚";
+        feedback.textContent = "You understand basic format history, but need to consolidate core examiner terms: RIAA curve mechanics, 1⅞ ips cassette limitations, 96 dB 16-bit dynamic range, and perceptual masking.";
+      } else {
+        title.textContent = "Revision Recommended 🔄";
+        feedback.textContent = "Revisit the 6-slide Consumable Music Formats interactive deck above, paying special attention to the Master Exam Matrix comparing Vinyl, Cassette, CD, and MP3/Streaming.";
+      }
+    }
+
+    function restartQuiz() {
+      currentQuestion = 0;
+      score = 0;
+      document.getElementById('currentScore').textContent = '0';
+      document.getElementById('resultsScreen').style.display = 'none';
+      document.getElementById('questionScreen').style.display = 'flex';
+      document.getElementById('quizFooter').style.display = 'flex';
+      loadQuestion();
+    }
+
+    loadQuestion();
+  </script>
+
+  <!-- MTG Specification Quiz Paywall Integration -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="/mtg-quiz-paywall.js"></script>
+</body>
+</html>
