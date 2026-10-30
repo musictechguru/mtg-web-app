@@ -1261,7 +1261,8 @@ def generate_full_html():
         }}
 
         /* LIGHTBOX MODAL */
-        #mtg-lightbox-overlay {{
+        #mtg-lightbox-overlay,
+        #mtg-dict-app-root #mtg-lightbox-overlay {{
             position: fixed !important;
             top: 0 !important;
             left: 0 !important;
@@ -1269,48 +1270,56 @@ def generate_full_html():
             bottom: 0 !important;
             width: 100vw !important;
             height: 100vh !important;
-            background: rgba(4, 8, 18, 0.94) !important;
-            backdrop-filter: blur(8px) !important;
-            z-index: 9999999 !important;
-            display: none;
+            background: rgba(4, 8, 18, 0.95) !important;
+            backdrop-filter: blur(10px) !important;
+            -webkit-backdrop-filter: blur(10px) !important;
+            z-index: 999999999 !important;
+            display: none !important;
             align-items: center !important;
             justify-content: center !important;
             padding: 20px !important;
             box-sizing: border-box !important;
+            margin: 0 !important;
         }}
         .mtg-lightbox-content {{
-            background: #0f172a;
-            border: 1px solid rgba(56, 189, 248, 0.4);
-            border-radius: 18px;
-            max-width: 900px;
-            width: 100%;
-            max-height: 90vh;
-            overflow-y: auto;
-            box-shadow: 0 25px 60px rgba(0,0,0,0.8);
-            position: relative;
-            display: flex;
-            flex-direction: column;
+            background: #0f172a !important;
+            border: 1px solid rgba(56, 189, 248, 0.4) !important;
+            border-radius: 18px !important;
+            max-width: 900px !important;
+            width: 100% !important;
+            max-height: 90vh !important;
+            overflow-y: auto !important;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.85) !important;
+            position: relative !important;
+            display: flex !important;
+            flex-direction: column !important;
+            margin: auto !important;
         }}
         .mtg-lightbox-close {{
-            position: absolute;
-            top: 14px;
-            right: 14px;
-            background: rgba(255, 255, 255, 0.1);
-            color: #ffffff;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 50%;
-            width: 32px;
-            height: 32px;
-            font-size: 16px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: background 0.15s;
-            z-index: 10;
+            position: absolute !important;
+            top: 14px !important;
+            right: 14px !important;
+            background: rgba(255, 255, 255, 0.15) !important;
+            color: #ffffff !important;
+            border: 1px solid rgba(255, 255, 255, 0.3) !important;
+            border-radius: 50% !important;
+            width: 36px !important;
+            height: 36px !important;
+            font-size: 16px !important;
+            line-height: 1 !important;
+            cursor: pointer !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            transition: all 0.18s ease !important;
+            z-index: 20 !important;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5) !important;
         }}
         .mtg-lightbox-close:hover {{
-            background: #f43f5e;
+            background: #ef4444 !important;
+            border-color: #f87171 !important;
+            color: #ffffff !important;
+            transform: scale(1.08) !important;
         }}
         .mtg-lightbox-img-box {{
             background: #070c18;
@@ -1425,18 +1434,18 @@ def generate_full_html():
     </div>
 
     <!-- 5. LIGHTBOX MODAL -->
-    <div id="mtg-lightbox-overlay" onclick="mtgCloseLightbox(event)">
+    <div id="mtg-lightbox-overlay" style="display: none !important;" onclick="mtgCloseLightbox(event)">
         <div class="mtg-lightbox-content" onclick="event.stopPropagation()">
             <span role="button" tabindex="0" class="mtg-lightbox-close" onclick="mtgCloseLightbox(event)" title="Close (Esc)">✕</span>
             <div class="mtg-lightbox-img-box">
-                <img id="mtg-lightbox-img" src="" alt="Enlarged technical diagram">
+                <img id="mtg-lightbox-img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'/%3E" alt="">
             </div>
             <div class="mtg-lightbox-details">
                 <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 6px; flex-wrap: wrap;">
-                    <h3 id="mtg-lightbox-title" class="mtg-lightbox-title" style="margin: 0;">Diagram Title</h3>
-                    <a id="mtg-lightbox-orig" href="" target="_blank" rel="noopener noreferrer" style="color: #38bdf8; font-size: 12px; font-weight: 700; text-decoration: underline; white-space: nowrap;">Open High-Res in New Tab ↗</a>
+                    <h3 id="mtg-lightbox-title" class="mtg-lightbox-title" style="margin: 0;"></h3>
+                    <a id="mtg-lightbox-orig" href="" target="_blank" rel="noopener noreferrer" style="color: #38bdf8; font-size: 12px; font-weight: 700; text-decoration: underline; white-space: nowrap; display: none;">Open High-Res in New Tab ↗</a>
                 </div>
-                <p id="mtg-lightbox-desc" class="mtg-lightbox-caption">Description text</p>
+                <p id="mtg-lightbox-desc" class="mtg-lightbox-caption" style="margin: 0;"></p>
             </div>
         </div>
     </div>
@@ -1561,12 +1570,21 @@ def generate_full_html():
         const lbDesc = document.getElementById('mtg-lightbox-desc');
         const lbOrig = document.getElementById('mtg-lightbox-orig');
 
+        // Move modal to <body> so no parent container creates a stacking context or in-flow layout
+        if (lightbox && lightbox.parentElement !== document.body) {{
+            document.body.appendChild(lightbox);
+        }}
+
         window.mtgOpenLightbox = function(src, title, desc) {{
             if (!lightbox || !lbImg) return;
             lbImg.src = src;
-            if (lbTitle) lbTitle.textContent = title;
-            if (lbDesc) lbDesc.textContent = desc;
-            if (lbOrig) lbOrig.href = src;
+            lbImg.alt = title || '';
+            if (lbTitle) lbTitle.textContent = title || '';
+            if (lbDesc) lbDesc.textContent = desc || '';
+            if (lbOrig) {{
+                lbOrig.href = src;
+                lbOrig.style.display = 'inline-block';
+            }}
             lightbox.style.setProperty('display', 'flex', 'important');
             document.body.style.overflow = 'hidden';
         }};
