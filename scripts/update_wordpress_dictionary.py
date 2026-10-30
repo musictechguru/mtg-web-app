@@ -380,9 +380,9 @@ def generate_full_html():
                     <p class="mtg-defn-text">{display_defn}</p>
                 </td>
                 <td class="mtg-col-act">
-                    <button class="mtg-copy-btn" onclick="mtgCopyTerm(this, '{clean_term_attr}', '{clean_defn_attr}')" title="Copy term and definition">
+                    <span role="button" tabindex="0" class="mtg-copy-btn" onclick="mtgCopyTerm(this, '{clean_term_attr}', '{clean_defn_attr}')" title="Copy term and definition">
                         📋 <span class="btn-txt">Copy</span>
-                    </button>
+                    </span>
                 </td>
             </tr>
             """)
@@ -421,7 +421,25 @@ def generate_full_html():
 
     total_count = len(all_terms)
     rendered_sections_html = ''.join(rendered_sections)
-    alpha_buttons = ''.join([f'<button class="mtg-alpha-btn" onclick="mtgJumpLetter(\x27{letter}\x27)">{letter}</button>' for letter in "ABCDEFGHIJKLMNOPQRSTUVWXYZ"])
+    alpha_buttons = ''.join([f'<span role="button" tabindex="0" class="mtg-alpha-btn" onclick="mtgJumpLetter(\x27{letter}\x27)">{letter}</span>' for letter in "ABCDEFGHIJKLMNOPQRSTUVWXYZ"])
+
+    category_buttons_data = [
+        ("all", f"✨ All ({total_count})"),
+        ("Microphones", "🎙️ Microphones"),
+        ("Synthesis", "🎹 Synthesis"),
+        ("Sampling", "🎛️ Sampling"),
+        ("Dynamics", "🔉 Dynamics"),
+        ("EQ & Filters", "🎚️ EQ & Filters"),
+        ("Effects", "✨ Effects"),
+        ("Sequencing & MIDI", "🎼 Sequencing & MIDI"),
+        ("Hardware & Signals", "🔌 Hardware & Leads"),
+        ("Stereo & Acoustics", "🎧 Stereo & Acoustics"),
+        ("Mastering", "📈 Mastering")
+    ]
+    filter_buttons_html = ''.join([
+        f'<span role="button" tabindex="0" class="mtg-filter-btn{" active" if slug == "all" else ""}" data-group="{slug}" onclick="mtgSetFilter(\x27{slug}\x27, this)">{label}</span>'
+        for slug, label in category_buttons_data
+    ])
 
     # Generate Schema.org DefinedTermSet JSON-LD graph for SEO
     defined_terms_json = []
@@ -627,124 +645,206 @@ def generate_full_html():
             color: #ffffff !important;
         }}
 
+        /* WP AUTOP & THEME OVERRIDES */
+        #mtg-dict-app-root br {{
+            display: none !important;
+        }}
+        #mtg-dict-app-root p:empty {{
+            display: none !important;
+        }}
+        #mtg-dict-app-root > p {{
+            margin: 0 !important;
+            padding: 0 !important;
+        }}
+
         /* SEARCH & FILTER COMMAND BAR */
-        .mtg-command-bar {{
-            background: #0f172a;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 16px;
-            padding: 20px 24px;
-            margin-bottom: 30px;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.4);
-            position: sticky;
-            top: 20px;
-            z-index: 90;
-            backdrop-filter: blur(12px);
+        #mtg-dict-app-root .mtg-command-bar {{
+            background: #0d1527 !important;
+            border: 1px solid rgba(56, 189, 248, 0.25) !important;
+            border-radius: 18px !important;
+            padding: 20px 24px !important;
+            margin-bottom: 30px !important;
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.5) !important;
+            position: sticky !important;
+            top: 20px !important;
+            z-index: 90 !important;
+            backdrop-filter: blur(14px) !important;
         }}
-        .mtg-search-box-wrap {{
-            position: relative;
-            margin-bottom: 14px;
+        #mtg-dict-app-root .mtg-search-box-wrap {{
+            display: flex !important;
+            align-items: center !important;
+            background: #070e1c !important;
+            border: 2px solid rgba(56, 189, 248, 0.4) !important;
+            border-radius: 9999px !important;
+            padding: 2px 20px !important;
+            width: 100% !important;
+            box-sizing: border-box !important;
+            margin-bottom: 16px !important;
+            transition: border-color 0.2s, box-shadow 0.2s !important;
         }}
-        .mtg-search-icon {{
-            position: absolute;
-            left: 18px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 18px;
-            color: #38bdf8;
-            pointer-events: none;
+        #mtg-dict-app-root .mtg-search-box-wrap:focus-within {{
+            border-color: #38bdf8 !important;
+            box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.25) !important;
         }}
-        .mtg-search-input {{
-            width: 100%;
-            padding: 14px 44px 14px 48px;
-            font-size: 15.5px;
-            border-radius: 30px;
-            border: 2px solid rgba(56, 189, 248, 0.4);
-            background: #131d33;
-            color: #ffffff;
-            outline: none;
-            transition: border-color 0.2s, box-shadow 0.2s;
+        #mtg-dict-app-root .mtg-search-icon {{
+            font-size: 18px !important;
+            margin-right: 12px !important;
+            color: #38bdf8 !important;
+            flex-shrink: 0 !important;
+            line-height: 1 !important;
+            user-select: none !important;
+            pointer-events: none !important;
         }}
-        .mtg-search-input:focus {{
-            border-color: #38bdf8;
-            box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.25);
+        #mtg-dict-app-root .mtg-search-input {{
+            flex: 1 1 auto !important;
+            background: transparent !important;
+            border: none !important;
+            outline: none !important;
+            color: #ffffff !important;
+            font-size: 15px !important;
+            padding: 13px 0 !important;
+            margin: 0 !important;
+            box-shadow: none !important;
+            width: 100% !important;
+            min-width: 0 !important;
         }}
-        .mtg-search-clear {{
-            position: absolute;
-            right: 14px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(255, 255, 255, 0.15);
-            border: none;
-            color: #e2e8f0;
-            border-radius: 50%;
-            width: 24px;
-            height: 24px;
-            font-size: 12px;
-            cursor: pointer;
+        #mtg-dict-app-root .mtg-search-clear {{
+            background: rgba(255, 255, 255, 0.18) !important;
+            border: none !important;
+            color: #ffffff !important;
+            border-radius: 50% !important;
+            width: 22px !important;
+            height: 22px !important;
+            font-size: 11px !important;
+            cursor: pointer !important;
             display: none;
-            align-items: center;
-            justify-content: center;
+            align-items: center !important;
+            justify-content: center !important;
+            margin-left: 10px !important;
+            flex-shrink: 0 !important;
+            user-select: none !important;
+            transition: background 0.15s !important;
+        }}
+        #mtg-dict-app-root .mtg-search-clear:hover {{
+            background: #f43f5e !important;
         }}
 
         /* CATEGORY FILTER PILLS */
-        .mtg-filter-strip {{
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-            align-items: center;
-            margin-bottom: 12px;
+        #mtg-dict-app-root .mtg-filter-strip {{
+            display: flex !important;
+            flex-direction: row !important;
+            flex-wrap: wrap !important;
+            gap: 8px !important;
+            align-items: center !important;
+            margin-bottom: 16px !important;
+            width: 100% !important;
         }}
-        .mtg-filter-btn {{
-            background: #1e293b;
-            color: #94a3b8;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 12.5px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: background 0.15s, color 0.15s, border-color 0.15s;
-            user-select: none;
+        #mtg-dict-app-root .mtg-filter-btn {{
+            all: unset !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 6px !important;
+            background: #151e32 !important;
+            color: #94a3b8 !important;
+            border: 1px solid rgba(255, 255, 255, 0.12) !important;
+            padding: 8px 16px !important;
+            border-radius: 9999px !important;
+            font-size: 13px !important;
+            font-weight: 600 !important;
+            cursor: pointer !important;
+            text-transform: none !important;
+            letter-spacing: normal !important;
+            margin: 0 !important;
+            box-shadow: none !important;
+            line-height: 1.3 !important;
+            white-space: nowrap !important;
+            box-sizing: border-box !important;
+            user-select: none !important;
+            transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1) !important;
         }}
-        .mtg-filter-btn:hover {{
-            color: #ffffff;
-            background: #334155;
+        #mtg-dict-app-root .mtg-filter-btn:hover {{
+            color: #ffffff !important;
+            background: #22304a !important;
+            border-color: rgba(56, 189, 248, 0.45) !important;
+            transform: translateY(-1px) !important;
         }}
-        .mtg-filter-btn.active {{
-            background: #38bdf8;
-            color: #080e1a;
-            border-color: #38bdf8;
-            font-weight: 800;
+        #mtg-dict-app-root .mtg-filter-btn.active {{
+            background: linear-gradient(135deg, #0284c7 0%, #00b4d8 100%) !important;
+            color: #ffffff !important;
+            border-color: #38bdf8 !important;
+            font-weight: 700 !important;
+            box-shadow: 0 4px 14px rgba(2, 132, 199, 0.4) !important;
         }}
 
         /* ALPHABET JUMP STRIP */
-        .mtg-alpha-strip {{
-            display: flex;
-            gap: 4px;
-            flex-wrap: wrap;
-            align-items: center;
-            padding-top: 10px;
-            border-top: 1px solid rgba(255, 255, 255, 0.06);
+        #mtg-dict-app-root .mtg-alpha-strip {{
+            display: flex !important;
+            flex-direction: row !important;
+            flex-wrap: wrap !important;
+            gap: 5px !important;
+            align-items: center !important;
+            padding-top: 14px !important;
+            border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+            width: 100% !important;
         }}
-        .mtg-alpha-btn {{
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            color: #cbd5e1;
-            font-size: 11px;
-            font-weight: 700;
-            padding: 3px 7px;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: background 0.15s, color 0.15s;
+        #mtg-dict-app-root .mtg-alpha-label {{
+            font-size: 11px !important;
+            color: #64748b !important;
+            font-weight: 800 !important;
+            letter-spacing: 0.6px !important;
+            margin-right: 6px !important;
+            user-select: none !important;
         }}
-        .mtg-alpha-btn:hover {{
-            background: #38bdf8;
-            color: #080e1a;
+        #mtg-dict-app-root .mtg-alpha-btn {{
+            all: unset !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            background: rgba(255, 255, 255, 0.04) !important;
+            border: 1px solid rgba(255, 255, 255, 0.08) !important;
+            color: #cbd5e1 !important;
+            font-size: 11.5px !important;
+            font-weight: 700 !important;
+            width: 26px !important;
+            height: 26px !important;
+            border-radius: 6px !important;
+            cursor: pointer !important;
+            box-sizing: border-box !important;
+            text-align: center !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            user-select: none !important;
+            transition: all 0.15s ease !important;
         }}
-        .mtg-alpha-btn.active {{
-            background: #38bdf8;
-            color: #080e1a;
-            font-weight: 800;
+        #mtg-dict-app-root .mtg-alpha-btn:hover {{
+            background: #0284c7 !important;
+            color: #ffffff !important;
+            border-color: #38bdf8 !important;
+        }}
+
+        #mtg-dict-app-root .mtg-copy-btn {{
+            all: unset !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            gap: 4px !important;
+            background: rgba(255, 255, 255, 0.06) !important;
+            border: 1px solid rgba(255, 255, 255, 0.1) !important;
+            color: #94a3b8 !important;
+            font-size: 11.5px !important;
+            font-weight: 700 !important;
+            padding: 6px 12px !important;
+            border-radius: 8px !important;
+            cursor: pointer !important;
+            box-sizing: border-box !important;
+            white-space: nowrap !important;
+            user-select: none !important;
+            transition: all 0.15s ease !important;
+        }}
+        #mtg-dict-app-root .mtg-copy-btn:hover {{
+            background: #38bdf8 !important;
+            color: #080e1a !important;
+            border-color: #38bdf8 !important;
         }}
 
         /* RESULT COUNTER */
@@ -1024,25 +1124,25 @@ def generate_full_html():
         }}
 
         /* ZERO STATE */
-        #mtg-zero-state {{
-            display: none;
-            background: #0f172a;
-            border: 1px dashed rgba(56, 189, 248, 0.3);
-            border-radius: 16px;
-            padding: 48px 24px;
-            text-align: center;
-            margin: 30px 0;
+        #mtg-dict-app-root #mtg-zero-state {{
+            display: none !important;
+            background: #0f172a !important;
+            border: 1px dashed rgba(56, 189, 248, 0.3) !important;
+            border-radius: 16px !important;
+            padding: 48px 24px !important;
+            text-align: center !important;
+            margin: 30px 0 !important;
         }}
-        #mtg-zero-state h4 {{
-            color: #ffffff;
-            font-size: 20px;
-            margin: 0 0 8px 0;
+        #mtg-dict-app-root #mtg-zero-state h4 {{
+            color: #ffffff !important;
+            font-size: 20px !important;
+            margin: 0 0 8px 0 !important;
         }}
-        #mtg-zero-state p {{
-            color: #94a3b8;
-            font-size: 14px;
-            max-width: 480px;
-            margin: 0 auto 16px auto;
+        #mtg-dict-app-root #mtg-zero-state p {{
+            color: #94a3b8 !important;
+            font-size: 14px !important;
+            max-width: 480px !important;
+            margin: 0 auto 16px auto !important;
         }}
 
         /* BOTTOM CTA */
@@ -1202,32 +1302,11 @@ def generate_full_html():
 
     <!-- 2. INTERACTIVE SEARCH & CATEGORY FILTER COMMAND BAR -->
     <div class="mtg-command-bar">
-        <div class="mtg-search-box-wrap">
-            <span class="mtg-search-icon">🔍</span>
-            <input type="text" id="mtg-search-input" class="mtg-search-input" 
-                   placeholder="Type any term or keyword (e.g. Cardioid, Nyquist, VCA, Sidechain, ADSR, Blumlein)..."
-                   autocomplete="off" spellcheck="false">
-            <button id="mtg-search-clear" class="mtg-search-clear" onclick="mtgClearSearch()" title="Clear search">✕</button>
-        </div>
+        <div class="mtg-search-box-wrap" style="display: flex !important; align-items: center !important; background: #070e1c !important; border: 2px solid rgba(56, 189, 248, 0.4) !important; border-radius: 9999px !important; padding: 2px 20px !important; width: 100% !important; box-sizing: border-box !important; margin-bottom: 16px !important;"><span class="mtg-search-icon" style="font-size: 18px !important; margin-right: 12px !important; color: #38bdf8 !important; flex-shrink: 0 !important; line-height: 1 !important; user-select: none !important;">🔍</span><input type="text" id="mtg-search-input" class="mtg-search-input" placeholder="Search 364+ terms (e.g. Cardioid, Nyquist, VCA, Sidechain, ADSR, Blumlein)..." autocomplete="off" spellcheck="false" style="flex: 1 1 auto !important; background: transparent !important; border: none !important; outline: none !important; color: #ffffff !important; font-size: 15px !important; padding: 13px 0 !important; margin: 0 !important; box-shadow: none !important; width: 100% !important; min-width: 0 !important;"><span role="button" tabindex="0" id="mtg-search-clear" class="mtg-search-clear" onclick="mtgClearSearch()" title="Clear search" style="cursor: pointer; display: none; align-items: center; justify-content: center; background: rgba(255,255,255,0.18); color: #fff; width: 22px; height: 22px; border-radius: 50%; font-size: 11px; margin-left: 10px; flex-shrink: 0; user-select: none;">✕</span></div>
 
-        <div class="mtg-filter-strip">
-            <button class="mtg-filter-btn active" data-group="all" onclick="mtgSetFilter('all', this)">✨ All ({total_count})</button>
-            <button class="mtg-filter-btn" data-group="Microphones" onclick="mtgSetFilter('Microphones', this)">🎙️ Microphones</button>
-            <button class="mtg-filter-btn" data-group="Synthesis" onclick="mtgSetFilter('Synthesis', this)">🎹 Synthesis</button>
-            <button class="mtg-filter-btn" data-group="Sampling" onclick="mtgSetFilter('Sampling', this)">🎛️ Sampling</button>
-            <button class="mtg-filter-btn" data-group="Dynamics" onclick="mtgSetFilter('Dynamics', this)">🔉 Dynamics</button>
-            <button class="mtg-filter-btn" data-group="EQ & Filters" onclick="mtgSetFilter('EQ & Filters', this)">🎚️ EQ &amp; Filters</button>
-            <button class="mtg-filter-btn" data-group="Effects" onclick="mtgSetFilter('Effects', this)">✨ Effects</button>
-            <button class="mtg-filter-btn" data-group="Sequencing & MIDI" onclick="mtgSetFilter('Sequencing & MIDI', this)">🎼 Sequencing &amp; MIDI</button>
-            <button class="mtg-filter-btn" data-group="Hardware & Signals" onclick="mtgSetFilter('Hardware & Signals', this)">🔌 Hardware &amp; Leads</button>
-            <button class="mtg-filter-btn" data-group="Stereo & Acoustics" onclick="mtgSetFilter('Stereo & Acoustics', this)">🎧 Stereo &amp; Acoustics</button>
-            <button class="mtg-filter-btn" data-group="Mastering" onclick="mtgSetFilter('Mastering', this)">📈 Mastering</button>
-        </div>
+        <div class="mtg-filter-strip">{filter_buttons_html}</div>
 
-        <div class="mtg-alpha-strip">
-            <span style="font-size: 11px; color: #64748b; font-weight: 700; margin-right: 6px;">JUMP:</span>
-            {alpha_buttons}
-        </div>
+        <div class="mtg-alpha-strip"><span class="mtg-alpha-label">JUMP:</span>{alpha_buttons}</div>
 
         <div class="mtg-counter-bar">
             <span>Showing <span id="mtg-visible-count" class="mtg-counter-count">{total_count}</span> of {total_count} terms</span>
@@ -1236,10 +1315,10 @@ def generate_full_html():
     </div>
 
     <!-- ZERO STATE MESSAGE -->
-    <div id="mtg-zero-state">
-        <h4>No matching terms found</h4>
-        <p>We couldn't find any terms matching your current search. Try searching for broader terms like "Reverb", "Filter", "dB", or reset the filter.</p>
-        <button class="mtg-btn-primary" onclick="mtgClearSearch()" style="padding: 8px 18px; font-size: 13px;">Reset Search &amp; Filters</button>
+    <div id="mtg-zero-state" style="display: none !important; background: #0f172a !important; border: 1px dashed rgba(56, 189, 248, 0.3) !important; border-radius: 16px !important; padding: 48px 24px !important; text-align: center !important; margin: 30px 0 !important;">
+        <h4 style="color: #ffffff !important; font-size: 20px !important; margin: 0 0 8px 0 !important;">No matching terms found</h4>
+        <p style="color: #94a3b8 !important; font-size: 14px !important; max-width: 480px !important; margin: 0 auto 16px auto !important;">We couldn't find any terms matching your current search. Try searching for broader terms like "Reverb", "Filter", "dB", or reset the filter.</p>
+        <span role="button" tabindex="0" class="mtg-btn-primary" onclick="mtgClearSearch()" style="padding: 10px 22px !important; font-size: 13.5px !important; cursor: pointer !important; display: inline-flex !important;">Reset Search &amp; Filters</span>
     </div>
 
     <!-- 3. GLOSSARY SECTIONS & VISUAL SHOWCASES -->
@@ -1267,7 +1346,7 @@ def generate_full_html():
     <!-- 5. LIGHTBOX MODAL -->
     <div id="mtg-lightbox-overlay" onclick="mtgCloseLightbox(event)">
         <div class="mtg-lightbox-content" onclick="event.stopPropagation()">
-            <button class="mtg-lightbox-close" onclick="mtgCloseLightbox(event)" title="Close (Esc)">✕</button>
+            <span role="button" tabindex="0" class="mtg-lightbox-close" onclick="mtgCloseLightbox(event)" title="Close (Esc)">✕</span>
             <div class="mtg-lightbox-img-box">
                 <img id="mtg-lightbox-img" src="" alt="Enlarged technical diagram">
             </div>
@@ -1326,12 +1405,16 @@ def generate_full_html():
             }});
 
             countDisplay.textContent = visibleCount;
-            clearBtn.style.display = q.length > 0 ? 'flex' : 'none';
+            if (q.length > 0) {{
+                clearBtn.style.setProperty('display', 'inline-flex', 'important');
+            }} else {{
+                clearBtn.style.setProperty('display', 'none', 'important');
+            }}
 
             if (visibleCount === 0) {{
-                zeroState.style.display = 'block';
+                zeroState.style.setProperty('display', 'block', 'important');
             }} else {{
-                zeroState.style.display = 'none';
+                zeroState.style.setProperty('display', 'none', 'important');
             }}
 
             if (currentGroup === 'all') {{
