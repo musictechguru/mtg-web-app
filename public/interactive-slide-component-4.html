@@ -1,0 +1,1828 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <title>Component 4: Producing &amp; Analysing | Edexcel A-Level Music Technology Master Deck</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #080e1a;
+      --panel-bg: #0f172a;
+      --card-bg: rgba(255, 255, 255, 0.03);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --accent-prod: #00C1F0;
+      --accent-prod-glow: rgba(0, 193, 240, 0.25);
+      --accent-tech: #38bdf8;
+      --accent-tech-glow: rgba(56, 189, 248, 0.25);
+      --accent-gold: #f59e0b;
+      --accent-purple: #a855f7;
+      --text-white: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-dim: #64748b;
+      --border-subtle: rgba(255, 255, 255, 0.06);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      height: 100% !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      overflow: hidden !important;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-white);
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.5;
+      display: flex !important;
+      flex-direction: column !important;
+      height: 100vh !important;
+      max-height: 100vh !important;
+      box-sizing: border-box !important;
+    }
+
+    /* Top utility bar */
+    .deck-topbar-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 4px 16px;
+      background: rgba(8, 14, 26, 0.95);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 11.5px;
+      z-index: 90;
+      flex-shrink: 0;
+      height: 36px;
+      box-sizing: border-box;
+    }
+
+    .exit-deck-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      color: #94a3b8;
+      text-decoration: none;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+    .exit-deck-link:hover {
+      background: rgba(0, 193, 240, 0.2);
+      border-color: rgba(0, 193, 240, 0.4);
+      color: #7dd3fc;
+    }
+
+    .deck-topbar-title {
+      color: #cbd5e1;
+      font-size: 12px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .floating-exit-fs {
+      display: none;
+      position: fixed;
+      top: 10px;
+      right: 14px;
+      z-index: 100000;
+      background: rgba(239, 68, 68, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      color: #ffffff;
+      padding: 6px 14px;
+      border-radius: 9999px;
+      font-size: 12px;
+      font-weight: 800;
+      cursor: pointer;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+      transition: all 0.2s ease;
+    }
+    .floating-exit-fs:hover {
+      background: #dc2626;
+      transform: scale(1.05);
+    }
+    :fullscreen .floating-exit-fs,
+    :-webkit-full-screen .floating-exit-fs,
+    .is-fullscreen .floating-exit-fs {
+      display: inline-flex !important;
+    }
+
+    /* Main Container */
+    .deck-container {
+      max-width: 1560px !important;
+      margin: 0 auto !important;
+      padding: 6px 16px 0 !important;
+      width: 100% !important;
+      flex: 1 !important;
+      min-height: 0 !important;
+      display: flex !important;
+      flex-direction: column !important;
+      box-sizing: border-box !important;
+      overflow: hidden !important;
+    }
+
+    .slide {
+      display: none;
+      height: 100% !important;
+      min-height: 0 !important;
+      box-sizing: border-box !important;
+    }
+
+    .slide.active {
+      display: flex !important;
+      flex-direction: column !important;
+    }
+
+    .slide-header {
+      margin-bottom: 6px !important;
+      padding-bottom: 4px !important;
+      flex-shrink: 0 !important;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .deck-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(0, 193, 240, 0.12);
+      border: 1px solid rgba(0, 193, 240, 0.3);
+      color: var(--accent-prod);
+      font-size: 10px !important;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 2px 8px !important;
+      border-radius: 9999px;
+      margin-bottom: 2px !important;
+    }
+
+    .slide-heading {
+      font-size: clamp(17px, 1.8vw, 22px) !important;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      line-height: 1.15 !important;
+      margin-bottom: 2px !important;
+    }
+
+    .slide-heading span {
+      color: var(--accent-prod);
+    }
+
+    .slide-lead {
+      color: var(--text-muted);
+      font-size: 12px !important;
+      line-height: 1.35 !important;
+      margin-bottom: 0 !important;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    /* Split-screen layout */
+    .grid-2-split {
+      display: grid !important;
+      grid-template-columns: 1fr 1fr !important;
+      gap: 12px !important;
+      flex: 1 !important;
+      min-height: 0 !important;
+      margin-bottom: 54px !important;
+      overflow: hidden !important;
+    }
+
+    .column-panel {
+      background: var(--panel-bg);
+      border-radius: 12px;
+      border: 1px solid var(--card-border);
+      padding: 10px 12px !important;
+      display: flex !important;
+      flex-direction: column !important;
+      overflow-y: auto !important;
+      min-height: 0 !important;
+      max-height: 100% !important;
+      box-sizing: border-box !important;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+    }
+
+    .column-panel::-webkit-scrollbar {
+      width: 4px;
+    }
+    .column-panel::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.2);
+    }
+    .column-panel::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 4px;
+    }
+
+    .prod-col {
+      border-top: 3px solid var(--accent-prod);
+    }
+
+    .tech-col {
+      border-top: 3px solid var(--accent-tech);
+    }
+
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px !important;
+      padding-bottom: 4px !important;
+      border-bottom: 1px solid var(--border-subtle);
+      flex-shrink: 0 !important;
+    }
+
+    .panel-badge {
+      font-size: 9.5px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      padding: 2px 7px;
+      border-radius: 4px;
+    }
+
+    .prod-badge {
+      background: rgba(0, 193, 240, 0.15);
+      color: var(--accent-prod);
+      border: 1px solid rgba(0, 193, 240, 0.3);
+    }
+
+    .tech-badge {
+      background: rgba(56, 189, 248, 0.15);
+      color: var(--accent-tech);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+    }
+
+    .panel-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-dim);
+    }
+
+    .video-container {
+      position: relative;
+      padding-bottom: 44%;
+      height: 0;
+      overflow: hidden;
+      border-radius: 8px;
+      background: #000;
+      margin-bottom: 6px !important;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      flex-shrink: 0 !important;
+    }
+
+    .video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    .track-meta {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 6px 10px !important;
+      margin-bottom: 6px !important;
+      flex-shrink: 0 !important;
+    }
+
+    .track-title {
+      font-size: 12px !important;
+      font-weight: 800;
+      color: var(--text-white);
+    }
+
+    .track-artist {
+      font-size: 11px;
+      color: var(--accent-prod);
+      font-weight: 600;
+    }
+
+    .ear-training-box {
+      background: rgba(0, 193, 240, 0.06);
+      border: 1px solid rgba(0, 193, 240, 0.2);
+      border-left: 3px solid var(--accent-prod);
+      border-radius: 8px;
+      padding: 8px 10px !important;
+      margin-bottom: 6px !important;
+      font-size: 11.5px !important;
+      line-height: 1.4 !important;
+    }
+
+    .ear-training-header {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--accent-prod);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+
+    .ear-points {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .ear-points li {
+      position: relative;
+      padding-left: 14px;
+      margin-bottom: 4px;
+      color: #cbd5e1;
+    }
+
+    .ear-points li::before {
+      content: '▶';
+      position: absolute;
+      left: 0;
+      color: var(--accent-prod);
+      font-size: 8px;
+      top: 3px;
+    }
+
+    .hardware-photo {
+      width: 100%;
+      height: clamp(110px, 14vh, 150px) !important;
+      object-fit: contain;
+      background: #000;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      margin-bottom: 6px !important;
+      cursor: zoom-in;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+      flex-shrink: 0 !important;
+    }
+
+    .hardware-photo:hover {
+      transform: scale(1.01);
+      border-color: var(--accent-tech);
+    }
+
+    .hardware-hero-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 6px 10px !important;
+      margin-bottom: 6px !important;
+      flex-shrink: 0 !important;
+    }
+
+    .inst-name {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--text-white);
+    }
+
+    .inst-specs {
+      font-size: 10.5px;
+      color: var(--accent-tech);
+      font-family: 'JetBrains Mono', monospace;
+      margin-top: 2px;
+    }
+
+    .history-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 8px;
+      padding: 6px 10px !important;
+      margin-bottom: 6px !important;
+      font-size: 11.5px !important;
+      line-height: 1.35 !important;
+      color: #cbd5e1;
+    }
+
+    .history-card h4 {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--accent-tech);
+      margin-bottom: 4px;
+      font-weight: 800;
+    }
+
+    .history-card p {
+      margin-bottom: 4px;
+    }
+    .history-card p:last-child {
+      margin-bottom: 0;
+    }
+
+    .mech-chain {
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid rgba(56, 189, 248, 0.2);
+      border-radius: 8px;
+      padding: 6px 10px !important;
+      font-size: 11.5px !important;
+    }
+
+    .mech-header {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--accent-gold);
+      font-weight: 800;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .step-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 6px !important;
+      margin-bottom: 3px !important;
+      font-size: 11px !important;
+    }
+
+    .step-num {
+      background: rgba(56, 189, 248, 0.2);
+      color: var(--accent-tech);
+      border: 1px solid rgba(56, 189, 248, 0.4);
+      width: 17px;
+      height: 17px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9px;
+      font-weight: 800;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .step-text strong {
+      color: #ffffff;
+    }
+    .step-text span {
+      color: #94a3b8;
+    }
+
+    .tags-cloud {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-top: 4px;
+    }
+
+    .tech-tag {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #cbd5e1;
+      font-size: 9.5px;
+      font-weight: 600;
+      padding: 2px 7px;
+      border-radius: 4px;
+    }
+
+    /* Table Matrix slide */
+    .table-container {
+      overflow-y: auto !important;
+      flex: 1 !important;
+      margin-top: 6px !important;
+      background: var(--panel-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+    }
+
+    .matrix-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 11.5px;
+      text-align: left;
+    }
+
+    .matrix-table th {
+      background: rgba(0, 193, 240, 0.15);
+      color: var(--accent-prod);
+      font-weight: 800;
+      text-transform: uppercase;
+      font-size: 10px;
+      letter-spacing: 0.5px;
+      padding: 8px 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 2;
+    }
+
+    .matrix-table td {
+      padding: 7px 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      color: #cbd5e1;
+      vertical-align: top;
+    }
+
+    .matrix-table tr:hover td {
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    /* Bottom navigation bar */
+    .bottom-bar {
+      position: fixed !important;
+      bottom: 0 !important;
+      left: 0 !important;
+      right: 0 !important;
+      height: 48px !important;
+      background: rgba(8, 14, 26, 0.96) !important;
+      backdrop-filter: blur(12px) !important;
+      border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+      padding: 6px 16px !important;
+      display: flex !important;
+      justify-content: space-between !important;
+      align-items: center !important;
+      z-index: 100 !important;
+      box-sizing: border-box !important;
+    }
+
+    .nav-btn {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: var(--text-white);
+      padding: 5px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.2s ease;
+    }
+
+    .nav-btn:hover:not(:disabled) {
+      background: rgba(0, 193, 240, 0.2);
+      border-color: rgba(0, 193, 240, 0.5);
+      color: #7dd3fc;
+    }
+
+    .nav-btn:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+
+    .slide-indicator {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .slide-dots {
+      display: flex;
+      gap: 5px;
+    }
+
+    .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.2);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .dot.active {
+      background: var(--accent-prod);
+      transform: scale(1.3);
+      box-shadow: 0 0 8px var(--accent-prod);
+    }
+
+    .slide-counter {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    /* Lightbox Modal */
+    .image-modal-backdrop {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.88);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      z-index: 99999;
+      justify-content: center;
+      align-items: center;
+      padding: 24px;
+      box-sizing: border-box;
+      cursor: zoom-out;
+    }
+
+    .image-modal-backdrop.open {
+      display: flex;
+    }
+
+    .image-modal-content {
+      position: relative;
+      max-width: 94vw;
+      max-height: 92vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: default;
+    }
+
+    .image-modal-img-wrap {
+      max-width: 100%;
+      max-height: 80vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #030712;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85);
+    }
+
+    .image-modal-img-wrap img {
+      max-width: 100%;
+      max-height: 80vh;
+      object-fit: contain;
+      display: block;
+    }
+
+    .image-modal-caption {
+      margin-top: 10px;
+      color: #e2e8f0;
+      font-size: 13px;
+      font-weight: 700;
+      text-align: center;
+      max-width: 800px;
+      line-height: 1.4;
+    }
+
+    .image-modal-hint {
+      margin-top: 4px;
+      color: #64748b;
+      font-size: 11px;
+    }
+
+    .image-modal-close {
+      position: absolute;
+      top: -36px;
+      right: 0;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #ffffff;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      font-size: 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+      transition: all 0.2s ease;
+    }
+    .image-modal-close:hover {
+      background: #ef4444;
+      border-color: #ef4444;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Floating Exit Fullscreen Button -->
+  <button id="floatingExitFsBtn" class="floating-exit-fs" onclick="toggleFullscreen()" title="Exit Fullscreen (Esc)">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+    <span>Exit Fullscreen</span>
+  </button>
+
+  <!-- Pinned Top Utility Bar -->
+  <div class="deck-topbar-controls">
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <a class="exit-deck-link" onclick="exitDeck()" title="Return to Component 4 Hub">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        <span>Exit Deck</span>
+      </a>
+      <span style="color: #64748b; font-size: 11px;">|</span>
+      <span class="deck-topbar-title">
+        <span>Component 4: Producing &amp; Analysing (9MT0/04)</span>
+      </span>
+    </div>
+    <div style="display: flex; align-items: center; gap: 8px;">
+      <button class="exit-deck-link" onclick="toggleFullscreen()" title="Toggle Fullscreen (F)">
+        <span class="fs-icon-enter">&#x26F6;</span>
+        <span class="fs-icon-exit" style="display: none;">✕</span>
+        <span class="fs-label">Fullscreen</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="deck-container">
+
+    <!-- SLIDE 1 -->
+    <div class="slide active" id="slide-1">
+      <div class="slide-header">
+        <div class="deck-tag">Paper 9MT0/04 Overview</div>
+        <h1 class="slide-heading">Component 4: <span>Producing &amp; Analysing Architecture</span></h1>
+        <p class="slide-lead">The Pearson Edexcel Component 4 exam is a 2-hour 15-minute practical and written paper carrying 105 marks (40% of the A-Level). Candidates complete practical audio tasks in their DAW alongside critical written analysis.</p>
+      </div>
+
+      <div class="grid-2-split">
+        <!-- LEFT: PRACTICAL DAW AUDIO & VIDEO FOCUS -->
+        <div class="column-panel prod-col">
+          <div class="panel-header">
+            <span class="panel-badge prod-badge">Official Exam Walkthrough</span>
+            <span class="panel-title">Component 4 Exam Protocol & Time Management</span>
+          </div>
+
+          <div class="video-container">
+            <iframe src="https://www.youtube-nocookie.com/embed/eI4k12bQGyY?rel=0&modestbranding=1" 
+                    title="How to Score FULL MARKS in Component 4 – Fix This NOW!" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    allowfullscreen></iframe>
+          </div>
+
+          <div class="track-meta">
+            <div class="track-title">How to Score FULL MARKS in Component 4 – Fix This NOW!</div>
+            <div class="track-artist">Music Tech Guru Masterclass</div>
+          </div>
+
+          <div class="ear-training-box">
+            <div class="ear-training-header">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+              🎧 Exam Room Setup & Ear-Training Protocol
+            </div>
+            <ul class="ear-points">
+              <li>Calibrate closed-back monitor headphones before starting; verify uncompressed 24-bit/44.1kHz audio stems import without automatic tempo stretching.</li>
+              <li>Split the 2h 15m session strictly: 45m for Q1–Q4 practical editing/correction, 45m for Q5 balance & mixdown, and 45m for Q6 extended technical essay.</li>
+            </ul>
+          </div>
+
+          <div class="tags-cloud">
+            <span class="tech-tag">105 Marks</span><span class="tech-tag">40% Qualification</span><span class="tech-tag">2h 15m Duration</span><span class="tech-tag">Logic Pro / DAW</span><span class="tech-tag">Section A + B</span><span class="tech-tag">Uncompressed Audio</span>
+          </div>
+        </div>
+
+        <!-- RIGHT: TECHNICAL ARCHITECTURE & SYLLABUS SPECIFICATION -->
+        <div class="column-panel tech-col">
+          <div class="panel-header">
+            <span class="panel-badge tech-badge">DAW Architecture & Workflow</span>
+            <span class="panel-title">Digital Audio Workstation Signal Engine</span>
+          </div>
+
+          <img src="/images/daw_interface.svg" alt="DAW Interface Signal Engine" class="hardware-photo" title="Click to zoom DAW Interface Signal Engine">
+
+          <div class="hardware-hero-card">
+            <div class="inst-name">🖥️ The Component 4 Digital Studio Workspace</div>
+            <div class="inst-specs">24-bit / 44.1kHz Audio Engine &bull; Non-Destructive Editing &bull; 64-bit Float Mix Bus</div>
+          </div>
+
+          <div class="history-card">
+            <h4>Exam Paper Structure & Mark Allocations</h4>
+            <p>Section A (85 marks) tests practical DAW tasks: editing, timing alignment, pitch correction, sample replacement, subtractive synthesis sound design, dynamic processing, and surgical EQ unmasking, culminating in Question 5 (final track balance and bounce).</p>
+            <p>Section B (20 marks) is Question 6: an extended written evaluation analyzing contrasting recording scenarios, acoustic room behaviors, hardware circuitry, or digital signal paths under strict Pearson AO3/AO4 criteria.</p>
+          </div>
+
+          <div class="mech-chain">
+            <div class="mech-header">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              Examiner Traps & Golden Rules
+            </div>
+            
+        <div class="step-item">
+          <div class="step-num">1</div>
+          <div class="step-text"><strong>Zero-Crossings:</strong> <span>Always slice audio files at true zero-crossings to avoid audible DC clicks and digital pops.</span></div>
+        </div>
+        
+        <div class="step-item">
+          <div class="step-num">2</div>
+          <div class="step-text"><strong>Crossfade Safety:</strong> <span>Apply 5–10ms equal-power crossfades on all audio edits to prevent phase discontinuity.</span></div>
+        </div>
+        
+        <div class="step-item">
+          <div class="step-num">3</div>
+          <div class="step-text"><strong>Gain Staging:</strong> <span>Keep individual channel faders below 0 dBFS; aim for -18 dBFS RMS to preserve headroom on the mix bus.</span></div>
+        </div>
+        
+          </div>
+        </div>
+      </div>
+    </div>
+    
+
+    <!-- SLIDE 2 -->
+    <div class="slide" id="slide-2">
+      <div class="slide-header">
+        <div class="deck-tag">Section A &bull; Practical DAW Tasks</div>
+        <h1 class="slide-heading">Audio Editing: <span>Phase Alignment &amp; Timing Correction</span></h1>
+        <p class="slide-lead">Phase coherence is the single most tested concept in Component 4 drum and multi-mic stems. Minor millisecond time arrival offsets produce destructive comb filtering and hollow low-end.</p>
+      </div>
+
+      <div class="grid-2-split">
+        <!-- LEFT: PRACTICAL DAW AUDIO & VIDEO FOCUS -->
+        <div class="column-panel prod-col">
+          <div class="panel-header">
+            <span class="panel-badge prod-badge">DAW Practical Demonstration</span>
+            <span class="panel-title">Multi-Mic Drum Phase Alignment & Audio Manipulation</span>
+          </div>
+
+          <div class="video-container">
+            <iframe src="https://www.youtube-nocookie.com/embed/6Tb2auJ52xI?rel=0&modestbranding=1" 
+                    title="Creative Audio Manipulation for Component 4" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    allowfullscreen></iframe>
+          </div>
+
+          <div class="track-meta">
+            <div class="track-title">Creative Audio Manipulation for Component 4</div>
+            <div class="track-artist">Music Tech Guru Tutorial</div>
+          </div>
+
+          <div class="ear-training-box">
+            <div class="ear-training-header">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+              🎧 Ear-Training Focus: Detecting Phase Cancellation
+            </div>
+            <ul class="ear-points">
+              <li>Listen to the kick drum and overheads in mono: when polarity is inverted (180°), low-end fundamental punch immediately drops out and the snare sounds thin and nasal.</li>
+              <li>Zoom into sample level on transient spikes: align the initial positive pressure peak of the snare top mic with the snare bottom and overhead left/right channels.</li>
+            </ul>
+          </div>
+
+          <div class="tags-cloud">
+            <span class="tech-tag">Phase Inversion</span><span class="tech-tag">3:1 Rule</span><span class="tech-tag">Comb Filtering</span><span class="tech-tag">Sample-Level Zoom</span><span class="tech-tag">Flex Time</span><span class="tech-tag">Polarity Flip</span>
+          </div>
+        </div>
+
+        <!-- RIGHT: TECHNICAL ARCHITECTURE & SYLLABUS SPECIFICATION -->
+        <div class="column-panel tech-col">
+          <div class="panel-header">
+            <span class="panel-badge tech-badge">Phase Cancellation Physics</span>
+            <span class="panel-title">Destructive Interference & Comb Filtering</span>
+          </div>
+
+          <img src="/images/phase_cancellation.svg" alt="Phase Cancellation Waveform Analysis" class="hardware-photo" title="Click to zoom Phase Cancellation Waveform Analysis">
+
+          <div class="hardware-hero-card">
+            <div class="inst-name">〰️ Waveform Physics: In-Phase vs. 180° Anti-Phase</div>
+            <div class="inst-specs">Constructive Summing (+6dB) vs. Complete Destructive Cancellation (-∞ dB)</div>
+          </div>
+
+          <div class="history-card">
+            <h4>The 3:1 Rule & Acoustic Time Offsets</h4>
+            <p>Sound travels at 343 m/s (~1ms per foot). When a source is picked up by two mics at differing distances, the arrival time delay causes destructive phase cancellation at $f = 1 / (2 	imes \Delta t)$ and all odd harmonics.</p>
+            <p>In Component 4, examiners require flipping polarity switches ($arnothing$) on snare bottom and bass DI/mic tracks, or nudging audio stems by precise sample offsets to restore frequency fullness.</p>
+          </div>
+
+          <div class="mech-chain">
+            <div class="mech-header">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              Exam Slicing & Elastic Audio Algorithms
+            </div>
+            
+        <div class="step-item">
+          <div class="step-num">1</div>
+          <div class="step-text"><strong>Slicing Mode:</strong> <span>Best for percussive drums; preserves sharp transient attacks without stretching artifacts.</span></div>
+        </div>
+        
+        <div class="step-item">
+          <div class="step-num">2</div>
+          <div class="step-text"><strong>Rhythmic Mode:</strong> <span>Designed for percussion loops; controls decay tails with custom crossfade lengths.</span></div>
+        </div>
+        
+        <div class="step-item">
+          <div class="step-num">3</div>
+          <div class="step-text"><strong>Monophonic Mode:</strong> <span>Specialized for solo vocals, woodwind, and bass; preserves formant structure during pitch edits.</span></div>
+        </div>
+        
+          </div>
+        </div>
+      </div>
+    </div>
+    
+
+    <!-- SLIDE 3 -->
+    <div class="slide" id="slide-3">
+      <div class="slide-header">
+        <div class="deck-tag">Section A &bull; Dynamic Processing</div>
+        <h1 class="slide-heading">Dynamic Control: <span>Compression, Gating &amp; Sidechaining</span></h1>
+        <p class="slide-lead">Component 4 tests precise configuration of compressor parameters to control dynamic range, shape transient attack punch, clamp peak overshoots, and clean bleed with noise gates.</p>
+      </div>
+
+      <div class="grid-2-split">
+        <!-- LEFT: PRACTICAL DAW AUDIO & VIDEO FOCUS -->
+        <div class="column-panel prod-col">
+          <div class="panel-header">
+            <span class="panel-badge prod-badge">Hardware & Plugin Analysis</span>
+            <span class="panel-title">VCA vs FET vs Opto Compressor Topologies</span>
+          </div>
+
+          <div class="video-container">
+            <iframe src="https://www.youtube-nocookie.com/embed/VrnqkEQmT6I?rel=0&modestbranding=1" 
+                    title="Classic Compressor Topologies in the Studio" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    allowfullscreen></iframe>
+          </div>
+
+          <div class="track-meta">
+            <div class="track-title">Classic Compressor Topologies in the Studio</div>
+            <div class="track-artist">Music Technology Masterclass</div>
+          </div>
+
+          <div class="ear-training-box">
+            <div class="ear-training-header">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+              🎧 Ear-Training Focus: Attack & Release Calibration
+            </div>
+            <ul class="ear-points">
+              <li>Fast attack (<1ms) crushes drum transients, pushing the snare backward in the mix; slower attack (15–30ms) lets initial stick-crack poke through before clamping body.</li>
+              <li>Release time must breathe in musical tempo with the groove: too fast causes pumping distortion; too slow suffocates the next incoming transient hit.</li>
+            </ul>
+          </div>
+
+          <div class="tags-cloud">
+            <span class="tech-tag">Threshold</span><span class="tech-tag">Ratio</span><span class="tech-tag">Attack / Release</span><span class="tech-tag">Sidechain Ducking</span><span class="tech-tag">Noise Gate</span><span class="tech-tag">VCA / FET / Opto</span>
+          </div>
+        </div>
+
+        <!-- RIGHT: TECHNICAL ARCHITECTURE & SYLLABUS SPECIFICATION -->
+        <div class="column-panel tech-col">
+          <div class="panel-header">
+            <span class="panel-badge tech-badge">Compressor Anatomy & Transfer Curve</span>
+            <span class="panel-title">Input vs Output dB Transfer Function</span>
+          </div>
+
+          <img src="/images/compression_graph.svg" alt="Compressor Transfer Curve Diagram" class="hardware-photo" title="Click to zoom Compressor Transfer Curve Diagram">
+
+          <div class="hardware-hero-card">
+            <div class="inst-name">🎚️ Dynamic Processing Parameters & Circuit Topologies</div>
+            <div class="inst-specs">VCA (Clean/Precise) &bull; FET 1176 (Ultra-Fast 20µs) &bull; Opto LA-2A (Program-Dependent) &bull; Vari-Mu (Tube Bias)</div>
+          </div>
+
+          <div class="history-card">
+            <h4>Sidechain Ducking & Frequency-Conscious Gating</h4>
+            <p>Sidechain compression routes an external key signal (e.g., Kick Drum) into the compressor's detector circuit to duck another track (e.g., 808 Sub Bass or Synth Pad), clearing low-end headroom and creating rhythmic groove.</p>
+            <p>Frequency-dependent gating uses high-pass/low-pass sidechain filters so the snare gate only triggers on mid-frequency snare hits (2–4kHz) and ignores high-frequency hi-hat bleed.</p>
+          </div>
+
+          <div class="mech-chain">
+            <div class="mech-header">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              The 4 Core Compressor Controls
+            </div>
+            
+        <div class="step-item">
+          <div class="step-num">1</div>
+          <div class="step-text"><strong>Threshold (dB):</strong> <span>Sets the decibel amplitude level above which gain reduction is triggered.</span></div>
+        </div>
+        
+        <div class="step-item">
+          <div class="step-num">2</div>
+          <div class="step-text"><strong>Ratio (X:1):</strong> <span>Determines the proportion of input attenuation applied to signal exceeding threshold.</span></div>
+        </div>
+        
+        <div class="step-item">
+          <div class="step-num">3</div>
+          <div class="step-text"><strong>Make-up Gain:</strong> <span>Compensates for peak attenuation, raising the average RMS energy of the signal.</span></div>
+        </div>
+        
+          </div>
+        </div>
+      </div>
+    </div>
+    
+
+    <!-- SLIDE 4 -->
+    <div class="slide" id="slide-4">
+      <div class="slide-header">
+        <div class="deck-tag">Section A &bull; Frequency Balance</div>
+        <h1 class="slide-heading">Surgical EQ: <span>Frequency Carving &amp; Unmasking</span></h1>
+        <p class="slide-lead">Equalisation in Component 4 is fundamentally corrective: removing unwanted low-frequency rumble, carving overlapping clutter between competing instruments, and controlling resonant peaks.</p>
+      </div>
+
+      <div class="grid-2-split">
+        <!-- LEFT: PRACTICAL DAW AUDIO & VIDEO FOCUS -->
+        <div class="column-panel prod-col">
+          <div class="panel-header">
+            <span class="panel-badge prod-badge">Logic Pro Tutorial</span>
+            <span class="panel-title">Channel EQ in Logic Pro X – Essential Tips for Beginners</span>
+          </div>
+
+          <div class="video-container">
+            <iframe src="https://www.youtube-nocookie.com/embed/jvBmG0NwMpI?rel=0&modestbranding=1" 
+                    title="Channel EQ Surgical Carving & Filtering" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    allowfullscreen></iframe>
+          </div>
+
+          <div class="track-meta">
+            <div class="track-title">Channel EQ Surgical Carving & Filtering</div>
+            <div class="track-artist">Music Tech Guru Masterclass</div>
+          </div>
+
+          <div class="ear-training-box">
+            <div class="ear-training-header">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+              🎧 Ear-Training Focus: Spotting Frequency Masking
+            </div>
+            <ul class="ear-points">
+              <li>When kick drum (60Hz fundamental) and bass guitar (90Hz fundamental) compete for the same energy, subtractive EQ carving separates them so both remain articulate.</li>
+              <li>Boxiness sits between 300Hz and 500Hz; nasal harshness between 1kHz and 3kHz; sibilance and harsh cymbals between 6kHz and 9kHz.</li>
+            </ul>
+          </div>
+
+          <div class="tags-cloud">
+            <span class="tech-tag">High-Pass 24dB/oct</span><span class="tech-tag">Q-Factor</span><span class="tech-tag">Subtractive Carving</span><span class="tech-tag">Unmasking</span><span class="tech-tag">Linear Phase</span><span class="tech-tag">Boxiness 300Hz</span>
+          </div>
+        </div>
+
+        <!-- RIGHT: TECHNICAL ARCHITECTURE & SYLLABUS SPECIFICATION -->
+        <div class="column-panel tech-col">
+          <div class="panel-header">
+            <span class="panel-badge tech-badge">Kick & Bass Frequency Carving</span>
+            <span class="panel-title">Complementary Subtractive EQ Sculpting</span>
+          </div>
+
+          <img src="/images/kick_drum_eq_carving_diagram.svg" alt="Kick and Bass Complementary EQ Diagram" class="hardware-photo" title="Click to zoom Kick and Bass Complementary EQ Diagram">
+
+          <div class="hardware-hero-card">
+            <div class="inst-name">📊 Complementary Subtractive Frequency Sculpting</div>
+            <div class="inst-specs">Kick fundamental at 60Hz &bull; Bass notched at 60Hz / boosted at 90Hz &bull; Cleared 300Hz Mud</div>
+          </div>
+
+          <div class="history-card">
+            <h4>High-Pass Filter Slopes & Q Factor Bandwidth</h4>
+            <p>High-pass filters (HPF) clean non-musical sub-rumble below 30Hz on kick/bass and below 100Hz on guitars and vocals. Filter slopes range from gentle 6dB/octave (1st-order) to steep 24dB/octave (4th-order).</p>
+            <p>Quality factor $Q = f_0 / \text{Bandwidth}$. High Q values (>5) create narrow surgical notches to remove unwanted room resonances or mains hum without altering surrounding timbre.</p>
+          </div>
+
+          <div class="mech-chain">
+            <div class="mech-header">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              Linear Phase vs. Minimum Phase in Exam Practice
+            </div>
+            
+        <div class="step-item">
+          <div class="step-num">1</div>
+          <div class="step-text"><strong>Minimum Phase:</strong> <span>Standard analogue-modeled EQ; zero latency and warm phase shift, but alters phase around cutoffs.</span></div>
+        </div>
+        
+        <div class="step-item">
+          <div class="step-num">2</div>
+          <div class="step-text"><strong>Linear Phase:</strong> <span>Preserves exact waveform time alignment; zero phase smearing, ideal for multi-mic drum overheads.</span></div>
+        </div>
+        
+        <div class="step-item">
+          <div class="step-num">3</div>
+          <div class="step-text"><strong>Subtractive Rule:</strong> <span>Always cut narrow with high Q to fix faults; boost wide with low Q (<1.0) for musical tone.</span></div>
+        </div>
+        
+          </div>
+        </div>
+      </div>
+    </div>
+    
+
+    <!-- SLIDE 5 -->
+    <div class="slide" id="slide-5">
+      <div class="slide-header">
+        <div class="deck-tag">Section A &bull; Spatial Positioning</div>
+        <h1 class="slide-heading">Stereo Imaging: <span>Panning Laws &amp; Mid/Side Processing</span></h1>
+        <p class="slide-lead">Component 4 requires understanding how pan pots work in DAW mixers, how mono center summing alters perceived loudness, and how Mid/Side matrixing decodes spatial balance.</p>
+      </div>
+
+      <div class="grid-2-split">
+        <!-- LEFT: PRACTICAL DAW AUDIO & VIDEO FOCUS -->
+        <div class="column-panel prod-col">
+          <div class="panel-header">
+            <span class="panel-badge prod-badge">Spatial Audio Tutorial</span>
+            <span class="panel-title">Panning Laws, Mid/Side Matrix & Mono Compatibility</span>
+          </div>
+
+          <div class="video-container">
+            <iframe src="https://www.youtube-nocookie.com/embed/HaZpZQG2z10?rel=0&modestbranding=1" 
+                    title="Spatial Positioning & Mid/Side Processing in Context" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    allowfullscreen></iframe>
+          </div>
+
+          <div class="track-meta">
+            <div class="track-title">Spatial Positioning & Mid/Side Processing in Context</div>
+            <div class="track-artist">Music Technology Masterclass</div>
+          </div>
+
+          <div class="ear-training-box">
+            <div class="ear-training-header">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+              🎧 Ear-Training Focus: Mono Fold-Down & Spatial Width
+            </div>
+            <ul class="ear-points">
+              <li>Sum the master output to mono: any out-of-phase stereo widening tricks (like the Haas effect) collapse completely, causing hollow cancellation.</li>
+              <li>Lead vocal, kick drum, snare drum, and bass guitar must remain dead center to anchor energy and preserve mono playback compatibility across mobile devices and club PAs.</li>
+            </ul>
+          </div>
+
+          <div class="tags-cloud">
+            <span class="tech-tag">Pan Laws -3dB</span><span class="tech-tag">Mid/Side (M/S)</span><span class="tech-tag">Mono Compatibility</span><span class="tech-tag">Goniometer</span><span class="tech-tag">Haas Effect <35ms</span><span class="tech-tag">Phase Correlation</span>
+          </div>
+        </div>
+
+        <!-- RIGHT: TECHNICAL ARCHITECTURE & SYLLABUS SPECIFICATION -->
+        <div class="column-panel tech-col">
+          <div class="panel-header">
+            <span class="panel-badge tech-badge">Mid/Side Matrix & Phase Goniometer</span>
+            <span class="panel-title">Sum (Mid) vs Difference (Side) Architecture</span>
+          </div>
+
+          <img src="/images/mastering_mid_side_processing_diagram.svg" alt="Mid/Side Matrix Processing Diagram" class="hardware-photo" title="Click to zoom Mid/Side Matrix Processing Diagram">
+
+          <div class="hardware-hero-card">
+            <div class="inst-name">📐 Panning Laws (-3dB, -4.5dB, -6dB) & Mid/Side Matrix</div>
+            <div class="inst-specs">Mid = Left + Right (Mono Center) &bull; Side = Left - Right (Stereo Difference)</div>
+          </div>
+
+          <div class="history-card">
+            <h4>The Panning Law Dilemma</h4>
+            <p>When a signal is panned dead center, it is reproduced by both left and right speakers. In acoustic space, two identical sound sources combine constructively, boosting SPL by up to +6dB.</p>
+            <p>DAW pan laws compensate for this center buildup by automatically attenuating center-panned signals by -3dB (equal power) or -4.5dB / -6dB (equal voltage), maintaining consistent perceived loudness across the stereo field.</p>
+          </div>
+
+          <div class="mech-chain">
+            <div class="mech-header">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              Mid/Side EQ & Processing Rules
+            </div>
+            
+        <div class="step-item">
+          <div class="step-num">1</div>
+          <div class="step-text"><strong>Mono Bass Safety:</strong> <span>Apply a high-pass filter to the Side channel at 100Hz to eliminate out-of-phase sub frequencies.</span></div>
+        </div>
+        
+        <div class="step-item">
+          <div class="step-num">2</div>
+          <div class="step-text"><strong>Side Air Shelf:</strong> <span>Boost high shelf (>10kHz) exclusively on the Side channel to expand perceived air without muddying center vocal.</span></div>
+        </div>
+        
+        <div class="step-item">
+          <div class="step-num">3</div>
+          <div class="step-text"><strong>Haas Danger:</strong> <span>Delaying one channel by 5–30ms creates width via the precedence effect, but causes severe mono comb filtering.</span></div>
+        </div>
+        
+          </div>
+        </div>
+      </div>
+    </div>
+    
+
+    <!-- SLIDE 6 -->
+    <div class="slide" id="slide-6">
+      <div class="slide-header">
+        <div class="deck-tag">Section A &bull; Time-Based Effects</div>
+        <h1 class="slide-heading">Time-Based FX: <span>Reverb Pre-Delay, RT60 &amp; Aux Busses</span></h1>
+        <p class="slide-lead">Auxiliary send/return topology is mandatory for spatial effects in Component 4: inserting reverb directly onto audio tracks wastes CPU, causes phase mud, and prevents shared acoustic space.</p>
+      </div>
+
+      <div class="grid-2-split">
+        <!-- LEFT: PRACTICAL DAW AUDIO & VIDEO FOCUS -->
+        <div class="column-panel prod-col">
+          <div class="panel-header">
+            <span class="panel-badge prod-badge">Studio Effects Masterclass</span>
+            <span class="panel-title">Reverb Pre-Delay, Decay Time & Aux Send Architecture</span>
+          </div>
+
+          <div class="video-container">
+            <iframe src="https://www.youtube-nocookie.com/embed/4ZipvGWO2bQ?rel=0&modestbranding=1" 
+                    title="Reverb in Context: Auxiliary Busses & Acoustic Space" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    allowfullscreen></iframe>
+          </div>
+
+          <div class="track-meta">
+            <div class="track-title">Reverb in Context: Auxiliary Busses & Acoustic Space</div>
+            <div class="track-artist">Music Technology Tutorial</div>
+          </div>
+
+          <div class="ear-training-box">
+            <div class="ear-training-header">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+              🎧 Ear-Training Focus: Pre-Delay Separation & Reverb EQ
+            </div>
+            <ul class="ear-points">
+              <li>Setting 20–40ms pre-delay on vocal reverb leaves the initial dry consonant attack completely articulate before the ambient reverb wash envelops the note.</li>
+              <li>Abbey Road Reverb Trick: High-pass reverb sends at 600Hz and low-pass at 6kHz to prevent low-end bass rumble and harsh high-frequency splash.</li>
+            </ul>
+          </div>
+
+          <div class="tags-cloud">
+            <span class="tech-tag">Aux Send/Return</span><span class="tech-tag">Pre-Delay Gap</span><span class="tech-tag">RT60 Decay</span><span class="tech-tag">Abbey Road Trick</span><span class="tech-tag">Convolution IR</span><span class="tech-tag">Tempo-Synced Delay</span>
+          </div>
+        </div>
+
+        <!-- RIGHT: TECHNICAL ARCHITECTURE & SYLLABUS SPECIFICATION -->
+        <div class="column-panel tech-col">
+          <div class="panel-header">
+            <span class="panel-badge tech-badge">Abbey Road Reverb EQ Filter</span>
+            <span class="panel-title">High-Pass 600Hz & Low-Pass 6kHz Aux Filtering</span>
+          </div>
+
+          <img src="/images/reverb_abbey_road_eq_diagram.svg" alt="Abbey Road Reverb Filtering Diagram" class="hardware-photo" title="Click to zoom Abbey Road Reverb Filtering Diagram">
+
+          <div class="hardware-hero-card">
+            <div class="inst-name">🏛️ Reverb Architecture: Algorithmic vs. Convolution</div>
+            <div class="inst-specs">Impulse Response (IR) Sampling &bull; RT60 Decay Spectrum &bull; Early Reflections &bull; Late Reverb Tail</div>
+          </div>
+
+          <div class="history-card">
+            <h4>Parallel Aux Send vs. Serial Insert Routing</h4>
+            <p>Time-based effects (reverb, delay) are placed on dedicated Auxiliary Return tracks set to 100% Wet. Individual track channel faders use variable Aux Sends to feed proportional dry signal into the shared virtual room.</p>
+            <p>Modulation effects (chorus, phaser, flanger) are placed as Serial Inserts directly on channel strips, blending dry and wet inside the plugin using internal Mix % controls.</p>
+          </div>
+
+          <div class="mech-chain">
+            <div class="mech-header">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              Key Parameter Formulas for the Exam
+            </div>
+            
+        <div class="step-item">
+          <div class="step-num">1</div>
+          <div class="step-text"><strong>Quarter-Note Delay:</strong> <span>Delay time $(ms) = 60,000 / \text{BPM}$. (e.g. at 120 BPM, quarter-note = 500ms).</span></div>
+        </div>
+        
+        <div class="step-item">
+          <div class="step-num">2</div>
+          <div class="step-text"><strong>Dotted-Eighth Delay:</strong> <span>Multiply quarter-note delay by $0.75$ (e.g., $500ms \times 0.75 = 375ms$).</span></div>
+        </div>
+        
+        <div class="step-item">
+          <div class="step-num">3</div>
+          <div class="step-text"><strong>Pre-Delay Calculation:</strong> <span>Keep pre-delay under 50ms; longer offsets are heard as distinct slapback echoes rather than spatial depth.</span></div>
+        </div>
+        
+          </div>
+        </div>
+      </div>
+    </div>
+    
+
+    <!-- SLIDE 7 -->
+    <div class="slide" id="slide-7">
+      <div class="slide-header">
+        <div class="deck-tag">Section A &bull; Sound Design</div>
+        <h1 class="slide-heading">Synthesis &amp; Sampling: <span>Subtractive Signal Flow</span></h1>
+        <p class="slide-lead">Component 4 tests the candidate's ability to recreate reference synthesizer timbres from scratch using subtractive synthesis, envelope modulation, and sampler keyzone mapping.</p>
+      </div>
+
+      <div class="grid-2-split">
+        <!-- LEFT: PRACTICAL DAW AUDIO & VIDEO FOCUS -->
+        <div class="column-panel prod-col">
+          <div class="panel-header">
+            <span class="panel-badge prod-badge">Synthesis Masterclass</span>
+            <span class="panel-title">Recreating Reference Synth Patches in the Exam</span>
+          </div>
+
+          <div class="video-container">
+            <iframe src="https://www.youtube-nocookie.com/embed/4_9X2h0v0cI?rel=0&modestbranding=1" 
+                    title="Subtractive Synthesis & Sound Design for Component 4" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    allowfullscreen></iframe>
+          </div>
+
+          <div class="track-meta">
+            <div class="track-title">Subtractive Synthesis & Sound Design for Component 4</div>
+            <div class="track-artist">Music Technology Masterclass</div>
+          </div>
+
+          <div class="ear-training-box">
+            <div class="ear-training-header">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+              🎧 Ear-Training Focus: Waveform & Envelope Auditioning
+            </div>
+            <ul class="ear-points">
+              <li>Sawtooth waves contain all integer harmonics ($1f, 2f, 3f...$), sounding bright and reedy; Square waves contain only odd harmonics ($1f, 3f, 5f...$), sounding hollow and clarinety.</li>
+              <li>Fast Attack, Fast Decay, Zero Sustain, and Moderate Release creates a plucky percussive bass; Slow Attack (>500ms) with Max Sustain creates lush ambient pads.</li>
+            </ul>
+          </div>
+
+          <div class="tags-cloud">
+            <span class="tech-tag">Subtractive Flow</span><span class="tech-tag">Oscillators (VCO)</span><span class="tech-tag">VCF Cutoff / Res</span><span class="tech-tag">VCA Envelope</span><span class="tech-tag">ADSR Modulation</span><span class="tech-tag">Sampler Keyzones</span>
+          </div>
+        </div>
+
+        <!-- RIGHT: TECHNICAL ARCHITECTURE & SYLLABUS SPECIFICATION -->
+        <div class="column-panel tech-col">
+          <div class="panel-header">
+            <span class="panel-badge tech-badge">Subtractive Synth Signal Flow</span>
+            <span class="panel-title">Oscillator -> Filter -> Amplifier Architecture</span>
+          </div>
+
+          <img src="/images/subtractive_synth_flow_hq.png" alt="Subtractive Synthesizer Signal Flow Schematic" class="hardware-photo" title="Click to zoom Subtractive Synthesizer Signal Flow Schematic">
+
+          <div class="hardware-hero-card">
+            <div class="inst-name">🎹 Classic Subtractive Synthesis Architecture</div>
+            <div class="inst-specs">VCO / Waveforms &bull; 24dB/oct Ladder Filter &bull; Resonance ($Q$) &bull; Dual ADSR Envelopes &bull; LFO Mod Matrix</div>
+          </div>
+
+          <div class="history-card">
+            <h4>Filter Cutoff Modulation & Key Tracking</h4>
+            <p>The filter envelope generator modulates cutoff frequency dynamically over time. Filter resonance ($Q$) boosts harmonics near the cutoff point, producing signature resonant squelches or self-oscillation.</p>
+            <p>Key tracking (Keyboard Follow) opens the filter cutoff as higher MIDI notes are played, maintaining consistent brightness and harmonic proportions across the entire 88-key range.</p>
+          </div>
+
+          <div class="mech-chain">
+            <div class="mech-header">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              Sampler Mapping Fundamentals
+            </div>
+            
+        <div class="step-item">
+          <div class="step-num">1</div>
+          <div class="step-text"><strong>Root Key & Keyzones:</strong> <span>Assign raw audio samples to exact MIDI root notes; map keyzone boundaries to prevent unnatural chipmunk pitching.</span></div>
+        </div>
+        
+        <div class="step-item">
+          <div class="step-num">2</div>
+          <div class="step-text"><strong>Velocity Crossfading:</strong> <span>Layer multiple dynamic velocity layers (soft, medium, hard) to capture authentic acoustic timbre variations.</span></div>
+        </div>
+        
+        <div class="step-item">
+          <div class="step-num">3</div>
+          <div class="step-text"><strong>Loop Points & Crossfading:</strong> <span>Set zero-crossing loop points with equal-power crossfades on sustained pads to prevent clicks.</span></div>
+        </div>
+        
+          </div>
+        </div>
+      </div>
+    </div>
+    
+
+    <!-- SLIDE 8 -->
+    <div class="slide" id="slide-8">
+      <div class="slide-header">
+        <div class="deck-tag">Section A &bull; Audio Troubleshooting</div>
+        <h1 class="slide-heading">Diagnostic Fault Finding: <span>Hum, Clipping &amp; Phase</span></h1>
+        <p class="slide-lead">Component 4 frequently introduces audio stems containing intentional audio faults. Candidates must identify the physical origin of the artifact and apply appropriate surgical corrective processing.</p>
+      </div>
+
+      <div class="grid-2-split">
+        <!-- LEFT: PRACTICAL DAW AUDIO & VIDEO FOCUS -->
+        <div class="column-panel prod-col">
+          <div class="panel-header">
+            <span class="panel-badge prod-badge">Exam Walkthrough Video</span>
+            <span class="panel-title">2019 Production & Analysing Exam (Sample Paper Guidance)</span>
+          </div>
+
+          <div class="video-container">
+            <iframe src="https://www.youtube-nocookie.com/embed/MZb-bW6z5wI?rel=0&modestbranding=1" 
+                    title="Edexcel Component 4 Guidance Video (Question 1)" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    allowfullscreen></iframe>
+          </div>
+
+          <div class="track-meta">
+            <div class="track-title">Edexcel Component 4 Guidance Video (Question 1)</div>
+            <div class="track-artist">Music Tech Guru Official Exam Guide</div>
+          </div>
+
+          <div class="ear-training-box">
+            <div class="ear-training-header">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+              🎧 Ear-Training Focus: Recognizing Common Audio Artifacts
+            </div>
+            <ul class="ear-points">
+              <li>Mains Hum: A steady 50Hz (UK) or 60Hz (US) low buzz with prominent harmonic overtones at 100Hz, 150Hz, 200Hz, caused by ground loops or unshielded guitar single-coils.</li>
+              <li>Digital Intersample Clipping: Harsh, brittle square-wave distortion generated when audio exceeds 0 dBFS, producing unharmonic aliasing across high frequencies.</li>
+            </ul>
+          </div>
+
+          <div class="tags-cloud">
+            <span class="tech-tag">50Hz Mains Hum</span><span class="tech-tag">Digital Clipping</span><span class="tech-tag">DC Offset</span><span class="tech-tag">Vocal Sibilance</span><span class="tech-tag">Headphone Bleed</span><span class="tech-tag">Spectral Repair</span>
+          </div>
+        </div>
+
+        <!-- RIGHT: TECHNICAL ARCHITECTURE & SYLLABUS SPECIFICATION -->
+        <div class="column-panel tech-col">
+          <div class="panel-header">
+            <span class="panel-badge tech-badge">Inter-Sample True Peak Overshoots</span>
+            <span class="panel-title">Digital Overs vs Reconstruction Filter Reconstruction</span>
+          </div>
+
+          <img src="/images/mastering_intersample_true_peak_diagram.svg" alt="Inter-sample True Peak Clipping Diagram" class="hardware-photo" title="Click to zoom Inter-sample True Peak Clipping Diagram">
+
+          <div class="hardware-hero-card">
+            <div class="inst-name">🔍 Common Component 4 Audio Faults & Corrective Solutions</div>
+            <div class="inst-specs">Ground Loops (50Hz) &bull; Digital Overs (>0 dBFS) &bull; DC Offset &bull; Sibilance (5–8kHz) &bull; Mic Spill</div>
+          </div>
+
+          <div class="history-card">
+            <h4>DC Offset & Sibilance Management</h4>
+            <p>DC offset occurs when direct current biases the alternating audio waveform away from the zero-amplitude center line, reducing dynamic headroom and causing loud clicks at edit boundaries. Fix: Apply a high-pass filter at 20Hz.</p>
+            <p>De-essing is frequency-specific split-band dynamic attenuation. When sibilant 'S' and 'T' sounds peak between 5kHz and 8kHz, the compressor ducks only that frequency band while leaving mid-range vocals untouched.</p>
+          </div>
+
+          <div class="mech-chain">
+            <div class="mech-header">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              Examiner Checklist for Audio Cleanup
+            </div>
+            
+        <div class="step-item">
+          <div class="step-num">1</div>
+          <div class="step-text"><strong>Mains Hum Removal:</strong> <span>Use narrow notch filters ($Q > 15$) at 50Hz, 100Hz, and 150Hz rather than a wide high-pass cut.</span></div>
+        </div>
+        
+        <div class="step-item">
+          <div class="step-num">2</div>
+          <div class="step-text"><strong>Headphone Bleed:</strong> <span>Use an automated downward expander or noise gate with gentle release to silence click spill during vocal pauses.</span></div>
+        </div>
+        
+        <div class="step-item">
+          <div class="step-num">3</div>
+          <div class="step-text"><strong>Phase Cancellation:</strong> <span>Check stereo stems in mono; if low frequencies vanish, flip polarity or apply manual sample delay nudging.</span></div>
+        </div>
+        
+          </div>
+        </div>
+      </div>
+    </div>
+    
+
+    <!-- SLIDE 9 -->
+    <div class="slide" id="slide-9">
+      <div class="slide-header">
+        <div class="deck-tag">Section A &bull; Final Delivery</div>
+        <h1 class="slide-heading">Mixdown &amp; Mastering: <span>Gain Staging, Automation &amp; LUFS</span></h1>
+        <p class="slide-lead">Question 5 requires producing a balanced stereo mixdown with appropriate dynamic control, spatial balance, volume automation, and export formatting matching industry loudness standards.</p>
+      </div>
+
+      <div class="grid-2-split">
+        <!-- LEFT: PRACTICAL DAW AUDIO & VIDEO FOCUS -->
+        <div class="column-panel prod-col">
+          <div class="panel-header">
+            <span class="panel-badge prod-badge">Logic Pro Masterclass</span>
+            <span class="panel-title">Basic Mastering on Logic Pro X – Walkthrough and Tips</span>
+          </div>
+
+          <div class="video-container">
+            <iframe src="https://www.youtube-nocookie.com/embed/BNQIKRvOi9c?rel=0&modestbranding=1" 
+                    title="Mixdown Balance, Bus Processing & Master Export" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    allowfullscreen></iframe>
+          </div>
+
+          <div class="track-meta">
+            <div class="track-title">Mixdown Balance, Bus Processing & Master Export</div>
+            <div class="track-artist">Music Tech Guru Tutorial</div>
+          </div>
+
+          <div class="ear-training-box">
+            <div class="ear-training-header">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+              🎧 Ear-Training Focus: Master Bus Glue & Loudness
+            </div>
+            <ul class="ear-points">
+              <li>Mix bus glue compression uses gentle 1.5:1 or 2:1 ratios with slow attack (30ms) and auto release: needles should tickle only 1–2dB of gain reduction to knit elements together.</li>
+              <li>Do not over-limit: crushing dynamics down to -8 LUFS destroys punch and transient clarity. Maintain healthy dynamic crest factor for streaming platforms.</li>
+            </ul>
+          </div>
+
+          <div class="tags-cloud">
+            <span class="tech-tag">-18 dBFS Headroom</span><span class="tech-tag">Mix Bus Glue</span><span class="tech-tag">Automation Modes</span><span class="tech-tag">True Peak Limiter</span><span class="tech-tag">-14 LUFS Standards</span><span class="tech-tag">TPDF Dither</span>
+          </div>
+        </div>
+
+        <!-- RIGHT: TECHNICAL ARCHITECTURE & SYLLABUS SPECIFICATION -->
+        <div class="column-panel tech-col">
+          <div class="panel-header">
+            <span class="panel-badge tech-badge">Mix Bus Compression & Streaming Loudness</span>
+            <span class="panel-title">True Peak Ceiling & Integrated LUFS Metering</span>
+          </div>
+
+          <img src="/images/mastering_bus_compression_glue_diagram.svg" alt="Master Bus Compression and Loudness Diagram" class="hardware-photo" title="Click to zoom Master Bus Compression and Loudness Diagram">
+
+          <div class="hardware-hero-card">
+            <div class="inst-name">📈 Professional Mixdown Standards & Delivery Protocols</div>
+            <div class="inst-specs">-18 dBFS Nominal &bull; VCA Groups &bull; -1.0 dBTP Ceiling &bull; -14 LUFS Integrated &bull; 24-bit to 16-bit TPDF Dither</div>
+          </div>
+
+          <div class="history-card">
+            <h4>Automation Modes in the Exam</h4>
+            <p>Read: Plays back existing automation without recording changes. Touch: Writes automation only while touching the control; snaps back to previous values on release. Latch: Begins writing on touch, keeps current value after release until playback stops. Write: Continuously overwrites all existing data.</p>
+            <p>Mastering Delivery: Inter-sample peaks occur during digital-to-analogue conversion (DAC). Set true peak limiters to -1.0 dBTP ceiling to avoid clipping on streaming encoders (MP3, AAC).</p>
+          </div>
+
+          <div class="mech-chain">
+            <div class="mech-header">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              Mastering Export Protocols
+            </div>
+            
+        <div class="step-item">
+          <div class="step-num">1</div>
+          <div class="step-text"><strong>Target Loudness:</strong> <span>Aim for -14 LUFS integrated for streaming normalization, with short-term peaks staying below -11 LUFS.</span></div>
+        </div>
+        
+        <div class="step-item">
+          <div class="step-num">2</div>
+          <div class="step-text"><strong>True Peak Ceiling:</strong> <span>Always set master output limiter ceiling to -1.0 dBTP (or -0.5 dBTP minimum).</span></div>
+        </div>
+        
+        <div class="step-item">
+          <div class="step-num">3</div>
+          <div class="step-text"><strong>Dithering Protocol:</strong> <span>When bouncing 24-bit DAW projects to 16-bit master files, apply Triangular Probability Density Function (TPDF) dither.</span></div>
+        </div>
+        
+          </div>
+        </div>
+      </div>
+    </div>
+    
+
+    <!-- SLIDE 10 -->
+    <div class="slide" id="slide-10">
+      <div class="slide-header">
+        <div class="deck-tag">Section B &bull; Extended Essay (20 Marks)</div>
+        <h1 class="slide-heading">Extended Response: <span>AO3 vs. AO4 Essay Strategy</span></h1>
+        <p class="slide-lead">Question 6 is the 20-mark extended writing challenge. Success requires balancing rigorous technical theory (AO3) with perceptive critical evaluation of practical studio scenarios (AO4).</p>
+      </div>
+
+      <div class="grid-2-split">
+        <!-- LEFT: VIDEO / STRATEGY -->
+        <div class="column-panel prod-col">
+          <div class="panel-header">
+            <span class="panel-badge prod-badge">Exam Essay Masterclass</span>
+            <span class="panel-title">How to Ace the Edexcel Music Tech Component 4 Exam</span>
+          </div>
+
+          <div class="video-container">
+            <iframe src="https://www.youtube-nocookie.com/embed/vejjQ0Lurrk?rel=0&modestbranding=1" 
+                    title="How to Ace the Edexcel Music Tech Component 4 Exam!" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    allowfullscreen></iframe>
+          </div>
+
+          <div class="track-meta">
+            <div class="track-title">How to Ace the Edexcel Music Tech Component 4 Exam!</div>
+            <div class="track-artist">Music Tech Guru Tutorial</div>
+          </div>
+
+          <div class="ear-training-box">
+            <div class="ear-training-header">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+              📝 Essay Blueprint: Structure for Maximum Marks
+            </div>
+            <ul class="ear-points">
+              <li>Paragraph 1: Scenario analysis, identifying acoustic limitations and technical goals. Paragraph 2–3: Direct comparison of contrasting hardware/DSP approaches (e.g., tube preamp vs transparent solid-state).</li>
+              <li>Paragraph 4: Signal routing, dynamic processing, and surgical EQ unmasking. Paragraph 5: Evaluative conclusion weighing sonic character against practical delivery constraints.</li>
+            </ul>
+          </div>
+
+          <div class="tags-cloud">
+            <span class="tech-tag">20 Marks</span><span class="tech-tag">AO3 (10m)</span><span class="tech-tag">AO4 (10m)</span><span class="tech-tag">Scenario Analysis</span><span class="tech-tag">Acoustics vs DSP</span><span class="tech-tag">Level 4 Band</span>
+          </div>
+        </div>
+
+        <!-- RIGHT: TABLE / MATRIX -->
+        <div class="column-panel tech-col">
+          <div class="panel-header">
+            <span class="panel-badge tech-badge">Pearson Edexcel Mark Scheme Matrix</span>
+            <span class="panel-title">AO3 (Technical Understanding) vs AO4 (Aural Evaluation) Rubric</span>
+          </div>
+
+          <div class="table-container">
+            
+    <table class="matrix-table">
+      <thead>
+        <tr>
+          <th>Mark Band</th>
+          <th>AO3: Technical Knowledge &amp; Understanding (10 Marks)</th>
+          <th>AO4: Aural Discrimination &amp; Contextual Evaluation (10 Marks)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Band 4 (High)<br>17–20 Marks</strong></td>
+          <td>Comprehensive, fully accurate technical terminology. In-depth understanding of signal chains, transducer physics, circuit topologies (tube/FET/VCA), acoustic wave physics, and digital DSP constraints.</td>
+          <td>Perceptive, critical comparative evaluation. Explains *why* specific techniques are chosen in the scenario; evaluates trade-offs (e.g., analog saturation vs digital headroom; close-mic isolation vs room spill).</td>
+        </tr>
+        <tr>
+          <td><strong>Band 3 (Mid-High)<br>13–16 Marks</strong></td>
+          <td>Good, mostly accurate technical knowledge. Clear explanation of equipment controls (threshold, Q, pre-delay, mic patterns), signal routing, and acoustic behavior with minor gaps.</td>
+          <td>Clear comparative evaluation with relevant supporting points. Analyzes sonic impact on mix balance, spatial imaging, and frequency clarity; links choices to musical context.</td>
+        </tr>
+        <tr>
+          <td><strong>Band 2 (Mid-Low)<br>7–12 Marks</strong></td>
+          <td>Basic technical knowledge with occasional inaccuracies. Describes common studio tools (compressor, EQ, reverb) but lacks depth on circuit behavior or mathematical relationships.</td>
+          <td>Descriptive rather than evaluative. Identifies what gear is used, but gives superficial explanations of *why*; limited critical comparison between production approaches.</td>
+        </tr>
+        <tr>
+          <td><strong>Band 1 (Low)<br>1–6 Marks</strong></td>
+          <td>Superficial or incorrect technical claims. Confuses fundamental concepts (e.g., mistaking phasing for panning; confusing bit depth with sample rate).</td>
+          <td>Minimal or no aural evaluation. Simply lists equipment without discussing sonic consequences or answering the specific scenario posed in Question 6.</td>
+        </tr>
+      </tbody>
+    </table>
+    
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+
+  <!-- Pinned Bottom Navigation Bar -->
+  <div class="bottom-bar">
+    <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+      <span>Previous</span>
+    </button>
+
+    <div class="slide-indicator">
+      <div class="slide-dots" id="dotsContainer"></div>
+      <span class="slide-counter" id="slideCounter">1 / 10</span>
+    </div>
+
+    <div style="display: flex; gap: 8px; align-items: center;">
+      <button class="nav-btn" onclick="toggleFullscreen()" title="Toggle Fullscreen (F)">
+        <span class="fs-icon-enter">&#x26F6;</span>
+        <span class="fs-icon-exit" style="display: none;">✕</span>
+        <span class="fs-label-bottom">Fullscreen</span>
+      </button>
+      <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">
+        <span>Next</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Universal Image Lightbox Modal -->
+  <div class="image-modal-backdrop" id="imageModal" onclick="closeImageModal()" role="dialog" aria-modal="true" aria-label="Expanded Image View">
+    <div class="image-modal-content" onclick="event.stopPropagation()">
+      <button class="image-modal-close" onclick="closeImageModal()" title="Close (Esc)" aria-label="Close">&times;</button>
+      <div class="image-modal-img-wrap">
+        <img id="imageModalImg" src="" alt="Expanded Image">
+      </div>
+      <div class="image-modal-caption" id="imageModalCaption"></div>
+      <div class="image-modal-hint">Click outside or press <kbd>ESC</kbd> to close</div>
+    </div>
+  </div>
+
+  <script>
+    let currentSlide = 1;
+    const totalSlides = 10;
+
+    function initDots() {
+      const container = document.getElementById('dotsContainer');
+      container.innerHTML = '';
+      for (let i = 1; i <= totalSlides; i++) {
+        const dot = document.createElement('div');
+        dot.className = 'dot' + (i === 1 ? ' active' : '');
+        dot.onclick = () => goToSlide(i);
+        container.appendChild(dot);
+      }
+    }
+
+    function updateUI() {
+      document.querySelectorAll('.slide').forEach((s, idx) => {
+        s.classList.toggle('active', (idx + 1) === currentSlide);
+      });
+
+      document.querySelectorAll('.dot').forEach((d, idx) => {
+        d.classList.toggle('active', (idx + 1) === currentSlide);
+      });
+
+      document.getElementById('slideCounter').textContent = `${currentSlide} / ${totalSlides}`;
+      document.getElementById('prevBtn').disabled = (currentSlide === 1);
+      document.getElementById('nextBtn').disabled = (currentSlide === totalSlides);
+    }
+
+    function changeSlide(direction) {
+      goToSlide(currentSlide + direction);
+    }
+
+    function goToSlide(n) {
+      if (n < 1) n = 1;
+      if (n > totalSlides) n = totalSlides;
+      currentSlide = n;
+      updateUI();
+    }
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === 'PageDown') {
+        changeSlide(1);
+      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        changeSlide(-1);
+      } else if (e.key === 'f' || e.key === 'F') {
+        if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
+          toggleFullscreen();
+        }
+      } else if (e.key === 'Escape') {
+        closeImageModal();
+        if (document.fullscreenElement || document.webkitFullscreenElement) {
+          if (document.exitFullscreen) document.exitFullscreen().catch(() => {});
+          else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+        }
+      }
+    });
+
+    // Fullscreen Controls
+    function toggleFullscreen() {
+      if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+        const el = document.documentElement;
+        if (el.requestFullscreen) el.requestFullscreen().catch(() => {});
+        else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+      } else {
+        if (document.exitFullscreen) document.exitFullscreen().catch(() => {});
+        else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+      }
+    }
+
+    function updateFullscreenUI() {
+      const isFs = !!(document.fullscreenElement || document.webkitFullscreenElement);
+      document.documentElement.classList.toggle('is-fullscreen', isFs);
+      document.querySelectorAll('.fs-icon-enter').forEach(el => el.style.display = isFs ? 'none' : 'inline-block');
+      document.querySelectorAll('.fs-icon-exit').forEach(el => el.style.display = isFs ? 'inline-block' : 'none');
+      document.querySelectorAll('.fs-label, .fs-label-bottom').forEach(el => el.textContent = isFs ? 'Exit Fullscreen' : 'Fullscreen');
+    }
+
+    document.addEventListener('fullscreenchange', updateFullscreenUI);
+    document.addEventListener('webkitfullscreenchange', updateFullscreenUI);
+
+    function exitDeck() {
+      if (window.opener) {
+        window.close();
+      } else if (window.history.length > 1) {
+        window.history.back();
+      } else {
+        window.location.href = 'https://www.musictechguru.com/homepage/a-level-music-technology/component-4-production-analysing/';
+      }
+    }
+
+    // Universal Lightbox
+    function openImageModal(src, captionText) {
+      const modal = document.getElementById('imageModal');
+      const img = document.getElementById('imageModalImg');
+      const caption = document.getElementById('imageModalCaption');
+      if (!modal || !img) return;
+      img.src = src;
+      caption.textContent = captionText || '';
+      modal.classList.add('open');
+    }
+
+    function closeImageModal() {
+      const modal = document.getElementById('imageModal');
+      const img = document.getElementById('imageModalImg');
+      if (modal) modal.classList.remove('open');
+      if (img) img.src = '';
+    }
+
+    document.addEventListener('click', (e) => {
+      const img = e.target.closest('img');
+      const photo = e.target.closest('.hardware-photo');
+      const target = img || (photo ? photo.querySelector('img') : null);
+      if (target) {
+        if (target.closest('#imageModal') || target.classList.contains('no-expand')) return;
+        e.preventDefault();
+        const cap = target.alt || target.getAttribute('title') || target.closest('.hardware-hero-card')?.querySelector('.inst-name')?.textContent || '';
+        openImageModal(target.src, cap);
+      }
+    });
+
+    initDots();
+    updateUI();
+  </script>
+</body>
+</html>

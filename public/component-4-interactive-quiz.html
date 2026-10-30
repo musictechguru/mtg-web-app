@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Component 4: Producing &amp; Analysing • Exam Specification Quiz | Music Tech Guru</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #080e1a;
+      --bg-card: #0f172a;
+      --bg-surface: #1e293b;
+      --accent: #00C1F0;
+      --accent-glow: rgba(0, 193, 240, 0.35);
+      --accent-green: #34d399;
+      --accent-red: #ef4444;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-accent: rgba(0, 193, 240, 0.35);
+      --font: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: var(--font);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .quiz-container {
+      width: 100%;
+      max-width: 880px;
+      background: radial-gradient(circle at 50% 0%, var(--accent-glow) 0%, rgba(14, 17, 36, 0) 70%), var(--bg-card);
+      border: 1px solid var(--border-accent);
+      border-radius: 20px;
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.8), 0 0 40px var(--accent-glow);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .quiz-header {
+      padding: 24px 28px;
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(10px);
+    }
+
+    .quiz-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(0, 193, 240, 0.15);
+      border: 1px solid rgba(0, 193, 240, 0.3);
+      color: var(--accent);
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 5px 12px;
+      border-radius: 9999px;
+    }
+
+    .quiz-progress {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-muted);
+      font-family: monospace;
+    }
+
+    .progress-bar-wrap {
+      width: 100%;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background: var(--accent);
+      width: 10%;
+      transition: width 0.3s ease;
+      box-shadow: 0 0 10px var(--accent);
+    }
+
+    .quiz-body {
+      padding: 32px 30px;
+      flex: 1;
+    }
+
+    .question-title {
+      font-size: 18px;
+      font-weight: 800;
+      line-height: 1.45;
+      margin-bottom: 24px;
+      color: var(--text-main);
+    }
+
+    .options-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .option-btn {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 14px 18px;
+      color: var(--text-main);
+      font-family: var(--font);
+      font-size: 14px;
+      font-weight: 600;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      transition: all 0.2s ease;
+      position: relative;
+    }
+
+    .option-btn:hover:not(:disabled) {
+      background: rgba(0, 193, 240, 0.1);
+      border-color: rgba(0, 193, 240, 0.4);
+      transform: translateX(4px);
+    }
+
+    .option-btn:disabled {
+      cursor: default;
+    }
+
+    .opt-letter {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 800;
+      flex-shrink: 0;
+      color: var(--text-muted);
+    }
+
+    .option-btn.correct {
+      background: rgba(52, 211, 153, 0.15) !important;
+      border-color: var(--accent-green) !important;
+      color: #ffffff !important;
+    }
+    .option-btn.correct .opt-letter {
+      background: var(--accent-green) !important;
+      color: #000000 !important;
+    }
+
+    .option-btn.incorrect {
+      background: rgba(239, 68, 68, 0.15) !important;
+      border-color: var(--accent-red) !important;
+      color: #ffffff !important;
+    }
+    .option-btn.incorrect .opt-letter {
+      background: var(--accent-red) !important;
+      color: #ffffff !important;
+    }
+
+    .explanation-box {
+      margin-top: 20px;
+      padding: 16px 18px;
+      border-radius: 10px;
+      background: rgba(0, 0, 0, 0.4);
+      border-left: 4px solid var(--accent);
+      font-size: 13.5px;
+      line-height: 1.55;
+      color: #cbd5e1;
+      display: none;
+    }
+
+    .explanation-box strong {
+      color: var(--accent);
+    }
+
+    .quiz-footer {
+      padding: 18px 28px;
+      border-top: 1px solid var(--border-subtle);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(15, 23, 42, 0.4);
+    }
+
+    .next-btn {
+      background: var(--accent);
+      color: #0b0f19;
+      font-family: var(--font);
+      font-size: 13px;
+      font-weight: 800;
+      padding: 10px 22px;
+      border-radius: 8px;
+      border: 0;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 15px var(--accent-glow);
+    }
+
+    .next-btn:hover:not(:disabled) {
+      background: #38bdf8;
+      transform: translateY(-1px);
+    }
+
+    .next-btn:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+
+    .score-screen {
+      display: none;
+      text-align: center;
+      padding: 50px 30px;
+    }
+
+    .score-circle {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 4px solid var(--accent);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 24px;
+      box-shadow: 0 0 30px var(--accent-glow);
+    }
+
+    .score-val {
+      font-size: 36px;
+      font-weight: 900;
+      color: var(--accent);
+      line-height: 1;
+    }
+
+    .score-total {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .score-msg {
+      font-size: 22px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .score-desc {
+      font-size: 14px;
+      color: var(--text-muted);
+      max-width: 500px;
+      margin: 0 auto 28px;
+      line-height: 1.6;
+    }
+
+    .restart-btn {
+      background: var(--accent);
+      color: #0b0f19;
+      padding: 12px 28px;
+      border-radius: 8px;
+      font-weight: 800;
+      border: 0;
+      cursor: pointer;
+      font-size: 14px;
+      transition: all 0.2s;
+    }
+    .restart-btn:hover {
+      background: #38bdf8;
+      transform: translateY(-2px);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="quiz-container">
+    <div class="quiz-header">
+      <div class="quiz-badge">
+        <span>🎛️</span>
+        <span>Component 4: Producing &amp; Analysing Specification Quiz</span>
+      </div>
+      <div class="quiz-progress" id="quizCounter">Question 1 / 10</div>
+    </div>
+    <div class="progress-bar-wrap">
+      <div class="progress-bar-fill" id="progressBar"></div>
+    </div>
+
+    <div class="quiz-body" id="quizBody">
+      <h2 class="question-title" id="questionTitle"></h2>
+      <div class="options-grid" id="optionsGrid"></div>
+      <div class="explanation-box" id="explanationBox"></div>
+    </div>
+
+    <div class="quiz-footer" id="quizFooter">
+      <span style="font-size: 12px; color: var(--text-muted);" id="statusHint">Select the best answer</span>
+      <button class="next-btn" id="nextBtn" onclick="nextQuestion()" disabled>
+        <span>Next Question</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+      </button>
+    </div>
+
+    <!-- Final Score Screen -->
+    <div class="score-screen" id="scoreScreen">
+      <div class="score-circle">
+        <span class="score-val" id="finalScore">0</span>
+        <span class="score-total">out of 10</span>
+      </div>
+      <h3 class="score-msg" id="scoreMessage">Assessment Complete</h3>
+      <p class="score-desc" id="scoreFeedback"></p>
+      <button class="restart-btn" onclick="restartQuiz()">Restart Assessment</button>
+    </div>
+  </div>
+
+  <script>
+    const questions = [{"q": "Why does flipping the polarity switch (180\u00b0 phase invert) on a snare bottom microphone typically restore punch and low-frequency body to the drum sound?", "options": ["Because the snare bottom mic generates a higher impedance line signal than the top mic", "Because the drum head vibrates in opposite directions relative to the two capsules, causing destructive phase cancellation when summed in mono", "Because the bottom microphone picks up more bleed from the bass drum beater", "Because flipping polarity automatically engages a 24dB/octave high-pass filter"], "correct": 1, "expl": "When a drummer strikes the snare, the top drumhead moves downward away from the top mic, while simultaneously compressing air downward toward the bottom mic. This produces opposite electrical voltage polarities. Summing them without inverting polarity causes destructive phase cancellation across low and mid frequencies."}, {"q": "What is the primary sonic consequence of setting an excessively fast attack time (<1 ms) on a compressor inserted on a snare drum or acoustic guitar?", "options": ["The initial transient spike is clamped immediately, dulling stick impact and pushing the instrument backward in the mix", "The compressor introduces loud pumping and breathing distortion during silent intervals", "The low-frequency fundamental of the instrument is boosted by +6 dB", "The audio file is converted from 24-bit to 16-bit resolution"], "correct": 0, "expl": "A compressor's attack time determines how quickly gain reduction begins once signal crosses threshold. Setting attack ultra-fast (<1ms) clamps the transient crack before it can pass, softening percussion punch. A slower attack (15\u201330ms) lets the transient stick crack through before compressing the drum body."}, {"q": "In Component 4 mixing, how should complementary subtractive EQ be applied to prevent frequency masking between a kick drum and a bass guitar?", "options": ["Apply a wide +6 dB boost at 250 Hz on both kick drum and bass guitar tracks", "Boost the kick drum fundamental (e.g. 60 Hz) while applying a narrow surgical cut at 60 Hz on the bass, and boosting the bass fundamental (e.g. 90 Hz) while cutting 90 Hz on the kick", "Use a steep 48 dB/octave low-pass filter at 100 Hz on the entire mix bus", "Invert the stereo panning so the kick is panned hard left and bass is hard right"], "correct": 1, "expl": "Frequency masking occurs when two instruments compete for the exact same acoustic energy band. Complementary subtractive EQ carves out narrow frequency notches in one track where the other's fundamental peak resides, allowing both elements to coexist cleanly without muddy buildup."}, {"q": "In Mid/Side (M/S) stereo matrix decoding, which mathematical equation isolates the Side (stereo difference) channel from standard Left and Right audio stems?", "options": ["Side = Left \u00d7 Right", "Side = (Left - Right) / 2", "Side = (Left + Right) / 2", "Side = Left + Inverted Center"], "correct": 1, "expl": "In Mid/Side processing, Mid is the sum of Left and Right (M = L + R), representing mono center information. Side is the difference between Left and Right (S = L - R), containing purely out-of-phase directional information. When summed to mono, the Side channel cancels to absolute zero (L - R + R - L = 0)."}, {"q": "What acoustic problem does dialing in a 20ms to 40ms Pre-Delay setting on a vocal reverb auxiliary bus resolve?", "options": ["It eliminates phase comb filtering between the left and right monitor speakers", "It separates the articulate direct vocal transient from the onset of the reverb wash, preserving lyrical clarity without drowning the singer", "It doubles the RT60 decay time of the reverb tail", "It shifts the pitch of the reverb reflections up by one octave"], "correct": 1, "expl": "Pre-delay inserts an acoustic time gap between the dry vocal note and the start of early reverb reflections. With 0ms pre-delay, the reverb immediately masks consonant attacks ('t', 'k', 'p'). Adding 20\u201340ms lets the dry consonant register clearly in the listener's brain before the virtual room bloom arrives."}, {"q": "In subtractive synthesis, what occurs physically when the Voltage Controlled Filter (VCF) Resonance (Q) control is pushed close to its maximum threshold?", "options": ["The filter cutoff slope flattens to 0 dB/octave, acting like a bypass switch", "Feedback around the cutoff frequency increases dramatically, creating a prominent ringing spike that can enter pure self-oscillation as a sine wave", "The oscillator automatically switches from a sawtooth wave to pink noise", "The amplifier envelope attack time slows down proportionally"], "correct": 1, "expl": "Filter resonance feeds filtered signal back into the filter input. As resonance (Q) increases, energy concentrates sharply at the cutoff frequency. At maximum resonance, the filter oscillates independently without any audio input, generating a pure resonant sine wave."}, {"q": "What unwanted audio artifact occurs when an acoustic violin sample is repitched two octaves higher in a standard sampler without formant preservation?", "options": ["The instrument body resonance scales upward unnaturally, producing a shrill 'chipmunk' or toy-like timbre", "The sample playback speed drops by 50%", "The bit depth drops from 24-bit to 8-bit resolution", "The stereo field inverts 180\u00b0 into negative phase correlation"], "correct": 0, "expl": "Acoustic instruments have fixed physical resonant body cavities (formants) that do not shift when different pitches are played. Simple sampler repitching speeds up playback, shifting these fixed formants upward by two octaves and creating the unnatural 'chipmunk effect'."}, {"q": "An audio stem recorded in a UK studio exhibits a steady low-frequency hum at 50 Hz with noticeable overtones at 100 Hz and 150 Hz. What is the physical origin and correct corrective repair?", "options": ["Digital clock jitter; fix by increasing ASIO buffer size to 1024 samples", "Mains AC ground loop interference (50 Hz UK electrical grid); fix by applying narrow surgical notch filters at 50 Hz, 100 Hz, and 150 Hz", "Microphone diaphragm acoustic wind blast; fix by moving the pop filter 2 inches closer", "Tape wow and flutter; fix by demagnetizing the tape transport heads"], "correct": 1, "expl": "UK mains alternating current operates at 50 Hz. Ground loops and electromagnetic induction into unshielded guitar pickups create 50 Hz hum plus harmonic distortion products at integer multiples (100 Hz, 150 Hz, 200 Hz). The exam fix is narrow notch filtering (high Q) rather than aggressive wide high-pass filtering."}, {"q": "Why must a mastering engineer set the ceiling of a true peak limiter to -1.0 dBTP rather than 0.0 dBFS when preparing an audio file for streaming export?", "options": ["Because streaming platforms reject any files with volume exceeding -24 LUFS", "To prevent inter-sample peak clipping when lossy codecs (MP3, AAC) and digital-to-analogue reconstruction filters reconstruct the continuous analogue wave", "Because digital limiters cannot function properly unless make-up gain is set to negative values", "To prevent the mono fold-down button on consumer amplifiers from disabling"], "correct": 1, "expl": "Digital sample values only measure discrete points in time. During D/A conversion or lossy encoding (MP3/AAC/Ogg), the reconstructed continuous waveform can overshoot between sample points. Setting a ceiling of -1.0 dBTP guarantees inter-sample overshoots do not clip the converter stages."}, {"q": "In Section B (Question 6) of Component 4, what is the essential distinction between a top-band Level 4 answer and a mid-band Level 2 answer under Pearson Edexcel criteria?", "options": ["Level 4 answers must be written in bullet points, whereas Level 2 answers must be in continuous prose", "Level 4 provides perceptive, critical evaluation comparing *why* specific techniques are chosen and evaluating acoustic/sonic trade-offs; Level 2 merely describes equipment without analyzing consequences", "Level 4 answers require quoting exact patent numbers for analog hardware units", "Level 4 candidates are awarded marks solely based on word count exceeding 1,000 words"], "correct": 1, "expl": "Pearson Edexcel Component 4 mark schemes reserve top-band marks (17\u201320/20) for candidates who demonstrate thorough technical understanding (AO3) balanced with critical, perceptive evaluation (AO4). Mid-band answers simply describe what equipment exists, while top-band answers evaluate the practical sonic consequences and trade-offs of choices."}];
+    let currentIdx = 0;
+    let score = 0;
+    let answered = false;
+
+    function renderQuestion() {
+      const q = questions[currentIdx];
+      document.getElementById('questionTitle').textContent = q.q;
+      document.getElementById('quizCounter').textContent = `Question ${currentIdx + 1} / ${questions.length}`;
+      document.getElementById('progressBar').style.width = `${((currentIdx + 1) / questions.length) * 100}%`;
+      
+      const grid = document.getElementById('optionsGrid');
+      grid.innerHTML = '';
+      answered = false;
+      document.getElementById('nextBtn').disabled = true;
+      document.getElementById('explanationBox').style.display = 'none';
+      document.getElementById('statusHint').textContent = 'Select the best answer';
+
+      const letters = ['A', 'B', 'C', 'D'];
+      q.options.forEach((opt, idx) => {
+        const btn = document.createElement('button');
+        btn.className = 'option-btn';
+        btn.innerHTML = `<span class="opt-letter">${letters[idx]}</span><span>${opt}</span>`;
+        btn.onclick = () => selectOption(idx);
+        grid.appendChild(btn);
+      });
+    }
+
+    function selectOption(selectedIdx) {
+      if (answered) return;
+      answered = true;
+
+      const q = questions[currentIdx];
+      const buttons = document.querySelectorAll('.option-btn');
+      
+      buttons.forEach((btn, idx) => {
+        btn.disabled = true;
+        if (idx === q.correct) {
+          btn.classList.add('correct');
+        } else if (idx === selectedIdx) {
+          btn.classList.add('incorrect');
+        }
+      });
+
+      if (selectedIdx === q.correct) {
+        score++;
+        document.getElementById('statusHint').textContent = '✓ Correct! Review technical explanation';
+      } else {
+        document.getElementById('statusHint').textContent = '✗ Incorrect. Review technical explanation';
+      }
+
+      const exp = document.getElementById('explanationBox');
+      exp.innerHTML = `<strong>Technical Rationale:</strong> ${q.expl}`;
+      exp.style.display = 'block';
+
+      document.getElementById('nextBtn').disabled = false;
+    }
+
+    function nextQuestion() {
+      currentIdx++;
+      if (currentIdx < questions.length) {
+        renderQuestion();
+      } else {
+        showScore();
+      }
+    }
+
+    function showScore() {
+      document.getElementById('quizBody').style.display = 'none';
+      document.getElementById('quizFooter').style.display = 'none';
+      const screen = document.getElementById('scoreScreen');
+      screen.style.display = 'block';
+
+      document.getElementById('finalScore').textContent = score;
+
+      const pct = Math.round((score / questions.length) * 100);
+      let msg = '';
+      let desc = '';
+
+      if (pct >= 80) {
+        msg = '🏆 Distinction / Top-Band Mastery!';
+        desc = `Outstanding performance! You scored ${pct}%. You demonstrate comprehensive technical understanding across phase physics, dynamic control, surgical EQ unmasking, and Pearson Edexcel Component 4 mark schemes.`;
+      } else if (pct >= 60) {
+        msg = 'Solid Merit Standard!';
+        desc = `Well done! You scored ${pct}%. Review the questions on mid/side matrixing, true peak limits, and synthesis envelopes before the exam.`;
+      } else {
+        msg = 'Foundation Level – Review Recommended';
+        desc = `You scored ${pct}%. We recommend reviewing the Component 4 interactive slide deck, practicing with the Web App practical modules, and running through past paper guidance.`;
+      }
+
+      document.getElementById('scoreMessage').textContent = msg;
+      document.getElementById('scoreFeedback').textContent = desc;
+    }
+
+    function restartQuiz() {
+      currentIdx = 0;
+      score = 0;
+      document.getElementById('quizBody').style.display = 'block';
+      document.getElementById('quizFooter').style.display = 'flex';
+      document.getElementById('scoreScreen').style.display = 'none';
+      renderQuestion();
+    }
+
+    renderQuestion();
+  </script>
+</body>
+</html>
