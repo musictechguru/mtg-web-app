@@ -479,10 +479,113 @@ def implement_option_1_header():
   box-shadow: 0 5px 16px rgba(168, 85, 247, 0.65) !important;
   color: #ffffff !important;
 }
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   .site-header .navigation .menu-right .thim-link-login a.mtg-pro-header-cta {
     display: none !important;
   }
+  /* Prevent any horizontal page scroll on phones */
+  html, body, #wrapper-container, .content-pusher, #main-content, main, article, .entry-content {
+    max-width: 100vw !important;
+    overflow-x: hidden !important;
+    box-sizing: border-box !important;
+  }
+  #masthead,
+  #masthead .container,
+  #masthead .thim-nav-wrapper,
+  #masthead .row,
+  #masthead .navigation,
+  #masthead .tm-table {
+    max-width: 100vw !important;
+    width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    box-sizing: border-box !important;
+  }
+  .grecaptcha-badge {
+    display: none !important;
+  }
+  #back-to-top {
+    right: 14px !important;
+    bottom: 16px !important;
+  }
+  /* Collapse all inline multi-column grids to single column on phones */
+  main [style*="grid-template-columns"],
+  article [style*="grid-template-columns"],
+  .entry-content [style*="grid-template-columns"],
+  #mtg-app-gateway-wrapper [style*="grid-template-columns"],
+  #mtg-comp3-wrapper [style*="grid-template-columns"],
+  #mtg-dark-theme-wrapper [style*="grid-template-columns"] {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+  /* Make embedded Interactive Decks & Quizzes tall and comfortable on mobile phones */
+  .mtg-deck-iframe-wrap,
+  div:has(> iframe[src*="interactive-slide-"]),
+  div:has(> iframe[src*="studio_effects_deck"]) {
+    padding-bottom: 0 !important;
+    height: 640px !important;
+    min-height: 640px !important;
+  }
+  .mtg-quiz-iframe-wrap,
+  div:has(> iframe[src*="quiz"]) {
+    padding-bottom: 0 !important;
+    height: 680px !important;
+    min-height: 680px !important;
+  }
+  /* Make wide tables scroll horizontally inside their container without stretching page */
+  main table,
+  article table,
+  .entry-content table,
+  table.wikitable {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+}
+@media (max-width: 640px) {
+  /* Comfortable mobile card padding instead of 32px-48px desktop padding */
+  main [style*="padding: 48px"],
+  main [style*="padding: 44px"],
+  main [style*="padding: 40px"],
+  main [style*="padding: 36px"],
+  main [style*="padding: 32px"],
+  main [style*="padding: 28px"],
+  main [style*="padding: 26px"],
+  .entry-content [style*="padding: 48px"],
+  .entry-content [style*="padding: 44px"],
+  .entry-content [style*="padding: 40px"],
+  .entry-content [style*="padding: 36px"],
+  .entry-content [style*="padding: 32px"],
+  .entry-content [style*="padding: 28px"],
+  .entry-content [style*="padding: 26px"] {
+    padding: 18px 14px !important;
+  }
+  /* Responsive mobile hero headings */
+  .top_site_main h1,
+  .page-title-wrapper h1,
+  .banner-wrapper h1 {
+    font-size: clamp(20px, 5.8vw, 28px) !important;
+    line-height: 1.22 !important;
+    word-break: break-word !important;
+  }
+  main h1, .entry-content h1 {
+    font-size: clamp(22px, 6.5vw, 30px) !important;
+    line-height: 1.22 !important;
+  }
+  main h2, .entry-content h2 {
+    font-size: clamp(19px, 5.4vw, 24px) !important;
+    line-height: 1.26 !important;
+  }
+}
+/* Ensure Dictionary rows always have dark theme contrast */
+tr.dict-item-row {
+  background: #0f172a !important;
+  color: #f8fafc !important;
+}
+tr.dict-item-row:nth-child(even) {
+  background: #131c31 !important;
 }
 </style>
 <script>
@@ -554,11 +657,27 @@ def implement_option_1_header():
   }, true);
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', function() { disarmLazyIframes(document); });
+    document.addEventListener('DOMContentLoaded', function() { disarmLazyIframes(document); tagMobileIframeWrappers(); });
   } else {
     disarmLazyIframes(document);
+    tagMobileIframeWrappers();
   }
-  window.addEventListener('load', function() { disarmLazyIframes(document); });
+  window.addEventListener('load', function() { disarmLazyIframes(document); tagMobileIframeWrappers(); });
+
+  function tagMobileIframeWrappers() {
+    var iframes = document.querySelectorAll('iframe');
+    for (var i = 0; i < iframes.length; i++) {
+      var f = iframes[i];
+      var src = (f.getAttribute('src') || f.getAttribute('data-src') || '').toLowerCase();
+      var p = f.parentElement;
+      if (!p) continue;
+      if (src.indexOf('interactive-slide-') !== -1 || src.indexOf('studio_effects_deck') !== -1) {
+        p.classList.add('mtg-deck-iframe-wrap');
+      } else if (src.indexOf('quiz') !== -1) {
+        p.classList.add('mtg-quiz-iframe-wrap');
+      }
+    }
+  }
 })();
 </script>
 <script>"""

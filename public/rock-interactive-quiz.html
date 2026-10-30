@@ -339,6 +339,65 @@
       transform: translateY(-2px);
       box-shadow: 0 6px 25px rgba(0, 193, 240, 0.6);
     }
+
+  
+    /* === MTG QUIZ MOBILE PHONE RESPONSIVENESS OVERRIDES === */
+    @media (max-width: 640px) {
+      html, body {
+        padding: 6px !important;
+        justify-content: flex-start !important;
+        overflow-x: hidden !important;
+        overflow-y: auto !important;
+        min-height: 100vh !important;
+      }
+      .quiz-container, .quiz-card, .quiz-wrapper {
+        border-radius: 14px !important;
+        max-width: 100% !important;
+        width: 100% !important;
+      }
+      .quiz-header, .header-bar, header {
+        padding: 12px 14px !important;
+        flex-wrap: wrap !important;
+        gap: 6px !important;
+      }
+      .quiz-body, #quizStage, #questionScreen, .question-stage, #quizBody {
+        padding: 14px !important;
+        gap: 12px !important;
+        min-height: auto !important;
+      }
+      .question-stem, #qText, #questionTitle, #questionText, .q-text {
+        font-size: 15.5px !important;
+        line-height: 1.38 !important;
+        margin-bottom: 8px !important;
+      }
+      .options-grid, #optionsGrid, #answersGrid {
+        gap: 8px !important;
+      }
+      .option-btn, .answer-btn {
+        padding: 10px 12px !important;
+        font-size: 13px !important;
+        line-height: 1.4 !important;
+        gap: 10px !important;
+        border-radius: 10px !important;
+      }
+      .explanation-card, #insightCard, #feedbackBox, #explanationBox {
+        padding: 12px 14px !important;
+        font-size: 12.5px !important;
+        line-height: 1.45 !important;
+        margin-top: 8px !important;
+      }
+      .quiz-footer, .controls-row, #quizFooter, footer {
+        padding: 12px 14px !important;
+        position: sticky !important;
+        bottom: 0 !important;
+        background: rgba(15, 23, 42, 0.96) !important;
+        backdrop-filter: blur(8px) !important;
+        -webkit-backdrop-filter: blur(8px) !important;
+        z-index: 20 !important;
+      }
+    }
+    /* === END MTG QUIZ MOBILE PHONE RESPONSIVENESS OVERRIDES === */
+
   </style>
 </head>
 <body>
