@@ -499,7 +499,7 @@ def generate_full_post_content():
 
 				<div class="block-after-title">
 					
-	<span class="price"><del aria-hidden="true"><span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&pound;</span>25.00</bdi></span></del> <span class="screen-reader-text">Original price was: &pound;25.00.</span><ins aria-hidden="true"><span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&pound;</span>5.29</bdi></span></ins><span class="screen-reader-text">Current price is: &pound;5.29.</span></span>
+	<span class="price"><del aria-hidden="true"><span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&pound;</span>25.00</bdi></span></del> <span class="screen-reader-text">Original price was: &pound;25.00.</span><ins aria-hidden="true"><span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&pound;</span>9.49</bdi></span></ins><span class="screen-reader-text">Current price is: &pound;9.49.</span></span>
 				</div>
 				<div class="description">
 					<p>This guidance video covers techniques and advice for effectively tackling the Music Technology Production &amp; Analysing Exam sample paper.  For Music Tech students, this is useful when you are&#8230;</p>
@@ -522,7 +522,7 @@ def generate_full_post_content():
 
 				<div class="block-after-title">
 					
-	<span class="price"><del aria-hidden="true"><span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&pound;</span>50.00</bdi></span></del> <span class="screen-reader-text">Original price was: &pound;50.00.</span><ins aria-hidden="true"><span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&pound;</span>5.29</bdi></span></ins><span class="screen-reader-text">Current price is: &pound;5.29.</span></span>
+	<span class="price"><del aria-hidden="true"><span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&pound;</span>50.00</bdi></span></del> <span class="screen-reader-text">Original price was: &pound;50.00.</span><ins aria-hidden="true"><span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&pound;</span>9.49</bdi></span></ins><span class="screen-reader-text">Current price is: &pound;9.49.</span></span>
 				</div>
 				<div class="description">
 					<p>Ace Your Music Technology Exam with Ease!</p>
@@ -547,7 +547,7 @@ def generate_full_post_content():
 
 				<div class="block-after-title">
 					
-	<span class="price"><del aria-hidden="true"><span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&pound;</span>50.00</bdi></span></del> <span class="screen-reader-text">Original price was: &pound;50.00.</span><ins aria-hidden="true"><span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&pound;</span>5.29</bdi></span></ins><span class="screen-reader-text">Current price is: &pound;5.29.</span></span>
+	<span class="price"><del aria-hidden="true"><span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&pound;</span>50.00</bdi></span></del> <span class="screen-reader-text">Original price was: &pound;50.00.</span><ins aria-hidden="true"><span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&pound;</span>9.49</bdi></span></ins><span class="screen-reader-text">Current price is: &pound;9.49.</span></span>
 				</div>
 				<div class="description">
 					<p>Ace Your Music Technology Exam with Ease!</p>
