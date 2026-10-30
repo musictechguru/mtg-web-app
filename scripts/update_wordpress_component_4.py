@@ -229,52 +229,52 @@ ul.product-grid > li.product:hover {
             </a>
         </div>
 
-        <!-- Section: Practical DAW Modules -->
+        <!-- Section: Practical DAW Modules (Stage 3 Existing Interactive Tasks) -->
         <h4 style="color: #e9d5ff; font-size: 14px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.8px; margin: 16px 0 10px 0; display: flex; align-items: center; gap: 6px;">
-            <span>🎧</span> Practical DAW Task Modules &amp; Knowledge Checks
+            <span>🎧</span> Interactive Practical Tasks &amp; DAW Production Challenges
         </h4>
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; margin-bottom: 22px;">
-            <a href="https://app.musictechguru.com/?quiz=c4_fundamentals_lesson" target="_blank" rel="noopener" class="c4-app-btn">
+            <a href="https://app.musictechguru.com/?quiz=quiz-topic-46" target="_blank" rel="noopener" class="c4-app-btn">
                 <div>
-                    <div class="c4-app-btn-title">Gain Staging &amp; Phase Alignment</div>
-                    <div class="c4-app-btn-desc">Calibrate nominal -18 dBFS levels, avoid digital intersample peaks, and flip 180° polarity to fix comb filtering.</div>
+                    <div class="c4-app-btn-title">Phase Alignment &amp; Gain Staging</div>
+                    <div class="c4-app-btn-desc">Calibrate nominal -18 dBFS levels, diagnose multi-mic drum polarities (180° flip), and eliminate destructive comb filtering.</div>
                 </div>
-                <div class="c4-app-btn-action">Start Practical Task &rarr;</div>
+                <div class="c4-app-btn-action">Launch Phase &amp; Gain Task &rarr;</div>
             </a>
-            <a href="https://app.musictechguru.com/?quiz=c4_sidechain_lesson" target="_blank" rel="noopener" class="c4-app-btn">
+            <a href="https://app.musictechguru.com/?quiz=quiz-topic-36" target="_blank" rel="noopener" class="c4-app-btn">
                 <div>
-                    <div class="c4-app-btn-title">Sidechain Dynamic Processing</div>
-                    <div class="c4-app-btn-desc">Set key input detectors, configure threshold and ratio, and carve dynamic space between kick and sub-bass.</div>
+                    <div class="c4-app-btn-title">Sidechain Compression &amp; Dynamics</div>
+                    <div class="c4-app-btn-desc">Set key input detectors, configure threshold and ratio, and carve dynamic breathing space between kick and sub-bass.</div>
                 </div>
-                <div class="c4-app-btn-action">Start Practical Task &rarr;</div>
+                <div class="c4-app-btn-action">Launch Production Task &rarr;</div>
             </a>
-            <a href="https://app.musictechguru.com/?quiz=c4_eq_stereo_lesson" target="_blank" rel="noopener" class="c4-app-btn">
+            <a href="https://app.musictechguru.com/?quiz=quiz-topic-45" target="_blank" rel="noopener" class="c4-app-btn">
                 <div>
-                    <div class="c4-app-btn-title">Subtractive &amp; Corrective EQ</div>
-                    <div class="c4-app-btn-desc">Surgical Q-factor carving, frequency unmasking between kick and bass, and sweeping to notch harsh resonances.</div>
+                    <div class="c4-app-btn-title">Subtractive EQ &amp; Frequency Pocketing</div>
+                    <div class="c4-app-btn-desc">Surgical Q-factor carving, complementary frequency unmasking between kick and bass, and sweeping to notch harsh resonances.</div>
                 </div>
-                <div class="c4-app-btn-action">Start Practical Task &rarr;</div>
+                <div class="c4-app-btn-action">Launch EQ Pocketing Task &rarr;</div>
             </a>
-            <a href="https://app.musictechguru.com/?quiz=c4_synthesis_lesson" target="_blank" rel="noopener" class="c4-app-btn">
+            <a href="https://app.musictechguru.com/?quiz=quiz-topic-34" target="_blank" rel="noopener" class="c4-app-btn">
                 <div>
-                    <div class="c4-app-btn-title">Subtractive Synth Sound Design</div>
-                    <div class="c4-app-btn-desc">Recreate reference waveforms, adjust filter envelope cutoff, dial resonance (Q), and route LFO modulation.</div>
+                    <div class="c4-app-btn-title">Subtractive Synthesizer Sound Design</div>
+                    <div class="c4-app-btn-desc">Interactive virtual synth: shape oscillators, adjust 24dB ladder filter cutoff, dial resonance (Q), and assign LFO routing.</div>
                 </div>
-                <div class="c4-app-btn-action">Start Practical Task &rarr;</div>
+                <div class="c4-app-btn-action">Launch Interactive Synth &rarr;</div>
             </a>
-            <a href="https://app.musictechguru.com/?quiz=c4_sampling_lesson" target="_blank" rel="noopener" class="c4-app-btn">
+            <a href="https://app.musictechguru.com/?quiz=quiz-topic-39" target="_blank" rel="noopener" class="c4-app-btn">
                 <div>
-                    <div class="c4-app-btn-title">Sampling &amp; MIDI Mapping</div>
-                    <div class="c4-app-btn-desc">Set sample root notes, configure keyzone boundaries, apply velocity crossfading, and loop sustained pads.</div>
+                    <div class="c4-app-btn-title">Sample Chopping, Editing &amp; MIDI</div>
+                    <div class="c4-app-btn-desc">Interactive waveform editor: zoom to zero-crossings, slice drum loops, configure MIDI keyzones, and apply crossfades.</div>
                 </div>
-                <div class="c4-app-btn-action">Start Practical Task &rarr;</div>
+                <div class="c4-app-btn-action">Launch Sample Chopper &rarr;</div>
             </a>
-            <a href="https://app.musictechguru.com/?quiz=c4_mastering_lesson" target="_blank" rel="noopener" class="c4-app-btn">
+            <a href="https://app.musictechguru.com/?quiz=quiz-topic-35" target="_blank" rel="noopener" class="c4-app-btn">
                 <div>
-                    <div class="c4-app-btn-title">Mix Bus Glue &amp; Loudness Delivery</div>
-                    <div class="c4-app-btn-desc">2:1 VCA mix bus compression, true peak ceiling limiters (-1.0 dBTP), and -14 LUFS streaming normalization.</div>
+                    <div class="c4-app-btn-title">Audio Effects &amp; Processor Signal Chains</div>
+                    <div class="c4-app-btn-desc">Interactive rack challenge: route modulation, delays, reverbs, and serial/parallel dynamics in the correct signal chain order.</div>
                 </div>
-                <div class="c4-app-btn-action">Start Practical Task &rarr;</div>
+                <div class="c4-app-btn-action">Launch Effects Chain Rack &rarr;</div>
             </a>
         </div>
 

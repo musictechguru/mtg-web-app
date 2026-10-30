@@ -634,79 +634,37 @@ runSuite('Suite 7: Stage 5 (Case Studies) & Stage 6 (Historical Context) Expansi
 });
 
 // -------------------------------------------------------------
-// SUITE 8: Component 4 Learning Modules Rollout (All 10 Topics)
+// SUITE 8: Component 4 Curriculum Integration (Stages 1-8 Alignment)
 // -------------------------------------------------------------
-runSuite('Suite 8: Component 4 Learning Modules Rollout (All 10 Topics)', (assert, warn) => {
+runSuite('Suite 8: Component 4 Curriculum Integration (Stages 1-8 Alignment)', (assert, warn) => {
   const courseData = JSON.parse(fs.readFileSync(path.join(rootDir, 'src/data/course_data.json'), 'utf8'));
   const campaignRoute = JSON.parse(fs.readFileSync(path.join(rootDir, 'src/data/campaign_route.json'), 'utf8'));
 
-  const stage9 = courseData.sections[9];
-  assert(Boolean(stage9) && stage9.title.includes('Component 4'), 'Stage 9: Component 4 section exists in course_data.json');
-  assert(stage9.items?.length === 30, `Stage 9 has exactly 30 items (Found: ${stage9.items?.length})`);
+  assert(courseData.sections.length === 9, `Course sections count is exactly 9 (Found: ${courseData.sections.length})`);
+  assert(!courseData.sections.some(s => s.title.includes('Stage 9')), 'Stage 9 is completely retired from course_data.json');
 
-  const expectedTopics = [
-    { prefix: 'c4_fundamentals', name: 'Fundamentals & Recording' },
-    { prefix: 'c4_microphones', name: 'Microphones & Vocal Production' },
-    { prefix: 'c4_synthesis', name: 'Synthesis Sound Design' },
-    { prefix: 'c4_sampling', name: 'Sampling & MIDI' },
-    { prefix: 'c4_sidechain', name: 'Dynamic Processing / Sidechain' },
-    { prefix: 'c4_eq_stereo', name: 'EQ & Stereo Spatial Shaping' },
-    { prefix: 'c4_fx_processors', name: 'FX & Processors' },
-    { prefix: 'c4_mastering', name: 'Mastering & Loudness' },
-    { prefix: 'c4_acoustics', name: 'Acoustics & Studio Environment' },
-    { prefix: 'c4_equipment', name: 'Equipment & Signal Chains' }
+  const stage8 = courseData.sections[8];
+  assert(Boolean(stage8) && stage8.title.includes('Component 4 Mock Exam'), 'Stage 8: Component 4 Mock Exam section exists in course_data.json');
+  assert(stage8.items?.length === 3, `Stage 8 has all 3 mock exams (Found: ${stage8.items?.length})`);
+
+  // Verify existing practical tasks in Stage 3
+  const stage3 = courseData.sections[2];
+  const requiredTasks = [
+    'quiz-topic-34', // Synthesizer Fundamentals
+    'quiz-topic-35', // Audio Effects Processing
+    'quiz-topic-36', // EDM Production Techniques
+    'quiz-topic-39', // Sample Editing, Truncation & Chopping
+    'quiz-topic-45', // Frequency Spectrum & EQ Pocketing
+    'quiz-topic-46'  // Phase Alignment & Polarities
   ];
-
-  let totalC4Questions = 0;
-  let maxOptionDiff = 0;
-  let c4BrokenImages = 0;
-
-  expectedTopics.forEach(top => {
-    // Check Lesson
-    const lesson = stage9.items.find(it => it.id === `${top.prefix}_lesson` && it.type === 'lesson');
-    assert(Boolean(lesson) && lesson.content?.length > 100, `C4 Lesson ${top.name} exists with rich explanatory content`);
-
-    // Check Task
-    const task = stage9.items.find(it => it.id === `${top.prefix}_task` && it.type === 'lesson');
-    assert(Boolean(task) && task.content?.includes('Marking Criteria') && task.content?.includes('Level 3'), `C4 Practical Task ${top.name} exists with Levels-Based Edexcel marking criteria`);
-
-    // Check Quiz
-    const quiz = stage9.items.find(it => it.id === `${top.prefix}_quiz` && it.type === 'lp_quiz');
-    assert(Boolean(quiz) && quiz.questions?.length === 5, `C4 Knowledge Check Quiz ${top.name} registered with 5 questions`);
-
-    if (quiz) {
-      totalC4Questions += quiz.questions.length;
-      const posCounts = { 0: 0, 1: 0, 2: 0, 3: 0 };
-
-      quiz.questions.forEach(q => {
-        const lengths = q.answers.map(a => a.text.length);
-        const diff = Math.max(...lengths) - Math.min(...lengths);
-        if (diff > maxOptionDiff) maxOptionDiff = diff;
-        const cIdx = q.answers.findIndex(a => a.is_true === 'yes');
-        posCounts[cIdx] = (posCounts[cIdx] || 0) + 1;
-
-        if (q.explanation_image?.src) {
-          const clean = q.explanation_image.src.replace(/^\//, '');
-          if (!fs.existsSync(path.join(rootDir, 'public', clean))) {
-            c4BrokenImages++;
-          }
-        }
-      });
-
-      // Assert distributed positions
-      const zeroPositions = Object.values(posCounts).filter(c => c === 0).length;
-      assert(zeroPositions <= 1, `${top.prefix}_quiz has well-distributed answer positions (0: ${posCounts[0]}, 1: ${posCounts[1]}, 2: ${posCounts[2]}, 3: ${posCounts[3]})`);
-    }
+  requiredTasks.forEach(taskId => {
+    assert(stage3.items.some(it => it.id === taskId), `Stage 3 contains practical task ${taskId}`);
   });
 
-  assert(totalC4Questions === 50, `Total Component 4 Knowledge Check questions = 50 (Found: ${totalC4Questions})`);
-  assert(maxOptionDiff <= 15, `Strict option length balance across all C4 quizzes (Max diff: ${maxOptionDiff} chars)`);
-  assert(c4BrokenImages === 0, `All images referenced in C4 quizzes exist on disk (Broken: ${c4BrokenImages})`);
-
-  // Verify Campaign Map integration of c4_sidechain_quiz
+  // Verify Campaign Map integration of Dynamic Processing
   const round5 = campaignRoute.rounds.find(r => r.title?.includes('Dynamic Processing'));
   const nodeC4_3 = round5?.nodes?.find(n => n.id === 'node_c4_3');
-  assert(nodeC4_3?.quizId === 'c4_sidechain_quiz', `Campaign Map node_c4_3 links cleanly to c4_sidechain_quiz`);
+  assert(nodeC4_3?.quizId === 'quiz-topic-44', `Campaign Map node_c4_3 links cleanly to quiz-topic-44`);
 });
 
 // -------------------------------------------------------------
