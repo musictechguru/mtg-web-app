@@ -951,6 +951,7 @@
     
     
     
+    
     /* === ANTI-SQUASH LAYOUT OVERRIDES === */
     .deck-topbar-controls {
       width: 100% !important;
@@ -1333,7 +1334,7 @@
     function updateDeck() {
       slides.forEach((slide, idx) => {
         slide.classList.toggle('active', idx === currentSlide);
-      if (window.history && window.history.replaceState) {
+      if (window.self === window.top && window.history && window.history.replaceState) {
         window.history.replaceState({ slide: currentSlide }, '', '#slide-' + (currentSlide + 1));
       }
       });
@@ -1402,7 +1403,7 @@
 
       const vWrap = document.querySelector('.video-player-wrapper');
       if (vWrap) {
-        vWrap.innerHTML = `<iframe referrerpolicy="strict-origin-when-cross-origin" id="videoIframe" src="https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="width: 100%; height: 100%; border: 0; display: block;"></iframe>`;
+        vWrap.innerHTML = `<div class="video-player-wrapper" style="position:absolute; inset:0; width:100%; height:100%; background:#000;"></div>`;
       };
       videoModalTitle.textContent = title;
       videoModal.classList.add('open');
@@ -1549,7 +1550,7 @@
       sList.forEach(function(sl, idx) {
         sl.classList.toggle('active', idx === currentSlide);
       });
-      if (window.history && window.history.replaceState) {
+      if (window.self === window.top && window.history && window.history.replaceState) {
         window.history.replaceState({ slide: currentSlide }, '', '#slide-' + (currentSlide + 1));
       }
       var pBtn = document.getElementById('prevBtn');
@@ -1594,7 +1595,7 @@
     window.updateDeck();
   }
 
-  // Universal bulletproof openVideo / closeVideo across all 30 decks
+  // Universal zero-history openVideo / closeVideo across all 30 decks (never mutates .src on an attached iframe)
   window.openVideo = function(videoId, title) {
     if (!videoId) return;
     var cleanId = String(videoId).trim();
@@ -1610,7 +1611,7 @@
     }
 
     var watchUrl = 'https://www.youtube.com/watch?v=' + cleanId;
-    var embedUrl = 'https://www.youtube-nocookie.com/embed/' + cleanId + '?autoplay=1&rel=0&modestbranding=1&vq=hd1080&playsinline=1';
+    var embedUrl = 'https://www.youtube-nocookie.com/embed/' + cleanId + '?autoplay=1&rel=0&modestbranding=1&vq=hd1080&playsinline=1&enablejsapi=1';
 
     // Update modal title
     var titleTextEl = document.getElementById('videoModalTitleText');
@@ -1627,17 +1628,10 @@
       if (a) a.href = watchUrl;
     });
 
-    // Inject or update the YouTube iframe inside the modal
+    // Always create a fresh <iframe> inside wrapper (never mutating .src on an attached iframe, so window.history is untouched)
     var wrapper = modal.querySelector('.video-player-wrapper') || document.getElementById('videoPlayerWrapper');
-    var existingIframe = document.getElementById('videoIframe') || document.getElementById('videoModalIframe') || modal.querySelector('iframe');
-
-    if (wrapper && !existingIframe) {
-      wrapper.innerHTML = '<iframe id="videoIframe" referrerpolicy="strict-origin-when-cross-origin" src="' + embedUrl + '" title="' + (title || 'YouTube Video').replace(/"/g, '&quot;') + '" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="width: 100%; height: 100%; border: 0; display: block;"></iframe>';
-    } else if (existingIframe) {
-      existingIframe.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
-      existingIframe.src = embedUrl;
-    } else if (wrapper) {
-      wrapper.innerHTML = '<iframe id="videoIframe" referrerpolicy="strict-origin-when-cross-origin" src="' + embedUrl + '" title="' + (title || 'YouTube Video').replace(/"/g, '&quot;') + '" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="width: 100%; height: 100%; border: 0; display: block;"></iframe>';
+    if (wrapper) {
+      wrapper.innerHTML = '<iframe id="videoIframe" referrerpolicy="strict-origin-when-cross-origin" src="' + embedUrl + '" title="' + (title || 'YouTube Video').replace(/"/g, '&quot;') + '" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="position:absolute; inset:0; width:100%; height:100%; border:0; display:block;"></iframe>';
     }
 
     modal.classList.add('open');
@@ -1649,16 +1643,55 @@
     if (!modal) return;
     modal.classList.remove('open');
     modal.style.display = 'none';
-    var existingIframe = document.getElementById('videoIframe') || document.getElementById('videoModalIframe') || modal.querySelector('iframe');
-    if (existingIframe) {
-      existingIframe.src = '';
+    var wrappers = modal.querySelectorAll('.video-player-wrapper, #videoPlayerWrapper');
+    for (var i = 0; i < wrappers.length; i++) {
+      wrappers[i].innerHTML = '';
     }
-    var wrapper = modal.querySelector('.video-player-wrapper') || document.getElementById('videoPlayerWrapper');
-    if (wrapper && !document.getElementById('videoModalIframe')) {
-      wrapper.innerHTML = '';
+    var iframes = modal.querySelectorAll('iframe');
+    for (var j = 0; j < iframes.length; j++) {
+      iframes[j].remove();
     }
   };
   window.closeVideoModal = window.closeVideo;
+
+  // Smart exitDeck handler that respects fullscreen, embedded iframes, and browser back history
+  window.exitDeck = function() {
+    if (document.fullscreenElement || document.webkitFullscreenElement) {
+      if (document.exitFullscreen) {
+        document.exitFullscreen().catch(function() {});
+      } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+      }
+      return;
+    }
+    var fallbackUrl = 'https://www.musictechguru.com/homepage/a-level-music-technology/component-3-music-technology-in-context/';
+    if (window.location.pathname.indexOf('component-1') !== -1) {
+      fallbackUrl = 'https://www.musictechguru.com/homepage/a-level-music-technology/component-1-recording-mixing/';
+    } else if (window.location.pathname.indexOf('component-2') !== -1) {
+      fallbackUrl = 'https://www.musictechguru.com/homepage/a-level-music-technology/component-2-sequencing-sampling-synthesis-composition/';
+    } else if (window.location.pathname.indexOf('component-4') !== -1) {
+      fallbackUrl = 'https://www.musictechguru.com/homepage/a-level-music-technology/component-4-production-analysing/';
+    }
+    if (window.self !== window.top) {
+      try {
+        if (window.top.history.length > 1) {
+          window.top.history.back();
+        } else {
+          window.top.location.href = fallbackUrl;
+        }
+      } catch (e) {
+        window.top.location.href = fallbackUrl;
+      }
+      return;
+    }
+    if (window.opener) {
+      window.close();
+    } else if (window.history.length > 1) {
+      window.history.back();
+    } else {
+      window.location.href = fallbackUrl;
+    }
+  };
 
   window.addEventListener('DOMContentLoaded', function() {
     var modal = document.getElementById('videoModal') || document.getElementById('videoModalBackdrop');

@@ -96,55 +96,56 @@ const getStageCountLabel = (section, isTopicSection, topicGroupCount) => {
   return `${count} ${count === 1 ? 'Quiz' : 'Quizzes'}`;
 };
 
+const resolveItemFromLocation = (useDevSession = false) => {
+  if (typeof window === 'undefined') return null;
+  const params = new URLSearchParams(window.location.search);
+  let quizParam = params.get('quiz') || (useDevSession && isDev ? sessionStorage.getItem('mtg_dev_quiz') : null);
+
+  // Support clean path routing like /topic/ID or /revision/ID
+  const path = window.location.pathname;
+  if (!quizParam && (path.startsWith('/topic/') || path.startsWith('/revision/'))) {
+    const parts = path.split('/');
+    if (parts.length > 2 && parts[2]) {
+      quizParam = decodeURIComponent(parts[2]);
+    }
+  }
+
+  const quickfireParam = params.get('quickfire') || params.get('daily5');
+  if (quickfireParam === 'true' || quizParam === 'quick_fire_daily5' || quizParam === 'quickfire' || quizParam === 'daily5') {
+    return { id: 'quick_fire_daily5', type: 'quick_fire_daily5', title: 'Daily 5 Quick-Fire Drill' };
+  }
+  if (params.get('upgrade') === 'true' || quizParam === 'upgrade' || quizParam === 'pricing' || quizParam === 'pro') {
+    return { type: 'premium_locked', title: 'MTG Pro Membership & Classroom Packs' };
+  }
+  if (quizParam) {
+    if (quizParam === 'dictionary_selector') {
+      return { type: 'dictionary_selector', title: 'Dictionary Quizzes' };
+    }
+    if (quizParam === 'tracksheet_creator') {
+      return { id: 'tracksheet_creator', type: 'tracksheet_creator', title: 'Component 1: Track Sheet & Logbook', isPremium: true };
+    }
+    if (quizParam === 'component1_guide' || quizParam === 'c1_guide') {
+      return { id: 'component1_guide', type: 'component1_guide', title: 'Component 1: Recording Guide & Tick List', isPremium: true };
+    }
+    if (quizParam === 'component2_guide' || quizParam === 'c2_guide') {
+      return { id: 'component2_guide', type: 'component2_guide', title: 'Component 2: Composition Guide & Logbook', isPremium: true };
+    }
+    if (quizParam === 'lp_fingerprints' || quizParam === 'fingerprints') {
+      return { id: 'lp_fingerprints', type: 'lp_fingerprints', title: 'Sonic Fingerprints: Production Analysis', isPremium: true };
+    }
+    if (quizParam === 'timetable_builder' || quizParam === 'timetable' || quizParam === 'scheme_of_work') {
+      return { type: 'timetable_builder', title: '16-Block Timetable & Scheme of Work' };
+    }
+    const found = findCourseItem(quizParam);
+    if (found) return found;
+  }
+  return null;
+};
+
 // Logic Component
 const MainApp = () => {
   const { currentUser, userProgress, loading, needsPasswordReset } = useUser();
-  const [activeItem, setActiveItem] = useState(() => {
-    if (typeof window !== 'undefined') {
-      const params = new URLSearchParams(window.location.search);
-      let quizParam = params.get('quiz') || (isDev ? sessionStorage.getItem('mtg_dev_quiz') : null);
-
-      // Support clean path routing like /topic/ID or /revision/ID
-      const path = window.location.pathname;
-      if (!quizParam && (path.startsWith('/topic/') || path.startsWith('/revision/'))) {
-        const parts = path.split('/');
-        if (parts.length > 2 && parts[2]) {
-          quizParam = decodeURIComponent(parts[2]);
-        }
-      }
-
-      const quickfireParam = params.get('quickfire') || params.get('daily5');
-      if (quickfireParam === 'true' || quizParam === 'quick_fire_daily5' || quizParam === 'quickfire' || quizParam === 'daily5') {
-        return { id: 'quick_fire_daily5', type: 'quick_fire_daily5', title: 'Daily 5 Quick-Fire Drill' };
-      }
-      if (params.get('upgrade') === 'true' || quizParam === 'upgrade' || quizParam === 'pricing' || quizParam === 'pro') {
-        return { type: 'premium_locked', title: 'MTG Pro Membership & Classroom Packs' };
-      }
-      if (quizParam) {
-        if (quizParam === 'dictionary_selector') {
-          return { type: 'dictionary_selector', title: 'Dictionary Quizzes' };
-        }
-        if (quizParam === 'tracksheet_creator') {
-          return { id: 'tracksheet_creator', type: 'tracksheet_creator', title: 'Component 1: Track Sheet & Logbook', isPremium: true };
-        }
-        if (quizParam === 'component1_guide' || quizParam === 'c1_guide') {
-          return { id: 'component1_guide', type: 'component1_guide', title: 'Component 1: Recording Guide & Tick List', isPremium: true };
-        }
-        if (quizParam === 'component2_guide' || quizParam === 'c2_guide') {
-          return { id: 'component2_guide', type: 'component2_guide', title: 'Component 2: Composition Guide & Logbook', isPremium: true };
-        }
-        if (quizParam === 'lp_fingerprints' || quizParam === 'fingerprints') {
-          return { id: 'lp_fingerprints', type: 'lp_fingerprints', title: 'Sonic Fingerprints: Production Analysis', isPremium: true };
-        }
-        if (quizParam === 'timetable_builder' || quizParam === 'timetable' || quizParam === 'scheme_of_work') {
-          return { type: 'timetable_builder', title: '16-Block Timetable & Scheme of Work' };
-        }
-        const found = findCourseItem(quizParam);
-        if (found) return found;
-      }
-    }
-    return null;
-  });
+  const [activeItem, setActiveItem] = useState(() => resolveItemFromLocation(true));
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showWelcomeVideo, setShowWelcomeVideo] = useState(false);
   const [expandedTopic, setExpandedTopic] = useState(() => {
@@ -160,7 +161,13 @@ const MainApp = () => {
     }
     return null;
   });
-  const [appView, setAppView] = useState('student');
+  const [appView, setAppView] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get('view') === 'teacher') return 'teacher';
+    }
+    return 'student';
+  });
   const [inviteTeacherId, setInviteTeacherId] = useState(null);
   const [showProfileSettings, setShowProfileSettings] = useState(false);
 
@@ -357,12 +364,65 @@ const MainApp = () => {
     setShowWelcomeVideo(false);
   }, []);
 
+  // Listen to browser Back / Forward buttons (popstate)
+  useEffect(() => {
+    const handlePopState = () => {
+      const params = new URLSearchParams(window.location.search);
+      const path = window.location.pathname;
+      setMobileMenuOpen(false);
+      setShowProfileSettings(false);
+
+      if (path.startsWith('/invite/')) {
+        const parts = path.split('/');
+        if (parts.length > 2 && parts[2]) {
+          setInviteTeacherId(parts[2]);
+          setAppView('invite');
+          return;
+        }
+      }
+
+      if (params.get('view') === 'teacher') {
+        setAppView('teacher');
+        setActiveItem(null);
+        window.scrollTo(0, 0);
+        return;
+      }
+
+      setAppView('student');
+      const nextItem = resolveItemFromLocation(false);
+      if (nextItem) {
+        if (isPremiumItem(nextItem) && !currentUser?.is_premium) {
+          setActiveItem({ type: 'premium_locked', title: nextItem.title || 'Premium Feature' });
+        } else {
+          setActiveItem(nextItem);
+        }
+      } else {
+        setActiveItem(null);
+      }
+      window.scrollTo(0, 0);
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, [currentUser?.is_premium]);
+
   // Normal App Logic Handlers
   const handleItemSelect = (item) => {
+    setAppView('student');
+    setShowProfileSettings(false);
+
     // Premium Check
     if (isPremiumItem(item) && !currentUser?.is_premium) {
       setActiveItem({ type: 'premium_locked', title: item.title || 'Premium Feature' });
       window.scrollTo(0, 0);
+      if (typeof window !== 'undefined') {
+        const url = new URL(window.location.href);
+        url.searchParams.delete('view');
+        url.searchParams.set('upgrade', 'true');
+        if (url.toString() !== window.location.href) {
+          window.history.pushState({ upgrade: true }, '', url.toString());
+        }
+      }
       return;
     }
 
@@ -384,25 +444,60 @@ const MainApp = () => {
 
     if (typeof window !== 'undefined') {
       const url = new URL(window.location.href);
-      const quizId = item.id || item.title || (item.type === 'dictionary_selector' ? 'dictionary_selector' : null);
+      if (url.pathname.startsWith('/topic/') || url.pathname.startsWith('/revision/')) {
+        url.pathname = '/';
+      }
+      url.searchParams.delete('view');
+      url.searchParams.delete('upgrade');
+      url.searchParams.delete('quickfire');
+      url.searchParams.delete('daily5');
+      const quizId = item.id || item.title || (item.type === 'dictionary_selector' ? 'dictionary_selector' : item.type === 'timetable_builder' ? 'timetable_builder' : item.type === 'premium_locked' ? 'upgrade' : null);
       if (quizId) {
         url.searchParams.set('quiz', quizId);
         if (isDev) {
           sessionStorage.setItem('mtg_dev_quiz', quizId);
         }
       }
-      window.history.replaceState({}, '', url.toString());
+      if (url.toString() !== window.location.href) {
+        window.history.pushState({ quizId }, '', url.toString());
+      }
     }
   };
 
   const goToDashboard = () => {
     setActiveItem(null);
+    setAppView('student');
+    setShowProfileSettings(false);
+    window.scrollTo(0, 0);
+    if (typeof window !== 'undefined') {
+      const url = new URL(window.location.href);
+      if (url.pathname.startsWith('/topic/') || url.pathname.startsWith('/revision/')) {
+        url.pathname = '/';
+      }
+      url.searchParams.delete('quiz');
+      url.searchParams.delete('q');
+      url.searchParams.delete('view');
+      url.searchParams.delete('upgrade');
+      url.searchParams.delete('quickfire');
+      url.searchParams.delete('daily5');
+      sessionStorage.removeItem('mtg_dev_quiz');
+      if (url.toString() !== window.location.href) {
+        window.history.pushState({ dashboard: true }, '', url.toString());
+      }
+    }
+  };
+
+  const openTeacherDashboard = () => {
+    setAppView('teacher');
+    setMobileMenuOpen(false);
+    window.scrollTo(0, 0);
     if (typeof window !== 'undefined') {
       const url = new URL(window.location.href);
       url.searchParams.delete('quiz');
-      url.searchParams.delete('q');
-      sessionStorage.removeItem('mtg_dev_quiz');
-      window.history.replaceState({}, '', url.toString());
+      url.searchParams.set('view', 'teacher');
+      if (url.toString() !== window.location.href) {
+        window.history.pushState({ view: 'teacher' }, '', url.toString());
+      }
     }
   };
 
@@ -444,7 +539,7 @@ const MainApp = () => {
     }
     return (
       <Suspense fallback={<LoadingFallback />}>
-        <TeacherDashboard onBack={() => setAppView('student')} />
+        <TeacherDashboard onBack={goToDashboard} />
       </Suspense>
     );
   }
@@ -527,10 +622,7 @@ const MainApp = () => {
         <nav>
           <button
             className={`nav-item ${appView === 'teacher' ? 'active' : ''}`}
-            onClick={() => {
-              setAppView('teacher');
-              setMobileMenuOpen(false);
-            }}
+            onClick={openTeacherDashboard}
             style={{ marginBottom: '20px', fontWeight: 'bold', color: 'var(--accent-purple)', border: '1px solid var(--accent-purple)' }}
           >
             Teacher Dashboard
