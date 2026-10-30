@@ -275,15 +275,18 @@
       color: var(--text-dim);
     }
 
+    /* True 16:9 Video Container with sharp rendering */
     .video-container {
       position: relative;
-      padding-bottom: 44%;
+      width: 100%;
+      padding-bottom: 56.25% !important; /* Standard 16:9 */
       height: 0;
       overflow: hidden;
       border-radius: 8px;
       background: #000;
       margin-bottom: 6px !important;
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
       flex-shrink: 0 !important;
     }
 
@@ -294,6 +297,57 @@
       width: 100%;
       height: 100%;
       border: 0;
+    }
+
+    /* Video Action Buttons (HD Theater & Direct YouTube) */
+    .video-actions-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+      flex-wrap: wrap;
+      flex-shrink: 0 !important;
+    }
+
+    .hd-theater-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #00C1F0;
+      background: rgba(0, 193, 240, 0.12);
+      border: 1px solid rgba(0, 193, 240, 0.3);
+      padding: 4px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .hd-theater-btn:hover {
+      background: rgba(0, 193, 240, 0.25);
+      border-color: #00C1F0;
+      transform: translateY(-1px);
+    }
+
+    .yt-direct-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #ffffff !important;
+      background: rgba(239, 68, 68, 0.2);
+      border: 1px solid rgba(239, 68, 68, 0.45);
+      padding: 4px 10px;
+      border-radius: 6px;
+      text-decoration: none !important;
+      transition: all 0.2s ease;
+    }
+    .yt-direct-btn:hover {
+      background: rgba(239, 68, 68, 0.4);
+      border-color: #ef4444;
+      transform: translateY(-1px);
     }
 
     .track-meta {
@@ -616,7 +670,7 @@
       font-weight: 600;
     }
 
-    /* Lightbox Modal */
+    /* Lightbox Modal (Images) */
     .image-modal-backdrop {
       display: none;
       position: fixed;
@@ -708,6 +762,85 @@
       background: #ef4444;
       border-color: #ef4444;
     }
+
+    /* Video Theater HD Modal */
+    .video-modal-backdrop {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      z-index: 99998;
+      justify-content: center;
+      align-items: center;
+      padding: 24px;
+      box-sizing: border-box;
+    }
+
+    .video-modal-backdrop.open {
+      display: flex;
+    }
+
+    .video-modal-content {
+      width: 90vw;
+      max-width: 1180px;
+      height: 82vh;
+      max-height: 720px;
+      background: #0f172a;
+      border: 1px solid rgba(0, 193, 240, 0.4);
+      border-radius: 14px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.9), 0 0 35px rgba(0, 193, 240, 0.2);
+    }
+
+    .video-modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 18px;
+      background: #080e1a;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .video-modal-title {
+      color: #ffffff;
+      font-size: 14px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .video-player-wrapper {
+      flex: 1;
+      width: 100%;
+      background: #000000;
+      position: relative;
+    }
+
+    .video-player-wrapper iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+    }
+
+    .video-modal-footer {
+      padding: 10px 18px;
+      background: #080e1a;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: #94a3b8;
+    }
   </style>
 </head>
 <body>
@@ -758,15 +891,27 @@
           </div>
 
           <div class="video-container">
-            <iframe src="https://www.youtube-nocookie.com/embed/eI4k12bQGyY?rel=0&modestbranding=1" 
-                    title="How to Score FULL MARKS in Component 4 – Fix This NOW!" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            <iframe src="https://www.youtube-nocookie.com/embed/eI4k12bQGyY?rel=0&modestbranding=1&vq=hd1080&playsinline=1" 
+                    title="How to Score FULL MARKS in Component 4 – Fix This NOW! 🔥" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
                     referrerpolicy="strict-origin-when-cross-origin"
                     allowfullscreen></iframe>
           </div>
 
+          <div class="video-actions-bar">
+            <button class="hd-theater-btn" onclick="openVideo('eI4k12bQGyY', 'How to Score FULL MARKS in Component 4 – Fix This NOW! 🔥')">
+              <span>⛶ Watch in HD (Theater Mode)</span>
+            </button>
+            <a href="https://www.youtube.com/watch?v=eI4k12bQGyY" target="_blank" rel="noopener noreferrer" class="yt-direct-btn">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;">
+                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+              </svg>
+              <span>YouTube ↗</span>
+            </a>
+          </div>
+
           <div class="track-meta">
-            <div class="track-title">How to Score FULL MARKS in Component 4 – Fix This NOW!</div>
+            <div class="track-title">How to Score FULL MARKS in Component 4 – Fix This NOW! 🔥</div>
             <div class="track-artist">Music Tech Guru Masterclass</div>
           </div>
 
@@ -850,15 +995,27 @@
           </div>
 
           <div class="video-container">
-            <iframe src="https://www.youtube-nocookie.com/embed/6Tb2auJ52xI?rel=0&modestbranding=1" 
-                    title="Creative Audio Manipulation for Component 4" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            <iframe src="https://www.youtube-nocookie.com/embed/6Tb2auJ52xI?rel=0&modestbranding=1&vq=hd1080&playsinline=1" 
+                    title="A-Level Music Tech: Creative Audio Manipulation for Component 4" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
                     referrerpolicy="strict-origin-when-cross-origin"
                     allowfullscreen></iframe>
           </div>
 
+          <div class="video-actions-bar">
+            <button class="hd-theater-btn" onclick="openVideo('6Tb2auJ52xI', 'A-Level Music Tech: Creative Audio Manipulation for Component 4')">
+              <span>⛶ Watch in HD (Theater Mode)</span>
+            </button>
+            <a href="https://www.youtube.com/watch?v=6Tb2auJ52xI" target="_blank" rel="noopener noreferrer" class="yt-direct-btn">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;">
+                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+              </svg>
+              <span>YouTube ↗</span>
+            </a>
+          </div>
+
           <div class="track-meta">
-            <div class="track-title">Creative Audio Manipulation for Component 4</div>
+            <div class="track-title">A-Level Music Tech: Creative Audio Manipulation for Component 4</div>
             <div class="track-artist">Music Tech Guru Tutorial</div>
           </div>
 
@@ -937,21 +1094,33 @@
         <!-- LEFT: PRACTICAL DAW AUDIO & VIDEO FOCUS -->
         <div class="column-panel prod-col">
           <div class="panel-header">
-            <span class="panel-badge prod-badge">Hardware & Plugin Analysis</span>
-            <span class="panel-title">VCA vs FET vs Opto Compressor Topologies</span>
+            <span class="panel-badge prod-badge">Logic Pro Masterclass</span>
+            <span class="panel-title">Parallel Compression in Logic Pro – A-Level Music Tech</span>
           </div>
 
           <div class="video-container">
-            <iframe src="https://www.youtube-nocookie.com/embed/VrnqkEQmT6I?rel=0&modestbranding=1" 
-                    title="Classic Compressor Topologies in the Studio" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            <iframe src="https://www.youtube-nocookie.com/embed/uRa_OcpDSGE?rel=0&modestbranding=1&vq=hd1080&playsinline=1" 
+                    title="Parallel Compression in Logic Pro – A-Level Music Tech Tutorial" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
                     referrerpolicy="strict-origin-when-cross-origin"
                     allowfullscreen></iframe>
           </div>
 
+          <div class="video-actions-bar">
+            <button class="hd-theater-btn" onclick="openVideo('uRa_OcpDSGE', 'Parallel Compression in Logic Pro – A-Level Music Tech Tutorial')">
+              <span>⛶ Watch in HD (Theater Mode)</span>
+            </button>
+            <a href="https://www.youtube.com/watch?v=uRa_OcpDSGE" target="_blank" rel="noopener noreferrer" class="yt-direct-btn">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;">
+                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+              </svg>
+              <span>YouTube ↗</span>
+            </a>
+          </div>
+
           <div class="track-meta">
-            <div class="track-title">Classic Compressor Topologies in the Studio</div>
-            <div class="track-artist">Music Technology Masterclass</div>
+            <div class="track-title">Parallel Compression in Logic Pro – A-Level Music Tech Tutorial</div>
+            <div class="track-artist">Music Tech Guru Tutorial</div>
           </div>
 
           <div class="ear-training-box">
@@ -961,7 +1130,7 @@
             </div>
             <ul class="ear-points">
               <li>Fast attack (<1ms) crushes drum transients, pushing the snare backward in the mix; slower attack (15–30ms) lets initial stick-crack poke through before clamping body.</li>
-              <li>Release time must breathe in musical tempo with the groove: too fast causes pumping distortion; too slow suffocates the next incoming transient hit.</li>
+              <li>Parallel (New York) compression blends heavily smashed transient punch with natural uncompressed dynamics, delivering massive fatness without sacrificing life.</li>
             </ul>
           </div>
 
@@ -1034,15 +1203,27 @@
           </div>
 
           <div class="video-container">
-            <iframe src="https://www.youtube-nocookie.com/embed/jvBmG0NwMpI?rel=0&modestbranding=1" 
-                    title="Channel EQ Surgical Carving & Filtering" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            <iframe src="https://www.youtube-nocookie.com/embed/jvBmG0NwMpI?rel=0&modestbranding=1&vq=hd1080&playsinline=1" 
+                    title="Channel EQ in Logic Pro X – Essential Tips for Beginners!" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
                     referrerpolicy="strict-origin-when-cross-origin"
                     allowfullscreen></iframe>
           </div>
 
+          <div class="video-actions-bar">
+            <button class="hd-theater-btn" onclick="openVideo('jvBmG0NwMpI', 'Channel EQ in Logic Pro X – Essential Tips for Beginners!')">
+              <span>⛶ Watch in HD (Theater Mode)</span>
+            </button>
+            <a href="https://www.youtube.com/watch?v=jvBmG0NwMpI" target="_blank" rel="noopener noreferrer" class="yt-direct-btn">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;">
+                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+              </svg>
+              <span>YouTube ↗</span>
+            </a>
+          </div>
+
           <div class="track-meta">
-            <div class="track-title">Channel EQ Surgical Carving & Filtering</div>
+            <div class="track-title">Channel EQ in Logic Pro X – Essential Tips for Beginners!</div>
             <div class="track-artist">Music Tech Guru Masterclass</div>
           </div>
 
@@ -1121,21 +1302,33 @@
         <!-- LEFT: PRACTICAL DAW AUDIO & VIDEO FOCUS -->
         <div class="column-panel prod-col">
           <div class="panel-header">
-            <span class="panel-badge prod-badge">Spatial Audio Tutorial</span>
-            <span class="panel-title">Panning Laws, Mid/Side Matrix & Mono Compatibility</span>
+            <span class="panel-badge prod-badge">Mixdown Masterclass</span>
+            <span class="panel-title">How to Get Top Marks in A-Level Music Tech Mixing</span>
           </div>
 
           <div class="video-container">
-            <iframe src="https://www.youtube-nocookie.com/embed/HaZpZQG2z10?rel=0&modestbranding=1" 
-                    title="Spatial Positioning & Mid/Side Processing in Context" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            <iframe src="https://www.youtube-nocookie.com/embed/0amjhDBUn4M?rel=0&modestbranding=1&vq=hd1080&playsinline=1" 
+                    title="How to Get Top Marks in A-Level Music Tech Mixing (Component 1 &amp; 4)" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
                     referrerpolicy="strict-origin-when-cross-origin"
                     allowfullscreen></iframe>
           </div>
 
+          <div class="video-actions-bar">
+            <button class="hd-theater-btn" onclick="openVideo('0amjhDBUn4M', 'How to Get Top Marks in A-Level Music Tech Mixing (Component 1 &amp; 4)')">
+              <span>⛶ Watch in HD (Theater Mode)</span>
+            </button>
+            <a href="https://www.youtube.com/watch?v=0amjhDBUn4M" target="_blank" rel="noopener noreferrer" class="yt-direct-btn">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;">
+                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+              </svg>
+              <span>YouTube ↗</span>
+            </a>
+          </div>
+
           <div class="track-meta">
-            <div class="track-title">Spatial Positioning & Mid/Side Processing in Context</div>
-            <div class="track-artist">Music Technology Masterclass</div>
+            <div class="track-title">How to Get Top Marks in A-Level Music Tech Mixing (Component 1 &amp; 4)</div>
+            <div class="track-artist">Music Tech Guru Masterclass</div>
           </div>
 
           <div class="ear-training-box">
@@ -1213,21 +1406,33 @@
         <!-- LEFT: PRACTICAL DAW AUDIO & VIDEO FOCUS -->
         <div class="column-panel prod-col">
           <div class="panel-header">
-            <span class="panel-badge prod-badge">Studio Effects Masterclass</span>
-            <span class="panel-title">Reverb Pre-Delay, Decay Time & Aux Send Architecture</span>
+            <span class="panel-badge prod-badge">Logic Pro Tutorial</span>
+            <span class="panel-title">How to Use Reverb (Basic to Pro) on Logic Pro X</span>
           </div>
 
           <div class="video-container">
-            <iframe src="https://www.youtube-nocookie.com/embed/4ZipvGWO2bQ?rel=0&modestbranding=1" 
-                    title="Reverb in Context: Auxiliary Busses & Acoustic Space" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            <iframe src="https://www.youtube-nocookie.com/embed/PfPCYzpZnXo?rel=0&modestbranding=1&vq=hd1080&playsinline=1" 
+                    title="How to use reverb (basic) on Logic Pro X" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
                     referrerpolicy="strict-origin-when-cross-origin"
                     allowfullscreen></iframe>
           </div>
 
+          <div class="video-actions-bar">
+            <button class="hd-theater-btn" onclick="openVideo('PfPCYzpZnXo', 'How to use reverb (basic) on Logic Pro X')">
+              <span>⛶ Watch in HD (Theater Mode)</span>
+            </button>
+            <a href="https://www.youtube.com/watch?v=PfPCYzpZnXo" target="_blank" rel="noopener noreferrer" class="yt-direct-btn">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;">
+                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+              </svg>
+              <span>YouTube ↗</span>
+            </a>
+          </div>
+
           <div class="track-meta">
-            <div class="track-title">Reverb in Context: Auxiliary Busses & Acoustic Space</div>
-            <div class="track-artist">Music Technology Tutorial</div>
+            <div class="track-title">How to use reverb (basic) on Logic Pro X</div>
+            <div class="track-artist">Music Tech Guru Tutorial</div>
           </div>
 
           <div class="ear-training-box">
@@ -1306,20 +1511,32 @@
         <div class="column-panel prod-col">
           <div class="panel-header">
             <span class="panel-badge prod-badge">Synthesis Masterclass</span>
-            <span class="panel-title">Recreating Reference Synth Patches in the Exam</span>
+            <span class="panel-title">How to Use the Retro Synth in Logic Pro X</span>
           </div>
 
           <div class="video-container">
-            <iframe src="https://www.youtube-nocookie.com/embed/4_9X2h0v0cI?rel=0&modestbranding=1" 
-                    title="Subtractive Synthesis & Sound Design for Component 4" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            <iframe src="https://www.youtube-nocookie.com/embed/tBrkY4mQ_D4?rel=0&modestbranding=1&vq=hd1080&playsinline=1" 
+                    title="How to use the RETRO SYNTH in Logic Pro X. Simple Music Production tutorial" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
                     referrerpolicy="strict-origin-when-cross-origin"
                     allowfullscreen></iframe>
           </div>
 
+          <div class="video-actions-bar">
+            <button class="hd-theater-btn" onclick="openVideo('tBrkY4mQ_D4', 'How to use the RETRO SYNTH in Logic Pro X. Simple Music Production tutorial')">
+              <span>⛶ Watch in HD (Theater Mode)</span>
+            </button>
+            <a href="https://www.youtube.com/watch?v=tBrkY4mQ_D4" target="_blank" rel="noopener noreferrer" class="yt-direct-btn">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;">
+                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+              </svg>
+              <span>YouTube ↗</span>
+            </a>
+          </div>
+
           <div class="track-meta">
-            <div class="track-title">Subtractive Synthesis & Sound Design for Component 4</div>
-            <div class="track-artist">Music Technology Masterclass</div>
+            <div class="track-title">How to use the RETRO SYNTH in Logic Pro X. Simple Music Production tutorial</div>
+            <div class="track-artist">Music Tech Guru Masterclass</div>
           </div>
 
           <div class="ear-training-box">
@@ -1398,19 +1615,31 @@
         <div class="column-panel prod-col">
           <div class="panel-header">
             <span class="panel-badge prod-badge">Exam Walkthrough Video</span>
-            <span class="panel-title">2019 Production & Analysing Exam (Sample Paper Guidance)</span>
+            <span class="panel-title">2019 Production & Analysing Exam Guidance (Question 1)</span>
           </div>
 
           <div class="video-container">
-            <iframe src="https://www.youtube-nocookie.com/embed/MZb-bW6z5wI?rel=0&modestbranding=1" 
-                    title="Edexcel Component 4 Guidance Video (Question 1)" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            <iframe src="https://www.youtube-nocookie.com/embed/MZb-bW6z5wI?rel=0&modestbranding=1&vq=hd1080&playsinline=1" 
+                    title="Edexcel A Level Music Technology - Component 4 Exam 2019 Guidance Video (Question 1)" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
                     referrerpolicy="strict-origin-when-cross-origin"
                     allowfullscreen></iframe>
           </div>
 
+          <div class="video-actions-bar">
+            <button class="hd-theater-btn" onclick="openVideo('MZb-bW6z5wI', 'Edexcel A Level Music Technology - Component 4 Exam 2019 Guidance Video (Question 1)')">
+              <span>⛶ Watch in HD (Theater Mode)</span>
+            </button>
+            <a href="https://www.youtube.com/watch?v=MZb-bW6z5wI" target="_blank" rel="noopener noreferrer" class="yt-direct-btn">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;">
+                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+              </svg>
+              <span>YouTube ↗</span>
+            </a>
+          </div>
+
           <div class="track-meta">
-            <div class="track-title">Edexcel Component 4 Guidance Video (Question 1)</div>
+            <div class="track-title">Edexcel A Level Music Technology - Component 4 Exam 2019 Guidance Video (Question 1)</div>
             <div class="track-artist">Music Tech Guru Official Exam Guide</div>
           </div>
 
@@ -1494,15 +1723,27 @@
           </div>
 
           <div class="video-container">
-            <iframe src="https://www.youtube-nocookie.com/embed/BNQIKRvOi9c?rel=0&modestbranding=1" 
-                    title="Mixdown Balance, Bus Processing & Master Export" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            <iframe src="https://www.youtube-nocookie.com/embed/BNQIKRvOi9c?rel=0&modestbranding=1&vq=hd1080&playsinline=1" 
+                    title="Basic Mastering on Logic Pro X. Walkthrough and tips" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
                     referrerpolicy="strict-origin-when-cross-origin"
                     allowfullscreen></iframe>
           </div>
 
+          <div class="video-actions-bar">
+            <button class="hd-theater-btn" onclick="openVideo('BNQIKRvOi9c', 'Basic Mastering on Logic Pro X. Walkthrough and tips')">
+              <span>⛶ Watch in HD (Theater Mode)</span>
+            </button>
+            <a href="https://www.youtube.com/watch?v=BNQIKRvOi9c" target="_blank" rel="noopener noreferrer" class="yt-direct-btn">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;">
+                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+              </svg>
+              <span>YouTube ↗</span>
+            </a>
+          </div>
+
           <div class="track-meta">
-            <div class="track-title">Mixdown Balance, Bus Processing & Master Export</div>
+            <div class="track-title">Basic Mastering on Logic Pro X. Walkthrough and tips</div>
             <div class="track-artist">Music Tech Guru Tutorial</div>
           </div>
 
@@ -1582,19 +1823,31 @@
         <div class="column-panel prod-col">
           <div class="panel-header">
             <span class="panel-badge prod-badge">Exam Essay Masterclass</span>
-            <span class="panel-title">How to Ace the Edexcel Music Tech Component 4 Exam</span>
+            <span class="panel-title">How to Ace the 2022 Edexcel Music Tech Component 4 Exam!</span>
           </div>
 
           <div class="video-container">
-            <iframe src="https://www.youtube-nocookie.com/embed/vejjQ0Lurrk?rel=0&modestbranding=1" 
-                    title="How to Ace the Edexcel Music Tech Component 4 Exam!" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            <iframe src="https://www.youtube-nocookie.com/embed/vejjQ0Lurrk?rel=0&modestbranding=1&vq=hd1080&playsinline=1" 
+                    title="How to Ace the 2022 Edexcel Music Tech Component 4 Exam!" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
                     referrerpolicy="strict-origin-when-cross-origin"
                     allowfullscreen></iframe>
           </div>
 
+          <div class="video-actions-bar">
+            <button class="hd-theater-btn" onclick="openVideo('vejjQ0Lurrk', 'How to Ace the 2022 Edexcel Music Tech Component 4 Exam!')">
+              <span>⛶ Watch in HD (Theater Mode)</span>
+            </button>
+            <a href="https://www.youtube.com/watch?v=vejjQ0Lurrk" target="_blank" rel="noopener noreferrer" class="yt-direct-btn">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;">
+                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+              </svg>
+              <span>YouTube ↗</span>
+            </a>
+          </div>
+
           <div class="track-meta">
-            <div class="track-title">How to Ace the Edexcel Music Tech Component 4 Exam!</div>
+            <div class="track-title">How to Ace the 2022 Edexcel Music Tech Component 4 Exam!</div>
             <div class="track-artist">Music Tech Guru Tutorial</div>
           </div>
 
@@ -1699,6 +1952,29 @@
     </div>
   </div>
 
+  <!-- Video Theater HD Modal -->
+  <div class="video-modal-backdrop" id="videoModal" onclick="closeVideo()" role="dialog" aria-modal="true" aria-label="HD Video Theater">
+    <div class="video-modal-content" onclick="event.stopPropagation()">
+      <div class="video-modal-header">
+        <span class="video-modal-title" id="videoModalTitle">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="#ef4444"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+          <span id="videoModalTitleText">Video Masterclass</span>
+        </span>
+        <div style="display: flex; gap: 10px; align-items: center;">
+          <a id="videoModalExternalLink" href="#" target="_blank" rel="noopener noreferrer" class="yt-direct-btn">
+            <span>Open in YouTube ↗</span>
+          </a>
+          <button class="image-modal-close" style="position: static; margin: 0; width: 28px; height: 28px; font-size: 16px;" onclick="closeVideo()">&times;</button>
+        </div>
+      </div>
+      <div class="video-player-wrapper" id="videoPlayerWrapper"></div>
+      <div class="video-modal-footer">
+        <span>🎬 Playing in 1080p Full HD Theater View</span>
+        <a id="videoModalFooterLink" href="#" target="_blank" rel="noopener noreferrer" style="color: #00C1F0; font-weight: 700; text-decoration: none;">Watch Directly on YouTube &rarr;</a>
+      </div>
+    </div>
+  </div>
+
   <script>
     let currentSlide = 1;
     const totalSlides = 10;
@@ -1751,6 +2027,7 @@
         }
       } else if (e.key === 'Escape') {
         closeImageModal();
+        closeVideo();
         if (document.fullscreenElement || document.webkitFullscreenElement) {
           if (document.exitFullscreen) document.exitFullscreen().catch(() => {});
           else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
@@ -1791,7 +2068,33 @@
       }
     }
 
-    // Universal Lightbox
+    // Video Theater HD Modal
+    function openVideo(videoId, title) {
+      const modal = document.getElementById('videoModal');
+      const titleText = document.getElementById('videoModalTitleText');
+      const extLink = document.getElementById('videoModalExternalLink');
+      const footLink = document.getElementById('videoModalFooterLink');
+      const wrapper = document.getElementById('videoPlayerWrapper');
+
+      if (!modal || !wrapper) return;
+
+      const ytUrl = 'https://www.youtube.com/watch?v=' + videoId;
+      if (titleText) titleText.textContent = title || 'Video Masterclass';
+      if (extLink) extLink.href = ytUrl;
+      if (footLink) footLink.href = ytUrl;
+
+      wrapper.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1&vq=hd1080&playsinline=1" title="${title}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="width: 100%; height: 100%; border: 0; display: block;"></iframe>`;
+      modal.classList.add('open');
+    }
+
+    function closeVideo() {
+      const modal = document.getElementById('videoModal');
+      const wrapper = document.getElementById('videoPlayerWrapper');
+      if (modal) modal.classList.remove('open');
+      if (wrapper) wrapper.innerHTML = '';
+    }
+
+    // Universal Image Lightbox
     function openImageModal(src, captionText) {
       const modal = document.getElementById('imageModal');
       const img = document.getElementById('imageModalImg');
@@ -1814,7 +2117,7 @@
       const photo = e.target.closest('.hardware-photo');
       const target = img || (photo ? photo.querySelector('img') : null);
       if (target) {
-        if (target.closest('#imageModal') || target.classList.contains('no-expand')) return;
+        if (target.closest('#imageModal') || target.closest('#videoModal') || target.classList.contains('no-expand')) return;
         e.preventDefault();
         const cap = target.alt || target.getAttribute('title') || target.closest('.hardware-hero-card')?.querySelector('.inst-name')?.textContent || '';
         openImageModal(target.src, cap);

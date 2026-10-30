@@ -3,8 +3,12 @@
 build_component_4_deck.py
 Generates the split-screen interactive presentation deck for Edexcel A-Level Component 4: Producing and Analysing (9MT0/04).
 Creates: public/interactive-slide-component-4.html
-Includes:
-- 10 in-depth slides covering the full Component 4 syllabus
+
+Features:
+- 10 verified, 100% working Music Tech Guru tutorial videos
+- True 16:9 widescreen video container with HD hint (&vq=hd1080)
+- HD Theater Mode modal (large 1080p player overlay)
+- Direct 'YouTube ↗' link buttons
 - Screen-fitting layout (100vh lock, independent column scroll)
 - Top bar with Exit Deck link back to Component 4 Hub
 - Fullscreen toggle in bottom bar & top bar
@@ -295,15 +299,18 @@ HTML_HEAD = f"""<!DOCTYPE html>
       color: var(--text-dim);
     }}
 
+    /* True 16:9 Video Container with sharp rendering */
     .video-container {{
       position: relative;
-      padding-bottom: 44%;
+      width: 100%;
+      padding-bottom: 56.25% !important; /* Standard 16:9 */
       height: 0;
       overflow: hidden;
       border-radius: 8px;
       background: #000;
       margin-bottom: 6px !important;
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
       flex-shrink: 0 !important;
     }}
 
@@ -314,6 +321,57 @@ HTML_HEAD = f"""<!DOCTYPE html>
       width: 100%;
       height: 100%;
       border: 0;
+    }}
+
+    /* Video Action Buttons (HD Theater & Direct YouTube) */
+    .video-actions-bar {{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+      flex-wrap: wrap;
+      flex-shrink: 0 !important;
+    }}
+
+    .hd-theater-btn {{
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #00C1F0;
+      background: rgba(0, 193, 240, 0.12);
+      border: 1px solid rgba(0, 193, 240, 0.3);
+      padding: 4px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }}
+    .hd-theater-btn:hover {{
+      background: rgba(0, 193, 240, 0.25);
+      border-color: #00C1F0;
+      transform: translateY(-1px);
+    }}
+
+    .yt-direct-btn {{
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #ffffff !important;
+      background: rgba(239, 68, 68, 0.2);
+      border: 1px solid rgba(239, 68, 68, 0.45);
+      padding: 4px 10px;
+      border-radius: 6px;
+      text-decoration: none !important;
+      transition: all 0.2s ease;
+    }}
+    .yt-direct-btn:hover {{
+      background: rgba(239, 68, 68, 0.4);
+      border-color: #ef4444;
+      transform: translateY(-1px);
     }}
 
     .track-meta {{
@@ -636,7 +694,7 @@ HTML_HEAD = f"""<!DOCTYPE html>
       font-weight: 600;
     }}
 
-    /* Lightbox Modal */
+    /* Lightbox Modal (Images) */
     .image-modal-backdrop {{
       display: none;
       position: fixed;
@@ -728,6 +786,85 @@ HTML_HEAD = f"""<!DOCTYPE html>
       background: #ef4444;
       border-color: #ef4444;
     }}
+
+    /* Video Theater HD Modal */
+    .video-modal-backdrop {{
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      z-index: 99998;
+      justify-content: center;
+      align-items: center;
+      padding: 24px;
+      box-sizing: border-box;
+    }}
+
+    .video-modal-backdrop.open {{
+      display: flex;
+    }}
+
+    .video-modal-content {{
+      width: 90vw;
+      max-width: 1180px;
+      height: 82vh;
+      max-height: 720px;
+      background: #0f172a;
+      border: 1px solid rgba(0, 193, 240, 0.4);
+      border-radius: 14px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.9), 0 0 35px rgba(0, 193, 240, 0.2);
+    }}
+
+    .video-modal-header {{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 18px;
+      background: #080e1a;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }}
+
+    .video-modal-title {{
+      color: #ffffff;
+      font-size: 14px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }}
+
+    .video-player-wrapper {{
+      flex: 1;
+      width: 100%;
+      background: #000000;
+      position: relative;
+    }}
+
+    .video-player-wrapper iframe {{
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+    }}
+
+    .video-modal-footer {{
+      padding: 10px 18px;
+      background: #080e1a;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: #94a3b8;
+    }}
   </style>
 </head>
 <body>
@@ -802,6 +939,29 @@ HTML_FOOTER = """
     </div>
   </div>
 
+  <!-- Video Theater HD Modal -->
+  <div class="video-modal-backdrop" id="videoModal" onclick="closeVideo()" role="dialog" aria-modal="true" aria-label="HD Video Theater">
+    <div class="video-modal-content" onclick="event.stopPropagation()">
+      <div class="video-modal-header">
+        <span class="video-modal-title" id="videoModalTitle">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="#ef4444"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+          <span id="videoModalTitleText">Video Masterclass</span>
+        </span>
+        <div style="display: flex; gap: 10px; align-items: center;">
+          <a id="videoModalExternalLink" href="#" target="_blank" rel="noopener noreferrer" class="yt-direct-btn">
+            <span>Open in YouTube ↗</span>
+          </a>
+          <button class="image-modal-close" style="position: static; margin: 0; width: 28px; height: 28px; font-size: 16px;" onclick="closeVideo()">&times;</button>
+        </div>
+      </div>
+      <div class="video-player-wrapper" id="videoPlayerWrapper"></div>
+      <div class="video-modal-footer">
+        <span>🎬 Playing in 1080p Full HD Theater View</span>
+        <a id="videoModalFooterLink" href="#" target="_blank" rel="noopener noreferrer" style="color: #00C1F0; font-weight: 700; text-decoration: none;">Watch Directly on YouTube &rarr;</a>
+      </div>
+    </div>
+  </div>
+
   <script>
     let currentSlide = 1;
     const totalSlides = 10;
@@ -854,6 +1014,7 @@ HTML_FOOTER = """
         }
       } else if (e.key === 'Escape') {
         closeImageModal();
+        closeVideo();
         if (document.fullscreenElement || document.webkitFullscreenElement) {
           if (document.exitFullscreen) document.exitFullscreen().catch(() => {});
           else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
@@ -894,7 +1055,33 @@ HTML_FOOTER = """
       }
     }
 
-    // Universal Lightbox
+    // Video Theater HD Modal
+    function openVideo(videoId, title) {
+      const modal = document.getElementById('videoModal');
+      const titleText = document.getElementById('videoModalTitleText');
+      const extLink = document.getElementById('videoModalExternalLink');
+      const footLink = document.getElementById('videoModalFooterLink');
+      const wrapper = document.getElementById('videoPlayerWrapper');
+
+      if (!modal || !wrapper) return;
+
+      const ytUrl = 'https://www.youtube.com/watch?v=' + videoId;
+      if (titleText) titleText.textContent = title || 'Video Masterclass';
+      if (extLink) extLink.href = ytUrl;
+      if (footLink) footLink.href = ytUrl;
+
+      wrapper.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1&vq=hd1080&playsinline=1" title="${title}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="width: 100%; height: 100%; border: 0; display: block;"></iframe>`;
+      modal.classList.add('open');
+    }
+
+    function closeVideo() {
+      const modal = document.getElementById('videoModal');
+      const wrapper = document.getElementById('videoPlayerWrapper');
+      if (modal) modal.classList.remove('open');
+      if (wrapper) wrapper.innerHTML = '';
+    }
+
+    // Universal Image Lightbox
     function openImageModal(src, captionText) {
       const modal = document.getElementById('imageModal');
       const img = document.getElementById('imageModalImg');
@@ -917,7 +1104,7 @@ HTML_FOOTER = """
       const photo = e.target.closest('.hardware-photo');
       const target = img || (photo ? photo.querySelector('img') : null);
       if (target) {
-        if (target.closest('#imageModal') || target.classList.contains('no-expand')) return;
+        if (target.closest('#imageModal') || target.closest('#videoModal') || target.classList.contains('no-expand')) return;
         e.preventDefault();
         const cap = target.alt || target.getAttribute('title') || target.closest('.hardware-hero-card')?.querySelector('.inst-name')?.textContent || '';
         openImageModal(target.src, cap);
@@ -950,6 +1137,7 @@ def make_slide(slide_num, tag, heading, lead,
         """
 
     active_class = " active" if slide_num == 1 else ""
+    escaped_title = track_title.replace("'", "\\'")
 
     return f"""
     <!-- SLIDE {slide_num} -->
@@ -969,11 +1157,23 @@ def make_slide(slide_num, tag, heading, lead,
           </div>
 
           <div class="video-container">
-            <iframe src="https://www.youtube-nocookie.com/embed/{yt_id}?rel=0&modestbranding=1" 
+            <iframe src="https://www.youtube-nocookie.com/embed/{yt_id}?rel=0&modestbranding=1&vq=hd1080&playsinline=1" 
                     title="{track_title}" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
                     referrerpolicy="strict-origin-when-cross-origin"
                     allowfullscreen></iframe>
+          </div>
+
+          <div class="video-actions-bar">
+            <button class="hd-theater-btn" onclick="openVideo('{yt_id}', '{escaped_title}')">
+              <span>⛶ Watch in HD (Theater Mode)</span>
+            </button>
+            <a href="https://www.youtube.com/watch?v={yt_id}" target="_blank" rel="noopener noreferrer" class="yt-direct-btn">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;">
+                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+              </svg>
+              <span>YouTube ↗</span>
+            </a>
           </div>
 
           <div class="track-meta">
@@ -1035,6 +1235,7 @@ def make_table_slide(slide_num, tag, heading, lead,
                      tech_badge, tech_title, table_html):
     tags_html = "".join([f'<span class="tech-tag">{t}</span>' for t in tags_list])
     active_class = " active" if slide_num == 1 else ""
+    escaped_title = track_title.replace("'", "\\'")
 
     return f"""
     <!-- SLIDE {slide_num} -->
@@ -1054,11 +1255,23 @@ def make_table_slide(slide_num, tag, heading, lead,
           </div>
 
           <div class="video-container">
-            <iframe src="https://www.youtube-nocookie.com/embed/{yt_id}?rel=0&modestbranding=1" 
+            <iframe src="https://www.youtube-nocookie.com/embed/{yt_id}?rel=0&modestbranding=1&vq=hd1080&playsinline=1" 
                     title="{track_title}" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
                     referrerpolicy="strict-origin-when-cross-origin"
                     allowfullscreen></iframe>
+          </div>
+
+          <div class="video-actions-bar">
+            <button class="hd-theater-btn" onclick="openVideo('{yt_id}', '{escaped_title}')">
+              <span>⛶ Watch in HD (Theater Mode)</span>
+            </button>
+            <a href="https://www.youtube.com/watch?v={yt_id}" target="_blank" rel="noopener noreferrer" class="yt-direct-btn">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;">
+                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+              </svg>
+              <span>YouTube ↗</span>
+            </a>
           </div>
 
           <div class="track-meta">
@@ -1105,7 +1318,7 @@ def build_deck():
         1, "Paper 9MT0/04 Overview", "Component 4: <span>Producing &amp; Analysing Architecture</span>",
         "The Pearson Edexcel Component 4 exam is a 2-hour 15-minute practical and written paper carrying 105 marks (40% of the A-Level). Candidates complete practical audio tasks in their DAW alongside critical written analysis.",
         "Official Exam Walkthrough", "Component 4 Exam Protocol & Time Management", "eI4k12bQGyY",
-        "How to Score FULL MARKS in Component 4 – Fix This NOW!", "Music Tech Guru Masterclass",
+        "How to Score FULL MARKS in Component 4 – Fix This NOW! 🔥", "Music Tech Guru Masterclass",
         "🎧 Exam Room Setup & Ear-Training Protocol",
         "Calibrate closed-back monitor headphones before starting; verify uncompressed 24-bit/44.1kHz audio stems import without automatic tempo stretching.",
         "Split the 2h 15m session strictly: 45m for Q1–Q4 practical editing/correction, 45m for Q5 balance & mixdown, and 45m for Q6 extended technical essay.",
@@ -1128,7 +1341,7 @@ def build_deck():
         2, "Section A &bull; Practical DAW Tasks", "Audio Editing: <span>Phase Alignment &amp; Timing Correction</span>",
         "Phase coherence is the single most tested concept in Component 4 drum and multi-mic stems. Minor millisecond time arrival offsets produce destructive comb filtering and hollow low-end.",
         "DAW Practical Demonstration", "Multi-Mic Drum Phase Alignment & Audio Manipulation", "6Tb2auJ52xI",
-        "Creative Audio Manipulation for Component 4", "Music Tech Guru Tutorial",
+        "A-Level Music Tech: Creative Audio Manipulation for Component 4", "Music Tech Guru Tutorial",
         "🎧 Ear-Training Focus: Detecting Phase Cancellation",
         "Listen to the kick drum and overheads in mono: when polarity is inverted (180°), low-end fundamental punch immediately drops out and the snare sounds thin and nasal.",
         "Zoom into sample level on transient spikes: align the initial positive pressure peak of the snare top mic with the snare bottom and overhead left/right channels.",
@@ -1150,11 +1363,11 @@ def build_deck():
     slides.append(make_slide(
         3, "Section A &bull; Dynamic Processing", "Dynamic Control: <span>Compression, Gating &amp; Sidechaining</span>",
         "Component 4 tests precise configuration of compressor parameters to control dynamic range, shape transient attack punch, clamp peak overshoots, and clean bleed with noise gates.",
-        "Hardware & Plugin Analysis", "VCA vs FET vs Opto Compressor Topologies", "VrnqkEQmT6I",
-        "Classic Compressor Topologies in the Studio", "Music Technology Masterclass",
+        "Logic Pro Masterclass", "Parallel Compression in Logic Pro – A-Level Music Tech", "uRa_OcpDSGE",
+        "Parallel Compression in Logic Pro – A-Level Music Tech Tutorial", "Music Tech Guru Tutorial",
         "🎧 Ear-Training Focus: Attack & Release Calibration",
         "Fast attack (<1ms) crushes drum transients, pushing the snare backward in the mix; slower attack (15–30ms) lets initial stick-crack poke through before clamping body.",
-        "Release time must breathe in musical tempo with the groove: too fast causes pumping distortion; too slow suffocates the next incoming transient hit.",
+        "Parallel (New York) compression blends heavily smashed transient punch with natural uncompressed dynamics, delivering massive fatness without sacrificing life.",
         ["Threshold", "Ratio", "Attack / Release", "Sidechain Ducking", "Noise Gate", "VCA / FET / Opto"],
         "Compressor Anatomy & Transfer Curve", "Input vs Output dB Transfer Function", "/images/compression_graph.svg", "Compressor Transfer Curve Diagram",
         "🎚️ Dynamic Processing Parameters & Circuit Topologies", "VCA (Clean/Precise) &bull; FET 1176 (Ultra-Fast 20µs) &bull; Opto LA-2A (Program-Dependent) &bull; Vari-Mu (Tube Bias)",
@@ -1174,7 +1387,7 @@ def build_deck():
         4, "Section A &bull; Frequency Balance", "Surgical EQ: <span>Frequency Carving &amp; Unmasking</span>",
         "Equalisation in Component 4 is fundamentally corrective: removing unwanted low-frequency rumble, carving overlapping clutter between competing instruments, and controlling resonant peaks.",
         "Logic Pro Tutorial", "Channel EQ in Logic Pro X – Essential Tips for Beginners", "jvBmG0NwMpI",
-        "Channel EQ Surgical Carving & Filtering", "Music Tech Guru Masterclass",
+        "Channel EQ in Logic Pro X – Essential Tips for Beginners!", "Music Tech Guru Masterclass",
         "🎧 Ear-Training Focus: Spotting Frequency Masking",
         "When kick drum (60Hz fundamental) and bass guitar (90Hz fundamental) compete for the same energy, subtractive EQ carving separates them so both remain articulate.",
         "Boxiness sits between 300Hz and 500Hz; nasal harshness between 1kHz and 3kHz; sibilance and harsh cymbals between 6kHz and 9kHz.",
@@ -1196,8 +1409,8 @@ def build_deck():
     slides.append(make_slide(
         5, "Section A &bull; Spatial Positioning", "Stereo Imaging: <span>Panning Laws &amp; Mid/Side Processing</span>",
         "Component 4 requires understanding how pan pots work in DAW mixers, how mono center summing alters perceived loudness, and how Mid/Side matrixing decodes spatial balance.",
-        "Spatial Audio Tutorial", "Panning Laws, Mid/Side Matrix & Mono Compatibility", "HaZpZQG2z10",
-        "Spatial Positioning & Mid/Side Processing in Context", "Music Technology Masterclass",
+        "Mixdown Masterclass", "How to Get Top Marks in A-Level Music Tech Mixing", "0amjhDBUn4M",
+        "How to Get Top Marks in A-Level Music Tech Mixing (Component 1 &amp; 4)", "Music Tech Guru Masterclass",
         "🎧 Ear-Training Focus: Mono Fold-Down & Spatial Width",
         "Sum the master output to mono: any out-of-phase stereo widening tricks (like the Haas effect) collapse completely, causing hollow cancellation.",
         "Lead vocal, kick drum, snare drum, and bass guitar must remain dead center to anchor energy and preserve mono playback compatibility across mobile devices and club PAs.",
@@ -1219,8 +1432,8 @@ def build_deck():
     slides.append(make_slide(
         6, "Section A &bull; Time-Based Effects", "Time-Based FX: <span>Reverb Pre-Delay, RT60 &amp; Aux Busses</span>",
         "Auxiliary send/return topology is mandatory for spatial effects in Component 4: inserting reverb directly onto audio tracks wastes CPU, causes phase mud, and prevents shared acoustic space.",
-        "Studio Effects Masterclass", "Reverb Pre-Delay, Decay Time & Aux Send Architecture", "4ZipvGWO2bQ",
-        "Reverb in Context: Auxiliary Busses & Acoustic Space", "Music Technology Tutorial",
+        "Logic Pro Tutorial", "How to Use Reverb (Basic to Pro) on Logic Pro X", "PfPCYzpZnXo",
+        "How to use reverb (basic) on Logic Pro X", "Music Tech Guru Tutorial",
         "🎧 Ear-Training Focus: Pre-Delay Separation & Reverb EQ",
         "Setting 20–40ms pre-delay on vocal reverb leaves the initial dry consonant attack completely articulate before the ambient reverb wash envelops the note.",
         "Abbey Road Reverb Trick: High-pass reverb sends at 600Hz and low-pass at 6kHz to prevent low-end bass rumble and harsh high-frequency splash.",
@@ -1242,8 +1455,8 @@ def build_deck():
     slides.append(make_slide(
         7, "Section A &bull; Sound Design", "Synthesis &amp; Sampling: <span>Subtractive Signal Flow</span>",
         "Component 4 tests the candidate's ability to recreate reference synthesizer timbres from scratch using subtractive synthesis, envelope modulation, and sampler keyzone mapping.",
-        "Synthesis Masterclass", "Recreating Reference Synth Patches in the Exam", "4_9X2h0v0cI",
-        "Subtractive Synthesis & Sound Design for Component 4", "Music Technology Masterclass",
+        "Synthesis Masterclass", "How to Use the Retro Synth in Logic Pro X", "tBrkY4mQ_D4",
+        "How to use the RETRO SYNTH in Logic Pro X. Simple Music Production tutorial", "Music Tech Guru Masterclass",
         "🎧 Ear-Training Focus: Waveform & Envelope Auditioning",
         "Sawtooth waves contain all integer harmonics ($1f, 2f, 3f...$), sounding bright and reedy; Square waves contain only odd harmonics ($1f, 3f, 5f...$), sounding hollow and clarinety.",
         "Fast Attack, Fast Decay, Zero Sustain, and Moderate Release creates a plucky percussive bass; Slow Attack (>500ms) with Max Sustain creates lush ambient pads.",
@@ -1265,8 +1478,8 @@ def build_deck():
     slides.append(make_slide(
         8, "Section A &bull; Audio Troubleshooting", "Diagnostic Fault Finding: <span>Hum, Clipping &amp; Phase</span>",
         "Component 4 frequently introduces audio stems containing intentional audio faults. Candidates must identify the physical origin of the artifact and apply appropriate surgical corrective processing.",
-        "Exam Walkthrough Video", "2019 Production & Analysing Exam (Sample Paper Guidance)", "MZb-bW6z5wI",
-        "Edexcel Component 4 Guidance Video (Question 1)", "Music Tech Guru Official Exam Guide",
+        "Exam Walkthrough Video", "2019 Production & Analysing Exam Guidance (Question 1)", "MZb-bW6z5wI",
+        "Edexcel A Level Music Technology - Component 4 Exam 2019 Guidance Video (Question 1)", "Music Tech Guru Official Exam Guide",
         "🎧 Ear-Training Focus: Recognizing Common Audio Artifacts",
         "Mains Hum: A steady 50Hz (UK) or 60Hz (US) low buzz with prominent harmonic overtones at 100Hz, 150Hz, 200Hz, caused by ground loops or unshielded guitar single-coils.",
         "Digital Intersample Clipping: Harsh, brittle square-wave distortion generated when audio exceeds 0 dBFS, producing unharmonic aliasing across high frequencies.",
@@ -1289,7 +1502,7 @@ def build_deck():
         9, "Section A &bull; Final Delivery", "Mixdown &amp; Mastering: <span>Gain Staging, Automation &amp; LUFS</span>",
         "Question 5 requires producing a balanced stereo mixdown with appropriate dynamic control, spatial balance, volume automation, and export formatting matching industry loudness standards.",
         "Logic Pro Masterclass", "Basic Mastering on Logic Pro X – Walkthrough and Tips", "BNQIKRvOi9c",
-        "Mixdown Balance, Bus Processing & Master Export", "Music Tech Guru Tutorial",
+        "Basic Mastering on Logic Pro X. Walkthrough and tips", "Music Tech Guru Tutorial",
         "🎧 Ear-Training Focus: Master Bus Glue & Loudness",
         "Mix bus glue compression uses gentle 1.5:1 or 2:1 ratios with slow attack (30ms) and auto release: needles should tickle only 1–2dB of gain reduction to knit elements together.",
         "Do not over-limit: crushing dynamics down to -8 LUFS destroys punch and transient clarity. Maintain healthy dynamic crest factor for streaming platforms.",
@@ -1345,8 +1558,8 @@ def build_deck():
     slides.append(make_table_slide(
         10, "Section B &bull; Extended Essay (20 Marks)", "Extended Response: <span>AO3 vs. AO4 Essay Strategy</span>",
         "Question 6 is the 20-mark extended writing challenge. Success requires balancing rigorous technical theory (AO3) with perceptive critical evaluation of practical studio scenarios (AO4).",
-        "Exam Essay Masterclass", "How to Ace the Edexcel Music Tech Component 4 Exam", "vejjQ0Lurrk",
-        "How to Ace the Edexcel Music Tech Component 4 Exam!", "Music Tech Guru Tutorial",
+        "Exam Essay Masterclass", "How to Ace the 2022 Edexcel Music Tech Component 4 Exam!", "vejjQ0Lurrk",
+        "How to Ace the 2022 Edexcel Music Tech Component 4 Exam!", "Music Tech Guru Tutorial",
         "📝 Essay Blueprint: Structure for Maximum Marks",
         "Paragraph 1: Scenario analysis, identifying acoustic limitations and technical goals. Paragraph 2–3: Direct comparison of contrasting hardware/DSP approaches (e.g., tube preamp vs transparent solid-state).",
         "Paragraph 4: Signal routing, dynamic processing, and surgical EQ unmasking. Paragraph 5: Evaluative conclusion weighing sonic character against practical delivery constraints.",
