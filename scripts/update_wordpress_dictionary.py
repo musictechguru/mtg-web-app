@@ -278,11 +278,13 @@ def get_website_link(term, section, sub):
         return ('https://www.musictechguru.com/2020/03/04/the-bass-guitar/', 'Bass Guitar Guide')
     if any(k in t_lower for k in ['electric guitar', 'single-coil', 'single coil', 'humbucker', 'whammy', 'pickup']):
         return ('https://www.musictechguru.com/homepage/a-level-music-technology/component-3-music-technology-in-context/the-electric-guitar/', 'Electric Guitar Guide')
-    if any(k in t_lower for k in ['amplifier', 'valve', 'tube amp', 'cabinet', 'combo amp', 'overdrive', 'distortion pedal', 'headroom in amps']):
+    if any(k in t_lower for k in ['tube amp', 'cabinet', 'combo amp', 'overdrive', 'distortion pedal', 'valve amp']) or (t_lower == 'amplifier' and 'synth' not in s_lower):
         return ('https://www.musictechguru.com/homepage/a-level-music-technology/component-3-music-technology-in-context/amplifiers/', 'Amplifiers Guide')
-    if any(k in t_lower for k in ['vinyl', 'cassette', 'compact disc', 'mp3', 'lossless', 'aac', 'wav', 'music format', 'minidisc']):
+    
+    # Audio formats (use word boundaries to avoid matching 'wave')
+    if any(k in t_lower for k in ['vinyl', 'cassette', 'compact disc', 'mp3', 'lossless', 'minidisc']) or re.search(r'\b(?:wav|aac|flac)\b', t_lower):
         return ('https://www.musictechguru.com/music-formats/', 'Music Formats Guide')
-    if any(k in t_lower for k in ['direct to tape', 'reel-to-reel', 'tape head', 'magnetic tape', 'bias frequency']):
+    if any(k in t_lower for k in ['direct to tape', 'reel-to-reel', 'tape head', 'bias frequency']):
         return ('https://www.musictechguru.com/homepage/a-level-music-technology/component-3-music-technology-in-context/direct-to-tape-recording-1950-1963/', 'Direct to Tape Guide')
     if any(k in t_lower for k in ['early multitrack', '4-track', '8-track']):
         return ('https://www.musictechguru.com/homepage/a-level-music-technology/component-3-music-technology-in-context/early-multitrack-recording-1964-1969/', 'Early Multitrack Guide')
@@ -290,11 +292,11 @@ def get_website_link(term, section, sub):
         return ('https://www.musictechguru.com/homepage/a-level-music-technology/component-3-music-technology-in-context/large-scale-analogue-multitrack-1968-1995/', 'Multitrack Tape Guide')
 
     # 2. Effects dedicated pages
-    if any(k in t_lower for k in ['reverb', 'rt60', 'pre-delay', 'decay time', 'early reflection', 'plate reverb', 'spring reverb', 'convolution', 'chamber reverb', 'hall reverb', 'gated reverb']):
+    if any(k in t_lower for k in ['reverb', 'rt60', 'pre-delay', 'decay time', 'early reflection', 'plate reverb', 'spring reverb', 'convolution', 'chamber reverb', 'hall reverb', 'gated reverb', 'room size', 'impulse response', 'density', 'dampening pad', 'excitation signal']):
         return ('https://www.musictechguru.com/homepage/a-level-music-technology/component-3-music-technology-in-context/reverb/', 'Reverb Guide')
-    if any(k in t_lower for k in ['delay', 'slapback', 'echo', 'multi-tap', 'ping-pong', 'feedback delay', 'tape delay', 'bucket brigade']):
+    if any(k in t_lower for k in ['delay', 'slapback', 'echo', 'multi-tap', 'ping-pong', 'feedback delay', 'tape delay', 'bucket brigade', 'adt', 'copycat', 'tape loop', 'repeat rate']) or (t_lower == 'feedback (in %)' or t_lower == 'freeze'):
         return ('https://www.musictechguru.com/homepage/a-level-music-technology/component-3-music-technology-in-context/delay/', 'Delay Guide')
-    if 'chorus' in t_lower:
+    if 'chorus' in t_lower or ('depth' in t_lower and 'rate' in sub_lower):
         return ('https://www.musictechguru.com/homepage/a-level-music-technology/component-3-music-technology-in-context/chorus/', 'Chorus Guide')
     if any(k in t_lower for k in ['flanger', 'flanging', 'comb filter']):
         return ('https://www.musictechguru.com/homepage/a-level-music-technology/component-3-music-technology-in-context/flanger/', 'Flanger Guide')
@@ -302,41 +304,40 @@ def get_website_link(term, section, sub):
         return ('https://www.musictechguru.com/homepage/a-level-music-technology/component-3-music-technology-in-context/phaser/', 'Phaser Guide')
 
     # 3. Synthesis & Keyboards
-    if 'synth' in s_lower or 'synth' in sub_lower:
+    if 'synth' in s_lower or 'synth' in sub_lower or any(k in t_lower for k in ['oscillator', 'vco', 'vcf', 'vca', 'lfo', 'adsr', 'envelope (adsr)', 'envelope generator', 'cutoff', 'resonance', 'sawtooth', 'square wave', 'triangle wave', 'sine wave', 'pulse wave', 'pulse width', 'wavetable', 'fm synthesis', 'ring mod', 'subtractive synthesis', 'additive synthesis']):
         return ('https://www.musictechguru.com/homepage/a-level-music-technology/component-3-music-technology-in-context/the-synthesizer/', 'Synthesizer Guide')
 
-    # 4. Mixers & Hardware
-    if any(k in t_lower for k in ['mixing desk', 'mixer', 'console', 'channel strip', 'fader', 'pan pot', 'aux send', 'insert point', 'bus', 'bussing']):
+    # 4. Mixers & Hardware & DAW Workflow
+    if any(k in t_lower for k in ['mixing desk', 'mixer', 'console', 'channel strip', 'fader', 'pan pot', 'aux send', 'insert point', 'bus', 'bussing', 'patch bay', 'patchbay']):
         return ('https://www.musictechguru.com/homepage/a-level-music-technology/component-3-music-technology-in-context/audio-mixers/', 'Audio Mixers Guide')
-    if any(k in t_lower for k in ['daw', 'transport', 'automation']):
+    if any(k in t_lower for k in ['daw', 'transport', 'automation', 'cubase', 'logic pro', 'ableton', 'fl studio', 'studio one', 'playhead', 'region', 'bounce', 'overdub', 'punch in', 'latch', 'touch', 'read', 'write', 'maws']):
         return ('https://www.musictechguru.com/homepage/a-level-music-technology/component-3-music-technology-in-context/mixers-digital-audio-workstations-daw/', 'DAW & Mixers Guide')
 
-    # 5. Microphones & Micing
-    if 'microphon' in s_lower or 'microphon' in sub_lower or 'micing' in sub_lower or 'polar pattern' in sub_lower:
-        return ('https://www.musictechguru.com/homepage/a-level-music-technology/component-1-recording-mixing/', 'Microphones Guide')
+    # 5. Microphones, Leads & Studio Recording (Component 1)
+    if any(k in s_lower for k in ['microphon', 'recording and prod', 'leads, signals']):
+        return ('https://www.musictechguru.com/homepage/a-level-music-technology/component-1-recording-mixing/', 'Recording & Mixing Guide')
+    if any(k in t_lower for k in ['microphon', 'cardioid', 'omni', 'figure-8', 'polar pattern', 'diaphragm', 'phantom power', 'pop shield', 'mic stand', 'di box', 'xlr', 'trs', 'jack lead', 'multicore', 'stage box', 'audio interface', 'pre-amp', 'preamp', 'monitoring', 'headphones']):
+        return ('https://www.musictechguru.com/homepage/a-level-music-technology/component-1-recording-mixing/', 'Recording & Mixing Guide')
 
     # 6. Sampling, Sequencing & MIDI (Component 2)
-    if any(k in s_lower for k in ['sampling', 'audio editing', 'pitch and rhythm correction']):
-        return ('https://www.musictechguru.com/homepage/a-level-music-technology/component-2-sequencing-sampling-synthesis-composition/', 'Sampling Guide')
-    if 'sequenc' in s_lower or 'midi' in s_lower or 'sequencing' in sub_lower:
-        return ('https://www.musictechguru.com/homepage/a-level-music-technology/component-2-sequencing-sampling-synthesis-composition/', 'Sequencing & MIDI Guide')
+    if any(k in s_lower for k in ['sampling', 'sequencing', 'audio editing', 'pitch and rhythm correction']):
+        return ('https://www.musictechguru.com/homepage/a-level-music-technology/component-2-sequencing-sampling-synthesis-composition/', 'Sampling & MIDI Guide')
+    if any(k in t_lower for k in ['sample', 'sampler', 'sampling', 'quantis', 'midi', 'velocity', 'piano roll', 'time stretch', 'pitch shift', 'melodyne', 'autotune', 'zero-crossing', 'truncat']):
+        return ('https://www.musictechguru.com/homepage/a-level-music-technology/component-2-sequencing-sampling-synthesis-composition/', 'Sampling & MIDI Guide')
 
-    # 7. Component 4 Modules: Dynamics, EQ, Stereo, Acoustics, Mastering, Leads & Levels
+    # 7. Component 4 Hub: Dynamics, EQ, Stereo, Acoustics, Mastering, Decibels & Audio Fundamentals
     if 'dynamic' in s_lower or 'compress' in sub_lower:
         return ('https://www.musictechguru.com/homepage/a-level-music-technology/component-4-production-analysing/', 'Dynamics Guide')
     if 'eq' in s_lower or 'filter' in s_lower:
         return ('https://www.musictechguru.com/homepage/a-level-music-technology/component-4-production-analysing/', 'EQ & Filters Guide')
     if 'stereo' in s_lower:
-        return ('https://www.musictechguru.com/homepage/a-level-music-technology/component-4-production-analysing/', 'Stereo & Panning Guide')
+        return ('https://www.musictechguru.com/homepage/a-level-music-technology/component-4-production-analysing/', 'Stereo Guide')
     if 'acoust' in s_lower:
         return ('https://www.musictechguru.com/homepage/a-level-music-technology/component-4-production-analysing/', 'Acoustics Guide')
     if 'mastering' in s_lower:
         return ('https://www.musictechguru.com/homepage/a-level-music-technology/component-4-production-analysing/', 'Mastering Guide')
-    if 'lead' in s_lower or 'cable' in s_lower or 'signal' in s_lower or 'level' in s_lower:
-        return ('https://www.musictechguru.com/homepage/a-level-music-technology/component-4-production-analysing/', 'Cables & Signals Guide')
 
-    # General terms fallback to Component 4 general terms page
-    return ('https://www.musictechguru.com/homepage/a-level-music-technology/component-4-production-analysing/general-music-technology-terms/', 'Component 4 Guide')
+    return ('https://www.musictechguru.com/homepage/a-level-music-technology/component-4-production-analysing/', 'Component 4 Guide')
 
 def generate_full_html():
     parsed_terms = parse_markdown_terms()
