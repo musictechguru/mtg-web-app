@@ -250,8 +250,8 @@ ul.product-grid > li.product:hover {
             </a>
             <a href="https://app.musictechguru.com/?quiz=c4_eq_stereo_lesson" target="_blank" rel="noopener" class="c4-app-btn">
                 <div>
-                    <div class="c4-app-btn-title">Subtractive EQ &amp; Mid/Side Shaping</div>
-                    <div class="c4-app-btn-desc">Surgical Q-factor carving, frequency unmasking, and filtering the Side channel below 100Hz for mono bass safety.</div>
+                    <div class="c4-app-btn-title">Subtractive &amp; Corrective EQ</div>
+                    <div class="c4-app-btn-desc">Surgical Q-factor carving, frequency unmasking between kick and bass, and sweeping to notch harsh resonances.</div>
                 </div>
                 <div class="c4-app-btn-action">Start Practical Task &rarr;</div>
             </a>
