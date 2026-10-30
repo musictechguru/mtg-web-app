@@ -1042,19 +1042,29 @@
     }
     /* === END ANTI-SQUASH === */
 
-  
     /* === MTG MOBILE PHONE RESPONSIVENESS OVERRIDES === */
     @media (max-width: 768px) {
       html, body {
-        overflow-x: hidden !important;
+        height: 100vh !important;
+        max-height: 100vh !important;
+        overflow: hidden !important;
         max-width: 100vw !important;
+        display: flex !important;
+        flex-direction: column !important;
       }
+      /* Compact top utility bar */
       .deck-topbar-controls, .top-utility-bar, header.deck-topbar-controls {
         padding: 6px 10px !important;
         gap: 6px !important;
-        min-height: 42px !important;
+        min-height: 40px !important;
         height: auto !important;
         flex-wrap: nowrap !important;
+        flex-shrink: 0 !important;
+        justify-content: space-between !important;
+      }
+      /* Hide secondary promo link in topbar on phones so Fullscreen button never clips */
+      .deck-topbar-controls a[href*="app.musictechguru.com"] {
+        display: none !important;
       }
       .exit-deck-link {
         padding: 5px 8px !important;
@@ -1062,12 +1072,21 @@
         white-space: nowrap !important;
         flex-shrink: 0 !important;
       }
-      .deck-topbar-title, .top-bar-title {
-        font-size: 11.5px !important;
+      .deck-topbar-controls > div:first-child,
+      .top-utility-bar > div:first-child,
+      header.deck-topbar-controls > div:first-child {
+        min-width: 0 !important;
+        flex: 1 1 auto !important;
+        overflow: hidden !important;
+      }
+      .deck-topbar-title, .top-bar-title, .deck-topbar-controls span[style*="color: #94a3b8"] {
+        font-size: 11px !important;
         white-space: nowrap !important;
         overflow: hidden !important;
         text-overflow: ellipsis !important;
-        max-width: 42vw !important;
+        max-width: 38vw !important;
+        display: inline-block !important;
+        vertical-align: middle !important;
       }
       .deck-topbar-controls .fullscreen-btn,
       .top-utility-bar .fullscreen-btn,
@@ -1078,7 +1097,83 @@
         white-space: nowrap !important;
         flex-shrink: 0 !important;
       }
-      /* Collapse multi-column slide grids to 1 column on phones */
+      /* Hide redundant secondary inner banner bars on mobile to maximize slide viewport height */
+      header.deck-topbar,
+      .deck-topbar,
+      .top-bar {
+        display: none !important;
+      }
+      header.deck-header, .deck-header {
+        padding: 6px 12px !important;
+        min-height: auto !important;
+        flex-shrink: 0 !important;
+      }
+      header.deck-header .deck-title-group, .deck-header .deck-title-group {
+        display: none !important;
+      }
+      header.deck-header .deck-actions, .deck-header .deck-actions {
+        width: 100% !important;
+        display: flex !important;
+        justify-content: space-between !important;
+      }
+      header.deck-header .slide-select, .deck-header .slide-select {
+        max-width: 100% !important;
+        width: 100% !important;
+      }
+      header.deck-header button, .deck-header button {
+        display: none !important;
+      }
+      /* Full-bleed deck wrapper / container as flex column */
+      .deck-wrapper, .deck-container {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        border-radius: 0 !important;
+        border-left: none !important;
+        border-right: none !important;
+        flex: 1 1 auto !important;
+        min-height: 0 !important;
+        height: auto !important;
+        max-height: none !important;
+        display: flex !important;
+        flex-direction: column !important;
+        overflow: hidden !important;
+      }
+      .slides-viewport, .slide-stage {
+        flex: 1 1 auto !important;
+        min-height: 0 !important;
+        width: 100% !important;
+        padding: 0 !important;
+        overflow: hidden !important;
+        position: relative !important;
+        display: flex !important;
+        flex-direction: column !important;
+      }
+      /* Single continuous vertical scroll container for the active slide */
+      .slide:not(.active) {
+        display: none !important;
+      }
+      .slide.active {
+        position: relative !important;
+        top: auto !important;
+        left: auto !important;
+        display: block !important;
+        width: 100% !important;
+        height: 100% !important;
+        max-height: 100% !important;
+        flex: 1 1 auto !important;
+        min-height: 0 !important;
+        padding: 14px 14px 80px !important;
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+        -webkit-overflow-scrolling: touch !important;
+        box-sizing: border-box !important;
+        transform: none !important;
+        opacity: 1 !important;
+        pointer-events: auto !important;
+      }
+      /* Collapse all multi-column slide grids into a single unconstrained vertical stack */
       .slide .split-grid,
       .slide .grid-2,
       .slide .grid-2-split,
@@ -1093,33 +1188,89 @@
       .slide .two-col,
       .slide .three-col,
       .slide [style*="grid-template-columns"] {
-        grid-template-columns: 1fr !important;
-        gap: 12px !important;
-      }
-      .slide .grid-2-split {
         display: flex !important;
         flex-direction: column !important;
-        overflow-y: visible !important;
+        grid-template-columns: 1fr !important;
+        gap: 14px !important;
+        flex: none !important;
+        width: 100% !important;
+        height: auto !important;
+        min-height: auto !important;
+        max-height: none !important;
+        overflow: visible !important;
+        margin-bottom: 16px !important;
+      }
+      /* Unconstrain all column panels and cards so they expand naturally inside the slide scroll */
+      .slide .column-panel,
+      .slide .col-panel,
+      .slide .info-card,
+      .slide .feature-card,
+      .slide .music-col,
+      .slide .instrument-col,
+      .slide .format-col,
+      .slide .prod-col,
+      .slide .tech-col,
+      .slide .col-music,
+      .slide .col-tech,
+      .slide .artist-visual-col {
+        display: flex !important;
+        flex-direction: column !important;
+        flex: none !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        height: auto !important;
+        min-height: auto !important;
+        max-height: none !important;
+        overflow: visible !important;
+        padding: 14px !important;
+        box-sizing: border-box !important;
+      }
+      /* Stack panel headers and takeaway/tip boxes vertically on phones so badges & text never crush */
+      .slide .panel-header,
+      .slide .col-header,
+      .slide .header-bar,
+      .slide .takeaway-box,
+      .slide .callout-box,
+      .slide .exam-tip,
+      .slide .tip-box {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        justify-content: flex-start !important;
+        gap: 6px !important;
         height: auto !important;
       }
-      .slide .column-panel {
-        overflow-y: visible !important;
-        max-height: none !important;
+      /* Give photo cards and hardware images generous height on mobile */
+      .slide .photo-card,
+      .slide .hardware-photo,
+      .slide .instrument-photo-card {
         height: auto !important;
+        min-height: 175px !important;
+        max-height: none !important;
         flex-shrink: 0 !important;
       }
-      .slide, .slide.active {
-        padding: 14px 12px 24px !important;
-        overflow-y: auto !important;
-        overflow-x: hidden !important;
-        -webkit-overflow-scrolling: touch !important;
+      .slide .photo-card img,
+      .slide .hardware-photo img,
+      .slide .instrument-photo-card img.instrument-photo {
+        height: 185px !important;
+        max-height: 220px !important;
+        width: 100% !important;
+        object-fit: contain !important;
       }
-      .slide h1 {
-        font-size: clamp(20px, 5.5vw, 26px) !important;
+      .slide .table-container,
+      .slide .comp-table-wrap {
+        overflow-x: auto !important;
+        overflow-y: visible !important;
+        max-height: none !important;
+        flex: none !important;
+        width: 100% !important;
+      }
+      .slide h1, .slide .slide-heading, .slide .slide-title {
+        font-size: clamp(20px, 5.5vw, 25px) !important;
         line-height: 1.22 !important;
       }
       .slide h2 {
-        font-size: clamp(17px, 4.8vw, 22px) !important;
+        font-size: clamp(17px, 4.8vw, 21px) !important;
         line-height: 1.25 !important;
       }
       .slide p, .slide li {
@@ -1133,12 +1284,14 @@
         -webkit-overflow-scrolling: touch !important;
         font-size: 12px !important;
       }
-      /* Bottom Controls Bar: Ensure Previous, Slide Counter, and Next always fit on 320-390px phones */
+      /* Bottom Controls Bar: Ensure Previous, Slide Counter/Dropdown, and Next always fit on 320-430px phones */
       footer.deck-controls,
       .deck-controls,
       .deck-nav,
       .bottom-bar,
-      .deck-nav-bar {
+      .deck-nav-bar,
+      .deck-footer,
+      .deck-bottombar {
         padding: 8px 10px !important;
         gap: 6px !important;
         min-height: 50px !important;
@@ -1149,29 +1302,46 @@
         flex-wrap: nowrap !important;
         width: 100% !important;
         box-sizing: border-box !important;
+        flex-shrink: 0 !important;
       }
       .deck-controls .controls-left,
       .bottom-bar .nav-buttons,
       .deck-nav-bar .nav-left,
-      .deck-nav-bar .nav-right {
+      .deck-nav-bar .nav-right,
+      .deck-nav-bar > div:first-child {
         display: contents !important;
       }
-      /* Hide duplicate bottom Fullscreen button & wide dot arrays on mobile so Next button is never clipped */
+      /* Reorder amplifiers bottom bar children so Prev is left, Counter is center, Next is right */
+      .deck-nav-bar #prevBtn { order: 1 !important; }
+      .deck-nav-bar .slide-counter, .deck-nav-bar .nav-center { order: 2 !important; }
+      .deck-nav-bar #nextBtn { order: 3 !important; }
+      /* When both a slide-counter and a slide-select dropdown exist in deck-nav-bar, hide the duplicate text counter on phones */
+      .deck-nav-bar .nav-left .slide-counter {
+        display: none !important;
+      }
+      /* Hide duplicate bottom Fullscreen button, keyboard hints & wide dot arrays on mobile so Next button is never clipped */
       #bottomFsBtn,
       .deck-controls button[onclick*="toggleFullscreen"],
       .bottom-bar button[onclick*="toggleFullscreen"],
       .deck-nav button[onclick*="toggleFullscreen"],
       .deck-nav-bar button[onclick*="toggleFullscreen"],
+      .deck-footer button[onclick*="toggleFullscreen"],
+      .deck-bottombar button[onclick*="toggleFullscreen"],
       .controls-right,
       .keyboard-hint,
+      .nav-shortcuts,
       .progress-dots,
       .slide-dots,
       #dotsContainer,
       #progressDots,
-      .progress-track {
+      .progress-track,
+      .progress-bar-track,
+      .progress-bar-container {
         display: none !important;
       }
       .progress-container,
+      .progress-group,
+      .deck-progress-group,
       .slide-indicator,
       .deck-nav-bar .nav-center {
         flex: 1 1 auto !important;
@@ -1181,13 +1351,13 @@
         justify-content: center !important;
         margin: 0 4px !important;
       }
-      .slide-counter, #slideCounter {
+      .slide-counter, #slideCounter, .progress-label {
         font-size: 11.5px !important;
         white-space: nowrap !important;
         text-align: center !important;
       }
       .slide-select, #slideSelect {
-        max-width: 135px !important;
+        max-width: 155px !important;
         font-size: 11.5px !important;
         padding: 5px 8px !important;
         text-overflow: ellipsis !important;
@@ -1301,7 +1471,7 @@
 
         <div class="grid-2">
           <div class="info-card highlight">
-            <img src="/images/slides/house/house_beat_grid.png" alt="Anatomy of a House Groove" class="slide-thumb">
+            <img src="images/slides/house/house_beat_grid.png" alt="Anatomy of a House Groove" class="slide-thumb">
             <h4>Anatomy of a House Smash</h4>
             <ul style="margin-left: 18px; font-size: 12px; color: #cbd5e1; line-height: 1.6;">
               <li><strong>Tempo:</strong> 120–130 BPM with a steady four-on-the-floor kick drum.</li>
@@ -1315,7 +1485,7 @@
           </div>
 
           <div class="info-card cyan-edge">
-            <img src="/images/slides/house/vinyl_12inch.jpg" alt="12-inch Single" class="slide-thumb">
+            <img src="images/slides/house/vinyl_12inch.jpg" alt="12-inch Single" class="slide-thumb">
             <h4>The 12-Inch Single Format</h4>
             <p>House music was created for and distributed on <strong>12-inch vinyl singles</strong>. Wider groove spacing allowed cutting engineers to maximize bass frequencies and dynamic range without needle skipping.</p>
             <div style="margin-top: 10px; background: rgba(0,0,0,0.3); padding: 10px; border-radius: 8px; font-size: 12px; color: #a5b4fc;">
@@ -1339,14 +1509,14 @@
 
         <div class="grid-2">
           <div class="info-card highlight">
-            <img src="/images/slides/house/donna_summer.jpg" alt="Donna Summer" class="slide-thumb">
+            <img src="images/slides/house/donna_summer.jpg" alt="Donna Summer" class="slide-thumb">
             <h4>Donna Summer &amp; Giorgio Moroder (1977)</h4>
             <p><strong>"I Feel Love"</strong> (1977): Produced by Giorgio Moroder in Munich and recorded on 16-track tape. Moroder used a <strong>Moog Modular sequencer</strong> to drive an unyielding 16th-note bassline and generated white noise from the Moog for hi-hats. <em>Remarkably, the kick drum is the only instrument played live on acoustic drums!</em></p>
             <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('9ZqqvrWCs3Q', 'Donna Summer - I Feel Love')">▶ Listen: Donna Summer "I Feel Love"</button><a href="https://www.youtube.com/watch?v=9ZqqvrWCs3Q" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div>
           </div>
 
           <div class="info-card cyan-edge">
-            <img src="/images/slides/house/disco_demolition.jpg" alt="Disco Demolition Night 1979" class="slide-thumb">
+            <img src="images/slides/house/disco_demolition.jpg" alt="Disco Demolition Night 1979" class="slide-thumb">
             <h4>Demolition Disco (1979)</h4>
             <p>On July 12, 1979, the anti-disco backlash reached a fever pitch at Chicago's Comiskey Park with <strong>Disco Demolition Night</strong>. Major record labels dropped disco artists, forcing the music underground.</p>
             <p style="margin-top: 6px;"><strong>The Bedroom Producer Revolution:</strong> Dance music moved out of expensive commercial recording studios and into the homes of young producers. Instead of hiring live string sections and session drummers, they turned to <strong>affordable drum machines and synthesizers</strong>.</p>
@@ -1368,13 +1538,13 @@
 
         <div class="grid-2">
           <div class="info-card highlight">
-            <img src="/images/slides/house/frankie_knuckles.jpg" alt="Frankie Knuckles" class="slide-thumb">
+            <img src="images/slides/house/frankie_knuckles.jpg" alt="Frankie Knuckles" class="slide-thumb">
             <h4>Frankie Knuckles at The Warehouse</h4>
             <p>Knuckles began as a NYC disco DJ alongside Larry Levan. In 1977, he took up residency at <strong>The Warehouse</strong> (and later his own club, the <strong>Power Plant</strong>). He took classic Philly soul and Euro-disco records, spliced reel-to-reel tape to create extended instrumental breakdowns, and mixed in <strong>Roland TR-909 drum machine beats</strong> live during his sets.</p>
           </div>
 
           <div class="info-card cyan-edge">
-            <img src="/images/slides/house/turntable_dj.png" alt="DJ Mixing at The Warehouse" class="slide-thumb">
+            <img src="images/slides/house/turntable_dj.png" alt="DJ Mixing at The Warehouse" class="slide-thumb">
             <h4>"Your Love" (1987) with Jamie Principle</h4>
             <p>Collaborating with singer/songwriter Jamie Principle, Knuckles produced <strong>"Your Love"</strong>. Built on a pulsating, hypnotic 16th-note synthesizer arpeggio and sensual, whispered vocals over a punchy drum machine beat, it became the eternal anthem of deep, emotional Chicago house.</p>
             <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('LOLE1YE_oFQ', 'Frankie Knuckles - Your Love')">▶ Watch: Frankie Knuckles "Your Love"</button><a href="https://www.youtube.com/watch?v=LOLE1YE_oFQ" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div>
@@ -1396,14 +1566,14 @@
 
         <div class="grid-2">
           <div class="info-card highlight">
-            <img src="/images/slides/house/marshall_jefferson.jpg" alt="Marshall Jefferson" class="slide-thumb">
+            <img src="images/slides/house/marshall_jefferson.jpg" alt="Marshall Jefferson" class="slide-thumb">
             <h4>"Move Your Body" (1986)</h4>
             <p>Subtitled <em>"The House Music Anthem"</em>, this track introduced acoustic piano to house music. Jefferson famously <strong>recorded the piano chords at a slow 40 BPM</strong> and then sped the tape up to 120 BPM! This created a razor-sharp, percussive piano attack that cut through club sound systems with tremendous clarity.</p>
             <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('QAR8cq5Bl94', 'Marshall Jefferson - Move Your Body')">▶ Watch: Marshall Jefferson "Move Your Body"</button><a href="https://www.youtube.com/watch?v=QAR8cq5Bl94" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div>
           </div>
 
           <div class="info-card cyan-edge">
-            <img src="/images/slides/house/rhodes_piano.jpg" alt="Rhodes Electric Piano" class="slide-thumb">
+            <img src="images/slides/house/rhodes_piano.jpg" alt="Rhodes Electric Piano" class="slide-thumb">
             <h4>Pioneering "Deep House"</h4>
             <p>Beyond high-energy club anthems, Jefferson pioneered <strong>Deep House</strong>—infusing house music with jazz chords, electric piano Rhodes voicings, and lush string pads (e.g., CeCe Rogers "Someday").</p>
             <div style="margin-top: 10px; font-size: 11.5px; color: #a5b4fc;">
@@ -1427,14 +1597,14 @@
 
         <div class="grid-2">
           <div class="info-card acid-edge">
-            <img src="/images/slides/house/roland_tb303.png" alt="Roland TB-303" class="slide-thumb">
+            <img src="images/slides/house/roland_tb303.png" alt="Roland TB-303" class="slide-thumb">
             <h4>Phuture: "Acid Tracks" (1987)</h4>
             <p>Chicago group <strong>Phuture</strong> (DJ Pierre, Spanky, Herb J) acquired a second-hand Roland TB-303. By running a repetitive 16-step bassline and manually twisting the <strong>Cutoff Frequency</strong> while driving the <strong>Resonance</strong> into extreme self-oscillation, DJ Pierre created the screaming, squelchy timbre of <strong>Acid House</strong>.</p>
             <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('PJJ5FxpVGUY', 'Phuture - Acid Tracks (1987)')">▶ Listen: Phuture "Acid Tracks"</button><a href="https://www.youtube.com/watch?v=PJJ5FxpVGUY" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div>
           </div>
 
           <div class="info-card highlight">
-            <img src="/images/slides/house/acid_house_smiley.png" alt="Acid House Smiley" class="slide-thumb" style="object-fit: contain; background: #000; padding: 6px;">
+            <img src="images/slides/house/acid_house_smiley.png" alt="Acid House Smiley" class="slide-thumb" style="object-fit: contain; background: #000; padding: 6px;">
             <h4>Second Summer of Love (1988–1989)</h4>
             <p>Exported on Trax Records TX142, "Acid Tracks" became an anthem for the UK's <strong>Second Summer of Love</strong>. It moved from London clubs (Shoom) and Manchester (The Haçienda) into massive orbital warehouse raves, establishing house music as the dominant UK youth culture.</p>
           </div>
@@ -1455,19 +1625,19 @@
 
         <div class="grid-3">
           <div class="info-card highlight">
-            <img src="/images/slides/house/jesse_saunders.jpg" alt="Jesse Saunders" class="slide-thumb">
+            <img src="images/slides/house/jesse_saunders.jpg" alt="Jesse Saunders" class="slide-thumb">
             <h4>Jesse Saunders</h4>
             <p>Released <strong>"On and On" (1984)</strong>, officially recognized as the first Chicago House record. Created with a Roland TR-808, Korg Poly-61, and tape splices on Jes Say Records.</p>
           </div>
 
           <div class="info-card cyan-edge">
-            <img src="/images/slides/house/trax_records.jpg" alt="Trax Records" class="slide-thumb" style="object-fit: contain; background: #000; padding: 4px;">
+            <img src="images/slides/house/trax_records.jpg" alt="Trax Records" class="slide-thumb" style="object-fit: contain; background: #000; padding: 4px;">
             <h4>Farley 'Jackmaster' Funk</h4>
             <p>Collaborated with Darryl Pandy on <strong>"Love Can't Turn Around" (1986)</strong>, which reached #10 on the UK charts and introduced flamboyant Chicago house performance to Top of the Pops.</p>
           </div>
 
           <div class="info-card acid-edge">
-            <img src="/images/slides/house/paradise_garage.jpg" alt="Underground Club Culture" class="slide-thumb">
+            <img src="images/slides/house/paradise_garage.jpg" alt="Underground Club Culture" class="slide-thumb">
             <h4>Joe Smooth</h4>
             <p>Produced <strong>"Promised Land" (1987)</strong> on DJ International. Blended uplifting soul vocals, major 7th piano chords, and civil rights optimism into a timeless worldwide anthem.</p>
           </div>
@@ -1488,27 +1658,27 @@
 
         <div class="grid-4">
           <div class="info-card highlight">
-            <img src="/images/slides/house/masters_at_work.png" alt="Masters at Work" class="slide-thumb">
+            <img src="images/slides/house/masters_at_work.png" alt="Masters at Work" class="slide-thumb">
             <h4>Masters at Work (1991)</h4>
             <p><strong>"The Ha Dance"</strong>: Pioneered intricate vocal slicing and stuttered percussion that became the foundational rhythm of NYC ballroom and vogue culture.</p>
           </div>
 
           <div class="info-card cyan-edge">
-            <img src="/images/slides/house/crystal_waters.jpg" alt="Crystal Waters" class="slide-thumb">
+            <img src="images/slides/house/crystal_waters.jpg" alt="Crystal Waters" class="slide-thumb">
             <h4>Crystal Waters (1991)</h4>
             <p><strong>"Gypsy Woman (She's Homeless)"</strong>: Written by Waters and produced by the Basement Boys, built around a haunting organ chord vamp and iconic vocal refrain.</p>
             <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('_KztNIg4cvE', 'Crystal Waters - Gypsy Woman')">▶ Watch Video</button><a href="https://www.youtube.com/watch?v=_KztNIg4cvE" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div>
           </div>
 
           <div class="info-card acid-edge">
-            <img src="/images/slides/house/cece_peniston.jpg" alt="CeCe Peniston" class="slide-thumb">
+            <img src="images/slides/house/cece_peniston.jpg" alt="CeCe Peniston" class="slide-thumb">
             <h4>CeCe Peniston (1991/92)</h4>
             <p><strong>"Finally"</strong>: A global chart-topper showcasing powerhouse multi-tracked gospel vocals over a bouncy, syncopated house bass groove.</p>
             <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('xk8mm1Qmt-Y', 'CeCe Peniston - Finally')">▶ Watch Video</button><a href="https://www.youtube.com/watch?v=xk8mm1Qmt-Y" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div>
           </div>
 
           <div class="info-card amber-edge">
-            <img src="/images/slides/house/korg_m1.png" alt="Korg M1" class="slide-thumb" style="object-fit: contain; background: rgba(0,0,0,0.5); padding: 4px;">
+            <img src="images/slides/house/korg_m1.png" alt="Korg M1" class="slide-thumb" style="object-fit: contain; background: rgba(0,0,0,0.5); padding: 4px;">
             <h4>Robin S (1993)</h4>
             <p><strong>"Show Me Love"</strong>: Remixed by StoneBridge. <em>The Organ Bass has arrived!</em> Powered by the Korg M1 Organ 2 preset—the most famous bass sound in club history.</p>
             <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('Ps2Jc28tQrw', 'Robin S - Show Me Love')">▶ Watch Video</button><a href="https://www.youtube.com/watch?v=Ps2Jc28tQrw" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div>
@@ -1530,26 +1700,26 @@
 
         <div class="grid-4">
           <div class="info-card highlight">
-            <img src="/images/slides/house/todd_terry.png" alt="Todd Terry" class="slide-thumb">
+            <img src="images/slides/house/todd_terry.png" alt="Todd Terry" class="slide-thumb">
             <h4>Everything But The Girl (1995)</h4>
             <p><strong>"Missing" (Todd Terry Remix)</strong>: Todd Terry revolutionized pop remixing, setting Tracey Thorn's folk ballad over swung 4/4 drums and bouncy bass.</p>
             <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('IAkY5m00rpY', 'EBTG - Missing (Todd Terry Remix)')">▶ Watch Video</button><a href="https://www.youtube.com/watch?v=IAkY5m00rpY" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div>
           </div>
 
           <div class="info-card cyan-edge">
-            <img src="/images/slides/house/todd_edwards.jpg" alt="Todd Edwards" class="slide-thumb">
+            <img src="images/slides/house/todd_edwards.jpg" alt="Todd Edwards" class="slide-thumb">
             <h4>St Germain (1995)</h4>
             <p><strong>"Alabama Blues" (Todd Edwards Remix)</strong>: Ludovic Navarre combined deep blues sampling with Todd Edwards' complex vocal micro-chopping. Jazzy and soulful.</p>
           </div>
 
           <div class="info-card acid-edge">
-            <img src="/images/slides/house/roy_davis_jr.jpg" alt="Roy Davis Jr." class="slide-thumb">
+            <img src="images/slides/house/roy_davis_jr.jpg" alt="Roy Davis Jr." class="slide-thumb">
             <h4>Roy Davis Jr. (1996)</h4>
             <p><strong>"Gabriel" (ft. Peven Everett)</strong>: <em>"Garage is here."</em> Featuring live trumpet and soulful vocals, this track became the blueprint for UK Garage and 2-step.</p>
           </div>
 
           <div class="info-card amber-edge">
-            <img src="/images/slides/house/club_crowd.jpg" alt="Hard House Nightclub" class="slide-thumb">
+            <img src="images/slides/house/club_crowd.jpg" alt="Hard House Nightclub" class="slide-thumb">
             <h4>DJ Ariel (1999)</h4>
             <p><strong>"A9" (Hard House)</strong>: <em>"Faster and harder."</em> Pushed tempos to 135–140 BPM with aggressive offbeat bass stabs and frantic percussion.</p>
             <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('EtXBrzAk9OU', 'Ariel - A9 (Hard House)')">▶ Watch Video</button><a href="https://www.youtube.com/watch?v=EtXBrzAk9OU" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div>
@@ -1571,14 +1741,14 @@
 
         <div class="grid-2">
           <div class="info-card highlight">
-            <img src="/images/slides/house/daft_punk.jpg" alt="Daft Punk" class="slide-thumb">
+            <img src="images/slides/house/daft_punk.jpg" alt="Daft Punk" class="slide-thumb">
             <h4>Sampling Science on <em>Discovery</em> (2001)</h4>
             <p>Daft Punk took obscure disco and funk vinyl records, sampled 1-bar or 2-beat fragments into E-mu and Ensoniq hardware samplers, and rearranged them into completely new musical themes (e.g. sampling Edwin Birdsong's "Cola Bottle Baby" for "Harder Better Faster Stronger").</p>
             <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('5AqHSvR9bqs', 'Daft Punk - Discovery Sample Breakdown')">▶ Watch Discovery Sample Breakdown</button><a href="https://www.youtube.com/watch?v=5AqHSvR9bqs" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div>
           </div>
 
           <div class="info-card cyan-edge">
-            <img src="/images/slides/house/compressor_rack.jpg" alt="Alesis 3630 Hardware Compression" class="slide-thumb">
+            <img src="images/slides/house/compressor_rack.jpg" alt="Alesis 3630 Hardware Compression" class="slide-thumb">
             <span class="spec-pill ao3">AO3 Production Science</span>
             <h4>Filter Sweeps &amp; Sidechain Pumping</h4>
             <ul style="margin-left: 18px; font-size: 12px; color: #cbd5e1; line-height: 1.6;">
@@ -1604,7 +1774,7 @@
 
         <div class="grid-2">
           <div class="info-card highlight">
-            <img src="/images/slides/house/roland_tr909.png" alt="Roland TR-909" class="slide-thumb">
+            <img src="images/slides/house/roland_tr909.png" alt="Roland TR-909" class="slide-thumb">
             <span class="spec-pill ao3">AO3 Drum Machines</span>
             <h4>The Roland Rhythm Composers</h4>
             <ul style="margin-left: 18px; font-size: 12px; color: #94a3b8; line-height: 1.55;">
@@ -1616,7 +1786,7 @@
           </div>
 
           <div class="info-card cyan-edge">
-            <img src="/images/slides/house/akai_s950.png" alt="Akai Sampler" class="slide-thumb">
+            <img src="images/slides/house/akai_s950.png" alt="Akai Sampler" class="slide-thumb">
             <span class="spec-pill ao3">AO3 Digital Samplers</span>
             <h4>Digital Samplers</h4>
             <ul style="margin-left: 18px; font-size: 12px; color: #94a3b8; line-height: 1.55;">
@@ -1643,7 +1813,7 @@
 
         <div class="grid-2">
           <div class="info-card acid-edge">
-            <img src="/images/slides/house/analog_polyphony_synth.png" alt="Analog Synthesizer Architecture" class="slide-thumb">
+            <img src="images/slides/house/analog_polyphony_synth.png" alt="Analog Synthesizer Architecture" class="slide-thumb">
             <span class="spec-pill ao3">AO3 Analog Subtractive</span>
             <h4>Analog Classics</h4>
             <ul style="margin-left: 18px; font-size: 12px; color: #94a3b8; line-height: 1.55;">
@@ -1655,7 +1825,7 @@
           </div>
 
           <div class="info-card highlight">
-            <img src="/images/slides/house/yamaha_dx7.png" alt="Digital FM Synthesizer" class="slide-thumb" style="object-fit: contain; background: rgba(0,0,0,0.5); padding: 4px;">
+            <img src="images/slides/house/yamaha_dx7.png" alt="Digital FM Synthesizer" class="slide-thumb" style="object-fit: contain; background: rgba(0,0,0,0.5); padding: 4px;">
             <span class="spec-pill ao3">AO3 Digital FM &amp; PCM</span>
             <h4>Digital &amp; Lead Synths</h4>
             <ul style="margin-left: 18px; font-size: 12px; color: #94a3b8; line-height: 1.55;">
@@ -1682,7 +1852,7 @@
 
         <div class="grid-2">
           <div class="info-card highlight">
-            <img src="/images/slides/house/atari_st.jpg" alt="Atari ST" class="slide-thumb">
+            <img src="images/slides/house/atari_st.jpg" alt="Atari ST" class="slide-thumb">
             <span class="spec-pill ao3">AO3 MIDI &amp; Tape Sync</span>
             <h4>Atari ST &amp; Fostex R8 Multitrack</h4>
             <ul style="margin-left: 18px; font-size: 12px; color: #cbd5e1; line-height: 1.55;">
@@ -1693,7 +1863,7 @@
           </div>
 
           <div class="info-card cyan-edge">
-            <img src="/images/slides/house/effects_rack.jpg" alt="Outboard Effects Units" class="slide-thumb">
+            <img src="images/slides/house/effects_rack.jpg" alt="Outboard Effects Units" class="slide-thumb">
             <span class="spec-pill ao3">AO3 Digital Reverbs &amp; FX</span>
             <h4>Essential Hardware Processors</h4>
             <ul style="margin-left: 18px; font-size: 12px; color: #cbd5e1; line-height: 1.55;">
@@ -2285,6 +2455,177 @@
       }, 120);
     }
   });
+
+  // Universal mobile-friendly toggleFullscreen (with fallback for iPhone / iOS Safari where Fullscreen API is unavailable on divs)
+  window.toggleFullscreen = function() {
+    var docEl = document.documentElement;
+    var isFs = document.fullscreenElement || document.webkitFullscreenElement;
+    if (!isFs) {
+      if (docEl.requestFullscreen) {
+        docEl.requestFullscreen().catch(function() {
+          if (window.self !== window.top) {
+            window.top.location.href = window.location.href;
+          }
+        });
+      } else if (docEl.webkitRequestFullscreen) {
+        docEl.webkitRequestFullscreen();
+      } else if (window.self !== window.top) {
+        // iOS Safari fallback: open the standalone deck full-screen in the top viewport
+        window.top.location.href = window.location.href;
+      }
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen().catch(function() {});
+      } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+      }
+    }
+  };
+
+  // Universal touch-swipe slide navigation for mobile phones
+  (function() {
+    var touchStartX = 0;
+    var touchStartY = 0;
+    document.addEventListener('touchstart', function(e) {
+      if (!e.changedTouches || !e.changedTouches.length) return;
+      touchStartX = e.changedTouches[0].screenX;
+      touchStartY = e.changedTouches[0].screenY;
+    }, { passive: true });
+
+    document.addEventListener('touchend', function(e) {
+      if (!e.changedTouches || !e.changedTouches.length) return;
+      var target = e.target;
+      if (target && target.closest && target.closest('table, .table-container, .comp-table-wrap, select, button, a, .video-modal-backdrop, #videoModal')) {
+        return;
+      }
+      var dx = e.changedTouches[0].screenX - touchStartX;
+      var dy = e.changedTouches[0].screenY - touchStartY;
+      if (Math.abs(dx) > 65 && Math.abs(dx) > Math.abs(dy) * 1.8) {
+        if (dx < 0) {
+          if (typeof nextSlide === 'function') nextSlide();
+          else if (typeof changeSlide === 'function') changeSlide(1);
+        } else {
+          if (typeof prevSlide === 'function') prevSlide();
+          else if (typeof changeSlide === 'function') changeSlide(-1);
+        }
+      }
+    }, { passive: true });
+  })();
+
+
+  // Universal mobile-friendly toggleFullscreen (with fallback for iPhone / iOS Safari where Fullscreen API is unavailable on divs)
+  window.toggleFullscreen = function() {
+    var docEl = document.documentElement;
+    var isFs = document.fullscreenElement || document.webkitFullscreenElement;
+    if (!isFs) {
+      if (docEl.requestFullscreen) {
+        docEl.requestFullscreen().catch(function() {
+          if (window.self !== window.top) {
+            window.top.location.href = window.location.href;
+          }
+        });
+      } else if (docEl.webkitRequestFullscreen) {
+        docEl.webkitRequestFullscreen();
+      } else if (window.self !== window.top) {
+        // iOS Safari fallback: open the standalone deck full-screen in the top viewport
+        window.top.location.href = window.location.href;
+      }
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen().catch(function() {});
+      } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+      }
+    }
+  };
+
+  // Universal touch-swipe slide navigation for mobile phones
+  (function() {
+    var touchStartX = 0;
+    var touchStartY = 0;
+    document.addEventListener('touchstart', function(e) {
+      if (!e.changedTouches || !e.changedTouches.length) return;
+      touchStartX = e.changedTouches[0].screenX;
+      touchStartY = e.changedTouches[0].screenY;
+    }, { passive: true });
+
+    document.addEventListener('touchend', function(e) {
+      if (!e.changedTouches || !e.changedTouches.length) return;
+      var target = e.target;
+      if (target && target.closest && target.closest('table, .table-container, .comp-table-wrap, select, button, a, .video-modal-backdrop, #videoModal')) {
+        return;
+      }
+      var dx = e.changedTouches[0].screenX - touchStartX;
+      var dy = e.changedTouches[0].screenY - touchStartY;
+      if (Math.abs(dx) > 65 && Math.abs(dx) > Math.abs(dy) * 1.8) {
+        if (dx < 0) {
+          if (typeof nextSlide === 'function') nextSlide();
+          else if (typeof changeSlide === 'function') changeSlide(1);
+        } else {
+          if (typeof prevSlide === 'function') prevSlide();
+          else if (typeof changeSlide === 'function') changeSlide(-1);
+        }
+      }
+    }, { passive: true });
+  })();
+
+
+  // Universal mobile-friendly toggleFullscreen (with fallback for iPhone / iOS Safari where Fullscreen API is unavailable on divs)
+  window.toggleFullscreen = function() {
+    var docEl = document.documentElement;
+    var isFs = document.fullscreenElement || document.webkitFullscreenElement;
+    if (!isFs) {
+      if (docEl.requestFullscreen) {
+        docEl.requestFullscreen().catch(function() {
+          if (window.self !== window.top) {
+            window.top.location.href = window.location.href;
+          }
+        });
+      } else if (docEl.webkitRequestFullscreen) {
+        docEl.webkitRequestFullscreen();
+      } else if (window.self !== window.top) {
+        // iOS Safari fallback: open the standalone deck full-screen in the top viewport
+        window.top.location.href = window.location.href;
+      }
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen().catch(function() {});
+      } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+      }
+    }
+  };
+
+  // Universal touch-swipe slide navigation for mobile phones
+  (function() {
+    var touchStartX = 0;
+    var touchStartY = 0;
+    document.addEventListener('touchstart', function(e) {
+      if (!e.changedTouches || !e.changedTouches.length) return;
+      touchStartX = e.changedTouches[0].screenX;
+      touchStartY = e.changedTouches[0].screenY;
+    }, { passive: true });
+
+    document.addEventListener('touchend', function(e) {
+      if (!e.changedTouches || !e.changedTouches.length) return;
+      var target = e.target;
+      if (target && target.closest && target.closest('table, .table-container, .comp-table-wrap, select, button, a, .video-modal-backdrop, #videoModal')) {
+        return;
+      }
+      var dx = e.changedTouches[0].screenX - touchStartX;
+      var dy = e.changedTouches[0].screenY - touchStartY;
+      if (Math.abs(dx) > 65 && Math.abs(dx) > Math.abs(dy) * 1.8) {
+        if (dx < 0) {
+          if (typeof nextSlide === 'function') nextSlide();
+          else if (typeof changeSlide === 'function') changeSlide(1);
+        } else {
+          if (typeof prevSlide === 'function') prevSlide();
+          else if (typeof changeSlide === 'function') changeSlide(-1);
+        }
+      }
+    }, { passive: true });
+  })();
+
 </script>
 <!-- === END HASH DEEP LINK === -->
 </body>

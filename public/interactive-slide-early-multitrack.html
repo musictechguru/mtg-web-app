@@ -1110,19 +1110,29 @@
     }
     /* === END ANTI-SQUASH === */
 
-  
     /* === MTG MOBILE PHONE RESPONSIVENESS OVERRIDES === */
     @media (max-width: 768px) {
       html, body {
-        overflow-x: hidden !important;
+        height: 100vh !important;
+        max-height: 100vh !important;
+        overflow: hidden !important;
         max-width: 100vw !important;
+        display: flex !important;
+        flex-direction: column !important;
       }
+      /* Compact top utility bar */
       .deck-topbar-controls, .top-utility-bar, header.deck-topbar-controls {
         padding: 6px 10px !important;
         gap: 6px !important;
-        min-height: 42px !important;
+        min-height: 40px !important;
         height: auto !important;
         flex-wrap: nowrap !important;
+        flex-shrink: 0 !important;
+        justify-content: space-between !important;
+      }
+      /* Hide secondary promo link in topbar on phones so Fullscreen button never clips */
+      .deck-topbar-controls a[href*="app.musictechguru.com"] {
+        display: none !important;
       }
       .exit-deck-link {
         padding: 5px 8px !important;
@@ -1130,12 +1140,21 @@
         white-space: nowrap !important;
         flex-shrink: 0 !important;
       }
-      .deck-topbar-title, .top-bar-title {
-        font-size: 11.5px !important;
+      .deck-topbar-controls > div:first-child,
+      .top-utility-bar > div:first-child,
+      header.deck-topbar-controls > div:first-child {
+        min-width: 0 !important;
+        flex: 1 1 auto !important;
+        overflow: hidden !important;
+      }
+      .deck-topbar-title, .top-bar-title, .deck-topbar-controls span[style*="color: #94a3b8"] {
+        font-size: 11px !important;
         white-space: nowrap !important;
         overflow: hidden !important;
         text-overflow: ellipsis !important;
-        max-width: 42vw !important;
+        max-width: 38vw !important;
+        display: inline-block !important;
+        vertical-align: middle !important;
       }
       .deck-topbar-controls .fullscreen-btn,
       .top-utility-bar .fullscreen-btn,
@@ -1146,7 +1165,83 @@
         white-space: nowrap !important;
         flex-shrink: 0 !important;
       }
-      /* Collapse multi-column slide grids to 1 column on phones */
+      /* Hide redundant secondary inner banner bars on mobile to maximize slide viewport height */
+      header.deck-topbar,
+      .deck-topbar,
+      .top-bar {
+        display: none !important;
+      }
+      header.deck-header, .deck-header {
+        padding: 6px 12px !important;
+        min-height: auto !important;
+        flex-shrink: 0 !important;
+      }
+      header.deck-header .deck-title-group, .deck-header .deck-title-group {
+        display: none !important;
+      }
+      header.deck-header .deck-actions, .deck-header .deck-actions {
+        width: 100% !important;
+        display: flex !important;
+        justify-content: space-between !important;
+      }
+      header.deck-header .slide-select, .deck-header .slide-select {
+        max-width: 100% !important;
+        width: 100% !important;
+      }
+      header.deck-header button, .deck-header button {
+        display: none !important;
+      }
+      /* Full-bleed deck wrapper / container as flex column */
+      .deck-wrapper, .deck-container {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        border-radius: 0 !important;
+        border-left: none !important;
+        border-right: none !important;
+        flex: 1 1 auto !important;
+        min-height: 0 !important;
+        height: auto !important;
+        max-height: none !important;
+        display: flex !important;
+        flex-direction: column !important;
+        overflow: hidden !important;
+      }
+      .slides-viewport, .slide-stage {
+        flex: 1 1 auto !important;
+        min-height: 0 !important;
+        width: 100% !important;
+        padding: 0 !important;
+        overflow: hidden !important;
+        position: relative !important;
+        display: flex !important;
+        flex-direction: column !important;
+      }
+      /* Single continuous vertical scroll container for the active slide */
+      .slide:not(.active) {
+        display: none !important;
+      }
+      .slide.active {
+        position: relative !important;
+        top: auto !important;
+        left: auto !important;
+        display: block !important;
+        width: 100% !important;
+        height: 100% !important;
+        max-height: 100% !important;
+        flex: 1 1 auto !important;
+        min-height: 0 !important;
+        padding: 14px 14px 80px !important;
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+        -webkit-overflow-scrolling: touch !important;
+        box-sizing: border-box !important;
+        transform: none !important;
+        opacity: 1 !important;
+        pointer-events: auto !important;
+      }
+      /* Collapse all multi-column slide grids into a single unconstrained vertical stack */
       .slide .split-grid,
       .slide .grid-2,
       .slide .grid-2-split,
@@ -1161,33 +1256,89 @@
       .slide .two-col,
       .slide .three-col,
       .slide [style*="grid-template-columns"] {
-        grid-template-columns: 1fr !important;
-        gap: 12px !important;
-      }
-      .slide .grid-2-split {
         display: flex !important;
         flex-direction: column !important;
-        overflow-y: visible !important;
+        grid-template-columns: 1fr !important;
+        gap: 14px !important;
+        flex: none !important;
+        width: 100% !important;
+        height: auto !important;
+        min-height: auto !important;
+        max-height: none !important;
+        overflow: visible !important;
+        margin-bottom: 16px !important;
+      }
+      /* Unconstrain all column panels and cards so they expand naturally inside the slide scroll */
+      .slide .column-panel,
+      .slide .col-panel,
+      .slide .info-card,
+      .slide .feature-card,
+      .slide .music-col,
+      .slide .instrument-col,
+      .slide .format-col,
+      .slide .prod-col,
+      .slide .tech-col,
+      .slide .col-music,
+      .slide .col-tech,
+      .slide .artist-visual-col {
+        display: flex !important;
+        flex-direction: column !important;
+        flex: none !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        height: auto !important;
+        min-height: auto !important;
+        max-height: none !important;
+        overflow: visible !important;
+        padding: 14px !important;
+        box-sizing: border-box !important;
+      }
+      /* Stack panel headers and takeaway/tip boxes vertically on phones so badges & text never crush */
+      .slide .panel-header,
+      .slide .col-header,
+      .slide .header-bar,
+      .slide .takeaway-box,
+      .slide .callout-box,
+      .slide .exam-tip,
+      .slide .tip-box {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        justify-content: flex-start !important;
+        gap: 6px !important;
         height: auto !important;
       }
-      .slide .column-panel {
-        overflow-y: visible !important;
-        max-height: none !important;
+      /* Give photo cards and hardware images generous height on mobile */
+      .slide .photo-card,
+      .slide .hardware-photo,
+      .slide .instrument-photo-card {
         height: auto !important;
+        min-height: 175px !important;
+        max-height: none !important;
         flex-shrink: 0 !important;
       }
-      .slide, .slide.active {
-        padding: 14px 12px 24px !important;
-        overflow-y: auto !important;
-        overflow-x: hidden !important;
-        -webkit-overflow-scrolling: touch !important;
+      .slide .photo-card img,
+      .slide .hardware-photo img,
+      .slide .instrument-photo-card img.instrument-photo {
+        height: 185px !important;
+        max-height: 220px !important;
+        width: 100% !important;
+        object-fit: contain !important;
       }
-      .slide h1 {
-        font-size: clamp(20px, 5.5vw, 26px) !important;
+      .slide .table-container,
+      .slide .comp-table-wrap {
+        overflow-x: auto !important;
+        overflow-y: visible !important;
+        max-height: none !important;
+        flex: none !important;
+        width: 100% !important;
+      }
+      .slide h1, .slide .slide-heading, .slide .slide-title {
+        font-size: clamp(20px, 5.5vw, 25px) !important;
         line-height: 1.22 !important;
       }
       .slide h2 {
-        font-size: clamp(17px, 4.8vw, 22px) !important;
+        font-size: clamp(17px, 4.8vw, 21px) !important;
         line-height: 1.25 !important;
       }
       .slide p, .slide li {
@@ -1201,12 +1352,14 @@
         -webkit-overflow-scrolling: touch !important;
         font-size: 12px !important;
       }
-      /* Bottom Controls Bar: Ensure Previous, Slide Counter, and Next always fit on 320-390px phones */
+      /* Bottom Controls Bar: Ensure Previous, Slide Counter/Dropdown, and Next always fit on 320-430px phones */
       footer.deck-controls,
       .deck-controls,
       .deck-nav,
       .bottom-bar,
-      .deck-nav-bar {
+      .deck-nav-bar,
+      .deck-footer,
+      .deck-bottombar {
         padding: 8px 10px !important;
         gap: 6px !important;
         min-height: 50px !important;
@@ -1217,29 +1370,46 @@
         flex-wrap: nowrap !important;
         width: 100% !important;
         box-sizing: border-box !important;
+        flex-shrink: 0 !important;
       }
       .deck-controls .controls-left,
       .bottom-bar .nav-buttons,
       .deck-nav-bar .nav-left,
-      .deck-nav-bar .nav-right {
+      .deck-nav-bar .nav-right,
+      .deck-nav-bar > div:first-child {
         display: contents !important;
       }
-      /* Hide duplicate bottom Fullscreen button & wide dot arrays on mobile so Next button is never clipped */
+      /* Reorder amplifiers bottom bar children so Prev is left, Counter is center, Next is right */
+      .deck-nav-bar #prevBtn { order: 1 !important; }
+      .deck-nav-bar .slide-counter, .deck-nav-bar .nav-center { order: 2 !important; }
+      .deck-nav-bar #nextBtn { order: 3 !important; }
+      /* When both a slide-counter and a slide-select dropdown exist in deck-nav-bar, hide the duplicate text counter on phones */
+      .deck-nav-bar .nav-left .slide-counter {
+        display: none !important;
+      }
+      /* Hide duplicate bottom Fullscreen button, keyboard hints & wide dot arrays on mobile so Next button is never clipped */
       #bottomFsBtn,
       .deck-controls button[onclick*="toggleFullscreen"],
       .bottom-bar button[onclick*="toggleFullscreen"],
       .deck-nav button[onclick*="toggleFullscreen"],
       .deck-nav-bar button[onclick*="toggleFullscreen"],
+      .deck-footer button[onclick*="toggleFullscreen"],
+      .deck-bottombar button[onclick*="toggleFullscreen"],
       .controls-right,
       .keyboard-hint,
+      .nav-shortcuts,
       .progress-dots,
       .slide-dots,
       #dotsContainer,
       #progressDots,
-      .progress-track {
+      .progress-track,
+      .progress-bar-track,
+      .progress-bar-container {
         display: none !important;
       }
       .progress-container,
+      .progress-group,
+      .deck-progress-group,
       .slide-indicator,
       .deck-nav-bar .nav-center {
         flex: 1 1 auto !important;
@@ -1249,13 +1419,13 @@
         justify-content: center !important;
         margin: 0 4px !important;
       }
-      .slide-counter, #slideCounter {
+      .slide-counter, #slideCounter, .progress-label {
         font-size: 11.5px !important;
         white-space: nowrap !important;
         text-align: center !important;
       }
       .slide-select, #slideSelect {
-        max-width: 135px !important;
+        max-width: 155px !important;
         font-size: 11.5px !important;
         padding: 5px 8px !important;
         text-overflow: ellipsis !important;
@@ -1326,13 +1496,13 @@
         <div class="slide-eyebrow"><span>📋</span> Specification Roadmap</div>
         <h2 class="slide-heading">Component 3 <span>Syllabus Matrix for 1964–1969</span></h2>
         <p class="slide-lead">Edexcel requires deep technical analysis of 4-track tape machines, reduction bouncing, valve mixing desks, vintage outboard, and signature instruments from this revolutionary era.</p>
-        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/early_multitrack/teac_4track_multitrack.jpg" alt="4-Track Reel-to-Reel Tape Machine" class="slide-thumb">
+        <div class="grid-3"><div class="info-card highlight"><img src="images/slides/early_multitrack/teac_4track_multitrack.jpg" alt="4-Track Reel-to-Reel Tape Machine" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Recording Technology</span>
                <h4>4-Track Tape &amp; Bouncing</h4>
-               <p>1-inch magnetic tape at 15 ips; Studer J37; Sel-Sync overdubbing; reduction mixes (4-to-1 bouncing); generational loss trade-offs.</p></div><div class="info-card cyan-edge"><img src="/images/slides/early_multitrack/emt_140_plate.jpg" alt="EMT 140 Steel Plate Reverb" class="slide-thumb">
+               <p>1-inch magnetic tape at 15 ips; Studer J37; Sel-Sync overdubbing; reduction mixes (4-to-1 bouncing); generational loss trade-offs.</p></div><div class="info-card cyan-edge"><img src="images/slides/early_multitrack/emt_140_plate.jpg" alt="EMT 140 Steel Plate Reverb" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Studio Outboard</span>
                <h4>Plates, Valves &amp; Optics</h4>
-               <p>EMT 140 cold-rolled steel plate reverb; Fairchild 670 variable-mu valve limiting; Teletronix LA-2A electro-optical compression.</p></div><div class="info-card acid-edge"><img src="/images/slides/early_multitrack/fuzz_face_original.jpg" alt="Dallas-Arbiter Fuzz Face Pedal" class="slide-thumb">
+               <p>EMT 140 cold-rolled steel plate reverb; Fairchild 670 variable-mu valve limiting; Teletronix LA-2A electro-optical compression.</p></div><div class="info-card acid-edge"><img src="images/slides/early_multitrack/fuzz_face_original.jpg" alt="Dallas-Arbiter Fuzz Face Pedal" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Effects &amp; Instruments</span>
                <h4>ADT, Flanging &amp; Fuzz</h4>
                <p>Abbey Road ADT; manual tape flanging; Arbiter Fuzz Face transistor saturation; Vox wah-wah; Hammond B3 &amp; Leslie 122 rotary speaker.</p></div></div>
@@ -1342,15 +1512,15 @@
         <div class="slide-eyebrow"><span>🎷</span> Musical Evolution: Soul & R&B</div>
         <h2 class="slide-heading">The Golden Era <span>of 1960s Soul</span></h2>
         <p class="slide-lead">During the mid-1960s, American Soul music established iconic production techniques across Detroit (Motown), Memphis (Stax), and New York (Atlantic).</p>
-        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/early_multitrack/sam_cooke_portrait.jpg" alt="Sam Cooke" class="slide-thumb">
+        <div class="grid-3"><div class="info-card highlight"><img src="images/slides/early_multitrack/sam_cooke_portrait.jpg" alt="Sam Cooke" class="slide-thumb">
                <span class="spec-pill ao4">AO4 Orchestral Soul</span>
                <h4>Sam Cooke (1964)</h4>
                <p><em>"A Change Is Gonna Come"</em>: Tracked at RCA Studios Hollywood. Lush symphonic French horn, orchestral strings, and deep acoustic plate reverberation.</p>
-               <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('wEBlaMOmKV4', 'Sam Cooke - A Change Is Gonna Come (1964)')">▶ Listen: A Change Is Gonna Come</button><a href="https://www.youtube.com/watch?v=wEBlaMOmKV4" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div></div><div class="info-card cyan-edge"><img src="/images/slides/early_multitrack/aretha_franklin_1968.jpg" alt="Aretha Franklin at the Piano" class="slide-thumb">
+               <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('wEBlaMOmKV4', 'Sam Cooke - A Change Is Gonna Come (1964)')">▶ Listen: A Change Is Gonna Come</button><a href="https://www.youtube.com/watch?v=wEBlaMOmKV4" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div></div><div class="info-card cyan-edge"><img src="images/slides/early_multitrack/aretha_franklin_1968.jpg" alt="Aretha Franklin at the Piano" class="slide-thumb">
                <span class="spec-pill ao4">AO4 Atlantic Rhythm</span>
                <h4>Aretha Franklin: "Respect" (1967)</h4>
                <p>Engineered by Tom Dowd on 8-track tape at Atlantic Studios NYC. Features punchy brass section, tight drum pocket, Hammond organ, and dynamic call-and-response backing vocals.</p>
-               <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('6FOUqQt3Kg0', 'Aretha Franklin - Respect (1967)')">▶ Listen: Respect</button><a href="https://www.youtube.com/watch?v=6FOUqQt3Kg0" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div></div><div class="info-card acid-edge"><img src="/images/slides/early_multitrack/hitsville_usa_motown.jpg" alt="Motown Hitsville U.S.A. Studio A" class="slide-thumb">
+               <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('6FOUqQt3Kg0', 'Aretha Franklin - Respect (1967)')">▶ Listen: Respect</button><a href="https://www.youtube.com/watch?v=6FOUqQt3Kg0" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div></div><div class="info-card acid-edge"><img src="images/slides/early_multitrack/hitsville_usa_motown.jpg" alt="Motown Hitsville U.S.A. Studio A" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Studio Technique</span>
                <h4>The Funk Brothers &amp; Stax</h4>
                <p>James Jamerson tracked direct-injected (DI) Fender Precision Bass with flatwound strings. Tight drum miking with heavy damping created punchy rhythmic drive.</p></div></div>
@@ -1360,14 +1530,14 @@
         <div class="slide-eyebrow"><span>🎸</span> Musical Evolution: Psychedelic Rock</div>
         <h2 class="slide-heading">The Studio <span>as a Musical Instrument</span></h2>
         <p class="slide-lead">By 1967, British and American rock artists abandoned traditional live performance limitations, utilizing multitrack tape, sound effects, and studio manipulation to craft expansive sonic landscapes.</p>
-        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/early_multitrack/sgt_pepper_drum_skin.jpg" alt="The Beatles Sgt. Pepper Bass Drum" class="slide-thumb">
+        <div class="grid-3"><div class="info-card highlight"><img src="images/slides/early_multitrack/sgt_pepper_drum_skin.jpg" alt="The Beatles Sgt. Pepper Bass Drum" class="slide-thumb">
                <span class="spec-pill ao4">AO4 Landmark Album</span>
                <h4>The Beatles: Sgt. Pepper (1967)</h4>
                <p>George Martin and Geoff Emerick pushed Abbey Road 4-track tape machines to their limits using reduction bounces, Indian sitar/tabla, brass, and audience applause effects.</p>
-               <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('kJvXcce9AcY', 'Deconstructing Sgt Pepper 4-Track Sessions')">▶ Watch: Sgt. Pepper 4-Track Deconstructed</button><a href="https://www.youtube.com/watch?v=kJvXcce9AcY" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div></div><div class="info-card cyan-edge"><img src="/images/slides/early_multitrack/pink_floyd_1967_syd.jpg" alt="Pink Floyd 1967 with Syd Barrett" class="slide-thumb">
+               <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('kJvXcce9AcY', 'Deconstructing Sgt Pepper 4-Track Sessions')">▶ Watch: Sgt. Pepper 4-Track Deconstructed</button><a href="https://www.youtube.com/watch?v=kJvXcce9AcY" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div></div><div class="info-card cyan-edge"><img src="images/slides/early_multitrack/pink_floyd_1967_syd.jpg" alt="Pink Floyd 1967 with Syd Barrett" class="slide-thumb">
                <span class="spec-pill ao4">AO4 Psychedelic Exploration</span>
                <h4>Pink Floyd: Syd Barrett Era</h4>
-               <p><em>"Point Me at the Sky"</em> &amp; <em>Piper at the Gates of Dawn</em>: Slide guitars through tape delays, panning echoes, Hammond organ drones, and avant-garde tape loops.</p></div><div class="info-card acid-edge"><img src="/images/slides/early_multitrack/cream_clapton_bruce.jpg" alt="Cream: Clapton, Bruce & Baker" class="slide-thumb">
+               <p><em>"Point Me at the Sky"</em> &amp; <em>Piper at the Gates of Dawn</em>: Slide guitars through tape delays, panning echoes, Hammond organ drones, and avant-garde tape loops.</p></div><div class="info-card acid-edge"><img src="images/slides/early_multitrack/cream_clapton_bruce.jpg" alt="Cream: Clapton, Bruce & Baker" class="slide-thumb">
                <span class="spec-pill ao4">AO4 Blues-Rock Heavyweight</span>
                <h4>Cream: "White Room" (1968)</h4>
                <p>Jack Bruce's overdriven Gibson EB-3 bass, Ginger Baker's jazz-influenced drums, and Eric Clapton's signature Vox wah-wah pedal soloing through Marshall stacks.</p></div></div>
@@ -1377,13 +1547,13 @@
         <div class="slide-eyebrow"><span>🎹</span> Iconic Instruments</div>
         <h2 class="slide-heading">The Hammond Organ <span>&amp; Leslie 122 Rotary Speaker</span></h2>
         <p class="slide-lead">The defining keyboard texture of 1960s rock, soul, and gospel: an electro-mechanical tone-wheel organ paired with an acoustic rotating speaker cabinet.</p>
-        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/early_multitrack/hammond_c3_organ.jpg" alt="Hammond Organ Keyboards and Drawbars" class="slide-thumb">
+        <div class="grid-3"><div class="info-card highlight"><img src="images/slides/early_multitrack/hammond_c3_organ.jpg" alt="Hammond Organ Keyboards and Drawbars" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Electro-Mechanical Sound</span>
                <h4>Hammond B3 Tone-Wheels</h4>
-               <p>Steel tone-wheels with grooved edges spin past electromagnetic pickups at precise speeds, generating pure sine-wave harmonics. Drawbars mix harmonic octaves (16' to 1').</p></div><div class="info-card cyan-edge"><img src="/images/slides/early_multitrack/leslie_diagram.svg" alt="Leslie Speaker Acoustic Dispersion Diagram" class="slide-thumb">
+               <p>Steel tone-wheels with grooved edges spin past electromagnetic pickups at precise speeds, generating pure sine-wave harmonics. Drawbars mix harmonic octaves (16' to 1').</p></div><div class="info-card cyan-edge"><img src="images/slides/early_multitrack/leslie_diagram.svg" alt="Leslie Speaker Acoustic Dispersion Diagram" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Acoustic Modulation</span>
                <h4>The Doppler Effect</h4>
-               <p>A rotating treble horn and downward-firing bass rotor spin via dual-speed motors (Chorale slow ~40 RPM vs Tremolo fast ~400 RPM), creating continuous Doppler pitch shift, amplitude tremolo, and phase phasing.</p></div><div class="info-card acid-edge"><img src="/images/slides/early_multitrack/leslie_speaker_original.jpg" alt="Leslie Rotary Speaker Cabinet" class="slide-thumb">
+               <p>A rotating treble horn and downward-firing bass rotor spin via dual-speed motors (Chorale slow ~40 RPM vs Tremolo fast ~400 RPM), creating continuous Doppler pitch shift, amplitude tremolo, and phase phasing.</p></div><div class="info-card acid-edge"><img src="images/slides/early_multitrack/leslie_speaker_original.jpg" alt="Leslie Rotary Speaker Cabinet" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Microphone Technique</span>
                <h4>Stereo Miking Rotary Cabs</h4>
                <p>Standard practice: a stereo pair of dynamic mics (Shure SM57 or Sennheiser MD421) on the upper horn (panned hard left/right) and a single dynamic mic on the lower bass drum.</p>
@@ -1394,13 +1564,13 @@
         <div class="slide-eyebrow"><span>🎼</span> Analog Sampling Revolution</div>
         <h2 class="slide-heading">The Mellotron M400 <span>&amp; Wurlitzer Electric Piano</span></h2>
         <p class="slide-lead">Before digital samplers or ROMpler synthesizers existed, 1960s studios used physical tape playback mechanisms and electro-mechanical tines to create orchestral and keyboard sounds.</p>
-        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/early_multitrack/mellotron_m400_classic.jpg" alt="Mellotron M400 Tape Replay Keyboard" class="slide-thumb">
+        <div class="grid-3"><div class="info-card highlight"><img src="images/slides/early_multitrack/mellotron_m400_classic.jpg" alt="Mellotron M400 Tape Replay Keyboard" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Pre-Digital Sampling</span>
                <h4>Mellotron: Analog Tape Replay</h4>
-               <p>Pressing a key lowers a pinch roller, pulling an authentic 3/8" magnetic tape strip across an audio playback head. Each key holds a discrete 8-second recording of real violins, flutes, or choirs.</p></div><div class="info-card cyan-edge"><img src="/images/slides/early_multitrack/wurlitzer_200a_electronic.jpg" alt="Wurlitzer 200A Electric Piano" class="slide-thumb">
+               <p>Pressing a key lowers a pinch roller, pulling an authentic 3/8" magnetic tape strip across an audio playback head. Each key holds a discrete 8-second recording of real violins, flutes, or choirs.</p></div><div class="info-card cyan-edge"><img src="images/slides/early_multitrack/wurlitzer_200a_electronic.jpg" alt="Wurlitzer 200A Electric Piano" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Electro-Mechanical Keys</span>
                <h4>Wurlitzer 200A Electric Piano</h4>
-               <p>Felt hammers strike tuned steel reeds (tines). Electrostatic pickups convert vibrations into electrical voltage, routed through a built-in optical tremolo circuit for a warm, biting tone.</p></div><div class="info-card acid-edge"><img src="/images/slides/early_multitrack/vox_continental_combo.jpg" alt="Vox Continental Combo Organ" class="slide-thumb">
+               <p>Felt hammers strike tuned steel reeds (tines). Electrostatic pickups convert vibrations into electrical voltage, routed through a built-in optical tremolo circuit for a warm, biting tone.</p></div><div class="info-card acid-edge"><img src="images/slides/early_multitrack/vox_continental_combo.jpg" alt="Vox Continental Combo Organ" class="slide-thumb">
                <span class="spec-pill ao4">AO4 Studio Landmark</span>
                <h4>Vox Continental &amp; Combo Keys</h4>
                <p>Transistor-based combo organs delivered punchy, thin, cutting treble sounds favored by British Invasion and psychedelic bands (The Doors, The Animals), contrasting the warm tubey Hammond organ.</p></div></div>
@@ -1410,13 +1580,13 @@
         <div class="slide-eyebrow"><span>⚡</span> Electrified Tone</div>
         <h2 class="slide-heading">British Invasion <span>&amp; High-Gain Valve Stacks</span></h2>
         <p class="slide-lead">The mid-1960s saw the emergence of massive rock concert venues, driving amp designers to create ultra-loud, saturated valve circuits.</p>
-        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/early_multitrack/fender_twin_reverb_silver.jpg" alt="Fender Twin Reverb Valve Amplifier" class="slide-thumb">
+        <div class="grid-3"><div class="info-card highlight"><img src="images/slides/early_multitrack/fender_twin_reverb_silver.jpg" alt="Fender Twin Reverb Valve Amplifier" class="slide-thumb">
                <span class="spec-pill ao3">AO3 American Clean Headroom</span>
                <h4>Fender Twin Reverb (1965)</h4>
-               <p>85W valve circuit powered by four 6L6 power tubes and two 12" speakers. Prized for pristine clean headroom, lush dual-spring reverb, and optoisolator tremolo.</p></div><div class="info-card cyan-edge"><img src="/images/slides/early_multitrack/marshall_stack_classic.jpg" alt="Marshall Valve Full Stack Amplifier" class="slide-thumb">
+               <p>85W valve circuit powered by four 6L6 power tubes and two 12" speakers. Prized for pristine clean headroom, lush dual-spring reverb, and optoisolator tremolo.</p></div><div class="info-card cyan-edge"><img src="images/slides/early_multitrack/marshall_stack_classic.jpg" alt="Marshall Valve Full Stack Amplifier" class="slide-thumb">
                <span class="spec-pill ao3">AO3 British Overdrive</span>
                <h4>Marshall 100W Super Lead (Plexi)</h4>
-               <p>Jim Marshall developed 100W EL34 power-valve heads paired with 4x12 closed-back cabinets loaded with Celestion Greenbacks, delivering muscular crunch and singing sustain (Pete Townshend, Jimi Hendrix).</p></div><div class="info-card acid-edge"><img src="/images/slides/early_multitrack/rickenbacker_360_12.jpg" alt="Rickenbacker 360/12 Electric Guitar" class="slide-thumb">
+               <p>Jim Marshall developed 100W EL34 power-valve heads paired with 4x12 closed-back cabinets loaded with Celestion Greenbacks, delivering muscular crunch and singing sustain (Pete Townshend, Jimi Hendrix).</p></div><div class="info-card acid-edge"><img src="images/slides/early_multitrack/rickenbacker_360_12.jpg" alt="Rickenbacker 360/12 Electric Guitar" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Transducer Physics</span>
                <h4>The 1960s Jangle (Rickenbacker)</h4>
                <p>George Harrison and Roger McGuinn popularized the 12-string electric guitar, producing bright chorus jangle through "toaster-top" single-coil pickups and heavy studio optical compression.</p></div></div>
@@ -1426,13 +1596,13 @@
         <div class="slide-eyebrow"><span>🔄</span> Studio Architecture</div>
         <h2 class="slide-heading">From 1950s Live Room <span>to 1960s Multitrack Control Room</span></h2>
         <p class="slide-lead">The transition from tracking all performers live around 1–2 shared microphones to routing dedicated microphones through mixing desks onto discrete multitrack tape channels.</p>
-        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/early_multitrack/live_room_1950s_session.jpg" alt="Frank Sinatra Live Studio Tracking Session (1956)" class="slide-thumb">
+        <div class="grid-3"><div class="info-card highlight"><img src="images/slides/early_multitrack/live_room_1950s_session.jpg" alt="Frank Sinatra Live Studio Tracking Session (1956)" class="slide-thumb">
                <span class="spec-pill ao3">AO3 1950s Signal Chain</span>
                <h4>1950s: Direct-to-Mono</h4>
-               <p>Musicians &rarr; Mics &rarr; Passive Console &rarr; Mono Tape Machine. Balance achieved strictly via musician physical distance and room acoustics; zero overdubbing capability.</p></div><div class="info-card cyan-edge"><img src="/images/slides/early_multitrack/abbey_road_redd17_console.jpg" alt="Abbey Road Studios REDD Valve Mixing Console" class="slide-thumb">
+               <p>Musicians &rarr; Mics &rarr; Passive Console &rarr; Mono Tape Machine. Balance achieved strictly via musician physical distance and room acoustics; zero overdubbing capability.</p></div><div class="info-card cyan-edge"><img src="images/slides/early_multitrack/abbey_road_redd17_console.jpg" alt="Abbey Road Studios REDD Valve Mixing Console" class="slide-thumb">
                <span class="spec-pill ao3">AO3 1960s Multitrack Chain</span>
                <h4>Mid-1960s: Multitrack Tracking</h4>
-               <p>Isolated Mics &rarr; REDD Console Preamps &rarr; 4-Track Tape Recorder &rarr; Individual Channel Faders &amp; Outboard Sends &rarr; Stereo/Mono Master Recorder.</p></div><div class="info-card acid-edge"><img src="/images/slides/early_multitrack/abbey_road_studio2_baffles.jpg" alt="Abbey Road Studio 2 Acoustic Isolation Screens & Baffles" class="slide-thumb">
+               <p>Isolated Mics &rarr; REDD Console Preamps &rarr; 4-Track Tape Recorder &rarr; Individual Channel Faders &amp; Outboard Sends &rarr; Stereo/Mono Master Recorder.</p></div><div class="info-card acid-edge"><img src="images/slides/early_multitrack/abbey_road_studio2_baffles.jpg" alt="Abbey Road Studio 2 Acoustic Isolation Screens & Baffles" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Overdub Isolation</span>
                <h4>Gobos, Booths &amp; Cues</h4>
                <p>Musicians wore headphones to monitor prerecorded rhythm tracks. Acoustic baffles (gobos) and vocal isolation booths minimized bleed between electric and acoustic instruments.</p></div></div>
@@ -1442,13 +1612,13 @@
         <div class="slide-eyebrow"><span>📼</span> Magnetic Precision</div>
         <h2 class="slide-heading">The Studer J37 <span>&amp; Sel-Sync Overdubbing</span></h2>
         <p class="slide-lead">The Studer J37, installed at Abbey Road in 1965, was a massive 300-pound Swiss-engineered masterpiece containing 52 vacuum tubes running 1-inch magnetic tape.</p>
-        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/early_multitrack/studer_j37_4track_authentic.jpg" alt="Studer J37 1-Inch 4-Track Tape Recorder at Abbey Road Studios" class="slide-thumb">
+        <div class="grid-3"><div class="info-card highlight"><img src="images/slides/early_multitrack/studer_j37_4track_authentic.jpg" alt="Studer J37 1-Inch 4-Track Tape Recorder at Abbey Road Studios" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Tape Mechanics</span>
                <h4>1-Inch 4-Track Format</h4>
-               <p>Dividing 1-inch tape into 4 discrete audio tracks provided high track width, preserving wide dynamic range and low tape hiss at 15 inches per second (ips).</p></div><div class="info-card cyan-edge"><img src="/images/slides/early_multitrack/tape_head_gap_magnetic.jpg" alt="Tape Record Head Electromagnetic Gap" class="slide-thumb">
+               <p>Dividing 1-inch tape into 4 discrete audio tracks provided high track width, preserving wide dynamic range and low tape hiss at 15 inches per second (ips).</p></div><div class="info-card cyan-edge"><img src="images/slides/early_multitrack/tape_head_gap_magnetic.jpg" alt="Tape Record Head Electromagnetic Gap" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Head Physics</span>
                <h4>Erase &bull; Record &bull; Playback</h4>
-               <p>The tape passes the Erase head (high-frequency AC demagnetizes tape), the Record head (electromagnet aligns iron oxide), and the Playback head (reads magnetic flux).</p></div><div class="info-card acid-edge"><img src="/images/slides/early_multitrack/studer_bouncing_diagram.svg" alt="Sel-Sync Synchronous Head Monitoring" class="slide-thumb">
+               <p>The tape passes the Erase head (high-frequency AC demagnetizes tape), the Record head (electromagnet aligns iron oxide), and the Playback head (reads magnetic flux).</p></div><div class="info-card acid-edge"><img src="images/slides/early_multitrack/studer_bouncing_diagram.svg" alt="Sel-Sync Synchronous Head Monitoring" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Synchronous Monitoring</span>
                <h4>Sel-Sync Monitoring</h4>
                <p>Without Sel-Sync, monitoring via the playback head caused a noticeable audio delay (~100ms lag). Sel-Sync temporarily converts the Record head into a playback head, enabling perfect synchronization during overdubs.</p></div></div>
@@ -1458,13 +1628,13 @@
         <div class="slide-eyebrow"><span>🎚️</span> Studio Commitment</div>
         <h2 class="slide-heading">Reduction Mixing: <span>"Bouncing Down" at Abbey Road</span></h2>
         <p class="slide-lead">With only 4 discrete tracks available on a single machine, ambitious arrangements required bouncing submixes across multiple tape recorders.</p>
-        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/early_multitrack/scully_280_4track.jpg" alt="Scully 280 4-Track Console Tape Recorder" class="slide-thumb">
+        <div class="grid-3"><div class="info-card highlight"><img src="images/slides/early_multitrack/scully_280_4track.jpg" alt="Scully 280 4-Track Console Tape Recorder" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Reduction Technique</span>
                <h4>The 4-to-1 Bounce</h4>
-               <p>Drums, bass, rhythm guitar, and keyboards were recorded across tracks 1–4 of Machine 1. These 4 tracks were mixed in real time onto Track 1 of Machine 2, freeing 3 fresh tracks for lead vocals, solos, and orchestra.</p></div><div class="info-card cyan-edge"><img src="/images/slides/early_multitrack/tape_hiss_noise_reduction.jpg" alt="Dolby A-Type Noise Reduction Unit" class="slide-thumb">
+               <p>Drums, bass, rhythm guitar, and keyboards were recorded across tracks 1–4 of Machine 1. These 4 tracks were mixed in real time onto Track 1 of Machine 2, freeing 3 fresh tracks for lead vocals, solos, and orchestra.</p></div><div class="info-card cyan-edge"><img src="images/slides/early_multitrack/tape_hiss_noise_reduction.jpg" alt="Dolby A-Type Noise Reduction Unit" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Audio Trade-offs</span>
                <h4>Generational Loss &amp; Hiss</h4>
-               <p>Every reduction bounce transferred audio through another stage of magnetic tape and valve circuits. Tape hiss increased by +3 dB per generation, slight high-frequency clarity was lost, and wow &amp; flutter accumulated.</p></div><div class="info-card acid-edge"><img src="/images/slides/early_multitrack/magnetic_tape_master_reel.jpg" alt="10.5-inch Metal Reel of Master Magnetic Tape" class="slide-thumb">
+               <p>Every reduction bounce transferred audio through another stage of magnetic tape and valve circuits. Tape hiss increased by +3 dB per generation, slight high-frequency clarity was lost, and wow &amp; flutter accumulated.</p></div><div class="info-card acid-edge"><img src="images/slides/early_multitrack/magnetic_tape_master_reel.jpg" alt="10.5-inch Metal Reel of Master Magnetic Tape" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Engineering Discipline</span>
                <h4>Pre-Mix Commitment</h4>
                <p>Unlike modern DAW multitracks, once drums and bass were bounced together onto a single track, their relative balance, EQ, and reverb could never be adjusted again during the final mix!</p></div></div>
@@ -1474,13 +1644,13 @@
         <div class="slide-eyebrow"><span>🎛️</span> Preamps & Equalization</div>
         <h2 class="slide-heading">The EMI REDD Consoles: <span>REDD.37 &amp; REDD.51</span></h2>
         <p class="slide-lead">Designed by the Record Engineering Development Department (REDD) for Abbey Road Studios, these tube mixing desks defined the British recording sound.</p>
-        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/early_multitrack/vintage_mixing_console_tubes.jpg" alt="Vintage Valve Mixing Desk" class="slide-thumb">
+        <div class="grid-3"><div class="info-card highlight"><img src="images/slides/early_multitrack/vintage_mixing_console_tubes.jpg" alt="Vintage Valve Mixing Desk" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Console Architecture</span>
                <h4>REDD.37 &amp; REDD.51 Desks</h4>
-               <p>Featured 8 input channels, 4 main mix group outputs, and Siemens valve amplification. Built with heavy steel chassis, stepped rotary faders, and illuminated quadrant PPM meters.</p></div><div class="info-card cyan-edge"><img src="/images/slides/early_multitrack/vacuum_tube_valve_glow.jpg" alt="Glowing Vacuum Tubes & Preamps" class="slide-thumb">
+               <p>Featured 8 input channels, 4 main mix group outputs, and Siemens valve amplification. Built with heavy steel chassis, stepped rotary faders, and illuminated quadrant PPM meters.</p></div><div class="info-card cyan-edge"><img src="images/slides/early_multitrack/vacuum_tube_valve_glow.jpg" alt="Glowing Vacuum Tubes & Preamps" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Valve Preamplification</span>
                <h4>Siemens V72 Amplifiers</h4>
-               <p>German telecommunications tube modules delivering +34 dB of ultra-clean, warm analog gain with vanishingly low harmonic distortion and rich transformer saturation.</p></div><div class="info-card acid-edge"><img src="/images/slides/early_multitrack/audio_equalizer_controls.jpg" alt="Analog Shelving and Peaking Equalizer Controls" class="slide-thumb">
+               <p>German telecommunications tube modules delivering +34 dB of ultra-clean, warm analog gain with vanishingly low harmonic distortion and rich transformer saturation.</p></div><div class="info-card acid-edge"><img src="images/slides/early_multitrack/audio_equalizer_controls.jpg" alt="Analog Shelving and Peaking Equalizer Controls" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Filter Curves</span>
                <h4>"Classic" vs "Pop" EQ</h4>
                <p>Plug-in EQ cassettes: "Classic" EQ provided gentle shelving (100 Hz bass / 10 kHz treble) for classical orchestras; "Pop" EQ provided an aggressive +10 dB presence peak at 5 kHz to make vocals and guitars cut through.</p></div></div>
@@ -1490,13 +1660,13 @@
         <div class="slide-eyebrow"><span>💥</span> Guitar Stompboxes</div>
         <h2 class="slide-heading">Analog Distortion: <span>Fuzz Face &amp; The Wah-Wah Pedal</span></h2>
         <p class="slide-lead">In the mid-to-late 1960s, guitarists began deliberately pushing transistors and filter circuits to create aggressive, harmonic-rich overdrive and vocal-like modulation.</p>
-        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/early_multitrack/fuzz_face_pedal_vintage.jpg" alt="Vintage Dallas-Arbiter Fuzz Face Pedal" class="slide-thumb">
+        <div class="grid-3"><div class="info-card highlight"><img src="images/slides/early_multitrack/fuzz_face_pedal_vintage.jpg" alt="Vintage Dallas-Arbiter Fuzz Face Pedal" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Hard Clipping</span>
                <h4>Arbiter Fuzz Face (1966)</h4>
-               <p>Simple 2-transistor circuit (early NKT275 Germanium, later Silicon). Slices off audio waveform peaks (hard clipping), creating rich square waves, metallic upper harmonics, and near-infinite sustain (Jimi Hendrix).</p></div><div class="info-card cyan-edge"><img src="/images/slides/early_multitrack/vox_wah_pedal_crybaby.jpg" alt="Vintage Vox Cry Baby Wah-Wah Pedal" class="slide-thumb">
+               <p>Simple 2-transistor circuit (early NKT275 Germanium, later Silicon). Slices off audio waveform peaks (hard clipping), creating rich square waves, metallic upper harmonics, and near-infinite sustain (Jimi Hendrix).</p></div><div class="info-card cyan-edge"><img src="images/slides/early_multitrack/vox_wah_pedal_crybaby.jpg" alt="Vintage Vox Cry Baby Wah-Wah Pedal" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Resonant Band-Pass Filter</span>
                <h4>Vox V846 Wah-Wah (1967)</h4>
-               <p>A foot treadle sweeps a high-Q resonant band-pass filter peak (via an internal Fasel inductor) between 400 Hz and 2.5 kHz. Sweeping across human vowel formant frequencies produces the iconic "wah-wah" cry.</p></div><div class="info-card acid-edge"><img src="/images/slides/early_multitrack/distortion_overdrive_waveform.jpg" alt="Harmonic Distortion Waveform Clipping" class="slide-thumb">
+               <p>A foot treadle sweeps a high-Q resonant band-pass filter peak (via an internal Fasel inductor) between 400 Hz and 2.5 kHz. Sweeping across human vowel formant frequencies produces the iconic "wah-wah" cry.</p></div><div class="info-card acid-edge"><img src="images/slides/early_multitrack/distortion_overdrive_waveform.jpg" alt="Harmonic Distortion Waveform Clipping" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Harmonic Physics</span>
                <h4>Soft vs Hard Clipping</h4>
                <p>Overdriven valve preamps round off waveform peaks gently (soft clipping), generating warm even-order 2nd harmonics. Transistor fuzz pedals slice peaks abruptly (hard clipping), generating aggressive odd-order harmonics.</p></div></div>
@@ -1506,13 +1676,13 @@
         <div class="slide-eyebrow"><span>🗜️</span> Dynamic Control</div>
         <h2 class="slide-heading">Vintage Compressors: <span>Fairchild 670 &amp; Teletronix LA-2A</span></h2>
         <p class="slide-lead">The 1960s introduced the two most celebrated dynamic processor topologies in recording history: variable-mu tube limiting and electro-optical leveling.</p>
-        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/early_multitrack/fairchild_670.svg" alt="Fairchild 670 Stereo Limiter Panel" class="slide-thumb">
+        <div class="grid-3"><div class="info-card highlight"><img src="images/slides/early_multitrack/fairchild_670.svg" alt="Fairchild 670 Stereo Limiter Panel" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Variable-Mu Limiting</span>
                <h4>Fairchild 670 (Stereo)</h4>
-               <p>Rein Narma design weighing 65 lbs with 20 vacuum tubes and 14 transformers. Uses vacuum tubes (6386) to vary gain directly. Ultra-fast attack times (down to 50 microseconds) tame aggressive drum transients and glue mixes.</p></div><div class="info-card cyan-edge"><img src="/images/slides/early_multitrack/teletronix_la2a_front.jpg" alt="Teletronix LA-2A Optical Leveling Amplifier" class="slide-thumb">
+               <p>Rein Narma design weighing 65 lbs with 20 vacuum tubes and 14 transformers. Uses vacuum tubes (6386) to vary gain directly. Ultra-fast attack times (down to 50 microseconds) tame aggressive drum transients and glue mixes.</p></div><div class="info-card cyan-edge"><img src="images/slides/early_multitrack/teletronix_la2a_front.jpg" alt="Teletronix LA-2A Optical Leveling Amplifier" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Electro-Optical Leveling</span>
                <h4>Teletronix LA-2A (Mid-60s)</h4>
-               <p>Uses a T4 electro-optical attenuator: an electroluminescent light panel shining on a cadmium-sulfide photocell. The physical lag of the photocell produces smooth, musical, program-dependent multi-stage release curves.</p></div><div class="info-card acid-edge"><img src="/images/slides/early_multitrack/studio_outboard_rack_gear.jpg" alt="19-inch Studio Outboard Equipment Rack" class="slide-thumb">
+               <p>Uses a T4 electro-optical attenuator: an electroluminescent light panel shining on a cadmium-sulfide photocell. The physical lag of the photocell produces smooth, musical, program-dependent multi-stage release curves.</p></div><div class="info-card acid-edge"><img src="images/slides/early_multitrack/studio_outboard_rack_gear.jpg" alt="19-inch Studio Outboard Equipment Rack" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Practical Tracking</span>
                <h4>Where Were They Used?</h4>
                <p>Fairchild 670 was standard on Abbey Road drum overheads, bass, and cutting vinyl master discs. The LA-2A became the gold standard for lead vocals, smoothing dynamic peaks without audible pumping.</p></div></div>
@@ -1522,13 +1692,13 @@
         <div class="slide-eyebrow"><span>🌀</span> Abbey Road Inventions</div>
         <h2 class="slide-heading">Studio Magic: <span>EMT 140 Plate, ADT &amp; Tape Flanging</span></h2>
         <p class="slide-lead">Abbey Road technical engineers invented legendary analog effects to fulfill the creative demands of The Beatles, Pink Floyd, and George Martin.</p>
-        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/early_multitrack/reverb_plate_mechanics_diagram.svg" alt="Acoustic Steel Plate Reverb Transducer Diagram" class="slide-thumb">
+        <div class="grid-3"><div class="info-card highlight"><img src="images/slides/early_multitrack/reverb_plate_mechanics_diagram.svg" alt="Acoustic Steel Plate Reverb Transducer Diagram" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Plate Reverb Mechanics</span>
                <h4>EMT 140 Steel Plate Reverb</h4>
-               <p>A massive 1×2 meter cold-rolled steel plate suspended in springs. Audio drives a transducer into the plate; contact pickups capture dense, shimmering reflections. A movable mechanical damping pad adjusts decay from 0.5s to 5.0s.</p></div><div class="info-card cyan-edge"><img src="/images/slides/early_multitrack/tape_delay_echo_machine.jpg" alt="Tape Delay Unit with Variable Speed Control" class="slide-thumb">
+               <p>A massive 1×2 meter cold-rolled steel plate suspended in springs. Audio drives a transducer into the plate; contact pickups capture dense, shimmering reflections. A movable mechanical damping pad adjusts decay from 0.5s to 5.0s.</p></div><div class="info-card cyan-edge"><img src="images/slides/early_multitrack/tape_delay_echo_machine.jpg" alt="Tape Delay Unit with Variable Speed Control" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Tape Delay Innovation</span>
                <h4>Ken Townsend's ADT</h4>
-               <p>Invented in 1966 for John Lennon. The sync playback head audio was sent to a second tape recorder driven by a Variable Speed Oscillator (VSO). The micro-delayed copy (10–45ms) with natural pitch drift perfectly simulated a doubled vocal take.</p></div><div class="info-card acid-edge"><img src="/images/slides/early_multitrack/flanger_comb_filter_sweep_diagram.svg" alt="Reel Flange Manual Tape Flanging Comb Filter Diagram" class="slide-thumb">
+               <p>Invented in 1966 for John Lennon. The sync playback head audio was sent to a second tape recorder driven by a Variable Speed Oscillator (VSO). The micro-delayed copy (10–45ms) with natural pitch drift perfectly simulated a doubled vocal take.</p></div><div class="info-card acid-edge"><img src="images/slides/early_multitrack/flanger_comb_filter_sweep_diagram.svg" alt="Reel Flange Manual Tape Flanging Comb Filter Diagram" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Modulation Physics</span>
                <h4>Manual Tape Flanging</h4>
                <p>Two tape machines play identical audio simultaneously. The engineer presses a thumb onto the metal rim (flange) of one supply reel, momentarily slowing it down. Combining the two signals creates moving phase cancellations (comb filtering).</p></div></div>
@@ -1538,13 +1708,13 @@
         <div class="slide-eyebrow"><span>💿</span> The Vinyl Revolution</div>
         <h2 class="slide-heading">Consumer Formats: <span>Mono 45s vs 33⅓ RPM Stereo LPs</span></h2>
         <p class="slide-lead">In the 1960s, teenagers consumed pop music on mono 7-inch 45 RPM singles, while full-length albums transitioned to 12-inch 33⅓ RPM stereo vinyl microgroove discs.</p>
-        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/early_multitrack/vinilos_distintos_tamanos.jpg" alt="Various Vinyl Microgroove Records (12-inch and 7-inch)" class="slide-thumb">
+        <div class="grid-3"><div class="info-card highlight"><img src="images/slides/early_multitrack/vinilos_distintos_tamanos.jpg" alt="Various Vinyl Microgroove Records (12-inch and 7-inch)" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Cutting Physics</span>
                <h4>The 45°/45° Microgroove</h4>
-               <p>The vinyl cutter stylus cuts a V-shaped groove: lateral (side-to-side) motion represents mono (L+R); vertical (up-and-down) motion represents stereo difference (L-R). Extreme stereo panning required careful mastering.</p></div><div class="info-card cyan-edge"><img src="/images/slides/early_multitrack/stereo_soundstage_panning_hq.svg" alt="Stereo Spatial Panning Soundstage Diagram" class="slide-thumb">
+               <p>The vinyl cutter stylus cuts a V-shaped groove: lateral (side-to-side) motion represents mono (L+R); vertical (up-and-down) motion represents stereo difference (L-R). Extreme stereo panning required careful mastering.</p></div><div class="info-card cyan-edge"><img src="images/slides/early_multitrack/stereo_soundstage_panning_hq.svg" alt="Stereo Spatial Panning Soundstage Diagram" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Mixing Conventions</span>
                <h4>The "Hard-Panning" Phenomenon</h4>
-               <p>Because early 4-track mixing desks had 3-position switches (Left, Center, Right) rather than continuous pan pots, early stereo mixes placed entire rhythm sections in the left speaker and vocals entirely in the right!</p></div><div class="info-card acid-edge"><img src="/images/slides/early_multitrack/riaa_eq_curve_graph.png" alt="RIAA Equalization Recording & Playback Curve" class="slide-thumb">
+               <p>Because early 4-track mixing desks had 3-position switches (Left, Center, Right) rather than continuous pan pots, early stereo mixes placed entire rhythm sections in the left speaker and vocals entirely in the right!</p></div><div class="info-card acid-edge"><img src="images/slides/early_multitrack/riaa_eq_curve_graph.png" alt="RIAA Equalization Recording & Playback Curve" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Mastering Curves</span>
                <h4>The RIAA Equalization Curve</h4>
                <p>During cutting, deep bass frequencies were cut by -20 dB (to prevent wide groove excursions throwing the stylus), while highs were boosted +20 dB. Phono preamps applied the exact inverse curve during playback to restore flat response.</p>
@@ -1909,6 +2079,177 @@
       }, 120);
     }
   });
+
+  // Universal mobile-friendly toggleFullscreen (with fallback for iPhone / iOS Safari where Fullscreen API is unavailable on divs)
+  window.toggleFullscreen = function() {
+    var docEl = document.documentElement;
+    var isFs = document.fullscreenElement || document.webkitFullscreenElement;
+    if (!isFs) {
+      if (docEl.requestFullscreen) {
+        docEl.requestFullscreen().catch(function() {
+          if (window.self !== window.top) {
+            window.top.location.href = window.location.href;
+          }
+        });
+      } else if (docEl.webkitRequestFullscreen) {
+        docEl.webkitRequestFullscreen();
+      } else if (window.self !== window.top) {
+        // iOS Safari fallback: open the standalone deck full-screen in the top viewport
+        window.top.location.href = window.location.href;
+      }
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen().catch(function() {});
+      } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+      }
+    }
+  };
+
+  // Universal touch-swipe slide navigation for mobile phones
+  (function() {
+    var touchStartX = 0;
+    var touchStartY = 0;
+    document.addEventListener('touchstart', function(e) {
+      if (!e.changedTouches || !e.changedTouches.length) return;
+      touchStartX = e.changedTouches[0].screenX;
+      touchStartY = e.changedTouches[0].screenY;
+    }, { passive: true });
+
+    document.addEventListener('touchend', function(e) {
+      if (!e.changedTouches || !e.changedTouches.length) return;
+      var target = e.target;
+      if (target && target.closest && target.closest('table, .table-container, .comp-table-wrap, select, button, a, .video-modal-backdrop, #videoModal')) {
+        return;
+      }
+      var dx = e.changedTouches[0].screenX - touchStartX;
+      var dy = e.changedTouches[0].screenY - touchStartY;
+      if (Math.abs(dx) > 65 && Math.abs(dx) > Math.abs(dy) * 1.8) {
+        if (dx < 0) {
+          if (typeof nextSlide === 'function') nextSlide();
+          else if (typeof changeSlide === 'function') changeSlide(1);
+        } else {
+          if (typeof prevSlide === 'function') prevSlide();
+          else if (typeof changeSlide === 'function') changeSlide(-1);
+        }
+      }
+    }, { passive: true });
+  })();
+
+
+  // Universal mobile-friendly toggleFullscreen (with fallback for iPhone / iOS Safari where Fullscreen API is unavailable on divs)
+  window.toggleFullscreen = function() {
+    var docEl = document.documentElement;
+    var isFs = document.fullscreenElement || document.webkitFullscreenElement;
+    if (!isFs) {
+      if (docEl.requestFullscreen) {
+        docEl.requestFullscreen().catch(function() {
+          if (window.self !== window.top) {
+            window.top.location.href = window.location.href;
+          }
+        });
+      } else if (docEl.webkitRequestFullscreen) {
+        docEl.webkitRequestFullscreen();
+      } else if (window.self !== window.top) {
+        // iOS Safari fallback: open the standalone deck full-screen in the top viewport
+        window.top.location.href = window.location.href;
+      }
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen().catch(function() {});
+      } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+      }
+    }
+  };
+
+  // Universal touch-swipe slide navigation for mobile phones
+  (function() {
+    var touchStartX = 0;
+    var touchStartY = 0;
+    document.addEventListener('touchstart', function(e) {
+      if (!e.changedTouches || !e.changedTouches.length) return;
+      touchStartX = e.changedTouches[0].screenX;
+      touchStartY = e.changedTouches[0].screenY;
+    }, { passive: true });
+
+    document.addEventListener('touchend', function(e) {
+      if (!e.changedTouches || !e.changedTouches.length) return;
+      var target = e.target;
+      if (target && target.closest && target.closest('table, .table-container, .comp-table-wrap, select, button, a, .video-modal-backdrop, #videoModal')) {
+        return;
+      }
+      var dx = e.changedTouches[0].screenX - touchStartX;
+      var dy = e.changedTouches[0].screenY - touchStartY;
+      if (Math.abs(dx) > 65 && Math.abs(dx) > Math.abs(dy) * 1.8) {
+        if (dx < 0) {
+          if (typeof nextSlide === 'function') nextSlide();
+          else if (typeof changeSlide === 'function') changeSlide(1);
+        } else {
+          if (typeof prevSlide === 'function') prevSlide();
+          else if (typeof changeSlide === 'function') changeSlide(-1);
+        }
+      }
+    }, { passive: true });
+  })();
+
+
+  // Universal mobile-friendly toggleFullscreen (with fallback for iPhone / iOS Safari where Fullscreen API is unavailable on divs)
+  window.toggleFullscreen = function() {
+    var docEl = document.documentElement;
+    var isFs = document.fullscreenElement || document.webkitFullscreenElement;
+    if (!isFs) {
+      if (docEl.requestFullscreen) {
+        docEl.requestFullscreen().catch(function() {
+          if (window.self !== window.top) {
+            window.top.location.href = window.location.href;
+          }
+        });
+      } else if (docEl.webkitRequestFullscreen) {
+        docEl.webkitRequestFullscreen();
+      } else if (window.self !== window.top) {
+        // iOS Safari fallback: open the standalone deck full-screen in the top viewport
+        window.top.location.href = window.location.href;
+      }
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen().catch(function() {});
+      } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+      }
+    }
+  };
+
+  // Universal touch-swipe slide navigation for mobile phones
+  (function() {
+    var touchStartX = 0;
+    var touchStartY = 0;
+    document.addEventListener('touchstart', function(e) {
+      if (!e.changedTouches || !e.changedTouches.length) return;
+      touchStartX = e.changedTouches[0].screenX;
+      touchStartY = e.changedTouches[0].screenY;
+    }, { passive: true });
+
+    document.addEventListener('touchend', function(e) {
+      if (!e.changedTouches || !e.changedTouches.length) return;
+      var target = e.target;
+      if (target && target.closest && target.closest('table, .table-container, .comp-table-wrap, select, button, a, .video-modal-backdrop, #videoModal')) {
+        return;
+      }
+      var dx = e.changedTouches[0].screenX - touchStartX;
+      var dy = e.changedTouches[0].screenY - touchStartY;
+      if (Math.abs(dx) > 65 && Math.abs(dx) > Math.abs(dy) * 1.8) {
+        if (dx < 0) {
+          if (typeof nextSlide === 'function') nextSlide();
+          else if (typeof changeSlide === 'function') changeSlide(1);
+        } else {
+          if (typeof prevSlide === 'function') prevSlide();
+          else if (typeof changeSlide === 'function') changeSlide(-1);
+        }
+      }
+    }, { passive: true });
+  })();
+
 </script>
 <!-- === END HASH DEEP LINK === -->
 </body>

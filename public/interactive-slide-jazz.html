@@ -1042,19 +1042,29 @@
     }
     /* === END ANTI-SQUASH === */
 
-  
     /* === MTG MOBILE PHONE RESPONSIVENESS OVERRIDES === */
     @media (max-width: 768px) {
       html, body {
-        overflow-x: hidden !important;
+        height: 100vh !important;
+        max-height: 100vh !important;
+        overflow: hidden !important;
         max-width: 100vw !important;
+        display: flex !important;
+        flex-direction: column !important;
       }
+      /* Compact top utility bar */
       .deck-topbar-controls, .top-utility-bar, header.deck-topbar-controls {
         padding: 6px 10px !important;
         gap: 6px !important;
-        min-height: 42px !important;
+        min-height: 40px !important;
         height: auto !important;
         flex-wrap: nowrap !important;
+        flex-shrink: 0 !important;
+        justify-content: space-between !important;
+      }
+      /* Hide secondary promo link in topbar on phones so Fullscreen button never clips */
+      .deck-topbar-controls a[href*="app.musictechguru.com"] {
+        display: none !important;
       }
       .exit-deck-link {
         padding: 5px 8px !important;
@@ -1062,12 +1072,21 @@
         white-space: nowrap !important;
         flex-shrink: 0 !important;
       }
-      .deck-topbar-title, .top-bar-title {
-        font-size: 11.5px !important;
+      .deck-topbar-controls > div:first-child,
+      .top-utility-bar > div:first-child,
+      header.deck-topbar-controls > div:first-child {
+        min-width: 0 !important;
+        flex: 1 1 auto !important;
+        overflow: hidden !important;
+      }
+      .deck-topbar-title, .top-bar-title, .deck-topbar-controls span[style*="color: #94a3b8"] {
+        font-size: 11px !important;
         white-space: nowrap !important;
         overflow: hidden !important;
         text-overflow: ellipsis !important;
-        max-width: 42vw !important;
+        max-width: 38vw !important;
+        display: inline-block !important;
+        vertical-align: middle !important;
       }
       .deck-topbar-controls .fullscreen-btn,
       .top-utility-bar .fullscreen-btn,
@@ -1078,7 +1097,83 @@
         white-space: nowrap !important;
         flex-shrink: 0 !important;
       }
-      /* Collapse multi-column slide grids to 1 column on phones */
+      /* Hide redundant secondary inner banner bars on mobile to maximize slide viewport height */
+      header.deck-topbar,
+      .deck-topbar,
+      .top-bar {
+        display: none !important;
+      }
+      header.deck-header, .deck-header {
+        padding: 6px 12px !important;
+        min-height: auto !important;
+        flex-shrink: 0 !important;
+      }
+      header.deck-header .deck-title-group, .deck-header .deck-title-group {
+        display: none !important;
+      }
+      header.deck-header .deck-actions, .deck-header .deck-actions {
+        width: 100% !important;
+        display: flex !important;
+        justify-content: space-between !important;
+      }
+      header.deck-header .slide-select, .deck-header .slide-select {
+        max-width: 100% !important;
+        width: 100% !important;
+      }
+      header.deck-header button, .deck-header button {
+        display: none !important;
+      }
+      /* Full-bleed deck wrapper / container as flex column */
+      .deck-wrapper, .deck-container {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        border-radius: 0 !important;
+        border-left: none !important;
+        border-right: none !important;
+        flex: 1 1 auto !important;
+        min-height: 0 !important;
+        height: auto !important;
+        max-height: none !important;
+        display: flex !important;
+        flex-direction: column !important;
+        overflow: hidden !important;
+      }
+      .slides-viewport, .slide-stage {
+        flex: 1 1 auto !important;
+        min-height: 0 !important;
+        width: 100% !important;
+        padding: 0 !important;
+        overflow: hidden !important;
+        position: relative !important;
+        display: flex !important;
+        flex-direction: column !important;
+      }
+      /* Single continuous vertical scroll container for the active slide */
+      .slide:not(.active) {
+        display: none !important;
+      }
+      .slide.active {
+        position: relative !important;
+        top: auto !important;
+        left: auto !important;
+        display: block !important;
+        width: 100% !important;
+        height: 100% !important;
+        max-height: 100% !important;
+        flex: 1 1 auto !important;
+        min-height: 0 !important;
+        padding: 14px 14px 80px !important;
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+        -webkit-overflow-scrolling: touch !important;
+        box-sizing: border-box !important;
+        transform: none !important;
+        opacity: 1 !important;
+        pointer-events: auto !important;
+      }
+      /* Collapse all multi-column slide grids into a single unconstrained vertical stack */
       .slide .split-grid,
       .slide .grid-2,
       .slide .grid-2-split,
@@ -1093,33 +1188,89 @@
       .slide .two-col,
       .slide .three-col,
       .slide [style*="grid-template-columns"] {
-        grid-template-columns: 1fr !important;
-        gap: 12px !important;
-      }
-      .slide .grid-2-split {
         display: flex !important;
         flex-direction: column !important;
-        overflow-y: visible !important;
+        grid-template-columns: 1fr !important;
+        gap: 14px !important;
+        flex: none !important;
+        width: 100% !important;
+        height: auto !important;
+        min-height: auto !important;
+        max-height: none !important;
+        overflow: visible !important;
+        margin-bottom: 16px !important;
+      }
+      /* Unconstrain all column panels and cards so they expand naturally inside the slide scroll */
+      .slide .column-panel,
+      .slide .col-panel,
+      .slide .info-card,
+      .slide .feature-card,
+      .slide .music-col,
+      .slide .instrument-col,
+      .slide .format-col,
+      .slide .prod-col,
+      .slide .tech-col,
+      .slide .col-music,
+      .slide .col-tech,
+      .slide .artist-visual-col {
+        display: flex !important;
+        flex-direction: column !important;
+        flex: none !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        height: auto !important;
+        min-height: auto !important;
+        max-height: none !important;
+        overflow: visible !important;
+        padding: 14px !important;
+        box-sizing: border-box !important;
+      }
+      /* Stack panel headers and takeaway/tip boxes vertically on phones so badges & text never crush */
+      .slide .panel-header,
+      .slide .col-header,
+      .slide .header-bar,
+      .slide .takeaway-box,
+      .slide .callout-box,
+      .slide .exam-tip,
+      .slide .tip-box {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        justify-content: flex-start !important;
+        gap: 6px !important;
         height: auto !important;
       }
-      .slide .column-panel {
-        overflow-y: visible !important;
-        max-height: none !important;
+      /* Give photo cards and hardware images generous height on mobile */
+      .slide .photo-card,
+      .slide .hardware-photo,
+      .slide .instrument-photo-card {
         height: auto !important;
+        min-height: 175px !important;
+        max-height: none !important;
         flex-shrink: 0 !important;
       }
-      .slide, .slide.active {
-        padding: 14px 12px 24px !important;
-        overflow-y: auto !important;
-        overflow-x: hidden !important;
-        -webkit-overflow-scrolling: touch !important;
+      .slide .photo-card img,
+      .slide .hardware-photo img,
+      .slide .instrument-photo-card img.instrument-photo {
+        height: 185px !important;
+        max-height: 220px !important;
+        width: 100% !important;
+        object-fit: contain !important;
       }
-      .slide h1 {
-        font-size: clamp(20px, 5.5vw, 26px) !important;
+      .slide .table-container,
+      .slide .comp-table-wrap {
+        overflow-x: auto !important;
+        overflow-y: visible !important;
+        max-height: none !important;
+        flex: none !important;
+        width: 100% !important;
+      }
+      .slide h1, .slide .slide-heading, .slide .slide-title {
+        font-size: clamp(20px, 5.5vw, 25px) !important;
         line-height: 1.22 !important;
       }
       .slide h2 {
-        font-size: clamp(17px, 4.8vw, 22px) !important;
+        font-size: clamp(17px, 4.8vw, 21px) !important;
         line-height: 1.25 !important;
       }
       .slide p, .slide li {
@@ -1133,12 +1284,14 @@
         -webkit-overflow-scrolling: touch !important;
         font-size: 12px !important;
       }
-      /* Bottom Controls Bar: Ensure Previous, Slide Counter, and Next always fit on 320-390px phones */
+      /* Bottom Controls Bar: Ensure Previous, Slide Counter/Dropdown, and Next always fit on 320-430px phones */
       footer.deck-controls,
       .deck-controls,
       .deck-nav,
       .bottom-bar,
-      .deck-nav-bar {
+      .deck-nav-bar,
+      .deck-footer,
+      .deck-bottombar {
         padding: 8px 10px !important;
         gap: 6px !important;
         min-height: 50px !important;
@@ -1149,29 +1302,46 @@
         flex-wrap: nowrap !important;
         width: 100% !important;
         box-sizing: border-box !important;
+        flex-shrink: 0 !important;
       }
       .deck-controls .controls-left,
       .bottom-bar .nav-buttons,
       .deck-nav-bar .nav-left,
-      .deck-nav-bar .nav-right {
+      .deck-nav-bar .nav-right,
+      .deck-nav-bar > div:first-child {
         display: contents !important;
       }
-      /* Hide duplicate bottom Fullscreen button & wide dot arrays on mobile so Next button is never clipped */
+      /* Reorder amplifiers bottom bar children so Prev is left, Counter is center, Next is right */
+      .deck-nav-bar #prevBtn { order: 1 !important; }
+      .deck-nav-bar .slide-counter, .deck-nav-bar .nav-center { order: 2 !important; }
+      .deck-nav-bar #nextBtn { order: 3 !important; }
+      /* When both a slide-counter and a slide-select dropdown exist in deck-nav-bar, hide the duplicate text counter on phones */
+      .deck-nav-bar .nav-left .slide-counter {
+        display: none !important;
+      }
+      /* Hide duplicate bottom Fullscreen button, keyboard hints & wide dot arrays on mobile so Next button is never clipped */
       #bottomFsBtn,
       .deck-controls button[onclick*="toggleFullscreen"],
       .bottom-bar button[onclick*="toggleFullscreen"],
       .deck-nav button[onclick*="toggleFullscreen"],
       .deck-nav-bar button[onclick*="toggleFullscreen"],
+      .deck-footer button[onclick*="toggleFullscreen"],
+      .deck-bottombar button[onclick*="toggleFullscreen"],
       .controls-right,
       .keyboard-hint,
+      .nav-shortcuts,
       .progress-dots,
       .slide-dots,
       #dotsContainer,
       #progressDots,
-      .progress-track {
+      .progress-track,
+      .progress-bar-track,
+      .progress-bar-container {
         display: none !important;
       }
       .progress-container,
+      .progress-group,
+      .deck-progress-group,
       .slide-indicator,
       .deck-nav-bar .nav-center {
         flex: 1 1 auto !important;
@@ -1181,13 +1351,13 @@
         justify-content: center !important;
         margin: 0 4px !important;
       }
-      .slide-counter, #slideCounter {
+      .slide-counter, #slideCounter, .progress-label {
         font-size: 11.5px !important;
         white-space: nowrap !important;
         text-align: center !important;
       }
       .slide-select, #slideSelect {
-        max-width: 135px !important;
+        max-width: 155px !important;
         font-size: 11.5px !important;
         padding: 5px 8px !important;
         text-overflow: ellipsis !important;
@@ -1273,61 +1443,61 @@
         <div class="slide-eyebrow"><span>📯</span> 1917&ndash;1925 &bull; The Acoustic Era</div>
         <h2 class="slide-heading">First Jazz Records &amp; <span>Playing Into a Horn</span></h2>
         <p class="slide-lead">The first jazz record was made in 1917 by the Original Dixieland Jass Band. Before microphones, the band played into a large horn that vibrated a cutting stylus.</p>
-        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/jazz/odjb.jpg" alt="Original Dixieland Jass Band" class="slide-thumb"><h4>Original Dixieland Jass Band (1917)</h4><p>Recorded for Victor in New York in 1917, this white New Orleans-style band made what is usually called the first jazz record. Early New Orleans jazz used collective improvisation by trumpet/cornet, clarinet and trombone.</p></div><div class="info-card cyan-edge"><img src="/images/slides/jazz/acoustic_horn_session.jpg" alt="Acoustic horn recording session, 1916" class="slide-thumb"><h4>Recording Through a Horn</h4><p>In acoustic recording (shown here in a 1916 session) sound waves travelled down a horn onto a diaphragm and stylus. Performers had to be <strong>placed by loudness</strong>; quiet instruments went close, loud ones further away. Bass drums were avoided because they made the stylus jump, and a <strong>tuba</strong> often replaced the double bass.</p></div><div class="info-card acid-edge"><img src="/images/slides/jazz/louis_armstrong.jpg" alt="Louis Armstrong" class="slide-thumb"><h4>Louis Armstrong</h4><p>His Hot Five and Hot Seven recordings (1925&ndash;28) put the improvised <strong>solo</strong> at the centre of jazz. They were made just as electrical recording arrived, giving a fuller sound.</p></div></div>
+        <div class="grid-3"><div class="info-card highlight"><img src="images/slides/jazz/odjb.jpg" alt="Original Dixieland Jass Band" class="slide-thumb"><h4>Original Dixieland Jass Band (1917)</h4><p>Recorded for Victor in New York in 1917, this white New Orleans-style band made what is usually called the first jazz record. Early New Orleans jazz used collective improvisation by trumpet/cornet, clarinet and trombone.</p></div><div class="info-card cyan-edge"><img src="images/slides/jazz/acoustic_horn_session.jpg" alt="Acoustic horn recording session, 1916" class="slide-thumb"><h4>Recording Through a Horn</h4><p>In acoustic recording (shown here in a 1916 session) sound waves travelled down a horn onto a diaphragm and stylus. Performers had to be <strong>placed by loudness</strong>; quiet instruments went close, loud ones further away. Bass drums were avoided because they made the stylus jump, and a <strong>tuba</strong> often replaced the double bass.</p></div><div class="info-card acid-edge"><img src="images/slides/jazz/louis_armstrong.jpg" alt="Louis Armstrong" class="slide-thumb"><h4>Louis Armstrong</h4><p>His Hot Five and Hot Seven recordings (1925&ndash;28) put the improvised <strong>solo</strong> at the centre of jazz. They were made just as electrical recording arrived, giving a fuller sound.</p></div></div>
       </section>
       <section class="slide" data-slide="4">
         <div class="slide-eyebrow"><span>🎙️</span> AO3 &bull; 1925 Onwards</div>
         <h2 class="slide-heading">Electrical Recording, <span>Ribbon Mics &amp; the 78</span></h2>
         <p class="slide-lead">From 1925 microphones replaced the horn. Sound quality, frequency range and balance all improved, but each side of a 78 rpm disc was still only a few minutes long.</p>
-        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/jazz/ribbon_mic.jpg" alt="RCA 44 ribbon microphone" class="slide-thumb" style="object-fit: contain; background: #0d0c14; padding: 6px;"><h4>The RCA Ribbon Microphone</h4><p>A thin metal <strong>ribbon</strong> moves in a magnetic field. RCA&rsquo;s 44 (1931) and 77 were smooth, warm and gave a <strong>figure-8 (bidirectional) pick-up pattern</strong>, so two horn players could face each other at either side of one microphone.</p></div><div class="info-card cyan-edge"><img src="/images/slides/jazz/shellac_78.jpg" alt="78 rpm shellac records" class="slide-thumb"><h4>The 78 rpm Disc</h4><p>Brittle shellac discs held roughly <strong>3&ndash;4 minutes per side</strong>. Swing bands arranged and edited their tunes to fit, which is why many classic swing records are around three minutes long.</p></div><div class="info-card acid-edge"><h4>Natural Balance in a Big Room</h4><p>Big bands were often recorded live in large, acoustically rich rooms with <strong>very few microphones</strong>. Balance came from <em>where players sat</em> and arrangement, not from a mixing desk &mdash; there was no multitrack to fix things later.</p></div></div>
+        <div class="grid-3"><div class="info-card highlight"><img src="images/slides/jazz/ribbon_mic.jpg" alt="RCA 44 ribbon microphone" class="slide-thumb" style="object-fit: contain; background: #0d0c14; padding: 6px;"><h4>The RCA Ribbon Microphone</h4><p>A thin metal <strong>ribbon</strong> moves in a magnetic field. RCA&rsquo;s 44 (1931) and 77 were smooth, warm and gave a <strong>figure-8 (bidirectional) pick-up pattern</strong>, so two horn players could face each other at either side of one microphone.</p></div><div class="info-card cyan-edge"><img src="images/slides/jazz/shellac_78.jpg" alt="78 rpm shellac records" class="slide-thumb"><h4>The 78 rpm Disc</h4><p>Brittle shellac discs held roughly <strong>3&ndash;4 minutes per side</strong>. Swing bands arranged and edited their tunes to fit, which is why many classic swing records are around three minutes long.</p></div><div class="info-card acid-edge"><h4>Natural Balance in a Big Room</h4><p>Big bands were often recorded live in large, acoustically rich rooms with <strong>very few microphones</strong>. Balance came from <em>where players sat</em> and arrangement, not from a mixing desk &mdash; there was no multitrack to fix things later.</p></div></div>
       </section>
       <section class="slide" data-slide="5">
         <div class="slide-eyebrow"><span>🎺</span> AO4 &bull; 1930s&ndash;1940s &bull; The Swing Era</div>
         <h2 class="slide-heading">Big Bands: <span>Ellington, Goodman &amp; Basie</span></h2>
         <p class="slide-lead">Swing was dance music played by big bands of brass, saxophones and a rhythm section, built on sectional riffs and call and response.</p>
-        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/jazz/duke_ellington.jpg" alt="Duke Ellington" class="slide-thumb"><h4>Duke Ellington</h4><p>Pianist, bandleader and composer. Radio broadcasts from the Cotton Club made his band famous, and he composed with the <strong>3-minute 78 rpm side</strong> in mind. Hits include <em>Mood Indigo</em> and <em>Take the &ldquo;A&rdquo; Train</em>.</p><div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('r2G1fKYFgVU', 'Duke Ellington - Take the A Train')">▶ Listen: Take the A Train</button><a href="https://www.youtube.com/watch?v=r2G1fKYFgVU" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div></div><div class="info-card cyan-edge"><img src="/images/slides/jazz/benny_goodman.jpg" alt="Benny Goodman" class="slide-thumb"><h4>Benny Goodman</h4><p>The &ldquo;King of Swing&rdquo; brought swing to a wide white audience; his 1938 Carnegie Hall concert is a landmark. Clarinet solos sit over a tight band that answers in <strong>call and response</strong>.</p></div><div class="info-card acid-edge"><img src="/images/slides/jazz/count_basie.jpg" alt="Count Basie" class="slide-thumb"><h4>Count Basie</h4><p>Led a hard-swinging Kansas City band with a light, <strong>walking bass</strong> and spare piano, plus simple <strong>riff-based</strong> arrangements. A model of the swing rhythm section.</p></div></div>
+        <div class="grid-3"><div class="info-card highlight"><img src="images/slides/jazz/duke_ellington.jpg" alt="Duke Ellington" class="slide-thumb"><h4>Duke Ellington</h4><p>Pianist, bandleader and composer. Radio broadcasts from the Cotton Club made his band famous, and he composed with the <strong>3-minute 78 rpm side</strong> in mind. Hits include <em>Mood Indigo</em> and <em>Take the &ldquo;A&rdquo; Train</em>.</p><div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('r2G1fKYFgVU', 'Duke Ellington - Take the A Train')">▶ Listen: Take the A Train</button><a href="https://www.youtube.com/watch?v=r2G1fKYFgVU" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div></div><div class="info-card cyan-edge"><img src="images/slides/jazz/benny_goodman.jpg" alt="Benny Goodman" class="slide-thumb"><h4>Benny Goodman</h4><p>The &ldquo;King of Swing&rdquo; brought swing to a wide white audience; his 1938 Carnegie Hall concert is a landmark. Clarinet solos sit over a tight band that answers in <strong>call and response</strong>.</p></div><div class="info-card acid-edge"><img src="images/slides/jazz/count_basie.jpg" alt="Count Basie" class="slide-thumb"><h4>Count Basie</h4><p>Led a hard-swinging Kansas City band with a light, <strong>walking bass</strong> and spare piano, plus simple <strong>riff-based</strong> arrangements. A model of the swing rhythm section.</p></div></div>
       </section>
       <section class="slide" data-slide="6">
         <div class="slide-eyebrow"><span>⚡</span> AO4 &bull; 1940s &bull; Bebop</div>
         <h2 class="slide-heading">Bebop: <span>Fast, Complex &amp; Small Group</span></h2>
         <p class="slide-lead">In the 1940s younger players moved away from dance-band swing towards fast, virtuosic music for listening, played by small combos.</p>
-        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/jazz/charlie_parker.jpg" alt="Charlie Parker" class="slide-thumb"><h4>Charlie Parker</h4><p>Alto saxophonist and a leading bebop innovator. Played very fast, melodic solos over <strong>complex chord changes</strong>, using extended notes of the chords.</p></div><div class="info-card cyan-edge"><img src="/images/slides/jazz/dizzy_gillespie.jpg" alt="Dizzy Gillespie" class="slide-thumb"><h4>Dizzy Gillespie</h4><p>Trumpeter and composer. With Parker he developed fast tempos, <strong>altered and extended chords</strong> and tightly arranged heads followed by long improvisations.</p></div><div class="info-card acid-edge"><img src="/images/slides/jazz/thelonious_monk.jpg" alt="Thelonious Monk" class="slide-thumb"><h4>Thelonious Monk</h4><p>Pianist and composer with angular melodies, dissonant harmony and unexpected silences &mdash; very distinctive and influential.</p><p style="margin-top:6px;"><strong>Tech link:</strong> a 1942&ndash;44 musicians&rsquo; recording ban meant much early bebop development went unrecorded.</p></div></div>
+        <div class="grid-3"><div class="info-card highlight"><img src="images/slides/jazz/charlie_parker.jpg" alt="Charlie Parker" class="slide-thumb"><h4>Charlie Parker</h4><p>Alto saxophonist and a leading bebop innovator. Played very fast, melodic solos over <strong>complex chord changes</strong>, using extended notes of the chords.</p></div><div class="info-card cyan-edge"><img src="images/slides/jazz/dizzy_gillespie.jpg" alt="Dizzy Gillespie" class="slide-thumb"><h4>Dizzy Gillespie</h4><p>Trumpeter and composer. With Parker he developed fast tempos, <strong>altered and extended chords</strong> and tightly arranged heads followed by long improvisations.</p></div><div class="info-card acid-edge"><img src="images/slides/jazz/thelonious_monk.jpg" alt="Thelonious Monk" class="slide-thumb"><h4>Thelonious Monk</h4><p>Pianist and composer with angular melodies, dissonant harmony and unexpected silences &mdash; very distinctive and influential.</p><p style="margin-top:6px;"><strong>Tech link:</strong> a 1942&ndash;44 musicians&rsquo; recording ban meant much early bebop development went unrecorded.</p></div></div>
       </section>
       <section class="slide" data-slide="7">
         <div class="slide-eyebrow"><span>💽</span> AO3 &bull; 1948&ndash;1960s</div>
         <h2 class="slide-heading">The LP, Magnetic Tape <span>&amp; Kind of Blue</span></h2>
         <p class="slide-lead">The long-playing record and magnetic tape changed jazz: longer performances could be released, and the best takes could be edited together.</p>
-        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/jazz/lp_record.jpg" alt="33 and a third rpm LP" class="slide-thumb" style="object-fit: contain; background: #ffffff; padding: 6px;"><h4>The 33&#8531; rpm LP (1948)</h4><p>Columbia&rsquo;s microgroove LP allowed <strong>up to about 22 minutes per side</strong> (compared with 3&ndash;4 minutes on a 78). Extended solos and album-length ideas became possible.</p></div><div class="info-card cyan-edge"><img src="/images/slides/jazz/tape_machine.jpg" alt="Reel-to-reel tape recorder" class="slide-thumb" style="object-fit: contain; background: #ffffff; padding: 6px;"><h4>Magnetic Tape</h4><p>Tape allowed <strong>editing and splicing</strong> between takes, longer continuous recording and, later, <strong>stereo</strong> and multitrack. Jazz studios could now balance and polish recordings.</p></div><div class="info-card acid-edge"><img src="/images/slides/jazz/miles_davis.jpg" alt="Miles Davis" class="slide-thumb"><h4>Miles Davis: <em>Kind of Blue</em> (1959)</h4><p>Recorded in Columbia&rsquo;s 30th Street Studio, New York. <em>So What</em> is <strong>modal</strong> &mdash; improvisation on scales (D Dorian) rather than fast chord changes &mdash; in a 32-bar AABA form.</p><div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('zqNTltOGh5c', 'Miles Davis - So What')">▶ Listen: So What</button><a href="https://www.youtube.com/watch?v=zqNTltOGh5c" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div></div></div>
+        <div class="grid-3"><div class="info-card highlight"><img src="images/slides/jazz/lp_record.jpg" alt="33 and a third rpm LP" class="slide-thumb" style="object-fit: contain; background: #ffffff; padding: 6px;"><h4>The 33&#8531; rpm LP (1948)</h4><p>Columbia&rsquo;s microgroove LP allowed <strong>up to about 22 minutes per side</strong> (compared with 3&ndash;4 minutes on a 78). Extended solos and album-length ideas became possible.</p></div><div class="info-card cyan-edge"><img src="images/slides/jazz/tape_machine.jpg" alt="Reel-to-reel tape recorder" class="slide-thumb" style="object-fit: contain; background: #ffffff; padding: 6px;"><h4>Magnetic Tape</h4><p>Tape allowed <strong>editing and splicing</strong> between takes, longer continuous recording and, later, <strong>stereo</strong> and multitrack. Jazz studios could now balance and polish recordings.</p></div><div class="info-card acid-edge"><img src="images/slides/jazz/miles_davis.jpg" alt="Miles Davis" class="slide-thumb"><h4>Miles Davis: <em>Kind of Blue</em> (1959)</h4><p>Recorded in Columbia&rsquo;s 30th Street Studio, New York. <em>So What</em> is <strong>modal</strong> &mdash; improvisation on scales (D Dorian) rather than fast chord changes &mdash; in a 32-bar AABA form.</p><div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('zqNTltOGh5c', 'Miles Davis - So What')">▶ Listen: So What</button><a href="https://www.youtube.com/watch?v=zqNTltOGh5c" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div></div></div>
       </section>
       <section class="slide" data-slide="8">
         <div class="slide-eyebrow"><span>🏠</span> AO3 &bull; 1950s&ndash;1960s</div>
         <h2 class="slide-heading">Blue Note &amp; <span>Rudy Van Gelder&rsquo;s Sound</span></h2>
         <p class="slide-lead">Engineer Rudy Van Gelder recorded hundreds of classic jazz albums, first in his parents&rsquo; living room in Hackensack and from 1959 in a purpose-built studio in Englewood Cliffs.</p>
-        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/jazz/rudy_van_gelder.jpg" alt="Rudy Van Gelder" class="slide-thumb"><h4>Rudy Van Gelder</h4><p>Known for <strong>close-miking</strong> horns, a punchy piano and clear upright bass. The result is intimate, dry, present and very clear, with the band playing live together.</p></div><div class="info-card cyan-edge"><img src="/images/slides/jazz/blue_note.jpg" alt="Blue Note Records logo" class="slide-thumb" style="object-fit: contain; background: #ffffff; padding: 6px;"><h4>Blue Note Records</h4><p>Founded in 1939 by Alfred Lion and Francis Wolff. Its artists, such as John Coltrane (<em>Blue Train</em>) and Herbie Hancock (<em>Maiden Voyage</em>), recorded with Van Gelder, giving the label a recognisable sound.</p></div><div class="info-card acid-edge"><img src="/images/slides/jazz/neumann_u47.jpg" alt="Neumann U47 microphone" class="slide-thumb"><h4>Tube Condensers &amp; Tape</h4><p>Van Gelder is closely associated with the <strong>Neumann U47 tube condenser</strong> microphone, close to the instruments, and recorded to tape. <strong>Natural bleed</strong> between bass, piano and drums gave the glue of a live band.</p></div></div>
+        <div class="grid-3"><div class="info-card highlight"><img src="images/slides/jazz/rudy_van_gelder.jpg" alt="Rudy Van Gelder" class="slide-thumb"><h4>Rudy Van Gelder</h4><p>Known for <strong>close-miking</strong> horns, a punchy piano and clear upright bass. The result is intimate, dry, present and very clear, with the band playing live together.</p></div><div class="info-card cyan-edge"><img src="images/slides/jazz/blue_note.jpg" alt="Blue Note Records logo" class="slide-thumb" style="object-fit: contain; background: #ffffff; padding: 6px;"><h4>Blue Note Records</h4><p>Founded in 1939 by Alfred Lion and Francis Wolff. Its artists, such as John Coltrane (<em>Blue Train</em>) and Herbie Hancock (<em>Maiden Voyage</em>), recorded with Van Gelder, giving the label a recognisable sound.</p></div><div class="info-card acid-edge"><img src="images/slides/jazz/neumann_u47.jpg" alt="Neumann U47 microphone" class="slide-thumb"><h4>Tube Condensers &amp; Tape</h4><p>Van Gelder is closely associated with the <strong>Neumann U47 tube condenser</strong> microphone, close to the instruments, and recorded to tape. <strong>Natural bleed</strong> between bass, piano and drums gave the glue of a live band.</p></div></div>
       </section>
       <section class="slide" data-slide="9">
         <div class="slide-eyebrow"><span>🎷</span> AO4 &bull; Late 1950s&ndash;1960s</div>
         <h2 class="slide-heading">Coltrane, Brubeck <span>&amp; Pushing the Rules</span></h2>
         <p class="slide-lead">Jazz explored faster chord changes and unusual metres while remaining accessible to wider audiences.</p>
-        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/jazz/john_coltrane.jpg" alt="John Coltrane" class="slide-thumb"><h4>John Coltrane: <em>Giant Steps</em> (1960)</h4><p>The title track moves through keys a major third apart at speed, creating very demanding chord changes for improvisers. Later he moved towards modal and spiritual music (<em>A Love Supreme</em>, 1965).</p><div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('KwIC6B_dvW4', 'John Coltrane - Giant Steps')">▶ Listen: Giant Steps</button><a href="https://www.youtube.com/watch?v=KwIC6B_dvW4" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div></div><div class="info-card cyan-edge"><img src="/images/slides/jazz/dave_brubeck.jpg" alt="Dave Brubeck" class="slide-thumb"><h4>Dave Brubeck: <em>Take Five</em> (1959)</h4><p>Written by saxophonist <strong>Paul Desmond</strong> and recorded by the Dave Brubeck Quartet, it is in <strong>5/4 time</strong> with a repeated two-chord vamp, and became a big hit single.</p><div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('-DHuW1h1wHw', 'Dave Brubeck - Take Five')">▶ Listen: Take Five</button><a href="https://www.youtube.com/watch?v=-DHuW1h1wHw" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div></div><div class="info-card acid-edge"><img src="/images/slides/jazz/bill_evans.jpg" alt="Bill Evans" class="slide-thumb"><h4>Bill Evans</h4><p>Pianist on <em>Kind of Blue</em>, known for a lyrical touch and rich, <strong>extended jazz chords</strong> &mdash; a model for modern jazz piano voicings.</p></div></div>
+        <div class="grid-3"><div class="info-card highlight"><img src="images/slides/jazz/john_coltrane.jpg" alt="John Coltrane" class="slide-thumb"><h4>John Coltrane: <em>Giant Steps</em> (1960)</h4><p>The title track moves through keys a major third apart at speed, creating very demanding chord changes for improvisers. Later he moved towards modal and spiritual music (<em>A Love Supreme</em>, 1965).</p><div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('KwIC6B_dvW4', 'John Coltrane - Giant Steps')">▶ Listen: Giant Steps</button><a href="https://www.youtube.com/watch?v=KwIC6B_dvW4" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div></div><div class="info-card cyan-edge"><img src="images/slides/jazz/dave_brubeck.jpg" alt="Dave Brubeck" class="slide-thumb"><h4>Dave Brubeck: <em>Take Five</em> (1959)</h4><p>Written by saxophonist <strong>Paul Desmond</strong> and recorded by the Dave Brubeck Quartet, it is in <strong>5/4 time</strong> with a repeated two-chord vamp, and became a big hit single.</p><div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('-DHuW1h1wHw', 'Dave Brubeck - Take Five')">▶ Listen: Take Five</button><a href="https://www.youtube.com/watch?v=-DHuW1h1wHw" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div></div><div class="info-card acid-edge"><img src="images/slides/jazz/bill_evans.jpg" alt="Bill Evans" class="slide-thumb"><h4>Bill Evans</h4><p>Pianist on <em>Kind of Blue</em>, known for a lyrical touch and rich, <strong>extended jazz chords</strong> &mdash; a model for modern jazz piano voicings.</p></div></div>
       </section>
       <section class="slide" data-slide="10">
         <div class="slide-eyebrow"><span>🎚️</span> AO3 &bull; Exam Analysis Points</div>
         <h2 class="slide-heading">Typical Jazz <span>Recording Setup</span></h2>
         <p class="slide-lead">In listening questions, describe the instrument, the likely microphone approach and the resulting sound.</p>
-        <div class="grid-2"><div class="info-card highlight"><img src="/images/slides/jazz/double_bass.jpg" alt="Double bass" class="slide-thumb"><h4>Upright Double Bass</h4><p>Often a large-diaphragm condenser or ribbon near the bridge, sometimes blended with a mic a few feet back for body. <strong>Light compression</strong> to preserve touch and dynamics.</p></div><div class="info-card cyan-edge"><img src="/images/slides/jazz/drum_kit.jpg" alt="Acoustic drum kit" class="slide-thumb"><h4>Drums</h4><p>A simple <strong>2&ndash;3 microphone</strong> setup, such as a stereo overhead pair plus a kick mic, captures the whole kit with natural cymbal sparkle and open dynamics.</p></div><div class="info-card acid-edge"><img src="/images/slides/jazz/saxophone.jpg" alt="Saxophone" class="slide-thumb"><h4>Saxophone</h4><p>Tube condenser or ribbon microphones placed slightly <strong>off-axis</strong> to smooth harsh high frequencies and avoid breath blasts.</p></div><div class="info-card highlight"><img src="/images/slides/jazz/trumpet.jpg" alt="Trumpet" class="slide-thumb"><h4>Trumpet</h4><p>Ribbon or condenser microphones set back a little because trumpets are loud and bright; ribbons help tame the top end.</p></div></div>
+        <div class="grid-2"><div class="info-card highlight"><img src="images/slides/jazz/double_bass.jpg" alt="Double bass" class="slide-thumb"><h4>Upright Double Bass</h4><p>Often a large-diaphragm condenser or ribbon near the bridge, sometimes blended with a mic a few feet back for body. <strong>Light compression</strong> to preserve touch and dynamics.</p></div><div class="info-card cyan-edge"><img src="images/slides/jazz/drum_kit.jpg" alt="Acoustic drum kit" class="slide-thumb"><h4>Drums</h4><p>A simple <strong>2&ndash;3 microphone</strong> setup, such as a stereo overhead pair plus a kick mic, captures the whole kit with natural cymbal sparkle and open dynamics.</p></div><div class="info-card acid-edge"><img src="images/slides/jazz/saxophone.jpg" alt="Saxophone" class="slide-thumb"><h4>Saxophone</h4><p>Tube condenser or ribbon microphones placed slightly <strong>off-axis</strong> to smooth harsh high frequencies and avoid breath blasts.</p></div><div class="info-card highlight"><img src="images/slides/jazz/trumpet.jpg" alt="Trumpet" class="slide-thumb"><h4>Trumpet</h4><p>Ribbon or condenser microphones set back a little because trumpets are loud and bright; ribbons help tame the top end.</p></div></div>
       </section>
       <section class="slide" data-slide="11">
         <div class="slide-eyebrow"><span>🔌</span> AO3 &bull; 1969&ndash;1970s</div>
         <h2 class="slide-heading">Jazz Fusion: <span>Electric Miles</span></h2>
         <p class="slide-lead">In the late 1960s Miles Davis combined jazz improvisation with rock rhythms and electric instruments, and treated the studio itself as an instrument.</p>
-        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/jazz/miles_davis_electric.jpg" alt="Electric Miles Davis" class="slide-thumb"><h4>Miles Davis: <em>Bitches Brew</em> (1970)</h4><p>Recorded in 1969 with a large electric band. Long jam sessions were later <strong>edited and assembled</strong>, using loops, echo and tape splices.</p><div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('WtORTuLJw7o', 'Miles Davis - Pharaoh\'s Dance')">▶ Listen: Pharaoh&rsquo;s Dance</button><a href="https://www.youtube.com/watch?v=WtORTuLJw7o" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div></div><div class="info-card cyan-edge"><img src="/images/slides/jazz/teo_macero.jpg" alt="Teo Macero" class="slide-thumb"><h4>Teo Macero, Producer</h4><p>Miles&rsquo;s long-time Columbia producer. He pioneered radical <strong>tape splicing, looping and editing</strong> on records such as <em>In a Silent Way</em> and <em>Bitches Brew</em>.</p></div><div class="info-card acid-edge"><img src="/images/slides/jazz/rhodes_piano.jpg" alt="Fender Rhodes electric piano" class="slide-thumb"><h4>The Fender Rhodes</h4><p>The electric piano replaced the acoustic grand in fusion. Its bell-like tone could be plugged straight in, giving a warm, sustained sound that sits well with electric bass and rock drums.</p></div></div>
+        <div class="grid-3"><div class="info-card highlight"><img src="images/slides/jazz/miles_davis_electric.jpg" alt="Electric Miles Davis" class="slide-thumb"><h4>Miles Davis: <em>Bitches Brew</em> (1970)</h4><p>Recorded in 1969 with a large electric band. Long jam sessions were later <strong>edited and assembled</strong>, using loops, echo and tape splices.</p><div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('WtORTuLJw7o', 'Miles Davis - Pharaoh\'s Dance')">▶ Listen: Pharaoh&rsquo;s Dance</button><a href="https://www.youtube.com/watch?v=WtORTuLJw7o" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div></div><div class="info-card cyan-edge"><img src="images/slides/jazz/teo_macero.jpg" alt="Teo Macero" class="slide-thumb"><h4>Teo Macero, Producer</h4><p>Miles&rsquo;s long-time Columbia producer. He pioneered radical <strong>tape splicing, looping and editing</strong> on records such as <em>In a Silent Way</em> and <em>Bitches Brew</em>.</p></div><div class="info-card acid-edge"><img src="images/slides/jazz/rhodes_piano.jpg" alt="Fender Rhodes electric piano" class="slide-thumb"><h4>The Fender Rhodes</h4><p>The electric piano replaced the acoustic grand in fusion. Its bell-like tone could be plugged straight in, giving a warm, sustained sound that sits well with electric bass and rock drums.</p></div></div>
       </section>
       <section class="slide" data-slide="12">
         <div class="slide-eyebrow"><span>🎹</span> AO3 &amp; AO4 &bull; 1970s</div>
         <h2 class="slide-heading">Fusion Groups <span>&amp; Synthesizers</span></h2>
         <p class="slide-lead">Fusion bands added synthesizers, electric bass and rock drum production to jazz harmony and improvisation.</p>
-        <div class="grid-2"><div class="info-card highlight"><img src="/images/slides/jazz/weather_report.jpg" alt="Weather Report" class="slide-thumb"><h4>Weather Report</h4><p>Led by Joe Zawinul and Wayne Shorter. Mixed jazz improvisation with synthesizers, electric bass and world-music colours.</p></div><div class="info-card cyan-edge"><img src="/images/slides/jazz/mahavishnu.jpg" alt="Mahavishnu Orchestra" class="slide-thumb"><h4>Mahavishnu Orchestra</h4><p>Guitarist John McLaughlin&rsquo;s loud, high-energy band fused jazz with rock, using <strong>electric guitar distortion</strong> and complex rhythms. Return to Forever worked in a similar fusion style.</p></div><div class="info-card acid-edge"><img src="/images/slides/jazz/herbie_hancock.jpg" alt="Herbie Hancock" class="slide-thumb"><h4>Herbie Hancock</h4><p>Moved from acoustic jazz to funk-influenced fusion with keyboards. <em>Head Hunters</em> (1973) used synthesizers such as the ARP Odyssey and Minimoog.</p></div><div class="info-card highlight"><img src="/images/slides/jazz/minimoog.jpg" alt="Minimoog synthesizer" class="slide-thumb"><h4>Minimoog &amp; ARP Odyssey</h4><p>Compact <strong>monophonic synthesizers</strong> let keyboardists play expressive lead and bass lines. Pitch and mod wheels let them &ldquo;bend&rdquo; notes like a horn player.</p></div></div>
+        <div class="grid-2"><div class="info-card highlight"><img src="images/slides/jazz/weather_report.jpg" alt="Weather Report" class="slide-thumb"><h4>Weather Report</h4><p>Led by Joe Zawinul and Wayne Shorter. Mixed jazz improvisation with synthesizers, electric bass and world-music colours.</p></div><div class="info-card cyan-edge"><img src="images/slides/jazz/mahavishnu.jpg" alt="Mahavishnu Orchestra" class="slide-thumb"><h4>Mahavishnu Orchestra</h4><p>Guitarist John McLaughlin&rsquo;s loud, high-energy band fused jazz with rock, using <strong>electric guitar distortion</strong> and complex rhythms. Return to Forever worked in a similar fusion style.</p></div><div class="info-card acid-edge"><img src="images/slides/jazz/herbie_hancock.jpg" alt="Herbie Hancock" class="slide-thumb"><h4>Herbie Hancock</h4><p>Moved from acoustic jazz to funk-influenced fusion with keyboards. <em>Head Hunters</em> (1973) used synthesizers such as the ARP Odyssey and Minimoog.</p></div><div class="info-card highlight"><img src="images/slides/jazz/minimoog.jpg" alt="Minimoog synthesizer" class="slide-thumb"><h4>Minimoog &amp; ARP Odyssey</h4><p>Compact <strong>monophonic synthesizers</strong> let keyboardists play expressive lead and bass lines. Pitch and mod wheels let them &ldquo;bend&rdquo; notes like a horn player.</p></div></div>
       </section>
       <section class="slide" data-slide="13">
         <div class="slide-eyebrow"><span>⚖️</span> Component 3 Section B Preparation</div>
@@ -1777,6 +1947,177 @@
       }, 120);
     }
   });
+
+  // Universal mobile-friendly toggleFullscreen (with fallback for iPhone / iOS Safari where Fullscreen API is unavailable on divs)
+  window.toggleFullscreen = function() {
+    var docEl = document.documentElement;
+    var isFs = document.fullscreenElement || document.webkitFullscreenElement;
+    if (!isFs) {
+      if (docEl.requestFullscreen) {
+        docEl.requestFullscreen().catch(function() {
+          if (window.self !== window.top) {
+            window.top.location.href = window.location.href;
+          }
+        });
+      } else if (docEl.webkitRequestFullscreen) {
+        docEl.webkitRequestFullscreen();
+      } else if (window.self !== window.top) {
+        // iOS Safari fallback: open the standalone deck full-screen in the top viewport
+        window.top.location.href = window.location.href;
+      }
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen().catch(function() {});
+      } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+      }
+    }
+  };
+
+  // Universal touch-swipe slide navigation for mobile phones
+  (function() {
+    var touchStartX = 0;
+    var touchStartY = 0;
+    document.addEventListener('touchstart', function(e) {
+      if (!e.changedTouches || !e.changedTouches.length) return;
+      touchStartX = e.changedTouches[0].screenX;
+      touchStartY = e.changedTouches[0].screenY;
+    }, { passive: true });
+
+    document.addEventListener('touchend', function(e) {
+      if (!e.changedTouches || !e.changedTouches.length) return;
+      var target = e.target;
+      if (target && target.closest && target.closest('table, .table-container, .comp-table-wrap, select, button, a, .video-modal-backdrop, #videoModal')) {
+        return;
+      }
+      var dx = e.changedTouches[0].screenX - touchStartX;
+      var dy = e.changedTouches[0].screenY - touchStartY;
+      if (Math.abs(dx) > 65 && Math.abs(dx) > Math.abs(dy) * 1.8) {
+        if (dx < 0) {
+          if (typeof nextSlide === 'function') nextSlide();
+          else if (typeof changeSlide === 'function') changeSlide(1);
+        } else {
+          if (typeof prevSlide === 'function') prevSlide();
+          else if (typeof changeSlide === 'function') changeSlide(-1);
+        }
+      }
+    }, { passive: true });
+  })();
+
+
+  // Universal mobile-friendly toggleFullscreen (with fallback for iPhone / iOS Safari where Fullscreen API is unavailable on divs)
+  window.toggleFullscreen = function() {
+    var docEl = document.documentElement;
+    var isFs = document.fullscreenElement || document.webkitFullscreenElement;
+    if (!isFs) {
+      if (docEl.requestFullscreen) {
+        docEl.requestFullscreen().catch(function() {
+          if (window.self !== window.top) {
+            window.top.location.href = window.location.href;
+          }
+        });
+      } else if (docEl.webkitRequestFullscreen) {
+        docEl.webkitRequestFullscreen();
+      } else if (window.self !== window.top) {
+        // iOS Safari fallback: open the standalone deck full-screen in the top viewport
+        window.top.location.href = window.location.href;
+      }
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen().catch(function() {});
+      } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+      }
+    }
+  };
+
+  // Universal touch-swipe slide navigation for mobile phones
+  (function() {
+    var touchStartX = 0;
+    var touchStartY = 0;
+    document.addEventListener('touchstart', function(e) {
+      if (!e.changedTouches || !e.changedTouches.length) return;
+      touchStartX = e.changedTouches[0].screenX;
+      touchStartY = e.changedTouches[0].screenY;
+    }, { passive: true });
+
+    document.addEventListener('touchend', function(e) {
+      if (!e.changedTouches || !e.changedTouches.length) return;
+      var target = e.target;
+      if (target && target.closest && target.closest('table, .table-container, .comp-table-wrap, select, button, a, .video-modal-backdrop, #videoModal')) {
+        return;
+      }
+      var dx = e.changedTouches[0].screenX - touchStartX;
+      var dy = e.changedTouches[0].screenY - touchStartY;
+      if (Math.abs(dx) > 65 && Math.abs(dx) > Math.abs(dy) * 1.8) {
+        if (dx < 0) {
+          if (typeof nextSlide === 'function') nextSlide();
+          else if (typeof changeSlide === 'function') changeSlide(1);
+        } else {
+          if (typeof prevSlide === 'function') prevSlide();
+          else if (typeof changeSlide === 'function') changeSlide(-1);
+        }
+      }
+    }, { passive: true });
+  })();
+
+
+  // Universal mobile-friendly toggleFullscreen (with fallback for iPhone / iOS Safari where Fullscreen API is unavailable on divs)
+  window.toggleFullscreen = function() {
+    var docEl = document.documentElement;
+    var isFs = document.fullscreenElement || document.webkitFullscreenElement;
+    if (!isFs) {
+      if (docEl.requestFullscreen) {
+        docEl.requestFullscreen().catch(function() {
+          if (window.self !== window.top) {
+            window.top.location.href = window.location.href;
+          }
+        });
+      } else if (docEl.webkitRequestFullscreen) {
+        docEl.webkitRequestFullscreen();
+      } else if (window.self !== window.top) {
+        // iOS Safari fallback: open the standalone deck full-screen in the top viewport
+        window.top.location.href = window.location.href;
+      }
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen().catch(function() {});
+      } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+      }
+    }
+  };
+
+  // Universal touch-swipe slide navigation for mobile phones
+  (function() {
+    var touchStartX = 0;
+    var touchStartY = 0;
+    document.addEventListener('touchstart', function(e) {
+      if (!e.changedTouches || !e.changedTouches.length) return;
+      touchStartX = e.changedTouches[0].screenX;
+      touchStartY = e.changedTouches[0].screenY;
+    }, { passive: true });
+
+    document.addEventListener('touchend', function(e) {
+      if (!e.changedTouches || !e.changedTouches.length) return;
+      var target = e.target;
+      if (target && target.closest && target.closest('table, .table-container, .comp-table-wrap, select, button, a, .video-modal-backdrop, #videoModal')) {
+        return;
+      }
+      var dx = e.changedTouches[0].screenX - touchStartX;
+      var dy = e.changedTouches[0].screenY - touchStartY;
+      if (Math.abs(dx) > 65 && Math.abs(dx) > Math.abs(dy) * 1.8) {
+        if (dx < 0) {
+          if (typeof nextSlide === 'function') nextSlide();
+          else if (typeof changeSlide === 'function') changeSlide(1);
+        } else {
+          if (typeof prevSlide === 'function') prevSlide();
+          else if (typeof changeSlide === 'function') changeSlide(-1);
+        }
+      }
+    }, { passive: true });
+  })();
+
 </script>
 <!-- === END HASH DEEP LINK === -->
 </body>

@@ -1042,19 +1042,29 @@
     }
     /* === END ANTI-SQUASH === */
 
-  
     /* === MTG MOBILE PHONE RESPONSIVENESS OVERRIDES === */
     @media (max-width: 768px) {
       html, body {
-        overflow-x: hidden !important;
+        height: 100vh !important;
+        max-height: 100vh !important;
+        overflow: hidden !important;
         max-width: 100vw !important;
+        display: flex !important;
+        flex-direction: column !important;
       }
+      /* Compact top utility bar */
       .deck-topbar-controls, .top-utility-bar, header.deck-topbar-controls {
         padding: 6px 10px !important;
         gap: 6px !important;
-        min-height: 42px !important;
+        min-height: 40px !important;
         height: auto !important;
         flex-wrap: nowrap !important;
+        flex-shrink: 0 !important;
+        justify-content: space-between !important;
+      }
+      /* Hide secondary promo link in topbar on phones so Fullscreen button never clips */
+      .deck-topbar-controls a[href*="app.musictechguru.com"] {
+        display: none !important;
       }
       .exit-deck-link {
         padding: 5px 8px !important;
@@ -1062,12 +1072,21 @@
         white-space: nowrap !important;
         flex-shrink: 0 !important;
       }
-      .deck-topbar-title, .top-bar-title {
-        font-size: 11.5px !important;
+      .deck-topbar-controls > div:first-child,
+      .top-utility-bar > div:first-child,
+      header.deck-topbar-controls > div:first-child {
+        min-width: 0 !important;
+        flex: 1 1 auto !important;
+        overflow: hidden !important;
+      }
+      .deck-topbar-title, .top-bar-title, .deck-topbar-controls span[style*="color: #94a3b8"] {
+        font-size: 11px !important;
         white-space: nowrap !important;
         overflow: hidden !important;
         text-overflow: ellipsis !important;
-        max-width: 42vw !important;
+        max-width: 38vw !important;
+        display: inline-block !important;
+        vertical-align: middle !important;
       }
       .deck-topbar-controls .fullscreen-btn,
       .top-utility-bar .fullscreen-btn,
@@ -1078,7 +1097,83 @@
         white-space: nowrap !important;
         flex-shrink: 0 !important;
       }
-      /* Collapse multi-column slide grids to 1 column on phones */
+      /* Hide redundant secondary inner banner bars on mobile to maximize slide viewport height */
+      header.deck-topbar,
+      .deck-topbar,
+      .top-bar {
+        display: none !important;
+      }
+      header.deck-header, .deck-header {
+        padding: 6px 12px !important;
+        min-height: auto !important;
+        flex-shrink: 0 !important;
+      }
+      header.deck-header .deck-title-group, .deck-header .deck-title-group {
+        display: none !important;
+      }
+      header.deck-header .deck-actions, .deck-header .deck-actions {
+        width: 100% !important;
+        display: flex !important;
+        justify-content: space-between !important;
+      }
+      header.deck-header .slide-select, .deck-header .slide-select {
+        max-width: 100% !important;
+        width: 100% !important;
+      }
+      header.deck-header button, .deck-header button {
+        display: none !important;
+      }
+      /* Full-bleed deck wrapper / container as flex column */
+      .deck-wrapper, .deck-container {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        border-radius: 0 !important;
+        border-left: none !important;
+        border-right: none !important;
+        flex: 1 1 auto !important;
+        min-height: 0 !important;
+        height: auto !important;
+        max-height: none !important;
+        display: flex !important;
+        flex-direction: column !important;
+        overflow: hidden !important;
+      }
+      .slides-viewport, .slide-stage {
+        flex: 1 1 auto !important;
+        min-height: 0 !important;
+        width: 100% !important;
+        padding: 0 !important;
+        overflow: hidden !important;
+        position: relative !important;
+        display: flex !important;
+        flex-direction: column !important;
+      }
+      /* Single continuous vertical scroll container for the active slide */
+      .slide:not(.active) {
+        display: none !important;
+      }
+      .slide.active {
+        position: relative !important;
+        top: auto !important;
+        left: auto !important;
+        display: block !important;
+        width: 100% !important;
+        height: 100% !important;
+        max-height: 100% !important;
+        flex: 1 1 auto !important;
+        min-height: 0 !important;
+        padding: 14px 14px 80px !important;
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+        -webkit-overflow-scrolling: touch !important;
+        box-sizing: border-box !important;
+        transform: none !important;
+        opacity: 1 !important;
+        pointer-events: auto !important;
+      }
+      /* Collapse all multi-column slide grids into a single unconstrained vertical stack */
       .slide .split-grid,
       .slide .grid-2,
       .slide .grid-2-split,
@@ -1093,33 +1188,89 @@
       .slide .two-col,
       .slide .three-col,
       .slide [style*="grid-template-columns"] {
-        grid-template-columns: 1fr !important;
-        gap: 12px !important;
-      }
-      .slide .grid-2-split {
         display: flex !important;
         flex-direction: column !important;
-        overflow-y: visible !important;
+        grid-template-columns: 1fr !important;
+        gap: 14px !important;
+        flex: none !important;
+        width: 100% !important;
+        height: auto !important;
+        min-height: auto !important;
+        max-height: none !important;
+        overflow: visible !important;
+        margin-bottom: 16px !important;
+      }
+      /* Unconstrain all column panels and cards so they expand naturally inside the slide scroll */
+      .slide .column-panel,
+      .slide .col-panel,
+      .slide .info-card,
+      .slide .feature-card,
+      .slide .music-col,
+      .slide .instrument-col,
+      .slide .format-col,
+      .slide .prod-col,
+      .slide .tech-col,
+      .slide .col-music,
+      .slide .col-tech,
+      .slide .artist-visual-col {
+        display: flex !important;
+        flex-direction: column !important;
+        flex: none !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        height: auto !important;
+        min-height: auto !important;
+        max-height: none !important;
+        overflow: visible !important;
+        padding: 14px !important;
+        box-sizing: border-box !important;
+      }
+      /* Stack panel headers and takeaway/tip boxes vertically on phones so badges & text never crush */
+      .slide .panel-header,
+      .slide .col-header,
+      .slide .header-bar,
+      .slide .takeaway-box,
+      .slide .callout-box,
+      .slide .exam-tip,
+      .slide .tip-box {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        justify-content: flex-start !important;
+        gap: 6px !important;
         height: auto !important;
       }
-      .slide .column-panel {
-        overflow-y: visible !important;
-        max-height: none !important;
+      /* Give photo cards and hardware images generous height on mobile */
+      .slide .photo-card,
+      .slide .hardware-photo,
+      .slide .instrument-photo-card {
         height: auto !important;
+        min-height: 175px !important;
+        max-height: none !important;
         flex-shrink: 0 !important;
       }
-      .slide, .slide.active {
-        padding: 14px 12px 24px !important;
-        overflow-y: auto !important;
-        overflow-x: hidden !important;
-        -webkit-overflow-scrolling: touch !important;
+      .slide .photo-card img,
+      .slide .hardware-photo img,
+      .slide .instrument-photo-card img.instrument-photo {
+        height: 185px !important;
+        max-height: 220px !important;
+        width: 100% !important;
+        object-fit: contain !important;
       }
-      .slide h1 {
-        font-size: clamp(20px, 5.5vw, 26px) !important;
+      .slide .table-container,
+      .slide .comp-table-wrap {
+        overflow-x: auto !important;
+        overflow-y: visible !important;
+        max-height: none !important;
+        flex: none !important;
+        width: 100% !important;
+      }
+      .slide h1, .slide .slide-heading, .slide .slide-title {
+        font-size: clamp(20px, 5.5vw, 25px) !important;
         line-height: 1.22 !important;
       }
       .slide h2 {
-        font-size: clamp(17px, 4.8vw, 22px) !important;
+        font-size: clamp(17px, 4.8vw, 21px) !important;
         line-height: 1.25 !important;
       }
       .slide p, .slide li {
@@ -1133,12 +1284,14 @@
         -webkit-overflow-scrolling: touch !important;
         font-size: 12px !important;
       }
-      /* Bottom Controls Bar: Ensure Previous, Slide Counter, and Next always fit on 320-390px phones */
+      /* Bottom Controls Bar: Ensure Previous, Slide Counter/Dropdown, and Next always fit on 320-430px phones */
       footer.deck-controls,
       .deck-controls,
       .deck-nav,
       .bottom-bar,
-      .deck-nav-bar {
+      .deck-nav-bar,
+      .deck-footer,
+      .deck-bottombar {
         padding: 8px 10px !important;
         gap: 6px !important;
         min-height: 50px !important;
@@ -1149,29 +1302,46 @@
         flex-wrap: nowrap !important;
         width: 100% !important;
         box-sizing: border-box !important;
+        flex-shrink: 0 !important;
       }
       .deck-controls .controls-left,
       .bottom-bar .nav-buttons,
       .deck-nav-bar .nav-left,
-      .deck-nav-bar .nav-right {
+      .deck-nav-bar .nav-right,
+      .deck-nav-bar > div:first-child {
         display: contents !important;
       }
-      /* Hide duplicate bottom Fullscreen button & wide dot arrays on mobile so Next button is never clipped */
+      /* Reorder amplifiers bottom bar children so Prev is left, Counter is center, Next is right */
+      .deck-nav-bar #prevBtn { order: 1 !important; }
+      .deck-nav-bar .slide-counter, .deck-nav-bar .nav-center { order: 2 !important; }
+      .deck-nav-bar #nextBtn { order: 3 !important; }
+      /* When both a slide-counter and a slide-select dropdown exist in deck-nav-bar, hide the duplicate text counter on phones */
+      .deck-nav-bar .nav-left .slide-counter {
+        display: none !important;
+      }
+      /* Hide duplicate bottom Fullscreen button, keyboard hints & wide dot arrays on mobile so Next button is never clipped */
       #bottomFsBtn,
       .deck-controls button[onclick*="toggleFullscreen"],
       .bottom-bar button[onclick*="toggleFullscreen"],
       .deck-nav button[onclick*="toggleFullscreen"],
       .deck-nav-bar button[onclick*="toggleFullscreen"],
+      .deck-footer button[onclick*="toggleFullscreen"],
+      .deck-bottombar button[onclick*="toggleFullscreen"],
       .controls-right,
       .keyboard-hint,
+      .nav-shortcuts,
       .progress-dots,
       .slide-dots,
       #dotsContainer,
       #progressDots,
-      .progress-track {
+      .progress-track,
+      .progress-bar-track,
+      .progress-bar-container {
         display: none !important;
       }
       .progress-container,
+      .progress-group,
+      .deck-progress-group,
       .slide-indicator,
       .deck-nav-bar .nav-center {
         flex: 1 1 auto !important;
@@ -1181,13 +1351,13 @@
         justify-content: center !important;
         margin: 0 4px !important;
       }
-      .slide-counter, #slideCounter {
+      .slide-counter, #slideCounter, .progress-label {
         font-size: 11.5px !important;
         white-space: nowrap !important;
         text-align: center !important;
       }
       .slide-select, #slideSelect {
-        max-width: 135px !important;
+        max-width: 155px !important;
         font-size: 11.5px !important;
         padding: 5px 8px !important;
         text-overflow: ellipsis !important;
@@ -1255,13 +1425,13 @@
         <div class="slide-eyebrow"><span>📋</span> Specification Roadmap</div>
         <h2 class="slide-heading">Component 3 <span>Syllabus Matrix for Folk</span></h2>
         <p class="slide-lead">Edexcel expects students to understand both acoustic capture techniques and the social and historical contexts of folk and folk rock.</p>
-        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/folk/martin_workshop.jpg" alt="Acoustic Guitar Craft" class="slide-thumb">
+        <div class="grid-3"><div class="info-card highlight"><img src="images/slides/folk/martin_workshop.jpg" alt="Acoustic Guitar Craft" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Transducers</span>
                <h4>Acoustic Guitar Miking</h4>
-               <p>Small vs large diaphragm condensers; 12th fret positioning for balance; sound hole proximity effect avoidance; Blumlein &amp; XY stereo pairs.</p></div><div class="info-card cyan-edge"><img src="/images/slides/folk/csn.jpg" alt="Folk Rock Pioneers" class="slide-thumb">
+               <p>Small vs large diaphragm condensers; 12th fret positioning for balance; sound hole proximity effect avoidance; Blumlein &amp; XY stereo pairs.</p></div><div class="info-card cyan-edge"><img src="images/slides/folk/csn.jpg" alt="Folk Rock Pioneers" class="slide-thumb">
                <span class="spec-pill ao4">AO4 Acoustic to Electric</span>
                <h4>Revival &amp; Folk Rock</h4>
-               <p>Traditional ballads meeting rock amplification; Dylan going electric at Newport '65; Sound Techniques studio (Joe Boyd, John Wood).</p></div><div class="info-card acid-edge"><img src="/images/slides/folk/vintage_mixing_desk.jpg" alt="Studio Analog Console" class="slide-thumb">
+               <p>Traditional ballads meeting rock amplification; Dylan going electric at Newport '65; Sound Techniques studio (Joe Boyd, John Wood).</p></div><div class="info-card acid-edge"><img src="images/slides/folk/vintage_mixing_desk.jpg" alt="Studio Analog Console" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Studio Processing</span>
                <h4>Transparent Mix Chains</h4>
                <p>Smooth optical leveling (LA-2A); embracing natural acoustic bleed; plate reverb (EMT 140) and stereo soundstage panning.</p></div></div>
@@ -1270,14 +1440,14 @@
         <div class="slide-eyebrow"><span>📻</span> Folk Roots &amp; Preservation</div>
         <h2 class="slide-heading">Field Capture <span>&amp; Traditional Song Collectors</span></h2>
         <p class="slide-lead">Before modern recording studios existed, acoustic folk music survived through oral tradition and pioneering field recordists.</p>
-        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/folk/alan_lomax.jpg" alt="Alan Lomax" class="slide-thumb">
+        <div class="grid-3"><div class="info-card highlight"><img src="images/slides/folk/alan_lomax.jpg" alt="Alan Lomax" class="slide-thumb">
                <span class="spec-pill ao4">AO4 Historical Context</span>
                <h4>Alan Lomax Field Recordings</h4>
-               <p>Lomax travelled the American South and British Isles with portable disc cutters and early tape machines, archiving work songs and ballads in natural settings.</p></div><div class="info-card cyan-edge"><img src="/images/slides/folk/woody_guthrie.jpg" alt="Woody Guthrie" class="slide-thumb">
+               <p>Lomax travelled the American South and British Isles with portable disc cutters and early tape machines, archiving work songs and ballads in natural settings.</p></div><div class="info-card cyan-edge"><img src="images/slides/folk/woody_guthrie.jpg" alt="Woody Guthrie" class="slide-thumb">
                <span class="spec-pill ao4">AO4 Political Ballads</span>
                <h4>Woody Guthrie &amp; Protest</h4>
                <p>Armed with a flat-top acoustic labelled "This Machine Kills Fascists", Guthrie established topical storytelling songs like <em>This Land Is Your Land</em>.</p>
-               <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('wxiMrvDbq3s', 'Woody Guthrie - This Land Is Your Land')">▶ Listen: This Land Is Your Land</button><a href="https://www.youtube.com/watch?v=wxiMrvDbq3s" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div></div><div class="info-card acid-edge"><img src="/images/slides/folk/lead_belly.jpg" alt="Lead Belly" class="slide-thumb">
+               <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('wxiMrvDbq3s', 'Woody Guthrie - This Land Is Your Land')">▶ Listen: This Land Is Your Land</button><a href="https://www.youtube.com/watch?v=wxiMrvDbq3s" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div></div><div class="info-card acid-edge"><img src="images/slides/folk/lead_belly.jpg" alt="Lead Belly" class="slide-thumb">
                <span class="spec-pill ao4">AO4 12-String Power</span>
                <h4>Lead Belly &amp; 12-String Drive</h4>
                <p>Huddie Ledbetter recorded iconic folk-blues on a Stella 12-string acoustic guitar, providing booming bass basslines and ringing acoustic chorus.</p></div></div>
@@ -1286,14 +1456,14 @@
         <div class="slide-eyebrow"><span>☕</span> 1960s Folk Revival</div>
         <h2 class="slide-heading">Greenwich Village <span>Coffeehouses &amp; Protest Songs</span></h2>
         <p class="slide-lead">In early 1960s New York, young singer-songwriters gathered in intimate coffeehouses like The Gaslight Cafe, igniting a cultural explosion.</p>
-        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/folk/bob_dylan.jpg" alt="Bob Dylan 1963" class="slide-thumb">
+        <div class="grid-3"><div class="info-card highlight"><img src="images/slides/folk/bob_dylan.jpg" alt="Bob Dylan 1963" class="slide-thumb">
                <span class="spec-pill ao4">AO4 Landmark Artist</span>
                <h4>Bob Dylan Acoustic Era</h4>
                <p>Solo acoustic guitar, harmonica rack, and poetic topical lyrics on <em>The Freewheelin' Bob Dylan</em> and <em>The Times They Are A-Changin'</em>.</p>
-               <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('90WD_ats6eE', 'Bob Dylan - The Times They Are A-Changin')">▶ Listen: The Times They Are A-Changin</button><a href="https://www.youtube.com/watch?v=90WD_ats6eE" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div></div><div class="info-card cyan-edge"><img src="/images/slides/folk/joan_baez.jpg" alt="Joan Baez 1966" class="slide-thumb">
+               <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('90WD_ats6eE', 'Bob Dylan - The Times They Are A-Changin')">▶ Listen: The Times They Are A-Changin</button><a href="https://www.youtube.com/watch?v=90WD_ats6eE" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div></div><div class="info-card cyan-edge"><img src="images/slides/folk/joan_baez.jpg" alt="Joan Baez 1966" class="slide-thumb">
                <span class="spec-pill ao4">AO4 Pure Vocal Delivery</span>
                <h4>Joan Baez &amp; Balladry</h4>
-               <p>Celebrated for her pure vibrato soprano and intricate fingerpicking on small-body Martin 0-45 acoustics, championing civil rights anthems.</p></div><div class="info-card acid-edge"><img src="/images/slides/folk/columbia_studio.jpg" alt="Columbia 30th St Studio" class="slide-thumb">
+               <p>Celebrated for her pure vibrato soprano and intricate fingerpicking on small-body Martin 0-45 acoustics, championing civil rights anthems.</p></div><div class="info-card acid-edge"><img src="images/slides/folk/columbia_studio.jpg" alt="Columbia 30th St Studio" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Studio Capture</span>
                <h4>Coffeehouse Sound in Studio</h4>
                <p>Columbia 30th Street Studio captured Dylan and Baez live with minimal processing: one condenser on voice, one on guitar, zero overdubs.</p></div></div>
@@ -1302,13 +1472,13 @@
         <div class="slide-eyebrow"><span>🎸</span> Acoustic Guitar Anatomy</div>
         <h2 class="slide-heading">The Flat-Top Steel-String: <span>Martin &amp; Gibson</span></h2>
         <p class="slide-lead">The flat-top acoustic steel-string guitar is the harmonic foundation of American and British folk music.</p>
-        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/folk/martin_d28.jpg" alt="Martin D-28 Dreadnought" class="slide-thumb">
+        <div class="grid-3"><div class="info-card highlight"><img src="images/slides/folk/martin_d28.jpg" alt="Martin D-28 Dreadnought" class="slide-thumb">
                <span class="spec-pill ao4">AO4 Flagship Guitar</span>
                <h4>Martin D-28 Dreadnought</h4>
-               <p>Introduced in 1931, the D-28 features a large resonant body, solid spruce top, and rosewood back/sides, delivering powerful acoustic projection and deep bass.</p></div><div class="info-card cyan-edge"><img src="/images/slides/folk/gibson_j45.jpg" alt="Gibson J-45" class="slide-thumb">
+               <p>Introduced in 1931, the D-28 features a large resonant body, solid spruce top, and rosewood back/sides, delivering powerful acoustic projection and deep bass.</p></div><div class="info-card cyan-edge"><img src="images/slides/folk/gibson_j45.jpg" alt="Gibson J-45" class="slide-thumb">
                <span class="spec-pill ao4">AO4 Slope-Shoulder Tone</span>
                <h4>Gibson J-45 "The Workhorse"</h4>
-               <p>Featuring mahogany back and sides with a round-shoulder dreadnought shape, the J-45 offers a warm, woody midrange beloved by singer-songwriters.</p></div><div class="info-card acid-edge"><img src="/images/slides/folk/acoustic_12_string.jpg" alt="12-String Acoustic" class="slide-thumb">
+               <p>Featuring mahogany back and sides with a round-shoulder dreadnought shape, the J-45 offers a warm, woody midrange beloved by singer-songwriters.</p></div><div class="info-card acid-edge"><img src="images/slides/folk/acoustic_12_string.jpg" alt="12-String Acoustic" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Acoustic Chorusing</span>
                <h4>12-String Acoustic Guitars</h4>
                <p>Tuned in octaves on the lower four courses and unisons on the top two, the 12-string produces a natural shimmering chorus effect without studio modulation.</p></div></div>
@@ -1317,13 +1487,13 @@
         <div class="slide-eyebrow"><span>🎻</span> Folk Instrumentation</div>
         <h2 class="slide-heading">Traditional Strings: <span>Banjo, Mandolin, Fiddle &amp; Bass</span></h2>
         <p class="slide-lead">Beyond the six-string guitar, folk ensembles rely on a rich palette of acoustic stringed instruments.</p>
-        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/folk/banjo.png" alt="5-String Banjo" class="slide-thumb" style="object-fit: contain; background: #0d140f; padding: 6px;">
+        <div class="grid-3"><div class="info-card highlight"><img src="images/slides/folk/banjo.png" alt="5-String Banjo" class="slide-thumb" style="object-fit: contain; background: #0d140f; padding: 6px;">
                <span class="spec-pill ao4">AO4 Percussive Attack</span>
                <h4>5-String Banjo</h4>
-               <p>Features a vibrating skin/plastic head and a high-pitched drone 5th string. Played with rapid clawhammer or three-finger Scruggs picking.</p></div><div class="info-card cyan-edge"><img src="/images/slides/folk/mandolin.jpg" alt="Gibson Mandolin" class="slide-thumb">
+               <p>Features a vibrating skin/plastic head and a high-pitched drone 5th string. Played with rapid clawhammer or three-finger Scruggs picking.</p></div><div class="info-card cyan-edge"><img src="images/slides/folk/mandolin.jpg" alt="Gibson Mandolin" class="slide-thumb">
                <span class="spec-pill ao4">AO4 Rhythmic Chop</span>
                <h4>Acoustic Mandolin</h4>
-               <p>Eight strings tuned in pairs (G-D-A-E). Used for driving rhythmic "chop" chords that emulate an acoustic snare drum, plus fast melodic lead lines.</p></div><div class="info-card acid-edge"><img src="/images/slides/folk/fiddle_micing.png" alt="Fiddle Miking" class="slide-thumb">
+               <p>Eight strings tuned in pairs (G-D-A-E). Used for driving rhythmic "chop" chords that emulate an acoustic snare drum, plus fast melodic lead lines.</p></div><div class="info-card acid-edge"><img src="images/slides/folk/fiddle_micing.png" alt="Fiddle Miking" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Bowed Strings &amp; Bass</span>
                <h4>Fiddle &amp; Upright Double Bass</h4>
                <p>Fiddle provides modal ornamentation and Celtic reels; upright acoustic bass delivers warm fundamental low-end, miked near bridge and fingerboard.</p></div></div>
@@ -1332,13 +1502,13 @@
         <div class="slide-eyebrow"><span>🎙️</span> Studio Microphone Placement</div>
         <h2 class="slide-heading">Acoustic Guitar: <span>12th Fret vs Sound Hole</span></h2>
         <p class="slide-lead">Positioning is critical: placing a microphone directly in front of the sound hole is one of the most common exam mistakes.</p>
-        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/folk/mic_12th_fret.png" alt="12th Fret Mic Technique" class="slide-thumb">
+        <div class="grid-3"><div class="info-card highlight"><img src="images/slides/folk/mic_12th_fret.png" alt="12th Fret Mic Technique" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Exam Standard</span>
                <h4>The 12th Fret Sweet Spot</h4>
-               <p>Aiming a directional condenser at the 12th–14th fret (6–12 inches away) yields the optimal balance of string attack, finger pick clarity, and natural body warmth.</p></div><div class="info-card cyan-edge"><img src="/images/slides/folk/bridge_mic_acoustic.jpg" alt="Body & Bridge Miking" class="slide-thumb">
+               <p>Aiming a directional condenser at the 12th–14th fret (6–12 inches away) yields the optimal balance of string attack, finger pick clarity, and natural body warmth.</p></div><div class="info-card cyan-edge"><img src="images/slides/folk/bridge_mic_acoustic.jpg" alt="Body & Bridge Miking" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Lower Bout Miking</span>
                <h4>Bridge / Lower Bout Capture</h4>
-               <p>A second microphone placed behind the bridge captures resonant woody warmth. Combining this with a 12th-fret mic creates a full stereo image.</p></div><div class="info-card acid-edge"><img src="/images/slides/folk/sound_hole_avoidance.png" alt="Avoiding Proximity Effect" class="slide-thumb">
+               <p>A second microphone placed behind the bridge captures resonant woody warmth. Combining this with a 12th-fret mic creates a full stereo image.</p></div><div class="info-card acid-edge"><img src="images/slides/folk/sound_hole_avoidance.png" alt="Avoiding Proximity Effect" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Common Pitfall</span>
                <h4>Avoid The Sound Hole!</h4>
                <p>Pointing directly into the sound hole causes severe proximity effect and resonant air cavity "booming" around 100–250 Hz that clouds the entire mix.</p></div></div>
@@ -1347,13 +1517,13 @@
         <div class="slide-eyebrow"><span>🎛️</span> Transducer Selection</div>
         <h2 class="slide-heading">Condensers vs Ribbons: <span>Capturing Acoustic Detail</span></h2>
         <p class="slide-lead">Choosing the right transducer design determines how string transients, harmonic sparkle, and warmth are translated.</p>
-        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/folk/akg_c451.jpg" alt="AKG C451 Pencil Condenser" class="slide-thumb">
+        <div class="grid-3"><div class="info-card highlight"><img src="images/slides/folk/akg_c451.jpg" alt="AKG C451 Pencil Condenser" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Transient Speed</span>
                <h4>Small Diaphragm (SDC)</h4>
-               <p>Pencil condensers (AKG C451, Neumann KM84/KM184) have ultralight diaphragms for blistering transient response and airy high-frequency extension.</p></div><div class="info-card cyan-edge"><img src="/images/slides/folk/neumann_u87.png" alt="Neumann U87 LDC" class="slide-thumb" style="object-fit: contain; background: #0d140f; padding: 6px;">
+               <p>Pencil condensers (AKG C451, Neumann KM84/KM184) have ultralight diaphragms for blistering transient response and airy high-frequency extension.</p></div><div class="info-card cyan-edge"><img src="images/slides/folk/neumann_u87.png" alt="Neumann U87 LDC" class="slide-thumb" style="object-fit: contain; background: #0d140f; padding: 6px;">
                <span class="spec-pill ao3">AO3 Full-Range Depth</span>
                <h4>Large Diaphragm (LDC)</h4>
-               <p>Tube &amp; FET condensers (Neumann U67, U87, AKG C12) provide rich low-end fullness and smooth upper mids, ideal for lead vocals and body capture.</p></div><div class="info-card acid-edge"><img src="/images/slides/folk/coles_4038.jpg" alt="Coles 4038 Ribbon" class="slide-thumb">
+               <p>Tube &amp; FET condensers (Neumann U67, U87, AKG C12) provide rich low-end fullness and smooth upper mids, ideal for lead vocals and body capture.</p></div><div class="info-card acid-edge"><img src="images/slides/folk/coles_4038.jpg" alt="Coles 4038 Ribbon" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Smooth Top-End</span>
                <h4>Ribbon Microphones (Coles 4038)</h4>
                <p>Velocity ribbon transducers offer a natural high-frequency roll-off, taming harsh finger squeaks and brittle banjo upper harmonics with velvety smoothness.</p></div></div>
@@ -1362,13 +1532,13 @@
         <div class="slide-eyebrow"><span>📐</span> Stereo Imaging Techniques</div>
         <h2 class="slide-heading">Coincident, Spaced <span>&amp; Blumlein Configurations</span></h2>
         <p class="slide-lead">Folk recordings frequently use stereo microphone pairs to capture the dimensional width of solo guitar or string ensembles.</p>
-        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/folk/xy_stereo.jpg" alt="Coincident XY Stereo" class="slide-thumb">
+        <div class="grid-3"><div class="info-card highlight"><img src="images/slides/folk/xy_stereo.jpg" alt="Coincident XY Stereo" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Phase Coherent</span>
                <h4>Coincident XY (90&deg;)</h4>
-               <p>Two directional capsules placed as close as possible at 90&deg;. Captures stereo width purely via level differences with zero phase cancellation when summed to mono.</p></div><div class="info-card cyan-edge"><img src="/images/slides/folk/spaced_pair.png" alt="Spaced Pair AB" class="slide-thumb">
+               <p>Two directional capsules placed as close as possible at 90&deg;. Captures stereo width purely via level differences with zero phase cancellation when summed to mono.</p></div><div class="info-card cyan-edge"><img src="images/slides/folk/spaced_pair.png" alt="Spaced Pair AB" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Wide Acoustic Space</span>
                <h4>Spaced Pair (AB)</h4>
-               <p>Two mics spaced 2–3 feet apart (following the 3:1 rule). Delivers a wide, lush stereo image using time-of-arrival differences, though potential mono phase risk exists.</p></div><div class="info-card acid-edge"><img src="/images/slides/folk/blumlein_pair.jpg" alt="Blumlein Ribbon Setup" class="slide-thumb">
+               <p>Two mics spaced 2–3 feet apart (following the 3:1 rule). Delivers a wide, lush stereo image using time-of-arrival differences, though potential mono phase risk exists.</p></div><div class="info-card acid-edge"><img src="images/slides/folk/blumlein_pair.jpg" alt="Blumlein Ribbon Setup" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Room Reflections</span>
                <h4>Blumlein &amp; Mid-Side (MS)</h4>
                <p>Blumlein uses two crossed figure-8 mics at 90&deg; for 360&deg; spatial depth. Mid-Side pairs a cardioid Mid with a figure-8 Side for post-mix width control.</p></div></div>
@@ -1377,14 +1547,14 @@
         <div class="slide-eyebrow"><span>⚡</span> The Folk-Rock Revolution</div>
         <h2 class="slide-heading">Newport 1965: <span>Dylan Goes Electric</span></h2>
         <p class="slide-lead">The collision of acoustic folk storytelling with electric rock and roll amplification reshaped popular music forever.</p>
-        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/folk/newport_stage.jpg" alt="Dylan at Newport 1965" class="slide-thumb">
+        <div class="grid-3"><div class="info-card highlight"><img src="images/slides/folk/newport_stage.jpg" alt="Dylan at Newport 1965" class="slide-thumb">
                <span class="spec-pill ao4">AO4 Cultural Watershed</span>
                <h4>Newport Folk Festival 1965</h4>
                <p>On July 25, 1965, Bob Dylan walked onstage with an electric band and a Fender Stratocaster. Folk purists booed, but folk rock was born overnight.</p>
-               <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('IwOfCgkyEj0', 'Bob Dylan - Like a Rolling Stone')">▶ Listen: Like a Rolling Stone</button><a href="https://www.youtube.com/watch?v=IwOfCgkyEj0" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div></div><div class="info-card cyan-edge"><img src="/images/slides/folk/fender_stratocaster.jpg" alt="Fender Stratocaster" class="slide-thumb">
+               <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('IwOfCgkyEj0', 'Bob Dylan - Like a Rolling Stone')">▶ Listen: Like a Rolling Stone</button><a href="https://www.youtube.com/watch?v=IwOfCgkyEj0" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div></div><div class="info-card cyan-edge"><img src="images/slides/folk/fender_stratocaster.jpg" alt="Fender Stratocaster" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Rock Amplification</span>
                <h4>Amplified Electric Energy</h4>
-               <p>Tube guitar amplifiers, solid-body electric guitars, and aggressive drum kits merged with poetic, socially conscious lyricism.</p></div><div class="info-card acid-edge"><img src="/images/slides/folk/rickenbacker_12_string.jpg" alt="Rickenbacker 12-String" class="slide-thumb">
+               <p>Tube guitar amplifiers, solid-body electric guitars, and aggressive drum kits merged with poetic, socially conscious lyricism.</p></div><div class="info-card acid-edge"><img src="images/slides/folk/rickenbacker_12_string.jpg" alt="Rickenbacker 12-String" class="slide-thumb">
                <span class="spec-pill ao4">AO4 The Byrds &amp; Jangle</span>
                <h4>The Byrds &amp; 12-String Jangle</h4>
                <p>Roger McGuinn's compressed Rickenbacker 360/12 electric guitar on Dylan's <em>Mr. Tambourine Man</em> defined the shimmering "jangle pop" sound.</p></div></div>
@@ -1393,14 +1563,14 @@
         <div class="slide-eyebrow"><span>🏰</span> British Folk Rock</div>
         <h2 class="slide-heading">Fairport Convention <span>&amp; The Sound Techniques Studio</span></h2>
         <p class="slide-lead">In the UK, traditional British and Celtic folk ballads were married to rock rhythms in iconic independent London studios.</p>
-        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/folk/fairport_convention.png" alt="Fairport Convention" class="slide-thumb">
+        <div class="grid-3"><div class="info-card highlight"><img src="images/slides/folk/fairport_convention.png" alt="Fairport Convention" class="slide-thumb">
                <span class="spec-pill ao4">AO4 British Masterpiece</span>
                <h4>Fairport Convention &amp; Sandy Denny</h4>
                <p>1969's <em>Liege &amp; Lief</em> combined centuries-old traditional murder ballads with electric guitar, fiddle (Dave Swarbrick), and Sandy Denny's soaring voice.</p>
-               <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('1it7BP5PckI', 'Fairport Convention - Matty Groves')">▶ Listen: Matty Groves (1969)</button><a href="https://www.youtube.com/watch?v=1it7BP5PckI" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div></div><div class="info-card cyan-edge"><img src="/images/slides/folk/sandy_denny.jpg" alt="Sandy Denny" class="slide-thumb">
+               <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('1it7BP5PckI', 'Fairport Convention - Matty Groves')">▶ Listen: Matty Groves (1969)</button><a href="https://www.youtube.com/watch?v=1it7BP5PckI" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div></div><div class="info-card cyan-edge"><img src="images/slides/folk/sandy_denny.jpg" alt="Sandy Denny" class="slide-thumb">
                <span class="spec-pill ao4">AO4 Iconic Voices</span>
                <h4>Sandy Denny &amp; Martin Carthy</h4>
-               <p>Sandy Denny's haunting tone and Martin Carthy's inventive acoustic guitar tunings (CGCDGA) anchored the English folk revival movement.</p></div><div class="info-card acid-edge"><img src="/images/slides/folk/joe_boyd_carthy.jpg" alt="Joe Boyd & Martin Carthy" class="slide-thumb">
+               <p>Sandy Denny's haunting tone and Martin Carthy's inventive acoustic guitar tunings (CGCDGA) anchored the English folk revival movement.</p></div><div class="info-card acid-edge"><img src="images/slides/folk/joe_boyd_carthy.jpg" alt="Joe Boyd & Martin Carthy" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Studio Pioneer</span>
                <h4>Sound Techniques (London)</h4>
                <p>Engineer John Wood and producer Joe Boyd tracked ensembles live with custom transistor desks, capturing natural room bleed as musical glue.</p></div></div>
@@ -1409,15 +1579,15 @@
         <div class="slide-eyebrow"><span>🌸</span> The 1970s Golden Age</div>
         <h2 class="slide-heading">Singer-Songwriters: <span>Joni Mitchell &amp; Nick Drake</span></h2>
         <p class="slide-lead">The 1970s saw acoustic intimacy elevated to fine art through experimental tunings, confessional lyrics, and exquisite production.</p>
-        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/folk/joni_mitchell.jpg" alt="Joni Mitchell" class="slide-thumb">
+        <div class="grid-3"><div class="info-card highlight"><img src="images/slides/folk/joni_mitchell.jpg" alt="Joni Mitchell" class="slide-thumb">
                <span class="spec-pill ao4">AO4 Alternative Tunings</span>
                <h4>Joni Mitchell (Laurel Canyon)</h4>
                <p>Invented over 50 open and modal guitar tunings. <em>Ladies of the Canyon</em> and <em>Blue</em> showcase shimmering acoustic sparkle and dulcimer.</p>
-               <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('94bdMSCdw20', 'Joni Mitchell - Big Yellow Taxi')">▶ Listen: Big Yellow Taxi</button><a href="https://www.youtube.com/watch?v=94bdMSCdw20" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div></div><div class="info-card cyan-edge"><img src="/images/slides/folk/nick_drake.jpg" alt="Nick Drake" class="slide-thumb">
+               <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('94bdMSCdw20', 'Joni Mitchell - Big Yellow Taxi')">▶ Listen: Big Yellow Taxi</button><a href="https://www.youtube.com/watch?v=94bdMSCdw20" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div></div><div class="info-card cyan-edge"><img src="images/slides/folk/nick_drake.jpg" alt="Nick Drake" class="slide-thumb">
                <span class="spec-pill ao4">AO4 Intimate Perfection</span>
                <h4>Nick Drake &amp; Pink Moon (1972)</h4>
                <p>Recorded in two midnight sessions by John Wood at Sound Techniques with only Drake's acoustic guitar and voice captured on small diaphragm condensers.</p>
-               <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('aXnfhnCoOyo', 'Nick Drake - Pink Moon')">▶ Listen: Pink Moon</button><a href="https://www.youtube.com/watch?v=aXnfhnCoOyo" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div></div><div class="info-card acid-edge"><img src="/images/slides/folk/simon_and_garfunkel.jpg" alt="Simon & Garfunkel" class="slide-thumb">
+               <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('aXnfhnCoOyo', 'Nick Drake - Pink Moon')">▶ Listen: Pink Moon</button><a href="https://www.youtube.com/watch?v=aXnfhnCoOyo" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div></div><div class="info-card acid-edge"><img src="images/slides/folk/simon_and_garfunkel.jpg" alt="Simon & Garfunkel" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Harmonic Purity</span>
                <h4>Simon &amp; Garfunkel &amp; CSN</h4>
                <p>Producer Roy Halee engineered Paul Simon and Art Garfunkel with lush acoustic tracking and pristine multi-part vocal blends on <em>The Sound of Silence</em>.</p>
@@ -1427,13 +1597,13 @@
         <div class="slide-eyebrow"><span>🎚️</span> Mix Processing &amp; Acoustics</div>
         <h2 class="slide-heading">Dynamic Control, <span>Plate Reverbs &amp; Air EQ</span></h2>
         <p class="slide-lead">Acoustic folk requires gentle, transparent studio processing that protects the emotional dynamics of the performance.</p>
-        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/folk/la2a_compressor.jpg" alt="Teletronix LA-2A" class="slide-thumb">
+        <div class="grid-3"><div class="info-card highlight"><img src="images/slides/folk/la2a_compressor.jpg" alt="Teletronix LA-2A" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Transparent Compression</span>
                <h4>Teletronix LA-2A Optical Leveling</h4>
-               <p>Electro-optical T4 cell delivers smooth, program-dependent multi-stage release. Tames acoustic peaks transparently without audible pumping or distortion.</p></div><div class="info-card cyan-edge"><img src="/images/slides/folk/emt_140.png" alt="EMT 140 Plate Reverb" class="slide-thumb">
+               <p>Electro-optical T4 cell delivers smooth, program-dependent multi-stage release. Tames acoustic peaks transparently without audible pumping or distortion.</p></div><div class="info-card cyan-edge"><img src="images/slides/folk/emt_140.png" alt="EMT 140 Plate Reverb" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Spatial Depth</span>
                <h4>EMT 140 Plate Reverb</h4>
-               <p>A suspended steel plate driven by a transducer adds lush, smooth spatial decay to dry acoustic guitars and vocals, mimicking wooden concert halls.</p></div><div class="info-card acid-edge"><img src="/images/slides/folk/eq_air_boost.png" alt="Acoustic EQ Curve" class="slide-thumb">
+               <p>A suspended steel plate driven by a transducer adds lush, smooth spatial decay to dry acoustic guitars and vocals, mimicking wooden concert halls.</p></div><div class="info-card acid-edge"><img src="images/slides/folk/eq_air_boost.png" alt="Acoustic EQ Curve" class="slide-thumb">
                <span class="spec-pill ao3">AO3 EQ &amp; Soundstage Panning</span>
                <h4>High-Shelf Air &amp; Stereo Stage</h4>
                <p>Gentle 1–2 dB high-shelf boost at 10–12 kHz adds string shimmer; high-pass filtering at 60 Hz cleans mud. Discrete instrument panning creates an authentic stage.</p></div></div>
@@ -1442,14 +1612,14 @@
         <div class="slide-eyebrow"><span>🌿</span> Modern Acoustic Resurgence</div>
         <h2 class="slide-heading">21st Century Folk: <span>Laura Marling &amp; Indie Folk</span></h2>
         <p class="slide-lead">Modern acoustic artists continue the tradition, pairing vintage analog mic chains with high-resolution digital DAW precision.</p>
-        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/folk/laura_marling.jpg" alt="Laura Marling" class="slide-thumb">
+        <div class="grid-3"><div class="info-card highlight"><img src="images/slides/folk/laura_marling.jpg" alt="Laura Marling" class="slide-thumb">
                <span class="spec-pill ao4">AO4 Modern Storyteller</span>
                <h4>Laura Marling &amp; British Folk</h4>
-               <p>Acclaimed albums like <em>Once I Was an Eagle</em> feature direct live tracking of intricate open-tuned acoustic fingerpicking and poetic British balladry.</p></div><div class="info-card cyan-edge"><img src="/images/slides/folk/mumford_and_sons.jpg" alt="Mumford & Sons" class="slide-thumb">
+               <p>Acclaimed albums like <em>Once I Was an Eagle</em> feature direct live tracking of intricate open-tuned acoustic fingerpicking and poetic British balladry.</p></div><div class="info-card cyan-edge"><img src="images/slides/folk/mumford_and_sons.jpg" alt="Mumford & Sons" class="slide-thumb">
                <span class="spec-pill ao4">AO4 Arena Folk Revival</span>
                <h4>Mumford &amp; Sons &amp; Americana</h4>
                <p>Brought acoustic banjos, kick drums, and upright bass to global stadium popularity, utilizing high-end ribbon and tube mics mixed for aggressive punch.</p>
-               <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('fNy8llTLvuA', 'Mumford & Sons - The Cave')">▶ Listen: The Cave</button><a href="https://www.youtube.com/watch?v=fNy8llTLvuA" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div></div><div class="info-card acid-edge"><img src="/images/slides/folk/fleet_foxes.jpg" alt="Fleet Foxes" class="slide-thumb">
+               <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('fNy8llTLvuA', 'Mumford & Sons - The Cave')">▶ Listen: The Cave</button><a href="https://www.youtube.com/watch?v=fNy8llTLvuA" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div></div><div class="info-card acid-edge"><img src="images/slides/folk/fleet_foxes.jpg" alt="Fleet Foxes" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Chamber Folk Harmonies</span>
                <h4>Fleet Foxes &amp; Spatial Acoustics</h4>
                <p>Known for rich multi-part vocal harmonies recorded in resonant acoustic spaces (barns, chapels) with vintage ribbon microphones and long natural reverbs.</p>
@@ -1888,6 +2058,177 @@
       }, 120);
     }
   });
+
+  // Universal mobile-friendly toggleFullscreen (with fallback for iPhone / iOS Safari where Fullscreen API is unavailable on divs)
+  window.toggleFullscreen = function() {
+    var docEl = document.documentElement;
+    var isFs = document.fullscreenElement || document.webkitFullscreenElement;
+    if (!isFs) {
+      if (docEl.requestFullscreen) {
+        docEl.requestFullscreen().catch(function() {
+          if (window.self !== window.top) {
+            window.top.location.href = window.location.href;
+          }
+        });
+      } else if (docEl.webkitRequestFullscreen) {
+        docEl.webkitRequestFullscreen();
+      } else if (window.self !== window.top) {
+        // iOS Safari fallback: open the standalone deck full-screen in the top viewport
+        window.top.location.href = window.location.href;
+      }
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen().catch(function() {});
+      } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+      }
+    }
+  };
+
+  // Universal touch-swipe slide navigation for mobile phones
+  (function() {
+    var touchStartX = 0;
+    var touchStartY = 0;
+    document.addEventListener('touchstart', function(e) {
+      if (!e.changedTouches || !e.changedTouches.length) return;
+      touchStartX = e.changedTouches[0].screenX;
+      touchStartY = e.changedTouches[0].screenY;
+    }, { passive: true });
+
+    document.addEventListener('touchend', function(e) {
+      if (!e.changedTouches || !e.changedTouches.length) return;
+      var target = e.target;
+      if (target && target.closest && target.closest('table, .table-container, .comp-table-wrap, select, button, a, .video-modal-backdrop, #videoModal')) {
+        return;
+      }
+      var dx = e.changedTouches[0].screenX - touchStartX;
+      var dy = e.changedTouches[0].screenY - touchStartY;
+      if (Math.abs(dx) > 65 && Math.abs(dx) > Math.abs(dy) * 1.8) {
+        if (dx < 0) {
+          if (typeof nextSlide === 'function') nextSlide();
+          else if (typeof changeSlide === 'function') changeSlide(1);
+        } else {
+          if (typeof prevSlide === 'function') prevSlide();
+          else if (typeof changeSlide === 'function') changeSlide(-1);
+        }
+      }
+    }, { passive: true });
+  })();
+
+
+  // Universal mobile-friendly toggleFullscreen (with fallback for iPhone / iOS Safari where Fullscreen API is unavailable on divs)
+  window.toggleFullscreen = function() {
+    var docEl = document.documentElement;
+    var isFs = document.fullscreenElement || document.webkitFullscreenElement;
+    if (!isFs) {
+      if (docEl.requestFullscreen) {
+        docEl.requestFullscreen().catch(function() {
+          if (window.self !== window.top) {
+            window.top.location.href = window.location.href;
+          }
+        });
+      } else if (docEl.webkitRequestFullscreen) {
+        docEl.webkitRequestFullscreen();
+      } else if (window.self !== window.top) {
+        // iOS Safari fallback: open the standalone deck full-screen in the top viewport
+        window.top.location.href = window.location.href;
+      }
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen().catch(function() {});
+      } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+      }
+    }
+  };
+
+  // Universal touch-swipe slide navigation for mobile phones
+  (function() {
+    var touchStartX = 0;
+    var touchStartY = 0;
+    document.addEventListener('touchstart', function(e) {
+      if (!e.changedTouches || !e.changedTouches.length) return;
+      touchStartX = e.changedTouches[0].screenX;
+      touchStartY = e.changedTouches[0].screenY;
+    }, { passive: true });
+
+    document.addEventListener('touchend', function(e) {
+      if (!e.changedTouches || !e.changedTouches.length) return;
+      var target = e.target;
+      if (target && target.closest && target.closest('table, .table-container, .comp-table-wrap, select, button, a, .video-modal-backdrop, #videoModal')) {
+        return;
+      }
+      var dx = e.changedTouches[0].screenX - touchStartX;
+      var dy = e.changedTouches[0].screenY - touchStartY;
+      if (Math.abs(dx) > 65 && Math.abs(dx) > Math.abs(dy) * 1.8) {
+        if (dx < 0) {
+          if (typeof nextSlide === 'function') nextSlide();
+          else if (typeof changeSlide === 'function') changeSlide(1);
+        } else {
+          if (typeof prevSlide === 'function') prevSlide();
+          else if (typeof changeSlide === 'function') changeSlide(-1);
+        }
+      }
+    }, { passive: true });
+  })();
+
+
+  // Universal mobile-friendly toggleFullscreen (with fallback for iPhone / iOS Safari where Fullscreen API is unavailable on divs)
+  window.toggleFullscreen = function() {
+    var docEl = document.documentElement;
+    var isFs = document.fullscreenElement || document.webkitFullscreenElement;
+    if (!isFs) {
+      if (docEl.requestFullscreen) {
+        docEl.requestFullscreen().catch(function() {
+          if (window.self !== window.top) {
+            window.top.location.href = window.location.href;
+          }
+        });
+      } else if (docEl.webkitRequestFullscreen) {
+        docEl.webkitRequestFullscreen();
+      } else if (window.self !== window.top) {
+        // iOS Safari fallback: open the standalone deck full-screen in the top viewport
+        window.top.location.href = window.location.href;
+      }
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen().catch(function() {});
+      } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+      }
+    }
+  };
+
+  // Universal touch-swipe slide navigation for mobile phones
+  (function() {
+    var touchStartX = 0;
+    var touchStartY = 0;
+    document.addEventListener('touchstart', function(e) {
+      if (!e.changedTouches || !e.changedTouches.length) return;
+      touchStartX = e.changedTouches[0].screenX;
+      touchStartY = e.changedTouches[0].screenY;
+    }, { passive: true });
+
+    document.addEventListener('touchend', function(e) {
+      if (!e.changedTouches || !e.changedTouches.length) return;
+      var target = e.target;
+      if (target && target.closest && target.closest('table, .table-container, .comp-table-wrap, select, button, a, .video-modal-backdrop, #videoModal')) {
+        return;
+      }
+      var dx = e.changedTouches[0].screenX - touchStartX;
+      var dy = e.changedTouches[0].screenY - touchStartY;
+      if (Math.abs(dx) > 65 && Math.abs(dx) > Math.abs(dy) * 1.8) {
+        if (dx < 0) {
+          if (typeof nextSlide === 'function') nextSlide();
+          else if (typeof changeSlide === 'function') changeSlide(1);
+        } else {
+          if (typeof prevSlide === 'function') prevSlide();
+          else if (typeof changeSlide === 'function') changeSlide(-1);
+        }
+      }
+    }, { passive: true });
+  })();
+
 </script>
 <!-- === END HASH DEEP LINK === -->
 </body>

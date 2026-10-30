@@ -995,19 +995,29 @@
     }
     /* === END ANTI-SQUASH === */
 
-  
     /* === MTG MOBILE PHONE RESPONSIVENESS OVERRIDES === */
     @media (max-width: 768px) {
       html, body {
-        overflow-x: hidden !important;
+        height: 100vh !important;
+        max-height: 100vh !important;
+        overflow: hidden !important;
         max-width: 100vw !important;
+        display: flex !important;
+        flex-direction: column !important;
       }
+      /* Compact top utility bar */
       .deck-topbar-controls, .top-utility-bar, header.deck-topbar-controls {
         padding: 6px 10px !important;
         gap: 6px !important;
-        min-height: 42px !important;
+        min-height: 40px !important;
         height: auto !important;
         flex-wrap: nowrap !important;
+        flex-shrink: 0 !important;
+        justify-content: space-between !important;
+      }
+      /* Hide secondary promo link in topbar on phones so Fullscreen button never clips */
+      .deck-topbar-controls a[href*="app.musictechguru.com"] {
+        display: none !important;
       }
       .exit-deck-link {
         padding: 5px 8px !important;
@@ -1015,12 +1025,21 @@
         white-space: nowrap !important;
         flex-shrink: 0 !important;
       }
-      .deck-topbar-title, .top-bar-title {
-        font-size: 11.5px !important;
+      .deck-topbar-controls > div:first-child,
+      .top-utility-bar > div:first-child,
+      header.deck-topbar-controls > div:first-child {
+        min-width: 0 !important;
+        flex: 1 1 auto !important;
+        overflow: hidden !important;
+      }
+      .deck-topbar-title, .top-bar-title, .deck-topbar-controls span[style*="color: #94a3b8"] {
+        font-size: 11px !important;
         white-space: nowrap !important;
         overflow: hidden !important;
         text-overflow: ellipsis !important;
-        max-width: 42vw !important;
+        max-width: 38vw !important;
+        display: inline-block !important;
+        vertical-align: middle !important;
       }
       .deck-topbar-controls .fullscreen-btn,
       .top-utility-bar .fullscreen-btn,
@@ -1031,7 +1050,83 @@
         white-space: nowrap !important;
         flex-shrink: 0 !important;
       }
-      /* Collapse multi-column slide grids to 1 column on phones */
+      /* Hide redundant secondary inner banner bars on mobile to maximize slide viewport height */
+      header.deck-topbar,
+      .deck-topbar,
+      .top-bar {
+        display: none !important;
+      }
+      header.deck-header, .deck-header {
+        padding: 6px 12px !important;
+        min-height: auto !important;
+        flex-shrink: 0 !important;
+      }
+      header.deck-header .deck-title-group, .deck-header .deck-title-group {
+        display: none !important;
+      }
+      header.deck-header .deck-actions, .deck-header .deck-actions {
+        width: 100% !important;
+        display: flex !important;
+        justify-content: space-between !important;
+      }
+      header.deck-header .slide-select, .deck-header .slide-select {
+        max-width: 100% !important;
+        width: 100% !important;
+      }
+      header.deck-header button, .deck-header button {
+        display: none !important;
+      }
+      /* Full-bleed deck wrapper / container as flex column */
+      .deck-wrapper, .deck-container {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        border-radius: 0 !important;
+        border-left: none !important;
+        border-right: none !important;
+        flex: 1 1 auto !important;
+        min-height: 0 !important;
+        height: auto !important;
+        max-height: none !important;
+        display: flex !important;
+        flex-direction: column !important;
+        overflow: hidden !important;
+      }
+      .slides-viewport, .slide-stage {
+        flex: 1 1 auto !important;
+        min-height: 0 !important;
+        width: 100% !important;
+        padding: 0 !important;
+        overflow: hidden !important;
+        position: relative !important;
+        display: flex !important;
+        flex-direction: column !important;
+      }
+      /* Single continuous vertical scroll container for the active slide */
+      .slide:not(.active) {
+        display: none !important;
+      }
+      .slide.active {
+        position: relative !important;
+        top: auto !important;
+        left: auto !important;
+        display: block !important;
+        width: 100% !important;
+        height: 100% !important;
+        max-height: 100% !important;
+        flex: 1 1 auto !important;
+        min-height: 0 !important;
+        padding: 14px 14px 80px !important;
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+        -webkit-overflow-scrolling: touch !important;
+        box-sizing: border-box !important;
+        transform: none !important;
+        opacity: 1 !important;
+        pointer-events: auto !important;
+      }
+      /* Collapse all multi-column slide grids into a single unconstrained vertical stack */
       .slide .split-grid,
       .slide .grid-2,
       .slide .grid-2-split,
@@ -1046,33 +1141,89 @@
       .slide .two-col,
       .slide .three-col,
       .slide [style*="grid-template-columns"] {
-        grid-template-columns: 1fr !important;
-        gap: 12px !important;
-      }
-      .slide .grid-2-split {
         display: flex !important;
         flex-direction: column !important;
-        overflow-y: visible !important;
+        grid-template-columns: 1fr !important;
+        gap: 14px !important;
+        flex: none !important;
+        width: 100% !important;
+        height: auto !important;
+        min-height: auto !important;
+        max-height: none !important;
+        overflow: visible !important;
+        margin-bottom: 16px !important;
+      }
+      /* Unconstrain all column panels and cards so they expand naturally inside the slide scroll */
+      .slide .column-panel,
+      .slide .col-panel,
+      .slide .info-card,
+      .slide .feature-card,
+      .slide .music-col,
+      .slide .instrument-col,
+      .slide .format-col,
+      .slide .prod-col,
+      .slide .tech-col,
+      .slide .col-music,
+      .slide .col-tech,
+      .slide .artist-visual-col {
+        display: flex !important;
+        flex-direction: column !important;
+        flex: none !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        height: auto !important;
+        min-height: auto !important;
+        max-height: none !important;
+        overflow: visible !important;
+        padding: 14px !important;
+        box-sizing: border-box !important;
+      }
+      /* Stack panel headers and takeaway/tip boxes vertically on phones so badges & text never crush */
+      .slide .panel-header,
+      .slide .col-header,
+      .slide .header-bar,
+      .slide .takeaway-box,
+      .slide .callout-box,
+      .slide .exam-tip,
+      .slide .tip-box {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        justify-content: flex-start !important;
+        gap: 6px !important;
         height: auto !important;
       }
-      .slide .column-panel {
-        overflow-y: visible !important;
-        max-height: none !important;
+      /* Give photo cards and hardware images generous height on mobile */
+      .slide .photo-card,
+      .slide .hardware-photo,
+      .slide .instrument-photo-card {
         height: auto !important;
+        min-height: 175px !important;
+        max-height: none !important;
         flex-shrink: 0 !important;
       }
-      .slide, .slide.active {
-        padding: 14px 12px 24px !important;
-        overflow-y: auto !important;
-        overflow-x: hidden !important;
-        -webkit-overflow-scrolling: touch !important;
+      .slide .photo-card img,
+      .slide .hardware-photo img,
+      .slide .instrument-photo-card img.instrument-photo {
+        height: 185px !important;
+        max-height: 220px !important;
+        width: 100% !important;
+        object-fit: contain !important;
       }
-      .slide h1 {
-        font-size: clamp(20px, 5.5vw, 26px) !important;
+      .slide .table-container,
+      .slide .comp-table-wrap {
+        overflow-x: auto !important;
+        overflow-y: visible !important;
+        max-height: none !important;
+        flex: none !important;
+        width: 100% !important;
+      }
+      .slide h1, .slide .slide-heading, .slide .slide-title {
+        font-size: clamp(20px, 5.5vw, 25px) !important;
         line-height: 1.22 !important;
       }
       .slide h2 {
-        font-size: clamp(17px, 4.8vw, 22px) !important;
+        font-size: clamp(17px, 4.8vw, 21px) !important;
         line-height: 1.25 !important;
       }
       .slide p, .slide li {
@@ -1086,12 +1237,14 @@
         -webkit-overflow-scrolling: touch !important;
         font-size: 12px !important;
       }
-      /* Bottom Controls Bar: Ensure Previous, Slide Counter, and Next always fit on 320-390px phones */
+      /* Bottom Controls Bar: Ensure Previous, Slide Counter/Dropdown, and Next always fit on 320-430px phones */
       footer.deck-controls,
       .deck-controls,
       .deck-nav,
       .bottom-bar,
-      .deck-nav-bar {
+      .deck-nav-bar,
+      .deck-footer,
+      .deck-bottombar {
         padding: 8px 10px !important;
         gap: 6px !important;
         min-height: 50px !important;
@@ -1102,29 +1255,46 @@
         flex-wrap: nowrap !important;
         width: 100% !important;
         box-sizing: border-box !important;
+        flex-shrink: 0 !important;
       }
       .deck-controls .controls-left,
       .bottom-bar .nav-buttons,
       .deck-nav-bar .nav-left,
-      .deck-nav-bar .nav-right {
+      .deck-nav-bar .nav-right,
+      .deck-nav-bar > div:first-child {
         display: contents !important;
       }
-      /* Hide duplicate bottom Fullscreen button & wide dot arrays on mobile so Next button is never clipped */
+      /* Reorder amplifiers bottom bar children so Prev is left, Counter is center, Next is right */
+      .deck-nav-bar #prevBtn { order: 1 !important; }
+      .deck-nav-bar .slide-counter, .deck-nav-bar .nav-center { order: 2 !important; }
+      .deck-nav-bar #nextBtn { order: 3 !important; }
+      /* When both a slide-counter and a slide-select dropdown exist in deck-nav-bar, hide the duplicate text counter on phones */
+      .deck-nav-bar .nav-left .slide-counter {
+        display: none !important;
+      }
+      /* Hide duplicate bottom Fullscreen button, keyboard hints & wide dot arrays on mobile so Next button is never clipped */
       #bottomFsBtn,
       .deck-controls button[onclick*="toggleFullscreen"],
       .bottom-bar button[onclick*="toggleFullscreen"],
       .deck-nav button[onclick*="toggleFullscreen"],
       .deck-nav-bar button[onclick*="toggleFullscreen"],
+      .deck-footer button[onclick*="toggleFullscreen"],
+      .deck-bottombar button[onclick*="toggleFullscreen"],
       .controls-right,
       .keyboard-hint,
+      .nav-shortcuts,
       .progress-dots,
       .slide-dots,
       #dotsContainer,
       #progressDots,
-      .progress-track {
+      .progress-track,
+      .progress-bar-track,
+      .progress-bar-container {
         display: none !important;
       }
       .progress-container,
+      .progress-group,
+      .deck-progress-group,
       .slide-indicator,
       .deck-nav-bar .nav-center {
         flex: 1 1 auto !important;
@@ -1134,13 +1304,13 @@
         justify-content: center !important;
         margin: 0 4px !important;
       }
-      .slide-counter, #slideCounter {
+      .slide-counter, #slideCounter, .progress-label {
         font-size: 11.5px !important;
         white-space: nowrap !important;
         text-align: center !important;
       }
       .slide-select, #slideSelect {
-        max-width: 135px !important;
+        max-width: 155px !important;
         font-size: 11.5px !important;
         padding: 5px 8px !important;
         text-overflow: ellipsis !important;
@@ -1200,13 +1370,13 @@
       <h2 class="slide-heading">The Electric Guitar: <span>Component 3 Syllabus Matrix</span></h2>
       <p class="slide-lead">Edexcel requires deep understanding of electromagnetic induction, pickup construction (single-coil vs humbucker), solidbody evolution, and tonal circuitry.</p>
       <div class="cards-wrap">
-        <div class="grid-3"><div class="info-card highlight"><div class="card-thumb"><img src="/images/slides/the_electric_guitar/fender_telecaster_1952.jpg" alt="Vintage 1952 Fender Telecaster Solidbody" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/fender_telecaster_1952.jpg', 'Vintage 1952 Fender Telecaster Solidbody')"></div>
+        <div class="grid-3"><div class="info-card highlight"><div class="card-thumb"><img src="images/slides/the_electric_guitar/fender_telecaster_1952.jpg" alt="Vintage 1952 Fender Telecaster Solidbody" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/fender_telecaster_1952.jpg', 'Vintage 1952 Fender Telecaster Solidbody')"></div>
                <span class="spec-pill ao4">AO4 Historical Milestones</span>
                <h4>Solidbody Genesis</h4>
-               <p>The transition from big band acoustic archtops prone to acoustic feedback to solid ash and alder bodies: the 1950 Broadcaster/Telecaster and 1954 Stratocaster.</p></div><div class="info-card cyan-edge"><div class="card-thumb"><img src="/images/slides/the_electric_guitar/gibson_les_paul_goldtop.jpg" alt="1952 Gibson Les Paul Goldtop Solidbody" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/gibson_les_paul_goldtop.jpg', '1952 Gibson Les Paul Goldtop Solidbody')"></div>
+               <p>The transition from big band acoustic archtops prone to acoustic feedback to solid ash and alder bodies: the 1950 Broadcaster/Telecaster and 1954 Stratocaster.</p></div><div class="info-card cyan-edge"><div class="card-thumb"><img src="images/slides/the_electric_guitar/gibson_les_paul_goldtop.jpg" alt="1952 Gibson Les Paul Goldtop Solidbody" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/gibson_les_paul_goldtop.jpg', '1952 Gibson Les Paul Goldtop Solidbody')"></div>
                <span class="spec-pill ao3">AO3 Transducer Physics</span>
                <h4>Transducers &amp; Hum Cancellation</h4>
-               <p>Electromagnetic transducers convert steel string vibration into AC audio. Seth Lover's 1957 Gibson PAF humbucker used reverse-wound dual coils to cancel 50/60 Hz mains hum.</p></div><div class="info-card acid-edge"><div class="card-thumb"><img src="/images/slides/the_electric_guitar/guitar_anatomy_diagram.svg" alt="Electric Guitar Anatomy & Signal Flow Vector Diagram" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/guitar_anatomy_diagram.svg', 'Electric Guitar Anatomy & Signal Flow Vector Diagram')"></div>
+               <p>Electromagnetic transducers convert steel string vibration into AC audio. Seth Lover's 1957 Gibson PAF humbucker used reverse-wound dual coils to cancel 50/60 Hz mains hum.</p></div><div class="info-card acid-edge"><div class="card-thumb"><img src="images/slides/the_electric_guitar/guitar_anatomy_diagram.svg" alt="Electric Guitar Anatomy & Signal Flow Vector Diagram" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/guitar_anatomy_diagram.svg', 'Electric Guitar Anatomy & Signal Flow Vector Diagram')"></div>
                <span class="spec-pill ao3">AO3 Instrument Anatomy</span>
                <h4>Anatomy &amp; Signal Routing</h4>
                <p>String gauge and tension, nut and saddle anchor points, magnetic pole piece spacing, potentiometer loading (250k vs 500k), and tone capacitors form a complex RLC circuit.</p></div></div>
@@ -1217,13 +1387,13 @@
       <h2 class="slide-heading">Electric Guitar Anatomy: <span>Signal Architecture</span></h2>
       <p class="slide-lead">Every component of an electric guitar influences its mechanical resonance, magnetic sampling, and electrical output impedance.</p>
       <div class="cards-wrap">
-        <div class="grid-3"><div class="info-card highlight"><div class="card-thumb"><img src="/images/slides/the_electric_guitar/guitar_neck_joint_types.svg" alt="Guitar Neck Joint Comparison: Bolt-On, Set-Neck, Neck-Through" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/guitar_neck_joint_types.svg', 'Guitar Neck Joint Comparison: Bolt-On, Set-Neck, Neck-Through')"></div>
+        <div class="grid-3"><div class="info-card highlight"><div class="card-thumb"><img src="images/slides/the_electric_guitar/guitar_neck_joint_types.svg" alt="Guitar Neck Joint Comparison: Bolt-On, Set-Neck, Neck-Through" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/guitar_neck_joint_types.svg', 'Guitar Neck Joint Comparison: Bolt-On, Set-Neck, Neck-Through')"></div>
                <span class="spec-pill ao3">AO3 Mechanical Resonance</span>
                <h4>Neck Joints &amp; Sustain</h4>
-               <p><strong>Bolt-on (Fender):</strong> Snappy attack, modular repair. <strong>Set-neck (Gibson):</strong> Warm acoustic transfer and singing sustain. <strong>Neck-through:</strong> Maximum rigidity and uninterrupted sustain across the instrument body.</p></div><div class="info-card cyan-edge"><div class="card-thumb"><img src="/images/slides/the_electric_guitar/gibson_tune_o_matic_bridge.jpg" alt="Gibson Tune-o-matic Bridge and Stopbar Tailpiece" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/gibson_tune_o_matic_bridge.jpg', 'Gibson Tune-o-matic Bridge and Stopbar Tailpiece')"></div>
+               <p><strong>Bolt-on (Fender):</strong> Snappy attack, modular repair. <strong>Set-neck (Gibson):</strong> Warm acoustic transfer and singing sustain. <strong>Neck-through:</strong> Maximum rigidity and uninterrupted sustain across the instrument body.</p></div><div class="info-card cyan-edge"><div class="card-thumb"><img src="images/slides/the_electric_guitar/gibson_tune_o_matic_bridge.jpg" alt="Gibson Tune-o-matic Bridge and Stopbar Tailpiece" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/gibson_tune_o_matic_bridge.jpg', 'Gibson Tune-o-matic Bridge and Stopbar Tailpiece')"></div>
                <span class="spec-pill ao3">AO3 Bridge &amp; Tailpiece</span>
                <h4>Bridges &amp; Intonation</h4>
-               <p>Individual bridge saddles allow precise intonation compensation (string length adjustment for string core stiffness), while zinc or brass stopbar tailpieces anchor string vibrations into the mahogany wood body.</p></div><div class="info-card acid-edge"><div class="card-thumb"><img src="/images/slides/the_electric_guitar/guitar_potentiometer_wiring.svg" alt="Passive Guitar Volume and Tone Potentiometer RC Low Pass Schematic" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/guitar_potentiometer_wiring.svg', 'Passive Guitar Volume and Tone Potentiometer RC Low Pass Schematic')"></div>
+               <p>Individual bridge saddles allow precise intonation compensation (string length adjustment for string core stiffness), while zinc or brass stopbar tailpieces anchor string vibrations into the mahogany wood body.</p></div><div class="info-card acid-edge"><div class="card-thumb"><img src="images/slides/the_electric_guitar/guitar_potentiometer_wiring.svg" alt="Passive Guitar Volume and Tone Potentiometer RC Low Pass Schematic" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/guitar_potentiometer_wiring.svg', 'Passive Guitar Volume and Tone Potentiometer RC Low Pass Schematic')"></div>
                <span class="spec-pill ao3">AO3 Electrical Loading</span>
                <h4>Passive Tone Circuits (RC Filter)</h4>
                <p>Variable resistors (potentiometers) paired with capacitors (0.022–0.047 µF) bleed high frequencies to ground. A 250 kΩ pot damps treble for bright single-coils; a 500 kΩ pot prevents humbuckers from sounding muddy.</p></div></div>
@@ -1234,13 +1404,13 @@
       <h2 class="slide-heading">Electromagnetic Induction: <span>Faraday's Law</span></h2>
       <p class="slide-lead">Electric guitar pickups are passive electromagnetic transducers converting mechanical kinetic energy directly into alternating electrical voltage.</p>
       <div class="cards-wrap">
-        <div class="grid-3"><div class="info-card highlight"><div class="card-thumb"><img src="/images/slides/the_electric_guitar/faraday_pickup_induction.svg" alt="Faraday Law of Electromagnetic Induction in Guitar Pickups" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/faraday_pickup_induction.svg', 'Faraday Law of Electromagnetic Induction in Guitar Pickups')"></div>
+        <div class="grid-3"><div class="info-card highlight"><div class="card-thumb"><img src="images/slides/the_electric_guitar/faraday_pickup_induction.svg" alt="Faraday Law of Electromagnetic Induction in Guitar Pickups" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/faraday_pickup_induction.svg', 'Faraday Law of Electromagnetic Induction in Guitar Pickups')"></div>
                <span class="spec-pill ao3">AO3 Induction Physics</span>
                <h4>Faraday's Law of Induction</h4>
-               <p>A permanent magnet creates a magnetic flux field ($\Phi$). When a ferromagnetic steel or nickel string vibrates, it disturbs this field, inducing an electrical voltage ($\varepsilon = -N \frac{\Delta\Phi}{\Delta t}$) across the coil.</p></div><div class="info-card cyan-edge"><div class="card-thumb"><img src="/images/slides/the_electric_guitar/single_coil_pickup_anatomy.svg" alt="Single-Coil Pickup Cross Section & Bobbin Anatomy" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/single_coil_pickup_anatomy.svg', 'Single-Coil Pickup Cross Section & Bobbin Anatomy')"></div>
+               <p>A permanent magnet creates a magnetic flux field (&Phi;). When a ferromagnetic steel or nickel string vibrates, it disturbs this field, inducing an electrical voltage ($\varepsilon = -N \frac{\Delta\Phi}{\Delta t}$) across the coil.</p></div><div class="info-card cyan-edge"><div class="card-thumb"><img src="images/slides/the_electric_guitar/single_coil_pickup_anatomy.svg" alt="Single-Coil Pickup Cross Section & Bobbin Anatomy" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/single_coil_pickup_anatomy.svg', 'Single-Coil Pickup Cross Section & Bobbin Anatomy')"></div>
                <span class="spec-pill ao3">AO3 Coil Architecture</span>
                <h4>Single-Coil Construction</h4>
-               <p>Consists of 6 cylindrical Alnico magnet pole pieces wrapped in approximately 7,000–8,500 turns of ultra-fine 42 AWG copper wire. Offers bright, articulate chime and snappy transient attack.</p></div><div class="info-card acid-edge"><div class="card-thumb"><img src="/images/slides/the_electric_guitar/pickup_impedance_frequency_response.svg" alt="Pickup RLC Resonant Peak Frequency Response Curve" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/pickup_impedance_frequency_response.svg', 'Pickup RLC Resonant Peak Frequency Response Curve')"></div>
+               <p>Consists of 6 cylindrical Alnico magnet pole pieces wrapped in approximately 7,000–8,500 turns of ultra-fine 42 AWG copper wire. Offers bright, articulate chime and snappy transient attack.</p></div><div class="info-card acid-edge"><div class="card-thumb"><img src="images/slides/the_electric_guitar/pickup_impedance_frequency_response.svg" alt="Pickup RLC Resonant Peak Frequency Response Curve" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/pickup_impedance_frequency_response.svg', 'Pickup RLC Resonant Peak Frequency Response Curve')"></div>
                <span class="spec-pill ao3">AO3 Electrical Impedance</span>
                <h4>RLC Resonant Peak Physics</h4>
                <p>Inductance (2.5–4 H), DC resistance (5.8–6.5 kΩ), and cable capacitance form a resonant RLC low-pass filter, giving single-coils their characteristic 4–5 kHz bell-like presence peak.</p></div></div>
@@ -1251,13 +1421,13 @@
       <h2 class="slide-heading">1920s–1930s: <span>The Big Band Volume Dilemma</span></h2>
       <p class="slide-lead">As jazz big bands and dance orchestras grew in size, acoustic rhythm guitars were drowned out by horns and brass sections.</p>
       <div class="cards-wrap">
-        <div class="grid-3"><div class="info-card highlight"><div class="card-thumb"><img src="/images/slides/the_electric_guitar/rickenbacker_frying_pan_1931.jpg" alt="1931 Rickenbacker Electro A-22 Frying Pan Lap Steel" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/rickenbacker_frying_pan_1931.jpg', '1931 Rickenbacker Electro A-22 Frying Pan Lap Steel')"></div>
+        <div class="grid-3"><div class="info-card highlight"><div class="card-thumb"><img src="images/slides/the_electric_guitar/rickenbacker_frying_pan_1931.jpg" alt="1931 Rickenbacker Electro A-22 Frying Pan Lap Steel" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/rickenbacker_frying_pan_1931.jpg', '1931 Rickenbacker Electro A-22 Frying Pan Lap Steel')"></div>
                <span class="spec-pill ao4">AO4 Historical Milestones</span>
                <h4>The Rickenbacker "Frying Pan" (1931)</h4>
-               <p>George Beauchamp and Adolph Rickenbacker designed the first commercial electric guitar: a cast-aluminum lap steel featuring a horseshoe magnet pickup wrapping completely around the strings.</p></div><div class="info-card cyan-edge"><div class="card-thumb"><img src="/images/slides/the_electric_guitar/gibson_es150_charlie_christian.jpg" alt="1936 Gibson ES-150 Charlie Christian Archtop" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/gibson_es150_charlie_christian.jpg', '1936 Gibson ES-150 Charlie Christian Archtop')"></div>
+               <p>George Beauchamp and Adolph Rickenbacker designed the first commercial electric guitar: a cast-aluminum lap steel featuring a horseshoe magnet pickup wrapping completely around the strings.</p></div><div class="info-card cyan-edge"><div class="card-thumb"><img src="images/slides/the_electric_guitar/gibson_es150_charlie_christian.jpg" alt="1936 Gibson ES-150 Charlie Christian Archtop" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/gibson_es150_charlie_christian.jpg', '1936 Gibson ES-150 Charlie Christian Archtop')"></div>
                <span class="spec-pill ao4">AO4 Jazz Amplification</span>
                <h4>The Gibson ES-150 (1936)</h4>
-               <p>Gibson's "Electric Spanish" archtop guitar featured a long cobalt steel blade pickup. Jazz pioneer Charlie Christian used it with the Benny Goodman Sextet to elevate the guitar into a major solo instrument.</p></div><div class="info-card acid-edge"><div class="card-thumb"><img src="/images/slides/the_electric_guitar/acoustic_feedback_hollowbody.svg" alt="Acoustic Sound Pressure Cavity Feedback Diagram" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/acoustic_feedback_hollowbody.svg', 'Acoustic Sound Pressure Cavity Feedback Diagram')"></div>
+               <p>Gibson's "Electric Spanish" archtop guitar featured a long cobalt steel blade pickup. Jazz pioneer Charlie Christian used it with the Benny Goodman Sextet to elevate the guitar into a major solo instrument.</p></div><div class="info-card acid-edge"><div class="card-thumb"><img src="images/slides/the_electric_guitar/acoustic_feedback_hollowbody.svg" alt="Acoustic Sound Pressure Cavity Feedback Diagram" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/acoustic_feedback_hollowbody.svg', 'Acoustic Sound Pressure Cavity Feedback Diagram')"></div>
                <span class="spec-pill ao3">AO3 Acoustic Feedback</span>
                <h4>The Acoustic Feedback Crisis</h4>
                <p>Because hollowbody archtops possessed thin, flexible spruce soundboards, high stage volume from tube amplifiers caused acoustic air cavity resonance, triggering deafening feedback howling.</p></div></div>
@@ -1268,14 +1438,14 @@
       <h2 class="slide-heading">1940–1950: <span>The Birth of the Solidbody</span></h2>
       <p class="slide-lead">Eliminating the hollow soundboard decoupled the instrument from acoustic sound pressure, stopping feedback squeals forever.</p>
       <div class="cards-wrap">
-        <div class="grid-3"><div class="info-card highlight"><div class="card-thumb"><img src="/images/slides/the_electric_guitar/les_paul_the_log_1940.jpg" alt="Les Paul The Log Prototype 1940 with Epiphone Wings" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/les_paul_the_log_1940.jpg', 'Les Paul The Log Prototype 1940 with Epiphone Wings')"></div>
+        <div class="grid-3"><div class="info-card highlight"><div class="card-thumb"><img src="images/slides/the_electric_guitar/les_paul_the_log_1940.jpg" alt="Les Paul The Log Prototype 1940 with Epiphone Wings" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/les_paul_the_log_1940.jpg', 'Les Paul The Log Prototype 1940 with Epiphone Wings')"></div>
                <span class="spec-pill ao4">AO4 Prototypes</span>
                <h4>Les Paul's "The Log" (1940)</h4>
                <p>Guitarist Les Paul mounted a Gibson neck and handmade pickup onto a solid 4x4-inch pine timber block, gluing archtop wings to the sides for aesthetics. It proved solid wood eliminated acoustic feedback.</p>
-               <div class="video-btn-row" style="display:flex; gap:8px; align-items:center; margin-top:10px; flex-wrap:wrap;"><button class="video-trigger-btn" onclick="openVideo('glcTS_21uaY', 'Les Paul & Mary Ford - How High the Moon')" style="display:inline-flex; align-items:center; gap:6px; font-size:11px; font-weight:800; color:#080d1a; background:linear-gradient(135deg, #f59e0b, #fbbf24); border:0; padding:6px 12px; border-radius:6px; cursor:pointer;">▶ Listen: Les Paul</button><a href="https://www.youtube.com/watch?v=glcTS_21uaY" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" style="display:inline-flex; align-items:center; gap:4px; font-size:11px; font-weight:700; color:#fff !important; background:rgba(239,68,68,0.2); border:1px solid rgba(239,68,68,0.45); padding:5px 10px; border-radius:6px; text-decoration:none;" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div></div><div class="info-card cyan-edge"><div class="card-thumb"><img src="/images/slides/the_electric_guitar/solidbody_feedback_elimination.svg" alt="Acoustic Cavity vs Solidbody Mechanical Vibration Dampening Diagram" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/solidbody_feedback_elimination.svg', 'Acoustic Cavity vs Solidbody Mechanical Vibration Dampening Diagram')"></div>
+               <div class="video-btn-row" style="display:flex; gap:8px; align-items:center; margin-top:10px; flex-wrap:wrap;"><button class="video-trigger-btn" onclick="openVideo('glcTS_21uaY', 'Les Paul & Mary Ford - How High the Moon')" style="display:inline-flex; align-items:center; gap:6px; font-size:11px; font-weight:800; color:#080d1a; background:linear-gradient(135deg, #f59e0b, #fbbf24); border:0; padding:6px 12px; border-radius:6px; cursor:pointer;">▶ Listen: Les Paul</button><a href="https://www.youtube.com/watch?v=glcTS_21uaY" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" style="display:inline-flex; align-items:center; gap:4px; font-size:11px; font-weight:700; color:#fff !important; background:rgba(239,68,68,0.2); border:1px solid rgba(239,68,68,0.45); padding:5px 10px; border-radius:6px; text-decoration:none;" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div></div><div class="info-card cyan-edge"><div class="card-thumb"><img src="images/slides/the_electric_guitar/solidbody_feedback_elimination.svg" alt="Acoustic Cavity vs Solidbody Mechanical Vibration Dampening Diagram" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/solidbody_feedback_elimination.svg', 'Acoustic Cavity vs Solidbody Mechanical Vibration Dampening Diagram')"></div>
                <span class="spec-pill ao3">AO3 Physics of Feedback</span>
                <h4>Feedback Decoupling Physics</h4>
-               <p>By substituting high-density solid wood (ash, alder, mahogany) for a resonant hollow cavity, the body no longer acts as an acoustic soundboard, preventing loudspeaker vibrations from driving the top.</p></div><div class="info-card acid-edge"><div class="card-thumb"><img src="/images/slides/the_electric_guitar/fender_esquire_broadcaster_1950.jpg" alt="1950 Fender Broadcaster Solidbody Guitar" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/fender_esquire_broadcaster_1950.jpg', '1950 Fender Broadcaster Solidbody Guitar')"></div>
+               <p>By substituting high-density solid wood (ash, alder, mahogany) for a resonant hollow cavity, the body no longer acts as an acoustic soundboard, preventing loudspeaker vibrations from driving the top.</p></div><div class="info-card acid-edge"><div class="card-thumb"><img src="images/slides/the_electric_guitar/fender_esquire_broadcaster_1950.jpg" alt="1950 Fender Broadcaster Solidbody Guitar" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/fender_esquire_broadcaster_1950.jpg', '1950 Fender Broadcaster Solidbody Guitar')"></div>
                <span class="spec-pill ao4">AO4 Mass Production</span>
                <h4>Fender Broadcaster (1950)</h4>
                <p>Leo Fender combined solid ash wood with modular bolt-on necks, creating the world's first commercially mass-produced solidbody electric guitar (renamed the Telecaster in 1951).</p></div></div>
@@ -1286,13 +1456,13 @@
       <h2 class="slide-heading">1951 Fender Telecaster: <span>The Workhorse</span></h2>
       <p class="slide-lead">Simple, indestructible, and mass-producible, the Telecaster defined the sound of country, blues, and early rock and roll.</p>
       <div class="cards-wrap">
-        <div class="grid-3"><div class="info-card highlight"><div class="card-thumb"><img src="/images/slides/the_electric_guitar/telecaster_bridge_ashtray_plate.jpg" alt="Fender Telecaster Ashtray Steel Bridge Plate with Slanted Pickup" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/telecaster_bridge_ashtray_plate.jpg', 'Fender Telecaster Ashtray Steel Bridge Plate with Slanted Pickup')"></div>
+        <div class="grid-3"><div class="info-card highlight"><div class="card-thumb"><img src="images/slides/the_electric_guitar/telecaster_bridge_ashtray_plate.jpg" alt="Fender Telecaster Ashtray Steel Bridge Plate with Slanted Pickup" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/telecaster_bridge_ashtray_plate.jpg', 'Fender Telecaster Ashtray Steel Bridge Plate with Slanted Pickup')"></div>
                <span class="spec-pill ao3">AO3 Bridge Architecture</span>
                <h4>Steel Baseplate &amp; "Twang"</h4>
-               <p>The bridge pickup is mounted directly into a stamped steel bridge plate with copper-coated steel baseplate, focusing magnetic flux into a concentrated field for biting, cutting treble twang.</p></div><div class="info-card cyan-edge"><div class="card-thumb"><img src="/images/slides/the_electric_guitar/telecaster_pickup_wiring.svg" alt="Telecaster 3-Way Switching and Electrical Circuit Schematic" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/telecaster_pickup_wiring.svg', 'Telecaster 3-Way Switching and Electrical Circuit Schematic')"></div>
+               <p>The bridge pickup is mounted directly into a stamped steel bridge plate with copper-coated steel baseplate, focusing magnetic flux into a concentrated field for biting, cutting treble twang.</p></div><div class="info-card cyan-edge"><div class="card-thumb"><img src="images/slides/the_electric_guitar/telecaster_pickup_wiring.svg" alt="Telecaster 3-Way Switching and Electrical Circuit Schematic" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/telecaster_pickup_wiring.svg', 'Telecaster 3-Way Switching and Electrical Circuit Schematic')"></div>
                <span class="spec-pill ao3">AO3 Circuit Wiring</span>
                <h4>Pickup Pairings &amp; Blend</h4>
-               <p>Paired a warm, chrome-covered neck pickup (narrow bobbin) with the aggressive bridge pickup. The 3-way selector permitted distinct rhythm and biting lead timbres from a single instrument.</p></div><div class="info-card acid-edge"><div class="card-thumb"><img src="/images/slides/the_electric_guitar/keith_richards_telecaster.jpg" alt="Keith Richards Micawber Telecaster on Stage" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/keith_richards_telecaster.jpg', 'Keith Richards Micawber Telecaster on Stage')"></div>
+               <p>Paired a warm, chrome-covered neck pickup (narrow bobbin) with the aggressive bridge pickup. The 3-way selector permitted distinct rhythm and biting lead timbres from a single instrument.</p></div><div class="info-card acid-edge"><div class="card-thumb"><img src="images/slides/the_electric_guitar/keith_richards_telecaster.jpg" alt="Keith Richards Micawber Telecaster on Stage" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/keith_richards_telecaster.jpg', 'Keith Richards Micawber Telecaster on Stage')"></div>
                <span class="spec-pill ao4">AO4 Cultural Impact</span>
                <h4>The Rock &amp; Roll Sound</h4>
                <p>Heard on Muddy Waters blues tracks, Keith Richards' open-G Rolling Stones riffs (*Honky Tonk Women*), Bruce Springsteen, and Joe Strummer (*The Clash* punk rhythm tracks).</p>
@@ -1304,13 +1474,13 @@
       <h2 class="slide-heading">1952 Gibson Les Paul: <span>Artisan Craftsmanship</span></h2>
       <p class="slide-lead">Designed by Gibson president Ted McCarty and guitarist Les Paul in 1952 to rival Fender's solidbody dominance.</p>
       <div class="cards-wrap">
-        <div class="grid-3"><div class="info-card highlight"><div class="card-thumb"><img src="/images/slides/the_electric_guitar/les_paul_carved_maple_mahogany.jpg" alt="Carved Maple Top on Solid Mahogany Body Cross Section" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/les_paul_carved_maple_mahogany.jpg', 'Carved Maple Top on Solid Mahogany Body Cross Section')"></div>
+        <div class="grid-3"><div class="info-card highlight"><div class="card-thumb"><img src="images/slides/the_electric_guitar/les_paul_carved_maple_mahogany.jpg" alt="Carved Maple Top on Solid Mahogany Body Cross Section" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/les_paul_carved_maple_mahogany.jpg', 'Carved Maple Top on Solid Mahogany Body Cross Section')"></div>
                <span class="spec-pill ao3">AO3 Tonewood Chemistry</span>
                <h4>Mahogany Body &amp; Carved Maple Top</h4>
-               <p>Combined a dense, warm solid mahogany back with a hand-carved, dense bookmatched maple cap. Maple provided fast transient snap and high-end clarity, while mahogany delivered thick low-end sustain.</p></div><div class="info-card cyan-edge"><div class="card-thumb"><img src="/images/slides/the_electric_guitar/gibson_p90_soapbar_pickup.jpg" alt="Gibson P-90 Single Coil Soapbar Pickup" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/gibson_p90_soapbar_pickup.jpg', 'Gibson P-90 Single Coil Soapbar Pickup')"></div>
+               <p>Combined a dense, warm solid mahogany back with a hand-carved, dense bookmatched maple cap. Maple provided fast transient snap and high-end clarity, while mahogany delivered thick low-end sustain.</p></div><div class="info-card cyan-edge"><div class="card-thumb"><img src="images/slides/the_electric_guitar/gibson_p90_soapbar_pickup.jpg" alt="Gibson P-90 Single Coil Soapbar Pickup" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/gibson_p90_soapbar_pickup.jpg', 'Gibson P-90 Single Coil Soapbar Pickup')"></div>
                <span class="spec-pill ao3">AO3 P-90 Single-Coil</span>
                <h4>The P-90 "Soapbar" Pickup</h4>
-               <p>Gibson's original 1952 pickup: wider, shorter bobbin than Fender coils with twin Alnico bar magnets underneath steel pole screws, producing a gritty, fat, high-output single-coil roar.</p></div><div class="info-card acid-edge"><div class="card-thumb"><img src="/images/slides/the_electric_guitar/gibson_sg_1961.jpg" alt="1961 Gibson SG Standard Solidbody with Dual Humbuckers" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/gibson_sg_1961.jpg', '1961 Gibson SG Standard Solidbody with Dual Humbuckers')"></div>
+               <p>Gibson's original 1952 pickup: wider, shorter bobbin than Fender coils with twin Alnico bar magnets underneath steel pole screws, producing a gritty, fat, high-output single-coil roar.</p></div><div class="info-card acid-edge"><div class="card-thumb"><img src="images/slides/the_electric_guitar/gibson_sg_1961.jpg" alt="1961 Gibson SG Standard Solidbody with Dual Humbuckers" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/gibson_sg_1961.jpg', '1961 Gibson SG Standard Solidbody with Dual Humbuckers')"></div>
                <span class="spec-pill ao4">AO4 The Solid Guitar</span>
                <h4>The Gibson SG Redesign (1961)</h4>
                <p>To reduce manufacturing weight and compete with the Stratocaster, Gibson released the double-cutaway "Solid Guitar" (SG) with thin mahogany body and unobstructed 22nd-fret neck access.</p>
@@ -1322,13 +1492,13 @@
       <h2 class="slide-heading">1954 Fender Stratocaster: <span>Modern Ergonomics</span></h2>
       <p class="slide-lead">Introduced in 1954, Leo Fender's Stratocaster revolutionized guitar ergonomics, hardware versatility, and sonic palettes.</p>
       <div class="cards-wrap">
-        <div class="grid-3"><div class="info-card highlight"><div class="card-thumb"><img src="/images/slides/the_electric_guitar/fender_stratocaster_sunburst.jpg" alt="1954 Fender Stratocaster 2-Color Sunburst Ash Body" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/fender_stratocaster_sunburst.jpg', '1954 Fender Stratocaster 2-Color Sunburst Ash Body')"></div>
+        <div class="grid-3"><div class="info-card highlight"><div class="card-thumb"><img src="images/slides/the_electric_guitar/fender_stratocaster_sunburst.jpg" alt="1954 Fender Stratocaster 2-Color Sunburst Ash Body" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/fender_stratocaster_sunburst.jpg', '1954 Fender Stratocaster 2-Color Sunburst Ash Body')"></div>
                <span class="spec-pill ao3">AO3 Ergonomic Contours</span>
                <h4>Contoured Comfort Body</h4>
-               <p>Featured deep forearm and belly comfort bevels, asymmetrical double cutaways for access to upper frets, and 3 single-coil pickups arranged across neck, middle, and bridge positions.</p></div><div class="info-card cyan-edge"><div class="card-thumb"><img src="/images/slides/the_electric_guitar/stratocaster_tremolo_spring_cavity.jpg" alt="Stratocaster Synchronized Tremolo Block and Counterbalance Springs" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/stratocaster_tremolo_spring_cavity.jpg', 'Stratocaster Synchronized Tremolo Block and Counterbalance Springs')"></div>
+               <p>Featured deep forearm and belly comfort bevels, asymmetrical double cutaways for access to upper frets, and 3 single-coil pickups arranged across neck, middle, and bridge positions.</p></div><div class="info-card cyan-edge"><div class="card-thumb"><img src="images/slides/the_electric_guitar/stratocaster_tremolo_spring_cavity.jpg" alt="Stratocaster Synchronized Tremolo Block and Counterbalance Springs" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/stratocaster_tremolo_spring_cavity.jpg', 'Stratocaster Synchronized Tremolo Block and Counterbalance Springs')"></div>
                <span class="spec-pill ao3">AO3 Mechanical Vibrato</span>
                <h4>Synchronized Vibrato Bridge</h4>
-               <p>Integrated a moving bridge plate with individual string saddles, a heavy steel inertia block, and rear counterbalance springs. Allowed smooth pitch drops and shimmer while maintaining pitch return.</p></div><div class="info-card acid-edge"><div class="card-thumb"><img src="/images/slides/the_electric_guitar/jimi_hendrix_monterey_strat.jpg" alt="Jimi Hendrix with Fender Stratocaster at Monterey Pop 1967" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/jimi_hendrix_monterey_strat.jpg', 'Jimi Hendrix with Fender Stratocaster at Monterey Pop 1967')"></div>
+               <p>Integrated a moving bridge plate with individual string saddles, a heavy steel inertia block, and rear counterbalance springs. Allowed smooth pitch drops and shimmer while maintaining pitch return.</p></div><div class="info-card acid-edge"><div class="card-thumb"><img src="images/slides/the_electric_guitar/jimi_hendrix_monterey_strat.jpg" alt="Jimi Hendrix with Fender Stratocaster at Monterey Pop 1967" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/jimi_hendrix_monterey_strat.jpg', 'Jimi Hendrix with Fender Stratocaster at Monterey Pop 1967')"></div>
                <span class="spec-pill ao4">AO4 Iconic Artistry</span>
                <h4>Hendrix, Clapton &amp; Gilmour</h4>
                <p>Hendrix (*Voodoo Child*, *Little Wing*), David Gilmour (*Comfortably Numb*), and Stevie Ray Vaughan used the Stratocaster's double cutaways, vibrato arm, and pickup selector to define modern guitar.</p>
@@ -1340,13 +1510,13 @@
       <h2 class="slide-heading">Seth Lover's Humbucker: <span>Dual Coils &amp; Phase Math</span></h2>
       <p class="slide-lead">In 1957, Gibson engineer Seth Lover patented the humbucking pickup, eliminating electrical noise from neon lights and transformers.</p>
       <div class="cards-wrap">
-        <div class="grid-3"><div class="info-card highlight"><div class="card-thumb"><img src="/images/slides/the_electric_guitar/seth_lover_paf_patent_diagram.svg" alt="Seth Lover 1957 US Patent Diagram for Humbucking Pickup" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/seth_lover_paf_patent_diagram.svg', 'Seth Lover 1957 US Patent Diagram for Humbucking Pickup')"></div>
+        <div class="grid-3"><div class="info-card highlight"><div class="card-thumb"><img src="images/slides/the_electric_guitar/seth_lover_paf_patent_diagram.svg" alt="Seth Lover 1957 US Patent Diagram for Humbucking Pickup" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/seth_lover_paf_patent_diagram.svg', 'Seth Lover 1957 US Patent Diagram for Humbucking Pickup')"></div>
                <span class="spec-pill ao3">AO3 PAF Architecture</span>
                <h4>The Gibson PAF (1957)</h4>
-               <p>Two side-by-side bobbins wired in series with opposite magnetic poles (North and South) and reverse wire winding (RWRP: Reverse Wound, Reverse Polarity) around a single Alnico bar magnet.</p></div><div class="info-card cyan-edge"><div class="card-thumb"><img src="/images/slides/the_electric_guitar/humbucker_phase_cancellation.svg" alt="Humbucker Waveform Phase Cancellation Vector Diagram" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/humbucker_phase_cancellation.svg', 'Humbucker Waveform Phase Cancellation Vector Diagram')"></div>
+               <p>Two side-by-side bobbins wired in series with opposite magnetic poles (North and South) and reverse wire winding (RWRP: Reverse Wound, Reverse Polarity) around a single Alnico bar magnet.</p></div><div class="info-card cyan-edge"><div class="card-thumb"><img src="images/slides/the_electric_guitar/humbucker_phase_cancellation.svg" alt="Humbucker Waveform Phase Cancellation Vector Diagram" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/humbucker_phase_cancellation.svg', 'Humbucker Waveform Phase Cancellation Vector Diagram')"></div>
                <span class="spec-pill ao3">AO3 Phase Cancellation Math</span>
                <h4>Phase Cancellation Mechanics</h4>
-               <p>External 50/60 Hz EMI hits both coils with identical phase and is canceled: $\text{Hum}_1 - \text{Hum}_2 = 0$. Inverted string magnetic fields double audio voltage constructively: $\text{Sig}_1 + \text{Sig}_2 = 2\text{Sig}$.</p></div><div class="info-card acid-edge"><div class="card-thumb"><img src="/images/slides/the_electric_guitar/gibson_paf_humbucker_open.jpg" alt="Original Gibson PAF Humbucker Pickup Open View" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/gibson_paf_humbucker_open.jpg', 'Original Gibson PAF Humbucker Pickup Open View')"></div>
+               <p>External 50/60 Hz EMI hits both coils with identical phase and is canceled: $\text{Hum}_1 - \text{Hum}_2 = 0$. Inverted string magnetic fields double audio voltage constructively: $\text{Sig}_1 + \text{Sig}_2 = 2\text{Sig}$.</p></div><div class="info-card acid-edge"><div class="card-thumb"><img src="images/slides/the_electric_guitar/gibson_paf_humbucker_open.jpg" alt="Original Gibson PAF Humbucker Pickup Open View" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/gibson_paf_humbucker_open.jpg', 'Original Gibson PAF Humbucker Pickup Open View')"></div>
                <span class="spec-pill ao3">AO3 Humbucker Output</span>
                <h4>Higher Output &amp; Midrange Punch</h4>
                <p>Series wiring doubles coil inductance and increases DC resistance to 7.5–9.0 k&#937;. Shifts the resonant peak down to ~2.5–3 kHz, producing thick, creamy distortion in valve amplifiers.</p></div></div>
@@ -1357,13 +1527,13 @@
       <h2 class="slide-heading">Pickup Placement: <span>Nodes, Antinodes &amp; Spectrum</span></h2>
       <p class="slide-lead">The exact physical position of a pickup along the vibrating string dictates which harmonic overtones are amplified.</p>
       <div class="cards-wrap">
-        <div class="grid-3"><div class="info-card highlight"><div class="card-thumb"><img src="/images/slides/the_electric_guitar/string_vibration_nodes_antinodes.svg" alt="Standing Wave Harmonic Nodes and Antinodes on Vibrating String Diagram" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/string_vibration_nodes_antinodes.svg', 'Standing Wave Harmonic Nodes and Antinodes on Vibrating String Diagram')"></div>
+        <div class="grid-3"><div class="info-card highlight"><div class="card-thumb"><img src="images/slides/the_electric_guitar/string_vibration_nodes_antinodes.svg" alt="Standing Wave Harmonic Nodes and Antinodes on Vibrating String Diagram" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/string_vibration_nodes_antinodes.svg', 'Standing Wave Harmonic Nodes and Antinodes on Vibrating String Diagram')"></div>
                <span class="spec-pill ao3">AO3 Harmonic Physics</span>
                <h4>Vibration Nodes &amp; Antinodes</h4>
-               <p>Vibrating strings exhibit stationary nodes (zero excursion) and antinodes (maximum excursion). A pickup placed near an antinode detects that specific harmonic with maximum electrical amplitude.</p></div><div class="info-card cyan-edge"><div class="card-thumb"><img src="/images/slides/the_electric_guitar/pickup_selector_tonal_comparison.svg" alt="Tonal Frequency Response Comparison: Bridge vs Middle vs Neck" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/pickup_selector_tonal_comparison.svg', 'Tonal Frequency Response Comparison: Bridge vs Middle vs Neck')"></div>
+               <p>Vibrating strings exhibit stationary nodes (zero excursion) and antinodes (maximum excursion). A pickup placed near an antinode detects that specific harmonic with maximum electrical amplitude.</p></div><div class="info-card cyan-edge"><div class="card-thumb"><img src="images/slides/the_electric_guitar/pickup_selector_tonal_comparison.svg" alt="Tonal Frequency Response Comparison: Bridge vs Middle vs Neck" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/pickup_selector_tonal_comparison.svg', 'Tonal Frequency Response Comparison: Bridge vs Middle vs Neck')"></div>
                <span class="spec-pill ao3">AO3 Neck vs Bridge</span>
                <h4>Bridge vs Neck Timbre</h4>
-               <p><strong>Bridge Pickup:</strong> Senses near fixed anchor: low fundamental excursion, dense high harmonics (bright, biting, sharp). <strong>Neck Pickup:</strong> Senses near string center: massive fundamental excursion (warm, round, full).</p></div><div class="info-card acid-edge"><div class="card-thumb"><img src="/images/slides/the_electric_guitar/stratocaster_pickup_selector_5way.svg" alt="Fender Stratocaster 5-Way Selector Switch Parallel Comb Filtering Diagram" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/stratocaster_pickup_selector_5way.svg', 'Fender Stratocaster 5-Way Selector Switch Parallel Comb Filtering Diagram')"></div>
+               <p><strong>Bridge Pickup:</strong> Senses near fixed anchor: low fundamental excursion, dense high harmonics (bright, biting, sharp). <strong>Neck Pickup:</strong> Senses near string center: massive fundamental excursion (warm, round, full).</p></div><div class="info-card acid-edge"><div class="card-thumb"><img src="images/slides/the_electric_guitar/stratocaster_pickup_selector_5way.svg" alt="Fender Stratocaster 5-Way Selector Switch Parallel Comb Filtering Diagram" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/stratocaster_pickup_selector_5way.svg', 'Fender Stratocaster 5-Way Selector Switch Parallel Comb Filtering Diagram')"></div>
                <span class="spec-pill ao3">AO3 Comb Filtering ("Quack")</span>
                <h4>Strat Positions 2 &amp; 4 Comb Filtering</h4>
                <p>Wiring adjacent pickups in parallel samples strings at two distinct points. Slight phase differences create comb-filter cancellation notches in the 1.5–2 kHz midrange, producing the hollow "quack" tone.</p></div></div>
@@ -1374,14 +1544,14 @@
       <h2 class="slide-heading">Semi-Hollow &amp; 12-String: <span>Studio Flexibility</span></h2>
       <p class="slide-lead">In 1958, Gibson introduced the semi-hollow ES-335, bridging the gap between hollowbody warmth and solidbody sustain.</p>
       <div class="cards-wrap">
-        <div class="grid-3"><div class="info-card highlight"><div class="card-thumb"><img src="/images/slides/the_electric_guitar/gibson_es335_centerblock.jpg" alt="1958 Gibson ES-335 Semi-Hollow with Solid Maple Center Block" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/gibson_es335_centerblock.jpg', '1958 Gibson ES-335 Semi-Hollow with Solid Maple Center Block')"></div>
+        <div class="grid-3"><div class="info-card highlight"><div class="card-thumb"><img src="images/slides/the_electric_guitar/gibson_es335_centerblock.jpg" alt="1958 Gibson ES-335 Semi-Hollow with Solid Maple Center Block" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/gibson_es335_centerblock.jpg', '1958 Gibson ES-335 Semi-Hollow with Solid Maple Center Block')"></div>
                <span class="spec-pill ao4">AO4 Hybrid Construction</span>
                <h4>Gibson ES-335 Center-Block (1958)</h4>
-               <p>A solid maple block runs down the center of a hollow double-cutaway body. Pickups and bridge mount into solid maple (suppressing feedback), while hollow wings add acoustic warmth and air.</p></div><div class="info-card cyan-edge"><div class="card-thumb"><img src="/images/slides/the_electric_guitar/rickenbacker_360_12_string.jpg" alt="Rickenbacker 360-12 12-String Electric Guitar" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/rickenbacker_360_12_string.jpg', 'Rickenbacker 360-12 12-String Electric Guitar')"></div>
+               <p>A solid maple block runs down the center of a hollow double-cutaway body. Pickups and bridge mount into solid maple (suppressing feedback), while hollow wings add acoustic warmth and air.</p></div><div class="info-card cyan-edge"><div class="card-thumb"><img src="images/slides/the_electric_guitar/rickenbacker_360_12_string.jpg" alt="Rickenbacker 360-12 12-String Electric Guitar" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/rickenbacker_360_12_string.jpg', 'Rickenbacker 360-12 12-String Electric Guitar')"></div>
                <span class="spec-pill ao4">AO4 The "Jangle" Era</span>
                <h4>Rickenbacker 360/12 (1964)</h4>
                <p>Paired 6 standard strings with 6 higher octave strings. Delivered the bright, shimmering, jangly 1960s pop sound defining The Beatles (*A Hard Day's Night*), The Byrds, and Tom Petty.</p>
-               <div class="video-btn-row" style="display:flex; gap:8px; align-items:center; margin-top:10px; flex-wrap:wrap;"><button class="video-trigger-btn" onclick="openVideo('W4ga_M5Zdn4', 'The Byrds - Turn! Turn! Turn! (Rickenbacker 360/12)')" style="display:inline-flex; align-items:center; gap:6px; font-size:11px; font-weight:800; color:#080d1a; background:linear-gradient(135deg, #f59e0b, #fbbf24); border:0; padding:6px 12px; border-radius:6px; cursor:pointer;">▶ Listen: 12-String Jangle</button><a href="https://www.youtube.com/watch?v=W4ga_M5Zdn4" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" style="display:inline-flex; align-items:center; gap:4px; font-size:11px; font-weight:700; color:#fff !important; background:rgba(239,68,68,0.2); border:1px solid rgba(239,68,68,0.45); padding:5px 10px; border-radius:6px; text-decoration:none;" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div></div><div class="info-card acid-edge"><div class="card-thumb"><img src="/images/slides/the_electric_guitar/extended_range_7_8_string.jpg" alt="Extended Range 7-String and 8-String Modern Electric Guitars" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/extended_range_7_8_string.jpg', 'Extended Range 7-String and 8-String Modern Electric Guitars')"></div>
+               <div class="video-btn-row" style="display:flex; gap:8px; align-items:center; margin-top:10px; flex-wrap:wrap;"><button class="video-trigger-btn" onclick="openVideo('W4ga_M5Zdn4', 'The Byrds - Turn! Turn! Turn! (Rickenbacker 360/12)')" style="display:inline-flex; align-items:center; gap:6px; font-size:11px; font-weight:800; color:#080d1a; background:linear-gradient(135deg, #f59e0b, #fbbf24); border:0; padding:6px 12px; border-radius:6px; cursor:pointer;">▶ Listen: 12-String Jangle</button><a href="https://www.youtube.com/watch?v=W4ga_M5Zdn4" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" style="display:inline-flex; align-items:center; gap:4px; font-size:11px; font-weight:700; color:#fff !important; background:rgba(239,68,68,0.2); border:1px solid rgba(239,68,68,0.45); padding:5px 10px; border-radius:6px; text-decoration:none;" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div></div><div class="info-card acid-edge"><div class="card-thumb"><img src="images/slides/the_electric_guitar/extended_range_7_8_string.jpg" alt="Extended Range 7-String and 8-String Modern Electric Guitars" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/extended_range_7_8_string.jpg', 'Extended Range 7-String and 8-String Modern Electric Guitars')"></div>
                <span class="spec-pill ao4">AO4 Modern Extended Range</span>
                <h4>7-String &amp; Multi-Scale Guitars</h4>
                <p>From Steve Vai's 1990 Ibanez Universe to modern fanned-fret 8-strings: extended low-B and low-F# strings required longer scale lengths (27–28 inches) to maintain string tension and intonation clarity.</p></div></div>
@@ -1392,13 +1562,13 @@
       <h2 class="slide-heading">The Electric Bass: <span>Leo Fender's Precision Revolution</span></h2>
       <p class="slide-lead">In 1951, Leo Fender solved the low-frequency dilemma for rhythm sections by inventing the solidbody electric bass guitar.</p>
       <div class="cards-wrap">
-        <div class="grid-3"><div class="info-card highlight"><div class="card-thumb"><img src="/images/slides/the_electric_guitar/fender_precision_bass_1951.jpg" alt="1951 Fender Precision Bass Solidbody with Ash Body and Maple Neck" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/fender_precision_bass_1951.jpg', '1951 Fender Precision Bass Solidbody with Ash Body and Maple Neck')"></div>
+        <div class="grid-3"><div class="info-card highlight"><div class="card-thumb"><img src="images/slides/the_electric_guitar/fender_precision_bass_1951.jpg" alt="1951 Fender Precision Bass Solidbody with Ash Body and Maple Neck" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/fender_precision_bass_1951.jpg', '1951 Fender Precision Bass Solidbody with Ash Body and Maple Neck')"></div>
                <span class="spec-pill ao4">AO4 The Precision Revolution</span>
                <h4>The Fender Precision Bass (1951)</h4>
-               <p>Replaced bulky upright acoustic double basses. The 34-inch scale neck featured guitar-style frets for precise intonation ("Precision"), allowing bassists to match drum volume on stage without feedback.</p></div><div class="info-card cyan-edge"><div class="card-thumb"><img src="/images/slides/the_electric_guitar/fender_split_coil_pbass_pickup.svg" alt="Fender Split-Coil P-Bass Hum-Cancelling Pickup Wiring Schematic" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/fender_split_coil_pbass_pickup.svg', 'Fender Split-Coil P-Bass Hum-Cancelling Pickup Wiring Schematic')"></div>
+               <p>Replaced bulky upright acoustic double basses. The 34-inch scale neck featured guitar-style frets for precise intonation ("Precision"), allowing bassists to match drum volume on stage without feedback.</p></div><div class="info-card cyan-edge"><div class="card-thumb"><img src="images/slides/the_electric_guitar/fender_split_coil_pbass_pickup.svg" alt="Fender Split-Coil P-Bass Hum-Cancelling Pickup Wiring Schematic" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/fender_split_coil_pbass_pickup.svg', 'Fender Split-Coil P-Bass Hum-Cancelling Pickup Wiring Schematic')"></div>
                <span class="spec-pill ao3">AO3 Split-Coil Architecture</span>
                <h4>The 1957 Split-Coil Pickup</h4>
-               <p>Two offset coils wired in reverse-wound, reverse-polarity (RWRP) series: one coil senses E and A strings, the other senses D and G strings. Delivers punchy low-end fundamentals while canceling mains hum.</p></div><div class="info-card acid-edge"><div class="card-thumb"><img src="/images/slides/the_electric_guitar/hofner_500_1_violin_bass.jpg" alt="1962 Hofner 500-1 Violin Bass as Played by Paul McCartney" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/hofner_500_1_violin_bass.jpg', '1962 Hofner 500-1 Violin Bass as Played by Paul McCartney')"></div>
+               <p>Two offset coils wired in reverse-wound, reverse-polarity (RWRP) series: one coil senses E and A strings, the other senses D and G strings. Delivers punchy low-end fundamentals while canceling mains hum.</p></div><div class="info-card acid-edge"><div class="card-thumb"><img src="images/slides/the_electric_guitar/hofner_500_1_violin_bass.jpg" alt="1962 Hofner 500-1 Violin Bass as Played by Paul McCartney" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/hofner_500_1_violin_bass.jpg', '1962 Hofner 500-1 Violin Bass as Played by Paul McCartney')"></div>
                <span class="spec-pill ao4">AO4 Hollowbody Bass</span>
                <h4>Hofner 500/1 Violin Bass (1956)</h4>
                <p>A hollow spruce and maple chambered body with short 30-inch scale and flatwound strings. Made famous by Paul McCartney with The Beatles, delivering deep, warm, thumpy, upright-style low frequencies.</p></div></div>
@@ -1409,14 +1579,14 @@
       <h2 class="slide-heading">1970s–1980s: <span>Superstrats &amp; Locking Tremolos</span></h2>
       <p class="slide-lead">Heavy rock and virtuosic metal demanded higher gain, faster necks, and pitch-bending vibrato that would not detune.</p>
       <div class="cards-wrap">
-        <div class="grid-3"><div class="info-card highlight"><div class="card-thumb"><img src="/images/slides/the_electric_guitar/eddie_van_halen_frankenstrat.jpg" alt="Eddie Van Halen Original Frankenstrat Hybrid Guitar" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/eddie_van_halen_frankenstrat.jpg', 'Eddie Van Halen Original Frankenstrat Hybrid Guitar')"></div>
+        <div class="grid-3"><div class="info-card highlight"><div class="card-thumb"><img src="images/slides/the_electric_guitar/eddie_van_halen_frankenstrat.jpg" alt="Eddie Van Halen Original Frankenstrat Hybrid Guitar" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/eddie_van_halen_frankenstrat.jpg', 'Eddie Van Halen Original Frankenstrat Hybrid Guitar')"></div>
                <span class="spec-pill ao4">AO4 DIY Innovation</span>
                <h4>The "Frankenstrat" (1977)</h4>
                <p>Eddie Van Halen married a Fender Stratocaster body with a slanted Gibson PAF humbucker. Blended Fender's ergonomic tremolo feel with the thick, high-gain overdrive of a Gibson humbucker.</p>
-               <div class="video-btn-row" style="display:flex; gap:8px; align-items:center; margin-top:10px; flex-wrap:wrap;"><button class="video-trigger-btn" onclick="openVideo('M4Czx8EWXb0', 'Eddie Van Halen - Eruption (Frankenstrat)')" style="display:inline-flex; align-items:center; gap:6px; font-size:11px; font-weight:800; color:#080d1a; background:linear-gradient(135deg, #f59e0b, #fbbf24); border:0; padding:6px 12px; border-radius:6px; cursor:pointer;">▶ Listen: EVH Eruption</button><a href="https://www.youtube.com/watch?v=M4Czx8EWXb0" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" style="display:inline-flex; align-items:center; gap:4px; font-size:11px; font-weight:700; color:#fff !important; background:rgba(239,68,68,0.2); border:1px solid rgba(239,68,68,0.45); padding:5px 10px; border-radius:6px; text-decoration:none;" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div></div><div class="info-card cyan-edge"><div class="card-thumb"><img src="/images/slides/the_electric_guitar/floyd_rose_locking_tremolo.svg" alt="Floyd Rose Double-Locking Tremolo System Mechanical Engineering Diagram" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/floyd_rose_locking_tremolo.svg', 'Floyd Rose Double-Locking Tremolo System Mechanical Engineering Diagram')"></div>
+               <div class="video-btn-row" style="display:flex; gap:8px; align-items:center; margin-top:10px; flex-wrap:wrap;"><button class="video-trigger-btn" onclick="openVideo('M4Czx8EWXb0', 'Eddie Van Halen - Eruption (Frankenstrat)')" style="display:inline-flex; align-items:center; gap:6px; font-size:11px; font-weight:800; color:#080d1a; background:linear-gradient(135deg, #f59e0b, #fbbf24); border:0; padding:6px 12px; border-radius:6px; cursor:pointer;">▶ Listen: EVH Eruption</button><a href="https://www.youtube.com/watch?v=M4Czx8EWXb0" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" style="display:inline-flex; align-items:center; gap:4px; font-size:11px; font-weight:700; color:#fff !important; background:rgba(239,68,68,0.2); border:1px solid rgba(239,68,68,0.45); padding:5px 10px; border-radius:6px; text-decoration:none;" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div></div><div class="info-card cyan-edge"><div class="card-thumb"><img src="images/slides/the_electric_guitar/floyd_rose_locking_tremolo.svg" alt="Floyd Rose Double-Locking Tremolo System Mechanical Engineering Diagram" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/floyd_rose_locking_tremolo.svg', 'Floyd Rose Double-Locking Tremolo System Mechanical Engineering Diagram')"></div>
                <span class="spec-pill ao3">AO3 Locking Tremolo Physics</span>
                <h4>Floyd Rose Double-Locking System</h4>
-               <p>Clamped strings rigidly at both the nut and bridge saddles. Stopped strings from slipping through friction points during aggressive dive-bombs and pull-ups, preserving pitch intonation.</p></div><div class="info-card acid-edge"><div class="card-thumb"><img src="/images/slides/the_electric_guitar/ibanez_jem_steve_vai.jpg" alt="Ibanez JEM 777 Steve Vai Signature Superstrat Guitar" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/ibanez_jem_steve_vai.jpg', 'Ibanez JEM 777 Steve Vai Signature Superstrat Guitar')"></div>
+               <p>Clamped strings rigidly at both the nut and bridge saddles. Stopped strings from slipping through friction points during aggressive dive-bombs and pull-ups, preserving pitch intonation.</p></div><div class="info-card acid-edge"><div class="card-thumb"><img src="images/slides/the_electric_guitar/ibanez_jem_steve_vai.jpg" alt="Ibanez JEM 777 Steve Vai Signature Superstrat Guitar" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/ibanez_jem_steve_vai.jpg', 'Ibanez JEM 777 Steve Vai Signature Superstrat Guitar')"></div>
                <span class="spec-pill ao4">AO4 The Shred Era</span>
                <h4>The Ibanez JEM (1987)</h4>
                <p>Developed with Steve Vai: thin Wizard neck profile, 24 jumbo frets, H-S-H pickup configuration, Lion's Claw tremolo cavity recess, and Monkey Grip handle defining late-1980s virtuoso shred guitars.</p></div></div>
@@ -1427,13 +1597,13 @@
       <h2 class="slide-heading">1990s–Present: <span>Active Electronics &amp; DSP Modelling</span></h2>
       <p class="slide-lead">The modern era freed guitarists from magnetic cable drag, mains hum, and microphone bleed through active preamps and digital simulation.</p>
       <div class="cards-wrap">
-        <div class="grid-3"><div class="info-card highlight"><div class="card-thumb"><img src="/images/slides/the_electric_guitar/active_vs_passive_pickups.svg" alt="Active Pickups with 9V Battery vs Passive Pickups Circuit Comparison" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/active_vs_passive_pickups.svg', 'Active Pickups with 9V Battery vs Passive Pickups Circuit Comparison')"></div>
+        <div class="grid-3"><div class="info-card highlight"><div class="card-thumb"><img src="images/slides/the_electric_guitar/active_vs_passive_pickups.svg" alt="Active Pickups with 9V Battery vs Passive Pickups Circuit Comparison" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/active_vs_passive_pickups.svg', 'Active Pickups with 9V Battery vs Passive Pickups Circuit Comparison')"></div>
                <span class="spec-pill ao3">AO3 Active Electronics</span>
                <h4>Active Pickups (e.g. EMG 81)</h4>
-               <p>Fewer copper coil windings lower inductance and suppress noise. An onboard 9V-powered discrete transistor preamp boosts signal level and buffers output to low impedance (~10 k&#937;), preventing high-end cable loss.</p></div><div class="info-card cyan-edge"><div class="card-thumb"><img src="/images/slides/the_electric_guitar/line6_pod_variax_modelling.jpg" alt="Line 6 POD Red Kidney Bean Desktop Amp Modeller 1998" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/line6_pod_variax_modelling.jpg', 'Line 6 POD Red Kidney Bean Desktop Amp Modeller 1998')"></div>
+               <p>Fewer copper coil windings lower inductance and suppress noise. An onboard 9V-powered discrete transistor preamp boosts signal level and buffers output to low impedance (~10 k&#937;), preventing high-end cable loss.</p></div><div class="info-card cyan-edge"><div class="card-thumb"><img src="images/slides/the_electric_guitar/line6_pod_variax_modelling.jpg" alt="Line 6 POD Red Kidney Bean Desktop Amp Modeller 1998" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/line6_pod_variax_modelling.jpg', 'Line 6 POD Red Kidney Bean Desktop Amp Modeller 1998')"></div>
                <span class="spec-pill ao4">AO4 Digital Amp Simulation</span>
                <h4>Line 6 POD &amp; Digital Modelling (1998)</h4>
-               <p>Used digital signal processing (DSP) to mathematically calculate non-linear valve saturation, power sag, and tone-stack EQ, allowing guitarists to record authentic tube amp tones silently direct to tape/DAW.</p></div><div class="info-card acid-edge"><div class="card-thumb"><img src="/images/slides/the_electric_guitar/dsp_amp_profiler_kemper_neural.svg" alt="DSP Digital Amp Profiler Convolution and Speaker Cabinet Impulse Response IR Diagram" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/dsp_amp_profiler_kemper_neural.svg', 'DSP Digital Amp Profiler Convolution and Speaker Cabinet Impulse Response IR Diagram')"></div>
+               <p>Used digital signal processing (DSP) to mathematically calculate non-linear valve saturation, power sag, and tone-stack EQ, allowing guitarists to record authentic tube amp tones silently direct to tape/DAW.</p></div><div class="info-card acid-edge"><div class="card-thumb"><img src="images/slides/the_electric_guitar/dsp_amp_profiler_kemper_neural.svg" alt="DSP Digital Amp Profiler Convolution and Speaker Cabinet Impulse Response IR Diagram" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/dsp_amp_profiler_kemper_neural.svg', 'DSP Digital Amp Profiler Convolution and Speaker Cabinet Impulse Response IR Diagram')"></div>
                <span class="spec-pill ao3">AO3 Convolution &amp; IRs</span>
                <h4>Impulse Response (IR) Convolution</h4>
                <p>Modern modellers (Kemper, Fractal, Quad Cortex) use convolution algorithms with measured Impulse Responses (IRs) to recreate the linear frequency and phase footprint of real speaker cabs and studio microphones.</p></div></div>
@@ -1927,6 +2097,177 @@
       }, 120);
     }
   });
+
+  // Universal mobile-friendly toggleFullscreen (with fallback for iPhone / iOS Safari where Fullscreen API is unavailable on divs)
+  window.toggleFullscreen = function() {
+    var docEl = document.documentElement;
+    var isFs = document.fullscreenElement || document.webkitFullscreenElement;
+    if (!isFs) {
+      if (docEl.requestFullscreen) {
+        docEl.requestFullscreen().catch(function() {
+          if (window.self !== window.top) {
+            window.top.location.href = window.location.href;
+          }
+        });
+      } else if (docEl.webkitRequestFullscreen) {
+        docEl.webkitRequestFullscreen();
+      } else if (window.self !== window.top) {
+        // iOS Safari fallback: open the standalone deck full-screen in the top viewport
+        window.top.location.href = window.location.href;
+      }
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen().catch(function() {});
+      } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+      }
+    }
+  };
+
+  // Universal touch-swipe slide navigation for mobile phones
+  (function() {
+    var touchStartX = 0;
+    var touchStartY = 0;
+    document.addEventListener('touchstart', function(e) {
+      if (!e.changedTouches || !e.changedTouches.length) return;
+      touchStartX = e.changedTouches[0].screenX;
+      touchStartY = e.changedTouches[0].screenY;
+    }, { passive: true });
+
+    document.addEventListener('touchend', function(e) {
+      if (!e.changedTouches || !e.changedTouches.length) return;
+      var target = e.target;
+      if (target && target.closest && target.closest('table, .table-container, .comp-table-wrap, select, button, a, .video-modal-backdrop, #videoModal')) {
+        return;
+      }
+      var dx = e.changedTouches[0].screenX - touchStartX;
+      var dy = e.changedTouches[0].screenY - touchStartY;
+      if (Math.abs(dx) > 65 && Math.abs(dx) > Math.abs(dy) * 1.8) {
+        if (dx < 0) {
+          if (typeof nextSlide === 'function') nextSlide();
+          else if (typeof changeSlide === 'function') changeSlide(1);
+        } else {
+          if (typeof prevSlide === 'function') prevSlide();
+          else if (typeof changeSlide === 'function') changeSlide(-1);
+        }
+      }
+    }, { passive: true });
+  })();
+
+
+  // Universal mobile-friendly toggleFullscreen (with fallback for iPhone / iOS Safari where Fullscreen API is unavailable on divs)
+  window.toggleFullscreen = function() {
+    var docEl = document.documentElement;
+    var isFs = document.fullscreenElement || document.webkitFullscreenElement;
+    if (!isFs) {
+      if (docEl.requestFullscreen) {
+        docEl.requestFullscreen().catch(function() {
+          if (window.self !== window.top) {
+            window.top.location.href = window.location.href;
+          }
+        });
+      } else if (docEl.webkitRequestFullscreen) {
+        docEl.webkitRequestFullscreen();
+      } else if (window.self !== window.top) {
+        // iOS Safari fallback: open the standalone deck full-screen in the top viewport
+        window.top.location.href = window.location.href;
+      }
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen().catch(function() {});
+      } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+      }
+    }
+  };
+
+  // Universal touch-swipe slide navigation for mobile phones
+  (function() {
+    var touchStartX = 0;
+    var touchStartY = 0;
+    document.addEventListener('touchstart', function(e) {
+      if (!e.changedTouches || !e.changedTouches.length) return;
+      touchStartX = e.changedTouches[0].screenX;
+      touchStartY = e.changedTouches[0].screenY;
+    }, { passive: true });
+
+    document.addEventListener('touchend', function(e) {
+      if (!e.changedTouches || !e.changedTouches.length) return;
+      var target = e.target;
+      if (target && target.closest && target.closest('table, .table-container, .comp-table-wrap, select, button, a, .video-modal-backdrop, #videoModal')) {
+        return;
+      }
+      var dx = e.changedTouches[0].screenX - touchStartX;
+      var dy = e.changedTouches[0].screenY - touchStartY;
+      if (Math.abs(dx) > 65 && Math.abs(dx) > Math.abs(dy) * 1.8) {
+        if (dx < 0) {
+          if (typeof nextSlide === 'function') nextSlide();
+          else if (typeof changeSlide === 'function') changeSlide(1);
+        } else {
+          if (typeof prevSlide === 'function') prevSlide();
+          else if (typeof changeSlide === 'function') changeSlide(-1);
+        }
+      }
+    }, { passive: true });
+  })();
+
+
+  // Universal mobile-friendly toggleFullscreen (with fallback for iPhone / iOS Safari where Fullscreen API is unavailable on divs)
+  window.toggleFullscreen = function() {
+    var docEl = document.documentElement;
+    var isFs = document.fullscreenElement || document.webkitFullscreenElement;
+    if (!isFs) {
+      if (docEl.requestFullscreen) {
+        docEl.requestFullscreen().catch(function() {
+          if (window.self !== window.top) {
+            window.top.location.href = window.location.href;
+          }
+        });
+      } else if (docEl.webkitRequestFullscreen) {
+        docEl.webkitRequestFullscreen();
+      } else if (window.self !== window.top) {
+        // iOS Safari fallback: open the standalone deck full-screen in the top viewport
+        window.top.location.href = window.location.href;
+      }
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen().catch(function() {});
+      } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+      }
+    }
+  };
+
+  // Universal touch-swipe slide navigation for mobile phones
+  (function() {
+    var touchStartX = 0;
+    var touchStartY = 0;
+    document.addEventListener('touchstart', function(e) {
+      if (!e.changedTouches || !e.changedTouches.length) return;
+      touchStartX = e.changedTouches[0].screenX;
+      touchStartY = e.changedTouches[0].screenY;
+    }, { passive: true });
+
+    document.addEventListener('touchend', function(e) {
+      if (!e.changedTouches || !e.changedTouches.length) return;
+      var target = e.target;
+      if (target && target.closest && target.closest('table, .table-container, .comp-table-wrap, select, button, a, .video-modal-backdrop, #videoModal')) {
+        return;
+      }
+      var dx = e.changedTouches[0].screenX - touchStartX;
+      var dy = e.changedTouches[0].screenY - touchStartY;
+      if (Math.abs(dx) > 65 && Math.abs(dx) > Math.abs(dy) * 1.8) {
+        if (dx < 0) {
+          if (typeof nextSlide === 'function') nextSlide();
+          else if (typeof changeSlide === 'function') changeSlide(1);
+        } else {
+          if (typeof prevSlide === 'function') prevSlide();
+          else if (typeof changeSlide === 'function') changeSlide(-1);
+        }
+      }
+    }, { passive: true });
+  })();
+
 </script>
 <!-- === END HASH DEEP LINK === -->
 </body>

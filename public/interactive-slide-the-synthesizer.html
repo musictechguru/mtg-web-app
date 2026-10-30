@@ -843,19 +843,29 @@
     }
     /* === END ANTI-SQUASH === */
 
-  
     /* === MTG MOBILE PHONE RESPONSIVENESS OVERRIDES === */
     @media (max-width: 768px) {
       html, body {
-        overflow-x: hidden !important;
+        height: 100vh !important;
+        max-height: 100vh !important;
+        overflow: hidden !important;
         max-width: 100vw !important;
+        display: flex !important;
+        flex-direction: column !important;
       }
+      /* Compact top utility bar */
       .deck-topbar-controls, .top-utility-bar, header.deck-topbar-controls {
         padding: 6px 10px !important;
         gap: 6px !important;
-        min-height: 42px !important;
+        min-height: 40px !important;
         height: auto !important;
         flex-wrap: nowrap !important;
+        flex-shrink: 0 !important;
+        justify-content: space-between !important;
+      }
+      /* Hide secondary promo link in topbar on phones so Fullscreen button never clips */
+      .deck-topbar-controls a[href*="app.musictechguru.com"] {
+        display: none !important;
       }
       .exit-deck-link {
         padding: 5px 8px !important;
@@ -863,12 +873,21 @@
         white-space: nowrap !important;
         flex-shrink: 0 !important;
       }
-      .deck-topbar-title, .top-bar-title {
-        font-size: 11.5px !important;
+      .deck-topbar-controls > div:first-child,
+      .top-utility-bar > div:first-child,
+      header.deck-topbar-controls > div:first-child {
+        min-width: 0 !important;
+        flex: 1 1 auto !important;
+        overflow: hidden !important;
+      }
+      .deck-topbar-title, .top-bar-title, .deck-topbar-controls span[style*="color: #94a3b8"] {
+        font-size: 11px !important;
         white-space: nowrap !important;
         overflow: hidden !important;
         text-overflow: ellipsis !important;
-        max-width: 42vw !important;
+        max-width: 38vw !important;
+        display: inline-block !important;
+        vertical-align: middle !important;
       }
       .deck-topbar-controls .fullscreen-btn,
       .top-utility-bar .fullscreen-btn,
@@ -879,7 +898,83 @@
         white-space: nowrap !important;
         flex-shrink: 0 !important;
       }
-      /* Collapse multi-column slide grids to 1 column on phones */
+      /* Hide redundant secondary inner banner bars on mobile to maximize slide viewport height */
+      header.deck-topbar,
+      .deck-topbar,
+      .top-bar {
+        display: none !important;
+      }
+      header.deck-header, .deck-header {
+        padding: 6px 12px !important;
+        min-height: auto !important;
+        flex-shrink: 0 !important;
+      }
+      header.deck-header .deck-title-group, .deck-header .deck-title-group {
+        display: none !important;
+      }
+      header.deck-header .deck-actions, .deck-header .deck-actions {
+        width: 100% !important;
+        display: flex !important;
+        justify-content: space-between !important;
+      }
+      header.deck-header .slide-select, .deck-header .slide-select {
+        max-width: 100% !important;
+        width: 100% !important;
+      }
+      header.deck-header button, .deck-header button {
+        display: none !important;
+      }
+      /* Full-bleed deck wrapper / container as flex column */
+      .deck-wrapper, .deck-container {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        border-radius: 0 !important;
+        border-left: none !important;
+        border-right: none !important;
+        flex: 1 1 auto !important;
+        min-height: 0 !important;
+        height: auto !important;
+        max-height: none !important;
+        display: flex !important;
+        flex-direction: column !important;
+        overflow: hidden !important;
+      }
+      .slides-viewport, .slide-stage {
+        flex: 1 1 auto !important;
+        min-height: 0 !important;
+        width: 100% !important;
+        padding: 0 !important;
+        overflow: hidden !important;
+        position: relative !important;
+        display: flex !important;
+        flex-direction: column !important;
+      }
+      /* Single continuous vertical scroll container for the active slide */
+      .slide:not(.active) {
+        display: none !important;
+      }
+      .slide.active {
+        position: relative !important;
+        top: auto !important;
+        left: auto !important;
+        display: block !important;
+        width: 100% !important;
+        height: 100% !important;
+        max-height: 100% !important;
+        flex: 1 1 auto !important;
+        min-height: 0 !important;
+        padding: 14px 14px 80px !important;
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+        -webkit-overflow-scrolling: touch !important;
+        box-sizing: border-box !important;
+        transform: none !important;
+        opacity: 1 !important;
+        pointer-events: auto !important;
+      }
+      /* Collapse all multi-column slide grids into a single unconstrained vertical stack */
       .slide .split-grid,
       .slide .grid-2,
       .slide .grid-2-split,
@@ -894,33 +989,89 @@
       .slide .two-col,
       .slide .three-col,
       .slide [style*="grid-template-columns"] {
-        grid-template-columns: 1fr !important;
-        gap: 12px !important;
-      }
-      .slide .grid-2-split {
         display: flex !important;
         flex-direction: column !important;
-        overflow-y: visible !important;
+        grid-template-columns: 1fr !important;
+        gap: 14px !important;
+        flex: none !important;
+        width: 100% !important;
+        height: auto !important;
+        min-height: auto !important;
+        max-height: none !important;
+        overflow: visible !important;
+        margin-bottom: 16px !important;
+      }
+      /* Unconstrain all column panels and cards so they expand naturally inside the slide scroll */
+      .slide .column-panel,
+      .slide .col-panel,
+      .slide .info-card,
+      .slide .feature-card,
+      .slide .music-col,
+      .slide .instrument-col,
+      .slide .format-col,
+      .slide .prod-col,
+      .slide .tech-col,
+      .slide .col-music,
+      .slide .col-tech,
+      .slide .artist-visual-col {
+        display: flex !important;
+        flex-direction: column !important;
+        flex: none !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        height: auto !important;
+        min-height: auto !important;
+        max-height: none !important;
+        overflow: visible !important;
+        padding: 14px !important;
+        box-sizing: border-box !important;
+      }
+      /* Stack panel headers and takeaway/tip boxes vertically on phones so badges & text never crush */
+      .slide .panel-header,
+      .slide .col-header,
+      .slide .header-bar,
+      .slide .takeaway-box,
+      .slide .callout-box,
+      .slide .exam-tip,
+      .slide .tip-box {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        justify-content: flex-start !important;
+        gap: 6px !important;
         height: auto !important;
       }
-      .slide .column-panel {
-        overflow-y: visible !important;
-        max-height: none !important;
+      /* Give photo cards and hardware images generous height on mobile */
+      .slide .photo-card,
+      .slide .hardware-photo,
+      .slide .instrument-photo-card {
         height: auto !important;
+        min-height: 175px !important;
+        max-height: none !important;
         flex-shrink: 0 !important;
       }
-      .slide, .slide.active {
-        padding: 14px 12px 24px !important;
-        overflow-y: auto !important;
-        overflow-x: hidden !important;
-        -webkit-overflow-scrolling: touch !important;
+      .slide .photo-card img,
+      .slide .hardware-photo img,
+      .slide .instrument-photo-card img.instrument-photo {
+        height: 185px !important;
+        max-height: 220px !important;
+        width: 100% !important;
+        object-fit: contain !important;
       }
-      .slide h1 {
-        font-size: clamp(20px, 5.5vw, 26px) !important;
+      .slide .table-container,
+      .slide .comp-table-wrap {
+        overflow-x: auto !important;
+        overflow-y: visible !important;
+        max-height: none !important;
+        flex: none !important;
+        width: 100% !important;
+      }
+      .slide h1, .slide .slide-heading, .slide .slide-title {
+        font-size: clamp(20px, 5.5vw, 25px) !important;
         line-height: 1.22 !important;
       }
       .slide h2 {
-        font-size: clamp(17px, 4.8vw, 22px) !important;
+        font-size: clamp(17px, 4.8vw, 21px) !important;
         line-height: 1.25 !important;
       }
       .slide p, .slide li {
@@ -934,12 +1085,14 @@
         -webkit-overflow-scrolling: touch !important;
         font-size: 12px !important;
       }
-      /* Bottom Controls Bar: Ensure Previous, Slide Counter, and Next always fit on 320-390px phones */
+      /* Bottom Controls Bar: Ensure Previous, Slide Counter/Dropdown, and Next always fit on 320-430px phones */
       footer.deck-controls,
       .deck-controls,
       .deck-nav,
       .bottom-bar,
-      .deck-nav-bar {
+      .deck-nav-bar,
+      .deck-footer,
+      .deck-bottombar {
         padding: 8px 10px !important;
         gap: 6px !important;
         min-height: 50px !important;
@@ -950,29 +1103,46 @@
         flex-wrap: nowrap !important;
         width: 100% !important;
         box-sizing: border-box !important;
+        flex-shrink: 0 !important;
       }
       .deck-controls .controls-left,
       .bottom-bar .nav-buttons,
       .deck-nav-bar .nav-left,
-      .deck-nav-bar .nav-right {
+      .deck-nav-bar .nav-right,
+      .deck-nav-bar > div:first-child {
         display: contents !important;
       }
-      /* Hide duplicate bottom Fullscreen button & wide dot arrays on mobile so Next button is never clipped */
+      /* Reorder amplifiers bottom bar children so Prev is left, Counter is center, Next is right */
+      .deck-nav-bar #prevBtn { order: 1 !important; }
+      .deck-nav-bar .slide-counter, .deck-nav-bar .nav-center { order: 2 !important; }
+      .deck-nav-bar #nextBtn { order: 3 !important; }
+      /* When both a slide-counter and a slide-select dropdown exist in deck-nav-bar, hide the duplicate text counter on phones */
+      .deck-nav-bar .nav-left .slide-counter {
+        display: none !important;
+      }
+      /* Hide duplicate bottom Fullscreen button, keyboard hints & wide dot arrays on mobile so Next button is never clipped */
       #bottomFsBtn,
       .deck-controls button[onclick*="toggleFullscreen"],
       .bottom-bar button[onclick*="toggleFullscreen"],
       .deck-nav button[onclick*="toggleFullscreen"],
       .deck-nav-bar button[onclick*="toggleFullscreen"],
+      .deck-footer button[onclick*="toggleFullscreen"],
+      .deck-bottombar button[onclick*="toggleFullscreen"],
       .controls-right,
       .keyboard-hint,
+      .nav-shortcuts,
       .progress-dots,
       .slide-dots,
       #dotsContainer,
       #progressDots,
-      .progress-track {
+      .progress-track,
+      .progress-bar-track,
+      .progress-bar-container {
         display: none !important;
       }
       .progress-container,
+      .progress-group,
+      .deck-progress-group,
       .slide-indicator,
       .deck-nav-bar .nav-center {
         flex: 1 1 auto !important;
@@ -982,13 +1152,13 @@
         justify-content: center !important;
         margin: 0 4px !important;
       }
-      .slide-counter, #slideCounter {
+      .slide-counter, #slideCounter, .progress-label {
         font-size: 11.5px !important;
         white-space: nowrap !important;
         text-align: center !important;
       }
       .slide-select, #slideSelect {
-        max-width: 135px !important;
+        max-width: 155px !important;
         font-size: 11.5px !important;
         padding: 5px 8px !important;
         text-overflow: ellipsis !important;
@@ -1040,14 +1210,14 @@
       <h2 class="slide-heading">The Synthesizer: <span>Component 3 Syllabus Matrix</span></h2>
       <p class="slide-lead">The synthesizer is a cornerstone of modern music technology, transitioning from laboratory modular walls to portable polyphonic icons and digital FM operators.</p>
       <div class="cards-wrap">
-        <div class="grid-3"><div class="info-card highlight"><div class="card-thumb"><img src="/images/slides/the_synthesizer/moog_modular_1973.jpg" alt="1973 Moog Modular Synthesizer Wall of Modules" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_synthesizer/moog_modular_1973.jpg', '1973 Moog Modular Synthesizer Wall of Modules')"></div>
+        <div class="grid-3"><div class="info-card highlight"><div class="card-thumb"><img src="images/slides/the_synthesizer/moog_modular_1973.jpg" alt="1973 Moog Modular Synthesizer Wall of Modules" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_synthesizer/moog_modular_1973.jpg', '1973 Moog Modular Synthesizer Wall of Modules')"></div>
                <span class="spec-pill ao4">AO4 Historical Milestones</span>
                <h4>Modular Foundations (1960s)</h4>
-               <p>Robert Moog and Don Buchla established voltage-controlled modular synthesis. Wendy Carlos proved synths as musical instruments with <em>Switched-On Bach</em> (1968).</p></div><div class="info-card cyan-edge"><div class="card-thumb"><img src="/images/slides/the_synthesizer/subtractive_synthesis_signal_flow.svg" alt="Subtractive Synthesis Classic Signal Flow Schematic" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_synthesizer/subtractive_synthesis_signal_flow.svg', 'Subtractive Synthesis Classic Signal Flow Schematic')"></div>
+               <p>Robert Moog and Don Buchla established voltage-controlled modular synthesis. Wendy Carlos proved synths as musical instruments with <em>Switched-On Bach</em> (1968).</p></div><div class="info-card cyan-edge"><div class="card-thumb"><img src="images/slides/the_synthesizer/subtractive_synthesis_signal_flow.svg" alt="Subtractive Synthesis Classic Signal Flow Schematic" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_synthesizer/subtractive_synthesis_signal_flow.svg', 'Subtractive Synthesis Classic Signal Flow Schematic')"></div>
                <span class="spec-pill ao3">AO3 Signal Flow Physics</span>
                <h4>Subtractive Architecture</h4>
                <p>Raw harmonic spectra generated by Voltage Controlled Oscillators (VCOs) are dynamically sculpted by Voltage Controlled Filters (VCF) and amplified via VCAs with ADSR envelopes.</p>
-               <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('LUjKWcpvU6c', 'MTG Subtractive Synthesis Lesson 1: Fundamentals')">▶ Watch MTG Lesson 1</button><a href="https://www.youtube.com/watch?v=LUjKWcpvU6c" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><span>&#9654; YouTube</span></a></div></div><div class="info-card acid-edge"><div class="card-thumb"><img src="/images/slides/the_synthesizer/synthesis_exam_revision_matrix.svg" alt="Edexcel Component 3 Synthesis Syllabus Revision Matrix" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_synthesizer/synthesis_exam_revision_matrix.svg', 'Edexcel Component 3 Synthesis Syllabus Revision Matrix')"></div>
+               <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('LUjKWcpvU6c', 'MTG Subtractive Synthesis Lesson 1: Fundamentals')">▶ Watch MTG Lesson 1</button><a href="https://www.youtube.com/watch?v=LUjKWcpvU6c" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><span>&#9654; YouTube</span></a></div></div><div class="info-card acid-edge"><div class="card-thumb"><img src="images/slides/the_synthesizer/synthesis_exam_revision_matrix.svg" alt="Edexcel Component 3 Synthesis Syllabus Revision Matrix" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_synthesizer/synthesis_exam_revision_matrix.svg', 'Edexcel Component 3 Synthesis Syllabus Revision Matrix')"></div>
                <span class="spec-pill ao3">AO3 Exam Matrix</span>
                <h4>Polyphony, FM &amp; MIDI (1980s)</h4>
                <p>The transition from monophonic leads to 5-voice patch memory (Prophet-5), Yamaha DX7 FM digital synthesis, and the universal MIDI 1.0 serial protocol (1983).</p></div></div>
@@ -1058,14 +1228,14 @@
       <h2 class="slide-heading">Oscillators (VCO): <span>Harmonic Spectra &amp; Raw Timbre</span></h2>
       <p class="slide-lead">The oscillator generates continuous cyclic waveforms. The choice of raw waveform determines the overtone content available for subtractive filtering.</p>
       <div class="cards-wrap">
-        <div class="grid-3"><div class="info-card highlight"><div class="card-thumb"><img src="/images/slides/the_synthesizer/oscillator_waveforms_harmonics.svg" alt="Oscillator Waveforms: Sawtooth, Square, Triangle, Sine and Harmonics" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_synthesizer/oscillator_waveforms_harmonics.svg', 'Oscillator Waveforms: Sawtooth, Square, Triangle, Sine and Harmonics')"></div>
+        <div class="grid-3"><div class="info-card highlight"><div class="card-thumb"><img src="images/slides/the_synthesizer/oscillator_waveforms_harmonics.svg" alt="Oscillator Waveforms: Sawtooth, Square, Triangle, Sine and Harmonics" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_synthesizer/oscillator_waveforms_harmonics.svg', 'Oscillator Waveforms: Sawtooth, Square, Triangle, Sine and Harmonics')"></div>
                <span class="spec-pill ao3">AO3 Acoustic Physics</span>
                <h4>Sawtooth: All Harmonics</h4>
                <p>Contains all integer harmonics (1, 2, 3, 4, 5...) with amplitude falling at 1/n. Produces a bright, buzzy timbre essential for brass, strings, and rich synth leads.</p>
-               <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('atvtBE6t48M', 'Sound On Sound: Building Blocks of Sound & Synthesis')">▶ Watch Waveform Physics</button><a href="https://www.youtube.com/watch?v=atvtBE6t48M" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><span>&#9654; YouTube</span></a></div></div><div class="info-card cyan-edge"><div class="card-thumb"><img src="/images/slides/the_synthesizer/additive_vs_subtractive_synthesis.svg" alt="Additive vs Subtractive Synthesis Comparison Diagram" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_synthesizer/additive_vs_subtractive_synthesis.svg', 'Additive vs Subtractive Synthesis Comparison Diagram')"></div>
+               <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('atvtBE6t48M', 'Sound On Sound: Building Blocks of Sound & Synthesis')">▶ Watch Waveform Physics</button><a href="https://www.youtube.com/watch?v=atvtBE6t48M" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><span>&#9654; YouTube</span></a></div></div><div class="info-card cyan-edge"><div class="card-thumb"><img src="images/slides/the_synthesizer/additive_vs_subtractive_synthesis.svg" alt="Additive vs Subtractive Synthesis Comparison Diagram" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_synthesizer/additive_vs_subtractive_synthesis.svg', 'Additive vs Subtractive Synthesis Comparison Diagram')"></div>
                <span class="spec-pill ao3">AO3 Harmonic Physics</span>
                <h4>Square &amp; Pulse: Odd Harmonics</h4>
-               <p>A symmetrical square wave contains odd harmonics only (1, 3, 5, 7...). Modulating pulse width (PWM) introduces shifting chorused partials perfect for hollow woodwinds and fat basses.</p></div><div class="info-card acid-edge"><div class="card-thumb"><img src="/images/slides/the_synthesizer/minimoog_model_d_1975.jpg" alt="1975 Minimoog Model D 3-Oscillator Front Control Panel" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_synthesizer/minimoog_model_d_1975.jpg', '1975 Minimoog Model D 3-Oscillator Front Control Panel')"></div>
+               <p>A symmetrical square wave contains odd harmonics only (1, 3, 5, 7...). Modulating pulse width (PWM) introduces shifting chorused partials perfect for hollow woodwinds and fat basses.</p></div><div class="info-card acid-edge"><div class="card-thumb"><img src="images/slides/the_synthesizer/minimoog_model_d_1975.jpg" alt="1975 Minimoog Model D 3-Oscillator Front Control Panel" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_synthesizer/minimoog_model_d_1975.jpg', '1975 Minimoog Model D 3-Oscillator Front Control Panel')"></div>
                <span class="spec-pill ao4">AO4 Classic Hardware</span>
                <h4>Multi-VCO Detuning &amp; Beats</h4>
                <p>Combining two or three oscillators with slight micro-tuning differences produces acoustic phase beating, creating the massive, thick stereo chorusing characteristic of the Minimoog.</p></div></div>
@@ -1076,14 +1246,14 @@
       <h2 class="slide-heading">The VCF: <span>Cutoff Frequency, Resonance &amp; Ladder Circuits</span></h2>
       <p class="slide-lead">The filter sculpts the tonal character by attenuating specified frequency bands, mimicking the acoustic formant resonances of physical instruments.</p>
       <div class="cards-wrap">
-        <div class="grid-3"><div class="info-card highlight"><div class="card-thumb"><img src="/images/slides/the_synthesizer/vcf_filter_types_and_cutoff_resonance.svg" alt="VCF Frequency Response Curve: Low-Pass, Cutoff fc, Resonance Peak Q" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_synthesizer/vcf_filter_types_and_cutoff_resonance.svg', 'VCF Frequency Response Curve: Low-Pass, Cutoff fc, Resonance Peak Q')"></div>
+        <div class="grid-3"><div class="info-card highlight"><div class="card-thumb"><img src="images/slides/the_synthesizer/vcf_filter_types_and_cutoff_resonance.svg" alt="VCF Frequency Response Curve: Low-Pass, Cutoff fc, Resonance Peak Q" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_synthesizer/vcf_filter_types_and_cutoff_resonance.svg', 'VCF Frequency Response Curve: Low-Pass, Cutoff fc, Resonance Peak Q')"></div>
                <span class="spec-pill ao3">AO3 Filter Engineering</span>
-               <h4>Low-Pass Filter &amp; Cutoff ($f_c$)</h4>
-               <p>A Low-Pass Filter (LPF) allows frequencies below the cutoff frequency to pass while attenuating higher overtones, warming the sound and softening aggressive upper harmonics.</p></div><div class="info-card cyan-edge"><div class="card-thumb"><img src="/images/slides/the_synthesizer/tb303_acid_synthesis_schematic.svg" alt="Roland TB-303 Diode Ladder Filter and Resonance Squelch Schematic" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_synthesizer/tb303_acid_synthesis_schematic.svg', 'Roland TB-303 Diode Ladder Filter and Resonance Squelch Schematic')"></div>
+               <h4>Low-Pass Filter &amp; Cutoff (<em>f</em><sub>c</sub>)</h4>
+               <p>A Low-Pass Filter (LPF) allows frequencies below the cutoff frequency to pass while attenuating higher overtones, warming the sound and softening aggressive upper harmonics.</p></div><div class="info-card cyan-edge"><div class="card-thumb"><img src="images/slides/the_synthesizer/tb303_acid_synthesis_schematic.svg" alt="Roland TB-303 Diode Ladder Filter and Resonance Squelch Schematic" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_synthesizer/tb303_acid_synthesis_schematic.svg', 'Roland TB-303 Diode Ladder Filter and Resonance Squelch Schematic')"></div>
                <span class="spec-pill ao3">AO3 Resonance Physics</span>
-               <h4>Resonance ($Q$) &amp; Self-Oscillation</h4>
+               <h4>Resonance (<em>Q</em>) &amp; Self-Oscillation</h4>
                <p>Feedback routed from the filter output back to the input creates a resonant peak at the cutoff point. At extreme resonance settings, the filter produces a pure self-oscillating sine wave.</p>
-               <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('tBrkY4mQ_D4', 'Logic Retro Synth: VCF Cutoff & Resonance Masterclass')">▶ Watch Filter Masterclass</button><a href="https://www.youtube.com/watch?v=tBrkY4mQ_D4" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><span>&#9654; YouTube</span></a></div></div><div class="info-card acid-edge"><div class="card-thumb"><img src="/images/slides/the_synthesizer/minimoog_architecture_schematic.svg" alt="Minimoog 24dB 4-Pole Transistor Ladder Filter Block Diagram" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_synthesizer/minimoog_architecture_schematic.svg', 'Minimoog 24dB 4-Pole Transistor Ladder Filter Block Diagram')"></div>
+               <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('tBrkY4mQ_D4', 'Logic Retro Synth: VCF Cutoff & Resonance Masterclass')">▶ Watch Filter Masterclass</button><a href="https://www.youtube.com/watch?v=tBrkY4mQ_D4" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><span>&#9654; YouTube</span></a></div></div><div class="info-card acid-edge"><div class="card-thumb"><img src="images/slides/the_synthesizer/minimoog_architecture_schematic.svg" alt="Minimoog 24dB 4-Pole Transistor Ladder Filter Block Diagram" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_synthesizer/minimoog_architecture_schematic.svg', 'Minimoog 24dB 4-Pole Transistor Ladder Filter Block Diagram')"></div>
                <span class="spec-pill ao4">AO4 Ladder Patent</span>
                <h4>24 dB/Octave Ladder Filter</h4>
                <p>Bob Moog's patented 4-pole transistor ladder filter provided a steep 24 dB/octave rolloff with non-linear saturation, delivering the warm, musical low-end drive of classic records.</p></div></div>
@@ -1094,13 +1264,13 @@
       <h2 class="slide-heading">Envelopes: <span>4-Stage ADSR Shaping of VCF &amp; VCA</span></h2>
       <p class="slide-lead">Envelopes transform static continuous tones into dynamic, expressive musical notes by controlling voltage over time.</p>
       <div class="cards-wrap">
-        <div class="grid-3"><div class="info-card highlight"><div class="card-thumb"><img src="/images/slides/the_synthesizer/adsr_envelope_stages_diagram.svg" alt="4-Stage ADSR Envelope: Attack, Decay, Sustain, Release Curve" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_synthesizer/adsr_envelope_stages_diagram.svg', '4-Stage ADSR Envelope: Attack, Decay, Sustain, Release Curve')"></div>
+        <div class="grid-3"><div class="info-card highlight"><div class="card-thumb"><img src="images/slides/the_synthesizer/adsr_envelope_stages_diagram.svg" alt="4-Stage ADSR Envelope: Attack, Decay, Sustain, Release Curve" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_synthesizer/adsr_envelope_stages_diagram.svg', '4-Stage ADSR Envelope: Attack, Decay, Sustain, Release Curve')"></div>
                <span class="spec-pill ao3">AO3 Dynamic Control</span>
                <h4>The 4 Envelope Stages</h4>
-               <p><strong>Attack Time:</strong> Duration to peak. <strong>Decay Time:</strong> Duration to drop to sustain. <strong>Sustain Level:</strong> Held voltage level. <strong>Release Time:</strong> Fade to zero on key release.</p></div><div class="info-card cyan-edge"><div class="card-thumb"><img src="/images/slides/the_synthesizer/envelope_vca_vs_vcf_comparison.svg" alt="Comparing VCA Amplifier Envelope vs VCF Filter Envelope" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_synthesizer/envelope_vca_vs_vcf_comparison.svg', 'Comparing VCA Amplifier Envelope vs VCF Filter Envelope')"></div>
+               <p><strong>Attack Time:</strong> Duration to peak. <strong>Decay Time:</strong> Duration to drop to sustain. <strong>Sustain Level:</strong> Held voltage level. <strong>Release Time:</strong> Fade to zero on key release.</p></div><div class="info-card cyan-edge"><div class="card-thumb"><img src="images/slides/the_synthesizer/envelope_vca_vs_vcf_comparison.svg" alt="Comparing VCA Amplifier Envelope vs VCF Filter Envelope" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_synthesizer/envelope_vca_vs_vcf_comparison.svg', 'Comparing VCA Amplifier Envelope vs VCF Filter Envelope')"></div>
                <span class="spec-pill ao3">AO3 Timbral Modulation</span>
                <h4>Filter Env vs Amp Env</h4>
-               <p>The <strong>VCA Envelope</strong> controls loudness over time, while the <strong>VCF Envelope</strong> modulates filter cutoff, creating brassy opening sweeps or percussive pluck snaps.</p></div><div class="info-card acid-edge"><div class="card-thumb"><img src="/images/slides/the_synthesizer/arp_2600_modular.jpg" alt="ARP 2600 Semi-Modular Synthesizer Front Panel Slider Controls" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_synthesizer/arp_2600_modular.jpg', 'ARP 2600 Semi-Modular Synthesizer Front Panel Slider Controls')"></div>
+               <p>The <strong>VCA Envelope</strong> controls loudness over time, while the <strong>VCF Envelope</strong> modulates filter cutoff, creating brassy opening sweeps or percussive pluck snaps.</p></div><div class="info-card acid-edge"><div class="card-thumb"><img src="images/slides/the_synthesizer/arp_2600_modular.jpg" alt="ARP 2600 Semi-Modular Synthesizer Front Panel Slider Controls" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_synthesizer/arp_2600_modular.jpg', 'ARP 2600 Semi-Modular Synthesizer Front Panel Slider Controls')"></div>
                <span class="spec-pill ao4">AO4 Hardware Interface</span>
                <h4>Transient Attack Shaping</h4>
                <p>Instantaneous attack times (&lt;1 ms) produce sharp, percussive synth bass plucks, while slow attack times (200–800 ms) create ambient cinematic string swells and evolving pads.</p></div></div>
@@ -1111,13 +1281,13 @@
       <h2 class="slide-heading">LFO Modulation: <span>Vibrato, Tremolo &amp; Filter Sweeps</span></h2>
       <p class="slide-lead">Operating below the human hearing threshold (&lt;20 Hz), Low Frequency Oscillators (LFOs) provide cyclic, expressive acoustic movement.</p>
       <div class="cards-wrap">
-        <div class="grid-3"><div class="info-card highlight"><div class="card-thumb"><img src="/images/slides/the_synthesizer/lfo_modulation_routing_diagram.svg" alt="LFO Modulation Routing to VCO Pitch, VCF Cutoff, and VCA Gain" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_synthesizer/lfo_modulation_routing_diagram.svg', 'LFO Modulation Routing to VCO Pitch, VCF Cutoff, and VCA Gain')"></div>
+        <div class="grid-3"><div class="info-card highlight"><div class="card-thumb"><img src="images/slides/the_synthesizer/lfo_modulation_routing_diagram.svg" alt="LFO Modulation Routing to VCO Pitch, VCF Cutoff, and VCA Gain" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_synthesizer/lfo_modulation_routing_diagram.svg', 'LFO Modulation Routing to VCO Pitch, VCF Cutoff, and VCA Gain')"></div>
                <span class="spec-pill ao3">AO3 Modulation Theory</span>
                <h4>Three Primary Destinations</h4>
-               <p><strong>VCO Pitch:</strong> Musical pitch vibrato (5–7 Hz). <strong>VCF Cutoff:</strong> Wah-wah, rhythmic dubstep wobble, or filter sweeps. <strong>VCA Gain:</strong> Pulsing amplitude tremolo.</p></div><div class="info-card cyan-edge"><div class="card-thumb"><img src="/images/slides/the_synthesizer/subtractive_synthesis_signal_flow.svg" alt="Subtractive Synthesis Signal Path with LFO and Envelope Modulators" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_synthesizer/subtractive_synthesis_signal_flow.svg', 'Subtractive Synthesis Signal Path with LFO and Envelope Modulators')"></div>
+               <p><strong>VCO Pitch:</strong> Musical pitch vibrato (5–7 Hz). <strong>VCF Cutoff:</strong> Wah-wah, rhythmic dubstep wobble, or filter sweeps. <strong>VCA Gain:</strong> Pulsing amplitude tremolo.</p></div><div class="info-card cyan-edge"><div class="card-thumb"><img src="images/slides/the_synthesizer/subtractive_synthesis_signal_flow.svg" alt="Subtractive Synthesis Signal Path with LFO and Envelope Modulators" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_synthesizer/subtractive_synthesis_signal_flow.svg', 'Subtractive Synthesis Signal Path with LFO and Envelope Modulators')"></div>
                <span class="spec-pill ao3">AO3 Waveform Modulation</span>
                <h4>Pulse Width Modulation (PWM)</h4>
-               <p>Modulating a pulse wave's duty cycle via a slow triangle LFO creates a lush, natural ensemble chorusing effect without requiring multiple physical oscillator circuits.</p></div><div class="info-card acid-edge"><div class="card-thumb"><img src="/images/slides/the_synthesizer/roland_jupiter_8.jpg" alt="Roland Jupiter-8 Polyphonic Analog Synthesizer with Mod Lever" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_synthesizer/roland_jupiter_8.jpg', 'Roland Jupiter-8 Polyphonic Analog Synthesizer with Mod Lever')"></div>
+               <p>Modulating a pulse wave's duty cycle via a slow triangle LFO creates a lush, natural ensemble chorusing effect without requiring multiple physical oscillator circuits.</p></div><div class="info-card acid-edge"><div class="card-thumb"><img src="images/slides/the_synthesizer/roland_jupiter_8.jpg" alt="Roland Jupiter-8 Polyphonic Analog Synthesizer with Mod Lever" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_synthesizer/roland_jupiter_8.jpg', 'Roland Jupiter-8 Polyphonic Analog Synthesizer with Mod Lever')"></div>
                <span class="spec-pill ao4">AO4 Performance Control</span>
                <h4>Sample &amp; Hold (S&amp;H)</h4>
                <p>By sampling white noise at regular clock intervals, Sample &amp; Hold outputs random stepped voltages, creating the bubbling computer sci-fi effects heard in 1970s progressive rock.</p></div></div>
@@ -1128,14 +1298,14 @@
       <h2 class="slide-heading">Modular Era: <span>CV, Gate &amp; Patch Bay Logic</span></h2>
       <p class="slide-lead">Before microprocessors and digital standards, synthesizers relied on calibrated electrical voltages to control pitch and trigger timing.</p>
       <div class="cards-wrap">
-        <div class="grid-3"><div class="info-card highlight"><div class="card-thumb"><img src="/images/slides/the_synthesizer/cv_and_gate_signal_timing.svg" alt="Pitch CV 1V/Octave Steps and 5V Gate Pulse Timing Graph" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_synthesizer/cv_and_gate_signal_timing.svg', 'Pitch CV 1V/Octave Steps and 5V Gate Pulse Timing Graph')"></div>
+        <div class="grid-3"><div class="info-card highlight"><div class="card-thumb"><img src="images/slides/the_synthesizer/cv_and_gate_signal_timing.svg" alt="Pitch CV 1V/Octave Steps and 5V Gate Pulse Timing Graph" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_synthesizer/cv_and_gate_signal_timing.svg', 'Pitch CV 1V/Octave Steps and 5V Gate Pulse Timing Graph')"></div>
                <span class="spec-pill ao3">AO3 Pre-MIDI Standards</span>
                <h4>1 Volt Per Octave (1V/Oct)</h4>
-               <p>Established by Bob Moog: increasing DC voltage by exactly 1.0V doubles the oscillator frequency, raising the musical pitch by one chromatic octave (0.0833V per semitone).</p></div><div class="info-card cyan-edge"><div class="card-thumb"><img src="/images/slides/the_synthesizer/moog_modular_1973.jpg" alt="1973 Moog Modular Synthesizer System 55 with Patch Cords" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_synthesizer/moog_modular_1973.jpg', '1973 Moog Modular Synthesizer System 55 with Patch Cords')"></div>
+               <p>Established by Bob Moog: increasing DC voltage by exactly 1.0V doubles the oscillator frequency, raising the musical pitch by one chromatic octave (0.0833V per semitone).</p></div><div class="info-card cyan-edge"><div class="card-thumb"><img src="images/slides/the_synthesizer/moog_modular_1973.jpg" alt="1973 Moog Modular Synthesizer System 55 with Patch Cords" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_synthesizer/moog_modular_1973.jpg', '1973 Moog Modular Synthesizer System 55 with Patch Cords')"></div>
                <span class="spec-pill ao4">AO4 Historical Hardware</span>
                <h4>Gate &amp; Trigger Pulses</h4>
                <p>Pressing a key outputs a +5V DC Gate pulse held for the note's duration, triggering the ADSR envelopes. Releasing the key drops the gate to 0V, initiating the Release phase.</p>
-               <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('yEbaeLv-aOo', 'Donna Summer - I Feel Love (Giorgio Moroder Moog Modular Bassline)')">▶ Watch Moog Sequence</button><a href="https://www.youtube.com/watch?v=yEbaeLv-aOo" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><span>&#9654; YouTube</span></a></div></div><div class="info-card acid-edge"><div class="card-thumb"><img src="/images/slides/the_synthesizer/arp_2600_modular.jpg" alt="ARP 2600 Semi-Modular Synthesizer Normalled Sliders and Patch Jacks" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_synthesizer/arp_2600_modular.jpg', 'ARP 2600 Semi-Modular Synthesizer Normalled Sliders and Patch Jacks')"></div>
+               <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('yEbaeLv-aOo', 'Donna Summer - I Feel Love (Giorgio Moroder Moog Modular Bassline)')">▶ Watch Moog Sequence</button><a href="https://www.youtube.com/watch?v=yEbaeLv-aOo" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><span>&#9654; YouTube</span></a></div></div><div class="info-card acid-edge"><div class="card-thumb"><img src="images/slides/the_synthesizer/arp_2600_modular.jpg" alt="ARP 2600 Semi-Modular Synthesizer Normalled Sliders and Patch Jacks" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_synthesizer/arp_2600_modular.jpg', 'ARP 2600 Semi-Modular Synthesizer Normalled Sliders and Patch Jacks')"></div>
                <span class="spec-pill ao4">AO4 Workflow Innovation</span>
                <h4>Semi-Modular Normalization</h4>
                <p>The ARP 2600 (1971) hardwired common audio paths internally through slider switches, allowing instant playing while retaining patch jacks for overriding default connections.</p></div></div>
@@ -1146,13 +1316,13 @@
       <h2 class="slide-heading">The Minimoog Model D: <span>The First Gigging Icon</span></h2>
       <p class="slide-lead">The 1970 Minimoog moved synthesis from room-filling university laboratories onto festival stages and touring rigs.</p>
       <div class="cards-wrap">
-        <div class="grid-3"><div class="info-card highlight"><div class="card-thumb"><img src="/images/slides/the_synthesizer/minimoog_model_d_1975.jpg" alt="1975 Minimoog Model D Wooden Casing and Angled Control Panel" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_synthesizer/minimoog_model_d_1975.jpg', '1975 Minimoog Model D Wooden Casing and Angled Control Panel')"></div>
+        <div class="grid-3"><div class="info-card highlight"><div class="card-thumb"><img src="images/slides/the_synthesizer/minimoog_model_d_1975.jpg" alt="1975 Minimoog Model D Wooden Casing and Angled Control Panel" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_synthesizer/minimoog_model_d_1975.jpg', '1975 Minimoog Model D Wooden Casing and Angled Control Panel')"></div>
                <span class="spec-pill ao4">AO4 Landmark Milestone</span>
                <h4>Hardwired Normalization</h4>
-               <p>Engineered by Bill Hemsath and Bob Moog, the Model D eliminated messy patch cords in favor of dedicated rotary switches, offering 3 stable VCOs and roadworthy road portability.</p></div><div class="info-card cyan-edge"><div class="card-thumb"><img src="/images/slides/the_synthesizer/minimoog_architecture_schematic.svg" alt="Minimoog Architecture: 3 VCOs, External Feedback Loop, 24dB Ladder Filter" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_synthesizer/minimoog_architecture_schematic.svg', 'Minimoog Architecture: 3 VCOs, External Feedback Loop, 24dB Ladder Filter')"></div>
+               <p>Engineered by Bill Hemsath and Bob Moog, the Model D eliminated messy patch cords in favor of dedicated rotary switches, offering 3 stable VCOs and roadworthy road portability.</p></div><div class="info-card cyan-edge"><div class="card-thumb"><img src="images/slides/the_synthesizer/minimoog_architecture_schematic.svg" alt="Minimoog Architecture: 3 VCOs, External Feedback Loop, 24dB Ladder Filter" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_synthesizer/minimoog_architecture_schematic.svg', 'Minimoog Architecture: 3 VCOs, External Feedback Loop, 24dB Ladder Filter')"></div>
                <span class="spec-pill ao3">AO3 Production Technique</span>
                <h4>The Headphone Feedback Trick</h4>
-               <p>Patching the headphone output back into the external audio input overrode the input buffer, overdriving the 24dB ladder filter to produce aggressive, harmonically saturated bass grit.</p></div><div class="info-card acid-edge"><div class="card-thumb"><img src="/images/slides/the_synthesizer/synthesis_exam_revision_matrix.svg" alt="Minimoog Case Studies: Stevie Wonder, Kraftwerk, Gary Numan" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_synthesizer/synthesis_exam_revision_matrix.svg', 'Minimoog Case Studies: Stevie Wonder, Kraftwerk, Gary Numan')"></div>
+               <p>Patching the headphone output back into the external audio input overrode the input buffer, overdriving the 24dB ladder filter to produce aggressive, harmonically saturated bass grit.</p></div><div class="info-card acid-edge"><div class="card-thumb"><img src="images/slides/the_synthesizer/synthesis_exam_revision_matrix.svg" alt="Minimoog Case Studies: Stevie Wonder, Kraftwerk, Gary Numan" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_synthesizer/synthesis_exam_revision_matrix.svg', 'Minimoog Case Studies: Stevie Wonder, Kraftwerk, Gary Numan')"></div>
                <span class="spec-pill ao4">AO4 Iconic Exemplars</span>
                <h4>Stevie Wonder &amp; TONTO</h4>
                <p>Stevie Wonder (<em>Living for the City</em>, <em>Superstition</em>) and Gary Numan (<em>Are 'Friends' Electric?</em>) established the Minimoog as the undisputed monarch of synth bass.</p>
@@ -1164,13 +1334,13 @@
       <h2 class="slide-heading">Prophet-5 (1978): <span>Microprocessor Patch Memory</span></h2>
       <p class="slide-lead">Before 1978, synthesizers were strictly monophonic. Sequential Circuits solved two massive problems: playing chords and saving sounds.</p>
       <div class="cards-wrap">
-        <div class="grid-3"><div class="info-card highlight"><div class="card-thumb"><img src="/images/slides/the_synthesizer/sequential_prophet_5.jpg" alt="Sequential Circuits Prophet-5 Polyphonic Synthesizer with Wooden Trim" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_synthesizer/sequential_prophet_5.jpg', 'Sequential Circuits Prophet-5 Polyphonic Synthesizer with Wooden Trim')"></div>
+        <div class="grid-3"><div class="info-card highlight"><div class="card-thumb"><img src="images/slides/the_synthesizer/sequential_prophet_5.jpg" alt="Sequential Circuits Prophet-5 Polyphonic Synthesizer with Wooden Trim" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_synthesizer/sequential_prophet_5.jpg', 'Sequential Circuits Prophet-5 Polyphonic Synthesizer with Wooden Trim')"></div>
                <span class="spec-pill ao4">AO4 Landmark Hardware</span>
                <h4>5-Voice Polyphony</h4>
-               <p>Dave Smith packed 10 analog VCOs, 5 VCFs, and 10 ADSR envelopes into five internal voice cards, allowing keyboardists to play full 5-note harmonic chords for the first time.</p></div><div class="info-card cyan-edge"><div class="card-thumb"><img src="/images/slides/the_synthesizer/monophonic_vs_polyphonic_architecture.svg" alt="Voice Card Architecture: Single Voice vs 5-Voice Allocation & Z80 CPU" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_synthesizer/monophonic_vs_polyphonic_architecture.svg', 'Voice Card Architecture: Single Voice vs 5-Voice Allocation & Z80 CPU')"></div>
+               <p>Dave Smith packed 10 analog VCOs, 5 VCFs, and 10 ADSR envelopes into five internal voice cards, allowing keyboardists to play full 5-note harmonic chords for the first time.</p></div><div class="info-card cyan-edge"><div class="card-thumb"><img src="images/slides/the_synthesizer/monophonic_vs_polyphonic_architecture.svg" alt="Voice Card Architecture: Single Voice vs 5-Voice Allocation & Z80 CPU" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_synthesizer/monophonic_vs_polyphonic_architecture.svg', 'Voice Card Architecture: Single Voice vs 5-Voice Allocation & Z80 CPU')"></div>
                <span class="spec-pill ao3">AO3 Digital Innovation</span>
                <h4>Zilog Z80 Patch Storage</h4>
-               <p>An onboard microprocessor digitized knob positions into memory, allowing musicians to store 40 editable patches and recall them instantly on stage at the press of a button.</p></div><div class="info-card acid-edge"><div class="card-thumb"><img src="/images/slides/the_synthesizer/roland_jupiter_8.jpg" alt="Roland Jupiter-8 8-Voice Polyphonic Analog Synthesizer (1981)" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_synthesizer/roland_jupiter_8.jpg', 'Roland Jupiter-8 8-Voice Polyphonic Analog Synthesizer (1981)')"></div>
+               <p>An onboard microprocessor digitized knob positions into memory, allowing musicians to store 40 editable patches and recall them instantly on stage at the press of a button.</p></div><div class="info-card acid-edge"><div class="card-thumb"><img src="images/slides/the_synthesizer/roland_jupiter_8.jpg" alt="Roland Jupiter-8 8-Voice Polyphonic Analog Synthesizer (1981)" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_synthesizer/roland_jupiter_8.jpg', 'Roland Jupiter-8 8-Voice Polyphonic Analog Synthesizer (1981)')"></div>
                <span class="spec-pill ao4">AO4 Polyphonic Golden Era</span>
                <h4>Kraftwerk &amp; 1980s Pop</h4>
                <p>The Prophet-5 and Roland Jupiter-8 powered the signature synth-brass and lush string pads that replaced rock guitars in early electronic and new wave music.</p>
@@ -1182,13 +1352,13 @@
       <h2 class="slide-heading">Yamaha DX7 (1983): <span>The Digital Sound of the 80s</span></h2>
       <p class="slide-lead">Frequency Modulation (FM) synthesis abandoned analog filters completely, ushering in the digital era with unprecedented clarity and punch.</p>
       <div class="cards-wrap">
-        <div class="grid-3"><div class="info-card highlight"><div class="card-thumb"><img src="/images/slides/the_synthesizer/yamaha_dx7_synthesizer.jpg" alt="Yamaha DX7 Digital Synthesizer Combined Diagonal and Top View" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_synthesizer/yamaha_dx7_synthesizer.jpg', 'Yamaha DX7 Digital Synthesizer Combined Diagonal and Top View')"></div>
+        <div class="grid-3"><div class="info-card highlight"><div class="card-thumb"><img src="images/slides/the_synthesizer/yamaha_dx7_synthesizer.jpg" alt="Yamaha DX7 Digital Synthesizer Combined Diagonal and Top View" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_synthesizer/yamaha_dx7_synthesizer.jpg', 'Yamaha DX7 Digital Synthesizer Combined Diagonal and Top View')"></div>
                <span class="spec-pill ao4">AO4 Commercial Juggernaut</span>
                <h4>The DX7 Phenomenon</h4>
-               <p>Selling over 200,000 units, the DX7 replaced analog warmth with crisp, glass-like digital clarity, dominating 1980s pop, power ballads, and commercial broadcasting.</p></div><div class="info-card cyan-edge"><div class="card-thumb"><img src="/images/slides/the_synthesizer/fm_synthesis_carrier_modulator_diagram.svg" alt="FM Synthesis Operator Architecture: Modulator Modulating Carrier Frequency" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_synthesizer/fm_synthesis_carrier_modulator_diagram.svg', 'FM Synthesis Operator Architecture: Modulator Modulating Carrier Frequency')"></div>
+               <p>Selling over 200,000 units, the DX7 replaced analog warmth with crisp, glass-like digital clarity, dominating 1980s pop, power ballads, and commercial broadcasting.</p></div><div class="info-card cyan-edge"><div class="card-thumb"><img src="images/slides/the_synthesizer/fm_synthesis_carrier_modulator_diagram.svg" alt="FM Synthesis Operator Architecture: Modulator Modulating Carrier Frequency" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_synthesizer/fm_synthesis_carrier_modulator_diagram.svg', 'FM Synthesis Operator Architecture: Modulator Modulating Carrier Frequency')"></div>
                <span class="spec-pill ao3">AO3 Algorithmic DSP</span>
                <h4>6 Operators &amp; 32 Algorithms</h4>
-               <p>Instead of filtering, 6 sine wave operators modulate each other's frequency at audio rates. The routing algorithm dictates whether an operator acts as a <strong>Carrier</strong> or <strong>Modulator</strong>.</p></div><div class="info-card acid-edge"><div class="card-thumb"><img src="/images/slides/the_synthesizer/synthesis_exam_revision_matrix.svg" alt="DX7 Preset 11 E.Piano 1 Landmark Tracks: Whitney Houston, Chicago" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_synthesizer/synthesis_exam_revision_matrix.svg', 'DX7 Preset 11 E.Piano 1 Landmark Tracks: Whitney Houston, Chicago')"></div>
+               <p>Instead of filtering, 6 sine wave operators modulate each other's frequency at audio rates. The routing algorithm dictates whether an operator acts as a <strong>Carrier</strong> or <strong>Modulator</strong>.</p></div><div class="info-card acid-edge"><div class="card-thumb"><img src="images/slides/the_synthesizer/synthesis_exam_revision_matrix.svg" alt="DX7 Preset 11 E.Piano 1 Landmark Tracks: Whitney Houston, Chicago" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_synthesizer/synthesis_exam_revision_matrix.svg', 'DX7 Preset 11 E.Piano 1 Landmark Tracks: Whitney Houston, Chicago')"></div>
                <span class="spec-pill ao4">AO4 Signature Timbres</span>
                <h4>A-ha &amp; Digital Slap Bass</h4>
                <p>The bright, punchy DX7 powered iconic lead riffs like A-ha's <em>Take On Me</em> and provided pristine digital bells, glassy tines, and percussive slap bass lines.</p>
@@ -1200,13 +1370,13 @@
       <h2 class="slide-heading">MIDI 1.0 (1983): <span>The Digital Communication Standard</span></h2>
       <p class="slide-lead">Co-developed by Dave Smith (Sequential) and Ikutaro Kakehashi (Roland), MIDI revolutionized studio connectivity.</p>
       <div class="cards-wrap">
-        <div class="grid-3"><div class="info-card highlight"><div class="card-thumb"><img src="/images/slides/the_synthesizer/midi_5pin_cable_ports.jpg" alt="Classic 5-Pin DIN MIDI Ports: In, Out, and Thru with Cable" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_synthesizer/midi_5pin_cable_ports.jpg', 'Classic 5-Pin DIN MIDI Ports: In, Out, and Thru with Cable')"></div>
+        <div class="grid-3"><div class="info-card highlight"><div class="card-thumb"><img src="images/slides/the_synthesizer/midi_5pin_cable_ports.jpg" alt="Classic 5-Pin DIN MIDI Ports: In, Out, and Thru with Cable" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_synthesizer/midi_5pin_cable_ports.jpg', 'Classic 5-Pin DIN MIDI Ports: In, Out, and Thru with Cable')"></div>
                <span class="spec-pill ao4">AO4 Universal Protocol</span>
                <h4>5-Pin DIN &amp; 31.25 kbaud</h4>
-               <p>MIDI transmits digital performance instructions (not audio signals) over a 5-pin DIN cable at 31.25 kbaud, allowing hardware from rival manufacturers to communicate flawlessly.</p></div><div class="info-card cyan-edge"><div class="card-thumb"><img src="/images/slides/the_synthesizer/midi_protocol_signal_flow_diagram.svg" alt="MIDI Daisy Chain: Out to In to Thru and 3-Byte Message Breakdown" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_synthesizer/midi_protocol_signal_flow_diagram.svg', 'MIDI Daisy Chain: Out to In to Thru and 3-Byte Message Breakdown')"></div>
+               <p>MIDI transmits digital performance instructions (not audio signals) over a 5-pin DIN cable at 31.25 kbaud, allowing hardware from rival manufacturers to communicate flawlessly.</p></div><div class="info-card cyan-edge"><div class="card-thumb"><img src="images/slides/the_synthesizer/midi_protocol_signal_flow_diagram.svg" alt="MIDI Daisy Chain: Out to In to Thru and 3-Byte Message Breakdown" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_synthesizer/midi_protocol_signal_flow_diagram.svg', 'MIDI Daisy Chain: Out to In to Thru and 3-Byte Message Breakdown')"></div>
                <span class="spec-pill ao3">AO3 Serial Architecture</span>
                <h4>Note On, Pitch &amp; Velocity</h4>
-               <p>Standard messages comprise 3 bytes: <strong>Status Byte</strong> (Note On/Channel), <strong>Data Byte 1</strong> (Note Pitch 0–127), and <strong>Data Byte 2</strong> (Key Velocity 0–127).</p></div><div class="info-card acid-edge"><div class="card-thumb"><img src="/images/slides/the_synthesizer/fairlight_cmi_sampler.jpg" alt="Fairlight CMI Digital Audio Sampler Workstation with CRT Screen" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_synthesizer/fairlight_cmi_sampler.jpg', 'Fairlight CMI Digital Audio Sampler Workstation with CRT Screen')"></div>
+               <p>Standard messages comprise 3 bytes: <strong>Status Byte</strong> (Note On/Channel), <strong>Data Byte 1</strong> (Note Pitch 0–127), and <strong>Data Byte 2</strong> (Key Velocity 0–127).</p></div><div class="info-card acid-edge"><div class="card-thumb"><img src="images/slides/the_synthesizer/fairlight_cmi_sampler.jpg" alt="Fairlight CMI Digital Audio Sampler Workstation with CRT Screen" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_synthesizer/fairlight_cmi_sampler.jpg', 'Fairlight CMI Digital Audio Sampler Workstation with CRT Screen')"></div>
                <span class="spec-pill ao4">AO4 The Computer Studio</span>
                <h4>Hardware &amp; Computer Sequencing</h4>
                <p>MIDI enabled multi-timbral computer sequencers (Atari ST, Cubase, Logic, Roland MC-500) to orchestrate entire synth ensembles, drum machines, and samplers with millisecond timing.</p></div></div>
@@ -1217,13 +1387,13 @@
       <h2 class="slide-heading">Roland TB-303: <span>The Machine That Defined a Genre</span></h2>
       <p class="slide-lead">Designed in 1982 as a practice bass accompanist for guitarists, the TB-303 failed commercially before igniting the global Acid House revolution.</p>
       <div class="cards-wrap">
-        <div class="grid-3"><div class="info-card highlight"><div class="card-thumb"><img src="/images/slides/the_synthesizer/roland_tb_303_panel.jpg" alt="Roland TB-303 Front Panel Knobs: Tuning, Cutoff, Resonance, Env Mod, Decay, Accent" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_synthesizer/roland_tb_303_panel.jpg', 'Roland TB-303 Front Panel Knobs: Tuning, Cutoff, Resonance, Env Mod, Decay, Accent')"></div>
+        <div class="grid-3"><div class="info-card highlight"><div class="card-thumb"><img src="images/slides/the_synthesizer/roland_tb_303_panel.jpg" alt="Roland TB-303 Front Panel Knobs: Tuning, Cutoff, Resonance, Env Mod, Decay, Accent" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_synthesizer/roland_tb_303_panel.jpg', 'Roland TB-303 Front Panel Knobs: Tuning, Cutoff, Resonance, Env Mod, Decay, Accent')"></div>
                <span class="spec-pill ao4">AO4 Underground Icon</span>
                <h4>Second-Hand Resurgence</h4>
-               <p>Discarded in pawn shops for under £50, Chicago producers like DJ Pierre (Phuture) picked up the 303 and experimented with turning knobs while running the internal 16-step sequencer.</p></div><div class="info-card cyan-edge"><div class="card-thumb"><img src="/images/slides/the_synthesizer/tb303_acid_synthesis_schematic.svg" alt="TB-303 18dB Diode Ladder Filter, Portamento Slide, and Accent Circuit" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_synthesizer/tb303_acid_synthesis_schematic.svg', 'TB-303 18dB Diode Ladder Filter, Portamento Slide, and Accent Circuit')"></div>
+               <p>Discarded in pawn shops for under £50, Chicago producers like DJ Pierre (Phuture) picked up the 303 and experimented with turning knobs while running the internal 16-step sequencer.</p></div><div class="info-card cyan-edge"><div class="card-thumb"><img src="images/slides/the_synthesizer/tb303_acid_synthesis_schematic.svg" alt="TB-303 18dB Diode Ladder Filter, Portamento Slide, and Accent Circuit" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_synthesizer/tb303_acid_synthesis_schematic.svg', 'TB-303 18dB Diode Ladder Filter, Portamento Slide, and Accent Circuit')"></div>
                <span class="spec-pill ao3">AO3 Squelch &amp; Glide Circuit</span>
                <h4>18dB Diode Filter &amp; Slide</h4>
-               <p>The 18 dB/octave (3-pole) diode ladder filter produces an aggressive, squelchy resonance distortion. The <strong>Slide</strong> circuit glides pitch smoothly between notes without retriggering envelopes.</p></div><div class="info-card acid-edge"><div class="card-thumb"><img src="/images/slides/the_synthesizer/synthesis_exam_revision_matrix.svg" alt="Acid House Tracks: Phuture Acid Tracks, Josh Wink Higher State of Consciousness" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_synthesizer/synthesis_exam_revision_matrix.svg', 'Acid House Tracks: Phuture Acid Tracks, Josh Wink Higher State of Consciousness')"></div>
+               <p>The 18 dB/octave (3-pole) diode ladder filter produces an aggressive, squelchy resonance distortion. The <strong>Slide</strong> circuit glides pitch smoothly between notes without retriggering envelopes.</p></div><div class="info-card acid-edge"><div class="card-thumb"><img src="images/slides/the_synthesizer/synthesis_exam_revision_matrix.svg" alt="Acid House Tracks: Phuture Acid Tracks, Josh Wink Higher State of Consciousness" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_synthesizer/synthesis_exam_revision_matrix.svg', 'Acid House Tracks: Phuture Acid Tracks, Josh Wink Higher State of Consciousness')"></div>
                <span class="spec-pill ao4">AO4 Landmark Record</span>
                <h4>Chicago Acid House Genesis</h4>
                <p>Phuture's <em>Acid Tracks</em> (1987) and Frankie Knuckles established the TB-303 as the defining instrument of late-80s Chicago house and UK rave culture.</p>
@@ -1235,14 +1405,14 @@
       <h2 class="slide-heading">Wavetable &amp; Sampling: <span>Evolving Digital Textures</span></h2>
       <p class="slide-lead">Beyond subtractive and FM synthesis, alternative sound generation techniques expanded the sonic palette in the late 1970s and 1980s.</p>
       <div class="cards-wrap">
-        <div class="grid-3"><div class="info-card highlight"><div class="card-thumb"><img src="/images/slides/the_synthesizer/ppg_wave_synthesizer.jpg" alt="PPG Wave 2.2 Blue Metal Panel Wavetable Synthesizer" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_synthesizer/ppg_wave_synthesizer.jpg', 'PPG Wave 2.2 Blue Metal Panel Wavetable Synthesizer')"></div>
+        <div class="grid-3"><div class="info-card highlight"><div class="card-thumb"><img src="images/slides/the_synthesizer/ppg_wave_synthesizer.jpg" alt="PPG Wave 2.2 Blue Metal Panel Wavetable Synthesizer" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_synthesizer/ppg_wave_synthesizer.jpg', 'PPG Wave 2.2 Blue Metal Panel Wavetable Synthesizer')"></div>
                <span class="spec-pill ao4">AO4 Hybrid Synthesis</span>
                <h4>PPG Wave (1981) &amp; Wavetables</h4>
-               <p>Engineered by Wolfgang Palm, wavetable synthesis scans through tables of single-cycle digital waveforms, feeding into warm analog VCF filters (Depeche Mode, Tears for Fears).</p></div><div class="info-card cyan-edge"><div class="card-thumb"><img src="/images/slides/the_synthesizer/wavetable_synthesis_interpolation.svg" alt="Wavetable Interpolation Diagram: Morphing Between Sine, Triangle, Saw, Pulse" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_synthesizer/wavetable_synthesis_interpolation.svg', 'Wavetable Interpolation Diagram: Morphing Between Sine, Triangle, Saw, Pulse')"></div>
+               <p>Engineered by Wolfgang Palm, wavetable synthesis scans through tables of single-cycle digital waveforms, feeding into warm analog VCF filters (Depeche Mode, Tears for Fears).</p></div><div class="info-card cyan-edge"><div class="card-thumb"><img src="images/slides/the_synthesizer/wavetable_synthesis_interpolation.svg" alt="Wavetable Interpolation Diagram: Morphing Between Sine, Triangle, Saw, Pulse" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_synthesizer/wavetable_synthesis_interpolation.svg', 'Wavetable Interpolation Diagram: Morphing Between Sine, Triangle, Saw, Pulse')"></div>
                <span class="spec-pill ao3">AO3 Spectral Morphing</span>
                <h4>Frame Interpolation &amp; The Hoover</h4>
                <p>Modulating wavetable position or utilizing Pulse Width Modulation (PWM) with heavy chorusing created iconic aggressive rave sounds (e.g. Roland Alpha Juno Hoover sound).</p>
-               <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('wmin5WkOuPw', 'The Prodigy - Firestarter (Alpha Juno PWM / Rave Synthesis)')">▶ Watch Rave Sound</button><a href="https://www.youtube.com/watch?v=wmin5WkOuPw" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><span>&#9654; YouTube</span></a></div></div><div class="info-card acid-edge"><div class="card-thumb"><img src="/images/slides/the_synthesizer/fairlight_cmi_sampler.jpg" alt="Fairlight CMI Series IIx Keyboard with Lightpen and CRT Display" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_synthesizer/fairlight_cmi_sampler.jpg', 'Fairlight CMI Series IIx Keyboard with Lightpen and CRT Display')"></div>
+               <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('wmin5WkOuPw', 'The Prodigy - Firestarter (Alpha Juno PWM / Rave Synthesis)')">▶ Watch Rave Sound</button><a href="https://www.youtube.com/watch?v=wmin5WkOuPw" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><span>&#9654; YouTube</span></a></div></div><div class="info-card acid-edge"><div class="card-thumb"><img src="images/slides/the_synthesizer/fairlight_cmi_sampler.jpg" alt="Fairlight CMI Series IIx Keyboard with Lightpen and CRT Display" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_synthesizer/fairlight_cmi_sampler.jpg', 'Fairlight CMI Series IIx Keyboard with Lightpen and CRT Display')"></div>
                <span class="spec-pill ao4">AO4 Digital Sampling</span>
                <h4>Sampling &amp; Granular (Fairlight)</h4>
                <p>The Australian Fairlight CMI (1979) and E-mu Emulator recorded real acoustic instruments into RAM, bridging synthesis and realistic orchestral hits (Peter Gabriel, Kate Bush, Trevor Horn).</p></div></div>
@@ -1253,14 +1423,14 @@
       <h2 class="slide-heading">Listening Analysis: <span>Landmark Synthesis Productions</span></h2>
       <p class="slide-lead">Analyzing synthesis techniques in iconic recordings is essential for achieving top marks in Edexcel Component 3 Section B listening essays.</p>
       <div class="cards-wrap">
-        <div class="grid-3"><div class="info-card highlight"><div class="card-thumb"><img src="/images/slides/the_synthesizer/minimoog_model_d_1975.jpg" alt="Minimoog Model D used for Bass in Michael Jackson Thriller & Stevie Wonder" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_synthesizer/minimoog_model_d_1975.jpg', 'Minimoog Model D used for Bass in Michael Jackson Thriller & Stevie Wonder')"></div>
+        <div class="grid-3"><div class="info-card highlight"><div class="card-thumb"><img src="images/slides/the_synthesizer/minimoog_model_d_1975.jpg" alt="Minimoog Model D used for Bass in Michael Jackson Thriller & Stevie Wonder" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_synthesizer/minimoog_model_d_1975.jpg', 'Minimoog Model D used for Bass in Michael Jackson Thriller & Stevie Wonder')"></div>
                <span class="spec-pill ao4">AO4 1970s &amp; 80s Funk/Pop</span>
                <h4>Michael Jackson &amp; Quincy Jones</h4>
                <p>Michael Jackson's <em>Billie Jean</em> / <em>Thriller</em> (produced by Quincy Jones) featured dual-tracked Minimoog synth bass layered with Roland Jupiter-8 brass pads for unrivaled low-end punch.</p>
-               <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('Zi_XLOBDo_Y', 'Michael Jackson - Billie Jean (Minimoog Bass & Jupiter-8 Pads)')">▶ Watch Billie Jean</button><a href="https://www.youtube.com/watch?v=Zi_XLOBDo_Y" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><span>&#9654; YouTube</span></a></div></div><div class="info-card cyan-edge"><div class="card-thumb"><img src="/images/slides/the_synthesizer/sequential_prophet_5.jpg" alt="Prophet-5 used by Kraftwerk, New Order, and Phil Collins" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_synthesizer/sequential_prophet_5.jpg', 'Prophet-5 used by Kraftwerk, New Order, and Phil Collins')"></div>
+               <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('Zi_XLOBDo_Y', 'Michael Jackson - Billie Jean (Minimoog Bass & Jupiter-8 Pads)')">▶ Watch Billie Jean</button><a href="https://www.youtube.com/watch?v=Zi_XLOBDo_Y" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><span>&#9654; YouTube</span></a></div></div><div class="info-card cyan-edge"><div class="card-thumb"><img src="images/slides/the_synthesizer/sequential_prophet_5.jpg" alt="Prophet-5 used by Kraftwerk, New Order, and Phil Collins" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_synthesizer/sequential_prophet_5.jpg', 'Prophet-5 used by Kraftwerk, New Order, and Phil Collins')"></div>
                <span class="spec-pill ao4">AO4 Synth-Pop &amp; New Wave</span>
                <h4>Gary Numan &amp; Kraftwerk</h4>
-               <p>Gary Numan's <em>Are 'Friends' Electric?</em> (1979) and Kraftwerk's <em>The Robots</em> (1978) established electronic synthesizers as commercial lead instruments over guitars.</p></div><div class="info-card acid-edge"><div class="card-thumb"><img src="/images/slides/the_synthesizer/yamaha_dx7_synthesizer.jpg" alt="Yamaha DX7 used on A-ha Take On Me and 1980s Pop Ballads" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_synthesizer/yamaha_dx7_synthesizer.jpg', 'Yamaha DX7 used on A-ha Take On Me and 1980s Pop Ballads')"></div>
+               <p>Gary Numan's <em>Are 'Friends' Electric?</em> (1979) and Kraftwerk's <em>The Robots</em> (1978) established electronic synthesizers as commercial lead instruments over guitars.</p></div><div class="info-card acid-edge"><div class="card-thumb"><img src="images/slides/the_synthesizer/yamaha_dx7_synthesizer.jpg" alt="Yamaha DX7 used on A-ha Take On Me and 1980s Pop Ballads" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_synthesizer/yamaha_dx7_synthesizer.jpg', 'Yamaha DX7 used on A-ha Take On Me and 1980s Pop Ballads')"></div>
                <span class="spec-pill ao4">AO4 1980s Digital Pop</span>
                <h4>A-ha &#8211; "Take On Me" (1984)</h4>
                <p>The infectious lead hook blends the Yamaha DX7 and Roland Juno-60, pairing digital FM transient brightness with warm analog chorused body for maximum radio presence.</p></div></div>
@@ -1271,14 +1441,14 @@
       <h2 class="slide-heading">Component 3 Strategy: <span>Question 5 &amp; Essay High Marks</span></h2>
       <p class="slide-lead">Master the specific examiner expectations, technical terminology, and structured comparisons required for 8, 10, and 12-mark questions.</p>
       <div class="cards-wrap">
-        <div class="grid-3"><div class="info-card highlight"><div class="card-thumb"><img src="/images/slides/the_synthesizer/synthesis_exam_revision_matrix.svg" alt="Syllabus Matrix Summary for Question 5 Exam Prep" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_synthesizer/synthesis_exam_revision_matrix.svg', 'Syllabus Matrix Summary for Question 5 Exam Prep')"></div>
+        <div class="grid-3"><div class="info-card highlight"><div class="card-thumb"><img src="images/slides/the_synthesizer/synthesis_exam_revision_matrix.svg" alt="Syllabus Matrix Summary for Question 5 Exam Prep" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_synthesizer/synthesis_exam_revision_matrix.svg', 'Syllabus Matrix Summary for Question 5 Exam Prep')"></div>
                <span class="spec-pill ao3">AO3 Technical Terminology</span>
                <h4>Precision Technical Keywords</h4>
-               <p>Always state exact parameters: specify <em>24 dB/octave low-pass cutoff</em>, <em>Q resonance emphasis</em>, <em>ADSR attack time</em>, <em>LFO modulation depth</em>, and <em>carrier/modulator ratio</em>.</p></div><div class="info-card cyan-edge"><div class="card-thumb"><img src="/images/slides/the_synthesizer/envelope_vca_vs_vcf_comparison.svg" alt="Comparison of VCF Filter Envelope vs VCA Amplifier Envelope" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_synthesizer/envelope_vca_vs_vcf_comparison.svg', 'Comparison of VCF Filter Envelope vs VCA Amplifier Envelope')"></div>
+               <p>Always state exact parameters: specify <em>24 dB/octave low-pass cutoff</em>, <em>Q resonance emphasis</em>, <em>ADSR attack time</em>, <em>LFO modulation depth</em>, and <em>carrier/modulator ratio</em>.</p></div><div class="info-card cyan-edge"><div class="card-thumb"><img src="images/slides/the_synthesizer/envelope_vca_vs_vcf_comparison.svg" alt="Comparison of VCF Filter Envelope vs VCA Amplifier Envelope" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_synthesizer/envelope_vca_vs_vcf_comparison.svg', 'Comparison of VCF Filter Envelope vs VCA Amplifier Envelope')"></div>
                <span class="spec-pill ao3">AO3 Comparative Analysis</span>
                <h4>Hands-On Patch Design</h4>
                <p>Step-by-step masterclass demonstrating how filter envelope decay, resonance, and detuned dual oscillators shape signature dance and pop basslines.</p>
-               <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('olkaItQbSZ4', 'MTG Synthesis Lesson 2: Reconstructing Iconic Dance Bass')">▶ Watch Bass Design</button><a href="https://www.youtube.com/watch?v=olkaItQbSZ4" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><span>&#9654; YouTube</span></a></div></div><div class="info-card acid-edge"><div class="card-thumb"><img src="/images/slides/the_synthesizer/midi_protocol_signal_flow_diagram.svg" alt="MIDI Protocol Diagram for Studio Production Essay Points" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_synthesizer/midi_protocol_signal_flow_diagram.svg', 'MIDI Protocol Diagram for Studio Production Essay Points')"></div>
+               <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('olkaItQbSZ4', 'MTG Synthesis Lesson 2: Reconstructing Iconic Dance Bass')">▶ Watch Bass Design</button><a href="https://www.youtube.com/watch?v=olkaItQbSZ4" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><span>&#9654; YouTube</span></a></div></div><div class="info-card acid-edge"><div class="card-thumb"><img src="images/slides/the_synthesizer/midi_protocol_signal_flow_diagram.svg" alt="MIDI Protocol Diagram for Studio Production Essay Points" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_synthesizer/midi_protocol_signal_flow_diagram.svg', 'MIDI Protocol Diagram for Studio Production Essay Points')"></div>
                <span class="spec-pill ao4">AO4 Workflow Transformation</span>
                <h4>Quantization &amp; Sequencing Context</h4>
                <p>Explain how MIDI protocol allowed hardware sequencing, note quantization, velocity layering, and multi-timbral studio arrangements without multitrack tape generation loss.</p></div></div>
@@ -1289,14 +1459,14 @@
       <h2 class="slide-heading">Synthesis Mastery: <span>Final Revision Checklist</span></h2>
       <p class="slide-lead">Review the core syllabus milestones, technical mechanics, and key listening examples before sitting your examination.</p>
       <div class="cards-wrap">
-        <div class="grid-3"><div class="info-card highlight"><div class="card-thumb"><img src="/images/slides/the_synthesizer/subtractive_synthesis_signal_flow.svg" alt="Complete Subtractive Synthesis Signal Flow Overview" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_synthesizer/subtractive_synthesis_signal_flow.svg', 'Complete Subtractive Synthesis Signal Flow Overview')"></div>
+        <div class="grid-3"><div class="info-card highlight"><div class="card-thumb"><img src="images/slides/the_synthesizer/subtractive_synthesis_signal_flow.svg" alt="Complete Subtractive Synthesis Signal Flow Overview" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_synthesizer/subtractive_synthesis_signal_flow.svg', 'Complete Subtractive Synthesis Signal Flow Overview')"></div>
                <span class="spec-pill ao3">Core Signal Flow</span>
                <h4>Signal Flow Checklist</h4>
                <p>&#9745; VCO: Saw, Square/Pulse, Triangle, Sine<br/>&#9745; VCF: Low-pass Cutoff &amp; Resonance<br/>&#9745; VCA: Amplitude Level<br/>&#9745; ADSR: Attack, Decay, Sustain, Release<br/>&#9745; LFO: Sub-audible pitch, filter &amp; amp modulation</p>
-               <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('PTxVKjsXPOs', 'MTG Synthesis Lesson 3: Synthesizer Lead & Riff Programming')">▶ Watch Lead Programming</button><a href="https://www.youtube.com/watch?v=PTxVKjsXPOs" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><span>&#9654; YouTube</span></a></div></div><div class="info-card cyan-edge"><div class="card-thumb"><img src="/images/slides/the_synthesizer/fm_synthesis_carrier_modulator_diagram.svg" alt="FM Operators and Carrier Modulator Architecture" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_synthesizer/fm_synthesis_carrier_modulator_diagram.svg', 'FM Operators and Carrier Modulator Architecture')"></div>
+               <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('PTxVKjsXPOs', 'MTG Synthesis Lesson 3: Synthesizer Lead & Riff Programming')">▶ Watch Lead Programming</button><a href="https://www.youtube.com/watch?v=PTxVKjsXPOs" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><span>&#9654; YouTube</span></a></div></div><div class="info-card cyan-edge"><div class="card-thumb"><img src="images/slides/the_synthesizer/fm_synthesis_carrier_modulator_diagram.svg" alt="FM Operators and Carrier Modulator Architecture" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_synthesizer/fm_synthesis_carrier_modulator_diagram.svg', 'FM Operators and Carrier Modulator Architecture')"></div>
                <span class="spec-pill ao3">FM &amp; Digital</span>
                <h4>FM &amp; MIDI Checklist</h4>
-               <p>&#9745; John Chowning Stanford algorithm<br/>&#9745; 6 Sine Operators &amp; 32 Algorithms<br/>&#9745; Carrier (output) vs Modulator (timbre)<br/>&#9745; MIDI 1.0 (1983): 31.25 kbaud, 5-pin DIN<br/>&#9745; Status Byte + 2 Data Bytes (Pitch, Velocity)</p></div><div class="info-card acid-edge"><div class="card-thumb"><img src="/images/slides/the_synthesizer/synthesis_exam_revision_matrix.svg" alt="Key Models: Moog, Prophet-5, DX7, TB-303, Jupiter-8" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_synthesizer/synthesis_exam_revision_matrix.svg', 'Key Models: Moog, Prophet-5, DX7, TB-303, Jupiter-8')"></div>
+               <p>&#9745; John Chowning Stanford algorithm<br/>&#9745; 6 Sine Operators &amp; 32 Algorithms<br/>&#9745; Carrier (output) vs Modulator (timbre)<br/>&#9745; MIDI 1.0 (1983): 31.25 kbaud, 5-pin DIN<br/>&#9745; Status Byte + 2 Data Bytes (Pitch, Velocity)</p></div><div class="info-card acid-edge"><div class="card-thumb"><img src="images/slides/the_synthesizer/synthesis_exam_revision_matrix.svg" alt="Key Models: Moog, Prophet-5, DX7, TB-303, Jupiter-8" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_synthesizer/synthesis_exam_revision_matrix.svg', 'Key Models: Moog, Prophet-5, DX7, TB-303, Jupiter-8')"></div>
                <span class="spec-pill ao4">Hardware Timeline</span>
                <h4>Key Hardware Timeline</h4>
                <p>&#8226; 1968: Moog Modular (Switched-On Bach)<br/>&#8226; 1970: Minimoog Model D (Normalization)<br/>&#8226; 1978: Prophet-5 (Polyphony &amp; Patch Memory)<br/>&#8226; 1982: TB-303 (Acid House 18dB Diode Filter)<br/>&#8226; 1983: Yamaha DX7 &amp; MIDI Protocol</p></div></div>
@@ -1768,6 +1938,177 @@
       }, 120);
     }
   });
+
+  // Universal mobile-friendly toggleFullscreen (with fallback for iPhone / iOS Safari where Fullscreen API is unavailable on divs)
+  window.toggleFullscreen = function() {
+    var docEl = document.documentElement;
+    var isFs = document.fullscreenElement || document.webkitFullscreenElement;
+    if (!isFs) {
+      if (docEl.requestFullscreen) {
+        docEl.requestFullscreen().catch(function() {
+          if (window.self !== window.top) {
+            window.top.location.href = window.location.href;
+          }
+        });
+      } else if (docEl.webkitRequestFullscreen) {
+        docEl.webkitRequestFullscreen();
+      } else if (window.self !== window.top) {
+        // iOS Safari fallback: open the standalone deck full-screen in the top viewport
+        window.top.location.href = window.location.href;
+      }
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen().catch(function() {});
+      } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+      }
+    }
+  };
+
+  // Universal touch-swipe slide navigation for mobile phones
+  (function() {
+    var touchStartX = 0;
+    var touchStartY = 0;
+    document.addEventListener('touchstart', function(e) {
+      if (!e.changedTouches || !e.changedTouches.length) return;
+      touchStartX = e.changedTouches[0].screenX;
+      touchStartY = e.changedTouches[0].screenY;
+    }, { passive: true });
+
+    document.addEventListener('touchend', function(e) {
+      if (!e.changedTouches || !e.changedTouches.length) return;
+      var target = e.target;
+      if (target && target.closest && target.closest('table, .table-container, .comp-table-wrap, select, button, a, .video-modal-backdrop, #videoModal')) {
+        return;
+      }
+      var dx = e.changedTouches[0].screenX - touchStartX;
+      var dy = e.changedTouches[0].screenY - touchStartY;
+      if (Math.abs(dx) > 65 && Math.abs(dx) > Math.abs(dy) * 1.8) {
+        if (dx < 0) {
+          if (typeof nextSlide === 'function') nextSlide();
+          else if (typeof changeSlide === 'function') changeSlide(1);
+        } else {
+          if (typeof prevSlide === 'function') prevSlide();
+          else if (typeof changeSlide === 'function') changeSlide(-1);
+        }
+      }
+    }, { passive: true });
+  })();
+
+
+  // Universal mobile-friendly toggleFullscreen (with fallback for iPhone / iOS Safari where Fullscreen API is unavailable on divs)
+  window.toggleFullscreen = function() {
+    var docEl = document.documentElement;
+    var isFs = document.fullscreenElement || document.webkitFullscreenElement;
+    if (!isFs) {
+      if (docEl.requestFullscreen) {
+        docEl.requestFullscreen().catch(function() {
+          if (window.self !== window.top) {
+            window.top.location.href = window.location.href;
+          }
+        });
+      } else if (docEl.webkitRequestFullscreen) {
+        docEl.webkitRequestFullscreen();
+      } else if (window.self !== window.top) {
+        // iOS Safari fallback: open the standalone deck full-screen in the top viewport
+        window.top.location.href = window.location.href;
+      }
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen().catch(function() {});
+      } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+      }
+    }
+  };
+
+  // Universal touch-swipe slide navigation for mobile phones
+  (function() {
+    var touchStartX = 0;
+    var touchStartY = 0;
+    document.addEventListener('touchstart', function(e) {
+      if (!e.changedTouches || !e.changedTouches.length) return;
+      touchStartX = e.changedTouches[0].screenX;
+      touchStartY = e.changedTouches[0].screenY;
+    }, { passive: true });
+
+    document.addEventListener('touchend', function(e) {
+      if (!e.changedTouches || !e.changedTouches.length) return;
+      var target = e.target;
+      if (target && target.closest && target.closest('table, .table-container, .comp-table-wrap, select, button, a, .video-modal-backdrop, #videoModal')) {
+        return;
+      }
+      var dx = e.changedTouches[0].screenX - touchStartX;
+      var dy = e.changedTouches[0].screenY - touchStartY;
+      if (Math.abs(dx) > 65 && Math.abs(dx) > Math.abs(dy) * 1.8) {
+        if (dx < 0) {
+          if (typeof nextSlide === 'function') nextSlide();
+          else if (typeof changeSlide === 'function') changeSlide(1);
+        } else {
+          if (typeof prevSlide === 'function') prevSlide();
+          else if (typeof changeSlide === 'function') changeSlide(-1);
+        }
+      }
+    }, { passive: true });
+  })();
+
+
+  // Universal mobile-friendly toggleFullscreen (with fallback for iPhone / iOS Safari where Fullscreen API is unavailable on divs)
+  window.toggleFullscreen = function() {
+    var docEl = document.documentElement;
+    var isFs = document.fullscreenElement || document.webkitFullscreenElement;
+    if (!isFs) {
+      if (docEl.requestFullscreen) {
+        docEl.requestFullscreen().catch(function() {
+          if (window.self !== window.top) {
+            window.top.location.href = window.location.href;
+          }
+        });
+      } else if (docEl.webkitRequestFullscreen) {
+        docEl.webkitRequestFullscreen();
+      } else if (window.self !== window.top) {
+        // iOS Safari fallback: open the standalone deck full-screen in the top viewport
+        window.top.location.href = window.location.href;
+      }
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen().catch(function() {});
+      } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+      }
+    }
+  };
+
+  // Universal touch-swipe slide navigation for mobile phones
+  (function() {
+    var touchStartX = 0;
+    var touchStartY = 0;
+    document.addEventListener('touchstart', function(e) {
+      if (!e.changedTouches || !e.changedTouches.length) return;
+      touchStartX = e.changedTouches[0].screenX;
+      touchStartY = e.changedTouches[0].screenY;
+    }, { passive: true });
+
+    document.addEventListener('touchend', function(e) {
+      if (!e.changedTouches || !e.changedTouches.length) return;
+      var target = e.target;
+      if (target && target.closest && target.closest('table, .table-container, .comp-table-wrap, select, button, a, .video-modal-backdrop, #videoModal')) {
+        return;
+      }
+      var dx = e.changedTouches[0].screenX - touchStartX;
+      var dy = e.changedTouches[0].screenY - touchStartY;
+      if (Math.abs(dx) > 65 && Math.abs(dx) > Math.abs(dy) * 1.8) {
+        if (dx < 0) {
+          if (typeof nextSlide === 'function') nextSlide();
+          else if (typeof changeSlide === 'function') changeSlide(1);
+        } else {
+          if (typeof prevSlide === 'function') prevSlide();
+          else if (typeof changeSlide === 'function') changeSlide(-1);
+        }
+      }
+    }, { passive: true });
+  })();
+
 </script>
 <!-- === END HASH DEEP LINK === -->
 </body>

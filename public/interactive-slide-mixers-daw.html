@@ -1112,19 +1112,29 @@
     }
     /* === END ANTI-SQUASH === */
 
-  
     /* === MTG MOBILE PHONE RESPONSIVENESS OVERRIDES === */
     @media (max-width: 768px) {
       html, body {
-        overflow-x: hidden !important;
+        height: 100vh !important;
+        max-height: 100vh !important;
+        overflow: hidden !important;
         max-width: 100vw !important;
+        display: flex !important;
+        flex-direction: column !important;
       }
+      /* Compact top utility bar */
       .deck-topbar-controls, .top-utility-bar, header.deck-topbar-controls {
         padding: 6px 10px !important;
         gap: 6px !important;
-        min-height: 42px !important;
+        min-height: 40px !important;
         height: auto !important;
         flex-wrap: nowrap !important;
+        flex-shrink: 0 !important;
+        justify-content: space-between !important;
+      }
+      /* Hide secondary promo link in topbar on phones so Fullscreen button never clips */
+      .deck-topbar-controls a[href*="app.musictechguru.com"] {
+        display: none !important;
       }
       .exit-deck-link {
         padding: 5px 8px !important;
@@ -1132,12 +1142,21 @@
         white-space: nowrap !important;
         flex-shrink: 0 !important;
       }
-      .deck-topbar-title, .top-bar-title {
-        font-size: 11.5px !important;
+      .deck-topbar-controls > div:first-child,
+      .top-utility-bar > div:first-child,
+      header.deck-topbar-controls > div:first-child {
+        min-width: 0 !important;
+        flex: 1 1 auto !important;
+        overflow: hidden !important;
+      }
+      .deck-topbar-title, .top-bar-title, .deck-topbar-controls span[style*="color: #94a3b8"] {
+        font-size: 11px !important;
         white-space: nowrap !important;
         overflow: hidden !important;
         text-overflow: ellipsis !important;
-        max-width: 42vw !important;
+        max-width: 38vw !important;
+        display: inline-block !important;
+        vertical-align: middle !important;
       }
       .deck-topbar-controls .fullscreen-btn,
       .top-utility-bar .fullscreen-btn,
@@ -1148,7 +1167,83 @@
         white-space: nowrap !important;
         flex-shrink: 0 !important;
       }
-      /* Collapse multi-column slide grids to 1 column on phones */
+      /* Hide redundant secondary inner banner bars on mobile to maximize slide viewport height */
+      header.deck-topbar,
+      .deck-topbar,
+      .top-bar {
+        display: none !important;
+      }
+      header.deck-header, .deck-header {
+        padding: 6px 12px !important;
+        min-height: auto !important;
+        flex-shrink: 0 !important;
+      }
+      header.deck-header .deck-title-group, .deck-header .deck-title-group {
+        display: none !important;
+      }
+      header.deck-header .deck-actions, .deck-header .deck-actions {
+        width: 100% !important;
+        display: flex !important;
+        justify-content: space-between !important;
+      }
+      header.deck-header .slide-select, .deck-header .slide-select {
+        max-width: 100% !important;
+        width: 100% !important;
+      }
+      header.deck-header button, .deck-header button {
+        display: none !important;
+      }
+      /* Full-bleed deck wrapper / container as flex column */
+      .deck-wrapper, .deck-container {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        border-radius: 0 !important;
+        border-left: none !important;
+        border-right: none !important;
+        flex: 1 1 auto !important;
+        min-height: 0 !important;
+        height: auto !important;
+        max-height: none !important;
+        display: flex !important;
+        flex-direction: column !important;
+        overflow: hidden !important;
+      }
+      .slides-viewport, .slide-stage {
+        flex: 1 1 auto !important;
+        min-height: 0 !important;
+        width: 100% !important;
+        padding: 0 !important;
+        overflow: hidden !important;
+        position: relative !important;
+        display: flex !important;
+        flex-direction: column !important;
+      }
+      /* Single continuous vertical scroll container for the active slide */
+      .slide:not(.active) {
+        display: none !important;
+      }
+      .slide.active {
+        position: relative !important;
+        top: auto !important;
+        left: auto !important;
+        display: block !important;
+        width: 100% !important;
+        height: 100% !important;
+        max-height: 100% !important;
+        flex: 1 1 auto !important;
+        min-height: 0 !important;
+        padding: 14px 14px 80px !important;
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+        -webkit-overflow-scrolling: touch !important;
+        box-sizing: border-box !important;
+        transform: none !important;
+        opacity: 1 !important;
+        pointer-events: auto !important;
+      }
+      /* Collapse all multi-column slide grids into a single unconstrained vertical stack */
       .slide .split-grid,
       .slide .grid-2,
       .slide .grid-2-split,
@@ -1163,33 +1258,89 @@
       .slide .two-col,
       .slide .three-col,
       .slide [style*="grid-template-columns"] {
-        grid-template-columns: 1fr !important;
-        gap: 12px !important;
-      }
-      .slide .grid-2-split {
         display: flex !important;
         flex-direction: column !important;
-        overflow-y: visible !important;
+        grid-template-columns: 1fr !important;
+        gap: 14px !important;
+        flex: none !important;
+        width: 100% !important;
+        height: auto !important;
+        min-height: auto !important;
+        max-height: none !important;
+        overflow: visible !important;
+        margin-bottom: 16px !important;
+      }
+      /* Unconstrain all column panels and cards so they expand naturally inside the slide scroll */
+      .slide .column-panel,
+      .slide .col-panel,
+      .slide .info-card,
+      .slide .feature-card,
+      .slide .music-col,
+      .slide .instrument-col,
+      .slide .format-col,
+      .slide .prod-col,
+      .slide .tech-col,
+      .slide .col-music,
+      .slide .col-tech,
+      .slide .artist-visual-col {
+        display: flex !important;
+        flex-direction: column !important;
+        flex: none !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        height: auto !important;
+        min-height: auto !important;
+        max-height: none !important;
+        overflow: visible !important;
+        padding: 14px !important;
+        box-sizing: border-box !important;
+      }
+      /* Stack panel headers and takeaway/tip boxes vertically on phones so badges & text never crush */
+      .slide .panel-header,
+      .slide .col-header,
+      .slide .header-bar,
+      .slide .takeaway-box,
+      .slide .callout-box,
+      .slide .exam-tip,
+      .slide .tip-box {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        justify-content: flex-start !important;
+        gap: 6px !important;
         height: auto !important;
       }
-      .slide .column-panel {
-        overflow-y: visible !important;
-        max-height: none !important;
+      /* Give photo cards and hardware images generous height on mobile */
+      .slide .photo-card,
+      .slide .hardware-photo,
+      .slide .instrument-photo-card {
         height: auto !important;
+        min-height: 175px !important;
+        max-height: none !important;
         flex-shrink: 0 !important;
       }
-      .slide, .slide.active {
-        padding: 14px 12px 24px !important;
-        overflow-y: auto !important;
-        overflow-x: hidden !important;
-        -webkit-overflow-scrolling: touch !important;
+      .slide .photo-card img,
+      .slide .hardware-photo img,
+      .slide .instrument-photo-card img.instrument-photo {
+        height: 185px !important;
+        max-height: 220px !important;
+        width: 100% !important;
+        object-fit: contain !important;
       }
-      .slide h1 {
-        font-size: clamp(20px, 5.5vw, 26px) !important;
+      .slide .table-container,
+      .slide .comp-table-wrap {
+        overflow-x: auto !important;
+        overflow-y: visible !important;
+        max-height: none !important;
+        flex: none !important;
+        width: 100% !important;
+      }
+      .slide h1, .slide .slide-heading, .slide .slide-title {
+        font-size: clamp(20px, 5.5vw, 25px) !important;
         line-height: 1.22 !important;
       }
       .slide h2 {
-        font-size: clamp(17px, 4.8vw, 22px) !important;
+        font-size: clamp(17px, 4.8vw, 21px) !important;
         line-height: 1.25 !important;
       }
       .slide p, .slide li {
@@ -1203,12 +1354,14 @@
         -webkit-overflow-scrolling: touch !important;
         font-size: 12px !important;
       }
-      /* Bottom Controls Bar: Ensure Previous, Slide Counter, and Next always fit on 320-390px phones */
+      /* Bottom Controls Bar: Ensure Previous, Slide Counter/Dropdown, and Next always fit on 320-430px phones */
       footer.deck-controls,
       .deck-controls,
       .deck-nav,
       .bottom-bar,
-      .deck-nav-bar {
+      .deck-nav-bar,
+      .deck-footer,
+      .deck-bottombar {
         padding: 8px 10px !important;
         gap: 6px !important;
         min-height: 50px !important;
@@ -1219,29 +1372,46 @@
         flex-wrap: nowrap !important;
         width: 100% !important;
         box-sizing: border-box !important;
+        flex-shrink: 0 !important;
       }
       .deck-controls .controls-left,
       .bottom-bar .nav-buttons,
       .deck-nav-bar .nav-left,
-      .deck-nav-bar .nav-right {
+      .deck-nav-bar .nav-right,
+      .deck-nav-bar > div:first-child {
         display: contents !important;
       }
-      /* Hide duplicate bottom Fullscreen button & wide dot arrays on mobile so Next button is never clipped */
+      /* Reorder amplifiers bottom bar children so Prev is left, Counter is center, Next is right */
+      .deck-nav-bar #prevBtn { order: 1 !important; }
+      .deck-nav-bar .slide-counter, .deck-nav-bar .nav-center { order: 2 !important; }
+      .deck-nav-bar #nextBtn { order: 3 !important; }
+      /* When both a slide-counter and a slide-select dropdown exist in deck-nav-bar, hide the duplicate text counter on phones */
+      .deck-nav-bar .nav-left .slide-counter {
+        display: none !important;
+      }
+      /* Hide duplicate bottom Fullscreen button, keyboard hints & wide dot arrays on mobile so Next button is never clipped */
       #bottomFsBtn,
       .deck-controls button[onclick*="toggleFullscreen"],
       .bottom-bar button[onclick*="toggleFullscreen"],
       .deck-nav button[onclick*="toggleFullscreen"],
       .deck-nav-bar button[onclick*="toggleFullscreen"],
+      .deck-footer button[onclick*="toggleFullscreen"],
+      .deck-bottombar button[onclick*="toggleFullscreen"],
       .controls-right,
       .keyboard-hint,
+      .nav-shortcuts,
       .progress-dots,
       .slide-dots,
       #dotsContainer,
       #progressDots,
-      .progress-track {
+      .progress-track,
+      .progress-bar-track,
+      .progress-bar-container {
         display: none !important;
       }
       .progress-container,
+      .progress-group,
+      .deck-progress-group,
       .slide-indicator,
       .deck-nav-bar .nav-center {
         flex: 1 1 auto !important;
@@ -1251,13 +1421,13 @@
         justify-content: center !important;
         margin: 0 4px !important;
       }
-      .slide-counter, #slideCounter {
+      .slide-counter, #slideCounter, .progress-label {
         font-size: 11.5px !important;
         white-space: nowrap !important;
         text-align: center !important;
       }
       .slide-select, #slideSelect {
-        max-width: 135px !important;
+        max-width: 155px !important;
         font-size: 11.5px !important;
         padding: 5px 8px !important;
         text-overflow: ellipsis !important;
@@ -1328,13 +1498,13 @@
         <div class="slide-eyebrow"><span>📋</span> Specification Roadmap &bull; Component 3 Music Technology in Context</div>
         <h2 class="slide-heading">Component 3 <span>Syllabus Matrix: Digital Era</span></h2>
         <p class="slide-lead">Edexcel requires comprehensive knowledge of console channel strip architecture, digital conversion, modular digital tape, DAW editing, and hybrid production.</p>
-        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/mixers_daw/adat_blackface_multitrack.jpg" alt="Alesis ADAT Modular Digital Multitrack" class="slide-thumb">
+        <div class="grid-3"><div class="info-card highlight"><img src="images/slides/mixers_daw/adat_blackface_multitrack.jpg" alt="Alesis ADAT Modular Digital Multitrack" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Digital Multitrack</span>
                <h4>Modular Digital Tape (MDM)</h4>
-               <p>The 1991 Alesis ADAT recorded 8 channels of uncompressed 16-bit 48 kHz digital audio onto consumer S-VHS tape, democratizing commercial multitrack recording for home and project studios.</p></div><div class="info-card cyan-edge"><img src="/images/slides/mixers_daw/soundcraft_digital_mixer.jpg" alt="Digital Audio Mixing Console" class="slide-thumb">
+               <p>The 1991 Alesis ADAT recorded 8 channels of uncompressed 16-bit 48 kHz digital audio onto consumer S-VHS tape, democratizing commercial multitrack recording for home and project studios.</p></div><div class="info-card cyan-edge"><img src="images/slides/mixers_daw/soundcraft_digital_mixer.jpg" alt="Digital Audio Mixing Console" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Mixing Desks</span>
                <h4>Console Architecture &amp; DSP</h4>
-               <p>Mastering signal flow: mic preamps, input trim, high-pass filtering, parametric EQ (Q factor), insert loops, auxiliary sends (pre vs post), and motorized fader scene recall.</p></div><div class="info-card acid-edge"><img src="/images/slides/mixers_daw/pro_tools_early_mix_window.jpg" alt="Pro Tools Digital Audio Workstation" class="slide-thumb">
+               <p>Mastering signal flow: mic preamps, input trim, high-pass filtering, parametric EQ (Q factor), insert loops, auxiliary sends (pre vs post), and motorized fader scene recall.</p></div><div class="info-card acid-edge"><img src="images/slides/mixers_daw/pro_tools_early_mix_window.jpg" alt="Pro Tools Digital Audio Workstation" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Computer Workstations</span>
                <h4>Non-Linear DAW Production</h4>
                <p>From Digidesign Sound Tools to Pro Tools and Logic: non-destructive region editing, take comping, VST plugins, sample-accurate automation, and Auto-Tune vocal processing.</p></div></div>
@@ -1344,13 +1514,13 @@
         <div class="slide-eyebrow"><span>📼</span> Format Evolution &bull; Component 3 Music Technology in Context</div>
         <h2 class="slide-heading">The Digital Transition: <span>DASH, PD &amp; DTRS</span></h2>
         <p class="slide-lead">Before computer hard disks had sufficient speed and capacity, professional recording studios transitioned from analog tape to open-reel and cassette digital multitrack formats.</p>
-        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/mixers_daw/sony_dash_3348_tape.jpg" alt="Sony PCM-3348 DASH Digital Tape Transport" class="slide-thumb">
+        <div class="grid-3"><div class="info-card highlight"><img src="images/slides/mixers_daw/sony_dash_3348_tape.jpg" alt="Sony PCM-3348 DASH Digital Tape Transport" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Digital Stationary Head</span>
                <h4>Sony DASH 48-Track (1988)</h4>
-               <p>The Sony PCM-3348 used 1/2-inch tape running across stationary ferrite heads to capture 48 discrete tracks of 16-bit linear PCM audio. It eliminated analog tape hiss and generational loss while preserving razor-blade splicing.</p></div><div class="info-card cyan-edge"><img src="/images/slides/mixers_daw/mitsubishi_x850_recorder.jpg" alt="Mitsubishi X-850 ProDigi Tape Recorder" class="slide-thumb">
+               <p>The Sony PCM-3348 used 1/2-inch tape running across stationary ferrite heads to capture 48 discrete tracks of 16-bit linear PCM audio. It eliminated analog tape hiss and generational loss while preserving razor-blade splicing.</p></div><div class="info-card cyan-edge"><img src="images/slides/mixers_daw/mitsubishi_x850_recorder.jpg" alt="Mitsubishi X-850 ProDigi Tape Recorder" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Open-Reel Digital</span>
                <h4>Mitsubishi ProDigi (PD Format)</h4>
-               <p>The 32-track Mitsubishi X-850 competed directly with Sony DASH. It provided pristine 48 kHz digital audio with zero crosstalk and zero wow/flutter, becoming a staple for top-tier pop and orchestral soundtrack sessions.</p></div><div class="info-card acid-edge"><img src="/images/slides/mixers_daw/tascam_da88_recorder.jpg" alt="Tascam DA-88 DTRS Digital Multitrack" class="slide-thumb">
+               <p>The 32-track Mitsubishi X-850 competed directly with Sony DASH. It provided pristine 48 kHz digital audio with zero crosstalk and zero wow/flutter, becoming a staple for top-tier pop and orchestral soundtrack sessions.</p></div><div class="info-card acid-edge"><img src="images/slides/mixers_daw/tascam_da88_recorder.jpg" alt="Tascam DA-88 DTRS Digital Multitrack" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Rotary Head Recording</span>
                <h4>Tascam DA-88 &amp; DTRS (1993)</h4>
                <p>Using helical scan rotary heads and 8mm Hi8 metal tape cassettes, the DA-88 provided 8 tracks of rugged digital audio. Widely adopted in post-production and film scoring due to rapid transport locking and rock-solid SMPTE sync.</p></div></div>
@@ -1360,13 +1530,13 @@
         <div class="slide-eyebrow"><span>🎛️</span> Studio Democratization &bull; Component 3 Music Technology in Context</div>
         <h2 class="slide-heading">The Alesis ADAT Revolution <span>(1991)</span></h2>
         <p class="slide-lead">The Alesis ADAT shattered the multi-million dollar studio monopoly, allowing independent producers to build commercial-grade 24-track studios at a fraction of the cost.</p>
-        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/mixers_daw/svhs_tape_cassette.jpg" alt="S-VHS Consumer Magnetic Tape Cassette" class="slide-thumb">
+        <div class="grid-3"><div class="info-card highlight"><img src="images/slides/mixers_daw/svhs_tape_cassette.jpg" alt="S-VHS Consumer Magnetic Tape Cassette" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Consumer Tape Transport</span>
                <h4>S-VHS Helical Scan Transport</h4>
-               <p>Alesis utilized low-cost consumer Super-VHS tape cartridges. Rotating helical scan heads recorded 8 tracks of 16-bit 48 kHz linear PCM digital audio without tape compression or analog saturation.</p></div><div class="info-card cyan-edge"><img src="/images/slides/mixers_daw/adat_optical_lightpipe.svg" alt="ADAT Optical Lightpipe Multi-Channel Cable" class="slide-thumb">
+               <p>Alesis utilized low-cost consumer Super-VHS tape cartridges. Rotating helical scan heads recorded 8 tracks of 16-bit 48 kHz linear PCM digital audio without tape compression or analog saturation.</p></div><div class="info-card cyan-edge"><img src="images/slides/mixers_daw/adat_optical_lightpipe.svg" alt="ADAT Optical Lightpipe Multi-Channel Cable" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Digital Connectivity</span>
                <h4>ADAT Optical Lightpipe Protocol</h4>
-               <p>Alesis introduced the Toslink optical lightpipe connector, transmitting 8 discrete channels of 24-bit 48 kHz digital audio across a single fiber-optic cable, completely eliminating analog cable snake noise.</p></div><div class="info-card acid-edge"><img src="/images/slides/mixers_daw/homestudio_90s.jpg" alt="1990s Project Recording Studio Setup" class="slide-thumb">
+               <p>Alesis introduced the Toslink optical lightpipe connector, transmitting 8 discrete channels of 24-bit 48 kHz digital audio across a single fiber-optic cable, completely eliminating analog cable snake noise.</p></div><div class="info-card acid-edge"><img src="images/slides/mixers_daw/homestudio_90s.jpg" alt="1990s Project Recording Studio Setup" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Modular Architecture</span>
                <h4>Sample-Accurate Sync (MDM)</h4>
                <p>Up to 16 ADAT machines could be daisy-chained using 9-pin sync cables to form a sample-accurate 128-track digital system. Landmark albums like Alanis Morissette's <em>Jagged Little Pill</em> were tracked entirely on ADATs.</p>
@@ -1377,13 +1547,13 @@
         <div class="slide-eyebrow"><span>🎚️</span> Console Architecture &bull; Component 3 Music Technology in Context</div>
         <h2 class="slide-heading">The Channel Strip: <span>Input Gain, Pad &amp; High-Pass Filtering</span></h2>
         <p class="slide-lead">Every channel of an analog or digital mixing desk follows a strictly defined serial signal path, conditioning microphone and line signals before routing to buses.</p>
-        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/mixers_daw/mic_preamp_gain_trim.svg" alt="Microphone Preamp Gain Stage Architecture" class="slide-thumb">
+        <div class="grid-3"><div class="info-card highlight"><img src="images/slides/mixers_daw/mic_preamp_gain_trim.svg" alt="Microphone Preamp Gain Stage Architecture" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Input Gain Staging</span>
                <h4>Preamp Gain &amp; Pad (-20 dB)</h4>
-               <p>The mic preamp amplifies low-level microphone signals (-60 to -40 dBu) up to standard line level (+4 dBu / 1.228V). The -20 dB Pad prevents analog clipping distortion when tracking high-SPL sources like snare drums.</p></div><div class="info-card cyan-edge"><img src="/images/slides/mixers_daw/eq_high_pass.svg" alt="High-Pass Filter Frequency Cutoff Slope" class="slide-thumb">
+               <p>The mic preamp amplifies low-level microphone signals (-60 to -40 dBu) up to standard line level (+4 dBu / 1.228V). The -20 dB Pad prevents analog clipping distortion when tracking high-SPL sources like snare drums.</p></div><div class="info-card cyan-edge"><img src="images/slides/mixers_daw/eq_high_pass.svg" alt="High-Pass Filter Frequency Cutoff Slope" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Sub-Bass Filtering</span>
                <h4>High-Pass Filter (HPF / Low-Cut)</h4>
-               <p>An 18 dB/octave high-pass filter engaged at 75–100 Hz eliminates mechanical microphone stand vibrations, air conditioning rumble, and excessive proximity effect without thinning out vocal formants.</p></div><div class="info-card acid-edge"><img src="/images/slides/mixers_daw/console_channel_strip_diagram.svg" alt="Complete Channel Strip Signal Flow Diagram" class="slide-thumb">
+               <p>An 18 dB/octave high-pass filter engaged at 75–100 Hz eliminates mechanical microphone stand vibrations, air conditioning rumble, and excessive proximity effect without thinning out vocal formants.</p></div><div class="info-card acid-edge"><img src="images/slides/mixers_daw/console_channel_strip_diagram.svg" alt="Complete Channel Strip Signal Flow Diagram" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Signal Flow Order</span>
                <h4>Serial Signal Path Order</h4>
                <p>Standard architectural order: Input Transformer &rarr; Mic Preamp &rarr; Phase Invert &rarr; HPF &rarr; Insert Point (Pre-EQ) &rarr; 4-Band Parametric EQ &rarr; Dynamics &rarr; Aux Sends &rarr; Pan &rarr; Channel Fader.</p>
@@ -1394,13 +1564,13 @@
         <div class="slide-eyebrow"><span>🎛️</span> Frequency Sculpting &bull; Component 3 Music Technology in Context</div>
         <h2 class="slide-heading">Console Equalisation: <span>Parametric Bands &amp; Q Factor</span></h2>
         <p class="slide-lead">Equalisation on mixing consoles ranges from simple fixed shelving circuits to fully sweepable 4-band parametric designs with variable bandwidth (Q).</p>
-        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/mixers_daw/eq_parametric_q_bell.svg" alt="Parametric EQ Bell Curve & Q Factor" class="slide-thumb">
+        <div class="grid-3"><div class="info-card highlight"><img src="images/slides/mixers_daw/eq_parametric_q_bell.svg" alt="Parametric EQ Bell Curve & Q Factor" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Parametric Filtering</span>
                <h4>Parametric EQ &amp; Q Factor</h4>
-               <p>Invented by George Massenburg: provides continuous control of Frequency (Hz), Gain (+/-15 dB), and Bandwidth / Q factor ($Q = f_c / \Delta f$). High Q creates narrow surgical notches; low Q provides broad musical shaping.</p></div><div class="info-card cyan-edge"><img src="/images/slides/mixers_daw/eq_shelf_types.svg" alt="High and Low Shelving Equalizer Curves" class="slide-thumb">
+               <p>Invented by George Massenburg: provides continuous control of Frequency (Hz), Gain (+/-15 dB), and Bandwidth / Q factor (<em>Q</em> = <em>f</em><sub>c</sub> / &Delta;<em>f</em>). High Q creates narrow surgical notches; low Q provides broad musical shaping.</p></div><div class="info-card cyan-edge"><img src="images/slides/mixers_daw/eq_shelf_types.svg" alt="High and Low Shelving Equalizer Curves" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Shelving Equalizers</span>
                <h4>High &amp; Low Shelving Filters</h4>
-               <p>Shelving filters boost or attenuate all frequencies above (high shelf, e.g. 10–12 kHz) or below (low shelf, e.g. 80–100 Hz) the corner frequency by a constant gain, ideal for adding overall air or low-end weight.</p></div><div class="info-card acid-edge"><img src="/images/slides/mixers_daw/eq_console_shelving_parametric.jpg" alt="Console Equaliser Control Knobs" class="slide-thumb">
+               <p>Shelving filters boost or attenuate all frequencies above (high shelf, e.g. 10–12 kHz) or below (low shelf, e.g. 80–100 Hz) the corner frequency by a constant gain, ideal for adding overall air or low-end weight.</p></div><div class="info-card acid-edge"><img src="images/slides/mixers_daw/eq_console_shelving_parametric.jpg" alt="Console Equaliser Control Knobs" class="slide-thumb">
                <span class="spec-pill ao3">AO3 EQ Sweeping Technique</span>
                <h4>Frequency Sweeping Technique</h4>
                <p>Engineers boost gain by +10 dB, set a narrow Q, and slowly sweep the frequency knob across the spectrum to isolate harsh resonances, boxiness (300–500 Hz), or sibilance (4–8 kHz), then cut to clean up the mix.</p></div></div>
@@ -1410,13 +1580,13 @@
         <div class="slide-eyebrow"><span>🔌</span> Dynamics & Routing &bull; Component 3 Music Technology in Context</div>
         <h2 class="slide-heading">Inserts, Aux Sends <span>&amp; Pre/Post Fader Switching</span></h2>
         <p class="slide-lead">Routing audio outside the channel strip requires understanding the fundamental difference between serial insert loops and parallel auxiliary sends.</p>
-        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/mixers_daw/console_insert_cable_flow.svg" alt="Console TRS Insert Jack Signal Routing Flow" class="slide-thumb">
+        <div class="grid-3"><div class="info-card highlight"><img src="images/slides/mixers_daw/console_insert_cable_flow.svg" alt="Console TRS Insert Jack Signal Routing Flow" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Serial Processing</span>
                <h4>Hardware Inserts (Serial)</h4>
-               <p>A single 1/4-inch TRS jack acts as an output and input: Tip sends 100% of the channel audio to an external processor (compressor, gate, graphic EQ), while Ring returns the fully processed signal back into the strip.</p></div><div class="info-card cyan-edge"><img src="/images/slides/mixers_daw/console_aux_sends_matrix.svg" alt="Auxiliary Send Pre and Post Fader Matrix" class="slide-thumb">
+               <p>A single 1/4-inch TRS jack acts as an output and input: Tip sends 100% of the channel audio to an external processor (compressor, gate, graphic EQ), while Ring returns the fully processed signal back into the strip.</p></div><div class="info-card cyan-edge"><img src="images/slides/mixers_daw/console_aux_sends_matrix.svg" alt="Auxiliary Send Pre and Post Fader Matrix" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Parallel Routing</span>
                <h4>Pre-Fader vs Post-Fader Aux</h4>
-               <p><strong>Pre-fader sends</strong> tap signal before the channel fader, so performer headphone cue mixes remain constant regardless of mix fader moves. <strong>Post-fader sends</strong> scale with the fader, keeping wet reverb/delay balance proportional.</p></div><div class="info-card acid-edge"><img src="/images/slides/mixers_daw/vca_console_automation.jpg" alt="VCA Fader Console Automation Bank" class="slide-thumb">
+               <p><strong>Pre-fader sends</strong> tap signal before the channel fader, so performer headphone cue mixes remain constant regardless of mix fader moves. <strong>Post-fader sends</strong> scale with the fader, keeping wet reverb/delay balance proportional.</p></div><div class="info-card acid-edge"><img src="images/slides/mixers_daw/vca_console_automation.jpg" alt="VCA Fader Console Automation Bank" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Gain Automation</span>
                <h4>VCA Groups &amp; Automation</h4>
                <p>Voltage Controlled Amplifiers allow one VCA master fader to adjust DC control voltages across multiple audio channels simultaneously (e.g. all 12 drum mics) without summing them into an audio sub-group bus.</p></div></div>
@@ -1426,13 +1596,13 @@
         <div class="slide-eyebrow"><span>🎚️</span> Digital Consoles &bull; Component 3 Music Technology in Context</div>
         <h2 class="slide-heading">Digital Mixing Consoles: <span>Yamaha 02R &amp; Word Clock</span></h2>
         <p class="slide-lead">The late 1990s introduced digital mixing desks featuring internal A/D converters, digital signal processing (DSP), motorized faders, and instant scene recall.</p>
-        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/mixers_daw/motorized_faders_recall.jpg" alt="Motorized Faders Moving on Digital Desk" class="slide-thumb">
+        <div class="grid-3"><div class="info-card highlight"><img src="images/slides/mixers_daw/motorized_faders_recall.jpg" alt="Motorized Faders Moving on Digital Desk" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Motorized Faders</span>
                <h4>Motorized Fader Scene Recall</h4>
-               <p>Digital consoles digitize input signals at the preamps. Motorized flying faders physically glide into position when recalling mix scenes, allowing instant reset of hundreds of parameters between songs or broadcast cues.</p></div><div class="info-card cyan-edge"><img src="/images/slides/mixers_daw/analog_vs_digital_console.jpg" alt="Digital Mixing Console Control Room" class="slide-thumb">
+               <p>Digital consoles digitize input signals at the preamps. Motorized flying faders physically glide into position when recalling mix scenes, allowing instant reset of hundreds of parameters between songs or broadcast cues.</p></div><div class="info-card cyan-edge"><img src="images/slides/mixers_daw/analog_vs_digital_console.jpg" alt="Digital Mixing Console Control Room" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Onboard DSP Engines</span>
                <h4>The Yamaha 02R (1995)</h4>
-               <p>The gold standard of early digital desks: 32-bit internal DSP processing, fully parametric 4-band EQ and dual dynamics processors on every channel strip, built-in digital effects, and snapshot scene memory.</p></div><div class="info-card acid-edge"><img src="/images/slides/mixers_daw/word_clock_bnc_cable.jpg" alt="BNC Word Clock Synchronization Cable" class="slide-thumb">
+               <p>The gold standard of early digital desks: 32-bit internal DSP processing, fully parametric 4-band EQ and dual dynamics processors on every channel strip, built-in digital effects, and snapshot scene memory.</p></div><div class="info-card acid-edge"><img src="images/slides/mixers_daw/word_clock_bnc_cable.jpg" alt="BNC Word Clock Synchronization Cable" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Clock Jitter &amp; Sync</span>
                <h4>Word Clock &amp; BNC Sync</h4>
                <p>Connecting multiple digital devices (consoles, ADATs, audio interfaces) requires a single Master Word Clock transmitted over 75-ohm BNC coaxial cables. Unsynchronized digital clocks cause severe clicks, pops, and clock jitter distortion.</p></div></div>
@@ -1442,13 +1612,13 @@
         <div class="slide-eyebrow"><span>🖥️</span> Digital Workstations &bull; Component 3 Music Technology in Context</div>
         <h2 class="slide-heading">Birth of the DAW: <span>Sound Tools, Pro Tools &amp; Logic</span></h2>
         <p class="slide-lead">Moving audio editing from razor-blade tape splicing to computer hard disks revolutionized speed, precision, and non-destructive arrangement possibilities.</p>
-        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/mixers_daw/digidesign_sound_tools.jpg" alt="Digidesign Sound Tools 1989 Computer Interface" class="slide-thumb">
+        <div class="grid-3"><div class="info-card highlight"><img src="images/slides/mixers_daw/digidesign_sound_tools.jpg" alt="Digidesign Sound Tools 1989 Computer Interface" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Early Hard Disk Recording</span>
                <h4>Sound Tools (1989)</h4>
-               <p>Peter Gotcher and Evan Brooks founded Digidesign. Sound Tools allowed 2-track 16-bit 44.1 kHz direct-to-hard-disk recording on Apple Macintosh II computers, replacing analog tape machines for commercial CD mastering.</p></div><div class="info-card cyan-edge"><img src="/images/slides/mixers_daw/dsp_accelerator_pci_card.jpg" alt="Avid Digidesign DSP Accelerator PCI Card" class="slide-thumb">
+               <p>Peter Gotcher and Evan Brooks founded Digidesign. Sound Tools allowed 2-track 16-bit 44.1 kHz direct-to-hard-disk recording on Apple Macintosh II computers, replacing analog tape machines for commercial CD mastering.</p></div><div class="info-card cyan-edge"><img src="images/slides/mixers_daw/dsp_accelerator_pci_card.jpg" alt="Avid Digidesign DSP Accelerator PCI Card" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Hardware Acceleration</span>
                <h4>Pro Tools TDM / HD Systems</h4>
-               <p>Released in 1991 (4 tracks), Pro Tools evolved into the industry recording standard. Dedicated PCIe DSP accelerator cards handled real-time audio mixing, plugin processing, and near-zero latency tracking independently of host CPU limitations.</p></div><div class="info-card acid-edge"><img src="/images/slides/mixers_daw/apple_logic_pro_mixer.png" alt="Apple Logic Pro Modern Digital Mixer Interface" class="slide-thumb">
+               <p>Released in 1991 (4 tracks), Pro Tools evolved into the industry recording standard. Dedicated PCIe DSP accelerator cards handled real-time audio mixing, plugin processing, and near-zero latency tracking independently of host CPU limitations.</p></div><div class="info-card acid-edge"><img src="images/slides/mixers_daw/apple_logic_pro_mixer.png" alt="Apple Logic Pro Modern Digital Mixer Interface" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Native Processing</span>
                <h4>The Native DAW Era</h4>
                <p>As multi-core CPUs advanced, native DAWs (Apple Logic, Steinberg Cubase, Ableton Live) eliminated the requirement for expensive proprietary DSP cards, processing hundreds of audio tracks and plugins directly on host RAM and CPU.</p></div></div>
@@ -1458,13 +1628,13 @@
         <div class="slide-eyebrow"><span>🔬</span> Digital Audio Physics &bull; Component 3 Music Technology in Context</div>
         <h2 class="slide-heading">PCM Audio Fundamentals: <span>Nyquist, Bit Depth &amp; Dither</span></h2>
         <p class="slide-lead">Pulse-code modulation (PCM) digital audio relies on two mathematical dimensions: sample rate (frequency resolution) and bit depth (amplitude dynamic range).</p>
-        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/mixers_daw/nyquist_shannon_sampling.svg" alt="Nyquist Shannon Sampling Theorem Diagram" class="slide-thumb">
+        <div class="grid-3"><div class="info-card highlight"><img src="images/slides/mixers_daw/nyquist_shannon_sampling.svg" alt="Nyquist Shannon Sampling Theorem Diagram" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Sampling Theorem</span>
                <h4>Nyquist Frequency &amp; Aliasing</h4>
-               <p>Harry Nyquist and Claude Shannon proved that capturing an audio wave requires $f_s \ge 2 f_<built-in function max>$. If a 25 kHz tone enters a 44.1 kHz system without an anti-aliasing low-pass filter, it folds over into audible spectrum as harsh distortion at 19.1 kHz.</p></div><div class="info-card cyan-edge"><img src="/images/slides/mixers_daw/bit_depth_quantization_grid.svg" alt="Bit Depth Quantization Error Staircase" class="slide-thumb">
+               <p>Harry Nyquist and Claude Shannon proved that capturing an audio wave requires $f_s \ge 2 f_<built-in function max>$. If a 25 kHz tone enters a 44.1 kHz system without an anti-aliasing low-pass filter, it folds over into audible spectrum as harsh distortion at 19.1 kHz.</p></div><div class="info-card cyan-edge"><img src="images/slides/mixers_daw/bit_depth_quantization_grid.svg" alt="Bit Depth Quantization Error Staircase" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Amplitude Resolution</span>
                <h4>Bit Depth &amp; Dynamic Range</h4>
-               <p>Each bit provides ~6.02 dB of dynamic range: 16-bit audio offers 96 dB (65,536 quantization levels), while 24-bit audio offers 144 dB (16,777,216 levels), dropping the digital noise floor far below thermal circuit noise.</p></div><div class="info-card acid-edge"><img src="/images/slides/mixers_daw/dither_noise_masking.svg" alt="TPDF Dither Noise Linearization Spectrum" class="slide-thumb">
+               <p>Each bit provides ~6.02 dB of dynamic range: 16-bit audio offers 96 dB (65,536 quantization levels), while 24-bit audio offers 144 dB (16,777,216 levels), dropping the digital noise floor far below thermal circuit noise.</p></div><div class="info-card acid-edge"><img src="images/slides/mixers_daw/dither_noise_masking.svg" alt="TPDF Dither Noise Linearization Spectrum" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Truncation Elimination</span>
                <h4>Dither &amp; TPDF Noise</h4>
                <p>When reducing a 24-bit mix down to 16-bit for CD release, simple truncation causes correlated quantization distortion at low amplitudes. Adding Triangular Probability Density Function (TPDF) dither noise converts harmonic distortion into harmless random hiss.</p></div></div>
@@ -1474,13 +1644,13 @@
         <div class="slide-eyebrow"><span>✂️</span> Audio Manipulation &bull; Component 3 Music Technology in Context</div>
         <h2 class="slide-heading">Non-Linear Editing: <span>Comping, Crossfades &amp; Grid Modes</span></h2>
         <p class="slide-lead">Unlike destructive tape recording where punches permanently erased previous takes, modern DAWs store raw audio files safely on disk while edit playlists reference regions non-destructively.</p>
-        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/mixers_daw/daw_waveform_audio_comping.svg" alt="DAW Multi-Take Vocal Comping Lanes" class="slide-thumb">
+        <div class="grid-3"><div class="info-card highlight"><img src="images/slides/mixers_daw/daw_waveform_audio_comping.svg" alt="DAW Multi-Take Vocal Comping Lanes" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Vocal Take Comping</span>
                <h4>Multi-Take Audio Comping</h4>
-               <p>Vocalists record 5–10 complete passes into stacked take lanes. The engineer selects the best words or phrases from each lane to assemble a seamless "composite" master vocal take using automatic micro-crossfades.</p></div><div class="info-card cyan-edge"><img src="/images/slides/mixers_daw/daw_slip_grid_editing.png" alt="DAW Audio Region Slicing and Slip Grid Editing" class="slide-thumb">
+               <p>Vocalists record 5–10 complete passes into stacked take lanes. The engineer selects the best words or phrases from each lane to assemble a seamless "composite" master vocal take using automatic micro-crossfades.</p></div><div class="info-card cyan-edge"><img src="images/slides/mixers_daw/daw_slip_grid_editing.png" alt="DAW Audio Region Slicing and Slip Grid Editing" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Editing Modes</span>
                <h4>Grid, Slip &amp; Crossfades</h4>
-               <p><strong>Grid mode</strong> locks audio slices to musical bars, beats, and quantize sub-divisions. <strong>Slip mode</strong> allows sub-millisecond nudging. Equal-power crossfades (+3 dB center sum) eliminate pops and clicks at edit boundaries.</p></div><div class="info-card acid-edge"><img src="/images/slides/mixers_daw/daw_automation_fader_lanes.svg" alt="DAW Volume and Pan Breakpoint Automation Envelopes" class="slide-thumb">
+               <p><strong>Grid mode</strong> locks audio slices to musical bars, beats, and quantize sub-divisions. <strong>Slip mode</strong> allows sub-millisecond nudging. Equal-power crossfades (+3 dB center sum) eliminate pops and clicks at edit boundaries.</p></div><div class="info-card acid-edge"><img src="images/slides/mixers_daw/daw_automation_fader_lanes.svg" alt="DAW Volume and Pan Breakpoint Automation Envelopes" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Automation Modes</span>
                <h4>Sample-Accurate Automation</h4>
                <p>DAWs provide breakpoint automation envelopes for volume, pan, and plugin parameters. <strong>Read</strong> replays moves, <strong>Touch</strong> returns to previous value on fader release, <strong>Latch</strong> holds new values, and <strong>Write</strong> overwrites data.</p></div></div>
@@ -1490,13 +1660,13 @@
         <div class="slide-eyebrow"><span>🔌</span> Software Innovation &bull; Component 3 Music Technology in Context</div>
         <h2 class="slide-heading">Virtual Studio Technology: <span>Plugins, Synths &amp; Buffers</span></h2>
         <p class="slide-lead">In 1996, Steinberg released VST, forever transforming recording by replacing bulky studio racks with software plugins running entirely inside computer RAM.</p>
-        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/mixers_daw/steinberg_cubase_vst_window.png" alt="Steinberg Cubase VST 1996 Software Interface" class="slide-thumb">
+        <div class="grid-3"><div class="info-card highlight"><img src="images/slides/mixers_daw/steinberg_cubase_vst_window.png" alt="Steinberg Cubase VST 1996 Software Interface" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Software Architecture</span>
                <h4>Steinberg VST &amp; ASIO (1996)</h4>
-               <p>Steinberg Cubase VST introduced open-format real-time digital audio plugins and ASIO low-latency audio drivers, allowing third-party developers to design software EQ, compression, and reverb plugins.</p></div><div class="info-card cyan-edge"><img src="/images/slides/mixers_daw/vst_software_synthesizer.jpg" alt="Software Virtual Synthesizer Plugin GUI" class="slide-thumb">
+               <p>Steinberg Cubase VST introduced open-format real-time digital audio plugins and ASIO low-latency audio drivers, allowing third-party developers to design software EQ, compression, and reverb plugins.</p></div><div class="info-card cyan-edge"><img src="images/slides/mixers_daw/vst_software_synthesizer.jpg" alt="Software Virtual Synthesizer Plugin GUI" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Virtual Instruments</span>
                <h4>Virtual Instruments (VSTi)</h4>
-               <p>Starting with the 1999 Steinberg Neon synth, VSTi brought hardware synthesizers into code. Modeled analog oscillators, wavetable synths (Serum, Massive), and multi-gigabyte orchestral sample libraries live inside the DAW session.</p></div><div class="info-card acid-edge"><img src="/images/slides/mixers_daw/daw_buffer_latency_diagram.svg" alt="Audio Buffer Size CPU Latency Trade-Off Diagram" class="slide-thumb">
+               <p>Starting with the 1999 Steinberg Neon synth, VSTi brought hardware synthesizers into code. Modeled analog oscillators, wavetable synths (Serum, Massive), and multi-gigabyte orchestral sample libraries live inside the DAW session.</p></div><div class="info-card acid-edge"><img src="images/slides/mixers_daw/daw_buffer_latency_diagram.svg" alt="Audio Buffer Size CPU Latency Trade-Off Diagram" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Buffer Management</span>
                <h4>Buffer Size vs Latency Trade-Off</h4>
                 <p><strong>Small buffers (64-128 samples)</strong> minimize monitoring delay for live tracking (1.5-3 ms) but tax CPU cycles. <strong>Large buffers (512-1024 samples)</strong> provide processing headroom for dense mixes with hundreds of heavy plugins.</p></div></div>
@@ -1506,14 +1676,14 @@
         <div class="slide-eyebrow"><span>🎤</span> Vocal Processing &bull; Component 3 Music Technology in Context</div>
         <h2 class="slide-heading">Pitch Correction: <span>Auto-Tune, Phase Vocoders &amp; Cher</span></h2>
         <p class="slide-lead">First introduced in 1997 by Dr. Andy Hildebrand, Antares Auto-Tune used seismic analysis math to detect and correct vocal pitch deviations in real time.</p>
-        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/mixers_daw/auto_tune_pitch_graph.svg" alt="Antares Auto-Tune Graphical Pitch Quantisation" class="slide-thumb">
+        <div class="grid-3"><div class="info-card highlight"><img src="images/slides/mixers_daw/auto_tune_pitch_graph.svg" alt="Antares Auto-Tune Graphical Pitch Quantisation" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Phase Vocoder Math</span>
                <h4>Auto-Correlation Pitch Tracking</h4>
-               <p>Auto-Tune detects vocal fundamental pitch by auto-correlating waveform cycles, comparing measured frequency to a user-defined musical scale, and phase-vocoding the audio to the nearest target pitch.</p></div><div class="info-card cyan-edge"><img src="/images/slides/mixers_daw/cher_believe_vocal_track.jpg" alt="Cher Believe 1998 Landmark Single Production" class="slide-thumb">
+               <p>Auto-Tune detects vocal fundamental pitch by auto-correlating waveform cycles, comparing measured frequency to a user-defined musical scale, and phase-vocoding the audio to the nearest target pitch.</p></div><div class="info-card cyan-edge"><img src="images/slides/mixers_daw/cher_believe_vocal_track.jpg" alt="Cher Believe 1998 Landmark Single Production" class="slide-thumb">
                <span class="spec-pill ao3">AO4 Pop Production Milestones</span>
                <h4>The "Cher Effect" (1998)</h4>
                <p>Producers Mark Taylor and Brian Rawling set Auto-Tune's <em>Retune Speed</em> to zero on Cher's "Believe". Snapping pitch instantaneously with zero human transition created the signature robotic pop vocal texture.</p>
-               <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('uP1Fl1333W8', 'Auto-Tune Vocal Transformation')">▶ Watch: Pitch Correction Physics & Production</button><a href="https://www.youtube.com/watch?v=uP1Fl1333W8" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div></div><div class="info-card acid-edge"><img src="/images/slides/mixers_daw/melodyne_ara_blobs.jpg" alt="Celemony Melodyne Note Blobs Graphic Editor" class="slide-thumb">
+               <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('uP1Fl1333W8', 'Auto-Tune Vocal Transformation')">▶ Watch: Pitch Correction Physics & Production</button><a href="https://www.youtube.com/watch?v=uP1Fl1333W8" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div></div><div class="info-card acid-edge"><img src="images/slides/mixers_daw/melodyne_ara_blobs.jpg" alt="Celemony Melodyne Note Blobs Graphic Editor" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Graphical Note Editing</span>
                <h4>Celemony Melodyne &amp; ARA</h4>
                <p>Melodyne displays audio as visual "note blobs" across pitch and time axes. Audio Random Access (ARA) integration allows deep polyphonic pitch manipulation, formant shifting, and individual note editing inside chords.</p></div></div>
@@ -1523,13 +1693,13 @@
         <div class="slide-eyebrow"><span>🎛️</span> Mixing Paradigms &bull; Component 3 Music Technology in Context</div>
         <h2 class="slide-heading">In-The-Box (ITB) <span>vs Analog Hybrid Summing</span></h2>
         <p class="slide-lead">Modern mixing divides between pure "In-The-Box" digital workflows and hybrid setups combining digital DAW convenience with analog outboard color.</p>
-        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/mixers_daw/in_the_box_mixing_setup.svg" alt="In-The-Box DAW Production Control Room Setup" class="slide-thumb">
+        <div class="grid-3"><div class="info-card highlight"><img src="images/slides/mixers_daw/in_the_box_mixing_setup.svg" alt="In-The-Box DAW Production Control Room Setup" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Pure Digital Mixing</span>
                <h4>In-The-Box (ITB) Mixing</h4>
-               <p>All processing, mixing, and summing occurs inside the computer using 32-bit or 64-bit floating-point math. Benefits: infinite headroom, zero noise floor, instantaneous total recall, and zero generation loss.</p></div><div class="info-card cyan-edge"><img src="/images/slides/mixers_daw/digital_audio_connectors.svg" alt="Digital Audio Connectors: USB, Thunderbolt, Dante" class="slide-thumb">
+               <p>All processing, mixing, and summing occurs inside the computer using 32-bit or 64-bit floating-point math. Benefits: infinite headroom, zero noise floor, instantaneous total recall, and zero generation loss.</p></div><div class="info-card cyan-edge"><img src="images/slides/mixers_daw/digital_audio_connectors.svg" alt="Digital Audio Connectors: USB, Thunderbolt, Dante" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Digital Audio Interfacing</span>
                <h4>Thunderbolt, ADAT &amp; Dante</h4>
-               <p>High-speed connectivity transmits dozens of channels of 24-bit 96/192 kHz audio with sub-millisecond roundtrip latency via Thunderbolt 3/4, ADAT optical, and network-over-ethernet Dante AoIP protocols.</p></div><div class="info-card acid-edge"><img src="/images/slides/mixers_daw/hybrid_analog_summing_bus.svg" alt="Hybrid Analog Summing Signal Flow and Master Chain" class="slide-thumb">
+               <p>High-speed connectivity transmits dozens of channels of 24-bit 96/192 kHz audio with sub-millisecond roundtrip latency via Thunderbolt 3/4, ADAT optical, and network-over-ethernet Dante AoIP protocols.</p></div><div class="info-card acid-edge"><img src="images/slides/mixers_daw/hybrid_analog_summing_bus.svg" alt="Hybrid Analog Summing Signal Flow and Master Chain" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Analog Summing</span>
                <h4>Hybrid Analog Summing</h4>
                <p>Producers route 16–24 discrete digital DAW stem outputs through D/A converters into a dedicated analog summing mixer (resistor matrix + transformers) and stereo master bus chain before printing back to DAW at 24-bit/96kHz.</p></div></div>
@@ -1539,13 +1709,13 @@
         <div class="slide-eyebrow"><span>📊</span> Mastering & Delivery &bull; Component 3 Music Technology in Context</div>
         <h2 class="slide-heading">Loudness Standards: <span>LUFS, True Peak &amp; Streaming</span></h2>
         <p class="slide-lead">The transition from the CD "Loudness Wars" to streaming platforms (Spotify, Apple Music) established strict loudness normalization standards.</p>
-        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/mixers_daw/lufs_loudness_meter_ebu.svg" alt="LUFS Loudness Metering EBU R128 ITU BS1770" class="slide-thumb">
+        <div class="grid-3"><div class="info-card highlight"><img src="images/slides/mixers_daw/lufs_loudness_meter_ebu.svg" alt="LUFS Loudness Metering EBU R128 ITU BS1770" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Perceived Loudness</span>
                <h4>LUFS &amp; EBU R128 Normalisation</h4>
-               <p>Loudness Units Full Scale (LUFS) measures perceived human loudness using K-weighting EQ filters. Platforms normalize audio automatically (e.g. Spotify at -14 LUFS, Apple Music at -16 LUFS), penalizing hyper-compressed master tracks.</p></div><div class="info-card cyan-edge"><img src="/images/slides/mixers_daw/mastering_red_book_cd_metadata_diagram.svg" alt="Red Book CD Subcode PQ Metadata Diagram" class="slide-thumb">
+               <p>Loudness Units Full Scale (LUFS) measures perceived human loudness using K-weighting EQ filters. Platforms normalize audio automatically (e.g. Spotify at -14 LUFS, Apple Music at -16 LUFS), penalizing hyper-compressed master tracks.</p></div><div class="info-card cyan-edge"><img src="images/slides/mixers_daw/mastering_red_book_cd_metadata_diagram.svg" alt="Red Book CD Subcode PQ Metadata Diagram" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Digital Master Formats</span>
                <h4>True Peak &amp; Intersample Peaks</h4>
-               <p>Digital brickwall limiters prevent intersample peaks (analog clipping that occurs when consecutive sample values exceed 0 dBFS during D/A reconstruction). True Peak limiters cap maximum peaks safely at -1.0 dBTP.</p></div><div class="info-card acid-edge"><img src="/images/slides/mixers_daw/mastering_room_speakers.jpg" alt="Acoustically Treated Digital Mastering Studio" class="slide-thumb">
+               <p>Digital brickwall limiters prevent intersample peaks (analog clipping that occurs when consecutive sample values exceed 0 dBFS during D/A reconstruction). True Peak limiters cap maximum peaks safely at -1.0 dBTP.</p></div><div class="info-card acid-edge"><img src="images/slides/mixers_daw/mastering_room_speakers.jpg" alt="Acoustically Treated Digital Mastering Studio" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Final Delivery Stems</span>
                <h4>Stems &amp; Multi-Format Export</h4>
                <p>Final mix sessions export discrete sub-mix stems (Drums, Bass, Guitars, Synths, Lead Vox, Backing Vox) alongside 24-bit 48/96 kHz uncompressed WAV and Dolby Atmos spatial audio files for modern multi-platform release.</p></div></div>
@@ -1909,6 +2079,177 @@
       }, 120);
     }
   });
+
+  // Universal mobile-friendly toggleFullscreen (with fallback for iPhone / iOS Safari where Fullscreen API is unavailable on divs)
+  window.toggleFullscreen = function() {
+    var docEl = document.documentElement;
+    var isFs = document.fullscreenElement || document.webkitFullscreenElement;
+    if (!isFs) {
+      if (docEl.requestFullscreen) {
+        docEl.requestFullscreen().catch(function() {
+          if (window.self !== window.top) {
+            window.top.location.href = window.location.href;
+          }
+        });
+      } else if (docEl.webkitRequestFullscreen) {
+        docEl.webkitRequestFullscreen();
+      } else if (window.self !== window.top) {
+        // iOS Safari fallback: open the standalone deck full-screen in the top viewport
+        window.top.location.href = window.location.href;
+      }
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen().catch(function() {});
+      } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+      }
+    }
+  };
+
+  // Universal touch-swipe slide navigation for mobile phones
+  (function() {
+    var touchStartX = 0;
+    var touchStartY = 0;
+    document.addEventListener('touchstart', function(e) {
+      if (!e.changedTouches || !e.changedTouches.length) return;
+      touchStartX = e.changedTouches[0].screenX;
+      touchStartY = e.changedTouches[0].screenY;
+    }, { passive: true });
+
+    document.addEventListener('touchend', function(e) {
+      if (!e.changedTouches || !e.changedTouches.length) return;
+      var target = e.target;
+      if (target && target.closest && target.closest('table, .table-container, .comp-table-wrap, select, button, a, .video-modal-backdrop, #videoModal')) {
+        return;
+      }
+      var dx = e.changedTouches[0].screenX - touchStartX;
+      var dy = e.changedTouches[0].screenY - touchStartY;
+      if (Math.abs(dx) > 65 && Math.abs(dx) > Math.abs(dy) * 1.8) {
+        if (dx < 0) {
+          if (typeof nextSlide === 'function') nextSlide();
+          else if (typeof changeSlide === 'function') changeSlide(1);
+        } else {
+          if (typeof prevSlide === 'function') prevSlide();
+          else if (typeof changeSlide === 'function') changeSlide(-1);
+        }
+      }
+    }, { passive: true });
+  })();
+
+
+  // Universal mobile-friendly toggleFullscreen (with fallback for iPhone / iOS Safari where Fullscreen API is unavailable on divs)
+  window.toggleFullscreen = function() {
+    var docEl = document.documentElement;
+    var isFs = document.fullscreenElement || document.webkitFullscreenElement;
+    if (!isFs) {
+      if (docEl.requestFullscreen) {
+        docEl.requestFullscreen().catch(function() {
+          if (window.self !== window.top) {
+            window.top.location.href = window.location.href;
+          }
+        });
+      } else if (docEl.webkitRequestFullscreen) {
+        docEl.webkitRequestFullscreen();
+      } else if (window.self !== window.top) {
+        // iOS Safari fallback: open the standalone deck full-screen in the top viewport
+        window.top.location.href = window.location.href;
+      }
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen().catch(function() {});
+      } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+      }
+    }
+  };
+
+  // Universal touch-swipe slide navigation for mobile phones
+  (function() {
+    var touchStartX = 0;
+    var touchStartY = 0;
+    document.addEventListener('touchstart', function(e) {
+      if (!e.changedTouches || !e.changedTouches.length) return;
+      touchStartX = e.changedTouches[0].screenX;
+      touchStartY = e.changedTouches[0].screenY;
+    }, { passive: true });
+
+    document.addEventListener('touchend', function(e) {
+      if (!e.changedTouches || !e.changedTouches.length) return;
+      var target = e.target;
+      if (target && target.closest && target.closest('table, .table-container, .comp-table-wrap, select, button, a, .video-modal-backdrop, #videoModal')) {
+        return;
+      }
+      var dx = e.changedTouches[0].screenX - touchStartX;
+      var dy = e.changedTouches[0].screenY - touchStartY;
+      if (Math.abs(dx) > 65 && Math.abs(dx) > Math.abs(dy) * 1.8) {
+        if (dx < 0) {
+          if (typeof nextSlide === 'function') nextSlide();
+          else if (typeof changeSlide === 'function') changeSlide(1);
+        } else {
+          if (typeof prevSlide === 'function') prevSlide();
+          else if (typeof changeSlide === 'function') changeSlide(-1);
+        }
+      }
+    }, { passive: true });
+  })();
+
+
+  // Universal mobile-friendly toggleFullscreen (with fallback for iPhone / iOS Safari where Fullscreen API is unavailable on divs)
+  window.toggleFullscreen = function() {
+    var docEl = document.documentElement;
+    var isFs = document.fullscreenElement || document.webkitFullscreenElement;
+    if (!isFs) {
+      if (docEl.requestFullscreen) {
+        docEl.requestFullscreen().catch(function() {
+          if (window.self !== window.top) {
+            window.top.location.href = window.location.href;
+          }
+        });
+      } else if (docEl.webkitRequestFullscreen) {
+        docEl.webkitRequestFullscreen();
+      } else if (window.self !== window.top) {
+        // iOS Safari fallback: open the standalone deck full-screen in the top viewport
+        window.top.location.href = window.location.href;
+      }
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen().catch(function() {});
+      } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+      }
+    }
+  };
+
+  // Universal touch-swipe slide navigation for mobile phones
+  (function() {
+    var touchStartX = 0;
+    var touchStartY = 0;
+    document.addEventListener('touchstart', function(e) {
+      if (!e.changedTouches || !e.changedTouches.length) return;
+      touchStartX = e.changedTouches[0].screenX;
+      touchStartY = e.changedTouches[0].screenY;
+    }, { passive: true });
+
+    document.addEventListener('touchend', function(e) {
+      if (!e.changedTouches || !e.changedTouches.length) return;
+      var target = e.target;
+      if (target && target.closest && target.closest('table, .table-container, .comp-table-wrap, select, button, a, .video-modal-backdrop, #videoModal')) {
+        return;
+      }
+      var dx = e.changedTouches[0].screenX - touchStartX;
+      var dy = e.changedTouches[0].screenY - touchStartY;
+      if (Math.abs(dx) > 65 && Math.abs(dx) > Math.abs(dy) * 1.8) {
+        if (dx < 0) {
+          if (typeof nextSlide === 'function') nextSlide();
+          else if (typeof changeSlide === 'function') changeSlide(1);
+        } else {
+          if (typeof prevSlide === 'function') prevSlide();
+          else if (typeof changeSlide === 'function') changeSlide(-1);
+        }
+      }
+    }, { passive: true });
+  })();
+
 </script>
 <!-- === END HASH DEEP LINK === -->
 </body>

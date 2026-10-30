@@ -921,19 +921,29 @@
     }
     /* === END ANTI-SQUASH === */
 
-  
     /* === MTG MOBILE PHONE RESPONSIVENESS OVERRIDES === */
     @media (max-width: 768px) {
       html, body {
-        overflow-x: hidden !important;
+        height: 100vh !important;
+        max-height: 100vh !important;
+        overflow: hidden !important;
         max-width: 100vw !important;
+        display: flex !important;
+        flex-direction: column !important;
       }
+      /* Compact top utility bar */
       .deck-topbar-controls, .top-utility-bar, header.deck-topbar-controls {
         padding: 6px 10px !important;
         gap: 6px !important;
-        min-height: 42px !important;
+        min-height: 40px !important;
         height: auto !important;
         flex-wrap: nowrap !important;
+        flex-shrink: 0 !important;
+        justify-content: space-between !important;
+      }
+      /* Hide secondary promo link in topbar on phones so Fullscreen button never clips */
+      .deck-topbar-controls a[href*="app.musictechguru.com"] {
+        display: none !important;
       }
       .exit-deck-link {
         padding: 5px 8px !important;
@@ -941,12 +951,21 @@
         white-space: nowrap !important;
         flex-shrink: 0 !important;
       }
-      .deck-topbar-title, .top-bar-title {
-        font-size: 11.5px !important;
+      .deck-topbar-controls > div:first-child,
+      .top-utility-bar > div:first-child,
+      header.deck-topbar-controls > div:first-child {
+        min-width: 0 !important;
+        flex: 1 1 auto !important;
+        overflow: hidden !important;
+      }
+      .deck-topbar-title, .top-bar-title, .deck-topbar-controls span[style*="color: #94a3b8"] {
+        font-size: 11px !important;
         white-space: nowrap !important;
         overflow: hidden !important;
         text-overflow: ellipsis !important;
-        max-width: 42vw !important;
+        max-width: 38vw !important;
+        display: inline-block !important;
+        vertical-align: middle !important;
       }
       .deck-topbar-controls .fullscreen-btn,
       .top-utility-bar .fullscreen-btn,
@@ -957,7 +976,83 @@
         white-space: nowrap !important;
         flex-shrink: 0 !important;
       }
-      /* Collapse multi-column slide grids to 1 column on phones */
+      /* Hide redundant secondary inner banner bars on mobile to maximize slide viewport height */
+      header.deck-topbar,
+      .deck-topbar,
+      .top-bar {
+        display: none !important;
+      }
+      header.deck-header, .deck-header {
+        padding: 6px 12px !important;
+        min-height: auto !important;
+        flex-shrink: 0 !important;
+      }
+      header.deck-header .deck-title-group, .deck-header .deck-title-group {
+        display: none !important;
+      }
+      header.deck-header .deck-actions, .deck-header .deck-actions {
+        width: 100% !important;
+        display: flex !important;
+        justify-content: space-between !important;
+      }
+      header.deck-header .slide-select, .deck-header .slide-select {
+        max-width: 100% !important;
+        width: 100% !important;
+      }
+      header.deck-header button, .deck-header button {
+        display: none !important;
+      }
+      /* Full-bleed deck wrapper / container as flex column */
+      .deck-wrapper, .deck-container {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        border-radius: 0 !important;
+        border-left: none !important;
+        border-right: none !important;
+        flex: 1 1 auto !important;
+        min-height: 0 !important;
+        height: auto !important;
+        max-height: none !important;
+        display: flex !important;
+        flex-direction: column !important;
+        overflow: hidden !important;
+      }
+      .slides-viewport, .slide-stage {
+        flex: 1 1 auto !important;
+        min-height: 0 !important;
+        width: 100% !important;
+        padding: 0 !important;
+        overflow: hidden !important;
+        position: relative !important;
+        display: flex !important;
+        flex-direction: column !important;
+      }
+      /* Single continuous vertical scroll container for the active slide */
+      .slide:not(.active) {
+        display: none !important;
+      }
+      .slide.active {
+        position: relative !important;
+        top: auto !important;
+        left: auto !important;
+        display: block !important;
+        width: 100% !important;
+        height: 100% !important;
+        max-height: 100% !important;
+        flex: 1 1 auto !important;
+        min-height: 0 !important;
+        padding: 14px 14px 80px !important;
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+        -webkit-overflow-scrolling: touch !important;
+        box-sizing: border-box !important;
+        transform: none !important;
+        opacity: 1 !important;
+        pointer-events: auto !important;
+      }
+      /* Collapse all multi-column slide grids into a single unconstrained vertical stack */
       .slide .split-grid,
       .slide .grid-2,
       .slide .grid-2-split,
@@ -972,33 +1067,89 @@
       .slide .two-col,
       .slide .three-col,
       .slide [style*="grid-template-columns"] {
-        grid-template-columns: 1fr !important;
-        gap: 12px !important;
-      }
-      .slide .grid-2-split {
         display: flex !important;
         flex-direction: column !important;
-        overflow-y: visible !important;
+        grid-template-columns: 1fr !important;
+        gap: 14px !important;
+        flex: none !important;
+        width: 100% !important;
+        height: auto !important;
+        min-height: auto !important;
+        max-height: none !important;
+        overflow: visible !important;
+        margin-bottom: 16px !important;
+      }
+      /* Unconstrain all column panels and cards so they expand naturally inside the slide scroll */
+      .slide .column-panel,
+      .slide .col-panel,
+      .slide .info-card,
+      .slide .feature-card,
+      .slide .music-col,
+      .slide .instrument-col,
+      .slide .format-col,
+      .slide .prod-col,
+      .slide .tech-col,
+      .slide .col-music,
+      .slide .col-tech,
+      .slide .artist-visual-col {
+        display: flex !important;
+        flex-direction: column !important;
+        flex: none !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        height: auto !important;
+        min-height: auto !important;
+        max-height: none !important;
+        overflow: visible !important;
+        padding: 14px !important;
+        box-sizing: border-box !important;
+      }
+      /* Stack panel headers and takeaway/tip boxes vertically on phones so badges & text never crush */
+      .slide .panel-header,
+      .slide .col-header,
+      .slide .header-bar,
+      .slide .takeaway-box,
+      .slide .callout-box,
+      .slide .exam-tip,
+      .slide .tip-box {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        justify-content: flex-start !important;
+        gap: 6px !important;
         height: auto !important;
       }
-      .slide .column-panel {
-        overflow-y: visible !important;
-        max-height: none !important;
+      /* Give photo cards and hardware images generous height on mobile */
+      .slide .photo-card,
+      .slide .hardware-photo,
+      .slide .instrument-photo-card {
         height: auto !important;
+        min-height: 175px !important;
+        max-height: none !important;
         flex-shrink: 0 !important;
       }
-      .slide, .slide.active {
-        padding: 14px 12px 24px !important;
-        overflow-y: auto !important;
-        overflow-x: hidden !important;
-        -webkit-overflow-scrolling: touch !important;
+      .slide .photo-card img,
+      .slide .hardware-photo img,
+      .slide .instrument-photo-card img.instrument-photo {
+        height: 185px !important;
+        max-height: 220px !important;
+        width: 100% !important;
+        object-fit: contain !important;
       }
-      .slide h1 {
-        font-size: clamp(20px, 5.5vw, 26px) !important;
+      .slide .table-container,
+      .slide .comp-table-wrap {
+        overflow-x: auto !important;
+        overflow-y: visible !important;
+        max-height: none !important;
+        flex: none !important;
+        width: 100% !important;
+      }
+      .slide h1, .slide .slide-heading, .slide .slide-title {
+        font-size: clamp(20px, 5.5vw, 25px) !important;
         line-height: 1.22 !important;
       }
       .slide h2 {
-        font-size: clamp(17px, 4.8vw, 22px) !important;
+        font-size: clamp(17px, 4.8vw, 21px) !important;
         line-height: 1.25 !important;
       }
       .slide p, .slide li {
@@ -1012,12 +1163,14 @@
         -webkit-overflow-scrolling: touch !important;
         font-size: 12px !important;
       }
-      /* Bottom Controls Bar: Ensure Previous, Slide Counter, and Next always fit on 320-390px phones */
+      /* Bottom Controls Bar: Ensure Previous, Slide Counter/Dropdown, and Next always fit on 320-430px phones */
       footer.deck-controls,
       .deck-controls,
       .deck-nav,
       .bottom-bar,
-      .deck-nav-bar {
+      .deck-nav-bar,
+      .deck-footer,
+      .deck-bottombar {
         padding: 8px 10px !important;
         gap: 6px !important;
         min-height: 50px !important;
@@ -1028,29 +1181,46 @@
         flex-wrap: nowrap !important;
         width: 100% !important;
         box-sizing: border-box !important;
+        flex-shrink: 0 !important;
       }
       .deck-controls .controls-left,
       .bottom-bar .nav-buttons,
       .deck-nav-bar .nav-left,
-      .deck-nav-bar .nav-right {
+      .deck-nav-bar .nav-right,
+      .deck-nav-bar > div:first-child {
         display: contents !important;
       }
-      /* Hide duplicate bottom Fullscreen button & wide dot arrays on mobile so Next button is never clipped */
+      /* Reorder amplifiers bottom bar children so Prev is left, Counter is center, Next is right */
+      .deck-nav-bar #prevBtn { order: 1 !important; }
+      .deck-nav-bar .slide-counter, .deck-nav-bar .nav-center { order: 2 !important; }
+      .deck-nav-bar #nextBtn { order: 3 !important; }
+      /* When both a slide-counter and a slide-select dropdown exist in deck-nav-bar, hide the duplicate text counter on phones */
+      .deck-nav-bar .nav-left .slide-counter {
+        display: none !important;
+      }
+      /* Hide duplicate bottom Fullscreen button, keyboard hints & wide dot arrays on mobile so Next button is never clipped */
       #bottomFsBtn,
       .deck-controls button[onclick*="toggleFullscreen"],
       .bottom-bar button[onclick*="toggleFullscreen"],
       .deck-nav button[onclick*="toggleFullscreen"],
       .deck-nav-bar button[onclick*="toggleFullscreen"],
+      .deck-footer button[onclick*="toggleFullscreen"],
+      .deck-bottombar button[onclick*="toggleFullscreen"],
       .controls-right,
       .keyboard-hint,
+      .nav-shortcuts,
       .progress-dots,
       .slide-dots,
       #dotsContainer,
       #progressDots,
-      .progress-track {
+      .progress-track,
+      .progress-bar-track,
+      .progress-bar-container {
         display: none !important;
       }
       .progress-container,
+      .progress-group,
+      .deck-progress-group,
       .slide-indicator,
       .deck-nav-bar .nav-center {
         flex: 1 1 auto !important;
@@ -1060,13 +1230,13 @@
         justify-content: center !important;
         margin: 0 4px !important;
       }
-      .slide-counter, #slideCounter {
+      .slide-counter, #slideCounter, .progress-label {
         font-size: 11.5px !important;
         white-space: nowrap !important;
         text-align: center !important;
       }
       .slide-select, #slideSelect {
-        max-width: 135px !important;
+        max-width: 155px !important;
         font-size: 11.5px !important;
         padding: 5px 8px !important;
         text-overflow: ellipsis !important;
@@ -1126,13 +1296,13 @@
       <h2 class="slide-heading">The Bass Guitar: <span>Component 3 Syllabus Matrix</span></h2>
       <p class="slide-lead">The bass guitar anchors modern music production, bridging harmonic chord progressions and rhythmic percussion.</p>
       <div class="cards-wrap">
-        <div class="grid-3"><div class="info-card highlight"><div class="card-thumb"><img src="/images/slides/the_bass_guitar/fender_precision_bass_1951_original.jpg" alt="1951 Fender Precision Bass Patent Diagram and Slab Body" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/fender_precision_bass_1951_original.jpg', '1951 Fender Precision Bass Patent Diagram and Slab Body')"></div>
+        <div class="grid-3"><div class="info-card highlight"><div class="card-thumb"><img src="images/slides/the_bass_guitar/fender_precision_bass_1951_original.jpg" alt="1951 Fender Precision Bass Patent Diagram and Slab Body" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/fender_precision_bass_1951_original.jpg', '1951 Fender Precision Bass Patent Diagram and Slab Body')"></div>
                <span class="spec-pill ao4">AO4 Historical Milestones</span>
                <h4>The Solidbody Revolution</h4>
-               <p>Leo Fender's 1951 Precision Bass replaced bulky upright double basses with a portable, fretted 34-inch instrument that could compete with loud drum kits.</p></div><div class="info-card cyan-edge"><div class="card-thumb"><img src="/images/slides/the_bass_guitar/active_vs_passive_bass_preamp.svg" alt="Active vs Passive Bass Preamplifier Circuit Comparison" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/active_vs_passive_bass_preamp.svg', 'Active vs Passive Bass Preamplifier Circuit Comparison')"></div>
+               <p>Leo Fender's 1951 Precision Bass replaced bulky upright double basses with a portable, fretted 34-inch instrument that could compete with loud drum kits.</p></div><div class="info-card cyan-edge"><div class="card-thumb"><img src="images/slides/the_bass_guitar/active_vs_passive_bass_preamp.svg" alt="Active vs Passive Bass Preamplifier Circuit Comparison" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/active_vs_passive_bass_preamp.svg', 'Active vs Passive Bass Preamplifier Circuit Comparison')"></div>
                <span class="spec-pill ao3">AO3 Transducer Physics</span>
                <h4>Electronics &amp; Preamps</h4>
-               <p>Passive high-impedance split-coils, dual single-coils, and active 9V onboard preamps (Baxandall EQ) offer low output impedance and massive tonal shaping.</p></div><div class="info-card acid-edge"><div class="card-thumb"><img src="/images/slides/the_bass_guitar/bass_revision_matrix_summary.svg" alt="Bass Guitar Syllabus Revision Matrix and Core Vocabulary Summary" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/bass_revision_matrix_summary.svg', 'Bass Guitar Syllabus Revision Matrix and Core Vocabulary Summary')"></div>
+               <p>Passive high-impedance split-coils, dual single-coils, and active 9V onboard preamps (Baxandall EQ) offer low output impedance and massive tonal shaping.</p></div><div class="info-card acid-edge"><div class="card-thumb"><img src="images/slides/the_bass_guitar/bass_revision_matrix_summary.svg" alt="Bass Guitar Syllabus Revision Matrix and Core Vocabulary Summary" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/bass_revision_matrix_summary.svg', 'Bass Guitar Syllabus Revision Matrix and Core Vocabulary Summary')"></div>
                <span class="spec-pill ao3">AO3 Studio Engineering</span>
                <h4>Studio DI &amp; Amplification</h4>
                <p>Direct Injection (DI boxes with Jensen/Triad transformers) allowed direct-to-console tracking, paired with 300W tube heads (Ampeg SVT) and multi-track phase alignment.</p></div></div>
@@ -1143,13 +1313,13 @@
       <h2 class="slide-heading">Bass Anatomy: <span>Scale Length &amp; Tension Physics</span></h2>
       <p class="slide-lead">The vibrating string length (scale length) dictates string tension, physical elasticity, and low-frequency overtone clarity.</p>
       <div class="cards-wrap">
-        <div class="grid-3"><div class="info-card highlight"><div class="card-thumb"><img src="/images/slides/the_bass_guitar/bass_anatomy_and_scale_length.svg" alt="Scale Length Comparison: 34-Inch Long Scale vs 30-Inch Short Scale" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/bass_anatomy_and_scale_length.svg', 'Scale Length Comparison: 34-Inch Long Scale vs 30-Inch Short Scale')"></div>
+        <div class="grid-3"><div class="info-card highlight"><div class="card-thumb"><img src="images/slides/the_bass_guitar/bass_anatomy_and_scale_length.svg" alt="Scale Length Comparison: 34-Inch Long Scale vs 30-Inch Short Scale" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/bass_anatomy_and_scale_length.svg', 'Scale Length Comparison: 34-Inch Long Scale vs 30-Inch Short Scale')"></div>
                <span class="spec-pill ao3">AO3 Mechanical Physics</span>
                <h4>34" Long vs 30" Short Scale</h4>
-               <p><strong>34" Long Scale (Fender):</strong> High string tension produces articulate attack, defined fundamentals, and piano-like sustain. <strong>30" Short Scale (H&#246;fner):</strong> Lower tension creates a tubby, darker fundamental thud.</p></div><div class="info-card cyan-edge"><div class="card-thumb"><img src="/images/slides/the_bass_guitar/bass_bridge_high_mass_badass.jpg" alt="High-Mass Bass Bridge Saddle Assembly with Heavy Baseplate" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/bass_bridge_high_mass_badass.jpg', 'High-Mass Bass Bridge Saddle Assembly with Heavy Baseplate')"></div>
+               <p><strong>34" Long Scale (Fender):</strong> High string tension produces articulate attack, defined fundamentals, and piano-like sustain. <strong>30" Short Scale (H&#246;fner):</strong> Lower tension creates a tubby, darker fundamental thud.</p></div><div class="info-card cyan-edge"><div class="card-thumb"><img src="images/slides/the_bass_guitar/bass_bridge_high_mass_badass.jpg" alt="High-Mass Bass Bridge Saddle Assembly with Heavy Baseplate" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/bass_bridge_high_mass_badass.jpg', 'High-Mass Bass Bridge Saddle Assembly with Heavy Baseplate')"></div>
                <span class="spec-pill ao3">AO3 Mechanical Coupling</span>
                <h4>High-Mass Bridges &amp; Sustain</h4>
-               <p>Leo Quan "Badass" and modern high-mass brass bridges increase contact mass, coupling heavy low-frequency string vibrations into the body wood and preventing transient energy absorption.</p></div><div class="info-card acid-edge"><div class="card-thumb"><img src="/images/slides/the_bass_guitar/extended_scale_5_string_tension_chart.svg" alt="5-String Bass Tension Chart Comparing 34-Inch vs 35-Inch Scale" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/extended_scale_5_string_tension_chart.svg', '5-String Bass Tension Chart Comparing 34-Inch vs 35-Inch Scale')"></div>
+               <p>Leo Quan "Badass" and modern high-mass brass bridges increase contact mass, coupling heavy low-frequency string vibrations into the body wood and preventing transient energy absorption.</p></div><div class="info-card acid-edge"><div class="card-thumb"><img src="images/slides/the_bass_guitar/extended_scale_5_string_tension_chart.svg" alt="5-String Bass Tension Chart Comparing 34-Inch vs 35-Inch Scale" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/extended_scale_5_string_tension_chart.svg', '5-String Bass Tension Chart Comparing 34-Inch vs 35-Inch Scale')"></div>
                <span class="spec-pill ao3">AO3 Extended Range</span>
                <h4>Extended Scale for Low B (35")</h4>
                <p>To produce a clear 30.9 Hz Low-B without floppiness or fret buzz, modern 5-string basses utilize 35-inch or multi-scale (34"–37" fanned fret) designs to increase physical string tension.</p></div></div>
@@ -1160,13 +1330,13 @@
       <h2 class="slide-heading">Low Frequencies: <span>Mass, Wavelengths &amp; Energy</span></h2>
       <p class="slide-lead">Low audio frequencies exhibit vast acoustic wavelengths and require massive electrical amplification power.</p>
       <div class="cards-wrap">
-        <div class="grid-3"><div class="info-card highlight"><div class="card-thumb"><img src="/images/slides/the_bass_guitar/bass_low_frequency_physics.svg" alt="Low-Frequency Acoustic Wavelengths and String Mass Diagram" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/bass_low_frequency_physics.svg', 'Low-Frequency Acoustic Wavelengths and String Mass Diagram')"></div>
+        <div class="grid-3"><div class="info-card highlight"><div class="card-thumb"><img src="images/slides/the_bass_guitar/bass_low_frequency_physics.svg" alt="Low-Frequency Acoustic Wavelengths and String Mass Diagram" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/bass_low_frequency_physics.svg', 'Low-Frequency Acoustic Wavelengths and String Mass Diagram')"></div>
                <span class="spec-pill ao3">AO3 Acoustic Physics</span>
                <h4>Wavelength Scale: 41.2 Hz Low-E</h4>
-               <p>The fundamental frequency of a bass Low-E is 41.2 Hz, which possesses an acoustic wavelength of 8.32 metres in air! A 5-string Low-B (30.9 Hz) spans over 11.1 metres, creating standing waves in studios.</p></div><div class="info-card cyan-edge"><div class="card-thumb"><img src="/images/slides/the_bass_guitar/flatwound_vs_roundwound_strings_photo.jpg" alt="Close-Up Photograph of Flatwound Ribbon Wire vs Roundwound Ridges" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/flatwound_vs_roundwound_strings_photo.jpg', 'Close-Up Photograph of Flatwound Ribbon Wire vs Roundwound Ridges')"></div>
+               <p>The fundamental frequency of a bass Low-E is 41.2 Hz, which possesses an acoustic wavelength of 8.32 metres in air! A 5-string Low-B (30.9 Hz) spans over 11.1 metres, creating standing waves in studios.</p></div><div class="info-card cyan-edge"><div class="card-thumb"><img src="images/slides/the_bass_guitar/flatwound_vs_roundwound_strings_photo.jpg" alt="Close-Up Photograph of Flatwound Ribbon Wire vs Roundwound Ridges" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/flatwound_vs_roundwound_strings_photo.jpg', 'Close-Up Photograph of Flatwound Ribbon Wire vs Roundwound Ridges')"></div>
                <span class="spec-pill ao3">AO3 String Construction</span>
                <h4>String Gauge &amp; Core Mass</h4>
-               <p>Heavy bass strings (.045" to .105" or .130") feature a steel core wrapped in outer nickel or stainless steel windings, providing the heavy inertial mass required to oscillate at sub-bass frequencies.</p></div><div class="info-card acid-edge"><div class="card-thumb"><img src="/images/slides/the_bass_guitar/flatwound_vs_roundwound_frequency_response.svg" alt="Frequency Response Curves Comparing Flatwound vs Roundwound Bass Strings" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/flatwound_vs_roundwound_frequency_response.svg', 'Frequency Response Curves Comparing Flatwound vs Roundwound Bass Strings')"></div>
+               <p>Heavy bass strings (.045" to .105" or .130") feature a steel core wrapped in outer nickel or stainless steel windings, providing the heavy inertial mass required to oscillate at sub-bass frequencies.</p></div><div class="info-card acid-edge"><div class="card-thumb"><img src="images/slides/the_bass_guitar/flatwound_vs_roundwound_frequency_response.svg" alt="Frequency Response Curves Comparing Flatwound vs Roundwound Bass Strings" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/flatwound_vs_roundwound_frequency_response.svg', 'Frequency Response Curves Comparing Flatwound vs Roundwound Bass Strings')"></div>
                <span class="spec-pill ao3">AO3 Frequency Spectrum</span>
                <h4>Flatwound vs Roundwound Timbre</h4>
                <p><strong>Flatwounds:</strong> Muted upper harmonics, heavy fundamental thud, zero finger squeak (Motown/reggae). <strong>Roundwounds:</strong> Bright presence peak, metallic bite, extended slap sustain.</p></div></div>
@@ -1177,13 +1347,13 @@
       <h2 class="slide-heading">1930s–1940s: <span>The Upright Double Bass Crisis</span></h2>
       <p class="slide-lead">In swing big bands and dance orchestras, acoustic upright double basses struggled against brass and drum volumes.</p>
       <div class="cards-wrap">
-        <div class="grid-3"><div class="info-card highlight"><div class="card-thumb"><img src="/images/slides/the_bass_guitar/upright_double_bass_acoustic.jpg" alt="Acoustic Upright Double Bass Carved Spruce Body" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/upright_double_bass_acoustic.jpg', 'Acoustic Upright Double Bass Carved Spruce Body')"></div>
+        <div class="grid-3"><div class="info-card highlight"><div class="card-thumb"><img src="images/slides/the_bass_guitar/upright_double_bass_acoustic.jpg" alt="Acoustic Upright Double Bass Carved Spruce Body" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/upright_double_bass_acoustic.jpg', 'Acoustic Upright Double Bass Carved Spruce Body')"></div>
                <span class="spec-pill ao4">AO4 Acoustic Limitations</span>
                <h4>The Acoustic Volume Ceiling</h4>
-               <p>Acoustic upright basses produced low acoustic output that was easily drowned out by horn sections. Bassists had to pluck gut strings violently ("slap style") to produce audible percussive clicks.</p></div><div class="info-card cyan-edge"><div class="card-thumb"><img src="/images/slides/the_bass_guitar/acoustic_double_bass_vs_electric_comparison.svg" alt="Comparison Diagram: Upright Bass Bleed and Feedback vs Solidbody Solution" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/acoustic_double_bass_vs_electric_comparison.svg', 'Comparison Diagram: Upright Bass Bleed and Feedback vs Solidbody Solution')"></div>
+               <p>Acoustic upright basses produced low acoustic output that was easily drowned out by horn sections. Bassists had to pluck gut strings violently ("slap style") to produce audible percussive clicks.</p></div><div class="info-card cyan-edge"><div class="card-thumb"><img src="images/slides/the_bass_guitar/acoustic_double_bass_vs_electric_comparison.svg" alt="Comparison Diagram: Upright Bass Bleed and Feedback vs Solidbody Solution" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/acoustic_double_bass_vs_electric_comparison.svg', 'Comparison Diagram: Upright Bass Bleed and Feedback vs Solidbody Solution')"></div>
                <span class="spec-pill ao3">AO3 Acoustic Feedback</span>
                <h4>Stage Feedback &amp; Drum Bleed</h4>
-               <p>When microphones or early contact pickups were attached to hollow double basses, sound pressure from PA systems caused violent cavity resonance feedback, while loud drum kits bled into the bass mic.</p></div><div class="info-card acid-edge"><div class="card-thumb"><img src="/images/slides/the_bass_guitar/fender_bassman_tweed_amp.jpg" alt="1950s Tweed Fender Bassman 4x10 Tube Combo Amplifier" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/fender_bassman_tweed_amp.jpg', '1950s Tweed Fender Bassman 4x10 Tube Combo Amplifier')"></div>
+               <p>When microphones or early contact pickups were attached to hollow double basses, sound pressure from PA systems caused violent cavity resonance feedback, while loud drum kits bled into the bass mic.</p></div><div class="info-card acid-edge"><div class="card-thumb"><img src="images/slides/the_bass_guitar/fender_bassman_tweed_amp.jpg" alt="1950s Tweed Fender Bassman 4x10 Tube Combo Amplifier" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/fender_bassman_tweed_amp.jpg', '1950s Tweed Fender Bassman 4x10 Tube Combo Amplifier')"></div>
                <span class="spec-pill ao4">AO4 Early Bass Amplification</span>
                <h4>The Fender Bassman (1952)</h4>
                <p>Leo Fender introduced the 5B6 / 5F6-A Bassman combo amplifier with 4&#215;10-inch Jensen speakers, giving bassists dedicated electronic amplification with open-back cabinet projection.</p></div></div>
@@ -1194,14 +1364,14 @@
       <h2 class="slide-heading">1951 Fender Precision: <span>The Revolution</span></h2>
       <p class="slide-lead">Leo Fender combined solid ash wood, guitar frets, and an electromagnetic pickup to transform popular rhythm sections.</p>
       <div class="cards-wrap">
-        <div class="grid-3"><div class="info-card highlight"><div class="card-thumb"><img src="/images/slides/the_bass_guitar/james_jamerson_precision_bass.jpg" alt="Legendary Motown Bassist James Jamerson with 1962 Fender Precision Bass" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/james_jamerson_precision_bass.jpg', 'Legendary Motown Bassist James Jamerson with 1962 Fender Precision Bass')"></div>
+        <div class="grid-3"><div class="info-card highlight"><div class="card-thumb"><img src="images/slides/the_bass_guitar/james_jamerson_precision_bass.jpg" alt="Legendary Motown Bassist James Jamerson with 1962 Fender Precision Bass" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/james_jamerson_precision_bass.jpg', 'Legendary Motown Bassist James Jamerson with 1962 Fender Precision Bass')"></div>
                <span class="spec-pill ao4">AO4 Motown Pioneer</span>
                <h4>James Jamerson &amp; "The Funk Machine"</h4>
                <p>Using his 1962 P-Bass with heavy La Bella flatwound strings and one finger ("The Hook"), Jamerson recorded virtually every legendary Motown hit (The Temptations, Marvin Gaye, Stevie Wonder).</p>
-               <div class="video-btn-row" style="display:flex; gap:8px; align-items:center; margin-top:10px; flex-wrap:wrap;"><button class="video-trigger-btn" onclick="openVideo('H-kA3UtBj4M', 'Marvin Gaye - What\'s Going On (James Jamerson P-Bass)')" style="display:inline-flex; align-items:center; gap:6px; font-size:11px; font-weight:800; color:#080d1a; background:linear-gradient(135deg, #f59e0b, #fbbf24); border:0; padding:6px 12px; border-radius:6px; cursor:pointer;">▶ Listen: Jamerson P-Bass</button><a href="https://www.youtube.com/watch?v=H-kA3UtBj4M" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" style="display:inline-flex; align-items:center; gap:4px; font-size:11px; font-weight:700; color:#fff !important; background:rgba(239,68,68,0.2); border:1px solid rgba(239,68,68,0.45); padding:5px 10px; border-radius:6px; text-decoration:none;" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div></div><div class="info-card cyan-edge"><div class="card-thumb"><img src="/images/slides/the_bass_guitar/palm_muting_foam_mute_damping.svg" alt="Foam Bridge Muting and Palm Damping Waveform Envelope Comparison" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/palm_muting_foam_mute_damping.svg', 'Foam Bridge Muting and Palm Damping Waveform Envelope Comparison')"></div>
+               <div class="video-btn-row" style="display:flex; gap:8px; align-items:center; margin-top:10px; flex-wrap:wrap;"><button class="video-trigger-btn" onclick="openVideo('H-kA3UtBj4M', 'Marvin Gaye - What\'s Going On (James Jamerson P-Bass)')" style="display:inline-flex; align-items:center; gap:6px; font-size:11px; font-weight:800; color:#080d1a; background:linear-gradient(135deg, #f59e0b, #fbbf24); border:0; padding:6px 12px; border-radius:6px; cursor:pointer;">▶ Listen: Jamerson P-Bass</button><a href="https://www.youtube.com/watch?v=H-kA3UtBj4M" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" style="display:inline-flex; align-items:center; gap:4px; font-size:11px; font-weight:700; color:#fff !important; background:rgba(239,68,68,0.2); border:1px solid rgba(239,68,68,0.45); padding:5px 10px; border-radius:6px; text-decoration:none;" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div></div><div class="info-card cyan-edge"><div class="card-thumb"><img src="images/slides/the_bass_guitar/palm_muting_foam_mute_damping.svg" alt="Foam Bridge Muting and Palm Damping Waveform Envelope Comparison" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/palm_muting_foam_mute_damping.svg', 'Foam Bridge Muting and Palm Damping Waveform Envelope Comparison')"></div>
                <span class="spec-pill ao3">AO3 Mechanical Damping</span>
                <h4>The Motown "Thud" (Foam Muting)</h4>
-               <p>Foam rubber dampening under bridge covers cut string sustain to &lt;0.5 seconds. This fast decay prevented low-end mud, leaving total acoustic space for kick drum transients in mono mixes.</p></div><div class="info-card acid-edge"><div class="card-thumb"><img src="/images/slides/the_bass_guitar/motown_wolfbox_di.jpg" alt="Historic Motown Wolfbox Passive DI Box with Triad Transformer" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/motown_wolfbox_di.jpg', 'Historic Motown Wolfbox Passive DI Box with Triad Transformer')"></div>
+               <p>Foam rubber dampening under bridge covers cut string sustain to &lt;0.5 seconds. This fast decay prevented low-end mud, leaving total acoustic space for kick drum transients in mono mixes.</p></div><div class="info-card acid-edge"><div class="card-thumb"><img src="images/slides/the_bass_guitar/motown_wolfbox_di.jpg" alt="Historic Motown Wolfbox Passive DI Box with Triad Transformer" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/motown_wolfbox_di.jpg', 'Historic Motown Wolfbox Passive DI Box with Triad Transformer')"></div>
                <span class="spec-pill ao4">AO4 Legendary Hardware</span>
                <h4>The Motown "Wolfbox" DI (1960s)</h4>
                <p>Engineered by Motown technician Ed Wolfrum using a precision Triad A-11J audio transformer. It converted Jamerson's P-Bass into a clean, hum-free, high-fidelity studio signal with zero room bleed.</p></div></div>
@@ -1212,13 +1382,13 @@
       <h2 class="slide-heading">1957 Split-Coil Pickup: <span>RWRP Hum Cancellation</span></h2>
       <p class="slide-lead">In 1957, Leo Fender redesigned the Precision Bass with an offset split-coil pickup that eradicated electrical hum.</p>
       <div class="cards-wrap">
-        <div class="grid-3"><div class="info-card highlight"><div class="card-thumb"><img src="/images/slides/the_bass_guitar/fender_precision_bass_1957_sunburst.jpg" alt="1958 Fender Precision Bass Sunburst with Split-Coil Pickup" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/fender_precision_bass_1957_sunburst.jpg', '1958 Fender Precision Bass Sunburst with Split-Coil Pickup')"></div>
+        <div class="grid-3"><div class="info-card highlight"><div class="card-thumb"><img src="images/slides/the_bass_guitar/fender_precision_bass_1957_sunburst.jpg" alt="1958 Fender Precision Bass Sunburst with Split-Coil Pickup" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/fender_precision_bass_1957_sunburst.jpg', '1958 Fender Precision Bass Sunburst with Split-Coil Pickup')"></div>
                <span class="spec-pill ao4">AO4 Ergonomic Redesign</span>
                <h4>The 1957 Contoured P-Bass</h4>
-               <p>Upgraded with Stratocaster-style forearm and belly comfort contours, a gold anodized aluminum pickguard, and the definitive staggered two-piece split-coil humbucking pickup.</p></div><div class="info-card cyan-edge"><div class="card-thumb"><img src="/images/slides/the_bass_guitar/p_bass_split_coil_rwrp_physics.svg" alt="Split-Coil Series Wiring Schematic with North and South Pole Orientations" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/p_bass_split_coil_rwrp_physics.svg', 'Split-Coil Series Wiring Schematic with North and South Pole Orientations')"></div>
+               <p>Upgraded with Stratocaster-style forearm and belly comfort contours, a gold anodized aluminum pickguard, and the definitive staggered two-piece split-coil humbucking pickup.</p></div><div class="info-card cyan-edge"><div class="card-thumb"><img src="images/slides/the_bass_guitar/p_bass_split_coil_rwrp_physics.svg" alt="Split-Coil Series Wiring Schematic with North and South Pole Orientations" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/p_bass_split_coil_rwrp_physics.svg', 'Split-Coil Series Wiring Schematic with North and South Pole Orientations')"></div>
                <span class="spec-pill ao3">AO3 RWRP Phase Math</span>
                <h4>Split-Coil RWRP Operation</h4>
-               <p>One coil senses E &amp; A strings; the other senses D &amp; G strings. Wired in series with reverse winding and opposing magnetic poles, external 50/60 Hz hum self-cancels while string signals sum cleanly.</p></div><div class="info-card acid-edge"><div class="card-thumb"><img src="/images/slides/the_bass_guitar/bass_pickup_placement_timbre.svg" alt="Bass Pickup Harmonic Spectrum: Neck vs P-Bass Sweet Spot vs Bridge Growl" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/bass_pickup_placement_timbre.svg', 'Bass Pickup Harmonic Spectrum: Neck vs P-Bass Sweet Spot vs Bridge Growl')"></div>
+               <p>One coil senses E &amp; A strings; the other senses D &amp; G strings. Wired in series with reverse winding and opposing magnetic poles, external 50/60 Hz hum self-cancels while string signals sum cleanly.</p></div><div class="info-card acid-edge"><div class="card-thumb"><img src="images/slides/the_bass_guitar/bass_pickup_placement_timbre.svg" alt="Bass Pickup Harmonic Spectrum: Neck vs P-Bass Sweet Spot vs Bridge Growl" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/bass_pickup_placement_timbre.svg', 'Bass Pickup Harmonic Spectrum: Neck vs P-Bass Sweet Spot vs Bridge Growl')"></div>
                <span class="spec-pill ao3">AO3 Harmonic Placement</span>
                <h4>The P-Bass "Sweet Spot"</h4>
                <p>Positioned exactly at ~1/3 of the scale length, the P-Bass pickup balances fundamental low-end warmth with aggressive 700 Hz–1.2 kHz midrange bark, slicing through dense rock drum kits.</p></div></div>
@@ -1229,13 +1399,13 @@
       <h2 class="slide-heading">1960 Fender Jazz Bass: <span>Tonal Versatility</span></h2>
       <p class="slide-lead">Designed as a deluxe model for upright jazz bassists seeking narrower necks and dual-pickup frequency versatility.</p>
       <div class="cards-wrap">
-        <div class="grid-3"><div class="info-card highlight"><div class="card-thumb"><img src="/images/slides/the_bass_guitar/fender_jazz_bass_1960.jpg" alt="1960s Fender Jazz Bass with Offset Waist Body and Dual Pickups" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/fender_jazz_bass_1960.jpg', '1960s Fender Jazz Bass with Offset Waist Body and Dual Pickups')"></div>
+        <div class="grid-3"><div class="info-card highlight"><div class="card-thumb"><img src="images/slides/the_bass_guitar/fender_jazz_bass_1960.jpg" alt="1960s Fender Jazz Bass with Offset Waist Body and Dual Pickups" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/fender_jazz_bass_1960.jpg', '1960s Fender Jazz Bass with Offset Waist Body and Dual Pickups')"></div>
                <span class="spec-pill ao4">AO4 Deluxe Evolution</span>
                <h4>Offset Waist &amp; Narrow Neck</h4>
-               <p>Featured an ergonomic asymmetrical offset waist body and a slim 1.5-inch nut width (compared to the P-Bass 1.75"), facilitating rapid fingering and walking jazz basslines.</p></div><div class="info-card cyan-edge"><div class="card-thumb"><img src="/images/slides/the_bass_guitar/jazz_bass_dual_single_coil_wiring.svg" alt="Jazz Bass Dual Volume and Master Tone Circuit Schematic" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/jazz_bass_dual_single_coil_wiring.svg', 'Jazz Bass Dual Volume and Master Tone Circuit Schematic')"></div>
+               <p>Featured an ergonomic asymmetrical offset waist body and a slim 1.5-inch nut width (compared to the P-Bass 1.75"), facilitating rapid fingering and walking jazz basslines.</p></div><div class="info-card cyan-edge"><div class="card-thumb"><img src="images/slides/the_bass_guitar/jazz_bass_dual_single_coil_wiring.svg" alt="Jazz Bass Dual Volume and Master Tone Circuit Schematic" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/jazz_bass_dual_single_coil_wiring.svg', 'Jazz Bass Dual Volume and Master Tone Circuit Schematic')"></div>
                <span class="spec-pill ao3">AO3 Dual Pickup Blend</span>
                <h4>Two Narrow Single-Coil Pickups</h4>
-               <p>Equipped with two distinct pickups: a warm neck pickup and a biting, harmonically rich bridge pickup. Two individual volume knobs allowed continuous blend combinations.</p></div><div class="info-card acid-edge"><div class="card-thumb"><img src="/images/slides/the_bass_guitar/jaco_pastorius_fretless_bass_of_doom.jpg" alt="Jaco Pastorius Performing with his Fretless Bass of Doom" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/jaco_pastorius_fretless_bass_of_doom.jpg', 'Jaco Pastorius Performing with his Fretless Bass of Doom')"></div>
+               <p>Equipped with two distinct pickups: a warm neck pickup and a biting, harmonically rich bridge pickup. Two individual volume knobs allowed continuous blend combinations.</p></div><div class="info-card acid-edge"><div class="card-thumb"><img src="images/slides/the_bass_guitar/jaco_pastorius_fretless_bass_of_doom.jpg" alt="Jaco Pastorius Performing with his Fretless Bass of Doom" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/jaco_pastorius_fretless_bass_of_doom.jpg', 'Jaco Pastorius Performing with his Fretless Bass of Doom')"></div>
                <span class="spec-pill ao4">AO4 Virtuoso Expression</span>
                <h4>Jaco Pastorius &amp; Bridge Pickup Growl</h4>
                <p>Soloing on his fretless 1962 Jazz Bass, Jaco favoured the bridge pickup with tone rolled back slightly, producing an unmistakable vocal midrange bark with Weather Report (*Birdland*).</p>
@@ -1247,14 +1417,14 @@
       <h2 class="slide-heading">H&#246;fner &amp; Short-Scale: <span>The British Invasion</span></h2>
       <p class="slide-lead">European manufacturers created light, compact violin-style and semi-hollow basses that defined early British rock and roll.</p>
       <div class="cards-wrap">
-        <div class="grid-3"><div class="info-card highlight"><div class="card-thumb"><img src="/images/slides/the_bass_guitar/hofner_500_1_beatles_bass.jpg" alt="1960s Hofner 500-1 Violin Bass with Hollow Spruce Chamber" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/hofner_500_1_beatles_bass.jpg', '1960s Hofner 500-1 Violin Bass with Hollow Spruce Chamber')"></div>
+        <div class="grid-3"><div class="info-card highlight"><div class="card-thumb"><img src="images/slides/the_bass_guitar/hofner_500_1_beatles_bass.jpg" alt="1960s Hofner 500-1 Violin Bass with Hollow Spruce Chamber" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/hofner_500_1_beatles_bass.jpg', '1960s Hofner 500-1 Violin Bass with Hollow Spruce Chamber')"></div>
                <span class="spec-pill ao4">AO4 European Design</span>
                <h4>The H&#246;fner 500/1 Violin Bass (1956)</h4>
-               <p>Walter H&#246;fner built a fully hollow, carved spruce and maple chambered body with violin aesthetics, weighing only ~2.1 kg (under 5 lbs) with two narrow German single-coil pickups.</p></div><div class="info-card cyan-edge"><div class="card-thumb"><img src="/images/slides/the_bass_guitar/paul_mccartney_hofner_live.jpg" alt="Paul McCartney with Left-Handed Hofner 500-1 Bass on Stage" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/paul_mccartney_hofner_live.jpg', 'Paul McCartney with Left-Handed Hofner 500-1 Bass on Stage')"></div>
+               <p>Walter H&#246;fner built a fully hollow, carved spruce and maple chambered body with violin aesthetics, weighing only ~2.1 kg (under 5 lbs) with two narrow German single-coil pickups.</p></div><div class="info-card cyan-edge"><div class="card-thumb"><img src="images/slides/the_bass_guitar/paul_mccartney_hofner_live.jpg" alt="Paul McCartney with Left-Handed Hofner 500-1 Bass on Stage" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/paul_mccartney_hofner_live.jpg', 'Paul McCartney with Left-Handed Hofner 500-1 Bass on Stage')"></div>
                <span class="spec-pill ao4">AO4 McCartney &amp; The Beatles</span>
                <h4>Paul McCartney &amp; Abbey Road</h4>
                <p>McCartney bought a symmetrical left-handed H&#246;fner in Hamburg in 1961. Paired with flatwound strings, it gave early Beatles hits (*She Loves You*, *All My Loving*) a woody, melodic bounce.</p>
-               <div class="video-btn-row" style="display:flex; gap:8px; align-items:center; margin-top:10px; flex-wrap:wrap;"><button class="video-trigger-btn" onclick="openVideo('jenWdylTtzs', 'The Beatles - I Want To Hold Your Hand (Hofner 500/1)')" style="display:inline-flex; align-items:center; gap:6px; font-size:11px; font-weight:800; color:#080d1a; background:linear-gradient(135deg, #f59e0b, #fbbf24); border:0; padding:6px 12px; border-radius:6px; cursor:pointer;">▶ Listen: McCartney Höfner</button><a href="https://www.youtube.com/watch?v=jenWdylTtzs" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" style="display:inline-flex; align-items:center; gap:4px; font-size:11px; font-weight:700; color:#fff !important; background:rgba(239,68,68,0.2); border:1px solid rgba(239,68,68,0.45); padding:5px 10px; border-radius:6px; text-decoration:none;" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div></div><div class="info-card acid-edge"><div class="card-thumb"><img src="/images/slides/the_bass_guitar/gibson_eb3_bass.jpg" alt="Gibson EB-3 SG-Style Solidbody Bass with Mudbucker and Mini-Humbucker" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/gibson_eb3_bass.jpg', 'Gibson EB-3 SG-Style Solidbody Bass with Mudbucker and Mini-Humbucker')"></div>
+               <div class="video-btn-row" style="display:flex; gap:8px; align-items:center; margin-top:10px; flex-wrap:wrap;"><button class="video-trigger-btn" onclick="openVideo('jenWdylTtzs', 'The Beatles - I Want To Hold Your Hand (Hofner 500/1)')" style="display:inline-flex; align-items:center; gap:6px; font-size:11px; font-weight:800; color:#080d1a; background:linear-gradient(135deg, #f59e0b, #fbbf24); border:0; padding:6px 12px; border-radius:6px; cursor:pointer;">▶ Listen: McCartney Höfner</button><a href="https://www.youtube.com/watch?v=jenWdylTtzs" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" style="display:inline-flex; align-items:center; gap:4px; font-size:11px; font-weight:700; color:#fff !important; background:rgba(239,68,68,0.2); border:1px solid rgba(239,68,68,0.45); padding:5px 10px; border-radius:6px; text-decoration:none;" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div></div><div class="info-card acid-edge"><div class="card-thumb"><img src="images/slides/the_bass_guitar/gibson_eb3_bass.jpg" alt="Gibson EB-3 SG-Style Solidbody Bass with Mudbucker and Mini-Humbucker" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/gibson_eb3_bass.jpg', 'Gibson EB-3 SG-Style Solidbody Bass with Mudbucker and Mini-Humbucker')"></div>
                <span class="spec-pill ao4">AO4 Gibson Mudbucker</span>
                <h4>The Gibson EB-0 &amp; EB-3 Basses</h4>
                <p>Gibson mounted a massive 30 k&#937; humbucker ("Mudbucker") right against the fingerboard on an SG mahogany body, creating an ultra-dark, thunderous bass roar (Jack Bruce in Cream).</p></div></div>
@@ -1265,14 +1435,14 @@
       <h2 class="slide-heading">Rickenbacker 4001: <span>Treble Bite &amp; Stereo Output</span></h2>
       <p class="slide-lead">The transition to heavy progressive rock required aggressive upper-midrange punch that could cut through organ and guitar walls.</p>
       <div class="cards-wrap">
-        <div class="grid-3"><div class="info-card highlight"><div class="card-thumb"><img src="/images/slides/the_bass_guitar/rickenbacker_4001_bass.jpg" alt="1970s Rickenbacker 4001 Bass with Maple Neck-Through Construction" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/rickenbacker_4001_bass.jpg', '1970s Rickenbacker 4001 Bass with Maple Neck-Through Construction')"></div>
+        <div class="grid-3"><div class="info-card highlight"><div class="card-thumb"><img src="images/slides/the_bass_guitar/rickenbacker_4001_bass.jpg" alt="1970s Rickenbacker 4001 Bass with Maple Neck-Through Construction" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/rickenbacker_4001_bass.jpg', '1970s Rickenbacker 4001 Bass with Maple Neck-Through Construction')"></div>
                <span class="spec-pill ao4">AO4 Neck-Through Rigidity</span>
                <h4>Neck-Through Maple Construction</h4>
-               <p>Solid maple neck-through-body design with walnut stringers provided tremendous sustain and bright acoustic resonance, paired with a horseshoe or high-gain single-coil bridge pickup.</p></div><div class="info-card cyan-edge"><div class="card-thumb"><img src="/images/slides/the_bass_guitar/pete_townshend_john_entwistle_bass.jpg" alt="The Who Bassist John Entwistle Performing Live" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/pete_townshend_john_entwistle_bass.jpg', 'The Who Bassist John Entwistle Performing Live')"></div>
+               <p>Solid maple neck-through-body design with walnut stringers provided tremendous sustain and bright acoustic resonance, paired with a horseshoe or high-gain single-coil bridge pickup.</p></div><div class="info-card cyan-edge"><div class="card-thumb"><img src="images/slides/the_bass_guitar/pete_townshend_john_entwistle_bass.jpg" alt="The Who Bassist John Entwistle Performing Live" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/pete_townshend_john_entwistle_bass.jpg', 'The Who Bassist John Entwistle Performing Live')"></div>
                <span class="spec-pill ao4">AO4 Entwistle's Lead Bass</span>
                <h4>John Entwistle &amp; Rotosound Strings</h4>
                <p>The Who's John Entwistle worked with Rotosound to invent steel roundwound strings (Swing Bass 66), transforming bass from quiet rhythm support into a clattering, overdriven lead instrument.</p>
-               <div class="video-btn-row" style="display:flex; gap:8px; align-items:center; margin-top:10px; flex-wrap:wrap;"><button class="video-trigger-btn" onclick="openVideo('UDfAdHBtK_Q', 'The Who - Won\'t Get Fooled Again (Entwistle Bass)')" style="display:inline-flex; align-items:center; gap:6px; font-size:11px; font-weight:800; color:#080d1a; background:linear-gradient(135deg, #f59e0b, #fbbf24); border:0; padding:6px 12px; border-radius:6px; cursor:pointer;">▶ Listen: Entwistle Bass</button><a href="https://www.youtube.com/watch?v=UDfAdHBtK_Q" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" style="display:inline-flex; align-items:center; gap:4px; font-size:11px; font-weight:700; color:#fff !important; background:rgba(239,68,68,0.2); border:1px solid rgba(239,68,68,0.45); padding:5px 10px; border-radius:6px; text-decoration:none;" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div></div><div class="info-card acid-edge"><div class="card-thumb"><img src="/images/slides/the_bass_guitar/alembic_custom_bass.jpg" alt="Alembic Custom Active Bass with Exotic Tonewoods and Onboard Preamp" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/alembic_custom_bass.jpg', 'Alembic Custom Active Bass with Exotic Tonewoods and Onboard Preamp')"></div>
+               <div class="video-btn-row" style="display:flex; gap:8px; align-items:center; margin-top:10px; flex-wrap:wrap;"><button class="video-trigger-btn" onclick="openVideo('UDfAdHBtK_Q', 'The Who - Won\'t Get Fooled Again (Entwistle Bass)')" style="display:inline-flex; align-items:center; gap:6px; font-size:11px; font-weight:800; color:#080d1a; background:linear-gradient(135deg, #f59e0b, #fbbf24); border:0; padding:6px 12px; border-radius:6px; cursor:pointer;">▶ Listen: Entwistle Bass</button><a href="https://www.youtube.com/watch?v=UDfAdHBtK_Q" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" style="display:inline-flex; align-items:center; gap:4px; font-size:11px; font-weight:700; color:#fff !important; background:rgba(239,68,68,0.2); border:1px solid rgba(239,68,68,0.45); padding:5px 10px; border-radius:6px; text-decoration:none;" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div></div><div class="info-card acid-edge"><div class="card-thumb"><img src="images/slides/the_bass_guitar/alembic_custom_bass.jpg" alt="Alembic Custom Active Bass with Exotic Tonewoods and Onboard Preamp" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/alembic_custom_bass.jpg', 'Alembic Custom Active Bass with Exotic Tonewoods and Onboard Preamp')"></div>
                <span class="spec-pill ao4">AO4 Hi-Fi Custom Basses</span>
                <h4>Alembic &amp; Active Filtering (1969)</h4>
                <p>Pioneered active electronics for the Grateful Dead: low-impedance pickups, onboard parametric state-variable active filters, and multi-laminate exotic tonewoods for wide hi-fi fidelity.</p></div></div>
@@ -1283,13 +1453,13 @@
       <h2 class="slide-heading">1976 Music Man StingRay: <span>Active 9V Punch</span></h2>
       <p class="slide-lead">Leo Fender's 1976 masterpiece introduced active onboard electronics and parallel humbucking coils to commercial bass production.</p>
       <div class="cards-wrap">
-        <div class="grid-3"><div class="info-card highlight"><div class="card-thumb"><img src="/images/slides/the_bass_guitar/music_man_stingray_bass.jpg" alt="1976 Music Man StingRay Bass with Large Humbucker and 3-Bolt Neck" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/music_man_stingray_bass.jpg', '1976 Music Man StingRay Bass with Large Humbucker and 3-Bolt Neck')"></div>
+        <div class="grid-3"><div class="info-card highlight"><div class="card-thumb"><img src="images/slides/the_bass_guitar/music_man_stingray_bass.jpg" alt="1976 Music Man StingRay Bass with Large Humbucker and 3-Bolt Neck" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/music_man_stingray_bass.jpg', '1976 Music Man StingRay Bass with Large Humbucker and 3-Bolt Neck')"></div>
                <span class="spec-pill ao4">AO4 Landmark Active Bass</span>
                <h4>The Music Man StingRay (1976)</h4>
-               <p>Equipped with a massive 8-pole Alnico humbucker in the sweet spot and an onboard 9V-battery powered preamp with active 2-band (and later 3-band) boost/cut Baxandall equalization.</p></div><div class="info-card cyan-edge"><div class="card-thumb"><img src="/images/slides/the_bass_guitar/music_man_stingray_preamp_schematic.svg" alt="Active 9V Preamp Circuit Schematic Showing Boost and Cut Tone Controls" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/music_man_stingray_preamp_schematic.svg', 'Active 9V Preamp Circuit Schematic Showing Boost and Cut Tone Controls')"></div>
+               <p>Equipped with a massive 8-pole Alnico humbucker in the sweet spot and an onboard 9V-battery powered preamp with active 2-band (and later 3-band) boost/cut Baxandall equalization.</p></div><div class="info-card cyan-edge"><div class="card-thumb"><img src="images/slides/the_bass_guitar/music_man_stingray_preamp_schematic.svg" alt="Active 9V Preamp Circuit Schematic Showing Boost and Cut Tone Controls" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/music_man_stingray_preamp_schematic.svg', 'Active 9V Preamp Circuit Schematic Showing Boost and Cut Tone Controls')"></div>
                <span class="spec-pill ao3">AO3 Circuit Physics</span>
                <h4>Parallel Coils &amp; Active Buffering</h4>
-               <p>Humbucker coils were wired in parallel (not series), giving a scooped, bright frequency response. The active preamp buffered the output to low-Z, preventing high-frequency cable capacitance loss.</p></div><div class="info-card acid-edge"><div class="card-thumb"><img src="/images/slides/the_bass_guitar/flea_stingray_live.jpg" alt="Flea Performing Live with Music Man StingRay Bass" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/flea_stingray_live.jpg', 'Flea Performing Live with Music Man StingRay Bass')"></div>
+               <p>Humbucker coils were wired in parallel (not series), giving a scooped, bright frequency response. The active preamp buffered the output to low-Z, preventing high-frequency cable capacitance loss.</p></div><div class="info-card acid-edge"><div class="card-thumb"><img src="images/slides/the_bass_guitar/flea_stingray_live.jpg" alt="Flea Performing Live with Music Man StingRay Bass" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/flea_stingray_live.jpg', 'Flea Performing Live with Music Man StingRay Bass')"></div>
                <span class="spec-pill ao4">AO4 Modern Funk &amp; Rock</span>
                <h4>Bernard Edwards &amp; Flea</h4>
                <p>The StingRay's crisp attack defined disco grooves (Bernard Edwards with Chic, *Good Times*) and explosive 1990s alternative funk-rock (Flea with Red Hot Chili Peppers, *Give It Away*).</p>
@@ -1301,14 +1471,14 @@
       <h2 class="slide-heading">Bass Techniques: <span>Fingerstyle, Plectrum &amp; Slap</span></h2>
       <p class="slide-lead">The mechanical method of exciting the bass string directly shapes the harmonic transient attack and spectral envelope.</p>
       <div class="cards-wrap">
-        <div class="grid-3"><div class="info-card highlight"><div class="card-thumb"><img src="/images/slides/the_bass_guitar/slap_and_pop_technique_mechanics.svg" alt="Slap and Pop Biomechanics: Thumb Thump and Index Pop Physics" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/slap_and_pop_technique_mechanics.svg', 'Slap and Pop Biomechanics: Thumb Thump and Index Pop Physics')"></div>
+        <div class="grid-3"><div class="info-card highlight"><div class="card-thumb"><img src="images/slides/the_bass_guitar/slap_and_pop_technique_mechanics.svg" alt="Slap and Pop Biomechanics: Thumb Thump and Index Pop Physics" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/slap_and_pop_technique_mechanics.svg', 'Slap and Pop Biomechanics: Thumb Thump and Index Pop Physics')"></div>
                <span class="spec-pill ao3">AO3 Percussive Mechanics</span>
                <h4>Larry Graham's Slap &amp; Pop (1968)</h4>
-               <p><strong>Thumb Slap:</strong> Knuckle drives Low E/A against metal frets, emulating acoustic kick drum thump. <strong>Finger Pop:</strong> Index finger snaps D/G upward against frets, emulating snare crack.</p></div><div class="info-card cyan-edge"><div class="card-thumb"><img src="/images/slides/the_bass_guitar/larry_graham_slap_bass.jpg" alt="Larry Graham Performing with Graham Central Station" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/larry_graham_slap_bass.jpg', 'Larry Graham Performing with Graham Central Station')"></div>
+               <p><strong>Thumb Slap:</strong> Knuckle drives Low E/A against metal frets, emulating acoustic kick drum thump. <strong>Finger Pop:</strong> Index finger snaps D/G upward against frets, emulating snare crack.</p></div><div class="info-card cyan-edge"><div class="card-thumb"><img src="images/slides/the_bass_guitar/larry_graham_slap_bass.jpg" alt="Larry Graham Performing with Graham Central Station" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/larry_graham_slap_bass.jpg', 'Larry Graham Performing with Graham Central Station')"></div>
                <span class="spec-pill ao4">AO4 Slap Pioneer</span>
                <h4>Larry Graham (Sly &amp; Family Stone)</h4>
                <p>Invented the technique when Sly and the Family Stone lacked a drummer. The percussive slap &amp; pop approach revolutionized funk, disco, R&amp;B, and fusion basslines.</p>
-               <div class="video-btn-row" style="display:flex; gap:8px; align-items:center; margin-top:10px; flex-wrap:wrap;"><button class="video-trigger-btn" onclick="openVideo('-T9vmaTI2LE', 'Sly & The Family Stone - Thank You (Larry Graham Slap Bass)')" style="display:inline-flex; align-items:center; gap:6px; font-size:11px; font-weight:800; color:#080d1a; background:linear-gradient(135deg, #f59e0b, #fbbf24); border:0; padding:6px 12px; border-radius:6px; cursor:pointer;">▶ Listen: Larry Graham Slap</button><a href="https://www.youtube.com/watch?v=-T9vmaTI2LE" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" style="display:inline-flex; align-items:center; gap:4px; font-size:11px; font-weight:700; color:#fff !important; background:rgba(239,68,68,0.2); border:1px solid rgba(239,68,68,0.45); padding:5px 10px; border-radius:6px; text-decoration:none;" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div></div><div class="info-card acid-edge"><div class="card-thumb"><img src="/images/slides/the_bass_guitar/fretless_bass_mwah_physics.svg" alt="Fretless Bass String Grazing Against Fingerboard Producing Mwah Bloom" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/fretless_bass_mwah_physics.svg', 'Fretless Bass String Grazing Against Fingerboard Producing Mwah Bloom')"></div>
+               <div class="video-btn-row" style="display:flex; gap:8px; align-items:center; margin-top:10px; flex-wrap:wrap;"><button class="video-trigger-btn" onclick="openVideo('-T9vmaTI2LE', 'Sly & The Family Stone - Thank You (Larry Graham Slap Bass)')" style="display:inline-flex; align-items:center; gap:6px; font-size:11px; font-weight:800; color:#080d1a; background:linear-gradient(135deg, #f59e0b, #fbbf24); border:0; padding:6px 12px; border-radius:6px; cursor:pointer;">▶ Listen: Larry Graham Slap</button><a href="https://www.youtube.com/watch?v=-T9vmaTI2LE" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" style="display:inline-flex; align-items:center; gap:4px; font-size:11px; font-weight:700; color:#fff !important; background:rgba(239,68,68,0.2); border:1px solid rgba(239,68,68,0.45); padding:5px 10px; border-radius:6px; text-decoration:none;" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div></div><div class="info-card acid-edge"><div class="card-thumb"><img src="images/slides/the_bass_guitar/fretless_bass_mwah_physics.svg" alt="Fretless Bass String Grazing Against Fingerboard Producing Mwah Bloom" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/fretless_bass_mwah_physics.svg', 'Fretless Bass String Grazing Against Fingerboard Producing Mwah Bloom')"></div>
                <span class="spec-pill ao3">AO3 Expressive Bloom</span>
                <h4>Fingerstyle vs Plectrum Attack</h4>
                <p><strong>Fingerstyle:</strong> Soft finger pad dampens high overtones, producing deep round fundamentals. <strong>Plectrum:</strong> Hard plastic pick generates sharp, cutting 2 kHz transient clicks for rock and punk.</p></div></div>
@@ -1319,13 +1489,13 @@
       <h2 class="slide-heading">Ampeg SVT: <span>300 Watts &amp; The 8x10 "Fridge"</span></h2>
       <p class="slide-lead">To fill stadium arenas alongside overdriven Marshall guitar stacks, bass amplification required unprecedented valve power.</p>
       <div class="cards-wrap">
-        <div class="grid-3"><div class="info-card highlight"><div class="card-thumb"><img src="/images/slides/the_bass_guitar/ampeg_svt_classic_head.jpg" alt="Ampeg SVT All-Tube 300 Watt Bass Amplifier Head" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/ampeg_svt_classic_head.jpg', 'Ampeg SVT All-Tube 300 Watt Bass Amplifier Head')"></div>
+        <div class="grid-3"><div class="info-card highlight"><div class="card-thumb"><img src="images/slides/the_bass_guitar/ampeg_svt_classic_head.jpg" alt="Ampeg SVT All-Tube 300 Watt Bass Amplifier Head" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/ampeg_svt_classic_head.jpg', 'Ampeg SVT All-Tube 300 Watt Bass Amplifier Head')"></div>
                <span class="spec-pill ao4">AO4 300-Watt Monster</span>
                <h4>Ampeg SVT (1969)</h4>
-               <p>Equipped with 6&#215; 6550 power tubes delivering 300W RMS clean power. Giant transformers provided the massive current reservoir required to amplify sub-bass frequencies without power sag distortion.</p></div><div class="info-card cyan-edge"><div class="card-thumb"><img src="/images/slides/the_bass_guitar/ampeg_8x10_fridge_cabinet.jpg" alt="Ampeg 8x10 Sealed Bass Cabinet The Fridge" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/ampeg_8x10_fridge_cabinet.jpg', 'Ampeg 8x10 Sealed Bass Cabinet The Fridge')"></div>
+               <p>Equipped with 6&#215; 6550 power tubes delivering 300W RMS clean power. Giant transformers provided the massive current reservoir required to amplify sub-bass frequencies without power sag distortion.</p></div><div class="info-card cyan-edge"><div class="card-thumb"><img src="images/slides/the_bass_guitar/ampeg_8x10_fridge_cabinet.jpg" alt="Ampeg 8x10 Sealed Bass Cabinet The Fridge" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/ampeg_8x10_fridge_cabinet.jpg', 'Ampeg 8x10 Sealed Bass Cabinet The Fridge')"></div>
                <span class="spec-pill ao3">AO3 Cabinet Physics</span>
                <h4>The 8&#215;10 Infinite Baffle Cabinet</h4>
-               <p>Four isolated sealed chambers (no acoustic ports) housed 8&#215; 10-inch speakers. The infinite baffle design damped cone excursions, yielding tight, punchy transient response with zero low-end flab.</p></div><div class="info-card acid-edge"><div class="card-thumb"><img src="/images/slides/the_bass_guitar/ampeg_svt_tube_amplifier_schematic.svg" alt="Ampeg SVT Vacuum Tube Power Stage and 8x10 Speaker Wiring Schematic" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/ampeg_svt_tube_amplifier_schematic.svg', 'Ampeg SVT Vacuum Tube Power Stage and 8x10 Speaker Wiring Schematic')"></div>
+               <p>Four isolated sealed chambers (no acoustic ports) housed 8&#215; 10-inch speakers. The infinite baffle design damped cone excursions, yielding tight, punchy transient response with zero low-end flab.</p></div><div class="info-card acid-edge"><div class="card-thumb"><img src="images/slides/the_bass_guitar/ampeg_svt_tube_amplifier_schematic.svg" alt="Ampeg SVT Vacuum Tube Power Stage and 8x10 Speaker Wiring Schematic" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/ampeg_svt_tube_amplifier_schematic.svg', 'Ampeg SVT Vacuum Tube Power Stage and 8x10 Speaker Wiring Schematic')"></div>
                <span class="spec-pill ao3">AO3 Driver Surface Area</span>
                <h4>Multi-Driver Acoustic Coupling</h4>
                <p>8&#215; 10-inch speakers provide ~628 sq. inches of driver area (more than two 15" cones!), moving massive air volume while 10" cones retain lightning-fast transient response to finger plucks.</p></div></div>
@@ -1336,13 +1506,13 @@
       <h2 class="slide-heading">Studio DI Recording: <span>Direct Injection &amp; Phase</span></h2>
       <p class="slide-lead">In professional recording studios, bass is almost universally tracked using a Direct Injection (DI) box direct to tape/DAW.</p>
       <div class="cards-wrap">
-        <div class="grid-3"><div class="info-card highlight"><div class="card-thumb"><img src="/images/slides/the_bass_guitar/direct_injection_di_transformer_schematic.svg" alt="Direct Injection Transformer Isolation and Balancing Schematic" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/direct_injection_di_transformer_schematic.svg', 'Direct Injection Transformer Isolation and Balancing Schematic')"></div>
+        <div class="grid-3"><div class="info-card highlight"><div class="card-thumb"><img src="images/slides/the_bass_guitar/direct_injection_di_transformer_schematic.svg" alt="Direct Injection Transformer Isolation and Balancing Schematic" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/direct_injection_di_transformer_schematic.svg', 'Direct Injection Transformer Isolation and Balancing Schematic')"></div>
                <span class="spec-pill ao3">AO3 Studio DI Principles</span>
                <h4>The Role of the Direct Box</h4>
-               <p>Transforms high-impedance unbalanced instrument output into low-impedance balanced microphone level, breaking ground loops and preventing cable high-frequency capacitance loss.</p></div><div class="info-card cyan-edge"><div class="card-thumb"><img src="/images/slides/the_bass_guitar/countryman_type85_active_di.jpg" alt="Radial JDI and Countryman Active FET Studio Direct Boxes" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/countryman_type85_active_di.jpg', 'Radial JDI and Countryman Active FET Studio Direct Boxes')"></div>
+               <p>Transforms high-impedance unbalanced instrument output into low-impedance balanced microphone level, breaking ground loops and preventing cable high-frequency capacitance loss.</p></div><div class="info-card cyan-edge"><div class="card-thumb"><img src="images/slides/the_bass_guitar/countryman_type85_active_di.jpg" alt="Radial JDI and Countryman Active FET Studio Direct Boxes" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/countryman_type85_active_di.jpg', 'Radial JDI and Countryman Active FET Studio Direct Boxes')"></div>
                <span class="spec-pill ao3">AO3 DI Circuitry</span>
                <h4>Passive vs Active DI Boxes</h4>
-               <p><strong>Passive DI (Jensen Transformer):</strong> Requires no power; transformer saturation adds warm analog colour. <strong>Active DI (FET / Phantom):</strong> Ultra-high input impedance, ideal for passive vintage pickups.</p></div><div class="info-card acid-edge"><div class="card-thumb"><img src="/images/slides/the_bass_guitar/bass_mic_plus_di_phase_alignment.svg" alt="Bass Tracking DI plus Mic Signal Waveform Alignment in Digital Audio Workstation" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/bass_mic_plus_di_phase_alignment.svg', 'Bass Tracking DI plus Mic Signal Waveform Alignment in Digital Audio Workstation')"></div>
+               <p><strong>Passive DI (Jensen Transformer):</strong> Requires no power; transformer saturation adds warm analog colour. <strong>Active DI (FET / Phantom):</strong> Ultra-high input impedance, ideal for passive vintage pickups.</p></div><div class="info-card acid-edge"><div class="card-thumb"><img src="images/slides/the_bass_guitar/bass_mic_plus_di_phase_alignment.svg" alt="Bass Tracking DI plus Mic Signal Waveform Alignment in Digital Audio Workstation" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/bass_mic_plus_di_phase_alignment.svg', 'Bass Tracking DI plus Mic Signal Waveform Alignment in Digital Audio Workstation')"></div>
                <span class="spec-pill ao3">AO3 Comb Filtering</span>
                <h4>Combining DI + Mic (Phase Alignment)</h4>
                <p>Sound travels through speaker air to the mic at ~343 m/s (~1 ms delay), while DI travels instantaneously. Summing without time-aligning in the DAW causes comb filtering that destroys low-end punch.</p></div></div>
@@ -1353,13 +1523,13 @@
       <h2 class="slide-heading">Modern Bass: <span>Extended Range, Fretless &amp; DSP</span></h2>
       <p class="slide-lead">From Jaco's singing fretless expression to low-B 5-strings and digital amplifier profiling, modern bass technology is limitless.</p>
       <div class="cards-wrap">
-        <div class="grid-3"><div class="info-card highlight"><div class="card-thumb"><img src="/images/slides/the_bass_guitar/warwick_thumb_bass.jpg" alt="Warwick Thumb Bass with Exotic Tonewoods and Active Pickups" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/warwick_thumb_bass.jpg', 'Warwick Thumb Bass with Exotic Tonewoods and Active Pickups')"></div>
+        <div class="grid-3"><div class="info-card highlight"><div class="card-thumb"><img src="images/slides/the_bass_guitar/warwick_thumb_bass.jpg" alt="Warwick Thumb Bass with Exotic Tonewoods and Active Pickups" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/warwick_thumb_bass.jpg', 'Warwick Thumb Bass with Exotic Tonewoods and Active Pickups')"></div>
                <span class="spec-pill ao4">AO4 Boutique Innovations</span>
                <h4>Boutique Active Basses (1980s–90s)</h4>
-               <p>Manufacturers like Warwick, Spector, and Ken Smith introduced ergonomic curved bodies, brass frets, high-voltage active preamps, and dense African tonewoods (wenge, ovangkol, bubinga).</p></div><div class="info-card cyan-edge"><div class="card-thumb"><img src="/images/slides/the_bass_guitar/5_string_bass_extended_range.jpg" alt="Modern 5-String Bass Guitar Showing Heavy Low-B String" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/5_string_bass_extended_range.jpg', 'Modern 5-String Bass Guitar Showing Heavy Low-B String')"></div>
+               <p>Manufacturers like Warwick, Spector, and Ken Smith introduced ergonomic curved bodies, brass frets, high-voltage active preamps, and dense African tonewoods (wenge, ovangkol, bubinga).</p></div><div class="info-card cyan-edge"><div class="card-thumb"><img src="images/slides/the_bass_guitar/5_string_bass_extended_range.jpg" alt="Modern 5-String Bass Guitar Showing Heavy Low-B String" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/5_string_bass_extended_range.jpg', 'Modern 5-String Bass Guitar Showing Heavy Low-B String')"></div>
                <span class="spec-pill ao3">AO3 Modern Frequency Demand</span>
                <h4>The 5-String Standard (Low B0)</h4>
-               <p>Popularized in 1980s gospel, R&amp;B, and modern metal. Tuning B0–E1–A1–D2–G2 matches sub-bass synthesizer frequencies (30.9 Hz) while allowing players to shift positions up the neck.</p></div><div class="info-card acid-edge"><div class="card-thumb"><img src="/images/slides/the_bass_guitar/bass_dsp_profiling_and_cab_ir.svg" alt="DSP Digital Bass Profiler and Speaker Cabinet Convolution Impulse Response Diagram" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/bass_dsp_profiling_and_cab_ir.svg', 'DSP Digital Bass Profiler and Speaker Cabinet Convolution Impulse Response Diagram')"></div>
+               <p>Popularized in 1980s gospel, R&amp;B, and modern metal. Tuning B0–E1–A1–D2–G2 matches sub-bass synthesizer frequencies (30.9 Hz) while allowing players to shift positions up the neck.</p></div><div class="info-card acid-edge"><div class="card-thumb"><img src="images/slides/the_bass_guitar/bass_dsp_profiling_and_cab_ir.svg" alt="DSP Digital Bass Profiler and Speaker Cabinet Convolution Impulse Response Diagram" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/bass_dsp_profiling_and_cab_ir.svg', 'DSP Digital Bass Profiler and Speaker Cabinet Convolution Impulse Response Diagram')"></div>
                <span class="spec-pill ao3">AO3 Digital Simulation</span>
                <h4>DSP Profilers &amp; Cabinet IRs</h4>
                <p>Modern processors (Darkglass, Quad Cortex, Kemper) profile non-linear SVT tube saturation, using convolution Impulse Responses (IRs) to model 8&#215;10 cabinet cones for silent direct-to-DAW tracking.</p></div></div>
@@ -1829,6 +1999,177 @@
       }, 120);
     }
   });
+
+  // Universal mobile-friendly toggleFullscreen (with fallback for iPhone / iOS Safari where Fullscreen API is unavailable on divs)
+  window.toggleFullscreen = function() {
+    var docEl = document.documentElement;
+    var isFs = document.fullscreenElement || document.webkitFullscreenElement;
+    if (!isFs) {
+      if (docEl.requestFullscreen) {
+        docEl.requestFullscreen().catch(function() {
+          if (window.self !== window.top) {
+            window.top.location.href = window.location.href;
+          }
+        });
+      } else if (docEl.webkitRequestFullscreen) {
+        docEl.webkitRequestFullscreen();
+      } else if (window.self !== window.top) {
+        // iOS Safari fallback: open the standalone deck full-screen in the top viewport
+        window.top.location.href = window.location.href;
+      }
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen().catch(function() {});
+      } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+      }
+    }
+  };
+
+  // Universal touch-swipe slide navigation for mobile phones
+  (function() {
+    var touchStartX = 0;
+    var touchStartY = 0;
+    document.addEventListener('touchstart', function(e) {
+      if (!e.changedTouches || !e.changedTouches.length) return;
+      touchStartX = e.changedTouches[0].screenX;
+      touchStartY = e.changedTouches[0].screenY;
+    }, { passive: true });
+
+    document.addEventListener('touchend', function(e) {
+      if (!e.changedTouches || !e.changedTouches.length) return;
+      var target = e.target;
+      if (target && target.closest && target.closest('table, .table-container, .comp-table-wrap, select, button, a, .video-modal-backdrop, #videoModal')) {
+        return;
+      }
+      var dx = e.changedTouches[0].screenX - touchStartX;
+      var dy = e.changedTouches[0].screenY - touchStartY;
+      if (Math.abs(dx) > 65 && Math.abs(dx) > Math.abs(dy) * 1.8) {
+        if (dx < 0) {
+          if (typeof nextSlide === 'function') nextSlide();
+          else if (typeof changeSlide === 'function') changeSlide(1);
+        } else {
+          if (typeof prevSlide === 'function') prevSlide();
+          else if (typeof changeSlide === 'function') changeSlide(-1);
+        }
+      }
+    }, { passive: true });
+  })();
+
+
+  // Universal mobile-friendly toggleFullscreen (with fallback for iPhone / iOS Safari where Fullscreen API is unavailable on divs)
+  window.toggleFullscreen = function() {
+    var docEl = document.documentElement;
+    var isFs = document.fullscreenElement || document.webkitFullscreenElement;
+    if (!isFs) {
+      if (docEl.requestFullscreen) {
+        docEl.requestFullscreen().catch(function() {
+          if (window.self !== window.top) {
+            window.top.location.href = window.location.href;
+          }
+        });
+      } else if (docEl.webkitRequestFullscreen) {
+        docEl.webkitRequestFullscreen();
+      } else if (window.self !== window.top) {
+        // iOS Safari fallback: open the standalone deck full-screen in the top viewport
+        window.top.location.href = window.location.href;
+      }
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen().catch(function() {});
+      } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+      }
+    }
+  };
+
+  // Universal touch-swipe slide navigation for mobile phones
+  (function() {
+    var touchStartX = 0;
+    var touchStartY = 0;
+    document.addEventListener('touchstart', function(e) {
+      if (!e.changedTouches || !e.changedTouches.length) return;
+      touchStartX = e.changedTouches[0].screenX;
+      touchStartY = e.changedTouches[0].screenY;
+    }, { passive: true });
+
+    document.addEventListener('touchend', function(e) {
+      if (!e.changedTouches || !e.changedTouches.length) return;
+      var target = e.target;
+      if (target && target.closest && target.closest('table, .table-container, .comp-table-wrap, select, button, a, .video-modal-backdrop, #videoModal')) {
+        return;
+      }
+      var dx = e.changedTouches[0].screenX - touchStartX;
+      var dy = e.changedTouches[0].screenY - touchStartY;
+      if (Math.abs(dx) > 65 && Math.abs(dx) > Math.abs(dy) * 1.8) {
+        if (dx < 0) {
+          if (typeof nextSlide === 'function') nextSlide();
+          else if (typeof changeSlide === 'function') changeSlide(1);
+        } else {
+          if (typeof prevSlide === 'function') prevSlide();
+          else if (typeof changeSlide === 'function') changeSlide(-1);
+        }
+      }
+    }, { passive: true });
+  })();
+
+
+  // Universal mobile-friendly toggleFullscreen (with fallback for iPhone / iOS Safari where Fullscreen API is unavailable on divs)
+  window.toggleFullscreen = function() {
+    var docEl = document.documentElement;
+    var isFs = document.fullscreenElement || document.webkitFullscreenElement;
+    if (!isFs) {
+      if (docEl.requestFullscreen) {
+        docEl.requestFullscreen().catch(function() {
+          if (window.self !== window.top) {
+            window.top.location.href = window.location.href;
+          }
+        });
+      } else if (docEl.webkitRequestFullscreen) {
+        docEl.webkitRequestFullscreen();
+      } else if (window.self !== window.top) {
+        // iOS Safari fallback: open the standalone deck full-screen in the top viewport
+        window.top.location.href = window.location.href;
+      }
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen().catch(function() {});
+      } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+      }
+    }
+  };
+
+  // Universal touch-swipe slide navigation for mobile phones
+  (function() {
+    var touchStartX = 0;
+    var touchStartY = 0;
+    document.addEventListener('touchstart', function(e) {
+      if (!e.changedTouches || !e.changedTouches.length) return;
+      touchStartX = e.changedTouches[0].screenX;
+      touchStartY = e.changedTouches[0].screenY;
+    }, { passive: true });
+
+    document.addEventListener('touchend', function(e) {
+      if (!e.changedTouches || !e.changedTouches.length) return;
+      var target = e.target;
+      if (target && target.closest && target.closest('table, .table-container, .comp-table-wrap, select, button, a, .video-modal-backdrop, #videoModal')) {
+        return;
+      }
+      var dx = e.changedTouches[0].screenX - touchStartX;
+      var dy = e.changedTouches[0].screenY - touchStartY;
+      if (Math.abs(dx) > 65 && Math.abs(dx) > Math.abs(dy) * 1.8) {
+        if (dx < 0) {
+          if (typeof nextSlide === 'function') nextSlide();
+          else if (typeof changeSlide === 'function') changeSlide(1);
+        } else {
+          if (typeof prevSlide === 'function') prevSlide();
+          else if (typeof changeSlide === 'function') changeSlide(-1);
+        }
+      }
+    }, { passive: true });
+  })();
+
 </script>
 <!-- === END HASH DEEP LINK === -->
 </body>

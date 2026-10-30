@@ -1042,19 +1042,29 @@
     }
     /* === END ANTI-SQUASH === */
 
-  
     /* === MTG MOBILE PHONE RESPONSIVENESS OVERRIDES === */
     @media (max-width: 768px) {
       html, body {
-        overflow-x: hidden !important;
+        height: 100vh !important;
+        max-height: 100vh !important;
+        overflow: hidden !important;
         max-width: 100vw !important;
+        display: flex !important;
+        flex-direction: column !important;
       }
+      /* Compact top utility bar */
       .deck-topbar-controls, .top-utility-bar, header.deck-topbar-controls {
         padding: 6px 10px !important;
         gap: 6px !important;
-        min-height: 42px !important;
+        min-height: 40px !important;
         height: auto !important;
         flex-wrap: nowrap !important;
+        flex-shrink: 0 !important;
+        justify-content: space-between !important;
+      }
+      /* Hide secondary promo link in topbar on phones so Fullscreen button never clips */
+      .deck-topbar-controls a[href*="app.musictechguru.com"] {
+        display: none !important;
       }
       .exit-deck-link {
         padding: 5px 8px !important;
@@ -1062,12 +1072,21 @@
         white-space: nowrap !important;
         flex-shrink: 0 !important;
       }
-      .deck-topbar-title, .top-bar-title {
-        font-size: 11.5px !important;
+      .deck-topbar-controls > div:first-child,
+      .top-utility-bar > div:first-child,
+      header.deck-topbar-controls > div:first-child {
+        min-width: 0 !important;
+        flex: 1 1 auto !important;
+        overflow: hidden !important;
+      }
+      .deck-topbar-title, .top-bar-title, .deck-topbar-controls span[style*="color: #94a3b8"] {
+        font-size: 11px !important;
         white-space: nowrap !important;
         overflow: hidden !important;
         text-overflow: ellipsis !important;
-        max-width: 42vw !important;
+        max-width: 38vw !important;
+        display: inline-block !important;
+        vertical-align: middle !important;
       }
       .deck-topbar-controls .fullscreen-btn,
       .top-utility-bar .fullscreen-btn,
@@ -1078,7 +1097,83 @@
         white-space: nowrap !important;
         flex-shrink: 0 !important;
       }
-      /* Collapse multi-column slide grids to 1 column on phones */
+      /* Hide redundant secondary inner banner bars on mobile to maximize slide viewport height */
+      header.deck-topbar,
+      .deck-topbar,
+      .top-bar {
+        display: none !important;
+      }
+      header.deck-header, .deck-header {
+        padding: 6px 12px !important;
+        min-height: auto !important;
+        flex-shrink: 0 !important;
+      }
+      header.deck-header .deck-title-group, .deck-header .deck-title-group {
+        display: none !important;
+      }
+      header.deck-header .deck-actions, .deck-header .deck-actions {
+        width: 100% !important;
+        display: flex !important;
+        justify-content: space-between !important;
+      }
+      header.deck-header .slide-select, .deck-header .slide-select {
+        max-width: 100% !important;
+        width: 100% !important;
+      }
+      header.deck-header button, .deck-header button {
+        display: none !important;
+      }
+      /* Full-bleed deck wrapper / container as flex column */
+      .deck-wrapper, .deck-container {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        border-radius: 0 !important;
+        border-left: none !important;
+        border-right: none !important;
+        flex: 1 1 auto !important;
+        min-height: 0 !important;
+        height: auto !important;
+        max-height: none !important;
+        display: flex !important;
+        flex-direction: column !important;
+        overflow: hidden !important;
+      }
+      .slides-viewport, .slide-stage {
+        flex: 1 1 auto !important;
+        min-height: 0 !important;
+        width: 100% !important;
+        padding: 0 !important;
+        overflow: hidden !important;
+        position: relative !important;
+        display: flex !important;
+        flex-direction: column !important;
+      }
+      /* Single continuous vertical scroll container for the active slide */
+      .slide:not(.active) {
+        display: none !important;
+      }
+      .slide.active {
+        position: relative !important;
+        top: auto !important;
+        left: auto !important;
+        display: block !important;
+        width: 100% !important;
+        height: 100% !important;
+        max-height: 100% !important;
+        flex: 1 1 auto !important;
+        min-height: 0 !important;
+        padding: 14px 14px 80px !important;
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+        -webkit-overflow-scrolling: touch !important;
+        box-sizing: border-box !important;
+        transform: none !important;
+        opacity: 1 !important;
+        pointer-events: auto !important;
+      }
+      /* Collapse all multi-column slide grids into a single unconstrained vertical stack */
       .slide .split-grid,
       .slide .grid-2,
       .slide .grid-2-split,
@@ -1093,33 +1188,89 @@
       .slide .two-col,
       .slide .three-col,
       .slide [style*="grid-template-columns"] {
-        grid-template-columns: 1fr !important;
-        gap: 12px !important;
-      }
-      .slide .grid-2-split {
         display: flex !important;
         flex-direction: column !important;
-        overflow-y: visible !important;
+        grid-template-columns: 1fr !important;
+        gap: 14px !important;
+        flex: none !important;
+        width: 100% !important;
+        height: auto !important;
+        min-height: auto !important;
+        max-height: none !important;
+        overflow: visible !important;
+        margin-bottom: 16px !important;
+      }
+      /* Unconstrain all column panels and cards so they expand naturally inside the slide scroll */
+      .slide .column-panel,
+      .slide .col-panel,
+      .slide .info-card,
+      .slide .feature-card,
+      .slide .music-col,
+      .slide .instrument-col,
+      .slide .format-col,
+      .slide .prod-col,
+      .slide .tech-col,
+      .slide .col-music,
+      .slide .col-tech,
+      .slide .artist-visual-col {
+        display: flex !important;
+        flex-direction: column !important;
+        flex: none !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        height: auto !important;
+        min-height: auto !important;
+        max-height: none !important;
+        overflow: visible !important;
+        padding: 14px !important;
+        box-sizing: border-box !important;
+      }
+      /* Stack panel headers and takeaway/tip boxes vertically on phones so badges & text never crush */
+      .slide .panel-header,
+      .slide .col-header,
+      .slide .header-bar,
+      .slide .takeaway-box,
+      .slide .callout-box,
+      .slide .exam-tip,
+      .slide .tip-box {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        justify-content: flex-start !important;
+        gap: 6px !important;
         height: auto !important;
       }
-      .slide .column-panel {
-        overflow-y: visible !important;
-        max-height: none !important;
+      /* Give photo cards and hardware images generous height on mobile */
+      .slide .photo-card,
+      .slide .hardware-photo,
+      .slide .instrument-photo-card {
         height: auto !important;
+        min-height: 175px !important;
+        max-height: none !important;
         flex-shrink: 0 !important;
       }
-      .slide, .slide.active {
-        padding: 14px 12px 24px !important;
-        overflow-y: auto !important;
-        overflow-x: hidden !important;
-        -webkit-overflow-scrolling: touch !important;
+      .slide .photo-card img,
+      .slide .hardware-photo img,
+      .slide .instrument-photo-card img.instrument-photo {
+        height: 185px !important;
+        max-height: 220px !important;
+        width: 100% !important;
+        object-fit: contain !important;
       }
-      .slide h1 {
-        font-size: clamp(20px, 5.5vw, 26px) !important;
+      .slide .table-container,
+      .slide .comp-table-wrap {
+        overflow-x: auto !important;
+        overflow-y: visible !important;
+        max-height: none !important;
+        flex: none !important;
+        width: 100% !important;
+      }
+      .slide h1, .slide .slide-heading, .slide .slide-title {
+        font-size: clamp(20px, 5.5vw, 25px) !important;
         line-height: 1.22 !important;
       }
       .slide h2 {
-        font-size: clamp(17px, 4.8vw, 22px) !important;
+        font-size: clamp(17px, 4.8vw, 21px) !important;
         line-height: 1.25 !important;
       }
       .slide p, .slide li {
@@ -1133,12 +1284,14 @@
         -webkit-overflow-scrolling: touch !important;
         font-size: 12px !important;
       }
-      /* Bottom Controls Bar: Ensure Previous, Slide Counter, and Next always fit on 320-390px phones */
+      /* Bottom Controls Bar: Ensure Previous, Slide Counter/Dropdown, and Next always fit on 320-430px phones */
       footer.deck-controls,
       .deck-controls,
       .deck-nav,
       .bottom-bar,
-      .deck-nav-bar {
+      .deck-nav-bar,
+      .deck-footer,
+      .deck-bottombar {
         padding: 8px 10px !important;
         gap: 6px !important;
         min-height: 50px !important;
@@ -1149,29 +1302,46 @@
         flex-wrap: nowrap !important;
         width: 100% !important;
         box-sizing: border-box !important;
+        flex-shrink: 0 !important;
       }
       .deck-controls .controls-left,
       .bottom-bar .nav-buttons,
       .deck-nav-bar .nav-left,
-      .deck-nav-bar .nav-right {
+      .deck-nav-bar .nav-right,
+      .deck-nav-bar > div:first-child {
         display: contents !important;
       }
-      /* Hide duplicate bottom Fullscreen button & wide dot arrays on mobile so Next button is never clipped */
+      /* Reorder amplifiers bottom bar children so Prev is left, Counter is center, Next is right */
+      .deck-nav-bar #prevBtn { order: 1 !important; }
+      .deck-nav-bar .slide-counter, .deck-nav-bar .nav-center { order: 2 !important; }
+      .deck-nav-bar #nextBtn { order: 3 !important; }
+      /* When both a slide-counter and a slide-select dropdown exist in deck-nav-bar, hide the duplicate text counter on phones */
+      .deck-nav-bar .nav-left .slide-counter {
+        display: none !important;
+      }
+      /* Hide duplicate bottom Fullscreen button, keyboard hints & wide dot arrays on mobile so Next button is never clipped */
       #bottomFsBtn,
       .deck-controls button[onclick*="toggleFullscreen"],
       .bottom-bar button[onclick*="toggleFullscreen"],
       .deck-nav button[onclick*="toggleFullscreen"],
       .deck-nav-bar button[onclick*="toggleFullscreen"],
+      .deck-footer button[onclick*="toggleFullscreen"],
+      .deck-bottombar button[onclick*="toggleFullscreen"],
       .controls-right,
       .keyboard-hint,
+      .nav-shortcuts,
       .progress-dots,
       .slide-dots,
       #dotsContainer,
       #progressDots,
-      .progress-track {
+      .progress-track,
+      .progress-bar-track,
+      .progress-bar-container {
         display: none !important;
       }
       .progress-container,
+      .progress-group,
+      .deck-progress-group,
       .slide-indicator,
       .deck-nav-bar .nav-center {
         flex: 1 1 auto !important;
@@ -1181,13 +1351,13 @@
         justify-content: center !important;
         margin: 0 4px !important;
       }
-      .slide-counter, #slideCounter {
+      .slide-counter, #slideCounter, .progress-label {
         font-size: 11.5px !important;
         white-space: nowrap !important;
         text-align: center !important;
       }
       .slide-select, #slideSelect {
-        max-width: 135px !important;
+        max-width: 155px !important;
         font-size: 11.5px !important;
         padding: 5px 8px !important;
         text-overflow: ellipsis !important;
@@ -1255,13 +1425,13 @@
         <div class="slide-eyebrow"><span>📋</span> Specification Roadmap</div>
         <h2 class="slide-heading">Component 3 <span>Syllabus Matrix for Screen Audio</span></h2>
         <p class="slide-lead">Edexcel requires deep understanding of synchronization technology, hardware sound generator constraints, and compositional techniques.</p>
-        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/film_games/clapperboard.jpg" alt="Film Synchronization" class="slide-thumb">
+        <div class="grid-3"><div class="info-card highlight"><img src="images/slides/film_games/clapperboard.jpg" alt="Film Synchronization" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Synchronization</span>
                <h4>Timecode &amp; Visual Sync</h4>
-               <p>SMPTE timecode (HH:MM:SS:FF); frame rates (24, 25, 29.97, 30 fps); metronome click tracks; conductor visual streamers and punches for exact hit points.</p></div><div class="info-card cyan-edge"><img src="/images/slides/film_games/arcade_cabinet.jpg" alt="Arcade & Console Hardware" class="slide-thumb">
+               <p>SMPTE timecode (HH:MM:SS:FF); frame rates (24, 25, 29.97, 30 fps); metronome click tracks; conductor visual streamers and punches for exact hit points.</p></div><div class="info-card cyan-edge"><img src="images/slides/film_games/arcade_cabinet.jpg" alt="Arcade & Console Hardware" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Game Hardware</span>
                <h4>Chiptune &amp; Console Synthesis</h4>
-               <p>8-bit PSG hardware limits (square, triangle, noise, DPCM); 16-bit FM synthesis (Genesis) vs sample playback (SNES); CD-ROM Redbook audio.</p></div><div class="info-card acid-edge"><img src="/images/slides/film_games/orchestral_score.jpg" alt="Orchestral Score" class="slide-thumb">
+               <p>8-bit PSG hardware limits (square, triangle, noise, DPCM); 16-bit FM synthesis (Genesis) vs sample playback (SNES); CD-ROM Redbook audio.</p></div><div class="info-card acid-edge"><img src="images/slides/film_games/orchestral_score.jpg" alt="Orchestral Score" class="slide-thumb">
                <span class="spec-pill ao4">AO4 Composition &amp; Scoring</span>
                <h4>Orchestral, Hybrid &amp; Interactive</h4>
                <p>Decca Tree orchestral capture; Vangelis CS-80 synths; Hans Zimmer hybrid mockups; Foley; Diegetic vs Non-diegetic; Dynamic Adaptive audio.</p></div></div>
@@ -1270,13 +1440,13 @@
         <div class="slide-eyebrow"><span>⏱️</span> Screen Synchronization</div>
         <h2 class="slide-heading">SMPTE Timecode, <span>Click Tracks &amp; Streamers</span></h2>
         <p class="slide-lead">Composing to moving image requires frame-accurate synchronization between DAWs, musical conductors, and video playback.</p>
-        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/film_games/smpte_timecode.jpg" alt="SMPTE Timecode Display" class="slide-thumb">
+        <div class="grid-3"><div class="info-card highlight"><img src="images/slides/film_games/smpte_timecode.jpg" alt="SMPTE Timecode Display" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Universal Standard</span>
                <h4>SMPTE Timecode (HH:MM:SS:FF)</h4>
-               <p>Developed by the Society of Motion Picture and Television Engineers. Displays Hours, Minutes, Seconds, and Frames to lock DAWs, video decks, and MIDI sample-accurately.</p></div><div class="info-card cyan-edge"><img src="/images/slides/film_games/conductor_baton.jpg" alt="Conductor Podium" class="slide-thumb">
+               <p>Developed by the Society of Motion Picture and Television Engineers. Displays Hours, Minutes, Seconds, and Frames to lock DAWs, video decks, and MIDI sample-accurately.</p></div><div class="info-card cyan-edge"><img src="images/slides/film_games/conductor_baton.jpg" alt="Conductor Podium" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Conductor Timing</span>
                <h4>Click Tracks &amp; Streamers</h4>
-               <p>Conductors and orchestra players listen to metronome click tracks in headphones. Visual "streamer" lines wipe across video monitors toward flash punches at hit points.</p></div><div class="info-card acid-edge"><img src="/images/slides/film_games/daw_tempo_mapping.png" alt="DAW Tempo Mapping" class="slide-thumb">
+               <p>Conductors and orchestra players listen to metronome click tracks in headphones. Visual "streamer" lines wipe across video monitors toward flash punches at hit points.</p></div><div class="info-card acid-edge"><img src="images/slides/film_games/daw_tempo_mapping.png" alt="DAW Tempo Mapping" class="slide-thumb">
                <span class="spec-pill ao3">AO3 DAW Workflow</span>
                <h4>DAW Tempo Mapping &amp; Hits</h4>
                <p>Composers program tempo maps and meter changes in DAWs to align musical downbeats exactly with dramatic scene cuts, explosions, and visual stingers.</p></div></div>
@@ -1285,13 +1455,13 @@
         <div class="slide-eyebrow"><span>🎻</span> Orchestral Acoustic Capture</div>
         <h2 class="slide-heading">Scoring Stages <span>&amp; The Iconic Decca Tree</span></h2>
         <p class="slide-lead">Hollywood and London scoring stages (Abbey Road Studio 1, AIR Lyndhurst) rely on time-tested acoustic stereo arrays.</p>
-        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/film_games/abbey_road_orchestra.jpg" alt="Abbey Road Studio 1" class="slide-thumb">
+        <div class="grid-3"><div class="info-card highlight"><img src="images/slides/film_games/abbey_road_orchestra.jpg" alt="Abbey Road Studio 1" class="slide-thumb">
                <span class="spec-pill ao3">AO3 World-Class Spaces</span>
                <h4>Abbey Road Studio 1 &amp; AIR</h4>
-               <p>Cavernous, acoustically treated live rooms provide natural reverberation and majestic bloom, accommodating 90-piece symphony orchestras and choirs.</p></div><div class="info-card cyan-edge"><img src="/images/slides/film_games/decca_tree.png" alt="The Decca Tree Setup" class="slide-thumb">
+               <p>Cavernous, acoustically treated live rooms provide natural reverberation and majestic bloom, accommodating 90-piece symphony orchestras and choirs.</p></div><div class="info-card cyan-edge"><img src="images/slides/film_games/decca_tree.png" alt="The Decca Tree Setup" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Landmark Array</span>
                <h4>The Decca Tree (Left, Right, Center)</h4>
-               <p>Three omnidirectional microphones (Neumann M50) suspended on a T-bar 8–10 feet above the conductor. Delivers incredible stereo spread, imaging, and natural time-arrival depth.</p></div><div class="info-card acid-edge"><img src="/images/slides/film_games/film_scoring_orchestra.png" alt="Spot Mics" class="slide-thumb">
+               <p>Three omnidirectional microphones (Neumann M50) suspended on a T-bar 8–10 feet above the conductor. Delivers incredible stereo spread, imaging, and natural time-arrival depth.</p></div><div class="info-card acid-edge"><img src="images/slides/film_games/film_scoring_orchestra.png" alt="Spot Mics" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Articulation Detail</span>
                <h4>Outriggers &amp; Spot Mics</h4>
                <p>Wide omni outriggers expand orchestral width, while directional spot microphones (woodwinds, solo brass, timpani, harp) provide pinpoint clarity and mix balance.</p></div></div>
@@ -1300,14 +1470,14 @@
         <div class="slide-eyebrow"><span>🎹</span> Electronic Cinematic Pioneers</div>
         <h2 class="slide-heading">Synthesizers in Film: <span>Vangelis, Wendy Carlos &amp; Carpenter</span></h2>
         <p class="slide-lead">The 1970s and 1980s proved that electronic synthesizers could evoke as much cinematic drama and scale as a 90-piece orchestra.</p>
-        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/film_games/vangelis.jpg" alt="Vangelis" class="slide-thumb">
+        <div class="grid-3"><div class="info-card highlight"><img src="images/slides/film_games/vangelis.jpg" alt="Vangelis" class="slide-thumb">
                <span class="spec-pill ao4">AO4 Synthesizer Maestro</span>
                <h4>Vangelis &amp; Blade Runner (1982)</h4>
                <p>Vangelis composed directly to picture using analog synthesizers, creating lush, dystopian noir soundscapes and melancholy horn leads.</p>
-               <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('RScZrvTebeA', 'Vangelis - Blade Runner Blues')">▶ Listen: Blade Runner Blues</button><a href="https://www.youtube.com/watch?v=RScZrvTebeA" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div></div><div class="info-card cyan-edge"><img src="/images/slides/film_games/yamaha_cs80.png" alt="Yamaha CS-80 Synth" class="slide-thumb" style="object-fit: contain; background: #0a0e1a; padding: 6px;">
+               <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('RScZrvTebeA', 'Vangelis - Blade Runner Blues')">▶ Listen: Blade Runner Blues</button><a href="https://www.youtube.com/watch?v=RScZrvTebeA" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div></div><div class="info-card cyan-edge"><img src="images/slides/film_games/yamaha_cs80.png" alt="Yamaha CS-80 Synth" class="slide-thumb" style="object-fit: contain; background: #0a0e1a; padding: 6px;">
                <span class="spec-pill ao3">AO3 Iconic Hardware</span>
                <h4>Yamaha CS-80 Polyphonic Synth</h4>
-               <p>Featuring polyphonic aftertouch and a continuous ribbon pitch controller, the CS-80 allowed expressive vibrato and acoustic-like emotional brass swells.</p></div><div class="info-card acid-edge"><img src="/images/slides/film_games/modular_synth.jpg" alt="Moog Modular Synth" class="slide-thumb">
+               <p>Featuring polyphonic aftertouch and a continuous ribbon pitch controller, the CS-80 allowed expressive vibrato and acoustic-like emotional brass swells.</p></div><div class="info-card acid-edge"><img src="images/slides/film_games/modular_synth.jpg" alt="Moog Modular Synth" class="slide-thumb">
                <span class="spec-pill ao4">AO4 Minimalist Suspense</span>
                <h4>Wendy Carlos &amp; John Carpenter</h4>
                <p>Wendy Carlos scored Kubrick's <em>The Shining</em> with eerie Moog modular synthesis; John Carpenter used driving analog synth basslines for <em>Halloween</em> (5/4 meter).</p></div></div>
@@ -1316,14 +1486,14 @@
         <div class="slide-eyebrow"><span>🎛️</span> Modern Production Techniques</div>
         <h2 class="slide-heading">Hybrid Scoring: <span>Hans Zimmer &amp; Virtual Mockups</span></h2>
         <p class="slide-lead">Contemporary blockbuster scores blend live acoustic orchestral players with massive analog modular synthesizers and multi-sampled digital libraries.</p>
-        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/film_games/hans_zimmer.jpg" alt="Hans Zimmer" class="slide-thumb">
+        <div class="grid-3"><div class="info-card highlight"><img src="images/slides/film_games/hans_zimmer.jpg" alt="Hans Zimmer" class="slide-thumb">
                <span class="spec-pill ao4">AO4 Blockbuster Titan</span>
                <h4>Hans Zimmer (Remote Control)</h4>
                <p>Pioneered modern hybrid scoring (<em>Inception</em>, <em>Gladiator</em>, <em>The Dark Knight</em>), merging massive analog synth sub-bass with live brass and strings.</p>
-               <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('c56t7upa8Bk', 'Hans Zimmer - Time (Inception)')">▶ Listen: Time (Inception)</button><a href="https://www.youtube.com/watch?v=c56t7upa8Bk" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div></div><div class="info-card cyan-edge"><img src="/images/slides/film_games/midi_sequencer.png" alt="MIDI Continuous Controllers" class="slide-thumb">
+               <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('c56t7upa8Bk', 'Hans Zimmer - Time (Inception)')">▶ Listen: Time (Inception)</button><a href="https://www.youtube.com/watch?v=c56t7upa8Bk" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div></div><div class="info-card cyan-edge"><img src="images/slides/film_games/midi_sequencer.png" alt="MIDI Continuous Controllers" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Expression Control</span>
                <h4>MIDI CC1 Dynamics &amp; CC11 Expression</h4>
-               <p>Composers ride MIDI faders live: CC1 (Mod Wheel) morphs between ppp and fff recorded sample layers; CC11 controls musical volume expression and phrasing.</p></div><div class="info-card acid-edge"><img src="/images/slides/film_games/trent_reznor.jpg" alt="Trent Reznor & Atticus Ross" class="slide-thumb">
+               <p>Composers ride MIDI faders live: CC1 (Mod Wheel) morphs between ppp and fff recorded sample layers; CC11 controls musical volume expression and phrasing.</p></div><div class="info-card acid-edge"><img src="images/slides/film_games/trent_reznor.jpg" alt="Trent Reznor & Atticus Ross" class="slide-thumb">
                <span class="spec-pill ao4">AO4 Industrial Minimalism</span>
                <h4>Trent Reznor &amp; Atticus Ross</h4>
                <p>Oscar-winning scores for <em>The Social Network</em> and <em>Soul</em>, utilizing processed guitars, analog distortion, tape saturation, and ambient piano textures.</p></div></div>
@@ -1332,13 +1502,13 @@
         <div class="slide-eyebrow"><span>👾</span> The 8-Bit Chiptune Era</div>
         <h2 class="slide-heading">Programmable Sound Generators: <span>NES Ricoh 2A03 &amp; C64 SID</span></h2>
         <p class="slide-lead">In the 1980s, game composers worked under extreme hardware constraints, programming synthesis chips down to the byte.</p>
-        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/film_games/nes_console.jpg" alt="NES Console" class="slide-thumb">
+        <div class="grid-3"><div class="info-card highlight"><img src="images/slides/film_games/nes_console.jpg" alt="NES Console" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Hardware Architecture</span>
                <h4>NES Ricoh 2A03 PSG Chip</h4>
-               <p>Strict 5-channel sound generator: 2 pulse/square wave channels (melody/countermelody), 1 triangle wave (bass), 1 noise channel (drums), and 1 DPCM sample channel.</p></div><div class="info-card cyan-edge"><img src="/images/slides/film_games/commodore_64.jpg" alt="Commodore 64" class="slide-thumb">
+               <p>Strict 5-channel sound generator: 2 pulse/square wave channels (melody/countermelody), 1 triangle wave (bass), 1 noise channel (drums), and 1 DPCM sample channel.</p></div><div class="info-card cyan-edge"><img src="images/slides/film_games/commodore_64.jpg" alt="Commodore 64" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Analog Character</span>
                <h4>Commodore 64 &amp; SID 6581</h4>
-               <p>Features 3 oscillators with selectable waveforms (saw, tri, pulse, noise), ring modulation, and an analog resonant multi-mode filter, creating warm synthesizer punch.</p></div><div class="info-card acid-edge"><img src="/images/slides/film_games/koji_kondo.jpg" alt="Koji Kondo" class="slide-thumb">
+               <p>Features 3 oscillators with selectable waveforms (saw, tri, pulse, noise), ring modulation, and an analog resonant multi-mode filter, creating warm synthesizer punch.</p></div><div class="info-card acid-edge"><img src="images/slides/film_games/koji_kondo.jpg" alt="Koji Kondo" class="slide-thumb">
                <span class="spec-pill ao4">AO4 Chiptune Genius</span>
                <h4>Koji Kondo (Super Mario &amp; Zelda)</h4>
                <p>Created the world's most recognizable game themes by using calypso syncopation, rapid arpeggios to imply chords, and strict voice economy.</p>
@@ -1348,13 +1518,13 @@
         <div class="slide-eyebrow"><span>🎮</span> The 16-Bit Console War</div>
         <h2 class="slide-heading">FM Synthesis vs Sample Playback: <span>Genesis vs SNES</span></h2>
         <p class="slide-lead">The early 1990s brought a fierce technological contrast between frequency modulation synthesis and compressed sample wavetables.</p>
-        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/film_games/sega_genesis.jpg" alt="Sega Genesis" class="slide-thumb">
+        <div class="grid-3"><div class="info-card highlight"><img src="images/slides/film_games/sega_genesis.jpg" alt="Sega Genesis" class="slide-thumb">
                <span class="spec-pill ao3">AO3 FM Synthesis</span>
                <h4>Sega Genesis: Yamaha YM2612</h4>
-               <p>A 6-channel FM synthesis chip capable of sharp metallic percussion, slap bass, and gritty overdrive. Yuzo Koshiro used it for electronic dance tracks in <em>Streets of Rage</em>.</p></div><div class="info-card cyan-edge"><img src="/images/slides/film_games/snes_console.jpg" alt="Super Nintendo" class="slide-thumb">
+               <p>A 6-channel FM synthesis chip capable of sharp metallic percussion, slap bass, and gritty overdrive. Yuzo Koshiro used it for electronic dance tracks in <em>Streets of Rage</em>.</p></div><div class="info-card cyan-edge"><img src="images/slides/film_games/snes_console.jpg" alt="Super Nintendo" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Sample Playback</span>
                <h4>Super Nintendo: Sony SPC700</h4>
-               <p>Features 8 channels of 16-bit compressed audio samples with built-in hardware Gaussian interpolation, pitch modulation, and stereo hardware echo/reverb.</p></div><div class="info-card acid-edge"><img src="/images/slides/film_games/fm_synthesis.png" alt="FM Operators" class="slide-thumb">
+               <p>Features 8 channels of 16-bit compressed audio samples with built-in hardware Gaussian interpolation, pitch modulation, and stereo hardware echo/reverb.</p></div><div class="info-card acid-edge"><img src="images/slides/film_games/fm_synthesis.png" alt="FM Operators" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Technical Contrast</span>
                <h4>Algorithmic FM vs Sample Memory</h4>
                <p>Genesis relied on mathematical FM modulator/carrier operators (zero sample memory); SNES had 64KB RAM for compressed acoustic instruments (brass, strings, timpani).</p></div></div>
@@ -1363,13 +1533,13 @@
         <div class="slide-eyebrow"><span>💿</span> The Optical Disc Era</div>
         <h2 class="slide-heading">CD-ROM &amp; Redbook Audio: <span>PlayStation 1 &amp; Beyond</span></h2>
         <p class="slide-lead">The mid-1990s move from silicon cartridges to 650MB optical CD-ROM discs eliminated hardware synthesis constraints forever.</p>
-        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/film_games/playstation_1.jpg" alt="Sony PlayStation 1" class="slide-thumb">
+        <div class="grid-3"><div class="info-card highlight"><img src="images/slides/film_games/playstation_1.jpg" alt="Sony PlayStation 1" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Optical Breakthrough</span>
                <h4>Sony PlayStation (1994)</h4>
-               <p>CD-ROM storage allowed developers to stream 44.1 kHz / 16-bit uncompressed Redbook audio directly from disc, enabling studio-quality music in games.</p></div><div class="info-card cyan-edge"><img src="/images/slides/film_games/compact_disc.png" alt="Compact Disc" class="slide-thumb">
+               <p>CD-ROM storage allowed developers to stream 44.1 kHz / 16-bit uncompressed Redbook audio directly from disc, enabling studio-quality music in games.</p></div><div class="info-card cyan-edge"><img src="images/slides/film_games/compact_disc.png" alt="Compact Disc" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Real Acoustic Recordings</span>
                <h4>Live Orchestras &amp; Vocals</h4>
-               <p>For the first time, full live symphony orchestras, rock bands, and recorded opera singers could be heard in game cutscenes and level soundtracks.</p></div><div class="info-card acid-edge"><img src="/images/slides/film_games/nobuo_uematsu.jpg" alt="Nobuo Uematsu" class="slide-thumb">
+               <p>For the first time, full live symphony orchestras, rock bands, and recorded opera singers could be heard in game cutscenes and level soundtracks.</p></div><div class="info-card acid-edge"><img src="images/slides/film_games/nobuo_uematsu.jpg" alt="Nobuo Uematsu" class="slide-thumb">
                <span class="spec-pill ao4">AO4 Symphonic Storytelling</span>
                <h4>Nobuo Uematsu &amp; Final Fantasy VII</h4>
                <p>Uematsu combined internal sequenced MIDI synthesis for exploration with full streaming orchestral/choral audio on <em>One-Winged Angel</em>.</p></div></div>
@@ -1378,13 +1548,13 @@
         <div class="slide-eyebrow"><span>📊</span> Dynamic Game Scoring</div>
         <h2 class="slide-heading">Vertical Layering: <span>Dynamic Multi-Stemming</span></h2>
         <p class="slide-lead">Unlike linear film scores, video games are non-linear: music must dynamically react to player decisions in real time.</p>
-        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/film_games/vertical_layering_diagram.png" alt="Dynamic Stems" class="slide-thumb">
+        <div class="grid-3"><div class="info-card highlight"><img src="images/slides/film_games/vertical_layering_diagram.png" alt="Dynamic Stems" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Synchronized Stems</span>
                <h4>Simultaneous Multi-Track Stems</h4>
-               <p>The composer writes multiple stems (percussion, bassline, ambient pads, aggressive brass) that all play in exact tempo and harmonic lock simultaneously.</p></div><div class="info-card cyan-edge"><img src="/images/slides/film_games/game_controller.jpg" alt="Combat Layering" class="slide-thumb">
+               <p>The composer writes multiple stems (percussion, bassline, ambient pads, aggressive brass) that all play in exact tempo and harmonic lock simultaneously.</p></div><div class="info-card cyan-edge"><img src="images/slides/film_games/game_controller.jpg" alt="Combat Layering" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Gameplay Modulation</span>
                <h4>Combat vs Exploration Intensity</h4>
-               <p>During stealth or exploration, only ambient pads and low bass play. When combat erupts, the game engine un-mutes the aggressive drums and brass stems seamlessly.</p></div><div class="info-card acid-edge"><img src="/images/slides/film_games/game_boy.jpg" alt="Dynamic Game State" class="slide-thumb">
+               <p>During stealth or exploration, only ambient pads and low bass play. When combat erupts, the game engine un-mutes the aggressive drums and brass stems seamlessly.</p></div><div class="info-card acid-edge"><img src="images/slides/film_games/game_boy.jpg" alt="Dynamic Game State" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Real-Time Transitions</span>
                <h4>Smooth DSP Crossfades</h4>
                <p>Transitions occur via rapid volume crossfades or dynamic low-pass filter sweeps, avoiding jarring musical stops or restarts.</p></div></div>
@@ -1393,13 +1563,13 @@
         <div class="slide-eyebrow"><span>🔄</span> Adaptive Audio Systems</div>
         <h2 class="slide-heading">Horizontal Resequencing <span>&amp; Middleware (Wwise/FMOD)</span></h2>
         <p class="slide-lead">To change mood or location without cutting off musical flow, game engines utilize sophisticated horizontal branching and middleware.</p>
-        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/film_games/horizontal_resequencing_diagram.png" alt="Musical Quantization" class="slide-thumb">
+        <div class="grid-3"><div class="info-card highlight"><img src="images/slides/film_games/horizontal_resequencing_diagram.png" alt="Musical Quantization" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Bar/Beat Transitions</span>
                <h4>Horizontal Resequencing</h4>
-               <p>Music is broken into modular cue segments. When game states change, the engine waits for the next bar downbeat or beat boundary before branching to a new cue.</p></div><div class="info-card cyan-edge"><img src="/images/slides/film_games/audio_mixer_faders.jpg" alt="Stingers & Hits" class="slide-thumb">
+               <p>Music is broken into modular cue segments. When game states change, the engine waits for the next bar downbeat or beat boundary before branching to a new cue.</p></div><div class="info-card cyan-edge"><img src="images/slides/film_games/audio_mixer_faders.jpg" alt="Stingers & Hits" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Musical Stingers</span>
                <h4>Stingers &amp; Transition Chords</h4>
-               <p>Short musical flourishes (stingers) mask the transition between cues, creating a natural cadence that feels custom-composed for that exact second.</p></div><div class="info-card acid-edge"><img src="/images/slides/film_games/middleware_audio_graph.png" alt="Audio Middleware" class="slide-thumb">
+               <p>Short musical flourishes (stingers) mask the transition between cues, creating a natural cadence that feels custom-composed for that exact second.</p></div><div class="info-card acid-edge"><img src="images/slides/film_games/middleware_audio_graph.png" alt="Audio Middleware" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Engine Integration</span>
                <h4>Audio Middleware: Wwise &amp; FMOD</h4>
                <p>Specialized middleware programs handle priority queuing, spatial 3D audio positioning, real-time DSP effects, and RTPC (Real-Time Parameter Controls).</p></div></div>
@@ -1408,13 +1578,13 @@
         <div class="slide-eyebrow"><span>🎙️</span> Film & Game Sound Design</div>
         <h2 class="slide-heading">Foley, ADR <span>&amp; Environmental Soundscapes</span></h2>
         <p class="slide-lead">A film or game soundtrack consists of three distinct sonic pillars: Dialogue (ADR), Sound Effects/Foley, and Music.</p>
-        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/film_games/foley_stage.jpg" alt="Foley Stage" class="slide-thumb">
+        <div class="grid-3"><div class="info-card highlight"><img src="images/slides/film_games/foley_stage.jpg" alt="Foley Stage" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Physical Performance</span>
                <h4>The Foley Stage</h4>
-               <p>Foley artists perform footsteps across dirt/gravel/wood pits and manipulate physical props (leather, metal, glass) in real time while watching the film screen.</p></div><div class="info-card cyan-edge"><img src="/images/slides/film_games/foley_recording.png" alt="Foley Mic Technique" class="slide-thumb">
+               <p>Foley artists perform footsteps across dirt/gravel/wood pits and manipulate physical props (leather, metal, glass) in real time while watching the film screen.</p></div><div class="info-card cyan-edge"><img src="images/slides/film_games/foley_recording.png" alt="Foley Mic Technique" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Transducer Precision</span>
                <h4>Foley Recording Techniques</h4>
-               <p>Shotgun and small-diaphragm condenser microphones placed close to sound props in dead, reflection-free acoustic studios capture hyper-realistic impact transients.</p></div><div class="info-card acid-edge"><img src="/images/slides/film_games/voiceover_booth.jpg" alt="ADR Vocal Booth" class="slide-thumb">
+               <p>Shotgun and small-diaphragm condenser microphones placed close to sound props in dead, reflection-free acoustic studios capture hyper-realistic impact transients.</p></div><div class="info-card acid-edge"><img src="images/slides/film_games/voiceover_booth.jpg" alt="ADR Vocal Booth" class="slide-thumb">
                <span class="spec-pill ao3">AO3 Dialogue Replacement</span>
                <h4>ADR (Automated Dialogue Replacement)</h4>
                <p>Actors re-record muffled or noisy on-set dialogue inside a soundproof vocal booth, matching lip sync to the projected scene with pristine studio condenser mics.</p></div></div>
@@ -1423,14 +1593,14 @@
         <div class="slide-eyebrow"><span>🎭</span> Cinematic Musical Grammar</div>
         <h2 class="slide-heading">Diegetic, Non-Diegetic <span>&amp; The Wagnerian Leitmotif</span></h2>
         <p class="slide-lead">The emotional power of screen music relies on foundational cinematic vocabulary and psychological musical storytelling.</p>
-        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/film_games/john_williams.jpg" alt="John Williams" class="slide-thumb">
+        <div class="grid-3"><div class="info-card highlight"><img src="images/slides/film_games/john_williams.jpg" alt="John Williams" class="slide-thumb">
                <span class="spec-pill ao4">AO4 Thematic Architecture</span>
                <h4>The Leitmotif (John Williams)</h4>
                <p>A recurring musical theme associated with a specific character, place, or concept (e.g. <em>The Imperial March</em> for Darth Vader, or the 2-note <em>Jaws</em> motif).</p>
-               <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('54hoKbTWon4', 'John Williams - Star Wars Main Title')">▶ Listen: Star Wars Main Title</button><a href="https://www.youtube.com/watch?v=54hoKbTWon4" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div></div><div class="info-card cyan-edge"><img src="/images/slides/film_games/bernard_herrmann.jpg" alt="Bernard Herrmann" class="slide-thumb">
+               <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('54hoKbTWon4', 'John Williams - Star Wars Main Title')">▶ Listen: Star Wars Main Title</button><a href="https://www.youtube.com/watch?v=54hoKbTWon4" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div></div><div class="info-card cyan-edge"><img src="images/slides/film_games/bernard_herrmann.jpg" alt="Bernard Herrmann" class="slide-thumb">
                <span class="spec-pill ao4">AO4 Dissonance &amp; Strings</span>
                <h4>Bernard Herrmann (Psycho, Vertigo)</h4>
-               <p>Rejected traditional lush romanticism for sharp, dissonant string-only arrangements (<em>Psycho</em> shower scene screech) and ostinato suspense.</p></div><div class="info-card acid-edge"><img src="/images/slides/film_games/ennio_morricone.jpg" alt="Ennio Morricone" class="slide-thumb">
+               <p>Rejected traditional lush romanticism for sharp, dissonant string-only arrangements (<em>Psycho</em> shower scene screech) and ostinato suspense.</p></div><div class="info-card acid-edge"><img src="images/slides/film_games/ennio_morricone.jpg" alt="Ennio Morricone" class="slide-thumb">
                <span class="spec-pill ao4">AO4 Diegetic Invention</span>
                <h4>Diegetic vs Non-Diegetic Music</h4>
                <p>Diegetic music exists within the film world (characters hear it). Morricone blended diegetic whistles, jaw harps, and gunshots into orchestral scores.</p></div></div>
@@ -1439,15 +1609,15 @@
         <div class="slide-eyebrow"><span>🏆</span> Modern Masters & Milestones</div>
         <h2 class="slide-heading">21st Century Game Audio: <span>Wintory, O'Donnell &amp; Gordon</span></h2>
         <p class="slide-lead">Today, video game music rivals feature films in scale, winning Grammy awards and breaking artistic boundaries.</p>
-        <div class="grid-3"><div class="info-card highlight"><img src="/images/slides/film_games/austin_wintory.jpg" alt="Austin Wintory" class="slide-thumb">
+        <div class="grid-3"><div class="info-card highlight"><img src="images/slides/film_games/austin_wintory.jpg" alt="Austin Wintory" class="slide-thumb">
                <span class="spec-pill ao4">AO4 Grammy Milestone</span>
                <h4>Austin Wintory (Journey, 2012)</h4>
                <p>First video game score nominated for a Grammy for Best Score Soundtrack. Built around a dynamic solo cello that responds to the player's emotional journey.</p>
-               <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('ypNgvc6c6Cc', 'Austin Wintory - Apotheosis (Journey)')">▶ Listen: Apotheosis</button><a href="https://www.youtube.com/watch?v=ypNgvc6c6Cc" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div></div><div class="info-card cyan-edge"><img src="/images/slides/film_games/martin_odonnell.png" alt="Martin ODonnell" class="slide-thumb">
+               <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('ypNgvc6c6Cc', 'Austin Wintory - Apotheosis (Journey)')">▶ Listen: Apotheosis</button><a href="https://www.youtube.com/watch?v=ypNgvc6c6Cc" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div></div><div class="info-card cyan-edge"><img src="images/slides/film_games/martin_odonnell.png" alt="Martin ODonnell" class="slide-thumb">
                <span class="spec-pill ao4">AO4 Choral &amp; Rock Power</span>
                <h4>Martin O'Donnell (Halo, 2001)</h4>
                <p>Iconic monophonic Gregorian monk chants fused with driving orchestral strings and heavy rock percussion, adapting dynamically to player battle states.</p>
-               <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('0jXTBAGv9ZQ', 'Martin ODonnell - Halo Theme Original')">▶ Listen: Halo Theme</button><a href="https://www.youtube.com/watch?v=0jXTBAGv9ZQ" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div></div><div class="info-card acid-edge"><img src="/images/slides/film_games/mick_gordon.jpg" alt="Mick Gordon" class="slide-thumb">
+               <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('0jXTBAGv9ZQ', 'Martin ODonnell - Halo Theme Original')">▶ Listen: Halo Theme</button><a href="https://www.youtube.com/watch?v=0jXTBAGv9ZQ" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div></div><div class="info-card acid-edge"><img src="images/slides/film_games/mick_gordon.jpg" alt="Mick Gordon" class="slide-thumb">
                <span class="spec-pill ao4">AO4 Avant-Garde Legacy</span>
                <h4>Jerry Goldsmith to Mick Gordon</h4>
                <p>From Goldsmith's echoplex trumpet delays on <em>Patton</em> to Mick Gordon's analog feedback loops on <em>Doom</em> (2016), technology continues to redefine scoring.</p></div></div>
@@ -1885,6 +2055,177 @@
       }, 120);
     }
   });
+
+  // Universal mobile-friendly toggleFullscreen (with fallback for iPhone / iOS Safari where Fullscreen API is unavailable on divs)
+  window.toggleFullscreen = function() {
+    var docEl = document.documentElement;
+    var isFs = document.fullscreenElement || document.webkitFullscreenElement;
+    if (!isFs) {
+      if (docEl.requestFullscreen) {
+        docEl.requestFullscreen().catch(function() {
+          if (window.self !== window.top) {
+            window.top.location.href = window.location.href;
+          }
+        });
+      } else if (docEl.webkitRequestFullscreen) {
+        docEl.webkitRequestFullscreen();
+      } else if (window.self !== window.top) {
+        // iOS Safari fallback: open the standalone deck full-screen in the top viewport
+        window.top.location.href = window.location.href;
+      }
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen().catch(function() {});
+      } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+      }
+    }
+  };
+
+  // Universal touch-swipe slide navigation for mobile phones
+  (function() {
+    var touchStartX = 0;
+    var touchStartY = 0;
+    document.addEventListener('touchstart', function(e) {
+      if (!e.changedTouches || !e.changedTouches.length) return;
+      touchStartX = e.changedTouches[0].screenX;
+      touchStartY = e.changedTouches[0].screenY;
+    }, { passive: true });
+
+    document.addEventListener('touchend', function(e) {
+      if (!e.changedTouches || !e.changedTouches.length) return;
+      var target = e.target;
+      if (target && target.closest && target.closest('table, .table-container, .comp-table-wrap, select, button, a, .video-modal-backdrop, #videoModal')) {
+        return;
+      }
+      var dx = e.changedTouches[0].screenX - touchStartX;
+      var dy = e.changedTouches[0].screenY - touchStartY;
+      if (Math.abs(dx) > 65 && Math.abs(dx) > Math.abs(dy) * 1.8) {
+        if (dx < 0) {
+          if (typeof nextSlide === 'function') nextSlide();
+          else if (typeof changeSlide === 'function') changeSlide(1);
+        } else {
+          if (typeof prevSlide === 'function') prevSlide();
+          else if (typeof changeSlide === 'function') changeSlide(-1);
+        }
+      }
+    }, { passive: true });
+  })();
+
+
+  // Universal mobile-friendly toggleFullscreen (with fallback for iPhone / iOS Safari where Fullscreen API is unavailable on divs)
+  window.toggleFullscreen = function() {
+    var docEl = document.documentElement;
+    var isFs = document.fullscreenElement || document.webkitFullscreenElement;
+    if (!isFs) {
+      if (docEl.requestFullscreen) {
+        docEl.requestFullscreen().catch(function() {
+          if (window.self !== window.top) {
+            window.top.location.href = window.location.href;
+          }
+        });
+      } else if (docEl.webkitRequestFullscreen) {
+        docEl.webkitRequestFullscreen();
+      } else if (window.self !== window.top) {
+        // iOS Safari fallback: open the standalone deck full-screen in the top viewport
+        window.top.location.href = window.location.href;
+      }
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen().catch(function() {});
+      } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+      }
+    }
+  };
+
+  // Universal touch-swipe slide navigation for mobile phones
+  (function() {
+    var touchStartX = 0;
+    var touchStartY = 0;
+    document.addEventListener('touchstart', function(e) {
+      if (!e.changedTouches || !e.changedTouches.length) return;
+      touchStartX = e.changedTouches[0].screenX;
+      touchStartY = e.changedTouches[0].screenY;
+    }, { passive: true });
+
+    document.addEventListener('touchend', function(e) {
+      if (!e.changedTouches || !e.changedTouches.length) return;
+      var target = e.target;
+      if (target && target.closest && target.closest('table, .table-container, .comp-table-wrap, select, button, a, .video-modal-backdrop, #videoModal')) {
+        return;
+      }
+      var dx = e.changedTouches[0].screenX - touchStartX;
+      var dy = e.changedTouches[0].screenY - touchStartY;
+      if (Math.abs(dx) > 65 && Math.abs(dx) > Math.abs(dy) * 1.8) {
+        if (dx < 0) {
+          if (typeof nextSlide === 'function') nextSlide();
+          else if (typeof changeSlide === 'function') changeSlide(1);
+        } else {
+          if (typeof prevSlide === 'function') prevSlide();
+          else if (typeof changeSlide === 'function') changeSlide(-1);
+        }
+      }
+    }, { passive: true });
+  })();
+
+
+  // Universal mobile-friendly toggleFullscreen (with fallback for iPhone / iOS Safari where Fullscreen API is unavailable on divs)
+  window.toggleFullscreen = function() {
+    var docEl = document.documentElement;
+    var isFs = document.fullscreenElement || document.webkitFullscreenElement;
+    if (!isFs) {
+      if (docEl.requestFullscreen) {
+        docEl.requestFullscreen().catch(function() {
+          if (window.self !== window.top) {
+            window.top.location.href = window.location.href;
+          }
+        });
+      } else if (docEl.webkitRequestFullscreen) {
+        docEl.webkitRequestFullscreen();
+      } else if (window.self !== window.top) {
+        // iOS Safari fallback: open the standalone deck full-screen in the top viewport
+        window.top.location.href = window.location.href;
+      }
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen().catch(function() {});
+      } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+      }
+    }
+  };
+
+  // Universal touch-swipe slide navigation for mobile phones
+  (function() {
+    var touchStartX = 0;
+    var touchStartY = 0;
+    document.addEventListener('touchstart', function(e) {
+      if (!e.changedTouches || !e.changedTouches.length) return;
+      touchStartX = e.changedTouches[0].screenX;
+      touchStartY = e.changedTouches[0].screenY;
+    }, { passive: true });
+
+    document.addEventListener('touchend', function(e) {
+      if (!e.changedTouches || !e.changedTouches.length) return;
+      var target = e.target;
+      if (target && target.closest && target.closest('table, .table-container, .comp-table-wrap, select, button, a, .video-modal-backdrop, #videoModal')) {
+        return;
+      }
+      var dx = e.changedTouches[0].screenX - touchStartX;
+      var dy = e.changedTouches[0].screenY - touchStartY;
+      if (Math.abs(dx) > 65 && Math.abs(dx) > Math.abs(dy) * 1.8) {
+        if (dx < 0) {
+          if (typeof nextSlide === 'function') nextSlide();
+          else if (typeof changeSlide === 'function') changeSlide(1);
+        } else {
+          if (typeof prevSlide === 'function') prevSlide();
+          else if (typeof changeSlide === 'function') changeSlide(-1);
+        }
+      }
+    }, { passive: true });
+  })();
+
 </script>
 <!-- === END HASH DEEP LINK === -->
 </body>
