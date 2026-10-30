@@ -415,15 +415,56 @@ def generate_page_html(effect):
     nav_links = []
     for other in EFFECTS:
         is_active = (other["id"] == p_id)
-        active_style = f"background: {other['color']}; color: #000000; font-weight: 800;" if is_active else "background: rgba(255,255,255,0.06); color: #94a3b8;"
-        nav_links.append(f"""
-            <a href="https://www.musictechguru.com/homepage/a-level-music-technology/component-3-music-technology-in-context/{other['slug']}/" style="{active_style} padding: 8px 14px; border-radius: 8px; text-decoration: none; font-size: 12.5px; transition: all 0.2s ease;">
-                {other['title'].replace(' Effects', '').replace(' Effect', '')}
-            </a>
-        """)
+        if is_active:
+            active_style = f"background: {other['color']}; color: #0b0f19 !important; font-weight: 800; border: 1px solid {other['color']}; box-shadow: 0 2px 10px {other['color']}55;"
+        else:
+            active_style = "background: rgba(255, 255, 255, 0.08); color: #cbd5e1 !important; border: 1px solid rgba(255, 255, 255, 0.12); font-weight: 600;"
+        clean_title = other['title'].replace(' Effects', '').replace(' Effect', '')
+        nav_links.append(
+            f'<a href="https://www.musictechguru.com/homepage/a-level-music-technology/component-3-music-technology-in-context/{other["slug"]}/" '
+            f'class="suite-nav-pill" '
+            f'style="{active_style} display: inline-flex; align-items: center; justify-content: center; text-align: center; '
+            f'padding: 8px 16px; border-radius: 8px; text-decoration: none; font-size: 13px; line-height: 1; '
+            f'vertical-align: middle; box-sizing: border-box; white-space: nowrap; margin: 0; transition: all 0.2s ease;">'
+            f'{clean_title}</a>'
+        )
     nav_html = "".join(nav_links)
 
-    html = f"""
+    html = f"""<!-- wp:html -->
+<style>
+#mtg-dark-theme-wrapper .suite-nav-bar {{
+    display: flex !important;
+    gap: 8px !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    padding-top: 14px !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+    margin-top: 4px !important;
+}}
+#mtg-dark-theme-wrapper .suite-nav-bar p {{
+    margin: 0 !important;
+    padding: 0 !important;
+    display: inline-flex !important;
+}}
+#mtg-dark-theme-wrapper .suite-nav-bar br {{
+    display: none !important;
+}}
+#mtg-dark-theme-wrapper .suite-nav-pill {{
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    vertical-align: middle !important;
+    line-height: 1 !important;
+    box-sizing: border-box !important;
+    white-space: nowrap !important;
+    margin: 0 !important;
+}}
+#mtg-dark-theme-wrapper .suite-nav-pill:hover {{
+    transform: translateY(-1px);
+    filter: brightness(1.15);
+}}
+</style>
 <div id="mtg-dark-theme-wrapper" style="background: #080e1a; color: #cbd5e1; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; line-height: 1.65; max-width: 980px; margin: 0 auto; padding: 10px 0 50px 0;">
 
     <!-- 1. Hero Card -->
@@ -442,11 +483,7 @@ def generate_page_html(effect):
         <p style="color: #94a3b8; font-size: 15px; margin: 0 0 18px 0; line-height: 1.6; max-width: 820px;">
             {subtitle}
         </p>
-        <!-- Suite Switcher Pills -->
-        <div style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center; padding-top: 14px; border-top: 1px solid rgba(255,255,255,0.08);">
-            <span style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #64748b; font-weight: 700; margin-right: 4px;">Studio Effects Suite:</span>
-            {nav_html}
-        </div>
+        <div class="suite-nav-bar"><span style="font-size: 11px; text-transform: uppercase; letter-spacing: 1.2px; color: #64748b; font-weight: 800; margin-right: 4px; display: inline-flex; align-items: center; line-height: 1;">Studio Effects Suite:</span>{nav_html}</div>
     </div>
 
     <!-- 2. Master Interactive Deck Embed Section -->
@@ -586,6 +623,7 @@ def generate_page_html(effect):
     </div>
 
 </div>
+<!-- /wp:html -->
 """
     return html
 
