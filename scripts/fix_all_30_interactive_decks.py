@@ -118,6 +118,42 @@ def fix_duplicate_videos(filepath, content):
         parts = content.split("youtube-nocookie.com/embed/z9tg5ELAW7o")
         if len(parts) == 3:
             content = parts[0] + "youtube-nocookie.com/embed/z9tg5ELAW7o" + parts[1] + "youtube-nocookie.com/embed/FGBhQbmPwH8" + parts[2]
+    elif fname == "interactive-slide-house.html":
+        # Fix shifted 90s House video IDs so each button plays the exact track named
+        content = content.replace(
+            """onclick="openVideo('6DnfjMbu-Pg', 'Crystal Waters - Gypsy Woman')">▶ Watch Video</button><a href="https://www.youtube.com/watch?v=6DnfjMbu-Pg\"""",
+            """onclick="openVideo('_KztNIg4cvE', 'Crystal Waters - Gypsy Woman')">▶ Watch Video</button><a href="https://www.youtube.com/watch?v=_KztNIg4cvE\""""
+        )
+        content = content.replace(
+            """onclick="openVideo('Ps2Jc28tQrw', 'EBTG - Missing (Todd Terry Remix)')">▶ Watch Video</button><a href="https://www.youtube.com/watch?v=Ps2Jc28tQrw\"""",
+            """onclick="openVideo('IAkY5m00rpY', 'EBTG - Missing (Todd Terry Remix)')">▶ Watch Video</button><a href="https://www.youtube.com/watch?v=IAkY5m00rpY\""""
+        )
+        content = content.replace(
+            """onclick="openVideo('xk8mm1Qmt-Y', 'Robin S - Show Me Love')">▶ Watch Video</button><a href="https://www.youtube.com/watch?v=xk8mm1Qmt-Y\"""",
+            """onclick="openVideo('Ps2Jc28tQrw', 'Robin S - Show Me Love')">▶ Watch Video</button><a href="https://www.youtube.com/watch?v=Ps2Jc28tQrw\""""
+        )
+        content = content.replace(
+            """onclick="openVideo('F6qOzxTkLOE', 'CeCe Peniston - Finally')">▶ Watch Video</button><a href="https://www.youtube.com/watch?v=F6qOzxTkLOE\"""",
+            """onclick="openVideo('xk8mm1Qmt-Y', 'CeCe Peniston - Finally')">▶ Watch Video</button><a href="https://www.youtube.com/watch?v=xk8mm1Qmt-Y\""""
+        )
+    elif fname == "interactive-slide-rock-n-roll.html":
+        # Fix Brenda Lee vs Little Richard video IDs
+        content = content.replace(
+            """onclick="openVideo('F13JNjpNW6c', 'Brenda Lee - Sweet Nothin\\'s')">
+                ▶ Listen
+              </button><a href="https://www.youtube.com/watch?v=F13JNjpNW6c\"""",
+            """onclick="openVideo('KWgyum5fjJc', 'Brenda Lee - Sweet Nothin\\'s')">
+                ▶ Listen
+              </button><a href="https://www.youtube.com/watch?v=KWgyum5fjJc\""""
+        )
+        content = content.replace(
+            """onclick="openVideo('DCP_g7X31nI', 'Little Richard - Tutti Frutti')">
+                ▶ Listen
+              </button><a href="https://www.youtube.com/watch?v=DCP_g7X31nI\"""",
+            """onclick="openVideo('F13JNjpNW6c', 'Little Richard - Tutti Frutti')">
+                ▶ Listen
+              </button><a href="https://www.youtube.com/watch?v=F13JNjpNW6c\""""
+        )
     return content
 
 
@@ -266,11 +302,8 @@ def apply_un_squashed_css_overrides(filepath, content):
     # Remove any previous/* Anti-Squash Layout Overrides */ block if re-running
     content = re.sub(r'/\* === ANTI-SQUASH LAYOUT OVERRIDES === \*/.*?/\* === END ANTI-SQUASH === \*/\s*', '', content, flags=re.DOTALL)
 
-    if fname in ("interactive-slide-component-1.html", "interactive-slide-component-2.html"):
-        # Already built with clean flex layout, no squashing rules present
-        return content
-
     # Determine architecture
+    is_c1_c2 = fname in ("interactive-slide-component-1.html", "interactive-slide-component-2.html")
     is_grid2_split = 'class="grid-2-split"' in content
     is_metal = (fname == "interactive-slide-metal.html")
     is_synth = (fname == "interactive-slide-the-synthesizer.html")
@@ -306,7 +339,9 @@ def apply_un_squashed_css_overrides(filepath, content):
     }
 """
 
-    if is_grid2_split:
+    if is_c1_c2:
+        override_css = ""
+    elif is_grid2_split:
         override_css = """
     /* === ANTI-SQUASH LAYOUT OVERRIDES === */""" + common_topbar_and_btn_css + """
     .deck-container {
@@ -542,14 +577,141 @@ def apply_un_squashed_css_overrides(filepath, content):
     /* === END ANTI-SQUASH === */
 """
 
-    content = re.sub(r'<script>window\.__initialHash = window\.location\.hash;</script>\s*', '', content)
-    content = content.replace("</style>", override_css + "\n</style>\n<script>window.__initialHash = window.location.hash;</script>", 1)
+    content = re.sub(r'<script>window\.__initialHash = window\.location\.hash;[^<]*</script>\s*', '', content)
+    content = content.replace("</style>", override_css + "\n</style>\n<script>window.__initialHash = window.location.hash; window.__initialSearch = window.location.search;</script>", 1)
 
-    # Also ensure #slide-N hash deep-linking works across all decks
+    # Also ensure #slide-N hash deep-linking + Universal openVideo/closeVideo + restored deck nav work across all decks
     content = re.sub(r'<!-- === HASH DEEP LINK === -->.*?<!-- === END HASH DEEP LINK === -->\s*', '', content, flags=re.DOTALL)
     hash_script = r"""<!-- === HASH DEEP LINK === -->
 <script>
+  // Restore deck navigation if missing in recording era decks
+  if (typeof nextSlide !== 'function' && typeof changeSlide !== 'function' && typeof showSlide !== 'function') {
+    window.updateDeck = function() {
+      var sList = document.querySelectorAll('.slide');
+      var total = sList.length;
+      if (!total) return;
+      if (typeof currentSlide === 'undefined') window.currentSlide = 0;
+      sList.forEach(function(sl, idx) {
+        sl.classList.toggle('active', idx === currentSlide);
+      });
+      if (window.history && window.history.replaceState) {
+        window.history.replaceState({ slide: currentSlide }, '', '#slide-' + (currentSlide + 1));
+      }
+      var pBtn = document.getElementById('prevBtn');
+      var nBtn = document.getElementById('nextBtn');
+      var sCnt = document.getElementById('slideCounter');
+      var pFill = document.getElementById('progressFill');
+      if (pBtn) pBtn.disabled = (currentSlide === 0);
+      if (nBtn) nBtn.disabled = (currentSlide === total - 1);
+      if (sCnt) sCnt.textContent = 'Slide ' + (currentSlide + 1) + ' of ' + total;
+      if (pFill) pFill.style.width = (((currentSlide + 1) / total) * 100) + '%';
+    };
+    window.nextSlide = function() {
+      var total = document.querySelectorAll('.slide').length;
+      if (currentSlide < total - 1) {
+        currentSlide++;
+        window.updateDeck();
+      }
+    };
+    window.prevSlide = function() {
+      if (currentSlide > 0) {
+        currentSlide--;
+        window.updateDeck();
+      }
+    };
+    document.addEventListener('keydown', function(e) {
+      if (e.target && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT')) return;
+      var vm = document.getElementById('videoModal') || document.getElementById('videoModalBackdrop');
+      if (vm && vm.classList.contains('open')) {
+        if (e.key === 'Escape') window.closeVideo();
+        return;
+      }
+      var im = document.getElementById('imageModal');
+      if (im && im.classList.contains('open')) return;
+      if (e.key === 'ArrowRight' || e.key === ' ') {
+        e.preventDefault();
+        window.nextSlide();
+      } else if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        window.prevSlide();
+      }
+    });
+    window.updateDeck();
+  }
+
+  // Universal bulletproof openVideo / closeVideo across all 30 decks
+  window.openVideo = function(videoId, title) {
+    if (!videoId) return;
+    var cleanId = String(videoId).trim();
+    var modal = document.getElementById('videoModal') || document.getElementById('videoModalBackdrop');
+    if (!modal) {
+      window.open('https://www.youtube.com/watch?v=' + cleanId, '_blank', 'noopener,noreferrer');
+      return;
+    }
+
+    // Pause any inline slide videos if stopAllVideos exists
+    if (typeof stopAllVideos === 'function') {
+      try { stopAllVideos(); } catch (err) {}
+    }
+
+    var watchUrl = 'https://www.youtube.com/watch?v=' + cleanId;
+    var embedUrl = 'https://www.youtube-nocookie.com/embed/' + cleanId + '?autoplay=1&rel=0&modestbranding=1&vq=hd1080&playsinline=1';
+
+    // Update modal title
+    var titleTextEl = document.getElementById('videoModalTitleText');
+    var titleEl = document.getElementById('videoModalTitle');
+    if (titleTextEl) {
+      titleTextEl.textContent = title || 'HD Video Example';
+    } else if (titleEl) {
+      titleEl.textContent = title || 'HD Video Example';
+    }
+
+    // Update all external YouTube links inside the modal
+    ['videoExternalLink', 'videoModalExternalLink', 'videoModalDirectLink', 'videoFooterLink', 'videoModalFooterLink', 'videoModalFallbackLink'].forEach(function(linkId) {
+      var a = document.getElementById(linkId);
+      if (a) a.href = watchUrl;
+    });
+
+    // Inject or update the YouTube iframe inside the modal
+    var wrapper = modal.querySelector('.video-player-wrapper') || document.getElementById('videoPlayerWrapper');
+    var existingIframe = document.getElementById('videoIframe') || document.getElementById('videoModalIframe') || modal.querySelector('iframe');
+
+    if (wrapper && !existingIframe) {
+      wrapper.innerHTML = '<iframe id="videoIframe" referrerpolicy="strict-origin-when-cross-origin" src="' + embedUrl + '" title="' + (title || 'YouTube Video').replace(/"/g, '&quot;') + '" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="width: 100%; height: 100%; border: 0; display: block;"></iframe>';
+    } else if (existingIframe) {
+      existingIframe.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
+      existingIframe.src = embedUrl;
+    } else if (wrapper) {
+      wrapper.innerHTML = '<iframe id="videoIframe" referrerpolicy="strict-origin-when-cross-origin" src="' + embedUrl + '" title="' + (title || 'YouTube Video').replace(/"/g, '&quot;') + '" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="width: 100%; height: 100%; border: 0; display: block;"></iframe>';
+    }
+
+    modal.classList.add('open');
+    modal.style.display = 'flex';
+  };
+
+  window.closeVideo = function() {
+    var modal = document.getElementById('videoModal') || document.getElementById('videoModalBackdrop');
+    if (!modal) return;
+    modal.classList.remove('open');
+    modal.style.display = 'none';
+    var existingIframe = document.getElementById('videoIframe') || document.getElementById('videoModalIframe') || modal.querySelector('iframe');
+    if (existingIframe) {
+      existingIframe.src = '';
+    }
+    var wrapper = modal.querySelector('.video-player-wrapper') || document.getElementById('videoPlayerWrapper');
+    if (wrapper && !document.getElementById('videoModalIframe')) {
+      wrapper.innerHTML = '';
+    }
+  };
+  window.closeVideoModal = window.closeVideo;
+
   window.addEventListener('DOMContentLoaded', function() {
+    var modal = document.getElementById('videoModal') || document.getElementById('videoModalBackdrop');
+    if (modal) {
+      modal.addEventListener('click', function(e) {
+        if (e.target === modal) window.closeVideo();
+      });
+    }
     var h = window.__initialHash || window.location.hash || '';
     var m = h.match(/^#slide-(\d+)$/i);
     if (m) {
@@ -570,6 +732,12 @@ def apply_un_squashed_css_overrides(filepath, content):
           }
         }, 50);
       }
+    }
+    if ((window.__initialSearch || window.location.search || '').indexOf('test_video=1') !== -1) {
+      setTimeout(function() {
+        var firstBtn = document.querySelector('[onclick*="openVideo("]');
+        if (firstBtn) firstBtn.click();
+      }, 120);
     }
   });
 </script>
