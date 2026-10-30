@@ -914,7 +914,113 @@
       z-index: 101 !important;
     }
 
+
+    
+    
+    /* === ANTI-SQUASH LAYOUT OVERRIDES === */
+    .deck-topbar-controls {
+      width: 100% !important;
+      box-sizing: border-box !important;
+    }
+    #bottomFsBtn {
+      background: rgba(255, 255, 255, 0.06) !important;
+      border: 1px solid rgba(255, 255, 255, 0.14) !important;
+      color: #f8fafc !important;
+      padding: 7px 14px !important;
+      border-radius: 8px !important;
+      font-size: 12.5px !important;
+      font-weight: 600 !important;
+      cursor: pointer !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 6px !important;
+      transition: all 0.2s ease !important;
+    }
+    #bottomFsBtn:hover {
+      background: rgba(255, 255, 255, 0.12) !important;
+      border-color: rgba(255, 255, 255, 0.28) !important;
+    }
+
+    #bottomFsBtn {
+      display: none !important;
+    }
+
+    .deck-container {
+      max-width: 1520px !important;
+      padding: 10px 20px 0 !important;
+    }
+    .slide-header {
+      margin-bottom: 10px !important;
+      padding-bottom: 8px !important;
+    }
+    .slide-heading {
+      font-size: clamp(20px, 2.2vw, 26px) !important;
+      margin-bottom: 4px !important;
+      line-height: 1.2 !important;
+    }
+    .slide-lead {
+      font-size: 13px !important;
+      line-height: 1.45 !important;
+      margin-bottom: 2px !important;
+      display: block !important;
+      -webkit-line-clamp: unset !important;
+      overflow: visible !important;
+    }
+    .grid-2-split {
+      gap: 16px !important;
+      margin-bottom: 54px !important;
+    }
+    .column-panel {
+      padding: 14px 16px !important;
+    }
+    /* Fix squashed hardware and instrument photos */
+    .hardware-photo {
+      height: clamp(165px, 21vh, 220px) !important;
+      margin-bottom: 10px !important;
+      flex-shrink: 0 !important;
+      background: #020617 !important;
+    }
+    .hardware-photo img {
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: contain !important;
+      padding: 6px !important;
+    }
+    /* In amplifiers & classic-keyboards, prevent .instrument-photo-card from clipping captions */
+    .instrument-photo-card {
+      height: auto !important;
+      min-height: 180px !important;
+      max-height: none !important;
+      margin-bottom: 10px !important;
+      flex-shrink: 0 !important;
+      display: flex !important;
+      flex-direction: column !important;
+      background: #020617 !important;
+    }
+    .instrument-photo-card img.instrument-photo {
+      width: 100% !important;
+      height: clamp(165px, 21vh, 215px) !important;
+      object-fit: contain !important;
+      background: #020617 !important;
+      padding: 6px !important;
+      display: block !important;
+    }
+    .instrument-photo-caption {
+      position: relative !important;
+      background: rgba(9, 13, 22, 0.95) !important;
+      padding: 8px 12px !important;
+      border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+    }
+    .card-video-embed, .video-container {
+      padding-bottom: 56.25% !important;
+      height: 0 !important;
+      margin-bottom: 4px !important;
+      flex-shrink: 0 !important;
+    }
+    /* === END ANTI-SQUASH === */
+
 </style>
+<script>window.__initialHash = window.location.hash;</script>
 </head>
 <body>
 
@@ -967,6 +1073,7 @@
           <div class="card-video-embed">
             <iframe referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube-nocookie.com/embed/OoJkLl-RboU" title="Chuck Berry - "Johnny B. Goode" (1958 &bull; Chess Records)" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
           </div>
+          <div class="video-actions-bar" style="display:flex; gap:8px; align-items:center; justify-content:space-between; margin-top:4px; margin-bottom:8px; flex-shrink:0;"><button onclick="openVideo('OoJkLl-RboU', 'Chuck Berry - ')" style="flex:1; display:inline-flex; align-items:center; justify-content:center; gap:6px; font-size:11.5px; font-weight:800; color:#f8fafc; background:linear-gradient(135deg, rgba(56,189,248,0.22), rgba(99,102,241,0.22)); border:1px solid rgba(56,189,248,0.45); padding:5px 10px; border-radius:6px; cursor:pointer;">⛶ Watch in HD (Theater Mode)</button><a href="https://www.youtube.com/watch?v=OoJkLl-RboU" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" style="display:inline-flex; align-items:center; gap:4px; font-size:11px; font-weight:700; color:#fff !important; background:rgba(239,68,68,0.2); border:1px solid rgba(239,68,68,0.45); padding:5px 10px; border-radius:6px; text-decoration:none;"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div>
           <div class="music-focus-card">
             <div class="focus-title">Ear-Training Diagnostic: The Birth of Guitar Rock</div>
             <p class="focus-text">Listen to how the pushed valve amplifier adds <strong>even-order harmonic grit</strong> and dynamic compression to Chuck Berry's opening double-stop licks. Recorded at Chess Studios in Chicago, this tone defined rock 'n' roll guitar.</p>
@@ -1059,6 +1166,7 @@
           <div class="card-video-embed">
             <iframe referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube-nocookie.com/embed/glcTS_21uaY" title="Les Paul & Mary Ford - "How High the Moon" (1951 &bull; Capitol Records)" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
           </div>
+          <div class="video-actions-bar" style="display:flex; gap:8px; align-items:center; justify-content:space-between; margin-top:4px; margin-bottom:8px; flex-shrink:0;"><button onclick="openVideo('glcTS_21uaY', 'Les Paul & Mary Ford - ')" style="flex:1; display:inline-flex; align-items:center; justify-content:center; gap:6px; font-size:11.5px; font-weight:800; color:#f8fafc; background:linear-gradient(135deg, rgba(56,189,248,0.22), rgba(99,102,241,0.22)); border:1px solid rgba(56,189,248,0.45); padding:5px 10px; border-radius:6px; cursor:pointer;">⛶ Watch in HD (Theater Mode)</button><a href="https://www.youtube.com/watch?v=glcTS_21uaY" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" style="display:inline-flex; align-items:center; gap:4px; font-size:11px; font-weight:700; color:#fff !important; background:rgba(239,68,68,0.2); border:1px solid rgba(239,68,68,0.45); padding:5px 10px; border-radius:6px; text-decoration:none;"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div>
           <div class="music-focus-card">
             <div class="focus-title">Ear-Training Diagnostic: Sound-on-Sound Multitracking</div>
             <p class="focus-text">Listen to the crystal-clear articulation in Les Paul's rapid staccato picking. To execute up to 24 layers of sound-on-sound recording on his modified Ampex tape recorder, his guitar tone required <strong>maximum clarity and zero flabby distortion</strong>.</p>
@@ -1151,6 +1259,7 @@
           <div class="card-video-embed">
             <iframe referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube-nocookie.com/embed/CHoBnuLkFnQ" title="Link Wray & His Ray Men - "Rumble" (1958 &bull; Cadence Records)" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
           </div>
+          <div class="video-actions-bar" style="display:flex; gap:8px; align-items:center; justify-content:space-between; margin-top:4px; margin-bottom:8px; flex-shrink:0;"><button onclick="openVideo('CHoBnuLkFnQ', 'Link Wray & His Ray Men - ')" style="flex:1; display:inline-flex; align-items:center; justify-content:center; gap:6px; font-size:11.5px; font-weight:800; color:#f8fafc; background:linear-gradient(135deg, rgba(56,189,248,0.22), rgba(99,102,241,0.22)); border:1px solid rgba(56,189,248,0.45); padding:5px 10px; border-radius:6px; cursor:pointer;">⛶ Watch in HD (Theater Mode)</button><a href="https://www.youtube.com/watch?v=CHoBnuLkFnQ" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" style="display:inline-flex; align-items:center; gap:4px; font-size:11px; font-weight:700; color:#fff !important; background:rgba(239,68,68,0.2); border:1px solid rgba(239,68,68,0.45); padding:5px 10px; border-radius:6px; text-decoration:none;"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div>
           <div class="music-focus-card">
             <div class="focus-title">Ear-Training Diagnostic: The First Heavy Guitar Sound</div>
             <p class="focus-text">Link Wray's 'Rumble' was banned on several US radio stations for its menacing, aggressive tone—despite having no lyrics! Listen to the <strong>visceral power chord sustain and speaker cone compression</strong> as the valve amplifier is pushed into natural saturation.</p>
@@ -1243,6 +1352,7 @@
           <div class="card-video-embed">
             <iframe referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube-nocookie.com/embed/Yjyj8qnqkYI" title="The Beatles - "A Hard Day's Night" (1964 &bull; Parlophone / Abbey Road)" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
           </div>
+          <div class="video-actions-bar" style="display:flex; gap:8px; align-items:center; justify-content:space-between; margin-top:4px; margin-bottom:8px; flex-shrink:0;"><button onclick="openVideo('Yjyj8qnqkYI', 'The Beatles - ')" style="flex:1; display:inline-flex; align-items:center; justify-content:center; gap:6px; font-size:11.5px; font-weight:800; color:#f8fafc; background:linear-gradient(135deg, rgba(56,189,248,0.22), rgba(99,102,241,0.22)); border:1px solid rgba(56,189,248,0.45); padding:5px 10px; border-radius:6px; cursor:pointer;">⛶ Watch in HD (Theater Mode)</button><a href="https://www.youtube.com/watch?v=Yjyj8qnqkYI" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" style="display:inline-flex; align-items:center; gap:4px; font-size:11px; font-weight:700; color:#fff !important; background:rgba(239,68,68,0.2); border:1px solid rgba(239,68,68,0.45); padding:5px 10px; border-radius:6px; text-decoration:none;"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div>
           <div class="music-focus-card">
             <div class="focus-title">Ear-Training Diagnostic: Harmonic Jangle & Upper-Mid Chime</div>
             <p class="focus-text">The song begins with the most famous opening chord in rock history (a combination of George Harrison's Rickenbacker 360/12 through a <strong>Vox AC30</strong>, John Lennon's Gibson J-160E, and Paul McCartney's Hofner bass, doubled by George Martin on piano).</p>
@@ -1335,6 +1445,7 @@
           <div class="card-video-embed">
             <iframe referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube-nocookie.com/embed/_dHK6hLNTAI" title="The Kinks (Dave Davies) - "You Really Got Me" (1964 &bull; Pye Studios / Shel Talmy)" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
           </div>
+          <div class="video-actions-bar" style="display:flex; gap:8px; align-items:center; justify-content:space-between; margin-top:4px; margin-bottom:8px; flex-shrink:0;"><button onclick="openVideo('_dHK6hLNTAI', 'The Kinks (Dave Davies) - ')" style="flex:1; display:inline-flex; align-items:center; justify-content:center; gap:6px; font-size:11.5px; font-weight:800; color:#f8fafc; background:linear-gradient(135deg, rgba(56,189,248,0.22), rgba(99,102,241,0.22)); border:1px solid rgba(56,189,248,0.45); padding:5px 10px; border-radius:6px; cursor:pointer;">⛶ Watch in HD (Theater Mode)</button><a href="https://www.youtube.com/watch?v=_dHK6hLNTAI" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" style="display:inline-flex; align-items:center; gap:4px; font-size:11px; font-weight:700; color:#fff !important; background:rgba(239,68,68,0.2); border:1px solid rgba(239,68,68,0.45); padding:5px 10px; border-radius:6px; text-decoration:none;"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div>
           <div class="music-focus-card">
             <div class="focus-title">Ear-Training Diagnostic: Asymmetric Acoustic Tearing</div>
             <p class="focus-text">Listen to the ferocious, buzzing distortion on the opening G to A power chord riff. Recorded at Pye Studios in London with producer Shel Talmy, this was not the polite overdrive of a cranked valve amp—it was a <strong>violent, jagged square-wave distortion</strong>.</p>
@@ -1427,6 +1538,7 @@
           <div class="card-video-embed">
             <iframe referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube-nocookie.com/embed/0fAQhSRLQnM" title="Dire Straits (Mark Knopfler) - "Sultans of Swing" (1978 &bull; Pathway Studios)" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
           </div>
+          <div class="video-actions-bar" style="display:flex; gap:8px; align-items:center; justify-content:space-between; margin-top:4px; margin-bottom:8px; flex-shrink:0;"><button onclick="openVideo('0fAQhSRLQnM', 'Dire Straits (Mark Knopfler) - ')" style="flex:1; display:inline-flex; align-items:center; justify-content:center; gap:6px; font-size:11.5px; font-weight:800; color:#f8fafc; background:linear-gradient(135deg, rgba(56,189,248,0.22), rgba(99,102,241,0.22)); border:1px solid rgba(56,189,248,0.45); padding:5px 10px; border-radius:6px; cursor:pointer;">⛶ Watch in HD (Theater Mode)</button><a href="https://www.youtube.com/watch?v=0fAQhSRLQnM" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" style="display:inline-flex; align-items:center; gap:4px; font-size:11px; font-weight:700; color:#fff !important; background:rgba(239,68,68,0.2); border:1px solid rgba(239,68,68,0.45); padding:5px 10px; border-radius:6px; text-decoration:none;"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div>
           <div class="music-focus-card">
             <div class="focus-title">Ear-Training Diagnostic: Uncompressed Transients & Reverb Splash</div>
             <p class="focus-text">Listen to Mark Knopfler's bare-finger picking on his 1961 Stratocaster (pickup selector in the out-of-phase bridge+middle position). The <strong>Fender Twin Reverb</strong> provides tremendous clean headroom, preserving every percussive thumb snap without clipping.</p>
@@ -1519,6 +1631,7 @@
           <div class="card-video-embed">
             <iframe referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube-nocookie.com/embed/m9N8Qi6zLSU" title="John Mayall & The Bluesbreakers (feat. Eric Clapton) - "Hideaway" (1966 &bull; Decca Studios / Mike Vernon)" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
           </div>
+          <div class="video-actions-bar" style="display:flex; gap:8px; align-items:center; justify-content:space-between; margin-top:4px; margin-bottom:8px; flex-shrink:0;"><button onclick="openVideo('m9N8Qi6zLSU', 'John Mayall & The Bluesbreakers (feat. Eric Clapton) - ')" style="flex:1; display:inline-flex; align-items:center; justify-content:center; gap:6px; font-size:11.5px; font-weight:800; color:#f8fafc; background:linear-gradient(135deg, rgba(56,189,248,0.22), rgba(99,102,241,0.22)); border:1px solid rgba(56,189,248,0.45); padding:5px 10px; border-radius:6px; cursor:pointer;">⛶ Watch in HD (Theater Mode)</button><a href="https://www.youtube.com/watch?v=m9N8Qi6zLSU" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" style="display:inline-flex; align-items:center; gap:4px; font-size:11px; font-weight:700; color:#fff !important; background:rgba(239,68,68,0.2); border:1px solid rgba(239,68,68,0.45); padding:5px 10px; border-radius:6px; text-decoration:none;"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div>
           <div class="music-focus-card">
             <div class="focus-title">Ear-Training Diagnostic: The Humbucker-into-Marshall Standard</div>
             <p class="focus-text">This track from the famous 'Beano' album launched the British blues boom. Listen to Eric Clapton's 1960 Gibson Les Paul Standard plugged straight into a cranked <strong>Marshall Model 1962 'Bluesbreaker' combo</strong>.</p>
@@ -1611,6 +1724,7 @@
           <div class="card-video-embed">
             <iframe referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube-nocookie.com/embed/qFfnlYbFEiE" title="The Jimi Hendrix Experience - "Voodoo Child (Slight Return)" (Live In Maui 1970)" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
           </div>
+          <div class="video-actions-bar" style="display:flex; gap:8px; align-items:center; justify-content:space-between; margin-top:4px; margin-bottom:8px; flex-shrink:0;"><button onclick="openVideo('qFfnlYbFEiE', 'The Jimi Hendrix Experience - ')" style="flex:1; display:inline-flex; align-items:center; justify-content:center; gap:6px; font-size:11.5px; font-weight:800; color:#f8fafc; background:linear-gradient(135deg, rgba(56,189,248,0.22), rgba(99,102,241,0.22)); border:1px solid rgba(56,189,248,0.45); padding:5px 10px; border-radius:6px; cursor:pointer;">⛶ Watch in HD (Theater Mode)</button><a href="https://www.youtube.com/watch?v=qFfnlYbFEiE" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" style="display:inline-flex; align-items:center; gap:4px; font-size:11px; font-weight:700; color:#fff !important; background:rgba(239,68,68,0.2); border:1px solid rgba(239,68,68,0.45); padding:5px 10px; border-radius:6px; text-decoration:none;"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div>
           <div class="music-focus-card">
             <div class="focus-title">Ear-Training Diagnostic: Acoustic Coupling & Power Tube Saturation</div>
             <p class="focus-text">Listen to how Hendrix manipulates the immense acoustic pressure of his <strong>100-watt Marshall Super Lead Plexi stacks</strong>. Standing in front of eight 12-inch Celestion speakers creates a closed acoustic feedback loop between the strings and the magnetic pickup coils.</p>
@@ -1703,6 +1817,7 @@
           <div class="card-video-embed">
             <iframe referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube-nocookie.com/embed/SHhrZgojY1Q" title="The Who (John Entwistle) - "Won't Get Fooled Again" (1971 &bull; Olympic Studios)" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
           </div>
+          <div class="video-actions-bar" style="display:flex; gap:8px; align-items:center; justify-content:space-between; margin-top:4px; margin-bottom:8px; flex-shrink:0;"><button onclick="openVideo('SHhrZgojY1Q', 'The Who (John Entwistle) - ')" style="flex:1; display:inline-flex; align-items:center; justify-content:center; gap:6px; font-size:11.5px; font-weight:800; color:#f8fafc; background:linear-gradient(135deg, rgba(56,189,248,0.22), rgba(99,102,241,0.22)); border:1px solid rgba(56,189,248,0.45); padding:5px 10px; border-radius:6px; cursor:pointer;">⛶ Watch in HD (Theater Mode)</button><a href="https://www.youtube.com/watch?v=SHhrZgojY1Q" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" style="display:inline-flex; align-items:center; gap:4px; font-size:11px; font-weight:700; color:#fff !important; background:rgba(239,68,68,0.2); border:1px solid rgba(239,68,68,0.45); padding:5px 10px; border-radius:6px; text-decoration:none;"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div>
           <div class="music-focus-card">
             <div class="focus-title">Ear-Training Diagnostic: Sub-Bass Weight with Metallic Clack</div>
             <p class="focus-text">Listen to John Entwistle's ('The Ox') revolutionary bass tone. In an era where most bassists were relegated to polite low-end thud, Entwistle's <strong>Ampeg SVT</strong> delivers a ferocious full-frequency roar from deep 40 Hz sub-bass up to 4 kHz trebly pick clack.</p>
@@ -1795,6 +1910,7 @@
           <div class="card-video-embed">
             <iframe referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube-nocookie.com/embed/pAgnJDJN4VA" title="AC/DC (Angus & Malcolm Young) - "Back in Black" (1980 &bull; Compass Point Studios / Mutt Lange)" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
           </div>
+          <div class="video-actions-bar" style="display:flex; gap:8px; align-items:center; justify-content:space-between; margin-top:4px; margin-bottom:8px; flex-shrink:0;"><button onclick="openVideo('pAgnJDJN4VA', 'AC/DC (Angus & Malcolm Young) - ')" style="flex:1; display:inline-flex; align-items:center; justify-content:center; gap:6px; font-size:11.5px; font-weight:800; color:#f8fafc; background:linear-gradient(135deg, rgba(56,189,248,0.22), rgba(99,102,241,0.22)); border:1px solid rgba(56,189,248,0.45); padding:5px 10px; border-radius:6px; cursor:pointer;">⛶ Watch in HD (Theater Mode)</button><a href="https://www.youtube.com/watch?v=pAgnJDJN4VA" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" style="display:inline-flex; align-items:center; gap:4px; font-size:11px; font-weight:700; color:#fff !important; background:rgba(239,68,68,0.2); border:1px solid rgba(239,68,68,0.45); padding:5px 10px; border-radius:6px; text-decoration:none;"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div>
           <div class="music-focus-card">
             <div class="focus-title">Ear-Training Diagnostic: Saturated Preamp Crunch with Articulation</div>
             <p class="focus-text">Listen to the opening rhythm guitar chords of Malcolm Young (Gretsch) and Angus Young (Gibson SG) through <strong>Marshall JCM800 / Super Lead heads</strong>. Notice how dry, punchy, and articulate the distortion is.</p>
@@ -1887,6 +2003,7 @@
           <div class="card-video-embed">
             <iframe referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube-nocookie.com/embed/OMOGaugKpzs" title="The Police (Andy Summers) - "Every Breath You Take" (1983 &bull; AIR Studios Montserrat)" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
           </div>
+          <div class="video-actions-bar" style="display:flex; gap:8px; align-items:center; justify-content:space-between; margin-top:4px; margin-bottom:8px; flex-shrink:0;"><button onclick="openVideo('OMOGaugKpzs', 'The Police (Andy Summers) - ')" style="flex:1; display:inline-flex; align-items:center; justify-content:center; gap:6px; font-size:11.5px; font-weight:800; color:#f8fafc; background:linear-gradient(135deg, rgba(56,189,248,0.22), rgba(99,102,241,0.22)); border:1px solid rgba(56,189,248,0.45); padding:5px 10px; border-radius:6px; cursor:pointer;">⛶ Watch in HD (Theater Mode)</button><a href="https://www.youtube.com/watch?v=OMOGaugKpzs" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" style="display:inline-flex; align-items:center; gap:4px; font-size:11px; font-weight:700; color:#fff !important; background:rgba(239,68,68,0.2); border:1px solid rgba(239,68,68,0.45); padding:5px 10px; border-radius:6px; text-decoration:none;"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div>
           <div class="music-focus-card">
             <div class="focus-title">Ear-Training Diagnostic: Acoustic Stereo Spatial Modulation</div>
             <p class="focus-text">Listen to Andy Summers' iconic palm-muted ninth-chord arpeggios. Recorded with a 1961 Telecaster through a <strong>Roland JC-120</strong>, the sound has zero valve saturation or grit—it is mathematically clean, linear, and three-dimensional.</p>
@@ -1979,6 +2096,7 @@
           <div class="card-video-embed">
             <iframe referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube-nocookie.com/embed/CD-E-LDc384" title="Metallica (James Hetfield) - "Enter Sandman" (1991 &bull; One on One Studios / Bob Rock)" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
           </div>
+          <div class="video-actions-bar" style="display:flex; gap:8px; align-items:center; justify-content:space-between; margin-top:4px; margin-bottom:8px; flex-shrink:0;"><button onclick="openVideo('CD-E-LDc384', 'Metallica (James Hetfield) - ')" style="flex:1; display:inline-flex; align-items:center; justify-content:center; gap:6px; font-size:11.5px; font-weight:800; color:#f8fafc; background:linear-gradient(135deg, rgba(56,189,248,0.22), rgba(99,102,241,0.22)); border:1px solid rgba(56,189,248,0.45); padding:5px 10px; border-radius:6px; cursor:pointer;">⛶ Watch in HD (Theater Mode)</button><a href="https://www.youtube.com/watch?v=CD-E-LDc384" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" style="display:inline-flex; align-items:center; gap:4px; font-size:11px; font-weight:700; color:#fff !important; background:rgba(239,68,68,0.2); border:1px solid rgba(239,68,68,0.45); padding:5px 10px; border-radius:6px; text-decoration:none;"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div>
           <div class="music-focus-card">
             <div class="focus-title">Ear-Training Diagnostic: Heavy Rectified Low-End & Multi-Track Density</div>
             <p class="focus-text">Producer Bob Rock layered multiple passes of James Hetfield's rhythm guitar using a combination of <strong>Mesa/Boogie heads and Marshall power sections</strong>. Listen to the brutal low-end impact on the palm-muted E-string chugs.</p>
@@ -2071,6 +2189,7 @@
           <div class="card-video-embed">
             <iframe referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube-nocookie.com/embed/wkqr5GY9opk" title="Animals As Leaders (Tosin Abasi) - "Physical Education" (Live at Patronaat)" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
           </div>
+          <div class="video-actions-bar" style="display:flex; gap:8px; align-items:center; justify-content:space-between; margin-top:4px; margin-bottom:8px; flex-shrink:0;"><button onclick="openVideo('wkqr5GY9opk', 'Animals As Leaders (Tosin Abasi) - ')" style="flex:1; display:inline-flex; align-items:center; justify-content:center; gap:6px; font-size:11.5px; font-weight:800; color:#f8fafc; background:linear-gradient(135deg, rgba(56,189,248,0.22), rgba(99,102,241,0.22)); border:1px solid rgba(56,189,248,0.45); padding:5px 10px; border-radius:6px; cursor:pointer;">⛶ Watch in HD (Theater Mode)</button><a href="https://www.youtube.com/watch?v=wkqr5GY9opk" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" style="display:inline-flex; align-items:center; gap:4px; font-size:11px; font-weight:700; color:#fff !important; background:rgba(239,68,68,0.2); border:1px solid rgba(239,68,68,0.45); padding:5px 10px; border-radius:6px; text-decoration:none;"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div>
           <div class="music-focus-card">
             <div class="focus-title">Ear-Training Diagnostic: Pristine Extended-Range Articulation</div>
             <p class="focus-text">Listen to Tosin Abasi and Javier Reyes performing lightning-fast thumping, slaps, and arpeggios on extended-range 8-string guitars. Traditional tube amplifier stacks often collapse into muddy sub-bass mush when handling low B (61 Hz) or low F# (46 Hz).</p>
@@ -2163,6 +2282,7 @@
           <div class="card-video-embed">
             <iframe referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube-nocookie.com/embed/kfjXp4KTTY8" title="Stevie Ray Vaughan & Double Trouble - "Pride and Joy" (Live at Montreux 1982)" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
           </div>
+          <div class="video-actions-bar" style="display:flex; gap:8px; align-items:center; justify-content:space-between; margin-top:4px; margin-bottom:8px; flex-shrink:0;"><button onclick="openVideo('kfjXp4KTTY8', 'Stevie Ray Vaughan & Double Trouble - ')" style="flex:1; display:inline-flex; align-items:center; justify-content:center; gap:6px; font-size:11.5px; font-weight:800; color:#f8fafc; background:linear-gradient(135deg, rgba(56,189,248,0.22), rgba(99,102,241,0.22)); border:1px solid rgba(56,189,248,0.45); padding:5px 10px; border-radius:6px; cursor:pointer;">⛶ Watch in HD (Theater Mode)</button><a href="https://www.youtube.com/watch?v=kfjXp4KTTY8" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" style="display:inline-flex; align-items:center; gap:4px; font-size:11px; font-weight:700; color:#fff !important; background:rgba(239,68,68,0.2); border:1px solid rgba(239,68,68,0.45); padding:5px 10px; border-radius:6px; text-decoration:none;"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div>
           <div class="music-focus-card">
             <div class="focus-title">Ear-Training Diagnostic: Dynamic Touch-Sensitivity in Real Time</div>
             <p class="focus-text">Stevie Ray Vaughan demonstrates why tube amplifiers remain revered: playing with a light thumb produces a sparkling, chimey clean tone, while digging in with a heavy pick attack instantly forces the power tubes into singing, compressed overdrive without touching a volume knob.</p>
@@ -2466,5 +2586,74 @@
     </div>
   </div>
 
+
+  <!-- HD Theater Video Modal -->
+  <div class="video-modal-backdrop" id="videoModal" onclick="if(event.target===this)closeVideo()" style="display:none; position:fixed; inset:0; width:100vw; height:100vh; background:rgba(2,6,23,0.92); backdrop-filter:blur(12px); z-index:99999; align-items:center; justify-content:center; padding:20px;">
+    <div class="video-modal-content" style="width:100%; max-width:1200px; background:#0f172a; border:1px solid rgba(56,189,248,0.35); border-radius:16px; overflow:hidden; box-shadow:0 25px 70px rgba(0,0,0,0.95);">
+      <div class="video-modal-header" style="padding:12px 18px; background:#090d16; border-bottom:1px solid rgba(255,255,255,0.1); display:flex; justify-content:space-between; align-items:center;">
+        <span class="video-modal-title" id="videoModalTitle" style="font-size:14px; font-weight:800; color:#f8fafc;">HD Video Player</span>
+        <div style="display:flex; align-items:center; gap:10px;">
+          <a id="videoModalDirectLink" href="https://www.youtube.com" target="_blank" rel="noopener noreferrer" style="font-size:12px; font-weight:700; color:#f8fafc; background:rgba(239,68,68,0.25); border:1px solid rgba(239,68,68,0.5); padding:5px 12px; border-radius:6px; text-decoration:none;">Open on YouTube ↗</a>
+          <button onclick="closeVideo()" style="background:#ef4444; color:#fff; border:none; border-radius:6px; padding:5px 12px; font-size:12px; font-weight:800; cursor:pointer;">✕ Close (Esc)</button>
+        </div>
+      </div>
+      <div style="position:relative; width:100%; padding-bottom:56.25%; height:0; background:#000;">
+        <iframe id="videoIframe" src="" style="position:absolute; inset:0; width:100%; height:100%; border:0;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+  <script>
+    function openVideo(videoId, title) {
+      var modal = document.getElementById('videoModal');
+      var iframe = document.getElementById('videoIframe');
+      var modalTitle = document.getElementById('videoModalTitle');
+      var directLink = document.getElementById('videoModalDirectLink');
+      if (!modal || !iframe) return;
+      if (modalTitle) modalTitle.textContent = title || 'HD Video Example';
+      if (directLink) directLink.href = 'https://www.youtube.com/watch?v=' + videoId;
+      iframe.src = 'https://www.youtube-nocookie.com/embed/' + videoId + '?autoplay=1&rel=0&modestbranding=1&vq=hd1080';
+      modal.classList.add('open');
+      modal.style.display = 'flex';
+    }
+    function closeVideo() {
+      var modal = document.getElementById('videoModal');
+      var iframe = document.getElementById('videoIframe');
+      if (!modal) return;
+      modal.classList.remove('open');
+      modal.style.display = 'none';
+      if (iframe) iframe.src = '';
+    }
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeVideo();
+    });
+  </script>
+
+<!-- === HASH DEEP LINK === -->
+<script>
+  window.addEventListener('DOMContentLoaded', function() {
+    var h = window.__initialHash || window.location.hash || '';
+    var m = h.match(/^#slide-(\d+)$/i);
+    if (m) {
+      var targetIdx = parseInt(m[1], 10) - 1;
+      if (targetIdx > 0) {
+        setTimeout(function() {
+          if (typeof goToSlide === 'function') {
+            goToSlide(targetIdx);
+          } else if (typeof jumpToSlide === 'function') {
+            jumpToSlide(targetIdx);
+          } else if (typeof showSlide === 'function') {
+            showSlide(targetIdx);
+          } else if (typeof nextSlide === 'function') {
+            for (var i = 0; i < targetIdx; i++) nextSlide();
+          } else {
+            var nb = document.getElementById('nextBtn');
+            if (nb) { for (var j = 0; j < targetIdx; j++) nb.click(); }
+          }
+        }, 50);
+      }
+    }
+  });
+</script>
+<!-- === END HASH DEEP LINK === -->
 </body>
 </html>

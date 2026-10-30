@@ -1041,7 +1041,101 @@
       z-index: 101 !important;
     }
 
+
+    
+    
+    /* === ANTI-SQUASH LAYOUT OVERRIDES === */
+    .deck-topbar-controls {
+      width: 100% !important;
+      box-sizing: border-box !important;
+    }
+    #bottomFsBtn {
+      background: rgba(255, 255, 255, 0.06) !important;
+      border: 1px solid rgba(255, 255, 255, 0.14) !important;
+      color: #f8fafc !important;
+      padding: 7px 14px !important;
+      border-radius: 8px !important;
+      font-size: 12.5px !important;
+      font-weight: 600 !important;
+      cursor: pointer !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 6px !important;
+      transition: all 0.2s ease !important;
+    }
+    #bottomFsBtn:hover {
+      background: rgba(255, 255, 255, 0.12) !important;
+      border-color: rgba(255, 255, 255, 0.28) !important;
+    }
+
+    .deck-wrapper {
+      width: calc(100% - 24px) !important;
+      max-width: 1340px !important;
+      flex: 1 !important;
+      min-height: 0 !important;
+      max-height: none !important;
+      height: auto !important;
+      margin: 8px auto 10px auto !important;
+    }
+    .slides-viewport {
+      flex: 1 !important;
+      min-height: 0 !important;
+      position: relative !important;
+      overflow: hidden !important;
+    }
+    .slide-stage {
+      flex: 1 !important;
+      min-height: 0 !important;
+      position: relative !important;
+      overflow-y: auto !important;
+      padding: 22px 34px 24px 34px !important;
+      display: block !important;
+      justify-content: flex-start !important;
+    }
+    .slides-viewport > .slide {
+      position: absolute !important;
+      top: 0 !important;
+      left: 0 !important;
+      width: 100% !important;
+      height: 100% !important;
+      padding: 20px 32px 24px 32px !important;
+      overflow-y: auto !important;
+      justify-content: flex-start !important;
+    }
+    .slide-stage > .slide,
+    .slide-stage > .slide.active {
+      height: auto !important;
+      overflow: visible !important;
+    }
+    .slide-stage > .slide.active {
+      display: block !important;
+    }
+    .slide-eyebrow {
+      margin-bottom: 6px !important;
+      flex-shrink: 0 !important;
+    }
+    .slide-heading {
+      font-size: clamp(21px, 2.5vw, 28px) !important;
+      margin-bottom: 8px !important;
+      line-height: 1.2 !important;
+      flex-shrink: 0 !important;
+    }
+    .slide-lead {
+      font-size: 13.5px !important;
+      line-height: 1.55 !important;
+      margin-bottom: 16px !important;
+      display: block !important;
+      -webkit-line-clamp: unset !important;
+      overflow: visible !important;
+      flex-shrink: 0 !important;
+    }
+    .deck-controls, .deck-bottombar, .deck-footer {
+      flex-shrink: 0 !important;
+    }
+    /* === END ANTI-SQUASH === */
+
 </style>
+<script>window.__initialHash = window.location.hash;</script>
 </head>
 <body>
 
@@ -1180,7 +1274,7 @@
             <img src="/images/slides/funk/james_brown.jpg" alt="James Brown" class="artist-photo">
             <div class="video-btn-row"><button class="listen-btn" onclick="openVideo('ZNaXb3uuekk', 'James Brown - Sex Machine')">
               ▶ Listen: Sex Machine (1970)
-            </button><a href="https://www.youtube.com/watch?v=ZNaXb3uuekk" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div><a href="https://www.youtube.com/watch?v=ZNaXb3uuekk" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div>
+            </button><a href="https://www.youtube.com/watch?v=ZNaXb3uuekk" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div>
           </div>
           <div class="artist-info">
             <div class="artist-meta-pills">
@@ -1212,7 +1306,7 @@
             <img src="/images/slides/funk/sly_stone.jpg" alt="Sly & The Family Stone" class="artist-photo">
             <div class="video-btn-row"><button class="listen-btn" onclick="openVideo('-T9vmaTI2LE', 'Sly and the Family Stone - Thank You')">
               ▶ Listen: Thank You (1969)
-            </button><a href="https://www.youtube.com/watch?v=-T9vmaTI2LE" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div><a href="https://www.youtube.com/watch?v=-T9vmaTI2LE" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div>
+            </button><a href="https://www.youtube.com/watch?v=-T9vmaTI2LE" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div>
           </div>
           <div class="artist-info">
             <div class="artist-meta-pills">
@@ -1244,7 +1338,7 @@
             <img src="/images/slides/funk/bootsy_collins.jpg" alt="Bootsy Collins" class="artist-photo">
             <div class="video-btn-row"><button class="listen-btn" onclick="openVideo('bWurqD68u70', 'Parliament - Flash Light')">
               ▶ Listen: Flash Light (1977)
-            </button><a href="https://www.youtube.com/watch?v=bWurqD68u70" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div><a href="https://www.youtube.com/watch?v=bWurqD68u70" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div>
+            </button><a href="https://www.youtube.com/watch?v=bWurqD68u70" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div>
           </div>
           <div class="artist-info">
             <div class="artist-meta-pills">
@@ -1276,7 +1370,7 @@
             <img src="/images/slides/funk/chic.jpg" alt="Nile Rodgers Chic" class="artist-photo">
             <div class="video-btn-row"><button class="listen-btn" onclick="openVideo('Er9xGRolrT4', 'Chic - Good Times')">
               ▶ Listen: Good Times (1979)
-            </button><a href="https://www.youtube.com/watch?v=Er9xGRolrT4" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div><a href="https://www.youtube.com/watch?v=Er9xGRolrT4" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div>
+            </button><a href="https://www.youtube.com/watch?v=Er9xGRolrT4" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div>
           </div>
           <div class="artist-info">
             <div class="artist-meta-pills">
@@ -1308,7 +1402,7 @@
             <img src="/images/slides/funk/earth_wind_fire.jpg" alt="Earth Wind and Fire" class="artist-photo">
             <div class="video-btn-row"><button class="listen-btn" onclick="openVideo('Gs069dndIYk', 'Earth Wind and Fire - September')">
               ▶ Listen: September (1978)
-            </button><a href="https://www.youtube.com/watch?v=Gs069dndIYk" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div><a href="https://www.youtube.com/watch?v=Gs069dndIYk" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div>
+            </button><a href="https://www.youtube.com/watch?v=Gs069dndIYk" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div>
           </div>
           <div class="artist-info">
             <div class="artist-meta-pills">
@@ -1340,7 +1434,7 @@
             <img src="/images/slides/funk/herbie_hancock.jpg" alt="Herbie Hancock" class="artist-photo">
             <div class="video-btn-row"><button class="listen-btn" onclick="openVideo('8buRBt_138w', 'Herbie Hancock - Chameleon')">
               ▶ Listen: Chameleon (1973)
-            </button><a href="https://www.youtube.com/watch?v=8buRBt_138w" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div><a href="https://www.youtube.com/watch?v=8buRBt_138w" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div>
+            </button><a href="https://www.youtube.com/watch?v=8buRBt_138w" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div>
           </div>
           <div class="artist-info">
             <div class="artist-meta-pills">
@@ -1803,5 +1897,32 @@
     </div>
   </div>
 
+<!-- === HASH DEEP LINK === -->
+<script>
+  window.addEventListener('DOMContentLoaded', function() {
+    var h = window.__initialHash || window.location.hash || '';
+    var m = h.match(/^#slide-(\d+)$/i);
+    if (m) {
+      var targetIdx = parseInt(m[1], 10) - 1;
+      if (targetIdx > 0) {
+        setTimeout(function() {
+          if (typeof goToSlide === 'function') {
+            goToSlide(targetIdx);
+          } else if (typeof jumpToSlide === 'function') {
+            jumpToSlide(targetIdx);
+          } else if (typeof showSlide === 'function') {
+            showSlide(targetIdx);
+          } else if (typeof nextSlide === 'function') {
+            for (var i = 0; i < targetIdx; i++) nextSlide();
+          } else {
+            var nb = document.getElementById('nextBtn');
+            if (nb) { for (var j = 0; j < targetIdx; j++) nb.click(); }
+          }
+        }, 50);
+      }
+    }
+  });
+</script>
+<!-- === END HASH DEEP LINK === -->
 </body>
 </html>

@@ -954,7 +954,109 @@
       z-index: 101 !important;
     }
 
+
+    
+    
+    /* === ANTI-SQUASH LAYOUT OVERRIDES === */
+    .deck-topbar-controls {
+      width: 100% !important;
+      box-sizing: border-box !important;
+    }
+    #bottomFsBtn {
+      background: rgba(255, 255, 255, 0.06) !important;
+      border: 1px solid rgba(255, 255, 255, 0.14) !important;
+      color: #f8fafc !important;
+      padding: 7px 14px !important;
+      border-radius: 8px !important;
+      font-size: 12.5px !important;
+      font-weight: 600 !important;
+      cursor: pointer !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 6px !important;
+      transition: all 0.2s ease !important;
+    }
+    #bottomFsBtn:hover {
+      background: rgba(255, 255, 255, 0.12) !important;
+      border-color: rgba(255, 255, 255, 0.28) !important;
+    }
+
+    .deck-container {
+      max-width: 1520px !important;
+      padding: 10px 20px 0 !important;
+    }
+    .slide-header {
+      margin-bottom: 10px !important;
+      padding-bottom: 8px !important;
+    }
+    .slide-heading {
+      font-size: clamp(20px, 2.2vw, 26px) !important;
+      margin-bottom: 4px !important;
+      line-height: 1.2 !important;
+    }
+    .slide-lead {
+      font-size: 13px !important;
+      line-height: 1.45 !important;
+      margin-bottom: 2px !important;
+      display: block !important;
+      -webkit-line-clamp: unset !important;
+      overflow: visible !important;
+    }
+    .grid-2-split {
+      gap: 16px !important;
+      margin-bottom: 54px !important;
+    }
+    .column-panel {
+      padding: 14px 16px !important;
+    }
+    /* Fix squashed hardware and instrument photos */
+    .hardware-photo {
+      height: clamp(165px, 21vh, 220px) !important;
+      margin-bottom: 10px !important;
+      flex-shrink: 0 !important;
+      background: #020617 !important;
+    }
+    .hardware-photo img {
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: contain !important;
+      padding: 6px !important;
+    }
+    /* In amplifiers & classic-keyboards, prevent .instrument-photo-card from clipping captions */
+    .instrument-photo-card {
+      height: auto !important;
+      min-height: 180px !important;
+      max-height: none !important;
+      margin-bottom: 10px !important;
+      flex-shrink: 0 !important;
+      display: flex !important;
+      flex-direction: column !important;
+      background: #020617 !important;
+    }
+    .instrument-photo-card img.instrument-photo {
+      width: 100% !important;
+      height: clamp(165px, 21vh, 215px) !important;
+      object-fit: contain !important;
+      background: #020617 !important;
+      padding: 6px !important;
+      display: block !important;
+    }
+    .instrument-photo-caption {
+      position: relative !important;
+      background: rgba(9, 13, 22, 0.95) !important;
+      padding: 8px 12px !important;
+      border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+    }
+    .card-video-embed, .video-container {
+      padding-bottom: 56.25% !important;
+      height: 0 !important;
+      margin-bottom: 4px !important;
+      flex-shrink: 0 !important;
+    }
+    /* === END ANTI-SQUASH === */
+
 </style>
+<script>window.__initialHash = window.location.hash;</script>
 </head>
 <body>
 
@@ -1006,12 +1108,13 @@
           </div>
 
           <div class="video-container">
-            <iframe src="https://www.youtube-nocookie.com/embed/z9tg5ELAW7o?rel=0&modestbranding=1" 
+            <iframe src="https://www.youtube-nocookie.com/embed/z9tg5ELAW7o?rel=0&modestbranding=1&vq=hd1080" 
                     title="Phaser vs. Flanger vs. Chorus vs. Vibrato Explained" 
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                     referrerpolicy="strict-origin-when-cross-origin"
                     allowfullscreen></iframe>
           </div>
+          <div class="video-actions-bar" style="display:flex; gap:8px; align-items:center; justify-content:space-between; margin-top:4px; margin-bottom:8px; flex-shrink:0;"><button onclick="openVideo('z9tg5ELAW7o', 'Phaser vs. Flanger vs. Chorus vs. Vibrato Explained')" style="flex:1; display:inline-flex; align-items:center; justify-content:center; gap:6px; font-size:11.5px; font-weight:800; color:#f8fafc; background:linear-gradient(135deg, rgba(56,189,248,0.22), rgba(99,102,241,0.22)); border:1px solid rgba(56,189,248,0.45); padding:5px 10px; border-radius:6px; cursor:pointer;">⛶ Watch in HD (Theater Mode)</button><a href="https://www.youtube.com/watch?v=z9tg5ELAW7o" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" style="display:inline-flex; align-items:center; gap:4px; font-size:11px; font-weight:700; color:#fff !important; background:rgba(239,68,68,0.2); border:1px solid rgba(239,68,68,0.45); padding:5px 10px; border-radius:6px; text-decoration:none;"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div>
 
           <div class="track-meta">
             <div class="track-title">Phaser vs. Flanger vs. Chorus vs. Vibrato Explained</div>
@@ -1106,12 +1209,13 @@
           </div>
 
           <div class="video-container">
-            <iframe src="https://www.youtube-nocookie.com/embed/GzZWSrr5wFI?rel=0&modestbranding=1" 
+            <iframe src="https://www.youtube-nocookie.com/embed/GzZWSrr5wFI?rel=0&modestbranding=1&vq=hd1080" 
                     title=""Where The Streets Have No Name" (1987 &bull; Korg SDD-3000)" 
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                     referrerpolicy="strict-origin-when-cross-origin"
                     allowfullscreen></iframe>
           </div>
+          <div class="video-actions-bar" style="display:flex; gap:8px; align-items:center; justify-content:space-between; margin-top:4px; margin-bottom:8px; flex-shrink:0;"><button onclick="openVideo('GzZWSrr5wFI', 'HD Video Example')" style="flex:1; display:inline-flex; align-items:center; justify-content:center; gap:6px; font-size:11.5px; font-weight:800; color:#f8fafc; background:linear-gradient(135deg, rgba(56,189,248,0.22), rgba(99,102,241,0.22)); border:1px solid rgba(56,189,248,0.45); padding:5px 10px; border-radius:6px; cursor:pointer;">⛶ Watch in HD (Theater Mode)</button><a href="https://www.youtube.com/watch?v=GzZWSrr5wFI" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" style="display:inline-flex; align-items:center; gap:4px; font-size:11px; font-weight:700; color:#fff !important; background:rgba(239,68,68,0.2); border:1px solid rgba(239,68,68,0.45); padding:5px 10px; border-radius:6px; text-decoration:none;"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div>
 
           <div class="track-meta">
             <div class="track-title">"Where The Streets Have No Name" (1987 &bull; Korg SDD-3000)</div>
@@ -1206,12 +1310,13 @@
           </div>
 
           <div class="video-container">
-            <iframe src="https://www.youtube-nocookie.com/embed/YkADj0TPrJA?rel=0&modestbranding=1" 
+            <iframe src="https://www.youtube-nocookie.com/embed/YkADj0TPrJA?rel=0&modestbranding=1&vq=hd1080" 
                     title=""In The Air Tonight" (1981 &bull; Townhouse Stone Room &amp; SSL)" 
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                     referrerpolicy="strict-origin-when-cross-origin"
                     allowfullscreen></iframe>
           </div>
+          <div class="video-actions-bar" style="display:flex; gap:8px; align-items:center; justify-content:space-between; margin-top:4px; margin-bottom:8px; flex-shrink:0;"><button onclick="openVideo('YkADj0TPrJA', 'HD Video Example')" style="flex:1; display:inline-flex; align-items:center; justify-content:center; gap:6px; font-size:11.5px; font-weight:800; color:#f8fafc; background:linear-gradient(135deg, rgba(56,189,248,0.22), rgba(99,102,241,0.22)); border:1px solid rgba(56,189,248,0.45); padding:5px 10px; border-radius:6px; cursor:pointer;">⛶ Watch in HD (Theater Mode)</button><a href="https://www.youtube.com/watch?v=YkADj0TPrJA" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" style="display:inline-flex; align-items:center; gap:4px; font-size:11px; font-weight:700; color:#fff !important; background:rgba(239,68,68,0.2); border:1px solid rgba(239,68,68,0.45); padding:5px 10px; border-radius:6px; text-decoration:none;"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div>
 
           <div class="track-meta">
             <div class="track-title">"In The Air Tonight" (1981 &bull; Townhouse Stone Room &amp; SSL)</div>
@@ -1306,12 +1411,13 @@
           </div>
 
           <div class="video-container">
-            <iframe src="https://www.youtube-nocookie.com/embed/vabnZ9-ex7o?rel=0&modestbranding=1" 
+            <iframe src="https://www.youtube-nocookie.com/embed/vabnZ9-ex7o?rel=0&modestbranding=1&vq=hd1080" 
                     title=""Come As You Are" (Nevermind &bull; 1991 &bull; Butch Vig)" 
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                     referrerpolicy="strict-origin-when-cross-origin"
                     allowfullscreen></iframe>
           </div>
+          <div class="video-actions-bar" style="display:flex; gap:8px; align-items:center; justify-content:space-between; margin-top:4px; margin-bottom:8px; flex-shrink:0;"><button onclick="openVideo('vabnZ9-ex7o', 'HD Video Example')" style="flex:1; display:inline-flex; align-items:center; justify-content:center; gap:6px; font-size:11.5px; font-weight:800; color:#f8fafc; background:linear-gradient(135deg, rgba(56,189,248,0.22), rgba(99,102,241,0.22)); border:1px solid rgba(56,189,248,0.45); padding:5px 10px; border-radius:6px; cursor:pointer;">⛶ Watch in HD (Theater Mode)</button><a href="https://www.youtube.com/watch?v=vabnZ9-ex7o" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" style="display:inline-flex; align-items:center; gap:4px; font-size:11px; font-weight:700; color:#fff !important; background:rgba(239,68,68,0.2); border:1px solid rgba(239,68,68,0.45); padding:5px 10px; border-radius:6px; text-decoration:none;"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div>
 
           <div class="track-meta">
             <div class="track-title">"Come As You Are" (Nevermind &bull; 1991 &bull; Butch Vig)</div>
@@ -1406,12 +1512,13 @@
           </div>
 
           <div class="video-container">
-            <iframe src="https://www.youtube-nocookie.com/embed/qtwBFz6lfrY?rel=0&modestbranding=1" 
+            <iframe src="https://www.youtube-nocookie.com/embed/qtwBFz6lfrY?rel=0&modestbranding=1&vq=hd1080" 
                     title=""Ain't Talkin' 'Bout Love" (1978 &bull; Sunset Sound)" 
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                     referrerpolicy="strict-origin-when-cross-origin"
                     allowfullscreen></iframe>
           </div>
+          <div class="video-actions-bar" style="display:flex; gap:8px; align-items:center; justify-content:space-between; margin-top:4px; margin-bottom:8px; flex-shrink:0;"><button onclick="openVideo('qtwBFz6lfrY', 'HD Video Example')" style="flex:1; display:inline-flex; align-items:center; justify-content:center; gap:6px; font-size:11.5px; font-weight:800; color:#f8fafc; background:linear-gradient(135deg, rgba(56,189,248,0.22), rgba(99,102,241,0.22)); border:1px solid rgba(56,189,248,0.45); padding:5px 10px; border-radius:6px; cursor:pointer;">⛶ Watch in HD (Theater Mode)</button><a href="https://www.youtube.com/watch?v=qtwBFz6lfrY" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" style="display:inline-flex; align-items:center; gap:4px; font-size:11px; font-weight:700; color:#fff !important; background:rgba(239,68,68,0.2); border:1px solid rgba(239,68,68,0.45); padding:5px 10px; border-radius:6px; text-decoration:none;"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div>
 
           <div class="track-meta">
             <div class="track-title">"Ain't Talkin' 'Bout Love" (1978 &bull; Sunset Sound)</div>
@@ -1506,12 +1613,13 @@
           </div>
 
           <div class="video-container">
-            <iframe src="https://www.youtube-nocookie.com/embed/PeMvMNpvB5M?rel=0&modestbranding=1" 
+            <iframe src="https://www.youtube-nocookie.com/embed/PeMvMNpvB5M?rel=0&modestbranding=1&vq=hd1080" 
                     title=""Barracuda" (Little Queen &bull; 1977 &bull; Mike Flicker)" 
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                     referrerpolicy="strict-origin-when-cross-origin"
                     allowfullscreen></iframe>
           </div>
+          <div class="video-actions-bar" style="display:flex; gap:8px; align-items:center; justify-content:space-between; margin-top:4px; margin-bottom:8px; flex-shrink:0;"><button onclick="openVideo('PeMvMNpvB5M', 'HD Video Example')" style="flex:1; display:inline-flex; align-items:center; justify-content:center; gap:6px; font-size:11.5px; font-weight:800; color:#f8fafc; background:linear-gradient(135deg, rgba(56,189,248,0.22), rgba(99,102,241,0.22)); border:1px solid rgba(56,189,248,0.45); padding:5px 10px; border-radius:6px; cursor:pointer;">⛶ Watch in HD (Theater Mode)</button><a href="https://www.youtube.com/watch?v=PeMvMNpvB5M" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" style="display:inline-flex; align-items:center; gap:4px; font-size:11px; font-weight:700; color:#fff !important; background:rgba(239,68,68,0.2); border:1px solid rgba(239,68,68,0.45); padding:5px 10px; border-radius:6px; text-decoration:none;"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div>
 
           <div class="track-meta">
             <div class="track-title">"Barracuda" (Little Queen &bull; 1977 &bull; Mike Flicker)</div>
@@ -1606,12 +1714,13 @@
           </div>
 
           <div class="video-container">
-            <iframe src="https://www.youtube-nocookie.com/embed/z9tg5ELAW7o?rel=0&modestbranding=1" 
+            <iframe src="https://www.youtube-nocookie.com/embed/FGBhQbmPwH8?rel=0&modestbranding=1&vq=hd1080" 
                     title="Recognizing Studio Effects in Context &bull; Exam Checklist" 
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                     referrerpolicy="strict-origin-when-cross-origin"
                     allowfullscreen></iframe>
           </div>
+          <div class="video-actions-bar" style="display:flex; gap:8px; align-items:center; justify-content:space-between; margin-top:4px; margin-bottom:8px; flex-shrink:0;"><button onclick="openVideo('FGBhQbmPwH8', 'Recognizing Studio Effects in Context • Exam Checklist')" style="flex:1; display:inline-flex; align-items:center; justify-content:center; gap:6px; font-size:11.5px; font-weight:800; color:#f8fafc; background:linear-gradient(135deg, rgba(56,189,248,0.22), rgba(99,102,241,0.22)); border:1px solid rgba(56,189,248,0.45); padding:5px 10px; border-radius:6px; cursor:pointer;">⛶ Watch in HD (Theater Mode)</button><a href="https://www.youtube.com/watch?v=FGBhQbmPwH8" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" style="display:inline-flex; align-items:center; gap:4px; font-size:11px; font-weight:700; color:#fff !important; background:rgba(239,68,68,0.2); border:1px solid rgba(239,68,68,0.45); padding:5px 10px; border-radius:6px; text-decoration:none;"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div>
 
           <div class="track-meta">
             <div class="track-title">Recognizing Studio Effects in Context &bull; Exam Checklist</div>
@@ -1996,5 +2105,74 @@
     </div>
   </div>
 
+
+  <!-- HD Theater Video Modal -->
+  <div class="video-modal-backdrop" id="videoModal" onclick="if(event.target===this)closeVideo()" style="display:none; position:fixed; inset:0; width:100vw; height:100vh; background:rgba(2,6,23,0.92); backdrop-filter:blur(12px); z-index:99999; align-items:center; justify-content:center; padding:20px;">
+    <div class="video-modal-content" style="width:100%; max-width:1200px; background:#0f172a; border:1px solid rgba(56,189,248,0.35); border-radius:16px; overflow:hidden; box-shadow:0 25px 70px rgba(0,0,0,0.95);">
+      <div class="video-modal-header" style="padding:12px 18px; background:#090d16; border-bottom:1px solid rgba(255,255,255,0.1); display:flex; justify-content:space-between; align-items:center;">
+        <span class="video-modal-title" id="videoModalTitle" style="font-size:14px; font-weight:800; color:#f8fafc;">HD Video Player</span>
+        <div style="display:flex; align-items:center; gap:10px;">
+          <a id="videoModalDirectLink" href="https://www.youtube.com" target="_blank" rel="noopener noreferrer" style="font-size:12px; font-weight:700; color:#f8fafc; background:rgba(239,68,68,0.25); border:1px solid rgba(239,68,68,0.5); padding:5px 12px; border-radius:6px; text-decoration:none;">Open on YouTube ↗</a>
+          <button onclick="closeVideo()" style="background:#ef4444; color:#fff; border:none; border-radius:6px; padding:5px 12px; font-size:12px; font-weight:800; cursor:pointer;">✕ Close (Esc)</button>
+        </div>
+      </div>
+      <div style="position:relative; width:100%; padding-bottom:56.25%; height:0; background:#000;">
+        <iframe id="videoIframe" src="" style="position:absolute; inset:0; width:100%; height:100%; border:0;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+  <script>
+    function openVideo(videoId, title) {
+      var modal = document.getElementById('videoModal');
+      var iframe = document.getElementById('videoIframe');
+      var modalTitle = document.getElementById('videoModalTitle');
+      var directLink = document.getElementById('videoModalDirectLink');
+      if (!modal || !iframe) return;
+      if (modalTitle) modalTitle.textContent = title || 'HD Video Example';
+      if (directLink) directLink.href = 'https://www.youtube.com/watch?v=' + videoId;
+      iframe.src = 'https://www.youtube-nocookie.com/embed/' + videoId + '?autoplay=1&rel=0&modestbranding=1&vq=hd1080';
+      modal.classList.add('open');
+      modal.style.display = 'flex';
+    }
+    function closeVideo() {
+      var modal = document.getElementById('videoModal');
+      var iframe = document.getElementById('videoIframe');
+      if (!modal) return;
+      modal.classList.remove('open');
+      modal.style.display = 'none';
+      if (iframe) iframe.src = '';
+    }
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeVideo();
+    });
+  </script>
+
+<!-- === HASH DEEP LINK === -->
+<script>
+  window.addEventListener('DOMContentLoaded', function() {
+    var h = window.__initialHash || window.location.hash || '';
+    var m = h.match(/^#slide-(\d+)$/i);
+    if (m) {
+      var targetIdx = parseInt(m[1], 10) - 1;
+      if (targetIdx > 0) {
+        setTimeout(function() {
+          if (typeof goToSlide === 'function') {
+            goToSlide(targetIdx);
+          } else if (typeof jumpToSlide === 'function') {
+            jumpToSlide(targetIdx);
+          } else if (typeof showSlide === 'function') {
+            showSlide(targetIdx);
+          } else if (typeof nextSlide === 'function') {
+            for (var i = 0; i < targetIdx; i++) nextSlide();
+          } else {
+            var nb = document.getElementById('nextBtn');
+            if (nb) { for (var j = 0; j < targetIdx; j++) nb.click(); }
+          }
+        }, 50);
+      }
+    }
+  });
+</script>
+<!-- === END HASH DEEP LINK === -->
 </body>
 </html>

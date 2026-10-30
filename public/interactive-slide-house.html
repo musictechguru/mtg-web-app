@@ -944,7 +944,101 @@
       z-index: 101 !important;
     }
 
+
+    
+    
+    /* === ANTI-SQUASH LAYOUT OVERRIDES === */
+    .deck-topbar-controls {
+      width: 100% !important;
+      box-sizing: border-box !important;
+    }
+    #bottomFsBtn {
+      background: rgba(255, 255, 255, 0.06) !important;
+      border: 1px solid rgba(255, 255, 255, 0.14) !important;
+      color: #f8fafc !important;
+      padding: 7px 14px !important;
+      border-radius: 8px !important;
+      font-size: 12.5px !important;
+      font-weight: 600 !important;
+      cursor: pointer !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 6px !important;
+      transition: all 0.2s ease !important;
+    }
+    #bottomFsBtn:hover {
+      background: rgba(255, 255, 255, 0.12) !important;
+      border-color: rgba(255, 255, 255, 0.28) !important;
+    }
+
+    .deck-wrapper {
+      width: calc(100% - 24px) !important;
+      max-width: 1340px !important;
+      flex: 1 !important;
+      min-height: 0 !important;
+      max-height: none !important;
+      height: auto !important;
+      margin: 8px auto 10px auto !important;
+    }
+    .slides-viewport {
+      flex: 1 !important;
+      min-height: 0 !important;
+      position: relative !important;
+      overflow: hidden !important;
+    }
+    .slide-stage {
+      flex: 1 !important;
+      min-height: 0 !important;
+      position: relative !important;
+      overflow-y: auto !important;
+      padding: 22px 34px 24px 34px !important;
+      display: block !important;
+      justify-content: flex-start !important;
+    }
+    .slides-viewport > .slide {
+      position: absolute !important;
+      top: 0 !important;
+      left: 0 !important;
+      width: 100% !important;
+      height: 100% !important;
+      padding: 20px 32px 24px 32px !important;
+      overflow-y: auto !important;
+      justify-content: flex-start !important;
+    }
+    .slide-stage > .slide,
+    .slide-stage > .slide.active {
+      height: auto !important;
+      overflow: visible !important;
+    }
+    .slide-stage > .slide.active {
+      display: block !important;
+    }
+    .slide-eyebrow {
+      margin-bottom: 6px !important;
+      flex-shrink: 0 !important;
+    }
+    .slide-heading {
+      font-size: clamp(21px, 2.5vw, 28px) !important;
+      margin-bottom: 8px !important;
+      line-height: 1.2 !important;
+      flex-shrink: 0 !important;
+    }
+    .slide-lead {
+      font-size: 13.5px !important;
+      line-height: 1.55 !important;
+      margin-bottom: 16px !important;
+      display: block !important;
+      -webkit-line-clamp: unset !important;
+      overflow: visible !important;
+      flex-shrink: 0 !important;
+    }
+    .deck-controls, .deck-bottombar, .deck-footer {
+      flex-shrink: 0 !important;
+    }
+    /* === END ANTI-SQUASH === */
+
 </style>
+<script>window.__initialHash = window.location.hash;</script>
 </head>
 <body>
 
@@ -1031,7 +1125,7 @@
       <!-- SLIDE 2: A HOUSE CLASSIC - BLACK BOX -->
       <section class="slide" data-slide="2">
         <div class="slide-eyebrow">
-          <span>🎧</span> Classroom Slide 2 &bull; The Landmark Blueprint
+          <span>🎧</span> Edexcel Component 3 &bull; AO4 Historical Context
         </div>
         <h2 class="slide-heading">
           A House Classic: <span>Black Box &amp; "Ride On Time" (1989)</span>
@@ -1052,7 +1146,7 @@
               <li><strong>Featured Piano:</strong> Bright, syncopated chord stabs cutting through the mix.</li>
               <li><strong>Club Mixing:</strong> Extended beat intro and outro engineered specifically for DJs to beatmatch.</li>
             </ul>
-            <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('M0quXl_od3g', 'Black Box - Ride on Time (Official Video)')">▶ Watch: Black Box "Ride On Time"</button><a href="https://www.youtube.com/watch?v=M0quXl_od3g" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div><a href="https://www.youtube.com/watch?v=M0quXl_od3g" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div>
+            <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('M0quXl_od3g', 'Black Box - Ride on Time (Official Video)')">▶ Watch: Black Box "Ride On Time"</button><a href="https://www.youtube.com/watch?v=M0quXl_od3g" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div>
           </div>
 
           <div class="info-card cyan-edge">
@@ -1060,7 +1154,7 @@
             <h4>The 12-Inch Single Format</h4>
             <p>House music was created for and distributed on <strong>12-inch vinyl singles</strong>. Wider groove spacing allowed cutting engineers to maximize bass frequencies and dynamic range without needle skipping.</p>
             <div style="margin-top: 10px; background: rgba(0,0,0,0.3); padding: 10px; border-radius: 8px; font-size: 12px; color: #a5b4fc;">
-              <strong>Classroom Slide Note:</strong> In the original music video, the model featured (Katrin Quinol) was lip-syncing; the actual powerhouse vocal was sampled directly from Loleatta Holloway!
+              <strong>Edexcel Specification Note:</strong> In the original music video, the model featured (Katrin Quinol) was lip-syncing; the actual powerhouse vocal was sampled directly from Loleatta Holloway!
             </div>
           </div>
         </div>
@@ -1069,7 +1163,7 @@
       <!-- SLIDE 3: PRECURSORS & DEMOLITION DISCO -->
       <section class="slide" data-slide="3">
         <div class="slide-eyebrow">
-          <span>⚡</span> Classroom Slides 3 &amp; 4 &bull; 1977–1979
+          <span>⚡</span> Edexcel Component 3 &bull; Disco to House Transition (1977–1979)
         </div>
         <h2 class="slide-heading">
           Roots in Disco, <span>"I Feel Love" &amp; Demolition Disco</span>
@@ -1083,7 +1177,7 @@
             <img src="/images/slides/house/donna_summer.jpg" alt="Donna Summer" class="slide-thumb">
             <h4>Donna Summer &amp; Giorgio Moroder (1977)</h4>
             <p><strong>"I Feel Love"</strong> (1977): Produced by Giorgio Moroder in Munich and recorded on 16-track tape. Moroder used a <strong>Moog Modular sequencer</strong> to drive an unyielding 16th-note bassline and generated white noise from the Moog for hi-hats. <em>Remarkably, the kick drum is the only instrument played live on acoustic drums!</em></p>
-            <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('9ZqqvrWCs3Q', 'Donna Summer - I Feel Love')">▶ Listen: Donna Summer "I Feel Love"</button><a href="https://www.youtube.com/watch?v=9ZqqvrWCs3Q" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div><a href="https://www.youtube.com/watch?v=9ZqqvrWCs3Q" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div>
+            <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('9ZqqvrWCs3Q', 'Donna Summer - I Feel Love')">▶ Listen: Donna Summer "I Feel Love"</button><a href="https://www.youtube.com/watch?v=9ZqqvrWCs3Q" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div>
           </div>
 
           <div class="info-card cyan-edge">
@@ -1098,7 +1192,7 @@
       <!-- SLIDE 4: PIONEERS - FRANKIE KNUCKLES -->
       <section class="slide" data-slide="4">
         <div class="slide-eyebrow">
-          <span>👑</span> Classroom Slide 5 &bull; The Godfather of House
+          <span>👑</span> Edexcel Component 3 &bull; Chicago Pioneers
         </div>
         <h2 class="slide-heading">
           Frankie Knuckles: <span>The Warehouse &amp; "Your Love"</span>
@@ -1118,7 +1212,7 @@
             <img src="/images/slides/house/turntable_dj.png" alt="DJ Mixing at The Warehouse" class="slide-thumb">
             <h4>"Your Love" (1987) with Jamie Principle</h4>
             <p>Collaborating with singer/songwriter Jamie Principle, Knuckles produced <strong>"Your Love"</strong>. Built on a pulsating, hypnotic 16th-note synthesizer arpeggio and sensual, whispered vocals over a punchy drum machine beat, it became the eternal anthem of deep, emotional Chicago house.</p>
-            <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('LOLE1YE_oFQ', 'Frankie Knuckles - Your Love')">▶ Watch: Frankie Knuckles "Your Love"</button><a href="https://www.youtube.com/watch?v=LOLE1YE_oFQ" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div><a href="https://www.youtube.com/watch?v=LOLE1YE_oFQ" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div>
+            <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('LOLE1YE_oFQ', 'Frankie Knuckles - Your Love')">▶ Watch: Frankie Knuckles "Your Love"</button><a href="https://www.youtube.com/watch?v=LOLE1YE_oFQ" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div>
           </div>
         </div>
       </section>
@@ -1126,7 +1220,7 @@
       <!-- SLIDE 5: PIONEERS - MARSHALL JEFFERSON -->
       <section class="slide" data-slide="5">
         <div class="slide-eyebrow">
-          <span>🎹</span> Classroom Slide 6 &bull; The House Music Anthem
+          <span>🎹</span> Edexcel Component 3 &bull; Piano House &amp; Deep House
         </div>
         <h2 class="slide-heading">
           Marshall Jefferson: <span>Piano House &amp; Deep House</span>
@@ -1140,7 +1234,7 @@
             <img src="/images/slides/house/marshall_jefferson.jpg" alt="Marshall Jefferson" class="slide-thumb">
             <h4>"Move Your Body" (1986)</h4>
             <p>Subtitled <em>"The House Music Anthem"</em>, this track introduced acoustic piano to house music. Jefferson famously <strong>recorded the piano chords at a slow 40 BPM</strong> and then sped the tape up to 120 BPM! This created a razor-sharp, percussive piano attack that cut through club sound systems with tremendous clarity.</p>
-            <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('QAR8cq5Bl94', 'Marshall Jefferson - Move Your Body')">▶ Watch: Marshall Jefferson "Move Your Body"</button><a href="https://www.youtube.com/watch?v=QAR8cq5Bl94" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div><a href="https://www.youtube.com/watch?v=QAR8cq5Bl94" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div>
+            <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('QAR8cq5Bl94', 'Marshall Jefferson - Move Your Body')">▶ Watch: Marshall Jefferson "Move Your Body"</button><a href="https://www.youtube.com/watch?v=QAR8cq5Bl94" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div>
           </div>
 
           <div class="info-card cyan-edge">
@@ -1157,7 +1251,7 @@
       <!-- SLIDE 6: PIONEERS - PHUTURE & ACID HOUSE -->
       <section class="slide" data-slide="6">
         <div class="slide-eyebrow">
-          <span>🧪</span> Classroom Slide 7 &bull; The TB-303 Revolution
+          <span>🧪</span> Edexcel Component 3 &bull; AO3 Subtractive Synthesis &amp; Acid House
         </div>
         <h2 class="slide-heading">
           Phuture: <span>Acid House &amp; The TB-303 Resonance</span>
@@ -1171,7 +1265,7 @@
             <img src="/images/slides/house/roland_tb303.png" alt="Roland TB-303" class="slide-thumb">
             <h4>Phuture: "Acid Tracks" (1987)</h4>
             <p>Chicago group <strong>Phuture</strong> (DJ Pierre, Spanky, Herb J) acquired a second-hand Roland TB-303. By running a repetitive 16-step bassline and manually twisting the <strong>Cutoff Frequency</strong> while driving the <strong>Resonance</strong> into extreme self-oscillation, DJ Pierre created the screaming, squelchy timbre of <strong>Acid House</strong>.</p>
-            <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('PJJ5FxpVGUY', 'Phuture - Acid Tracks (1987)')">▶ Listen: Phuture "Acid Tracks"</button><a href="https://www.youtube.com/watch?v=PJJ5FxpVGUY" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div><a href="https://www.youtube.com/watch?v=PJJ5FxpVGUY" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div>
+            <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('PJJ5FxpVGUY', 'Phuture - Acid Tracks (1987)')">▶ Listen: Phuture "Acid Tracks"</button><a href="https://www.youtube.com/watch?v=PJJ5FxpVGUY" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div>
           </div>
 
           <div class="info-card highlight">
@@ -1185,13 +1279,13 @@
       <!-- SLIDE 7: HONOURABLE MENTIONS - SAUNDERS, FARLEY, JOE SMOOTH -->
       <section class="slide" data-slide="7">
         <div class="slide-eyebrow">
-          <span>🏆</span> Classroom Slide 8 &bull; Chicago Trailblazers
+          <span>🏆</span> Edexcel Component 3 &bull; Early Chicago Releases
         </div>
         <h2 class="slide-heading">
           Honourable Mentions: <span>Saunders, Farley &amp; Joe Smooth</span>
         </h2>
         <p class="slide-lead">
-          The essential Chicago pioneers highlighted in the classroom slide deck who built the infrastructure of house music.
+          The essential Chicago pioneers whose early drum-machine and tape-splice productions built the foundation of house music.
         </p>
 
         <div class="grid-3">
@@ -1218,7 +1312,7 @@
       <!-- SLIDE 8: 1990S MAINSTREAM PART 1 -->
       <section class="slide" data-slide="8">
         <div class="slide-eyebrow">
-          <span>🌟</span> Classroom Slide 10 &bull; 1991–1993 Chart Domination
+          <span>🌟</span> Edexcel Component 3 &bull; 1990s Mainstream Crossover
         </div>
         <h2 class="slide-heading">
           Onwards into the 1990s: <span>Masters At Work, Waters &amp; Robin S</span>
@@ -1238,21 +1332,21 @@
             <img src="/images/slides/house/crystal_waters.jpg" alt="Crystal Waters" class="slide-thumb">
             <h4>Crystal Waters (1991)</h4>
             <p><strong>"Gypsy Woman (She's Homeless)"</strong>: Written by Waters and produced by the Basement Boys, built around a haunting organ chord vamp and iconic vocal refrain.</p>
-            <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('6DnfjMbu-Pg', 'Crystal Waters - Gypsy Woman')">▶ Watch Video</button><a href="https://www.youtube.com/watch?v=6DnfjMbu-Pg" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div><a href="https://www.youtube.com/watch?v=6DnfjMbu-Pg" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div>
+            <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('6DnfjMbu-Pg', 'Crystal Waters - Gypsy Woman')">▶ Watch Video</button><a href="https://www.youtube.com/watch?v=6DnfjMbu-Pg" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div>
           </div>
 
           <div class="info-card acid-edge">
             <img src="/images/slides/house/cece_peniston.jpg" alt="CeCe Peniston" class="slide-thumb">
             <h4>CeCe Peniston (1991/92)</h4>
             <p><strong>"Finally"</strong>: A global chart-topper showcasing powerhouse multi-tracked gospel vocals over a bouncy, syncopated house bass groove.</p>
-            <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('F6qOzxTkLOE', 'CeCe Peniston - Finally')">▶ Watch Video</button><a href="https://www.youtube.com/watch?v=F6qOzxTkLOE" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div><a href="https://www.youtube.com/watch?v=F6qOzxTkLOE" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div>
+            <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('F6qOzxTkLOE', 'CeCe Peniston - Finally')">▶ Watch Video</button><a href="https://www.youtube.com/watch?v=F6qOzxTkLOE" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div>
           </div>
 
           <div class="info-card amber-edge">
             <img src="/images/slides/house/korg_m1.png" alt="Korg M1" class="slide-thumb" style="object-fit: contain; background: rgba(0,0,0,0.5); padding: 4px;">
             <h4>Robin S (1993)</h4>
             <p><strong>"Show Me Love"</strong>: Remixed by StoneBridge. <em>The Organ Bass has arrived!</em> Powered by the Korg M1 Organ 2 preset—the most famous bass sound in club history.</p>
-            <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('xk8mm1Qmt-Y', 'Robin S - Show Me Love')">▶ Watch Video</button><a href="https://www.youtube.com/watch?v=xk8mm1Qmt-Y" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div><a href="https://www.youtube.com/watch?v=xk8mm1Qmt-Y" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div>
+            <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('xk8mm1Qmt-Y', 'Robin S - Show Me Love')">▶ Watch Video</button><a href="https://www.youtube.com/watch?v=xk8mm1Qmt-Y" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div>
           </div>
         </div>
       </section>
@@ -1260,13 +1354,13 @@
       <!-- SLIDE 9: 1990S MAINSTREAM PART 2 -->
       <section class="slide" data-slide="9">
         <div class="slide-eyebrow">
-          <span>🚀</span> Classroom Slide 11 &bull; 1995–1999 Remix Culture &amp; Subgenres
+          <span>🚀</span> Edexcel Component 3 &bull; 1995–1999 Subgenre Evolution
         </div>
         <h2 class="slide-heading">
           The Late 1990s: <span>Todd Terry, St Germain, Garage &amp; Hard House</span>
         </h2>
         <p class="slide-lead">
-          As highlighted in Slide 11 of the presentation, the late 1990s saw house fragment into distinctive, powerful subgenres.
+          By the late 1990s, house production fragmented into distinctive subgenres driven by digital sampling, time-stretching, and club sound systems.
         </p>
 
         <div class="grid-4">
@@ -1274,7 +1368,7 @@
             <img src="/images/slides/house/todd_terry.png" alt="Todd Terry" class="slide-thumb">
             <h4>Everything But The Girl (1995)</h4>
             <p><strong>"Missing" (Todd Terry Remix)</strong>: Todd Terry revolutionized pop remixing, setting Tracey Thorn's folk ballad over swung 4/4 drums and bouncy bass.</p>
-            <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('Ps2Jc28tQrw', 'EBTG - Missing (Todd Terry Remix)')">▶ Watch Video</button><a href="https://www.youtube.com/watch?v=Ps2Jc28tQrw" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div><a href="https://www.youtube.com/watch?v=Ps2Jc28tQrw" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div>
+            <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('Ps2Jc28tQrw', 'EBTG - Missing (Todd Terry Remix)')">▶ Watch Video</button><a href="https://www.youtube.com/watch?v=Ps2Jc28tQrw" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div>
           </div>
 
           <div class="info-card cyan-edge">
@@ -1293,7 +1387,7 @@
             <img src="/images/slides/house/club_crowd.jpg" alt="Hard House Nightclub" class="slide-thumb">
             <h4>DJ Ariel (1999)</h4>
             <p><strong>"A9" (Hard House)</strong>: <em>"Faster and harder."</em> Pushed tempos to 135–140 BPM with aggressive offbeat bass stabs and frantic percussion.</p>
-            <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('EtXBrzAk9OU', 'Ariel - A9 (Hard House)')">▶ Watch Video</button><a href="https://www.youtube.com/watch?v=EtXBrzAk9OU" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div><a href="https://www.youtube.com/watch?v=EtXBrzAk9OU" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div>
+            <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('EtXBrzAk9OU', 'Ariel - A9 (Hard House)')">▶ Watch Video</button><a href="https://www.youtube.com/watch?v=EtXBrzAk9OU" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div>
           </div>
         </div>
       </section>
@@ -1301,13 +1395,13 @@
       <!-- SLIDE 10: DAFT PUNK - MASTERS OF THE SAMPLER -->
       <section class="slide" data-slide="10">
         <div class="slide-eyebrow">
-          <span>🇫🇷</span> Classroom Slide 12 &bull; French Filter Touch
+          <span>🇫🇷</span> Edexcel Component 3 &bull; AO3 French House &amp; Filter Compression
         </div>
         <h2 class="slide-heading">
           Daft Punk: <span>Masters of the Sampler</span>
         </h2>
         <p class="slide-lead">
-          As highlighted in Slide 12 of the classroom deck, Daft Punk delved deep into 1970s and 1980s disco records, turning micro-samples into massive 21st-century anthems.
+          Daft Punk sampled 1970s and 1980s disco records into hardware samplers, using resonant filter sweeps and sidechain compression to forge French Touch.
         </p>
 
         <div class="grid-2">
@@ -1315,7 +1409,7 @@
             <img src="/images/slides/house/daft_punk.jpg" alt="Daft Punk" class="slide-thumb">
             <h4>Sampling Science on <em>Discovery</em> (2001)</h4>
             <p>Daft Punk took obscure disco and funk vinyl records, sampled 1-bar or 2-beat fragments into E-mu and Ensoniq hardware samplers, and rearranged them into completely new musical themes (e.g. sampling Edwin Birdsong's "Cola Bottle Baby" for "Harder Better Faster Stronger").</p>
-            <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('5AqHSvR9bqs', 'Daft Punk - Discovery Sample Breakdown')">▶ Watch Discovery Sample Breakdown</button><a href="https://www.youtube.com/watch?v=5AqHSvR9bqs" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div><a href="https://www.youtube.com/watch?v=5AqHSvR9bqs" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div>
+            <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('5AqHSvR9bqs', 'Daft Punk - Discovery Sample Breakdown')">▶ Watch Discovery Sample Breakdown</button><a href="https://www.youtube.com/watch?v=5AqHSvR9bqs" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div>
           </div>
 
           <div class="info-card cyan-edge">
@@ -1334,19 +1428,19 @@
       <!-- SLIDE 11: THE TECH - DRUM MACHINES & SAMPLERS -->
       <section class="slide" data-slide="11">
         <div class="slide-eyebrow">
-          <span>🎛️</span> Classroom Slides 13 &amp; 16 &bull; Hardware Archive
+          <span>🎛️</span> Edexcel Component 3 &bull; AO3 Drum Machines &amp; Digital Samplers
         </div>
         <h2 class="slide-heading">
           The Tech: <span>Drum Machines &amp; Samplers</span>
         </h2>
         <p class="slide-lead">
-          The core hardware units specified in Slides 13 and 16 of the presentation that provided the rhythmic backbone of House.
+          The core drum machines and digital hardware samplers required for Edexcel Component 3 production analysis.
         </p>
 
         <div class="grid-2">
           <div class="info-card highlight">
             <img src="/images/slides/house/roland_tr909.png" alt="Roland TR-909" class="slide-thumb">
-            <span class="spec-pill ao3">Slide 13: Drum Machines</span>
+            <span class="spec-pill ao3">AO3 Drum Machines</span>
             <h4>The Roland Rhythm Composers</h4>
             <ul style="margin-left: 18px; font-size: 12px; color: #94a3b8; line-height: 1.55;">
               <li><strong>Roland TR-808 (1980):</strong> Analog bridged-T network kick drum producing deep 50 Hz sub-bass booms (used on Jesse Saunders' "On and On").</li>
@@ -1358,7 +1452,7 @@
 
           <div class="info-card cyan-edge">
             <img src="/images/slides/house/akai_s950.png" alt="Akai Sampler" class="slide-thumb">
-            <span class="spec-pill ao3">Slide 16: Samplers</span>
+            <span class="spec-pill ao3">AO3 Digital Samplers</span>
             <h4>Digital Samplers</h4>
             <ul style="margin-left: 18px; font-size: 12px; color: #94a3b8; line-height: 1.55;">
               <li><strong>Akai S900 / S1000:</strong> The industry workhorses (12-bit and 16-bit). Used by Black Box, Todd Terry, and Robin S to chop vocal stabs and disco piano loops.</li>
@@ -1373,19 +1467,19 @@
       <!-- SLIDE 12: THE TECH - SYNTHESIZERS -->
       <section class="slide" data-slide="12">
         <div class="slide-eyebrow">
-          <span>🎹</span> Classroom Slides 14 &amp; 15 &bull; Synthesis Archive
+          <span>🎹</span> Edexcel Component 3 &bull; AO3 Analog &amp; Digital Synthesis
         </div>
         <h2 class="slide-heading">
           The Tech: <span>Synthesizers (Analog to Digital PCM)</span>
         </h2>
         <p class="slide-lead">
-          The synthesizers detailed in Slides 14 and 15 that defined basslines, chords, and leads across the history of House.
+          The essential analog subtractive, FM, and PCM workstation synthesizers that defined House basslines, chords, and leads.
         </p>
 
         <div class="grid-2">
           <div class="info-card acid-edge">
             <img src="/images/slides/house/analog_polyphony_synth.png" alt="Analog Synthesizer Architecture" class="slide-thumb">
-            <span class="spec-pill ao3">Slide 14: Analog Synths</span>
+            <span class="spec-pill ao3">AO3 Analog Subtractive</span>
             <h4>Analog Classics</h4>
             <ul style="margin-left: 18px; font-size: 12px; color: #94a3b8; line-height: 1.55;">
               <li><strong>Roland TB-303:</strong> Monophonic bass synthesizer with 18 dB/oct resonant low-pass filter and internal 16-step sequencer with slides/accents.</li>
@@ -1397,7 +1491,7 @@
 
           <div class="info-card highlight">
             <img src="/images/slides/house/yamaha_dx7.png" alt="Digital FM Synthesizer" class="slide-thumb" style="object-fit: contain; background: rgba(0,0,0,0.5); padding: 4px;">
-            <span class="spec-pill ao3">Slide 15: Digital Workstations</span>
+            <span class="spec-pill ao3">AO3 Digital FM &amp; PCM</span>
             <h4>Digital &amp; Lead Synths</h4>
             <ul style="margin-left: 18px; font-size: 12px; color: #94a3b8; line-height: 1.55;">
               <li><strong>Korg M1 (1988):</strong> The bestselling digital workstation of all time. Provided the iconic "Piano 1" house chord stabs and the legendary "Organ 2" bassline.</li>
@@ -1412,7 +1506,7 @@
       <!-- SLIDE 13: THE TECH - SEQUENCERS, MULTITRACKS & EFFECTS -->
       <section class="slide" data-slide="13">
         <div class="slide-eyebrow">
-          <span>💾</span> Classroom Slides 17 &amp; 18 &bull; Recording &amp; Processing
+          <span>💾</span> Edexcel Component 3 &bull; AO3 MIDI Sequencing &amp; Outboard FX
         </div>
         <h2 class="slide-heading">
           The Tech: <span>Atari ST, Fostex R8 &amp; Effects Units</span>
@@ -1424,7 +1518,7 @@
         <div class="grid-2">
           <div class="info-card highlight">
             <img src="/images/slides/house/atari_st.jpg" alt="Atari ST" class="slide-thumb">
-            <span class="spec-pill ao3">Slide 17: Sequencers &amp; Tape</span>
+            <span class="spec-pill ao3">AO3 MIDI &amp; Tape Sync</span>
             <h4>Atari ST &amp; Fostex R8 Multitrack</h4>
             <ul style="margin-left: 18px; font-size: 12px; color: #cbd5e1; line-height: 1.55;">
               <li><strong>Atari ST Computer:</strong> The centerpiece of 1980s/90s dance studios because it had <strong>built-in MIDI IN/OUT ports</strong>. Ran Steinberg Pro24, Cubase, and C-Lab Notator with ultra-tight MIDI clock timing.</li>
@@ -1435,7 +1529,7 @@
 
           <div class="info-card cyan-edge">
             <img src="/images/slides/house/effects_rack.jpg" alt="Outboard Effects Units" class="slide-thumb">
-            <span class="spec-pill ao3">Slide 18: Outboard Effects Units</span>
+            <span class="spec-pill ao3">AO3 Digital Reverbs &amp; FX</span>
             <h4>Essential Hardware Processors</h4>
             <ul style="margin-left: 18px; font-size: 12px; color: #cbd5e1; line-height: 1.55;">
               <li><strong>Alesis MIDIverb II:</strong> 16-bit digital reverb providing preset 29 (warm bloom) and reverse reverbs for vocal stabs.</li>
@@ -1450,13 +1544,13 @@
       <!-- SLIDE 14: THE 18 CHARACTERISTICS OF HOUSE MUSIC -->
       <section class="slide" data-slide="14">
         <div class="slide-eyebrow">
-          <span>📋</span> Classroom Slide 19 &bull; Definitive Specification Checklist
+          <span>📋</span> Edexcel Component 3 &bull; AO3/AO4 Stylistic &amp; Technical Checklist
         </div>
         <h2 class="slide-heading">
-          The Characteristics of <span>House Music (Slide 19)</span>
+          The 18 Characteristics of <span>House Music Production</span>
         </h2>
         <p class="slide-lead">
-          The complete, definitive 18-point stylistic checklist straight from Slide 19 of the presentation.
+          The complete 18-point sonic, rhythmic, and technological checklist for Edexcel Component 3 listening analysis.
         </p>
 
         <div class="grid-3" style="font-size: 11.5px;">
@@ -1540,13 +1634,13 @@
       <!-- SLIDE 16: WORKSHOP TASK & PRODUCTION CHECKLIST -->
       <section class="slide" data-slide="16">
         <div class="slide-eyebrow">
-          <span>🎧</span> Classroom Slide 21 &bull; Practical Production Task
+          <span>🎧</span> Edexcel Component 2 &amp; 3 &bull; Applied Production Synthesis
         </div>
         <h2 class="slide-heading">
           House Music Workshop: <span>Create a 16-Bar Track</span>
         </h2>
         <p class="slide-lead">
-          As instructed in Slide 21 of the classroom presentation, apply your knowledge to construct an authentic 16-bar house track meeting every stylistic criterion.
+          Apply Component 3 production techniques (TR-909 programming, 16th-note swing quantisation, M1 piano/organ layers, and resonant filter sweeps) in your DAW.
         </p>
 
         <div class="grid-2">
@@ -1568,7 +1662,7 @@
             <div style="font-size: 40px; margin-bottom: 10px;">🏠</div>
             <h3 style="color: #fff; font-size: 18px; margin-bottom: 8px;">"House is a Feeling"</h3>
             <p style="color: #94a3b8; font-size: 13px; max-width: 380px; margin: 0 auto 16px auto;">
-              Now test your mastery of this classroom deck with the 12-question Edexcel specification quiz.
+              Now test your mastery of House production and Edexcel Component 3 with the 12-question specification quiz.
             </p>
             <div>
               <a href="/house-interactive-quiz.html" style="display: inline-flex; align-items: center; gap: 8px; background: var(--accent-purple); color: #070814; font-weight: 800; font-size: 13.5px; padding: 10px 24px; border-radius: 50px; text-decoration: none; box-shadow: 0 0 20px var(--accent-purple-glow);">
@@ -1836,5 +1930,32 @@
     </div>
   </div>
 
+<!-- === HASH DEEP LINK === -->
+<script>
+  window.addEventListener('DOMContentLoaded', function() {
+    var h = window.__initialHash || window.location.hash || '';
+    var m = h.match(/^#slide-(\d+)$/i);
+    if (m) {
+      var targetIdx = parseInt(m[1], 10) - 1;
+      if (targetIdx > 0) {
+        setTimeout(function() {
+          if (typeof goToSlide === 'function') {
+            goToSlide(targetIdx);
+          } else if (typeof jumpToSlide === 'function') {
+            jumpToSlide(targetIdx);
+          } else if (typeof showSlide === 'function') {
+            showSlide(targetIdx);
+          } else if (typeof nextSlide === 'function') {
+            for (var i = 0; i < targetIdx; i++) nextSlide();
+          } else {
+            var nb = document.getElementById('nextBtn');
+            if (nb) { for (var j = 0; j < targetIdx; j++) nb.click(); }
+          }
+        }, 50);
+      }
+    }
+  });
+</script>
+<!-- === END HASH DEEP LINK === -->
 </body>
 </html>

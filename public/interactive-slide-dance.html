@@ -941,7 +941,101 @@
       z-index: 101 !important;
     }
 
+
+    
+    
+    /* === ANTI-SQUASH LAYOUT OVERRIDES === */
+    .deck-topbar-controls {
+      width: 100% !important;
+      box-sizing: border-box !important;
+    }
+    #bottomFsBtn {
+      background: rgba(255, 255, 255, 0.06) !important;
+      border: 1px solid rgba(255, 255, 255, 0.14) !important;
+      color: #f8fafc !important;
+      padding: 7px 14px !important;
+      border-radius: 8px !important;
+      font-size: 12.5px !important;
+      font-weight: 600 !important;
+      cursor: pointer !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 6px !important;
+      transition: all 0.2s ease !important;
+    }
+    #bottomFsBtn:hover {
+      background: rgba(255, 255, 255, 0.12) !important;
+      border-color: rgba(255, 255, 255, 0.28) !important;
+    }
+
+    .deck-wrapper {
+      width: calc(100% - 24px) !important;
+      max-width: 1340px !important;
+      flex: 1 !important;
+      min-height: 0 !important;
+      max-height: none !important;
+      height: auto !important;
+      margin: 8px auto 10px auto !important;
+    }
+    .slides-viewport {
+      flex: 1 !important;
+      min-height: 0 !important;
+      position: relative !important;
+      overflow: hidden !important;
+    }
+    .slide-stage {
+      flex: 1 !important;
+      min-height: 0 !important;
+      position: relative !important;
+      overflow-y: auto !important;
+      padding: 22px 34px 24px 34px !important;
+      display: block !important;
+      justify-content: flex-start !important;
+    }
+    .slides-viewport > .slide {
+      position: absolute !important;
+      top: 0 !important;
+      left: 0 !important;
+      width: 100% !important;
+      height: 100% !important;
+      padding: 20px 32px 24px 32px !important;
+      overflow-y: auto !important;
+      justify-content: flex-start !important;
+    }
+    .slide-stage > .slide,
+    .slide-stage > .slide.active {
+      height: auto !important;
+      overflow: visible !important;
+    }
+    .slide-stage > .slide.active {
+      display: block !important;
+    }
+    .slide-eyebrow {
+      margin-bottom: 6px !important;
+      flex-shrink: 0 !important;
+    }
+    .slide-heading {
+      font-size: clamp(21px, 2.5vw, 28px) !important;
+      margin-bottom: 8px !important;
+      line-height: 1.2 !important;
+      flex-shrink: 0 !important;
+    }
+    .slide-lead {
+      font-size: 13.5px !important;
+      line-height: 1.55 !important;
+      margin-bottom: 16px !important;
+      display: block !important;
+      -webkit-line-clamp: unset !important;
+      overflow: visible !important;
+      flex-shrink: 0 !important;
+    }
+    .deck-controls, .deck-bottombar, .deck-footer {
+      flex-shrink: 0 !important;
+    }
+    /* === END ANTI-SQUASH === */
+
 </style>
+<script>window.__initialHash = window.location.hash;</script>
 </head>
 <body>
 
@@ -1080,21 +1174,21 @@
             <img src="/images/slides/dance/kraftwerk.jpg" alt="Kraftwerk" class="slide-thumb">
             <h4>Kraftwerk &amp; Machine Pop</h4>
             <p><strong>Düsseldorf, Germany:</strong> <em>The Man-Machine</em> (1978), "The Robots". Replaced acoustic drummers with custom electronic triggers, Minimoog basslines, and <strong>vocoder speech synthesis</strong>, proving electronic instruments could carry full compositions.</p>
-            <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('D_8Pma1vHmw', 'Kraftwerk - The Robots')">▶ Watch "The Robots"</button><a href="https://www.youtube.com/watch?v=D_8Pma1vHmw" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div><a href="https://www.youtube.com/watch?v=D_8Pma1vHmw" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div>
+            <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('D_8Pma1vHmw', 'Kraftwerk - The Robots')">▶ Watch "The Robots"</button><a href="https://www.youtube.com/watch?v=D_8Pma1vHmw" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div>
           </div>
 
           <div class="info-card indigo-edge">
             <img src="/images/slides/dance/giorgio_moroder.jpg" alt="Giorgio Moroder" class="slide-thumb">
             <h4>Moroder &amp; "I Feel Love" (1977)</h4>
             <p><strong>Donna Summer &amp; Giorgio Moroder:</strong> The birth of the electronic dance record. Built entirely around a <strong>Moog Modular sequencer</strong> driving a pulsing 16th-note bassline synchronized to an unyielding 4-to-the-floor kick and offbeat hi-hats.</p>
-            <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('yEbaeLv-aOo', 'Donna Summer & Giorgio Moroder - I Feel Love')">▶ Watch "I Feel Love"</button><a href="https://www.youtube.com/watch?v=yEbaeLv-aOo" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div><a href="https://www.youtube.com/watch?v=yEbaeLv-aOo" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div>
+            <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('yEbaeLv-aOo', 'Donna Summer & Giorgio Moroder - I Feel Love')">▶ Watch "I Feel Love"</button><a href="https://www.youtube.com/watch?v=yEbaeLv-aOo" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div>
           </div>
 
           <div class="info-card acid-edge">
             <img src="/images/slides/dance/new_order.jpg" alt="New Order" class="slide-thumb">
             <h4>Early Electro &amp; New Order</h4>
             <p><strong>1982–1983:</strong> Afrika Bambaataa's "Planet Rock" fused Kraftwerk melodies with the newly released <strong>Roland TR-808</strong>. Simultaneously, New Order's "Blue Monday" became the best-selling 12" vinyl single using Oberheim DMX drums and Moog Source bass.</p>
-            <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('FYH8DsU2WCk', 'New Order - Blue Monday')">▶ Watch "Blue Monday"</button><a href="https://www.youtube.com/watch?v=FYH8DsU2WCk" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div><a href="https://www.youtube.com/watch?v=FYH8DsU2WCk" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div>
+            <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('FYH8DsU2WCk', 'New Order - Blue Monday')">▶ Watch "Blue Monday"</button><a href="https://www.youtube.com/watch?v=FYH8DsU2WCk" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div>
           </div>
         </div>
       </section>
@@ -1116,7 +1210,7 @@
             <img src="/images/slides/dance/frankie_knuckles.jpg" alt="Frankie Knuckles" class="slide-thumb">
             <h4>Frankie Knuckles &amp; Jesse Saunders</h4>
             <p>At Chicago's <strong>The Warehouse</strong> club, DJ Frankie Knuckles (the "Godfather of House") extended disco breakdowns using tape loops. In 1984, <strong>Jesse Saunders</strong> released <em>"On and On"</em>, widely recognized as the first official Chicago House single, recorded using a <strong>Roland TR-808</strong> and <strong>Korg Poly-61</strong> synthesizer.</p>
-            <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('LOLE1YE_oFQ', 'Frankie Knuckles - Your Love')">▶ Listen: Frankie Knuckles "Your Love"</button><a href="https://www.youtube.com/watch?v=LOLE1YE_oFQ" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div><a href="https://www.youtube.com/watch?v=LOLE1YE_oFQ" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div>
+            <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('LOLE1YE_oFQ', 'Frankie Knuckles - Your Love')">▶ Listen: Frankie Knuckles "Your Love"</button><a href="https://www.youtube.com/watch?v=LOLE1YE_oFQ" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div>
           </div>
 
           <div class="info-card indigo-edge">
@@ -1147,7 +1241,7 @@
             <img src="/images/slides/dance/roland_tb303.png" alt="Roland TB-303" class="slide-thumb">
             <h4>Phuture &amp; "Acid Tracks" (1987)</h4>
             <p>Chicago trio <strong>Phuture</strong> (DJ Pierre, Spanky, Herb J) bought a second-hand TB-303. While running a programmed pattern, DJ Pierre began turning knobs in real time. Sweeping the <strong>Cutoff Frequency</strong> and cranking the <strong>Resonance</strong> to maximum pushed the 18 dB/oct filter into screaming, squelchy self-oscillation.</p>
-            <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('Bzh2bjLPyzs', 'Phuture - Acid Tracks (1987)')">▶ Listen: Phuture "Acid Tracks"</button><a href="https://www.youtube.com/watch?v=Bzh2bjLPyzs" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div><a href="https://www.youtube.com/watch?v=Bzh2bjLPyzs" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div>
+            <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('Bzh2bjLPyzs', 'Phuture - Acid Tracks (1987)')">▶ Listen: Phuture "Acid Tracks"</button><a href="https://www.youtube.com/watch?v=Bzh2bjLPyzs" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div>
           </div>
 
           <div class="info-card highlight">
@@ -1222,7 +1316,7 @@
             <h4>From The Prodigy to Goldie</h4>
             <p><strong>The Prodigy:</strong> Liam Howlett pioneered Breakbeat Hardcore with "Out of Space" (1992) and "Firestarter", pairing high-speed sped-up reggae vocal samples with aggressive synthesizer riffs.<br><br>
             <strong>Goldie:</strong> Elevated Jungle into Drum &amp; Bass with <em>"Terminator"</em> (1992) and his masterpiece <em>Timeless</em> (1995), layering 808 sub-bass, time-stretched breakbeats, and cinematic synthesized string arrangements.</p>
-            <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('wmin5WkOuPw', 'The Prodigy - Firestarter')">▶ Watch: The Prodigy "Firestarter"</button><a href="https://www.youtube.com/watch?v=wmin5WkOuPw" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div><a href="https://www.youtube.com/watch?v=wmin5WkOuPw" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div>
+            <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('wmin5WkOuPw', 'The Prodigy - Firestarter')">▶ Watch: The Prodigy "Firestarter"</button><a href="https://www.youtube.com/watch?v=wmin5WkOuPw" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div>
           </div>
         </div>
       </section>
@@ -1375,7 +1469,7 @@
               <br>1. <em>Low-End Headroom:</em> Avoids phase mud and distortion between kick and bass.
               <br>2. <em>Rhythmic Pumping:</em> Induces a dramatic breathing groove synchronized to tempo.
             </div>
-            <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('K0HSD_i2DvA', 'Daft Punk - Around the World')">▶ Watch: Daft Punk "Around the World"</button><a href="https://www.youtube.com/watch?v=K0HSD_i2DvA" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div><a href="https://www.youtube.com/watch?v=K0HSD_i2DvA" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div>
+            <div class="video-btn-row"><button class="video-trigger-btn" onclick="openVideo('K0HSD_i2DvA', 'Daft Punk - Around the World')">▶ Watch: Daft Punk "Around the World"</button><a href="https://www.youtube.com/watch?v=K0HSD_i2DvA" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div>
           </div>
 
           <div class="info-card highlight">
@@ -1748,5 +1842,32 @@
     </div>
   </div>
 
+<!-- === HASH DEEP LINK === -->
+<script>
+  window.addEventListener('DOMContentLoaded', function() {
+    var h = window.__initialHash || window.location.hash || '';
+    var m = h.match(/^#slide-(\d+)$/i);
+    if (m) {
+      var targetIdx = parseInt(m[1], 10) - 1;
+      if (targetIdx > 0) {
+        setTimeout(function() {
+          if (typeof goToSlide === 'function') {
+            goToSlide(targetIdx);
+          } else if (typeof jumpToSlide === 'function') {
+            jumpToSlide(targetIdx);
+          } else if (typeof showSlide === 'function') {
+            showSlide(targetIdx);
+          } else if (typeof nextSlide === 'function') {
+            for (var i = 0; i < targetIdx; i++) nextSlide();
+          } else {
+            var nb = document.getElementById('nextBtn');
+            if (nb) { for (var j = 0; j < targetIdx; j++) nb.click(); }
+          }
+        }, 50);
+      }
+    }
+  });
+</script>
+<!-- === END HASH DEEP LINK === -->
 </body>
 </html>

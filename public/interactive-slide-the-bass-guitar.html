@@ -823,7 +823,101 @@
       z-index: 101 !important;
     }
 
+
+    
+    
+    /* === ANTI-SQUASH LAYOUT OVERRIDES === */
+    .deck-topbar-controls {
+      width: 100% !important;
+      box-sizing: border-box !important;
+    }
+    #bottomFsBtn {
+      background: rgba(255, 255, 255, 0.06) !important;
+      border: 1px solid rgba(255, 255, 255, 0.14) !important;
+      color: #f8fafc !important;
+      padding: 7px 14px !important;
+      border-radius: 8px !important;
+      font-size: 12.5px !important;
+      font-weight: 600 !important;
+      cursor: pointer !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 6px !important;
+      transition: all 0.2s ease !important;
+    }
+    #bottomFsBtn:hover {
+      background: rgba(255, 255, 255, 0.12) !important;
+      border-color: rgba(255, 255, 255, 0.28) !important;
+    }
+
+    .deck-wrapper {
+      width: calc(100% - 24px) !important;
+      max-width: 1340px !important;
+      flex: 1 !important;
+      min-height: 0 !important;
+      max-height: none !important;
+      height: auto !important;
+      margin: 8px auto 10px auto !important;
+    }
+    .slides-viewport {
+      flex: 1 !important;
+      min-height: 0 !important;
+      position: relative !important;
+      overflow: hidden !important;
+    }
+    .slide-stage {
+      flex: 1 !important;
+      min-height: 0 !important;
+      position: relative !important;
+      overflow-y: auto !important;
+      padding: 22px 34px 24px 34px !important;
+      display: block !important;
+      justify-content: flex-start !important;
+    }
+    .slides-viewport > .slide {
+      position: absolute !important;
+      top: 0 !important;
+      left: 0 !important;
+      width: 100% !important;
+      height: 100% !important;
+      padding: 20px 32px 24px 32px !important;
+      overflow-y: auto !important;
+      justify-content: flex-start !important;
+    }
+    .slide-stage > .slide,
+    .slide-stage > .slide.active {
+      height: auto !important;
+      overflow: visible !important;
+    }
+    .slide-stage > .slide.active {
+      display: block !important;
+    }
+    .slide-eyebrow {
+      margin-bottom: 6px !important;
+      flex-shrink: 0 !important;
+    }
+    .slide-heading {
+      font-size: clamp(21px, 2.5vw, 28px) !important;
+      margin-bottom: 8px !important;
+      line-height: 1.2 !important;
+      flex-shrink: 0 !important;
+    }
+    .slide-lead {
+      font-size: 13.5px !important;
+      line-height: 1.55 !important;
+      margin-bottom: 16px !important;
+      display: block !important;
+      -webkit-line-clamp: unset !important;
+      overflow: visible !important;
+      flex-shrink: 0 !important;
+    }
+    .deck-controls, .deck-bottombar, .deck-footer {
+      flex-shrink: 0 !important;
+    }
+    /* === END ANTI-SQUASH === */
+
 </style>
+<script>window.__initialHash = window.location.hash;</script>
 </head>
 <body>
 
@@ -938,7 +1032,8 @@
         <div class="grid-3"><div class="info-card highlight"><div class="card-thumb"><img src="/images/slides/the_bass_guitar/james_jamerson_precision_bass.jpg" alt="Legendary Motown Bassist James Jamerson with 1962 Fender Precision Bass" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/james_jamerson_precision_bass.jpg', 'Legendary Motown Bassist James Jamerson with 1962 Fender Precision Bass')"></div>
                <span class="spec-pill ao4">AO4 Motown Pioneer</span>
                <h4>James Jamerson &amp; "The Funk Machine"</h4>
-               <p>Using his 1962 P-Bass with heavy La Bella flatwound strings and one finger ("The Hook"), Jamerson recorded virtually every legendary Motown hit (The Temptations, Marvin Gaye, Stevie Wonder).</p></div><div class="info-card cyan-edge"><div class="card-thumb"><img src="/images/slides/the_bass_guitar/palm_muting_foam_mute_damping.svg" alt="Foam Bridge Muting and Palm Damping Waveform Envelope Comparison" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/palm_muting_foam_mute_damping.svg', 'Foam Bridge Muting and Palm Damping Waveform Envelope Comparison')"></div>
+               <p>Using his 1962 P-Bass with heavy La Bella flatwound strings and one finger ("The Hook"), Jamerson recorded virtually every legendary Motown hit (The Temptations, Marvin Gaye, Stevie Wonder).</p>
+               <div class="video-btn-row" style="display:flex; gap:8px; align-items:center; margin-top:10px; flex-wrap:wrap;"><button class="video-trigger-btn" onclick="openVideo('H-kA3UtBj4M', 'Marvin Gaye - What\'s Going On (James Jamerson P-Bass)')" style="display:inline-flex; align-items:center; gap:6px; font-size:11px; font-weight:800; color:#080d1a; background:linear-gradient(135deg, #f59e0b, #fbbf24); border:0; padding:6px 12px; border-radius:6px; cursor:pointer;">▶ Listen: Jamerson P-Bass</button><a href="https://www.youtube.com/watch?v=H-kA3UtBj4M" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" style="display:inline-flex; align-items:center; gap:4px; font-size:11px; font-weight:700; color:#fff !important; background:rgba(239,68,68,0.2); border:1px solid rgba(239,68,68,0.45); padding:5px 10px; border-radius:6px; text-decoration:none;" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div></div><div class="info-card cyan-edge"><div class="card-thumb"><img src="/images/slides/the_bass_guitar/palm_muting_foam_mute_damping.svg" alt="Foam Bridge Muting and Palm Damping Waveform Envelope Comparison" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/palm_muting_foam_mute_damping.svg', 'Foam Bridge Muting and Palm Damping Waveform Envelope Comparison')"></div>
                <span class="spec-pill ao3">AO3 Mechanical Damping</span>
                <h4>The Motown "Thud" (Foam Muting)</h4>
                <p>Foam rubber dampening under bridge covers cut string sustain to &lt;0.5 seconds. This fast decay prevented low-end mud, leaving total acoustic space for kick drum transients in mono mixes.</p></div><div class="info-card acid-edge"><div class="card-thumb"><img src="/images/slides/the_bass_guitar/motown_wolfbox_di.jpg" alt="Historic Motown Wolfbox Passive DI Box with Triad Transformer" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/motown_wolfbox_di.jpg', 'Historic Motown Wolfbox Passive DI Box with Triad Transformer')"></div>
@@ -978,7 +1073,8 @@
                <p>Equipped with two distinct pickups: a warm neck pickup and a biting, harmonically rich bridge pickup. Two individual volume knobs allowed continuous blend combinations.</p></div><div class="info-card acid-edge"><div class="card-thumb"><img src="/images/slides/the_bass_guitar/jaco_pastorius_fretless_bass_of_doom.jpg" alt="Jaco Pastorius Performing with his Fretless Bass of Doom" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/jaco_pastorius_fretless_bass_of_doom.jpg', 'Jaco Pastorius Performing with his Fretless Bass of Doom')"></div>
                <span class="spec-pill ao4">AO4 Virtuoso Expression</span>
                <h4>Jaco Pastorius &amp; Bridge Pickup Growl</h4>
-               <p>Soloing on his fretless 1962 Jazz Bass, Jaco favoured the bridge pickup with tone rolled back slightly, producing an unmistakable vocal midrange bark with Weather Report (*Birdland*).</p></div></div>
+               <p>Soloing on his fretless 1962 Jazz Bass, Jaco favoured the bridge pickup with tone rolled back slightly, producing an unmistakable vocal midrange bark with Weather Report (*Birdland*).</p>
+               <div class="video-btn-row" style="display:flex; gap:8px; align-items:center; margin-top:10px; flex-wrap:wrap;"><button class="video-trigger-btn" onclick="openVideo('8buRBt_138w', 'Herbie Hancock - Chameleon (Funk/Fusion Bass)')" style="display:inline-flex; align-items:center; gap:6px; font-size:11px; font-weight:800; color:#080d1a; background:linear-gradient(135deg, #f59e0b, #fbbf24); border:0; padding:6px 12px; border-radius:6px; cursor:pointer;">▶ Listen: Jazz/Fusion Bass</button><a href="https://www.youtube.com/watch?v=8buRBt_138w" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" style="display:inline-flex; align-items:center; gap:4px; font-size:11px; font-weight:700; color:#fff !important; background:rgba(239,68,68,0.2); border:1px solid rgba(239,68,68,0.45); padding:5px 10px; border-radius:6px; text-decoration:none;" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div></div></div>
       </div>
     </section>
     <section class="slide" id="slide-8" data-slide="8">
@@ -992,7 +1088,8 @@
                <p>Walter H&#246;fner built a fully hollow, carved spruce and maple chambered body with violin aesthetics, weighing only ~2.1 kg (under 5 lbs) with two narrow German single-coil pickups.</p></div><div class="info-card cyan-edge"><div class="card-thumb"><img src="/images/slides/the_bass_guitar/paul_mccartney_hofner_live.jpg" alt="Paul McCartney with Left-Handed Hofner 500-1 Bass on Stage" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/paul_mccartney_hofner_live.jpg', 'Paul McCartney with Left-Handed Hofner 500-1 Bass on Stage')"></div>
                <span class="spec-pill ao4">AO4 McCartney &amp; The Beatles</span>
                <h4>Paul McCartney &amp; Abbey Road</h4>
-               <p>McCartney bought a symmetrical left-handed H&#246;fner in Hamburg in 1961. Paired with flatwound strings, it gave early Beatles hits (*She Loves You*, *All My Loving*) a woody, melodic bounce.</p></div><div class="info-card acid-edge"><div class="card-thumb"><img src="/images/slides/the_bass_guitar/gibson_eb3_bass.jpg" alt="Gibson EB-3 SG-Style Solidbody Bass with Mudbucker and Mini-Humbucker" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/gibson_eb3_bass.jpg', 'Gibson EB-3 SG-Style Solidbody Bass with Mudbucker and Mini-Humbucker')"></div>
+               <p>McCartney bought a symmetrical left-handed H&#246;fner in Hamburg in 1961. Paired with flatwound strings, it gave early Beatles hits (*She Loves You*, *All My Loving*) a woody, melodic bounce.</p>
+               <div class="video-btn-row" style="display:flex; gap:8px; align-items:center; margin-top:10px; flex-wrap:wrap;"><button class="video-trigger-btn" onclick="openVideo('jenWdylTtzs', 'The Beatles - I Want To Hold Your Hand (Hofner 500/1)')" style="display:inline-flex; align-items:center; gap:6px; font-size:11px; font-weight:800; color:#080d1a; background:linear-gradient(135deg, #f59e0b, #fbbf24); border:0; padding:6px 12px; border-radius:6px; cursor:pointer;">▶ Listen: McCartney Höfner</button><a href="https://www.youtube.com/watch?v=jenWdylTtzs" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" style="display:inline-flex; align-items:center; gap:4px; font-size:11px; font-weight:700; color:#fff !important; background:rgba(239,68,68,0.2); border:1px solid rgba(239,68,68,0.45); padding:5px 10px; border-radius:6px; text-decoration:none;" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div></div><div class="info-card acid-edge"><div class="card-thumb"><img src="/images/slides/the_bass_guitar/gibson_eb3_bass.jpg" alt="Gibson EB-3 SG-Style Solidbody Bass with Mudbucker and Mini-Humbucker" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/gibson_eb3_bass.jpg', 'Gibson EB-3 SG-Style Solidbody Bass with Mudbucker and Mini-Humbucker')"></div>
                <span class="spec-pill ao4">AO4 Gibson Mudbucker</span>
                <h4>The Gibson EB-0 &amp; EB-3 Basses</h4>
                <p>Gibson mounted a massive 30 k&#937; humbucker ("Mudbucker") right against the fingerboard on an SG mahogany body, creating an ultra-dark, thunderous bass roar (Jack Bruce in Cream).</p></div></div>
@@ -1009,7 +1106,8 @@
                <p>Solid maple neck-through-body design with walnut stringers provided tremendous sustain and bright acoustic resonance, paired with a horseshoe or high-gain single-coil bridge pickup.</p></div><div class="info-card cyan-edge"><div class="card-thumb"><img src="/images/slides/the_bass_guitar/pete_townshend_john_entwistle_bass.jpg" alt="The Who Bassist John Entwistle Performing Live" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/pete_townshend_john_entwistle_bass.jpg', 'The Who Bassist John Entwistle Performing Live')"></div>
                <span class="spec-pill ao4">AO4 Entwistle's Lead Bass</span>
                <h4>John Entwistle &amp; Rotosound Strings</h4>
-               <p>The Who's John Entwistle worked with Rotosound to invent steel roundwound strings (Swing Bass 66), transforming bass from quiet rhythm support into a clattering, overdriven lead instrument.</p></div><div class="info-card acid-edge"><div class="card-thumb"><img src="/images/slides/the_bass_guitar/alembic_custom_bass.jpg" alt="Alembic Custom Active Bass with Exotic Tonewoods and Onboard Preamp" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/alembic_custom_bass.jpg', 'Alembic Custom Active Bass with Exotic Tonewoods and Onboard Preamp')"></div>
+               <p>The Who's John Entwistle worked with Rotosound to invent steel roundwound strings (Swing Bass 66), transforming bass from quiet rhythm support into a clattering, overdriven lead instrument.</p>
+               <div class="video-btn-row" style="display:flex; gap:8px; align-items:center; margin-top:10px; flex-wrap:wrap;"><button class="video-trigger-btn" onclick="openVideo('UDfAdHBtK_Q', 'The Who - Won\'t Get Fooled Again (Entwistle Bass)')" style="display:inline-flex; align-items:center; gap:6px; font-size:11px; font-weight:800; color:#080d1a; background:linear-gradient(135deg, #f59e0b, #fbbf24); border:0; padding:6px 12px; border-radius:6px; cursor:pointer;">▶ Listen: Entwistle Bass</button><a href="https://www.youtube.com/watch?v=UDfAdHBtK_Q" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" style="display:inline-flex; align-items:center; gap:4px; font-size:11px; font-weight:700; color:#fff !important; background:rgba(239,68,68,0.2); border:1px solid rgba(239,68,68,0.45); padding:5px 10px; border-radius:6px; text-decoration:none;" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div></div><div class="info-card acid-edge"><div class="card-thumb"><img src="/images/slides/the_bass_guitar/alembic_custom_bass.jpg" alt="Alembic Custom Active Bass with Exotic Tonewoods and Onboard Preamp" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/alembic_custom_bass.jpg', 'Alembic Custom Active Bass with Exotic Tonewoods and Onboard Preamp')"></div>
                <span class="spec-pill ao4">AO4 Hi-Fi Custom Basses</span>
                <h4>Alembic &amp; Active Filtering (1969)</h4>
                <p>Pioneered active electronics for the Grateful Dead: low-impedance pickups, onboard parametric state-variable active filters, and multi-laminate exotic tonewoods for wide hi-fi fidelity.</p></div></div>
@@ -1029,7 +1127,8 @@
                <p>Humbucker coils were wired in parallel (not series), giving a scooped, bright frequency response. The active preamp buffered the output to low-Z, preventing high-frequency cable capacitance loss.</p></div><div class="info-card acid-edge"><div class="card-thumb"><img src="/images/slides/the_bass_guitar/flea_stingray_live.jpg" alt="Flea Performing Live with Music Man StingRay Bass" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/flea_stingray_live.jpg', 'Flea Performing Live with Music Man StingRay Bass')"></div>
                <span class="spec-pill ao4">AO4 Modern Funk &amp; Rock</span>
                <h4>Bernard Edwards &amp; Flea</h4>
-               <p>The StingRay's crisp attack defined disco grooves (Bernard Edwards with Chic, *Good Times*) and explosive 1990s alternative funk-rock (Flea with Red Hot Chili Peppers, *Give It Away*).</p></div></div>
+               <p>The StingRay's crisp attack defined disco grooves (Bernard Edwards with Chic, *Good Times*) and explosive 1990s alternative funk-rock (Flea with Red Hot Chili Peppers, *Give It Away*).</p>
+               <div class="video-btn-row" style="display:flex; gap:8px; align-items:center; margin-top:10px; flex-wrap:wrap;"><button class="video-trigger-btn" onclick="openVideo('Mr_uHJPUlO8', 'Red Hot Chili Peppers - Give It Away (Flea StingRay)')" style="display:inline-flex; align-items:center; gap:6px; font-size:11px; font-weight:800; color:#080d1a; background:linear-gradient(135deg, #f59e0b, #fbbf24); border:0; padding:6px 12px; border-radius:6px; cursor:pointer;">▶ Listen: StingRay Bass</button><a href="https://www.youtube.com/watch?v=Mr_uHJPUlO8" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" style="display:inline-flex; align-items:center; gap:4px; font-size:11px; font-weight:700; color:#fff !important; background:rgba(239,68,68,0.2); border:1px solid rgba(239,68,68,0.45); padding:5px 10px; border-radius:6px; text-decoration:none;" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div></div></div>
       </div>
     </section>
     <section class="slide" id="slide-11" data-slide="11">
@@ -1043,7 +1142,8 @@
                <p><strong>Thumb Slap:</strong> Knuckle drives Low E/A against metal frets, emulating acoustic kick drum thump. <strong>Finger Pop:</strong> Index finger snaps D/G upward against frets, emulating snare crack.</p></div><div class="info-card cyan-edge"><div class="card-thumb"><img src="/images/slides/the_bass_guitar/larry_graham_slap_bass.jpg" alt="Larry Graham Performing with Graham Central Station" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/larry_graham_slap_bass.jpg', 'Larry Graham Performing with Graham Central Station')"></div>
                <span class="spec-pill ao4">AO4 Slap Pioneer</span>
                <h4>Larry Graham (Sly &amp; Family Stone)</h4>
-               <p>Invented the technique when Sly and the Family Stone lacked a drummer. The percussive slap &amp; pop approach revolutionized funk, disco, R&amp;B, and fusion basslines.</p></div><div class="info-card acid-edge"><div class="card-thumb"><img src="/images/slides/the_bass_guitar/fretless_bass_mwah_physics.svg" alt="Fretless Bass String Grazing Against Fingerboard Producing Mwah Bloom" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/fretless_bass_mwah_physics.svg', 'Fretless Bass String Grazing Against Fingerboard Producing Mwah Bloom')"></div>
+               <p>Invented the technique when Sly and the Family Stone lacked a drummer. The percussive slap &amp; pop approach revolutionized funk, disco, R&amp;B, and fusion basslines.</p>
+               <div class="video-btn-row" style="display:flex; gap:8px; align-items:center; margin-top:10px; flex-wrap:wrap;"><button class="video-trigger-btn" onclick="openVideo('-T9vmaTI2LE', 'Sly & The Family Stone - Thank You (Larry Graham Slap Bass)')" style="display:inline-flex; align-items:center; gap:6px; font-size:11px; font-weight:800; color:#080d1a; background:linear-gradient(135deg, #f59e0b, #fbbf24); border:0; padding:6px 12px; border-radius:6px; cursor:pointer;">▶ Listen: Larry Graham Slap</button><a href="https://www.youtube.com/watch?v=-T9vmaTI2LE" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" style="display:inline-flex; align-items:center; gap:4px; font-size:11px; font-weight:700; color:#fff !important; background:rgba(239,68,68,0.2); border:1px solid rgba(239,68,68,0.45); padding:5px 10px; border-radius:6px; text-decoration:none;" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div></div><div class="info-card acid-edge"><div class="card-thumb"><img src="/images/slides/the_bass_guitar/fretless_bass_mwah_physics.svg" alt="Fretless Bass String Grazing Against Fingerboard Producing Mwah Bloom" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_bass_guitar/fretless_bass_mwah_physics.svg', 'Fretless Bass String Grazing Against Fingerboard Producing Mwah Bloom')"></div>
                <span class="spec-pill ao3">AO3 Expressive Bloom</span>
                <h4>Fingerstyle vs Plectrum Attack</h4>
                <p><strong>Fingerstyle:</strong> Soft finger pad dampens high overtones, producing deep round fundamentals. <strong>Plectrum:</strong> Hard plastic pick generates sharp, cutting 2 kHz transient clicks for rock and punk.</p></div></div>
@@ -1332,5 +1432,74 @@
     </div>
   </div>
 
+
+  <!-- HD Theater Video Modal -->
+  <div class="video-modal-backdrop" id="videoModal" onclick="if(event.target===this)closeVideo()" style="display:none; position:fixed; inset:0; width:100vw; height:100vh; background:rgba(2,6,23,0.92); backdrop-filter:blur(12px); z-index:99999; align-items:center; justify-content:center; padding:20px;">
+    <div class="video-modal-content" style="width:100%; max-width:1200px; background:#0f172a; border:1px solid rgba(56,189,248,0.35); border-radius:16px; overflow:hidden; box-shadow:0 25px 70px rgba(0,0,0,0.95);">
+      <div class="video-modal-header" style="padding:12px 18px; background:#090d16; border-bottom:1px solid rgba(255,255,255,0.1); display:flex; justify-content:space-between; align-items:center;">
+        <span class="video-modal-title" id="videoModalTitle" style="font-size:14px; font-weight:800; color:#f8fafc;">HD Video Player</span>
+        <div style="display:flex; align-items:center; gap:10px;">
+          <a id="videoModalDirectLink" href="https://www.youtube.com" target="_blank" rel="noopener noreferrer" style="font-size:12px; font-weight:700; color:#f8fafc; background:rgba(239,68,68,0.25); border:1px solid rgba(239,68,68,0.5); padding:5px 12px; border-radius:6px; text-decoration:none;">Open on YouTube ↗</a>
+          <button onclick="closeVideo()" style="background:#ef4444; color:#fff; border:none; border-radius:6px; padding:5px 12px; font-size:12px; font-weight:800; cursor:pointer;">✕ Close (Esc)</button>
+        </div>
+      </div>
+      <div style="position:relative; width:100%; padding-bottom:56.25%; height:0; background:#000;">
+        <iframe id="videoIframe" src="" style="position:absolute; inset:0; width:100%; height:100%; border:0;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+  <script>
+    function openVideo(videoId, title) {
+      var modal = document.getElementById('videoModal');
+      var iframe = document.getElementById('videoIframe');
+      var modalTitle = document.getElementById('videoModalTitle');
+      var directLink = document.getElementById('videoModalDirectLink');
+      if (!modal || !iframe) return;
+      if (modalTitle) modalTitle.textContent = title || 'HD Video Example';
+      if (directLink) directLink.href = 'https://www.youtube.com/watch?v=' + videoId;
+      iframe.src = 'https://www.youtube-nocookie.com/embed/' + videoId + '?autoplay=1&rel=0&modestbranding=1&vq=hd1080';
+      modal.classList.add('open');
+      modal.style.display = 'flex';
+    }
+    function closeVideo() {
+      var modal = document.getElementById('videoModal');
+      var iframe = document.getElementById('videoIframe');
+      if (!modal) return;
+      modal.classList.remove('open');
+      modal.style.display = 'none';
+      if (iframe) iframe.src = '';
+    }
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeVideo();
+    });
+  </script>
+
+<!-- === HASH DEEP LINK === -->
+<script>
+  window.addEventListener('DOMContentLoaded', function() {
+    var h = window.__initialHash || window.location.hash || '';
+    var m = h.match(/^#slide-(\d+)$/i);
+    if (m) {
+      var targetIdx = parseInt(m[1], 10) - 1;
+      if (targetIdx > 0) {
+        setTimeout(function() {
+          if (typeof goToSlide === 'function') {
+            goToSlide(targetIdx);
+          } else if (typeof jumpToSlide === 'function') {
+            jumpToSlide(targetIdx);
+          } else if (typeof showSlide === 'function') {
+            showSlide(targetIdx);
+          } else if (typeof nextSlide === 'function') {
+            for (var i = 0; i < targetIdx; i++) nextSlide();
+          } else {
+            var nb = document.getElementById('nextBtn');
+            if (nb) { for (var j = 0; j < targetIdx; j++) nb.click(); }
+          }
+        }, 50);
+      }
+    }
+  });
+</script>
+<!-- === END HASH DEEP LINK === -->
 </body>
 </html>

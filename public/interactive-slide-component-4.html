@@ -841,7 +841,109 @@
       font-size: 12px;
       color: #94a3b8;
     }
-  </style>
+  
+    
+    
+    /* === ANTI-SQUASH LAYOUT OVERRIDES === */
+    .deck-topbar-controls {
+      width: 100% !important;
+      box-sizing: border-box !important;
+    }
+    #bottomFsBtn {
+      background: rgba(255, 255, 255, 0.06) !important;
+      border: 1px solid rgba(255, 255, 255, 0.14) !important;
+      color: #f8fafc !important;
+      padding: 7px 14px !important;
+      border-radius: 8px !important;
+      font-size: 12.5px !important;
+      font-weight: 600 !important;
+      cursor: pointer !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 6px !important;
+      transition: all 0.2s ease !important;
+    }
+    #bottomFsBtn:hover {
+      background: rgba(255, 255, 255, 0.12) !important;
+      border-color: rgba(255, 255, 255, 0.28) !important;
+    }
+
+    .deck-container {
+      max-width: 1520px !important;
+      padding: 10px 20px 0 !important;
+    }
+    .slide-header {
+      margin-bottom: 10px !important;
+      padding-bottom: 8px !important;
+    }
+    .slide-heading {
+      font-size: clamp(20px, 2.2vw, 26px) !important;
+      margin-bottom: 4px !important;
+      line-height: 1.2 !important;
+    }
+    .slide-lead {
+      font-size: 13px !important;
+      line-height: 1.45 !important;
+      margin-bottom: 2px !important;
+      display: block !important;
+      -webkit-line-clamp: unset !important;
+      overflow: visible !important;
+    }
+    .grid-2-split {
+      gap: 16px !important;
+      margin-bottom: 54px !important;
+    }
+    .column-panel {
+      padding: 14px 16px !important;
+    }
+    /* Fix squashed hardware and instrument photos */
+    .hardware-photo {
+      height: clamp(165px, 21vh, 220px) !important;
+      margin-bottom: 10px !important;
+      flex-shrink: 0 !important;
+      background: #020617 !important;
+    }
+    .hardware-photo img {
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: contain !important;
+      padding: 6px !important;
+    }
+    /* In amplifiers & classic-keyboards, prevent .instrument-photo-card from clipping captions */
+    .instrument-photo-card {
+      height: auto !important;
+      min-height: 180px !important;
+      max-height: none !important;
+      margin-bottom: 10px !important;
+      flex-shrink: 0 !important;
+      display: flex !important;
+      flex-direction: column !important;
+      background: #020617 !important;
+    }
+    .instrument-photo-card img.instrument-photo {
+      width: 100% !important;
+      height: clamp(165px, 21vh, 215px) !important;
+      object-fit: contain !important;
+      background: #020617 !important;
+      padding: 6px !important;
+      display: block !important;
+    }
+    .instrument-photo-caption {
+      position: relative !important;
+      background: rgba(9, 13, 22, 0.95) !important;
+      padding: 8px 12px !important;
+      border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+    }
+    .card-video-embed, .video-container {
+      padding-bottom: 56.25% !important;
+      height: 0 !important;
+      margin-bottom: 4px !important;
+      flex-shrink: 0 !important;
+    }
+    /* === END ANTI-SQUASH === */
+
+</style>
+<script>window.__initialHash = window.location.hash;</script>
 </head>
 <body>
 
@@ -2127,5 +2229,32 @@
     initDots();
     updateUI();
   </script>
+<!-- === HASH DEEP LINK === -->
+<script>
+  window.addEventListener('DOMContentLoaded', function() {
+    var h = window.__initialHash || window.location.hash || '';
+    var m = h.match(/^#slide-(\d+)$/i);
+    if (m) {
+      var targetIdx = parseInt(m[1], 10) - 1;
+      if (targetIdx > 0) {
+        setTimeout(function() {
+          if (typeof goToSlide === 'function') {
+            goToSlide(targetIdx);
+          } else if (typeof jumpToSlide === 'function') {
+            jumpToSlide(targetIdx);
+          } else if (typeof showSlide === 'function') {
+            showSlide(targetIdx);
+          } else if (typeof nextSlide === 'function') {
+            for (var i = 0; i < targetIdx; i++) nextSlide();
+          } else {
+            var nb = document.getElementById('nextBtn');
+            if (nb) { for (var j = 0; j < targetIdx; j++) nb.click(); }
+          }
+        }, 50);
+      }
+    }
+  });
+</script>
+<!-- === END HASH DEEP LINK === -->
 </body>
 </html>

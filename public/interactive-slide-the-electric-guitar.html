@@ -897,7 +897,101 @@
       z-index: 101 !important;
     }
 
+
+    
+    
+    /* === ANTI-SQUASH LAYOUT OVERRIDES === */
+    .deck-topbar-controls {
+      width: 100% !important;
+      box-sizing: border-box !important;
+    }
+    #bottomFsBtn {
+      background: rgba(255, 255, 255, 0.06) !important;
+      border: 1px solid rgba(255, 255, 255, 0.14) !important;
+      color: #f8fafc !important;
+      padding: 7px 14px !important;
+      border-radius: 8px !important;
+      font-size: 12.5px !important;
+      font-weight: 600 !important;
+      cursor: pointer !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 6px !important;
+      transition: all 0.2s ease !important;
+    }
+    #bottomFsBtn:hover {
+      background: rgba(255, 255, 255, 0.12) !important;
+      border-color: rgba(255, 255, 255, 0.28) !important;
+    }
+
+    .deck-wrapper {
+      width: calc(100% - 24px) !important;
+      max-width: 1340px !important;
+      flex: 1 !important;
+      min-height: 0 !important;
+      max-height: none !important;
+      height: auto !important;
+      margin: 8px auto 10px auto !important;
+    }
+    .slides-viewport {
+      flex: 1 !important;
+      min-height: 0 !important;
+      position: relative !important;
+      overflow: hidden !important;
+    }
+    .slide-stage {
+      flex: 1 !important;
+      min-height: 0 !important;
+      position: relative !important;
+      overflow-y: auto !important;
+      padding: 22px 34px 24px 34px !important;
+      display: block !important;
+      justify-content: flex-start !important;
+    }
+    .slides-viewport > .slide {
+      position: absolute !important;
+      top: 0 !important;
+      left: 0 !important;
+      width: 100% !important;
+      height: 100% !important;
+      padding: 20px 32px 24px 32px !important;
+      overflow-y: auto !important;
+      justify-content: flex-start !important;
+    }
+    .slide-stage > .slide,
+    .slide-stage > .slide.active {
+      height: auto !important;
+      overflow: visible !important;
+    }
+    .slide-stage > .slide.active {
+      display: block !important;
+    }
+    .slide-eyebrow {
+      margin-bottom: 6px !important;
+      flex-shrink: 0 !important;
+    }
+    .slide-heading {
+      font-size: clamp(21px, 2.5vw, 28px) !important;
+      margin-bottom: 8px !important;
+      line-height: 1.2 !important;
+      flex-shrink: 0 !important;
+    }
+    .slide-lead {
+      font-size: 13.5px !important;
+      line-height: 1.55 !important;
+      margin-bottom: 16px !important;
+      display: block !important;
+      -webkit-line-clamp: unset !important;
+      overflow: visible !important;
+      flex-shrink: 0 !important;
+    }
+    .deck-controls, .deck-bottombar, .deck-footer {
+      flex-shrink: 0 !important;
+    }
+    /* === END ANTI-SQUASH === */
+
 </style>
+<script>window.__initialHash = window.location.hash;</script>
 </head>
 <body>
 
@@ -1012,7 +1106,8 @@
         <div class="grid-3"><div class="info-card highlight"><div class="card-thumb"><img src="/images/slides/the_electric_guitar/les_paul_the_log_1940.jpg" alt="Les Paul The Log Prototype 1940 with Epiphone Wings" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/les_paul_the_log_1940.jpg', 'Les Paul The Log Prototype 1940 with Epiphone Wings')"></div>
                <span class="spec-pill ao4">AO4 Prototypes</span>
                <h4>Les Paul's "The Log" (1940)</h4>
-               <p>Guitarist Les Paul mounted a Gibson neck and handmade pickup onto a solid 4x4-inch pine timber block, gluing archtop wings to the sides for aesthetics. It proved solid wood eliminated acoustic feedback.</p></div><div class="info-card cyan-edge"><div class="card-thumb"><img src="/images/slides/the_electric_guitar/solidbody_feedback_elimination.svg" alt="Acoustic Cavity vs Solidbody Mechanical Vibration Dampening Diagram" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/solidbody_feedback_elimination.svg', 'Acoustic Cavity vs Solidbody Mechanical Vibration Dampening Diagram')"></div>
+               <p>Guitarist Les Paul mounted a Gibson neck and handmade pickup onto a solid 4x4-inch pine timber block, gluing archtop wings to the sides for aesthetics. It proved solid wood eliminated acoustic feedback.</p>
+               <div class="video-btn-row" style="display:flex; gap:8px; align-items:center; margin-top:10px; flex-wrap:wrap;"><button class="video-trigger-btn" onclick="openVideo('glcTS_21uaY', 'Les Paul & Mary Ford - How High the Moon')" style="display:inline-flex; align-items:center; gap:6px; font-size:11px; font-weight:800; color:#080d1a; background:linear-gradient(135deg, #f59e0b, #fbbf24); border:0; padding:6px 12px; border-radius:6px; cursor:pointer;">▶ Listen: Les Paul</button><a href="https://www.youtube.com/watch?v=glcTS_21uaY" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" style="display:inline-flex; align-items:center; gap:4px; font-size:11px; font-weight:700; color:#fff !important; background:rgba(239,68,68,0.2); border:1px solid rgba(239,68,68,0.45); padding:5px 10px; border-radius:6px; text-decoration:none;" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div></div><div class="info-card cyan-edge"><div class="card-thumb"><img src="/images/slides/the_electric_guitar/solidbody_feedback_elimination.svg" alt="Acoustic Cavity vs Solidbody Mechanical Vibration Dampening Diagram" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/solidbody_feedback_elimination.svg', 'Acoustic Cavity vs Solidbody Mechanical Vibration Dampening Diagram')"></div>
                <span class="spec-pill ao3">AO3 Physics of Feedback</span>
                <h4>Feedback Decoupling Physics</h4>
                <p>By substituting high-density solid wood (ash, alder, mahogany) for a resonant hollow cavity, the body no longer acts as an acoustic soundboard, preventing loudspeaker vibrations from driving the top.</p></div><div class="info-card acid-edge"><div class="card-thumb"><img src="/images/slides/the_electric_guitar/fender_esquire_broadcaster_1950.jpg" alt="1950 Fender Broadcaster Solidbody Guitar" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/fender_esquire_broadcaster_1950.jpg', '1950 Fender Broadcaster Solidbody Guitar')"></div>
@@ -1035,7 +1130,8 @@
                <p>Paired a warm, chrome-covered neck pickup (narrow bobbin) with the aggressive bridge pickup. The 3-way selector permitted distinct rhythm and biting lead timbres from a single instrument.</p></div><div class="info-card acid-edge"><div class="card-thumb"><img src="/images/slides/the_electric_guitar/keith_richards_telecaster.jpg" alt="Keith Richards Micawber Telecaster on Stage" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/keith_richards_telecaster.jpg', 'Keith Richards Micawber Telecaster on Stage')"></div>
                <span class="spec-pill ao4">AO4 Cultural Impact</span>
                <h4>The Rock &amp; Roll Sound</h4>
-               <p>Heard on Muddy Waters blues tracks, Keith Richards' open-G Rolling Stones riffs (*Honky Tonk Women*), Bruce Springsteen, and Joe Strummer (*The Clash* punk rhythm tracks).</p></div></div>
+               <p>Heard on Muddy Waters blues tracks, Keith Richards' open-G Rolling Stones riffs (*Honky Tonk Women*), Bruce Springsteen, and Joe Strummer (*The Clash* punk rhythm tracks).</p>
+               <div class="video-btn-row" style="display:flex; gap:8px; align-items:center; margin-top:10px; flex-wrap:wrap;"><button class="video-trigger-btn" onclick="openVideo('bSfqNEvykv0', 'Muddy Waters - Mannish Boy (Fender Telecaster)')" style="display:inline-flex; align-items:center; gap:6px; font-size:11px; font-weight:800; color:#080d1a; background:linear-gradient(135deg, #f59e0b, #fbbf24); border:0; padding:6px 12px; border-radius:6px; cursor:pointer;">▶ Listen: Telecaster Blues</button><a href="https://www.youtube.com/watch?v=bSfqNEvykv0" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" style="display:inline-flex; align-items:center; gap:4px; font-size:11px; font-weight:700; color:#fff !important; background:rgba(239,68,68,0.2); border:1px solid rgba(239,68,68,0.45); padding:5px 10px; border-radius:6px; text-decoration:none;" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div></div></div>
       </div>
     </section>
     <section class="slide" id="slide-7" data-slide="7">
@@ -1052,7 +1148,8 @@
                <p>Gibson's original 1952 pickup: wider, shorter bobbin than Fender coils with twin Alnico bar magnets underneath steel pole screws, producing a gritty, fat, high-output single-coil roar.</p></div><div class="info-card acid-edge"><div class="card-thumb"><img src="/images/slides/the_electric_guitar/gibson_sg_1961.jpg" alt="1961 Gibson SG Standard Solidbody with Dual Humbuckers" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/gibson_sg_1961.jpg', '1961 Gibson SG Standard Solidbody with Dual Humbuckers')"></div>
                <span class="spec-pill ao4">AO4 The Solid Guitar</span>
                <h4>The Gibson SG Redesign (1961)</h4>
-               <p>To reduce manufacturing weight and compete with the Stratocaster, Gibson released the double-cutaway "Solid Guitar" (SG) with thin mahogany body and unobstructed 22nd-fret neck access.</p></div></div>
+               <p>To reduce manufacturing weight and compete with the Stratocaster, Gibson released the double-cutaway "Solid Guitar" (SG) with thin mahogany body and unobstructed 22nd-fret neck access.</p>
+               <div class="video-btn-row" style="display:flex; gap:8px; align-items:center; margin-top:10px; flex-wrap:wrap;"><button class="video-trigger-btn" onclick="openVideo('m9N8Qi6zLSU', 'Eric Clapton & John Mayall - All Your Love (Les Paul PAF)')" style="display:inline-flex; align-items:center; gap:6px; font-size:11px; font-weight:800; color:#080d1a; background:linear-gradient(135deg, #f59e0b, #fbbf24); border:0; padding:6px 12px; border-radius:6px; cursor:pointer;">▶ Listen: Les Paul PAF</button><a href="https://www.youtube.com/watch?v=m9N8Qi6zLSU" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" style="display:inline-flex; align-items:center; gap:4px; font-size:11px; font-weight:700; color:#fff !important; background:rgba(239,68,68,0.2); border:1px solid rgba(239,68,68,0.45); padding:5px 10px; border-radius:6px; text-decoration:none;" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div></div></div>
       </div>
     </section>
     <section class="slide" id="slide-8" data-slide="8">
@@ -1069,7 +1166,8 @@
                <p>Integrated a moving bridge plate with individual string saddles, a heavy steel inertia block, and rear counterbalance springs. Allowed smooth pitch drops and shimmer while maintaining pitch return.</p></div><div class="info-card acid-edge"><div class="card-thumb"><img src="/images/slides/the_electric_guitar/jimi_hendrix_monterey_strat.jpg" alt="Jimi Hendrix with Fender Stratocaster at Monterey Pop 1967" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/jimi_hendrix_monterey_strat.jpg', 'Jimi Hendrix with Fender Stratocaster at Monterey Pop 1967')"></div>
                <span class="spec-pill ao4">AO4 Iconic Artistry</span>
                <h4>Hendrix, Clapton &amp; Gilmour</h4>
-               <p>Hendrix (*Voodoo Child*, *Little Wing*), David Gilmour (*Comfortably Numb*), and Stevie Ray Vaughan used the Stratocaster's double cutaways, vibrato arm, and pickup selector to define modern guitar.</p></div></div>
+               <p>Hendrix (*Voodoo Child*, *Little Wing*), David Gilmour (*Comfortably Numb*), and Stevie Ray Vaughan used the Stratocaster's double cutaways, vibrato arm, and pickup selector to define modern guitar.</p>
+               <div class="video-btn-row" style="display:flex; gap:8px; align-items:center; margin-top:10px; flex-wrap:wrap;"><button class="video-trigger-btn" onclick="openVideo('qFfnlYbFEiE', 'Jimi Hendrix - Voodoo Child (Slight Return)')" style="display:inline-flex; align-items:center; gap:6px; font-size:11px; font-weight:800; color:#080d1a; background:linear-gradient(135deg, #f59e0b, #fbbf24); border:0; padding:6px 12px; border-radius:6px; cursor:pointer;">▶ Listen: Hendrix Strat</button><a href="https://www.youtube.com/watch?v=qFfnlYbFEiE" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" style="display:inline-flex; align-items:center; gap:4px; font-size:11px; font-weight:700; color:#fff !important; background:rgba(239,68,68,0.2); border:1px solid rgba(239,68,68,0.45); padding:5px 10px; border-radius:6px; text-decoration:none;" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div></div></div>
       </div>
     </section>
     <section class="slide" id="slide-9" data-slide="9">
@@ -1117,7 +1215,8 @@
                <p>A solid maple block runs down the center of a hollow double-cutaway body. Pickups and bridge mount into solid maple (suppressing feedback), while hollow wings add acoustic warmth and air.</p></div><div class="info-card cyan-edge"><div class="card-thumb"><img src="/images/slides/the_electric_guitar/rickenbacker_360_12_string.jpg" alt="Rickenbacker 360-12 12-String Electric Guitar" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/rickenbacker_360_12_string.jpg', 'Rickenbacker 360-12 12-String Electric Guitar')"></div>
                <span class="spec-pill ao4">AO4 The "Jangle" Era</span>
                <h4>Rickenbacker 360/12 (1964)</h4>
-               <p>Paired 6 standard strings with 6 higher octave strings. Delivered the bright, shimmering, jangly 1960s pop sound defining The Beatles (*A Hard Day's Night*), The Byrds, and Tom Petty.</p></div><div class="info-card acid-edge"><div class="card-thumb"><img src="/images/slides/the_electric_guitar/extended_range_7_8_string.jpg" alt="Extended Range 7-String and 8-String Modern Electric Guitars" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/extended_range_7_8_string.jpg', 'Extended Range 7-String and 8-String Modern Electric Guitars')"></div>
+               <p>Paired 6 standard strings with 6 higher octave strings. Delivered the bright, shimmering, jangly 1960s pop sound defining The Beatles (*A Hard Day's Night*), The Byrds, and Tom Petty.</p>
+               <div class="video-btn-row" style="display:flex; gap:8px; align-items:center; margin-top:10px; flex-wrap:wrap;"><button class="video-trigger-btn" onclick="openVideo('W4ga_M5Zdn4', 'The Byrds - Turn! Turn! Turn! (Rickenbacker 360/12)')" style="display:inline-flex; align-items:center; gap:6px; font-size:11px; font-weight:800; color:#080d1a; background:linear-gradient(135deg, #f59e0b, #fbbf24); border:0; padding:6px 12px; border-radius:6px; cursor:pointer;">▶ Listen: 12-String Jangle</button><a href="https://www.youtube.com/watch?v=W4ga_M5Zdn4" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" style="display:inline-flex; align-items:center; gap:4px; font-size:11px; font-weight:700; color:#fff !important; background:rgba(239,68,68,0.2); border:1px solid rgba(239,68,68,0.45); padding:5px 10px; border-radius:6px; text-decoration:none;" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div></div><div class="info-card acid-edge"><div class="card-thumb"><img src="/images/slides/the_electric_guitar/extended_range_7_8_string.jpg" alt="Extended Range 7-String and 8-String Modern Electric Guitars" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/extended_range_7_8_string.jpg', 'Extended Range 7-String and 8-String Modern Electric Guitars')"></div>
                <span class="spec-pill ao4">AO4 Modern Extended Range</span>
                <h4>7-String &amp; Multi-Scale Guitars</h4>
                <p>From Steve Vai's 1990 Ibanez Universe to modern fanned-fret 8-strings: extended low-B and low-F# strings required longer scale lengths (27–28 inches) to maintain string tension and intonation clarity.</p></div></div>
@@ -1148,7 +1247,8 @@
         <div class="grid-3"><div class="info-card highlight"><div class="card-thumb"><img src="/images/slides/the_electric_guitar/eddie_van_halen_frankenstrat.jpg" alt="Eddie Van Halen Original Frankenstrat Hybrid Guitar" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/eddie_van_halen_frankenstrat.jpg', 'Eddie Van Halen Original Frankenstrat Hybrid Guitar')"></div>
                <span class="spec-pill ao4">AO4 DIY Innovation</span>
                <h4>The "Frankenstrat" (1977)</h4>
-               <p>Eddie Van Halen married a Fender Stratocaster body with a slanted Gibson PAF humbucker. Blended Fender's ergonomic tremolo feel with the thick, high-gain overdrive of a Gibson humbucker.</p></div><div class="info-card cyan-edge"><div class="card-thumb"><img src="/images/slides/the_electric_guitar/floyd_rose_locking_tremolo.svg" alt="Floyd Rose Double-Locking Tremolo System Mechanical Engineering Diagram" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/floyd_rose_locking_tremolo.svg', 'Floyd Rose Double-Locking Tremolo System Mechanical Engineering Diagram')"></div>
+               <p>Eddie Van Halen married a Fender Stratocaster body with a slanted Gibson PAF humbucker. Blended Fender's ergonomic tremolo feel with the thick, high-gain overdrive of a Gibson humbucker.</p>
+               <div class="video-btn-row" style="display:flex; gap:8px; align-items:center; margin-top:10px; flex-wrap:wrap;"><button class="video-trigger-btn" onclick="openVideo('M4Czx8EWXb0', 'Eddie Van Halen - Eruption (Frankenstrat)')" style="display:inline-flex; align-items:center; gap:6px; font-size:11px; font-weight:800; color:#080d1a; background:linear-gradient(135deg, #f59e0b, #fbbf24); border:0; padding:6px 12px; border-radius:6px; cursor:pointer;">▶ Listen: EVH Eruption</button><a href="https://www.youtube.com/watch?v=M4Czx8EWXb0" target="_blank" rel="noopener noreferrer" class="yt-direct-btn" style="display:inline-flex; align-items:center; gap:4px; font-size:11px; font-weight:700; color:#fff !important; background:rgba(239,68,68,0.2); border:1px solid rgba(239,68,68,0.45); padding:5px 10px; border-radius:6px; text-decoration:none;" title="Watch directly on YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: -1px; margin-right: 3px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube ↗</a></div></div><div class="info-card cyan-edge"><div class="card-thumb"><img src="/images/slides/the_electric_guitar/floyd_rose_locking_tremolo.svg" alt="Floyd Rose Double-Locking Tremolo System Mechanical Engineering Diagram" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/floyd_rose_locking_tremolo.svg', 'Floyd Rose Double-Locking Tremolo System Mechanical Engineering Diagram')"></div>
                <span class="spec-pill ao3">AO3 Locking Tremolo Physics</span>
                <h4>Floyd Rose Double-Locking System</h4>
                <p>Clamped strings rigidly at both the nut and bridge saddles. Stopped strings from slipping through friction points during aggressive dive-bombs and pull-ups, preserving pitch intonation.</p></div><div class="info-card acid-edge"><div class="card-thumb"><img src="/images/slides/the_electric_guitar/ibanez_jem_steve_vai.jpg" alt="Ibanez JEM 777 Steve Vai Signature Superstrat Guitar" loading="lazy" class="slide-thumb" style="width: 100%; height: 175px; object-fit: contain; background: rgba(0,0,0,0.45); padding: 4px; cursor: zoom-in; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: block;" onclick="openLightbox('/images/slides/the_electric_guitar/ibanez_jem_steve_vai.jpg', 'Ibanez JEM 777 Steve Vai Signature Superstrat Guitar')"></div>
@@ -1430,5 +1530,74 @@
     </div>
   </div>
 
+
+  <!-- HD Theater Video Modal -->
+  <div class="video-modal-backdrop" id="videoModal" onclick="if(event.target===this)closeVideo()" style="display:none; position:fixed; inset:0; width:100vw; height:100vh; background:rgba(2,6,23,0.92); backdrop-filter:blur(12px); z-index:99999; align-items:center; justify-content:center; padding:20px;">
+    <div class="video-modal-content" style="width:100%; max-width:1200px; background:#0f172a; border:1px solid rgba(56,189,248,0.35); border-radius:16px; overflow:hidden; box-shadow:0 25px 70px rgba(0,0,0,0.95);">
+      <div class="video-modal-header" style="padding:12px 18px; background:#090d16; border-bottom:1px solid rgba(255,255,255,0.1); display:flex; justify-content:space-between; align-items:center;">
+        <span class="video-modal-title" id="videoModalTitle" style="font-size:14px; font-weight:800; color:#f8fafc;">HD Video Player</span>
+        <div style="display:flex; align-items:center; gap:10px;">
+          <a id="videoModalDirectLink" href="https://www.youtube.com" target="_blank" rel="noopener noreferrer" style="font-size:12px; font-weight:700; color:#f8fafc; background:rgba(239,68,68,0.25); border:1px solid rgba(239,68,68,0.5); padding:5px 12px; border-radius:6px; text-decoration:none;">Open on YouTube ↗</a>
+          <button onclick="closeVideo()" style="background:#ef4444; color:#fff; border:none; border-radius:6px; padding:5px 12px; font-size:12px; font-weight:800; cursor:pointer;">✕ Close (Esc)</button>
+        </div>
+      </div>
+      <div style="position:relative; width:100%; padding-bottom:56.25%; height:0; background:#000;">
+        <iframe id="videoIframe" src="" style="position:absolute; inset:0; width:100%; height:100%; border:0;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+  <script>
+    function openVideo(videoId, title) {
+      var modal = document.getElementById('videoModal');
+      var iframe = document.getElementById('videoIframe');
+      var modalTitle = document.getElementById('videoModalTitle');
+      var directLink = document.getElementById('videoModalDirectLink');
+      if (!modal || !iframe) return;
+      if (modalTitle) modalTitle.textContent = title || 'HD Video Example';
+      if (directLink) directLink.href = 'https://www.youtube.com/watch?v=' + videoId;
+      iframe.src = 'https://www.youtube-nocookie.com/embed/' + videoId + '?autoplay=1&rel=0&modestbranding=1&vq=hd1080';
+      modal.classList.add('open');
+      modal.style.display = 'flex';
+    }
+    function closeVideo() {
+      var modal = document.getElementById('videoModal');
+      var iframe = document.getElementById('videoIframe');
+      if (!modal) return;
+      modal.classList.remove('open');
+      modal.style.display = 'none';
+      if (iframe) iframe.src = '';
+    }
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeVideo();
+    });
+  </script>
+
+<!-- === HASH DEEP LINK === -->
+<script>
+  window.addEventListener('DOMContentLoaded', function() {
+    var h = window.__initialHash || window.location.hash || '';
+    var m = h.match(/^#slide-(\d+)$/i);
+    if (m) {
+      var targetIdx = parseInt(m[1], 10) - 1;
+      if (targetIdx > 0) {
+        setTimeout(function() {
+          if (typeof goToSlide === 'function') {
+            goToSlide(targetIdx);
+          } else if (typeof jumpToSlide === 'function') {
+            jumpToSlide(targetIdx);
+          } else if (typeof showSlide === 'function') {
+            showSlide(targetIdx);
+          } else if (typeof nextSlide === 'function') {
+            for (var i = 0; i < targetIdx; i++) nextSlide();
+          } else {
+            var nb = document.getElementById('nextBtn');
+            if (nb) { for (var j = 0; j < targetIdx; j++) nb.click(); }
+          }
+        }, 50);
+      }
+    }
+  });
+</script>
+<!-- === END HASH DEEP LINK === -->
 </body>
 </html>
