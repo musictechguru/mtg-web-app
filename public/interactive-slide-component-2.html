@@ -1,0 +1,1840 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <title>Component 2: Technology-Based Composition | Edexcel A-Level Music Technology Master Deck</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #080e1a;
+      --panel-bg: #0f172a;
+      --card-bg: rgba(255, 255, 255, 0.03);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --accent-prod: #a855f7;
+      --accent-prod-glow: rgba(168, 85, 247, 0.25);
+      --accent-tech: #38bdf8;
+      --accent-tech-glow: rgba(56, 189, 248, 0.25);
+      --accent-gold: #f59e0b;
+      --accent-purple: #a855f7;
+      --text-white: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-dim: #64748b;
+      --border-subtle: rgba(255, 255, 255, 0.06);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      height: 100% !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      overflow: hidden !important;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-white);
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.5;
+      display: flex !important;
+      flex-direction: column !important;
+      height: 100vh !important;
+      max-height: 100vh !important;
+      box-sizing: border-box !important;
+    }
+
+    .deck-topbar-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 4px 16px;
+      background: rgba(8, 14, 26, 0.95);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 11.5px;
+      z-index: 90;
+      flex-shrink: 0;
+      height: 36px;
+      box-sizing: border-box;
+    }
+
+    .exit-deck-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      color: #94a3b8;
+      text-decoration: none;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+    .exit-deck-link:hover {
+      background: var(--accent-prod-glow);
+      border-color: var(--accent-prod);
+      color: #ffffff;
+    }
+
+    .deck-topbar-title {
+      color: #cbd5e1;
+      font-size: 12px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .floating-exit-fs {
+      display: none;
+      position: fixed;
+      top: 12px;
+      right: 16px;
+      z-index: 10005;
+      background: rgba(220, 38, 38, 0.9);
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+    .floating-exit-fs:hover {
+      background: rgba(239, 68, 68, 1);
+      transform: scale(1.04);
+    }
+    :fullscreen .floating-exit-fs,
+    :-webkit-full-screen .floating-exit-fs {
+      display: inline-flex !important;
+    }
+
+    .deck-container {
+      width: 100%;
+      max-width: 1600px;
+      margin: 0 auto;
+      flex: 1 1 auto !important;
+      min-height: 0 !important;
+      padding: 8px 16px 6px 16px !important;
+      display: flex !important;
+      flex-direction: column !important;
+      overflow: hidden !important;
+      box-sizing: border-box !important;
+    }
+
+    .slide {
+      display: none;
+      flex-direction: column;
+      flex: 1 1 auto !important;
+      min-height: 0 !important;
+      height: 100% !important;
+      overflow: hidden !important;
+      animation: fadeIn 0.3s ease-out;
+    }
+
+    .slide.active {
+      display: flex !important;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .slide-header {
+      margin-bottom: 6px !important;
+      padding-bottom: 4px !important;
+      border-bottom: 1px solid var(--border-subtle);
+      flex-shrink: 0 !important;
+    }
+
+    .era-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--accent-prod-glow);
+      border: 1px solid var(--accent-prod);
+      color: var(--accent-prod);
+      font-size: 10px !important;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 2px 8px !important;
+      border-radius: 50px;
+      margin-bottom: 2px !important;
+    }
+
+    .slide-title {
+      font-size: clamp(17px, 2vw, 22px) !important;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      color: var(--text-white);
+      line-height: 1.15 !important;
+      margin-bottom: 2px !important;
+    }
+
+    .slide-title span {
+      color: var(--accent-prod);
+    }
+
+    .slide-subtitle {
+      font-size: 11.5px !important;
+      color: var(--text-muted);
+      line-height: 1.3 !important;
+      max-width: 1150px;
+    }
+
+    .split-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px !important;
+      flex: 1 1 auto !important;
+      min-height: 0 !important;
+      overflow: hidden !important;
+      align-items: stretch;
+    }
+
+    @media (max-width: 1024px) {
+      .split-grid {
+        grid-template-columns: 1fr;
+        overflow-y: auto !important;
+      }
+    }
+
+    .col-panel {
+      background: var(--panel-bg);
+      border-radius: 12px;
+      padding: 10px 12px !important;
+      display: flex;
+      flex-direction: column;
+      gap: 6px !important;
+      position: relative;
+      height: 100% !important;
+      min-height: 0 !important;
+      max-height: 100% !important;
+      overflow-y: auto !important;
+      box-sizing: border-box !important;
+    }
+
+    .col-panel::-webkit-scrollbar { width: 5px; }
+    .col-panel::-webkit-scrollbar-track { background: rgba(15, 23, 42, 0.4); border-radius: 4px; }
+    .col-panel::-webkit-scrollbar-thumb { background: rgba(148, 163, 184, 0.35); border-radius: 4px; }
+
+    .col-music {
+      border: 1px solid var(--accent-prod);
+      box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.1), 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+    }
+    .col-music::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent-prod), var(--accent-tech), transparent);
+    }
+
+    .col-tech {
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      box-shadow: inset 0 1px 0 0 rgba(56, 189, 248, 0.1), 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+    }
+    .col-tech::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent-tech), #818cf8, transparent);
+    }
+
+    .col-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 4px !important;
+      border-bottom: 1px solid var(--border-subtle);
+      flex-shrink: 0;
+    }
+
+    .col-tag {
+      font-size: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 2px 8px;
+      border-radius: 5px;
+    }
+
+    .col-music .col-tag {
+      background: var(--accent-prod-glow);
+      color: var(--accent-prod);
+      border: 1px solid var(--accent-prod);
+    }
+
+    .col-tech .col-tag {
+      background: rgba(56, 189, 248, 0.15);
+      color: #7dd3fc;
+      border: 1px solid rgba(56, 189, 248, 0.3);
+    }
+
+    .col-Quick-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-muted);
+    }
+
+    .video-wrapper {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25% !important;
+      background: #000;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
+      flex-shrink: 0;
+    }
+
+    .video-wrapper iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      border: 0;
+    }
+
+    .video-actions-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-top: 2px;
+      flex-shrink: 0;
+    }
+
+    .hd-theater-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--accent-prod-glow);
+      border: 1px solid var(--accent-prod);
+      color: #ffffff;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+    .hd-theater-btn:hover {
+      background: var(--accent-prod);
+      color: #fff;
+      transform: translateY(-1px);
+    }
+
+    .yt-direct-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: rgba(239, 68, 68, 0.15);
+      border: 1px solid rgba(239, 68, 68, 0.35);
+      color: #fca5a5;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+    .yt-direct-link:hover {
+      background: rgba(239, 68, 68, 0.3);
+      color: #fff;
+    }
+
+    .track-banner {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 6px 10px !important;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .track-info h4 {
+      font-size: 12.5px !important;
+      font-weight: 800;
+      color: var(--text-white);
+      margin-bottom: 1px;
+    }
+
+    .track-info p {
+      font-size: 11px !important;
+      color: var(--accent-prod);
+      font-weight: 600;
+    }
+
+    .listening-focus {
+      background: rgba(15, 23, 42, 0.65);
+      border: 1px solid var(--accent-prod);
+      border-radius: 8px;
+      padding: 8px 10px !important;
+      flex: 1;
+    }
+
+    .listening-focus h5 {
+      font-size: 10.5px !important;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--accent-prod);
+      margin-bottom: 4px !important;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .listening-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 4px !important;
+    }
+
+    .listening-list li {
+      font-size: 11.5px !important;
+      color: #e2e8f0;
+      padding-left: 14px;
+      position: relative;
+      line-height: 1.35 !important;
+    }
+
+    .listening-list li::before {
+      content: '▸';
+      position: absolute;
+      left: 0;
+      color: var(--accent-prod);
+      font-weight: bold;
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-top: auto;
+      flex-shrink: 0;
+    }
+
+    .Mini-badge {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #cbd5e1;
+      font-size: 10px;
+      font-weight: 600;
+      padding: 2px 7px;
+      border-radius: 5px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .photo-card {
+      position: relative;
+      width: 100%;
+      height: 125px !important;
+      min-height: 95px !important;
+      max-height: 140px !important;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #040812;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 1 !important;
+      cursor: zoom-in;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .photo-card:hover {
+      border-color: var(--accent-tech);
+      box-shadow: 0 0 18px rgba(56, 189, 248, 0.25);
+    }
+
+    .photo-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      padding: 4px;
+      background: radial-gradient(circle at center, #1e293b 0%, #090d16 100%);
+      transition: transform 0.25s ease;
+    }
+
+    .photo-card:hover img {
+      transform: scale(1.03);
+    }
+
+    .zoom-hint-pill {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #e2e8f0;
+      font-size: 9.5px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 6px;
+      pointer-events: none;
+      backdrop-filter: blur(4px);
+    }
+
+    .gear-title-bar {
+      background: rgba(56, 189, 248, 0.08);
+      border: 1px solid rgba(56, 189, 248, 0.2);
+      border-radius: 8px;
+      padding: 6px 10px !important;
+      flex-shrink: 0;
+    }
+
+    .gear-title-bar h4 {
+      font-size: 13px !important;
+      font-weight: 800;
+      color: #f8fafc;
+      margin-bottom: 1px;
+    }
+
+    .gear-title-bar span {
+      font-size: 10.5px !important;
+      color: #38bdf8;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 600;
+    }
+
+    .tech-card {
+      background: rgba(255, 255, 255, 0.025);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 8px 10px !important;
+    }
+
+    .tech-card h5 {
+      font-size: 10.5px !important;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #38bdf8;
+      margin-bottom: 4px !important;
+    }
+
+    .tech-card p {
+      font-size: 11.5px !important;
+      color: #cbd5e1;
+      line-height: 1.35 !important;
+    }
+
+    .steps-box {
+      background: rgba(245, 158, 11, 0.06);
+      border: 1px solid rgba(245, 158, 11, 0.25);
+      border-radius: 8px;
+      padding: 8px 10px !important;
+      margin-top: auto;
+    }
+
+    .steps-box h5 {
+      font-size: 10.5px !important;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--accent-gold);
+      margin-bottom: 4px !important;
+    }
+
+    .step-items {
+      display: flex;
+      flex-direction: column;
+      gap: 4px !important;
+    }
+
+    .step-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+      font-size: 11px !important;
+      color: #e2e8f0;
+      line-height: 1.3 !important;
+    }
+
+    .step-num {
+      background: rgba(245, 158, 11, 0.2);
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      color: #fbbf24;
+      font-weight: 800;
+      font-size: 9.5px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .deck-nav {
+      width: 100%;
+      max-width: 1600px;
+      margin: 0 auto;
+      padding: 6px 16px !important;
+      height: 44px !important;
+      flex-shrink: 0 !important;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid var(--border-subtle);
+      background: rgba(8, 14, 26, 0.95);
+      backdrop-filter: blur(10px);
+      z-index: 50;
+      box-sizing: border-box !important;
+    }
+
+    .nav-btn {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      color: var(--text-white);
+      padding: 5px 14px !important;
+      border-radius: 8px;
+      font-size: 12px !important;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+
+    .nav-btn:hover:not(:disabled) {
+      background: var(--accent-prod);
+      border-color: var(--accent-prod);
+      color: #fff;
+    }
+
+    .nav-btn:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+
+    .progress-dots {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.2);
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .dot.active {
+      width: 22px;
+      border-radius: 6px;
+      background: var(--accent-prod);
+      box-shadow: 0 0 10px var(--accent-prod-glow);
+    }
+
+    .slide-counter {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: var(--text-muted);
+      font-family: 'JetBrains Mono', monospace;
+      margin-left: 8px;
+    }
+
+    .img-modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(4, 8, 18, 0.92);
+      backdrop-filter: blur(10px);
+      z-index: 9999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+    .img-modal-backdrop.open {
+      display: flex;
+      opacity: 1;
+    }
+    .img-modal-content {
+      position: relative;
+      max-width: 92vw;
+      max-height: 88vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: #0f172a;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 14px;
+      padding: 16px;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85);
+    }
+    .img-modal-content img {
+      max-width: 86vw;
+      max-height: 75vh;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      border-radius: 8px;
+      background: #080e1a;
+    }
+    .img-modal-close {
+      position: absolute;
+      top: -14px;
+      right: -14px;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: #ef4444;
+      color: #fff;
+      border: 2px solid #fff;
+      font-weight: 900;
+      font-size: 15px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    }
+    .img-modal-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #f8fafc;
+      text-align: center;
+    }
+
+    .video-modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(4, 8, 18, 0.95);
+      backdrop-filter: blur(12px);
+      z-index: 10000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .video-modal-backdrop.open {
+      display: flex;
+    }
+    .video-modal-box {
+      position: relative;
+      width: 90vw;
+      max-width: 1280px;
+      background: #0f172a;
+      border: 1px solid var(--accent-prod);
+      border-radius: 16px;
+      padding: 14px;
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.9);
+    }
+    .video-modal-frame-wrap {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%;
+      background: #000;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .video-modal-frame-wrap iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      border: 0;
+    }
+    .video-modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      padding: 0 4px;
+    }
+    .video-modal-title {
+      font-size: 14px;
+      font-weight: 800;
+      color: #f8fafc;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .video-modal-close {
+      background: #ef4444;
+      color: #fff;
+      border: none;
+      padding: 5px 12px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="deck-topbar-controls">
+    <div style="display:flex; align-items:center; gap:10px;">
+      <a href="https://www.musictechguru.com/homepage/a-level-music-technology/component-2-sequencing-sampling-synthesis-composition/" target="_top" class="exit-deck-link" title="Return to Component 2 Hub">
+        <span>← Exit Deck</span>
+      </a>
+      <span style="color:rgba(255,255,255,0.15);">|</span>
+      <div class="deck-topbar-title">
+        <span>Component 2: Technology-Based Composition (9MT0/02)</span>
+      </div>
+    </div>
+    <div style="display:flex; align-items:center; gap:8px;">
+      <a href="https://app.musictechguru.com" target="_blank" rel="noopener" class="exit-deck-link" style="background:var(--accent-prod-glow); border-color:var(--accent-prod); color:#fff;">
+        <span>🚀 Open Full MTG Revision App</span>
+      </a>
+      <button class="exit-deck-link" onclick="toggleFullscreen()" title="Toggle Fullscreen Mode (F)">
+        <span>⛶ Fullscreen</span>
+      </button>
+    </div>
+  </div>
+
+  <button class="floating-exit-fs" id="floatingExitFs" onclick="exitFullscreenMode()" title="Exit Fullscreen (Esc)">
+    <span>✕ Exit Fullscreen</span>
+  </button>
+
+  <div class="deck-container">
+    <!-- SLIDE 1 -->
+    <div class="slide active" id="slide-1">
+      <div class="slide-header">
+        <div class="era-badge">NEA COURSEWORK &bull; 9MT0/02 OVERVIEW</div>
+        <h1 class="slide-title">Component 2: <span>Technology-Based Composition Architecture</span></h1>
+        <p class="slide-subtitle">Component 2 (9MT0/02) is the non-exam composition assessment worth 20% of the A-Level (60 marks). Candidates create an original technology-based piece (2:30–3:30) responding to one of three Pearson set briefs.</p>
+      </div>
+
+      <div class="split-grid">
+        <div class="col-panel col-music">
+          <div class="col-header">
+            <span class="col-tag">Official Composition Guide</span>
+            <span class="col-Quick-title">Component 2 Composition & Arrangement Basics</span>
+          </div>
+
+          <div class="video-wrapper">
+            <iframe src="https://www.youtube-nocookie.com/embed/khY16VLIJMo?rel=0&modestbranding=1&vq=hd1080&playsinline=1" title="Edexcel A Level Music Technology Component 2 - Composition - Arrangement Basics" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div class="video-actions-bar">
+            <button class="hd-theater-btn" onclick="openVideo('khY16VLIJMo', 'Edexcel A Level Music Technology Component 2 - Composition - Arrangement Basics')">
+              <span>⛶ Watch in HD (Theater Mode)</span>
+            </button>
+            <a href="https://www.youtube.com/watch?v=khY16VLIJMo" target="_blank" rel="noopener" class="yt-direct-link">
+              <span>▶ YouTube ↗</span>
+            </a>
+          </div>
+
+          <div class="track-banner">
+            <div class="track-info">
+              <h4>Edexcel A Level Music Technology Component 2 - Composition - Arrangement Basics</h4>
+              <p>Music Tech Guru Official Composition Masterclass</p>
+            </div>
+          </div>
+
+          <div class="listening-focus">
+            <h5>🎧 Mandatory Pearson Edexcel Component 2 Requirements</h5>
+            <ul class="listening-list">
+              <li>You must select one official Pearson brief (Brief 1: Video/Film clip, Brief 2: Text/Poem stimulus, or Brief 3: Topic/Theme stimulus) and compose a piece strictly between 2:30 and 3:30.</li>
+              <li>Your composition MUST integrate original synthesis patches created from scratch, original creative sampling/audio manipulation, and expressive MIDI sequencing—stock presets and unedited loops score low marks!</li>
+            </ul>
+          </div>
+
+          <div class="tag-row">
+            <span class="Mini-badge">60 Marks</span>
+            <span class="Mini-badge">20% of A-Level</span>
+            <span class="Mini-badge">2:30–3:30 Duration</span>
+            <span class="Mini-badge">3 Set Briefs</span>
+            <span class="Mini-badge">Original Synthesis</span>
+            <span class="Mini-badge">Creative Sampling</span>
+          </div>
+        </div>
+
+        <div class="col-panel col-tech">
+          <div class="col-header">
+            <span class="col-tag">DAW Sequencing & Synthesis Workspace</span>
+            <span class="col-Quick-title">Integrating Synthesis, Sampling, Audio & MIDI</span>
+          </div>
+
+          <div class="photo-card">
+            <img src="/images/MIDI Piano Roll Logic.png" alt="Logic Pro X MIDI Piano Roll & Synthesis Composition Workspace" loading="lazy">
+            <span class="zoom-hint-pill">🔍 Click to Expand</span>
+          </div>
+
+          <div class="gear-title-bar">
+            <h4>🎹 The 4 Pillars of Component 2 Assessment</h4>
+            <span>Original Synthesis &bull; Creative Sampling &bull; MIDI Sequencing &bull; Musical Composition & Mix</span>
+          </div>
+
+          <div class="tech-card">
+            <h5>How the 60 Marks Are Awarded</h5>
+            <p style="margin-bottom: 5px;">Examiners mark equally across Musical Composition (structure, harmony, melody, rhythm, response to brief) and Creative Music Technology (synthesis from scratch, sample manipulation, automation, and final mix quality).</p>
+            <p>Every synthesizer patch and sampled sound must be documented in your Component 2 Logbook showing how you initialized the patch and sculpted oscillators, filters, envelopes, and LFOs.</p>
+          </div>
+
+          <div class="steps-box">
+            <h5>⭐ Golden Rules for Top-Band Marks (50–60/60)</h5>
+            <div class="step-items">
+            <div class="step-item"><span class="step-num">1</span><span><strong>Never Rely on Unmodified Presets:</strong> Initialize ('Init') your synth patches or substantially reprogram oscillators, filters, and envelopes—and screenshot them for your logbook.</span></div>
+            <div class="step-item"><span class="step-num">2</span><span><strong>Record & Manipulate Your Own Samples:</strong> Capture original vocal phrases, Foley hits, or acoustic sounds and transform them using Quick Sampler / Alchemy.</span></div>
+            <div class="step-item"><span class="step-num">3</span><span><strong>Strict 2:30–3:30 Duration:</strong> Unlike Component 1 (2:00 min), Component 2 requires a minimum duration of 2 minutes 30 seconds.</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- SLIDE 2 -->
+    <div class="slide" id="slide-2">
+      <div class="slide-header">
+        <div class="era-badge">SECTION 1 &bull; SUBTRACTIVE SYNTHESIS ARCHITECTURE</div>
+        <h1 class="slide-title">Subtractive Synthesis: <span>Oscillators, Waveforms &amp; Harmonics</span></h1>
+        <p class="slide-subtitle">To score top marks in Component 2 synthesis, you must build patches from an initialized state using oscillators (VCO/DCO), harmonic waveform selection, detuning, and sub-oscillator layering.</p>
+      </div>
+
+      <div class="split-grid">
+        <div class="col-panel col-music">
+          <div class="col-header">
+            <span class="col-tag">Synthesis Masterclass Lesson 1</span>
+            <span class="col-Quick-title">Subtractive Synthesis Introduction</span>
+          </div>
+
+          <div class="video-wrapper">
+            <iframe src="https://www.youtube-nocookie.com/embed/LUjKWcpvU6c?rel=0&modestbranding=1&vq=hd1080&playsinline=1" title="Subtractive Synthesis Lesson 1 Introduction" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div class="video-actions-bar">
+            <button class="hd-theater-btn" onclick="openVideo('LUjKWcpvU6c', 'Subtractive Synthesis Lesson 1 Introduction')">
+              <span>⛶ Watch in HD (Theater Mode)</span>
+            </button>
+            <a href="https://www.youtube.com/watch?v=LUjKWcpvU6c" target="_blank" rel="noopener" class="yt-direct-link">
+              <span>▶ YouTube ↗</span>
+            </a>
+          </div>
+
+          <div class="track-banner">
+            <div class="track-info">
+              <h4>Subtractive Synthesis Lesson 1 Introduction</h4>
+              <p>Music Tech Guru Synthesis Series</p>
+            </div>
+          </div>
+
+          <div class="listening-focus">
+            <h5>🎧 Listening Focus: Harmonic Spectra of Core Waveforms</h5>
+            <ul class="listening-list">
+              <li>Sine Wave: Fundamental frequency only ($1f$)—pure sub-bass weight. Triangle Wave: Odd harmonics rolling off steeply ($1/n^2$)—warm flute/hollow lead.</li>
+              <li>Sawtooth Wave: All integer harmonics ($1f, 2f, 3f, 4f...$)—bright, buzzy brass/strings/pads. Square/Pulse Wave: Odd harmonics only ($1f, 3f, 5f...$)—woodwind/woody hollow bass; Pulse Width Modulation (PWM) creates lush chorus movement.</li>
+            </ul>
+          </div>
+
+          <div class="tag-row">
+            <span class="Mini-badge">Sine (1f)</span>
+            <span class="Mini-badge">Triangle (Odd 1/n²)</span>
+            <span class="Mini-badge">Sawtooth (All Integer)</span>
+            <span class="Mini-badge">Square / PWM</span>
+            <span class="Mini-badge">Cent Detuning</span>
+            <span class="Mini-badge">Sub-Oscillator (-1 Oct)</span>
+          </div>
+        </div>
+
+        <div class="col-panel col-tech">
+          <div class="col-header">
+            <span class="col-tag">Subtractive Synthesizer Signal Flow</span>
+            <span class="col-Quick-title">Oscillator -> Filter -> Amplifier -> Modulation</span>
+          </div>
+
+          <div class="photo-card">
+            <img src="/images/subtractive_synth_flow_hq.png" alt="Subtractive Synthesizer Signal Flow Diagram" loading="lazy">
+            <span class="zoom-hint-pill">🔍 Click to Expand</span>
+          </div>
+
+          <div class="gear-title-bar">
+            <h4>🎛️ Initialized Patch Design (VCO -> VCF -> VCA)</h4>
+            <span>Harmonic Generation &bull; Spectral Filtering &bull; Amplitude Shaping</span>
+          </div>
+
+          <div class="tech-card">
+            <h5>Unison Detuning & Oscillator Sync</h5>
+            <p style="margin-bottom: 5px;">Stacking two or more sawtooth oscillators and detuning them by ±7 to ±18 cents creates phase interference beating (the classic 'Reese bass' or 'Supersaw' pad texture) without needing an external chorus plugin.</p>
+            <p>Hard Sync locks the phase reset of Oscillator 2 to the fundamental pitch of Oscillator 1; sweeping Oscillator 2's pitch via an envelope produces aggressive, tearing harmonic lead timbres.</p>
+          </div>
+
+          <div class="steps-box">
+            <h5>⭐ Examiner Synth Patch Tips</h5>
+            <div class="step-items">
+            <div class="step-item"><span class="step-num">1</span><span><strong>Start from 'Init' Patch:</strong> In Retro Synth or ES2, choose 'Initialize' or 'Recall Default' so every parameter choice is authentically yours.</span></div>
+            <div class="step-item"><span class="step-num">2</span><span><strong>Add Noise for Acoustic Realism:</strong> Blend 5–10% White or Pink Noise with a Triangle/Saw wave to simulate breath Chiff on synth flutes and brass.</span></div>
+            <div class="step-item"><span class="step-num">3</span><span><strong>Glide / Portamento:</strong> Enable Mono Legato mode with 40–80ms Glide time on sub-basses and expressive synth leads.</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- SLIDE 3 -->
+    <div class="slide" id="slide-3">
+      <div class="slide-header">
+        <div class="era-badge">SECTION 2 &bull; FILTERING & RESONANCE</div>
+        <h1 class="slide-title">Synth Bass &amp; Leads: <span>Filter Cutoff, Resonance &amp; Key Tracking</span></h1>
+        <p class="slide-subtitle">The Voltage Controlled Filter (VCF) sculpts raw oscillator harmonics into dynamic basslines, acid squelches, and evolving pads using Low-Pass, High-Pass, and Band-Pass slopes.</p>
+      </div>
+
+      <div class="split-grid">
+        <div class="col-panel col-music">
+          <div class="col-header">
+            <span class="col-tag">Synthesis Masterclass Lesson 2</span>
+            <span class="col-Quick-title">Creating Classic Synth BassPatches</span>
+          </div>
+
+          <div class="video-wrapper">
+            <iframe src="https://www.youtube-nocookie.com/embed/olkaItQbSZ4?rel=0&modestbranding=1&vq=hd1080&playsinline=1" title="Synthesis Lesson 2 Kernkraft Bass" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div class="video-actions-bar">
+            <button class="hd-theater-btn" onclick="openVideo('olkaItQbSZ4', 'Synthesis Lesson 2 Kernkraft Bass')">
+              <span>⛶ Watch in HD (Theater Mode)</span>
+            </button>
+            <a href="https://www.youtube.com/watch?v=olkaItQbSZ4" target="_blank" rel="noopener" class="yt-direct-link">
+              <span>▶ YouTube ↗</span>
+            </a>
+          </div>
+
+          <div class="track-banner">
+            <div class="track-info">
+              <h4>Synthesis Lesson 2 Kernkraft Bass</h4>
+              <p>Music Tech Guru Sound Design Guide</p>
+            </div>
+          </div>
+
+          <div class="listening-focus">
+            <h5>🎧 Listening Focus: 12dB/oct vs 24dB/oct Ladder Filters</h5>
+            <ul class="listening-list">
+              <li>A 24dB/octave (4-pole Moog style) Low-Pass Filter removes high frequencies steeply for punchy, deep basslines; a 12dB/octave (2-pole Oberheim style) filter leaves more upper-harmonic fizz and air.</li>
+              <li>Pushing Filter Resonance (Q) boosts frequencies right at the cutoff point; sweeping the cutoff with high resonance creates vocal-like formant sweeps and acid basslines.</li>
+            </ul>
+          </div>
+
+          <div class="tag-row">
+            <span class="Mini-badge">24dB/oct Low-Pass</span>
+            <span class="Mini-badge">12dB/oct Oberheim</span>
+            <span class="Mini-badge">Resonance (Q) Peak</span>
+            <span class="Mini-badge">Filter Drive / Saturation</span>
+            <span class="Mini-badge">Key Tracking</span>
+            <span class="Mini-badge">Reese Bass Detune</span>
+          </div>
+        </div>
+
+        <div class="col-panel col-tech">
+          <div class="col-header">
+            <span class="col-tag">Reese Bass & Filter Harmonics</span>
+            <span class="col-Quick-title">Detuned Sawtooth Phase Beating & Low-Pass Filtering</span>
+          </div>
+
+          <div class="photo-card">
+            <img src="/images/reese_bass_diagram.png" alt="Reese Bass Detuning and Low-Pass Filter Diagram" loading="lazy">
+            <span class="zoom-hint-pill">🔍 Click to Expand</span>
+          </div>
+
+          <div class="gear-title-bar">
+            <h4>🔊 Dynamic Filter Sculpting & Harmonic Drive</h4>
+            <span>Cutoff Frequency (Hz) &bull; Resonance ($Q$) &bull; Filter Envelope Amount</span>
+          </div>
+
+          <div class="tech-card">
+            <h5>Filter Envelopes & Keyboard Tracking</h5>
+            <p style="margin-bottom: 5px;">Routing ADSR Envelope 2 to the Filter Cutoff (with Fast Attack, 200ms Decay, Zero Sustain) makes the filter snap open on every note strike and close rapidly—creating the signature plucky synth bass sound.</p>
+            <p>Enabling Keyboard Tracking (0.5 to 1.0) raises the filter cutoff automatically as higher notes are played so upper-register notes don't sound muffled compared to low notes.</p>
+          </div>
+
+          <div class="steps-box">
+            <h5>⭐ Designing High-Scoring Synth Bass</h5>
+            <div class="step-items">
+            <div class="step-item"><span class="step-num">1</span><span><strong>Mono Below 120Hz:</strong> Keep your sub-oscillator strictly mono so low-end energy stays phase-coherent in the center of the mix.</span></div>
+            <div class="step-item"><span class="step-num">2</span><span><strong>Velocity-to-Cutoff Routing:</strong> Map MIDI Note Velocity to Filter Cutoff depth so harder key strikes produce brighter, more aggressive notes.</span></div>
+            <div class="step-item"><span class="step-num">3</span><span><strong>Filter Saturation / Drive:</strong> Add subtle internal filter drive to restore low-end warmth lost when high resonance is dialed in.</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- SLIDE 4 -->
+    <div class="slide" id="slide-4">
+      <div class="slide-header">
+        <div class="era-badge">SECTION 3 &bull; ENVELOPES & LFO MODULATION</div>
+        <h1 class="slide-title">Retro Synth &amp; Modulation: <span>ADSR Envelopes, LFOs &amp; Mod Matrix</span></h1>
+        <p class="slide-subtitle">Static synthesizer patches sound lifeless. Top-band Component 2 compositions use ADSR envelopes, Low Frequency Oscillators (LFOs), and Modulation Matrices to make timbres evolve continuously.</p>
+      </div>
+
+      <div class="split-grid">
+        <div class="col-panel col-music">
+          <div class="col-header">
+            <span class="col-tag">Retro Synth Masterclass</span>
+            <span class="col-Quick-title">How to Use the Retro Synth in Logic Pro X</span>
+          </div>
+
+          <div class="video-wrapper">
+            <iframe src="https://www.youtube-nocookie.com/embed/tBrkY4mQ_D4?rel=0&modestbranding=1&vq=hd1080&playsinline=1" title="How to use the RETRO SYNTH in Logic Pro X. Simple Music Production tutorial" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div class="video-actions-bar">
+            <button class="hd-theater-btn" onclick="openVideo('tBrkY4mQ_D4', 'How to use the RETRO SYNTH in Logic Pro X. Simple Music Production tutorial')">
+              <span>⛶ Watch in HD (Theater Mode)</span>
+            </button>
+            <a href="https://www.youtube.com/watch?v=tBrkY4mQ_D4" target="_blank" rel="noopener" class="yt-direct-link">
+              <span>▶ YouTube ↗</span>
+            </a>
+          </div>
+
+          <div class="track-banner">
+            <div class="track-info">
+              <h4>How to use the RETRO SYNTH in Logic Pro X. Simple Music Production tutorial</h4>
+              <p>Music Tech Guru Synth Walkthrough</p>
+            </div>
+          </div>
+
+          <div class="listening-focus">
+            <h5>🎧 Listening Focus: Shaping Plucks, Pads & Vibrato</h5>
+            <ul class="listening-list">
+              <li>ADSR (Attack, Decay, Sustain, Release): Percussive plucks use 0ms Attack, 180ms Decay, 0% Sustain, 100ms Release. Cinematic pads use 600ms Attack, 800ms Decay, 75% Sustain, 1500ms Release.</li>
+              <li>An LFO operates below human hearing (0.1 Hz – 20 Hz). Routing an LFO to Pitch creates Vibrato; routing to Filter Cutoff creates Wah/Wobble; routing to Amplitude creates Tremolo.</li>
+            </ul>
+          </div>
+
+          <div class="tag-row">
+            <span class="Mini-badge">Attack / Decay (Time)</span>
+            <span class="Mini-badge">Sustain (Level %)</span>
+            <span class="Mini-badge">Release (Time)</span>
+            <span class="Mini-badge">LFO -> Pitch (Vibrato)</span>
+            <span class="Mini-badge">LFO -> Filter (Wobble)</span>
+            <span class="Mini-badge">Wavetable / FM Modes</span>
+          </div>
+        </div>
+
+        <div class="col-panel col-tech">
+          <div class="col-header">
+            <span class="col-tag">ADSR Envelope Generator Architecture</span>
+            <span class="col-Quick-title">Attack, Decay, Sustain Level & Release Time Parameters</span>
+          </div>
+
+          <div class="photo-card">
+            <img src="/images/explanation_adsr_envelope.png" alt="ADSR Envelope Generator Diagram" loading="lazy">
+            <span class="zoom-hint-pill">🔍 Click to Expand</span>
+          </div>
+
+          <div class="gear-title-bar">
+            <h4>📈 Time-Variant Modulation & Expressive Control</h4>
+            <span>4-Stage ADSR Envelope &bull; Tempo-Synced LFO &bull; Mod Wheel (CC1) Routing</span>
+          </div>
+
+          <div class="tech-card">
+            <h5>4 Synthesis Engines Inside Logic Retro Synth</h5>
+            <p style="margin-bottom: 5px;">Retro Synth provides four distinct synthesis engines ideal for Component 2 diversity: Analog (classic subtractive), Sync (hard oscillator sync leads), Table (evolving digital wavetable pads), and FM (metallic DX7-style bells and electric pianos).</p>
+            <p>Combine at least two different synthesis types (e.g., Analog Subtractive bass + Wavetable evolving pad + FM percussive bell) and explain their signal paths in your logbook!</p>
+          </div>
+
+          <div class="steps-box">
+            <h5>⭐ Modulation Techniques Examiners Love</h5>
+            <div class="step-items">
+            <div class="step-item"><span class="step-num">1</span><span><strong>Delayed LFO Vibrato:</strong> Set LFO fade-in or route LFO depth via Mod Wheel (CC1) so sustained lead notes develop natural vibrato after 300ms.</span></div>
+            <div class="step-item"><span class="step-num">2</span><span><strong>Tempo-Synced LFO Wobbles:</strong> Sync the LFO rate to 1/4, 1/8T, or 1/16 notes to lock rhythmic filter movement to your project tempo.</span></div>
+            <div class="step-item"><span class="step-num">3</span><span><strong>Wavetable Position Automation:</strong> Automate the Wavetable position knob across an 8-bar riser so the harmonic timbre morphs organically.</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- SLIDE 5 -->
+    <div class="slide" id="slide-5">
+      <div class="slide-header">
+        <div class="era-badge">SECTION 4 &bull; CREATIVE SAMPLING & QUICK SAMPLER</div>
+        <h1 class="slide-title">Creative Sampling: <span>Foley Capture, Root Mapping &amp; Slicing</span></h1>
+        <p class="slide-subtitle">Component 2 requires original creative sampling. Recording everyday acoustic objects, vocal whispers, or instrument hits and transforming them in Logic's Quick Sampler or Multi-Sampler is a guaranteed mark-winner.</p>
+      </div>
+
+      <div class="split-grid">
+        <div class="col-panel col-music">
+          <div class="col-header">
+            <span class="col-tag">Quick Sampler Masterclass</span>
+            <span class="col-Quick-title">Logic Pro Q-Sampler Tutorial – A-Level Quick Guide</span>
+          </div>
+
+          <div class="video-wrapper">
+            <iframe src="https://www.youtube-nocookie.com/embed/BD-M-40CMW8?rel=0&modestbranding=1&vq=hd1080&playsinline=1" title="Logic Pro Q-Sampler Tutorial – A-Level Music Tech Quick Guide" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div class="video-actions-bar">
+            <button class="hd-theater-btn" onclick="openVideo('BD-M-40CMW8', 'Logic Pro Q-Sampler Tutorial – A-Level Music Tech Quick Guide')">
+              <span>⛶ Watch in HD (Theater Mode)</span>
+            </button>
+            <a href="https://www.youtube.com/watch?v=BD-M-40CMW8" target="_blank" rel="noopener" class="yt-direct-link">
+              <span>▶ YouTube ↗</span>
+            </a>
+          </div>
+
+          <div class="track-banner">
+            <div class="track-info">
+              <h4>Logic Pro Q-Sampler Tutorial – A-Level Music Tech Quick Guide</h4>
+              <p>Music Tech Guru Sampling Guide</p>
+            </div>
+          </div>
+
+          <div class="listening-focus">
+            <h5>🎧 Listening Focus: Classic Pitch-Tracking vs Slice Mode</h5>
+            <ul class="listening-list">
+              <li>In Classic Mode, Quick Sampler analyzes the fundamental pitch of your recorded audio, assigns it to the correct MIDI Root Key, and maps it chromatically across the keyboard.</li>
+              <li>In Slice Mode, transient markers split a vocal phrase or acoustic percussion performance into individual MIDI notes starting at C1, allowing complete rhythmic rearrangement.</li>
+            </ul>
+          </div>
+
+          <div class="tag-row">
+            <span class="Mini-badge">Original Foley Capture</span>
+            <span class="Mini-badge">Root Key Detection</span>
+            <span class="Mini-badge">Keyzone Mapping</span>
+            <span class="Mini-badge">Equal-Power Loop Crossfade</span>
+            <span class="Mini-badge">Formant Preservation</span>
+            <span class="Mini-badge">Reverse Envelopes</span>
+          </div>
+        </div>
+
+        <div class="col-panel col-tech">
+          <div class="col-header">
+            <span class="col-tag">Multi-Sampling & Keyzone Mapping</span>
+            <span class="col-Quick-title">Root Note Assignment, Keyzones & Velocity Layers</span>
+          </div>
+
+          <div class="photo-card">
+            <img src="/images/multisampling_note_zones.svg" alt="Sampler Keyzone Mapping and Root Note Diagram" loading="lazy">
+            <span class="zoom-hint-pill">🔍 Click to Expand</span>
+          </div>
+
+          <div class="gear-title-bar">
+            <h4>🎙️ From Raw Foley Recording to Playable Instrument</h4>
+            <span>24-bit Audio Capture &bull; Transient Slicing &bull; Loop Crossfade &bull; Pitch/Filter Envelopes</span>
+          </div>
+
+          <div class="tech-card">
+            <h5>Transforming Found Sounds into Musical Patches</h5>
+            <p style="margin-bottom: 5px;">Example workflow for your Logbook: Record a wine glass tap or acoustic guitar body knock with a condenser mic. Load into Quick Sampler (Classic Mode), trim the start transient, and loop the sustained resonance with an equal-power crossfade.</p>
+            <p>Engage the sampler's internal 24dB Low-Pass Filter with keyboard tracking and long Release to turn a 1-second household object recording into a lush, playable polyphonic pad!</p>
+          </div>
+
+          <div class="steps-box">
+            <h5>⭐ Sampling Marks Checklist</h5>
+            <div class="step-items">
+            <div class="step-item"><span class="step-num">1</span><span><strong>Prevent Chipmunk Artifacts:</strong> Enable Flex / Formant preservation in Quick Sampler or create multi-sample keyzones so extreme pitch shifts stay natural.</span></div>
+            <div class="step-item"><span class="step-num">2</span><span><strong>Zero-Crossing Loop Points:</strong> Adjust loop start/end markers to zero-crossings and add a 20–50ms crossfade so sustained notes never click.</span></div>
+            <div class="step-item"><span class="step-num">3</span><span><strong>Document Original Sources:</strong> State clearly in your logbook what microphone you used to record your raw sample or which stem you manipulated.</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- SLIDE 6 -->
+    <div class="slide" id="slide-6">
+      <div class="slide-header">
+        <div class="era-badge">SECTION 5 &bull; ADVANCED SAMPLE FILTERING & PITCH</div>
+        <h1 class="slide-title">Sample Sound Design: <span>ADSR, Filter Sweeps &amp; Pitch Envelopes</span></h1>
+        <p class="slide-subtitle">Once samples are loaded into Quick Sampler, Drum Machine Designer, or Alchemy, applying per-sample pitch envelopes, resonant filters, and bit-crushing elevates simple hits into bespoke sound design.</p>
+      </div>
+
+      <div class="split-grid">
+        <div class="col-panel col-music">
+          <div class="col-header">
+            <span class="col-tag">Sampler Filtering & Envelopes</span>
+            <span class="col-Quick-title">Drum Sampling: Filtering, ADSR & Pitch Bend</span>
+          </div>
+
+          <div class="video-wrapper">
+            <iframe src="https://www.youtube-nocookie.com/embed/n9DSjUVsEeg?rel=0&modestbranding=1&vq=hd1080&playsinline=1" title="Drum Sampling Lesson 4 Filtering, ADSR & Pitch bend" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div class="video-actions-bar">
+            <button class="hd-theater-btn" onclick="openVideo('n9DSjUVsEeg', 'Drum Sampling Lesson 4 Filtering, ADSR & Pitch bend')">
+              <span>⛶ Watch in HD (Theater Mode)</span>
+            </button>
+            <a href="https://www.youtube.com/watch?v=n9DSjUVsEeg" target="_blank" rel="noopener" class="yt-direct-link">
+              <span>▶ YouTube ↗</span>
+            </a>
+          </div>
+
+          <div class="track-banner">
+            <div class="track-info">
+              <h4>Drum Sampling Lesson 4 Filtering, ADSR & Pitch bend</h4>
+              <p>Music Tech Guru Sampling Masterclass</p>
+            </div>
+          </div>
+
+          <div class="listening-focus">
+            <h5>🎧 Listening Focus: Pitch Envelopes for Punchy Percussion</h5>
+            <ul class="listening-list">
+              <li>Applying a fast downward Pitch Envelope (+12 semitones dropping to 0 in 25ms) on a sampled tom or sine kick creates an authoritative transient 'thwack' at the start of the hit.</li>
+              <li>Using sample Reverse mode with a slow Attack envelope turns cymbal crashes, piano chords, or vocal syllables into dramatic pre-drop risers and atmospheric transitions.</li>
+            </ul>
+          </div>
+
+          <div class="tag-row">
+            <span class="Mini-badge">Pitch Envelope (+12st)</span>
+            <span class="Mini-badge">Sample Reverse Riser</span>
+            <span class="Mini-badge">Granular Synthesis</span>
+            <span class="Mini-badge">Alchemy Spectral Morph</span>
+            <span class="Mini-badge">Sample Rate Reduction</span>
+            <span class="Mini-badge">Velocity -> Filter</span>
+          </div>
+        </div>
+
+        <div class="col-panel col-tech">
+          <div class="col-header">
+            <span class="col-tag">Sampler Signal Flow & Filtering</span>
+            <span class="col-Quick-title">Sample Playback -> Pitch Env -> Resonant Filter -> Amp ADSR</span>
+          </div>
+
+          <div class="photo-card">
+            <img src="/images/sample_filtering_diagram.svg" alt="Sampler Internal Filtering and Envelope Diagram" loading="lazy">
+            <span class="zoom-hint-pill">🔍 Click to Expand</span>
+          </div>
+
+          <div class="gear-title-bar">
+            <h4>🧪 Advanced Sampler Manipulation & Granular Textures</h4>
+            <span>Pitch Envelopes &bull; Reverse Risers &bull; Granular Clouds &bull; Formant Shifting</span>
+          </div>
+
+          <div class="tech-card">
+            <h5>Using Logic Pro Alchemy for Component 2</h5>
+            <p style="margin-bottom: 5px;">Logic Pro's Alchemy allows you to import your own recorded audio into 4 independent sources (A, B, C, D) using Granular, Spectral, Additive, or Sampler engines.</p>
+            <p>Granular synthesis chops your audio sample into tiny 10–50ms 'grains' and clouds them together, allowing you to freeze time, stretch a 1-second vocal breath into a 30-second atmospheric pad, or shift pitch independently of duration.</p>
+          </div>
+
+          <div class="steps-box">
+            <h5>⭐ High-Impact Sample Tricks</h5>
+            <div class="step-items">
+            <div class="step-item"><span class="step-num">1</span><span><strong>Reverse Vocal Reverb Throws:</strong> Bounce a dry vocal word with a long 4-second reverb tail in place, reverse the audio file, and align the swell right into the downbeat.</span></div>
+            <div class="step-item"><span class="step-num">2</span><span><strong>Velocity-Sensitive Hi-Hats:</strong> Map MIDI velocity to both Sample Volume and Low-Pass Filter Cutoff so soft hi-hat hits sound darker and more human.</span></div>
+            <div class="step-item"><span class="step-num">3</span><span><strong>Stutter & Glitch Edits:</strong> Slice vocal or drum regions into 1/32 and 1/64 rhythmic repeats with rising pitch transposition across a 1-bar fill.</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- SLIDE 7 -->
+    <div class="slide" id="slide-7">
+      <div class="slide-header">
+        <div class="era-badge">SECTION 6 &bull; DRUM PROGRAMMING & GROOVE</div>
+        <h1 class="slide-title">MIDI Sequencing: <span>Drum Programming, Velocity &amp; Groove</span></h1>
+        <p class="slide-subtitle">Robotic MIDI programming with every note fixed at velocity 100 and 100% rigid quantization caps your marks. Examiners reward expressive humanization, ghost notes, and layered percussion.</p>
+      </div>
+
+      <div class="split-grid">
+        <div class="col-panel col-music">
+          <div class="col-header">
+            <span class="col-tag">Drum Programming Masterclass</span>
+            <span class="col-Quick-title">Drum Programming in Logic Pro X for Beginners</span>
+          </div>
+
+          <div class="video-wrapper">
+            <iframe src="https://www.youtube-nocookie.com/embed/HPEE8zpvhCI?rel=0&modestbranding=1&vq=hd1080&playsinline=1" title="Drum Programming in Logic Pro X for Beginners. A Music Production Tutorial" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div class="video-actions-bar">
+            <button class="hd-theater-btn" onclick="openVideo('HPEE8zpvhCI', 'Drum Programming in Logic Pro X for Beginners. A Music Production Tutorial')">
+              <span>⛶ Watch in HD (Theater Mode)</span>
+            </button>
+            <a href="https://www.youtube.com/watch?v=HPEE8zpvhCI" target="_blank" rel="noopener" class="yt-direct-link">
+              <span>▶ YouTube ↗</span>
+            </a>
+          </div>
+
+          <div class="track-banner">
+            <div class="track-info">
+              <h4>Drum Programming in Logic Pro X for Beginners. A Music Production Tutorial</h4>
+              <p>Music Tech Guru Sequencing Guide</p>
+            </div>
+          </div>
+
+          <div class="listening-focus">
+            <h5>🎧 Listening Focus: Ghost Notes, Swing & Velocity Dynamics</h5>
+            <ul class="listening-list">
+              <li>Program snare ghost notes (32nd/16th notes between main backbeats) at low velocities (25–45) contrasted against accented rimshot backbeats on beats 2 and 4 (velocity 110–125).</li>
+              <li>Vary hi-hat velocities across 16th-note patterns (Strong-weak-Medium-weak) and dial in 54%–58% 16th-note Swing (Q-Swing) to inject infectious groove.</li>
+            </ul>
+          </div>
+
+          <div class="tag-row">
+            <span class="Mini-badge">Velocity Shaping</span>
+            <span class="Mini-badge">Snare Ghost Notes</span>
+            <span class="Mini-badge">Q-Swing (54%–62%)</span>
+            <span class="Mini-badge">MIDI Transform Humanize</span>
+            <span class="Mini-badge">Layering Acoustic + 808</span>
+            <span class="Mini-badge">CC Expression</span>
+          </div>
+        </div>
+
+        <div class="col-panel col-tech">
+          <div class="col-header">
+            <span class="col-tag">MIDI Piano Roll & Velocity Editing</span>
+            <span class="col-Quick-title">Note Duration, Grid Quantization & Velocity Lanes</span>
+          </div>
+
+          <div class="photo-card">
+            <img src="/images/midi_piano_roll.svg" alt="MIDI Piano Roll and Velocity Shaping Diagram" loading="lazy">
+            <span class="zoom-hint-pill">🔍 Click to Expand</span>
+          </div>
+
+          <div class="gear-title-bar">
+            <h4>🥁 Expressive MIDI Sequencing & Groove Architecture</h4>
+            <span>Velocity Dynamics (1–127) &bull; Q-Strength & Q-Swing &bull; Continuous Controllers (CC)</span>
+          </div>
+
+          <div class="tech-card">
+            <h5>Beyond Basic Quantization</h5>
+            <p style="margin-bottom: 5px;">Instead of hard-quantizing every MIDI performance to 100% grid lock, use Quantize Strength (Q-Strength at 70%–85%) to tighten timing errors while preserving natural human feel.</p>
+            <p>For orchestral strings, brass, and synth leads, draw smooth curves in MIDI Continuous Controller lanes: CC1 (Modulation/Vibrato), CC11 (Expression/Swelling Dynamics), and CC64 (Sustain Pedal).</p>
+          </div>
+
+          <div class="steps-box">
+            <h5>⭐ MIDI Sequencing Examiner Checklist</h5>
+            <div class="step-items">
+            <div class="step-item"><span class="step-num">1</span><span><strong>Avoid 'Machine-Gun' Fills:</strong> When programming 16th-note snare or tom rolls, ramp velocities upward from 40 to 127 and slightly vary pitch/timbre.</span></div>
+            <div class="step-item"><span class="step-num">2</span><span><strong>Layer Kick & Snare Samples:</strong> Combine a punchy acoustic kick (top transient) with a synthesized 808 sub-kick (tuned to the track's root key).</span></div>
+            <div class="step-item"><span class="step-num">3</span><span><strong>Use MIDI Transform 'Humanize':</strong> Apply subtle randomization (±5 ticks timing, ±8 velocity) to programmed chord pads and arpeggios.</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- SLIDE 8 -->
+    <div class="slide" id="slide-8">
+      <div class="slide-header">
+        <div class="era-badge">SECTION 7 &bull; CREATIVE AUDIO MANIPULATION</div>
+        <h1 class="slide-title">Audio Manipulation: <span>Flex Time, Flex Pitch &amp; Vocal Chopping</span></h1>
+        <p class="slide-subtitle">Component 2 rewards blending live audio stems with electronic sequencing. Using Flex Time, Flex Pitch, Speed Fades, and rhythmic chopping turns raw audio into modern production hooks.</p>
+      </div>
+
+      <div class="split-grid">
+        <div class="col-panel col-music">
+          <div class="col-header">
+            <span class="col-tag">Creative Audio Manipulation</span>
+            <span class="col-Quick-title">Manipulating Audio is EASY on Logic Pro X!</span>
+          </div>
+
+          <div class="video-wrapper">
+            <iframe src="https://www.youtube-nocookie.com/embed/NKQ3o8GuPuE?rel=0&modestbranding=1&vq=hd1080&playsinline=1" title="Manipulating Audio is EASY on Logic Pro X! When you know how" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div class="video-actions-bar">
+            <button class="hd-theater-btn" onclick="openVideo('NKQ3o8GuPuE', 'Manipulating Audio is EASY on Logic Pro X! When you know how')">
+              <span>⛶ Watch in HD (Theater Mode)</span>
+            </button>
+            <a href="https://www.youtube.com/watch?v=NKQ3o8GuPuE" target="_blank" rel="noopener" class="yt-direct-link">
+              <span>▶ YouTube ↗</span>
+            </a>
+          </div>
+
+          <div class="track-banner">
+            <div class="track-info">
+              <h4>Manipulating Audio is EASY on Logic Pro X! When you know how</h4>
+              <p>Music Tech Guru Production Masterclass</p>
+            </div>
+          </div>
+
+          <div class="listening-focus">
+            <h5>🎧 Listening Focus: Choosing the Right Flex Algorithm</h5>
+            <ul class="listening-list">
+              <li>Slicing Mode: Best for drums and percussion—cuts at transients without time-stretching artifacts. Monophonic: Best for solo vocals and basslines. Polyphonic: Best for chordal guitars and piano.</li>
+              <li>Tempophone & Speed (FX) Modes create intentional creative artifacts: Speed Mode links time and pitch like a vinyl turntable or tape machine, allowing dramatic 'Tape Stop' spin-down effects!</li>
+            </ul>
+          </div>
+
+          <div class="tag-row">
+            <span class="Mini-badge">Flex Time Algorithms</span>
+            <span class="Mini-badge">Flex Pitch Formants</span>
+            <span class="Mini-badge">Tape Stop Speed Fade</span>
+            <span class="Mini-badge">Breakbeat Slicing</span>
+            <span class="Mini-badge">Vocal Chopping</span>
+            <span class="Mini-badge">Vocoder / Sidechain</span>
+          </div>
+        </div>
+
+        <div class="col-panel col-tech">
+          <div class="col-header">
+            <span class="col-tag">Breakbeat & Audio Region Slicing</span>
+            <span class="col-Quick-title">Transient Slicing, Rearrangement & Pitch Manipulation</span>
+          </div>
+
+          <div class="photo-card">
+            <img src="/images/jungle_breakbeat_slicing_diagram.png" alt="Breakbeat Audio Slicing and Rearrangement Diagram" loading="lazy">
+            <span class="zoom-hint-pill">🔍 Click to Expand</span>
+          </div>
+
+          <div class="gear-title-bar">
+            <h4>✂️ Elastic Audio, Formant Shifting & Tape Stops</h4>
+            <span>Transient Markers &bull; Formant Shifting &bull; Vinyl Spin-Down Fade</span>
+          </div>
+
+          <div class="tech-card">
+            <h5>Creating Tape-Stop & Formant-Shifted Hooks</h5>
+            <p style="margin-bottom: 5px;">In Logic Pro's Region Inspector, change the Fade Out type from 'Out' to 'Slow Down' (or Fade In to 'Speed Up') to create authentic analog tape-stop transitions at the end of a 16-bar section.</p>
+            <p>In Flex Pitch, duplicate a lead vocal phrase, transpose it +12 semitones (+1 octave) or +7 semitones (perfect 5th), and shift the Formant parameter downward to create warm, modern electronic vocal harmonies.</p>
+          </div>
+
+          <div class="steps-box">
+            <h5>⭐ Creative Audio Techniques for Component 2</h5>
+            <div class="step-items">
+            <div class="step-item"><span class="step-num">1</span><span><strong>EVOC 20 PolySynth Vocoder:</strong> Route a recorded vocal stem into the Sidechain input of Logic's EVOC 20 Vocoder while playing lush synth chords via MIDI.</span></div>
+            <div class="step-item"><span class="step-num">2</span><span><strong>Rhythmic Trance Gate:</strong> Use a Step FX or Noise Gate sidechained to a 16th-note muted hi-hat trigger to turn a static pad into a pulsing rhythmic hook.</span></div>
+            <div class="step-item"><span class="step-num">3</span><span><strong>Bounce in Place (Ctrl+B):</strong> Commit heavy CPU effects into audio regions so you can reverse, slice, and stutter the processed tail.</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- SLIDE 9 -->
+    <div class="slide" id="slide-9">
+      <div class="slide-header">
+        <div class="era-badge">SECTION 8 &bull; COMPOSING TO A BRIEF & STRUCTURE</div>
+        <h1 class="slide-title">Brief Fulfillment: <span>Film Sync, Hit Points, Structure &amp; Contrast</span></h1>
+        <p class="slide-subtitle">Whether composing to the Video Brief, Text Brief, or Topic Brief, top-band compositions demonstrate purposeful structural development, harmonic contrast, and precise synchronization.</p>
+      </div>
+
+      <div class="split-grid">
+        <div class="col-panel col-music">
+          <div class="col-header">
+            <span class="col-tag">Official Composition Brief Guide</span>
+            <span class="col-Quick-title">A-Level Music Technology Composition Guidance Video</span>
+          </div>
+
+          <div class="video-wrapper">
+            <iframe src="https://www.youtube-nocookie.com/embed/KWppHE7ecew?rel=0&modestbranding=1&vq=hd1080&playsinline=1" title="A Level Music Technology Composition 2019 Guidance Video 1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div class="video-actions-bar">
+            <button class="hd-theater-btn" onclick="openVideo('KWppHE7ecew', 'A Level Music Technology Composition 2019 Guidance Video 1')">
+              <span>⛶ Watch in HD (Theater Mode)</span>
+            </button>
+            <a href="https://www.youtube.com/watch?v=KWppHE7ecew" target="_blank" rel="noopener" class="yt-direct-link">
+              <span>▶ YouTube ↗</span>
+            </a>
+          </div>
+
+          <div class="track-banner">
+            <div class="track-info">
+              <h4>A Level Music Technology Composition 2019 Guidance Video 1</h4>
+              <p>Music Tech Guru Official Brief Analysis</p>
+            </div>
+          </div>
+
+          <div class="listening-focus">
+            <h5>🎧 Listening Focus: Translating Brief Cues into Sonic Events</h5>
+            <ul class="listening-list">
+              <li>For Video/Film Briefs: Spot exact SMPTE timecode hit points first using Markers in Logic Pro. Use Tempo Operations or beat-mapping so musical downbeats land naturally on visual cuts and impacts.</li>
+              <li>For Text/Topic Briefs: Map out a clear structural arc (e.g., Atmospheric Intro -> Rhythmic Build -> Main Theme A -> Contrasting Bridge/Breakdown B -> Climax Theme A' -> Resolved Outro).</li>
+            </ul>
+          </div>
+
+          <div class="tag-row">
+            <span class="Mini-badge">SMPTE Timecode Sync</span>
+            <span class="Mini-badge">Scene Hit Points</span>
+            <span class="Mini-badge">Leitmotif Development</span>
+            <span class="Mini-badge">Harmonic Modulation</span>
+            <span class="Mini-badge">Dynamic Contrast</span>
+            <span class="Mini-badge">Automation Arc</span>
+          </div>
+        </div>
+
+        <div class="col-panel col-tech">
+          <div class="col-header">
+            <span class="col-tag">DAW Automation & Structural Dynamics</span>
+            <span class="col-Quick-title">Volume, Filter & Send Automation Across Song Sections</span>
+          </div>
+
+          <div class="photo-card">
+            <img src="/images/vca_console_automation.png" alt="DAW Multi-Lane Automation and Structural Arrangement" loading="lazy">
+            <span class="zoom-hint-pill">🔍 Click to Expand</span>
+          </div>
+
+          <div class="gear-title-bar">
+            <h4>🎬 Synchronizing Music & Sound Design to the Brief</h4>
+            <span>Marker Spotting &bull; Tempo Changes &bull; Leitmotifs &bull; Tension & Release</span>
+          </div>
+
+          <div class="tech-card">
+            <h5>Avoiding the '8-Bar Loop Trap'</h5>
+            <p style="margin-bottom: 5px;">The #1 reason Component 2 compositions get stuck in the mid-marks (30–38/60) is repetition: repeating a 4-bar or 8-bar chord loop for 3 minutes by simply muting and unmuting tracks.</p>
+            <p>To reach 50+/60, introduce a contrasting B section (new chord progression, key/mode change, half-time or double-time feel, or metre shift) and develop your melodic motifs through inversion, augmentation, or timbre handoffs.</p>
+          </div>
+
+          <div class="steps-box">
+            <h5>⭐ Brief Fulfillment Strategy</h5>
+            <div class="step-items">
+            <div class="step-item"><span class="step-num">1</span><span><strong>Use Diegetic & Non-Diegetic Layers:</strong> Blend musical underscore (synths, drums, strings) with synchronized sonic events (impacts, risers, Foley textures) that directly reflect the brief.</span></div>
+            <div class="step-item"><span class="step-num">2</span><span><strong>Automate Transitions Every 4–8 Bars:</strong> Draw filter cutoff sweeps, reverb throw swells, and stereo width automation leading into every structural boundary.</span></div>
+            <div class="step-item"><span class="step-num">3</span><span><strong>Reference the Brief in Your Logbook:</strong> Explicitly state timestamps (e.g., 'At 01:14, the filter resonance peaks and drums drop out to reflect...') in your logbook.</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- SLIDE 10 -->
+    <div class="slide" id="slide-10">
+      <div class="slide-header">
+        <div class="era-badge">SECTION 9 &bull; MIXING & FINALIZING COMPONENT 2</div>
+        <h1 class="slide-title">Mixing &amp; Delivery: <span>Sidechain Space, Stereo Width &amp; Logbook</span></h1>
+        <p class="slide-subtitle">Electronic and hybrid compositions pack dense frequency energy across synths, samples, and drums. Clean mix separation, sidechain ducking, and accurate logbook documentation seal your grade.</p>
+      </div>
+
+      <div class="split-grid">
+        <div class="col-panel col-music">
+          <div class="col-header">
+            <span class="col-tag">Component 2 Mixing Walkthrough</span>
+            <span class="col-Quick-title">Creating a Final Mix in Logic Pro X (Stock Plugins)</span>
+          </div>
+
+          <div class="video-wrapper">
+            <iframe src="https://www.youtube-nocookie.com/embed/McutLOQxzno?rel=0&modestbranding=1&vq=hd1080&playsinline=1" title="Remixing 'Shape of You' on Logic Pro X (Stock Plugins ONLY) - Lesson 6 - Creating a Mix" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div class="video-actions-bar">
+            <button class="hd-theater-btn" onclick="openVideo('McutLOQxzno', 'Remixing \'Shape of You\' on Logic Pro X (Stock Plugins ONLY) - Lesson 6 - Creating a Mix')">
+              <span>⛶ Watch in HD (Theater Mode)</span>
+            </button>
+            <a href="https://www.youtube.com/watch?v=McutLOQxzno" target="_blank" rel="noopener" class="yt-direct-link">
+              <span>▶ YouTube ↗</span>
+            </a>
+          </div>
+
+          <div class="track-banner">
+            <div class="track-info">
+              <h4>Remixing 'Shape of You' on Logic Pro X (Stock Plugins ONLY) - Lesson 6 - Creating a Mix</h4>
+              <p>Music Tech Guru Mixing Masterclass</p>
+            </div>
+          </div>
+
+          <div class="listening-focus">
+            <h5>🎧 Listening Focus: Carving Space in Dense Synth Arrangements</h5>
+            <ul class="listening-list">
+              <li>Route your Kick Drum into the Sidechain input of a Compressor inserted on your Synth Bass and Lush Pads (Ratio 4:1, Fast Attack 2ms, Release 80ms) so the bass/pads duck 3–5dB on every kick hit.</li>
+              <li>Keep sub-bass (<100Hz), kick, snare, and lead focal elements firmly centered; spread arpeggios, Foley percussion, and synth pads across the stereo field.</li>
+            </ul>
+          </div>
+
+          <div class="tag-row">
+            <span class="Mini-badge">Sidechain Ducking</span>
+            <span class="Mini-badge">Mid/Side Width</span>
+            <span class="Mini-badge">EQ Spectral Unmasking</span>
+            <span class="Mini-badge">-1.0 dBTP Ceiling</span>
+            <span class="Mini-badge">16-Bit / 44.1kHz WAV</span>
+            <span class="Mini-badge">MTG Coursework Toolkit</span>
+          </div>
+        </div>
+
+        <div class="col-panel col-tech">
+          <div class="col-header">
+            <span class="col-tag">Sidechain Compression Routing</span>
+            <span class="col-Quick-title">Kick Trigger Ducking Synth Bass & Pads for Low-End Clarity</span>
+          </div>
+
+          <div class="photo-card">
+            <img src="/images/sidechain_compression_diagram.png" alt="Sidechain Compression Routing Diagram" loading="lazy">
+            <span class="zoom-hint-pill">🔍 Click to Expand</span>
+          </div>
+
+          <div class="gear-title-bar">
+            <h4>🏆 Final Mixdown & Component 2 Logbook Checklist</h4>
+            <span>Sidechain Clarity &bull; 16-bit/44.1kHz Bounce &bull; Complete Synthesis & Sampling Log</span>
+          </div>
+
+          <div class="tech-card">
+            <h5>Documenting Component 2 in the MTG App</h5>
+            <p style="margin-bottom: 5px;">In your Component 2 Logbook, examiners look for exact technical evidence: oscillator waveforms, filter slopes/cutoffs, ADSR settings, LFO routings, sample sources, and creative effects chains.</p>
+            <p>Use the Music Tech Guru App (app.musictechguru.com) Component 2 Coursework Toolkit & Synthesizer Lab to verify your synthesis terminology and audit your project before final submission.</p>
+          </div>
+
+          <div class="steps-box">
+            <h5>⭐ Final Pre-Submission Checklist</h5>
+            <div class="step-items">
+            <div class="step-item"><span class="step-num">1</span><span><strong>Verify 2:30 to 3:30 Duration:</strong> Check your bounced WAV file length! Component 2 must be at least 2 minutes 30 seconds long.</span></div>
+            <div class="step-item"><span class="step-num">2</span><span><strong>Video Brief Audio Bounce:</strong> Even if you composed to the Video Brief, double-check your centre's submission rules for exporting the uncompressed 16-bit/44.1kHz stereo WAV file.</span></div>
+            <div class="step-item"><span class="step-num">3</span><span><strong>Check Mono & Headphone Translation:</strong> Ensure wide stereo chorus/phaser synths don't vanish into thin air when summed to mono.</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="deck-nav">
+    <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)" disabled>
+      <span>‹ Previous</span>
+    </button>
+
+    <div style="display: flex; align-items: center;">
+      <div class="progress-dots" id="progressDots">
+        <div class="dot active" onclick="goToSlide(0)"></div>
+        <div class="dot" onclick="goToSlide(1)"></div>
+        <div class="dot" onclick="goToSlide(2)"></div>
+        <div class="dot" onclick="goToSlide(3)"></div>
+        <div class="dot" onclick="goToSlide(4)"></div>
+        <div class="dot" onclick="goToSlide(5)"></div>
+        <div class="dot" onclick="goToSlide(6)"></div>
+        <div class="dot" onclick="goToSlide(7)"></div>
+        <div class="dot" onclick="goToSlide(8)"></div>
+        <div class="dot" onclick="goToSlide(9)"></div>
+      </div>
+      <span class="slide-counter" id="slideCounter">1 / 10</span>
+    </div>
+
+    <div style="display: flex; align-items: center; gap: 8px;">
+      <button class="nav-btn" onclick="toggleFullscreen()" id="fsBtn" title="Toggle Fullscreen (F)">
+        <span>⛶ Fullscreen</span>
+      </button>
+      <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">
+        <span>Next ›</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="img-modal-backdrop" id="imageModal" onclick="closeLightbox()" role="dialog" aria-modal="true">
+    <div class="img-modal-content" onclick="event.stopPropagation()">
+      <button class="img-modal-close" onclick="closeLightbox()" aria-label="Close image">✕</button>
+      <img id="modalImg" src="" alt="Expanded view">
+      <div class="img-modal-caption" id="modalCaption"></div>
+    </div>
+  </div>
+
+  <div class="video-modal-backdrop" id="videoModal" onclick="closeVideo()" role="dialog" aria-modal="true">
+    <div class="video-modal-box" onclick="event.stopPropagation()">
+      <div class="video-modal-header">
+        <div class="video-modal-title">
+          <span>🎬 Playing in 1080p Full HD Theater View</span>
+          <span style="color:#64748b;">•</span>
+          <span id="videoModalTitle" style="color:var(--accent-prod);"></span>
+        </div>
+        <button class="video-modal-close" onclick="closeVideo()">✕ Close HD Player</button>
+      </div>
+      <div class="video-modal-frame-wrap">
+        <iframe id="videoModalIframe" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+    const dots = document.querySelectorAll('.dot');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const counter = document.getElementById('slideCounter');
+    const totalSlides = slides.length;
+
+    function stopAllVideos() {
+      document.querySelectorAll('.slide iframe').forEach(iframe => {
+        const src = iframe.getAttribute('src');
+        if (src) iframe.setAttribute('src', src);
+      });
+    }
+
+    function updateDeck() {
+      stopAllVideos();
+      slides.forEach((s, idx) => s.classList.toggle('active', idx === currentSlide));
+      dots.forEach((d, idx) => d.classList.toggle('active', idx === currentSlide));
+      prevBtn.disabled = currentSlide === 0;
+      nextBtn.disabled = currentSlide === totalSlides - 1;
+      counter.textContent = `${currentSlide + 1} / ${totalSlides}`;
+    }
+
+    function changeSlide(dir) {
+      const next = currentSlide + dir;
+      if (next >= 0 && next < totalSlides) {
+        currentSlide = next;
+        updateDeck();
+      }
+    }
+
+    function goToSlide(idx) {
+      if (idx >= 0 && idx < totalSlides) {
+        currentSlide = idx;
+        updateDeck();
+      }
+    }
+
+    function openLightbox(src, caption) {
+      const modal = document.getElementById('imageModal');
+      document.getElementById('modalImg').src = src;
+      document.getElementById('modalCaption').textContent = caption || '';
+      modal.classList.add('open');
+    }
+
+    function closeLightbox() {
+      const modal = document.getElementById('imageModal');
+      modal.classList.remove('open');
+      document.getElementById('modalImg').src = '';
+    }
+
+    function openVideo(ytId, title) {
+      stopAllVideos();
+      const modal = document.getElementById('videoModal');
+      const iframe = document.getElementById('videoModalIframe');
+      document.getElementById('videoModalTitle').textContent = title || 'Masterclass Video';
+      iframe.src = `https://www.youtube-nocookie.com/embed/${ytId}?autoplay=1&rel=0&modestbranding=1&vq=hd1080&playsinline=1`;
+      modal.classList.add('open');
+    }
+
+    function closeVideo() {
+      const modal = document.getElementById('videoModal');
+      const iframe = document.getElementById('videoModalIframe');
+      iframe.src = '';
+      modal.classList.remove('open');
+    }
+
+    document.querySelectorAll('.photo-card').forEach(card => {
+      const img = card.querySelector('img');
+      if (img) {
+        card.addEventListener('click', () => {
+          openLightbox(img.getAttribute('src'), img.getAttribute('alt'));
+        });
+      }
+    });
+
+    function toggleFullscreen() {
+      if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+        const el = document.documentElement;
+        if (el.requestFullscreen) el.requestFullscreen();
+        else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+      } else {
+        exitFullscreenMode();
+      }
+    }
+
+    function exitFullscreenMode() {
+      if (document.fullscreenElement || document.webkitFullscreenElement) {
+        if (document.exitFullscreen) document.exitFullscreen();
+        else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+      }
+    }
+
+    document.addEventListener('keydown', (e) => {
+      const imgModal = document.getElementById('imageModal');
+      const vidModal = document.getElementById('videoModal');
+      if (e.key === 'Escape') {
+        if (vidModal && vidModal.classList.contains('open')) { closeVideo(); return; }
+        if (imgModal && imgModal.classList.contains('open')) { closeLightbox(); return; }
+      }
+      if (e.key === 'ArrowRight') changeSlide(1);
+      if (e.key === 'ArrowLeft') changeSlide(-1);
+      if (e.key === 'f' || e.key === 'F') {
+        if (document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') {
+          toggleFullscreen();
+        }
+      }
+    });
+  </script>
+</body>
+</html>

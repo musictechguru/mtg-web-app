@@ -1,0 +1,1840 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <title>Component 1: Recording &amp; Mixing | Edexcel A-Level Music Technology Master Deck</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #080e1a;
+      --panel-bg: #0f172a;
+      --card-bg: rgba(255, 255, 255, 0.03);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --accent-prod: #10b981;
+      --accent-prod-glow: rgba(16, 185, 129, 0.25);
+      --accent-tech: #38bdf8;
+      --accent-tech-glow: rgba(56, 189, 248, 0.25);
+      --accent-gold: #f59e0b;
+      --accent-purple: #a855f7;
+      --text-white: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-dim: #64748b;
+      --border-subtle: rgba(255, 255, 255, 0.06);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      height: 100% !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      overflow: hidden !important;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-white);
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.5;
+      display: flex !important;
+      flex-direction: column !important;
+      height: 100vh !important;
+      max-height: 100vh !important;
+      box-sizing: border-box !important;
+    }
+
+    .deck-topbar-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 4px 16px;
+      background: rgba(8, 14, 26, 0.95);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 11.5px;
+      z-index: 90;
+      flex-shrink: 0;
+      height: 36px;
+      box-sizing: border-box;
+    }
+
+    .exit-deck-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      color: #94a3b8;
+      text-decoration: none;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+    .exit-deck-link:hover {
+      background: var(--accent-prod-glow);
+      border-color: var(--accent-prod);
+      color: #ffffff;
+    }
+
+    .deck-topbar-title {
+      color: #cbd5e1;
+      font-size: 12px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .floating-exit-fs {
+      display: none;
+      position: fixed;
+      top: 12px;
+      right: 16px;
+      z-index: 10005;
+      background: rgba(220, 38, 38, 0.9);
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+    .floating-exit-fs:hover {
+      background: rgba(239, 68, 68, 1);
+      transform: scale(1.04);
+    }
+    :fullscreen .floating-exit-fs,
+    :-webkit-full-screen .floating-exit-fs {
+      display: inline-flex !important;
+    }
+
+    .deck-container {
+      width: 100%;
+      max-width: 1600px;
+      margin: 0 auto;
+      flex: 1 1 auto !important;
+      min-height: 0 !important;
+      padding: 8px 16px 6px 16px !important;
+      display: flex !important;
+      flex-direction: column !important;
+      overflow: hidden !important;
+      box-sizing: border-box !important;
+    }
+
+    .slide {
+      display: none;
+      flex-direction: column;
+      flex: 1 1 auto !important;
+      min-height: 0 !important;
+      height: 100% !important;
+      overflow: hidden !important;
+      animation: fadeIn 0.3s ease-out;
+    }
+
+    .slide.active {
+      display: flex !important;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .slide-header {
+      margin-bottom: 6px !important;
+      padding-bottom: 4px !important;
+      border-bottom: 1px solid var(--border-subtle);
+      flex-shrink: 0 !important;
+    }
+
+    .era-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--accent-prod-glow);
+      border: 1px solid var(--accent-prod);
+      color: var(--accent-prod);
+      font-size: 10px !important;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 2px 8px !important;
+      border-radius: 50px;
+      margin-bottom: 2px !important;
+    }
+
+    .slide-title {
+      font-size: clamp(17px, 2vw, 22px) !important;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      color: var(--text-white);
+      line-height: 1.15 !important;
+      margin-bottom: 2px !important;
+    }
+
+    .slide-title span {
+      color: var(--accent-prod);
+    }
+
+    .slide-subtitle {
+      font-size: 11.5px !important;
+      color: var(--text-muted);
+      line-height: 1.3 !important;
+      max-width: 1150px;
+    }
+
+    .split-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px !important;
+      flex: 1 1 auto !important;
+      min-height: 0 !important;
+      overflow: hidden !important;
+      align-items: stretch;
+    }
+
+    @media (max-width: 1024px) {
+      .split-grid {
+        grid-template-columns: 1fr;
+        overflow-y: auto !important;
+      }
+    }
+
+    .col-panel {
+      background: var(--panel-bg);
+      border-radius: 12px;
+      padding: 10px 12px !important;
+      display: flex;
+      flex-direction: column;
+      gap: 6px !important;
+      position: relative;
+      height: 100% !important;
+      min-height: 0 !important;
+      max-height: 100% !important;
+      overflow-y: auto !important;
+      box-sizing: border-box !important;
+    }
+
+    .col-panel::-webkit-scrollbar { width: 5px; }
+    .col-panel::-webkit-scrollbar-track { background: rgba(15, 23, 42, 0.4); border-radius: 4px; }
+    .col-panel::-webkit-scrollbar-thumb { background: rgba(148, 163, 184, 0.35); border-radius: 4px; }
+
+    .col-music {
+      border: 1px solid var(--accent-prod);
+      box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.1), 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+    }
+    .col-music::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent-prod), var(--accent-tech), transparent);
+    }
+
+    .col-tech {
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      box-shadow: inset 0 1px 0 0 rgba(56, 189, 248, 0.1), 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+    }
+    .col-tech::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent-tech), #818cf8, transparent);
+    }
+
+    .col-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 4px !important;
+      border-bottom: 1px solid var(--border-subtle);
+      flex-shrink: 0;
+    }
+
+    .col-tag {
+      font-size: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 2px 8px;
+      border-radius: 5px;
+    }
+
+    .col-music .col-tag {
+      background: var(--accent-prod-glow);
+      color: var(--accent-prod);
+      border: 1px solid var(--accent-prod);
+    }
+
+    .col-tech .col-tag {
+      background: rgba(56, 189, 248, 0.15);
+      color: #7dd3fc;
+      border: 1px solid rgba(56, 189, 248, 0.3);
+    }
+
+    .col-Quick-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-muted);
+    }
+
+    .video-wrapper {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25% !important;
+      background: #000;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
+      flex-shrink: 0;
+    }
+
+    .video-wrapper iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      border: 0;
+    }
+
+    .video-actions-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-top: 2px;
+      flex-shrink: 0;
+    }
+
+    .hd-theater-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--accent-prod-glow);
+      border: 1px solid var(--accent-prod);
+      color: #ffffff;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+    .hd-theater-btn:hover {
+      background: var(--accent-prod);
+      color: #fff;
+      transform: translateY(-1px);
+    }
+
+    .yt-direct-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: rgba(239, 68, 68, 0.15);
+      border: 1px solid rgba(239, 68, 68, 0.35);
+      color: #fca5a5;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+    .yt-direct-link:hover {
+      background: rgba(239, 68, 68, 0.3);
+      color: #fff;
+    }
+
+    .track-banner {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 6px 10px !important;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .track-info h4 {
+      font-size: 12.5px !important;
+      font-weight: 800;
+      color: var(--text-white);
+      margin-bottom: 1px;
+    }
+
+    .track-info p {
+      font-size: 11px !important;
+      color: var(--accent-prod);
+      font-weight: 600;
+    }
+
+    .listening-focus {
+      background: rgba(15, 23, 42, 0.65);
+      border: 1px solid var(--accent-prod);
+      border-radius: 8px;
+      padding: 8px 10px !important;
+      flex: 1;
+    }
+
+    .listening-focus h5 {
+      font-size: 10.5px !important;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--accent-prod);
+      margin-bottom: 4px !important;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .listening-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 4px !important;
+    }
+
+    .listening-list li {
+      font-size: 11.5px !important;
+      color: #e2e8f0;
+      padding-left: 14px;
+      position: relative;
+      line-height: 1.35 !important;
+    }
+
+    .listening-list li::before {
+      content: '▸';
+      position: absolute;
+      left: 0;
+      color: var(--accent-prod);
+      font-weight: bold;
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-top: auto;
+      flex-shrink: 0;
+    }
+
+    .Mini-badge {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #cbd5e1;
+      font-size: 10px;
+      font-weight: 600;
+      padding: 2px 7px;
+      border-radius: 5px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .photo-card {
+      position: relative;
+      width: 100%;
+      height: 125px !important;
+      min-height: 95px !important;
+      max-height: 140px !important;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #040812;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 1 !important;
+      cursor: zoom-in;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .photo-card:hover {
+      border-color: var(--accent-tech);
+      box-shadow: 0 0 18px rgba(56, 189, 248, 0.25);
+    }
+
+    .photo-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      padding: 4px;
+      background: radial-gradient(circle at center, #1e293b 0%, #090d16 100%);
+      transition: transform 0.25s ease;
+    }
+
+    .photo-card:hover img {
+      transform: scale(1.03);
+    }
+
+    .zoom-hint-pill {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #e2e8f0;
+      font-size: 9.5px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 6px;
+      pointer-events: none;
+      backdrop-filter: blur(4px);
+    }
+
+    .gear-title-bar {
+      background: rgba(56, 189, 248, 0.08);
+      border: 1px solid rgba(56, 189, 248, 0.2);
+      border-radius: 8px;
+      padding: 6px 10px !important;
+      flex-shrink: 0;
+    }
+
+    .gear-title-bar h4 {
+      font-size: 13px !important;
+      font-weight: 800;
+      color: #f8fafc;
+      margin-bottom: 1px;
+    }
+
+    .gear-title-bar span {
+      font-size: 10.5px !important;
+      color: #38bdf8;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 600;
+    }
+
+    .tech-card {
+      background: rgba(255, 255, 255, 0.025);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 8px 10px !important;
+    }
+
+    .tech-card h5 {
+      font-size: 10.5px !important;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #38bdf8;
+      margin-bottom: 4px !important;
+    }
+
+    .tech-card p {
+      font-size: 11.5px !important;
+      color: #cbd5e1;
+      line-height: 1.35 !important;
+    }
+
+    .steps-box {
+      background: rgba(245, 158, 11, 0.06);
+      border: 1px solid rgba(245, 158, 11, 0.25);
+      border-radius: 8px;
+      padding: 8px 10px !important;
+      margin-top: auto;
+    }
+
+    .steps-box h5 {
+      font-size: 10.5px !important;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--accent-gold);
+      margin-bottom: 4px !important;
+    }
+
+    .step-items {
+      display: flex;
+      flex-direction: column;
+      gap: 4px !important;
+    }
+
+    .step-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+      font-size: 11px !important;
+      color: #e2e8f0;
+      line-height: 1.3 !important;
+    }
+
+    .step-num {
+      background: rgba(245, 158, 11, 0.2);
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      color: #fbbf24;
+      font-weight: 800;
+      font-size: 9.5px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .deck-nav {
+      width: 100%;
+      max-width: 1600px;
+      margin: 0 auto;
+      padding: 6px 16px !important;
+      height: 44px !important;
+      flex-shrink: 0 !important;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid var(--border-subtle);
+      background: rgba(8, 14, 26, 0.95);
+      backdrop-filter: blur(10px);
+      z-index: 50;
+      box-sizing: border-box !important;
+    }
+
+    .nav-btn {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      color: var(--text-white);
+      padding: 5px 14px !important;
+      border-radius: 8px;
+      font-size: 12px !important;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+
+    .nav-btn:hover:not(:disabled) {
+      background: var(--accent-prod);
+      border-color: var(--accent-prod);
+      color: #fff;
+    }
+
+    .nav-btn:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+
+    .progress-dots {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.2);
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .dot.active {
+      width: 22px;
+      border-radius: 6px;
+      background: var(--accent-prod);
+      box-shadow: 0 0 10px var(--accent-prod-glow);
+    }
+
+    .slide-counter {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: var(--text-muted);
+      font-family: 'JetBrains Mono', monospace;
+      margin-left: 8px;
+    }
+
+    .img-modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(4, 8, 18, 0.92);
+      backdrop-filter: blur(10px);
+      z-index: 9999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+    .img-modal-backdrop.open {
+      display: flex;
+      opacity: 1;
+    }
+    .img-modal-content {
+      position: relative;
+      max-width: 92vw;
+      max-height: 88vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: #0f172a;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 14px;
+      padding: 16px;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85);
+    }
+    .img-modal-content img {
+      max-width: 86vw;
+      max-height: 75vh;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      border-radius: 8px;
+      background: #080e1a;
+    }
+    .img-modal-close {
+      position: absolute;
+      top: -14px;
+      right: -14px;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: #ef4444;
+      color: #fff;
+      border: 2px solid #fff;
+      font-weight: 900;
+      font-size: 15px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    }
+    .img-modal-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #f8fafc;
+      text-align: center;
+    }
+
+    .video-modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(4, 8, 18, 0.95);
+      backdrop-filter: blur(12px);
+      z-index: 10000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .video-modal-backdrop.open {
+      display: flex;
+    }
+    .video-modal-box {
+      position: relative;
+      width: 90vw;
+      max-width: 1280px;
+      background: #0f172a;
+      border: 1px solid var(--accent-prod);
+      border-radius: 16px;
+      padding: 14px;
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.9);
+    }
+    .video-modal-frame-wrap {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%;
+      background: #000;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .video-modal-frame-wrap iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      border: 0;
+    }
+    .video-modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      padding: 0 4px;
+    }
+    .video-modal-title {
+      font-size: 14px;
+      font-weight: 800;
+      color: #f8fafc;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .video-modal-close {
+      background: #ef4444;
+      color: #fff;
+      border: none;
+      padding: 5px 12px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="deck-topbar-controls">
+    <div style="display:flex; align-items:center; gap:10px;">
+      <a href="https://www.musictechguru.com/homepage/a-level-music-technology/component-1-recording-mixing/" target="_top" class="exit-deck-link" title="Return to Component 1 Hub">
+        <span>← Exit Deck</span>
+      </a>
+      <span style="color:rgba(255,255,255,0.15);">|</span>
+      <div class="deck-topbar-title">
+        <span>Component 1: Recording &amp; Mixing (9MT0/01)</span>
+      </div>
+    </div>
+    <div style="display:flex; align-items:center; gap:8px;">
+      <a href="https://app.musictechguru.com" target="_blank" rel="noopener" class="exit-deck-link" style="background:var(--accent-prod-glow); border-color:var(--accent-prod); color:#fff;">
+        <span>🚀 Open Full MTG Revision App</span>
+      </a>
+      <button class="exit-deck-link" onclick="toggleFullscreen()" title="Toggle Fullscreen Mode (F)">
+        <span>⛶ Fullscreen</span>
+      </button>
+    </div>
+  </div>
+
+  <button class="floating-exit-fs" id="floatingExitFs" onclick="exitFullscreenMode()" title="Exit Fullscreen (Esc)">
+    <span>✕ Exit Fullscreen</span>
+  </button>
+
+  <div class="deck-container">
+    <!-- SLIDE 1 -->
+    <div class="slide active" id="slide-1">
+      <div class="slide-header">
+        <div class="era-badge">NEA COURSEWORK &bull; 9MT0/01 OVERVIEW</div>
+        <h1 class="slide-title">Component 1: <span>Recording &amp; Mixing Architecture</span></h1>
+        <p class="slide-subtitle">Component 1 (9MT0/01) is the non-exam assessment worth 20% of the A-Level (60 marks). Candidates record, edit, mix, and master one multitrack song between 2:00 and 3:30 from Pearson's prescribed artist list.</p>
+      </div>
+
+      <div class="split-grid">
+        <div class="col-panel col-music">
+          <div class="col-header">
+            <span class="col-tag">Official Coursework Guide</span>
+            <span class="col-Quick-title">Component 1 Recording & Mixing Walkthrough</span>
+          </div>
+
+          <div class="video-wrapper">
+            <iframe src="https://www.youtube-nocookie.com/embed/vrVVNFk03QE?rel=0&modestbranding=1&vq=hd1080&playsinline=1" title="How to Mix for Component 1 Music Technology A-Level on Logic Pro" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div class="video-actions-bar">
+            <button class="hd-theater-btn" onclick="openVideo('vrVVNFk03QE', 'How to Mix for Component 1 Music Technology A-Level on Logic Pro')">
+              <span>⛶ Watch in HD (Theater Mode)</span>
+            </button>
+            <a href="https://www.youtube.com/watch?v=vrVVNFk03QE" target="_blank" rel="noopener" class="yt-direct-link">
+              <span>▶ YouTube ↗</span>
+            </a>
+          </div>
+
+          <div class="track-banner">
+            <div class="track-info">
+              <h4>How to Mix for Component 1 Music Technology A-Level on Logic Pro</h4>
+              <p>Music Tech Guru Official Coursework Masterclass</p>
+            </div>
+          </div>
+
+          <div class="listening-focus">
+            <h5>🎧 Mandatory Pearson Edexcel Component 1 Requirements</h5>
+            <ul class="listening-list">
+              <li>You must capture a minimum of 7 instruments/parts (at least 4 captured using microphones, including acoustic drums/percussion and lead vocals).</li>
+              <li>Final stereo bounce must be between 2 minutes 00 seconds and 3 minutes 30 seconds, exported as an uncompressed 16-bit / 44.1 kHz stereo WAV file.</li>
+            </ul>
+          </div>
+
+          <div class="tag-row">
+            <span class="Mini-badge">60 Marks</span>
+            <span class="Mini-badge">20% of A-Level</span>
+            <span class="Mini-badge">Min 7 Parts</span>
+            <span class="Mini-badge">Min 4 Mic Captures</span>
+            <span class="Mini-badge">2:00–3:30 Duration</span>
+            <span class="Mini-badge">Pearson Logbook</span>
+          </div>
+        </div>
+
+        <div class="col-panel col-tech">
+          <div class="col-header">
+            <span class="col-tag">Signal Path & Studio Workflow</span>
+            <span class="col-Quick-title">Microphone -> Preamp -> A/D Converter -> DAW</span>
+          </div>
+
+          <div class="photo-card">
+            <img src="/images/recording_chain_flow.svg" alt="Studio Recording Signal Chain Architecture" loading="lazy">
+            <span class="zoom-hint-pill">🔍 Click to Expand</span>
+          </div>
+
+          <div class="gear-title-bar">
+            <h4>🎙️ The Component 1 Studio Signal Chain</h4>
+            <span>Transducer Capture &bull; Low-Noise Preamp &bull; 24-bit/44.1kHz A/D &bull; Multi-Track Mix Bus</span>
+          </div>
+
+          <div class="tech-card">
+            <h5>Mark Scheme Breakdown & Assessment Criteria</h5>
+            <p style="margin-bottom: 5px;">Marks are awarded across Capture Quality (microphone choice, placement, zero clipping, room acoustics), Editing & Noise Control (clean comping, no clicks/spills), and Mixing & Balance (EQ, compression, stereo width, reverb depth).</p>
+            <p>Submitting an incomplete or inaccurate Pearson Logbook can cost precious marks or trigger malpractice penalties—use the MTG App Track Sheet Creator to document every mic and plugin accurately.</p>
+          </div>
+
+          <div class="steps-box">
+            <h5>⭐ Golden Rules for Top-Band Marks (50–60/60)</h5>
+            <div class="step-items">
+            <div class="step-item"><span class="step-num">1</span><span><strong>Capture First, Fix Later Never:</strong> Examiners penalize heavily for poor raw recordings masked with extreme EQ or heavy noise reduction.</span></div>
+            <div class="step-item"><span class="step-num">2</span><span><strong>Strict Time Limits:</strong> Submissions under 2:00 receive an automatic mark deduction; audio beyond 3:30 is ignored by the examiner.</span></div>
+            <div class="step-item"><span class="step-num">3</span><span><strong>No Pre-Recorded Samples:</strong> All parts in Component 1 must be performed and recorded specifically for your candidate submission.</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- SLIDE 2 -->
+    <div class="slide" id="slide-2">
+      <div class="slide-header">
+        <div class="era-badge">SECTION 1 &bull; DRUM CAPTURE & BALANCE</div>
+        <h1 class="slide-title">Drum Kit Recording: <span>Overheads, Phase &amp; Low-End Foundation</span></h1>
+        <p class="slide-subtitle">Drum recording forms the rhythmic and spectral backbone of Component 1. Combining stereo overhead pairs with close spot microphones requires strict attention to phase coherence and the 3:1 placement rule.</p>
+      </div>
+
+      <div class="split-grid">
+        <div class="col-panel col-music">
+          <div class="col-header">
+            <span class="col-tag">Component 1 Drum & Bass Guide</span>
+            <span class="col-Quick-title">Mixing Drums & Bass for Component 1</span>
+          </div>
+
+          <div class="video-wrapper">
+            <iframe src="https://www.youtube-nocookie.com/embed/2x3NJgdKGDY?rel=0&modestbranding=1&vq=hd1080&playsinline=1" title="Mixing Drums & Bass – A-Level Music Tech (Component 1 Guide)" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div class="video-actions-bar">
+            <button class="hd-theater-btn" onclick="openVideo('2x3NJgdKGDY', 'Mixing Drums & Bass – A-Level Music Tech (Component 1 Guide)')">
+              <span>⛶ Watch in HD (Theater Mode)</span>
+            </button>
+            <a href="https://www.youtube.com/watch?v=2x3NJgdKGDY" target="_blank" rel="noopener" class="yt-direct-link">
+              <span>▶ YouTube ↗</span>
+            </a>
+          </div>
+
+          <div class="track-banner">
+            <div class="track-info">
+              <h4>Mixing Drums & Bass – A-Level Music Tech (Component 1 Guide)</h4>
+              <p>Music Tech Guru Studio Tutorial</p>
+            </div>
+          </div>
+
+          <div class="listening-focus">
+            <h5>🎧 Listening Focus: Stereo Overheads vs Close Spot Mics</h5>
+            <ul class="listening-list">
+              <li>Overheads (Spaced Pair, XY, or Glyn Johns) should capture a balanced image of the entire drum kit—not just harsh cymbals.</li>
+              <li>Measure exact equidistant spacing from the center of the snare drum to both Left and Right overhead capsules using a mic cable or tape measure to lock snare phase in the phantom center.</li>
+            </ul>
+          </div>
+
+          <div class="tag-row">
+            <span class="Mini-badge">Spaced Pair (A/B)</span>
+            <span class="Mini-badge">XY Coincident</span>
+            <span class="Mini-badge">Glyn Johns Method</span>
+            <span class="Mini-badge">Equidistant Snare</span>
+            <span class="Mini-badge">3:1 Rule</span>
+            <span class="Mini-badge">Phase Alignment</span>
+          </div>
+        </div>
+
+        <div class="col-panel col-tech">
+          <div class="col-header">
+            <span class="col-tag">Live Room Drum Miking</span>
+            <span class="col-Quick-title">Multi-Mic Drum Kit Capture Architecture</span>
+          </div>
+
+          <div class="photo-card">
+            <img src="/images/live_room_drum_recording.jpg" alt="Studio Drum Kit Multi-Microphone Setup" loading="lazy">
+            <span class="zoom-hint-pill">🔍 Click to Expand</span>
+          </div>
+
+          <div class="gear-title-bar">
+            <h4>🥁 Multi-Microphone Drum Capture Protocol</h4>
+            <span>Dynamic Kick/Snare Spot Mics &bull; Matched Small-Diaphragm Condenser Overheads</span>
+          </div>
+
+          <div class="tech-card">
+            <h5>Phase Coherence & Stereo Imaging</h5>
+            <p style="margin-bottom: 5px;">XY Coincident pairs place two cardioid capsules angled at 90°–135° directly above one another, guaranteeing mono compatibility with zero time-of-arrival phase cancellation.</p>
+            <p>Spaced Pair (A/B) overheads produce a wider stereo soundstage via time-of-arrival differences, but require strict equidistant measurement from the snare center so the snare doesn't pull left or right.</p>
+          </div>
+
+          <div class="steps-box">
+            <h5>⭐ Examiner Drum Checkpoints</h5>
+            <div class="step-items">
+            <div class="step-item"><span class="step-num">1</span><span><strong>Overhead High-Pass Filtering:</strong> Roll off sub-bass mud below 80–100Hz on overheads if close kick/tom mics carry the weight.</span></div>
+            <div class="step-item"><span class="step-num">2</span><span><strong>Check Mono Compatibility:</strong> Engage the Mono button on your master bus while blending overheads and close mics to spot hollow phase cancellation.</span></div>
+            <div class="step-item"><span class="step-num">3</span><span><strong>Pan from Drummer or Audience Perspective:</strong> Keep snare and kick dead center; pan overheads and toms consistently (never exceed 65%–75% on toms).</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- SLIDE 3 -->
+    <div class="slide" id="slide-3">
+      <div class="slide-header">
+        <div class="era-badge">SECTION 2 &bull; CLOSE DRUM SPOT MIKING</div>
+        <h1 class="slide-title">Kick &amp; Snare Engineering: <span>Transient Punch &amp; Polarity</span></h1>
+        <p class="slide-subtitle">Capturing authoritative kick drum weight and articulate snare snap requires choosing high-SPL dynamic transducers, positioning capsules relative to the beater/shell, and inverting bottom snare polarity.</p>
+      </div>
+
+      <div class="split-grid">
+        <div class="col-panel col-music">
+          <div class="col-header">
+            <span class="col-tag">Kick & Snare Mixing Tutorial</span>
+            <span class="col-Quick-title">How to Mix a Rock Kick Drum on Logic Pro X</span>
+          </div>
+
+          <div class="video-wrapper">
+            <iframe src="https://www.youtube-nocookie.com/embed/4ZipvGWO2bQ?rel=0&modestbranding=1&vq=hd1080&playsinline=1" title="How to mix a ROCK KICK DRUM on Logic Pro X" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div class="video-actions-bar">
+            <button class="hd-theater-btn" onclick="openVideo('4ZipvGWO2bQ', 'How to mix a ROCK KICK DRUM on Logic Pro X')">
+              <span>⛶ Watch in HD (Theater Mode)</span>
+            </button>
+            <a href="https://www.youtube.com/watch?v=4ZipvGWO2bQ" target="_blank" rel="noopener" class="yt-direct-link">
+              <span>▶ YouTube ↗</span>
+            </a>
+          </div>
+
+          <div class="track-banner">
+            <div class="track-info">
+              <h4>How to mix a ROCK KICK DRUM on Logic Pro X</h4>
+              <p>Music Tech Guru Production Walkthrough</p>
+            </div>
+          </div>
+
+          <div class="listening-focus">
+            <h5>🎧 Listening Focus: Beater Click vs Sub-Bass Thump</h5>
+            <ul class="listening-list">
+              <li>Placing a large-diaphragm dynamic mic (AKG D112 / Shure Beta 52A) inside the resonant port hole angled toward the beater captures crisp 3–5kHz attack click.</li>
+              <li>Positioning the capsule at the resonant port edge captures maximum 50–80Hz sub-bass air movement, while cutting 250–350Hz boxy resonance cleans up low-mid mud.</li>
+            </ul>
+          </div>
+
+          <div class="tag-row">
+            <span class="Mini-badge">AKG D112 / Beta 52A</span>
+            <span class="Mini-badge">Shure SM57 Snare</span>
+            <span class="Mini-badge">180° Polarity Ø</span>
+            <span class="Mini-badge">Beater Transient</span>
+            <span class="Mini-badge">Boxy 300Hz Cut</span>
+            <span class="Mini-badge">High SPL Handling</span>
+          </div>
+        </div>
+
+        <div class="col-panel col-tech">
+          <div class="col-header">
+            <span class="col-tag">Kick & Snare Close Miking</span>
+            <span class="col-Quick-title">Dynamic Capsule Positioning & Polarity Physics</span>
+          </div>
+
+          <div class="photo-card">
+            <img src="/images/drum_kick_micing_1770032490952.png" alt="Close Microphone Placement on Kick Drum" loading="lazy">
+            <span class="zoom-hint-pill">🔍 Click to Expand</span>
+          </div>
+
+          <div class="gear-title-bar">
+            <h4>🎯 High-SPL Dynamic Transducer Placement</h4>
+            <span>Moving-Coil Dynamic Capsules &bull; Cardioid Rejection &bull; >140 dB SPL Tolerance</span>
+          </div>
+
+          <div class="tech-card">
+            <h5>Top & Bottom Snare Phase Relationship</h5>
+            <p style="margin-bottom: 5px;">When miking both top batter head and bottom snare wires with Shure SM57s, the drumheads move away from one capsule while moving toward the other on impact, creating a 180° polarity opposition.</p>
+            <p>Engaging the Gain plugin's Phase Invert (Ø) button on the snare bottom channel restores low-mid body (150–250Hz) immediately.</p>
+          </div>
+
+          <div class="steps-box">
+            <h5>⭐ Kick & Snare Mixing Recipe</h5>
+            <div class="step-items">
+            <div class="step-item"><span class="step-num">1</span><span><strong>Snare Rim Angle:</strong> Angle the top SM57 2–3cm above the rim pointing toward the center dot, aiming the rear null at the hi-hat to minimize spill.</span></div>
+            <div class="step-item"><span class="step-num">2</span><span><strong>Surgical Boxiness Cut:</strong> Attenuate 300–400Hz on the kick drum by -4dB to -6dB to remove cardboard resonance.</span></div>
+            <div class="step-item"><span class="step-num">3</span><span><strong>Slow Compressor Attack:</strong> Use a 20–30ms compressor attack time on kick and snare so the initial stick/beater transient punches through unclamped.</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- SLIDE 4 -->
+    <div class="slide" id="slide-4">
+      <div class="slide-header">
+        <div class="era-badge">SECTION 3 &bull; ACOUSTIC STRINGED INSTRUMENTS</div>
+        <h1 class="slide-title">Acoustic Guitar &amp; Piano: <span>12th Fret Sweet Spot &amp; Stereo Pairs</span></h1>
+        <p class="slide-subtitle">Acoustic guitars and pianos demand fast transient response and extended high-frequency detail, making small-diaphragm condenser (SDC) microphones the industry standard.</p>
+      </div>
+
+      <div class="split-grid">
+        <div class="col-panel col-music">
+          <div class="col-header">
+            <span class="col-tag">Acoustic Guitar Miking Masterclass</span>
+            <span class="col-Quick-title">Best Microphones for Recording Acoustic Guitar</span>
+          </div>
+
+          <div class="video-wrapper">
+            <iframe src="https://www.youtube-nocookie.com/embed/X7N1VXD6cHs?rel=0&modestbranding=1&vq=hd1080&playsinline=1" title="Best Microphones for Recording Acoustic Guitar – Logic Pro Tutorial" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div class="video-actions-bar">
+            <button class="hd-theater-btn" onclick="openVideo('X7N1VXD6cHs', 'Best Microphones for Recording Acoustic Guitar – Logic Pro Tutorial')">
+              <span>⛶ Watch in HD (Theater Mode)</span>
+            </button>
+            <a href="https://www.youtube.com/watch?v=X7N1VXD6cHs" target="_blank" rel="noopener" class="yt-direct-link">
+              <span>▶ YouTube ↗</span>
+            </a>
+          </div>
+
+          <div class="track-banner">
+            <div class="track-info">
+              <h4>Best Microphones for Recording Acoustic Guitar – Logic Pro Tutorial</h4>
+              <p>Music Tech Guru Studio Guide</p>
+            </div>
+          </div>
+
+          <div class="listening-focus">
+            <h5>🎧 Listening Focus: Soundhole Boom vs 12th Fret Balance</h5>
+            <ul class="listening-list">
+              <li>Never point a microphone directly into the acoustic guitar soundhole—air resonance around 80–120Hz creates overwhelming muddy boominess.</li>
+              <li>Aiming a cardioid small-diaphragm condenser (e.g., Neumann KM184 / Rode NT5) 15–30cm away at the 12th fret neck joint captures an ideal blend of warm body resonance and articulate string detail.</li>
+            </ul>
+          </div>
+
+          <div class="tag-row">
+            <span class="Mini-badge">Small-Diaphragm Condenser</span>
+            <span class="Mini-badge">+48V Phantom Power</span>
+            <span class="Mini-badge">12th Fret Sweet Spot</span>
+            <span class="Mini-badge">Soundhole Avoidance</span>
+            <span class="Mini-badge">XY / Spaced Stereo</span>
+            <span class="Mini-badge">Transient Detail</span>
+          </div>
+        </div>
+
+        <div class="col-panel col-tech">
+          <div class="col-header">
+            <span class="col-tag">Acoustic Guitar Miking</span>
+            <span class="col-Quick-title">12th Fret & Bridge Stereo Microphone Placement</span>
+          </div>
+
+          <div class="photo-card">
+            <img src="/images/guitar_acoustic_micing_1770033553666.png" alt="Acoustic Guitar Microphone Placement Diagram" loading="lazy">
+            <span class="zoom-hint-pill">🔍 Click to Expand</span>
+          </div>
+
+          <div class="gear-title-bar">
+            <h4>🎸 Small-Diaphragm Condenser (SDC) Precision</h4>
+            <span>Low-Mass Diaphragm &bull; Extended 20Hz–20kHz Response &bull; +48V Phantom Power</span>
+          </div>
+
+          <div class="tech-card">
+            <h5>Mono vs Stereo Acoustic Capture</h5>
+            <p style="margin-bottom: 5px;">In a dense rock/pop multitrack mix (with drums, bass, electric guitars, and keys), a single mono SDC at the 12th fret sits cleanly in the stereo field without cluttering the mix.</p>
+            <p>For exposed acoustic arrangements, use a stereo XY pair at the 12th fret or a spaced pair (one mic at the 12th fret, one aimed at the lower bout bridge) checked carefully for phase.</p>
+          </div>
+
+          <div class="steps-box">
+            <h5>⭐ Acoustic Recording Checklist</h5>
+            <div class="step-items">
+            <div class="step-item"><span class="step-num">1</span><span><strong>Engage +48V Phantom Power:</strong> Condenser capsules require +48V DC phantom power over balanced XLR to charge the backplate and active impedance converter.</span></div>
+            <div class="step-item"><span class="step-num">2</span><span><strong>High-Pass at 80–100Hz:</strong> Remove foot taps, stand rumble, and proximity boom below the lowest guitar fundamental (E2 = 82.4Hz).</span></div>
+            <div class="step-item"><span class="step-num">3</span><span><strong>Tame Finger Squeaks:</strong> Use dynamic EQ or subtle de-essing around 2.5–4kHz if string slides jump out aggressively.</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- SLIDE 5 -->
+    <div class="slide" id="slide-5">
+      <div class="slide-header">
+        <div class="era-badge">SECTION 4 &bull; ELECTRIC GUITAR & BASS</div>
+        <h1 class="slide-title">Electric &amp; Bass Capture: <span>DI Boxes, Amp Miking &amp; Re-Amping</span></h1>
+        <p class="slide-subtitle">Capturing both a clean Direct Injection (DI) signal and a close-miked amplifier cabinet gives you rock-solid low-end definition alongside authentic valve/speaker harmonic overdrive.</p>
+      </div>
+
+      <div class="split-grid">
+        <div class="col-panel col-music">
+          <div class="col-header">
+            <span class="col-tag">Rock Guitar & Bass Mixing</span>
+            <span class="col-Quick-title">Guide to Mixing Rock Using Logic Pro Stock Plugins</span>
+          </div>
+
+          <div class="video-wrapper">
+            <iframe src="https://www.youtube-nocookie.com/embed/TwBd3dRsUgQ?rel=0&modestbranding=1&vq=hd1080&playsinline=1" title="Guide to Mixing ROCK using Logic Pro X stock Plugins only" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div class="video-actions-bar">
+            <button class="hd-theater-btn" onclick="openVideo('TwBd3dRsUgQ', 'Guide to Mixing ROCK using Logic Pro X stock Plugins only')">
+              <span>⛶ Watch in HD (Theater Mode)</span>
+            </button>
+            <a href="https://www.youtube.com/watch?v=TwBd3dRsUgQ" target="_blank" rel="noopener" class="yt-direct-link">
+              <span>▶ YouTube ↗</span>
+            </a>
+          </div>
+
+          <div class="track-banner">
+            <div class="track-info">
+              <h4>Guide to Mixing ROCK using Logic Pro X stock Plugins only</h4>
+              <p>Music Tech Guru Production Guide</p>
+            </div>
+          </div>
+
+          <div class="listening-focus">
+            <h5>🎧 Listening Focus: Center Cap Bite vs Cone Edge Warmth</h5>
+            <ul class="listening-list">
+              <li>Placing a dynamic mic (SM57) dead-center on the speaker dust cap yields maximum 2–5kHz aggressive bite; moving 2–5cm off-center toward the paper cone edge warms the tone and smooths fizz.</li>
+              <li>For bass guitar, blend a compressed DI stem (for tight 50–120Hz fundamental sub weight) with an amp/cab stem high-passed at 150Hz (for 700Hz–1.5kHz finger/pick grit).</li>
+            </ul>
+          </div>
+
+          <div class="tag-row">
+            <span class="Mini-badge">Active / Passive DI</span>
+            <span class="Mini-badge">Impedance Matching</span>
+            <span class="Mini-badge">On-Axis vs Off-Axis</span>
+            <span class="Mini-badge">SM57 + Ribbon Blend</span>
+            <span class="Mini-badge">Bass DI + Amp Split</span>
+            <span class="Mini-badge">Ground Lift</span>
+          </div>
+        </div>
+
+        <div class="col-panel col-tech">
+          <div class="col-header">
+            <span class="col-tag">Direct Injection & Amp Signal Flow</span>
+            <span class="col-Quick-title">DI Box Thru Routing to Amplifier & Console</span>
+          </div>
+
+          <div class="photo-card">
+            <img src="/images/diagram_di_box_flow_v2.png" alt="DI Box and Amplifier Miking Signal Flow Diagram" loading="lazy">
+            <span class="zoom-hint-pill">🔍 Click to Expand</span>
+          </div>
+
+          <div class="gear-title-bar">
+            <h4>⚡ Direct Injection (DI) & Cabinet Miking Physics</h4>
+            <span>Hi-Z Guitar Pickup (1MΩ) -> Lo-Z Balanced XLR (150Ω) + Parallel Amp Thru</span>
+          </div>
+
+          <div class="tech-card">
+            <h5>How a DI Box Works in the Exam & Logbook</h5>
+            <p style="margin-bottom: 5px;">Electric guitar and bass pickups output an unbalanced, high-impedance (Hi-Z) instrument-level signal susceptible to cable capacitance and hum. A DI box converts this into a balanced, low-impedance (Lo-Z) mic-level signal via XLR.</p>
+            <p>Using the DI box's 'Thru' (Link) jack sends the parallel unprocessed signal simultaneously to a guitar amplifier on stage or in the live room.</p>
+          </div>
+
+          <div class="steps-box">
+            <h5>⭐ Guitar & Bass Mix Techniques</h5>
+            <div class="step-items">
+            <div class="step-item"><span class="step-num">1</span><span><strong>Double-Tracking Rhythm Guitars:</strong> Record two separate tight performances panned hard Left and Right rather than duplicating one audio region.</span></div>
+            <div class="step-item"><span class="step-num">2</span><span><strong>Phase-Align DI and Cab Mics:</strong> Zoom in to sample level in Logic Pro and align the DI waveform crest with the microphone waveform crest.</span></div>
+            <div class="step-item"><span class="step-num">3</span><span><strong>Low-Pass Fizzy Amps:</strong> Apply a 12dB/oct or 18dB/oct low-pass filter at 7–9kHz on distorted electric guitars to clear space for vocals and cymbals.</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- SLIDE 6 -->
+    <div class="slide" id="slide-6">
+      <div class="slide-header">
+        <div class="era-badge">SECTION 5 &bull; VOCAL CAPTURE & COMPING</div>
+        <h1 class="slide-title">Lead &amp; Backing Vocals: <span>Condenser Setup, Proximity &amp; Comping</span></h1>
+        <p class="slide-subtitle">Vocals are the focal point of almost every Component 1 submission. Examiners listen immediately for clean, intimate vocal capture free from plosive pops, room slapback, and sibilant harshness.</p>
+      </div>
+
+      <div class="split-grid">
+        <div class="col-panel col-music">
+          <div class="col-header">
+            <span class="col-tag">Studio Vocal Setup Masterclass</span>
+            <span class="col-Quick-title">Setting Up a Vocal Microphone Correctly</span>
+          </div>
+
+          <div class="video-wrapper">
+            <iframe src="https://www.youtube-nocookie.com/embed/pwQfLPQsB7E?rel=0&modestbranding=1&vq=hd1080&playsinline=1" title="Setting up a vocal microphone video 1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div class="video-actions-bar">
+            <button class="hd-theater-btn" onclick="openVideo('pwQfLPQsB7E', 'Setting up a vocal microphone video 1')">
+              <span>⛶ Watch in HD (Theater Mode)</span>
+            </button>
+            <a href="https://www.youtube.com/watch?v=pwQfLPQsB7E" target="_blank" rel="noopener" class="yt-direct-link">
+              <span>▶ YouTube ↗</span>
+            </a>
+          </div>
+
+          <div class="track-banner">
+            <div class="track-info">
+              <h4>Setting up a vocal microphone video 1</h4>
+              <p>Music Tech Guru Studio Recording Guide</p>
+            </div>
+          </div>
+
+          <div class="listening-focus">
+            <h5>🎧 Listening Focus: Plosives, Sibilance & Room Reflections</h5>
+            <ul class="listening-list">
+              <li>Plosives ('P' and 'B' blasts) launch low-frequency air bursts that overload condenser capsules—always place a dual-layer nylon or metal mesh pop shield 5–8cm in front of the capsule.</li>
+              <li>Position the vocalist 15–20cm from a large-diaphragm cardioid condenser (e.g., Neumann U87 / Rode NT1) with acoustic absorption behind the singer's head (into the sensitive cardioid pickup lobe).</li>
+            </ul>
+          </div>
+
+          <div class="tag-row">
+            <span class="Mini-badge">Large-Diaphragm Condenser</span>
+            <span class="Mini-badge">Cardioid Null (180°)</span>
+            <span class="Mini-badge">Pop Filter Setup</span>
+            <span class="Mini-badge">Proximity Effect</span>
+            <span class="Mini-badge">Take Folder Comping</span>
+            <span class="Mini-badge">De-Essing (5–8kHz)</span>
+          </div>
+        </div>
+
+        <div class="col-panel col-tech">
+          <div class="col-header">
+            <span class="col-tag">Studio Vocal Microphone & Pop Shield</span>
+            <span class="col-Quick-title">Large-Diaphragm Condenser Shockmount & Pop Screen</span>
+          </div>
+
+          <div class="photo-card">
+            <img src="/images/studio_mic_pop_screen.jpg" alt="Studio Vocal Condenser Microphone with Pop Filter" loading="lazy">
+            <span class="zoom-hint-pill">🔍 Click to Expand</span>
+          </div>
+
+          <div class="gear-title-bar">
+            <h4>🎤 Large-Diaphragm Condenser (LDC) Vocal Chain</h4>
+            <span>Shockmount Isolation &bull; Nylon Pop Shield &bull; Cardioid Polar Pattern</span>
+          </div>
+
+          <div class="tech-card">
+            <h5>Managing Proximity Effect & Vocal Comping</h5>
+            <p style="margin-bottom: 5px;">Directional (cardioid/figure-8) microphones exhibit Proximity Effect: a progressive low-frequency boost (100–250Hz) as the singer moves within 10cm of the capsule. Maintain consistent distance via the pop filter.</p>
+            <p>Record 3–5 full vocal passes into a Logic Pro Take Folder, then use Quick Swipe Comping to assemble the strongest pitch and phrasing from each take with automatic equal-power crossfades.</p>
+          </div>
+
+          <div class="steps-box">
+            <h5>⭐ Vocal Production Best Practices</h5>
+            <div class="step-items">
+            <div class="step-item"><span class="step-num">1</span><span><strong>Absorb Behind the Singer:</strong> A cardioid mic rejects sound from behind the mic (180°), meaning room reflections behind the vocalist bounce straight into the front of the capsule!</span></div>
+            <div class="step-item"><span class="step-num">2</span><span><strong>Serial Vocal Compression:</strong> Pair a fast FET compressor (1176 style, catching 3–4dB peaks) into a smooth Opto compressor (LA-2A style, 2–3dB levelling).</span></div>
+            <div class="step-item"><span class="step-num">3</span><span><strong>Clip Gain Before Compression:</strong> Even out quiet syllables and loud belted notes using region gain before hitting the compressor threshold.</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- SLIDE 7 -->
+    <div class="slide" id="slide-7">
+      <div class="slide-header">
+        <div class="era-badge">SECTION 6 &bull; GAIN STAGING & PHASE</div>
+        <h1 class="slide-title">Gain Staging &amp; Routing: <span>Headroom, Preamp Trim &amp; The 3:1 Rule</span></h1>
+        <p class="slide-subtitle">Clean digital recording starts at the analogue preamp gain stage. Recording too hot risks irreversible 0 dBFS digital clipping, while poor multi-mic spacing causes comb filtering.</p>
+      </div>
+
+      <div class="split-grid">
+        <div class="col-panel col-music">
+          <div class="col-header">
+            <span class="col-tag">Logic Pro Recording Setup</span>
+            <span class="col-Quick-title">Setting Up a Record Track & Gain Staging in Logic Pro</span>
+          </div>
+
+          <div class="video-wrapper">
+            <iframe src="https://www.youtube-nocookie.com/embed/zY1DddKySlA?rel=0&modestbranding=1&vq=hd1080&playsinline=1" title="setting up a record track in Logic Pro X" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div class="video-actions-bar">
+            <button class="hd-theater-btn" onclick="openVideo('zY1DddKySlA', 'setting up a record track in Logic Pro X')">
+              <span>⛶ Watch in HD (Theater Mode)</span>
+            </button>
+            <a href="https://www.youtube.com/watch?v=zY1DddKySlA" target="_blank" rel="noopener" class="yt-direct-link">
+              <span>▶ YouTube ↗</span>
+            </a>
+          </div>
+
+          <div class="track-banner">
+            <div class="track-info">
+              <h4>setting up a record track in Logic Pro X</h4>
+              <p>Music Tech Guru DAW Workflow Tutorial</p>
+            </div>
+          </div>
+
+          <div class="listening-focus">
+            <h5>🎧 Listening Focus: Digital Headroom vs Noise Floor</h5>
+            <ul class="listening-list">
+              <li>In 24-bit digital recording (144 dB theoretical dynamic range), there is no need to push meters near 0 dBFS. Aim for an average recording level of -18 dBFS RMS with peaks around -10 to -6 dBFS.</li>
+              <li>When using multiple microphones on a stage or ensemble, obey the 3:1 Distance Rule: the distance between microphones must be at least 3× the distance from each mic to its source.</li>
+            </ul>
+          </div>
+
+          <div class="tag-row">
+            <span class="Mini-badge">-18 dBFS Average</span>
+            <span class="Mini-badge">-6 dBFS Peak Ceiling</span>
+            <span class="Mini-badge">24-Bit Dynamic Range</span>
+            <span class="Mini-badge">3:1 Distance Rule</span>
+            <span class="Mini-badge">Comb Filtering</span>
+            <span class="Mini-badge">Preamp Pad (-20dB)</span>
+          </div>
+        </div>
+
+        <div class="col-panel col-tech">
+          <div class="col-header">
+            <span class="col-tag">The 3:1 Microphone Placement Rule</span>
+            <span class="col-Quick-title">Preventing Phase Comb Filtering Between Adjacent Mics</span>
+          </div>
+
+          <div class="photo-card">
+            <img src="/images/explanation_3_to_1_rule.svg" alt="3 to 1 Microphone Distance Rule Diagram" loading="lazy">
+            <span class="zoom-hint-pill">🔍 Click to Expand</span>
+          </div>
+
+          <div class="gear-title-bar">
+            <h4>🎚️ Precision Gain Staging & Acoustic Isolation</h4>
+            <span>24-bit / 44.1kHz Capture &bull; -18 dBFS Nominal Level &bull; 3:1 Phase Rule</span>
+          </div>
+
+          <div class="tech-card">
+            <h5>Preamp Pad Switches & Input Monitoring</h5>
+            <p style="margin-bottom: 5px;">Loud transient sources (snare drum, cranked guitar cab) can overload the analogue microphone preamp input transformer even with gain turned down. Engage the -15dB or -20dB Attenuation Pad switch.</p>
+            <p>Set your audio interface buffer size to 32 or 64 samples (or enable Direct Hardware Monitoring) during tracking so musicians experience near-zero latency (<3ms) in their headphones.</p>
+          </div>
+
+          <div class="steps-box">
+            <h5>⭐ Tracking & Routing Checklist</h5>
+            <div class="step-items">
+            <div class="step-item"><span class="step-num">1</span><span><strong>Never Clip the A/D Converter:</strong> Once an analogue signal exceeds 0 dBFS at the A/D converter, the waveform flat-tops permanently and cannot be fixed by lowering the DAW fader.</span></div>
+            <div class="step-item"><span class="step-num">2</span><span><strong>Verify 3:1 Spacing:</strong> If Mic A is 20cm from Singer A, Mic B must be at least 60cm away to keep bleed at least 9.5dB quieter than the direct voice.</span></div>
+            <div class="step-item"><span class="step-num">3</span><span><strong>Zero-Crossing Edits:</strong> Always slice regions at zero-crossing points and apply 5–10ms crossfades to eliminate audible clicks.</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- SLIDE 8 -->
+    <div class="slide" id="slide-8">
+      <div class="slide-header">
+        <div class="era-badge">SECTION 7 &bull; NOISE GATING & SUBTRACTIVE EQ</div>
+        <h1 class="slide-title">Cleanup &amp; Unmasking: <span>Noise Gates, Spill &amp; Frequency Carving</span></h1>
+        <p class="slide-subtitle">Before adding creative polish, Component 1 mixes require surgical cleanup: gating tom/amp spill, high-pass filtering non-bass tracks, and carving complementary EQ pockets.</p>
+      </div>
+
+      <div class="split-grid">
+        <div class="col-panel col-music">
+          <div class="col-header">
+            <span class="col-tag">Logic Pro Noise Gate Tutorial</span>
+            <span class="col-Quick-title">How to Use the Noise Gate in Logic Pro</span>
+          </div>
+
+          <div class="video-wrapper">
+            <iframe src="https://www.youtube-nocookie.com/embed/aLWklivuMmE?rel=0&modestbranding=1&vq=hd1080&playsinline=1" title="How to Use the Noise Gate in Logic Pro (Quick Tip!)" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div class="video-actions-bar">
+            <button class="hd-theater-btn" onclick="openVideo('aLWklivuMmE', 'How to Use the Noise Gate in Logic Pro (Quick Tip!)')">
+              <span>⛶ Watch in HD (Theater Mode)</span>
+            </button>
+            <a href="https://www.youtube.com/watch?v=aLWklivuMmE" target="_blank" rel="noopener" class="yt-direct-link">
+              <span>▶ YouTube ↗</span>
+            </a>
+          </div>
+
+          <div class="track-banner">
+            <div class="track-info">
+              <h4>How to Use the Noise Gate in Logic Pro (Quick Tip!)</h4>
+              <p>Music Tech Guru Mixing Masterclass</p>
+            </div>
+          </div>
+
+          <div class="listening-focus">
+            <h5>🎧 Listening Focus: Natural Gate Decay vs Chattering</h5>
+            <ul class="listening-list">
+              <li>When gating rack/floor toms or noisy guitar amplifiers, set a fast Attack (1–3ms) so transients aren't clipped, use Hold (20–50ms) to prevent chattering, and time the Release (150–400ms) to follow the drum ring.</li>
+              <li>Instead of infinite (-100dB) reduction which sounds jarring when background cymbal bleed vanishes suddenly, set the Gate Reduction (Range/Floor) to -12dB to -18dB for transparent spill attenuation.</li>
+            </ul>
+          </div>
+
+          <div class="tag-row">
+            <span class="Mini-badge">Threshold & Hysteresis</span>
+            <span class="Mini-badge">Hold & Release</span>
+            <span class="Mini-badge">Range / Reduction</span>
+            <span class="Mini-badge">High-Pass Filtering</span>
+            <span class="Mini-badge">Frequency Unmasking</span>
+            <span class="Mini-badge">Mud Zone (200–400Hz)</span>
+          </div>
+        </div>
+
+        <div class="col-panel col-tech">
+          <div class="col-header">
+            <span class="col-tag">Noise Gate Envelope Parameters</span>
+            <span class="col-Quick-title">Threshold, Attack, Hold, Release & Hysteresis Control</span>
+          </div>
+
+          <div class="photo-card">
+            <img src="/images/noise_gate_hold_envelope_diagram.svg" alt="Noise Gate Envelope Diagram" loading="lazy">
+            <span class="zoom-hint-pill">🔍 Click to Expand</span>
+          </div>
+
+          <div class="gear-title-bar">
+            <h4>🔇 Surgical Gating & Subtractive EQ Unmasking</h4>
+            <span>Hysteresis Control &bull; Sidechain Filter &bull; Complementary EQ Carving</span>
+          </div>
+
+          <div class="tech-card">
+            <h5>Eliminating Low-Mid Mud (200–450 Hz)</h5>
+            <p style="margin-bottom: 5px;">The most common flaw in student Component 1 mixes is buildup between 200Hz and 450Hz where snare body, acoustic guitars, electric guitars, pianos, and lower vocals overlap.</p>
+            <p>Apply High-Pass Filters (80–120Hz) on guitars, keys, and vocals, and use narrow subtractive EQ cuts (-3dB to -5dB, Q = 2.5) in the low-mids to let the kick and bass guitar breathe.</p>
+          </div>
+
+          <div class="steps-box">
+            <h5>⭐ Cleanup & EQ Golden Rules</h5>
+            <div class="step-items">
+            <div class="step-item"><span class="step-num">1</span><span><strong>Use Hysteresis on Gates:</strong> Set the Close threshold 3–6dB lower than the Open threshold so decaying drum sustains don't cause the gate to stutter.</span></div>
+            <div class="step-item"><span class="step-num">2</span><span><strong>Cut Narrow, Boost Wide:</strong> Use high-Q narrow bells for surgical resonant cuts and low-Q gentle bells/shelves for musical tonal boosts.</span></div>
+            <div class="step-item"><span class="step-num">3</span><span><strong>Manual Strip Silence:</strong> For vocal breaths and guitar intro silence, manual region trimming with fade-ins is often cleaner than an automated gate.</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- SLIDE 9 -->
+    <div class="slide" id="slide-9">
+      <div class="slide-header">
+        <div class="era-badge">SECTION 8 &bull; AUXILIARY BUSES & SPATIAL DEPTH</div>
+        <h1 class="slide-title">Buses, Reverb &amp; Delay: <span>Aux Sends, Pre-Delay &amp; Abbey Road EQ</span></h1>
+        <p class="slide-subtitle">Professional Component 1 mixes place instruments into a cohesive 3D acoustic space using shared auxiliary effect buses rather than inserting 15 separate reverbs on individual channels.</p>
+      </div>
+
+      <div class="split-grid">
+        <div class="col-panel col-music">
+          <div class="col-header">
+            <span class="col-tag">Auxiliary & Bus Routing Tutorial</span>
+            <span class="col-Quick-title">Using Auxiliary and Bus Channels on Logic Pro X</span>
+          </div>
+
+          <div class="video-wrapper">
+            <iframe src="https://www.youtube-nocookie.com/embed/T3aMMpoz95Y?rel=0&modestbranding=1&vq=hd1080&playsinline=1" title="Using Auxiliary and Bus channels on Logic Pro X" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div class="video-actions-bar">
+            <button class="hd-theater-btn" onclick="openVideo('T3aMMpoz95Y', 'Using Auxiliary and Bus channels on Logic Pro X')">
+              <span>⛶ Watch in HD (Theater Mode)</span>
+            </button>
+            <a href="https://www.youtube.com/watch?v=T3aMMpoz95Y" target="_blank" rel="noopener" class="yt-direct-link">
+              <span>▶ YouTube ↗</span>
+            </a>
+          </div>
+
+          <div class="track-banner">
+            <div class="track-info">
+              <h4>Using Auxiliary and Bus channels on Logic Pro X</h4>
+              <p>Music Tech Guru Studio Routing Guide</p>
+            </div>
+          </div>
+
+          <div class="listening-focus">
+            <h5>🎧 Listening Focus: Front-to-Back Depth & Vocal Clarity</h5>
+            <ul class="listening-list">
+              <li>Routing tracks via Post-Fader Aux Sends to a shared Short Room Reverb and a Lush Vocal Plate glues disparate close-miked recordings into one believable studio room.</li>
+              <li>Dial in 25–40ms of Pre-Delay on your vocal plate reverb so the dry consonant attack arrives at the listener's ear before the reverb tail blooms.</li>
+            </ul>
+          </div>
+
+          <div class="tag-row">
+            <span class="Mini-badge">Post-Fader Aux Send</span>
+            <span class="Mini-badge">100% Wet Return</span>
+            <span class="Mini-badge">25–40ms Pre-Delay</span>
+            <span class="Mini-badge">Abbey Road Reverb EQ</span>
+            <span class="Mini-badge">Parallel Compression</span>
+            <span class="Mini-badge">Track Stacks / Subgroups</span>
+          </div>
+        </div>
+
+        <div class="col-panel col-tech">
+          <div class="col-header">
+            <span class="col-tag">Reverb Pre-Delay & Abbey Road EQ</span>
+            <span class="col-Quick-title">Separating Direct Transients from Early Reflections</span>
+          </div>
+
+          <div class="photo-card">
+            <img src="/images/reverb_predelay_separation_diagram.svg" alt="Reverb Pre-Delay Separation Diagram" loading="lazy">
+            <span class="zoom-hint-pill">🔍 Click to Expand</span>
+          </div>
+
+          <div class="gear-title-bar">
+            <h4>🌊 Auxiliary Bus Architecture & 3D Depth Staging</h4>
+            <span>Post-Fader Sends &bull; 100% Wet Aux Return &bull; Pre-Delay &bull; Abbey Road EQ Filtering</span>
+          </div>
+
+          <div class="tech-card">
+            <h5>The Abbey Road Reverb Trick</h5>
+            <p style="margin-bottom: 5px;">Unfiltered reverb tails contain low-frequency rumble (mudding up the kick/bass) and harsh high-frequency sibilance. Insert a Channel EQ directly on your Reverb Aux channel before or after the reverb plugin.</p>
+            <p>Roll off lows below 250–300Hz and highs above 6–8kHz on the Aux return. The result is lush, warm 3D depth that never clouds the lead vocal or rhythm section.</p>
+          </div>
+
+          <div class="steps-box">
+            <h5>⭐ Bus & Spatial Routing Rules</h5>
+            <div class="step-items">
+            <div class="step-item"><span class="step-num">1</span><span><strong>Always Set Aux Reverbs to 100% Wet:</strong> Because the dry signal is already playing on the source channel strip, the Aux return must output 100% Wet (0% Dry).</span></div>
+            <div class="step-item"><span class="step-num">2</span><span><strong>Group Buses (Drum Bus / Vocal Bus):</strong> Route all drum channels to a Stereo Drum Bus for cohesive bus compression (2:1 ratio, 30ms attack, 2dB GR).</span></div>
+            <div class="step-item"><span class="step-num">3</span><span><strong>Keep Sub-Bass Dry:</strong> Never send kick drum sub-frequencies or bass guitar into a stereo reverb bus—it ruins low-end mono punch.</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- SLIDE 10 -->
+    <div class="slide" id="slide-10">
+      <div class="slide-header">
+        <div class="era-badge">SECTION 9 &bull; FINAL MIXDOWN, MASTERING & LOGBOOK</div>
+        <h1 class="slide-title">Final Mix &amp; Submission: <span>Stereo Balance, Mastering &amp; Logbook</span></h1>
+        <p class="slide-subtitle">The final stage of Component 1 brings together stereo panning, volume automation, gentle master bus limiting, uncompressed WAV bouncing, and completing your official Pearson Logbook.</p>
+      </div>
+
+      <div class="split-grid">
+        <div class="col-panel col-music">
+          <div class="col-header">
+            <span class="col-tag">Full Band Mixing Masterclass</span>
+            <span class="col-Quick-title">How to Mix a Band in Logic Pro X (Full Tutorial)</span>
+          </div>
+
+          <div class="video-wrapper">
+            <iframe src="https://www.youtube-nocookie.com/embed/ZbOIpHBDTI8?rel=0&modestbranding=1&vq=hd1080&playsinline=1" title="How to Mix a Band in Logic Pro X (Full Tutorial)" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div class="video-actions-bar">
+            <button class="hd-theater-btn" onclick="openVideo('ZbOIpHBDTI8', 'How to Mix a Band in Logic Pro X (Full Tutorial)')">
+              <span>⛶ Watch in HD (Theater Mode)</span>
+            </button>
+            <a href="https://www.youtube.com/watch?v=ZbOIpHBDTI8" target="_blank" rel="noopener" class="yt-direct-link">
+              <span>▶ YouTube ↗</span>
+            </a>
+          </div>
+
+          <div class="track-banner">
+            <div class="track-info">
+              <h4>How to Mix a Band in Logic Pro X (Full Tutorial)</h4>
+              <p>Music Tech Guru Complete Mixing Guide</p>
+            </div>
+          </div>
+
+          <div class="listening-focus">
+            <h5>🎧 Listening Focus: Reference Track Comparison & Final Bounce</h5>
+            <ul class="listening-list">
+              <li>A/B your mix against commercial reference tracks in the same genre at matched loudness so your vocal level, snare crack, and bass weight translate on both studio monitors and headphones.</li>
+              <li>Export your final master at 16-bit / 44.1 kHz Stereo Interleaved WAV (with TPDF Dither enabled and Normalize set to OFF), ensuring True Peak stays below -1.0 dBTP.</li>
+            </ul>
+          </div>
+
+          <div class="tag-row">
+            <span class="Mini-badge">LCR / Stereo Staging</span>
+            <span class="Mini-badge">Volume Automation</span>
+            <span class="Mini-badge">-1.0 dBTP Limiter</span>
+            <span class="Mini-badge">16-Bit / 44.1kHz WAV</span>
+            <span class="Mini-badge">TPDF Dithering</span>
+            <span class="Mini-badge">MTG Logbook Generator</span>
+          </div>
+        </div>
+
+        <div class="col-panel col-tech">
+          <div class="col-header">
+            <span class="col-tag">Stereo Soundstage & Panning Architecture</span>
+            <span class="col-Quick-title">Frequency vs Panning Distribution Across the Stereo Field</span>
+          </div>
+
+          <div class="photo-card">
+            <img src="/images/lcr_panning_soundstage_diagram_v2.svg" alt="LCR and Stereo Soundstage Panning Diagram" loading="lazy">
+            <span class="zoom-hint-pill">🔍 Click to Expand</span>
+          </div>
+
+          <div class="gear-title-bar">
+            <h4>🏆 Final Submission & Coursework Logbook Protocol</h4>
+            <span>Stereo WAV (16-bit/44.1kHz) &bull; Normalize OFF &bull; Signed Authentication & Logbook</span>
+          </div>
+
+          <div class="tech-card">
+            <h5>Using the MTG App Track Sheet & Logbook Creator</h5>
+            <p style="margin-bottom: 5px;">Pearson examiners cross-reference your audio mix against your written Component 1 Logbook. You must document exact microphone models, polar patterns, placement distances, EQ frequencies, compression ratios, and effects routing.</p>
+            <p>Inside the Music Tech Guru App (app.musictechguru.com), use the interactive Component 1 Toolkit & Track Sheet Creator to generate examiner-ready documentation in minutes.</p>
+          </div>
+
+          <div class="steps-box">
+            <h5>⭐ Final Pre-Submission Checklist</h5>
+            <div class="step-items">
+            <div class="step-item"><span class="step-num">1</span><span><strong>Clean Start & Tail Fade-Out:</strong> Trim dead silence at the start and apply a smooth master fade-out at the end so noise floors don't cut off abruptly.</span></div>
+            <div class="step-item"><span class="step-num">2</span><span><strong>Listen to the Bounce File Outside the DAW:</strong> Play the exported WAV file in Finder/QuickTime from 0:00 to the end to verify duration (2:00–3:30) and zero glitches.</span></div>
+            <div class="step-item"><span class="step-num">3</span><span><strong>Complete Your Logbook in the MTG App:</strong> Verify every microphone and signal processor is listed accurately in your official Pearson Logbook PDF.</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="deck-nav">
+    <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)" disabled>
+      <span>‹ Previous</span>
+    </button>
+
+    <div style="display: flex; align-items: center;">
+      <div class="progress-dots" id="progressDots">
+        <div class="dot active" onclick="goToSlide(0)"></div>
+        <div class="dot" onclick="goToSlide(1)"></div>
+        <div class="dot" onclick="goToSlide(2)"></div>
+        <div class="dot" onclick="goToSlide(3)"></div>
+        <div class="dot" onclick="goToSlide(4)"></div>
+        <div class="dot" onclick="goToSlide(5)"></div>
+        <div class="dot" onclick="goToSlide(6)"></div>
+        <div class="dot" onclick="goToSlide(7)"></div>
+        <div class="dot" onclick="goToSlide(8)"></div>
+        <div class="dot" onclick="goToSlide(9)"></div>
+      </div>
+      <span class="slide-counter" id="slideCounter">1 / 10</span>
+    </div>
+
+    <div style="display: flex; align-items: center; gap: 8px;">
+      <button class="nav-btn" onclick="toggleFullscreen()" id="fsBtn" title="Toggle Fullscreen (F)">
+        <span>⛶ Fullscreen</span>
+      </button>
+      <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">
+        <span>Next ›</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="img-modal-backdrop" id="imageModal" onclick="closeLightbox()" role="dialog" aria-modal="true">
+    <div class="img-modal-content" onclick="event.stopPropagation()">
+      <button class="img-modal-close" onclick="closeLightbox()" aria-label="Close image">✕</button>
+      <img id="modalImg" src="" alt="Expanded view">
+      <div class="img-modal-caption" id="modalCaption"></div>
+    </div>
+  </div>
+
+  <div class="video-modal-backdrop" id="videoModal" onclick="closeVideo()" role="dialog" aria-modal="true">
+    <div class="video-modal-box" onclick="event.stopPropagation()">
+      <div class="video-modal-header">
+        <div class="video-modal-title">
+          <span>🎬 Playing in 1080p Full HD Theater View</span>
+          <span style="color:#64748b;">•</span>
+          <span id="videoModalTitle" style="color:var(--accent-prod);"></span>
+        </div>
+        <button class="video-modal-close" onclick="closeVideo()">✕ Close HD Player</button>
+      </div>
+      <div class="video-modal-frame-wrap">
+        <iframe id="videoModalIframe" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+    const dots = document.querySelectorAll('.dot');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const counter = document.getElementById('slideCounter');
+    const totalSlides = slides.length;
+
+    function stopAllVideos() {
+      document.querySelectorAll('.slide iframe').forEach(iframe => {
+        const src = iframe.getAttribute('src');
+        if (src) iframe.setAttribute('src', src);
+      });
+    }
+
+    function updateDeck() {
+      stopAllVideos();
+      slides.forEach((s, idx) => s.classList.toggle('active', idx === currentSlide));
+      dots.forEach((d, idx) => d.classList.toggle('active', idx === currentSlide));
+      prevBtn.disabled = currentSlide === 0;
+      nextBtn.disabled = currentSlide === totalSlides - 1;
+      counter.textContent = `${currentSlide + 1} / ${totalSlides}`;
+    }
+
+    function changeSlide(dir) {
+      const next = currentSlide + dir;
+      if (next >= 0 && next < totalSlides) {
+        currentSlide = next;
+        updateDeck();
+      }
+    }
+
+    function goToSlide(idx) {
+      if (idx >= 0 && idx < totalSlides) {
+        currentSlide = idx;
+        updateDeck();
+      }
+    }
+
+    function openLightbox(src, caption) {
+      const modal = document.getElementById('imageModal');
+      document.getElementById('modalImg').src = src;
+      document.getElementById('modalCaption').textContent = caption || '';
+      modal.classList.add('open');
+    }
+
+    function closeLightbox() {
+      const modal = document.getElementById('imageModal');
+      modal.classList.remove('open');
+      document.getElementById('modalImg').src = '';
+    }
+
+    function openVideo(ytId, title) {
+      stopAllVideos();
+      const modal = document.getElementById('videoModal');
+      const iframe = document.getElementById('videoModalIframe');
+      document.getElementById('videoModalTitle').textContent = title || 'Masterclass Video';
+      iframe.src = `https://www.youtube-nocookie.com/embed/${ytId}?autoplay=1&rel=0&modestbranding=1&vq=hd1080&playsinline=1`;
+      modal.classList.add('open');
+    }
+
+    function closeVideo() {
+      const modal = document.getElementById('videoModal');
+      const iframe = document.getElementById('videoModalIframe');
+      iframe.src = '';
+      modal.classList.remove('open');
+    }
+
+    document.querySelectorAll('.photo-card').forEach(card => {
+      const img = card.querySelector('img');
+      if (img) {
+        card.addEventListener('click', () => {
+          openLightbox(img.getAttribute('src'), img.getAttribute('alt'));
+        });
+      }
+    });
+
+    function toggleFullscreen() {
+      if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+        const el = document.documentElement;
+        if (el.requestFullscreen) el.requestFullscreen();
+        else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+      } else {
+        exitFullscreenMode();
+      }
+    }
+
+    function exitFullscreenMode() {
+      if (document.fullscreenElement || document.webkitFullscreenElement) {
+        if (document.exitFullscreen) document.exitFullscreen();
+        else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+      }
+    }
+
+    document.addEventListener('keydown', (e) => {
+      const imgModal = document.getElementById('imageModal');
+      const vidModal = document.getElementById('videoModal');
+      if (e.key === 'Escape') {
+        if (vidModal && vidModal.classList.contains('open')) { closeVideo(); return; }
+        if (imgModal && imgModal.classList.contains('open')) { closeLightbox(); return; }
+      }
+      if (e.key === 'ArrowRight') changeSlide(1);
+      if (e.key === 'ArrowLeft') changeSlide(-1);
+      if (e.key === 'f' || e.key === 'F') {
+        if (document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') {
+          toggleFullscreen();
+        }
+      }
+    });
+  </script>
+</body>
+</html>

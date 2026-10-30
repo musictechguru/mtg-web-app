@@ -117,6 +117,9 @@ const MainApp = () => {
       if (quickfireParam === 'true' || quizParam === 'quick_fire_daily5' || quizParam === 'quickfire' || quizParam === 'daily5') {
         return { id: 'quick_fire_daily5', type: 'quick_fire_daily5', title: 'Daily 5 Quick-Fire Drill' };
       }
+      if (params.get('upgrade') === 'true' || quizParam === 'upgrade' || quizParam === 'pricing' || quizParam === 'pro') {
+        return { type: 'premium_locked', title: 'MTG Pro Membership & Classroom Packs' };
+      }
       if (quizParam) {
         if (quizParam === 'dictionary_selector') {
           return { type: 'dictionary_selector', title: 'Dictionary Quizzes' };
