@@ -231,78 +231,78 @@ ul.product-grid > li.product:hover {
 
         <!-- Section: Practical DAW Modules (Stage 3 Existing Interactive Tasks) -->
         <h4 style="color: #e9d5ff; font-size: 14px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.8px; margin: 16px 0 10px 0; display: flex; align-items: center; gap: 6px;">
-            <span>🎧</span> Interactive Practical Tasks &amp; DAW Production Challenges
+            <span>🎧</span> Stage 3: Interactive Practical Tasks &amp; DAW Challenges
         </h4>
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; margin-bottom: 22px;">
             <a href="https://app.musictechguru.com/?quiz=quiz-topic-46" target="_blank" rel="noopener" class="c4-app-btn">
                 <div>
-                    <div class="c4-app-btn-title">Phase Alignment &amp; Gain Staging</div>
+                    <div class="c4-app-btn-title">Practical Quiz 27: Phase Alignment &amp; Polarities</div>
                     <div class="c4-app-btn-desc">Calibrate nominal -18 dBFS levels, diagnose multi-mic drum polarities (180° flip), and eliminate destructive comb filtering.</div>
                 </div>
-                <div class="c4-app-btn-action">Launch Phase &amp; Gain Task &rarr;</div>
+                <div class="c4-app-btn-action">Launch Phase &amp; Polarity Quiz &rarr;</div>
             </a>
             <a href="https://app.musictechguru.com/?quiz=quiz-topic-36" target="_blank" rel="noopener" class="c4-app-btn">
                 <div>
-                    <div class="c4-app-btn-title">Sidechain Compression &amp; Dynamics</div>
-                    <div class="c4-app-btn-desc">Set key input detectors, configure threshold and ratio, and carve dynamic breathing space between kick and sub-bass.</div>
+                    <div class="c4-app-btn-title">Practical Quiz 17: EDM Production Techniques</div>
+                    <div class="c4-app-btn-desc">Configure sidechain compression key inputs, threshold and ratio pumping, and dynamic space between kick and sub-bass.</div>
                 </div>
-                <div class="c4-app-btn-action">Launch Production Task &rarr;</div>
+                <div class="c4-app-btn-action">Launch EDM Production Quiz &rarr;</div>
             </a>
             <a href="https://app.musictechguru.com/?quiz=quiz-topic-45" target="_blank" rel="noopener" class="c4-app-btn">
                 <div>
-                    <div class="c4-app-btn-title">Subtractive EQ &amp; Frequency Pocketing</div>
+                    <div class="c4-app-btn-title">Practical Quiz 26: Frequency Spectrum &amp; EQ Pocketing</div>
                     <div class="c4-app-btn-desc">Surgical Q-factor carving, complementary frequency unmasking between kick and bass, and sweeping to notch harsh resonances.</div>
                 </div>
-                <div class="c4-app-btn-action">Launch EQ Pocketing Task &rarr;</div>
+                <div class="c4-app-btn-action">Launch EQ Pocketing Quiz &rarr;</div>
             </a>
             <a href="https://app.musictechguru.com/?quiz=quiz-topic-34" target="_blank" rel="noopener" class="c4-app-btn">
                 <div>
-                    <div class="c4-app-btn-title">Subtractive Synthesizer Sound Design</div>
+                    <div class="c4-app-btn-title">Practical Quiz 15: Synthesizer Fundamentals</div>
                     <div class="c4-app-btn-desc">Interactive virtual synth: shape oscillators, adjust 24dB ladder filter cutoff, dial resonance (Q), and assign LFO routing.</div>
                 </div>
                 <div class="c4-app-btn-action">Launch Interactive Synth &rarr;</div>
             </a>
             <a href="https://app.musictechguru.com/?quiz=quiz-topic-39" target="_blank" rel="noopener" class="c4-app-btn">
                 <div>
-                    <div class="c4-app-btn-title">Sample Chopping, Editing &amp; MIDI</div>
+                    <div class="c4-app-btn-title">Practical Quiz 20: Sample Editing &amp; Chopping</div>
                     <div class="c4-app-btn-desc">Interactive waveform editor: zoom to zero-crossings, slice drum loops, configure MIDI keyzones, and apply crossfades.</div>
                 </div>
                 <div class="c4-app-btn-action">Launch Sample Chopper &rarr;</div>
             </a>
             <a href="https://app.musictechguru.com/?quiz=quiz-topic-35" target="_blank" rel="noopener" class="c4-app-btn">
                 <div>
-                    <div class="c4-app-btn-title">Audio Effects &amp; Processor Signal Chains</div>
+                    <div class="c4-app-btn-title">Practical Quiz 16: Audio Effects Processing</div>
                     <div class="c4-app-btn-desc">Interactive rack challenge: route modulation, delays, reverbs, and serial/parallel dynamics in the correct signal chain order.</div>
                 </div>
                 <div class="c4-app-btn-action">Launch Effects Chain Rack &rarr;</div>
             </a>
         </div>
 
-        <!-- Section: Interactive Diagnostic Tools & Essay Workshops -->
+        <!-- Section: Interactive Diagnostic Tools & Studio Quizzes -->
         <h4 style="color: #e9d5ff; font-size: 14px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.8px; margin: 16px 0 10px 0; display: flex; align-items: center; gap: 6px;">
-            <span>⚡</span> Interactive Production Tools &amp; Essay Builder
+            <span>⚡</span> Stage 3: Signal Flow &amp; Studio Diagnostic Quizzes
         </h4>
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px;">
             <a href="https://app.musictechguru.com/?quiz=quiz-topic-21" target="_blank" rel="noopener" class="c4-app-btn">
                 <div>
-                    <div class="c4-app-btn-title">Signal Flow Challenge</div>
+                    <div class="c4-app-btn-title">Practical Quiz 2: Signal Flow Challenge</div>
                     <div class="c4-app-btn-desc">Trace audio signal flow across preamps, inserts, aux sends, submix groups, and master bus converters.</div>
                 </div>
                 <div class="c4-app-btn-action">Play Signal Flow Quiz &rarr;</div>
             </a>
             <a href="https://app.musictechguru.com/?quiz=quiz-topic-24" target="_blank" rel="noopener" class="c4-app-btn">
                 <div>
-                    <div class="c4-app-btn-title">EQ Parameter Mastery</div>
+                    <div class="c4-app-btn-title">Practical Quiz 5: EQ Parameter Mastery</div>
                     <div class="c4-app-btn-desc">Interactive ear-training identifying frequency bands, filter slope dB/octave attenuation, and resonant Q peaks.</div>
                 </div>
                 <div class="c4-app-btn-action">Play EQ Challenge &rarr;</div>
             </a>
-            <a href="https://app.musictechguru.com/?quiz=c4_edm" target="_blank" rel="noopener" class="c4-app-btn">
+            <a href="https://app.musictechguru.com/?quiz=quiz-topic-33" target="_blank" rel="noopener" class="c4-app-btn">
                 <div>
-                    <div class="c4-app-btn-title">Component 4 Practice Exam: EDM &amp; Production</div>
-                    <div class="c4-app-btn-desc">Complete examiner-graded practical exam covering signal flow, compression ratios, DAW editing, and mix bus processing.</div>
+                    <div class="c4-app-btn-title">Practical Quiz 14: Advanced Microphone Placement</div>
+                    <div class="c4-app-btn-desc">Interactive visual positioning: place cardioid, omni, and figure-8 mics on drum kits, guitar cabinets, and vocalists.</div>
                 </div>
-                <div class="c4-app-btn-action">Launch Practice Exam &rarr;</div>
+                <div class="c4-app-btn-action">Play Mic Placement Quiz &rarr;</div>
             </a>
             <a href="https://www.musictechguru.com/homepage/a-level-music-technology/component-4-production-analysing/music-technology-dictionary/" class="c4-app-btn" style="border-color: rgba(56, 189, 248, 0.4);">
                 <div>
