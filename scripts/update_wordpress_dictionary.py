@@ -256,65 +256,85 @@ def build_visual_gallery_html(section_key):
     </div>
     """
 
-def get_term_target(term, section, sub):
+def get_website_link(term, section, sub):
     t_lower = term.lower()
     s_lower = section.lower()
     sub_lower = sub.lower()
-    
-    # 1. Specific gear & instruments with dedicated WordPress study pages
+
+    # 1. Specific instruments & dedicated context pages
     if 'mellotron' in t_lower:
-        return ('https://www.musictechguru.com/homepage/a-level-music-technology/component-3-music-technology-in-context/the-mellotron/', '📖 Mellotron Guide', 'web')
+        return ('https://www.musictechguru.com/homepage/a-level-music-technology/component-3-music-technology-in-context/the-mellotron/', 'Mellotron Guide')
     if 'clavinet' in t_lower:
-        return ('https://www.musictechguru.com/homepage/a-level-music-technology/component-3-music-technology-in-context/the-clavinet/', '📖 Clavinet Guide', 'web')
+        return ('https://www.musictechguru.com/homepage/a-level-music-technology/component-3-music-technology-in-context/the-clavinet/', 'Clavinet Guide')
     if any(k in t_lower for k in ['rhodes', 'wurlitzer', 'electric piano']):
-        return ('https://www.musictechguru.com/homepage/a-level-music-technology/component-3-music-technology-in-context/electric-piano/', '📖 E-Piano Guide', 'web')
-    if any(k in t_lower for k in ['reverb', 'rt60', 'pre-delay', 'decay time', 'early reflection', 'plate reverb', 'spring reverb', 'convolution', 'chamber reverb', 'hall reverb', 'gated reverb']):
-        return ('https://www.musictechguru.com/homepage/a-level-music-technology/component-3-music-technology-in-context/reverb/', '📖 Reverb Guide', 'web')
-    if any(k in t_lower for k in ['delay', 'slapback', 'echo', 'multi-tap', 'ping-pong', 'feedback delay', 'tape delay', 'bucket brigade']):
-        return ('https://www.musictechguru.com/homepage/a-level-music-technology/component-3-music-technology-in-context/delay/', '📖 Delay Guide', 'web')
-    if 'chorus' in t_lower:
-        return ('https://www.musictechguru.com/homepage/a-level-music-technology/component-3-music-technology-in-context/chorus/', '📖 Chorus Guide', 'web')
-    if any(k in t_lower for k in ['flanger', 'flanging', 'comb filter']):
-        return ('https://www.musictechguru.com/homepage/a-level-music-technology/component-3-music-technology-in-context/flanger/', '📖 Flanger Guide', 'web')
-    if any(k in t_lower for k in ['phaser', 'phasing', 'all-pass filter', 'phase shifter']):
-        return ('https://www.musictechguru.com/homepage/a-level-music-technology/component-3-music-technology-in-context/phaser/', '📖 Phaser Guide', 'web')
-    if any(k in t_lower for k in ['electric guitar', 'single coil', 'humbucker', 'pickup', 'whammy']):
-        return ('https://www.musictechguru.com/homepage/a-level-music-technology/component-3-music-technology-in-context/the-electric-guitar/', '📖 Guitar Guide', 'web')
-    if any(k in t_lower for k in ['amplifier', 'valve', 'tube amp', 'cabinet', 'combo amp', 'overdrive', 'distortion pedal']):
-        return ('https://www.musictechguru.com/homepage/a-level-music-technology/component-3-music-technology-in-context/amplifiers/', '📖 Amp Guide', 'web')
-    if any(k in t_lower for k in ['vinyl', 'cassette', 'compact disc', 'mp3', 'lossless', 'aac', 'wav', 'music format']):
-        return ('https://www.musictechguru.com/music-formats/', '📖 Formats Guide', 'web')
+        return ('https://www.musictechguru.com/homepage/a-level-music-technology/component-3-music-technology-in-context/electric-piano/', 'Electric Piano Guide')
+    if 'organ' in t_lower or 'hammond' in t_lower:
+        return ('https://www.musictechguru.com/2020/03/04/electric-organ/', 'Electric Organ Guide')
+    if 'theremin' in t_lower:
+        return ('https://www.musictechguru.com/2020/03/04/the-theremin/', 'Theremin Guide')
+    if any(k in t_lower for k in ['bass guitar', 'precision bass', 'jazz bass']):
+        return ('https://www.musictechguru.com/2020/03/04/the-bass-guitar/', 'Bass Guitar Guide')
+    if any(k in t_lower for k in ['electric guitar', 'single-coil', 'single coil', 'humbucker', 'whammy', 'pickup']):
+        return ('https://www.musictechguru.com/homepage/a-level-music-technology/component-3-music-technology-in-context/the-electric-guitar/', 'Electric Guitar Guide')
+    if any(k in t_lower for k in ['amplifier', 'valve', 'tube amp', 'cabinet', 'combo amp', 'overdrive', 'distortion pedal', 'headroom in amps']):
+        return ('https://www.musictechguru.com/homepage/a-level-music-technology/component-3-music-technology-in-context/amplifiers/', 'Amplifiers Guide')
+    if any(k in t_lower for k in ['vinyl', 'cassette', 'compact disc', 'mp3', 'lossless', 'aac', 'wav', 'music format', 'minidisc']):
+        return ('https://www.musictechguru.com/music-formats/', 'Music Formats Guide')
     if any(k in t_lower for k in ['direct to tape', 'reel-to-reel', 'tape head', 'magnetic tape', 'bias frequency']):
-        return ('https://www.musictechguru.com/homepage/a-level-music-technology/component-3-music-technology-in-context/direct-to-tape-recording-1950-1963/', '📖 Tape Guide', 'web')
-    if any(k in t_lower for k in ['mixer', 'mixing desk', 'console', 'channel strip', 'fader', 'pan pot', 'aux send', 'insert point', 'bus', 'bussing', 'patch bay']):
-        return ('https://www.musictechguru.com/homepage/a-level-music-technology/component-3-music-technology-in-context/audio-mixers/', '📖 Mixer Guide', 'web')
+        return ('https://www.musictechguru.com/homepage/a-level-music-technology/component-3-music-technology-in-context/direct-to-tape-recording-1950-1963/', 'Direct to Tape Guide')
+    if any(k in t_lower for k in ['early multitrack', '4-track', '8-track']):
+        return ('https://www.musictechguru.com/homepage/a-level-music-technology/component-3-music-technology-in-context/early-multitrack-recording-1964-1969/', 'Early Multitrack Guide')
+    if any(k in t_lower for k in ['large scale analogue', '16-track', '24-track']):
+        return ('https://www.musictechguru.com/homepage/a-level-music-technology/component-3-music-technology-in-context/large-scale-analogue-multitrack-1968-1995/', 'Multitrack Tape Guide')
 
-    # 2. Synthesis module -> Web guide
+    # 2. Effects dedicated pages
+    if any(k in t_lower for k in ['reverb', 'rt60', 'pre-delay', 'decay time', 'early reflection', 'plate reverb', 'spring reverb', 'convolution', 'chamber reverb', 'hall reverb', 'gated reverb']):
+        return ('https://www.musictechguru.com/homepage/a-level-music-technology/component-3-music-technology-in-context/reverb/', 'Reverb Guide')
+    if any(k in t_lower for k in ['delay', 'slapback', 'echo', 'multi-tap', 'ping-pong', 'feedback delay', 'tape delay', 'bucket brigade']):
+        return ('https://www.musictechguru.com/homepage/a-level-music-technology/component-3-music-technology-in-context/delay/', 'Delay Guide')
+    if 'chorus' in t_lower:
+        return ('https://www.musictechguru.com/homepage/a-level-music-technology/component-3-music-technology-in-context/chorus/', 'Chorus Guide')
+    if any(k in t_lower for k in ['flanger', 'flanging', 'comb filter']):
+        return ('https://www.musictechguru.com/homepage/a-level-music-technology/component-3-music-technology-in-context/flanger/', 'Flanger Guide')
+    if any(k in t_lower for k in ['phaser', 'phasing', 'all-pass filter', 'phase shifter']):
+        return ('https://www.musictechguru.com/homepage/a-level-music-technology/component-3-music-technology-in-context/phaser/', 'Phaser Guide')
+
+    # 3. Synthesis & Keyboards
     if 'synth' in s_lower or 'synth' in sub_lower:
-        return ('https://www.musictechguru.com/homepage/a-level-music-technology/component-3-music-technology-in-context/the-synthesizer/', '📖 Synth Guide', 'web')
+        return ('https://www.musictechguru.com/homepage/a-level-music-technology/component-3-music-technology-in-context/the-synthesizer/', 'Synthesizer Guide')
 
-    # 3. Topic Mastery Quizzes in the MTG Revision App
+    # 4. Mixers & Hardware
+    if any(k in t_lower for k in ['mixing desk', 'mixer', 'console', 'channel strip', 'fader', 'pan pot', 'aux send', 'insert point', 'bus', 'bussing']):
+        return ('https://www.musictechguru.com/homepage/a-level-music-technology/component-3-music-technology-in-context/audio-mixers/', 'Audio Mixers Guide')
+    if any(k in t_lower for k in ['daw', 'transport', 'automation']):
+        return ('https://www.musictechguru.com/homepage/a-level-music-technology/component-3-music-technology-in-context/mixers-digital-audio-workstations-daw/', 'DAW & Mixers Guide')
+
+    # 5. Microphones & Micing
     if 'microphon' in s_lower or 'microphon' in sub_lower or 'micing' in sub_lower or 'polar pattern' in sub_lower:
-        return ('https://app.musictechguru.com/?quiz=quiz-topic-2_p1', '⚡ Mic Quiz', 'app')
-    if 'dynamic' in s_lower or 'compress' in sub_lower or 'dynamic' in sub_lower or any(k in t_lower for k in ['compress', 'threshold', 'ratio', 'knee', 'limiter', 'gate', 'expander', 'ducking', 'sidechain']):
-        return ('https://app.musictechguru.com/?quiz=quiz-topic-5_p1', '⚡ Dynamics Quiz', 'app')
-    if 'eq' in s_lower or 'filter' in s_lower or 'eq' in sub_lower or any(k in t_lower for k in ['parametric', 'graphic eq', 'high-pass', 'low-pass', 'shelving', 'bandwidth', 'q factor', 'notch']):
-        return ('https://app.musictechguru.com/?quiz=quiz-topic-6_p1', '⚡ EQ Quiz', 'app')
-    if 'sample' in s_lower or 'editing' in s_lower or any(k in t_lower for k in ['sample rate', 'bit depth', 'nyquist', 'aliasing', 'quantiz', 'dither', 'dc offset', 'truncate', 'crossfade']):
-        return ('https://app.musictechguru.com/?quiz=quiz-topic-4_p1', '⚡ Sampling Quiz', 'app')
-    if 'sequenc' in s_lower or 'midi' in s_lower or any(k in t_lower for k in ['midi', 'piano roll', 'velocity', 'note on', 'controller', 'cc', 'channel']):
-        return ('https://app.musictechguru.com/?quiz=quiz-topic-38', '⚡ MIDI Quiz', 'app')
-    if 'mastering' in s_lower or any(k in t_lower for k in ['lufs', 'true peak', 'headroom', 'brickwall', 'inter-sample']):
-        return ('https://app.musictechguru.com/?quiz=quiz-topic-8_p1', '⚡ Mastering Quiz', 'app')
-    if 'acoust' in s_lower or any(k in t_lower for k in ['room mode', 'standing wave', 'bass trap', 'absorption', 'diffus']):
-        return ('https://app.musictechguru.com/?quiz=quiz-topic-9_p1', '⚡ Acoustics Quiz', 'app')
-    if 'lead' in s_lower or 'signal' in s_lower or 'level' in s_lower or any(k in t_lower for k in ['xlr', 'trs', 'jack', 'speakon', 'balanced', 'unbalanced', 'di box', 'line level', 'mic level']):
-        return ('https://app.musictechguru.com/?quiz=quiz-topic-10_p1', '⚡ Hardware Quiz', 'app')
-    if 'stereo' in s_lower or any(k in t_lower for k in ['pan law', 'stereo width', 'binaural', 'mono compat']):
-        return ('https://app.musictechguru.com/?quiz=quiz-topic-40', '⚡ Stereo Quiz', 'app')
+        return ('https://www.musictechguru.com/homepage/a-level-music-technology/component-1-recording-mixing/', 'Microphones Guide')
 
-    # Default fallback to Stage 2 Fundamentals Quiz in MTG App
-    return ('https://app.musictechguru.com/?quiz=quiz-topic-1_p1', '⚡ App Drill', 'app')
+    # 6. Sampling, Sequencing & MIDI (Component 2)
+    if any(k in s_lower for k in ['sampling', 'audio editing', 'pitch and rhythm correction']):
+        return ('https://www.musictechguru.com/homepage/a-level-music-technology/component-2-sequencing-sampling-synthesis-composition/', 'Sampling Guide')
+    if 'sequenc' in s_lower or 'midi' in s_lower or 'sequencing' in sub_lower:
+        return ('https://www.musictechguru.com/homepage/a-level-music-technology/component-2-sequencing-sampling-synthesis-composition/', 'Sequencing & MIDI Guide')
+
+    # 7. Component 4 Modules: Dynamics, EQ, Stereo, Acoustics, Mastering, Leads & Levels
+    if 'dynamic' in s_lower or 'compress' in sub_lower:
+        return ('https://www.musictechguru.com/homepage/a-level-music-technology/component-4-production-analysing/', 'Dynamics Guide')
+    if 'eq' in s_lower or 'filter' in s_lower:
+        return ('https://www.musictechguru.com/homepage/a-level-music-technology/component-4-production-analysing/', 'EQ & Filters Guide')
+    if 'stereo' in s_lower:
+        return ('https://www.musictechguru.com/homepage/a-level-music-technology/component-4-production-analysing/', 'Stereo & Panning Guide')
+    if 'acoust' in s_lower:
+        return ('https://www.musictechguru.com/homepage/a-level-music-technology/component-4-production-analysing/', 'Acoustics Guide')
+    if 'mastering' in s_lower:
+        return ('https://www.musictechguru.com/homepage/a-level-music-technology/component-4-production-analysing/', 'Mastering Guide')
+    if 'lead' in s_lower or 'cable' in s_lower or 'signal' in s_lower or 'level' in s_lower:
+        return ('https://www.musictechguru.com/homepage/a-level-music-technology/component-4-production-analysing/', 'Cables & Signals Guide')
+
+    # General terms fallback to Component 4 general terms page
+    return ('https://www.musictechguru.com/homepage/a-level-music-technology/component-4-production-analysing/general-music-technology-terms/', 'Component 4 Guide')
 
 def generate_full_html():
     parsed_terms = parse_markdown_terms()
@@ -428,14 +448,14 @@ def generate_full_html():
             clean_term_attr = term_name.replace('"', '&quot;').replace("'", "&#39;")
             clean_defn_attr = definition.replace('"', '&quot;').replace("'", "&#39;")
 
-            link_url, link_label, link_type = get_term_target(term_name, sec_key, sub_topic)
-            link_title = f"Study {term_name} on Music Tech Guru" if link_type == "web" else f"Practice {term_name} quiz in the MTG App"
+            link_url, link_label = get_website_link(term_name, sec_key, sub_topic)
+            link_title = f"Read the {link_label} on Music Tech Guru"
 
             rows_html.append(f"""
             <tr class="mtg-term-row" data-term="{clean_term_attr.lower()}" data-group="{group}" data-section="{sec_key.lower()}">
                 <td class="mtg-col-term">
                     <div class="mtg-term-head">
-                        <a href="{link_url}" target="_blank" rel="noopener" class="mtg-term-name-link" title="{link_title}">{term_name} <span class="mtg-link-icon">↗</span></a>
+                        <span class="mtg-term-name">{term_name}</span>
                         <span class="mtg-subtopic-tag">{sub_topic}</span>
                     </div>
                 </td>
@@ -443,10 +463,7 @@ def generate_full_html():
                     <p class="mtg-defn-text">{display_defn}</p>
                 </td>
                 <td class="mtg-col-act">
-                    <div class="mtg-term-actions">
-                        <a href="{link_url}" target="_blank" rel="noopener" class="mtg-action-link mtg-action-{link_type}" title="{link_title}">{link_label}</a>
-                        <span role="button" tabindex="0" class="mtg-copy-btn" onclick="mtgCopyTerm(this, '{clean_term_attr}', '{clean_defn_attr}')" title="Copy term and definition">📋 <span class="btn-txt">Copy</span></span>
-                    </div>
+                    <a href="{link_url}" class="mtg-guide-link" title="{link_title}"><span>{link_label}</span> <span class="mtg-guide-arrow">&rarr;</span></a>
                 </td>
             </tr>
             """)
@@ -470,9 +487,9 @@ def generate_full_html():
                 <table class="mtg-dict-table">
                     <thead>
                         <tr>
-                            <th style="width: 27%;">Term</th>
-                            <th style="width: 58%;">Examiner Definition &amp; Technical Explanation</th>
-                            <th style="width: 15%; text-align: center;">Study &amp; Tools</th>
+                            <th style="width: 25%;">Term</th>
+                            <th style="width: 57%;">Examiner Definition &amp; Technical Explanation</th>
+                            <th style="width: 18%; text-align: center;">Study Guide</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -508,7 +525,7 @@ def generate_full_html():
     # Generate Schema.org DefinedTermSet JSON-LD graph for SEO
     defined_terms_json = []
     for t in all_terms:
-        t_url, _, _ = get_term_target(t["term"], t["section"], t["sub"])
+        t_url, _ = get_website_link(t["term"], t["section"], t["sub"])
         defined_terms_json.append({
             "@type": "DefinedTerm",
             "name": t["term"],
@@ -889,30 +906,6 @@ def generate_full_html():
             border-color: #38bdf8 !important;
         }}
 
-        #mtg-dict-app-root .mtg-copy-btn {{
-            all: unset !important;
-            display: inline-flex !important;
-            align-items: center !important;
-            gap: 4px !important;
-            background: rgba(255, 255, 255, 0.06) !important;
-            border: 1px solid rgba(255, 255, 255, 0.1) !important;
-            color: #94a3b8 !important;
-            font-size: 11.5px !important;
-            font-weight: 700 !important;
-            padding: 6px 12px !important;
-            border-radius: 8px !important;
-            cursor: pointer !important;
-            box-sizing: border-box !important;
-            white-space: nowrap !important;
-            user-select: none !important;
-            transition: all 0.15s ease !important;
-        }}
-        #mtg-dict-app-root .mtg-copy-btn:hover {{
-            background: #38bdf8 !important;
-            color: #080e1a !important;
-            border-color: #38bdf8 !important;
-        }}
-
         /* RESULT COUNTER */
         .mtg-counter-bar {{
             display: flex;
@@ -1133,124 +1126,77 @@ def generate_full_html():
             flex-direction: column;
             gap: 4px;
         }}
-        #mtg-dict-app-root .mtg-term-name-link {{
+        #mtg-dict-app-root .mtg-term-name {{
             color: #38bdf8 !important;
             font-size: 15px !important;
             font-weight: 800 !important;
             line-height: 1.3 !important;
-            text-decoration: none !important;
-            display: inline-flex !important;
-            align-items: center !important;
-            gap: 5px !important;
-            transition: color 0.15s, transform 0.15s !important;
         }}
-        #mtg-dict-app-root .mtg-term-name-link:hover {{
-            color: #7dd3fc !important;
-            text-decoration: underline !important;
+        #mtg-dict-app-root .mtg-subtopic-tag {{
+            display: inline-block !important;
+            background: rgba(255, 255, 255, 0.06) !important;
+            color: #94a3b8 !important;
+            font-size: 10.5px !important;
+            font-weight: 700 !important;
+            padding: 2px 7px !important;
+            border-radius: 4px !important;
+            max-width: fit-content !important;
         }}
-        #mtg-dict-app-root .mtg-link-icon {{
-            font-size: 11px !important;
-            opacity: 0.65 !important;
-            transition: opacity 0.15s, transform 0.15s !important;
-        }}
-        #mtg-dict-app-root .mtg-term-name-link:hover .mtg-link-icon {{
-            opacity: 1 !important;
-            transform: translate(2px, -2px) !important;
-        }}
-        #mtg-dict-app-root .mtg-term-actions {{
-            display: flex !important;
-            flex-direction: column !important;
-            gap: 6px !important;
-            align-items: stretch !important;
-            justify-content: center !important;
-        }}
-        #mtg-dict-app-root .mtg-action-link {{
+        #mtg-dict-app-root .mtg-guide-link {{
             all: unset !important;
             display: inline-flex !important;
             align-items: center !important;
             justify-content: center !important;
-            gap: 4px !important;
-            padding: 5px 8px !important;
-            border-radius: 6px !important;
-            font-size: 11px !important;
+            gap: 6px !important;
+            color: #38bdf8 !important;
+            background: rgba(56, 189, 248, 0.08) !important;
+            border: 1px solid rgba(56, 189, 248, 0.28) !important;
+            padding: 6px 14px !important;
+            border-radius: 20px !important;
+            font-size: 11.5px !important;
             font-weight: 700 !important;
             text-decoration: none !important;
             cursor: pointer !important;
             box-sizing: border-box !important;
             white-space: nowrap !important;
             user-select: none !important;
-            transition: all 0.15s ease !important;
+            transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1) !important;
         }}
-        #mtg-dict-app-root .mtg-action-app {{
-            background: rgba(56, 189, 248, 0.12) !important;
-            color: #38bdf8 !important;
-            border: 1px solid rgba(56, 189, 248, 0.35) !important;
-        }}
-        #mtg-dict-app-root .mtg-action-app:hover {{
+        #mtg-dict-app-root .mtg-guide-link:hover {{
+            color: #ffffff !important;
             background: #0284c7 !important;
-            color: #ffffff !important;
             border-color: #38bdf8 !important;
-            box-shadow: 0 0 10px rgba(56, 189, 248, 0.4) !important;
+            box-shadow: 0 4px 14px rgba(2, 132, 199, 0.4) !important;
+            transform: translateY(-1px) !important;
         }}
-        #mtg-dict-app-root .mtg-action-web {{
-            background: rgba(192, 132, 252, 0.12) !important;
-            color: #c084fc !important;
-            border: 1px solid rgba(192, 132, 252, 0.35) !important;
+        #mtg-dict-app-root .mtg-guide-arrow {{
+            font-size: 13px !important;
+            transition: transform 0.15s ease !important;
         }}
-        #mtg-dict-app-root .mtg-action-web:hover {{
-            background: #9333ea !important;
+        #mtg-dict-app-root .mtg-guide-link:hover .mtg-guide-arrow {{
+            transform: translateX(3px) !important;
+        }}
+        #mtg-dict-app-root .mtg-col-defn {{
+            padding: 14px 18px !important;
+            color: #cbd5e1 !important;
+            line-height: 1.65 !important;
+            vertical-align: middle !important;
+        }}
+        #mtg-dict-app-root .mtg-defn-text {{
+            margin: 0 !important;
+            font-size: 14px !important;
+        }}
+        #mtg-dict-app-root .mtg-kw {{
             color: #ffffff !important;
-            border-color: #c084fc !important;
-            box-shadow: 0 0 10px rgba(192, 132, 252, 0.4) !important;
+            font-weight: 700 !important;
+            background: rgba(56, 189, 248, 0.1) !important;
+            padding: 1px 4px !important;
+            border-radius: 3px !important;
         }}
-        .mtg-subtopic-tag {{
-            display: inline-block;
-            background: rgba(255, 255, 255, 0.06);
-            color: #94a3b8;
-            font-size: 10.5px;
-            font-weight: 700;
-            padding: 2px 7px;
-            border-radius: 4px;
-            max-width: fit-content;
-        }}
-        .mtg-col-defn {{
-            padding: 14px 18px;
-            color: #cbd5e1;
-            line-height: 1.65;
-            vertical-align: middle;
-        }}
-        .mtg-defn-text {{
-            margin: 0;
-            font-size: 14px;
-        }}
-        .mtg-kw {{
-            color: #ffffff;
-            font-weight: 700;
-            background: rgba(56, 189, 248, 0.1);
-            padding: 1px 4px;
-            border-radius: 3px;
-        }}
-        .mtg-col-act {{
-            padding: 14px 14px;
-            text-align: center;
-            vertical-align: middle;
-        }}
-        .mtg-copy-btn {{
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: #94a3b8;
-            font-size: 11.5px;
-            font-weight: 700;
-            padding: 6px 10px;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.15s;
-            white-space: nowrap;
-        }}
-        .mtg-copy-btn:hover {{
-            background: #38bdf8;
-            color: #080e1a;
-            border-color: #38bdf8;
+        #mtg-dict-app-root .mtg-col-act {{
+            padding: 14px 14px !important;
+            text-align: center !important;
+            vertical-align: middle !important;
         }}
 
         /* ZERO STATE */
@@ -1598,23 +1544,6 @@ def generate_full_html():
                     foundTarget.style.background = '';
                 }}, 1500);
             }}
-        }};
-
-        window.mtgCopyTerm = function(btn, term, defn) {{
-            const fullText = term + ': ' + defn;
-            navigator.clipboard.writeText(fullText).then(function() {{
-                const originalHtml = btn.innerHTML;
-                btn.innerHTML = '✓ <span class="btn-txt">Copied!</span>';
-                btn.style.background = '#10b981';
-                btn.style.borderColor = '#10b981';
-                btn.style.color = '#ffffff';
-                setTimeout(function() {{
-                    btn.innerHTML = originalHtml;
-                    btn.style.background = '';
-                    btn.style.borderColor = '';
-                    btn.style.color = '';
-                }}, 1500);
-            }});
         }};
 
         // LIGHTBOX CONTROLS
