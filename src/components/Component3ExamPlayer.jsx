@@ -4,6 +4,7 @@ import { arrayMove, SortableContext, sortableKeyboardCoordinates, verticalListSo
 import { CSS } from '@dnd-kit/utilities';
 import { GripVertical, ArrowDown, Lock, Download, Play } from 'lucide-react';
 import { useUser } from '../contexts/UserContext';
+import { track } from '../utils/analytics';
 import SignalFlowLabelQuiz from './InteractiveQuizzes/SignalFlowLabelQuiz';
 import PianoRollQuiz from './InteractiveQuizzes/PianoRollQuiz';
 import PanningQuiz from './InteractiveQuizzes/PanningQuiz';
@@ -133,8 +134,11 @@ const Component3ExamPlayer = ({ examData: rawExamData, onExit }) => {
     const [showMarkScheme, setShowMarkScheme] = useState(false);
     const [examFinished, setExamFinished] = useState(false);
     const [shuffledOptions, setShuffledOptions] = useState({});
+    // Parts the student has actually answered. Ordering parts start pre-shuffled and
+    // would otherwise score marks before anyone touches them.
+    const [answeredParts, setAnsweredParts] = useState({});
 
-    const [timeRemaining, setTimeRemaining] = useState(60 * 60); // 60 minutes in seconds
+    const [timeRemaining, setTimeRemaining] = useState(() => (examData?.timeLimitMinutes || 60) * 60);
     const [timerActive, setTimerActive] = useState(false);
     const [timerStarted, setTimerStarted] = useState(false); // Track if timer has been started at least once
 
@@ -422,6 +426,7 @@ const Component3ExamPlayer = ({ examData: rawExamData, onExit }) => {
 
     const getScoreForPart = (qId, part) => {
         const userAnswer = answers[`${qId}_${part.id}`];
+        if (part.type === 'ordering' && !answeredParts[`${qId}_${part.id}`]) return 0;
         if (part.type === 'self_mark') {
             return Array.isArray(userAnswer) ? userAnswer.length : 0;
         }
@@ -461,7 +466,7 @@ const Component3ExamPlayer = ({ examData: rawExamData, onExit }) => {
         else if (percentage >= 40) grade = 'E';
 
         return { totalScore, earnedScore, percentage, grade, sectionBreakdown };
-    }, [answers, manualScores, sections]);
+    }, [answers, answeredParts, manualScores, sections]);
 
     const examSavedRef = useRef(false);
 
@@ -472,11 +477,12 @@ const Component3ExamPlayer = ({ examData: rawExamData, onExit }) => {
             if (saveQuizResult) {
                 saveQuizResult(examData.title, resultStats.earnedScore, resultStats.totalScore, resultStats.grade);
             }
+            track('quiz_finish', { item: rawExamData?.id || examData.title, percent: resultStats.percentage, guest: !currentUser });
             if (examData.campaignNodeId && completeCampaignNode) {
                 completeCampaignNode(examData.campaignNodeId);
             }
         }
-    }, [examFinished, examData.title, examData.campaignNodeId, resultStats, saveQuizResult, completeCampaignNode]);
+    }, [examFinished, examData.title, examData.campaignNodeId, resultStats, saveQuizResult, completeCampaignNode, currentUser, rawExamData?.id]);
 
     // Reset saved ref if exam changes
     useEffect(() => {
@@ -492,6 +498,7 @@ const Component3ExamPlayer = ({ examData: rawExamData, onExit }) => {
             ...prev,
             [`${qId}_${partId}`]: value
         }));
+        setAnsweredParts(prev => ({ ...prev, [`${qId}_${partId}`]: true }));
     };
 
     const handleManualScoreChange = (qId, partId, value) => {

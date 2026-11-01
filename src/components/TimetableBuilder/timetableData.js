@@ -2525,10 +2525,10 @@ export const TIMETABLE_BLOCKS = [
         "actionText": "Launch Fault Diagnosis"
       },
       {
-        "id": "comp_comfortably_numb",
-        "title": "Comparison 10: Comfortably Numb (1979 Analogue vs 2004 Digital)",
+        "id": "worksheet-ao3-ao4-q6",
+        "title": "AO3 vs AO4 Essay Workshop: Question 6 Master Blueprint (20 Marks)",
         "type": "quiz",
-        "actionText": "Launch Comparison"
+        "actionText": "Launch Q6 Essay Workshop"
       },
       {
         "id": "node_c4_22",
@@ -2688,10 +2688,10 @@ export const TIMETABLE_BLOCKS = [
         "actionText": "Launch Topic 9 Part 2"
       },
       {
-        "id": "comp_blue_monday",
-        "title": "Comparison 7: Blue Monday (1983 Synth-Pop vs 1998 Industrial)",
+        "id": "worksheet-ao3-ao4-q5",
+        "title": "AO3 vs AO4 Essay Workshop: Question 5 Comparative Analysis (15 Marks)",
         "type": "quiz",
-        "actionText": "Launch Comparison"
+        "actionText": "Launch Q5 Essay Workshop"
       },
       {
         "id": "case-study-8",

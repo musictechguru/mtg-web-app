@@ -118,12 +118,14 @@ export const UserProvider = ({ children }) => {
         }
     };
 
-    const signup = async (email, password) => {
+    // signupDetails lands in the user's auth metadata (who they are, exam year, marketing consent)
+    const signup = async (email, password, signupDetails = {}) => {
         const { data, error } = await supabase.auth.signUp({
             email,
             password,
             options: {
                 emailRedirectTo: window.location.origin,
+                data: signupDetails,
             },
         });
         if (error) throw error;
@@ -141,6 +143,8 @@ export const UserProvider = ({ children }) => {
 
     
     const adminBypass = () => {
+        // Local development only: a live build must never hand out a fake premium account
+        if (!import.meta.env.DEV) return;
         const mockAdmin = {
             id: 'admin_mock_id',
             email: 'admin@mtg.com',
