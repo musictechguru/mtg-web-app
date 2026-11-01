@@ -143,6 +143,8 @@ export const UserProvider = ({ children }) => {
 
     
     const adminBypass = () => {
+        // Local development only: a live build must never hand out a fake premium account
+        if (!import.meta.env.DEV) return;
         const mockAdmin = {
             id: 'admin_mock_id',
             email: 'admin@mtg.com',

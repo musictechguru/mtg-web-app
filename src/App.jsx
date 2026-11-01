@@ -40,13 +40,8 @@ const LoadingFallback = () => (
   </div>
 );
 
-const isDev = Boolean(
-  import.meta.env.DEV ||
-  (typeof window !== 'undefined' && (
-    window.location.search.includes('dev=true') ||
-    localStorage.getItem('dev_mode') === 'true'
-  ))
-);
+// Dev shortcuts only exist in local development (npm run dev), never on the live site
+const isDev = Boolean(import.meta.env.DEV);
 
 const findCourseItem = (idOrTitle) => {
   if (!idOrTitle) return null;

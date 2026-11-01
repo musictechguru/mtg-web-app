@@ -6,13 +6,8 @@ import { findPlan, rememberUpgradeIntent } from '../config/plans';
 import { track } from '../utils/analytics';
 import '../App.css';
 
-const isDev = Boolean(
-    import.meta.env.DEV ||
-    (typeof window !== 'undefined' && (
-        window.location.search.includes('dev=true') ||
-        localStorage.getItem('dev_mode') === 'true'
-    ))
-);
+// The admin bypass only exists in local development (npm run dev), never on the live site
+const isDev = Boolean(import.meta.env.DEV);
 
 const allItems = (courseData.sections || []).flatMap(sec => sec.items || []);
 const mockItems = (courseData.sections || [])

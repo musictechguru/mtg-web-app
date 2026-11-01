@@ -17,13 +17,8 @@ import MidiPracticalQuiz from './InteractiveQuizzes/MidiPracticalQuiz';
 import PanningQuiz from './InteractiveQuizzes/PanningQuiz';
 import SignalFlowLabelQuiz from './InteractiveQuizzes/SignalFlowLabelQuiz';
 
-const isDev = Boolean(
-    import.meta.env.DEV ||
-    (typeof window !== 'undefined' && (
-        window.location.search.includes('dev=true') ||
-        localStorage.getItem('dev_mode') === 'true'
-    ))
-);
+// Dev tools (skip, jump, reveal answers) only exist in local development, never on the live site
+const isDev = Boolean(import.meta.env.DEV);
 
 const QuizPlayer = ({ quiz, onFinish }) => {
     // FORCE CACHE BUST: V3
