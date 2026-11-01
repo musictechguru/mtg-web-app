@@ -118,12 +118,14 @@ export const UserProvider = ({ children }) => {
         }
     };
 
-    const signup = async (email, password) => {
+    // signupDetails lands in the user's auth metadata (who they are, exam year, marketing consent)
+    const signup = async (email, password, signupDetails = {}) => {
         const { data, error } = await supabase.auth.signUp({
             email,
             password,
             options: {
                 emailRedirectTo: window.location.origin,
+                data: signupDetails,
             },
         });
         if (error) throw error;

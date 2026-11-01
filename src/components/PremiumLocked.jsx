@@ -1,23 +1,47 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { supabase } from '../config/supabase';
 import { useUser } from '../contexts/UserContext';
+import { useAccountPrompt } from '../contexts/AccountPromptContext';
+import { findPlan, rememberUpgradeIntent } from '../config/plans';
+import { track } from '../utils/analytics';
 
 const PremiumLocked = ({ itemTitle }) => {
-    const { redeemPromoCode } = useUser();
+    const { currentUser, redeemPromoCode } = useUser();
+    const openAccount = useAccountPrompt();
     const [loadingPlan, setLoadingPlan] = useState(null);
     const [promoCode, setPromoCode] = useState('');
     const [promoMessage, setPromoMessage] = useState(null);
     const [redeeming, setRedeeming] = useState(false);
 
-    const handleUpgrade = async (priceId, seats = 1, planType = 'classroom') => {
+    // One paywall_view per item, even when the user's profile loads in afterwards
+    const trackedTitleRef = useRef(null);
+    useEffect(() => {
+        if (trackedTitleRef.current === itemTitle) return;
+        trackedTitleRef.current = itemTitle;
+        track('paywall_view', { item: itemTitle, guest: !currentUser });
+    }, [itemTitle, currentUser]);
+
+    // Checkout is tied to an account, so visitors sign up first and come back here after
+    const requireAccount = (plan = null) => {
+        rememberUpgradeIntent();
+        openAccount({ view: 'signup', role: plan && plan.seats > 1 ? 'teacher' : 'student', reason: 'upgrade' });
+    };
+
+    const handleUpgrade = async (planKey) => {
+        const plan = findPlan(planKey);
+        if (!currentUser) {
+            requireAccount(plan);
+            return;
+        }
+        track('checkout_start', { item: plan.key });
         try {
-            setLoadingPlan(priceId);
+            setLoadingPlan(plan.key);
             const { data, error } = await supabase.functions.invoke('create-checkout-session', {
-                body: { 
-                    priceId: priceId, 
-                    checkoutType: planType, 
-                    quantity: 1, 
-                    seats: seats 
+                body: {
+                    priceId: plan.priceId,
+                    checkoutType: plan.checkoutType,
+                    quantity: 1,
+                    seats: plan.seats
                 },
             });
 
@@ -116,6 +140,24 @@ const PremiumLocked = ({ itemTitle }) => {
                     </div>
                 </div>
 
+                {!currentUser && (
+                    <div style={{
+                        width: '100%',
+                        maxWidth: '900px',
+                        boxSizing: 'border-box',
+                        marginBottom: '20px',
+                        padding: '14px 18px',
+                        background: 'rgba(56, 189, 248, 0.1)',
+                        border: '1px solid rgba(56, 189, 248, 0.35)',
+                        borderRadius: '12px',
+                        color: '#bae6fd',
+                        fontSize: '0.95rem',
+                        lineHeight: 1.5
+                    }}>
+                        Choose a plan and you'll create a free account first. It takes a minute, then you'll come straight back here to pay.
+                    </div>
+                )}
+
                 {/* Upgrade Button Area */}
                 <div style={{
                     display: 'flex',
@@ -141,7 +183,7 @@ const PremiumLocked = ({ itemTitle }) => {
                         <div>
                             <h3 style={{ fontSize: '1.2rem', color: '#94a3b8', marginBottom: '10px' }}>Student Plan</h3>
                             <div style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '20px', color: '#e2e8f0' }}>
-                                £12.99 <span style={{ fontSize: '1rem', color: '#94a3b8', fontWeight: 'normal' }}>/ Year</span>
+                                {findPlan('student').price} <span style={{ fontSize: '1rem', color: '#94a3b8', fontWeight: 'normal' }}>/ Year</span>
                             </div>
                         </div>
 
@@ -166,10 +208,10 @@ const PremiumLocked = ({ itemTitle }) => {
                             }}
                             onMouseOver={(e) => { if (!loadingPlan) { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 6px 20px rgba(37, 99, 235, 0.6)'; } }}
                             onMouseOut={(e) => { if (!loadingPlan) { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 4px 15px rgba(37, 99, 235, 0.4)'; } }}
-                            onClick={() => handleUpgrade('price_1UCgIwLxDAAultYKqyui6Qvv', 1, 'standard')}
+                            onClick={() => handleUpgrade('student')}
                             disabled={loadingPlan !== null}
                         >
-                            {loadingPlan === 'price_1UCgIwLxDAAultYKqyui6Qvv' ? (
+                            {loadingPlan === 'student' ? (
                                 <>
                                     <svg className="animate-spin" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ animation: 'spin 1s linear infinite' }}>
                                         <path d="M21 12a9 9 0 1 1-6.219-8.56"></path>
@@ -199,7 +241,7 @@ const PremiumLocked = ({ itemTitle }) => {
                         <div>
                             <h3 style={{ fontSize: '1.2rem', color: '#94a3b8', marginBottom: '10px' }}>5 Student Pack</h3>
                             <div style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '20px', color: '#e2e8f0' }}>
-                                £50 <span style={{ fontSize: '1rem', color: '#94a3b8', fontWeight: 'normal' }}>/ Year</span>
+                                {findPlan('class5').price} <span style={{ fontSize: '1rem', color: '#94a3b8', fontWeight: 'normal' }}>/ Year</span>
                             </div>
                         </div>
 
@@ -224,10 +266,10 @@ const PremiumLocked = ({ itemTitle }) => {
                             }}
                             onMouseOver={(e) => { if (!loadingPlan) { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 6px 20px rgba(139, 92, 246, 0.6)'; } }}
                             onMouseOut={(e) => { if (!loadingPlan) { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 4px 15px rgba(139, 92, 246, 0.4)'; } }}
-                            onClick={() => handleUpgrade('price_1UD0U9LxDAAultYK3m7LkYHI', 5, 'classroom')}
+                            onClick={() => handleUpgrade('class5')}
                             disabled={loadingPlan !== null}
                         >
-                            {loadingPlan === 'price_1UD0U9LxDAAultYK3m7LkYHI' ? (
+                            {loadingPlan === 'class5' ? (
                                 <>
                                     <svg className="animate-spin" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ animation: 'spin 1s linear infinite' }}>
                                         <path d="M21 12a9 9 0 1 1-6.219-8.56"></path>
@@ -257,7 +299,7 @@ const PremiumLocked = ({ itemTitle }) => {
                         <div>
                             <h3 style={{ fontSize: '1.2rem', color: '#94a3b8', marginBottom: '10px' }}>10 Student Pack</h3>
                             <div style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '20px', color: '#e2e8f0' }}>
-                                £100 <span style={{ fontSize: '1rem', color: '#94a3b8', fontWeight: 'normal' }}>/ Year</span>
+                                {findPlan('class10').price} <span style={{ fontSize: '1rem', color: '#94a3b8', fontWeight: 'normal' }}>/ Year</span>
                             </div>
                         </div>
 
@@ -282,10 +324,10 @@ const PremiumLocked = ({ itemTitle }) => {
                             }}
                             onMouseOver={(e) => { if (!loadingPlan) { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 6px 20px rgba(139, 92, 246, 0.6)'; } }}
                             onMouseOut={(e) => { if (!loadingPlan) { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 4px 15px rgba(139, 92, 246, 0.4)'; } }}
-                            onClick={() => handleUpgrade('price_1UD0UYLxDAAultYKzuhuzFdx', 10, 'classroom')}
+                            onClick={() => handleUpgrade('class10')}
                             disabled={loadingPlan !== null}
                         >
-                            {loadingPlan === 'price_1UD0UYLxDAAultYKzuhuzFdx' ? (
+                            {loadingPlan === 'class10' ? (
                                 <>
                                     <svg className="animate-spin" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ animation: 'spin 1s linear infinite' }}>
                                         <path d="M21 12a9 9 0 1 1-6.219-8.56"></path>
@@ -331,6 +373,10 @@ const PremiumLocked = ({ itemTitle }) => {
                         <button 
                             onClick={async () => {
                                 if (!promoCode.trim()) return;
+                                if (!currentUser) {
+                                    requireAccount();
+                                    return;
+                                }
                                 setRedeeming(true);
                                 setPromoMessage(null);
                                 try {

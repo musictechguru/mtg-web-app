@@ -2,6 +2,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Maximize2, X, ZoomIn, ZoomOut, RotateCcw } from 'lucide-react';
 import { useUser } from '../contexts/UserContext';
+import { useAccountPrompt } from '../contexts/AccountPromptContext';
+import { track } from '../utils/analytics';
 import SignalChainQuiz from './InteractiveQuizzes/SignalChainQuiz';
 import AudioComparisonQuiz from './InteractiveQuizzes/AudioComparisonQuiz';
 import ParameterMatchingQuiz from './InteractiveQuizzes/ParameterMatchingQuiz';
@@ -183,6 +185,7 @@ const QuizPlayer = ({ quiz, onFinish }) => {
     const userContext = useUser();
     const saveQuizResult = userContext ? userContext.saveQuizResult : null;
     const completeCampaignNode = userContext ? userContext.completeCampaignNode : null;
+    const openAccount = useAccountPrompt();
 
     // Reset state and randomize questions when quiz changes
     useEffect(() => {
@@ -390,6 +393,7 @@ const QuizPlayer = ({ quiz, onFinish }) => {
         if (quizFinished && saveQuizResult && !resultsSavedRef.current) {
             resultsSavedRef.current = true;
             saveQuizResult(quiz.title, score, totalQuestions, grade);
+            track('quiz_finish', { item: quiz.id || quiz.title, percent: percentage, guest: !userContext?.currentUser });
 
             // Advance campaign map if >60%
             if (quiz.campaignNodeId && completeCampaignNode) {
@@ -398,7 +402,7 @@ const QuizPlayer = ({ quiz, onFinish }) => {
                 }
             }
         }
-    }, [quizFinished, quiz, score, totalQuestions, grade, saveQuizResult, completeCampaignNode, percentage]);
+    }, [quizFinished, quiz, score, totalQuestions, grade, saveQuizResult, completeCampaignNode, percentage, userContext?.currentUser]);
 
     // Cleanup ref when quiz changes
     useEffect(() => {
@@ -926,10 +930,10 @@ const QuizPlayer = ({ quiz, onFinish }) => {
                     }}>
                         <h3 style={{ margin: '0 0 6px 0', color: '#38bdf8', fontSize: '1.1rem' }}>Want to save your grade?</h3>
                         <p style={{ margin: '0 0 12px 0', fontSize: '0.85rem', color: '#cbd5e1' }}>
-                            Sign up for a free student account to record scores, track mastery across all 10 stages, and unlock mock exam audio tracks.
+                            Create a free account to record your scores from now on and track your mastery across every stage.
                         </p>
                         <button
-                            onClick={handleExit}
+                            onClick={() => openAccount({ view: 'signup', reason: 'save' })}
                             style={{
                                 background: 'linear-gradient(135deg, #0284c7, #2563eb)',
                                 color: '#fff',
@@ -941,7 +945,7 @@ const QuizPlayer = ({ quiz, onFinish }) => {
                                 cursor: 'pointer'
                             }}
                         >
-                            Sign Up Free / Log In
+                            Create free account
                         </button>
                     </div>
                 )}

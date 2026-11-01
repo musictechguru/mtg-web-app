@@ -1,10 +1,13 @@
-import React, { useState, useEffect, useCallback, lazy, Suspense } from 'react';
+import React, { useState, useEffect, useCallback, useRef, lazy, Suspense } from 'react';
 import './App.css';
 import courseData from './data/course_data.json';
 import Dashboard from './components/Dashboard';
 import LoginScreen from './components/LoginScreen';
 import PremiumLocked from './components/PremiumLocked';
 import { UserProvider, useUser } from './contexts/UserContext';
+import { AccountPromptProvider } from './contexts/AccountPromptContext';
+import { takeUpgradeIntent } from './config/plans';
+import { track } from './utils/analytics';
 
 // Lazy-load sub-routes and heavy components for optimal initial bundle and performance
 const QuizPlayer = lazy(() => import('./components/QuizPlayer'));
@@ -69,6 +72,30 @@ const STAGE_THEMES = [
   { color: '#e879f9', bg: 'rgba(232, 121, 249, 0.12)', border: 'rgba(232, 121, 249, 0.3)' }, // Stage 8 - Fuchsia
   { color: '#2dd4bf', bg: 'rgba(45, 212, 191, 0.12)', border: 'rgba(45, 212, 191, 0.3)' }, // Component 4 - Teal
 ];
+
+const isPremiumItem = (item) => {
+  if (!item) return false;
+  if (item.isPremium) return true;
+  const key = item.type || item.id;
+  return (
+    key === 'tracksheet_creator' ||
+    key === 'component1_guide' ||
+    key === 'c1_guide' ||
+    key === 'component2_guide' ||
+    key === 'c2_guide' ||
+    key === 'lp_fingerprints'
+  );
+};
+
+// Opening any other item counts as a quiz_start in analytics
+const NON_QUIZ_TYPES = new Set([
+  'premium_locked',
+  'dictionary_selector',
+  'timetable_builder',
+  'tracksheet_creator',
+  'component1_guide',
+  'component2_guide'
+]);
 
 const parseStageTitle = (rawTitle) => {
   if (!rawTitle) return { badge: 'STAGE', name: '' };
@@ -170,6 +197,8 @@ const MainApp = () => {
   });
   const [inviteTeacherId, setInviteTeacherId] = useState(null);
   const [showProfileSettings, setShowProfileSettings] = useState(false);
+  // How the landing page's account form should open: { view, role, reason }
+  const [authIntent, setAuthIntent] = useState(null);
 
   const [expandedStages, setExpandedStages] = useState(() => {
     // Default Stage 1 (Diagnostic) and Stage 2 (Topic Mastery) open
@@ -219,20 +248,6 @@ const MainApp = () => {
     }
   };
 
-  const isPremiumItem = (item) => {
-    if (!item) return false;
-    if (item.isPremium) return true;
-    const key = item.type || item.id;
-    return (
-      key === 'tracksheet_creator' ||
-      key === 'component1_guide' ||
-      key === 'c1_guide' ||
-      key === 'component2_guide' ||
-      key === 'c2_guide' ||
-      key === 'lp_fingerprints'
-    );
-  };
-
   // If activeItem requires premium and user is not premium, enforce premium_locked
   useEffect(() => {
     if (!loading && activeItem && isPremiumItem(activeItem) && !currentUser?.is_premium) {
@@ -241,6 +256,29 @@ const MainApp = () => {
       }
     }
   }, [loading, currentUser, activeItem]);
+
+  // Count each quiz or exam that opens (deep links included) once
+  const trackedItemRef = useRef(null);
+  useEffect(() => {
+    if (!activeItem) {
+      trackedItemRef.current = null;
+      return;
+    }
+    if (loading || activeItem === trackedItemRef.current) return;
+    if (NON_QUIZ_TYPES.has(activeItem.type)) return;
+    if (isPremiumItem(activeItem) && !currentUser?.is_premium) return;
+    trackedItemRef.current = activeItem;
+    track('quiz_start', { item: activeItem.id || activeItem.title, guest: !currentUser });
+  }, [activeItem, loading, currentUser]);
+
+  // Stripe sends buyers back to /?session_id=...: record the purchase once, then tidy the URL
+  useEffect(() => {
+    const url = new URL(window.location.href);
+    if (!url.searchParams.get('session_id')) return;
+    track('purchase');
+    url.searchParams.delete('session_id');
+    window.history.replaceState(window.history.state, '', url.toString());
+  }, []);
 
   // When courseData updates via Vite HMR, keep the currently active item updated with the new questions
   useEffect(() => {
@@ -410,6 +448,7 @@ const MainApp = () => {
   const handleItemSelect = (item) => {
     setAppView('student');
     setShowProfileSettings(false);
+    setAuthIntent(null);
 
     // Premium Check
     if (isPremiumItem(item) && !currentUser?.is_premium) {
@@ -487,6 +526,31 @@ const MainApp = () => {
     }
   };
 
+  // Show the landing page's account form, e.g. from a paywall or a results screen
+  const openAccount = (intent = {}) => {
+    setAuthIntent(intent);
+    goToDashboard();
+    setMobileMenuOpen(false);
+  };
+
+  const openUpgrade = () => {
+    setAppView('student');
+    setActiveItem({ type: 'premium_locked', title: 'MTG Pro Membership & Classroom Packs' });
+    window.scrollTo(0, 0);
+    const url = new URL(window.location.href);
+    url.searchParams.delete('quiz');
+    url.searchParams.delete('view');
+    url.searchParams.set('upgrade', 'true');
+    if (url.toString() !== window.location.href) {
+      window.history.pushState({ upgrade: true }, '', url.toString());
+    }
+  };
+
+  // Someone who picked a paid plan before having an account goes back to the plans once they're in
+  const handleAuthenticated = () => {
+    if (takeUpgradeIntent()) openUpgrade();
+  };
+
   const openTeacherDashboard = () => {
     setAppView('teacher');
     setMobileMenuOpen(false);
@@ -530,12 +594,12 @@ const MainApp = () => {
   }
 
   if (!currentUser && !activeItem) {
-    return <LoginScreen onSelectPreview={handleItemSelect} />;
+    return <LoginScreen onSelectPreview={handleItemSelect} onAuthenticated={handleAuthenticated} intent={authIntent} />;
   }
 
   if (appView === 'teacher') {
     if (!currentUser) {
-      return <LoginScreen onSelectPreview={handleItemSelect} />;
+      return <LoginScreen onSelectPreview={handleItemSelect} onAuthenticated={handleAuthenticated} intent={authIntent} />;
     }
     return (
       <Suspense fallback={<LoadingFallback />}>
@@ -544,7 +608,7 @@ const MainApp = () => {
     );
   }
 
-  return (
+  const layout = (
     <div className="app-container">
       {/* Mobile Menu Button */}
       <button
@@ -597,7 +661,7 @@ const MainApp = () => {
             </button>
           ) : (
             <button
-              onClick={goToDashboardWrapper}
+              onClick={() => openAccount()}
               style={{
                 background: 'linear-gradient(135deg, #0284c7, #2563eb)',
                 border: 'none',
@@ -996,7 +1060,7 @@ const MainApp = () => {
               <div>
                 <strong style={{ color: '#38bdf8', fontSize: '0.95rem' }}>Free Revision Preview</strong>
                 <p style={{ margin: 0, color: '#94a3b8', fontSize: '0.85rem' }}>
-                  You are previewing <strong>{activeItem.title}</strong>. Practice freely or log in to track your scores across all stages.
+                  You are previewing <strong>{activeItem.title}</strong>. Practise freely, or create a free account to save your scores.
                 </p>
               </div>
             </div>
@@ -1016,7 +1080,7 @@ const MainApp = () => {
                 ← All Topics
               </button>
               <button
-                onClick={goToDashboardWrapper}
+                onClick={() => openAccount({ view: 'signup', reason: 'save' })}
                 style={{
                   background: 'linear-gradient(135deg, #0284c7, #2563eb)',
                   border: 'none',
@@ -1028,7 +1092,7 @@ const MainApp = () => {
                   fontSize: '0.85rem'
                 }}
               >
-                Log In / Sign Up
+                Create free account
               </button>
             </div>
           </div>
@@ -1162,6 +1226,7 @@ const MainApp = () => {
               />
             ) : (activeItem.type === 'component3_exam' || activeItem.type === 'component4_exam') ? (
               <Component3ExamPlayer
+                key={activeItem.id || activeItem.title}
                 examData={activeItem}
                 onExit={goToDashboardWrapper}
               />
@@ -1273,6 +1338,9 @@ const MainApp = () => {
       )}
     </div>
   );
+
+  // Paywalls and results screens use this to open the account form
+  return <AccountPromptProvider value={openAccount}>{layout}</AccountPromptProvider>;
 };
 
 function App() {
