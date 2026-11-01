@@ -27,12 +27,9 @@ const assessment = findItem('diagnostic_initial');
 
 // Free items shown as quick-start cards under the hero, in this order
 const FEATURED_FREE = [
-    { id: 'c3_funk', kicker: 'Component 3 mock exam', title: 'Funk listening paper' },
-    { id: 'c4_edm', kicker: 'Component 4 mock exam', title: 'EDM production paper' },
     { id: 'quiz-topic-1_p1', kicker: 'Topic quiz', title: 'Fundamentals & Recording' },
     { id: 'comp_tainted_love', kicker: 'Comparison quiz', title: 'Tainted Love' },
-    { id: 'case_heartbreak_hotel', kicker: 'Case study', title: 'Heartbreak Hotel' },
-    { id: 'worksheet-ao3-ao4-q5', kicker: 'Essay workshop', title: 'Question 5 builder (15 marks)' }
+    { id: 'case_heartbreak_hotel', kicker: 'Case study', title: 'Heartbreak Hotel' }
 ]
     .map(card => ({ ...card, item: findItem(card.id) }))
     .filter(card => card.item && !card.item.isPremium);
