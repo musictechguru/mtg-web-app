@@ -23,10 +23,13 @@ export const EDEXCEL_RUBRIC_BANK = [
     maxMarks: 15,
     ao3Max: 5,
     ao4Max: 10,
-    audioSrc1: '/Audio/edexcel_past_papers/gregory_porter_liquid_spirit_original.mp3',
-    audioTitle1: 'Track 5: Gregory Porter — Liquid Spirit (Original Acoustic Mix)',
-    audioSrc2: '/Audio/edexcel_past_papers/gregory_porter_liquid_spirit_claptone_remix.mp3',
-    audioTitle2: 'Track 6: Gregory Porter — Liquid Spirit (Claptone / 20syl Remix)',
+    audioSrc1: null,
+    audioSrc2: null,
+    youtubeId1: 'NS6JV-veVAE',
+    youtubeWatchId1: '07rb7QQYk7E',
+    videoTitle1: 'Track 5: Gregory Porter — Liquid Spirit (Original Acoustic Jazz)',
+    youtubeId2: 'e41PxeE6O14',
+    videoTitle2: 'Track 6: Gregory Porter — Liquid Spirit [20 Syl Remix]',
     interactiveDecks: [
       {
         title: 'Interactive Deck: Gregory Porter — Liquid Spirit Comparison',
@@ -197,8 +200,9 @@ export const EDEXCEL_RUBRIC_BANK = [
     maxMarks: 20,
     ao3Max: 5,
     ao4Max: 15,
-    audioSrc1: '/Audio/edexcel_past_papers/britney_spears_toxic_excerpt.mp3',
-    audioTitle1: 'Track Excerpt: Britney Spears — Toxic (Millennium Pop Vocal Production)',
+    audioSrc1: null,
+    youtubeId1: 'C-u5WLJ9Yk4',
+    videoTitle1: 'Reference Video: Britney Spears — Oops!... I Did It Again (1999)',
     interactiveDecks: [
       {
         title: 'Interactive Deck: Millennium Pop Production & DAW Vocal Editing',
@@ -755,9 +759,11 @@ export const EDEXCEL_RUBRIC_BANK = [
     maxMarks: 20,
     ao3Max: 5,
     ao4Max: 15,
-    youtubeId1: null,
-    audioSrc1: '/Audio/marshall_super_lead_riff.mp3',
-    audioTitle1: 'Audio Reference: Pushed Valve Overdrive Riff (Marshall Super Lead 100W)',
+    audioSrc1: null,
+    youtubeId1: 'qFfnlGb4Mr4',
+    videoTitle1: 'Reference 1: Jimi Hendrix — Voodoo Child (Stratocaster + Fuzz Face into Marshall Stack)',
+    youtubeId2: 'sI7XiJgt0vY',
+    videoTitle2: 'Reference 2: Eddie Van Halen — Eruption (Cranked Marshall Super Lead Valve Saturation)',
     interactiveDecks: [
       {
         title: 'Interactive Deck: Electric Guitar & Amplifiers',
