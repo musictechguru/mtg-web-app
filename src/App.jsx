@@ -185,7 +185,13 @@ const resolveItemFromLocation = (useDevSession = false) => {
       return { type: 'timetable_builder', title: '16-Block Timetable & Scheme of Work' };
     }
     if (quizParam === 'extended_response_trainer' || quizParam === 'examiner' || quizParam === 'long_answer') {
-      return { id: 'extended_response_trainer', type: 'extended_response_trainer', title: 'C3 & C4 Extended Response Trainer (8m, 15m & 20m)' };
+      const rubricParam = urlParams.get('rubric') || urlParams.get('question') || urlParams.get('rubricId');
+      return { 
+        id: 'extended_response_trainer', 
+        type: 'extended_response_trainer', 
+        rubricId: rubricParam, 
+        title: 'C3 & C4 Extended Response Trainer (8m, 15m & 20m)' 
+      };
     }
     if (quizParam === 'c3-q5-examiner' || quizParam === 'worksheet-ao3-ao4-q5') {
       return { id: 'c3_extended_response_examiner', type: 'extended_response_trainer', rubricId: 'c3_q5_liquid_spirit_15m', targetComponent: 'c3', title: 'Component 3 Q5 15-Mark Comparison Essay Examiner' };

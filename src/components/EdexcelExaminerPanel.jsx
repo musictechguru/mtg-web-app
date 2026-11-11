@@ -6,6 +6,61 @@ import {
   generateSchoolQuoteSummary
 } from '../utils/edexcelExaminerEngine';
 
+const COMPLETIONS_STORAGE_KEY = 'mtg_exam_question_completions';
+
+const loadSavedCompletions = () => {
+  if (typeof window === 'undefined') return {};
+  try {
+    const raw = localStorage.getItem(COMPLETIONS_STORAGE_KEY);
+    return raw ? JSON.parse(raw) : {};
+  } catch (err) {
+    return {};
+  }
+};
+
+const persistCompletion = (rubricId, data) => {
+  if (typeof window === 'undefined') return null;
+  try {
+    const existing = loadSavedCompletions();
+    const updated = {
+      ...existing,
+      [rubricId]: {
+        ...data,
+        completedAt: new Date().toISOString()
+      }
+    };
+    localStorage.setItem(COMPLETIONS_STORAGE_KEY, JSON.stringify(updated));
+    return updated;
+  } catch (err) {
+    return null;
+  }
+};
+
+const generateShareReport = (rubric, evalResult, userName) => {
+  const candidate = userName || 'A-Level Music Technology Candidate';
+  const origin = typeof window !== 'undefined' ? window.location.origin : 'https://app.musictechguru.com';
+  const url = `${origin}/?quiz=extended_response_trainer&rubric=${rubric.id}`;
+  const dateStr = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+  const pct = Math.round((evalResult.totalMarks / evalResult.maxMarks) * 100);
+
+  return [
+    `🎓 PEARSON EDEXCEL A-LEVEL MUSIC TECHNOLOGY (9MT0)`,
+    `Extended Writing Exam Practice — Completion Report`,
+    `----------------------------------------------------`,
+    `👤 Candidate: ${candidate}`,
+    `📝 Question: ${rubric.paperCode} — ${rubric.title}`,
+    `🏆 Final Score: ${evalResult.totalMarks} / ${evalResult.maxMarks} (${pct}%)`,
+    `🎖️ Grade & Level: Grade ${evalResult.grade} • Level ${evalResult.levelBand} (${evalResult.bandRangeLabel || 'Full Mastery'})`,
+    `⚙️ Technical Understanding (AO3): ${evalResult.ao3Marks} / ${evalResult.ao3Max}`,
+    `🎧 Evaluative Analysis (AO4): ${evalResult.ao4Marks} / ${evalResult.ao4Max}`,
+    `📅 Completed on: ${dateStr}`,
+    `----------------------------------------------------`,
+    `Examiner Summary: ${evalResult.examinerFeedback || ''}`,
+    `\nPractice or verify this question online:`,
+    `🔗 ${url}`
+  ].join('\n');
+};
+
 const EdexcelExaminerPanel = ({
   mode = 'teacher',
   onBack,
@@ -18,7 +73,7 @@ const EdexcelExaminerPanel = ({
   onBuySchoolLicense
 }) => {
   const userContext = useUser();
-  const completeCampaignNode = userContext?.completeCampaignNode;
+  const { currentUser, saveQuizResult, completeCampaignNode } = userContext || {};
 
   const [selectedRubricId, setSelectedRubricId] = useState(() => {
     if (initialRubricId && EDEXCEL_RUBRIC_BANK.some(r => r.id === initialRubricId)) {
@@ -35,6 +90,16 @@ const EdexcelExaminerPanel = ({
   const activeRubric = useMemo(
     () => EDEXCEL_RUBRIC_BANK.find(r => r.id === selectedRubricId) || EDEXCEL_RUBRIC_BANK[0],
     [selectedRubricId]
+  );
+
+  // Persistent Question Completions State
+  const [completions, setCompletions] = useState(() => loadSavedCompletions());
+  const [showPortfolioModal, setShowPortfolioModal] = useState(false);
+  const [shareToast, setShareToast] = useState(null);
+
+  const completedCount = useMemo(
+    () => Object.keys(completions).filter(id => EDEXCEL_RUBRIC_BANK.some(r => r.id === id)).length,
+    [completions]
   );
 
   // Always start with the clean, guided Sub-Headings + Bullet-Point template so it looks like a real exam answer sheet
@@ -83,16 +148,157 @@ const EdexcelExaminerPanel = ({
       // Automatically show the embedded Music Tech Guru Interactive Deck on Q6 / C4 questions where it replaces the YouTube video
       setShowInteractiveDeck(Boolean(!next.youtubeId1 && next.interactiveDecks?.length));
     }
+    if (typeof window !== 'undefined' && window.history?.replaceState) {
+      const url = new URL(window.location.href);
+      url.searchParams.set('quiz', 'extended_response_trainer');
+      url.searchParams.set('rubric', rubricId);
+      window.history.replaceState(null, '', url.toString());
+    }
   };
 
   const handleMarkAnswer = () => {
     setShowMarkingFeedback(true);
+
+    // Save completion record locally
+    const compRecord = {
+      rubricId: activeRubric.id,
+      title: activeRubric.title,
+      component: activeRubric.component,
+      questionNumber: activeRubric.questionNumber,
+      totalMarks: evaluation.totalMarks,
+      maxMarks: evaluation.maxMarks,
+      grade: evaluation.grade,
+      levelBand: evaluation.levelBand,
+      ao3Marks: evaluation.ao3Marks,
+      ao3Max: evaluation.ao3Max,
+      ao4Marks: evaluation.ao4Marks,
+      ao4Max: evaluation.ao4Max,
+      percentage: Math.round((evaluation.totalMarks / evaluation.maxMarks) * 100)
+    };
+
+    const updated = persistCompletion(activeRubric.id, compRecord);
+    if (updated) {
+      setCompletions(updated);
+    }
+
+    if (saveQuizResult) {
+      saveQuizResult(
+        `${activeRubric.component} ${activeRubric.questionNumber}: ${activeRubric.title}`,
+        evaluation.totalMarks,
+        evaluation.maxMarks,
+        evaluation.grade
+      );
+    }
+
     if (campaignNodeId && completeCampaignNode) {
       completeCampaignNode(campaignNodeId);
     }
     setTimeout(() => {
       feedbackRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }, 80);
+  };
+
+  const copyToClipboardSafe = async (text) => {
+    try {
+      if (navigator?.clipboard?.writeText) {
+        await navigator.clipboard.writeText(text);
+        return true;
+      }
+    } catch (e) {}
+    try {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.left = '-9999px';
+      document.body.appendChild(ta);
+      ta.focus();
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  };
+
+  const handleCopyShareReport = async (rubric = activeRubric, evalData = evaluation) => {
+    const candidateName = currentUser?.displayName || currentUser?.email || 'Music Technology Student';
+    const reportText = generateShareReport(rubric, evalData, candidateName);
+    await copyToClipboardSafe(reportText);
+    setShareToast('✓ Full Exam Report copied to clipboard!');
+    setTimeout(() => setShareToast(null), 3000);
+  };
+
+  const handleCopyQuestionLink = async (rubricId = activeRubric.id) => {
+    const origin = typeof window !== 'undefined' ? window.location.origin : 'https://app.musictechguru.com';
+    const url = `${origin}/?quiz=extended_response_trainer&rubric=${rubricId}`;
+    await copyToClipboardSafe(url);
+    setShareToast('✓ Direct Question Practice Link copied!');
+    setTimeout(() => setShareToast(null), 3000);
+  };
+
+  const handleNativeShare = async (rubric = activeRubric, evalData = evaluation) => {
+    const candidateName = currentUser?.displayName || currentUser?.email || 'Music Technology Student';
+    const reportText = generateShareReport(rubric, evalData, candidateName);
+    const origin = typeof window !== 'undefined' ? window.location.origin : 'https://app.musictechguru.com';
+    const url = `${origin}/?quiz=extended_response_trainer&rubric=${rubric.id}`;
+    if (typeof navigator !== 'undefined' && navigator.share) {
+      try {
+        await navigator.share({
+          title: `Edexcel MT Practice: ${rubric.title} (${evalData.totalMarks}/${evalData.maxMarks} - ${evalData.grade})`,
+          text: reportText,
+          url: url
+        });
+        return;
+      } catch (err) {
+        if (err.name !== 'AbortError') {
+          handleCopyShareReport(rubric, evalData);
+        }
+      }
+    } else {
+      handleCopyShareReport(rubric, evalData);
+    }
+  };
+
+  const handleEmailTeacher = (rubric = activeRubric, evalData = evaluation) => {
+    const candidate = currentUser?.displayName || currentUser?.email || 'Music Technology Student';
+    const subject = encodeURIComponent(`Edexcel MT Exam Completion: ${candidate} — ${rubric.paperCode} (${evalData.totalMarks}/${evalData.maxMarks} Grade ${evalData.grade})`);
+    const body = encodeURIComponent(generateShareReport(rubric, evalData, candidate));
+    window.location.href = `mailto:?subject=${subject}&body=${body}`;
+  };
+
+  const handleCopyPortfolioReport = async () => {
+    const candidate = currentUser?.displayName || currentUser?.email || 'A-Level Music Technology Candidate';
+    const compList = Object.values(completions);
+    const totalPossible = EDEXCEL_RUBRIC_BANK.reduce((acc, r) => acc + r.maxMarks, 0);
+    const totalEarned = compList.reduce((acc, c) => acc + (c.totalMarks || 0), 0);
+    const dateStr = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+    const origin = typeof window !== 'undefined' ? window.location.origin : 'https://app.musictechguru.com';
+
+    const lines = [
+      `🎵 MUSIC TECH GURU — C3 & C4 EXTENDED WRITING PORTFOLIO`,
+      `--------------------------------------------------------`,
+      `👤 Candidate: ${candidate}`,
+      `🏆 Portfolio Progress: ${compList.length} of ${EDEXCEL_RUBRIC_BANK.length} Questions Completed`,
+      `📊 Cumulative Score: ${totalEarned} / ${totalPossible} Marks`,
+      `📅 Report Date: ${dateStr}`,
+      `\nCOMPLETED EXAM QUESTIONS:`
+    ];
+
+    compList.forEach((c, idx) => {
+      const rubric = EDEXCEL_RUBRIC_BANK.find(r => r.id === c.rubricId);
+      const title = rubric ? rubric.title : c.title;
+      lines.push(`${idx + 1}. [${c.component}] ${title}`);
+      lines.push(`   Score: ${c.totalMarks}/${c.maxMarks} (${c.percentage || Math.round((c.totalMarks/c.maxMarks)*100)}%) • Grade ${c.grade} • Level ${c.levelBand}`);
+      lines.push(`   AO3: ${c.ao3Marks}/${c.ao3Max} | AO4: ${c.ao4Marks}/${c.ao4Max}`);
+      lines.push(`   Practice Link: ${origin}/?quiz=extended_response_trainer&rubric=${c.rubricId}\n`);
+    });
+
+    lines.push(`Verify or complete more exam questions at: ${origin}/?quiz=extended_response_trainer`);
+
+    await copyToClipboardSafe(lines.join('\n'));
+    setShareToast('✓ Full Portfolio Report copied to clipboard!');
+    setTimeout(() => setShareToast(null), 3000);
   };
 
   const handleLogToGradebook = () => {
@@ -199,13 +405,42 @@ const EdexcelExaminerPanel = ({
                 cursor: 'pointer'
               }}
             >
-              {EDEXCEL_RUBRIC_BANK.map(r => (
-                <option key={r.id} value={r.id}>
-                  {r.title}
-                </option>
-              ))}
+              {EDEXCEL_RUBRIC_BANK.map(r => {
+                const comp = completions[r.id];
+                const badge = comp ? `✓ [${comp.totalMarks}/${comp.maxMarks} ${comp.grade}] ` : '';
+                return (
+                  <option key={r.id} value={r.id}>
+                    {badge}{r.title}
+                  </option>
+                );
+              })}
             </select>
           </div>
+
+          <button
+            type="button"
+            onClick={() => setShowPortfolioModal(true)}
+            style={{
+              background: completedCount > 0 ? 'rgba(16, 185, 129, 0.16)' : 'rgba(255, 255, 255, 0.06)',
+              color: completedCount > 0 ? '#34D399' : '#94A3B8',
+              border: `1px solid ${completedCount > 0 ? 'rgba(16, 185, 129, 0.45)' : 'rgba(255, 255, 255, 0.15)'}`,
+              padding: '8px 14px',
+              borderRadius: '8px',
+              fontSize: '0.8rem',
+              fontWeight: 700,
+              cursor: 'pointer',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '6px',
+              whiteSpace: 'nowrap',
+              alignSelf: 'flex-end',
+              marginBottom: '1px'
+            }}
+            title="View your completed C3 & C4 exam questions portfolio"
+          >
+            <span>🏆</span>
+            <span>{completedCount}/{EDEXCEL_RUBRIC_BANK.length} Completed</span>
+          </button>
         </div>
 
         {mode !== 'student' && (
@@ -334,9 +569,29 @@ const EdexcelExaminerPanel = ({
             gap: '10px'
           }}
         >
-          <span style={{ fontSize: '0.82rem', fontWeight: 700, color: '#CBD5E1', letterSpacing: '0.02em' }}>
-            {activeRubric.paperCode}
-          </span>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
+            <span style={{ fontSize: '0.82rem', fontWeight: 700, color: '#CBD5E1', letterSpacing: '0.02em' }}>
+              {activeRubric.paperCode}
+            </span>
+            {completions[activeRubric.id] && (
+              <span
+                style={{
+                  background: 'rgba(16, 185, 129, 0.2)',
+                  border: '1px solid rgba(16, 185, 129, 0.45)',
+                  color: '#34D399',
+                  padding: '2px 8px',
+                  borderRadius: '6px',
+                  fontSize: '0.74rem',
+                  fontWeight: 800,
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '4px'
+                }}
+              >
+                ✓ Completed ({completions[activeRubric.id].totalMarks}/{completions[activeRubric.id].maxMarks} • {completions[activeRubric.id].grade})
+              </span>
+            )}
+          </div>
           <span
             style={{
               background: 'rgba(255, 255, 255, 0.08)',
@@ -1389,6 +1644,134 @@ const EdexcelExaminerPanel = ({
             )}
           </div>
 
+          {/* Share Your Result / Completion Hub */}
+          <div
+            style={{
+              marginTop: '18px',
+              background: 'linear-gradient(135deg, rgba(56, 189, 248, 0.12), rgba(16, 185, 129, 0.12))',
+              border: '1px solid rgba(56, 189, 248, 0.35)',
+              borderRadius: '12px',
+              padding: '16px 20px',
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              flexWrap: 'wrap',
+              gap: '14px'
+            }}
+          >
+            <div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
+                <span style={{ fontSize: '1.1rem' }}>📤</span>
+                <span style={{ fontSize: '0.95rem', fontWeight: 800, color: '#F8FAFC' }}>
+                  Share Your Completion &amp; Score
+                </span>
+                <span
+                  style={{
+                    fontSize: '0.74rem',
+                    fontWeight: 800,
+                    background: evaluation.totalMarks >= evaluation.maxMarks ? '#10B981' : '#38BDF8',
+                    color: '#0B111E',
+                    padding: '2px 8px',
+                    borderRadius: '6px'
+                  }}
+                >
+                  {evaluation.totalMarks}/{evaluation.maxMarks} • {evaluation.grade}
+                </span>
+              </div>
+              <div style={{ fontSize: '0.8rem', color: '#94A3B8' }}>
+                Share this verified result with your teacher, tutor, or revision group.
+              </div>
+            </div>
+
+            <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', alignItems: 'center' }}>
+              <button
+                type="button"
+                onClick={() => handleCopyShareReport(activeRubric, evaluation)}
+                style={{
+                  background: 'rgba(56, 189, 248, 0.2)',
+                  color: '#7DD3FC',
+                  border: '1px solid rgba(56, 189, 248, 0.45)',
+                  padding: '8px 14px',
+                  borderRadius: '8px',
+                  fontSize: '0.82rem',
+                  fontWeight: 700,
+                  cursor: 'pointer',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '6px'
+                }}
+                title="Copy full marked essay report to clipboard"
+              >
+                <span>📋 Copy Full Report</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => handleCopyQuestionLink(activeRubric.id)}
+                style={{
+                  background: 'rgba(255, 255, 255, 0.08)',
+                  color: '#E2E8F0',
+                  border: '1px solid rgba(255, 255, 255, 0.2)',
+                  padding: '8px 14px',
+                  borderRadius: '8px',
+                  fontSize: '0.82rem',
+                  fontWeight: 700,
+                  cursor: 'pointer',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '6px'
+                }}
+                title="Copy direct link to this question"
+              >
+                <span>🔗 Copy Link</span>
+              </button>
+
+              {typeof navigator !== 'undefined' && navigator.share && (
+                <button
+                  type="button"
+                  onClick={() => handleNativeShare(activeRubric, evaluation)}
+                  style={{
+                    background: 'rgba(16, 185, 129, 0.2)',
+                    color: '#34D399',
+                    border: '1px solid rgba(16, 185, 129, 0.45)',
+                    padding: '8px 14px',
+                    borderRadius: '8px',
+                    fontSize: '0.82rem',
+                    fontWeight: 700,
+                    cursor: 'pointer',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '6px'
+                  }}
+                  title="Share via AirDrop, Messages, WhatsApp, or Classroom"
+                >
+                  <span>📱 Share...</span>
+                </button>
+              )}
+
+              <button
+                type="button"
+                onClick={() => handleEmailTeacher(activeRubric, evaluation)}
+                style={{
+                  background: 'rgba(245, 158, 11, 0.18)',
+                  color: '#FCD34D',
+                  border: '1px solid rgba(245, 158, 11, 0.4)',
+                  padding: '8px 14px',
+                  borderRadius: '8px',
+                  fontSize: '0.82rem',
+                  fontWeight: 700,
+                  cursor: 'pointer',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '6px'
+                }}
+                title="Send pre-filled email to your music tech teacher"
+              >
+                <span>✉️ Email Teacher</span>
+              </button>
+            </div>
+          </div>
+
           {onSaveEvaluationToGradebook && mode !== 'student' && (
             <button
               type="button"
@@ -1478,6 +1861,243 @@ const EdexcelExaminerPanel = ({
               }}
             />
           </div>
+        </div>
+      )}
+      {/* Question Completion Portfolio & Progress Modal */}
+      {showPortfolioModal && (
+        <div
+          onClick={() => setShowPortfolioModal(false)}
+          style={{
+            position: 'fixed',
+            inset: 0,
+            zIndex: 9999,
+            background: 'rgba(0, 0, 0, 0.88)',
+            backdropFilter: 'blur(8px)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '20px'
+          }}
+        >
+          <div
+            onClick={e => e.stopPropagation()}
+            style={{
+              position: 'relative',
+              width: '100%',
+              maxWidth: '820px',
+              maxHeight: '88vh',
+              overflowY: 'auto',
+              background: '#0F172A',
+              border: '1px solid rgba(56, 189, 248, 0.4)',
+              borderRadius: '16px',
+              padding: '24px',
+              boxShadow: '0 25px 60px rgba(0, 0, 0, 0.85)'
+            }}
+          >
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+              <div>
+                <h2 style={{ margin: '0 0 4px 0', fontSize: '1.25rem', color: '#F8FAFC', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <span>🏆</span>
+                  <span>Your C3 &amp; C4 Exam Practice Portfolio</span>
+                </h2>
+                <span style={{ fontSize: '0.84rem', color: '#94A3B8' }}>
+                  Progress: <strong>{completedCount} of {EDEXCEL_RUBRIC_BANK.length}</strong> questions completed
+                </span>
+              </div>
+              <button
+                type="button"
+                onClick={() => setShowPortfolioModal(false)}
+                style={{
+                  background: 'rgba(255, 255, 255, 0.1)',
+                  color: '#CBD5E1',
+                  border: 'none',
+                  width: '32px',
+                  height: '32px',
+                  borderRadius: '50%',
+                  fontSize: '1rem',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}
+              >
+                ✕
+              </button>
+            </div>
+
+            {/* Progress Bar */}
+            <div style={{ width: '100%', height: '8px', background: 'rgba(255, 255, 255, 0.1)', borderRadius: '4px', overflow: 'hidden', marginBottom: '20px' }}>
+              <div
+                style={{
+                  width: `${(completedCount / EDEXCEL_RUBRIC_BANK.length) * 100}%`,
+                  height: '100%',
+                  background: 'linear-gradient(90deg, #38BDF8, #10B981)',
+                  transition: 'width 0.4s ease'
+                }}
+              />
+            </div>
+
+            {/* Questions List */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '20px' }}>
+              {EDEXCEL_RUBRIC_BANK.map((r) => {
+                const comp = completions[r.id];
+                const isCurrent = r.id === selectedRubricId;
+                return (
+                  <div
+                    key={r.id}
+                    style={{
+                      background: isCurrent ? 'rgba(56, 189, 248, 0.08)' : '#0B111E',
+                      border: `1px solid ${comp ? 'rgba(16, 185, 129, 0.35)' : isCurrent ? 'rgba(56, 189, 248, 0.4)' : 'rgba(255, 255, 255, 0.08)'}`,
+                      borderRadius: '10px',
+                      padding: '12px 16px',
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                      flexWrap: 'wrap',
+                      gap: '12px'
+                    }}
+                  >
+                    <div style={{ flex: 1, minWidth: '240px' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '3px' }}>
+                        <span style={{ fontSize: '0.76rem', fontWeight: 800, color: r.component === 'Component 3' ? '#7DD3FC' : '#FDA4AF' }}>
+                          {r.paperCode.split('•')[0].trim()}
+                        </span>
+                        {comp ? (
+                          <span style={{ fontSize: '0.72rem', fontWeight: 800, background: 'rgba(16, 185, 129, 0.2)', color: '#34D399', padding: '2px 6px', borderRadius: '4px' }}>
+                            ✓ {comp.totalMarks}/{comp.maxMarks} Marks ({comp.grade})
+                          </span>
+                        ) : (
+                          <span style={{ fontSize: '0.72rem', color: '#64748B' }}>
+                            ○ Not attempted
+                          </span>
+                        )}
+                      </div>
+                      <div style={{ fontSize: '0.88rem', fontWeight: 600, color: '#F1F5F9' }}>
+                        {r.title}
+                      </div>
+                    </div>
+
+                    <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+                      {comp && (
+                        <button
+                          type="button"
+                          onClick={() => handleCopyShareReport(r, {
+                            totalMarks: comp.totalMarks,
+                            maxMarks: comp.maxMarks,
+                            grade: comp.grade,
+                            levelBand: comp.levelBand,
+                            ao3Marks: comp.ao3Marks,
+                            ao3Max: comp.ao3Max,
+                            ao4Marks: comp.ao4Marks,
+                            ao4Max: comp.ao4Max,
+                            examinerFeedback: `Completed on ${new Date(comp.completedAt).toLocaleDateString('en-GB')}`
+                          })}
+                          style={{
+                            background: 'rgba(56, 189, 248, 0.15)',
+                            color: '#7DD3FC',
+                            border: '1px solid rgba(56, 189, 248, 0.35)',
+                            padding: '6px 10px',
+                            borderRadius: '6px',
+                            fontSize: '0.76rem',
+                            fontWeight: 700,
+                            cursor: 'pointer'
+                          }}
+                          title="Copy this question's completion report"
+                        >
+                          📤 Share
+                        </button>
+                      )}
+
+                      <button
+                        type="button"
+                        onClick={() => {
+                          handleSelectRubric(r.id);
+                          setShowPortfolioModal(false);
+                        }}
+                        style={{
+                          background: isCurrent ? '#38BDF8' : 'rgba(255, 255, 255, 0.08)',
+                          color: isCurrent ? '#0B111E' : '#E2E8F0',
+                          border: 'none',
+                          padding: '6px 14px',
+                          borderRadius: '6px',
+                          fontSize: '0.78rem',
+                          fontWeight: 700,
+                          cursor: 'pointer'
+                        }}
+                      >
+                        {comp ? 'Practice Again' : 'Start Question'}
+                      </button>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Modal Footer Actions */}
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '10px', paddingTop: '16px', borderTop: '1px solid rgba(255, 255, 255, 0.1)' }}>
+              <button
+                type="button"
+                onClick={handleCopyPortfolioReport}
+                disabled={completedCount === 0}
+                style={{
+                  background: completedCount > 0 ? '#10B981' : 'rgba(255, 255, 255, 0.06)',
+                  color: completedCount > 0 ? '#0B111E' : '#64748B',
+                  border: 'none',
+                  padding: '10px 18px',
+                  borderRadius: '8px',
+                  fontWeight: 800,
+                  fontSize: '0.86rem',
+                  cursor: completedCount > 0 ? 'pointer' : 'not-allowed',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '6px'
+                }}
+              >
+                <span>📋 Copy Full Portfolio Summary</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setShowPortfolioModal(false)}
+                style={{
+                  background: 'rgba(255, 255, 255, 0.08)',
+                  color: '#CBD5E1',
+                  border: '1px solid rgba(255, 255, 255, 0.18)',
+                  padding: '9px 18px',
+                  borderRadius: '8px',
+                  fontWeight: 700,
+                  fontSize: '0.84rem',
+                  cursor: 'pointer'
+                }}
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Floating Toast Notification */}
+      {shareToast && (
+        <div
+          style={{
+            position: 'fixed',
+            bottom: '24px',
+            right: '24px',
+            background: '#10B981',
+            color: '#0B111E',
+            padding: '12px 20px',
+            borderRadius: '8px',
+            fontWeight: 800,
+            fontSize: '0.88rem',
+            boxShadow: '0 10px 30px rgba(0, 0, 0, 0.65)',
+            zIndex: 99999,
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px'
+          }}
+        >
+          <span>{shareToast}</span>
         </div>
       )}
     </section>
