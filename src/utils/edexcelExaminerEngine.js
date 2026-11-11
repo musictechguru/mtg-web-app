@@ -1320,10 +1320,10 @@ export const EDEXCEL_RUBRIC_BANK = [
     imageTitle2: 'Mobile Phone Internal Speaker',
     imageCaption2: 'Miniature mono micro-speaker driver with restricted low-frequency reproduction (cannot reproduce bass below 300–800Hz)',
     youtubeId1: null,
-    audioSrc1: '/Audio/FX_Ear_Training/EQ Mastery/Clean Mix.mp3',
-    audioTitle1: 'Reference A: Full-Range Balanced Studio Mix',
-    audioSrc2: '/Audio/FX_Ear_Training/EQ Mastery/Muddy Mix.mp3',
-    audioTitle2: 'Reference B: Compromised Frequency Translation Check',
+    audioSrc1: '/Audio/nearfield_studio_monitors_full_range.mp3',
+    audioTitle1: 'Reference A: Nearfield Studio Monitors (Full-Range Stereo Mix — 40Hz to 20kHz)',
+    audioSrc2: '/Audio/mobile_phone_speaker_translation.mp3',
+    audioTitle2: 'Reference B: Mobile Phone Speaker (Bandwidth-Limited Mono Transducer — 450Hz to 8kHz)',
     interactiveDecks: [
       {
         title: 'Interactive Deck: Component 4 Producing & Analysing',
