@@ -218,12 +218,12 @@ export const EDEXCEL_RUBRIC_BANK = [
     examPromptLead:
       'Listen to the lead vocal and backing vocal arrangements. Evaluate how digital audio workstations (DAWs) and computer software transformed vocal production and the wider music industry at the turn of the millennium:',
     examBullets: [
-      'Pitch correction (Auto-Tune, Melodyne) and pitch-shifting',
-      'Vocal comping (assembling takes), crossfading, and slip editing',
-      'Backing vocal layering, Automatic Double Tracking (ADT), and stereo widening',
-      'Filtering, telephone equalization, and creative modulation',
-      'Dynamic processing, sidechain compression, and volume automation',
-      'Economic, workflow, and aesthetic impact on commercial pop music.'
+      'Capture, production approach and music style',
+      'Synthesis, sequencing and sampling',
+      'EQ and filtering',
+      'Dynamic processing',
+      'Pan and stereo field',
+      'Effects & wider industry impact'
     ],
     mtgRevisionGuide: {
       summary: 'Music Tech Guru Q6 Revision Notes — Millennium Pop & DAW Vocal Editing:',
@@ -318,25 +318,26 @@ export const EDEXCEL_RUBRIC_BANK = [
     ],
     exemplars: {
       grade_A_star: [
-        'Pitch Correction and Tuning:',
-        '• Auto-Tune and Melodyne: Software retuning was applied across lead and backing vocals, eliminating pitch drift and creating the hyper-polished, robotic vocal signature typical of millennium pop.',
-        '• Musical impact: Shifted listener expectations toward flawless pitch perfection, enabling non-virtuoso singers to deliver commercially viable pop records.',
+        'Capture, Production Approach and Music Style:',
+        '• Vocal Comping & Takes: Producers assembled the master lead vocal from dozens of takes, using slip-editing and crossfades to piece together ideal words and syllables for a seamless superhuman performance.',
+        '• Max Martin Production: Digital tracking in a DAW provided total session recall and non-destructive editing, establishing a polished millennium pop standard.',
         '',
-        'Vocal Comping and Timing Editing:',
-        '• Composite editing: Producers assembled the final vocal from dozens of takes, using slip-editing and crossfades to piece together ideal words and syllables.',
-        '• Timing alignment: Vocal transients were sliced and quantised to the DAW grid, locking the vocal into the driving dance tempo.',
+        'Synthesis, Sequencing and Sampling:',
+        '• Pitch Correction: Auto-Tune and Melodyne software retuned lead and backing vocals, eliminating pitch drift and creating the signature hyper-polished, robotic pop aesthetic.',
+        '• Rhythmic Quantisation: Audio waveforms were sliced and quantised to the DAW tempo grid, locking vocal consonants tightly into the driving dance groove.',
         '',
-        'Vocal Stacks, Doubling and Stereo Width:',
-        '• Layering: Lead lines were doubled and reinforced with multi-layered backing vocals, pitch-shifted (+/- 10 cents), and panned hard left and right.',
-        '• Stereo presence: Created a massive "wall of sound" in the chorus that contrasts with intimate, narrow verses.',
+        'EQ and Filtering:',
+        '• Creative Filtering: Applied narrow band-pass "telephone" EQ (cutting below 400Hz and above 3kHz) to verse vocals to create dramatic frequency contrast before full-bandwidth choruses.',
         '',
-        'EQ Filtering, Effects and Automation:',
-        '• Creative filtering: Applied narrow band-pass "telephone" EQ (cutting below 400Hz and above 3kHz) to verse vocals to create dramatic sonic contrast before full-bandwidth choruses.',
-        '• Space and modulation: Stereo chorus, automated delay throws, and ducking reverbs kept vocals upfront without washing out the mix.',
+        'Dynamic Processing:',
+        '• Compression & Ducking: Heavy serial compression and side-chain ducking kept vocals front and centre against loud synths with consistent radio loudness.',
         '',
-        'Wider Industry and Workflow Impact:',
-        '• Total Recall: DAWs replaced expensive analogue consoles with total session recall, non-destructive editing, and affordable home-studio production.',
-        '• Commercial trade-off: Vastly accelerated production timelines and democratised music-making, while homogenising commercial pop vocal character.'
+        'Pan and Stereo Field:',
+        '• Stereo Width & Stacks: Lead vocals were doubled and reinforced with multi-layered backing vocals, pitch-shifted (+/- 10 cents), and panned hard left and right to build a massive "wall of sound" chorus.',
+        '',
+        'Effects & Wider Industry Impact:',
+        '• Effects: Stereo chorus, automated delay throws, and ducking plate reverbs kept the vocal upfront without washing out the mix.',
+        '• Economic Impact: DAWs drastically reduced tracking costs and studio hours, shifting production to home/project studios while homogenising commercial pop vocal character.'
       ].join('\n'),
       grade_B: [
         'Pitch Correction and Editing:',
@@ -359,19 +360,22 @@ export const EDEXCEL_RUBRIC_BANK = [
         '• DAWs allowed unlimited tracks and made music cheaper to produce.'
       ].join('\n'),
       student_template: [
-        'Pitch Correction and Tuning:',
+        'Capture, Production Approach and Music Style:',
         '• ',
         '',
-        'Vocal Comping and Timing Editing:',
+        'Synthesis, Sequencing and Sampling:',
         '• ',
         '',
-        'Vocal Stacks, Doubling and Stereo Width:',
+        'EQ and Filtering:',
         '• ',
         '',
-        'EQ Filtering, Effects and Automation:',
+        'Dynamic Processing:',
         '• ',
         '',
-        'Wider Industry and Workflow Impact:',
+        'Pan and Stereo Field:',
+        '• ',
+        '',
+        'Effects & Wider Industry Impact:',
         '• '
       ].join('\n')
     }
@@ -409,12 +413,12 @@ export const EDEXCEL_RUBRIC_BANK = [
     examPromptLead:
       'Track 5 is Dean Martin’s 1954 recording of "Sway" and Track 6 is Shaft’s 1999 dance remix "(Mucho Mambo) Sway". Evaluate and compare the production techniques used in both recordings:',
     examBullets: [
-      'Microphone capture, studio acoustics, and live tracking vs DAW sequencing',
-      'Analogue magnetic tape characteristics vs digital multitrack precision',
-      'Acoustic brass arrangement vs sampled, looped, and filtered horn riffs',
-      'Dynamic range, bus compression, and 4-on-the-floor club dance balance',
-      'Vocal delivery (crooner intimacy, proximity effect) vs hyped party MC chants',
-      'Spatial positioning, natural echo chamber ambiance, and modern stereo imaging.'
+      'Capture, production approach and music style',
+      'Synthesis, sequencing and sampling',
+      'EQ and filtering',
+      'Dynamic processing',
+      'Pan and stereo field',
+      'Effects'
     ],
     mtgRevisionGuide: {
       summary: 'Music Tech Guru Q5 Revision Notes — Sway (1954 Big Band vs 1999 Dance Remix):',
@@ -534,16 +538,22 @@ export const EDEXCEL_RUBRIC_BANK = [
         '• 1999 is louder with heavier compression and digital effects.'
       ].join('\n'),
       student_template: [
-        'Capture, Studio Acoustics and Tracking:',
+        'Capture, Production Approach and Music Style:',
         '• ',
         '',
-        'Sampling, Sequencing and Brass Arrangement:',
+        'Synthesis, Sequencing and Sampling:',
         '• ',
         '',
-        'Dynamic Processing and Rhythm Section:',
+        'EQ and Filtering:',
         '• ',
         '',
-        'Vocal Production and Spatial Ambience:',
+        'Dynamic Processing:',
+        '• ',
+        '',
+        'Pan and Stereo Field:',
+        '• ',
+        '',
+        'Effects:',
         '• '
       ].join('\n')
     }
@@ -576,11 +586,11 @@ export const EDEXCEL_RUBRIC_BANK = [
     examPromptLead:
       'Listen to the analogue drum synthesis stem in the player (Roland TR-606 Drumatix). Analyse how these analogue drum voices and the combined groove were made using subtractive synthesis:',
     examBullets: [
-      'Bass Drum: Bridged-T resonant network producing a damped sine pitch drop with initial transient click',
-      'Snare Drum: Dual-circuit combining tuned resonant body tone with band-pass filtered white noise',
-      'Tom Drums (Low & High): Tuned resonant filter oscillators with exponential pitch envelope decay',
-      'Hi-Hats (Closed & Open) & Cymbal: Metallic 6-oscillator square wave cluster routed through high-pass filtering',
-      'Sequencing & Mix: 16th-note quantised step sequencer, discrete analogue voices summed into a punchy mono groove.'
+      'Voice architecture and sound generation (oscillators & noise)',
+      'Filter types and frequency shaping (LPF, HPF, BPF)',
+      'Envelopes, transients and decay times (ADSR)',
+      'Pitch modulation and decay curves',
+      'Sequencing, mix balance and spatial positioning'
     ],
     mtgRevisionGuide: {
       summary: 'Music Tech Guru Q6 Revision Notes — How Roland TR-606 Analogue Drum Synthesis Works:',
@@ -779,13 +789,11 @@ export const EDEXCEL_RUBRIC_BANK = [
     examPromptLead:
       'Evaluate how developments in electric guitar construction, pickup design, and amplification transformed musical styles from the 1930s to the 1970s:',
     examBullets: [
-      'Acoustic feedback issues in hollow-body archtops (Gibson ES-150)',
-      'Solid-body guitar innovations (Fender Broadcaster/Telecaster, Stratocaster, Gibson Les Paul)',
-      'Pickup design: Single-coil (Leo Fender) vs Humbucking pickups (Seth Lover PAF)',
-      'Hardware: Adjustable bridge saddles, truss rods, and vibrato/whammy systems',
-      'Valve amplifier development: Preamp vs power amp saturation (Fender Bassman, Marshall Super Lead)',
-      'High-power 4x12 speaker cabinets (Celestion) and high SPL arena projection',
-      'Analogue stompbox effects: Fuzz, treble booster, wah-wah, and tape echo.'
+      'Body design, materials and construction',
+      'Transducers, pickups and electronics',
+      'Amplification, speakers and distortion',
+      'Effects and sound processing',
+      'Impact on musical styles and performance'
     ],
     mtgRevisionGuide: {
       summary: 'Music Tech Guru Q6 Revision Notes — Development of Electric Guitar & Amps:',
@@ -954,12 +962,11 @@ export const EDEXCEL_RUBRIC_BANK = [
     examPromptLead:
       'Listen to the synthesised bass line in the player. Analyse how subtractive synthesis architecture (oscillators, filters, envelopes, portamento) is used to create this punchy analogue bass sound:',
     examBullets: [
-      'VCO waveform selection (sawtooth, square/pulse with pulse-width modulation)',
-      'Sub-oscillator integration (-1 oct, -2 oct square/pulse) for low-end reinforcement',
-      '24dB/octave resonant low-pass filter (VCF) cutoff frequency and resonance control',
-      'Filter envelope (ADSR) shaping transient attack, pluck decay, and sustain',
-      'Portamento / glide time between consecutive legato bass notes',
-      'Step sequencing, accent modulation, and mix focus in modern production.'
+      'Oscillators and waveform generation',
+      'Filter types, cutoff and resonance',
+      'Envelopes and amplitude/filter modulation',
+      'Performance controls, portamento and modulation',
+      'Sequencing, pitch control and mix placement'
     ],
     mtgRevisionGuide: {
       summary: 'Music Tech Guru Q6 Revision Notes — Roland SH-101 Monophonic Synth Bass Architecture:',
@@ -1141,6 +1148,13 @@ export const EDEXCEL_RUBRIC_BANK = [
     ],
     examPromptLead:
       'Figure 1 shows a drum mic setup typical of 2010s recordings. Figure 2 shows a drum mic setup typical of the late 1960s. Evaluate and compare the drum recording techniques for a rock recording.',
+    examBullets: [
+      'Acoustic environment and room positioning',
+      'Microphone selection and placement techniques',
+      'Stereo capture, overheads and phase relationships',
+      'Multitrack recording, spill and track isolation',
+      'Signal processing, dynamic control and mix balance'
+    ],
     mtgRevisionGuide: {
       summary: 'Music Tech Guru Q6 Revision Notes — 2010s Multi-Mic vs Late-1960s (Glyn Johns) Rock Drum Recording:',
       keyPoints: [
@@ -1584,13 +1598,12 @@ export const EDEXCEL_RUBRIC_BANK = [
     examPromptLead:
       'Evaluate how lead vocal recording and production techniques evolved from the 1950s to the modern day. In your response, consider microphone capture, editing workflows, pitch correction, dynamic processing, and spatial effects:',
     examBullets: [
-      'Microphone capsules: Valve condensers (Neumann U47), ribbons, cardioid polar patterns, proximity effect',
-      'Editing workflow: Analogue tape full takes / punch-ins vs DAW multi-take swipe comping',
-      'Pitch correction: Human vocal vibrato vs Auto-Tune (retuning speed 0) and Celemony Melodyne',
-      'Dynamic processing: Optical levelling (LA-2A) and FET limiting (1176) serial compression',
-      'Equalisation & frequency control: High-pass filtering (80–120Hz), de-essers (5–8kHz), high-shelf air boost',
-      'Spatial effects: Physical echo chambers, EMT 140 plates vs convolution reverb and stereo delay throws',
-      'Aesthetic transition: Natural acoustic realism vs modern hyper-real, upfront commercial vocal production.'
+      'Capture, production approach and music style',
+      'Synthesis, sequencing and sampling',
+      'EQ and filtering',
+      'Dynamic processing',
+      'Pan and stereo field',
+      'Effects & wider industry impact'
     ],
     mtgRevisionGuide: {
       summary: 'Music Tech Guru Q6 Revision Notes — Evolution of Lead Vocal Production (1950s–Present):',
