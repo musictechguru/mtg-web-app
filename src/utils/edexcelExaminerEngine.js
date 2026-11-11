@@ -459,14 +459,14 @@ export const EDEXCEL_RUBRIC_BANK = [
     paperCode: 'Component 4: Producing & Analysing • 20-Mark Technical Evaluation',
     component: 'Component 4',
     questionNumber: '6',
-    title: 'C4 Q6: Subtractive Drum Synthesis & Transient Shaping (20 Marks)',
+    title: 'C4 Q6: Subtractive Drum Synthesis — Roland TR-606 Drumatix (20 Marks)',
     vaultNode: '04_Edexcel_Curriculum/C4_Q6_Drum_Synthesis_2025_20m.md',
     maxMarks: 20,
     ao3Max: 5,
     ao4Max: 15,
     youtubeId1: null,
-    audioSrc1: '/C4_EDM_Audio_Assets/C4_EDM_Drum_Stem_EXAMPLE.mp3',
-    audioTitle1: 'Music Tech Guru Synthesised Drum Stem (Subtractive 808/909 Stems)',
+    audioSrc1: '/Audio/tr606_drum_synthesis.wav',
+    audioTitle1: 'Roland TR-606 Drumatix Analogue Drum Synthesis Stem (Isolated Voices & Groove)',
     interactiveDecks: [
       {
         title: 'Interactive Deck: The Synthesizer & Sound Synthesis',
@@ -480,22 +480,21 @@ export const EDEXCEL_RUBRIC_BANK = [
       }
     ],
     examPromptLead:
-      'Analyse how analogue-style drum sounds are created from raw oscillators and noise generators using subtractive synthesis in a DAW:',
+      'Listen to the analogue drum synthesis stem in the player (Roland TR-606 Drumatix). Analyse how these analogue drum voices and the combined groove were made using subtractive synthesis:',
     examBullets: [
-      'Kick / Bass Drum: Low sine or triangle wave with rapid pitch envelope drop',
-      'Snare Drum: Dual-layer oscillator tone and resonant white noise burst',
-      'Hi-Hats: High-pass filtered white noise with variable decay times for open and closed hats',
-      'Tom Drums: Pitched oscillators with decaying envelope modulation',
-      'Percussion & Sound Design: Pitched resonance, LFO vibrato, and transient shaping',
-      'Pattern & Mix: Balance, frequency separation, and dynamic bus processing.'
+      'Bass Drum: Bridged-T resonant network producing a sine-like pitch drop with initial transient click',
+      'Snare Drum: Dual-circuit architecture combining tuned resonant body tone with shaped white noise',
+      'Tom Drums (Low & High): Tuned resonant oscillators with exponential pitch envelope decay',
+      'Hi-Hats (Closed & Open): Metallic 6-oscillator square wave array routed through high-pass/band-pass filtering',
+      'Pattern & Groove: Mono mixdown, discrete analogue envelopes, and rhythmic 16th-note step timing.'
     ],
     mtgRevisionGuide: {
-      summary: 'Music Tech Guru Q6 Revision Notes — How Analogue Drum Synthesis Works (Oscillators, Filters & Envelopes):',
+      summary: 'Music Tech Guru Q6 Revision Notes — How Roland TR-606 Analogue Drum Synthesis Works:',
       keyPoints: [
-        'Bass Drum (Bar 1): Low sine/triangle oscillator + Low-Pass Filter (80–200Hz) removes harmonics for a deep sub tone. Amplitude envelope has 0ms attack (cutting the wave off-zero to create a beater click transient), medium decay, and 0 sustain.',
-        'Snare Drum (Bar 2): Unpitched white noise generator shaped by a resonant Low-Pass Filter with a downward filter envelope sweep + short attack, medium decay, 0 sustain.',
-        'Hi-Hats (Bar 3): Unpitched white noise through a High-Pass Filter (2kHz–9kHz) to thin out low frequencies. Closed hat has a very short decay/release; open hat has a longer decay/release.',
-        'Toms (Bar 4) & Flex-a-tone (Bar 5): Toms use a bright square/sawtooth wave with a falling pitch envelope. Flex-a-tone uses two detuned oscillators + fast 16th-note LFO pitch vibrato + rising pitch envelope. Bars 7–10 are mono, dry, centre-panned, and quantised.'
+        'Bass Drum: Bridged-T resonant network (damped sine oscillator) excited by a pulse trigger + low-pass filtering. Amplitude envelope has 0ms attack (cutting the wave off-zero to create a beater click transient), medium decay, and 0 sustain.',
+        'Snare Drum: Combines two parallel circuits: a tuned resonant oscillator (drum body tone) plus an unpitched white noise generator shaped by a band-pass filter and short decay envelope for the snare wires.',
+        'Hi-Hats: 6 detuned Schmitt-trigger square wave oscillators create an inharmonic metallic cluster, routed through a high-pass / band-pass filter. Closed hat uses a very short decay envelope; open hat has a longer release decay.',
+        'Toms: Dual bridged-T resonant filter oscillators tuned to Low and High pitches with exponential pitch envelope decay. In the pattern (Bars 5–8), all sounds are dry, discrete analogue circuits summed into a focused mono groove.'
       ],
       links: [
         { label: '🌐 Component 4 Production Exam Revision Hub (musictechguru.com)', url: 'https://www.musictechguru.com/edexcel-component-4-production-exam-revision/' },
@@ -505,7 +504,7 @@ export const EDEXCEL_RUBRIC_BANK = [
       ]
     },
     questionPrompt:
-      'Analyse how analogue-style drum sounds (kick, snare, hi-hats, toms, and percussion) are created and shaped using subtractive synthesis in a DAW. In your response, evaluate oscillator selection, filter types, pitch and amplitude envelopes, noise generators, and transient control. (20 marks — AO3: 5 marks, AO4: 15 marks)',
+      'Listen to the Roland TR-606 Drumatix audio stem. Analyse how the analogue drum sounds (bass drum, snare drum, toms, hi-hats) and the groove are created using subtractive synthesis. In your response, evaluate oscillator selection, filter networks, noise generators, and envelope decay times. (20 marks — AO3: 5 marks, AO4: 15 marks)',
     ao3Anchors: [
       {
         id: 'ao3_waveforms_noise',
