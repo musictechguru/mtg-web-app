@@ -112,37 +112,36 @@ export const EDEXCEL_RUBRIC_BANK = [
     exemplars: {
       grade_A_star: [
         'Capture, Production Approach and Music Style:',
-        '• Track A (Original) comes across as a natural-sounding blues/jazz band recorded live with acoustic instruments (double bass, piano, brass/horns, and drums) captured through modern studio microphones with no obvious spill, whereas Track B (20 Syl Remix) is a contemporary club/dance remix sequenced in a DAW.',
-        '• Track A preserves a human, live performance feel and a warm connection with the musicians, whereas Track B replaces the live band with programmed electronic drums and synths to create a tighter, hard-hitting dance feel.',
+        '• Track A (Original): Live acoustic jazz band (double bass, piano, drums, brass) recorded through close mics; natural, dynamic human performance feel.',
+        '• Track B (Remix): EDM/club dance remix sequenced in a DAW using electronic drum samples and synths; rigid, quantised, hard-hitting club feel.',
         '',
         'Synthesis, Sequencing and Sampling:',
-        '• There is no synthesis or sampling in Track A as all instruments are played live from start to finish, whereas Track B samples stems from Track A and cuts up the lead vocal into rhythmic stuttered loops, pitch-shifted harmonies, and DJ-style scratches.',
-        '• In Track B, the acoustic double bass and horns from Track A are replaced with a deep electronic synth bass and wide stereo synth chords that drive the club groove.',
+        '• Instrumentation: Acoustic double bass and live horns in Track A replaced in Track B with a deep electronic sub-bass synth and wide stereo synth chords.',
+        '• Vocal sampling: Track B samples vocal stems from Track A, slicing them into rhythmic stuttered loops, pitch-shifted harmonies, and vinyl-style scratches.',
         '',
         'Dynamic Processing:',
-        '• Track A uses light, natural compression across the acoustic instruments so the jazz performance retains its natural dynamic range, whereas Track B uses heavy high-ratio compression across the mix to create a louder, tighter, and less human sound.',
-        '• Track B also uses side-chain compression on the wide stereo synth, triggered by the electronic kick drum, which causes the synth volume to duck and creates a rhythmic pumping effect typical of modern dance music.',
+        '• Compression: Track A uses light, transparent compression to preserve natural dynamics; Track B applies heavy, high-ratio compression across the mix for loudness.',
+        '• Side-chaining: Track B triggers side-chain compression on the main synth from the kick drum, creating a rhythmic pumping sensation.',
         '',
         'Pan, Stereo Field and Effects:',
-        '• Track A pans the brass section naturally across the stereo field and uses lots of natural room reverb on the drums (giving a distant sound and a wash on the ride cymbal) plus a 1.5s reverb on the lead vocal.',
-        "• By contrast, Track B uses tighter, drier electronic drum samples layered with the original jazz cymbals for extra percussive punch, alongside creative stereo delays such as at 1:22 on the word 'liquid', which is pitch-shifted, wide in the stereo field, and autopanned."
+        '• Space & Reverb: Track A uses natural room reverb on drums (ambient wash on ride cymbal) and 1.5s vocal plate; Track B uses tight, dry electronic drum samples.',
+        '• Stereo Modulation: Track B features creative stereo delay throws on "liquid" (1:22) with pitch-shifting and automatic stereo panning (autopanned).'
       ].join('\n'),
       grade_B: [
         'Original Version (Track A):',
-        '• The original is a very natural-sounding jazz/blues mix where all the instruments are acoustic and blend together well.',
-        '• There are small amounts of room reverb on the instrument tracks and a natural 1.5s reverb on the lead vocals so the vocal sits nicely on top of the band.',
-        '• The lead vocals and acoustic instruments are only lightly compressed to keep a natural sound.',
+        '• Natural acoustic jazz mix with double bass, piano, drums, and horns recorded live with microphones in a studio.',
+        '• Light compression keeps the natural dynamic range, and natural room reverb on the drums (1.5s on vocals) creates a blended live sound.',
         '',
         '20 Syl Remix (Track B):',
-        '• In the remix, the drums are much more prominent and programmed on an electronic drum machine (possibly an 808) with an added synth part.',
-        '• There is a high compression ratio on the remix, especially on the vocals, making it sound more like a modern dance track than the jazz/blues original.',
-        '• The vocals have also been cut up and sampled in a DAW to create choppy rhythms and new harmony lines.'
+        '• Programmed electronic drums and synths sequenced in a DAW replace the live acoustic instruments with a tight club feel.',
+        '• Heavy compression with high ratio gives a modern dance loudness, and sampled vocal stems are sliced into choppy, stuttered rhythmic patterns.',
+        '• The kick drum triggers side-chain compression on the synth parts to create a rhythmic pumping effect.'
       ].join('\n'),
       grade_D: [
         'Instrumentation and Bass Comparison:',
-        '• The original song has been recorded with live acoustic instruments, whereas the remix uses MIDI and electronic instruments.',
-        '• In the original, you can hear the plucking and fret buzz of the live double bass at the start, which has been EQ’d so it sits cleanly in the mix.',
-        '• In the remix, a synth bass recorded with MIDI is used instead, making the song sound less like the original and fitting a modern remix style.'
+        '• Track A is recorded live with acoustic instruments, while Track B uses MIDI and computers.',
+        '• In Track A, the double bass has plucking and fret buzz, whereas Track B uses a synth bass instead.',
+        '• Track B is heavily compressed and has dance drum loops to fit a club remix style.'
       ].join('\n'),
       student_template: [
         'Capture, Production Approach and Music Style:',
@@ -260,34 +259,38 @@ export const EDEXCEL_RUBRIC_BANK = [
     exemplars: {
       grade_A_star: [
         'Vocal Editing and Sampling in the Track:',
-        '• The DAW has been used to cut up the vocal waveform with precision, copying short vocal breaths and hums into a digital sampler controlled via MIDI to create rhythmic vocal hooks, such as the loop at 0:34.',
-        '• Unlike older analogue tape or hardware samplers with limited memory, the DAW allows non-destructive editing, reversing of vocal breaths, and hard left/right panning of cut-up vocal samples across the stereo field.',
+        '• Rhythmic Slicing: DAW waveform editing slices vocal breaths and hums into a software sampler via MIDI, creating rhythmic hooks (e.g. vocal stutter loop at 0:34).',
+        '• Stereo Placement: Breath samples are hard-panned left and right non-destructively across the stereo field without tape degeneration or splice noise.',
         '',
         'Pitch Correction (Auto-Tune) and Multitrack Overdubbing:',
-        '• Early digital pitch correction (Auto-Tune) has been applied to Britney Spears’s lead and backing vocals, giving a pitch-perfect pop delivery and almost synthesised-sounding chorus harmonies that define the late-1990s teen-pop style.',
-        '• Because a DAW provides virtually unlimited audio tracks for overdubbing and comping, the producers were able to layer huge stacked backing vocal harmonies in the chorus without tape degeneration.',
+        '• Auto-Tune: Applied to lead and backing vocals for pitch-perfect delivery, creating the glossy, semi-robotic vocal sheen characteristic of millennial pop.',
+        '• Unlimited Playlists: Virtual DAW tracks enable endless vocal take comping and stacked chorus harmonies with zero tape hiss.',
         '',
         'Digital EQ, Compression and Effects Plugins:',
-        "• The DAW makes it easy to duplicate cut-up vocal phrases onto separate tracks and apply automated plugin processing, such as the band-pass ('telephone') EQ filter at 0:41 (using high-pass and low-pass filters) alongside heavy vocal compression and bright stereo reverb.",
+        '• Telephone Filter: High-pass and low-pass filters create a narrow band-pass EQ at 0:41, contrasting sharply against wide chorus vocals.',
+        '• Plugin Dynamics: Heavy syllable-level compression and digital stereo plate reverb make the lead vocal sit upfront and bright in the commercial mix.',
         '',
         'Wider Impact on Vocal Production Since 1999 & Conclusion:',
-        '• Since 1999, DAWs such as Logic Pro and Pro Tools have become affordable and accessible to bedroom producers, enabling limitless vocal creativity but also sparking debate that heavy Auto-Tune and quantised editing strip music of its natural human quality by turning an imperfect singer into a pitch-perfect recording.',
-        '• Despite the dominance of DAWs, many major studios still integrate vintage analogue equipment—such as valve microphones and an SSL mixing desk—alongside Pro Tools or Logic Pro to combine analogue warmth with digital editing speed.'
+        '• Democratisation: Affordable DAWs (Logic Pro, Pro Tools) empowered bedroom producers, though critics argue excessive quantising strips natural human feeling.',
+        '• Hybrid Workflows: Professional studios combine digital DAW speed and non-destructive editing with vintage analogue gear (valve mics, SSL desks) for sonic warmth.'
       ].join('\n'),
       grade_B: [
         'Vocal Sampling and Filtering:',
-        '• DAW technology makes it easy to extract and sample specific parts of the vocal waveform with complete accuracy, which is heard in the hard left and right panning of the vocalist’s breathing.',
-        '• The DAW also modulates the vocal sound using a high-pass and low-pass filter to create a narrow frequency response ("telephone" effect) on specific sections in post-production.',
+        '• DAW waveform editing enables precise extraction of vocal breaths and hums, panned hard left and right across the stereo field.',
+        '• High-pass and low-pass filters create a narrow band-pass "telephone" EQ effect on breakdown sections at 0:41.',
         '',
-        'Double-Tracking, Pitch Shifting and Reverb Plugins:',
-        '• The DAW allows the vocals to be double-tracked across multiple tracks and altered in post-production using a pitch-shifter / pitch-correction plugin.',
-        '• Virtual reverb and delay plugins inside the DAW emulate real acoustic spaces, adding bright reverbs and delays to the vocals to create atmosphere.'
+        'Pitch Shifting and Overdubbing:',
+        '• Virtual DAW tracks allow double-tracked backing vocal harmonies to be stacked in the chorus without analogue tape hiss.',
+        '• Digital pitch-correction plugins (Auto-Tune) ensure lead and backing notes are tuned pitch-perfect for late-1990s pop style.',
+        '',
+        'Wider Production Impact:',
+        '• Affordable DAWs like Logic Pro and Pro Tools made vocal editing accessible to bedroom studios, though heavy Auto-Tune can remove human imperfection from a singer.',
+        '• Modern studios often combine digital DAW editing with vintage analogue gear like valve microphones and an SSL console for analogue warmth.'
       ].join('\n'),
       grade_D: [
-        'EQ and Panning on the Vocals:',
-        '• DAW technology has had a large impact on the track because the vocal sound changes throughout the song.',
-        '• In the intro, the mid frequencies are boosted and the high frequencies are cut with EQ so the vocal sounds like it is coming through a telephone or mic receiver.',
-        '• The backing vocals in the chorus are panned left and right away from the centre of the stereo field.'
+        'EQ and Panning on Vocals:',
+        '• Mid frequencies are boosted and highs/lows cut with EQ to make the intro vocal sound like a telephone receiver.',
+        '• Backing vocals are panned wide in stereo and tuned using computer plugins.'
       ].join('\n'),
       student_template: [
         'Vocal Editing and Sampling in the Track:',
@@ -406,38 +409,38 @@ export const EDEXCEL_RUBRIC_BANK = [
     exemplars: {
       grade_A_star: [
         'Capture, Production Approach and Music Style:',
-        '• The 1954 Dean Martin version (DM) was captured using analogue tape recording direct to mono with very few ribbon microphones recording the live Latin/jazz orchestra in a single take, resulting in a flexible human tempo, subtle tape saturation/hiss, and a natural acoustic blend.',
-        '• By contrast, the 1999 Shaft version (SH) is an EDM/club dance track produced in a DAW using MIDI sequencing, quantised drum programming, and a condenser vocal mic, giving it a low noise floor, a rigid mechanical tempo for club dancing, and a 4-on-the-floor kick drum with risers, builds, and drops.',
+        '• Dean Martin (1954): Live Latin/jazz orchestra tracked to mono tape using ribbon mics in a single take; flexible human tempo, subtle tape saturation/hiss, natural acoustic blend.',
+        '• Shaft (1999): EDM dance track sequenced in a DAW with quantised MIDI drums and condenser vocal mic; low noise floor, rigid 4-on-the-floor tempo, risers/builds/drops.',
         '',
         'Synthesis, Sequencing and Sampling:',
-        '• While DM uses only live acoustic instruments, SH layers detuned synth waveforms with chorus for thickness and uses a bass synth with a resonant low-pass filter for a squelchy dance bassline.',
-        '• SH also triggers sampled brass stabs, percussion loops, and a samba whistle sample to punctuate the drops, while chopping and stuttering vocal samples alongside reverse cymbals to build tension into transitions.',
+        '• Synthesis: Shaft uses detuned chorus synth layers and a resonant low-pass filter on a squelchy synth bassline, whereas Dean Martin uses acoustic instruments.',
+        '• Sampling: Shaft triggers sampled brass stabs, samba whistle, chopped stuttered vocal hooks, and reverse cymbals to build tension into drops.',
         '',
         'EQ, Filtering and Dynamic Processing:',
-        '• Due to 1950s ribbon microphones, DM has smooth, rolled-off high frequencies and a thin double bass low end, whereas SH uses a high-pass filter (HPF) on the brass hooks so they cut through the mix and sweeps a low-pass filter cut-off upwards during vocal builds.',
-        '• DM has very little individual track compression so it retains a wide dynamic range with natural peaks, whereas SH uses heavy vocal compression for consistency and brickwall limiting to achieve high perceived loudness ("loudness wars").',
+        '• EQ & Frequency: 1950s ribbon mics give DM smooth rolled-off highs; Shaft applies high-pass filtering (HPF) on brass hooks and sweeps low-pass cutoffs during builds.',
+        '• Dynamic Control: DM has uncompressed acoustic dynamics; Shaft applies heavy vocal compression and brickwall limiting for maximum commercial loudness.',
         '',
         'Pan, Stereo Field and Effects:',
-        '• Because DM is in mono with no panning, front-to-back depth is achieved by placing Dean Martin closer to the mic (sounding drier and more intimate) while the strings and backing vocals are further away with a warm 2–3 second chamber reverb.',
-        '• Conversely, SH pans percussion layers wide in opposition across the stereo field for separation and sends the vocal chops through a filtered quarter-note delay to create a rhythmic hook.'
+        '• Mono Depth vs Stereo Width: DM creates front-to-back depth in mono (Dean Martin close/dry vs strings distant with 2-3s chamber reverb); Shaft pans percussion wide in opposition.',
+        '• Delay Effects: Shaft feeds chopped vocal phrases into a filtered quarter-note delay as a rhythmic hook.'
       ].join('\n'),
       grade_B: [
         'Capture and Sequencing:',
-        '• Dean Martin’s 1954 version was recorded live in a single take onto mono analogue tape using ribbon microphones, giving it a warm sound with some tape hiss and a natural, flexible tempo.',
-        '• In contrast, the 1999 Shaft version is an EDM dance track sequenced in a DAW with quantised MIDI drums and a 4-on-the-floor kick drum.',
+        '• Dean Martin (1954) was tracked live in one take to mono tape using ribbon microphones with natural room blend.',
+        '• Shaft (1999) is an EDM remix sequenced in a DAW with quantised MIDI drums and a 4-on-the-floor kick pattern.',
         '',
         'Sampling, EQ and Dynamics:',
-        '• Shaft uses sampled brass stabs, reverse cymbals as risers before the drops, and vocal chops that stutter and repeat with a filter sweep, whereas Dean Martin uses only live acoustic instruments.',
-        '• The 1954 version has a wide dynamic range and less bass, whereas the 1999 version uses heavy vocal compression and limiting so it sounds much louder for clubs.',
+        '• Shaft layers sampled brass stabs, reverse cymbals, and vocal chops with low-pass filter sweeps, unlike the acoustic 1954 recording.',
+        '• Dean Martin has wide natural dynamic range, whereas Shaft uses heavy compression and limiting for club loudness.',
         '',
         'Panning and Effects:',
-        '• In the mono 1954 version, depth is created by having Dean Martin closer to the mic while the strings are further away in chamber reverb, whereas Shaft pans percussion wide across the stereo field and uses timed delay on the vocals.'
+        '• Mono depth in 1954 comes from vocal distance and chamber reverb, while Shaft pans percussion wide and uses timed vocal delays.'
       ].join('\n'),
       grade_D: [
         'Comparison of Both Versions:',
-        '• The 1954 Dean Martin track is an old mono recording of a live jazz band recorded with microphones in a room with reverb, so it sounds warm and quieter.',
-        '• The 1999 Shaft remix is a modern club dance song made on a computer DAW using synthesisers, brass samples, and a loud 4-on-the-floor drum beat.',
-        '• The remix uses heavy compression to make it loud and puts delay and stutter effects on the vocals.'
+        '• The 1954 track is recorded live in mono with microphones in a room, sounding warm with tape hiss.',
+        '• The 1999 remix is made in a DAW with synths, brass samples, and a loud 4-on-the-floor kick.',
+        '• Shaft uses heavy compression, filter sweeps, and delay effects on the vocals.'
       ].join('\n'),
       student_template: [
         'Capture, Production Approach and Music Style:',
@@ -542,43 +545,43 @@ export const EDEXCEL_RUBRIC_BANK = [
     exemplars: {
       grade_A_star: [
         'Bass Drum (Bar 1):',
-        '• The bass drum is synthesised using a low-pitched sine or triangle wave oscillator with very few harmonics, routed through a low-pass filter (LPF) with a cut-off around 80–200Hz to remove upper harmonics and leave a deep, bassy tone.',
-        '• Its amplitude envelope uses a 0ms (very short) attack, medium decay and release, and zero sustain so each hit fades to silence; because the 0ms attack cuts the waveform away from the zero-crossing point, it produces an audible click transient that mimics a bass drum beater and helps the kick cut through the mix.',
+        '• Oscillator & Filter: Low-pitched sine/triangle wave routed through a low-pass filter (LPF) at 80–200Hz, removing upper harmonics for a deep fundamental.',
+        '• Envelope: 0ms attack, medium decay/release, zero sustain; cutting the wave off-zero produces an audible click transient mimicking a beater.',
         '',
         'Snare Drum (Bar 2):',
-        '• The snare drum uses a white noise generator, which is random and unpitched with equal energy across all frequencies to produce a bright, snappy sound.',
-        '• It is shaped by a resonant low-pass filter modulated by a filter envelope where the cut-off frequency starts high and sweeps rapidly downwards, paired with a short-attack, medium-decay, zero-sustain amplitude envelope.',
+        '• Sound Source: White noise generator (unpitched with equal energy across frequencies) producing a bright, snappy snare rattle.',
+        '• Modulation: Resonant low-pass filter with downward sweeping filter envelope, paired with short-attack, zero-sustain amplitude envelope.',
         '',
         'Hi-Hats (Bar 3):',
-        '• Both closed and open hi-hats use unpitched white noise routed through a fixed high-pass filter (HPF) with a cut-off between 2000Hz and 9000Hz, removing low and mid frequencies to thin out the metallic timbre.',
-        '• Both use a 0ms attack and zero sustain, but the closed hi-hat has a very short decay and release whereas the open hi-hat has a noticeably longer decay and release so it rings out.',
+        '• Filter: Unpitched white noise passed through a fixed high-pass filter (HPF at 2000–9000Hz), cutting lows/mids for metallic sizzle.',
+        '• Open vs Closed: Both use 0ms attack and zero sustain; closed hat has very short decay, while open hat has longer decay and release.',
         '',
         'Tom Drums (Bar 4):',
-        '• The three toms use a bright square or sawtooth wave with rich harmonics played at three different pitches without filtering.',
-        '• A pitch envelope with a medium decay causes the pitch of each tom to start high and fall downwards when struck, while the amplitude envelope uses a short attack, a 16th-note hold stage, medium decay, and zero sustain.',
+        '• Waveform: Square or sawtooth wave with rich harmonics tuned to three distinct pitches with no filtering.',
+        '• Pitch Sweep: Pitch envelope with medium decay sweeps pitch downward on each strike; amplitude envelope has short attack, 16th hold, zero sustain.',
         '',
         'Flex-a-tone (Bar 5) and Combined Pattern (Bars 7–10):',
-        '• The flex-a-tone combines two detuned triangle/sine oscillators tuned to a clashing high-pitched interval, with an LFO modulating pitch at a fast 16th-note rate for vibrato, a slow-attack pitch envelope that makes the pitch rise, and a multi-stage amplitude envelope that swells back up before fading out.',
-        '• Across Bars 7–10, all drum sounds are monophonic, completely dry with no reverb or delay effects, panned dead-centre in mono, and step-sequenced/quantised strictly to 1/16th and 1/4-note grid divisions.'
+        '• Flex-a-tone: Two detuned oscillators at a clashing interval, 16th-note LFO pitch vibrato, rising pitch envelope, and swelling multi-stage amplitude envelope.',
+        '• Mix & Pattern: Bars 7–10 are monophonic, completely dry (no reverb/delay), panned centre in mono, and quantised strictly to 1/16th and 1/4 grids.'
       ].join('\n'),
       grade_B: [
         'Bass Drum (Bar 1) and Snare Drum (Bar 2):',
-        '• The bass drum is made with a low-pitched sine or triangle wave and a low-pass filter around 100Hz so it sounds bassy with very few harmonics, and its fast 0ms attack causes a click transient at the start of each hit.',
-        '• The snare drum uses white noise, which is unpitched and bright, shaped by a resonant low-pass filter with an envelope that sweeps the cut-off frequency down.',
+        '• Bass drum uses a low sine wave with LPF at 100Hz; 0ms attack creates a click transient for punch.',
+        '• Snare uses white noise through a resonant low-pass filter with an envelope sweeping cutoff downwards.',
         '',
         'Hi-Hats (Bar 3) and Tom Drums (Bar 4):',
-        '• The hi-hats also use white noise passed through a high-pass filter above 2kHz to thin out the sound by removing low frequencies, and the open hi-hat has a longer decay and release time than the closed hi-hat.',
-        '• The toms use a brighter square or saw wave with a pitch envelope that drops in pitch from high to low on each strike.',
+        '• Hi-hats filter white noise through a high-pass filter (>2kHz); open hat has longer decay than closed.',
+        '• Toms use bright saw/square waves with a pitch envelope dropping from high to low.',
         '',
         'Flex-a-tone (Bar 5) and Pattern (Bars 7–10):',
-        '• The flex-a-tone uses two detuned oscillators with a fast LFO modulating the pitch for vibrato and a pitch envelope that rises upwards.',
-        '• In Bars 7–10, all the drum parts are step-sequenced and quantised in mono in the centre of the mix with no reverb or effects.'
+        '• Flex-a-tone combines detuned oscillators with fast LFO pitch vibrato and a rising pitch envelope.',
+        '• Drums in Bars 7–10 are step-sequenced in mono at the centre of the mix with no reverb.'
       ].join('\n'),
       grade_D: [
         'Drum Synthesis Breakdown:',
-        '• The bass drum uses a low sine wave with a low-pass filter so only the bass frequencies come through, and a short envelope so it does not ring out.',
-        '• The snare drum and hi-hats are both made using white noise, with a high-pass filter on the hi-hat to make it thin and a longer release on the open hi-hat.',
-        '• The toms use a synth wave that drops in pitch when hit, the flex-a-tone uses an LFO to wobble the pitch, and all the drums are sequenced in time in the middle of the mix.'
+        '• Bass drum uses a low sine wave and LPF filter so only bass frequencies come through.',
+        '• Snare and hi-hats use white noise; hi-hat has a high-pass filter to sound thin.',
+        '• Toms drop in pitch when hit, and all sounds are sequenced in mono with no effects.'
       ].join('\n'),
       student_template: [
         'Bass Drum (Bar 1):',
@@ -686,37 +689,38 @@ export const EDEXCEL_RUBRIC_BANK = [
     exemplars: {
       grade_A_star: [
         'Components and Transducer Operation of the Electric Guitar:',
-        '• An electric guitar consists of a solid wooden body with a bolt-on or glue-in neck leading to a headstock with tuning pegs; the metal strings pass over the nut and across thin metal frets on the fretboard that stop the string at the correct pitch.',
-        '• The pickups are magnets wrapped in coils of wire that act as transducers, converting mechanical string vibrations into an induced electrical current equivalent to the string’s pitch, while a potentiometer ("pot") controls volume/tone and a sprung whammy bar on the bridge enables pitch bends.',
+        '• Physical Construction: Solid wooden body with a bolt-on/glued neck; metal strings run over the nut, fretboard with frets, and bridge with tuning pegs on the headstock.',
+        '• Transducer Operation: Pickups use magnets wrapped in copper wire coils to convert mechanical string vibrations into an induced electrical current; potentiometers control volume/tone, and a sprung whammy bar bends pitch.',
         '',
         '1950s Fender Solid-Body Innovations (Telecaster & Stratocaster):',
-        '• Originally invented so guitarists could be audible in jazz Big Bands, Fender released the first commercially available solid-body guitar—the Telecaster—in 1950, which reduced acoustic feedback at high volumes, was cheaper to manufacture, and produced a bright, twangy sound heard on Roy Buchanan’s "Mule Train Stomp".',
-        '• Because jazz players disliked the twangy Telecaster tone, Fender introduced the Stratocaster with a double-cutaway body (allowing easier access to higher frets) and three separate single-coil pickups, which became iconic in rock music such as Jimi Hendrix’s "Voodoo Child" (1968).',
+        '• Fender Telecaster (1950): First mass-produced solid-body; eliminated acoustic feedback at high Big Band stage volumes with a bright, twangy bite (Roy Buchanan "Mule Train Stomp").',
+        '• Fender Stratocaster (1954): Double-cutaway body for upper fretboard access, three single-coil pickups, and contoured body; defined rock expression for Jimi Hendrix ("Voodoo Child").',
         '',
         'Gibson Les Paul (1952) and the Humbucker Pickup (1957):',
-        '• Gibson launched the Les Paul in 1952 and revolutionised rock tone in 1957 by introducing the Humbucker pickup, which used two magnets and coils wired with opposite polarity to cancel out 50/60Hz mains hum and electromagnetic interference while creating a thicker, warmer rock tone used by Jeff Beck.',
+        '• Seth Lover Humbucker (1957): Two opposite-polarity coils wired in series cancel 50/60Hz mains hum and electromagnetic interference while producing a thicker, warmer rock tone used by Jeff Beck.',
         '',
         'Late-1950s to 1980s Virtuosic & Extended-Range Developments:',
-        '• In 1979, Eddie Van Halen built the Frankenstrat to combine the thick Gibson Humbucker sound with the physical body and tremolo of a Fender, facilitating virtuosic two-handed tapping heard on "Eruption" (1978).',
-        '• Multi-neck and extended-range guitars also expanded the instrument’s sonic palette, including the twin-neck 12-string Gibson EDS-1275 (used by Jimmy Page for a thicker chorus-like texture on live performances of "Stairway to Heaven") and 7-string Ibanez guitars that extended the low-pitch range for Heavy Metal.'
+        '• Superstrats: Eddie Van Halen built the Frankenstrat (Gibson humbucker in a Fender body with locking tremolo) enabling virtuosic two-handed tapping on "Eruption" (1978).',
+        '• Extended Range: Jimmy Page used the twin-neck 12-string Gibson EDS-1275 for rich chorused textures on "Stairway to Heaven", while 7-string guitars extended low-end riffs for Heavy Metal.'
       ].join('\n'),
       grade_B: [
         'Components of the Electric Guitar:',
-        '• The modern electric guitar has a solid wooden body, a bolt-on or glued neck with metal frets, a nut, a bridge (often with a sprung whammy bar for pitch bends), and a headstock with tuning pegs.',
-        '• Pickups are magnets wrapped in coils of wire that act as transducers, turning the vibrations of the metal strings into an electrical signal controlled by volume and tone pots.',
+        '• Solid wooden body with a fretted neck, tuning pegs, potentiometers, and a bridge with a sprung whammy bar for pitch bends.',
+        '• Magnetic pickups act as transducers, converting the vibrations of metal strings into an induced electrical signal.',
         '',
-        'Fender and Gibson Developments in the 1950s:',
-        '• In 1950, Fender released the Telecaster, the first solid-body guitar, which stopped unwanted acoustic feedback when playing at loud volumes, followed by the Stratocaster with three pickups and a double cutaway used by Jimi Hendrix.',
-        '• Gibson released the Les Paul in 1952 and added the Humbucker pickup in 1957, using two coils with opposite polarity to cancel out mains hum and produce a thicker rock sound.',
+        'Fender and Gibson 1950s Developments:',
+        '• The Fender Telecaster solid-body eliminated acoustic feedback at loud volumes, followed by the Stratocaster with three single-coil pickups used by Hendrix.',
+        '• Gibson introduced the Les Paul and the Humbucker pickup in 1957, wiring two coils with opposite polarity to cancel mains hum and produce a thicker rock tone.',
         '',
         'Later Developments (1970s–1980s):',
-        '• Eddie Van Halen combined a Gibson humbucker pickup with a Fender body on his Frankenstrat for fast two-handed tapping, and 12-string and 7-string guitars were introduced to give a thicker sound or wider pitch range for heavy metal.'
+        '• Eddie Van Halen combined a Gibson humbucker with a Fender tremolo on his Frankenstrat, enabling fast two-handed tapping on "Eruption".',
+        '• 7-string guitars and twin-neck 12-strings extended the instrument frequency range for Heavy Metal and rich acoustic textures.'
       ].join('\n'),
       grade_D: [
         'Guitar Parts and History:',
-        '• An electric guitar is made of a solid body, a neck with frets, six metal strings, tuning pegs on the headstock, volume knobs, a whammy bar to bend notes, and pickups that send the sound to an amplifier.',
-        '• In the 1950s, Fender made the Telecaster and Stratocaster, which did not feed back as much as acoustic guitars when played at loud volumes.',
-        '• Gibson made the Les Paul with humbucker pickups to stop buzzing noises and create a heavier rock sound for guitarists like Jimi Hendrix and Eddie Van Halen.'
+        '• Electric guitars have a solid body, fretted neck, strings, volume knobs, whammy bar, and magnetic pickups.',
+        '• Fender made solid-body guitars so loud amps would not feed back.',
+        '• Gibson humbuckers cancelled buzzing sounds for rock guitarists like Hendrix and Van Halen.'
       ].join('\n'),
       student_template: [
         'Components and Transducer Operation of the Electric Guitar:',
@@ -817,40 +821,41 @@ export const EDEXCEL_RUBRIC_BANK = [
     exemplars: {
       grade_A_star: [
         'Modulator (LFO) and VCO Pitch / Range Settings:',
-        '• The Roland SH-101 is an analogue monophonic synthesiser, which is ideal for a synth bass because bass parts play single notes rather than chords, preventing low-frequency mud, while the Master Tune knob is needed to keep analogue oscillators in tune.',
-        '• In the VCO section, the Range is set to 8ft and Transpose is set to Medium (M), whereas switching the Range to 16ft and Transpose to Low (L) would be much more suitable for producing a deep sub-bass fundamental.',
-        '• The Modulator LFO rate is set very low (below 20Hz) with a smooth triangle wave and the VCO MOD slider is turned up slightly; this adds slow pitch vibrato, which is unsuitable for a synth bass as it will make the bassline sound out of tune.',
+        '• Monophonic Architecture: Monophonic playback is ideal for bass, preventing polyphonic low-frequency mud and chord clashing.',
+        '• Footage & Transpose: Currently set to 8ft / Medium; switching to 16ft and Low transpose produces a deeper, weightier sub-bass fundamental.',
+        '• Pitch Vibrato (MOD): LFO triangle wave modulating pitch via VCO MOD introduces unwanted pitch vibrato, causing the bass to sound out of tune.',
         '',
         'Source Mixer (Pulse Width, Sawtooth, Sub-Oscillator & Noise):',
-        '• The Pulse wave is active with Pulse Width Modulation (PWM) controlled by the LFO, which varies the mark-space ratio slowly to add chorus-like movement and stop the bass sounding static, though very thin pulse widths can lose low-end weight.',
-        '• The Sawtooth wave is currently turned off (0), and turning it up would add rich harmonics to make the synth bass thicker and more powerful, while White/Pink Noise is rightly set to 0 so the bass retains a clean, pitched tone.',
-        '• The Sub-Oscillator is turned up and set to 1 octave down, which is highly suitable for a synth bass because it doubles the melody an octave lower with a square wave, adding weight and filling out the bottom end of the mix.',
+        '• Pulse Width Modulation: LFO-driven PWM constantly varies the mark-space ratio, adding chorus-like movement to prevent a static timbre.',
+        '• Sub-Oscillator: Set to 1 octave down square wave, reinforcing the fundamental with deep low-octave weight.',
+        '• Sawtooth & Noise: Sawtooth is at 0 (turning up would add rich harmonics to thicken tone); Noise is correctly at 0 to maintain clean pitch.',
         '',
         'Voltage Controlled Filter (VCF):',
-        '• The Low-Pass Filter (LPF) cut-off frequency (FREQ) is set very high, meaning the bass will sound overly bright with too many upper harmonics, which could be intrusive in a busy mix where the bass should sit underneath other instruments.',
-        '• The Resonance (RES) is set relatively low so it will not thin out the low frequencies (though increasing resonance slightly is common for a squelchy synth bass), while Keyboard Tracking (KYBD) raises the cut-off on higher notes so they do not sound dull.',
+        '• Cut-off Frequency (FREQ): Set excessively high; admits too many bright upper harmonics, clashing with lead instruments in a busy mix.',
+        '• Resonance & Tracking: Low resonance prevents bass thinning (though slight resonance adds squelch); Keyboard tracking (KYBD) keeps higher notes bright.',
         '',
         'VCA, ADSR Envelope and Portamento Controls:',
-        '• The ADSR envelope has a zero attack for an instant, punchy bass transient, a long decay, a low sustain (meaning long held bass notes will fade out, so switching the VCA to Gate or raising sustain would give a more even bass level), and zero release, which stops consecutive bass notes overlapping and blurring the mix (though 0ms attack and release can cause clicks).',
-        '• Finally, Portamento is switched on and set to 5, causing the pitch to slide between notes; while useful for occasional glides, this makes pitching less precise on fast rhythmic synth basslines.'
+        '• ADSR Settings: 0ms attack provides punchy transients, while 0 release prevents overlapping bass notes (though low sustain causes notes to fade).',
+        '• Portamento: Set to 5; creates unwanted pitch glides that blur definition on fast, rhythmic basslines.'
       ].join('\n'),
       grade_B: [
         'Oscillator (VCO) and Source Mixer:',
-        '• The synthesiser is monophonic and analogue, which is suitable for a synth bass because basslines only play one note at a time, though the VCO Range should be set to 16ft instead of 8ft for a deeper bass.',
-        '• In the Source Mixer, the Sub-Oscillator adds a square wave an octave below to give the bass more weight, while LFO Pulse Width Modulation (PWM) gives movement to the pulse wave.',
+        '• Monophonic analogue architecture avoids chord clashing; 16ft range and low transpose would provide a much deeper bass than 8ft.',
+        '• In the source mixer, the sub-oscillator adds a square wave an octave lower for low-end weight, while LFO PWM adds movement to the pulse wave.',
         '',
         'Filter (VCF):',
-        '• The low-pass filter cut-off frequency (FREQ) is set too high, which will make the bass sound too bright with too many harmonics instead of sitting underneath the mix, while the low resonance stops the bass from sounding thin.',
+        '• The low-pass filter cutoff is set too high, making the bass sound overly bright and intrusive in a busy mix.',
+        '• Low resonance prevents bass thinning, and keyboard tracking keeps higher bass notes from sounding dull.',
         '',
         'Envelope (ADSR) and Portamento:',
-        '• The ADSR envelope has a zero attack for a punchy start and zero release so bass notes do not overlap, though the low sustain means long notes will die away quickly.',
-        '• Portamento is turned up to 5, which makes the notes slide into each other and could make fast basslines sound messy.'
+        '• 0ms attack gives a punchy start and 0 release stops notes overlapping, but low sustain causes held notes to fade away quickly.',
+        '• Portamento at 5 creates pitch glides that make fast rhythmic basslines messy.'
       ].join('\n'),
       grade_D: [
         'Synth Bass Settings Evaluation:',
-        '• The synthesiser is monophonic so it only plays one note at a time, which is good for a bassline.',
-        '• The sub-oscillator is turned up to add an octave below and make the bass sound heavier, while the noise slider is turned off so the bass sounds clean.',
-        '• However, the filter cut-off frequency is set very high so the bass will sound too bright, and the portamento is turned on which makes the notes slide.'
+        '• Monophonic synth plays one note at a time for clean basslines.',
+        '• Sub-oscillator adds deep bass, and noise is off so sound is clean.',
+        '• Cutoff is too high making it too bright, and portamento makes notes slide.'
       ].join('\n'),
       student_template: [
         'Modulator (LFO) and VCO Pitch / Range Settings:',
@@ -963,38 +968,38 @@ export const EDEXCEL_RUBRIC_BANK = [
     exemplars: {
       grade_A_star: [
         'Room Acoustics and Monitoring:',
-        '• In Figure 1 (2010s setup), the drums are recorded in a large room with exposed concrete, glass, and a wooden floor, which creates a long pre-delay and natural room reverberation suited to a big rock drum sound, while the angled ceiling and window help reduce standing waves and the floor carpet absorbs high-frequency reflections.',
-        '• By contrast, Figure 2 (late-1960s setup) is in a small room with soft wall treatment that absorbs mid and high frequencies to produce a dry, dead recording with a short pre-delay, and placing the kit in the corner accentuates low bass frequencies.',
+        '• Figure 1 (2010s Live Room): Hard surfaces (concrete, wooden floor, glass) create a long pre-delay and natural reverberation suited to modern rock; angled ceiling reduces standing waves, and carpet dampens high-frequency reflections.',
+        '• Figure 2 (1960s Treated Room): Soft acoustic treatment absorbs mid/high frequencies, creating a dead, dry sound with short pre-delay; corner placement boosts low bass frequencies.',
         '',
         'Microphone Placement and Types (Figure 1 — 2010s Multi-Mic):',
-        '• Figure 1 close-mics every drum and cymbal to minimise spill and room reverb on individual channels: the kick mic is placed inside the drum to capture the sharp beater attack, and the snare uses both top and bottom mics to capture the batter skin and snare wire rattle (though top and bottom snare mics are prone to phase cancellation and require polarity inversion on the desk).',
-        '• Figure 1 also uses dynamic mics on the toms (which handle high SPL and control loud transients), a small-diaphragm condenser above the hi-hat for extended high-frequency response without air blasting, an X-Y coincident pair of overheads (reducing phase problems compared to a spaced pair), a spaced pair in front of the kit for a wide stereo image, and a distant room condenser mic on the far left to capture room ambience.',
+        '• Close Miking & SPL: Direct dynamic mics on toms handle high SPL; kick mic inside the hole captures beater click; dual snare top and bottom mics capture batter attack and wire buzz (requires polarity inversion to prevent phase cancellation).',
+        '• Overhead & Room Imaging: Small-diaphragm condenser captures hi-hat transient detail; coincident X-Y overhead pair provides phase-coherent stereo; distant room condenser mic adds acoustic width.',
         '',
         'Microphone Placement and Phase Issues (Figure 2 — 1960s Three-Mic Setup):',
-        '• Figure 2 uses a three-microphone Glyn Johns-style technique consisting of one overhead condenser, one side microphone near the floor tom, and a large-diaphragm kick drum microphone placed outside the front skin (which prevents air blasting and captures warm low end, but lacks the punchy beater attack needed for modern rock).',
-        '• In Figure 2, the side microphone is placed too close to the wall (risking boundary reflections) and is closer to the snare drum than the overhead mic; because the overhead and side mics are not equidistant from the snare, the arrival-time delay between them will cause phase problems and comb filtering.',
+        '• 3-Mic Glyn Johns: Single overhead condenser, side mic by floor tom, and large-diaphragm kick mic outside front head; outside kick placement captures deep warmth but lacks beater attack.',
+        '• Phase & Boundary: Side mic placed near wall risks boundary reflections; because overhead and side mics are not equidistant from the snare drum, arrival-time differences cause comb filtering and phase cancellation.',
         '',
         'Dampening, Mixing Control and Overall Suitability for Rock:',
-        '• Both setups use duvets inside the kick drum and Moongel/tape on the drum skins to reduce unwanted ringing, alongside shock mounts to prevent mechanical rumble and balanced XLR cables for low-noise signal runs.',
-        '• Overall, Figure 1 is much more suitable for a modern rock recording because recording every drum onto its own DAW track gives the engineer complete control over individual balance, stereo panning, gating, EQ, and compression, whereas Figure 2 was designed for 1960s 4-track tape and gives very little control over the balance or processing of individual drums in the mix.'
+        '• Dampening & Cabling: Both use duvets inside kick and Moongel on heads to control ring, plus shock mounts and balanced XLR cables for clean signal paths.',
+        '• DAW Mixing vs 4-Track Tape: Figure 1 records each drum to a discrete DAW track for surgical gating, EQ, compression, and panning control, making it far superior for modern high-energy rock compared to Figure 2’s fixed 3-track composite balance.'
       ].join('\n'),
       grade_B: [
         'Room Acoustics:',
-        '• Figure 1 (2010s) is in a large room with hard wooden and concrete surfaces that create lots of natural reverb for a big rock sound, plus an angled ceiling to reduce standing waves.',
-        '• Figure 2 (1960s) is in a small room with soft acoustic wall treatment that absorbs high frequencies, making the drums sound much drier, and the kit is in the corner which boosts bass frequencies.',
+        '• Figure 1 uses a large reflective live room with angled ceilings to reduce standing waves and create a big rock reverb.',
+        '• Figure 2 uses a small dead room with soft walls and corner kit placement that boosts low frequencies.',
         '',
         'Microphone Techniques:',
-        '• Figure 1 uses close mics on every drum, including a mic inside the kick drum for beater attack, two mics on the snare (top and bottom, which need their phase checked), an X-Y pair of overheads for stereo width with fewer phase issues, and a distant room mic.',
-        '• Figure 2 uses a 3-mic Glyn Johns technique with an overhead mic, a side mic by the floor tom, and a kick mic outside the front skin, which gives less beater attack and can cause phase cancellation and comb filtering if the overhead and side mics are not equidistant from the snare.',
+        '• Figure 1 uses close mics on every drum (kick inside for attack, top/bottom snare with polarity check, X-Y overheads, and room mic).',
+        '• Figure 2 uses a 3-mic Glyn Johns setup (overhead, side mic, outside kick), causing phase cancellation and comb filtering if mics are not equidistant from the snare.',
         '',
         'Mixing Control:',
-        '• Figure 1 gives the producer much more control in the mix because each drum can be EQ’d, compressed, and panned individually, whereas Figure 2 only uses three mics so there is much less control over individual drum levels.'
+        '• Figure 1 allows individual DAW gating, EQ, compression, and panning on each drum, while Figure 2 provides very limited balance control.'
       ].join('\n'),
       grade_D: [
         'Comparison of Drum Recording Setups:',
-        '• Figure 1 uses lots of close microphones on every drum and cymbal in a large room, including a mic inside the kick drum and two mics on the snare drum.',
-        '• Figure 2 only uses three microphones in a small room, with the kick drum mic placed outside the drum so it has less attack.',
-        '• Figure 1 is better for rock music because having a mic on every drum gives you more control over the volume and EQ of each drum when mixing.'
+        '• Figure 1 has a mic on every drum in a large room for maximum rock punch and control.',
+        '• Figure 2 only has 3 mics in a small room, with the kick mic outside so it has less click.',
+        '• Figure 1 gives separate tracks in a DAW to EQ and pan each drum separately.'
       ].join('\n'),
       student_template: [
         'Room Acoustics and Monitoring:',
@@ -1086,25 +1091,26 @@ export const EDEXCEL_RUBRIC_BANK = [
     exemplars: {
       grade_A_star: [
         'Nearfield Studio Monitors:',
-        '• Nearfield monitors use a two-way design with a larger woofer cone and a dedicated tweeter, providing a wide, flat frequency response where the woofer accurately reproduces low bass frequencies and the tweeter reproduces high treble detail.',
-        '• Because they are a stereo pair capable of louder playback with low distortion and a wide dynamic range, they allow the engineer to hear quiet details in the mix and judge stereo panning accurately (such as the hard-panned double-tracked rhythm guitars and drums).',
+        '• Two-Way Design: Larger woofer cone reproduces low bass frequencies while dedicated dome tweeter reproduces high treble detail, giving a wide, flat frequency response.',
+        '• Stereo Imaging & Dynamic Range: Active stereo pair allows louder playback with low distortion, enabling precise judgment of stereo panning and quiet mix details.',
         '',
         'Mobile Phone Internal Speaker:',
-        '• The mobile phone has a tiny mono internal speaker with a very narrow, uneven frequency response that cannot reproduce low bass frequencies below 100–800Hz, making the mix sound tinny and incapable of showing stereo panning.',
-        '• However, because the phone speaker is voiced for the human voice, it is still useful as a secondary check to test mix translation, vocal balance, and harsh sibilance on a real-world consumer device.'
+        '• Bandwidth Limitations: Tiny mono internal driver has a narrow, uneven frequency response rolling off steeply below 100–800Hz, resulting in tinny sound and zero stereo imaging.',
+        '• Mix Translation Reference: Midrange focus (tuned to the human voice) makes it valuable as a secondary consumer check for vocal balance and harsh sibilance.'
       ].join('\n'),
       grade_B: [
         'Nearfield Studio Monitors:',
-        '• The nearfield monitors have a woofer and a tweeter, which gives a much wider and flatter frequency response so you can hear both the bass and high treble frequencies clearly.',
-        '• There are two speakers in a stereo pair, making them suitable for checking the stereo panning of the guitars and drums at louder volumes without distortion.',
+        '• Woofer and tweeter provide a wide, flat frequency response for accurate bass and high treble monitoring.',
+        '• Stereo pair allows precise evaluation of panning and drum/guitar placement at louder volumes with low distortion.',
         '',
         'Mobile Phone Speaker:',
-        '• The mobile phone has a very small speaker in mono, so it sounds tinny with no bass frequencies, though it is useful for checking how the mix translates for everyday listeners.'
+        '• Small mono speaker cannot reproduce bass below 300Hz, sounding tinny with no stereo width.',
+        '• Useful secondary check for real-world mix translation and vocal clarity on consumer devices.'
       ].join('\n'),
       grade_D: [
         'Monitors vs Phone Speaker:',
-        '• Nearfield studio monitors have a big woofer cone and tweeter so you can hear the bass and stereo panning properly when mixing.',
-        '• The mobile phone speaker is tiny and mono so you cannot hear the bass, making it bad for main mixing.'
+        '• Nearfield monitors have a woofer cone and tweeter to hear bass and stereo panning accurately.',
+        '• Mobile phone speaker is tiny and mono with no bass, making it unsuitable for primary mixing.'
       ].join('\n'),
       student_template: [
         'Nearfield Studio Monitors:',
@@ -1184,25 +1190,26 @@ export const EDEXCEL_RUBRIC_BANK = [
     exemplars: {
       grade_A_star: [
         'Threshold, Ratio and Make-Up Gain:',
-        '• A low threshold and a high ratio (greater than 4:1) have been used with high make-up gain to compensate for the heavy gain reduction, which controls the wide dynamic range of the vocal (bringing quiet words such as "before" up in level) and increases the average RMS volume so the vocal sits evenly on top of the electronic backing track.',
-        '• However, this heavy compression and make-up gain also brings up unwanted background noise between phrases, noticeably increasing breath noise, analogue tape hiss, and reverb.',
+        '• Threshold & Ratio: Low threshold and high ratio (>4:1) control wide dynamic range, lifting quiet words like "before" and raising average RMS volume to sit on backing track.',
+        '• Make-Up Gain: High make-up gain compensates for heavy gain reduction, but drastically amplifies background noise (breath noise, analogue tape hiss, and room reverb).',
         '',
         'Attack and Release Settings:',
-        '• The compressor uses a slow attack time (typical of an opto compressor), which means some sharp initial vocal transients pass through uncontrolled on words such as "only", "even", and "argue".',
-        '• The release time is set too fast, which causes audible pumping of the vocal reverb tail and introduces slight harmonic distortion and added brightness.'
+        '• Slow Opto Attack: Lets sharp initial vocal transients punch through uncontrolled on plosives and words like "only", "even", and "argue".',
+        '• Fast Release: Causes audible pumping on the vocal reverb tail between phrases, introducing slight harmonic distortion and perceived high-frequency brightness.'
       ].join('\n'),
       grade_B: [
         'Threshold, Ratio and Make-Up Gain:',
-        '• The vocal has heavy compression with a low threshold, a high ratio above 4:1, and high make-up gain, which reduces the dynamic range and increases the average RMS volume so quieter words like "before" can be heard clearly.',
-        '• A drawback of this heavy compression and make-up gain is that it noticeably increases the volume of the singer’s breath noise, tape hiss, and reverb.',
+        '• Low threshold and ratio above 4:1 with make-up gain reduces dynamic range so quieter words like "before" are clear.',
+        '• High make-up gain raises background noise, breath intake, and tape hiss.',
         '',
         'Attack and Release:',
-        '• A slow attack time lets some loud vocal transients poke through on words like "only" and "argue", while a fast release time causes noticeable pumping on the reverb.'
+        '• Slow attack time lets loud vocal transients poke through on words like "only" and "argue".',
+        '• Fast release causes noticeable pumping on room reverb.'
       ].join('\n'),
       grade_D: [
         'Vocal Compression Evaluation:',
-        '• The vocal has heavy compression with a high ratio and make-up gain to make the quieter words louder and keep the volume even.',
-        '• Because it is heavily compressed, you can hear much louder breath noises and tape hiss in the background.'
+        '• Heavy compression with high ratio and make-up gain makes quiet words louder.',
+        '• Much louder breath noises and tape hiss are audible in the background.'
       ].join('\n'),
       student_template: [
         'Threshold, Ratio and Make-Up Gain:',
@@ -1218,6 +1225,8 @@ export const EDEXCEL_RUBRIC_BANK = [
     component: 'C3',
     questionNumber: 'Q6',
     maxMarks: 20,
+    ao3Max: 5,
+    ao4Max: 15,
     title: 'C3 Q6: Evolution of Lead Vocal Production (1950s to Modern Day) (20 Marks)',
     badge: 'Component 3 • 20 Marks',
     topic: 'Vocal Production Evolution: Microphones, Pitch Correction, Comping, Compression & Reverb',
@@ -1304,43 +1313,50 @@ export const EDEXCEL_RUBRIC_BANK = [
     ],
     exemplars: {
       grade_A_star: [
-        'INTRODUCTION & SCOPE:',
-        'Vocal production has undergone a profound transformation across the last seven decades, shifting from physical acoustic performance discipline in treated rooms to surgical in-the-box digital manipulation. This essay evaluates how technological developments in microphone capture, pitch correction, multi-take editing, dynamic leveling, and artificial spatialization have redefined the sonic aesthetic and artistic definition of the human voice in popular music.',
+        'Introduction & Scope:',
+        '• Technological evolution over seven decades has shifted vocal production from physical room performance capture to surgical in-the-box digital manipulation.',
         '',
-        '1. MICROPHONE DESIGN & PROXIMITY DISCIPLINE (AO3/AO4):',
-        'In the 1950s, engineers relied on figure-8 ribbon microphones (e.g., RCA 44BX) and early valve condensers (e.g., Neumann U47). Ribbon mics possessed heavy bi-directional proximity effect, rolling off high frequencies above 15 kHz and substantially boosting bass frequencies below 200 Hz if the singer moved within 12 inches of the motor. Singers like Frank Sinatra had to develop physical mic technique—stepping back during fortissimo belts and leaning in during intimate phrases. In modern DAW production, large-diaphragm solid-state condensers (e.g., Neumann TLM 103, Sony C800G) feature transformerless preamps and extended high-end frequency response (up to 25 kHz). Singers perform inches from the capsule behind mesh pop shields and acoustic reflection filters, knowing that any proximity muddiness or plosive energy can be transparently eliminated in post-production via 80 Hz 24 dB/octave high-pass filtering and surgical dynamic EQ.',
+        '1. Microphone Capture & Placement (Proximity & Hardware):',
+        '• 1950s Ribbon/Valve Mics: Figure-8 ribbons (RCA 44BX) and early valve condensers (Neumann U47) had strong proximity effect; singers used physical distance control to avoid bass muddiness.',
+        '• Modern Solid-State Condensers: Large-diaphragm condensers (Sony C800G, Neumann TLM 103) capture up to 25kHz; pop shields and reflection filters allow singing inches away while high-pass filtering (80Hz) removes plosives.',
         '',
-        '2. PITCH MANIPULATION & DIGITAL TUNING (AO3/AO4):',
-        'Prior to digital signal processing, altering vocal pitch without altering time was physically impossible. Analogue varispeed tape manipulation adjusted the capstan motor speed via an oscillator, but raising pitch inadvertently sped up tempo and shifted vocal formants upwards (the Munchkin effect). Producers were forced to demand repetitive takes until intonation was acceptable. The release of Antares Auto-Tune (1997) and Celemony Melodyne (2001) revolutionized recording by employing phase vocoder and fast Fourier transform (FFT) algorithms. These tools separate pitch and time domain data, allowing producers to correct micro-pitch variations note-by-note while preserving natural vocal formants and vibrato depth. Furthermore, pushed to instantaneous 0ms retune speeds, Auto-Tune became an unmistakable creative timbre in modern Hip-Hop, Trap, and Pop (Cher, T-Pain, Travis Scott), demonstrating how an error-correction tool transformed into a defining artistic genre marker.',
+        '2. Pitch Manipulation & Tuning (Varispeed to Auto-Tune/Melodyne):',
+        '• Varispeed vs Phase Vocoder: Analogue tape varispeed altered pitch and tempo simultaneously (formant-shifting Munchkin effect); modern DSP (Auto-Tune, Melodyne) separates pitch from time domain via FFT algorithms.',
+        '• Corrective & Creative Tuning: Corrects micro-pitch variations while preserving vibrato; 0ms retune speed created the hard-tuned vocal timbre in Pop/Trap (Cher, T-Pain, Travis Scott).',
         '',
-        '3. WORKFLOW: ANALOGUE TAPE PUNCH-INS VS DIGITAL SWIPE COMPING (AO3/AO4):',
-        'Tracking vocals to 2-inch multitrack tape was a high-stakes destructive process. Engineers like Geoff Emerick at Abbey Road had to physically punch-in on tape heads in real time, where a fraction-of-a-second timing error would erase the artist’s previous performance. Constructing a composite vocal (comping) required physically slicing tape with a razor blade at a 45-degree angle and taping segments together. In modern digital audio workstations, non-destructive virtual playlists allow hundreds of vocal passes. Modern quick-swipe comping enables producers to audition and blend the best syllables, breaths, and consonants into a flawless master take. Micro-crossfades (5-10ms) placed at zero-crossings prevent audio pops and clicks. While this facilitates unprecedented technical perfection, critics argue it has compromised raw emotional spontaneity, replacing the singular human performance with an engineered composite mosaic.',
+        '3. Editing & Workflow (Tape Punch-Ins vs DAW Swipe Comping):',
+        '• Destructive Tape vs Non-Destructive DAW: Analogue tape punch-ins risked overwriting takes, requiring razor-blade splicing; DAWs provide unlimited playlists and quick-swipe comping.',
+        '• Micro-Crossfades: 5–10ms crossfades at zero-crossings assemble flawless composite takes without clicks, trading human imperfection for engineered perfection.',
         '',
-        '4. DYNAMIC ENVELOPE CONTROL & SERIAL PROCESSING (AO3/AO4):',
-        'Analogue vocal leveling relied on legendary vintage hardware chains. Typically, an engineer ran a fast peak-taming FET compressor (Universal Audio 1176 with 20-microsecond attack) into a smooth optical leveling amplifier (Teletronix LA-2A with a two-stage photocell release: 50% release in 60ms, followed by several seconds of gradual decay). The 1176 caught transient consonants, while the LA-2A smoothed the musical phrase, introducing rich harmonic distortion (tube and transformer warmth). Modern digital vocal chains achieve an even more aggressive, locked-in aesthetic: producers manually draw clip-gain automation to balance syllables before compression, apply dynamic EQ (e.g., FabFilter Pro-Q3) to suppress harsh 2.5-4.5 kHz buildup during loud phrases, insert transparent lookahead brickwall limiters, and apply de-essers with sidechain bandpass filters (5-8.5 kHz). This anchors the vocal millimeter-tight at the front of modern commercial mixes.',
+        '4. Dynamic Processing (1176/LA-2A Serial Compression to Digital Lookahead):',
+        '• Vintage Serial Compression: Fast FET peak limiter (1176 at 20µs attack) tames consonants, into smooth optical compressor (LA-2A) for musical sustain and warm tube harmonics.',
+        '• Digital Leveling & De-Essing: Manual clip gain automation, dynamic EQ, and sidechain de-essing (5–8.5kHz) anchor modern lead vocals tight and upfront in dense mixes.',
         '',
-        '5. SPATIAL ACOUSTICS: ECHO CHAMBERS TO CONVOLUTION (AO3/AO4):',
-        'Early recordings were captured in physical acoustic spaces; studios like Motown’s Hitsville USA constructed dedicated reverberation chambers in their basements (concrete-lined rooms with a speaker at one end and a ribbon mic at the other). In the late 1950s, the EMT 140 steel plate offered artificial reverb through mechanical transducer vibration. In contemporary production, convolution reverb plugins load mathematical impulse responses (IRs) that capture the exact linear acoustic reflection profiles of famous cathedrals, tiled bathrooms, or vintage hardware units. Furthermore, modern mixes favor tempo-synced stereo delay throws (dotted eighth notes or quarter notes) over washed-out reverb tails; high-pass and low-pass filtering on the delay feedback loop creates depth and movement while leaving the main lead vocal dry, intimate, and hyper-intelligible in the stereo center.',
+        '5. Spatial Effects (Echo Chambers, Plates & Convolution Reverb):',
+        '• Physical Chambers to Plate Reverb: Early studios used acoustic echo rooms (Hitsville basement) and EMT 140 vibrating steel plates for reverberation.',
+        '• Convolution & Tempo Delays: Convolution plugins load real-space impulse responses (IRs); tempo-synced stereo delays with high/low pass filters add space without washing out vocal clarity.',
         '',
-        'CONCLUSION:',
-        'In conclusion, technological evolution has dismantled the traditional physical constraints of vocal production. While 1950s recordings stand as historical documents of acoustic performances governed by microphone proximity and room physics, modern vocal production treats the human voice as raw audio data to be tuned, sliced, compressed, and spatially sculpted. The result is an undeniable shift from documentary realism to hyper-real pop perfection.'
+        'Conclusion (Aesthetic Shift from Realism to Hyper-Real):',
+        '• Evolution from documentary acoustic capture to hyper-real pop production treats the human voice as malleable audio data, delivering maximum commercial intelligibility and punch.'
       ].join('\n'),
       grade_B: [
-        'Vocal Recording & Technology Evolution:',
-        '• In early recording (1950s), vocals were recorded with ribbon or valve microphones such as the RCA 44BX or Neumann U47 into valve preamps and analogue tape.',
-        '• Singers needed good microphone technique because getting too close caused a strong bass boost (proximity effect) that could not be easily fixed later.',
-        '• Reverb was achieved with physical echo chambers (rooms with speakers and microphones) or EMT 140 plates.',
-        '• Later on, analogue tape allowed multitracking and drop-ins, but punching in was destructive and could wipe a good take.',
-        '• With modern DAWs, producers use large diaphragm condenser microphones and pop shields with reflection filters.',
-        '• Pitch correction software like Auto-Tune and Melodyne allows singers to be tuned note-by-note, and quick-swipe comping lets producers piece together multiple takes into one perfect vocal.',
-        '• Serial compression using an 1176 compressor followed by an LA-2A is common to keep the vocal loud and consistent, followed by convolution reverb plugins that model real spaces.'
+        'Microphone Capture and Tuning:',
+        '• 1950s ribbon and valve mics had proximity effect requiring physical mic distance, while modern condenser mics use pop shields and high-pass filters.',
+        '• Analogue varispeed changed pitch and tempo together, whereas digital Auto-Tune and Melodyne tune notes independently.',
+        '',
+        'Editing and Dynamics:',
+        '• Tape punch-ins were destructive and risky, whereas modern DAWs allow swipe-comping across multiple takes with crossfades.',
+        '• Serial compression using an 1176 FET compressor and LA-2A optical compressor keeps vocals loud and even.',
+        '',
+        'Spatial Effects and Conclusion:',
+        '• Echo chambers and EMT 140 plates provided early reverb, while modern mixes use convolution reverb and tempo-synced delays.',
+        '• Vocal production has evolved from natural live acoustic performances to polished, pitch-corrected digital tracks.'
       ].join('\n'),
       grade_D: [
         'Vocal Production Comparison:',
-        '• Old recordings used old microphones like ribbon mics which sounded darker and had a lot of room sound.',
-        '• Modern vocals sound much brighter and clearer because they use condenser mics and digital plugins.',
-        '• In the past, singers had to sing in tune because Auto-Tune was not invented until the late 1990s.',
-        '• Now producers use Auto-Tune on almost every pop track and compress the vocals heavily so they are loud in the mix.'
+        '• Old recordings used ribbon mics and tape, which sounded darker with tape hiss and room echo.',
+        '• Modern vocals use condenser mics, Auto-Tune to fix out-of-tune notes, and computer comping to pick the best takes.',
+        '• Heavy compression and digital reverb make modern pop vocals sound loud and clear in the mix.'
       ].join('\n'),
       student_template: [
         'Introduction & Scope:',
