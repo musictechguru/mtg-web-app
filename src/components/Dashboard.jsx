@@ -331,6 +331,97 @@ const Dashboard = ({ onNavigate, onOpenProfile }) => {
                 </button>
             </div>
 
+            {/* C3 & C4 Essay Examiner Quick-Launch Hero Banner */}
+            <div
+                style={{
+                    background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.12) 0%, rgba(56, 189, 248, 0.08) 100%)',
+                    border: '1px solid rgba(16, 185, 129, 0.35)',
+                    borderRadius: '16px',
+                    padding: '16px 20px',
+                    marginBottom: '20px',
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    gap: '14px',
+                    boxShadow: '0 4px 20px rgba(0, 0, 0, 0.25)'
+                }}
+            >
+                <div style={{ display: 'flex', alignItems: 'center', gap: '14px', minWidth: '260px', flex: 1 }}>
+                    <div style={{
+                        width: '46px',
+                        height: '46px',
+                        borderRadius: '12px',
+                        background: 'linear-gradient(135deg, #10b981, #059669)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        fontSize: '1.5rem',
+                        boxShadow: '0 4px 12px rgba(16, 185, 129, 0.3)',
+                        flexShrink: 0
+                    }}>
+                        📝
+                    </div>
+                    <div>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+                            <span style={{ fontSize: '0.72rem', fontWeight: 800, background: 'rgba(16, 185, 129, 0.2)', color: '#34d399', padding: '2px 8px', borderRadius: '6px', letterSpacing: '0.04em' }}>
+                                EXAM ESSAY EXAMINER
+                            </span>
+                            <span style={{ fontSize: '0.72rem', color: '#94a3b8' }}>
+                                9MT0 AO3 (Knowledge) &amp; AO4 (Evaluation) • 35 Marks Total
+                            </span>
+                        </div>
+                        <h4 style={{ margin: '3px 0 0 0', color: '#fff', fontSize: '1.05rem', fontWeight: 700 }}>
+                            C3 &amp; C4 Extended Response Examiner (8m, 15m &amp; 20m)
+                        </h4>
+                        <p style={{ margin: '2px 0 0 0', color: '#94a3b8', fontSize: '0.8rem' }}>
+                            Master C3 Q5 (15m), C3 Q6 (20m), C4 Q4(g) (8m), and C4 Q6 (20m) with official mark-scheme evaluation and Grade A* exemplars.
+                        </p>
+                    </div>
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
+                    <button
+                        onClick={() => onNavigate({ id: 'c3_extended_response_examiner', type: 'extended_response_trainer', targetComponent: 'c3', title: 'Component 3 Extended Response Examiner' })}
+                        style={{
+                            background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+                            color: '#fff',
+                            border: 'none',
+                            padding: '9px 15px',
+                            borderRadius: '8px',
+                            cursor: 'pointer',
+                            fontWeight: 700,
+                            fontSize: '0.84rem',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '6px',
+                            boxShadow: '0 2px 10px rgba(16, 185, 129, 0.35)',
+                            transition: 'all 0.2s'
+                        }}
+                    >
+                        <span>🎧</span> Practice C3 (15m &amp; 20m) →
+                    </button>
+                    <button
+                        onClick={() => onNavigate({ id: 'c4_extended_response_examiner', type: 'extended_response_trainer', targetComponent: 'c4', title: 'Component 4 Extended Response Examiner' })}
+                        style={{
+                            background: 'rgba(255, 255, 255, 0.08)',
+                            color: '#38bdf8',
+                            border: '1px solid rgba(56, 189, 248, 0.35)',
+                            padding: '9px 15px',
+                            borderRadius: '8px',
+                            cursor: 'pointer',
+                            fontWeight: 700,
+                            fontSize: '0.84rem',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '6px',
+                            transition: 'all 0.2s'
+                        }}
+                    >
+                        <span>🎛️</span> Practice C4 (8m &amp; 20m) →
+                    </button>
+                </div>
+            </div>
+
             {/* CENTRAL FOCUS: THE PATH TO LEGEND (Campaign Map) */}
             <div id="campaign-map-section" style={{ marginBottom: '35px' }}>
                 <CampaignMap onNavigate={onNavigate} />
@@ -352,6 +443,77 @@ const Dashboard = ({ onNavigate, onOpenProfile }) => {
                     gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
                     gap: '16px'
                 }}>
+                    {/* Card 0: C3 & C4 Essay Examiner */}
+                    <div style={{
+                        background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.09) 0%, rgba(56, 189, 248, 0.05) 100%)',
+                        border: '1px solid rgba(16, 185, 129, 0.35)',
+                        borderRadius: '14px',
+                        padding: '16px',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'space-between',
+                        boxShadow: '0 4px 15px rgba(0,0,0,0.15)'
+                    }}>
+                        <div>
+                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '10px' }}>
+                                <div style={{
+                                    width: '38px',
+                                    height: '38px',
+                                    borderRadius: '10px',
+                                    background: 'linear-gradient(135deg, #10b981, #059669)',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    fontSize: '1.25rem'
+                                }}>
+                                    📝
+                                </div>
+                                <span style={{ fontSize: '0.7rem', fontWeight: 'bold', background: 'rgba(16, 185, 129, 0.2)', color: '#34d399', padding: '3px 8px', borderRadius: '6px' }}>
+                                    9MT0 AO3/AO4 • 35m
+                                </span>
+                            </div>
+                            <h4 style={{ margin: '0 0 4px 0', color: '#fff', fontSize: '1rem', fontWeight: 700 }}>
+                                C3 &amp; C4 Essay Examiner
+                            </h4>
+                            <p style={{ margin: '0 0 12px 0', color: 'var(--text-secondary)', fontSize: '0.8rem', lineHeight: '1.4' }}>
+                                Instant level grading (1–5) for C3 Q5 (15m), C3 Q6 (20m), C4 Q4(g) (8m), and C4 Q6 (20m) with exemplar scripts.
+                            </p>
+                        </div>
+                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
+                            <button
+                                onClick={() => onNavigate({ id: 'c3_extended_response_examiner', type: 'extended_response_trainer', targetComponent: 'c3', title: 'Component 3 Extended Response Examiner' })}
+                                style={{
+                                    background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+                                    color: '#fff',
+                                    border: 'none',
+                                    padding: '8px 10px',
+                                    borderRadius: '8px',
+                                    cursor: 'pointer',
+                                    fontWeight: 'bold',
+                                    fontSize: '0.8rem',
+                                    textAlign: 'center'
+                                }}
+                            >
+                                C3 (15m/20m) →
+                            </button>
+                            <button
+                                onClick={() => onNavigate({ id: 'c4_extended_response_examiner', type: 'extended_response_trainer', targetComponent: 'c4', title: 'Component 4 Extended Response Examiner' })}
+                                style={{
+                                    background: 'rgba(255,255,255,0.06)',
+                                    color: '#38bdf8',
+                                    border: '1px solid rgba(56, 189, 248, 0.3)',
+                                    padding: '8px 10px',
+                                    borderRadius: '8px',
+                                    cursor: 'pointer',
+                                    fontWeight: 'bold',
+                                    fontSize: '0.8rem',
+                                    textAlign: 'center'
+                                }}
+                            >
+                                C4 (8m/20m) →
+                            </button>
+                        </div>
+                    </div>
                     {/* Card 1: 16-Block Timetable */}
                     <div style={{
                         background: 'linear-gradient(135deg, rgba(56, 189, 248, 0.08) 0%, rgba(59, 130, 246, 0.04) 100%)',

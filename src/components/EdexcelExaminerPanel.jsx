@@ -1,4 +1,5 @@
-import React, { useState, useMemo, useRef } from 'react';
+import React, { useState, useMemo, useRef, useEffect } from 'react';
+import { useUser } from '../contexts/UserContext';
 import {
   EDEXCEL_RUBRIC_BANK,
   evaluateEdexcelEssay,
@@ -8,13 +9,29 @@ import {
 const EdexcelExaminerPanel = ({
   mode = 'teacher',
   onBack,
+  initialRubricId,
+  campaignNodeId,
   students = [],
   selectedStudentId = 'teacher_live',
   onSelectStudent,
   onSaveEvaluationToGradebook,
   onBuySchoolLicense
 }) => {
-  const [selectedRubricId, setSelectedRubricId] = useState(EDEXCEL_RUBRIC_BANK[0].id);
+  const userContext = useUser();
+  const completeCampaignNode = userContext?.completeCampaignNode;
+
+  const [selectedRubricId, setSelectedRubricId] = useState(() => {
+    if (initialRubricId && EDEXCEL_RUBRIC_BANK.some(r => r.id === initialRubricId)) {
+      return initialRubricId;
+    }
+    return EDEXCEL_RUBRIC_BANK[0].id;
+  });
+
+  useEffect(() => {
+    if (initialRubricId && EDEXCEL_RUBRIC_BANK.some(r => r.id === initialRubricId)) {
+      setSelectedRubricId(initialRubricId);
+    }
+  }, [initialRubricId]);
   const activeRubric = useMemo(
     () => EDEXCEL_RUBRIC_BANK.find(r => r.id === selectedRubricId) || EDEXCEL_RUBRIC_BANK[0],
     [selectedRubricId]
@@ -69,6 +86,9 @@ const EdexcelExaminerPanel = ({
 
   const handleMarkAnswer = () => {
     setShowMarkingFeedback(true);
+    if (campaignNodeId && completeCampaignNode) {
+      completeCampaignNode(campaignNodeId);
+    }
     setTimeout(() => {
       feedbackRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }, 80);
@@ -146,8 +166,13 @@ const EdexcelExaminerPanel = ({
                 whiteSpace: 'nowrap'
               }}
             >
-              ← Back
+              {campaignNodeId ? '← Back to Path to Legend' : '← Back'}
             </button>
+          )}
+          {campaignNodeId && (
+            <span style={{ fontSize: '0.72rem', fontWeight: 800, background: 'rgba(16, 185, 129, 0.2)', color: '#34d399', border: '1px solid rgba(16, 185, 129, 0.4)', padding: '4px 8px', borderRadius: '6px', whiteSpace: 'nowrap' }}>
+              🎯 CAMPAIGN ESSAY BOSS
+            </span>
           )}
           <div style={{ flex: 1 }}>
             <label

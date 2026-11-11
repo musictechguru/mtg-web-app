@@ -90,7 +90,8 @@ const NON_QUIZ_TYPES = new Set([
   'timetable_builder',
   'tracksheet_creator',
   'component1_guide',
-  'component2_guide'
+  'component2_guide',
+  'extended_response_trainer'
 ]);
 
 const parseStageTitle = (rawTitle) => {
@@ -104,10 +105,13 @@ const parseStageTitle = (rawTitle) => {
   return { badge: 'STAGE', name: rawTitle };
 };
 
-const getStageCountLabel = (section, isTopicSection, topicGroupCount) => {
+const getStageCountLabel = (section, isTopicSection, isStage3Section, topicGroupCount) => {
   const count = section.items?.length || 0;
   if (isTopicSection) {
     return `${topicGroupCount} Topics`;
+  }
+  if (isStage3Section) {
+    return `${topicGroupCount} Modules (${count} Quizzes)`;
   }
   const titleLower = (section.title || '').toLowerCase();
   if (titleLower.includes('mock')) {
@@ -512,6 +516,7 @@ const MainApp = () => {
       url.searchParams.delete('upgrade');
       url.searchParams.delete('quickfire');
       url.searchParams.delete('daily5');
+      url.searchParams.delete('q');
       const quizId = item.id || item.title || (item.type === 'dictionary_selector' ? 'dictionary_selector' : item.type === 'timetable_builder' ? 'timetable_builder' : item.type === 'premium_locked' ? 'upgrade' : null);
       if (quizId) {
         url.searchParams.set('quiz', quizId);
@@ -919,8 +924,9 @@ const MainApp = () => {
           </div>
 
           {courseData.sections.map((section, secIdx) => {
-            // Group items by base Topic name if they are Topic Mastery Quizzes
+            // Group items by base Topic name if they are Topic Mastery Quizzes, or by thematic module for Stage 3
             const isTopicSection = section.title.includes("Topic Mastery");
+            const isStage3Section = section.title.includes("Interactive Quizzes") || section.title.includes("Stage 3");
             let groupedItems = [];
             let topicGroupCount = 0;
 
@@ -945,6 +951,46 @@ const MainApp = () => {
                   items: topicGroups[baseTitle]
                 });
               });
+            } else if (isStage3Section) {
+              const stage3Categories = [
+                {
+                  title: "1. Studio Setup, Acoustics & Hardware",
+                  ids: ['quiz-topic-11', 'quiz-topic-25', 'quiz-topic-26', 'quiz-topic-41', 'quiz-topic-42', 'quiz-topic-43']
+                },
+                {
+                  title: "2. Microphones, Recording & Signal Chains",
+                  ids: ['quiz-topic-21', 'quiz-topic-27', 'quiz-topic-28', 'quiz-topic-29', 'quiz-topic-33', 'quiz-topic-46']
+                },
+                {
+                  title: "3. Synthesis, Keyboards & Sampling",
+                  ids: ['quiz-topic-22', 'quiz-topic-34', 'quiz-topic-39']
+                },
+                {
+                  title: "4. Dynamics, EQ & Spatial Effects",
+                  ids: ['quiz-topic-23', 'quiz-topic-24', 'quiz-topic-35', 'quiz-topic-40', 'quiz-topic-44', 'quiz-topic-45']
+                },
+                {
+                  title: "5. Sequencing, DAW, MIDI & Genre Workflows",
+                  ids: ['quiz-topic-30', 'quiz-topic-31', 'quiz-topic-32', 'quiz-topic-36', 'quiz-topic-37', 'quiz-topic-38', 'quiz-topic-47']
+                }
+              ];
+
+              const itemMap = new Map();
+              (section.items || []).forEach(item => {
+                itemMap.set(item.id, item);
+              });
+
+              topicGroupCount = stage3Categories.length;
+              stage3Categories.forEach(cat => {
+                const catItems = cat.ids.map(id => itemMap.get(id)).filter(Boolean);
+                if (catItems.length > 0) {
+                  groupedItems.push({
+                    isGroup: true,
+                    title: cat.title,
+                    items: catItems
+                  });
+                }
+              });
             } else {
               groupedItems = section.items || [];
             }
@@ -952,7 +998,7 @@ const MainApp = () => {
             const isExpanded = Boolean(expandedStages[secIdx]);
             const theme = STAGE_THEMES[secIdx % STAGE_THEMES.length];
             const parsed = parseStageTitle(section.title);
-            const countLabel = getStageCountLabel(section, isTopicSection, topicGroupCount);
+            const countLabel = getStageCountLabel(section, isTopicSection, isStage3Section, topicGroupCount);
             const isActiveStage = section.items?.some(it => isItemActive(it));
 
             return (
@@ -1044,7 +1090,11 @@ const MainApp = () => {
                                   >
                                     <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                                       <span className="subitem-bullet"></span>
-                                      {subItem.title.includes('(Part 1)') ? 'Part 1' : 'Part 2'}
+                                      {subItem.title.includes('(Part 1)')
+                                        ? 'Part 1'
+                                        : subItem.title.includes('(Part 2)')
+                                        ? 'Part 2'
+                                        : subItem.title.replace(/^Practical Quiz (\d+):\s*/, 'Quiz $1: ')}
                                     </span>
                                     {subItem.isPremium && !currentUser?.is_premium && (
                                       <span style={{ fontSize: '0.75rem', color: '#facc15' }}>🔒</span>
@@ -1143,7 +1193,17 @@ const MainApp = () => {
             activeItem.type === 'quick_fire_daily5' ? (
               <QuickFireDaily5 onExit={goToDashboardWrapper} />
             ) : activeItem.type === 'extended_response_trainer' ? (
-              <EdexcelExaminerPanel mode="student" onBack={goToDashboardWrapper} />
+              <EdexcelExaminerPanel 
+                mode="student" 
+                initialRubricId={
+                  activeItem.rubricId || 
+                  (activeItem.targetComponent === 'c4' 
+                    ? 'c4_q6_drum_synth_2025_20m' 
+                    : 'c3_q5_liquid_spirit_15m')
+                }
+                campaignNodeId={activeItem.campaignNodeId}
+                onBack={goToDashboardWrapper} 
+              />
             ) : activeItem.type === 'timetable_builder' ? (
               <TimetableBuilder onNavigate={handleItemSelectWrapper} onBack={goToDashboardWrapper} />
             ) : activeItem.type === 'tracksheet_creator' ? (

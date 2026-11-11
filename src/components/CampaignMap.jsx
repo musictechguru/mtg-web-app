@@ -56,6 +56,17 @@ const CampaignMap = ({ onNavigate }) => {
         // Node 1 of any non-exam round is always open
         if (nIdx === 0 && !round.title.includes('Exam')) return true;
 
+        // In exam rounds, allow students to choose either exam paper or essay boss as soon as previous round completes
+        if (round.title.includes('Exam') && rIdx > 0) {
+            const prevRound = campaignData.rounds[rIdx - 1];
+            if (prevRound) {
+                const lastNode = prevRound.nodes[prevRound.nodes.length - 1];
+                if (completedNodes.includes(lastNode.id)) {
+                    return true;
+                }
+            }
+        }
+
         if (nIdx > 0) {
             const prevNode = round.nodes[nIdx - 1];
             return completedNodes.includes(prevNode.id);
@@ -155,6 +166,15 @@ const CampaignMap = ({ onNavigate }) => {
             }
 
             targetItem = { type: examType, id: examId, title: node.title, campaignNodeId: node.id };
+        } else if (node.type === 'examiner' || node.quizId === 'extended_response_trainer') {
+            targetItem = {
+                id: 'extended_response_trainer',
+                type: 'extended_response_trainer',
+                rubricId: node.quizId,
+                targetComponent: node.targetComponent || 'c3',
+                title: node.title,
+                campaignNodeId: node.id
+            };
         } else if (node.type === 'roulette') {
             // Russian Roulette Mega Quiz: gather diverse questions across all stages
             const pool = [];
@@ -424,8 +444,8 @@ const CampaignMap = ({ onNavigate }) => {
                                         display: 'flex',
                                         flexWrap: 'wrap',
                                         justifyContent: 'center',
-                                        maxWidth: isFinalNode ? '200px' : '400px',
-                                        gap: '20px 40px',
+                                        maxWidth: isFinalNode ? '320px' : '400px',
+                                        gap: '20px 30px',
                                         alignItems: 'flex-start'
                                     }}>
                                         {round.nodes.map((node, nIdx) => {
@@ -434,21 +454,22 @@ const CampaignMap = ({ onNavigate }) => {
                                             const isActive = isUnlocked && !isCompleted;
                                             const isLocked = !isCompleted && !isActive;
 
+                                            const isExaminer = node.type === 'examiner';
+                                            const isExam = node.type === 'exam' || node.type === 'roulette' || isExaminer;
+                                            const nodeSize = isExam ? 90 : 65;
+
                                             let nodeColor = 'var(--bg-secondary)';
                                             let borderColor = 'var(--border-color)';
                                             if (isCompleted) {
-                                                nodeColor = 'var(--accent-success)';
-                                                borderColor = 'var(--accent-success)';
+                                                nodeColor = isExaminer ? '#059669' : 'var(--accent-success)';
+                                                borderColor = isExaminer ? '#34d399' : 'var(--accent-success)';
                                             } else if (isActive) {
-                                                nodeColor = 'var(--accent-blue)';
-                                                borderColor = 'var(--accent-blue)';
+                                                nodeColor = isExaminer ? 'linear-gradient(135deg, #059669, #10b981)' : 'var(--accent-blue)';
+                                                borderColor = isExaminer ? '#34d399' : 'var(--accent-blue)';
                                             }
 
-                                            const isExam = node.type === 'exam' || node.type === 'roulette';
-                                            const nodeSize = isExam ? 90 : 65;
-
                                             return (
-                                                <div key={node.id} className="campaign-node-item" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '120px' }}>
+                                                <div key={node.id} className="campaign-node-item" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '130px' }}>
                                                     <div
                                                         id={`campaign-node-${node.id}`}
                                                         onClick={() => handleNodeClick(node, isActive, isCompleted)}
@@ -457,8 +478,10 @@ const CampaignMap = ({ onNavigate }) => {
                                                             height: `${nodeSize}px`,
                                                             borderRadius: '50%',
                                                             background: nodeColor,
-                                                            border: isActive ? '4px solid rgba(255,255,255,0.5)' : '2px solid ' + borderColor,
-                                                            boxShadow: isActive ? '0 0 20px rgba(59, 130, 246, 0.8)' : (isExam && isCompleted ? '0 0 15px var(--accent-gold)' : '0 4px 6px rgba(0,0,0,0.3)'),
+                                                            border: isActive ? (isExaminer ? '4px solid #a7f3d0' : '4px solid rgba(255,255,255,0.5)') : '2px solid ' + borderColor,
+                                                            boxShadow: isActive 
+                                                                ? (isExaminer ? '0 0 25px rgba(16, 185, 129, 0.85)' : '0 0 20px rgba(59, 130, 246, 0.8)')
+                                                                : (isExam && isCompleted ? '0 0 15px var(--accent-gold)' : '0 4px 6px rgba(0,0,0,0.3)'),
                                                             display: 'flex',
                                                             justifyContent: 'center',
                                                             alignItems: 'center',
@@ -473,7 +496,7 @@ const CampaignMap = ({ onNavigate }) => {
                                                         className={isActive ? 'pulse-node' : ''}
                                                     >
                                                         {isCompleted && (
-                                                            <svg width={isExam ? "45" : "30"} height={isExam ? "45" : "30"} viewBox="0 0 24 24" fill="none" stroke="#000" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                                                            <svg width={isExam ? "45" : "30"} height={isExam ? "45" : "30"} viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
                                                                 <polyline points="20 6 9 17 4 12"></polyline>
                                                             </svg>
                                                         )}
@@ -481,8 +504,8 @@ const CampaignMap = ({ onNavigate }) => {
                                                             <div style={{ color: '#fff', fontSize: '0.8rem', fontWeight: 'bold' }}>START</div>
                                                         )}
                                                         {isActive && isExam && (
-                                                            <div style={{ color: '#fff', fontSize: '1rem', fontWeight: 'bold', textAlign: 'center' }}>
-                                                                {node.type === 'roulette' ? 'SPIN' : 'EXAM'}
+                                                            <div style={{ color: '#fff', fontSize: isExaminer ? '0.78rem' : '0.95rem', fontWeight: 800, textAlign: 'center', lineHeight: 1.15, padding: '4px' }}>
+                                                                {node.type === 'roulette' ? 'SPIN' : isExaminer ? 'ESSAY\nBOSS' : 'EXAM\nPAPER'}
                                                             </div>
                                                         )}
                                                         {isLocked && (
@@ -496,10 +519,11 @@ const CampaignMap = ({ onNavigate }) => {
                                                     <div style={{
                                                         textAlign: 'center',
                                                         fontSize: '0.8rem',
-                                                        color: isActive ? 'var(--accent-blue)' : (isCompleted ? 'var(--text-primary)' : 'rgba(255,255,255,0.6)'),
+                                                        color: isActive ? (isExaminer ? '#34d399' : 'var(--accent-blue)') : (isCompleted ? 'var(--text-primary)' : 'rgba(255,255,255,0.6)'),
                                                         fontWeight: isActive ? 'bold' : 'normal',
                                                         lineHeight: '1.2'
                                                     }}>
+                                                        {isExaminer && <span style={{ display: 'inline-block', marginRight: '4px' }}>📝</span>}
                                                         {node.title}
                                                     </div>
                                                 </div>
