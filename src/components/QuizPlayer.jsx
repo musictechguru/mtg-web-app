@@ -20,6 +20,24 @@ import SignalFlowLabelQuiz from './InteractiveQuizzes/SignalFlowLabelQuiz';
 // Dev tools (skip, jump, reveal answers) only exist in local development, never on the live site
 const isDev = Boolean(import.meta.env.DEV);
 
+// Helper to determine if an interactive question manages its own checking/submission
+const isInteractiveSelfSubmitting = (type) => [
+    'drag_drop',
+    'waveform_id',
+    'waveform',
+    'audio_comparison',
+    'parameter_matching',
+    'hotspot',
+    'binary-diagram',
+    'graph-drawing',
+    'piano-roll',
+    'timeline',
+    'midi_practical',
+    'panning',
+    'signal-flow-label',
+    'signal_flow_label'
+].includes(type);
+
 const QuizPlayer = ({ quiz, onFinish }) => {
     // FORCE CACHE BUST: V3
     console.log("QuizPlayer Component Loaded - Version 3.0 Fixed");
@@ -663,6 +681,16 @@ const QuizPlayer = ({ quiz, onFinish }) => {
             ...prev,
             [currentQuestionIndex]: { selected: 'interactive', submitted: true, isCorrect }
         }));
+
+        // Mobile: Scroll to explanation
+        if (window.innerWidth <= 768) {
+            setTimeout(() => {
+                const explanationEl = document.querySelector('.quiz-right-col');
+                if (explanationEl) {
+                    explanationEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }, 100);
+        }
     };
 
     const handleNext = () => {
@@ -714,11 +742,15 @@ const QuizPlayer = ({ quiz, onFinish }) => {
                 'audio_comparison': 'Audio',
                 'parameter_matching': 'Match',
                 'waveform': 'Waveform',
+                'waveform_id': 'Waveform',
                 'hotspot': 'Hotspot',
                 'graph-drawing': 'Graph',
                 'piano-roll': 'PianoRoll',
                 'timeline': 'Timeline',
                 'midi_practical': 'MIDI',
+                'panning': 'Panning',
+                'signal-flow-label': 'SignalFlow',
+                'signal_flow_label': 'SignalFlow',
                 'cloze': 'Cloze'
             };
             const tag = typeMap[q.type] || q.type;
@@ -1253,7 +1285,7 @@ const QuizPlayer = ({ quiz, onFinish }) => {
                         </button>
 
                         {!isSubmitted ? (
-                            currentQuestion.type !== 'drag_drop' && currentQuestion.type !== 'audio_comparison' && currentQuestion.type !== 'parameter_matching' && currentQuestion.type !== 'binary-diagram' && currentQuestion.type !== 'graph-drawing' && currentQuestion.type !== 'piano-roll' && currentQuestion.type !== 'timeline' && currentQuestion.type !== 'midi_practical' && (
+                            !isInteractiveSelfSubmitting(currentQuestion.type) && (
                                 <button
                                     className="btn-primary"
                                     onClick={handleSubmit}

@@ -148,6 +148,7 @@ export default function SampleChoppingQuiz({ quiz, onExit }) {
   const audioContextRef = useRef(null);
   const userContext = useUser();
   const saveQuizResult = userContext ? userContext.saveQuizResult : null;
+  const completeCampaignNode = userContext ? userContext.completeCampaignNode : null;
 
   const questions = DEFAULT_QUESTIONS;
 
@@ -531,12 +532,15 @@ export default function SampleChoppingQuiz({ quiz, onExit }) {
       setupQuestionState(nextIdx);
     } else {
       setQuizComplete(true);
+      const total = questions.length;
+      const finalScore = score + (selectedAnswer === true ? 1 : 0);
+      const percentage = Math.round((finalScore / total) * 100);
+      const grade = percentage >= 80 ? 'A*' : percentage >= 70 ? 'A' : percentage >= 60 ? 'B' : percentage >= 50 ? 'C' : 'D';
       if (typeof saveQuizResult === 'function') {
-        const total = questions.length;
-        const finalScore = score + (selectedAnswer === true ? 1 : 0);
-        const percentage = Math.round((finalScore / total) * 100);
-        const grade = percentage >= 80 ? 'A*' : percentage >= 70 ? 'A' : percentage >= 60 ? 'B' : percentage >= 50 ? 'C' : 'D';
-        saveQuizResult('Practical Quiz 20: Sample Chopping & Truncation', finalScore, total, grade);
+        saveQuizResult(quiz?.title || 'Practical Quiz 20: Sample Chopping & Truncation', finalScore, total, grade);
+      }
+      if (quiz?.campaignNodeId && typeof completeCampaignNode === 'function' && percentage >= 60) {
+        completeCampaignNode(quiz.campaignNodeId);
       }
     }
   };
