@@ -69,7 +69,7 @@ export const EDEXCEL_RUBRIC_BANK = [
       links: [
         { label: '🌐 Component 3 Listening & Analysing Revision Hub (musictechguru.com)', url: 'https://www.musictechguru.com/edexcel-component-3-music-technology-revision/' },
         { label: '🌐 Music Tech Toolbox: EQ, Compression & Effects (musictechguru.com)', url: 'https://www.musictechguru.com/homepage/free-music-production-tutorials/mt-toolbox-blk/' },
-        { label: '🎯 In-App Workshop: AO3 vs AO4 Q5 Comparison Builder', url: '/?quiz=worksheet-ao3-ao4-q5' },
+        { label: '🎯 In-App Stage 4: Liquid Spirit Comparison Quiz', url: '/?quiz=comp_liquid_spirit' },
         { label: '🎯 In-App Quiz: Topic 4 Sampling & Topic 5 Dynamic Processing', url: '/?quiz=quiz-topic-4_p1' }
       ]
     },
@@ -217,7 +217,7 @@ export const EDEXCEL_RUBRIC_BANK = [
         { label: '🌐 Component 3 Revision Hub & Q6 Essay Guides (musictechguru.com)', url: 'https://www.musictechguru.com/edexcel-component-3-music-technology-revision/' },
         { label: '🌐 Music Tech Toolbox: Vocal Production, EQ & Compression (musictechguru.com)', url: 'https://www.musictechguru.com/homepage/free-music-production-tutorials/mt-toolbox-blk/' },
         { label: '🎯 In-App Revision: Modern ITB, DAW & Vocal Production (2000s–Present)', url: '/?quiz=quiz-history-7' },
-        { label: '🎯 In-App Workshop: AO3 vs AO4 Q6 20-Mark Essay Builder', url: '/?quiz=worksheet-ao3-ao4-q6' }
+        { label: '🎯 In-App Case Study: Smooth Criminal Production Breakdown', url: '/?quiz=case_smooth_criminal' }
       ]
     },
     questionPrompt:
@@ -1192,6 +1192,159 @@ export const EDEXCEL_RUBRIC_BANK = [
         '• ',
         '',
         'Attack and Release Settings:',
+        '• '
+      ].join('\n')
+    }
+  },
+  {
+    id: 'c3_q6_vocal_production_20m',
+    component: 'C3',
+    questionNumber: 'Q6',
+    maxMarks: 20,
+    title: 'C3 Q6: Evolution of Lead Vocal Production (1950s to Modern Day) (20 Marks)',
+    badge: 'Component 3 • 20 Marks',
+    topic: 'Vocal Production Evolution: Microphones, Pitch Correction, Comping, Compression & Reverb',
+    suggestedTime: '25 mins',
+    wordCountTarget: '450–650 words',
+    audioTracks: [
+      {
+        trackNumber: 1,
+        title: 'Frank Sinatra / 1950s Valve & Ribbon Vocal Capture (RCA 44BX & Neumann U47)',
+        source: 'Acoustic Room Capture & Mechanical Reverb'
+      },
+      {
+        trackNumber: 2,
+        title: 'Modern ITB Pop/Trap Vocal Production (Antares Auto-Tune, Melodyne, 1176/LA-2A Serial Compression)',
+        source: 'Surgical Digital Comping & Convolution Reverb'
+      }
+    ],
+    briefing: {
+      summary:
+        'Vocal production has undergone a profound transformation across the last seven decades, shifting from physical acoustic performance discipline in treated rooms to surgical in-the-box digital manipulation. This extended evaluation covers microphone design and proximity effect, pitch manipulation (varispeed to FFT Auto-Tune/Melodyne), multitrack tape punch-ins vs non-destructive swipe comping, serial dynamic leveling (FET 1176 into optical LA-2A), and the shift from physical echo chambers to convolution reverb and tempo-synced delay throws.',
+      keyPoints: [
+        'Microphone Design & Proximity Discipline: Figure-8 ribbon mics (RCA 44BX) and early valve condensers (Neumann U47) had strong proximity effect and required physical mic technique; modern solid-state condensers (TLM 103, Sony C800G) allow singing inches from the capsule with pop filters and digital HPF.',
+        'Pitch Manipulation & Digital Tuning: Analogue varispeed tape manipulation altered tempo and formants simultaneously; Antares Auto-Tune (1997) and Celemony Melodyne (2001) used phase vocoder / FFT algorithms to decouple pitch from time, enabling note-by-note tuning and 0ms retune robotic effects.',
+        'Workflow: Analogue Tape Punch-Ins vs Swipe Comping: Destructive punch-ins on 2-inch tape and physical razor blade 45° splicing vs non-destructive DAW virtual playlists, swipe comping, and micro-crossfades.',
+        'Dynamic Control & Serial Processing: Vintage serial analogue compression (fast 1176 catching transient consonants into smooth optical LA-2A leveling phrases) vs modern digital clip gain automation, dynamic EQ (FabFilter Pro-Q3), and sidechain de-essers.',
+        'Spatial Acoustics: Physical concrete echo chambers (Hitsville USA) and mechanical EMT 140 plates vs mathematical impulse response convolution reverbs and stereo tempo-synced delay throws.'
+      ],
+      links: [
+        { label: '🌐 Component 3 Revision Hub & Q6 Essay Guides (musictechguru.com)', url: 'https://www.musictechguru.com/edexcel-component-3-music-technology-revision/' },
+        { label: '🌐 Music Tech Toolbox: Vocal Production, EQ & Compression (musictechguru.com)', url: 'https://www.musictechguru.com/homepage/free-music-production-tutorials/mt-toolbox-blk/' },
+        { label: '🎯 In-App Topic 1: Fundamentals & Dynamic Processing', url: '/?quiz=quiz-topic-1_p1' }
+      ]
+    },
+    questionPrompt:
+      'Evaluate the impact of technological developments on the capture, pitch manipulation, editing, dynamic processing, and artificial reverberation of lead vocals in popular music from the 1950s to the modern day. (20 marks — AO3: 5 marks, AO4: 15 marks)',
+    ao3Anchors: [
+      {
+        id: 'ao3_mics_proximity',
+        label: 'Microphone capture & proximity: 1950s figure-8 ribbon mics (RCA 44BX) and valve condensers (Neumann U47) with proximity bass boost vs modern transformerless large-diaphragm condensers (Sony C800G, TLM 103), pop shields, and reflection filters',
+        keywords: ['ribbon', 'valve', 'condenser', 'rca', 'u47', 'proximity', 'c800g', 'pop shield', 'pop filter', 'hpf', 'high pass']
+      },
+      {
+        id: 'ao3_pitch_autotune',
+        label: 'Pitch correction & tuning: Analogue varispeed tape pitching (linked to tempo/formants) vs digital phase vocoder and FFT tools (Antares Auto-Tune 1997, Celemony Melodyne 2001) separating pitch from time domain',
+        keywords: ['varispeed', 'pitch', 'auto-tune', 'autotune', 'melodyne', 'formant', 'fft', 'phase vocoder', 'retune', 'correction']
+      },
+      {
+        id: 'ao3_comping_editing',
+        label: 'Editing & comping: Destructive analogue tape punch-ins and razor blade splicing at 45° angles vs DAW virtual playlists, swipe comping, and micro-crossfades at zero crossings',
+        keywords: ['punch-in', 'punch in', 'splice', 'razor blade', 'comping', 'playlist', 'take', 'crossfade', 'zero-crossing', 'non-destructive']
+      },
+      {
+        id: 'ao3_serial_compression',
+        label: 'Dynamic leveling & serial compression: Fast FET compressor (Universal Audio 1176, 20µs attack) taming consonants into smooth optical leveling amplifier (Teletronix LA-2A, two-stage photocell release), plus modern clip gain automation and dynamic EQ',
+        keywords: ['1176', 'la-2a', 'la2a', 'fet', 'optical', 'serial', 'clip gain', 'leveling', 'dynamic eq', 'de-esser', 'photocell']
+      },
+      {
+        id: 'ao3_reverb_delays',
+        label: 'Spatial acoustics: Physical basement reverberation chambers and EMT 140 mechanical plates vs impulse response (IR) convolution reverb plugins and tempo-synced stereo delay throws',
+        keywords: ['chamber', 'emt 140', 'plate', 'convolution', 'impulse response', 'ir', 'delay throw', 'tempo sync']
+      }
+    ],
+    ao4Anchors: [
+      {
+        id: 'ao4_performance_discipline',
+        label: 'Evaluates singer discipline vs post-production fix: 1950s singers required physical mic technique and physical control, whereas modern workflow allows imperfect performances to be corrected in the box',
+        keywords: ['technique', 'discipline', 'physical', 'post-production', 'fix in the mix', 'perfection', 'spontaneity']
+      },
+      {
+        id: 'ao4_creative_timbre',
+        label: 'Evaluates error correction transforming into genre aesthetic: 0ms retune speed Auto-Tune evolved from a corrective tool into an unmistakable creative timbre in modern Pop, Trap, and Hip-Hop (Cher, T-Pain, Travis Scott)',
+        keywords: ['creative', 'timbre', 'trap', 'hip-hop', 'pop', 'robotic', 'aesthetic', 'artistic', 'cher', 't-pain']
+      },
+      {
+        id: 'ao4_emotional_spontaneity',
+        label: 'Evaluates comping impact: Non-destructive swipe comping achieves flawless technical perfection but critics argue it compromises singular raw emotional spontaneity in favour of an engineered mosaic',
+        keywords: ['emotional', 'spontaneity', 'mosaic', 'flawless', 'composite', 'authenticity', 'assembled']
+      },
+      {
+        id: 'ao4_mix_balance_clarity',
+        label: 'Evaluates vocal placement in the mix: Modern serial leveling, clip gain, and tempo-synced delays keep the lead vocal millimeter-tight, upfront, and hyper-intelligible compared to distant room acoustic washes',
+        keywords: ['intelligible', 'upfront', 'locked', 'tight', 'front of the mix', 'wash', 'clarity', 'hyper-real']
+      }
+    ],
+    exemplars: {
+      grade_A_star: [
+        'INTRODUCTION & SCOPE:',
+        'Vocal production has undergone a profound transformation across the last seven decades, shifting from physical acoustic performance discipline in treated rooms to surgical in-the-box digital manipulation. This essay evaluates how technological developments in microphone capture, pitch correction, multi-take editing, dynamic leveling, and artificial spatialization have redefined the sonic aesthetic and artistic definition of the human voice in popular music.',
+        '',
+        '1. MICROPHONE DESIGN & PROXIMITY DISCIPLINE (AO3/AO4):',
+        'In the 1950s, engineers relied on figure-8 ribbon microphones (e.g., RCA 44BX) and early valve condensers (e.g., Neumann U47). Ribbon mics possessed heavy bi-directional proximity effect, rolling off high frequencies above 15 kHz and substantially boosting bass frequencies below 200 Hz if the singer moved within 12 inches of the motor. Singers like Frank Sinatra had to develop physical mic technique—stepping back during fortissimo belts and leaning in during intimate phrases. In modern DAW production, large-diaphragm solid-state condensers (e.g., Neumann TLM 103, Sony C800G) feature transformerless preamps and extended high-end frequency response (up to 25 kHz). Singers perform inches from the capsule behind mesh pop shields and acoustic reflection filters, knowing that any proximity muddiness or plosive energy can be transparently eliminated in post-production via 80 Hz 24 dB/octave high-pass filtering and surgical dynamic EQ.',
+        '',
+        '2. PITCH MANIPULATION & DIGITAL TUNING (AO3/AO4):',
+        'Prior to digital signal processing, altering vocal pitch without altering time was physically impossible. Analogue varispeed tape manipulation adjusted the capstan motor speed via an oscillator, but raising pitch inadvertently sped up tempo and shifted vocal formants upwards (the Munchkin effect). Producers were forced to demand repetitive takes until intonation was acceptable. The release of Antares Auto-Tune (1997) and Celemony Melodyne (2001) revolutionized recording by employing phase vocoder and fast Fourier transform (FFT) algorithms. These tools separate pitch and time domain data, allowing producers to correct micro-pitch variations note-by-note while preserving natural vocal formants and vibrato depth. Furthermore, pushed to instantaneous 0ms retune speeds, Auto-Tune became an unmistakable creative timbre in modern Hip-Hop, Trap, and Pop (Cher, T-Pain, Travis Scott), demonstrating how an error-correction tool transformed into a defining artistic genre marker.',
+        '',
+        '3. WORKFLOW: ANALOGUE TAPE PUNCH-INS VS DIGITAL SWIPE COMPING (AO3/AO4):',
+        'Tracking vocals to 2-inch multitrack tape was a high-stakes destructive process. Engineers like Geoff Emerick at Abbey Road had to physically punch-in on tape heads in real time, where a fraction-of-a-second timing error would erase the artist’s previous performance. Constructing a composite vocal (comping) required physically slicing tape with a razor blade at a 45-degree angle and taping segments together. In modern digital audio workstations, non-destructive virtual playlists allow hundreds of vocal passes. Modern quick-swipe comping enables producers to audition and blend the best syllables, breaths, and consonants into a flawless master take. Micro-crossfades (5-10ms) placed at zero-crossings prevent audio pops and clicks. While this facilitates unprecedented technical perfection, critics argue it has compromised raw emotional spontaneity, replacing the singular human performance with an engineered composite mosaic.',
+        '',
+        '4. DYNAMIC ENVELOPE CONTROL & SERIAL PROCESSING (AO3/AO4):',
+        'Analogue vocal leveling relied on legendary vintage hardware chains. Typically, an engineer ran a fast peak-taming FET compressor (Universal Audio 1176 with 20-microsecond attack) into a smooth optical leveling amplifier (Teletronix LA-2A with a two-stage photocell release: 50% release in 60ms, followed by several seconds of gradual decay). The 1176 caught transient consonants, while the LA-2A smoothed the musical phrase, introducing rich harmonic distortion (tube and transformer warmth). Modern digital vocal chains achieve an even more aggressive, locked-in aesthetic: producers manually draw clip-gain automation to balance syllables before compression, apply dynamic EQ (e.g., FabFilter Pro-Q3) to suppress harsh 2.5-4.5 kHz buildup during loud phrases, insert transparent lookahead brickwall limiters, and apply de-essers with sidechain bandpass filters (5-8.5 kHz). This anchors the vocal millimeter-tight at the front of modern commercial mixes.',
+        '',
+        '5. SPATIAL ACOUSTICS: ECHO CHAMBERS TO CONVOLUTION (AO3/AO4):',
+        'Early recordings were captured in physical acoustic spaces; studios like Motown’s Hitsville USA constructed dedicated reverberation chambers in their basements (concrete-lined rooms with a speaker at one end and a ribbon mic at the other). In the late 1950s, the EMT 140 steel plate offered artificial reverb through mechanical transducer vibration. In contemporary production, convolution reverb plugins load mathematical impulse responses (IRs) that capture the exact linear acoustic reflection profiles of famous cathedrals, tiled bathrooms, or vintage hardware units. Furthermore, modern mixes favor tempo-synced stereo delay throws (dotted eighth notes or quarter notes) over washed-out reverb tails; high-pass and low-pass filtering on the delay feedback loop creates depth and movement while leaving the main lead vocal dry, intimate, and hyper-intelligible in the stereo center.',
+        '',
+        'CONCLUSION:',
+        'In conclusion, technological evolution has dismantled the traditional physical constraints of vocal production. While 1950s recordings stand as historical documents of acoustic performances governed by microphone proximity and room physics, modern vocal production treats the human voice as raw audio data to be tuned, sliced, compressed, and spatially sculpted. The result is an undeniable shift from documentary realism to hyper-real pop perfection.'
+      ].join('\n'),
+      grade_B: [
+        'Vocal Recording & Technology Evolution:',
+        '• In early recording (1950s), vocals were recorded with ribbon or valve microphones such as the RCA 44BX or Neumann U47 into valve preamps and analogue tape.',
+        '• Singers needed good microphone technique because getting too close caused a strong bass boost (proximity effect) that could not be easily fixed later.',
+        '• Reverb was achieved with physical echo chambers (rooms with speakers and microphones) or EMT 140 plates.',
+        '• Later on, analogue tape allowed multitracking and drop-ins, but punching in was destructive and could wipe a good take.',
+        '• With modern DAWs, producers use large diaphragm condenser microphones and pop shields with reflection filters.',
+        '• Pitch correction software like Auto-Tune and Melodyne allows singers to be tuned note-by-note, and quick-swipe comping lets producers piece together multiple takes into one perfect vocal.',
+        '• Serial compression using an 1176 compressor followed by an LA-2A is common to keep the vocal loud and consistent, followed by convolution reverb plugins that model real spaces.'
+      ].join('\n'),
+      grade_D: [
+        'Vocal Production Comparison:',
+        '• Old recordings used old microphones like ribbon mics which sounded darker and had a lot of room sound.',
+        '• Modern vocals sound much brighter and clearer because they use condenser mics and digital plugins.',
+        '• In the past, singers had to sing in tune because Auto-Tune was not invented until the late 1990s.',
+        '• Now producers use Auto-Tune on almost every pop track and compress the vocals heavily so they are loud in the mix.'
+      ].join('\n'),
+      student_template: [
+        'Introduction & Scope:',
+        '• ',
+        '',
+        '1. Microphone Capture & Placement (Proximity & Hardware):',
+        '• ',
+        '',
+        '2. Pitch Manipulation & Tuning (Varispeed to Auto-Tune/Melodyne):',
+        '• ',
+        '',
+        '3. Editing & Workflow (Tape Punch-Ins vs DAW Swipe Comping):',
+        '• ',
+        '',
+        '4. Dynamic Processing (1176/LA-2A Serial Compression to Digital Lookahead):',
+        '• ',
+        '',
+        '5. Spatial Effects (Echo Chambers, Plates & Convolution Reverb):',
+        '• ',
+        '',
+        'Conclusion (Aesthetic Shift from Realism to Hyper-Real):',
         '• '
       ].join('\n')
     }

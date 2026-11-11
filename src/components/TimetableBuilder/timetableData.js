@@ -2525,10 +2525,10 @@ export const TIMETABLE_BLOCKS = [
         "actionText": "Launch Fault Diagnosis"
       },
       {
-        "id": "worksheet-ao3-ao4-q6",
-        "title": "AO3 vs AO4 Essay Workshop: Question 6 Master Blueprint (20 Marks)",
+        "id": "c3-q6-examiner",
+        "title": "Component 3 Q6: 20-Mark Extended Response Essay Examiner",
         "type": "quiz",
-        "actionText": "Launch Q6 Essay Workshop"
+        "actionText": "Launch Q6 Essay Examiner"
       },
       {
         "id": "node_c4_22",
@@ -2688,10 +2688,10 @@ export const TIMETABLE_BLOCKS = [
         "actionText": "Launch Topic 9 Part 2"
       },
       {
-        "id": "worksheet-ao3-ao4-q5",
-        "title": "AO3 vs AO4 Essay Workshop: Question 5 Comparative Analysis (15 Marks)",
+        "id": "c3-q5-examiner",
+        "title": "Component 3 Q5: 15-Mark Comparison Essay Examiner",
         "type": "quiz",
-        "actionText": "Launch Q5 Essay Workshop"
+        "actionText": "Launch Q5 Essay Examiner"
       },
       {
         "id": "case-study-8",
