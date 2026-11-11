@@ -3,6 +3,7 @@ import { useUser } from '../contexts/UserContext';
 import { supabase } from '../config/supabase';
 import StudentProgressModal from './StudentProgressModal';
 import AssignmentModal from './AssignmentModal';
+import EdexcelExaminerPanel from './EdexcelExaminerPanel';
 import {
     SIMPLE_C1_CHECKLIST,
     SIMPLE_C2_CHECKLIST,
@@ -254,12 +255,12 @@ const TeacherDashboard = ({ onBack }) => {
                 setStudents(merged);
             } else {
                 // Only fallback to sample cohort for admin or developer preview
-                const isDevOrAdmin = currentUser?.id === '7ba50a09-985b-4edd-a679-799f79d02353' || currentUser?.role === 'admin';
+                const isDevOrAdmin = Boolean(import.meta.env.DEV) || currentUser?.id === '7ba50a09-985b-4edd-a679-799f79d02353' || currentUser?.role === 'admin';
                 setStudents(isDevOrAdmin ? DEFAULT_SAMPLE_STUDENTS : []);
             }
         } catch (err) {
             console.error("Error loading student roster:", err);
-            const isDevOrAdmin = currentUser?.id === '7ba50a09-985b-4edd-a679-799f79d02353' || currentUser?.role === 'admin';
+            const isDevOrAdmin = Boolean(import.meta.env.DEV) || currentUser?.id === '7ba50a09-985b-4edd-a679-799f79d02353' || currentUser?.role === 'admin';
             setStudents(isDevOrAdmin ? DEFAULT_SAMPLE_STUDENTS : []);
         } finally {
             setLoadingStats(false);
@@ -585,6 +586,21 @@ const TeacherDashboard = ({ onBack }) => {
                         }}
                     >
                         📅 Homework Links & Assignments
+                    </button>
+                    <button
+                        onClick={() => setViewMode('examiner_grader')}
+                        style={{
+                            padding: '9px 18px',
+                            borderRadius: '8px',
+                            border: 'none',
+                            background: viewMode === 'examiner_grader' ? '#10b981' : 'transparent',
+                            color: viewMode === 'examiner_grader' ? '#0f172a' : '#34d399',
+                            fontWeight: 800,
+                            fontSize: '0.86rem',
+                            cursor: 'pointer'
+                        }}
+                    >
+                        🎓 15 & 20-Mark Examiner & School License
                     </button>
                 </div>
 
@@ -1570,6 +1586,37 @@ const TeacherDashboard = ({ onBack }) => {
                         </div>
                     )}
                 </div>
+            )}
+
+            {/* =========================================================
+                VIEW 4: EDEXCEL 9MT0 AUTOMATED EXAMINER & SCHOOL LICENSE
+                ========================================================= */}
+            {viewMode === 'examiner_grader' && (
+                <EdexcelExaminerPanel
+                    students={allProfiles}
+                    selectedStudentId={selectedStudentId}
+                    onSelectStudent={(id) => setSelectedStudentId(id)}
+                    onBuySchoolLicense={handleBuyLicenses}
+                    onSaveEvaluationToGradebook={({ studentId, component, summaryLine }) => {
+                        setTeacherTicks(prev => {
+                            const existing = prev[studentId] || {};
+                            const prevNotes = existing.teacherNotes ? `${existing.teacherNotes}\n\n` : '';
+                            const compItems = component === 'c3' ? SIMPLE_C3_CHECKLIST : SIMPLE_C4_CHECKLIST;
+                            const lastMilestoneId = compItems[compItems.length - 1]?.id;
+                            return {
+                                ...prev,
+                                [studentId]: {
+                                    ...existing,
+                                    [component]: {
+                                        ...(existing[component] || {}),
+                                        ...(lastMilestoneId ? { [lastMilestoneId]: true } : {})
+                                    },
+                                    teacherNotes: `${prevNotes}${summaryLine}`
+                                }
+                            };
+                        });
+                    }}
+                />
             )}
 
             {/* Expanded Detailed Student Progress Modal */}

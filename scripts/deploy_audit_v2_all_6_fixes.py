@@ -151,7 +151,7 @@ def embed_music_formats_quiz():
             </p>
         </div>
         <div style="display: flex; gap: 10px; align-items: center;">
-            <a href="https://app.musictechguru.com/?category=Dictionary+Quizzes" target="_blank" rel="noopener" style="background: rgba(52, 211, 153, 0.15); border: 1px solid rgba(52, 211, 153, 0.4); color: #34d399 !important; text-decoration: none; font-size: 13px; font-weight: 800; padding: 10px 18px; border-radius: 10px; display: inline-flex; align-items: center; gap: 8px;">
+            <a href="https://app.musictechguru.com/?quiz=dictionary_selector" target="_blank" rel="noopener" style="background: rgba(52, 211, 153, 0.15); border: 1px solid rgba(52, 211, 153, 0.4); color: #34d399 !important; text-decoration: none; font-size: 13px; font-weight: 800; padding: 10px 18px; border-radius: 10px; display: inline-flex; align-items: center; gap: 8px;">
                 <span>Practice More in Web App &rarr;</span>
             </a>
         </div>
@@ -262,16 +262,16 @@ def inject_contextual_banners():
             "🎹 Component 2 Interactive Companion (9MT0/02)",
             "Open the Interactive Component 2 Brief Explorer & Synthesizer Lab",
             "Track your arrangement structure, test subtractive/FM synthesis signal flow, and audit your coursework against the official Edexcel Component 2 marking grids.",
-            "https://app.musictechguru.com/?category=Component+2+Guide",
+            "https://app.musictechguru.com/?quiz=component2_guide",
             "Open Component 2 Interactive Guide",
-            "https://app.musictechguru.com/?quiz=synth-1",
+            "https://app.musictechguru.com/the-synthesizer-interactive-quiz",
             "Launch Interactive Synth Lab"
         )),
         ("pages", 296602, "BandLab Tutorials", build_cta_banner(
             "🎚️ Ready for A-Level Studio Production?",
             "Test Your Mixing, EQ, Compression & Signal Flow Skills in the Web App",
             "Move from foundational DAW arranging into interactive A-Level Music Technology audio simulations, frequency ear-training, and effects-chain routing challenges.",
-            "https://app.musictechguru.com/?quiz=prod-tech-1",
+            "https://app.musictechguru.com/?quiz=quiz-topic-36",
             "Try EQ & Compression Ear Training",
             "https://app.musictechguru.com/",
             "Open Full MTG Web App"
@@ -280,27 +280,27 @@ def inject_contextual_banners():
             "🎹 Component 2 Arrangement & Synthesis Practice",
             "Master MIDI Sequencing, Piano Roll Editing & Synth Patch Design",
             "Complement this Logic Pro remake walkthrough with interactive MIDI practical quizzes, drum pattern programming drills, and synthesizer signal-flow challenges in the Web App.",
-            "https://app.musictechguru.com/?quiz=piano-roll-1",
+            "https://app.musictechguru.com/?quiz=quiz-topic-32",
             "Launch MIDI & Piano Roll Lab",
-            "https://app.musictechguru.com/?category=Component+2+Guide",
+            "https://app.musictechguru.com/?quiz=component2_guide",
             "Open Component 2 Coursework Guide"
         )),
         ("pages", 297308, "Sequencing 101 Shape of You", build_cta_banner(
             "🎹 Component 2 Sequencing & Quantization",
             "Practice MIDI Quantization, Velocity & Arrangement in the Web App",
             "Reinforce your Logic Pro sequencing workflow with interactive piano-roll editing drills and Component 2 mark-scheme checklists.",
-            "https://app.musictechguru.com/?quiz=piano-roll-1",
+            "https://app.musictechguru.com/?quiz=quiz-topic-32",
             "Practice MIDI Quizzes in App",
-            "https://app.musictechguru.com/?category=Component+2+Guide",
+            "https://app.musictechguru.com/?quiz=component2_guide",
             "Component 2 Interactive Guide"
         )),
         ("pages", 296591, "Examples of Individual Assessments", build_cta_banner(
             "📋 Official Mark Scheme Checklists",
             "Grade & Audit Your Coursework Inside the MTG Web App",
             "Use our interactive Component 1 Logbook Tracksheet Creator and Component 2 Composition Guide to secure top-band marks.",
-            "https://app.musictechguru.com/?category=Component+2+Guide",
+            "https://app.musictechguru.com/?quiz=component2_guide",
             "Open Coursework Checklists",
-            "https://app.musictechguru.com/?category=Tracksheet+Creator",
+            "https://app.musictechguru.com/?quiz=tracksheet_creator",
             "Launch C1 Tracksheet Creator"
         )),
         ("pages", 13343, "A-Level Course Overview", build_cta_banner(
@@ -316,9 +316,9 @@ def inject_contextual_banners():
             "📝 Interactive Past-Paper & Exam Simulators",
             "Practice Timed Component 3 & Component 4 Exam Questions with Instant Marking",
             "Go beyond static PDFs—practice interactive graph-drawing, audio comparisons, essay structuring, and 120+ specification topic quizzes inside the Web App.",
-            "https://app.musictechguru.com/?category=Component+3+Mock+Exams",
+            "https://app.musictechguru.com/?quiz=c3_funk",
             "Launch Interactive Exam Simulator",
-            "https://app.musictechguru.com/?category=Dictionary+Quizzes",
+            "https://app.musictechguru.com/?quiz=dictionary_selector",
             "120+ Topic Quizzes"
         )),
         ("pages", 296964, "Useful Downloads", build_cta_banner(
@@ -334,7 +334,7 @@ def inject_contextual_banners():
             "📖 120+ Interactive Specification Term Quizzes",
             "Turn Revision Definitions into Active Recall in the MTG Web App",
             "Every term in the Edexcel A-Level Music Technology glossary has a matching 4-stage interactive quiz with audio examples and examiner rationales.",
-            "https://app.musictechguru.com/?category=Dictionary+Quizzes",
+            "https://app.musictechguru.com/?quiz=dictionary_selector",
             "Quiz These Terms in Web App",
             "https://www.musictechguru.com/homepage/a-level-music-technology/component-4-production-analysing/music-technology-dictionary/",
             "Open Full 200+ Term Dictionary"
@@ -345,7 +345,7 @@ def inject_contextual_banners():
             "Master every genre, recording era, studio effect, and instrument on the Edexcel Component 3 syllabus with interactive slide decks and instant-feedback quizzes.",
             "https://www.musictechguru.com/homepage/a-level-music-technology/component-3-music-technology-in-context/",
             "Open Component 3 Interactive Hub",
-            "https://app.musictechguru.com/?category=Component+3+Mock+Exams",
+            "https://app.musictechguru.com/?quiz=c3_funk",
             "Launch C3 Mock Exams in App"
         )),
         ("pages", 297654, "Edexcel Component 4 Revision", build_cta_banner(
@@ -354,16 +354,16 @@ def inject_contextual_banners():
             "Practice interactive EQ/compression ear training, binary/MIDI diagrams, waveform editing, and Question 6 20-mark essay structures.",
             "https://www.musictechguru.com/homepage/a-level-music-technology/component-4-production-analysing/",
             "Open Component 4 Interactive Hub",
-            "https://app.musictechguru.com/?quiz=prod-tech-1",
+            "https://app.musictechguru.com/?quiz=c4_edm",
             "Launch C4 Practical Drills in App"
         )),
         ("posts", 297817, "Glyn Johns 4-Mic Drum Technique", build_cta_banner(
             "🎙️ Component 1 Interactive Microphone Placement Lab",
             "Test Your Glyn Johns, XY, Blumlein & Multi-Mic Drum Setups in the App",
             "Drag and position virtual studio microphones, check phase coherence, and export your official Pearson Edexcel Component 1 Logbook Tracksheet.",
-            "https://app.musictechguru.com/?quiz=interactive-mic-placement",
+            "https://app.musictechguru.com/?quiz=quiz-topic-33",
             "Launch Mic Placement Simulator",
-            "https://app.musictechguru.com/?category=Tracksheet+Creator",
+            "https://app.musictechguru.com/?quiz=tracksheet_creator",
             "Open C1 Tracksheet Creator"
         )),
         ("posts", 12989, "Stranger Things Synth Breakdown", build_cta_banner(
@@ -372,7 +372,7 @@ def inject_contextual_banners():
             "Explore our 15-slide Synthesizer Interactive Deck and test your knowledge of VCO waveforms, ladder filters, and ADSR envelopes.",
             "https://www.musictechguru.com/homepage/a-level-music-technology/component-3-music-technology-in-context/the-synthesizer/",
             "Open The Synthesizer Interactive Hub",
-            "https://app.musictechguru.com/?quiz=synth-1",
+            "https://app.musictechguru.com/the-synthesizer-interactive-quiz",
             "Launch Interactive Synth Quiz"
         )),
     ]

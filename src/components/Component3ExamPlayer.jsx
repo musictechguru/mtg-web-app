@@ -5,6 +5,7 @@ import { CSS } from '@dnd-kit/utilities';
 import { GripVertical, ArrowDown, Lock, Download, Play } from 'lucide-react';
 import { useUser } from '../contexts/UserContext';
 import { track } from '../utils/analytics';
+import { evaluateEdexcelEssay } from '../utils/edexcelExaminerEngine';
 import SignalFlowLabelQuiz from './InteractiveQuizzes/SignalFlowLabelQuiz';
 import PianoRollQuiz from './InteractiveQuizzes/PianoRollQuiz';
 import PanningQuiz from './InteractiveQuizzes/PanningQuiz';
@@ -137,6 +138,7 @@ const Component3ExamPlayer = ({ examData: rawExamData, onExit }) => {
     // Parts the student has actually answered. Ordering parts start pre-shuffled and
     // would otherwise score marks before anyone touches them.
     const [answeredParts, setAnsweredParts] = useState({});
+    const [openRevisionHelp, setOpenRevisionHelp] = useState({});
 
     const [timeRemaining, setTimeRemaining] = useState(() => (examData?.timeLimitMinutes || 60) * 60);
     const [timerActive, setTimerActive] = useState(false);
@@ -216,6 +218,42 @@ const Component3ExamPlayer = ({ examData: rawExamData, onExit }) => {
                                 // Shuffle items for ordering
                                 const shuffled = [...p.items].sort(() => Math.random() - 0.5);
                                 next[key] = shuffled;
+                                modified = true;
+                            }
+                        } else if ((p.type === 'essay_short' || p.type === 'essay_long') && p.marks >= 8) {
+                            if (next[key] === undefined) {
+                                next[key] =
+                                    p.studentTemplate ||
+                                    (p.marks === 15
+                                        ? [
+                                              'Capture, Production Approach and Music Style:',
+                                              '• ',
+                                              '',
+                                              'Synthesis, Sequencing and Sampling:',
+                                              '• ',
+                                              '',
+                                              'EQ and Filtering:',
+                                              '• ',
+                                              '',
+                                              'Dynamic Processing:',
+                                              '• ',
+                                              '',
+                                              'Pan and Stereo Field:',
+                                              '• ',
+                                              '',
+                                              'Effects:',
+                                              '• '
+                                          ].join('\n')
+                                        : [
+                                              'Key Technical Features (AO3):',
+                                              '• ',
+                                              '',
+                                              'Musical Impact & Production Analysis (AO4):',
+                                              '• ',
+                                              '',
+                                              'Wider Impact & Conclusion (AO4):',
+                                              '• '
+                                          ].join('\n'));
                                 modified = true;
                             }
                         }
@@ -1021,7 +1059,373 @@ const Component3ExamPlayer = ({ examData: rawExamData, onExit }) => {
                                     </div>
                                 )}
                                 {(part.type === 'short_answer' || part.type === 'essay_short' || part.type === 'essay_long') && (
-                                    <textarea style={{ width: '100%', minHeight: '100px', background: '#222', border: '1px solid #444', color: 'white', padding: '15px' }} placeholder="Type answer..." value={answers[`${currentQuestion.id}_${part.id}`] || ''} onChange={(e) => handleAnswerChange(currentQuestion.id, part.id, e.target.value)} />
+                                    <div>
+                                        {part.youtubeId && part.marks < 20 && (
+                                            <div
+                                                style={{
+                                                    marginBottom: '18px',
+                                                    background: '#0B111E',
+                                                    border: '1px solid rgba(56, 189, 248, 0.3)',
+                                                    borderRadius: '10px',
+                                                    overflow: 'hidden',
+                                                    maxWidth: '640px'
+                                                }}
+                                            >
+                                                <div
+                                                    style={{
+                                                        background: 'rgba(56, 189, 248, 0.12)',
+                                                        padding: '8px 14px',
+                                                        fontSize: '0.84rem',
+                                                        fontWeight: 700,
+                                                        color: '#7DD3FC',
+                                                        display: 'flex',
+                                                        justifyContent: 'space-between',
+                                                        alignItems: 'center'
+                                                    }}
+                                                >
+                                                    <span>{part.videoTitle || 'Exam Reference Audio / Video'}</span>
+                                                    <a
+                                                        href={`https://www.youtube.com/watch?v=${part.youtubeId}`}
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                        style={{
+                                                            fontSize: '0.72rem',
+                                                            color: '#E0F2FE',
+                                                            background: 'rgba(15, 23, 42, 0.75)',
+                                                            padding: '3px 8px',
+                                                            borderRadius: '6px',
+                                                            textDecoration: 'none',
+                                                            border: '1px solid rgba(56, 189, 248, 0.4)'
+                                                        }}
+                                                    >
+                                                        ▶ Watch on YouTube ↗
+                                                    </a>
+                                                </div>
+                                                <div style={{ position: 'relative', paddingBottom: '56.25%', height: 0 }}>
+                                                    <iframe
+                                                        style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 'none' }}
+                                                        src={`https://www.youtube.com/embed/${part.youtubeId}`}
+                                                        title={part.videoTitle || 'Exam Reference'}
+                                                        referrerPolicy="strict-origin-when-cross-origin"
+                                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                        allowFullScreen
+                                                    />
+                                                </div>
+                                            </div>
+                                        )}
+
+                                        {(part.interactiveDecks?.length > 0 || part.marks >= 20) && (() => {
+                                            const examLower = `${examData.title || ''} ${currentQuestion.trackTitle || ''} ${part.text || ''}`.toLowerCase();
+                                            const defaultDecks = part.interactiveDecks || (
+                                                examLower.includes('funk')
+                                                    ? [{ title: 'Funk Production & Studio Techniques', url: '/interactive-slide-funk.html', quizUrl: '/funk-interactive-quiz.html' }]
+                                                    : examLower.includes('soul')
+                                                    ? [{ title: 'Soul & Motown Recording History', url: '/interactive-slide-soul.html', quizUrl: '/soul-interactive-quiz.html' }]
+                                                    : examLower.includes('reggae') || examLower.includes('dub')
+                                                    ? [{ title: 'Reggae & Dub Studio Techniques', url: '/interactive-slide-reggae.html', quizUrl: '/reggae-interactive-quiz.html' }]
+                                                    : examLower.includes('synth') || examLower.includes('drum sound') || examLower.includes('sh-101')
+                                                    ? [
+                                                          { title: 'The Synthesizer & Sound Synthesis', url: '/interactive-slide-the-synthesizer.html', quizUrl: '/the-synthesizer-interactive-quiz.html' },
+                                                          { title: 'Component 4 Producing & Analysing', url: '/interactive-slide-component-4.html', quizUrl: '/component-4-interactive-quiz.html' }
+                                                      ]
+                                                    : examLower.includes('rock') || examLower.includes('drum mic')
+                                                    ? [
+                                                          { title: 'Large-Scale Analogue & Multi-Mic Recording', url: '/interactive-slide-large-scale-analogue.html', quizUrl: '/large-scale-analogue-interactive-quiz.html' },
+                                                          { title: 'Rock Production History', url: '/interactive-slide-rock.html', quizUrl: '/rock-interactive-quiz.html' }
+                                                      ]
+                                                    : [
+                                                          { title: 'Component 4 Producing & Analysing', url: '/interactive-slide-component-4.html', quizUrl: '/component-4-interactive-quiz.html' },
+                                                          { title: 'Studio Effects & Processing', url: '/interactive-slide-studio-effects.html', quizUrl: '/reverb-interactive-quiz.html' }
+                                                      ]
+                                            );
+                                            const activeDeck = defaultDecks[0];
+                                            return (
+                                                <div
+                                                    style={{
+                                                        marginBottom: '18px',
+                                                        background: '#0B111E',
+                                                        border: '1px solid rgba(168, 85, 247, 0.35)',
+                                                        borderRadius: '12px',
+                                                        overflow: 'hidden'
+                                                    }}
+                                                >
+                                                    <div
+                                                        style={{
+                                                            background: 'rgba(168, 85, 247, 0.14)',
+                                                            padding: '10px 14px',
+                                                            display: 'flex',
+                                                            justifyContent: 'space-between',
+                                                            alignItems: 'center',
+                                                            flexWrap: 'wrap',
+                                                            gap: '8px'
+                                                        }}
+                                                    >
+                                                        <span style={{ fontSize: '0.84rem', fontWeight: 800, color: '#E9D5FF' }}>
+                                                            📊 Music Tech Guru Interactive Deck: {activeDeck.title}
+                                                        </span>
+                                                        <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+                                                            {activeDeck.quizUrl && (
+                                                                <a
+                                                                    href={activeDeck.quizUrl}
+                                                                    target="_blank"
+                                                                    rel="noopener noreferrer"
+                                                                    style={{
+                                                                        background: 'rgba(16, 185, 129, 0.16)',
+                                                                        color: '#6EE7B7',
+                                                                        border: '1px solid rgba(16, 185, 129, 0.4)',
+                                                                        padding: '4px 10px',
+                                                                        borderRadius: '6px',
+                                                                        fontSize: '0.74rem',
+                                                                        fontWeight: 700,
+                                                                        textDecoration: 'none'
+                                                                    }}
+                                                                >
+                                                                    🎯 Topic Quiz ↗
+                                                                </a>
+                                                            )}
+                                                            <a
+                                                                href={activeDeck.url}
+                                                                target="_blank"
+                                                                rel="noopener noreferrer"
+                                                                style={{
+                                                                    background: 'rgba(56, 189, 248, 0.16)',
+                                                                    color: '#7DD3FC',
+                                                                    border: '1px solid rgba(56, 189, 248, 0.4)',
+                                                                    padding: '4px 10px',
+                                                                    borderRadius: '6px',
+                                                                    fontSize: '0.74rem',
+                                                                    fontWeight: 700,
+                                                                    textDecoration: 'none'
+                                                                }}
+                                                            >
+                                                                ↗ Full Screen Deck
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                    <div style={{ width: '100%', height: '480px', borderTop: '1px solid rgba(168, 85, 247, 0.25)' }}>
+                                                        <iframe
+                                                            src={activeDeck.url}
+                                                            title={activeDeck.title}
+                                                            style={{ width: '100%', height: '100%', border: 'none', background: '#080e1a' }}
+                                                        />
+                                                    </div>
+                                                </div>
+                                            );
+                                        })()}
+
+                                        {part.marks >= 8 && (() => {
+                                            const partKey = `${currentQuestion.id}_${part.id}`;
+                                            const isHelpOpen = Boolean(openRevisionHelp[partKey]);
+                                            const guide = part.mtgRevisionGuide || {
+                                                summary: 'Music Tech Guru Revision Guidance for Extended Responses:',
+                                                keyPoints: [
+                                                    'Structure your response using clear sub-headings and full-sentence bullet points (•).',
+                                                    'In every bullet point, pair a specific technical observation (AO3) with its musical impact or reason for use (AO4).'
+                                                ],
+                                                links: [
+                                                    { label: '🌐 Component 3 Revision Hub (musictechguru.com)', url: 'https://www.musictechguru.com/edexcel-component-3-music-technology-revision/' },
+                                                    { label: '🌐 Component 4 Production Exam Revision Hub (musictechguru.com)', url: 'https://www.musictechguru.com/edexcel-component-4-production-exam-revision/' },
+                                                    { label: '🌐 Music Tech Toolbox: EQ, Compression & Synthesis (musictechguru.com)', url: 'https://www.musictechguru.com/homepage/free-music-production-tutorials/mt-toolbox-blk/' }
+                                                ]
+                                            };
+                                            const defaultTemplate =
+                                                part.studentTemplate ||
+                                                (part.marks === 15
+                                                    ? [
+                                                          'Capture, Production Approach and Music Style:',
+                                                          '• ',
+                                                          '',
+                                                          'Synthesis, Sequencing and Sampling:',
+                                                          '• ',
+                                                          '',
+                                                          'EQ and Filtering:',
+                                                          '• ',
+                                                          '',
+                                                          'Dynamic Processing:',
+                                                          '• ',
+                                                          '',
+                                                          'Pan and Stereo Field:',
+                                                          '• ',
+                                                          '',
+                                                          'Effects:',
+                                                          '• '
+                                                      ].join('\n')
+                                                    : [
+                                                          'Key Technical Features (AO3):',
+                                                          '• ',
+                                                          '',
+                                                          'Musical Impact & Production Analysis (AO4):',
+                                                          '• ',
+                                                          '',
+                                                          'Wider Impact & Conclusion (AO4):',
+                                                          '• '
+                                                      ].join('\n'));
+
+                                            return (
+                                                <div style={{ marginBottom: '12px' }}>
+                                                    <div
+                                                        style={{
+                                                            background: 'rgba(56, 189, 248, 0.07)',
+                                                            border: '1px solid rgba(56, 189, 248, 0.25)',
+                                                            borderRadius: '10px',
+                                                            padding: '12px 16px',
+                                                            marginBottom: '10px',
+                                                            fontSize: '0.86rem',
+                                                            color: '#E2E8F0',
+                                                            lineHeight: 1.55
+                                                        }}
+                                                    >
+                                                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '10px' }}>
+                                                            <div style={{ flex: 1, minWidth: '240px' }}>
+                                                                <strong style={{ color: '#38BDF8' }}>💡 How to answer this question:</strong> Use the sub-headings and bullet points (<code style={{ color: '#FBBF24' }}>•</code>) below. Write each bullet point as a <strong>full sentence</strong> stating <strong>what technique you hear</strong> and <strong>how it affects the sound or feel of the music</strong>.
+                                                            </div>
+                                                            <button
+                                                                type="button"
+                                                                onClick={() => setOpenRevisionHelp(prev => ({ ...prev, [partKey]: !prev[partKey] }))}
+                                                                style={{
+                                                                    background: isHelpOpen ? '#38BDF8' : 'rgba(56, 189, 248, 0.16)',
+                                                                    color: isHelpOpen ? '#0B111E' : '#7DD3FC',
+                                                                    border: '1px solid rgba(56, 189, 248, 0.4)',
+                                                                    padding: '6px 12px',
+                                                                    borderRadius: '8px',
+                                                                    fontSize: '0.78rem',
+                                                                    fontWeight: 700,
+                                                                    cursor: 'pointer',
+                                                                    whiteSpace: 'nowrap'
+                                                                }}
+                                                            >
+                                                                {isHelpOpen ? 'Hide Revision Notes' : '📚 Music Tech Guru Revision Help'}
+                                                            </button>
+                                                        </div>
+
+                                                        {isHelpOpen && (
+                                                            <div style={{ marginTop: '12px', paddingTop: '12px', borderTop: '1px solid rgba(56, 189, 248, 0.22)' }}>
+                                                                <div style={{ fontWeight: 700, color: '#7DD3FC', marginBottom: '6px', fontSize: '0.84rem' }}>
+                                                                    {guide.summary}
+                                                                </div>
+                                                                <ul style={{ margin: '0 0 12px 0', paddingLeft: '20px', fontSize: '0.82rem', color: '#E2E8F0', lineHeight: 1.55 }}>
+                                                                    {guide.keyPoints.map((pt, idx) => (
+                                                                        <li key={idx} style={{ marginBottom: '4px' }}>{pt}</li>
+                                                                    ))}
+                                                                </ul>
+                                                                {guide.links && guide.links.length > 0 && (
+                                                                    <div>
+                                                                        <div style={{ fontSize: '0.75rem', color: '#94A3B8', fontWeight: 700, marginBottom: '6px' }}>
+                                                                            Read More on Music Tech Guru:
+                                                                        </div>
+                                                                        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+                                                                            {guide.links.map((lnk, idx) => (
+                                                                                <a
+                                                                                    key={idx}
+                                                                                    href={lnk.url}
+                                                                                    target="_blank"
+                                                                                    rel="noopener noreferrer"
+                                                                                    style={{
+                                                                                        background: 'rgba(15, 23, 42, 0.85)',
+                                                                                        border: '1px solid rgba(56, 189, 248, 0.35)',
+                                                                                        color: '#38BDF8',
+                                                                                        padding: '5px 10px',
+                                                                                        borderRadius: '6px',
+                                                                                        fontSize: '0.76rem',
+                                                                                        fontWeight: 600,
+                                                                                        textDecoration: 'none'
+                                                                                    }}
+                                                                                >
+                                                                                    {lnk.label} ↗
+                                                                                </a>
+                                                                            ))}
+                                                                        </div>
+                                                                    </div>
+                                                                )}
+                                                            </div>
+                                                        )}
+                                                    </div>
+
+                                                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '8px' }}>
+                                                        <span style={{ fontSize: '0.82rem', fontWeight: 700, color: '#CBD5E1' }}>
+                                                            Your Exam Answer:
+                                                        </span>
+                                                        <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
+                                                            <button
+                                                                type="button"
+                                                                onClick={() => {
+                                                                    const prev = answers[partKey] || '';
+                                                                    handleAnswerChange(currentQuestion.id, part.id, prev ? `${prev.replace(/\s*$/, '')}\n• ` : '• ');
+                                                                }}
+                                                                style={{
+                                                                    background: 'rgba(255, 255, 255, 0.08)',
+                                                                    color: '#F8FAFC',
+                                                                    border: '1px solid rgba(255, 255, 255, 0.2)',
+                                                                    padding: '4px 10px',
+                                                                    borderRadius: '6px',
+                                                                    fontSize: '0.76rem',
+                                                                    fontWeight: 600,
+                                                                    cursor: 'pointer'
+                                                                }}
+                                                            >
+                                                                + Add Bullet (•)
+                                                            </button>
+                                                            <button
+                                                                type="button"
+                                                                onClick={() => handleAnswerChange(currentQuestion.id, part.id, defaultTemplate)}
+                                                                style={{
+                                                                    background: 'rgba(255, 255, 255, 0.05)',
+                                                                    color: '#94A3B8',
+                                                                    border: '1px solid rgba(255, 255, 255, 0.14)',
+                                                                    padding: '4px 10px',
+                                                                    borderRadius: '6px',
+                                                                    fontSize: '0.76rem',
+                                                                    fontWeight: 600,
+                                                                    cursor: 'pointer'
+                                                                }}
+                                                            >
+                                                                ↺ Reset Sub-Headings
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            );
+                                        })()}
+                                        <textarea
+                                            style={{
+                                                width: '100%',
+                                                minHeight: part.marks >= 10 ? '240px' : '110px',
+                                                background: '#18181b',
+                                                border: '1px solid #444',
+                                                borderRadius: '8px',
+                                                color: 'white',
+                                                padding: '15px',
+                                                lineHeight: 1.6,
+                                                fontSize: '0.95rem'
+                                            }}
+                                            placeholder={
+                                                part.marks >= 10
+                                                    ? "Click '📝 Insert Sub-Headings + Bullets' above, then write full-sentence bullet points under each sub-heading (press Enter to auto-insert the next • bullet)..."
+                                                    : 'Type your answer...'
+                                            }
+                                            value={answers[`${currentQuestion.id}_${part.id}`] || ''}
+                                            onChange={(e) => handleAnswerChange(currentQuestion.id, part.id, e.target.value)}
+                                            onKeyDown={(e) => {
+                                                if (e.key === 'Enter' && !e.shiftKey) {
+                                                    const currentVal = answers[`${currentQuestion.id}_${part.id}`] || '';
+                                                    const target = e.target;
+                                                    const cursor = target.selectionStart;
+                                                    const before = currentVal.slice(0, cursor);
+                                                    const after = currentVal.slice(target.selectionEnd);
+                                                    const currentLine = before.split('\n').pop() || '';
+                                                    if (/^\s*[•\-*]\s+\S+/.test(currentLine)) {
+                                                        e.preventDefault();
+                                                        const insert = '\n• ';
+                                                        const nextVal = before + insert + after;
+                                                        handleAnswerChange(currentQuestion.id, part.id, nextVal);
+                                                        requestAnimationFrame(() => {
+                                                            target.selectionStart = target.selectionEnd = cursor + insert.length;
+                                                        });
+                                                    }
+                                                }
+                                            }}
+                                        />
+                                    </div>
                                 )}
                                 {part.type === 'list' && (
                                     <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
@@ -1239,7 +1643,114 @@ const Component3ExamPlayer = ({ examData: rawExamData, onExit }) => {
                                                 </div>
                                             ) : ['short_answer', 'essay_short', 'essay_long', 'list', 'drawing', 'graph_drawing'].includes(part.type) ? (
                                                 <div>
-                                                    <label style={{ display: 'block', marginBottom: '10px', color: '#facc15', fontWeight: 'bold' }}>Self Mark This Question:</label>
+                                                    {['short_answer', 'essay_short', 'essay_long'].includes(part.type) && (
+                                                        <div style={{ marginBottom: '16px', padding: '16px', background: '#0B111E', border: '1px solid rgba(56, 189, 248, 0.35)', borderRadius: '10px' }}>
+                                                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '10px', marginBottom: '10px' }}>
+                                                                <span style={{ fontSize: '0.88rem', fontWeight: 800, color: '#38BDF8' }}>
+                                                                    🎓 Edexcel 9MT0 Automated AO3/AO4 Examiner &amp; Instant Feedback
+                                                                </span>
+                                                                <button
+                                                                    type="button"
+                                                                    onClick={() => {
+                                                                        const res = evaluateEdexcelEssay(answers[`${currentQuestion.id}_${part.id}`] || '', part);
+                                                                        handleManualScoreChange(currentQuestion.id, part.id, res.totalMarks);
+                                                                    }}
+                                                                    style={{
+                                                                        background: '#10B981',
+                                                                        color: '#0B111E',
+                                                                        border: 'none',
+                                                                        padding: '6px 14px',
+                                                                        borderRadius: '6px',
+                                                                        fontWeight: 800,
+                                                                        fontSize: '0.8rem',
+                                                                        cursor: 'pointer'
+                                                                    }}
+                                                                >
+                                                                    ⚡ Auto-Mark My Written Response
+                                                                </button>
+                                                            </div>
+                                                            {(() => {
+                                                                const writtenText = answers[`${currentQuestion.id}_${part.id}`] || '';
+                                                                if (!writtenText || writtenText.trim().length < 15) {
+                                                                    return (
+                                                                        <div style={{ fontSize: '0.8rem', color: '#94A3B8' }}>
+                                                                            Write your bullet points above and click <strong>⚡ Auto-Mark My Written Response</strong> to receive an instant AO3/AO4 score, Level 1–5 band, studio terminology check, and feed-forward targets.
+                                                                        </div>
+                                                                    );
+                                                                }
+                                                                const diag = evaluateEdexcelEssay(writtenText, part);
+                                                                return (
+                                                                    <div style={{ fontSize: '0.82rem', color: '#CBD5E1', lineHeight: 1.5, display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                                                                        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px', alignItems: 'center', background: 'rgba(56, 189, 248, 0.08)', padding: '8px 12px', borderRadius: '8px' }}>
+                                                                            <span style={{ fontWeight: 800, color: '#38BDF8', fontSize: '0.92rem' }}>
+                                                                                Awarded: {diag.totalMarks}/{part.marks}
+                                                                            </span>
+                                                                            <span>•</span>
+                                                                            <span style={{ color: '#7DD3FC', fontWeight: 700 }}>
+                                                                                AO3 (Technical): {diag.ao3Marks}/{diag.ao3Max}
+                                                                            </span>
+                                                                            <span>•</span>
+                                                                            <span style={{ color: '#FBBF24', fontWeight: 700 }}>
+                                                                                AO4 (Evaluation): {diag.ao4Marks}/{diag.ao4Max}
+                                                                            </span>
+                                                                            <span>•</span>
+                                                                            <span style={{ color: '#34D399', fontWeight: 800 }}>
+                                                                                Level {diag.levelBand}/{diag.maxBands} ({diag.bandRangeLabel}m • Grade {diag.grade})
+                                                                            </span>
+                                                                        </div>
+
+                                                                        {diag.matchedTerms && diag.matchedTerms.length > 0 && (
+                                                                            <div>
+                                                                                <div style={{ fontSize: '0.76rem', color: '#94A3B8', fontWeight: 700, marginBottom: '4px' }}>
+                                                                                    Verified 9MT0 Studio Terminology Detected ({diag.matchedTerms.length}):
+                                                                                </div>
+                                                                                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+                                                                                    {diag.matchedTerms.map((term, tIdx) => (
+                                                                                        <span key={tIdx} style={{ background: 'rgba(56, 189, 248, 0.14)', border: '1px solid rgba(56, 189, 248, 0.35)', color: '#7DD3FC', fontSize: '0.72rem', fontWeight: 600, padding: '2px 8px', borderRadius: '6px' }}>
+                                                                                            ✓ {term}
+                                                                                        </span>
+                                                                                    ))}
+                                                                                </div>
+                                                                            </div>
+                                                                        )}
+
+                                                                        <div>
+                                                                            <strong style={{ color: '#34D399' }}>Examiner Commentary: </strong>
+                                                                            {diag.examinerFeedback}
+                                                                        </div>
+
+                                                                        <div>
+                                                                            <strong style={{ color: '#FBBF24' }}>Feed-Forward Action (Next Band Target): </strong>
+                                                                            {diag.nextBandTarget}
+                                                                        </div>
+
+                                                                        {diag.matchedAnchors && diag.matchedAnchors.length > 0 && (
+                                                                            <div style={{ background: 'rgba(16, 185, 129, 0.08)', border: '1px solid rgba(16, 185, 129, 0.25)', padding: '8px 12px', borderRadius: '8px' }}>
+                                                                                <div style={{ fontWeight: 700, color: '#34D399', fontSize: '0.76rem', marginBottom: '4px' }}>
+                                                                                    ✓ Credited Mark-Scheme Points Found in Your Answer ({diag.matchedAnchors.length}):
+                                                                                </div>
+                                                                                <ul style={{ margin: 0, paddingLeft: '18px', fontSize: '0.76rem', color: '#D1FAE5' }}>
+                                                                                    {diag.matchedAnchors.map((pt, idx) => <li key={idx}>{pt}</li>)}
+                                                                                </ul>
+                                                                            </div>
+                                                                        )}
+
+                                                                        {diag.missingAnchors && diag.missingAnchors.length > 0 && (
+                                                                            <div style={{ background: 'rgba(245, 158, 11, 0.08)', border: '1px solid rgba(245, 158, 11, 0.25)', padding: '8px 12px', borderRadius: '8px' }}>
+                                                                                <div style={{ fontWeight: 700, color: '#FBBF24', fontSize: '0.76rem', marginBottom: '4px' }}>
+                                                                                    🎯 Missing Mark-Scheme Points to Add for Full Marks:
+                                                                                </div>
+                                                                                <ul style={{ margin: 0, paddingLeft: '18px', fontSize: '0.76rem', color: '#FDE68A' }}>
+                                                                                    {diag.missingAnchors.slice(0, 4).map((pt, idx) => <li key={idx}>{pt}</li>)}
+                                                                                </ul>
+                                                                            </div>
+                                                                        )}
+                                                                    </div>
+                                                                );
+                                                            })()}
+                                                        </div>
+                                                    )}
+                                                    <label style={{ display: 'block', marginBottom: '10px', color: '#facc15', fontWeight: 'bold' }}>Self / Teacher Mark Adjustment:</label>
                                                     <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
                                                         <input
                                                             type="range" min="0" max={part.marks}

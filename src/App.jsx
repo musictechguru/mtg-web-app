@@ -29,6 +29,7 @@ const TracksheetCreator = lazy(() => import('./components/TracksheetCreator/Trac
 const TimetableBuilder = lazy(() => import('./components/TimetableBuilder/TimetableBuilder'));
 const QuickFireDaily5 = lazy(() => import('./components/QuickFireDaily5'));
 const Component2Guide = lazy(() => import('./components/Component2Guide/Component2Guide'));
+const EdexcelExaminerPanel = lazy(() => import('./components/EdexcelExaminerPanel'));
 const WelcomeVideoModal = lazy(() => import('./components/WelcomeVideoModal'));
 const UpdatePasswordModal = lazy(() => import('./components/UpdatePasswordModal'));
 import GuruBuddy from './components/GuruBuddy/GuruBuddy';
@@ -132,6 +133,29 @@ const resolveItemFromLocation = (useDevSession = false) => {
     }
   }
 
+  // Support category param passed from external site links (maps to existing content)
+  const categoryParam = params.get('category');
+  if (!quizParam && categoryParam) {
+    const catLower = categoryParam.toLowerCase();
+    if (catLower.includes('component 2') || catLower.includes('component+2')) {
+      quizParam = 'component2_guide';
+    } else if (catLower.includes('tracksheet')) {
+      quizParam = 'tracksheet_creator';
+    } else if (catLower.includes('dictionary')) {
+      quizParam = 'dictionary_selector';
+    } else if (catLower.includes('component 3') || catLower.includes('component+3') || catLower.includes('mock')) {
+      quizParam = 'c3_funk';
+    } else if (catLower.includes('component 1') || catLower.includes('component+1')) {
+      quizParam = 'component1_guide';
+    }
+  }
+
+  // Map legacy external quiz aliases to existing content in MTG app
+  if (quizParam === 'interactive-mic-placement') quizParam = 'quiz-topic-33';
+  if (quizParam === 'synth-1') quizParam = 'quiz-topic-34';
+  if (quizParam === 'piano-roll-1') quizParam = 'quiz-topic-32';
+  if (quizParam === 'prod-tech-1') quizParam = 'quiz-topic-36';
+
   const quickfireParam = params.get('quickfire') || params.get('daily5');
   if (quickfireParam === 'true' || quizParam === 'quick_fire_daily5' || quizParam === 'quickfire' || quizParam === 'daily5') {
     return { id: 'quick_fire_daily5', type: 'quick_fire_daily5', title: 'Daily 5 Quick-Fire Drill' };
@@ -157,6 +181,9 @@ const resolveItemFromLocation = (useDevSession = false) => {
     }
     if (quizParam === 'timetable_builder' || quizParam === 'timetable' || quizParam === 'scheme_of_work') {
       return { type: 'timetable_builder', title: '16-Block Timetable & Scheme of Work' };
+    }
+    if (quizParam === 'extended_response_trainer' || quizParam === 'examiner' || quizParam === 'long_answer') {
+      return { id: 'extended_response_trainer', type: 'extended_response_trainer', title: 'C3 & C4 Extended Response Trainer (8m, 15m & 20m)' };
     }
     const found = findCourseItem(quizParam);
     if (found) return found;
@@ -588,12 +615,8 @@ const MainApp = () => {
     );
   }
 
-  if (!currentUser && !activeItem) {
-    return <LoginScreen onSelectPreview={handleItemSelect} onAuthenticated={handleAuthenticated} intent={authIntent} />;
-  }
-
   if (appView === 'teacher') {
-    if (!currentUser) {
+    if (!currentUser && !isDev) {
       return <LoginScreen onSelectPreview={handleItemSelect} onAuthenticated={handleAuthenticated} intent={authIntent} />;
     }
     return (
@@ -601,6 +624,10 @@ const MainApp = () => {
         <TeacherDashboard onBack={goToDashboard} />
       </Suspense>
     );
+  }
+
+  if (!currentUser && !activeItem) {
+    return <LoginScreen onSelectPreview={handleItemSelect} onAuthenticated={handleAuthenticated} intent={authIntent} />;
   }
 
   const layout = (
@@ -835,6 +862,25 @@ const MainApp = () => {
             }}
           >
             <span>🔥</span> Daily 5 Quick-Fire
+          </button>
+
+          <button
+            className={`nav-item ${activeItem?.type === 'extended_response_trainer' ? 'active' : ''}`}
+            onClick={() => {
+              handleItemSelectWrapper({ id: 'extended_response_trainer', type: 'extended_response_trainer', title: 'C3 & C4 Extended Response Trainer (8m, 15m & 20m)' });
+            }}
+            style={{ 
+              marginBottom: '10px', 
+              fontWeight: 'bold', 
+              color: '#34d399', 
+              border: '1px solid rgba(52, 211, 153, 0.45)',
+              background: activeItem?.type === 'extended_response_trainer' ? 'rgba(16, 185, 129, 0.15)' : 'transparent',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px'
+            }}
+          >
+            <span>📝</span> C3 &amp; C4 Essay Examiner
           </button>
 
           <button
@@ -1096,6 +1142,8 @@ const MainApp = () => {
           {activeItem ? (
             activeItem.type === 'quick_fire_daily5' ? (
               <QuickFireDaily5 onExit={goToDashboardWrapper} />
+            ) : activeItem.type === 'extended_response_trainer' ? (
+              <EdexcelExaminerPanel mode="student" onBack={goToDashboardWrapper} />
             ) : activeItem.type === 'timetable_builder' ? (
               <TimetableBuilder onNavigate={handleItemSelectWrapper} onBack={goToDashboardWrapper} />
             ) : activeItem.type === 'tracksheet_creator' ? (

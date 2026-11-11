@@ -1336,26 +1336,26 @@ def build_deck():
         ]
     ))
 
-    # Slide 2: Audio Editing, Phase Alignment & Timing Correction
+    # Slide 2: Audio Editing - Finding Mistakes & Copying Audio
     slides.append(make_slide(
-        2, "Section A &bull; Practical DAW Tasks", "Audio Editing: <span>Phase Alignment &amp; Timing Correction</span>",
-        "Phase coherence is the single most tested concept in Component 4 drum and multi-mic stems. Minor millisecond time arrival offsets produce destructive comb filtering and hollow low-end.",
-        "DAW Practical Demonstration", "Multi-Mic Drum Phase Alignment & Audio Manipulation", "6Tb2auJ52xI",
-        "A-Level Music Tech: Creative Audio Manipulation for Component 4", "Music Tech Guru Tutorial",
-        "🎧 Ear-Training Focus: Detecting Phase Cancellation",
-        "Listen to the kick drum and overheads in mono: when polarity is inverted (180°), low-end fundamental punch immediately drops out and the snare sounds thin and nasal.",
-        "Zoom into sample level on transient spikes: align the initial positive pressure peak of the snare top mic with the snare bottom and overhead left/right channels.",
-        ["Phase Inversion", "3:1 Rule", "Comb Filtering", "Sample-Level Zoom", "Flex Time", "Polarity Flip"],
-        "Phase Cancellation Physics", "Destructive Interference & Comb Filtering", "/images/phase_cancellation.svg", "Phase Cancellation Waveform Analysis",
-        "〰️ Waveform Physics: In-Phase vs. 180° Anti-Phase", "Constructive Summing (+6dB) vs. Complete Destructive Cancellation (-∞ dB)",
-        "The 3:1 Rule & Acoustic Time Offsets",
-        "Sound travels at 343 m/s (~1ms per foot). When a source is picked up by two mics at differing distances, the arrival time delay causes destructive phase cancellation at $f = 1 / (2 \times \Delta t)$ and all odd harmonics.",
-        "In Component 4, examiners require flipping polarity switches ($\varnothing$) on snare bottom and bass DI/mic tracks, or nudging audio stems by precise sample offsets to restore frequency fullness.",
-        "Exam Slicing & Elastic Audio Algorithms",
+        2, "Section A &bull; Practical DAW Tasks", "Audio Editing: <span>Finding Mistakes &amp; Copying Audio</span>",
+        "Audio editing in Component 4 tests practical track repair: listening to stems to locate performance mistakes or unwanted noises, and cleanly copying good audio to fix them.",
+        "DAW Practical Demonstration", "Question 1 Audio Editing & Stem Correction", "6Tb2auJ52xI",
+        "A-Level Music Tech: Audio Editing & Track Correction for Component 4", "Music Tech Guru Tutorial",
+        "🎧 Ear-Training Focus: Spotting Faults & Clean Splices",
+        "Solo the track and listen for faults: wrong notes, timing slips, bad vocal takes, or unwanted sounds like clicks, pops, count-in bleed, and mic thumps.",
+        "Audition your edit points in solo and in the full mix: make sure the copied section lands on beat with no timing drift, and check for clicks at region boundaries.",
+        ["Find Mistakes", "Copy & Paste", "Clean Take", "Zero-Crossing", "5–10ms Crossfade", "Trim Silence"],
+        "DAW Audio Editing Workflow", "Spotting Mistakes & Copying Clean Audio", "/images/audio_editing_mistake_fix.svg", "Finding Mistakes and Copying Audio in DAW",
+        "✂️ Non-Destructive DAW Editing: Spot, Copy &amp; Replace", "Identify Fault &bull; Locate Clean Section &bull; Snap to Grid &bull; 5–10ms Crossfade",
+        "The Two Golden Rules of Exam Audio Editing",
+        "Rule 1: Always find the mistake first. Component 4 stems feature deliberate errors—such as a guitarist playing a wrong chord in Verse 2, a missed vocal lyric, or a click track bleed. Pinpoint the exact bar and beat.",
+        "Rule 2: Copy from an identical clean bar earlier in the track (e.g. Verse 1). Paste it into place on the beat grid, and always apply a 5–10ms equal-power crossfade across the edit to prevent digital clicks or pops.",
+        "3 Steps to Full Marks in Editing Tasks",
         [
-            (1, "Slicing Mode", "Best for percussive drums; preserves sharp transient attacks without stretching artifacts."),
-            (2, "Rhythmic Mode", "Designed for percussion loops; controls decay tails with custom crossfade lengths."),
-            (3, "Monophonic Mode", "Specialized for solo vocals, woodwind, and bass; preserves formant structure during pitch edits.")
+            (1, "Identify the Mistake", "Solo the track and listen with headphones. Mark the start and end of the faulty section or unwanted noise."),
+            (2, "Copy Clean Audio", "Find the matching bar from another chorus or verse that was performed correctly, cut it cleanly, and copy it."),
+            (3, "Paste & Crossfade", "Snap the copied audio to the exact bar/beat, verify groove sync, and add 5–10ms crossfades at both boundaries.")
         ]
     ))
 
@@ -1405,26 +1405,26 @@ def build_deck():
         ]
     ))
 
-    # Slide 5: Stereo Imaging, Panning Laws & Mid/Side Processing
+    # Slide 5: Spatial Positioning - Stereo Panning (L/R) & Reverb Depth
     slides.append(make_slide(
-        5, "Section A &bull; Spatial Positioning", "Stereo Imaging: <span>Panning Laws &amp; Mid/Side Processing</span>",
-        "Component 4 requires understanding how pan pots work in DAW mixers, how mono center summing alters perceived loudness, and how Mid/Side matrixing decodes spatial balance.",
-        "Mixdown Masterclass", "How to Get Top Marks in A-Level Music Tech Mixing", "0amjhDBUn4M",
+        5, "Section A &bull; Spatial Positioning", "Spatial Positioning: <span>Stereo Panning (L/R) &amp; Reverb Depth</span>",
+        "Creating a balanced 3D mix in Component 4 relies on two fundamental tools: positioning instruments across the stereo field using Left and Right panning, and creating front-to-back depth with Reverb.",
+        "Mixdown Masterclass", "Spatial Positioning & Mix Placement", "0amjhDBUn4M",
         "How to Get Top Marks in A-Level Music Tech Mixing (Component 1 &amp; 4)", "Music Tech Guru Masterclass",
-        "🎧 Ear-Training Focus: Mono Fold-Down & Spatial Width",
-        "Sum the master output to mono: any out-of-phase stereo widening tricks (like the Haas effect) collapse completely, causing hollow cancellation.",
-        "Lead vocal, kick drum, snare drum, and bass guitar must remain dead center to anchor energy and preserve mono playback compatibility across mobile devices and club PAs.",
-        ["Pan Laws -3dB", "Mid/Side (M/S)", "Mono Compatibility", "Goniometer", "Haas Effect <35ms", "Phase Correlation"],
-        "Mid/Side Matrix & Phase Goniometer", "Sum (Mid) vs Difference (Side) Architecture", "/images/mastering_mid_side_processing_diagram.svg", "Mid/Side Matrix Processing Diagram",
-        "📐 Panning Laws (-3dB, -4.5dB, -6dB) & Mid/Side Matrix", "Mid = Left + Right (Mono Center) &bull; Side = Left - Right (Stereo Difference)",
-        "The Panning Law Dilemma",
-        "When a signal is panned dead center, it is reproduced by both left and right speakers. In acoustic space, two identical sound sources combine constructively, boosting SPL by up to +6dB.",
-        "DAW pan laws compensate for this center buildup by automatically attenuating center-panned signals by -3dB (equal power) or -4.5dB / -6dB (equal voltage), maintaining consistent perceived loudness across the stereo field.",
-        "Mid/Side EQ & Processing Rules",
+        "🎧 Ear-Training Focus: Stereo Soundstage & Front-to-Back Depth",
+        "Listen across the stereo field: ensure the center isn't cluttered. Spread rhythm guitars, keyboards, and backing vocals Left and Right to make space for the lead vocal.",
+        "Assess front-to-back depth: keep the lead vocal and bass dry and upfront. Use subtle reverb on rhythm parts to push them naturally into the room behind the focal elements.",
+        ["Stereo Panning", "Left & Right", "Center Anchor", "Reverb Depth", "Dry vs Wet", "Mono Compatibility"],
+        "DAW Spatial Architecture", "Left/Right Panning & Reverb Depth", "/images/spatial_positioning_panning_reverb.svg", "Spatial Positioning with Left Right Panning and Reverb Depth",
+        "🎛️ The 3D Mix Soundstage: Width (L/R) &amp; Depth (Reverb)", "Pan Pots (Left/Right) &bull; Center Anchor &bull; Dry vs. Wet Depth &bull; Aux Reverb Bus",
+        "Building a Clear, 3-Dimensional Soundstage",
+        "In Component 4 mixing, examiners listen for clarity, instrument separation, and a sense of physical space. Panning allows you to separate competing instruments—like double-tracked electric guitars panned hard Left and Right—so they don't fight with the center.",
+        "Depth is created using reverb. A completely dry sound sits directly in front of the listener's face (intimate and upfront), while adding reverb moves the instrument further back into the virtual room. Always keep low frequencies (kick and bass) dry to preserve punch.",
+        "The 3 Golden Rules of Spatial Placement",
         [
-            (1, "Mono Bass Safety", "Apply a high-pass filter to the Side channel at 100Hz to eliminate out-of-phase sub frequencies."),
-            (2, "Side Air Shelf", "Boost high shelf (>10kHz) exclusively on the Side channel to expand perceived air without muddying center vocal."),
-            (3, "Haas Danger", "Delaying one channel by 5–30ms creates width via the precedence effect, but causes severe mono comb filtering.")
+            (1, "Anchor the Center", "Keep Kick drum, Snare, Bass guitar, and Lead vocal panned dead center (0) for maximum punch, focus, and mono compatibility."),
+            (2, "Pan Left & Right", "Pan rhythm guitars, synth pads, hi-hats, and backing vocals across the stereo field to create width and avoid masking the lead vocal."),
+            (3, "Create Depth with Reverb", "Use dry levels to bring lead vocals and drums up front, while using an Aux reverb send to push rhythm and ambient elements back into the room.")
         ]
     ))
 
@@ -1522,49 +1522,84 @@ def build_deck():
 
     # Slide 10: Section B: Extended Response Production Essay Strategy
     table_content = """
-    <table class="matrix-table">
-      <thead>
-        <tr>
-          <th>Mark Band</th>
-          <th>AO3: Technical Knowledge &amp; Understanding (10 Marks)</th>
-          <th>AO4: Aural Discrimination &amp; Contextual Evaluation (10 Marks)</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><strong>Band 4 (High)<br>17–20 Marks</strong></td>
-          <td>Comprehensive, fully accurate technical terminology. In-depth understanding of signal chains, transducer physics, circuit topologies (tube/FET/VCA), acoustic wave physics, and digital DSP constraints.</td>
-          <td>Perceptive, critical comparative evaluation. Explains *why* specific techniques are chosen in the scenario; evaluates trade-offs (e.g., analog saturation vs digital headroom; close-mic isolation vs room spill).</td>
-        </tr>
-        <tr>
-          <td><strong>Band 3 (Mid-High)<br>13–16 Marks</strong></td>
-          <td>Good, mostly accurate technical knowledge. Clear explanation of equipment controls (threshold, Q, pre-delay, mic patterns), signal routing, and acoustic behavior with minor gaps.</td>
-          <td>Clear comparative evaluation with relevant supporting points. Analyzes sonic impact on mix balance, spatial imaging, and frequency clarity; links choices to musical context.</td>
-        </tr>
-        <tr>
-          <td><strong>Band 2 (Mid-Low)<br>7–12 Marks</strong></td>
-          <td>Basic technical knowledge with occasional inaccuracies. Describes common studio tools (compressor, EQ, reverb) but lacks depth on circuit behavior or mathematical relationships.</td>
-          <td>Descriptive rather than evaluative. Identifies what gear is used, but gives superficial explanations of *why*; limited critical comparison between production approaches.</td>
-        </tr>
-        <tr>
-          <td><strong>Band 1 (Low)<br>1–6 Marks</strong></td>
-          <td>Superficial or incorrect technical claims. Confuses fundamental concepts (e.g., mistaking phasing for panning; confusing bit depth with sample rate).</td>
-          <td>Minimal or no aural evaluation. Simply lists equipment without discussing sonic consequences or answering the specific scenario posed in Question 6.</td>
-        </tr>
-      </tbody>
-    </table>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 12px; border-bottom: 1px solid rgba(255,255,255,0.08);">
+      <!-- AO3 Card -->
+      <div style="background: rgba(0, 193, 240, 0.08); border: 1px solid rgba(0, 193, 240, 0.25); border-radius: 8px; padding: 10px 12px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+          <span style="color: #38bdf8; font-size: 11px; font-weight: 800; text-transform: uppercase;">AO3: Technical Facts</span>
+          <span style="background: #0284c7; color: #fff; font-size: 9.5px; font-weight: 800; padding: 2px 6px; border-radius: 4px;">10 MARKS</span>
+        </div>
+        <div style="color: #f8fafc; font-size: 12px; font-weight: 700; margin-bottom: 4px;">WHAT gear &amp; HOW it works</div>
+        <ul style="margin: 0; padding-left: 16px; font-size: 11px; color: #cbd5e1; line-height: 1.45;">
+          <li>Name specific microphones &amp; polar patterns</li>
+          <li>State mic distance, angle &amp; placement</li>
+          <li>Detail signal routing, EQ &amp; compression controls</li>
+        </ul>
+      </div>
+
+      <!-- AO4 Card -->
+      <div style="background: rgba(168, 85, 247, 0.08); border: 1px solid rgba(168, 85, 247, 0.25); border-radius: 8px; padding: 10px 12px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+          <span style="color: #c084fc; font-size: 11px; font-weight: 800; text-transform: uppercase;">AO4: Aural Evaluation</span>
+          <span style="background: #9333ea; color: #fff; font-size: 9.5px; font-weight: 800; padding: 2px 6px; border-radius: 4px;">10 MARKS</span>
+        </div>
+        <div style="color: #f8fafc; font-size: 12px; font-weight: 700; margin-bottom: 4px;">WHY you chose it &amp; HOW it sounds</div>
+        <ul style="margin: 0; padding-left: 16px; font-size: 11px; color: #cbd5e1; line-height: 1.45;">
+          <li>Describe sonic results (warmth, bleed, punch, room)</li>
+          <li>Compare the trade-offs of both options</li>
+          <li>Explain which method best suits the scenario</li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="padding: 10px 12px;">
+      <div style="color: #94a3b8; font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">
+        🎯 How Examiners Award the 20 Marks
+      </div>
+      <table class="matrix-table" style="font-size: 11px;">
+        <thead>
+          <tr>
+            <th style="width: 22%;">Mark Band</th>
+            <th style="width: 39%;">AO3: Technical Facts (10m)</th>
+            <th style="width: 39%;">AO4: Sonic Evaluation (10m)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong style="color: #34d399;">Band 4<br>(17–20)</strong></td>
+            <td>Accurate gear names, signal chain &amp; precise settings.</td>
+            <td>Directly compares both options; explains sonic trade-offs.</td>
+          </tr>
+          <tr>
+            <td><strong style="color: #38bdf8;">Band 3<br>(13–16)</strong></td>
+            <td>Good tech knowledge with mostly correct controls.</td>
+            <td>Clear reasons for choices; explains impact on the mix.</td>
+          </tr>
+          <tr>
+            <td><strong style="color: #facc15;">Band 2<br>(7–12)</strong></td>
+            <td>Basic gear descriptions; occasional technical errors.</td>
+            <td>Describes what was used, but rarely explains <em>why</em>.</td>
+          </tr>
+          <tr>
+            <td><strong style="color: #f87171;">Band 1<br>(1–6)</strong></td>
+            <td>Vague or incorrect claims; confuses basic concepts.</td>
+            <td>Just lists equipment with no evaluation or link to scenario.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
     """
 
     slides.append(make_table_slide(
         10, "Section B &bull; Extended Essay (20 Marks)", "Extended Response: <span>AO3 vs. AO4 Essay Strategy</span>",
-        "Question 6 is the 20-mark extended writing challenge. Success requires balancing rigorous technical theory (AO3) with perceptive critical evaluation of practical studio scenarios (AO4).",
+        "Question 6 is a 20-mark essay comparing two studio approaches. To get top marks, balance technical facts (AO3) with how they affect the sound (AO4).",
         "Exam Essay Masterclass", "How to Ace the 2022 Edexcel Music Tech Component 4 Exam!", "vejjQ0Lurrk",
         "How to Ace the 2022 Edexcel Music Tech Component 4 Exam!", "Music Tech Guru Tutorial",
-        "📝 Essay Blueprint: Structure for Maximum Marks",
-        "Paragraph 1: Scenario analysis, identifying acoustic limitations and technical goals. Paragraph 2–3: Direct comparison of contrasting hardware/DSP approaches (e.g., tube preamp vs transparent solid-state).",
-        "Paragraph 4: Signal routing, dynamic processing, and surgical EQ unmasking. Paragraph 5: Evaluative conclusion weighing sonic character against practical delivery constraints.",
-        ["20 Marks", "AO3 (10m)", "AO4 (10m)", "Scenario Analysis", "Acoustics vs DSP", "Level 4 Band"],
-        "Pearson Edexcel Mark Scheme Matrix", "AO3 (Technical Understanding) vs AO4 (Aural Evaluation) Rubric", table_content
+        "📝 Simple 4-Step Essay Structure",
+        "¶1 &amp; ¶2: State the scenario goal, then detail Approach A (gear, mic placement, DAW settings) and explain its sonic character.",
+        "¶3 &amp; ¶4: Detail Approach B, compare pros and cons directly against Approach A, and conclude with the best choice for the scenario.",
+        ["20 Marks", "AO3: Tech (10m)", "AO4: Sound (10m)", "Compare Both", "Justify Choice", "Simple 4-Step Plan"],
+        "Pearson Edexcel Mark Scheme Matrix", "AO3 (Technical Facts) vs AO4 (Sonic Evaluation)", table_content
     ))
 
     # Assemble HTML

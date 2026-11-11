@@ -42,15 +42,15 @@ QUIZ_QUESTIONS = [
         "expl": "Frequency masking occurs when two instruments compete for the exact same acoustic energy band. Complementary subtractive EQ carves out narrow frequency notches in one track where the other's fundamental peak resides, allowing both elements to coexist cleanly without muddy buildup."
     },
     {
-        "q": "In Mid/Side (M/S) stereo matrix decoding, which mathematical equation isolates the Side (stereo difference) channel from standard Left and Right audio stems?",
+        "q": "In Component 4 mixdown, how should stereo panning (Left/Right) and reverb be used together to create a balanced, clear 3D soundstage?",
         "options": [
-            "Side = Left × Right",
-            "Side = (Left - Right) / 2",
-            "Side = (Left + Right) / 2",
-            "Side = Left + Inverted Center"
+            "Pan all instruments dead center and apply heavy reverb to the mix bus to wash everything out",
+            "Anchor core low-end and lead elements (kick, snare, bass, lead vocal) dead center and relatively dry, while panning rhythm tracks Left/Right and using reverb to push ambient elements further back",
+            "Pan the bass guitar hard left and kick drum hard right to maximize stereo width",
+            "Keep all instruments completely dry and pan every track 100% hard left"
         ],
         "correct": 1,
-        "expl": "In Mid/Side processing, Mid is the sum of Left and Right (M = L + R), representing mono center information. Side is the difference between Left and Right (S = L - R), containing purely out-of-phase directional information. When summed to mono, the Side channel cancels to absolute zero (L - R + R - L = 0)."
+        "expl": "In professional mixdown and Component 4 assessment, the center of the stereo field is anchored by powerful low-frequency instruments (kick drum, bass guitar) and focal elements (lead vocal, snare) kept dry and upfront for impact. Panning rhythm instruments (guitars, keyboards) Left and Right creates width and clears central clutter, while reverb controls front-to-back depth—pushing accompaniment further back into the virtual room without masking the lead vocal."
     },
     {
         "q": "What acoustic problem does dialing in a 20ms to 40ms Pre-Delay setting on a vocal reverb auxiliary bus resolve?",
