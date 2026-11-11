@@ -886,10 +886,10 @@ export const EDEXCEL_RUBRIC_BANK = [
     youtubeId1: null,
     audioSrc1: '/Audio/rock_raw/drum_loop_clean.mp3',
     audioTitle1: 'Figure 1 Audio: Close-Miked Multitrack Drum Kit Stem',
-    audioSrc2: '/C3_Heavy_Rock_Audio/01 Whole Lotta Love.mp3',
-    audioTitle2: 'Figure 2 Audio: Late-1960s Classic Ambient Drum Sound (Led Zeppelin — Whole Lotta Love)',
-    youtubeId2: 'HQmmM_vhQ4I',
-    videoTitle2: 'Figure 2 Reference: Late-1960s Drum Sound (Led Zeppelin — Whole Lotta Love)',
+    audioSrc2: '/C3_Heavy_Rock_Audio/led_zeppelin_when_the_levee_breaks_intro.mp3',
+    audioTitle2: 'Figure 2 Audio: Late-1960s Classic Ambient Drum Sound (Led Zeppelin — When The Levee Breaks Intro)',
+    youtubeId2: 'JM3fodiK9rY',
+    videoTitle2: 'Figure 2 Reference: Classic Ambient Drum Sound (Led Zeppelin — When The Levee Breaks)',
     interactiveDecks: [
       {
         title: 'Interactive Deck: Large-Scale Analogue & Multi-Mic Recording',

@@ -614,10 +614,10 @@ const EdexcelExaminerPanel = ({
             </div>
           )}
 
-          {/* Embedded YouTube Track Player(s) (Used for Q5 Track Comparisons) */}
-          {activeRubric.youtubeId1 && (
+          {/* Embedded YouTube Track Player(s) (Used for Q5 Track Comparisons or Video References) */}
+          {(activeRubric.youtubeId1 || activeRubric.youtubeId2) && (
             <div style={{ marginBottom: '20px' }}>
-              {activeRubric.youtubeId2 ? (
+              {activeRubric.youtubeId1 && activeRubric.youtubeId2 ? (
                 <div
                   style={{
                     display: 'grid',
@@ -741,48 +741,57 @@ const EdexcelExaminerPanel = ({
                     maxWidth: '640px'
                   }}
                 >
-                  <div
-                    style={{
-                      background: 'rgba(56, 189, 248, 0.12)',
-                      padding: '8px 14px',
-                      fontSize: '0.84rem',
-                      fontWeight: 700,
-                      color: '#7DD3FC',
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
-                      gap: '8px'
-                    }}
-                  >
-                    <span>{activeRubric.videoTitle1 || 'Exam Audio Reference'}</span>
-                    <a
-                      href={`https://www.youtube.com/watch?v=${activeRubric.youtubeWatchId1 || activeRubric.youtubeId1}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      style={{
-                        fontSize: '0.72rem',
-                        color: '#E0F2FE',
-                        background: 'rgba(15, 23, 42, 0.75)',
-                        padding: '3px 8px',
-                        borderRadius: '6px',
-                        textDecoration: 'none',
-                        whiteSpace: 'nowrap',
-                        border: '1px solid rgba(56, 189, 248, 0.4)'
-                      }}
-                    >
-                      ▶ Watch on YouTube ↗
-                    </a>
-                  </div>
-                  <div style={{ position: 'relative', paddingBottom: '56.25%', height: 0 }}>
-                    <iframe
-                      style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 'none' }}
-                      src={`https://www.youtube.com/embed/${activeRubric.youtubeId1}`}
-                      title={activeRubric.videoTitle1 || 'Exam Reference'}
-                      referrerPolicy="strict-origin-when-cross-origin"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                    />
-                  </div>
+                  {(() => {
+                    const vidId = activeRubric.youtubeId1 || activeRubric.youtubeId2;
+                    const vidWatch = activeRubric.youtubeWatchId1 || vidId;
+                    const vidTitle = activeRubric.videoTitle1 || activeRubric.videoTitle2 || 'Exam Audio Reference';
+                    return (
+                      <>
+                        <div
+                          style={{
+                            background: 'rgba(56, 189, 248, 0.12)',
+                            padding: '8px 14px',
+                            fontSize: '0.84rem',
+                            fontWeight: 700,
+                            color: '#7DD3FC',
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            alignItems: 'center',
+                            gap: '8px'
+                          }}
+                        >
+                          <span>{vidTitle}</span>
+                          <a
+                            href={`https://www.youtube.com/watch?v=${vidWatch}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            style={{
+                              fontSize: '0.72rem',
+                              color: '#E0F2FE',
+                              background: 'rgba(15, 23, 42, 0.75)',
+                              padding: '3px 8px',
+                              borderRadius: '6px',
+                              textDecoration: 'none',
+                              whiteSpace: 'nowrap',
+                              border: '1px solid rgba(56, 189, 248, 0.4)'
+                            }}
+                          >
+                            ▶ Watch on YouTube ↗
+                          </a>
+                        </div>
+                        <div style={{ position: 'relative', paddingBottom: '56.25%', height: 0 }}>
+                          <iframe
+                            style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 'none' }}
+                            src={`https://www.youtube.com/embed/${vidId}`}
+                            title={vidTitle}
+                            referrerPolicy="strict-origin-when-cross-origin"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowFullScreen
+                          />
+                        </div>
+                      </>
+                    );
+                  })()}
                 </div>
               )}
             </div>
