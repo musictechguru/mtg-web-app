@@ -79,6 +79,78 @@ export const GURU_TIPS = [
       text: "Cut narrow to remove offending resonances; boost broad to enhance character.",
       author: "Bobby Owsinski"
     }
+  },
+  {
+    title: "Gated Reverb & SSL Talkback Architecture",
+    image: "images/reverb_gated_snare_diagram.svg",
+    explanation: "Pioneered by Hugh Padgham and Phil Collins at Townhouse Studios, the 1980s gated snare sound passes a live snare into an SSL console's heavily over-compressed Listen Mic (Talkback) circuit, fed into an AMS RMX16 or EMT plate reverb, and clamped down with an aggressive noise gate set with a short hold and instantaneous release. This creates massive explosive ambience that cuts off abruptly before interfering with subsequent rhythmic transients.",
+    quote: {
+      text: "The SSL listen mic compressor had no controls — it was violently all-or-nothing. That raw aggression defined the sound of 1980s drums.",
+      author: "Hugh Padgham"
+    }
+  },
+  {
+    title: "Mid-Side (M/S) Coincident Matrix",
+    image: "images/stereo_ms.png",
+    explanation: "The Mid-Side (M/S) technique uses a directional microphone (cardioid or omni) facing straight ahead as the Mid (M = L + R) channel and a figure-8 microphone oriented perpendicular at 90° as the Side (S = L - R) channel. Running the Side signal into a phase-inversion matrix generates stereo width. Because the side channels cancel completely when summed to mono (L + R), M/S guarantees 100% mono compatibility without phase cancellation.",
+    quote: {
+      text: "Mid-Side gives you variable stereo width in post-production with mathematically guaranteed mono compatibility.",
+      author: "Alan Blumlein"
+    }
+  },
+  {
+    title: "Bit Depth & Theoretical Dynamic Range",
+    image: "images/bit_depth_range.svg",
+    explanation: "Bit depth determines the number of discrete amplitude steps available to measure the instantaneous voltage of an analog waveform. Each bit of resolution provides approximately 6.02dB of dynamic range (SNR ≈ 6.02 · n + 1.76dB). Standard CD audio (16-bit) provides 96dB of dynamic range, whereas professional 24-bit recording provides 144dB, pushing the quantization noise floor well below the physical thermal noise of analog studio preamps.",
+    quote: {
+      text: "In 24-bit recording, your noise floor is so quiet that analogue preamp thermal hiss will dominate before quantization error ever does.",
+      author: "Bob Katz"
+    }
+  },
+  {
+    title: "Sidechain Compression & Low-End Ducking",
+    image: "images/sidechain_compression_diagram.png",
+    explanation: "In sidechain compression, the detector circuit (level sensor) is triggered by an external audio signal rather than the channel's own input. In modern EDM, pop, and hip-hop, routing the kick drum into the sidechain of the sub-bass compressor momentarily attenuates (ducks) the bass whenever the kick strikes. This prevents phase clash and low-frequency masking in the critical 40Hz–120Hz region, keeping the low end punchy and transparent.",
+    quote: {
+      text: "Sidechain ducking carves temporal space so kick and bass never have to fight for the same physical excursion of the subwoofer.",
+      author: "Electronic Music Producer"
+    }
+  },
+  {
+    title: "Microphone Off-Axis Coloration",
+    image: "images/mic_off_axis_coloration.svg",
+    explanation: "Microphone polar patterns are frequency-dependent. High frequencies are naturally more directional due to short wavelengths, meaning directional microphones exhibit significant high-frequency attenuation when sound arrives off-axis (e.g., at 60° to 90°). In multitrack drum recording, off-axis spill from cymbals into snare microphones can sound dull or phased, requiring careful capsule orientation to aim null angles directly at bleed sources.",
+    quote: {
+      text: "Never judge a microphone only by its on-axis response; in a live room, off-axis coloration colors your entire mix.",
+      author: "Recording Engineer"
+    }
+  },
+  {
+    title: "Noise Gate Hysteresis & Chatter Elimination",
+    image: "images/noise_gate_chattering_troubleshooting_diagram.svg",
+    explanation: "When an audio signal hovers close to a noise gate's threshold, the gate can rapidly oscillate between open and closed states, creating harsh flutter distortion known as 'chattering'. Professional gates and plugins feature Hysteresis (a separate Close threshold lower than the Open threshold, typically by 3dB to 6dB). Once opened by a transient, the gate stays open until the signal drops below the secondary lower threshold.",
+    quote: {
+      text: "Hysteresis gives the gate a decision buffer — without it, decaying tom rings turn into rapid machine-gun clicks.",
+      author: "Console Designer"
+    }
+  },
+  {
+    title: "Intersample Clipping & True Peak Limiting",
+    image: "images/mastering_true_peak_ceiling_streaming_diagram.svg",
+    explanation: "Standard sample-peak meters measure only discrete digital sample points. However, during digital-to-analog reconstruction or lossy MP3/AAC encoding, the reconstructed continuous analog curve can overshoot sample points by 1dB to 3dB. For modern streaming platforms (Spotify, Apple Music), mastering limiters must employ 4x or 8x oversampled True Peak detection with a ceiling set to -1.0 dBFS true peak.",
+    quote: {
+      text: "A mix that reads 0.0 dBFS on sample peaks can violently clip a listener's DAC once reconstructed in the real world.",
+      author: "Mastering Engineer"
+    }
+  },
+  {
+    title: "Axial Room Modes & Bass Build-Up",
+    image: "images/studio_room_modes_standing_wave.png",
+    explanation: "Standing waves occur in enclosed rectangular spaces when the distance between parallel walls matches integer multiples of half-wavelengths (λ/2 = L). These room modes create severe acoustic peaks (+15dB) and nulls (-30dB) below 300Hz. Because boundary corners represent high-pressure zones where all three room dimensions converge, installing dense porous or membrane bass traps in corners provides the most efficient low-frequency absorption.",
+    quote: {
+      text: "You cannot EQ away a room null: doubling the amplifier power into an acoustic cancellation simply doubles the cancellation.",
+      author: "Acoustician"
+    }
   }
 ];
 
@@ -598,7 +670,138 @@ export function generateGuruMissions(userProgress = {}, courseData = {}, student
   }
 
   // ==========================================
-  // 7. APPLY STUDENT FOCUS BIAS
+  // 7. EXTENDED RESPONSE ESSAY EXAMINER (35 MARKS)
+  // ==========================================
+  const hasEvaluatedC3Q6 = hasTakenQuiz('vocal_production') || hasTakenQuiz('c3_q6');
+  const hasEvaluatedC3Q5 = hasTakenQuiz('liquid_spirit') || hasTakenQuiz('c3_q5');
+  const hasEvaluatedC4Q6 = hasTakenQuiz('drum_synth') || hasTakenQuiz('c4_q6');
+
+  // A. Component 3 Q6 (20 Marks) Vocal Production Evolution
+  if (!hasEvaluatedC3Q6 || studentFocus === 'essays') {
+    missions.push({
+      id: 'essay_c3_q6_vocal',
+      typeGroup: 'essays',
+      priority: isMay ? 122 : 92,
+      category: 'C3 Essay Examiner',
+      badge: '20 Marks • Grade A* Model',
+      speech: 'Component 3 Question 6 is worth 20 marks! Have you practiced evaluating vocal production from analog tape and chambers to modern Melodyne and Auto-Tune?',
+      title: 'C3 Q6: Vocal Production (Tape to Auto-Tune)',
+      description: 'Evaluate technical developments in vocal tracking, comping, serial compression, and pitch correction from the 1960s to present day.',
+      actionLabel: 'Write 20m Vocal Essay ✍️',
+      targetItem: {
+        id: 'c3_extended_response_examiner',
+        type: 'extended_response_trainer',
+        rubricId: 'c3_q6_vocal_production_20m',
+        targetComponent: 'c3',
+        title: 'Component 3 Q6: Vocal Production Evolution (20 Marks)'
+      }
+    });
+  }
+
+  // B. Component 3 Q5 (15 Marks) Comparative Analysis
+  if (!hasEvaluatedC3Q5 || studentFocus === 'essays') {
+    missions.push({
+      id: 'essay_c3_q5_comparison',
+      typeGroup: 'essays',
+      priority: isMay ? 118 : 90,
+      category: 'C3 Comparative Analysis',
+      badge: '15 Marks • AO3 vs AO4',
+      speech: 'Component 3 Question 5 compares two recordings for 15 marks. Master linking production technology (AO3) directly to musical consequence (AO4)!',
+      title: 'C3 Q5: Comparative Analysis (15 Marks)',
+      description: 'Compare 1960s acoustic jazz tracking with modern hybrid production in Gregory Porter\'s Liquid Spirit with interactive examiner rubric.',
+      actionLabel: 'Write 15m Comparison 🎧',
+      targetItem: {
+        id: 'c3_extended_response_examiner',
+        type: 'extended_response_trainer',
+        rubricId: 'c3_q5_liquid_spirit_15m',
+        targetComponent: 'c3',
+        title: 'Component 3 Q5: 15-Mark Comparison Essay Examiner'
+      }
+    });
+  }
+
+  // C. Component 4 Q6 (20 Marks) Technical Evaluation
+  if (!hasEvaluatedC4Q6 || studentFocus === 'essays') {
+    missions.push({
+      id: 'essay_c4_q6_drum_synth',
+      typeGroup: 'essays',
+      priority: isMay ? 116 : 88,
+      category: 'C4 Technical Evaluation',
+      badge: '20 Marks • Drum Synthesis',
+      speech: 'Component 4 Question 6 requires evaluating DAW synthesis and dynamic processing for 20 marks. Test your knowledge against our official Edexcel examiner rubric!',
+      title: 'C4 Q6: Subtractive Drum Synthesis (20 Marks)',
+      description: 'Evaluate how subtractive oscillators, pitch envelopes, noise generators, and transient shaping synthesize electronic drums in the DAW.',
+      actionLabel: 'Write C4 Evaluation 🎛️',
+      targetItem: {
+        id: 'c4_extended_response_examiner',
+        type: 'extended_response_trainer',
+        rubricId: 'c4_q6_drum_synth_2025_20m',
+        targetComponent: 'c4',
+        title: 'Component 4 Q6: Drum Synthesis & Processing (20 Marks)'
+      }
+    });
+  }
+
+  // D. Component 3 Q6 (20 Marks) Electric Guitar Evolution
+  if (studentFocus === 'essays') {
+    missions.push({
+      id: 'essay_c3_q6_guitar',
+      typeGroup: 'essays',
+      priority: isMay ? 112 : 86,
+      category: 'C3 Essay Examiner',
+      badge: '20 Marks • Guitar & Amplifiers',
+      speech: 'Can you analyze the evolution from hollow-body jazz guitars to high-gain tube stacks and digital IR amp emulations? Tackle this 20-mark essay challenge!',
+      title: 'C3 Q6: Electric Guitar Evolution (20 Marks)',
+      description: 'Evaluate pickups, tube vs solid-state amplification, stompboxes, and digital impulse response modeling.',
+      actionLabel: 'Write Guitar Essay 🎸',
+      targetItem: {
+        id: 'c3_extended_response_examiner',
+        type: 'extended_response_trainer',
+        rubricId: 'c3_q6_guitar_evolution_20m',
+        targetComponent: 'c3',
+        title: 'Component 3 Q6: Electric Guitar Evolution (20 Marks)'
+      }
+    });
+  }
+
+  // ==========================================
+  // 8. PRACTICAL INTERACTIVE LABS (STAGE 2 & STAGE 3)
+  // ==========================================
+  const hasDonePractical = hasTakenQuiz('practical') || hasTakenQuiz('signal_chain') || hasTakenQuiz('parameter') || hasTakenQuiz('waveform_id');
+  if (!hasDonePractical) {
+    missions.push({
+      id: 'interactive_practical_lab',
+      typeGroup: 'gaps',
+      priority: 87,
+      category: 'Hands-On Practical Lab',
+      badge: 'Stage 2 & 3 Interactive',
+      speech: 'Have you tested your hands-on studio skills? Try our drag-and-drop signal chains, parameter matching, and waveform identification tasks!',
+      title: 'Practical Audio Lab: Dynamic Processing',
+      description: 'Build complete compression chains, match threshold and ratio settings to audio stems, and identify phase issues with tactile controls.',
+      actionLabel: 'Launch Practical Lab 🎛️',
+      targetItem: findItem('quiz-topic-5_p1') || { id: 'quiz-topic-5_p1', type: 'lp_quiz', title: 'Topic 5: Dynamic Processing (Part 1)' }
+    });
+  }
+
+  // Stage 3 Deep Dive Interactive Tasks
+  const hasDoneStage3Interactive = hasTakenQuiz('st3_') || hasTakenQuiz('signal-flow') || hasTakenQuiz('hotspot');
+  if (!hasDoneStage3Interactive) {
+    missions.push({
+      id: 'stage3_interactive_lab',
+      typeGroup: 'gaps',
+      priority: 84,
+      category: 'Stage 3 Practical Lab',
+      badge: 'Interactive Workflows',
+      speech: 'Stage 3 features interactive signal flow diagrams, stereo panning placement, and audio frequency hotspots. Plug your practical workflow gaps!',
+      title: 'Stage 3: EQ & Stereo Deep Dive',
+      description: 'Interact with visual parametric EQ curves, identify resonant frequency hotspots, and practice stereo soundstage placement.',
+      actionLabel: 'Open Stage 3 Lab 🎚️',
+      targetItem: findItem('st3_eq_stereo_deep_dive') || { id: 'st3_eq_stereo_deep_dive', type: 'lp_quiz', title: 'Stage 3: EQ & Stereo Deep Dive' }
+    });
+  }
+
+  // ==========================================
+  // 9. APPLY STUDENT FOCUS BIAS
   // ==========================================
   missions.forEach(m => {
     if (studentFocus === 'legend' && m.typeGroup === 'legend') {
@@ -610,6 +813,8 @@ export function generateGuruMissions(userProgress = {}, courseData = {}, student
     } else if (studentFocus === 'gaps' && m.typeGroup === 'gaps') {
       m.priority += 50;
     } else if (studentFocus === 'essays' && m.typeGroup === 'essays') {
+      m.priority += 50;
+    } else if (studentFocus === 'comparisons' && (m.typeGroup === 'comparisons' || m.id.includes('comparison'))) {
       m.priority += 50;
     }
   });
