@@ -50,6 +50,7 @@ const EdexcelExaminerPanel = ({
   );
   const [selectedModelBand, setSelectedModelBand] = useState('grade_A_star');
   const [savedNotice, setSavedNotice] = useState(false);
+  const [expandedImage, setExpandedImage] = useState(null);
 
   // Teacher-only School Site License Drawer state
   const [showSchoolLicenseDrawer, setShowSchoolLicenseDrawer] = useState(false);
@@ -394,6 +395,153 @@ const EdexcelExaminerPanel = ({
               )}
             </div>
           </div>
+
+          {/* Reference Figures (Figure 1 & Figure 2 Visual Diagrams) */}
+          {(activeRubric.image1 || activeRubric.image2) && (
+            <div style={{ marginBottom: '20px' }}>
+              {activeRubric.image2 ? (
+                <div
+                  style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+                    gap: '14px'
+                  }}
+                >
+                  <div
+                    style={{
+                      background: '#0B111E',
+                      border: '1px solid rgba(56, 189, 248, 0.35)',
+                      borderRadius: '10px',
+                      padding: '12px 14px'
+                    }}
+                  >
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
+                      <span style={{ fontSize: '0.84rem', fontWeight: 800, color: '#7DD3FC' }}>
+                        📷 {activeRubric.imageTitle1 || 'Figure 1'}
+                      </span>
+                      <span style={{ fontSize: '0.7rem', color: '#38BDF8', background: 'rgba(56, 189, 248, 0.12)', padding: '2px 6px', borderRadius: '4px' }}>
+                        🔍 Click to Zoom
+                      </span>
+                    </div>
+                    <div
+                      style={{
+                        borderRadius: '8px',
+                        overflow: 'hidden',
+                        cursor: 'pointer',
+                        background: '#020617',
+                        border: '1px solid rgba(255, 255, 255, 0.08)',
+                        height: '200px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center'
+                      }}
+                      onClick={() => setExpandedImage(activeRubric.image1)}
+                      title="Click to view full-resolution image"
+                    >
+                      <img
+                        src={activeRubric.image1}
+                        alt={activeRubric.imageTitle1 || 'Figure 1'}
+                        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                      />
+                    </div>
+                    {activeRubric.imageCaption1 && (
+                      <div style={{ fontSize: '0.74rem', color: '#94A3B8', marginTop: '6px', lineHeight: 1.4 }}>
+                        {activeRubric.imageCaption1}
+                      </div>
+                    )}
+                  </div>
+
+                  <div
+                    style={{
+                      background: '#0B111E',
+                      border: '1px solid rgba(244, 63, 94, 0.35)',
+                      borderRadius: '10px',
+                      padding: '12px 14px'
+                    }}
+                  >
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
+                      <span style={{ fontSize: '0.84rem', fontWeight: 800, color: '#FDA4AF' }}>
+                        📷 {activeRubric.imageTitle2 || 'Figure 2'}
+                      </span>
+                      <span style={{ fontSize: '0.7rem', color: '#F43F5E', background: 'rgba(244, 63, 94, 0.12)', padding: '2px 6px', borderRadius: '4px' }}>
+                        🔍 Click to Zoom
+                      </span>
+                    </div>
+                    <div
+                      style={{
+                        borderRadius: '8px',
+                        overflow: 'hidden',
+                        cursor: 'pointer',
+                        background: '#020617',
+                        border: '1px solid rgba(255, 255, 255, 0.08)',
+                        height: '200px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center'
+                      }}
+                      onClick={() => setExpandedImage(activeRubric.image2)}
+                      title="Click to view full-resolution image"
+                    >
+                      <img
+                        src={activeRubric.image2}
+                        alt={activeRubric.imageTitle2 || 'Figure 2'}
+                        style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+                      />
+                    </div>
+                    {activeRubric.imageCaption2 && (
+                      <div style={{ fontSize: '0.74rem', color: '#94A3B8', marginTop: '6px', lineHeight: 1.4 }}>
+                        {activeRubric.imageCaption2}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              ) : (
+                <div
+                  style={{
+                    background: '#0B111E',
+                    border: '1px solid rgba(56, 189, 248, 0.35)',
+                    borderRadius: '10px',
+                    padding: '12px 16px'
+                  }}
+                >
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
+                    <span style={{ fontSize: '0.84rem', fontWeight: 800, color: '#7DD3FC' }}>
+                      📷 {activeRubric.imageTitle1 || 'Figure 1'}
+                    </span>
+                    <span style={{ fontSize: '0.7rem', color: '#38BDF8', background: 'rgba(56, 189, 248, 0.12)', padding: '2px 6px', borderRadius: '4px' }}>
+                      🔍 Click to Zoom
+                    </span>
+                  </div>
+                  <div
+                    style={{
+                      borderRadius: '8px',
+                      overflow: 'hidden',
+                      cursor: 'pointer',
+                      background: '#020617',
+                      border: '1px solid rgba(255, 255, 255, 0.08)',
+                      maxHeight: '260px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center'
+                    }}
+                    onClick={() => setExpandedImage(activeRubric.image1)}
+                    title="Click to view full-resolution image"
+                  >
+                    <img
+                      src={activeRubric.image1}
+                      alt={activeRubric.imageTitle1 || 'Figure 1'}
+                      style={{ width: '100%', height: 'auto', maxHeight: '260px', objectFit: 'contain' }}
+                    />
+                  </div>
+                  {activeRubric.imageCaption1 && (
+                    <div style={{ fontSize: '0.76rem', color: '#94A3B8', marginTop: '6px', lineHeight: 1.4 }}>
+                      {activeRubric.imageCaption1}
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+          )}
 
           {/* Audio Reference Player(s) */}
           {activeRubric.audioSrc1 && (
@@ -1236,6 +1384,73 @@ const EdexcelExaminerPanel = ({
                 : `Save Score (${evaluation.totalMarks}/${evaluation.maxMarks}) to ${activeCandidate?.full_name || 'Candidate'}'s Gradebook`}
             </button>
           )}
+        </div>
+      )}
+
+      {/* Lightbox Modal for Expanded Figure / Image */}
+      {expandedImage && (
+        <div
+          onClick={() => setExpandedImage(null)}
+          style={{
+            position: 'fixed',
+            inset: 0,
+            zIndex: 9999,
+            background: 'rgba(0, 0, 0, 0.88)',
+            backdropFilter: 'blur(8px)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '20px'
+          }}
+        >
+          <div
+            onClick={e => e.stopPropagation()}
+            style={{
+              position: 'relative',
+              maxWidth: '92vw',
+              maxHeight: '90vh',
+              background: '#0B111E',
+              border: '1px solid rgba(56, 189, 248, 0.4)',
+              borderRadius: '12px',
+              padding: '12px',
+              boxShadow: '0 20px 50px rgba(0, 0, 0, 0.8)'
+            }}
+          >
+            <button
+              type="button"
+              onClick={() => setExpandedImage(null)}
+              style={{
+                position: 'absolute',
+                top: '12px',
+                right: '12px',
+                background: 'rgba(255, 255, 255, 0.15)',
+                color: '#fff',
+                border: 'none',
+                width: '32px',
+                height: '32px',
+                borderRadius: '50%',
+                fontSize: '1rem',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                zIndex: 2
+              }}
+            >
+              ✕
+            </button>
+            <img
+              src={expandedImage}
+              alt="Expanded Audio Engineering Diagram"
+              style={{
+                maxWidth: '88vw',
+                maxHeight: '82vh',
+                display: 'block',
+                borderRadius: '8px',
+                objectFit: 'contain'
+              }}
+            />
+          </div>
         </div>
       )}
     </section>
