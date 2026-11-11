@@ -166,11 +166,11 @@ export const EDEXCEL_RUBRIC_BANK = [
     },
     officialExaminerNotes: {
       level5:
-        'Official Edexcel Examiner Comment (Level 5 • 13–15m): Clear sub-headings and full-sentence bullet points directly contrast how the original jazz band was captured (room ambience, acoustic instruments, light compression) against the electronic DAW production of the remix (vocal sampling, synth bass, side-chain compression pumping, and pitch-shifted autopanned delay at 1:22).',
+        'Senior Examiner Commentary (Level 5 • 13–15m): Clear sub-headings and full-sentence bullet points directly contrast how the original jazz band was captured (room ambience, acoustic instruments, light compression) against the electronic DAW production of the remix (vocal sampling, synth bass, side-chain compression pumping, and pitch-shifted autopanned delay at 1:22).',
       level3:
-        'Official Edexcel Examiner Comment (Level 3 • 7–9m): This candidate has separated the Original and Remix into two separate bullet lists so direct comparisons are less explicit. Clear references are made to reverb (1.5s) and compression settings, though the musical effect could be explained in greater depth.',
+        'Senior Examiner Commentary (Level 3 • 7–9m): This candidate has separated the Original and Remix into two separate bullet lists so direct comparisons are less explicit. Clear references are made to reverb (1.5s) and compression settings, though the musical effect could be explained in greater depth.',
       level1:
-        'Official Edexcel Examiner Comment (Level 1 • 1–3m): The bullet points state that there is a difference in live vs MIDI instrumentation, but comparisons between the two versions are limited almost entirely to the bass.'
+        'Senior Examiner Commentary (Level 1 • 1–3m): The bullet points state that there is a difference in live vs MIDI instrumentation, but comparisons between the two versions are limited almost entirely to the bass.'
     }
   },
   {
@@ -184,8 +184,9 @@ export const EDEXCEL_RUBRIC_BANK = [
     ao3Max: 5,
     ao4Max: 15,
     youtubeId1: null,
-    audioSrc1: '/Audio/edexcel_past_papers/c3_2023_track7_britney_oops.mp3',
-    audioTitle1: 'Track 7: Britney Spears — Oops!... I Did It Again (Official 2023 9MT0/03 Exam Audio)',
+    youtubeId1: 'C-u5WLJ9Yk4',
+    audioSrc1: null,
+    audioTitle1: 'Reference Video: Britney Spears — Oops!... I Did It Again (1999)',
     interactiveDecks: [
       {
         title: 'Interactive Deck: Commercial Pop & DAW Vocal Production',
@@ -304,11 +305,11 @@ export const EDEXCEL_RUBRIC_BANK = [
     },
     officialExaminerNotes: {
       level5:
-        'Official Edexcel Examiner Comment (Level 5 • 17–20m): Organized under clear sub-headings with full-sentence bullet points covering DAW vocal sampling (0:34), telephone EQ (0:41), multitrack overdubbing, and Auto-Tune. Evaluates the wider post-1999 impact on bedroom producers, the loss of human imperfection, and hybrid studio integration (SSL desk + Logic/Pro Tools).',
+        'Senior Examiner Commentary (Level 5 • 17–20m): Organized under clear sub-headings with full-sentence bullet points covering DAW vocal sampling (0:34), telephone EQ (0:41), multitrack overdubbing, and Auto-Tune. Evaluates the wider post-1999 impact on bedroom producers, the loss of human imperfection, and hybrid studio integration (SSL desk + Logic/Pro Tools).',
       level3:
-        'Official Edexcel Examiner Comment (Level 3 • 9–12m): Clear bulleted points explaining vocal sampling, L/R breath panning, and how a telephone effect is created from a high and low pass filter. However, it needs deeper evaluation of the wider impact of DAWs on the music industry since 1999.',
+        'Senior Examiner Commentary (Level 3 • 9–12m): Clear bulleted points explaining vocal sampling, L/R breath panning, and how a telephone effect is created from a high and low pass filter. However, it needs deeper evaluation of the wider impact of DAWs on the music industry since 1999.',
       level1:
-        'Official Edexcel Examiner Comment (Level 1 • 1–4m): Brief bullet points mention creative EQ ("mic receiver") and backing vocal panning, but no wider DAW techniques or historical context are discussed.'
+        'Senior Examiner Commentary (Level 1 • 1–4m): Brief bullet points mention creative EQ ("mic receiver") and backing vocal panning, but no wider DAW techniques or historical context are discussed.'
     }
   },
   {
@@ -321,10 +322,10 @@ export const EDEXCEL_RUBRIC_BANK = [
     maxMarks: 15,
     ao3Max: 5,
     ao4Max: 10,
-    audioSrc1: '/Audio/edexcel_past_papers/c3_2025_track5_dean_martin_sway.mp3',
-    audioTitle1: 'Track 5: Dean Martin — Sway (1954 Official 9MT0/03 Exam Audio)',
-    audioSrc2: '/Audio/edexcel_past_papers/c3_2025_track6_shaft_sway.mp3',
-    audioTitle2: 'Track 6: Shaft — (Mucho Mambo) Sway (1999 Official 9MT0/03 Exam Audio)',
+    audioSrc1: null,
+    audioTitle1: 'Reference Video: Dean Martin — Sway (1954)',
+    audioSrc2: null,
+    audioTitle2: 'Reference Video: Shaft — (Mucho Mambo) Sway (1999)',
     youtubeId1: 'DXq-XdyGehk',
     videoTitle1: 'Track 5: Dean Martin — Sway (1954)',
     youtubeId2: 'BR03WCEEvSs',
@@ -464,8 +465,8 @@ export const EDEXCEL_RUBRIC_BANK = [
     ao3Max: 5,
     ao4Max: 15,
     youtubeId1: null,
-    audioSrc1: '/Audio/edexcel_past_papers/c4_2025_q6_drum_synth.mp3',
-    audioTitle1: 'Q6.wav — Official 2025 9MT0/04 Analogue Style Drum Synthesis Audio (Bars 1–10)',
+    audioSrc1: '/C4_EDM_Audio_Assets/C4_EDM_Drum_Stem_EXAMPLE.mp3',
+    audioTitle1: 'Music Tech Guru Synthesised Drum Stem (Subtractive 808/909 Stems)',
     interactiveDecks: [
       {
         title: 'Interactive Deck: The Synthesizer & Sound Synthesis',
@@ -744,8 +745,8 @@ export const EDEXCEL_RUBRIC_BANK = [
     ao3Max: 5,
     ao4Max: 15,
     youtubeId1: null,
-    audioSrc1: '/Audio/edexcel_past_papers/c4_2024_q6_sh101_bass.mp3',
-    audioTitle1: 'bass.wav — Official 2024 9MT0/04 Monophonic Synth Bass Audio',
+    audioSrc1: '/C4_SPOP_Assets/C4_SPOP_Bass_Example.mp3',
+    audioTitle1: 'Music Tech Guru Monophonic Analogue Synth Bass Stem',
     interactiveDecks: [
       {
         title: 'Interactive Deck: The Synthesizer & Sound Synthesis',
@@ -875,10 +876,11 @@ export const EDEXCEL_RUBRIC_BANK = [
     ao3Max: 5,
     ao4Max: 15,
     youtubeId1: null,
-    audioSrc1: '/Audio/edexcel_past_papers/c4_2021_q6_2010s_drums.mp3',
-    audioTitle1: 'Figure 1 Audio: 2010s Close-Miked Multitrack Drum Mix (9MT0/04)',
-    audioSrc2: '/C3_Heavy_Rock_Audio/01 Whole Lotta Love.mp3',
-    audioTitle2: 'Figure 2 Audio: Late-1960s Rock Drum Recording (1969 Reference)',
+    audioSrc1: '/Audio/rock_raw/drum_loop_clean.mp3',
+    audioTitle1: 'Figure 1: Close-Miked Multitrack Drum Kit Stem',
+    audioSrc2: null,
+    youtubeId2: 'HQmmM_vhQ4I',
+    videoTitle2: 'Figure 2 Reference: Late-1960s Drum Sound (Led Zeppelin — Whole Lotta Love)',
     interactiveDecks: [
       {
         title: 'Interactive Deck: Large-Scale Analogue & Multi-Mic Recording',
@@ -1011,10 +1013,10 @@ export const EDEXCEL_RUBRIC_BANK = [
     ao3Max: 4,
     ao4Max: 4,
     youtubeId1: null,
-    audioSrc1: '/Audio/edexcel_past_papers/c4_2024_q4g_monitors_mix.mp3',
-    audioTitle1: 'Reference A: Full-Range Studio Monitor Mix (Official 2024 9MT0/04 Audio)',
-    audioSrc2: '/Audio/edexcel_past_papers/c4_2024_q4g_unbalanced_mix.mp3',
-    audioTitle2: 'Reference B: Unbalanced Mix Translation Check (Official 2024 9MT0/04 Audio)',
+    audioSrc1: '/Audio/FX_Ear_Training/EQ Mastery/Clean Mix.mp3',
+    audioTitle1: 'Reference A: Full-Range Balanced Studio Mix',
+    audioSrc2: '/Audio/FX_Ear_Training/EQ Mastery/Muddy Mix.mp3',
+    audioTitle2: 'Reference B: Compromised Frequency Translation Check',
     interactiveDecks: [
       {
         title: 'Interactive Deck: Component 4 Producing & Analysing',
@@ -1109,10 +1111,10 @@ export const EDEXCEL_RUBRIC_BANK = [
     ao3Max: 4,
     ao4Max: 4,
     youtubeId1: null,
-    audioSrc1: '/Audio/edexcel_past_papers/c4_2021_q4g_vocal_uncompressed.mp3',
-    audioTitle1: 'Track A: vocal not compressed.wav (Original 1986 Uncompressed Vocal)',
-    audioSrc2: '/Audio/edexcel_past_papers/c4_2021_q4g_vocal_compressed.mp3',
-    audioTitle2: 'Track B: vocal.wav (With Heavy Dynamic Compression Applied)',
+    audioSrc1: '/C4_SPOP_Assets/C4_SPOP_Vocal.mp3',
+    audioTitle1: 'Reference A: Uncompressed Dry Lead Vocal Stem',
+    audioSrc2: '/C4_SPOP_Assets/C4_SPOP_Vocal_Example.mp3',
+    audioTitle2: 'Reference B: Dynamically Compressed Lead Vocal Stem',
     interactiveDecks: [
       {
         title: 'Interactive Deck: Studio Effects & Dynamic Compression',

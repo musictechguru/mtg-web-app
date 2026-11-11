@@ -395,7 +395,7 @@ const EdexcelExaminerPanel = ({
             </div>
           </div>
 
-          {/* Official Pearson Edexcel Exam Audio Player(s) */}
+          {/* Audio Reference Player(s) */}
           {activeRubric.audioSrc1 && (
             <div style={{ marginBottom: '20px' }}>
               {activeRubric.audioSrc2 ? (
@@ -415,7 +415,7 @@ const EdexcelExaminerPanel = ({
                     }}
                   >
                     <div style={{ fontSize: '0.82rem', fontWeight: 700, color: '#7DD3FC', marginBottom: '8px' }}>
-                      🎧 {activeRubric.audioTitle1 || 'Exam Audio A'}
+                      🎧 {activeRubric.audioTitle1 || 'Audio Reference A'}
                     </div>
                     <audio
                       controls
@@ -433,7 +433,7 @@ const EdexcelExaminerPanel = ({
                     }}
                   >
                     <div style={{ fontSize: '0.82rem', fontWeight: 700, color: '#FDA4AF', marginBottom: '8px' }}>
-                      🎧 {activeRubric.audioTitle2 || 'Exam Audio B'}
+                      🎧 {activeRubric.audioTitle2 || 'Audio Reference B'}
                     </div>
                     <audio
                       controls
@@ -453,7 +453,7 @@ const EdexcelExaminerPanel = ({
                   }}
                 >
                   <div style={{ fontSize: '0.84rem', fontWeight: 700, color: '#7DD3FC', marginBottom: '8px' }}>
-                    🎧 {activeRubric.audioTitle1 || 'Official Exam Audio Track'}
+                    🎧 {activeRubric.audioTitle1 || 'Audio Reference Track'}
                   </div>
                   <audio
                     controls
@@ -1012,7 +1012,7 @@ const EdexcelExaminerPanel = ({
         >
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '10px', marginBottom: '14px' }}>
             <h3 style={{ margin: 0, fontSize: '1.05rem', color: '#E9D5FF' }}>
-              📖 Official Edexcel Model Bullet-Point Answers
+              📖 Grade A* Model Bullet-Point Answers & Rubric
             </h3>
             <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
               <button

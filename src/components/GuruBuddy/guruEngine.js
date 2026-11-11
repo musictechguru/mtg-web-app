@@ -728,7 +728,7 @@ export function generateGuruMissions(userProgress = {}, courseData = {}, student
       priority: isMay ? 116 : 88,
       category: 'C4 Technical Evaluation',
       badge: '20 Marks • Drum Synthesis',
-      speech: 'Component 4 Question 6 requires evaluating DAW synthesis and dynamic processing for 20 marks. Test your knowledge against our official Edexcel examiner rubric!',
+      speech: 'Component 4 Question 6 requires evaluating DAW synthesis and dynamic processing for 20 marks. Test your knowledge against our interactive examiner rubric!',
       title: 'C4 Q6: Subtractive Drum Synthesis (20 Marks)',
       description: 'Evaluate how subtractive oscillators, pitch envelopes, noise generators, and transient shaping synthesize electronic drums in the DAW.',
       actionLabel: 'Write C4 Evaluation 🎛️',
