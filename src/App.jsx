@@ -185,7 +185,7 @@ const resolveItemFromLocation = (useDevSession = false) => {
       return { type: 'timetable_builder', title: '16-Block Timetable & Scheme of Work' };
     }
     if (quizParam === 'extended_response_trainer' || quizParam === 'examiner' || quizParam === 'long_answer') {
-      const rubricParam = urlParams.get('rubric') || urlParams.get('question') || urlParams.get('rubricId');
+      const rubricParam = params.get('rubric') || params.get('question') || params.get('rubricId');
       return { 
         id: 'extended_response_trainer', 
         type: 'extended_response_trainer', 
