@@ -1369,6 +1369,24 @@ const EdexcelExaminerPanel = ({
                 </ul>
               </div>
             )}
+
+            {evaluation.totalMarks >= evaluation.maxMarks && (
+              <div
+                style={{
+                  background: 'rgba(16, 185, 129, 0.08)',
+                  border: '1px solid rgba(16, 185, 129, 0.35)',
+                  borderRadius: '10px',
+                  padding: '14px'
+                }}
+              >
+                <div style={{ fontSize: '0.84rem', fontWeight: 700, color: '#34D399', marginBottom: '4px' }}>
+                  🎉 Full Maximum Marks Achieved ({evaluation.totalMarks}/{evaluation.maxMarks})
+                </div>
+                <div style={{ fontSize: '0.8rem', color: '#A7F3D0', lineHeight: 1.5 }}>
+                  Outstanding Grade A* response! Real Pearson Edexcel mark schemes contain a surplus of rewardable points with multiple valid pathways to 100%—you have achieved complete Level 5 mastery.
+                </div>
+              </div>
+            )}
           </div>
 
           {onSaveEvaluationToGradebook && mode !== 'student' && (
