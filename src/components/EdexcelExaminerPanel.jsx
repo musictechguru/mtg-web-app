@@ -669,7 +669,7 @@ const EdexcelExaminerPanel = ({
                     <div style={{ position: 'relative', paddingBottom: '56.25%', height: 0 }}>
                       <iframe
                         style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 'none' }}
-                        src={`https://www.youtube.com/embed/${activeRubric.youtubeId1}`}
+                        src={`https://www.youtube-nocookie.com/embed/${activeRubric.youtubeId1}?rel=0&modestbranding=1`}
                         title={activeRubric.videoTitle1 || 'Track A'}
                         referrerPolicy="strict-origin-when-cross-origin"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -722,7 +722,7 @@ const EdexcelExaminerPanel = ({
                     <div style={{ position: 'relative', paddingBottom: '56.25%', height: 0 }}>
                       <iframe
                         style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 'none' }}
-                        src={`https://www.youtube.com/embed/${activeRubric.youtubeId2}`}
+                        src={`https://www.youtube-nocookie.com/embed/${activeRubric.youtubeId2}?rel=0&modestbranding=1`}
                         title={activeRubric.videoTitle2 || 'Track B'}
                         referrerPolicy="strict-origin-when-cross-origin"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -782,7 +782,7 @@ const EdexcelExaminerPanel = ({
                         <div style={{ position: 'relative', paddingBottom: '56.25%', height: 0 }}>
                           <iframe
                             style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 'none' }}
-                            src={`https://www.youtube.com/embed/${vidId}`}
+                            src={`https://www.youtube-nocookie.com/embed/${vidId}?rel=0&modestbranding=1`}
                             title={vidTitle}
                             referrerPolicy="strict-origin-when-cross-origin"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

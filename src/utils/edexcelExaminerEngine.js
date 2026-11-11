@@ -770,9 +770,9 @@ export const EDEXCEL_RUBRIC_BANK = [
     ao3Max: 5,
     ao4Max: 15,
     audioSrc1: null,
-    youtubeId1: 'qFfnlGb4Mr4',
+    youtubeId1: 'qFfnlYbFEiE',
     videoTitle1: 'Reference 1: Jimi Hendrix — Voodoo Child (Stratocaster + Fuzz Face into Marshall Stack)',
-    youtubeId2: 'sI7XiJgt0vY',
+    youtubeId2: 'M4Czx8EWXb0',
     videoTitle2: 'Reference 2: Eddie Van Halen — Eruption (Cranked Marshall Super Lead Valve Saturation)',
     interactiveDecks: [
       {
