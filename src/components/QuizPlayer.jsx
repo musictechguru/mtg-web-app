@@ -1032,6 +1032,8 @@ const QuizPlayer = ({ quiz, onFinish }) => {
                                 key={currentQuestionIndex}
                                 items={currentQuestion.items}
                                 correctOrder={currentQuestion.correct_order}
+                                itemImages={currentQuestion.item_images || {}}
+                                diagramImg={currentQuestion.diagram_img || currentQuestion.img}
                                 onResult={handleInteractiveResult}
                             />
                         ) : currentQuestion.type === 'audio_comparison' ? (

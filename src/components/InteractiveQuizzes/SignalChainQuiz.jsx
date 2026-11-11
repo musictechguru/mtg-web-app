@@ -18,7 +18,7 @@ import { CSS } from '@dnd-kit/utilities';
 import { GripVertical, CheckCircle2, XCircle, ArrowDown } from 'lucide-react';
 
 // --- Sortable Item Component ---
-function SortableItem({ id, item, disabled, isCorrect, isIncorrect }) {
+function SortableItem({ id, item, image, disabled, isCorrect, isIncorrect }) {
     const {
         attributes,
         listeners,
@@ -34,14 +34,15 @@ function SortableItem({ id, item, disabled, isCorrect, isIncorrect }) {
     };
 
     // Dynamic styling based on state
-    let borderColor = 'rgba(255,255,255,0.1)';
+    let borderColor = 'rgba(255,255,255,0.12)';
     let bg = 'rgba(30, 41, 59, 0.7)';
 
     if (isCorrect) {
         borderColor = 'var(--accent-success, #22c55e)';
-        bg = 'rgba(34, 197, 94, 0.1)';
+        bg = 'rgba(34, 197, 94, 0.15)';
     } else if (isIncorrect) {
-        borderColor = 'var(--accent-error, #991b1b)';
+        borderColor = 'var(--accent-error, #ef4444)';
+        bg = 'rgba(239, 68, 68, 0.15)';
     }
 
     return (
@@ -51,29 +52,84 @@ function SortableItem({ id, item, disabled, isCorrect, isIncorrect }) {
                 style={{
                     display: 'flex',
                     alignItems: 'center',
-                    padding: '16px',
+                    padding: '12px 16px',
                     background: bg,
                     border: `1px solid ${borderColor}`,
-                    borderRadius: '8px',
+                    borderRadius: '10px',
                     cursor: disabled ? 'default' : 'grab',
-                    touchAction: 'none' // For mobile capability
+                    touchAction: 'none',
+                    gap: '12px',
+                    boxShadow: '0 2px 8px rgba(0,0,0,0.25)',
+                    transition: 'border-color 0.2s, background-color 0.2s'
                 }}
             >
-                <div {...attributes} {...listeners} style={{ marginRight: '12px', cursor: disabled ? 'default' : 'grab', opacity: 0.5 }}>
+                <div {...attributes} {...listeners} style={{ cursor: disabled ? 'default' : 'grab', opacity: 0.6, flexShrink: 0 }}>
                     <GripVertical size={20} />
                 </div>
-                <span style={{ fontSize: '1rem', fontWeight: '500' }}>{item}</span>
+                {image && (
+                    <div style={{
+                        width: '44px',
+                        height: '44px',
+                        borderRadius: '8px',
+                        background: 'rgba(0, 0, 0, 0.35)',
+                        border: '1px solid rgba(255, 255, 255, 0.1)',
+                        padding: '4px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        flexShrink: 0
+                    }}>
+                        <img 
+                            src={image} 
+                            alt="" 
+                            style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }} 
+                        />
+                    </div>
+                )}
+                <span style={{ fontSize: '0.96rem', fontWeight: '500', color: '#f8fafc', flex: 1 }}>{item}</span>
             </div>
             {/* Visual connector line between items */}
-            <div className="connector-line" style={{ display: 'flex', justifyContent: 'center', height: '10px', opacity: 0.3 }}>
+            <div className="connector-line" style={{ display: 'flex', justifyContent: 'center', height: '12px', opacity: 0.35, color: '#38bdf8' }}>
                 {!disabled && <ArrowDown size={14} />}
             </div>
         </div>
     );
 }
 
+// Helper to resolve icon thumbnail for each studio chain element
+const resolveItemImage = (itemText, explicitMap = {}) => {
+    if (explicitMap && explicitMap[itemText]) {
+        return explicitMap[itemText];
+    }
+    const lower = (itemText || '').toLowerCase();
+    if (lower.includes('mic') || lower.includes('capsule') || lower.includes('transducer')) return '/images/svg/microphone_preamp.svg';
+    if (lower.includes('cable') || lower.includes('xlr') || lower.includes('lead') || lower.includes('usb')) return '/images/svg/balanced_cable.svg';
+    if (lower.includes('preamp') || lower.includes('phantom') || lower.includes('+48v') || lower.includes('gain stage')) return '/images/svg/phantom_power.svg';
+    if (lower.includes('converter') || lower.includes('adc') || lower.includes('interface')) return '/images/svg/audio_interface.svg';
+    if (lower.includes('daw') || lower.includes('pcm') || lower.includes('track') || lower.includes('laptop')) return '/images/svg/transport_bar.svg';
+    if (lower.includes('speaker') || lower.includes('monitor') || lower.includes('acoustic sound') || lower.includes('woofer') || lower.includes('bass')) return '/images/svg/bass_woofer.svg';
+    if (lower.includes('oscillator') || lower.includes('vco') || lower.includes('wave')) return '/images/svg/frequency_spectrum_treble.svg';
+    if (lower.includes('filter') || lower.includes('vcf') || lower.includes('cutoff')) return '/images/svg/high_pass_filter_sweep_riser.svg';
+    if (lower.includes('amplifier') || lower.includes('vca')) return '/images/svg/serial_compression_sandwhich.svg';
+    if (lower.includes('adsr') || lower.includes('envelope') || lower.includes('lfo')) return '/images/svg/adsr_envelope_phases.svg';
+    if (lower.includes('compressor') || lower.includes('compression') || lower.includes('limiter')) return '/images/svg/dynamic_eq_threshold_action.svg';
+    if (lower.includes('eq') || lower.includes('equaliz') || lower.includes('tonal')) return '/images/svg/eq_bell_curve_q_comparison.svg';
+    if (lower.includes('reverb') || lower.includes('reflections') || lower.includes('rt60')) return '/images/svg/reverb_diffusion_density.svg';
+    if (lower.includes('delay') || lower.includes('echo') || lower.includes('feedback')) return '/images/svg/delay_feedback_loop.svg';
+    if (lower.includes('sample') || lower.includes('slice') || lower.includes('chop') || lower.includes('truncat')) return '/images/svg/vocal_chopping_sampling_technique.svg';
+    if (lower.includes('bass trap') || lower.includes('modal') || lower.includes('corner')) return '/images/svg/acoustics_bass_trap_corner_placement.svg';
+    if (lower.includes('diffus')) return '/images/svg/acoustics_diffuser_types_qrd_skyline.svg';
+    if (lower.includes('absor') || lower.includes('mirror') || lower.includes('cloud')) return '/images/svg/monitor_wedge_null.svg';
+    if (lower.includes('patchbay') || lower.includes('insert send') || lower.includes('insert return')) return '/images/svg/insert_flow.svg';
+    if (lower.includes('dither') || lower.includes('16-bit')) return '/images/svg/dither_noise.svg';
+    if (lower.includes('polar') || lower.includes('cardioid') || lower.includes('null') || lower.includes('angle')) return '/images/svg/polar_pattern_cardioid.svg';
+    if (lower.includes('3:1') || lower.includes('distance')) return '/images/svg/3_to_1_rule_diagram.svg';
+    if (lower.includes('guitar') || lower.includes('pedal') || lower.includes('amp')) return '/images/svg/amp_cone_axis.svg';
+    return null;
+};
+
 // --- Main Quiz Component ---
-export default function SignalChainQuiz({ items = [], correctOrder = [], onResult }) {
+export default function SignalChainQuiz({ items = [], correctOrder = [], itemImages = {}, diagramImg = null, onResult }) {
     // Local state for the list items
     const [listItems, setListItems] = useState(items);
     const [isSubmitted, setIsSubmitted] = useState(false);
@@ -124,6 +180,32 @@ export default function SignalChainQuiz({ items = [], correctOrder = [], onResul
 
     return (
         <div className="signal-chain-quiz" style={{ background: 'rgba(0,0,0,0.2)', padding: '20px', borderRadius: '12px' }}>
+            {diagramImg && (
+                <div style={{
+                    marginBottom: '20px',
+                    borderRadius: '12px',
+                    overflow: 'hidden',
+                    border: '1px solid rgba(255, 255, 255, 0.12)',
+                    background: 'rgba(0, 0, 0, 0.35)',
+                    padding: '14px',
+                    textAlign: 'center'
+                }}>
+                    <div style={{ fontSize: '0.72rem', fontWeight: 800, color: '#38bdf8', marginBottom: '8px', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
+                        Studio Signal Flow Reference Diagram
+                    </div>
+                    <img
+                        src={diagramImg}
+                        alt="Reference Studio Flow"
+                        style={{
+                            maxHeight: '220px',
+                            maxWidth: '100%',
+                            objectFit: 'contain',
+                            filter: 'drop-shadow(0 4px 10px rgba(0,0,0,0.5))'
+                        }}
+                    />
+                </div>
+            )}
+
             <p style={{ marginTop: 0, marginBottom: '20px', color: '#94a3b8' }}>
                 Drag the items into the correct <strong>Signal Flow</strong> order (Top to Bottom).
             </p>
@@ -142,6 +224,7 @@ export default function SignalChainQuiz({ items = [], correctOrder = [], onResul
                             key={item}
                             id={item}
                             item={item}
+                            image={resolveItemImage(item, itemImages)}
                             disabled={isSubmitted}
                             isCorrect={isSubmitted && isCorrect}
                             isIncorrect={isSubmitted && !isCorrect && listItems[index] !== correctOrder[index]}
