@@ -586,11 +586,11 @@ export const EDEXCEL_RUBRIC_BANK = [
     examPromptLead:
       'Listen to the analogue drum synthesis stem in the player (Roland TR-606 Drumatix). Analyse how these analogue drum voices and the combined groove were made using subtractive synthesis:',
     examBullets: [
-      'Voice architecture and sound generation (oscillators & noise)',
-      'Filter types and frequency shaping (LPF, HPF, BPF)',
-      'Envelopes, transients and decay times (ADSR)',
-      'Pitch modulation and decay curves',
-      'Sequencing, mix balance and spatial positioning'
+      'Voice architecture and sound generation',
+      'Filter types and frequency shaping',
+      'Envelopes and decay times',
+      'Pitch modulation',
+      'Sequencing and mix balance'
     ],
     mtgRevisionGuide: {
       summary: 'Music Tech Guru Q6 Revision Notes — How Roland TR-606 Analogue Drum Synthesis Works:',
@@ -960,7 +960,7 @@ export const EDEXCEL_RUBRIC_BANK = [
       }
     ],
     examPromptLead:
-      'Listen to the synthesised bass line in the player. Analyse how subtractive synthesis architecture (oscillators, filters, envelopes, portamento) is used to create this punchy analogue bass sound:',
+      'Listen to the synthesised bass line in the player. Analyse how subtractive synthesis architecture is used to create this punchy analogue bass sound:',
     examBullets: [
       'Oscillators and waveform generation',
       'Filter types, cutoff and resonance',
@@ -1456,13 +1456,13 @@ export const EDEXCEL_RUBRIC_BANK = [
     audioTitle2: 'Reference B: Dynamically Compressed Vocal (High Ratio & Makeup Gain)',
     interactiveDecks: [
       {
-        title: 'Interactive Deck: Studio Effects & Dynamic Compression',
-        url: '/interactive-slide-studio-effects.html',
+        title: 'Interactive Deck: Component 4 Producing & Analysing',
+        url: '/interactive-slide-component-4.html',
         quizUrl: '/component-4-interactive-quiz.html'
       },
       {
-        title: 'Interactive Deck: Component 4 Producing & Analysing',
-        url: '/interactive-slide-component-4.html',
+        title: 'Interactive Deck: Studio Effects & Dynamic Compression',
+        url: '/interactive-slide-studio-effects.html',
         quizUrl: '/component-4-interactive-quiz.html'
       }
     ],
@@ -1585,13 +1585,13 @@ export const EDEXCEL_RUBRIC_BANK = [
     audioTitle1: 'Historical Vocal Reference: Dry Acoustic Lead Vocal Stem',
     interactiveDecks: [
       {
-        title: 'Interactive Deck: Studio Effects & Dynamic Compression',
-        url: '/interactive-slide-studio-effects.html',
+        title: 'Interactive Deck: Component 4 Producing & Analysing',
+        url: '/interactive-slide-component-4.html',
         quizUrl: '/component-4-interactive-quiz.html'
       },
       {
-        title: 'Interactive Deck: Component 4 Producing & Analysing',
-        url: '/interactive-slide-component-4.html',
+        title: 'Interactive Deck: Studio Effects & Dynamic Compression',
+        url: '/interactive-slide-studio-effects.html',
         quizUrl: '/component-4-interactive-quiz.html'
       }
     ],
