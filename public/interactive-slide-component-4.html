@@ -2159,8 +2159,31 @@
       }
     });
 
+    function parseInitialSlide() {
+      try {
+        const params = new URLSearchParams(window.location.search);
+        let s = params.get('slide');
+        if (!s && window.location.hash) {
+          const match = window.location.hash.match(/slide[-=]?(\d+)/i);
+          if (match) s = match[1];
+        }
+        if (s) {
+          const num = parseInt(s, 10);
+          if (!isNaN(num) && num >= 1 && num <= totalSlides) {
+            currentSlide = num;
+          }
+        }
+      } catch (err) {}
+    }
+
+    parseInitialSlide();
     initDots();
     updateUI();
+
+    window.addEventListener('hashchange', () => {
+      parseInitialSlide();
+      updateUI();
+    });
   </script>
 </body>
 </html>

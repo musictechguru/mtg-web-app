@@ -1456,8 +1456,8 @@ export const EDEXCEL_RUBRIC_BANK = [
     audioTitle2: 'Reference B: Dynamically Compressed Vocal (High Ratio & Makeup Gain)',
     interactiveDecks: [
       {
-        title: 'Interactive Deck: Component 4 Producing & Analysing',
-        url: '/interactive-slide-component-4.html',
+        title: 'Interactive Deck: Dynamic Compression, Ratio & Transfer Curves',
+        url: '/interactive-slide-component-4.html?slide=3#slide-3',
         quizUrl: '/component-4-interactive-quiz.html'
       },
       {
@@ -1467,7 +1467,7 @@ export const EDEXCEL_RUBRIC_BANK = [
       }
     ],
     examPromptLead:
-      'Import ‘vocal not compressed.wav’ (bars 8–10 of Suzanne Vega’s 1986 vocal as originally recorded). ‘vocal.wav’ has additional dynamic compression. Evaluate the dynamic compression in ‘vocal.wav’.',
+      'Listen to ‘vocal not compressed’ (Reference A — bars 8–10 of Suzanne Vega’s 1986 vocal as originally recorded) and ‘vocal’ (Reference B — which has additional dynamic compression). Evaluate the dynamic compression in ‘vocal’:',
     mtgRevisionGuide: {
       summary: 'Music Tech Guru Revision Notes — Evaluating Dynamic Compression on Vocals:',
       keyPoints: [
@@ -1481,7 +1481,7 @@ export const EDEXCEL_RUBRIC_BANK = [
       ]
     },
     questionPrompt:
-      'Import ‘vocal not compressed.wav’ (bars 8–10 of Suzanne Vega’s 1986 vocal as originally recorded). ‘vocal.wav’ has additional dynamic compression. Evaluate the dynamic compression in ‘vocal.wav’. (8 marks — AO3: 4 marks, AO4: 4 marks)',
+      'Listen to ‘vocal not compressed’ and ‘vocal’ (Suzanne Vega bars 8–10). Evaluate the dynamic compression in ‘vocal’. (8 marks — AO3: 4 marks, AO4: 4 marks)',
     ao3Anchors: [
       {
         id: 'ao3_threshold_and_ratio',
