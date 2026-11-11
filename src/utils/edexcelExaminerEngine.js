@@ -1126,10 +1126,10 @@ export const EDEXCEL_RUBRIC_BANK = [
     ao3Max: 4,
     ao4Max: 4,
     youtubeId1: null,
-    audioSrc1: '/C4_SPOP_Assets/C4_SPOP_Vocal.mp3',
-    audioTitle1: 'Reference A: Uncompressed Dry Lead Vocal Stem',
-    audioSrc2: '/C4_SPOP_Assets/C4_SPOP_Vocal_Example.mp3',
-    audioTitle2: 'Reference B: Dynamically Compressed Lead Vocal Stem',
+    audioSrc1: '/Audio/suzanne_vega_vocal_not_compressed.mp3',
+    audioTitle1: 'Reference A: Uncompressed Dry Vocal (Suzanne Vega — Bars 8–10)',
+    audioSrc2: '/Audio/suzanne_vega_vocal_compressed.mp3',
+    audioTitle2: 'Reference B: Dynamically Compressed Vocal (High Ratio & Makeup Gain)',
     interactiveDecks: [
       {
         title: 'Interactive Deck: Studio Effects & Dynamic Compression',
