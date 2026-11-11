@@ -179,11 +179,11 @@ const EdexcelExaminerPanel = ({
               htmlFor="edexcel-question-select"
               style={{ display: 'block', fontSize: '0.72rem', color: '#94A3B8', marginBottom: '4px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.04em' }}
             >
-              Choose Past Paper Question (Component 3 &amp; Component 4):
+              Select Extended Writing Practice Question (15m &amp; 20m):
             </label>
             <select
               id="edexcel-question-select"
-              aria-label="Select Edexcel Case Study Question"
+              aria-label="Select Essay Practice Question"
               value={selectedRubricId}
               onChange={e => handleSelectRubric(e.target.value)}
               style={{

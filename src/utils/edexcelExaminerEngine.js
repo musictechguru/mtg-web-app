@@ -23,10 +23,10 @@
 export const EDEXCEL_RUBRIC_BANK = [
   {
     id: 'c3_q5_liquid_spirit_15m',
-    paperCode: 'Pearson Edexcel Level 3 GCE • 9MT0/03 Component 3: Listening and Analysing',
+    paperCode: 'Component 3: Listening & Analysing • Extended Response Practice',
     component: 'Component 3',
     questionNumber: '5',
-    title: 'C3 Q5: Gregory Porter — Liquid Spirit vs 20 Syl Remix (15 Marks)',
+    title: 'C3 Q5: Acoustic Jazz vs Modern Remix — Gregory Porter "Liquid Spirit" (15 Marks)',
     vaultNode: '04_Edexcel_Curriculum/C3_Q5_Liquid_Spirit_Exemplar_15m.md',
     maxMarks: 15,
     ao3Max: 5,
@@ -175,10 +175,10 @@ export const EDEXCEL_RUBRIC_BANK = [
   },
   {
     id: 'c3_q6_britney_daw_20m',
-    paperCode: 'Pearson Edexcel Level 3 GCE • 9MT0/03 Component 3: Listening and Analysing',
+    paperCode: 'Component 3: Listening & Analysing • Extended Response Practice',
     component: 'Component 3',
     questionNumber: '6',
-    title: 'C3 Q6: Britney Spears — Oops!... I Did It Again (1999) (20 Marks)',
+    title: 'C3 Q6: Millennium Pop Production & DAW Vocal Editing (20 Marks)',
     vaultNode: '04_Edexcel_Curriculum/C3_Q6_Britney_DAW_Vocal_20m.md',
     maxMarks: 20,
     ao3Max: 5,
@@ -314,10 +314,10 @@ export const EDEXCEL_RUBRIC_BANK = [
   },
   {
     id: 'c3_q5_sway_2025_15m',
-    paperCode: 'Pearson Edexcel Level 3 GCE • 9MT0/03 Component 3: Listening and Analysing (Summer 2025)',
+    paperCode: 'Component 3: Listening & Analysing • 15-Mark Comparative Analysis',
     component: 'Component 3',
     questionNumber: '5',
-    title: 'C3 Q5 (2025): Dean Martin — Sway (1954) vs Shaft — Sway (1999) (15 Marks)',
+    title: 'C3 Q5: 1950s Big Band Tracking vs 1990s Latin Dance Remix — "Sway" (15 Marks)',
     vaultNode: '04_Edexcel_Curriculum/C3_Q5_Sway_2025_15m.md',
     maxMarks: 15,
     ao3Max: 5,
@@ -456,10 +456,10 @@ export const EDEXCEL_RUBRIC_BANK = [
   },
   {
     id: 'c4_q6_drum_synth_2025_20m',
-    paperCode: 'Pearson Edexcel Level 3 GCE • 9MT0/04 Component 4: Producing and Analysing (Summer 2025)',
+    paperCode: 'Component 4: Producing & Analysing • 20-Mark Technical Evaluation',
     component: 'Component 4',
     questionNumber: '6',
-    title: 'C4 Q6 (2025): Analysing Analogue Style Drum Synthesis (20 Marks)',
+    title: 'C4 Q6: Subtractive Drum Synthesis & Transient Shaping (20 Marks)',
     vaultNode: '04_Edexcel_Curriculum/C4_Q6_Drum_Synthesis_2025_20m.md',
     maxMarks: 20,
     ao3Max: 5,
@@ -480,14 +480,14 @@ export const EDEXCEL_RUBRIC_BANK = [
       }
     ],
     examPromptLead:
-      'Listen to the analogue style drum sounds in Q6.wav. Analyse how these drum sounds were made using synthesis:',
+      'Analyse how analogue-style drum sounds are created from raw oscillators and noise generators using subtractive synthesis in a DAW:',
     examBullets: [
-      'Bar 1 is a bass drum',
-      'Bar 2 is a snare drum',
-      'Bar 3 are hi-hats',
-      'Bar 4 are tom drums',
-      'Bar 5 is a flex-a-tone',
-      'Bars 7–10 are the drum sounds combined into a pattern.'
+      'Kick / Bass Drum: Low sine or triangle wave with rapid pitch envelope drop',
+      'Snare Drum: Dual-layer oscillator tone and resonant white noise burst',
+      'Hi-Hats: High-pass filtered white noise with variable decay times for open and closed hats',
+      'Tom Drums: Pitched oscillators with decaying envelope modulation',
+      'Percussion & Sound Design: Pitched resonance, LFO vibrato, and transient shaping',
+      'Pattern & Mix: Balance, frequency separation, and dynamic bus processing.'
     ],
     mtgRevisionGuide: {
       summary: 'Music Tech Guru Q6 Revision Notes — How Analogue Drum Synthesis Works (Oscillators, Filters & Envelopes):',
@@ -505,7 +505,7 @@ export const EDEXCEL_RUBRIC_BANK = [
       ]
     },
     questionPrompt:
-      'Listen to the analogue style drum sounds in Q6.wav: Bar 1 is a bass drum • Bar 2 is a snare drum • Bar 3 are hi-hats • Bar 4 are tom drums • Bar 5 is a flex-a-tone • Bars 7–10 are the drum sounds combined into a pattern. Analyse how these drum sounds were made using synthesis. (20 marks — AO3: 5 marks, AO4: 15 marks)',
+      'Analyse how analogue-style drum sounds (kick, snare, hi-hats, toms, and percussion) are created and shaped using subtractive synthesis in a DAW. In your response, evaluate oscillator selection, filter types, pitch and amplitude envelopes, noise generators, and transient control. (20 marks — AO3: 5 marks, AO4: 15 marks)',
     ao3Anchors: [
       {
         id: 'ao3_waveforms_noise',
@@ -601,10 +601,10 @@ export const EDEXCEL_RUBRIC_BANK = [
   },
   {
     id: 'c3_q6_guitar_evolution_20m',
-    paperCode: 'Pearson Edexcel Level 3 GCE • 9MT0/03 Component 3: Listening and Analysing',
+    paperCode: 'Component 3: Listening & Analysing • Extended Response Practice',
     component: 'Component 3',
     questionNumber: '6',
-    title: 'C3 Q6: Development of the Electric Guitar Since the 1950s (20 Marks)',
+    title: 'C3 Q6: Development of the Electric Guitar & Amplification (20 Marks)',
     vaultNode: '04_Edexcel_Curriculum/C3_Q6_Electric_Guitar_Evolution_20m.md',
     maxMarks: 20,
     ao3Max: 5,
@@ -736,10 +736,10 @@ export const EDEXCEL_RUBRIC_BANK = [
   },
   {
     id: 'c4_q6_sh101_synth_bass_2024_20m',
-    paperCode: 'Pearson Edexcel Level 3 GCE • 9MT0/04 Component 4: Producing and Analysing (Summer 2024)',
+    paperCode: 'Component 4: Producing & Analysing • Technical Evaluation Practice',
     component: 'Component 4',
     questionNumber: '6',
-    title: 'C4 Q6 (2024): Roland SH-101 (1982) Monophonic Synth Bass Evaluation (20 Marks)',
+    title: 'C4 Q6: Monophonic Analogue Synth Bass Architecture (20 Marks)',
     vaultNode: '04_Edexcel_Curriculum/C4_Q6_SH101_Synth_Bass_2024_20m.md',
     maxMarks: 20,
     ao3Max: 5,
@@ -867,10 +867,10 @@ export const EDEXCEL_RUBRIC_BANK = [
   },
   {
     id: 'c4_q6_drum_mics_2021_20m',
-    paperCode: 'Pearson Edexcel Level 3 GCE • 9MT0/04 Component 4: Producing and Analysing (November 2021)',
+    paperCode: 'Component 4: Producing & Analysing • Technical Evaluation Practice (November 2021)',
     component: 'Component 4',
     questionNumber: '6',
-    title: 'C4 Q6 (2021): 2010s Multi-Mic vs Late-1960s Rock Drum Recording (20 Marks)',
+    title: 'C4 Q6: Close-Miked Multitrack vs Ambient Spaced Drum Recording (20 Marks)',
     vaultNode: '04_Edexcel_Curriculum/C4_Q6_Drum_Mics_2021_20m.md',
     maxMarks: 20,
     ao3Max: 5,
@@ -1004,10 +1004,10 @@ export const EDEXCEL_RUBRIC_BANK = [
   },
   {
     id: 'c4_q4g_monitors_vs_phone_2024_8m',
-    paperCode: 'Pearson Edexcel Level 3 GCE • 9MT0/04 Component 4: Producing and Analysing (Summer 2024)',
+    paperCode: 'Component 4: Producing & Analysing • Technical Evaluation Practice',
     component: 'Component 4',
     questionNumber: '4(g)',
-    title: 'C4 Q4(g) (2024): Nearfield Studio Monitors vs Mobile Phone Speaker (8 Marks)',
+    title: 'C4: Nearfield Studio Monitors vs Mobile Phone Speaker Translation (8 Marks)',
     vaultNode: '04_Edexcel_Curriculum/C4_Q4g_Monitors_vs_Phone_2024_8m.md',
     maxMarks: 8,
     ao3Max: 4,
@@ -1102,10 +1102,10 @@ export const EDEXCEL_RUBRIC_BANK = [
   },
   {
     id: 'c4_q4g_vocal_compression_2021_8m',
-    paperCode: 'Pearson Edexcel Level 3 GCE • 9MT0/04 Component 4: Producing and Analysing (November 2021)',
+    paperCode: 'Component 4: Producing & Analysing • Technical Evaluation Practice (November 2021)',
     component: 'Component 4',
     questionNumber: '4(g)',
-    title: 'C4 Q4(g) (2021): Evaluating Dynamic Compression on Suzanne Vega’s Vocal (8 Marks)',
+    title: 'C4: Evaluating Dynamic Compression on Lead Vocals (8 Marks)',
     vaultNode: '04_Edexcel_Curriculum/C4_Q4g_Vocal_Compression_2021_8m.md',
     maxMarks: 8,
     ao3Max: 4,
