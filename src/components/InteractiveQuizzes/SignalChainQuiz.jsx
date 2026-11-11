@@ -15,7 +15,7 @@ import {
     useSortable,
 } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import { GripVertical, CheckCircle2, XCircle, ArrowDown } from 'lucide-react';
+import { GripVertical, CheckCircle2, XCircle, ArrowDown, Maximize2, X } from 'lucide-react';
 
 // --- Sortable Item Component ---
 function SortableItem({ id, item, image, disabled, isCorrect, isIncorrect }) {
@@ -129,11 +129,13 @@ const resolveItemImage = (itemText, explicitMap = {}) => {
 };
 
 // --- Main Quiz Component ---
-export default function SignalChainQuiz({ items = [], correctOrder = [], itemImages = {}, diagramImg = null, onResult }) {
+export default function SignalChainQuiz({ items = [], correctOrder = [], itemImages = {}, diagramImg = null, onResult, onExpandImage }) {
     // Local state for the list items
     const [listItems, setListItems] = useState(items);
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [isCorrect, setIsCorrect] = useState(false);
+    const [isLocalModalOpen, setIsLocalModalOpen] = useState(false);
+    const [isImageHovered, setIsImageHovered] = useState(false);
 
     // Reset when inputs change
     useEffect(() => {
@@ -142,6 +144,30 @@ export default function SignalChainQuiz({ items = [], correctOrder = [], itemIma
         setIsSubmitted(false);
         setIsCorrect(false);
     }, [items]);
+
+    // Handle Escape key to close local modal
+    useEffect(() => {
+        if (!isLocalModalOpen) return;
+        const handleKeyDown = (e) => {
+            if (e.key === 'Escape') {
+                setIsLocalModalOpen(false);
+            }
+        };
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, [isLocalModalOpen]);
+
+    const handleExpandImage = () => {
+        if (!diagramImg) return;
+        if (onExpandImage) {
+            onExpandImage({
+                src: diagramImg,
+                alt: 'Studio Signal Flow Reference Diagram'
+            });
+        } else {
+            setIsLocalModalOpen(true);
+        }
+    };
 
     const sensors = useSensors(
         useSensor(PointerSensor, {
@@ -181,28 +207,175 @@ export default function SignalChainQuiz({ items = [], correctOrder = [], itemIma
     return (
         <div className="signal-chain-quiz" style={{ background: 'rgba(0,0,0,0.2)', padding: '20px', borderRadius: '12px' }}>
             {diagramImg && (
-                <div style={{
-                    marginBottom: '20px',
-                    borderRadius: '12px',
-                    overflow: 'hidden',
-                    border: '1px solid rgba(255, 255, 255, 0.12)',
-                    background: 'rgba(0, 0, 0, 0.35)',
-                    padding: '14px',
-                    textAlign: 'center'
-                }}>
-                    <div style={{ fontSize: '0.72rem', fontWeight: 800, color: '#38bdf8', marginBottom: '8px', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
-                        Studio Signal Flow Reference Diagram
+                <div
+                    onClick={handleExpandImage}
+                    onMouseEnter={() => setIsImageHovered(true)}
+                    onMouseLeave={() => setIsImageHovered(false)}
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            handleExpandImage();
+                        }
+                    }}
+                    style={{
+                        marginBottom: '20px',
+                        borderRadius: '12px',
+                        overflow: 'hidden',
+                        border: isImageHovered ? '1px solid rgba(56, 189, 248, 0.55)' : '1px solid rgba(255, 255, 255, 0.14)',
+                        background: isImageHovered ? 'rgba(15, 23, 42, 0.85)' : 'rgba(0, 0, 0, 0.4)',
+                        padding: '14px',
+                        textAlign: 'center',
+                        cursor: 'zoom-in',
+                        position: 'relative',
+                        boxShadow: isImageHovered ? '0 8px 24px rgba(56, 189, 248, 0.18)' : '0 4px 12px rgba(0, 0, 0, 0.35)',
+                        transition: 'all 0.22s cubic-bezier(0.16, 1, 0.3, 1)'
+                    }}
+                    title="Click to enlarge diagram in high-resolution view"
+                    aria-label="Enlarge Studio Signal Flow Reference Diagram"
+                >
+                    <div style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        marginBottom: '10px',
+                        paddingBottom: '8px',
+                        borderBottom: '1px solid rgba(255, 255, 255, 0.08)'
+                    }}>
+                        <div style={{
+                            fontSize: '0.74rem',
+                            fontWeight: 800,
+                            color: '#38bdf8',
+                            letterSpacing: '0.06em',
+                            textTransform: 'uppercase',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '6px'
+                        }}>
+                            <span>Studio Signal Flow Reference Diagram</span>
+                        </div>
+                        <div style={{
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: '5px',
+                            fontSize: '0.72rem',
+                            fontWeight: 600,
+                            color: isImageHovered ? '#38bdf8' : '#94a3b8',
+                            background: isImageHovered ? 'rgba(56, 189, 248, 0.16)' : 'rgba(255, 255, 255, 0.06)',
+                            border: isImageHovered ? '1px solid rgba(56, 189, 248, 0.35)' : '1px solid rgba(255, 255, 255, 0.12)',
+                            padding: '3px 10px',
+                            borderRadius: '12px',
+                            transition: 'all 0.2s ease'
+                        }}>
+                            <Maximize2 size={12} />
+                            <span>Click to expand</span>
+                        </div>
                     </div>
-                    <img
-                        src={diagramImg}
-                        alt="Reference Studio Flow"
+
+                    <div style={{ position: 'relative', overflow: 'hidden', borderRadius: '8px' }}>
+                        <img
+                            src={diagramImg}
+                            alt="Reference Studio Flow"
+                            style={{
+                                maxHeight: '220px',
+                                maxWidth: '100%',
+                                objectFit: 'contain',
+                                filter: 'drop-shadow(0 4px 10px rgba(0,0,0,0.5))',
+                                transform: isImageHovered ? 'scale(1.02)' : 'scale(1)',
+                                transition: 'transform 0.22s cubic-bezier(0.16, 1, 0.3, 1)',
+                                display: 'inline-block'
+                            }}
+                        />
+                    </div>
+                </div>
+            )}
+
+            {/* Standalone Fallback Modal (active if onExpandImage prop is not provided) */}
+            {isLocalModalOpen && diagramImg && (
+                <div
+                    onClick={() => setIsLocalModalOpen(false)}
+                    style={{
+                        position: 'fixed',
+                        inset: 0,
+                        backgroundColor: 'rgba(5, 11, 20, 0.94)',
+                        backdropFilter: 'blur(10px)',
+                        WebkitBackdropFilter: 'blur(10px)',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        zIndex: 99999,
+                        padding: '16px',
+                        cursor: 'default'
+                    }}
+                >
+                    <button
+                        onClick={() => setIsLocalModalOpen(false)}
                         style={{
-                            maxHeight: '220px',
-                            maxWidth: '100%',
-                            objectFit: 'contain',
-                            filter: 'drop-shadow(0 4px 10px rgba(0,0,0,0.5))'
+                            position: 'absolute',
+                            top: '16px',
+                            right: '20px',
+                            background: 'rgba(255, 255, 255, 0.15)',
+                            border: '1px solid rgba(255, 255, 255, 0.25)',
+                            color: '#fff',
+                            width: '42px',
+                            height: '42px',
+                            borderRadius: '50%',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            cursor: 'pointer',
+                            zIndex: 100000
                         }}
-                    />
+                        title="Close (Esc)"
+                        aria-label="Close enlarged diagram"
+                    >
+                        <X size={22} />
+                    </button>
+
+                    <div
+                        onClick={(e) => e.stopPropagation()}
+                        style={{
+                            maxWidth: 'min(94vw, 1100px)',
+                            maxHeight: 'min(86vh, 800px)',
+                            backgroundColor: 'rgba(15, 23, 42, 0.9)',
+                            border: '1px solid rgba(255, 255, 255, 0.15)',
+                            borderRadius: '14px',
+                            padding: '18px',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                            boxShadow: '0 25px 65px rgba(0, 0, 0, 0.85)',
+                            overflow: 'hidden'
+                        }}
+                    >
+                        <div style={{
+                            width: '100%',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'space-between',
+                            marginBottom: '12px',
+                            paddingBottom: '8px',
+                            borderBottom: '1px solid rgba(255, 255, 255, 0.1)'
+                        }}>
+                            <span style={{ fontSize: '0.86rem', fontWeight: 800, color: '#38bdf8', letterSpacing: '0.05em', textTransform: 'uppercase' }}>
+                                Studio Signal Flow Reference Diagram
+                            </span>
+                            <span style={{ fontSize: '0.75rem', color: '#94a3b8' }}>
+                                Press Esc or click outside to close
+                            </span>
+                        </div>
+                        <img
+                            src={diagramImg}
+                            alt="Reference Studio Flow"
+                            style={{
+                                maxWidth: '100%',
+                                maxHeight: 'calc(min(86vh, 800px) - 60px)',
+                                objectFit: 'contain'
+                            }}
+                        />
+                    </div>
                 </div>
             )}
 

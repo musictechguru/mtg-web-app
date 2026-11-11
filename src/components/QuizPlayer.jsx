@@ -1034,6 +1034,7 @@ const QuizPlayer = ({ quiz, onFinish }) => {
                                 correctOrder={currentQuestion.correct_order}
                                 itemImages={currentQuestion.item_images || {}}
                                 diagramImg={currentQuestion.diagram_img || currentQuestion.img}
+                                onExpandImage={openExpandedImage}
                                 onResult={handleInteractiveResult}
                             />
                         ) : currentQuestion.type === 'audio_comparison' ? (
@@ -1063,6 +1064,8 @@ const QuizPlayer = ({ quiz, onFinish }) => {
                                 tolerance={currentQuestion.tolerance}
                                 audioBeforeSrc={currentQuestion.audio_before}
                                 audioAfterSrc={currentQuestion.audio_after}
+                                imageSrc={currentQuestion.diagram_img || currentQuestion.img}
+                                onExpandImage={openExpandedImage}
                                 onResult={handleInteractiveResult}
                             />
                         ) : currentQuestion.type === 'waveform_id' ? (

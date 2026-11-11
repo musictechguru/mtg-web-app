@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Range, getTrackBackground } from 'react-range';
+import { Maximize2, X } from 'lucide-react';
 
 export default function ParameterMatchingQuiz({
     label,
@@ -12,12 +13,36 @@ export default function ParameterMatchingQuiz({
     audioBeforeSrc, // "Before" state (Problem)
     audioAfterSrc, // "After" state (Fixed)
     onResult,
+    onExpandImage,
     unit = 'Hz'
 }) {
     // State
     const [values, setValues] = useState([min]);
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [isCorrect, setIsCorrect] = useState(false);
+    const [isLocalModalOpen, setIsLocalModalOpen] = useState(false);
+    const [isHovered, setIsHovered] = useState(false);
+
+    const handleExpandImage = () => {
+        if (!imageSrc) return;
+        if (onExpandImage) {
+            onExpandImage({
+                src: imageSrc,
+                alt: label ? `${label} - Spectrum Analysis` : 'Spectrum Analysis Reference'
+            });
+        } else {
+            setIsLocalModalOpen(true);
+        }
+    };
+
+    useEffect(() => {
+        if (!isLocalModalOpen) return;
+        const handleKeyDown = (e) => {
+            if (e.key === 'Escape') setIsLocalModalOpen(false);
+        };
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, [isLocalModalOpen]);
 
     // Stop audio on question change or unmount
     useEffect(() => {
@@ -67,8 +92,160 @@ export default function ParameterMatchingQuiz({
 
             {/* Visual Context */}
             {imageSrc && (
-                <div style={{ marginBottom: '20px', borderRadius: '8px', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.1)' }}>
-                    <img src={imageSrc} alt="Spectrum Analysis" style={{ width: '100%', display: 'block' }} />
+                <div
+                    onClick={handleExpandImage}
+                    onMouseEnter={() => setIsHovered(true)}
+                    onMouseLeave={() => setIsHovered(false)}
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            handleExpandImage();
+                        }
+                    }}
+                    style={{
+                        marginBottom: '20px',
+                        borderRadius: '10px',
+                        overflow: 'hidden',
+                        border: isHovered ? '1px solid rgba(56, 189, 248, 0.55)' : '1px solid rgba(255, 255, 255, 0.12)',
+                        background: 'rgba(15, 23, 42, 0.7)',
+                        padding: '12px',
+                        cursor: 'zoom-in',
+                        position: 'relative',
+                        boxShadow: isHovered ? '0 8px 24px rgba(56, 189, 248, 0.18)' : '0 4px 12px rgba(0, 0, 0, 0.35)',
+                        transition: 'all 0.22s cubic-bezier(0.16, 1, 0.3, 1)'
+                    }}
+                    title="Click to enlarge diagram in high-resolution view"
+                    aria-label="Enlarge Spectrum Analysis Diagram"
+                >
+                    <div style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        marginBottom: '8px',
+                        paddingBottom: '6px',
+                        borderBottom: '1px solid rgba(255, 255, 255, 0.08)'
+                    }}>
+                        <span style={{ fontSize: '0.74rem', fontWeight: 800, color: '#38bdf8', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
+                            {label ? `${label} Reference Diagram` : 'Spectrum Analysis Reference'}
+                        </span>
+                        <div style={{
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: '5px',
+                            fontSize: '0.72rem',
+                            fontWeight: 600,
+                            color: isHovered ? '#38bdf8' : '#94a3b8',
+                            background: isHovered ? 'rgba(56, 189, 248, 0.16)' : 'rgba(255, 255, 255, 0.06)',
+                            border: isHovered ? '1px solid rgba(56, 189, 248, 0.35)' : '1px solid rgba(255, 255, 255, 0.12)',
+                            padding: '3px 9px',
+                            borderRadius: '12px',
+                            transition: 'all 0.2s ease'
+                        }}>
+                            <Maximize2 size={12} />
+                            <span>Click to expand</span>
+                        </div>
+                    </div>
+                    <img
+                        src={imageSrc}
+                        alt="Spectrum Analysis"
+                        style={{
+                            width: '100%',
+                            maxHeight: '260px',
+                            objectFit: 'contain',
+                            display: 'block',
+                            transform: isHovered ? 'scale(1.015)' : 'scale(1)',
+                            transition: 'transform 0.22s ease'
+                        }}
+                    />
+                </div>
+            )}
+
+            {/* Standalone Fallback Modal */}
+            {isLocalModalOpen && imageSrc && (
+                <div
+                    onClick={() => setIsLocalModalOpen(false)}
+                    style={{
+                        position: 'fixed',
+                        inset: 0,
+                        backgroundColor: 'rgba(5, 11, 20, 0.94)',
+                        backdropFilter: 'blur(10px)',
+                        WebkitBackdropFilter: 'blur(10px)',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        zIndex: 99999,
+                        padding: '16px',
+                        cursor: 'default'
+                    }}
+                >
+                    <button
+                        onClick={() => setIsLocalModalOpen(false)}
+                        style={{
+                            position: 'absolute',
+                            top: '16px',
+                            right: '20px',
+                            background: 'rgba(255, 255, 255, 0.15)',
+                            border: '1px solid rgba(255, 255, 255, 0.25)',
+                            color: '#fff',
+                            width: '42px',
+                            height: '42px',
+                            borderRadius: '50%',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            cursor: 'pointer',
+                            zIndex: 100000
+                        }}
+                        title="Close (Esc)"
+                        aria-label="Close enlarged diagram"
+                    >
+                        <X size={22} />
+                    </button>
+                    <div
+                        onClick={(e) => e.stopPropagation()}
+                        style={{
+                            maxWidth: 'min(94vw, 1100px)',
+                            maxHeight: 'min(86vh, 800px)',
+                            backgroundColor: 'rgba(15, 23, 42, 0.9)',
+                            border: '1px solid rgba(255, 255, 255, 0.15)',
+                            borderRadius: '14px',
+                            padding: '18px',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                            boxShadow: '0 25px 65px rgba(0, 0, 0, 0.85)',
+                            overflow: 'hidden'
+                        }}
+                    >
+                        <div style={{
+                            width: '100%',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'space-between',
+                            marginBottom: '12px',
+                            paddingBottom: '8px',
+                            borderBottom: '1px solid rgba(255, 255, 255, 0.1)'
+                        }}>
+                            <span style={{ fontSize: '0.86rem', fontWeight: 800, color: '#38bdf8', letterSpacing: '0.05em', textTransform: 'uppercase' }}>
+                                {label ? `${label} Reference Diagram` : 'Spectrum Analysis Reference'}
+                            </span>
+                            <span style={{ fontSize: '0.75rem', color: '#94a3b8' }}>
+                                Press Esc or click outside to close
+                            </span>
+                        </div>
+                        <img
+                            src={imageSrc}
+                            alt="Spectrum Analysis"
+                            style={{
+                                maxWidth: '100%',
+                                maxHeight: 'calc(min(86vh, 800px) - 60px)',
+                                objectFit: 'contain'
+                            }}
+                        />
+                    </div>
                 </div>
             )}
 
