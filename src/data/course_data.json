@@ -1049,34 +1049,29 @@
               "explanation": "<img src=\"/images/Dictiionary_Quiz_image_Pool/decibel_spl_hq.png\" alt=\"Sound Pressure Level SPL Meter Display\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> <strong>Sound Pressure Level (SPL)</strong> measures the physical pressure variations in air caused by sound waves, referenced against the quietest sound human ears can detect (0 dB SPL = 20 µPa). It is measured on a logarithmic decibel scale: 60 dB SPL is conversational speech, <strong>85 dB SPL</strong> is standard calibrated studio monitoring, and 120–140 dB SPL is the threshold of pain where permanent hearing damage occurs rapidly.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Monitor at calibrated reference levels around 85 dB SPL. It's the sweet spot where human ear frequency sensitivity flattens out without quickly causing ear fatigue.\"<br/><strong>- Bob Katz</strong></blockquote>"
             },
             {
-              "content": "Which of the following audio sources outputs the hottest (highest voltage) signal level?",
-              "answers": [
-                {
-                  "text": "Passive ribbon microphone (Mic level)",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Dynamic microphone (Mic level)",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Synthesizer (Line level)",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "Electric guitar (Instrument level)",
-                  "is_true": "no"
-                }
+              "title": "Practical Task: Studio Signal Voltage Hierarchy",
+              "content": "Drag and drop the audio signal levels into the correct order from lowest voltage (quietest) to highest voltage (loudest).",
+              "type": "drag_drop",
+              "items": [
+                "Speaker Level (+30 dBu / Tens of Volts)",
+                "Professional Line Level (+4 dBu / 1.23V)",
+                "Microphone Level (-60 dBu / Millivolts)",
+                "Instrument / Hi-Z Level (-20 dBu)",
+                "Consumer Line Level (-10 dBV / 0.316V)"
               ],
-              "expert_explanation": "Studio audio signals follow a strict voltage hierarchy: Mic Level is extremely weak (millivolts, -60 to -40 dBu) requiring a preamp; Instrument Level is medium strength (around -20 dBu) requiring a DI box or Hi-Z input; and Line Level is the hottest standard studio signal (+4 dBu for pro gear). Connecting a hot line-level synth into a high-gain mic input will cause severe clipping distortion.",
+              "correct_order": [
+                "Microphone Level (-60 dBu / Millivolts)",
+                "Instrument / Hi-Z Level (-20 dBu)",
+                "Consumer Line Level (-10 dBV / 0.316V)",
+                "Professional Line Level (+4 dBu / 1.23V)",
+                "Speaker Level (+30 dBu / Tens of Volts)"
+              ],
+              "explanation": "<p><strong>Signal Voltage Hierarchy:</strong> Microphone level is tiny (millivolts, around -60 dBu) requiring a dedicated preamp. Hi-Z instrument level (-20 dBu) from guitar pickups sits higher. Consumer line level (-10 dBV = 0.316V RMS) is used in RCA home audio, while Professional line level (+4 dBu = 1.23V RMS) is standard in studio mixing consoles and audio interfaces. Speaker level delivers high current/voltage to drive monitor voice coils.</p>",
               "expert_quote": {
-                "text": "Match your levels at the input stage. Never plug a hot line-level synthesizer into a sensitive mic preamp unless you want instant distortion.",
-                "author": "Studio Gain Staging Guide"
+                "text": "Plugging a line level output into a mic preamp will overload it instantly. Gain staging starts with understanding your signal voltage boundaries.",
+                "author": "Bob Katz, Mastering Engineer"
               },
-              "img": "/images/svg/signal_levels_chart.svg",
-              "title": "Q4: Audio Signal Levels",
-              "type": "multi_choice",
-              "explanation": "<img src=\"/images/svg/signal_levels_chart.svg\" alt=\"Audio Signal Level Hierarchy Chart\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Studio audio signals follow a strict voltage hierarchy: <strong>Mic Level</strong> is extremely weak (millivolts, -60 to -40 dBu) requiring a preamp; <strong>Instrument Level</strong> is medium strength (around -20 dBu) requiring a DI box or Hi-Z input; and <strong>Line Level</strong> is the hottest standard studio signal (<strong>+4 dBu</strong> for pro gear). Connecting a hot line-level synth into a high-gain mic input will cause severe clipping distortion.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Match your levels at the input stage. Never plug a hot line-level synthesizer into a sensitive mic preamp unless you want instant distortion.\"<br/><strong>- Studio Gain Staging Guide</strong></blockquote>"
+              "img": "/images/svg/balanced_cable.svg"
             },
             {
               "content": "What is the primary function of a microphone preamplifier?",
@@ -1269,34 +1264,31 @@
           "description": "Mastery quiz covering the fundamentals of Fundamentals & Recording.",
           "questions": [
             {
-              "content": "Close micing provides:",
-              "answers": [
-                {
-                  "text": "Lots of room sound",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Maximum isolation",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "No direct sound",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Only reverb",
-                  "is_true": "no"
-                }
+              "title": "Practical Task: Acoustic to Digital Signal Flow",
+              "content": "Trace the audio signal from acoustic sound source into the DAW. Drag the studio components into the exact physical sequence.",
+              "type": "drag_drop",
+              "items": [
+                "Audio Interface Analog-to-Digital Converter (ADC)",
+                "DAW Audio Track (Digital PCM File)",
+                "Microphone Capsule Transducer (Acoustic to Voltage)",
+                "Acoustic Sound Source (Vocal / Instrument)",
+                "Balanced XLR Cable",
+                "Microphone Preamplifier (+48V Gain Stage)"
               ],
-              "expert_explanation": "Close micing positions a microphone within a few inches (typically 2 to 15 cm) of an acoustic sound source. This maximizes direct sound relative to ambient sound, providing maximum acoustic isolation and drastically reducing spill/bleed from neighboring instruments and room reverberation.",
+              "correct_order": [
+                "Acoustic Sound Source (Vocal / Instrument)",
+                "Microphone Capsule Transducer (Acoustic to Voltage)",
+                "Balanced XLR Cable",
+                "Microphone Preamplifier (+48V Gain Stage)",
+                "Audio Interface Analog-to-Digital Converter (ADC)",
+                "DAW Audio Track (Digital PCM File)"
+              ],
+              "explanation": "<p><strong>Recording Signal Flow:</strong> Sound waves vibrate the mic diaphragm (transducing acoustic energy into millivolt electrical current). The balanced XLR cable rejects electromagnetic interference en route to the preamp, which boosts it to +4 dBu line level. The ADC quantizes continuous voltage into binary 24-bit PCM samples recorded directly to the DAW audio buffer.</p>",
               "expert_quote": {
-                "text": "Microphone placement is the EQ of recording. Move the mic before you reach for a plugin.",
-                "author": "Recording Mantra"
+                "text": "Every piece of wire and every gain stage affects your transient detail. Maintain pristine signal flow from source to converter.",
+                "author": "Al Schmitt, 23-Time Grammy Winning Engineer"
               },
-              "img": "/images/close_micing_snare_studio.jpg",
-              "title": "Q11: Close Micing & Isolation",
-              "type": "multi_choice",
-              "explanation": "<img src=\"/images/close_micing_snare_studio.jpg\" alt=\"Close Micing a Snare Drum in Studio\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Close micing positions a microphone within a few inches (typically 2 to 15 cm) of an acoustic sound source. This maximizes direct sound relative to ambient sound, providing <strong>maximum acoustic isolation</strong> and drastically reducing spill/bleed from neighboring instruments and room reverberation.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Microphone placement is the EQ of recording. Move the mic before you reach for a plugin.\"<br/><strong>- Recording Mantra</strong></blockquote>"
+              "img": "/images/svg/signal_chain_basic.svg"
             },
             {
               "content": "Stereo recording uses how many microphones minimum?",
@@ -1669,34 +1661,27 @@
               "explanation": "<img src=\"/images/gen/t10_q2_dynamic_vs_ribbon_hq_123.png\" alt=\"Coles 4038 Ribbon Microphone in Studio Setup\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Passive ribbon microphones produce very low output voltages (often -55 to -60 dBV) because the tiny aluminum ribbon suspended between magnets generates only small currents. To bring this weak signal up to line level without introducing audible background hiss, you need a <strong>clean, low-noise preamplifier with high gain</strong> (typically 60–70+ dB) or an inline booster like a Cloudlifter.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Ribbon microphones deliver a warm, smooth, natural sound, but because of their low output, high clean gain from your preamp is essential.\"<br/><strong>- Wes Dooley</strong></blockquote>"
             },
             {
-              "content": "You have a multi-pattern microphone (Omni, Cardioid, Figure-8). When recording vocals in an untreated room with flutter echoes and reflections, which pattern provides the best isolation?",
-              "answers": [
-                {
-                  "text": "All patterns isolate reflections equally",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Cardioid",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "Figure-8",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Omnidirectional",
-                  "is_true": "no"
-                }
+              "title": "Practical Task: Cardioid Polar Rejection Angle",
+              "content": "Drag the polar pattern angles to match their directional sensitivity for a standard Cardioid microphone.",
+              "type": "drag_drop",
+              "items": [
+                "180° Directly Behind (Dead Null Point: -25 dB+ Rejection)",
+                "90° Off-Axis Side Angle (-6 dB Attenuation)",
+                "0° On-Axis Front (Maximum Sensitivity: 0 dB)",
+                "270° Off-Axis Side Angle (-6 dB Attenuation)"
               ],
-              "expert_explanation": "A cardioid polar pattern is directional, picking up sound primarily from the front (0°) while providing maximum rejection at 180° (directly behind the capsule). This significantly reduces unwanted room reflections, ambient reverberation, and flutter echoes compared to omni (picks up 360°) or figure-8 (picks up front and back equally).",
+              "correct_order": [
+                "0° On-Axis Front (Maximum Sensitivity: 0 dB)",
+                "90° Off-Axis Side Angle (-6 dB Attenuation)",
+                "180° Directly Behind (Dead Null Point: -25 dB+ Rejection)",
+                "270° Off-Axis Side Angle (-6 dB Attenuation)"
+              ],
+              "explanation": "<p><strong>Cardioid Polar Pattern:</strong> Cardioid mics have a heart-shaped polar pattern with maximum sensitivity at 0° on-axis, -6 dB attenuation at 90° and 270° sides, and a deep null point directly behind at 180° (exceeding -25 dB attenuation). In live recording, aiming the 180° rear null directly at stage monitor wedges minimizes acoustic feedback.</p>",
               "expert_quote": {
-                "text": "In an imperfect acoustic space, a cardioid pattern is your first line of defense against boxy room reverberation and flutter echoes.",
-                "author": "Home Studio Acoustics Guide"
+                "text": "Knowing where your microphone DOESN'T listen is just as crucial as knowing where it does. The rear null is your best weapon against bleed.",
+                "author": "Bruce Swedien, Recording Engineer"
               },
-              "img": "/images/gen/t2_q10_polar_patterns_hq.jpg",
-              "title": "Q4: Cardioid Polar Pattern Rejection",
-              "type": "multi_choice",
-              "explanation": "<img src=\"/images/gen/t2_q10_polar_patterns_hq.jpg\" alt=\"Microphone Polar Patterns: Omnidirectional, Cardioid, and Figure-8\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> A <strong>cardioid</strong> polar pattern is directional, picking up sound primarily from the front (0°) while providing maximum rejection at 180° (directly behind the capsule). This significantly reduces unwanted room reflections, ambient reverberation, and flutter echoes compared to omni (picks up 360°) or figure-8 (picks up front and back equally).</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"In an imperfect acoustic space, a cardioid pattern is your first line of defense against boxy room reverberation and flutter echoes.\"<br/><strong>- Home Studio Acoustics Guide</strong></blockquote>"
+              "img": "/images/svg/polar_pattern_cardioid.svg"
             },
             {
               "content": "Which microphone polar pattern picks up sound with equal sensitivity from all directions (360° coverage)?",
@@ -1919,34 +1904,27 @@
               "explanation": "<img src=\"/images/gen/t2_q11_room_reflections_hq_1772103469413.png\" alt=\"Vocal recording reflections in an untreated room\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Placing a microphone at a distance captures a higher ratio of reflected room sound to direct sound. Without acoustic absorption or diffusion, these reflections color the signal with boxy room resonances, flutter echoes, and comb filtering that cannot be removed later during mixing.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Close micing gives you dry isolation; distance micing prints the room sound onto your recording forever.\"<br/><strong>- Sound On Sound Recording Guide</strong></blockquote>"
             },
             {
-              "content": "Under the 3:1 distance rule, if a microphone is 4 inches from a sound source, how far away must the next microphone be placed?",
-              "answers": [
-                {
-                  "text": "12 inches (3 × 4 inches)",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "4 inches",
-                  "is_true": "no"
-                },
-                {
-                  "text": "8 inches",
-                  "is_true": "no"
-                },
-                {
-                  "text": "16 inches",
-                  "is_true": "no"
-                }
+              "title": "Practical Task: 3:1 Distance Rule Configuration",
+              "content": "To prevent audible comb filtering and phase cancellation when multi-micing two acoustic sources, order the microphone distances according to the 3:1 rule.",
+              "type": "drag_drop",
+              "items": [
+                "Source 1: Mic 1 Distance = 10 cm from sound source",
+                "Phase Check: Sum to mono to verify low-end fullness",
+                "Source 2: Mic 2 Placement = Minimum 30 cm away from Mic 1",
+                "Result: Phase cancellation attenuated by at least 12 dB"
               ],
-              "expert_explanation": "The 3:1 Rule is a standard studio technique to avoid phase cancellation when using multiple open microphones. The distance between two microphones must be at least three times the distance from each microphone to its sound source (3 × 4 inches = 12 inches). This physical spacing ensures that acoustic spill from the secondary source arrives at least 12 dB lower in level, preventing audible comb filtering.",
+              "correct_order": [
+                "Source 1: Mic 1 Distance = 10 cm from sound source",
+                "Source 2: Mic 2 Placement = Minimum 30 cm away from Mic 1",
+                "Result: Phase cancellation attenuated by at least 12 dB",
+                "Phase Check: Sum to mono to verify low-end fullness"
+              ],
+              "explanation": "<p><strong>The 3:1 Rule:</strong> When using two microphones on different sound sources, the distance between the two microphones must be at least THREE times the distance from each microphone to its intended sound source. This ensures acoustic bleed into the secondary microphone is attenuated by at least 12 dB, preventing audible comb filtering when both channels are summed.</p>",
               "expert_quote": {
-                "text": "Whenever multiple open mics capture the same space, respect the 3:1 rule to stop phase cancellation from gutting your mix.",
-                "author": "Lou Burroughs"
+                "text": "Phase cancellation is an invisible thief of tone. Adhering to the 3:1 rule keeps your multitrack drum and acoustic guitar recordings punchy and clear.",
+                "author": "Geoff Emerick, Abbey Road Engineer (The Beatles)"
               },
-              "img": "/images/gen/t2_q6_3to1_rule_hq_new.jpg",
-              "title": "Q12: The 3:1 Distance Rule",
-              "type": "multi_choice",
-              "explanation": "<img src=\"/images/gen/t2_q6_3to1_rule_hq_new.jpg\" alt=\"3:1 Distance Rule Microphone Spacing Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> The <strong>3:1 Rule</strong> is a standard studio technique to avoid phase cancellation when using multiple open microphones. The distance between two microphones must be at least <strong>three times</strong> the distance from each microphone to its sound source ($3 \\times 4\\text{ inches} = 12\\text{ inches}$). This physical spacing ensures that acoustic spill from the secondary source arrives at least $12\\text{ dB}$ lower in level, preventing audible comb filtering.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Whenever multiple open mics capture the same space, respect the 3:1 rule to stop phase cancellation from gutting your mix.\"<br/><strong>- Lou Burroughs</strong></blockquote>"
+              "img": "/images/svg/mic_placement_acoustic_guitar.svg"
             },
             {
               "content": "Where is the standard starting microphone placement to capture a balanced acoustic guitar tone without boomy bass buildup?",
@@ -2190,64 +2168,46 @@
           "description": "Mastery quiz covering the fundamentals of Synthesis.",
           "questions": [
             {
-              "title": "Q1: Subtractive Synthesis Signal Flow",
-              "type": "multi_choice",
-              "content": "What is the standard audio signal flow in a classic subtractive synthesizer?",
-              "answers": [
-                {
-                  "text": "Oscillator (VCO) → Filter (VCF) → Amplifier (VCA)",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "Filter (VCF) → Oscillator (VCO) → Amplifier (VCA)",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Amplifier (VCA) → Filter (VCF) → Oscillator (VCO)",
-                  "is_true": "no"
-                },
-                {
-                  "text": "LFO → Envelope Generator → Oscillator (VCO)",
-                  "is_true": "no"
-                }
+              "title": "Practical Task: Subtractive Synthesis Architecture",
+              "content": "Drag and drop the functional synthesizer modules into the correct subtractive audio signal path from raw sound generation to dynamic output.",
+              "type": "drag_drop",
+              "items": [
+                "Voltage Controlled Amplifier (VCA - Amplitude Shaping)",
+                "Voltage Controlled Filter (VCF - Timbre & Cutoff Sculpting)",
+                "Voltage Controlled Oscillator (VCO - Raw Waveform Generation)",
+                "ADSR Envelope Generator (Modulates Filter Cutoff & Volume)"
               ],
-              "expert_explanation": "In subtractive synthesis, sound generation follows a logical three-stage path: 1. Oscillator (VCO) generates a raw, harmonically rich waveform (sawtooth, square, pulse). 2. Filter (VCF) subtracts or shapes unwanted frequencies (typically via a low-pass filter) to sculpt the timbre. 3. Amplifier (VCA) controls the final amplitude (volume) over time, shaped by an envelope generator (ADSR).",
+              "correct_order": [
+                "Voltage Controlled Oscillator (VCO - Raw Waveform Generation)",
+                "Voltage Controlled Filter (VCF - Timbre & Cutoff Sculpting)",
+                "Voltage Controlled Amplifier (VCA - Amplitude Shaping)",
+                "ADSR Envelope Generator (Modulates Filter Cutoff & Volume)"
+              ],
+              "explanation": "<p><strong>Subtractive Synthesis Architecture:</strong> 1) The VCO generates harmonically rich raw waves (sawtooth, square, pulse). 2) The VCF subtracts or filters out unwanted harmonics via cutoff frequency and resonance. 3) The VCA controls output amplitude over time. 4) ADSR envelope generators send control voltages to modulate both the VCF and VCA.</p>",
               "expert_quote": {
-                "text": "Subtractive synthesis starts with harmonic chaos at the oscillator, carves away frequencies at the filter, and shapes dynamic life at the amplifier.",
-                "author": "Synthesizer Programming Standards"
+                "text": "Subtractive synthesis is like sculpting marble. The oscillator provides the solid block of stone, and the filter carves away everything that isn't the sculpture.",
+                "author": "Bob Moog, Synthesizer Pioneer"
               },
-              "img": "/images/Dictiionary_Quiz_image_Pool/subtractive_synth_flow_hq.png",
-              "explanation": "<img src=\"/images/Dictiionary_Quiz_image_Pool/subtractive_synth_flow_hq.png\" alt=\"Subtractive synthesizer signal flow: Oscillator to Filter to Amplifier\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> In subtractive synthesis, sound generation follows a logical three-stage path: 1. <strong>Oscillator (VCO)</strong> generates a raw, harmonically rich waveform (sawtooth, square, pulse). 2. <strong>Filter (VCF)</strong> subtracts or shapes unwanted frequencies (typically via a low-pass filter) to sculpt the timbre. 3. <strong>Amplifier (VCA)</strong> controls the final amplitude (volume) over time, shaped by an envelope generator (ADSR).</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Subtractive synthesis starts with harmonic chaos at the oscillator, carves away frequencies at the filter, and shapes dynamic life at the amplifier.\"<br/><strong>- Synthesizer Programming Standards</strong></blockquote>"
+              "img": "/images/svg/high_pass_filter_sweep_riser.svg"
             },
             {
-              "title": "Q2: Pure Fundamental Waveform",
-              "type": "multi_choice",
-              "content": "Which basic synthesizer waveform contains only the fundamental frequency with no harmonics?",
-              "answers": [
-                {
-                  "text": "Sawtooth",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Sine",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "Square",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Triangle",
-                  "is_true": "no"
-                }
+              "title": "Practical Listening: Waveform Harmonic Identification",
+              "content": "Listen to the synthesizer tone below. Identify the fundamental waveform characterised by having NO harmonic overtones.",
+              "type": "waveform_id",
+              "audio_src": "/Audio/Waveforms/sine wave.mp3",
+              "options": [
+                "Sine Wave",
+                "Sawtooth Wave",
+                "Square Wave",
+                "Triangle Wave"
               ],
-              "expert_explanation": "A sine wave is the purest acoustic waveform in existence, consisting exclusively of a single frequency at the fundamental pitch with zero harmonic overtones or sidebands.",
+              "correct_option": "Sine Wave",
+              "explanation": "<p><strong>Sine Wave:</strong> The sine wave contains only the fundamental frequency with zero harmonic overtones. It produces a pure, warm, and smooth tone, universally utilized for sub-bass synthesizers and test tone calibration.</p>",
               "expert_quote": {
-                "text": "Every complex sound we hear is ultimately composed of stacked sine waves.",
-                "author": "Synthesizer Fundamentals"
+                "text": "A pure sine wave is the atom of all musical sound. Combine enough of them at differing amplitudes and phases, and you can reconstruct any acoustic instrument.",
+                "author": "Jean-Baptiste Fourier"
               },
-              "img": "/images/gen/t3_q2_sine_wave_hq_1772104192200.png",
-              "explanation": "<img src=\"/images/gen/t3_q2_sine_wave_hq_1772104192200.png\" alt=\"Pure sine wave displayed on an oscilloscope\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> A <strong>sine wave</strong> is the purest acoustic waveform in existence, consisting exclusively of a single frequency at the fundamental pitch with zero harmonic overtones or sidebands.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Every complex sound we hear is ultimately composed of stacked sine waves.\"<br/><strong>- Synthesizer Fundamentals</strong></blockquote>"
+              "img": "/images/svg/human_hearing_range.svg"
             },
             {
               "title": "Q3: Purpose of a Synthesizer Filter",
@@ -2530,34 +2490,23 @@
               "explanation": "<img src=\"/images/svg/pulse_duty_cycle_diagram.svg\" alt=\"Comparison of Pulse Waves (25% and 10% Duty - Nasal/Reedy) and Square Wave (50% Duty - Hollow/Woody)\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> In synthesizer sound design, waveforms are chosen for their musical acoustic analogies: A <strong>Square Wave (symmetrical 50% duty cycle)</strong> cancels all even harmonics, leaving only odd harmonics (1st, 3rd, 5th...). Acoustically, this mimics cylindrical woodwinds like the clarinet, producing a <strong>hollow, warm, and woody</strong> tone. A <strong>Pulse Wave (narrow duty cycle, e.g. 10%–25%)</strong> introduces even harmonics alongside odd harmonics, creating a <strong>sharp, nasal, reedy</strong> bite reminiscent of an oboe, bassoon, or pinched clavinet.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"A square wave gives you the hollow woody tones of a clarinet; narrowing that pulse introduces even harmonics that buzz with the nasal bite of an oboe.\"<br/><strong>- Sound on Sound Synth Secrets</strong></blockquote>"
             },
             {
-              "title": "Q12: Sawtooth Harmonic Richness",
-              "type": "multi_choice",
-              "content": "Why is a sawtooth wave the most popular starting waveform for subtractive synth leads and brass?",
-              "answers": [
-                {
-                  "text": "It automatically modulates its own pitch to create natural vibrato",
-                  "is_true": "no"
-                },
-                {
-                  "text": "It has no overtones, keeping the sound completely clean and uncolored",
-                  "is_true": "no"
-                },
-                {
-                  "text": "It contains all odd and even harmonics, giving filters maximum rich frequencies to shape",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "It contains only odd harmonics, creating a naturally hollow sound",
-                  "is_true": "no"
-                }
+              "title": "Practical Listening: Sawtooth Wave Timbre",
+              "content": "Listen to the raw oscillator tone below. Identify which waveform contains all odd and even harmonics, making it ideal for aggressive brass and synth leads.",
+              "type": "waveform_id",
+              "audio_src": "/Audio/Waveforms/Sawtooth Wave.mp3",
+              "options": [
+                "Sawtooth Wave",
+                "Square Wave",
+                "Sine Wave",
+                "Triangle Wave"
               ],
-              "expert_explanation": "A sawtooth wave is the richest of all standard synthesizer waveforms because its harmonic series contains every integer multiple harmonic (1st, 2nd, 3rd, 4th, 5th, 6th...) with amplitudes falling off at 1/n. Because both odd and even harmonics are present in generous amounts, it produces a naturally bright, buzzy, and cutting timbre that closely resembles acoustic brass and bowed strings. In subtractive synthesis, this makes it the ideal raw sound source—giving the low-pass filter (VCF) the maximum possible harmonic material to carve, sweep, and sculpt into warm pads, biting leads, and punchy synth brass.",
+              "correct_option": "Sawtooth Wave",
+              "explanation": "<p><strong>Sawtooth Wave:</strong> The sawtooth wave contains ALL integer harmonics (both odd and even) falling off at 1/n amplitude. This creates a bright, buzzy, and aggressive timbre that gives subtractive filters maximum frequency material to sculpt.</p>",
               "expert_quote": {
-                "text": "The sawtooth wave is the bedrock of subtractive synthesis—it supplies the raw harmonic power that allows analog filters to sing.",
-                "author": "Bob Moog"
+                "text": "For fat lead sounds, synth brass, and classic analog bass, the sawtooth wave remains the undisputed king of subtractive synthesis.",
+                "author": "Dave Smith, Designer of the Prophet-5 & Co-Creator of MIDI"
               },
-              "img": "/images/svg/sawtooth_vs_square_diagram.svg",
-              "explanation": "<img src=\"/images/svg/sawtooth_vs_square_diagram.svg\" alt=\"Comparison of Sawtooth Wave (All Odd & Even Harmonics) vs Square Wave (Odd Harmonics Only)\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> A <strong>sawtooth wave</strong> is the richest of all standard synthesizer waveforms because its harmonic series contains <strong>every integer multiple harmonic</strong> (1st, 2nd, 3rd, 4th, 5th, 6th...) with amplitudes falling off at 1/n. Because both odd and even harmonics are present in generous amounts, it produces a naturally bright, buzzy, and cutting timbre that closely resembles acoustic brass and bowed strings. In subtractive synthesis, this makes it the ideal raw sound source—giving the <strong>low-pass filter (VCF)</strong> the maximum possible harmonic material to carve, sweep, and sculpt into warm pads, biting leads, and punchy synth brass.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"The sawtooth wave is the bedrock of subtractive synthesis—it supplies the raw harmonic power that allows analog filters to sing.\"<br/><strong>- Bob Moog</strong></blockquote>"
+              "img": "/images/svg/frequency_spectrum_treble.svg"
             },
             {
               "title": "Q13: Filter Slopes (12 dB vs 24 dB)",
@@ -2900,34 +2849,29 @@
               "explanation": "<img src=\"/images/sample_crossfade_diagram.svg\" alt=\"Q3: Crossfade Looping & Discontinuity Smoothing\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> When looping a sustained instrument (such as a string ensemble, flute, or analog pad), the end of the loop region jumps instantly back to the start. If the waveform amplitudes or phases do not match seamlessly, this sudden voltage discontinuity creates an audible click or pop. An equal-power crossfade overlaps the loop boundary, gradually fading out the loop tail while fading in the loop head, producing a seamless, continuous sustain.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Without a crossfade, looping an organic acoustic instrument is nearly impossible—the tiniest phase clash will sound like a broken needle ticking on vinyl.\"<br/><strong>- Sound Design Principles</strong></blockquote>"
             },
             {
-              "title": "Q4: Peak Normalization & Dynamic Headroom",
-              "type": "multi_choice",
-              "content": "What is the primary function of peak normalization when processing an audio sample?",
-              "answers": [
-                {
-                  "text": "Boosting overall gain so the highest peak reaches a set ceiling like 0 dBFS",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "Compressing dynamic range so quiet sections match the level of loud peaks",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Aligning the stereo image equally between the left and right speakers",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Filtering low-frequency rumble below 30 Hz using a steep high-pass curve",
-                  "is_true": "no"
-                }
+              "title": "Practical Task: Sample Editing & Truncation Workflow",
+              "content": "Place the stages of preparing a raw acoustic drum break sample in a software sampler into the correct production order.",
+              "type": "drag_drop",
+              "items": [
+                "Zero-Crossing Editing (Prevent audio clicks at slice boundaries)",
+                "Import Raw 24-bit Audio Recording into Sampler",
+                "Trim & Truncate Dead Air before Initial Transient Peak",
+                "Assign Slices to MIDI Note Keyzones (Root Note Mapping)",
+                "Apply Amplitude ADSR Envelope (Tailor release and decay time)"
               ],
-              "expert_explanation": "Peak Normalization scans an audio file to locate its single highest peak level, calculates the difference between that peak and a target ceiling (commonly 0 dBFS or -0.1 dBFS), and applies that exact amount of gain transparently across the entire file. While it maximizes resolution and volume without altering the internal dynamic relationship or musical balance of the performance, engineers must be cautious: normalizing every track independently can destroy deliberate mix balance (e.g. making a shaker as loud as a lead vocal).",
+              "correct_order": [
+                "Import Raw 24-bit Audio Recording into Sampler",
+                "Trim & Truncate Dead Air before Initial Transient Peak",
+                "Zero-Crossing Editing (Prevent audio clicks at slice boundaries)",
+                "Assign Slices to MIDI Note Keyzones (Root Note Mapping)",
+                "Apply Amplitude ADSR Envelope (Tailor release and decay time)"
+              ],
+              "explanation": "<p><strong>Sampler Editing Workflow:</strong> 1) Import audio. 2) Truncate pre-transient silence so playback triggers instantaneously without latency lag. 3) Snap slice markers to zero-crossing points (0V) to avoid DC offset clicks. 4) Map slices to MIDI keyzones. 5) Shape envelopes to control sample sustain and tail release.</p>",
               "expert_quote": {
-                "text": "Normalization raises the entire waveform equally—it is a clean mathematical gain change, not a compressor.",
-                "author": "Modern Audio Production"
+                "text": "A sampler is only as tight as your front truncation. Even a 5ms delay before the kick transient will destroy the groove of your rhythm section.",
+                "author": "Roger Linn, Inventor of the LM-1 & Akai MPC"
               },
-              "img": "/images/gen/t4_q9_normalization_hq_1772105279380.png",
-              "explanation": "<img src=\"/images/gen/t4_q9_normalization_hq_1772105279380.png\" alt=\"Q4: Peak Normalization & Dynamic Headroom\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Peak Normalization scans an audio file to locate its single highest peak level, calculates the difference between that peak and a target ceiling (commonly 0 dBFS or -0.1 dBFS), and applies that exact amount of gain transparently across the entire file. While it maximizes resolution and volume without altering the internal dynamic relationship or musical balance of the performance, engineers must be cautious: normalizing every track independently can destroy deliberate mix balance (e.g. making a shaker as loud as a lead vocal).</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Normalization raises the entire waveform equally—it is a clean mathematical gain change, not a compressor.\"<br/><strong>- Modern Audio Production</strong></blockquote>"
+              "img": "/images/svg/vocal_chopping_sampling_technique.svg"
             },
             {
               "title": "Q5: Sample Reversal & Reverse Envelope Swells",
@@ -3460,64 +3404,47 @@
               "explanation": "<img src=\"/images/dynamic_range_concept.svg\" alt=\"Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Dynamic range is the decibel difference between the quietest audible sound (or the system noise floor) and the loudest unclipped peak of an audio signal.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Dynamic range is musical breathing room; squashing it entirely robs music of life.\"<br/><strong>- Bob Katz</strong></blockquote>"
             },
             {
-              "title": "Q2: Compressor vs Limiter Operational Difference",
-              "type": "multi_choice",
-              "content": "What is the primary operational difference between a compressor and a limiter?",
-              "answers": [
-                {
-                  "text": "Compressors cut harsh treble; limiters boost low-end bass frequencies",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Limiters reduce dynamics gently; compressors enforce a strict ceiling",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Compressors reduce dynamics gently; limiters enforce a strict ceiling",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "Limiters eliminate noise floor; compressors add stereo phase widening",
-                  "is_true": "no"
-                }
+              "title": "Practical Listening: Compression A/B Comparison",
+              "content": "Listen to Audio A (Dry) and Audio B (Wet). Identify the dynamic processing applied to the electric guitar performance in Audio B.",
+              "type": "audio_comparison",
+              "audio_a": "/Audio/FX_Ear_Training/Guitar/Dry Compression Guitar.mp3",
+              "audio_b": "/Audio/FX_Ear_Training/Guitar/Compression Guitar.mp3",
+              "options": [
+                "Heavy Peak Compression (Clamped Transients & Increased Sustain)",
+                "Gated Reverb Tail",
+                "Tape Echo & Delay",
+                "Bitcrusher & Sample Rate Reduction"
               ],
-              "expert_explanation": "A compressor uses moderate ratios (typically 2:1 to 8:1) to gently reduce dynamic range and smooth out volume variations while still allowing the signal to rise above threshold. A limiter is an extreme compressor using very high or infinite ratios (10:1 to ∞:1) with ultra-fast attack times to establish a brickwall ceiling that the audio signal can never exceed.",
+              "correct_index": 0,
+              "explanation": "<p><strong>Heavy Compression:</strong> Audio B clamps down on initial pick transients while bringing forward quiet sustaining details. This narrows dynamic range and significantly increases perceived density and sustain.</p>",
               "expert_quote": {
-                "text": "A compressor shapes the musical envelope and smooths dynamics; a limiter acts as a safety barrier to guarantee audio never clips.",
-                "author": "Bob Ludwig"
+                "text": "Compression isn't just volume control; it's an envelope shaper. It glues the performance together and locks the instrument into the pocket.",
+                "author": "Chris Lord-Alge, Mix Engineer (Green Day, Muse)"
               },
-              "img": "/images/compression_vs_limiting_hq.png",
-              "explanation": "<img src=\"/images/compression_vs_limiting_hq.png\" alt=\"Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> A compressor uses moderate ratios (typically 2:1 to 8:1) to gently reduce dynamic range and smooth out volume variations while still allowing the signal to rise above threshold. A limiter is an extreme compressor using very high or infinite ratios (10:1 to ∞:1) with ultra-fast attack times to establish a brickwall ceiling that the audio signal can never exceed.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"A compressor shapes the musical envelope and smooths dynamics; a limiter acts as a safety barrier to guarantee audio never clips.\"<br/><strong>- Bob Ludwig</strong></blockquote>"
+              "img": "/images/svg/serial_compression_sandwhich.svg"
             },
             {
-              "title": "Q3: Compression Ratio Fundamentals (e.g. 4:1)",
-              "type": "multi_choice",
-              "content": "A compressor has a 4:1 ratio. If input exceeds threshold by 4 dB, what is the output rise?",
-              "answers": [
-                {
-                  "text": "4 dB above the threshold",
-                  "is_true": "no"
-                },
-                {
-                  "text": "1 dB above the threshold",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "2 dB above the threshold",
-                  "is_true": "no"
-                },
-                {
-                  "text": "0 dB above the threshold",
-                  "is_true": "no"
-                }
+              "title": "Practical Task: Compressor Internal Signal Routing",
+              "content": "Drag the internal modules of a feedback/feed-forward audio compressor into the correct processing order.",
+              "type": "drag_drop",
+              "items": [
+                "Make-Up Gain Amplifier (Restores overall RMS level)",
+                "Input Audio Buffer",
+                "Voltage Controlled Amplifier (VCA - Attenuates signal)",
+                "Detector / Sidechain Circuit (Measures RMS/Peak level against Threshold)"
               ],
-              "expert_explanation": "A 4:1 compression ratio means that for every 4 dB the input signal exceeds the threshold, the output is only allowed to increase by 1 dB (producing 3 dB of gain reduction).",
+              "correct_order": [
+                "Input Audio Buffer",
+                "Detector / Sidechain Circuit (Measures RMS/Peak level against Threshold)",
+                "Voltage Controlled Amplifier (VCA - Attenuates signal)",
+                "Make-Up Gain Amplifier (Restores overall RMS level)"
+              ],
+              "explanation": "<p><strong>Compressor Internal Routing:</strong> The audio enters the buffer and splits into the detector/sidechain path (which monitors signal level against the user-defined threshold and ratio). The detector generates a control voltage fed into the VCA to attenuate peak transients. Make-up gain then restores the reduced level to maximize loudness.</p>",
               "expert_quote": {
-                "text": "The ratio determines the severity of gain reduction once the threshold is crossed.",
-                "author": "Mike Senior"
+                "text": "Understanding the detector circuit is the key to mastering sidechain compression, vocal ducking, and de-essing.",
+                "author": "Rupert Neve, Audio Electronics Designer"
               },
-              "img": "/images/compression_graph.svg",
-              "explanation": "<img src=\"/images/compression_graph.svg\" alt=\"Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> A 4:1 compression ratio means that for every 4 dB the input signal exceeds the threshold, the output is only allowed to increase by 1 dB (producing 3 dB of gain reduction).</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"The ratio determines the severity of gain reduction once the threshold is crossed.\"<br/><strong>- Mike Senior</strong></blockquote>"
+              "img": "/images/svg/dynamic_eq_threshold_action.svg"
             },
             {
               "title": "Q4: Compressor Attack Time Function",
@@ -4200,34 +4127,24 @@
               "explanation": "<img src=\"/images/high_shelf_filter_diagram.svg\" alt=\"High-Shelf Filter Frequency Response Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> A high-shelf filter applies a uniform boost or cut to all frequencies above its specified corner frequency. Rather than continuously attenuating like a low-pass filter, a shelving filter transitions smoothly up or down and then plateaus at a constant gain level across the top end.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Shelving EQs are great for adding broad tonal color—like dialing in high-end air on a vocal or brightening a dull acoustic guitar.\"<br/><strong>- Al Schmitt</strong></blockquote>"
             },
             {
-              "title": "Q6: Vocal 'Air Band' Frequency Range (10 kHz – 16 kHz)",
-              "type": "multi_choice",
-              "content": "To add expensive 'air' and delicate breath to a lead vocal without harsh sibilance, which band is boosted?",
-              "answers": [
-                {
-                  "text": "100 Hz – 250 Hz",
-                  "is_true": "no"
-                },
-                {
-                  "text": "10 kHz – 16 kHz",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "3 kHz – 6 kHz",
-                  "is_true": "no"
-                },
-                {
-                  "text": "300 Hz – 800 Hz",
-                  "is_true": "no"
-                }
-              ],
-              "expert_explanation": "The 'Air Band' resides in the extreme high frequencies above speech consonants (typically 10 kHz to 16 kHz). Boosting this region with a smooth high-shelf adds breath, openness, and high-end gloss. In contrast, boosting 3–6 kHz increases presence but risks harsh sibilance ('s' and 't' sounds), while 100–300 Hz controls warmth and chest resonance.",
+              "title": "Practical Task: Vocal Presence Frequency Slider",
+              "content": "Adjust the rotary frequency slider to dial in the standard vocal presence and articulation boost frequency in Hz.",
+              "type": "parameter_matching",
+              "label": "Vocal Presence Frequency",
+              "min": 500,
+              "max": 12000,
+              "step": 100,
+              "correct_value": 5000,
+              "tolerance": 1000,
+              "unit": "Hz",
+              "audio_before": "/Audio/FX_Ear_Training/EQ Mastery/Vocal Dull.wav",
+              "audio_after": "/Audio/FX_Ear_Training/EQ Mastery/Vocal with Presence.wav",
+              "explanation": "<p><strong>5000 Hz (5 kHz Presence Peak):</strong> A moderate bell boost centered between 4 kHz and 6 kHz enhances vocal consonant clarity, presence, and intimacy, cutting through dense rock and pop arrangements without sounding harsh or brittle.</p>",
               "expert_quote": {
-                "text": "A gentle high shelf at 12 kHz to 16 kHz brings out the microscopic breath in a singer's voice and gives modern vocals their polished radio sheen.",
-                "author": "Manny Marroquin"
+                "text": "5 kHz is where the human ear is most sensitive to speech intelligibility. A gentle boost here brings the singer right into the room with you.",
+                "author": "Bruce Swedien, Recording Engineer"
               },
-              "img": "/images/vocal_air_band_spectrum_diagram.svg",
-              "explanation": "<img src=\"/images/vocal_air_band_spectrum_diagram.svg\" alt=\"Vocal Air Band Frequency Spectrum Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> The 'Air Band' resides in the extreme high frequencies above speech consonants (typically 10 kHz to 16 kHz). Boosting this region with a smooth high-shelf adds breath, openness, and high-end gloss. In contrast, boosting 3–6 kHz increases presence but risks harsh sibilance ('s' and 't' sounds), while 100–300 Hz controls warmth and chest resonance.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"A gentle high shelf at 12 kHz to 16 kHz brings out the microscopic breath in a singer's voice and gives modern vocals their polished radio sheen.\"<br/><strong>- Manny Marroquin</strong></blockquote>"
+              "img": "/images/svg/eq_bell_curve_q_comparison.svg"
             },
             {
               "title": "Q7: Kick Drum Fundamental Weight (50 Hz – 80 Hz)",
@@ -4260,34 +4177,24 @@
               "explanation": "<img src=\"/images/kick_drum_eq_carving_diagram.svg\" alt=\"Kick Drum EQ Frequency Carving Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> An acoustic kick drum's physical weight and power resides in its sub-bass fundamental resonance between 50 Hz and 80 Hz. Boosting in this zone adds deep chest thump, while scooping out 250–500 Hz clears hollow 'boxy' cardboard mud, and boosting 3–5 kHz accentuates the beater transient click so the drum cuts through dense mixes.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"On kick drums, find the fundamental around 60 Hz for weight, carve out the hollow boxiness at 350 Hz, and push 4 kHz for beater snap.\"<br/><strong>- Chris Lord-Alge</strong></blockquote>"
             },
             {
-              "title": "Q8: Graphic Equalizers & Fixed Frequency Bands",
-              "type": "multi_choice",
-              "content": "Where are graphic EQs most commonly used?",
-              "answers": [
-                {
-                  "text": "Studio mixing only",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Live sound and room tuning",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "Only for bass guitar",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Never used professionally",
-                  "is_true": "no"
-                }
+              "title": "Practical Listening: Mix Mud & Clarity A/B Comparison",
+              "content": "Listen to Audio A and Audio B. Audio B has been professionally cleaned with EQ. Which problematic frequency band was attenuated to remove the 'mud'?",
+              "type": "audio_comparison",
+              "audio_a": "/Audio/FX_Ear_Training/EQ Mastery/Muddy Mix.mp3",
+              "audio_b": "/Audio/FX_Ear_Training/EQ Mastery/Clean Mix.mp3",
+              "options": [
+                "Cut in the 250 Hz – 400 Hz Low-Mid 'Mud' Range",
+                "Boost at 60 Hz Sub-Bass",
+                "Cut at 10 kHz High Frequencies",
+                "Boost at 1 kHz Middle Frequencies"
               ],
-              "expert_explanation": "Graphic EQs have fixed frequency bands (e.g., 31 bands) controlled by sliders. They are commonly used in live sound for tuning PA systems to the room.",
+              "correct_index": 0,
+              "explanation": "<p><strong>250 Hz – 400 Hz Low-Mid Mud:</strong> The 250 Hz to 400 Hz octave is where bass guitar, snare body, acoustic guitars, and lower vocal fundamentals accumulate, creating boxy, muffled 'mud'. Surgical attenuation in this band opens up headroom and mix separation.</p>",
               "expert_quote": {
-                "text": "Graphic EQ is for the room, Parametric is for the instrument.",
-                "author": "Live Sound Wisdom"
+                "text": "Before you boost treble to add clarity, always clean out 300 Hz. Great mixing is subtractive first.",
+                "author": "Bob Clearmountain, Mix Engineer"
               },
-              "img": "/images/gen/t6_q12_graphic_eq_hq_1772120525004.png",
-              "explanation": "<img src=\"/images/gen/t6_q12_graphic_eq_hq_1772120525004.png\" alt=\"Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Graphic EQs have fixed frequency bands (e.g., 31 bands) controlled by sliders. They are commonly used in live sound for tuning PA systems to the room.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Graphic EQ is for the room, Parametric is for the instrument.\"<br/><strong>- Live Sound Wisdom</strong></blockquote>"
+              "img": "/images/svg/west_coast_vs_east_coast_eq_profile.svg"
             },
             {
               "title": "Q9: Stereo Panning Controls & Soundstage Placement",
@@ -4670,34 +4577,24 @@
           "description": "Core fundamentals of time-based and modulation effects: Delay time, Feedback, RT60 reverb decay, Pre-delay, Reverb types (Spring, Plate, Chamber), and Chorus & Flanging mechanics.",
           "questions": [
             {
-              "title": "Q1: Delay Fundamentals & Delay Time",
-              "type": "multi_choice",
-              "content": "In audio effects, what does the Delay Time parameter determine?",
-              "answers": [
-                {
-                  "text": "The high-frequency roll-off slope across acoustic tail",
-                  "is_true": "no"
-                },
-                {
-                  "text": "The overall number of echoes produced by the processor",
-                  "is_true": "no"
-                },
-                {
-                  "text": "The time gap between the original sound and its repeat",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "The balance ratio between direct dry audio and wet bus",
-                  "is_true": "no"
-                }
+              "title": "Practical Listening: Delay FX Identification",
+              "content": "Listen to Audio A (Dry) and Audio B (Wet). Identify the time-based modulation/delay effect applied to the guitar in Audio B.",
+              "type": "audio_comparison",
+              "audio_a": "/Audio/FX_Ear_Training/Guitar/Dry Delay Guitar.mp3",
+              "audio_b": "/Audio/FX_Ear_Training/Guitar/Delay Guitar.mp3",
+              "options": [
+                "Echo / Delay (Repeated discrete reflections with feedback)",
+                "Flanging (Short delay with comb filtering)",
+                "Phasing (All-pass filter notch sweep)",
+                "Convolution Reverb (Dense diffuse room reflections)"
               ],
-              "expert_explanation": "Delay time sets the duration between the initial sound and its repeated echo. It can be measured in milliseconds (ms) for free-time effects or synchronized to musical note divisions (e.g. 1/4, 1/8, or dotted-eighth notes) locked to the DAW tempo grid.",
+              "correct_index": 0,
+              "explanation": "<p><strong>Echo / Delay:</strong> Delay stores audio in a temporary buffer and reproduces discrete, audible repetitions delayed in time by milliseconds (ms) or tempo divisions (e.g., 1/4 note). The feedback parameter governs repetition decay.</p>",
               "expert_quote": {
-                "text": "Delay time creates the spatial architecture of your groove. Locking repeats to the song tempo anchors the rhythm.",
-                "author": "Modern Production Techniques"
+                "text": "Delay gives an instrument space and rhythm without washing it out like reverb does. It's the secret to deep, punchy mixes.",
+                "author": "Tony Maserati, Mix Engineer (Beyoncé, Jay-Z)"
               },
-              "img": "/images/delay_fundamentals_time_diagram.svg",
-              "explanation": "<img src=\"/images/delay_fundamentals_time_diagram.svg\" alt=\"Delay Time Parameter Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Delay time sets the duration between the initial sound and its repeated echo. It can be measured in milliseconds (ms) for free-time effects or synchronized to musical note divisions (e.g. 1/4, 1/8, or dotted-eighth notes) locked to the DAW tempo grid.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Delay time creates the spatial architecture of your groove. Locking repeats to the song tempo anchors the rhythm.\"<br/><strong>- Modern Production Techniques</strong></blockquote>"
+              "img": "/images/svg/delay_feedback_loop.svg"
             },
             {
               "title": "Q2: Delay Feedback Regeneration",
@@ -4730,34 +4627,24 @@
               "explanation": "<img src=\"/images/delay_feedback_repeats_diagram.svg\" alt=\"Delay Feedback Regeneration Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Feedback (regeneration) routes a portion of the delayed output signal back into the processor input. At 0% feedback, only a single repeat (slapback) is heard. Higher feedback percentages generate progressively more decaying repeats until the energy dissipates.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Feedback is the memory loop of your delay. It dictates how long a musical idea lingers in the soundstage.\"<br/><strong>- Time-Based FX Manual</strong></blockquote>"
             },
             {
-              "title": "Q3: Reverb Decay Time (RT60)",
-              "type": "multi_choice",
-              "content": "In acoustic theory and reverberation measurement, what does RT60 represent?",
-              "answers": [
-                {
-                  "text": "The total duration of an initial early reflections set",
-                  "is_true": "no"
-                },
-                {
-                  "text": "The time needed for direct audio to reach the listener",
-                  "is_true": "no"
-                },
-                {
-                  "text": "The pre-delay gap before initial reflections are heard",
-                  "is_true": "no"
-                },
-                {
-                  "text": "The time needed for reverberant sound to drop by 60 dB",
-                  "is_true": "yes"
-                }
+              "title": "Practical Listening: Reverb Decay Identification",
+              "content": "Listen to Audio A (Dry) and Audio B (Wet). What acoustic process has been added to create an illusion of physical space?",
+              "type": "audio_comparison",
+              "audio_a": "/Audio/FX_Ear_Training/Guitar/Dry Reverb Guitar.mp3",
+              "audio_b": "/Audio/FX_Ear_Training/Guitar/Reverb Guitar.mp3",
+              "options": [
+                "Reverberation (Dense diffuse wash of acoustic reflections)",
+                "Chorus (Pitch detuning and modulation)",
+                "Tremolo (Amplitude modulation)",
+                "Wah-Wah (Bandpass resonant sweep)"
               ],
-              "expert_explanation": "RT60 (Reverberation Time 60 dB) is the international standard metric defining room acoustics. It measures the elapsed time required for acoustic sound energy to decay by 60 dB (one-millionth of its original sound pressure level) after the sound source stops.",
+              "correct_index": 0,
+              "explanation": "<p><strong>Reverberation:</strong> Reverb simulates the acoustic reflections of a physical room, consisting of early reflections followed by a dense, decaying reverberant wash characterized by RT60 (reverberation time).</p>",
               "expert_quote": {
-                "text": "A 60 dB drop represents the decay from loud fortissimo to the ambient background noise floor of an auditorium.",
-                "author": "Acoustic Principles & Architectural Design"
+                "text": "Reverb is the acoustic architecture of your song. It tells the listener where the band is standing in physical space.",
+                "author": "Eddie Kramer, Engineer (Jimi Hendrix, Led Zeppelin)"
               },
-              "img": "/images/reverb_rt60_decay_diagram.svg",
-              "explanation": "<img src=\"/images/reverb_rt60_decay_diagram.svg\" alt=\"Reverb RT60 Decay Time Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> RT60 (Reverberation Time 60 dB) is the international standard metric defining room acoustics. It measures the elapsed time required for acoustic sound energy to decay by 60 dB (one-millionth of its original sound pressure level) after the sound source stops.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"A 60 dB drop represents the decay from loud fortissimo to the ambient background noise floor of an auditorium.\"<br/><strong>- Acoustic Principles & Architectural Design</strong></blockquote>"
+              "img": "/images/svg/reverb_diffusion_density.svg"
             },
             {
               "title": "Q4: Reverb Pre-Delay (Initial Delay)",
@@ -5290,34 +5177,29 @@
           "description": "Core fundamentals of audio mastering: Signal chain overview, digital headroom and crest factor, inter-sample true peaks, streaming limiter ceilings, LUFS & K-weighting, streaming normalization standards, master bus glue compression, level-matched A/B referencing, TPDF dither, and acoustic translation.",
           "questions": [
             {
-              "title": "Q1: The Role & Purpose of Audio Mastering",
-              "type": "multi_choice",
-              "content": "What is the primary objective of audio mastering in commercial music production?",
-              "answers": [
-                {
-                  "text": "Capturing clean vocal takes and balancing stereo audio faders",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Synthesizing new MIDI instruments using software workstations",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Tracking live acoustic instruments inside any isolated studio",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Optimizing tonal balance, dynamics, and consumer translations",
-                  "is_true": "yes"
-                }
+              "title": "Practical Task: Professional Mastering Signal Chain",
+              "content": "Drag and drop the mastering processors into the industry-standard signal chain order from unmastered stereo mix to final delivery file.",
+              "type": "drag_drop",
+              "items": [
+                "Dithering Processor (Applied during bit-depth reduction to 16-bit)",
+                "True Peak Brickwall Limiter (Sets ceiling at -1.0 dBTP to prevent inter-sample clipping)",
+                "Linear Phase Corrective EQ (High-pass sub-rumble cut at 25 Hz and notch resonances)",
+                "Broad Tonal EQ (Gentle musical boosts for air and warmth)",
+                "Multiband Compressor / Glue Compression (Dynamic consistency across frequency bands)"
               ],
-              "expert_explanation": "Mastering is the final technical and creative stage of audio production. It balances tone, dynamic range, and overall loudness while ensuring sonic cohesion across an album and transparent translation across all consumer playback systems.",
+              "correct_order": [
+                "Linear Phase Corrective EQ (High-pass sub-rumble cut at 25 Hz and notch resonances)",
+                "Multiband Compressor / Glue Compression (Dynamic consistency across frequency bands)",
+                "Broad Tonal EQ (Gentle musical boosts for air and warmth)",
+                "True Peak Brickwall Limiter (Sets ceiling at -1.0 dBTP to prevent inter-sample clipping)",
+                "Dithering Processor (Applied during bit-depth reduction to 16-bit)"
+              ],
+              "explanation": "<p><strong>Mastering Chain Order:</strong> 1) Corrective EQ cleans sub-bass rumble and harsh notches before dynamics. 2) Multiband/Glue compression controls dynamic range. 3) Broad tonal EQ sweetens high and low ends. 4) True Peak Limiting catches transient peaks and establishes target LUFS loudness (-1.0 dBTP ceiling). 5) Dither is always the FINAL plugin in the chain when truncating bit depth (e.g. 24-bit to 16-bit) to eliminate quantisation distortion.</p>",
               "expert_quote": {
-                "text": "Mastering is the bridge between the recording studio and the consumer world, ensuring your music sounds exceptional everywhere.",
-                "author": "Mastering Audio Principles"
+                "text": "In mastering, dither is always last. If you put any processor after dither, you defeat its mathematical purpose.",
+                "author": "Bob Katz, Mastering Engineer"
               },
-              "img": "/images/mastering_signal_chain_overview_diagram.svg",
-              "explanation": "<img src=\"/images/mastering_signal_chain_overview_diagram.svg\" alt=\"Q1: The Role & Purpose of Audio Mastering\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Mastering is the final technical and creative stage of audio production. It balances tone, dynamic range, and overall loudness while ensuring sonic cohesion across an album and transparent translation across all consumer playback systems.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Mastering is the bridge between the recording studio and the consumer world, ensuring your music sounds exceptional everywhere.\"<br/><strong>- Mastering Audio Principles</strong></blockquote>"
+              "img": "/images/svg/dither_noise.svg"
             },
             {
               "title": "Q2: What is Headroom & Why is it Important?",
@@ -6150,34 +6032,25 @@
               "explanation": "<img src=\"/images/gen/t9_q9_acoustic_foam_hq_123.png\" alt=\"Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Sound is a mechanical wave that propagates as a longitudinal wave of pressure variations (compression and rarefaction) through a medium like air or water. Without a medium, there is no sound.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Frequency is objective fact; pitch is subjective perception.\"<br/><strong>- Psychoacoustics</strong></blockquote>"
             },
             {
-              "title": "Q9: Bass Trapping in Room Corners for Modal Control",
-              "type": "multi_choice",
-              "content": "The best solution for room modes is:",
-              "answers": [
-                {
-                  "text": "Ignore them",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Make room smaller",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Bass traps in corners",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "Only EQ",
-                  "is_true": "no"
-                }
+              "title": "Practical Task: Studio Acoustic Treatment Plan",
+              "content": "Drag and drop the acoustic treatment panels into their optimal room positions to control modes, reflections, and flutter echo.",
+              "type": "drag_drop",
+              "items": [
+                "Rear Wall Behind Mix Position -> Diffusion Panels (Scatters reflections without making room sound dead)",
+                "Side Mirror Points & Ceiling Cloud -> Porous Absorption Panels (Eliminates first early reflections)",
+                "Room Corners (Floor-to-Ceiling) -> Straddled Bass Traps (Tames low-frequency modal buildup)"
               ],
-              "expert_explanation": "Standing waves (Room Modes) occur when sound waves bounce between parallel walls and their wavelength matches the room dimensions, causing massive volume buildups (peaks) and cancellations (nulls) at specific frequencies.",
+              "correct_order": [
+                "Room Corners (Floor-to-Ceiling) -> Straddled Bass Traps (Tames low-frequency modal buildup)",
+                "Side Mirror Points & Ceiling Cloud -> Porous Absorption Panels (Eliminates first early reflections)",
+                "Rear Wall Behind Mix Position -> Diffusion Panels (Scatters reflections without making room sound dead)"
+              ],
+              "explanation": "<p><strong>Acoustic Treatment Placement:</strong> Low frequencies accumulate in trihedral corners where 3 room surfaces meet, requiring thick velocity/pressure bass traps. Early reflections bounce off side walls and ceiling directly to the engineer's ears, requiring porous absorption panels. The rear wall receives late reflections, which are diffused via QRD diffusors to retain acoustic life without flutter echo.</p>",
               "expert_quote": {
-                "text": "You can't EQ out a null in a room mode.",
-                "author": "Golden Rule"
+                "text": "You can't EQ a bad room. If your corners aren't bass trapped, you will always misjudge the low end of your mix.",
+                "author": "Philip Newell, Acoustic Consultant & Studio Designer"
               },
-              "img": "/images/gen/t9_q8_standing_wave_hq_123.png",
-              "explanation": "<img src=\"/images/gen/t9_q8_standing_wave_hq_123.png\" alt=\"Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Standing waves (Room Modes) occur when sound waves bounce between parallel walls and their wavelength matches the room dimensions, causing massive volume buildups (peaks) and cancellations (nulls) at specific frequencies.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"You can't EQ out a null in a room mode.\"<br/><strong>- Golden Rule</strong></blockquote>"
+              "img": "/images/svg/arrangement_sparse_acoustic_vs_dense_synth.svg"
             },
             {
               "title": "Q10: Flutter Echo Between Parallel Hard Surfaces",
@@ -6560,34 +6433,31 @@
               "explanation": "<img src=\"/images/gen/audio_interface_modern.png\" alt=\"Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> An audio interface acts as the bridge between analog gear (microphones/guitars) and the computer. It performs A/D conversion for recording and D/A conversion for playback to monitors.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Converters are the windows to your digital audio workstation. Keep them clean.\"<br/><strong>- Bob Katz</strong></blockquote>"
             },
             {
-              "title": "Q2: Audio Signal Flow Order Through a Studio Chain",
-              "type": "multi_choice",
-              "content": "What is signal flow?",
-              "answers": [
-                {
-                  "text": "Hydraulic pressure",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Order audio passes through devices/processors",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "Voltage differentiation",
-                  "is_true": "no"
-                },
-                {
-                  "text": "A mythical concept",
-                  "is_true": "no"
-                }
+              "title": "Practical Task: Studio Patchbay Insert Routing",
+              "content": "Trace an audio signal routed from a mixing console channel strip through an outboard hardware compressor via an analog patchbay.",
+              "type": "drag_drop",
+              "items": [
+                "Console Channel Strip Preamp Stage",
+                "Console Insert Send Jack (Top Patchbay Row)",
+                "Patch Cable to Outboard Compressor Audio Input",
+                "Hardware Compressor Processing (Threshold / Ratio Gain Reduction)",
+                "Compressor Audio Output to Console Insert Return Jack (Bottom Patchbay Row)",
+                "Console Channel Fader & Pan Pot to Mix Bus"
               ],
-              "expert_explanation": "Signal flow describes the path audio takes. A standard insert chain processes signal in series (one after another), meaning the output of the EQ feeds the input of the Compressor.",
+              "correct_order": [
+                "Console Channel Strip Preamp Stage",
+                "Console Insert Send Jack (Top Patchbay Row)",
+                "Patch Cable to Outboard Compressor Audio Input",
+                "Hardware Compressor Processing (Threshold / Ratio Gain Reduction)",
+                "Compressor Audio Output to Console Insert Return Jack (Bottom Patchbay Row)",
+                "Console Channel Fader & Pan Pot to Mix Bus"
+              ],
+              "explanation": "<p><strong>Patchbay Insert Routing:</strong> On standard studio patchbays, top jacks are outputs (Insert Send) and bottom jacks are inputs (Insert Return). The preamp signal leaves the console via the Insert Send, enters the outboard compressor, processes the dynamic envelope, returns into the console Insert Return immediately before the channel EQ and fader.</p>",
               "expert_quote": {
-                "text": "If you can't trace the path, you can't fix the problem.",
-                "author": "Troubleshooting 101"
+                "text": "Patchbays are the nervous system of the recording studio. Standardizing on top-output / bottom-input prevents catastrophic feedback loops.",
+                "author": "Dave Pensado, Grammy-Winning Mix Engineer (Pensado's Place)"
               },
-              "img": "/images/gen/t10_q10_channel_insert_hq_123.png",
-              "explanation": "<img src=\"/images/gen/t10_q10_channel_insert_hq_123.png\" alt=\"Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Signal flow describes the path audio takes. A standard insert chain processes signal in series (one after another), meaning the output of the EQ feeds the input of the Compressor.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"If you can't trace the path, you can't fix the problem.\"<br/><strong>- Troubleshooting 101</strong></blockquote>"
+              "img": "/images/svg/insert_flow.svg"
             },
             {
               "title": "Q3: Phantom Power (+48V) for Condenser Microphones",

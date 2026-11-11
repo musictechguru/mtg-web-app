@@ -9,12 +9,25 @@ import { getGradeFromPercentage } from './teacherComponentMetrics';
 
 const WelcomeVideoModal = lazy(() => import('./WelcomeVideoModal'));
 const StudentMarkSchemeModal = lazy(() => import('./StudentMarkSchemeModal'));
+const PracticalQuizLabModal = lazy(() => import('./PracticalQuizLabModal'));
 
 const Dashboard = ({ onNavigate, onOpenProfile }) => {
     const { currentUser, userProgress, clearProgress, logout } = useUser();
     const [showWelcomeModal, setShowWelcomeModal] = React.useState(false);
     const [showProgress, setShowProgress] = React.useState(false);
+    const [showPracticalLab, setShowPracticalLab] = useState(false);
     const [markSchemeModal, setMarkSchemeModal] = useState({ open: false, component: 'c1' });
+
+    const handleLaunchPracticalQuiz = (quizId) => {
+        for (const section of courseData.sections || []) {
+            for (const item of section.items || []) {
+                if (item.id === quizId) {
+                    onNavigate(item);
+                    return;
+                }
+            }
+        }
+    };
 
     // Coursework 60-mark metrics for Component 1 & 2
     const courseworkStats = useMemo(() => {
@@ -125,17 +138,33 @@ const Dashboard = ({ onNavigate, onOpenProfile }) => {
                         Set Your Name
                     </button>
                 ) : (
-                    <button 
-                        onClick={onOpenProfile}
-                        style={{
-                            padding: '8px 16px', borderRadius: '8px', fontSize: '0.9rem',
-                            background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)',
-                            color: 'var(--text-secondary)', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px'
-                        }}
-                    >
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
-                        Edit Profile
-                    </button>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
+                        <button 
+                            onClick={() => setShowPracticalLab(true)}
+                            style={{
+                                padding: '8px 16px', borderRadius: '8px', fontSize: '0.9rem',
+                                background: 'linear-gradient(135deg, rgba(2, 132, 199, 0.25) 0%, rgba(56, 189, 248, 0.15) 100%)',
+                                border: '1px solid rgba(56, 189, 248, 0.5)',
+                                color: '#38bdf8', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px',
+                                fontWeight: 'bold', boxShadow: '0 2px 10px rgba(56, 189, 248, 0.2)',
+                                transition: 'all 0.2s'
+                            }}
+                        >
+                            <span>🧪</span>
+                            Practical Quiz Lab (Test 1-by-1)
+                        </button>
+                        <button 
+                            onClick={onOpenProfile}
+                            style={{
+                                padding: '8px 16px', borderRadius: '8px', fontSize: '0.9rem',
+                                background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)',
+                                color: 'var(--text-secondary)', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px'
+                            }}
+                        >
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                            Edit Profile
+                        </button>
+                    </div>
                 )}
             </div>
 
@@ -973,6 +1002,17 @@ const Dashboard = ({ onNavigate, onOpenProfile }) => {
                         isOpen={markSchemeModal.open}
                         initialComponent={markSchemeModal.component}
                         onClose={() => setMarkSchemeModal({ open: false, component: 'c1' })}
+                    />
+                </Suspense>
+            )}
+
+            {/* Practical Quiz Test Lab Modal (Test 1-by-1) */}
+            {showPracticalLab && (
+                <Suspense fallback={null}>
+                    <PracticalQuizLabModal
+                        isOpen={showPracticalLab}
+                        onClose={() => setShowPracticalLab(false)}
+                        onLaunchQuiz={handleLaunchPracticalQuiz}
                     />
                 </Suspense>
             )}
