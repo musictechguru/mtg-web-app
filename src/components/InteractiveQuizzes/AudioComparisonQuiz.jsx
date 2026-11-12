@@ -112,6 +112,11 @@ export default function AudioComparisonQuiz({
             } else if (e.key === '[' || e.key === ']') {
                 e.preventDefault();
                 cycleSpeed();
+            } else if (e.key === 'Enter') {
+                if (!isSubmitted && selectedOption !== null) {
+                    e.preventDefault();
+                    handleSubmit();
+                }
             }
         };
 
@@ -210,7 +215,7 @@ export default function AudioComparisonQuiz({
             </div>
 
             {/* Players side-by-side */}
-            <div className="audio-players" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px', marginBottom: '12px' }}>
+            <div className="audio-players" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '15px', marginBottom: '12px' }}>
                 {/* Player A */}
                 <div className={`player-card ${playing === 'A' ? 'playing' : ''}`} style={{
                     background: playing === 'A' ? 'rgba(56, 189, 248, 0.12)' : 'rgba(255,255,255,0.04)',
@@ -242,8 +247,16 @@ export default function AudioComparisonQuiz({
                     >
                         {playing === 'A' ? <Pause size={24} /> : <Play size={24} style={{ marginLeft: '3px' }} />}
                     </button>
-                    <div style={{ marginTop: '8px', fontSize: '0.75rem', color: playing === 'A' ? '#38bdf8' : '#64748b' }}>
-                        {playing === 'A' ? 'Playing (Tap B to A/B flip)' : 'Tap to listen (or press A)'}
+                    <div style={{ marginTop: '8px', fontSize: '0.75rem', color: playing === 'A' ? '#38bdf8' : '#64748b', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px' }}>
+                        <span>{playing === 'A' ? 'Playing (Tap B to A/B flip)' : 'Tap to listen (or press A)'}</span>
+                        {playing === 'A' && (
+                            <span style={{ display: 'inline-flex', alignItems: 'flex-end', gap: '2px', height: '14px' }}>
+                                <span style={{ width: '3px', height: '12px', background: '#38bdf8', borderRadius: '1px', animation: 'bounceBar 0.6s infinite ease-in-out' }} />
+                                <span style={{ width: '3px', height: '8px', background: '#38bdf8', borderRadius: '1px', animation: 'bounceBar 0.8s infinite ease-in-out 0.2s' }} />
+                                <span style={{ width: '3px', height: '14px', background: '#38bdf8', borderRadius: '1px', animation: 'bounceBar 0.5s infinite ease-in-out 0.4s' }} />
+                                <span style={{ width: '3px', height: '10px', background: '#38bdf8', borderRadius: '1px', animation: 'bounceBar 0.7s infinite ease-in-out 0.1s' }} />
+                            </span>
+                        )}
                     </div>
 
                     {/* Progress Bar A */}
@@ -307,8 +320,16 @@ export default function AudioComparisonQuiz({
                     >
                         {playing === 'B' ? <Pause size={24} /> : <Play size={24} style={{ marginLeft: '3px' }} />}
                     </button>
-                    <div style={{ marginTop: '8px', fontSize: '0.75rem', color: playing === 'B' ? '#c084fc' : '#64748b' }}>
-                        {playing === 'B' ? 'Playing (Tap A to A/B flip)' : 'Tap to listen (or press B)'}
+                    <div style={{ marginTop: '8px', fontSize: '0.75rem', color: playing === 'B' ? '#c084fc' : '#64748b', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px' }}>
+                        <span>{playing === 'B' ? 'Playing (Tap A to A/B flip)' : 'Tap to listen (or press B)'}</span>
+                        {playing === 'B' && (
+                            <span style={{ display: 'inline-flex', alignItems: 'flex-end', gap: '2px', height: '14px' }}>
+                                <span style={{ width: '3px', height: '12px', background: '#c084fc', borderRadius: '1px', animation: 'bounceBar 0.6s infinite ease-in-out' }} />
+                                <span style={{ width: '3px', height: '8px', background: '#c084fc', borderRadius: '1px', animation: 'bounceBar 0.8s infinite ease-in-out 0.2s' }} />
+                                <span style={{ width: '3px', height: '14px', background: '#c084fc', borderRadius: '1px', animation: 'bounceBar 0.5s infinite ease-in-out 0.4s' }} />
+                                <span style={{ width: '3px', height: '10px', background: '#c084fc', borderRadius: '1px', animation: 'bounceBar 0.7s infinite ease-in-out 0.1s' }} />
+                            </span>
+                        )}
                     </div>
 
                     {/* Progress Bar B */}
@@ -355,11 +376,11 @@ export default function AudioComparisonQuiz({
                 <span>⌨️ <kbd style={{ background: 'rgba(255,255,255,0.08)', padding: '1px 6px', borderRadius: '4px', border: '1px solid rgba(255,255,255,0.1)' }}>Space</kbd> Play/Pause</span>
                 <span><kbd style={{ background: 'rgba(255,255,255,0.08)', padding: '1px 6px', borderRadius: '4px', border: '1px solid rgba(255,255,255,0.1)' }}>A</kbd> / <kbd style={{ background: 'rgba(255,255,255,0.08)', padding: '1px 6px', borderRadius: '4px', border: '1px solid rgba(255,255,255,0.1)' }}>B</kbd> Flip Track</span>
                 <span><kbd style={{ background: 'rgba(255,255,255,0.08)', padding: '1px 6px', borderRadius: '4px', border: '1px solid rgba(255,255,255,0.1)' }}>L</kbd> Loop</span>
-                <span><kbd style={{ background: 'rgba(255,255,255,0.08)', padding: '1px 6px', borderRadius: '4px', border: '1px solid rgba(255,255,255,0.1)' }}>[ ]</kbd> Speed</span>
+                <span><kbd style={{ background: 'rgba(255,255,255,0.08)', padding: '1px 6px', borderRadius: '4px', border: '1px solid rgba(255,255,255,0.1)' }}>Enter</kbd> Check</span>
             </div>
 
             {/* Options */}
-            <div className="options-grid" style={{ display: 'grid', gap: '10px', gridTemplateColumns: '1fr 1fr' }}>
+            <div className="options-grid" style={{ display: 'grid', gap: '10px', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))' }}>
                 {options.map((opt, idx) => {
                     let style = {
                         padding: '12px 14px',

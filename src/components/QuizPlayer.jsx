@@ -727,6 +727,35 @@ const QuizPlayer = ({ quiz, onFinish }) => {
         }
     };
 
+    // Global student revision keyboard shortcuts (Enter for submit/next, 1-4 for answers)
+    useEffect(() => {
+        const handleGlobalKeyDown = (e) => {
+            const tag = document.activeElement?.tagName;
+            if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
+
+            if (e.key === 'Enter') {
+                if (!isSubmitted) {
+                    if (selectedAnswer !== null && !isInteractiveSelfSubmitting(currentQuestion?.type)) {
+                        e.preventDefault();
+                        handleSubmit();
+                    }
+                } else {
+                    e.preventDefault();
+                    handleNext();
+                }
+            } else if (!isSubmitted && currentQuestion?.answers && ['1', '2', '3', '4'].includes(e.key)) {
+                const idx = parseInt(e.key, 10) - 1;
+                if (idx < currentQuestion.answers.length) {
+                    e.preventDefault();
+                    handleOptionClick(idx);
+                }
+            }
+        };
+
+        window.addEventListener('keydown', handleGlobalKeyDown);
+        return () => window.removeEventListener('keydown', handleGlobalKeyDown);
+    }, [isSubmitted, selectedAnswer, currentQuestionIndex, currentQuestion]);
+
     const getQuestionLabel = (q, idx) => {
         const qNum = isPart2 ? idx + 11 : idx + 1;
         if (!q) return `Q${qNum}`;
