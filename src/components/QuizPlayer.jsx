@@ -1,9 +1,10 @@
 
 import React, { useState, useEffect, useRef } from 'react';
-import { Maximize2, X, ZoomIn, ZoomOut, RotateCcw } from 'lucide-react';
+import { Maximize2, X, ZoomIn, ZoomOut, RotateCcw, HelpCircle } from 'lucide-react';
 import { useUser } from '../contexts/UserContext';
 import { useAccountPrompt } from '../contexts/AccountPromptContext';
 import { track } from '../utils/analytics';
+import AnnotatedText from './AnnotatedText';
 import SignalChainQuiz from './InteractiveQuizzes/SignalChainQuiz';
 import AudioComparisonQuiz from './InteractiveQuizzes/AudioComparisonQuiz';
 import ParameterMatchingQuiz from './InteractiveQuizzes/ParameterMatchingQuiz';
@@ -676,6 +677,25 @@ const QuizPlayer = ({ quiz, onFinish }) => {
         }
     };
 
+    const handleDontKnow = () => {
+        if (isSubmitted || !currentQuestion) return;
+
+        setUserResponses(prev => ({
+            ...prev,
+            [currentQuestionIndex]: { selected: 'unsure', submitted: true, isCorrect: false, isUnsure: true }
+        }));
+
+        // Mobile: Scroll to explanation
+        if (window.innerWidth <= 768) {
+            setTimeout(() => {
+                const explanationEl = document.querySelector('.quiz-right-col');
+                if (explanationEl) {
+                    explanationEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }, 100);
+        }
+    };
+
     const handleInteractiveResult = (isCorrect) => {
         setUserResponses(prev => ({
             ...prev,
@@ -1055,7 +1075,7 @@ const QuizPlayer = ({ quiz, onFinish }) => {
                     )}
 
                     <div className="question-text">
-                        {currentQuestion.content}
+                        <AnnotatedText text={currentQuestion.content} />
                     </div>
 
                     <div className="options-grid">
@@ -1286,14 +1306,47 @@ const QuizPlayer = ({ quiz, onFinish }) => {
 
                         {!isSubmitted ? (
                             !isInteractiveSelfSubmitting(currentQuestion.type) && (
-                                <button
-                                    className="btn-primary"
-                                    onClick={handleSubmit}
-                                    disabled={currentQuestion.type === 'cloze' ? (!selectedAnswer || Object.keys(selectedAnswer).length < (currentQuestion.answer?.length || 0)) : selectedAnswer === null}
-                                    style={{ flex: 1, opacity: (currentQuestion.type === 'cloze' ? (!selectedAnswer || Object.keys(selectedAnswer).length < (currentQuestion.answer?.length || 0)) : selectedAnswer === null) ? 0.5 : 1 }}
-                                >
-                                    Submit Answer
-                                </button>
+                                <>
+                                    <button
+                                        type="button"
+                                        className="btn-unsure"
+                                        onClick={handleDontKnow}
+                                        title="Not sure yet? Reveal the answer and breakdown without guessing"
+                                        style={{
+                                            padding: '12px 18px',
+                                            borderRadius: '8px',
+                                            border: '1px dashed rgba(168, 85, 247, 0.6)',
+                                            background: 'rgba(168, 85, 247, 0.08)',
+                                            color: '#e2e8f0',
+                                            cursor: 'pointer',
+                                            fontSize: '0.95rem',
+                                            fontWeight: '600',
+                                            display: 'inline-flex',
+                                            alignItems: 'center',
+                                            gap: '6px',
+                                            transition: 'all 0.2s ease'
+                                        }}
+                                        onMouseEnter={(e) => {
+                                            e.currentTarget.style.background = 'rgba(168, 85, 247, 0.18)';
+                                            e.currentTarget.style.borderColor = '#c084fc';
+                                        }}
+                                        onMouseLeave={(e) => {
+                                            e.currentTarget.style.background = 'rgba(168, 85, 247, 0.08)';
+                                            e.currentTarget.style.borderColor = 'rgba(168, 85, 247, 0.6)';
+                                        }}
+                                    >
+                                        <HelpCircle size={17} style={{ color: '#c084fc' }} />
+                                        I'm Not Sure
+                                    </button>
+                                    <button
+                                        className="btn-primary"
+                                        onClick={handleSubmit}
+                                        disabled={currentQuestion.type === 'cloze' ? (!selectedAnswer || Object.keys(selectedAnswer).length < (currentQuestion.answer?.length || 0)) : selectedAnswer === null}
+                                        style={{ flex: 1, opacity: (currentQuestion.type === 'cloze' ? (!selectedAnswer || Object.keys(selectedAnswer).length < (currentQuestion.answer?.length || 0)) : selectedAnswer === null) ? 0.5 : 1 }}
+                                    >
+                                        Submit Answer
+                                    </button>
+                                </>
                             )
                         ) : (
                             <button className="btn-primary" onClick={handleNext} style={{ flex: 1 }}>
@@ -1309,6 +1362,25 @@ const QuizPlayer = ({ quiz, onFinish }) => {
                 <h3 style={{ marginTop: 0, marginBottom: '20px', color: 'var(--accent-purple)' }}>
                     Expert Explanation
                 </h3>
+
+                {isSubmitted && currentResponse?.isUnsure && (
+                    <div style={{
+                        background: 'rgba(168, 85, 247, 0.12)',
+                        borderLeft: '4px solid #a855f7',
+                        padding: '12px 16px',
+                        borderRadius: '6px',
+                        marginBottom: '18px',
+                        color: '#e2e8f0',
+                        fontSize: '0.92rem',
+                        lineHeight: 1.5
+                    }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontWeight: 'bold', color: '#c084fc', marginBottom: '4px' }}>
+                            <HelpCircle size={18} />
+                            No problem — that's why we're revising!
+                        </div>
+                        Review the examiner breakdown and audio/diagrams below to lock in this concept for your next attempt.
+                    </div>
+                )}
 
                 {isSubmitted ? (
                     currentQuestion.expert_explanation ? (
