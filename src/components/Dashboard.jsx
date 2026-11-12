@@ -83,7 +83,12 @@ const Dashboard = ({ onNavigate, onOpenProfile }) => {
     const dailyStreak = useMemo(() => {
         try {
             const val = localStorage.getItem('mtg_daily5_streak');
-            return val ? parseInt(val, 10) : 0;
+            if (!val) return 0;
+            const parsed = JSON.parse(val);
+            if (typeof parsed === 'object' && parsed !== null) {
+                return Number(parsed.streak) || 0;
+            }
+            return parseInt(val, 10) || 0;
         } catch {
             return 0;
         }

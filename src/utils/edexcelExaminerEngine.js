@@ -15,6 +15,7 @@
 export const EDEXCEL_RUBRIC_BANK = [
   {
     id: 'c3_q5_liquid_spirit_15m',
+    isPremium: false,
     paperCode: '9MT0/03 Component 3: Listening & Analysing • Question 5',
     component: 'Component 3',
     questionNumber: '5',
@@ -192,6 +193,7 @@ export const EDEXCEL_RUBRIC_BANK = [
   },
   {
     id: 'c3_q6_britney_daw_20m',
+    isPremium: true,
     paperCode: '9MT0/03 Component 3: Listening & Analysing • Question 6',
     component: 'Component 3',
     questionNumber: '6',
@@ -382,6 +384,7 @@ export const EDEXCEL_RUBRIC_BANK = [
   },
   {
     id: 'c3_q5_sway_2025_15m',
+    isPremium: true,
     paperCode: '9MT0/03 Component 3: Listening & Analysing • Question 5 (Summer 2025)',
     component: 'Component 3',
     questionNumber: '5',
@@ -560,6 +563,7 @@ export const EDEXCEL_RUBRIC_BANK = [
   },
   {
     id: 'c4_q6_drum_synth_2025_20m',
+    isPremium: false,
     paperCode: 'Component 4: Producing & Analysing • 20-Mark Technical Evaluation',
     component: 'Component 4',
     questionNumber: '6',
@@ -761,6 +765,7 @@ export const EDEXCEL_RUBRIC_BANK = [
   },
   {
     id: 'c3_q6_guitar_evolution_20m',
+    isPremium: true,
     paperCode: '9MT0/03 Component 3: Listening & Analysing • Question 6',
     component: 'Component 3',
     questionNumber: '6',
@@ -936,6 +941,7 @@ export const EDEXCEL_RUBRIC_BANK = [
   },
   {
     id: 'c4_q6_sh101_synth_bass_2024_20m',
+    isPremium: true,
     paperCode: 'Component 4: Producing & Analysing • Technical Evaluation Practice',
     component: 'Component 4',
     questionNumber: '6',
@@ -1108,6 +1114,7 @@ export const EDEXCEL_RUBRIC_BANK = [
   },
   {
     id: 'c4_q6_drum_mics_2021_20m',
+    isPremium: true,
     paperCode: 'Component 4: Producing & Analysing • 20-Mark Technical Evaluation',
     component: 'Component 4',
     questionNumber: '6',
@@ -1305,6 +1312,7 @@ export const EDEXCEL_RUBRIC_BANK = [
   },
   {
     id: 'c4_q4g_monitors_vs_phone_2024_8m',
+    isPremium: false,
     paperCode: 'Component 4: Producing & Analysing • Technical Evaluation Practice',
     component: 'Component 4',
     questionNumber: '4(g)',
@@ -1441,6 +1449,7 @@ export const EDEXCEL_RUBRIC_BANK = [
   },
   {
     id: 'c4_q4g_vocal_compression_2021_8m',
+    isPremium: true,
     paperCode: 'Component 4: Producing & Analysing • 8-Mark Production Technique Evaluation',
     component: 'Component 4',
     questionNumber: '4(g)',
@@ -1572,6 +1581,7 @@ export const EDEXCEL_RUBRIC_BANK = [
   },
   {
     id: 'c3_q6_vocal_production_20m',
+    isPremium: false,
     paperCode: '9MT0/03 Component 3: Listening & Analysing • Question 6',
     component: 'Component 3',
     questionNumber: '6',

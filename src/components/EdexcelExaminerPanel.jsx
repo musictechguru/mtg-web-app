@@ -1,5 +1,6 @@
 import React, { useState, useMemo, useRef, useEffect } from 'react';
 import { useUser } from '../contexts/UserContext';
+import PremiumLocked from './PremiumLocked';
 import {
   EDEXCEL_RUBRIC_BANK,
   evaluateEdexcelEssay,
@@ -408,9 +409,10 @@ const EdexcelExaminerPanel = ({
               {EDEXCEL_RUBRIC_BANK.map(r => {
                 const comp = completions[r.id];
                 const badge = comp ? `✓ [${comp.totalMarks}/${comp.maxMarks} ${comp.grade}] ` : '';
+                const lockPrefix = r.isPremium && !currentUser?.is_premium ? '🔒 [PRO] ' : (r.isPremium ? '[PRO] ' : '[FREE] ');
                 return (
                   <option key={r.id} value={r.id}>
-                    {badge}{r.title}
+                    {badge}{lockPrefix}{r.title}
                   </option>
                 );
               })}
@@ -1261,153 +1263,232 @@ const EdexcelExaminerPanel = ({
             )}
           </div>
 
-          {/* Clean Answer Sheet Toolbar + Lined Textarea */}
-          <div>
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                marginBottom: '8px',
-                flexWrap: 'wrap',
-                gap: '8px'
-              }}
-            >
-              <span style={{ fontSize: '0.84rem', fontWeight: 700, color: '#CBD5E1' }}>
-                Your Exam Answer:
-              </span>
-              <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
-                <button
-                  type="button"
-                  onClick={() => setEssayText(prev => (prev ? `${prev.replace(/\s*$/, '')}\n• ` : '• '))}
+          {/* PRO PAYWALL GATING FOR PREMIUM RUBRICS */}
+          {activeRubric.isPremium && !currentUser?.is_premium ? (
+            <div style={{ marginTop: '24px' }}>
+              <div
+                style={{
+                  background: 'linear-gradient(135deg, rgba(30, 41, 59, 0.95) 0%, rgba(15, 23, 42, 0.98) 100%)',
+                  border: '1px solid rgba(245, 158, 11, 0.45)',
+                  borderRadius: '16px',
+                  padding: '28px 24px',
+                  textAlign: 'center',
+                  marginBottom: '24px',
+                  boxShadow: '0 10px 30px rgba(0, 0, 0, 0.35)'
+                }}
+              >
+                <div
                   style={{
-                    background: 'rgba(255, 255, 255, 0.08)',
-                    color: '#F8FAFC',
-                    border: '1px solid rgba(255, 255, 255, 0.2)',
-                    padding: '5px 12px',
-                    borderRadius: '6px',
-                    fontSize: '0.78rem',
-                    fontWeight: 600,
-                    cursor: 'pointer'
+                    width: '56px',
+                    height: '56px',
+                    borderRadius: '50%',
+                    background: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontSize: '1.6rem',
+                    margin: '0 auto 16px auto',
+                    boxShadow: '0 4px 15px rgba(245, 158, 11, 0.4)'
                   }}
                 >
-                  + Add Bullet (•)
-                </button>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setEssayText(activeRubric.exemplars.student_template || '• ');
-                    setShowMarkingFeedback(false);
-                  }}
-                  style={{
-                    background: 'rgba(255, 255, 255, 0.05)',
-                    color: '#94A3B8',
-                    border: '1px solid rgba(255, 255, 255, 0.14)',
-                    padding: '5px 12px',
-                    borderRadius: '6px',
-                    fontSize: '0.78rem',
-                    fontWeight: 600,
-                    cursor: 'pointer'
-                  }}
-                >
-                  ↺ Reset Sub-Headings
-                </button>
+                  🔒
+                </div>
+                <h3 style={{ color: '#fff', fontSize: '1.3rem', fontWeight: 800, margin: '0 0 8px 0' }}>
+                  PRO Essay Examiner Question
+                </h3>
+                <p style={{ color: '#94a3b8', fontSize: '0.92rem', maxWidth: '560px', margin: '0 auto 20px auto', lineHeight: 1.55 }}>
+                  This past-paper question is part of the <strong>MTG Pro Extended Writing Pack</strong>. Free accounts include complete access to flagship questions like <em>Liquid Spirit</em>, <em>Vocal Evolution</em>, and the <em>Roland TR-606</em>.
+                </p>
+
+                <div style={{ display: 'flex', justifyContent: 'center', gap: '12px', flexWrap: 'wrap' }}>
+                  <button
+                    type="button"
+                    onClick={() => handleSelectRubric('c3_q5_liquid_spirit_15m')}
+                    style={{
+                      background: 'rgba(255, 255, 255, 0.08)',
+                      color: '#e2e8f0',
+                      border: '1px solid rgba(255, 255, 255, 0.2)',
+                      padding: '10px 18px',
+                      borderRadius: '8px',
+                      fontWeight: 700,
+                      fontSize: '0.85rem',
+                      cursor: 'pointer'
+                    }}
+                  >
+                    ← Try Free C3 15m (Liquid Spirit)
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => handleSelectRubric(activeRubric.component === 'Component 4' ? 'c4_q6_drum_synth_2025_20m' : 'c3_q6_vocal_production_20m')}
+                    style={{
+                      background: 'rgba(56, 189, 248, 0.15)',
+                      color: '#38bdf8',
+                      border: '1px solid rgba(56, 189, 248, 0.35)',
+                      padding: '10px 18px',
+                      borderRadius: '8px',
+                      fontWeight: 700,
+                      fontSize: '0.85rem',
+                      cursor: 'pointer'
+                    }}
+                  >
+                    {activeRubric.component === 'Component 4' ? 'Try Free C4 20m (TR-606) →' : 'Try Free C3 20m (Vocal Evolution) →'}
+                  </button>
+                </div>
               </div>
+
+              <PremiumLocked itemTitle={`${activeRubric.component} ${activeRubric.questionNumber}: ${activeRubric.title}`} />
             </div>
+          ) : (
+            <>
+              {/* Clean Answer Sheet Toolbar + Lined Textarea */}
+              <div>
+                <div
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    marginBottom: '8px',
+                    flexWrap: 'wrap',
+                    gap: '8px'
+                  }}
+                >
+                  <span style={{ fontSize: '0.84rem', fontWeight: 700, color: '#CBD5E1' }}>
+                    Your Exam Answer:
+                  </span>
+                  <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+                    <button
+                      type="button"
+                      onClick={() => setEssayText(prev => (prev ? `${prev.replace(/\s*$/, '')}\n• ` : '• '))}
+                      style={{
+                        background: 'rgba(255, 255, 255, 0.08)',
+                        color: '#F8FAFC',
+                        border: '1px solid rgba(255, 255, 255, 0.2)',
+                        padding: '5px 12px',
+                        borderRadius: '6px',
+                        fontSize: '0.78rem',
+                        fontWeight: 600,
+                        cursor: 'pointer'
+                      }}
+                    >
+                      + Add Bullet (•)
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setEssayText(activeRubric.exemplars.student_template || '• ');
+                        setShowMarkingFeedback(false);
+                      }}
+                      style={{
+                        background: 'rgba(255, 255, 255, 0.05)',
+                        color: '#94A3B8',
+                        border: '1px solid rgba(255, 255, 255, 0.14)',
+                        padding: '5px 12px',
+                        borderRadius: '6px',
+                        fontSize: '0.78rem',
+                        fontWeight: 600,
+                        cursor: 'pointer'
+                      }}
+                    >
+                      ↺ Reset Sub-Headings
+                    </button>
+                  </div>
+                </div>
 
-            <textarea
-              aria-label="Candidate Essay Response"
-              rows={14}
-              value={essayText}
-              onChange={e => setEssayText(e.target.value)}
-              onKeyDown={e => {
-                if (e.key === 'Enter' && !e.shiftKey) {
-                  const target = e.target;
-                  const cursor = target.selectionStart;
-                  const before = essayText.slice(0, cursor);
-                  const after = essayText.slice(target.selectionEnd);
-                  const currentLine = before.split('\n').pop() || '';
-                  if (/^\s*[•\-*]\s+\S+/.test(currentLine)) {
-                    e.preventDefault();
-                    const insert = '\n• ';
-                    const nextVal = before + insert + after;
-                    setEssayText(nextVal);
-                    requestAnimationFrame(() => {
-                      target.selectionStart = target.selectionEnd = cursor + insert.length;
-                    });
-                  }
-                }
-              }}
-              placeholder="Write your full-sentence bullet points under each sub-heading..."
-              style={{
-                width: '100%',
-                background: '#0B111E',
-                color: '#F8FAFC',
-                border: '1px solid rgba(255, 255, 255, 0.18)',
-                borderRadius: '10px',
-                padding: '16px',
-                fontSize: '0.96rem',
-                lineHeight: 1.7,
-                resize: 'vertical',
-                fontFamily: 'inherit'
-              }}
-            />
-          </div>
+                <textarea
+                  aria-label="Candidate Essay Response"
+                  rows={14}
+                  value={essayText}
+                  onChange={e => setEssayText(e.target.value)}
+                  onKeyDown={e => {
+                    if (e.key === 'Enter' && !e.shiftKey) {
+                      const target = e.target;
+                      const cursor = target.selectionStart;
+                      const before = essayText.slice(0, cursor);
+                      const after = essayText.slice(target.selectionEnd);
+                      const currentLine = before.split('\n').pop() || '';
+                      if (/^\s*[•\-*]\s+\S+/.test(currentLine)) {
+                        e.preventDefault();
+                        const insert = '\n• ';
+                        const nextVal = before + insert + after;
+                        setEssayText(nextVal);
+                        requestAnimationFrame(() => {
+                          target.selectionStart = target.selectionEnd = cursor + insert.length;
+                        });
+                      }
+                    }
+                  }}
+                  placeholder="Write your full-sentence bullet points under each sub-heading..."
+                  style={{
+                    width: '100%',
+                    background: '#0B111E',
+                    color: '#F8FAFC',
+                    border: '1px solid rgba(255, 255, 255, 0.18)',
+                    borderRadius: '10px',
+                    padding: '16px',
+                    fontSize: '0.96rem',
+                    lineHeight: 1.7,
+                    resize: 'vertical',
+                    fontFamily: 'inherit'
+                  }}
+                />
+              </div>
 
-          {/* Exam Paper Footer: Total Marks & Action Buttons */}
-          <div
-            style={{
-              marginTop: '18px',
-              paddingTop: '16px',
-              borderTop: '1px solid rgba(255, 255, 255, 0.12)',
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              flexWrap: 'wrap',
-              gap: '12px'
-            }}
-          >
-            <span style={{ fontSize: '0.9rem', fontWeight: 700, color: '#94A3B8' }}>
-              (Total for Question {activeRubric.questionNumber} = {activeRubric.maxMarks} marks)
-            </span>
-
-            <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
-              <button
-                type="button"
-                onClick={() => setShowModelAnswers(prev => !prev)}
+              {/* Exam Paper Footer: Total Marks & Action Buttons */}
+              <div
                 style={{
-                  background: showModelAnswers ? 'rgba(168, 85, 247, 0.2)' : 'rgba(255, 255, 255, 0.07)',
-                  color: showModelAnswers ? '#D8B4FE' : '#CBD5E1',
-                  border: '1px solid rgba(255, 255, 255, 0.18)',
-                  padding: '10px 16px',
-                  borderRadius: '8px',
-                  fontWeight: 700,
-                  fontSize: '0.86rem',
-                  cursor: 'pointer'
+                  marginTop: '18px',
+                  paddingTop: '16px',
+                  borderTop: '1px solid rgba(255, 255, 255, 0.12)',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  flexWrap: 'wrap',
+                  gap: '12px'
                 }}
               >
-                {showModelAnswers ? 'Hide Model Answer' : '📖 View Model Bullet Answer'}
-              </button>
+                <span style={{ fontSize: '0.9rem', fontWeight: 700, color: '#94A3B8' }}>
+                  (Total for Question {activeRubric.questionNumber} = {activeRubric.maxMarks} marks)
+                </span>
 
-              <button
-                type="button"
-                onClick={handleMarkAnswer}
-                style={{
-                  background: '#10B981',
-                  color: '#0B111E',
-                  border: 'none',
-                  padding: '10px 22px',
-                  borderRadius: '8px',
-                  fontWeight: 800,
-                  fontSize: '0.9rem',
-                  cursor: 'pointer',
-                  boxShadow: '0 4px 12px rgba(16, 185, 129, 0.25)'
-                }}
-              >
-                ✓ Mark My Answer
-              </button>
-            </div>
-          </div>
+                <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+                  <button
+                    type="button"
+                    onClick={() => setShowModelAnswers(prev => !prev)}
+                    style={{
+                      background: showModelAnswers ? 'rgba(168, 85, 247, 0.2)' : 'rgba(255, 255, 255, 0.07)',
+                      color: showModelAnswers ? '#D8B4FE' : '#CBD5E1',
+                      border: '1px solid rgba(255, 255, 255, 0.18)',
+                      padding: '10px 16px',
+                      borderRadius: '8px',
+                      fontWeight: 700,
+                      fontSize: '0.86rem',
+                      cursor: 'pointer'
+                    }}
+                  >
+                    {showModelAnswers ? 'Hide Model Answer' : '📖 View Model Bullet Answer'}
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={handleMarkAnswer}
+                    style={{
+                      background: '#10B981',
+                      color: '#0B111E',
+                      border: 'none',
+                      padding: '10px 22px',
+                      borderRadius: '8px',
+                      fontWeight: 800,
+                      fontSize: '0.9rem',
+                      cursor: 'pointer',
+                      boxShadow: '0 4px 12px rgba(16, 185, 129, 0.25)'
+                    }}
+                  >
+                    ✓ Mark My Answer
+                  </button>
+                </div>
+              </div>
+            </>
+          )}
         </div>
       </div>
 
@@ -1958,10 +2039,19 @@ const EdexcelExaminerPanel = ({
                     }}
                   >
                     <div style={{ flex: 1, minWidth: '240px' }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '3px' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '3px', flexWrap: 'wrap' }}>
                         <span style={{ fontSize: '0.76rem', fontWeight: 800, color: r.component === 'Component 3' ? '#7DD3FC' : '#FDA4AF' }}>
                           {r.paperCode.split('•')[0].trim()}
                         </span>
+                        {r.isPremium && !currentUser?.is_premium ? (
+                          <span style={{ fontSize: '0.7rem', fontWeight: 800, background: 'rgba(245, 158, 11, 0.2)', color: '#FBBF24', border: '1px solid rgba(245, 158, 11, 0.4)', padding: '1px 6px', borderRadius: '4px' }}>
+                            🔒 PRO
+                          </span>
+                        ) : !r.isPremium ? (
+                          <span style={{ fontSize: '0.7rem', fontWeight: 800, background: 'rgba(16, 185, 129, 0.15)', color: '#34D399', border: '1px solid rgba(16, 185, 129, 0.35)', padding: '1px 6px', borderRadius: '4px' }}>
+                            FREE
+                          </span>
+                        ) : null}
                         {comp ? (
                           <span style={{ fontSize: '0.72rem', fontWeight: 800, background: 'rgba(16, 185, 129, 0.2)', color: '#34D399', padding: '2px 6px', borderRadius: '4px' }}>
                             ✓ {comp.totalMarks}/{comp.maxMarks} Marks ({comp.grade})
@@ -2025,7 +2115,7 @@ const EdexcelExaminerPanel = ({
                           cursor: 'pointer'
                         }}
                       >
-                        {comp ? 'Practice Again' : 'Start Question'}
+                        {comp ? 'Practice Again' : (r.isPremium && !currentUser?.is_premium ? 'Preview (PRO 🔒)' : 'Start Question')}
                       </button>
                     </div>
                   </div>

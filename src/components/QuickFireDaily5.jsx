@@ -45,6 +45,10 @@ function getAllQuestionsPool() {
             // Strict pedagogical safeguard: answers must be balanced in length (max diff <= 10 chars)
             // so students cannot deduce the answer by option length
             if (correctAns && q.content && isAnswerLengthBalanced(q.answers, 10)) {
+              const rawImg = typeof q.explanation_image === 'string'
+                ? q.explanation_image
+                : (q.explanation_image?.src || q.img || q.image || null);
+
               pool.push({
                 uid: `v${vIdx + 1}_p${pIdx + 1}_t${tIdx + 1}_${lvl}_q${qIdx + 1}`,
                 volumeTitle: vol.title,
@@ -54,7 +58,7 @@ function getAllQuestionsPool() {
                 answers: q.answers,
                 correctAnswer: correctAns.text,
                 explanation: q.explanation || q.rationale || '',
-                image: q.explanation_image?.src || null
+                image: rawImg
               });
             }
           });
@@ -561,6 +565,11 @@ export default function QuickFireDaily5({ onExit }) {
               <img
                 src={currentQ.image.startsWith('http') ? currentQ.image : `/${currentQ.image.replace(/^\//, '')}`}
                 alt="Technical Diagram"
+                onError={(e) => {
+                  if (e.currentTarget?.parentElement) {
+                    e.currentTarget.parentElement.style.display = 'none';
+                  }
+                }}
                 style={{ maxHeight: '220px', maxWidth: '100%', objectFit: 'contain' }}
               />
             </div>
@@ -731,6 +740,45 @@ export default function QuickFireDaily5({ onExit }) {
               </div>
             </div>
           </div>
+
+          {/* 5-Day Streak Milestone Reward Card */}
+          {streakData.streak >= 5 && (
+            <div style={{
+              background: 'linear-gradient(135deg, rgba(249, 115, 22, 0.15) 0%, rgba(239, 68, 68, 0.15) 100%)',
+              border: '1px solid rgba(249, 115, 22, 0.45)',
+              borderRadius: '16px',
+              padding: '20px 24px',
+              marginBottom: '32px',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '16px',
+              textAlign: 'left',
+              boxShadow: '0 8px 24px rgba(249, 115, 22, 0.15)'
+            }}>
+              <div style={{
+                width: '52px',
+                height: '52px',
+                borderRadius: '50%',
+                background: 'linear-gradient(135deg, #f97316 0%, #ef4444 100%)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '1.6rem',
+                flexShrink: 0,
+                boxShadow: '0 4px 16px rgba(249, 115, 22, 0.5)'
+              }}>
+                🔥
+              </div>
+              <div>
+                <div style={{ fontWeight: 800, color: '#fb923c', fontSize: '1.05rem', marginBottom: '3px' }}>
+                  {streakData.streak >= 5 ? `${streakData.streak}-Day Spaced-Repetition Streak Active!` : 'Streak Milestone!'}
+                </div>
+                <div style={{ color: '#cbd5e1', fontSize: '0.88rem', lineHeight: '1.4' }}>
+                  Elite revision consistency! Daily retrieval practice reinforces technical retention for Pearson Edexcel Components 3 & 4.
+                </div>
+              </div>
+            </div>
+          )}
 
           {/* Drill Recap List */}
           <div style={{ textAlign: 'left', marginBottom: '36px' }}>
