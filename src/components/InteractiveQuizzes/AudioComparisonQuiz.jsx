@@ -17,6 +17,8 @@ export default function AudioComparisonQuiz({
     const [isCorrect, setIsCorrect] = useState(false);
     const [isLooping, setIsLooping] = useState(true);
     const [playbackSpeed, setPlaybackSpeed] = useState(1.0);
+    const [progressA, setProgressA] = useState(0);
+    const [progressB, setProgressB] = useState(0);
 
     // Refs for audio elements
     const audioRefA = useRef(null);
@@ -84,6 +86,38 @@ export default function AudioComparisonQuiz({
         const nextSpeed = speeds[(speeds.indexOf(playbackSpeed) + 1) % speeds.length];
         setPlaybackSpeed(nextSpeed);
     };
+
+    // Tactile studio keyboard shortcuts (Space, A, B, 1, 2, L, [ ])
+    useEffect(() => {
+        const handleKeyDown = (e) => {
+            const tag = document.activeElement?.tagName;
+            if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
+
+            if (e.code === 'Space') {
+                e.preventDefault();
+                if (playing) {
+                    togglePlay(playing);
+                } else {
+                    togglePlay('A');
+                }
+            } else if (e.key === 'a' || e.key === 'A' || e.key === '1') {
+                e.preventDefault();
+                togglePlay('A');
+            } else if (e.key === 'b' || e.key === 'B' || e.key === '2') {
+                e.preventDefault();
+                togglePlay('B');
+            } else if (e.key === 'l' || e.key === 'L') {
+                e.preventDefault();
+                toggleLoop();
+            } else if (e.key === '[' || e.key === ']') {
+                e.preventDefault();
+                cycleSpeed();
+            }
+        };
+
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, [playing, isLooping, playbackSpeed]);
 
     // Handle option selection
     const handleSelect = (index) => {
@@ -176,7 +210,7 @@ export default function AudioComparisonQuiz({
             </div>
 
             {/* Players side-by-side */}
-            <div className="audio-players" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px', marginBottom: '20px' }}>
+            <div className="audio-players" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px', marginBottom: '12px' }}>
                 {/* Player A */}
                 <div className={`player-card ${playing === 'A' ? 'playing' : ''}`} style={{
                     background: playing === 'A' ? 'rgba(56, 189, 248, 0.12)' : 'rgba(255,255,255,0.04)',
@@ -184,7 +218,8 @@ export default function AudioComparisonQuiz({
                     padding: '16px',
                     borderRadius: '10px',
                     textAlign: 'center',
-                    transition: 'all 0.2s ease'
+                    transition: 'all 0.2s ease',
+                    position: 'relative'
                 }}>
                     <div style={{ marginBottom: '12px', fontWeight: '700', color: '#e2e8f0', fontSize: '0.95rem' }}>{labelA}</div>
                     <button
@@ -208,9 +243,37 @@ export default function AudioComparisonQuiz({
                         {playing === 'A' ? <Pause size={24} /> : <Play size={24} style={{ marginLeft: '3px' }} />}
                     </button>
                     <div style={{ marginTop: '8px', fontSize: '0.75rem', color: playing === 'A' ? '#38bdf8' : '#64748b' }}>
-                        {playing === 'A' ? 'Playing (Tap B to A/B flip)' : 'Tap to listen'}
+                        {playing === 'A' ? 'Playing (Tap B to A/B flip)' : 'Tap to listen (or press A)'}
                     </div>
-                    <audio ref={audioRefA} src={audioSrcA} loop={isLooping} onEnded={() => { if (!isLooping) setPlaying(null); }} />
+
+                    {/* Progress Bar A */}
+                    <div style={{
+                        width: '100%',
+                        height: '4px',
+                        background: 'rgba(255,255,255,0.08)',
+                        borderRadius: '2px',
+                        marginTop: '12px',
+                        overflow: 'hidden'
+                    }}>
+                        <div style={{
+                            height: '100%',
+                            width: `${playing === 'A' ? progressA : 0}%`,
+                            background: '#38bdf8',
+                            transition: 'width 0.1s linear'
+                        }} />
+                    </div>
+
+                    <audio
+                        ref={audioRefA}
+                        src={audioSrcA}
+                        loop={isLooping}
+                        onTimeUpdate={() => {
+                            if (audioRefA.current) {
+                                setProgressA((audioRefA.current.currentTime / (audioRefA.current.duration || 1)) * 100);
+                            }
+                        }}
+                        onEnded={() => { if (!isLooping) setPlaying(null); }}
+                    />
                 </div>
 
                 {/* Player B */}
@@ -220,7 +283,8 @@ export default function AudioComparisonQuiz({
                     padding: '16px',
                     borderRadius: '10px',
                     textAlign: 'center',
-                    transition: 'all 0.2s ease'
+                    transition: 'all 0.2s ease',
+                    position: 'relative'
                 }}>
                     <div style={{ marginBottom: '12px', fontWeight: '700', color: '#e2e8f0', fontSize: '0.95rem' }}>{labelB}</div>
                     <button
@@ -244,10 +308,54 @@ export default function AudioComparisonQuiz({
                         {playing === 'B' ? <Pause size={24} /> : <Play size={24} style={{ marginLeft: '3px' }} />}
                     </button>
                     <div style={{ marginTop: '8px', fontSize: '0.75rem', color: playing === 'B' ? '#c084fc' : '#64748b' }}>
-                        {playing === 'B' ? 'Playing (Tap A to A/B flip)' : 'Tap to listen'}
+                        {playing === 'B' ? 'Playing (Tap A to A/B flip)' : 'Tap to listen (or press B)'}
                     </div>
-                    <audio ref={audioRefB} src={audioSrcB} loop={isLooping} onEnded={() => { if (!isLooping) setPlaying(null); }} />
+
+                    {/* Progress Bar B */}
+                    <div style={{
+                        width: '100%',
+                        height: '4px',
+                        background: 'rgba(255,255,255,0.08)',
+                        borderRadius: '2px',
+                        marginTop: '12px',
+                        overflow: 'hidden'
+                    }}>
+                        <div style={{
+                            height: '100%',
+                            width: `${playing === 'B' ? progressB : 0}%`,
+                            background: '#c084fc',
+                            transition: 'width 0.1s linear'
+                        }} />
+                    </div>
+
+                    <audio
+                        ref={audioRefB}
+                        src={audioSrcB}
+                        loop={isLooping}
+                        onTimeUpdate={() => {
+                            if (audioRefB.current) {
+                                setProgressB((audioRefB.current.currentTime / (audioRefB.current.duration || 1)) * 100);
+                            }
+                        }}
+                        onEnded={() => { if (!isLooping) setPlaying(null); }}
+                    />
                 </div>
+            </div>
+
+            {/* Tactile Keyboard Shortcuts Hint Pill */}
+            <div style={{
+                display: 'flex',
+                justifyContent: 'center',
+                gap: '12px',
+                marginBottom: '16px',
+                fontSize: '0.74rem',
+                color: '#64748b',
+                flexWrap: 'wrap'
+            }}>
+                <span>⌨️ <kbd style={{ background: 'rgba(255,255,255,0.08)', padding: '1px 6px', borderRadius: '4px', border: '1px solid rgba(255,255,255,0.1)' }}>Space</kbd> Play/Pause</span>
+                <span><kbd style={{ background: 'rgba(255,255,255,0.08)', padding: '1px 6px', borderRadius: '4px', border: '1px solid rgba(255,255,255,0.1)' }}>A</kbd> / <kbd style={{ background: 'rgba(255,255,255,0.08)', padding: '1px 6px', borderRadius: '4px', border: '1px solid rgba(255,255,255,0.1)' }}>B</kbd> Flip Track</span>
+                <span><kbd style={{ background: 'rgba(255,255,255,0.08)', padding: '1px 6px', borderRadius: '4px', border: '1px solid rgba(255,255,255,0.1)' }}>L</kbd> Loop</span>
+                <span><kbd style={{ background: 'rgba(255,255,255,0.08)', padding: '1px 6px', borderRadius: '4px', border: '1px solid rgba(255,255,255,0.1)' }}>[ ]</kbd> Speed</span>
             </div>
 
             {/* Options */}

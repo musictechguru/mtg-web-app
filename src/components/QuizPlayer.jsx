@@ -1094,6 +1094,8 @@ const QuizPlayer = ({ quiz, onFinish }) => {
                                 key={currentQuestionIndex}
                                 audioSrcA={currentQuestion.audio_a}
                                 audioSrcB={currentQuestion.audio_b}
+                                labelA={currentQuestion.label_a || "Original (Dry)"}
+                                labelB={currentQuestion.label_b || "Effected (Wet)"}
                                 options={currentQuestion.options}
                                 correctAnswerIndex={currentQuestion.correct_index}
                                 onResult={handleInteractiveResult}
