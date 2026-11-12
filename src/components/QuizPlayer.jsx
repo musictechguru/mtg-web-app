@@ -525,96 +525,10 @@ const QuizPlayer = ({ quiz, onFinish }) => {
         return () => window.removeEventListener('keydown', handleKeyDown);
     }, [totalQuestions, currentQuestionIndex, currentQuestion]);
 
-    // Handle external quiz files (like advanced-mic-placement-quiz.jsx)
-    if (quiz?.quizFile) {
-        return (
-            <div style={{
-                width: '100%',
-                height: '100vh',
-                display: 'flex',
-                flexDirection: 'column',
-                background: 'var(--bg-primary)'
-            }}>
-                <div style={{
-                    padding: '20px',
-                    background: 'var(--bg-secondary)',
-                    borderBottom: '1px solid var(--border-color)',
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center'
-                }}>
-                    <div>
-                        <h2 style={{ margin: 0, color: 'var(--text-primary)' }}>{quiz.title}</h2>
-                        <p style={{ margin: '5px 0 0 0', color: 'var(--text-secondary)', fontSize: '0.9rem' }}>
-                            {quiz.description}
-                        </p>
-                    </div>
-                    <button
-                        onClick={handleExit}
-                        style={{
-                            padding: '10px 20px',
-                            background: 'var(--accent-blue)',
-                            color: 'white',
-                            border: 'none',
-                            borderRadius: '6px',
-                            cursor: 'pointer',
-                            fontWeight: 'bold'
-                        }}
-                    >
-                        Back to Dashboard
-                    </button>
-                </div>
-                <iframe
-                    src={`/${quiz.quizFile}`}
-                    style={{
-                        flex: 1,
-                        width: '100%',
-                        border: 'none',
-                        background: 'white'
-                    }}
-                    title={quiz.title}
-                />
-            </div>
-        );
-    }
-
-    // Safety checks / Logic
-    if (!userContext) {
-        return <div style={{ padding: 20, color: 'red' }}>Error: UserContext missing. Please refresh.</div>;
-    }
-
-    if (!quiz || !Array.isArray(quiz.questions) || activeQuestions.length === 0) {
-        return (
-            <div className="quiz-container">
-                <h1>{quiz?.title || 'Loading...'}</h1>
-                <div style={{ background: 'rgba(255,255,255,0.05)', padding: '20px', borderRadius: '10px', marginTop: '20px' }}>
-                    {quiz?.questions ? <p>Loading questions...</p> : <p>Error: No questions found.</p>}
-                </div>
-            </div>
-        );
-    }
-
-    // Check index bounds
-    if (!currentQuestion) {
-        // Only show error if we are NOT finished
-        if (!quizFinished) {
-            return (
-                <div className="quiz-container">
-                    <h1>{quiz.title}</h1>
-                    <div style={{ background: 'rgba(255,0,0,0.1)', padding: '20px', borderRadius: '10px', marginTop: '20px', color: 'red' }}>
-                        <p>Error: Unable to load question {currentQuestionIndex + 1}.</p>
-                        <button onClick={handleExit} style={{ marginTop: 10, padding: '5px 10px' }}>Return</button>
-                    </div>
-                </div>
-            );
-        }
-    }
-
-    // Derived state for current question
+    // Derived state for current question (declared before any conditional return to ensure hook call order)
     const currentResponse = userResponses[currentQuestionIndex] || { selected: null, submitted: false, isCorrect: false };
     const selectedAnswer = currentResponse.selected;
     const isSubmitted = currentResponse.submitted;
-
 
     const handleOptionClick = (idx) => {
         if (isSubmitted) return;
@@ -728,6 +642,7 @@ const QuizPlayer = ({ quiz, onFinish }) => {
     };
 
     // Global student revision keyboard shortcuts (Enter for submit/next, 1-4 for answers)
+    // Placed unconditionally before any early returns to strictly satisfy React Rules of Hooks
     useEffect(() => {
         const handleGlobalKeyDown = (e) => {
             const tag = document.activeElement?.tagName;
@@ -755,6 +670,93 @@ const QuizPlayer = ({ quiz, onFinish }) => {
         window.addEventListener('keydown', handleGlobalKeyDown);
         return () => window.removeEventListener('keydown', handleGlobalKeyDown);
     }, [isSubmitted, selectedAnswer, currentQuestionIndex, currentQuestion]);
+
+    // Handle external quiz files (like advanced-mic-placement-quiz.jsx)
+    if (quiz?.quizFile) {
+        return (
+            <div style={{
+                width: '100%',
+                height: '100vh',
+                display: 'flex',
+                flexDirection: 'column',
+                background: 'var(--bg-primary)'
+            }}>
+                <div style={{
+                    padding: '20px',
+                    background: 'var(--bg-secondary)',
+                    borderBottom: '1px solid var(--border-color)',
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center'
+                }}>
+                    <div>
+                        <h2 style={{ margin: 0, color: 'var(--text-primary)' }}>{quiz.title}</h2>
+                        <p style={{ margin: '5px 0 0 0', color: 'var(--text-secondary)', fontSize: '0.9rem' }}>
+                            {quiz.description}
+                        </p>
+                    </div>
+                    <button
+                        onClick={handleExit}
+                        style={{
+                            padding: '10px 20px',
+                            background: 'var(--accent-blue)',
+                            color: 'white',
+                            border: 'none',
+                            borderRadius: '6px',
+                            cursor: 'pointer',
+                            fontWeight: 'bold'
+                        }}
+                    >
+                        Back to Dashboard
+                    </button>
+                </div>
+                <iframe
+                    src={`/${quiz.quizFile}`}
+                    style={{
+                        flex: 1,
+                        width: '100%',
+                        border: 'none',
+                        background: 'white'
+                    }}
+                    title={quiz.title}
+                />
+            </div>
+        );
+    }
+
+    // Safety checks / Logic
+    if (!userContext) {
+        return <div style={{ padding: 20, color: 'red' }}>Error: UserContext missing. Please refresh.</div>;
+    }
+
+    if (!quiz || !Array.isArray(quiz.questions) || activeQuestions.length === 0) {
+        return (
+            <div className="quiz-container">
+                <h1>{quiz?.title || 'Loading...'}</h1>
+                <div style={{ background: 'rgba(255,255,255,0.05)', padding: '20px', borderRadius: '10px', marginTop: '20px' }}>
+                    {quiz?.questions ? <p>Loading questions...</p> : <p>Error: No questions found.</p>}
+                </div>
+            </div>
+        );
+    }
+
+    // Check index bounds
+    if (!currentQuestion) {
+        // Only show error if we are NOT finished
+        if (!quizFinished) {
+            return (
+                <div className="quiz-container">
+                    <h1>{quiz.title}</h1>
+                    <div style={{ background: 'rgba(255,0,0,0.1)', padding: '20px', borderRadius: '10px', marginTop: '20px', color: 'red' }}>
+                        <p>Error: Unable to load question {currentQuestionIndex + 1}.</p>
+                        <button onClick={handleExit} style={{ marginTop: 10, padding: '5px 10px' }}>Return</button>
+                    </div>
+                </div>
+            );
+        }
+    }
+
+
 
     const getQuestionLabel = (q, idx) => {
         const qNum = isPart2 ? idx + 11 : idx + 1;
