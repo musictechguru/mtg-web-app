@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { Flame, Clock, Award, CheckCircle2, XCircle, RotateCcw, ArrowRight, Zap, Trophy, BookOpen } from 'lucide-react';
-import dictionaryData from '../data/dictionary_quizzes.json';
+import courseData from '../data/course_data.json';
 import { useUser } from '../contexts/UserContext';
 import PremiumLocked from './PremiumLocked';
 
@@ -33,36 +33,34 @@ export function isAnswerLengthBalanced(answers, maxAllowedDiff = 10) {
   return (max - min) <= maxAllowedDiff;
 }
 
-// Extract full flattened bank of questions that meet strict length-balance standards
+// Extract full flattened bank of Stage 2 Topic Mastery questions that meet strict length-balance standards
 function getAllQuestionsPool() {
   const pool = [];
-  dictionaryData.volumes.forEach((vol, vIdx) => {
-    (vol.parts || []).forEach((part, pIdx) => {
-      (part.topics || []).forEach((topic, tIdx) => {
-        ['basic', 'intermediate'].forEach(lvl => {
-          (topic.levels?.[lvl] || []).forEach((q, qIdx) => {
-            const correctAns = q.answers?.find(a => a.is_true === 'yes' || a.is_true === true);
-            // Strict pedagogical safeguard: answers must be balanced in length (max diff <= 10 chars)
-            // so students cannot deduce the answer by option length
-            if (correctAns && q.content && isAnswerLengthBalanced(q.answers, 10)) {
-              const rawImg = typeof q.explanation_image === 'string'
-                ? q.explanation_image
-                : (q.explanation_image?.src || q.img || q.image || null);
+  (courseData.sections || [])
+    .filter((sec) => (sec.title || '').includes('Topic Mastery'))
+    .forEach((sec) => {
+    (sec.items || []).forEach((item) => {
+      (item.questions || []).forEach((q, qIdx) => {
+        const correctAns = q.answers?.find(a => a.is_true === 'yes' || a.is_true === true);
+        // Strict pedagogical safeguard: answers must be balanced in length (max diff <= 10 chars)
+        // so students cannot deduce the answer by option length
+        if (correctAns && q.content && isAnswerLengthBalanced(q.answers, 10)) {
+          const rawImg = typeof q.explanation_image === 'string'
+            ? q.explanation_image
+            : (q.explanation_image?.src || q.img || q.image || null);
 
-              pool.push({
-                uid: `v${vIdx + 1}_p${pIdx + 1}_t${tIdx + 1}_${lvl}_q${qIdx + 1}`,
-                volumeTitle: vol.title,
-                topicTitle: topic.title,
-                tier: lvl,
-                question: q.content,
-                answers: q.answers,
-                correctAnswer: correctAns.text,
-                explanation: q.explanation || q.rationale || '',
-                image: rawImg
-              });
-            }
+          pool.push({
+            uid: `course_${item.id}_q${qIdx + 1}`,
+            volumeTitle: sec.title,
+            topicTitle: item.title,
+            tier: '9MT0 A-Level',
+            question: q.content,
+            answers: q.answers,
+            correctAnswer: correctAns.text,
+            explanation: q.explanation || q.rationale || '',
+            image: rawImg
           });
-        });
+        }
       });
     });
   });
@@ -154,6 +152,7 @@ export default function QuickFireDaily5({ onExit }) {
   const [timeLeft, setTimeLeft] = useState(120); // 2 minutes countdown
   const [timerActive, setTimerActive] = useState(true);
   const [showUpgradeModal, setShowUpgradeModal] = useState(false);
+  const [expandedImage, setExpandedImage] = useState(null);
   const [completedCountToday, setCompletedCountToday] = useState(() => getDailyDrillsCompletedToday());
 
   // Streak state
@@ -552,28 +551,55 @@ export default function QuickFireDaily5({ onExit }) {
             {currentQ?.question}
           </h3>
 
-          {/* Optional Image */}
-          {currentQ?.image && (
-            <div style={{
-              textAlign: 'center',
-              marginBottom: '20px',
-              borderRadius: '12px',
-              overflow: 'hidden',
-              background: '#0f172a',
-              border: '1px solid #334155'
-            }}>
-              <img
-                src={currentQ.image.startsWith('http') ? currentQ.image : `/${currentQ.image.replace(/^\//, '')}`}
-                alt="Technical Diagram"
-                onError={(e) => {
-                  if (e.currentTarget?.parentElement) {
-                    e.currentTarget.parentElement.style.display = 'none';
-                  }
+          {/* Optional Image (click to expand) */}
+          {currentQ?.image && (() => {
+            const imgSrc = currentQ.image.startsWith('http') ? currentQ.image : `/${currentQ.image.replace(/^\//, '')}`;
+            return (
+              <div
+                onClick={() => setExpandedImage(imgSrc)}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setExpandedImage(imgSrc); }}
+                title="Click to expand image"
+                style={{
+                  position: 'relative',
+                  textAlign: 'center',
+                  marginBottom: '20px',
+                  borderRadius: '12px',
+                  overflow: 'hidden',
+                  background: '#0f172a',
+                  border: '1px solid #334155',
+                  cursor: 'zoom-in'
                 }}
-                style={{ maxHeight: '220px', maxWidth: '100%', objectFit: 'contain' }}
-              />
-            </div>
-          )}
+              >
+                <img
+                  src={imgSrc}
+                  alt="Technical Diagram"
+                  onError={(e) => {
+                    if (e.currentTarget?.parentElement) {
+                      e.currentTarget.parentElement.style.display = 'none';
+                    }
+                  }}
+                  style={{ maxHeight: '220px', maxWidth: '100%', objectFit: 'contain', display: 'block', margin: '0 auto' }}
+                />
+                <span style={{
+                  position: 'absolute',
+                  bottom: '8px',
+                  right: '10px',
+                  background: 'rgba(15, 23, 42, 0.85)',
+                  border: '1px solid rgba(255, 255, 255, 0.15)',
+                  color: '#cbd5e1',
+                  fontSize: '0.72rem',
+                  fontWeight: 600,
+                  padding: '3px 8px',
+                  borderRadius: '6px',
+                  pointerEvents: 'none'
+                }}>
+                  🔍 Click to expand
+                </span>
+              </div>
+            );
+          })()}
 
           {/* Options Grid */}
           <div style={{ display: 'grid', gap: '12px', marginBottom: '28px' }}>
@@ -648,9 +674,16 @@ export default function QuickFireDaily5({ onExit }) {
                   {selectedOption === currentQ?.correctAnswer ? '✓ Correct!' : '✗ Technical Explanation:'}
                 </span>
               </div>
-              <p style={{ margin: 0, fontSize: '0.92rem', color: '#cbd5e1', lineHeight: '1.6' }}>
-                {currentQ?.explanation || `Correct answer: ${currentQ?.correctAnswer}`}
-              </p>
+              {currentQ?.explanation ? (
+                <div
+                  style={{ fontSize: '0.92rem', color: '#cbd5e1', lineHeight: '1.6' }}
+                  dangerouslySetInnerHTML={{ __html: currentQ.explanation.replace(/<img\b[^>]*>/gi, '') }}
+                />
+              ) : (
+                <p style={{ margin: 0, fontSize: '0.92rem', color: '#cbd5e1', lineHeight: '1.6' }}>
+                  {`Correct answer: ${currentQ?.correctAnswer}`}
+                </p>
+              )}
             </div>
           )}
 
@@ -949,6 +982,64 @@ export default function QuickFireDaily5({ onExit }) {
             </button>
             <PremiumLocked itemTitle="Unlimited Daily 5 Quick-Fire Drills" />
           </div>
+        </div>
+      )}
+
+      {/* Fullscreen Image Lightbox */}
+      {expandedImage && (
+        <div
+          onClick={() => setExpandedImage(null)}
+          role="dialog"
+          aria-modal="true"
+          style={{
+            position: 'fixed',
+            inset: 0,
+            background: 'rgba(2, 6, 23, 0.9)',
+            backdropFilter: 'blur(6px)',
+            zIndex: 10000,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '24px',
+            cursor: 'zoom-out'
+          }}
+        >
+          <button
+            onClick={() => setExpandedImage(null)}
+            aria-label="Close expanded image"
+            style={{
+              position: 'fixed',
+              top: '20px',
+              right: '20px',
+              background: 'rgba(255, 255, 255, 0.12)',
+              border: '1px solid rgba(255, 255, 255, 0.25)',
+              color: '#fff',
+              width: '40px',
+              height: '40px',
+              borderRadius: '50%',
+              cursor: 'pointer',
+              fontSize: '1.2rem',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}
+          >
+            ✕
+          </button>
+          <img
+            src={expandedImage}
+            alt="Expanded Technical Diagram"
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              maxWidth: '92vw',
+              maxHeight: '88vh',
+              objectFit: 'contain',
+              borderRadius: '12px',
+              boxShadow: '0 25px 60px rgba(0, 0, 0, 0.6)',
+              border: '1px solid rgba(255, 255, 255, 0.15)',
+              cursor: 'default'
+            }}
+          />
         </div>
       )}
     </div>
