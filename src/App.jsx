@@ -720,204 +720,110 @@ const MainApp = () => {
           )}
         </div>
 
-        <nav>
+        <nav className="sidebar-nav">
+          {/* Primary Focus */}
           <button
-            className={`nav-item ${appView === 'teacher' ? 'active' : ''}`}
-            onClick={openTeacherDashboard}
-            style={{ marginBottom: '20px', fontWeight: 'bold', color: 'var(--accent-purple)', border: '1px solid var(--accent-purple)' }}
-          >
-            Teacher Dashboard
-          </button>
-
-          <button
-            className={`nav-item ${!activeItem && appView === 'student' ? 'active' : ''}`}
+            className={`nav-item-clean primary-hero ${!activeItem && appView === 'student' ? 'active' : ''}`}
             onClick={goToDashboardWrapper}
-            style={{ marginBottom: '15px', fontWeight: 'bold', color: 'var(--accent-blue)' }}
           >
-            Dashboard
-          </button>
-
-          <a
-            href="https://www.musictechguru.com/homepage/music-tech-tutor/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="nav-item"
-            style={{
-              marginBottom: '15px',
-              fontWeight: 'bold',
-              color: '#38bdf8',
-              border: '1px solid rgba(56, 189, 248, 0.45)',
-              background: 'rgba(56, 189, 248, 0.1)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              textDecoration: 'none',
-              padding: '10px 14px',
-              borderRadius: '8px',
-              transition: 'all 0.2s ease'
-            }}
-          >
-            <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <span>🎓</span> 1-on-1 Music Tech Tutor
+            <span className="nav-item-label">
+              <span>🧭</span> Path to Legend
             </span>
-            <span style={{ fontSize: '0.7rem', background: 'rgba(56, 189, 248, 0.25)', color: '#38bdf8', padding: '2px 6px', borderRadius: '4px', fontWeight: 'bold' }}>
-              Thor
-            </span>
-          </a>
-
-          <button
-            className={`nav-item ${activeItem?.type === 'dictionary_selector' ? 'active' : ''}`}
-            onClick={() => {
-              handleItemSelectWrapper({ type: 'dictionary_selector', title: 'Dictionary Quizzes' });
-            }}
-            style={{ marginBottom: '10px', fontWeight: 'bold', color: 'var(--accent-success)', border: '1px solid var(--accent-success)' }}
-          >
-            Dictionary Quizzes
           </button>
 
           <button
-            className={`nav-item ${activeItem?.type === 'tracksheet_creator' ? 'active' : ''}`}
-            onClick={() => {
-              handleItemSelectWrapper({ id: 'tracksheet_creator', type: 'tracksheet_creator', title: 'Component 1: Track Sheet & Logbook', isPremium: true });
-            }}
-            style={{ 
-              marginBottom: '10px', 
-              fontWeight: 'bold', 
-              color: '#c084fc', 
-              border: '1px solid rgba(192, 132, 252, 0.4)',
-              background: activeItem?.type === 'tracksheet_creator' ? 'rgba(192, 132, 252, 0.15)' : 'transparent',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between'
-            }}
-          >
-            <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <span>🎚️</span> Component 1 Track Sheet
-            </span>
-            {!currentUser?.is_premium && <span style={{ fontSize: '0.8rem', color: '#facc15' }}>🔒</span>}
-          </button>
-
-          <button
-            className={`nav-item ${activeItem?.type === 'component1_guide' ? 'active' : ''}`}
-            onClick={() => {
-              handleItemSelectWrapper({ id: 'component1_guide', type: 'component1_guide', title: 'Component 1: Recording Guide & Tick List', isPremium: true });
-            }}
-            style={{ 
-              marginBottom: '10px', 
-              fontWeight: 'bold', 
-              color: '#34d399', 
-              border: '1px solid rgba(52, 211, 153, 0.45)',
-              background: activeItem?.type === 'component1_guide' ? 'rgba(16, 185, 129, 0.14)' : 'transparent',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between'
-            }}
-          >
-            <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <span>✅</span> Component 1 Guide & Tick List
-            </span>
-            {!currentUser?.is_premium && <span style={{ fontSize: '0.8rem', color: '#facc15' }}>🔒</span>}
-          </button>
-
-          <button
-            className={`nav-item ${activeItem?.type === 'component2_guide' ? 'active' : ''}`}
-            onClick={() => {
-              handleItemSelectWrapper({ id: 'component2_guide', type: 'component2_guide', title: 'Component 2: Composition Guide & Logbook', isPremium: true });
-            }}
-            style={{ 
-              marginBottom: '10px', 
-              fontWeight: 'bold', 
-              color: '#f472b6', 
-              border: '1px solid rgba(244, 114, 182, 0.45)',
-              background: activeItem?.type === 'component2_guide' ? 'rgba(244, 114, 182, 0.12)' : 'transparent',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between'
-            }}
-          >
-            <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <span>🎹</span> Component 2 Guide & Tick List
-            </span>
-            {!currentUser?.is_premium && <span style={{ fontSize: '0.8rem', color: '#facc15' }}>🔒</span>}
-          </button>
-
-          <button
-            className={`nav-item ${activeItem?.type === 'timetable_builder' ? 'active' : ''}`}
-            onClick={() => {
-              handleItemSelectWrapper({ id: 'timetable_builder', type: 'timetable_builder', title: '16-Block Timetable & Scheme of Work' });
-            }}
-            style={{ 
-              marginBottom: '10px', 
-              fontWeight: 'bold', 
-              color: '#38bdf8', 
-              border: '1px solid rgba(56, 189, 248, 0.4)',
-              background: activeItem?.type === 'timetable_builder' ? 'rgba(56, 189, 248, 0.15)' : 'transparent',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '8px'
-            }}
-          >
-            <span>🗺️</span> 16-Block Timetable & SOW
-          </button>
-
-          <button
-            className={`nav-item ${activeItem?.type === 'quick_fire_daily5' ? 'active' : ''}`}
+            className={`nav-item-clean ${activeItem?.type === 'quick_fire_daily5' ? 'active' : ''}`}
             onClick={() => {
               handleItemSelectWrapper({ id: 'quick_fire_daily5', type: 'quick_fire_daily5', title: 'Daily 5 Quick-Fire Drill' });
             }}
-            style={{ 
-              marginBottom: '10px', 
-              fontWeight: 'bold', 
-              color: '#fb923c', 
-              border: '1px solid rgba(249, 115, 22, 0.45)',
-              background: activeItem?.type === 'quick_fire_daily5' ? 'rgba(249, 115, 22, 0.15)' : 'transparent',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '8px'
-            }}
           >
-            <span>🔥</span> Daily 5 Quick-Fire
+            <span className="nav-item-label">
+              <span>🔥</span> Daily 5 Quick-Fire
+            </span>
           </button>
 
+          {/* Edexcel 9MT0 Coursework & Exam Tools */}
+          <div className="sidebar-section-label">Coursework &amp; Exams</div>
+
           <button
-            className={`nav-item ${activeItem?.type === 'extended_response_trainer' ? 'active' : ''}`}
+            className={`nav-item-clean ${activeItem?.type === 'extended_response_trainer' ? 'active' : ''}`}
             onClick={() => {
               handleItemSelectWrapper({ id: 'extended_response_trainer', type: 'extended_response_trainer', title: 'C3 & C4 Extended Response Trainer (8m, 15m & 20m)' });
             }}
-            style={{ 
-              marginBottom: '10px', 
-              fontWeight: 'bold', 
-              color: '#34d399', 
-              border: '1px solid rgba(52, 211, 153, 0.45)',
-              background: activeItem?.type === 'extended_response_trainer' ? 'rgba(16, 185, 129, 0.15)' : 'transparent',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '8px'
-            }}
           >
-            <span>📝</span> C3 &amp; C4 Essay Examiner
+            <span className="nav-item-label">
+              <span>📝</span> C3 &amp; C4 Essay Examiner
+            </span>
           </button>
 
           <button
-            className={`nav-item ${activeItem?.type === 'lp_fingerprints' ? 'active' : ''}`}
+            className={`nav-item-clean ${activeItem?.type === 'lp_fingerprints' ? 'active' : ''}`}
             onClick={() => {
               handleItemSelectWrapper({ id: 'lp_fingerprints', type: 'lp_fingerprints', title: 'Sonic Fingerprints: Production Analysis', isPremium: true });
             }}
-            style={{ 
-              marginBottom: '20px', 
-              fontWeight: 'bold', 
-              color: '#c084fc', 
-              border: '1px solid rgba(192, 132, 252, 0.45)',
-              background: activeItem?.type === 'lp_fingerprints' ? 'rgba(168, 85, 247, 0.15)' : 'transparent',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between'
+          >
+            <span className="nav-item-label">
+              <span>🎧</span> Sonic Fingerprints
+            </span>
+            {!currentUser?.is_premium && <span style={{ fontSize: '0.75rem', color: '#facc15' }}>🔒</span>}
+          </button>
+
+          <button
+            className={`nav-item-clean ${activeItem?.type === 'dictionary_selector' ? 'active' : ''}`}
+            onClick={() => {
+              handleItemSelectWrapper({ type: 'dictionary_selector', title: 'Dictionary Quizzes' });
             }}
           >
-            <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <span>🎧</span> Sonic Fingerprints (1950s–2010s)
+            <span className="nav-item-label">
+              <span>📖</span> Dictionary Quizzes
             </span>
-            {!currentUser?.is_premium && <span style={{ fontSize: '0.8rem', color: '#facc15' }}>🔒</span>}
+          </button>
+
+          <button
+            className={`nav-item-clean ${activeItem?.type === 'tracksheet_creator' ? 'active' : ''}`}
+            onClick={() => {
+              handleItemSelectWrapper({ id: 'tracksheet_creator', type: 'tracksheet_creator', title: 'Component 1: Track Sheet & Logbook', isPremium: true });
+            }}
+          >
+            <span className="nav-item-label">
+              <span>🎚️</span> C1: Track Sheet
+            </span>
+            {!currentUser?.is_premium && <span style={{ fontSize: '0.75rem', color: '#facc15' }}>🔒</span>}
+          </button>
+
+          <button
+            className={`nav-item-clean ${activeItem?.type === 'component1_guide' ? 'active' : ''}`}
+            onClick={() => {
+              handleItemSelectWrapper({ id: 'component1_guide', type: 'component1_guide', title: 'Component 1: Recording Guide & Tick List', isPremium: true });
+            }}
+          >
+            <span className="nav-item-label">
+              <span>✅</span> C1: Recording Guide
+            </span>
+            {!currentUser?.is_premium && <span style={{ fontSize: '0.75rem', color: '#facc15' }}>🔒</span>}
+          </button>
+
+          <button
+            className={`nav-item-clean ${activeItem?.type === 'component2_guide' ? 'active' : ''}`}
+            onClick={() => {
+              handleItemSelectWrapper({ id: 'component2_guide', type: 'component2_guide', title: 'Component 2: Composition Guide & Logbook', isPremium: true });
+            }}
+          >
+            <span className="nav-item-label">
+              <span>🎹</span> C2: Composition Guide
+            </span>
+            {!currentUser?.is_premium && <span style={{ fontSize: '0.75rem', color: '#facc15' }}>🔒</span>}
+          </button>
+
+          <button
+            className={`nav-item-clean ${activeItem?.type === 'timetable_builder' ? 'active' : ''}`}
+            onClick={() => {
+              handleItemSelectWrapper({ id: 'timetable_builder', type: 'timetable_builder', title: '24-Week Revision Planner' });
+            }}
+          >
+            <span className="nav-item-label">
+              <span>🗺️</span> 24-Week Revision Planner
+            </span>
           </button>
 
           {/* Curriculum Stages Header */}
@@ -1135,6 +1041,29 @@ const MainApp = () => {
               </div>
             );
           })}
+
+          <div className="sidebar-footer">
+            <a
+              href="https://www.musictechguru.com/homepage/music-tech-tutor/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="nav-item-clean"
+            >
+              <span className="nav-item-label">
+                <span>🎓</span> 1-on-1 Tutor (Thor)
+              </span>
+              <span className="nav-item-badge">↗</span>
+            </a>
+
+            <button
+              className={`nav-item-clean ${appView === 'teacher' ? 'active' : ''}`}
+              onClick={openTeacherDashboard}
+            >
+              <span className="nav-item-label">
+                <span>👩‍🏫</span> Teacher Dashboard
+              </span>
+            </button>
+          </div>
         </nav>
       </aside>
 

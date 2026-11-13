@@ -124,8 +124,8 @@ const Dashboard = ({ onNavigate, onOpenProfile }) => {
             {/* Active Teacher Homework Assignment Banner (auto-detects assignment URL/storage) */}
             <AssignmentBanner onLaunchTask={handleLaunchAssignmentTask} />
 
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '30px', flexWrap: 'wrap', gap: '15px' }}>
-                <h1 style={{ margin: 0, color: 'var(--text-primary)', fontSize: '2.5rem' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', flexWrap: 'wrap', gap: '12px' }}>
+                <h1 style={{ margin: 0, color: 'var(--text-primary)', fontSize: '2rem' }}>
                     Welcome back, <span style={{ color: 'var(--accent-blue)' }}>{currentUser?.full_name || 'Creator'}!</span>
                 </h1>
                 
@@ -134,55 +134,88 @@ const Dashboard = ({ onNavigate, onOpenProfile }) => {
                         onClick={onOpenProfile}
                         className="pulse-button"
                         style={{
-                            padding: '12px 24px', borderRadius: '12px', fontSize: '1.1rem',
+                            padding: '10px 20px', borderRadius: '10px', fontSize: '1rem',
                             display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer',
                             boxShadow: '0 4px 15px rgba(16, 185, 129, 0.4)'
                         }}
                     >
-                        <span style={{ fontSize: '1.3rem' }}>📝</span>
+                        <span>📝</span>
                         Set Your Name
                     </button>
                 ) : (
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
-                        <button 
-                            onClick={() => setShowPracticalLab(true)}
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+                        <button
+                            onClick={() => onNavigate({ id: 'quick_fire_daily5', type: 'quick_fire_daily5', title: 'Daily 5 Quick-Fire Drill' })}
                             style={{
-                                padding: '8px 16px', borderRadius: '8px', fontSize: '0.9rem',
-                                background: 'linear-gradient(135deg, rgba(2, 132, 199, 0.25) 0%, rgba(56, 189, 248, 0.15) 100%)',
-                                border: '1px solid rgba(56, 189, 248, 0.5)',
-                                color: '#38bdf8', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px',
-                                fontWeight: 'bold', boxShadow: '0 2px 10px rgba(56, 189, 248, 0.2)',
-                                transition: 'all 0.2s'
+                                padding: '7px 14px', borderRadius: '8px', fontSize: '0.85rem',
+                                background: 'linear-gradient(135deg, #ea580c 0%, #f97316 100%)',
+                                border: 'none', color: '#fff', cursor: 'pointer',
+                                display: 'flex', alignItems: 'center', gap: '6px',
+                                fontWeight: '700', boxShadow: '0 2px 8px rgba(234, 88, 12, 0.25)'
                             }}
                         >
-                            <span>🧪</span>
-                            Practical Quiz Lab (Test 1-by-1)
+                            <span>🔥</span>
+                            Daily 5{dailyStreak > 0 ? ` (${dailyStreak}d)` : ''}
+                        </button>
+                        {import.meta.env.DEV && (
+                            <button 
+                                onClick={() => setShowPracticalLab(true)}
+                                style={{
+                                    padding: '7px 12px', borderRadius: '8px', fontSize: '0.82rem',
+                                    background: 'rgba(56, 189, 248, 0.12)',
+                                    border: '1px solid rgba(56, 189, 248, 0.35)',
+                                    color: '#38bdf8', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px',
+                                    fontWeight: '600'
+                                }}
+                            >
+                                <span>🧪</span> Quiz Lab
+                            </button>
+                        )}
+                        <button
+                            onClick={() => setShowWelcomeModal(true)}
+                            style={{
+                                padding: '7px 12px', borderRadius: '8px', fontSize: '0.82rem',
+                                background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)',
+                                color: 'var(--text-secondary)', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '5px'
+                            }}
+                        >
+                            <span>🎬</span> Tour
                         </button>
                         <button 
                             onClick={onOpenProfile}
                             style={{
-                                padding: '8px 16px', borderRadius: '8px', fontSize: '0.9rem',
+                                padding: '7px 12px', borderRadius: '8px', fontSize: '0.82rem',
                                 background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)',
-                                color: 'var(--text-secondary)', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px'
+                                color: 'var(--text-secondary)', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '5px'
                             }}
                         >
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
-                            Edit Profile
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                            Profile
+                        </button>
+                        <button
+                            onClick={logout}
+                            style={{
+                                padding: '7px 12px', borderRadius: '8px', fontSize: '0.82rem',
+                                background: 'transparent', border: '1px solid rgba(225, 29, 72, 0.45)',
+                                color: '#fb7185', cursor: 'pointer'
+                            }}
+                        >
+                            Log Out
                         </button>
                     </div>
                 )}
             </div>
 
-            {/* Permanent Guru Hero Section at Top */}
+            {/* MAIN FOCUS: Path to Legend Hero + Campaign Map */}
             <div className="guru-hero" style={{
                 background: 'linear-gradient(135deg, var(--bg-panel) 0%, rgba(59, 130, 246, 0.1) 100%)',
                 borderRadius: '20px',
-                padding: '30px',
-                marginBottom: '40px',
+                padding: '28px 30px',
+                marginBottom: '24px',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-around',
-                border: '1px solid var(--border-color)',
+                border: '1px solid rgba(59, 130, 246, 0.25)',
                 boxShadow: '0 10px 30px rgba(0,0,0,0.2)',
                 flexWrap: 'wrap',
                 gap: '20px'
@@ -254,210 +287,8 @@ const Dashboard = ({ onNavigate, onOpenProfile }) => {
                 </div>
             </div>
 
-            <div className="welcome-banner" style={{ textAlign: 'right', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', flexWrap: 'wrap', gap: '10px' }}>
-                <button
-                    onClick={() => setShowWelcomeModal(true)}
-                    style={{
-                        background: 'rgba(59, 130, 246, 0.1)',
-                        border: '1px solid rgba(59, 130, 246, 0.3)',
-                        padding: '6px 14px',
-                        borderRadius: '8px',
-                        fontSize: '0.85rem',
-                        color: 'var(--accent-blue)',
-                        cursor: 'pointer',
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '6px',
-                        fontWeight: '600'
-                    }}
-                >
-                    <span>🎬</span> Watch Welcome Tour
-                </button>
-                <div style={{ display: 'flex', gap: '10px' }}>
-                    <button
-                        onClick={clearProgress}
-                        style={{ background: 'transparent', border: '1px solid #333', padding: '5px 10px', borderRadius: '4px', fontSize: '0.8rem', color: '#666', cursor: 'pointer' }}
-                    >
-                        Reset Data
-                    </button>
-                    <button
-                        onClick={logout}
-                        style={{ background: 'transparent', border: '1px solid #e11d48', padding: '5px 10px', borderRadius: '4px', fontSize: '0.8rem', color: '#e11d48', cursor: 'pointer' }}
-                    >
-                        Log Out
-                    </button>
-                </div>
-            </div>
-
-            {/* Slim Daily 5 Spaced Repetition Sprint Bar */}
-            <div style={{
-                background: 'linear-gradient(135deg, rgba(249, 115, 22, 0.12) 0%, rgba(234, 88, 12, 0.06) 100%)',
-                border: '1px solid rgba(249, 115, 22, 0.3)',
-                borderRadius: '14px',
-                padding: '12px 20px',
-                marginBottom: '25px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                flexWrap: 'wrap',
-                gap: '12px',
-                boxShadow: '0 4px 15px rgba(0,0,0,0.15)'
-            }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
-                    <div style={{
-                        width: '40px',
-                        height: '40px',
-                        borderRadius: '10px',
-                        background: 'linear-gradient(135deg, #ea580c, #f97316)',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        fontSize: '1.3rem',
-                        boxShadow: '0 2px 8px rgba(249, 115, 22, 0.3)'
-                    }}>
-                        🔥
-                    </div>
-                    <div>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
-                            <span style={{ fontWeight: 800, color: '#fff', fontSize: '1rem' }}>
-                                Daily 5 Quick-Fire Drill
-                            </span>
-                            <span style={{
-                                fontSize: '0.72rem',
-                                fontWeight: 'bold',
-                                background: dailyStreak > 0 ? 'rgba(249, 115, 22, 0.25)' : 'rgba(255, 255, 255, 0.08)',
-                                color: dailyStreak > 0 ? '#fb923c' : '#94a3b8',
-                                border: `1px solid ${dailyStreak > 0 ? 'rgba(249, 115, 22, 0.4)' : 'rgba(255, 255, 255, 0.15)'}`,
-                                padding: '2px 8px',
-                                borderRadius: '6px'
-                            }}>
-                                🔥 {dailyStreak > 0 ? `${dailyStreak}-Day Streak` : 'Start Streak'}
-                            </span>
-                        </div>
-                        <p style={{ margin: '2px 0 0 0', color: 'var(--text-secondary)', fontSize: '0.8rem' }}>
-                            2-minute spaced repetition sprint targeting past mistakes and review-due questions.
-                        </p>
-                    </div>
-                </div>
-
-                <button
-                    onClick={() => onNavigate({ id: 'quick_fire_daily5', type: 'quick_fire_daily5', title: 'Daily 5 Quick-Fire Drill' })}
-                    style={{
-                        padding: '9px 18px',
-                        borderRadius: '8px',
-                        background: 'linear-gradient(135deg, #ea580c 0%, #f97316 100%)',
-                        color: '#fff',
-                        border: 'none',
-                        fontWeight: '700',
-                        fontSize: '0.88rem',
-                        cursor: 'pointer',
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '6px',
-                        boxShadow: '0 2px 10px rgba(234, 88, 12, 0.3)',
-                        transition: 'transform 0.2s',
-                        whiteSpace: 'nowrap'
-                    }}
-                    onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-1px)'}
-                    onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
-                >
-                    <span>⚡</span> Start Daily 5 Drill (+XP)
-                </button>
-            </div>
-
-            {/* C3 & C4 Essay Examiner Quick-Launch Hero Banner */}
-            <div
-                style={{
-                    background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.12) 0%, rgba(56, 189, 248, 0.08) 100%)',
-                    border: '1px solid rgba(16, 185, 129, 0.35)',
-                    borderRadius: '16px',
-                    padding: '16px 20px',
-                    marginBottom: '20px',
-                    display: 'flex',
-                    flexWrap: 'wrap',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    gap: '14px',
-                    boxShadow: '0 4px 20px rgba(0, 0, 0, 0.25)'
-                }}
-            >
-                <div style={{ display: 'flex', alignItems: 'center', gap: '14px', minWidth: '260px', flex: 1 }}>
-                    <div style={{
-                        width: '46px',
-                        height: '46px',
-                        borderRadius: '12px',
-                        background: 'linear-gradient(135deg, #10b981, #059669)',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        fontSize: '1.5rem',
-                        boxShadow: '0 4px 12px rgba(16, 185, 129, 0.3)',
-                        flexShrink: 0
-                    }}>
-                        📝
-                    </div>
-                    <div>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
-                            <span style={{ fontSize: '0.72rem', fontWeight: 800, background: 'rgba(16, 185, 129, 0.2)', color: '#34d399', padding: '2px 8px', borderRadius: '6px', letterSpacing: '0.04em' }}>
-                                EXAM ESSAY EXAMINER
-                            </span>
-                            <span style={{ fontSize: '0.72rem', color: '#94a3b8' }}>
-                                9MT0 AO3 (Knowledge) &amp; AO4 (Evaluation) • 35 Marks Total
-                            </span>
-                        </div>
-                        <h4 style={{ margin: '3px 0 0 0', color: '#fff', fontSize: '1.05rem', fontWeight: 700 }}>
-                            C3 &amp; C4 Extended Response Examiner (8m, 15m &amp; 20m)
-                        </h4>
-                        <p style={{ margin: '2px 0 0 0', color: '#94a3b8', fontSize: '0.8rem' }}>
-                            Master C3 Q5 (15m), C3 Q6 (20m), C4 Q4(g) (8m), and C4 Q6 (20m) with official mark-scheme evaluation and Grade A* exemplars.
-                        </p>
-                    </div>
-                </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
-                    <button
-                        onClick={() => onNavigate({ id: 'c3_extended_response_examiner', type: 'extended_response_trainer', targetComponent: 'c3', title: 'Component 3 Extended Response Examiner' })}
-                        style={{
-                            background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
-                            color: '#fff',
-                            border: 'none',
-                            padding: '9px 15px',
-                            borderRadius: '8px',
-                            cursor: 'pointer',
-                            fontWeight: 700,
-                            fontSize: '0.84rem',
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: '6px',
-                            boxShadow: '0 2px 10px rgba(16, 185, 129, 0.35)',
-                            transition: 'all 0.2s'
-                        }}
-                    >
-                        <span>🎧</span> Practice C3 (15m &amp; 20m) →
-                    </button>
-                    <button
-                        onClick={() => onNavigate({ id: 'c4_extended_response_examiner', type: 'extended_response_trainer', targetComponent: 'c4', title: 'Component 4 Extended Response Examiner' })}
-                        style={{
-                            background: 'rgba(255, 255, 255, 0.08)',
-                            color: '#38bdf8',
-                            border: '1px solid rgba(56, 189, 248, 0.35)',
-                            padding: '9px 15px',
-                            borderRadius: '8px',
-                            cursor: 'pointer',
-                            fontWeight: 700,
-                            fontSize: '0.84rem',
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: '6px',
-                            transition: 'all 0.2s'
-                        }}
-                    >
-                        <span>🎛️</span> Practice C4 (8m &amp; 20m) →
-                    </button>
-                </div>
-            </div>
-
             {/* CENTRAL FOCUS: THE PATH TO LEGEND (Campaign Map) */}
-            <div id="campaign-map-section" style={{ marginBottom: '35px' }}>
+            <div id="campaign-map-section" style={{ marginBottom: '40px' }}>
                 <CampaignMap onNavigate={onNavigate} />
             </div>
 
@@ -578,14 +409,14 @@ const Dashboard = ({ onNavigate, onOpenProfile }) => {
                                 </span>
                             </div>
                             <h4 style={{ margin: '0 0 4px 0', color: '#fff', fontSize: '1rem', fontWeight: 700 }}>
-                                16-Block Scheme of Work
+                                24-Week Revision Planner
                             </h4>
                             <p style={{ margin: '0 0 12px 0', color: 'var(--text-secondary)', fontSize: '0.8rem', lineHeight: '1.4' }}>
-                                24-week framework (12h per block) covering theory, listening, and coursework milestones.
+                                16-block study schedule (12h per block) covering theory, listening, and coursework milestones.
                             </p>
                         </div>
                         <button
-                            onClick={() => onNavigate({ type: 'timetable_builder', title: '16-Block Timetable & Scheme of Work' })}
+                            onClick={() => onNavigate({ type: 'timetable_builder', title: '24-Week Revision Planner' })}
                             style={{
                                 background: 'linear-gradient(135deg, #0284c7 0%, #0369a1 100%)',
                                 color: '#fff',
@@ -989,6 +820,15 @@ const Dashboard = ({ onNavigate, onOpenProfile }) => {
                                 <p style={{ color: 'var(--text-secondary)' }}>No recent activity.</p>
                             )}
                         </div>
+                    </div>
+
+                    <div style={{ marginTop: '30px', textAlign: 'right' }}>
+                        <button
+                            onClick={clearProgress}
+                            style={{ background: 'transparent', border: '1px solid rgba(255,255,255,0.12)', padding: '6px 12px', borderRadius: '6px', fontSize: '0.78rem', color: 'var(--text-secondary)', cursor: 'pointer' }}
+                        >
+                            Reset Progress Data
+                        </button>
                     </div>
                 </div>
             )}
