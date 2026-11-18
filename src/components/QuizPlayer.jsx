@@ -23,6 +23,9 @@ import StereoMikingQuiz from './InteractiveQuizzes/StereoMikingQuiz';
 import GrandPianoMikingQuiz from './InteractiveQuizzes/GrandPianoMikingQuiz';
 import AcousticGuitarMikingQuiz from './InteractiveQuizzes/AcousticGuitarMikingQuiz';
 import GuitarAmpRoomMicQuiz from './InteractiveQuizzes/GuitarAmpRoomMicQuiz';
+import PhasePolarityAudioQuiz from './InteractiveQuizzes/PhasePolarityAudioQuiz';
+import CombFilteringAudioQuiz from './InteractiveQuizzes/CombFilteringAudioQuiz';
+import OverheadPhaseQuiz from './InteractiveQuizzes/OverheadPhaseQuiz';
 
 // Dev tools (skip, jump, reveal answers) only exist in local development, never on the live site
 const isDev = Boolean(import.meta.env.DEV);
@@ -48,7 +51,10 @@ const isInteractiveSelfSubmitting = (type) => [
     'stereo-miking',
     'piano-miking',
     'acoustic-guitar-miking',
-    'guitar-amp-3to1'
+    'guitar-amp-3to1',
+    'phase-polarity-lab',
+    'comb-filtering-lab',
+    'overhead-phase-lab'
 ].includes(type);
 
 // Helper to build/shuffle questions for a fresh quiz attempt
@@ -1550,6 +1556,24 @@ const QuizPlayer = ({ quiz, onFinish }) => {
                             />
                         ) : currentQuestion.type === 'guitar-amp-3to1' ? (
                             <GuitarAmpRoomMicQuiz
+                                key={currentQuestionIndex}
+                                question={currentQuestion}
+                                onResult={handleInteractiveResult}
+                            />
+                        ) : currentQuestion.type === 'phase-polarity-lab' ? (
+                            <PhasePolarityAudioQuiz
+                                key={currentQuestionIndex}
+                                question={currentQuestion}
+                                onResult={handleInteractiveResult}
+                            />
+                        ) : currentQuestion.type === 'comb-filtering-lab' ? (
+                            <CombFilteringAudioQuiz
+                                key={currentQuestionIndex}
+                                question={currentQuestion}
+                                onResult={handleInteractiveResult}
+                            />
+                        ) : currentQuestion.type === 'overhead-phase-lab' ? (
+                            <OverheadPhaseQuiz
                                 key={currentQuestionIndex}
                                 question={currentQuestion}
                                 onResult={handleInteractiveResult}

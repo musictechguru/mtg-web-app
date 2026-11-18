@@ -16163,28 +16163,10 @@
               "expert_explanation": "Keeping two microphones at least 3 times further apart than each mic is from its source reduces spill and prevents phase cancellation when summed to mono."
             },
             {
-              "title": "Snare Top and Bottom Polarity",
-              "content": "When combining top and bottom snare mics makes the drum sound thin and hollow, what should you press?",
-              "type": "multi_choice",
+              "title": "Practical Audio Lab: Snare Top & Bottom Polarity (Ø)",
+              "content": "Listen to the snare top and bottom mics summed together. Engage the Polarity Invert switch (Ø) on the bottom mic to bring the waveforms back in phase.",
+              "type": "phase-polarity-lab",
               "question": "What immediate adjustment should you make if blending a bottom snare mic makes the drum sound thin and hollow?",
-              "answers": [
-                {
-                  "text": "The polarity invert switch (Ø) on the bottom mic",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "The +48V phantom power switch",
-                  "is_true": "no"
-                },
-                {
-                  "text": "A heavy stereo chorus pedal",
-                  "is_true": "no"
-                },
-                {
-                  "text": "A low-pass filter at 100 Hz",
-                  "is_true": "no"
-                }
-              ],
               "explanation": "<img src=\"/images/gen/diagram_3_to_1_rule.svg\" alt=\"Snare Top and Bottom Polarity\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> When the stick hits the snare, the head moves away from the top mic and towards the bottom mic, putting them 180° out of phase. Flipping the polarity switch (Ø) on the bottom mic brings back the fat low-end punch.</p>",
               "expert_quote": {
                 "text": "If adding the bottom snare mic makes the drum sound thin, hit the polarity switch. The low end will instantly jump right back.",
@@ -16198,29 +16180,11 @@
               "expert_explanation": "When the stick hits the snare, the head moves away from the top mic and towards the bottom mic, putting them 180° out of phase. Flipping the polarity switch (Ø) on the bottom mic brings back the fat low-end punch."
             },
             {
-              "title": "What is Comb Filtering?",
-              "content": "What happens when a signal is mixed with a copy of itself delayed by a few milliseconds (1–20 ms)?",
-              "type": "multi_choice",
+              "title": "Practical Audio Lab: Comb Filtering & Time Alignment",
+              "content": "The Bass Amp Mic arrives 4.5 ms after the DI signal, causing hollow comb filtering. Listen to the audio and slide the DI Delay Compensation until the comb notches disappear.",
+              "type": "comb-filtering-lab",
               "question": "What is the acoustic effect called when identical audio signals combine with a short time delay, creating a series of peaks and cancellations?",
-              "answers": [
-                {
-                  "text": "Warm analogue tape saturation",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Digital 0 dBFS hard clipping",
-                  "is_true": "no"
-                },
-                {
-                  "text": "50 Hz mains ground-loop hum",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Comb filtering (thin, hollow, phasey sound)",
-                  "is_true": "yes"
-                }
-              ],
-              "explanation": "<img src=\"/images/gen/acoustic_reflection_diagram.png\" alt=\"What is Comb Filtering?\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Mixing a direct signal with a slightly delayed copy causes some frequencies to cancel out and others to boost, creating a hollow, phasey frequency response shaped like the teeth of a comb.</p>",
+              "explanation": "<img src=\"/images/gen/acoustic_reflection_diagram.png\" alt=\"Practical Audio Lab: Comb Filtering & Time Alignment\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> When a direct (DI) signal and a delayed mic signal are blended, time offsets (1–20 ms) create comb filtering — notches where frequencies cancel out. Delaying the DI track by 4.5 ms aligns both signals in phase.</p>",
               "expert_quote": {
                 "text": "Comb filtering is phase cancellation in action. It hollows out your tone and makes instruments sound like they're inside a drainpipe.",
                 "author": "Acoustics for Audio Engineers"
@@ -16230,7 +16194,7 @@
                 "src": "/images/gen/acoustic_reflection_diagram.png",
                 "alt": "What is Comb Filtering?"
               },
-              "expert_explanation": "Mixing a direct signal with a slightly delayed copy causes some frequencies to cancel out and others to boost, creating a hollow, phasey frequency response shaped like the teeth of a comb."
+              "expert_explanation": "When a direct (DI) signal and a delayed mic signal are blended, time offsets (1–20 ms) create comb filtering — notches where frequencies cancel out. Delaying the DI track by 4.5 ms aligns both signals in phase."
             },
             {
               "title": "Bass Guitar DI and Amp Phase",
@@ -16243,7 +16207,7 @@
                   "is_true": "no"
                 },
                 {
-                  "text": "Sound travels slower through air than electricity in a cable",
+                  "text": "Sound in air arrives later than electricity",
                   "is_true": "yes"
                 },
                 {
@@ -16321,7 +16285,7 @@
                   "is_true": "no"
                 },
                 {
-                  "text": "To check instruments don't cancel out on single speakers",
+                  "text": "To stop tracks cancelling out on mono speakers",
                   "is_true": "yes"
                 }
               ],
@@ -16344,7 +16308,7 @@
               "question": "Why does XY stereo microphone placement avoid phase cancellation when collapsed to mono?",
               "answers": [
                 {
-                  "text": "Capsules sit together so sound hits both mics at the same time",
+                  "text": "Capsules sit together so sound hits both at once",
                   "is_true": "yes"
                 },
                 {
@@ -16408,28 +16372,10 @@
               "expert_explanation": "Because the two mics are spaced apart, off-centre sounds reach one mic slightly before the other. Those tiny time-of-arrival differences create a wide, spacious stereo image."
             },
             {
-              "title": "Overhead Drum Mic Equidistant Setup",
-              "content": "Why do engineers measure an equal distance from the snare drum to both overhead mics?",
-              "type": "multi_choice",
+              "title": "Practical Audio Lab: Equidistant Drum Overheads",
+              "content": "Left Overhead (OH L) is 1.20 m from the snare centre. Adjust Right Overhead (OH R) and use the Stereo Snare Check so the snare hits both mics in phase and dead centre.",
+              "type": "overhead-phase-lab",
               "question": "Why should both drum overhead microphones be measured to be the exact same distance from the snare drum?",
-              "answers": [
-                {
-                  "text": "To stop the boom stands tipping over",
-                  "is_true": "no"
-                },
-                {
-                  "text": "To boost the condenser capsule voltage",
-                  "is_true": "no"
-                },
-                {
-                  "text": "To block the kick drum from the overheads",
-                  "is_true": "no"
-                },
-                {
-                  "text": "So the snare hits both overheads together in phase and centred",
-                  "is_true": "yes"
-                }
-              ],
               "explanation": "<img src=\"/images/gen/diagram_3_to_1_rule.svg\" alt=\"Overhead Drum Mic Equidistant Setup\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Keeping both overhead mics the exact same distance from the snare ensures the snare transient arrives at both capsules simultaneously, locking it dead centre with full punch and no phase cancellation.</p>",
               "expert_quote": {
                 "text": "Measure from the snare center to each overhead capsule. When the distances match, your snare drum will sound huge and centered.",
@@ -16484,7 +16430,7 @@
               "question": "What is the main acoustic benefit of a boundary (PZM) microphone placed on a flat surface?",
               "answers": [
                 {
-                  "text": "Flush capsule stops delayed surface reflection comb filtering",
+                  "text": "Sitting flat on the surface prevents comb filtering",
                   "is_true": "yes"
                 },
                 {
@@ -16513,7 +16459,7 @@
               "expert_explanation": "Because a boundary mic capsule sits flush against the flat surface, direct and reflected sound hit the diaphragm at the exact same instant, preventing phasey wall-reflection comb filtering."
             },
             {
-              "title": "The Haas Effect",
+              "title": "Short Stereo Delay Widening",
               "content": "What do you hear if you pan two copies of a mono guitar hard Left/Right and delay one side by 15 ms?",
               "type": "multi_choice",
               "question": "What does a short delay (10–20 ms) between left and right channels create according to the Haas Effect?",
@@ -22669,15 +22615,15 @@
           "title": "Comparison 13: A Day in the Life",
           "youtube_id": "usNsCeOV4GM",
           "video_title_1": "The Beatles (1967)",
-          "youtube_id_2": "5oA1Zg5jQ5Q",
+          "youtube_id_2": "l4OLkHemuiU",
           "video_title_2": "Jeff Beck (2009)",
           "description": "Predicted Edexcel Component 3 Question 5 paper. Compare the 1967 psychedelic rock landmark by The Beatles (Version A) with the 2009 modern instrumental rock performance by Jeff Beck (Version B). Focus on the evolution from 1960s 4-track tape hard panning (extreme L/R) and mono compatibility to 21st-century digital multitrack phantom centre imaging, mid-side stereo widening, and convolution reverb.",
           "questions": [
             {
               "title": "Recording Release Medium",
-              "content": "Recorded onto 1-inch 4-track tape on a Studer J37 machine at Abbey Road Studio 2, necessitating complex tape bounce-downs (reduction mixes).",
+              "content": "Recorded onto 4-track analogue tape on a Studer J37 at Abbey Road, requiring multiple tape bounce-downs.",
               "type": "multi_choice",
-              "explanation": "<p><strong>Version A (The Beatles).</strong> Tracked under 4-track limitations, requiring rhythm tracks to be premixed and bounced to make space for vocals and orchestrations.</p>",
+              "explanation": "<p><strong>Version A (The Beatles).</strong> The Beatles pushed 4-track tape to its limits, syncing two Studer J37 machines for the orchestral crescendo. Jeff Beck recorded into a modern 24-bit DAW with virtually unlimited tracks.</p>",
               "answers": [
                 {
                   "text": "Version A (The Beatles)",
@@ -22689,7 +22635,7 @@
                 }
               ],
               "img": "/images/svg/analog_tape_24track_ssl_console.svg",
-              "expert_explanation": "The Beatles pushed 4-track tape to its absolute limits, running two Studer J37s in tandem for the orchestral crescendo. Jeff Beck recorded into a 96kHz/24-bit DAW with over 48 unconstrained virtual tracks.",
+              "expert_explanation": "The Beatles pushed 4-track tape to its limits, syncing two Studer J37 machines for the orchestral crescendo. Jeff Beck recorded into a modern 24-bit DAW with virtually unlimited tracks.",
               "expert_quote": {
                 "text": "We had to commit to mix balances during bounce-downs because you only had four tracks to play with.",
                 "author": "Geoff Emerick (Abbey Road Balance Engineer)"
@@ -22701,9 +22647,9 @@
             },
             {
               "title": "Capture & Style",
-              "content": "Features revolutionary close-miking techniques on drums and bass, removing front bass drum skins and inserting sweaters for unprecedented punch.",
+              "content": "Close-miked the kick drum with the front skin removed and a woollen jumper placed inside for extra punch.",
               "type": "multi_choice",
-              "explanation": "<p><strong>Version A (The Beatles).</strong> Geoff Emerick defied EMI studio regulations by moving microphones within inches of instruments, revolutionizing drum tracking on <em>Sgt. Pepper</em>.</p>",
+              "explanation": "<p><strong>Version A (The Beatles).</strong> Engineer Geoff Emerick broke EMI studio rules by moving mics inches from Ringo's drums for a tight, punchy 1960s sound. Jeff Beck's band was captured with modern close mics and clean preamps.</p>",
               "answers": [
                 {
                   "text": "Version A (The Beatles)",
@@ -22715,7 +22661,7 @@
                 }
               ],
               "img": "/images/drum_recording_60s.png",
-              "expert_explanation": "Emerick close-miked Ringo's drums with AKG D19s and D20s. Jeff Beck recorded his live touring band using high-end modern dynamic and condenser mics with ultra-low noise preamps.",
+              "expert_explanation": "Engineer Geoff Emerick broke EMI studio rules by moving mics inches from Ringo's drums for a tight, punchy 1960s sound. Jeff Beck's band was captured with modern close mics and clean preamps.",
               "expert_quote": {
                 "text": "EMI had strict rules about keeping mics at least 18 inches away from drums. I broke the rules and put the mic right inside the bass drum.",
                 "author": "Geoff Emerick"
@@ -22727,21 +22673,21 @@
             },
             {
               "title": "Rhythm & Sync",
-              "content": "Ringo Starr's iconic drum performance is characterized by loose, melodic tom fills tuned low and played with open acoustic resonance.",
+              "content": "Features a tight, modern rock-fusion drum groove with crisp ghost notes and precise studio timing.",
               "type": "multi_choice",
-              "explanation": "<p><strong>Version A (The Beatles).</strong> Ringo's drum track is legendary for its conversational, melodic quality, playing dramatic tom rolls rather than a rigid timekeeping pulse.</p>",
+              "explanation": "<p><strong>Version B (Jeff Beck).</strong> Jeff Beck's drummer (Vinnie Colaiuta) plays a razor-sharp modern fusion groove. Ringo Starr's 1967 drumming is looser, with melodic, low-tuned tom fills responding to Lennon's vocal.</p>",
               "answers": [
                 {
                   "text": "Version A (The Beatles)",
-                  "is_true": "yes"
+                  "is_true": "no"
                 },
                 {
                   "text": "Version B (Jeff Beck)",
-                  "is_true": "no"
+                  "is_true": "yes"
                 }
               ],
               "img": "/images/svg/comparison_quantized_grid_vs_human_timing.svg",
-              "expert_explanation": "Ringo's drumming responds emotionally to Lennon's lyrics. Jeff Beck's drummer (Vinnie Colaiuta) provides an extraordinarily precise modern fusion groove with complex ghost notes.",
+              "expert_explanation": "Jeff Beck's drummer (Vinnie Colaiuta) plays a razor-sharp modern fusion groove. Ringo Starr's 1967 drumming is looser, with melodic, low-tuned tom fills responding to Lennon's vocal.",
               "expert_quote": {
                 "text": "Ringo didn't just keep time; his tom-tom fills told the story alongside John's vocal.",
                 "author": "George Martin (Producer)"
@@ -22753,9 +22699,9 @@
             },
             {
               "title": "Sequencing & Sampling",
-              "content": "Includes an iconic acoustic alarm clock ringing at 5:02, recorded live onto tape as a physical marker for a 24-bar empty section.",
+              "content": "Includes a real wind-up alarm clock ringing on tape, originally used as a marker for a 24-bar empty section.",
               "type": "multi_choice",
-              "explanation": "<p><strong>Version A (The Beatles).</strong> Road manager Mal Evans rang a real wind-up mechanical alarm clock to mark the end of the 24-bar count before McCartney's verse, which was left in the mix.</p>",
+              "explanation": "<p><strong>Version A (The Beatles).</strong> Road manager Mal Evans rang a physical alarm clock to mark the end of the 24-bar orchestral gap, and it stayed in the mix. Jeff Beck hints at the motif with electric guitar harmonics.</p>",
               "answers": [
                 {
                   "text": "Version A (The Beatles)",
@@ -22767,7 +22713,7 @@
                 }
               ],
               "img": "/images/svg/vocal_chopping_sampling_technique.svg",
-              "expert_explanation": "The alarm clock was a serendipitous physical studio accident that became an indelible musical hook. Beck's version recreates the alarm motif digitally through guitar harmonics and sound design.",
+              "expert_explanation": "Road manager Mal Evans rang a physical alarm clock to mark the end of the 24-bar orchestral gap, and it stayed in the mix. Jeff Beck hints at the motif with electric guitar harmonics.",
               "expert_quote": {
                 "text": "Mal set off the alarm clock to warn us the 24 bars were up, and it happened to fit John's lyrics about waking up so perfectly we kept it.",
                 "author": "Paul McCartney"
@@ -22779,9 +22725,9 @@
             },
             {
               "title": "Pitching",
-              "content": "Lead melody is completely reinterpreted on an electric guitar, using subtle whammy bar vibrato, volume knob swells, and finger-plucking to mimic human vocal inflection.",
+              "content": "Reinterprets the lead vocal melody on electric guitar using whammy bar vibrato and volume-knob swells.",
               "type": "multi_choice",
-              "explanation": "<p><strong>Version B (Jeff Beck).</strong> Jeff Beck replaced John Lennon's vocal with his Fender Stratocaster, using microtonal whammy bar pitch bends to simulate human voice inflections.</p>",
+              "explanation": "<p><strong>Version B (Jeff Beck).</strong> Jeff Beck replaced John Lennon's vocal with his Fender Stratocaster, using pitch bends and volume swells to mimic a human voice. Lennon's original vocal was double-tracked with ADT.</p>",
               "answers": [
                 {
                   "text": "Version A (The Beatles)",
@@ -22793,7 +22739,7 @@
                 }
               ],
               "img": "/images/comparisons/a_day_in_the_life_comparison.svg",
-              "expert_explanation": "Beck's mastery of the Stratocaster bridge vibrato allowed him to pitch-bend notes with vocal-like emotion. Lennon sang with natural melancholy, double-tracked via ADT.",
+              "expert_explanation": "Jeff Beck replaced John Lennon's vocal with his Fender Stratocaster, using pitch bends and volume swells to mimic a human voice. Lennon's original vocal was double-tracked with ADT.",
               "expert_quote": {
                 "text": "Jeff doesn't just play guitar notes; he bends the pitch so sensitively it sounds like the guitar is speaking English words.",
                 "author": "George Martin (Producer on Beck's track)"
@@ -22805,9 +22751,9 @@
             },
             {
               "title": "Arrangement Differences",
-              "content": "Features a massive 24-bar avant-garde orchestral crescendo where 40 classical musicians were instructed to ascend from their lowest to highest notes independently.",
+              "content": "Uses a live 40-piece orchestra instructed to climb independently from their lowest note to their highest.",
               "type": "multi_choice",
-              "explanation": "<p><strong>Version A (The Beatles).</strong> The legendary orchestral 'rush' was conceived by McCartney and orchestrated by George Martin, creating a terrifying acoustic sonic wall.",
+              "explanation": "<p><strong>Version A (The Beatles).</strong> The Beatles recorded 40 classical players four times and bounced them together for a huge 160-instrument wall of sound. Jeff Beck keeps the crescendo as a modern instrumental homage.</p>",
               "answers": [
                 {
                   "text": "Version A (The Beatles)",
@@ -22819,7 +22765,7 @@
                 }
               ],
               "img": "/images/svg/arrangement_sparse_acoustic_vs_dense_synth.svg",
-              "expert_explanation": "The Beatles recorded the 40-piece orchestra four times, bouncing it to create a 160-instrument wall of sound. Beck's version maintains the orchestral crescendo as an intentional homage with modern clarity.",
+              "expert_explanation": "The Beatles recorded 40 classical players four times and bounced them together for a huge 160-instrument wall of sound. Jeff Beck keeps the crescendo as a modern instrumental homage.",
               "expert_quote": {
                 "text": "I told the orchestra: start on your lowest note, play at your own speed, and end on an E-major chord as loud as you can.",
                 "author": "George Martin"
@@ -22831,21 +22777,21 @@
             },
             {
               "title": "Mixing & Processing",
-              "content": "Concludes with the famous final E-major chord played simultaneously on three grand pianos, sustained for over 40 seconds by riding console faders up to maximum gain.",
+              "content": "Ends with sustained electric guitar feedback and lush digital delay rather than three grand pianos.",
               "type": "multi_choice",
-              "explanation": "<p><strong>Version A (The Beatles).</strong> John, Paul, Ringo, and Mal Evans struck three pianos together, with Geoff Emerick manually riding the console faders to catch the dying vibrations.</p>",
+              "explanation": "<p><strong>Version B (Jeff Beck).</strong> Jeff Beck closes the track with singing guitar feedback and modern delay tails. The Beatles ended with three grand pianos hitting an E-major chord while console faders were pushed to maximum.</p>",
               "answers": [
                 {
                   "text": "Version A (The Beatles)",
-                  "is_true": "yes"
+                  "is_true": "no"
                 },
                 {
                   "text": "Version B (Jeff Beck)",
-                  "is_true": "no"
+                  "is_true": "yes"
                 }
               ],
               "img": "/images/svg/analog_tape_24track_ssl_console.svg",
-              "expert_explanation": "As Emerick pushed the faders to maximum gain, studio air conditioning rumble and squeaking floorboards became audible. Beck's version concludes with sustained guitar feedback and digital delay.",
+              "expert_explanation": "Jeff Beck closes the track with singing guitar feedback and modern delay tails. The Beatles ended with three grand pianos hitting an E-major chord while console faders were pushed to maximum.",
               "expert_quote": {
                 "text": "By the end of the 40-second chord, the faders were pushed to the top of the board and you could hear the studio walls humming.",
                 "author": "Geoff Emerick"
@@ -22857,9 +22803,9 @@
             },
             {
               "title": "Pan (Stereo Field)",
-              "content": "Exhibits primitive 1960s hard stereo panning, with John Lennon's lead vocal placed extreme Left and the piano/bass placed extreme Right.",
+              "content": "Uses extreme 1960s hard stereo panning, placing the lead vocal hard left and the piano and bass hard right.",
               "type": "multi_choice",
-              "explanation": "<p><strong>Version A (The Beatles).</strong> Due to 4-track tape channel routing and mono-compatibility requirements, instruments and vocals were panned hard Left or hard Right with little centre energy.</p>",
+              "explanation": "<p><strong>Version A (The Beatles).</strong> In 1967, stereo was secondary to the mono mix, resulting in hard L/R panning. Jeff Beck's 2009 mix uses a modern stereo field with a strong phantom-centre lead guitar.</p>",
               "answers": [
                 {
                   "text": "Version A (The Beatles)",
@@ -22871,7 +22817,7 @@
                 }
               ],
               "img": "/images/stereo_soundstage_panning_hq.svg",
-              "expert_explanation": "In 1967, stereo was considered an afterthought for hi-fi enthusiasts; the band only attended the mono mix. Jeff Beck's 2009 version uses a modern stereo field with phantom centre lead guitar and mid-side widening.",
+              "expert_explanation": "In 1967, stereo was secondary to the mono mix, resulting in hard L/R panning. Jeff Beck's 2009 mix uses a modern stereo field with a strong phantom-centre lead guitar.",
               "expert_quote": {
                 "text": "We mixed for mono. In the stereo mix, we just threw the vocal on one side and the backing track on the other.",
                 "author": "George Martin"
@@ -22883,9 +22829,9 @@
             },
             {
               "title": "Reverb",
-              "content": "Uses modern convolution reverb plugins simulating the impulse response of Abbey Road Studio 2 with adjustable decay and pre-delay parameters.",
+              "content": "Uses modern digital convolution reverb plugins with clean, controllable pre-delay and decay times.",
               "type": "multi_choice",
-              "explanation": "<p><strong>Version B (Jeff Beck).</strong> Beck's 2009 production used digital convolution reverb to recreate the acoustic characteristics of Abbey Road Studio 2 while maintaining pristine clarity.",
+              "explanation": "<p><strong>Version B (Jeff Beck).</strong> Convolution reverb models real acoustic spaces digitally using impulse responses. The Beatles sent signals to Abbey Road's physical tiled basement echo chamber.</p>",
               "answers": [
                 {
                   "text": "Version A (The Beatles)",
@@ -22897,7 +22843,7 @@
                 }
               ],
               "img": "/images/reverb_plate_mechanics_diagram.svg",
-              "expert_explanation": "Convolution reverb captures true acoustic spaces via mathematical impulse responses. The Beatles used Abbey Road's physical echo chamber (a tiled basement room with a speaker and mic).",
+              "expert_explanation": "Convolution reverb models real acoustic spaces digitally using impulse responses. The Beatles sent signals to Abbey Road's physical tiled basement echo chamber.",
               "expert_quote": {
                 "text": "With convolution reverb, you can place a guitar inside Abbey Road's Studio 2 acoustic space without ever leaving your home DAW.",
                 "author": "Modern Mix Engineer"
@@ -22909,21 +22855,21 @@
             },
             {
               "title": "Delay",
-              "content": "Utilizes Artificial Double Tracking (ADT), using a dedicated secondary tape machine with a 30 ms delay to thicken the lead vocal.",
+              "content": "Applies tempo-synced stereo digital delay to the lead electric guitar for modern width and depth.",
               "type": "multi_choice",
-              "explanation": "<p><strong>Version A (The Beatles).</strong> Abbey Road engineer Ken Townsend invented ADT specifically for John Lennon, taking the sync head signal off the Studer J37 to create a doubled vocal without re-singing.</p>",
+              "explanation": "<p><strong>Version B (Jeff Beck).</strong> Jeff Beck's guitar sits in a clean stereo digital delay field. The Beatles used Abbey Road's analogue Artificial Double Tracking (ADT) tape machine (~30 ms delay) to thicken Lennon's vocal.</p>",
               "answers": [
                 {
                   "text": "Version A (The Beatles)",
-                  "is_true": "yes"
+                  "is_true": "no"
                 },
                 {
                   "text": "Version B (Jeff Beck)",
-                  "is_true": "no"
+                  "is_true": "yes"
                 }
               ],
               "img": "/images/svg/abbey_road_adt_tape_delay.svg",
-              "expert_explanation": "Townsend's ADT invention became an industry standard. Jeff Beck utilized stereo ping-pong digital delay on his guitar, set to quarter notes with 40% feedback.",
+              "expert_explanation": "Jeff Beck's guitar sits in a clean stereo digital delay field. The Beatles used Abbey Road's analogue Artificial Double Tracking (ADT) tape machine (~30 ms delay) to thicken Lennon's vocal.",
               "expert_quote": {
                 "text": "John hated double-tracking his voice. Ken Townsend invented ADT so John could get that rich doubled sound in a single take.",
                 "author": "George Martin"
@@ -22935,9 +22881,9 @@
             },
             {
               "title": "Filtering & Effects",
-              "content": "Features tape varispeed manipulation, recording vocal passes and piano takes at altered tape speeds to alter their timbre when played back at standard pitch.",
+              "content": "Uses analogue tape varispeed, recording vocal and piano passes at altered tape speeds to change their timbre.",
               "type": "multi_choice",
-              "explanation": "<p><strong>Version A (The Beatles).</strong> Paul McCartney's piano and Lennon's vocals were recorded with the tape running slightly slow or fast, altering the vocal formant and piano brightness.</p>",
+              "explanation": "<p><strong>Version A (The Beatles).</strong> Running tape slightly faster or slower during recording shifted pitch and tone when played back normally. Jeff Beck shaped his tone live with guitar controls and whammy modulation.</p>",
               "answers": [
                 {
                   "text": "Version A (The Beatles)",
@@ -22949,7 +22895,7 @@
                 }
               ],
               "img": "/images/svg/filter_resonance_diagram.svg",
-              "expert_explanation": "Varispeed tape manipulation was the analogue forerunner of modern pitch-shifting and formant modification. Beck used subtle guitar tone knob manipulations and whammy modulation.",
+              "expert_explanation": "Running tape slightly faster or slower during recording shifted pitch and tone when played back normally. Jeff Beck shaped his tone live with guitar controls and whammy modulation.",
               "expert_quote": {
                 "text": "We used varispeed on almost every track to change the texture of John's voice and give it that dreamy, floating feeling.",
                 "author": "Geoff Emerick"
@@ -22961,9 +22907,9 @@
             },
             {
               "title": "EQ",
-              "content": "Utilizes mid-side (M/S) EQ processing, boosting the side channel (+3 dB) for stereo width while cutting low frequencies below 100 Hz in the sides for mono bass punch.",
+              "content": "Uses modern digital parametric EQ with tight surgical cuts and a steep high-pass filter below 40 Hz.",
               "type": "multi_choice",
-              "explanation": "<p><strong>Version B (Jeff Beck).</strong> Modern M/S processing allows independent equalisation of the centre channel (mono lead guitar/kick) and side channels (wide reverberant ambient guitars).",
+              "explanation": "<p><strong>Version B (Jeff Beck).</strong> Digital parametric EQ lets modern engineers carve out exact resonant frequencies and tighten sub-bass. In 1967, The Beatles only had broad console shelving and midrange boost/cut.</p>",
               "answers": [
                 {
                   "text": "Version A (The Beatles)",
@@ -22975,9 +22921,9 @@
                 }
               ],
               "img": "/images/svg/comparison_60s_midrange_vs_80s_smile_eq.svg",
-              "expert_explanation": "Mid-side processing was impossible on standard 1967 desks. The Beatles used fixed REDD/TG console EQ (broad shelving curves with bass/treble boost).",
+              "expert_explanation": "Digital parametric EQ lets modern engineers carve out exact resonant frequencies and tighten sub-bass. In 1967, The Beatles only had broad console shelving and midrange boost/cut.",
               "expert_quote": {
-                "text": "M/S EQ lets you boost the width of the guitars on the edges without messing with the punch of the kick and lead in the center.",
+                "text": "Parametric EQ lets you carve out exact muddy frequencies and tighten sub-bass without thinning out the rest of the mix.",
                 "author": "Modern Mastering Engineer"
               },
               "explanation_image": {
@@ -22987,21 +22933,21 @@
             },
             {
               "title": "Dynamics",
-              "content": "Tape saturation from tracking hot onto tape tape heads (+3 dB peaks) provides gentle, warm even-order harmonic distortion on the drums and vocals.",
+              "content": "Maintains wide, clean 24-bit digital dynamic range with no analogue tape hiss or saturation.",
               "type": "multi_choice",
-              "explanation": "<p><strong>Version A (The Beatles).</strong> Pushing EMI tape machines into saturation compressed the audio naturally with musical analogue warmth, smoothing the transients.</p>",
+              "explanation": "<p><strong>Version B (Jeff Beck).</strong> Jeff Beck's 2009 recording stays crisp and clean across quiet swells and loud peaks. The Beatles drove their Studer tape machines hot, adding warm analogue saturation and natural compression.</p>",
               "answers": [
                 {
                   "text": "Version A (The Beatles)",
-                  "is_true": "yes"
+                  "is_true": "no"
                 },
                 {
                   "text": "Version B (Jeff Beck)",
-                  "is_true": "no"
+                  "is_true": "yes"
                 }
               ],
               "img": "/images/svg/distortion_types_clipping.svg",
-              "expert_explanation": "Analogue tape saturation acted as an organic dynamic leveler. Beck's 2009 version maintained over 115 dB of clean digital dynamic range without tape saturation artifacts.",
+              "expert_explanation": "Jeff Beck's 2009 recording stays crisp and clean across quiet swells and loud peaks. The Beatles drove their Studer tape machines hot, adding warm analogue saturation and natural compression.",
               "expert_quote": {
                 "text": "Tape saturation made the bass and drums glue together in a way modern digital recording struggles to imitate.",
                 "author": "Geoff Emerick"
@@ -23013,9 +22959,9 @@
             },
             {
               "title": "Instrumentation",
-              "content": "Features John Lennon's acoustic guitar (Gibson J-160E) and Paul McCartney's piano paired with Ringo's drums and a 40-piece symphony orchestra.",
+              "content": "Combines acoustic guitar, grand piano, live drums, bass, and a 40-piece symphony orchestra.",
               "type": "multi_choice",
-              "explanation": "<p><strong>Version A (The Beatles).</strong> The arrangement is acoustic and rock-based: acoustic guitar, grand piano, live bass, drums, and orchestral strings/brass.",
+              "explanation": "<p><strong>Version A (The Beatles).</strong> The Beatles built an organic acoustic-and-orchestral studio arrangement. Jeff Beck reimagined the entire song for an electric guitar-led modern rock/fusion quartet.</p>",
               "answers": [
                 {
                   "text": "Version A (The Beatles)",
@@ -23027,7 +22973,7 @@
                 }
               ],
               "img": "/images/svg/acoustic_guitar_12th_fret.svg",
-              "expert_explanation": "The Beatles' track is an organic studio composition. Jeff Beck translated the entire composition into a virtuoso electric guitar showcase backed by a modern rock/fusion power quartet.",
+              "expert_explanation": "The Beatles built an organic acoustic-and-orchestral studio arrangement. Jeff Beck reimagined the entire song for an electric guitar-led modern rock/fusion quartet.",
               "expert_quote": {
                 "text": "John's acoustic guitar and Paul's piano were the bedrock of the entire song.",
                 "author": "George Martin"
@@ -23039,9 +22985,9 @@
             },
             {
               "title": "Genre Style",
-              "content": "Defines the 1960s Psychedelic Rock / Avant-Garde studio revolution, proving that recording studios could function as musical instruments in their own right.",
+              "content": "Defines 1960s Psychedelic Rock by treating the recording studio itself as a creative musical instrument.",
               "type": "multi_choice",
-              "explanation": "<p><strong>Version A (The Beatles).</strong> <em>Sgt. Pepper's Lonely Hearts Club Band</em> transformed popular music by treating the studio as an experimental canvas beyond live performance.",
+              "explanation": "<p><strong>Version A (The Beatles).</strong> The Beatles used 1967 tape tricks and orchestral overdubs to create a piece impossible to play live. Jeff Beck's 2009 cover turns it into a modern instrumental showcase.</p>",
               "answers": [
                 {
                   "text": "Version A (The Beatles)",
@@ -23053,7 +22999,7 @@
                 }
               ],
               "img": "/images/comparisons/a_day_in_the_life_comparison.svg",
-              "expert_explanation": "The Beatles pushed 1967 recording technology to create art that could never be performed on stage. Jeff Beck's 2009 Grammy-winning cover is a modern instrumental tour de force.",
+              "expert_explanation": "The Beatles used 1967 tape tricks and orchestral overdubs to create a piece impossible to play live. Jeff Beck's 2009 cover turns it into a modern instrumental showcase.",
               "expert_quote": {
                 "text": "We weren't just recording a band anymore—we were inventing sounds that had never existed on earth.",
                 "author": "John Lennon (The Beatles)"
@@ -23071,16 +23017,16 @@
                 "1. The Beatles' 1967 landmark was recorded to 1-inch 4-track tape on a {0} at Abbey Road.",
                 "2. Jeff Beck's 2009 cover was recorded into a high-resolution 96kHz/24-bit {1}.",
                 "3. The 1967 mix exhibits extreme {2} panning due to 4-track routing and mono compatibility.",
-                "4. The 2009 version establishes a solid {3} center image for the lead guitar.",
-                "5. Geoff Emerick revolutionized drum capture by {4} Ringo's bass drum with a sweater inside.",
+                "4. The 2009 version establishes a solid {3} centre image for the lead guitar.",
+                "5. Geoff Emerick revolutionised drum capture by {4} Ringo's bass drum with a sweater inside.",
                 "6. Jeff Beck replaced John Lennon's vocal melody with a Fender {5} using whammy bar inflections.",
                 "7. To avoid re-singing vocal takes, Abbey Road engineer Ken Townsend invented {6} (ADT).",
                 "8. The famous 24-bar orchestral crescendo featured {7} musicians playing independently from low to high.",
                 "9. Beck's mix used {8} reverb plugins to digitally model the acoustic response of Studio 2.",
                 "10. The original concludes with an E-major chord sustained for 40 seconds across three {9}.",
                 "11. Emerick captured the dying chord by manually riding the {10} faders to maximum gain.",
-                "12. Beck's modern mix utilized {11} processing to widen the ambient side channels without losing center punch.",
-                "13. Pushing the Studer J37 tape into saturation provided natural harmonic {12} and dynamic leveling.",
+                "12. Beck's modern mix used {11} processing to spread ambient guitars wide without losing centre punch.",
+                "13. Pushing the Studer J37 tape into saturation provided natural harmonic {12} and dynamic levelling.",
                 "14. Beck's 2009 master maintained modern digital {13} with 115 dB of clean headroom.",
                 "15. Ultimately, the comparison demonstrates the evolution of {14} from 60s hard panning to modern spatial immersion."
               ],
@@ -23101,10 +23047,10 @@
                 ],
                 [
                   "hard stereo (extreme L/R)",
-                  "phantom center",
+                  "phantom centre",
                   "binaural 3D",
                   "surround 5.1",
-                  "mono centered"
+                  "mono centred"
                 ],
                 [
                   "phantom",
@@ -23118,7 +23064,7 @@
                   "ambient miking",
                   "boundary miking",
                   "triggering",
-                  "synthesizing"
+                  "synthesising"
                 ],
                 [
                   "Stratocaster electric guitar",
@@ -23150,7 +23096,7 @@
                 ],
                 [
                   "grand pianos",
-                  "synthesizers",
+                  "synthesisers",
                   "acoustic guitars",
                   "church organs",
                   "brass tubas"
@@ -23163,7 +23109,7 @@
                   "master limiter"
                 ],
                 [
-                  "mid-side (M/S)",
+                  "stereo widening",
                   "tape slapback",
                   "brickwall limiting",
                   "gated reverb",
@@ -23185,7 +23131,7 @@
                 ],
                 [
                   "Stereo Imaging & Panning",
-                  "Drum Quantization",
+                  "Drum Quantisation",
                   "Autotune Tuning",
                   "Cassette Mastering",
                   "Radio Broadcasting"
@@ -23203,17 +23149,18 @@
                 "convolution",
                 "grand pianos",
                 "mixing console",
-                "mid-side (M/S)",
+                "stereo widening",
                 "tape saturation",
                 "dynamic range",
                 "Stereo Imaging & Panning"
               ],
-              "expert_explanation": "The predicted 2026 Edexcel Component 3 Question 5 paper analyzes the evolution of stereo imaging, studio experimentation, and multitrack technology through The Beatles' 1967 'A Day in the Life' and Jeff Beck's 2009 instrumental rock interpretation. Core syllabus technical contrasts include: 4-track tape reduction bounces vs unlimited 96kHz DAW tracks, extreme 1960s hard L/R stereo panning (mono compatibility) vs 21st-century phantom centre and mid-side (M/S) widening, Abbey Road ADT tape delay vs digital stereo ping-pong, physical echo chambers vs convolution modeling, tape saturation compression vs wide digital dynamic range, and vocal delivery vs microtonal Stratocaster whammy vibrato.",
+              "expert_explanation": "Edexcel Component 3 contrasts The Beatles' 1967 'A Day in the Life' with Jeff Beck's 2009 instrumental cover: 4-track tape bounce-downs vs 96 kHz DAW tracks, hard 1960s L/R panning vs modern phantom-centre stereo imaging, Abbey Road ADT vs digital stereo delay, physical echo chambers vs convolution reverb, and tape saturation vs wide digital dynamic range.",
               "img": "/images/comparisons/a_day_in_the_life_comparison.svg",
               "explanation_image": {
                 "src": "/images/comparisons/a_day_in_the_life_comparison.svg",
                 "alt": "Comparison 13: A Day in the Life Synthesis Diagram"
-              }
+              },
+              "explanation": "<img src=\"/images/comparisons/a_day_in_the_life_comparison.svg\" alt=\"Comparison 13: A Day in the Life Synthesis Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Edexcel Component 3 contrasts The Beatles' 1967 'A Day in the Life' with Jeff Beck's 2009 instrumental cover: 4-track tape bounce-downs vs 96 kHz DAW tracks, hard 1960s L/R panning vs modern phantom-centre stereo imaging, Abbey Road ADT vs digital stereo delay, physical echo chambers vs convolution reverb, and tape saturation vs wide digital dynamic range.</p>"
             }
           ],
           "isPremium": true,
