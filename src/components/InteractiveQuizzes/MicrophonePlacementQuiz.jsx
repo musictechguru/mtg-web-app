@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Mic, CheckCircle, AlertCircle, RefreshCw } from 'lucide-react';
+import { CheckCircle, AlertCircle, RefreshCw, HelpCircle } from 'lucide-react';
 import { useUser } from '../../contexts/UserContext';
 import './MicrophonePlacementQuiz.css';
 
@@ -9,20 +9,43 @@ const MIC_TYPES = [
     { id: 'ribbon', name: 'Ribbon', pattern: 'Figure-8', icon: '📻' },
 ];
 
+const START_POS = { x: 85, y: 84 };
+
+const wrapAngle = (deg) => ((Math.round(deg) % 360) + 360) % 360;
+
+const formatTargetAngleHint = (angle) => {
+    const norm = wrapAngle(angle);
+    if (norm === 280) return '280° (← Horizontal Left towards the bridge & f-hole)';
+    if (norm === 270) return '270° (← Horizontal Left)';
+    if (norm === 235) return '235° (↙ Angled Down-Left from the rim)';
+    if (norm === 225) return '225° (↙ Angled Down-Left into the strings)';
+    if (norm === 90) return '90° (→ Horizontal Right)';
+    if (norm === 180) return '180° (↓ Pointed Down)';
+    if (norm === 135) return '135° (↘ Angled Down)';
+    if (norm === 0) return '0° (↑ Vertical)';
+    return `${norm}°`;
+};
+
 const MicrophonePlacementQuiz = ({ quiz, onExit }) => {
     const [currentScenarioIndex, setCurrentScenarioIndex] = useState(0);
     const [selectedMicType, setSelectedMicType] = useState('condenser');
+    const [selectedSpotId, setSelectedSpotId] = useState(null);
+    const [hasPlaced, setHasPlaced] = useState(false);
 
     const userContext = useUser();
     const saveQuizResult = userContext ? userContext.saveQuizResult : null;
     const completeCampaignNode = userContext ? userContext.completeCampaignNode : null;
     const resultsSavedRef = useRef(false);
 
-    // Dragging state
+    // Dragging & rotation state
     const [isDragging, setIsDragging] = useState(false);
     const [isRotating, setIsRotating] = useState(false);
-    const [micPos, setMicPos] = useState({ x: 50, y: 80 }); // Percentages
-    const [micAngle, setMicAngle] = useState(0); // Degrees
+    const [micPos, setMicPos] = useState(START_POS);
+    const [micAngle, setMicAngle] = useState(0);
+    const latestPosRef = useRef(START_POS);
+    const latestAngleRef = useRef(0);
+    const hasPlacedRef = useRef(false);
+    const suppressNextStageClickRef = useRef(false);
 
     // Interaction state
     const [feedback, setFeedback] = useState(null); // { type: 'success'|'error'|'warning', text: '' }
@@ -30,15 +53,21 @@ const MicrophonePlacementQuiz = ({ quiz, onExit }) => {
 
     const stageRef = useRef(null);
 
-    // If scenarios aren't in the quiz object yet (during dev fallback), use empty array
     const scenarios = quiz?.scenarios || [];
     const currentScenario = scenarios[currentScenarioIndex];
 
-    // Reset mic position when scenario changes
+    // Reset mic position, angle, and active spot when scenario changes
     useEffect(() => {
-        setMicPos({ x: 50, y: 80 });
+        latestPosRef.current = START_POS;
+        latestAngleRef.current = 0;
+        hasPlacedRef.current = false;
+        suppressNextStageClickRef.current = false;
+        // eslint-disable-next-line react-hooks/set-state-in-effect
+        setMicPos(START_POS);
         setMicAngle(0);
         setFeedback(null);
+        setSelectedSpotId(null);
+        setHasPlaced(false);
         setSelectedMicType('condenser');
     }, [currentScenarioIndex]);
 
@@ -48,7 +77,7 @@ const MicrophonePlacementQuiz = ({ quiz, onExit }) => {
             const score = scenarios.length;
             const total = scenarios.length;
             if (saveQuizResult) {
-                saveQuizResult(quiz?.title || "Practical Quiz 14: Advanced Microphone Placement", score, total, 'A');
+                saveQuizResult(quiz?.title || 'Practical Quiz 14: Advanced Microphone Placement', score, total, 'A');
             }
             if (quiz?.campaignNodeId && completeCampaignNode) {
                 completeCampaignNode(quiz.campaignNodeId);
@@ -57,168 +86,199 @@ const MicrophonePlacementQuiz = ({ quiz, onExit }) => {
     }, [isComplete, saveQuizResult, completeCampaignNode, quiz?.title, quiz?.campaignNodeId, scenarios.length]);
 
     if (!currentScenario) {
-        return <div className="mic-placement-container"><p style={{ padding: '20px' }}>No scenarios found for this quiz.</p></div>;
+        return (
+            <div className="mic-placement-container">
+                <p style={{ padding: '20px' }}>No scenarios found for this quiz.</p>
+            </div>
+        );
     }
 
-    // Handle Dragging
+    const evaluatePosition = (
+        pos,
+        micTypeOverride = selectedMicType,
+        evalAngle = latestAngleRef.current
+    ) => {
+        const hotspots = currentScenario.hotspots || [];
+        let matchedSpot = null;
+        let closestDist = Infinity;
+
+        hotspots.forEach((spot) => {
+            // .stage-container is 16:10, so divide vertical % delta by 1.6 to match horizontal % units
+            const dist = Math.hypot(spot.x - pos.x, (spot.y - pos.y) / 1.6);
+            if (dist <= spot.radius && dist < closestDist) {
+                closestDist = dist;
+                matchedSpot = spot;
+            }
+        });
+
+        if (!matchedSpot) {
+            setSelectedSpotId(null);
+            setFeedback({
+                type: 'error',
+                text: 'Off-target placement! Move the microphone capsule into one of the dashed target zones on the instrument.',
+            });
+            return;
+        }
+
+        setSelectedSpotId(matchedSpot.id);
+
+        const isRightMic = (matchedSpot.bestMicTypes || []).includes(micTypeOverride);
+        const spotFeedback = matchedSpot.feedback || {};
+
+        let isRightAngle = true;
+        if (matchedSpot.targetAngle !== undefined) {
+            const normTarget = wrapAngle(matchedSpot.targetAngle);
+            const normCurrent = wrapAngle(evalAngle);
+            let diff = Math.abs(normTarget - normCurrent);
+            if (diff > 180) diff = 360 - diff;
+            const tol = matchedSpot.angleTolerance || 60;
+            isRightAngle = diff <= tol;
+        }
+
+        if (matchedSpot.isCorrectSpot && isRightMic && isRightAngle) {
+            const msg = spotFeedback[micTypeOverride] || 'You found the sweet spot with the right microphone.';
+            setFeedback({
+                type: 'success',
+                text: /^(perfect|spot on|excellent)\b/i.test(msg) ? msg : `Perfect! ${msg}`,
+            });
+        } else if (matchedSpot.isCorrectSpot && isRightMic && !isRightAngle) {
+            setFeedback({
+                type: 'warning',
+                text: `Right spot and right mic, but wrong angle! Rotate the microphone to point at the source — try around ${formatTargetAngleHint(matchedSpot.targetAngle)}.`,
+            });
+        } else if (matchedSpot.isCorrectSpot && !isRightMic) {
+            setFeedback({
+                type: 'warning',
+                text: `Right position, but wrong mic! ${spotFeedback[micTypeOverride] || 'Try selecting a different microphone type above.'}`,
+            });
+        } else {
+            setFeedback({
+                type: 'error',
+                text: spotFeedback[micTypeOverride] || spotFeedback.default || "This placement doesn't give the desired tone. Try another position.",
+            });
+        }
+    };
+
+    const getStagePercentCoords = (clientX, clientY) => {
+        if (!stageRef.current) return latestPosRef.current;
+        const rect = stageRef.current.getBoundingClientRect();
+        let x = ((clientX - rect.left) / rect.width) * 100;
+        let y = ((clientY - rect.top) / rect.height) * 100;
+        x = Math.max(4, Math.min(96, x));
+        y = Math.max(4, Math.min(96, y));
+        return { x, y };
+    };
+
+    const handleAngleChange = (newAngle, { allow360 = false } = {}) => {
+        const nextAngle = allow360 && Math.round(newAngle) === 360 ? 360 : wrapAngle(newAngle);
+        latestAngleRef.current = nextAngle;
+        setMicAngle(nextAngle);
+        if (hasPlacedRef.current) {
+            evaluatePosition(latestPosRef.current, selectedMicType, nextAngle);
+        }
+    };
+
+    const handleMicSelect = (micId) => {
+        setSelectedMicType(micId);
+        if (hasPlacedRef.current) {
+            evaluatePosition(latestPosRef.current, micId, latestAngleRef.current);
+        }
+    };
+
     const handlePointerDown = (e) => {
         e.preventDefault();
         e.stopPropagation();
         setIsDragging(true);
-        setFeedback(null);
+        suppressNextStageClickRef.current = true;
     };
 
     const handleRotatePointerDown = (e) => {
         e.preventDefault();
         e.stopPropagation();
         setIsRotating(true);
-        setFeedback(null);
+        suppressNextStageClickRef.current = true;
     };
 
     const handlePointerMove = (e) => {
-        if (!stageRef.current) return;
-
-        const rect = stageRef.current.getBoundingClientRect();
-
-        if (isRotating) {
-            // Calculate angle based on mouse position relative to mic center
-            // The mic's center in pixel coordinates on the stage:
-            const micCenterX = rect.left + (micPos.x / 100) * rect.width;
-            const micCenterY = rect.top + (micPos.y / 100) * rect.height;
-
-            // Calculate angle in degrees
-            const dx = e.clientX - micCenterX;
-            const dy = e.clientY - micCenterY;
-            // atan2 gives angle from X axis. We want angle from Y axis (up is 0, right is 90)
-            let angle = Math.atan2(dy, dx) * (180 / Math.PI) + 90;
-
-            setMicAngle(angle);
+        if (isRotating && stageRef.current) {
+            const rect = stageRef.current.getBoundingClientRect();
+            const pivotX = rect.left + (latestPosRef.current.x / 100) * rect.width;
+            const pivotY = rect.top + (latestPosRef.current.y / 100) * rect.height;
+            const rawAngle = Math.atan2(e.clientY - pivotY, e.clientX - pivotX) * (180 / Math.PI) + 90;
+            const nextAngle = wrapAngle(rawAngle);
+            latestAngleRef.current = nextAngle;
+            setMicAngle(nextAngle);
             return;
         }
 
-        if (isDragging) {
-            // Calculate position relative to stage
-            let x = ((e.clientX - rect.left) / rect.width) * 100;
-            let y = ((e.clientY - rect.top) / rect.height) * 100;
-
-            // Clamp to bounds
-            x = Math.max(5, Math.min(95, x));
-            y = Math.max(5, Math.min(95, y));
-
-            setMicPos({ x, y });
-        }
+        if (!isDragging) return;
+        const nextPos = getStagePercentCoords(e.clientX, e.clientY);
+        latestPosRef.current = nextPos;
+        setMicPos(nextPos);
     };
 
-    const handlePointerUp = () => {
-        if (isDragging || isRotating) {
-            setIsDragging(false);
+    const handlePointerUp = (e) => {
+        if (isRotating) {
             setIsRotating(false);
-            evaluatePlacement();
+            if (hasPlacedRef.current) {
+                evaluatePosition(latestPosRef.current, selectedMicType, latestAngleRef.current);
+            }
+            return;
         }
+
+        if (!isDragging) return;
+        setIsDragging(false);
+        const finalPos = getStagePercentCoords(e.clientX, e.clientY);
+        latestPosRef.current = finalPos;
+        hasPlacedRef.current = true;
+        setHasPlaced(true);
+        setMicPos(finalPos);
+        evaluatePosition(finalPos, selectedMicType, latestAngleRef.current);
     };
 
-    const evaluatePlacement = (evalAngle = micAngle, evalPos = micPos) => {
-        // Check if evalPos is within any hotspot of the current scenario
-        const h = currentScenario.hotspots.find(spot => {
-            const dx = spot.x - evalPos.x;
-            const dy = spot.y - evalPos.y;
-            const distance = Math.sqrt(dx * dx + dy * dy);
-            return distance <= spot.radius;
-        });
-
-        if (h) {
-            // Evaluate Mic Type for this hotspot
-            const isCorrectType = h.bestMicTypes.includes(selectedMicType);
-
-            // Evaluate Angle if the hotspot specifies one
-            let isCorrectAngle = true;
-            let angleFeedback = "";
-            let distanceToTargetAngle = 0;
-
-            if (h.targetAngle !== undefined && h.angleTolerance !== undefined) {
-                // Normalize angles to 0-360 for comparison
-                let normTarget = ((h.targetAngle % 360) + 360) % 360;
-                let normCurrent = ((evalAngle % 360) + 360) % 360;
-
-                // Calculate shortest angular distance
-                distanceToTargetAngle = Math.abs(normTarget - normCurrent);
-                if (distanceToTargetAngle > 180) {
-                    distanceToTargetAngle = 360 - distanceToTargetAngle;
-                }
-
-                if (distanceToTargetAngle > h.angleTolerance) {
-                    isCorrectAngle = false;
-                    angleFeedback = " You're in the right spot, but the mic is pointed the wrong way! Rotate it to face the source properly.";
-                }
-            }
-
-            if (h.isCorrectSpot && isCorrectType && isCorrectAngle) {
-                setFeedback({
-                    type: 'success',
-                    text: `Perfect! ${h.feedback[selectedMicType] || "You found the sweet spot with the right microphone."}`
-                });
-            } else if (h.isCorrectSpot && isCorrectType && !isCorrectAngle) {
-                setFeedback({
-                    type: 'warning',
-                    text: angleFeedback
-                });
-            } else if (h.isCorrectSpot && !isCorrectType) {
-                setFeedback({
-                    type: 'warning',
-                    text: `Right position, but wrong mic. ${h.feedback[selectedMicType] || "Try a different microphone type for this specific task."}`
-                });
-            } else {
-                // Wrong spot
-                setFeedback({
-                    type: 'error',
-                    text: h.feedback[selectedMicType] || h.feedback['default'] || "This placement doesn't give the desired result. Try moving it."
-                });
-            }
-        } else {
-            setFeedback({
-                type: 'warning',
-                text: "You placed the microphone in an indeterminate area. Try getting closer to the source."
-            });
+    const handleStageClick = (e) => {
+        if (suppressNextStageClickRef.current) {
+            suppressNextStageClickRef.current = false;
+            return;
         }
+        const clickedPos = getStagePercentCoords(e.clientX, e.clientY);
+        latestPosRef.current = clickedPos;
+        hasPlacedRef.current = true;
+        setHasPlaced(true);
+        setMicPos(clickedPos);
+        evaluatePosition(clickedPos, selectedMicType, latestAngleRef.current);
     };
 
-    // Keyboard controls for rotation
-    useEffect(() => {
-        const handleKeyDown = (e) => {
-            if (isDragging || isRotating) return;
+    const handleDontKnow = () => {
+        const correctSpot = (currentScenario.hotspots || []).find((h) => h.isCorrectSpot);
+        if (!correctSpot) return;
 
-            if (e.key === 'ArrowLeft') {
-                e.preventDefault();
-                setMicAngle(prev => {
-                    const newAngle = prev - 15;
-                    evaluatePlacement(newAngle, micPos);
-                    return newAngle;
-                });
-            } else if (e.key === 'ArrowRight') {
-                e.preventDefault();
-                setMicAngle(prev => {
-                    const newAngle = prev + 15;
-                    evaluatePlacement(newAngle, micPos);
-                    return newAngle;
-                });
-            }
-        };
+        const bestMic = (correctSpot.bestMicTypes && correctSpot.bestMicTypes[0]) || 'dynamic';
+        const targetAngle = correctSpot.targetAngle !== undefined ? wrapAngle(correctSpot.targetAngle) : 0;
+        const targetPos = { x: correctSpot.x, y: correctSpot.y };
 
-        window.addEventListener('keydown', handleKeyDown);
-        return () => window.removeEventListener('keydown', handleKeyDown);
-    }, [isDragging, isRotating, micPos, currentScenario, selectedMicType]); // Re-bind if dependencies of evaluatePlacement change
+        latestPosRef.current = targetPos;
+        latestAngleRef.current = targetAngle;
+        hasPlacedRef.current = true;
+        setSelectedMicType(bestMic);
+        setMicPos(targetPos);
+        setMicAngle(targetAngle);
+        setSelectedSpotId(correctSpot.id);
+        setHasPlaced(true);
 
-    const handleRotateButton = (delta) => {
-        setMicAngle(prev => {
-            const newAngle = prev + delta;
-            evaluatePlacement(newAngle, micPos);
-            return newAngle;
+        const rawMsg =
+            (correctSpot.feedback && correctSpot.feedback[bestMic]) ||
+            'This is the optimal microphone, position, and angle for this source.';
+        const cleanMsg = rawMsg.replace(/^(perfect!|spot on!|excellent!)\s*/i, '');
+        setFeedback({
+            type: 'success',
+            text: `Answer Revealed: ${cleanMsg}`,
         });
     };
 
     const handleNext = () => {
         if (currentScenarioIndex < scenarios.length - 1) {
-            setCurrentScenarioIndex(prev => prev + 1);
+            setCurrentScenarioIndex((prev) => prev + 1);
         } else {
             setIsComplete(true);
         }
@@ -230,7 +290,7 @@ const MicrophonePlacementQuiz = ({ quiz, onExit }) => {
                 <CheckCircle size={64} color="var(--accent-success)" style={{ marginBottom: '20px' }} />
                 <h2 style={{ fontSize: '2rem', marginBottom: '10px' }}>Studio Session Complete!</h2>
                 <p style={{ fontSize: '1.2rem', color: 'var(--text-muted)', marginBottom: '30px' }}>
-                    You've successfully tracked the instruments using professional microphone placements.
+                    You&apos;ve successfully tracked the instruments using professional microphone placements.
                 </p>
                 <button className="action-btn btn-primary" onClick={onExit}>
                     Return to Dashboard
@@ -240,6 +300,8 @@ const MicrophonePlacementQuiz = ({ quiz, onExit }) => {
     }
 
     const isSuccessFeedback = feedback?.type === 'success';
+    const activeMicName = MIC_TYPES.find((m) => m.id === selectedMicType)?.name || 'selected';
+    const displayAngle = wrapAngle(micAngle);
 
     return (
         <div className="mic-placement-container">
@@ -248,34 +310,114 @@ const MicrophonePlacementQuiz = ({ quiz, onExit }) => {
                 <p>{quiz.description}</p>
             </div>
 
+            <div className="scenario-progress-bar">
+                <span className="scenario-step-count">
+                    Scenario {currentScenarioIndex + 1} of {scenarios.length}
+                </span>
+                <div className="scenario-pills">
+                    {scenarios.map((sc, idx) => (
+                        <button
+                            key={sc.id || idx}
+                            type="button"
+                            className={`scenario-pill ${idx === currentScenarioIndex ? 'active' : ''}`}
+                            onClick={() => setCurrentScenarioIndex(idx)}
+                            title={sc.title}
+                        >
+                            {idx + 1}
+                        </button>
+                    ))}
+                </div>
+            </div>
+
             <div className="scenario-info">
                 <h3>Scenario {currentScenarioIndex + 1}: {currentScenario.title}</h3>
                 <p>{currentScenario.instruction}</p>
             </div>
 
             <div className="controls-panel">
-                <div className="mic-selectors-group" style={{ display: 'flex', gap: '15px' }}>
-                    {MIC_TYPES.map(mic => (
-                        <div
-                            key={mic.id}
-                            className={`mic-selector ${selectedMicType === mic.id ? 'active' : ''}`}
-                            onClick={() => {
-                                setSelectedMicType(mic.id);
-                                setFeedback(null); // Clear feedback when switching mic
-                            }}
-                        >
-                            <div className="icon">{mic.icon}</div>
-                            <div className="name">{mic.name}</div>
-                            <div className="pattern">{mic.pattern}</div>
-                        </div>
-                    ))}
+                <div className="step-hint">
+                    1. Pick a Mic Type &rarr; 2. Rotate it (0°–360°) &rarr; 3. Click or drag into a dashed target zone
                 </div>
+                <div className="controls-row">
+                    <div className="mic-selectors-group">
+                        {MIC_TYPES.map((mic) => (
+                            <button
+                                key={mic.id}
+                                type="button"
+                                className={`mic-selector ${selectedMicType === mic.id ? 'active' : ''}`}
+                                onClick={() => handleMicSelect(mic.id)}
+                            >
+                                <div className="icon">{mic.icon}</div>
+                                <div className="name">{mic.name}</div>
+                                <div className="pattern">{mic.pattern}</div>
+                            </button>
+                        ))}
+                    </div>
 
-                <div className="rotation-controls-group" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', background: 'var(--bg-card)', padding: '10px 20px', borderRadius: '8px' }}>
-                    <div style={{ fontSize: '0.9rem', marginBottom: '8px', color: 'var(--text-muted)' }}>Rotate Mic</div>
-                    <div style={{ display: 'flex', gap: '10px' }}>
-                        <button className="action-btn btn-secondary" style={{ padding: '8px 12px', fontSize: '1rem' }} onClick={() => handleRotateButton(-15)}>↺ Left</button>
-                        <button className="action-btn btn-secondary" style={{ padding: '8px 12px', fontSize: '1rem' }} onClick={() => handleRotateButton(15)}>Right ↻</button>
+                    <div className="rotation-controls-group">
+                        <div className="rotation-header">
+                            <span>Rotate Mic: <strong>{micAngle}°</strong></span>
+                        </div>
+                        <input
+                            type="range"
+                            min="0"
+                            max="360"
+                            step="5"
+                            value={micAngle}
+                            onChange={(e) => handleAngleChange(Number(e.target.value), { allow360: true })}
+                            className="rotate-slider"
+                            aria-label="Rotate microphone 0 to 360 degrees"
+                        />
+                        <div className="angle-presets">
+                            <button
+                                type="button"
+                                className={`angle-btn ${displayAngle === 0 ? 'active' : ''}`}
+                                onClick={() => handleAngleChange(0)}
+                                title="Vertical upright (0°)"
+                            >
+                                &uarr; 0°
+                            </button>
+                            <button
+                                type="button"
+                                className={`angle-btn ${displayAngle === 90 ? 'active' : ''}`}
+                                onClick={() => handleAngleChange(90)}
+                                title="Horizontal right (90°)"
+                            >
+                                &rarr; 90°
+                            </button>
+                            <button
+                                type="button"
+                                className={`angle-btn ${displayAngle === 180 ? 'active' : ''}`}
+                                onClick={() => handleAngleChange(180)}
+                                title="Pointed down (180°)"
+                            >
+                                &darr; 180°
+                            </button>
+                            <button
+                                type="button"
+                                className={`angle-btn ${displayAngle === 270 ? 'active' : ''}`}
+                                onClick={() => handleAngleChange(270)}
+                                title="Horizontal left (270°)"
+                            >
+                                &larr; 270°
+                            </button>
+                            <button
+                                type="button"
+                                className="angle-btn step"
+                                onClick={() => handleAngleChange(displayAngle - 15)}
+                                title="Rotate counter-clockwise 15°"
+                            >
+                                &#8634; -15°
+                            </button>
+                            <button
+                                type="button"
+                                className="angle-btn step"
+                                onClick={() => handleAngleChange(displayAngle + 15)}
+                                title="Rotate clockwise 15°"
+                            >
+                                &#8635; +15°
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -286,6 +428,7 @@ const MicrophonePlacementQuiz = ({ quiz, onExit }) => {
                 onPointerMove={handlePointerMove}
                 onPointerUp={handlePointerUp}
                 onPointerLeave={handlePointerUp}
+                onClick={handleStageClick}
             >
                 <img
                     src={currentScenario.background_image}
@@ -293,46 +436,50 @@ const MicrophonePlacementQuiz = ({ quiz, onExit }) => {
                     className="stage-background loaded"
                 />
 
-                {/* Render visible/invisible hotspots for visual debugging or hints */}
-                {currentScenario.hotspots.map((spot, idx) => {
-                    // We might want them slightly visible as hints, or completely invisible.
-                    // For learning, showing dashed circles helps a lot.
+                {/* Clean Dashed Candidate Target Zones (No Spoiler Labels) */}
+                {currentScenario.hotspots.map((spot) => {
+                    const isSelected = selectedSpotId === spot.id;
+                    const stateClass = isSelected && feedback ? feedback.type : '';
+
                     return (
                         <div
-                            key={idx}
-                            className={`hotspot-area ${feedback && spot.isCorrectSpot && isSuccessFeedback ? 'success' : ''}`}
+                            key={spot.id}
+                            className={`hotspot-area ${stateClass}`}
                             style={{
                                 left: `${spot.x}%`,
                                 top: `${spot.y}%`,
                                 width: `${spot.radius * 2}%`,
-                                height: `${spot.radius * 2}%`,
                             }}
                         />
-                    )
+                    );
                 })}
 
-                {/* Draggable Mic */}
+                {/* Draggable Mic Anchored at Capsule Centre */}
                 <div
-                    className={`draggable-mic ${selectedMicType} ${isRotating ? 'rotating' : ''}`}
+                    className={`draggable-mic ${selectedMicType} ${isDragging ? 'dragging' : ''} ${isRotating ? 'rotating' : ''}`}
                     style={{
                         left: `${micPos.x}%`,
                         top: `${micPos.y}%`,
-                        '--mic-rotation': `${micAngle}deg`
+                        '--mic-rotation': `${micAngle}deg`,
                     }}
                     onPointerDown={handlePointerDown}
+                    onClick={(e) => e.stopPropagation()}
                 >
-                    <div
+                    <button
+                        type="button"
                         className="rotate-handle"
                         onPointerDown={handleRotatePointerDown}
-                        title="Drag to rotate"
-                    ></div>
+                        onClick={(e) => e.stopPropagation()}
+                        title="Drag to rotate microphone (0°–360°)"
+                        aria-label="Drag to rotate microphone"
+                    />
                     <div className="mic-head"></div>
                     <div className="mic-body"></div>
                 </div>
             </div>
 
             <div className="feedback-panel">
-                {feedback ? (
+                {hasPlaced && feedback ? (
                     <div className={`feedback-message ${feedback.type}`}>
                         {feedback.type === 'success' && <CheckCircle size={20} style={{ verticalAlign: 'middle', marginRight: '8px' }} />}
                         {feedback.type === 'warning' && <AlertCircle size={20} style={{ verticalAlign: 'middle', marginRight: '8px' }} />}
@@ -340,17 +487,29 @@ const MicrophonePlacementQuiz = ({ quiz, onExit }) => {
                         {feedback.text}
                     </div>
                 ) : (
-                    <div style={{ color: 'var(--text-muted)' }}>
-                        Drag the {MIC_TYPES.find(m => m.id === selectedMicType)?.name} mic onto the stage to test its position.
+                    <div style={{ color: 'var(--text-secondary, #94a3b8)' }}>
+                        Rotate the mic above if needed, then click on the stage — or drag the {activeMicName} mic — to place its capsule in a target zone.
                     </div>
                 )}
             </div>
 
             <div className="action-buttons">
-                <button className="action-btn btn-secondary" onClick={onExit}>
+                <button type="button" className="action-btn btn-secondary" onClick={onExit}>
                     Exit
                 </button>
+                {!isSuccessFeedback && (
+                    <button
+                        type="button"
+                        className="action-btn btn-unsure"
+                        onClick={handleDontKnow}
+                        title="Not sure yet? Reveal the correct microphone, position, and angle"
+                    >
+                        <HelpCircle size={18} style={{ color: '#c084fc' }} />
+                        I&apos;m Not Sure
+                    </button>
+                )}
                 <button
+                    type="button"
                     className="action-btn btn-primary"
                     disabled={!isSuccessFeedback}
                     onClick={handleNext}
@@ -358,7 +517,7 @@ const MicrophonePlacementQuiz = ({ quiz, onExit }) => {
                     {currentScenarioIndex < scenarios.length - 1 ? 'Next Scenario \u2192' : 'Finish Studio Session \u2192'}
                 </button>
             </div>
-        </div >
+        </div>
     );
 };
 

@@ -4,21 +4,31 @@ This Markdown instruction guide documents the exact interactive workflow for rev
 
 ---
 
-## 1. Core Principles & Standards
+## 1. Core Principles & Edit Protocol (16–18 A-Level Music Tech)
 
 ### A. Question & Distractor Guidelines
-1. **Syllabus Relevance**: All content must align directly with the **Edexcel A-Level Music Technology** specification (Component 1, 2, 3, and 4 — recording techniques, audio fundamentals, microphones, synthesizers, dynamic processors, EQ, acoustics, DAW editing, and production history).
-2. **Simplified, Punchy Answers**:
-   - Keep choices concise, direct, and unambiguous.
-   - Avoid needlessly complex academic jargon or tangential details (e.g. use "phase cancellation" rather than esoteric acronyms unless explicitly required by the syllabus).
-   - **Plausible Distractors**: Eliminate joke answers (e.g. *"No microphone needed"*, *"It sounds too good"*, *"To record in 3D binaural"*). Replace them with realistic, technically credible distractors.
-3. **Question Titles**: Replace placeholder titles (e.g. `"Q8: Question 8"`) with descriptive, concept-focused titles (e.g. `"Q8: Kick Drum Resonant Head Placement"`).
+1. **Target Audience & Syllabus Relevance**: Write for **16–18 year old Edexcel A-Level Music Technology (9MT0)** students revising for Component 3 & Component 4. Keep language plain, direct, and studio-focused. Stick strictly to the Edexcel 9MT0 A-Level syllabus: do not include degree-level audio engineering topics such as Mid-Side (M-S) matrix decoding, Blumlein pairs, ORTF (`17 cm / 110°`), Helmholtz resonance, or pressure-gradient transducer physics (keep stereo miking focused on **Spaced Pair (A-B)** and **Coincident Pair (X-Y)**).
+2. **Short Question Stems (1 Sentence)**:
+   - Cut filler words and ask directly (e.g., *"Which cable connects a studio microphone to a preamp?"*).
+   - For drag-and-drop ordering questions, state direction explicitly (`QUIETEST at the top → LOUDEST at the bottom`) and set `top_label` and `bottom_label`.
+3. **Punchy, Single-Line Answer Options (1–6 Words)**:
+   - Keep every option under ~6 words so it scans cleanly on one line (e.g., `Boost a mic signal to line level`, `Stop plosive air bursts ('p' & 'b')`).
+   - Balance character lengths across all 4 options so the right answer doesn't stand out by length.
+4. **4 Realistic Studio Options (No Duplicates or Joke Answers)**:
+   - Always provide **4 options** (upgrade 3-option questions).
+   - Never have two near-duplicate options that mean the same thing.
+   - Replace silly non-studio distractors (`HDMI Cable`, `Microphone Stand`, `240 Volts`) with credible studio terms.
+5. **Simple A-Level Studio Maths (Zero LaTeX)**:
+   - Stick to core 9MT0 rules (`120 BPM = 2 beats/sec → 500 ms quarter note → 250 ms eighth note` using **60 seconds**, never `60,000 ms`; `Octave up = ×2 Hz / Octave down = ÷2 Hz`; `44.1 kHz / 16-bit`; `6 dB per bit`; `3:1 mic rule`).
+   - Never leave raw LaTeX (`$$`, `\frac`, `\text`) in questions or explanations.
+6. **Question Titles**: Replace placeholder titles (e.g. `"Q8: Question 8"`) with descriptive, concept-focused titles (e.g. `"Q8: Kick Drum Resonant Head Placement"`).
 
 ### B. Expert Explanations & Quotes
-1. **Focused Explanations**: The explanation must directly explain **why** the correct answer is right and the underlying acoustic/engineering concept. Avoid tangential trivia.
-2. **Authoritative Quotes**:
-   - Replace generic or placeholder quotes (e.g. *"Small improvements lead to big results"*, *"Drum Tuning"*, or random childhood stories).
-   - Use quotes from authentic production standards, audio recording textbooks, or recognized engineering principles (e.g. *"Modern Studio Recording Principles"*, *"Microphone Techniques Handbook"*).
+1. **Concise 2-Sentence Explanations**: Limit explanations to **1–2 plain-English sentences** (Sentence 1: *what it is*; Sentence 2: *why it matters in a studio/DAW*). Strip out university-level physics/electronics jargon (`1.228 V RMS`, `20 µPa`, `PCM`, `CMRR` equations, `multi-megohm`).
+2. **Keep Both Fields Synced**: Always update **both** `q.expert_explanation` and the `<p>` paragraph inside `q.explanation` (preserving any `<img ...>` and `<blockquote>...</blockquote>` tags) so the Expert Explanation panel always displays the updated text.
+3. **Authoritative Quotes**:
+   - Replace generic or placeholder quotes (e.g. *"Small improvements lead to big results"*, *"Drum Tuning"*).
+   - Use quotes from authentic production standards, audio recording textbooks, or recognized engineering principles.
 
 ### C. Image Selection & Generation Policy
 1. **Search Existing Pool First**:

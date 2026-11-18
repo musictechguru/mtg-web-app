@@ -9,10 +9,10 @@ import {
     DragOverlay,
 } from '@dnd-kit/core';
 import { useDraggable, useDroppable } from '@dnd-kit/core';
-import { CheckCircle2, XCircle, ArrowRight } from 'lucide-react';
+import { CheckCircle2, XCircle, ArrowDown } from 'lucide-react';
 
 // --- Draggable Term Component ---
-function DraggableTerm({ id, term, isDragging }) {
+function DraggableTerm({ id, term, isDragging, onClick }) {
     const { attributes, listeners, setNodeRef, transform } = useDraggable({
         id,
     });
@@ -29,6 +29,7 @@ function DraggableTerm({ id, term, isDragging }) {
             style={style}
             {...listeners}
             {...attributes}
+            onClick={onClick}
             className="draggable-term"
         >
             <div
@@ -37,7 +38,7 @@ function DraggableTerm({ id, term, isDragging }) {
                     background: isDragging ? 'rgba(59, 130, 246, 0.3)' : 'rgba(59, 130, 246, 0.2)',
                     border: '1px solid rgba(59, 130, 246, 0.5)',
                     borderRadius: '6px',
-                    cursor: 'grab',
+                    cursor: 'pointer',
                     fontWeight: '500',
                     fontSize: '0.9rem',
                     textAlign: 'center',
@@ -51,7 +52,7 @@ function DraggableTerm({ id, term, isDragging }) {
 }
 
 // --- Droppable Box Component ---
-function DroppableBox({ id, label, droppedTerm, isCorrect, isIncorrect, isSubmitted }) {
+function DroppableBox({ id, label, droppedTerm, isCorrect, isIncorrect, isSubmitted, onRemove }) {
     const { isOver, setNodeRef } = useDroppable({
         id,
     });
@@ -78,26 +79,27 @@ function DroppableBox({ id, label, droppedTerm, isCorrect, isIncorrect, isSubmit
         <div
             ref={setNodeRef}
             style={{
-                minWidth: '140px',
-                minHeight: '60px',
-                padding: '12px',
+                width: '100%',
+                minHeight: '56px',
+                padding: '12px 16px',
                 background: bg,
                 border: `2px dashed ${borderColor}`,
-                borderRadius: '8px',
+                borderRadius: '10px',
                 display: 'flex',
-                flexDirection: 'column',
                 alignItems: 'center',
-                justifyContent: 'center',
+                justifyContent: 'space-between',
+                gap: '12px',
+                flexWrap: 'wrap',
                 position: 'relative',
+                boxSizing: 'border-box',
                 transition: 'all 0.2s ease',
             }}
         >
             {label && (
                 <div
                     style={{
-                        fontSize: '0.75rem',
-                        color: '#94a3b8',
-                        marginBottom: '4px',
+                        fontSize: '0.85rem',
+                        color: '#cbd5e1',
                         fontWeight: '600',
                     }}
                 >
@@ -106,20 +108,24 @@ function DroppableBox({ id, label, droppedTerm, isCorrect, isIncorrect, isSubmit
             )}
             {droppedTerm ? (
                 <div
+                    onClick={() => { if (!isSubmitted && onRemove) onRemove(id); }}
+                    title={!isSubmitted ? 'Click to return to term bank' : undefined}
                     style={{
-                        padding: '8px 12px',
-                        background: 'rgba(59, 130, 246, 0.2)',
-                        border: '1px solid rgba(59, 130, 246, 0.5)',
+                        padding: '7px 14px',
+                        background: 'rgba(59, 130, 246, 0.22)',
+                        border: '1px solid rgba(59, 130, 246, 0.55)',
                         borderRadius: '6px',
-                        fontWeight: '500',
-                        fontSize: '0.9rem',
+                        fontWeight: '600',
+                        fontSize: '0.88rem',
+                        color: '#fff',
+                        cursor: !isSubmitted ? 'pointer' : 'default',
                     }}
                 >
                     {droppedTerm}
                 </div>
             ) : (
                 <div style={{ fontSize: '0.8rem', color: '#64748b', fontStyle: 'italic' }}>
-                    Drop here
+                    Drop or click term
                 </div>
             )}
             {isSubmitted && isCorrect && (
@@ -140,12 +146,16 @@ function DroppableBox({ id, label, droppedTerm, isCorrect, isIncorrect, isSubmit
     );
 }
 
+const EMPTY_ARRAY = [];
+const EMPTY_OBJECT = {};
+
 // --- Main Quiz Component ---
 export default function SignalFlowLabelQuiz({
-    flowSteps = [],
-    terms = [],
-    correctAnswers = {},
-    initialAnswer = {},
+    flowSteps = EMPTY_ARRAY,
+    terms = EMPTY_ARRAY,
+    correctAnswers = EMPTY_OBJECT,
+    initialAnswer = EMPTY_OBJECT,
+    hideArrows = false,
     onAnswerChange,
     onResult,
 }) {
@@ -158,13 +168,17 @@ export default function SignalFlowLabelQuiz({
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [activeId, setActiveId] = useState(null);
 
+    const termsKey = terms.join('|');
+    const initialAnswerKey = JSON.stringify(initialAnswer);
+
     useEffect(() => {
         // eslint-disable-next-line react-hooks/set-state-in-effect
         setDroppedTerms(initialAnswer);
         const placedTerms = Object.values(initialAnswer);
         setAvailableTerms(terms.filter(term => !placedTerms.includes(term)));
         setIsSubmitted(false);
-    }, [terms, initialAnswer]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [termsKey, initialAnswerKey]);
 
     const sensors = useSensors(
         useSensor(PointerSensor, {
@@ -217,6 +231,31 @@ export default function SignalFlowLabelQuiz({
         }
     };
 
+    const handleTermClick = (term) => {
+        if (isSubmitted) return;
+        const firstEmptyStep = flowSteps.find((step) => !droppedTerms[step.id]);
+        if (!firstEmptyStep) return;
+
+        const newDroppedTerms = { ...droppedTerms, [firstEmptyStep.id]: term };
+        setDroppedTerms(newDroppedTerms);
+        setAvailableTerms(availableTerms.filter((t) => t !== term));
+        if (onAnswerChange) {
+            onAnswerChange(newDroppedTerms);
+        }
+    };
+
+    const handleRemoveFromBox = (boxId) => {
+        if (isSubmitted || !droppedTerms[boxId]) return;
+        const removedTerm = droppedTerms[boxId];
+        const newDroppedTerms = { ...droppedTerms };
+        delete newDroppedTerms[boxId];
+        setDroppedTerms(newDroppedTerms);
+        setAvailableTerms([...availableTerms, removedTerm]);
+        if (onAnswerChange) {
+            onAnswerChange(newDroppedTerms);
+        }
+    };
+
     const handleCheck = () => {
         setIsSubmitted(true);
         const isCorrect = Object.keys(correctAnswers).every(
@@ -256,7 +295,11 @@ export default function SignalFlowLabelQuiz({
             }}
         >
             <p style={{ marginTop: 0, marginBottom: '20px', color: '#94a3b8' }}>
-                Drag the terms into the correct boxes to complete the <strong>Signal Flow</strong>.
+                {hideArrows ? (
+                    <>Drag (or click) each term into its matching box below.</>
+                ) : (
+                    <>Drag (or click) each term into the matching numbered box in the <strong>Signal Flow</strong>.</>
+                )}
             </p>
 
             <DndContext
@@ -291,6 +334,7 @@ export default function SignalFlowLabelQuiz({
                                 id={term}
                                 term={term}
                                 isDragging={activeId === term}
+                                onClick={() => handleTermClick(term)}
                             />
                         ))}
                         {availableTerms.length === 0 && (
@@ -305,10 +349,9 @@ export default function SignalFlowLabelQuiz({
                 <div
                     style={{
                         display: 'flex',
+                        flexDirection: 'column',
                         alignItems: 'center',
-                        gap: '12px',
-                        flexWrap: 'wrap',
-                        justifyContent: 'center',
+                        gap: '8px',
                     }}
                 >
                     {flowSteps.map((step, index) => (
@@ -320,9 +363,10 @@ export default function SignalFlowLabelQuiz({
                                 isCorrect={isCorrect(step.id)}
                                 isIncorrect={isIncorrect(step.id)}
                                 isSubmitted={isSubmitted}
+                                onRemove={handleRemoveFromBox}
                             />
-                            {index < flowSteps.length - 1 && (
-                                <ArrowRight size={24} color="#64748b" style={{ flexShrink: 0 }} />
+                            {!hideArrows && index < flowSteps.length - 1 && (
+                                <ArrowDown size={20} color="#64748b" style={{ flexShrink: 0 }} />
                             )}
                         </React.Fragment>
                     ))}
@@ -353,10 +397,14 @@ export default function SignalFlowLabelQuiz({
                     <button
                         onClick={handleCheck}
                         className="btn-primary"
-                        style={{ flex: 1 }}
+                        style={{
+                            flex: 1,
+                            opacity: Object.keys(droppedTerms).length !== flowSteps.length ? 0.45 : 1,
+                            cursor: Object.keys(droppedTerms).length !== flowSteps.length ? 'not-allowed' : 'pointer',
+                        }}
                         disabled={Object.keys(droppedTerms).length !== flowSteps.length}
                     >
-                        Check Signal Flow
+                        {hideArrows ? 'Check Matches' : 'Check Signal Flow'}
                     </button>
                 ) : (
                     <button onClick={handleReset} className="btn-secondary" style={{ flex: 1 }}>
@@ -388,7 +436,7 @@ export default function SignalFlowLabelQuiz({
                     )}
                     <span style={{ fontWeight: 'bold' }}>
                         {allCorrect
-                            ? 'Perfect! The signal is flowing correctly.'
+                            ? (hideArrows ? 'Perfect! All items are matched correctly.' : 'Perfect! The signal is flowing correctly.')
                             : 'Not quite right. Check the highlighted boxes.'}
                     </span>
                 </div>

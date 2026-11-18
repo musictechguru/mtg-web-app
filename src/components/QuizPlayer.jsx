@@ -17,6 +17,12 @@ import TimelineQuiz from './InteractiveQuizzes/TimelineQuiz';
 import MidiPracticalQuiz from './InteractiveQuizzes/MidiPracticalQuiz';
 import PanningQuiz from './InteractiveQuizzes/PanningQuiz';
 import SignalFlowLabelQuiz from './InteractiveQuizzes/SignalFlowLabelQuiz';
+import StudioCalculationsQuiz from './InteractiveQuizzes/StudioCalculationsQuiz';
+import ThreeToOneRuleQuiz from './InteractiveQuizzes/ThreeToOneRuleQuiz';
+import StereoMikingQuiz from './InteractiveQuizzes/StereoMikingQuiz';
+import GrandPianoMikingQuiz from './InteractiveQuizzes/GrandPianoMikingQuiz';
+import AcousticGuitarMikingQuiz from './InteractiveQuizzes/AcousticGuitarMikingQuiz';
+import GuitarAmpRoomMicQuiz from './InteractiveQuizzes/GuitarAmpRoomMicQuiz';
 
 // Dev tools (skip, jump, reveal answers) only exist in local development, never on the live site
 const isDev = Boolean(import.meta.env.DEV);
@@ -36,8 +42,95 @@ const isInteractiveSelfSubmitting = (type) => [
     'midi_practical',
     'panning',
     'signal-flow-label',
-    'signal_flow_label'
+    'signal_flow_label',
+    'studio-calculation',
+    'three-to-one',
+    'stereo-miking',
+    'piano-miking',
+    'acoustic-guitar-miking',
+    'guitar-amp-3to1'
 ].includes(type);
+
+// Helper to build/shuffle questions for a fresh quiz attempt
+const buildActiveQuestions = (quizObj, isTopicMastery, devRawOrder) => {
+    if (!quizObj || !Array.isArray(quizObj.questions)) return [];
+    try {
+        let questions = [...quizObj.questions];
+        const skipRandomise = quizObj.randomise === false || isTopicMastery || (isDev && devRawOrder);
+
+        const formatBinaryQuestion = (q) => {
+            const newTarget = Math.floor(Math.random() * 128);
+            const positions = [64, 32, 16, 8, 4, 2, 1];
+            let remainder = newTarget;
+            let powers = [];
+            let binaryStr = "";
+            for (let p of positions) {
+                if (remainder >= p) {
+                    powers.push(p);
+                    remainder -= p;
+                    binaryStr += "1";
+                } else {
+                    binaryStr += "0";
+                }
+            }
+
+            let hintText = `You need to add up to ${newTarget}. Which boxes should have a 1?`;
+            if (powers.length > 0) {
+                hintText += ` (Hint: ${powers.join(" + ")} = ${newTarget})`;
+            } else {
+                hintText = `Zero means no boxes are clicked. Leave them all at 0!`;
+            }
+
+            let explanationText = `To make ${newTarget}, you need the boxes: ${powers.join(" + ")} = ${newTarget}. In binary, this is ${binaryStr}.`;
+            if (newTarget === 0) {
+                explanationText = `To make 0, you don't click any boxes! All bits are 0. In binary, this is 0000000.`;
+            }
+
+            return {
+                ...q,
+                title: `Make ${newTarget} in Binary`,
+                content: `Click the boxes to make the number ${newTarget} in binary`,
+                targetNumber: newTarget,
+                hint: hintText,
+                explanation: explanationText
+            };
+        };
+
+        const shuffleAnswers = (q) => {
+            if (!q.answers || q.answers.length < 2) return q;
+            const shuffled = [...q.answers];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            return { ...q, answers: shuffled };
+        };
+
+        if (skipRandomise) {
+            return questions.map(q => {
+                if (q.type === 'binary-diagram') return formatBinaryQuestion(q);
+                if (!(isDev && devRawOrder)) return shuffleAnswers(q);
+                return q;
+            });
+        }
+
+        if (questions.length > 20) {
+            for (let i = questions.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [questions[i], questions[j]] = [questions[j], questions[i]];
+            }
+            questions = questions.slice(0, 20);
+        }
+
+        return questions.map(q => {
+            if (q.type === 'binary-diagram') return formatBinaryQuestion(q);
+            return shuffleAnswers(q);
+        });
+    } catch (error) {
+        console.error("Shuffle failed:", error);
+        return quizObj.questions?.slice(0, 20) || [];
+    }
+};
 
 const QuizPlayer = ({ quiz, onFinish }) => {
     // FORCE CACHE BUST: V3
@@ -47,6 +140,8 @@ const QuizPlayer = ({ quiz, onFinish }) => {
     const [userResponses, setUserResponses] = useState({});
     const [quizFinished, setQuizFinished] = useState(false);
     const [activeQuestions, setActiveQuestions] = useState([]);
+    const [resumePromptData, setResumePromptData] = useState(null);
+    const [quizSessionId, setQuizSessionId] = useState(0);
     const [expandedImage, setExpandedImage] = useState(null);
     const [zoomLevel, setZoomLevel] = useState(1);
     const [panOffset, setPanOffset] = useState({ x: 0, y: 0 });
@@ -200,153 +295,97 @@ const QuizPlayer = ({ quiz, onFinish }) => {
     const saveQuizResult = userContext ? userContext.saveQuizResult : null;
     const completeCampaignNode = userContext ? userContext.completeCampaignNode : null;
     const openAccount = useAccountPrompt();
+    const userId = userContext?.currentUser?.id || userContext?.currentUser?.username || 'guest';
+    const progressStorageKey = `mtg_quiz_progress_${userId}_${quizStorageKey}`;
 
-    // Reset state and randomize questions when quiz changes
+    const clearSavedProgress = () => {
+        if (typeof window === 'undefined') return;
+        try {
+            localStorage.removeItem(progressStorageKey);
+        } catch (e) {
+            console.warn('Unable to clear quiz progress:', e);
+        }
+    };
+
+    const startFreshQuiz = (resetUrlParam = false) => {
+        clearSavedProgress();
+        resultsSavedRef.current = false;
+        const freshQuestions = buildActiveQuestions(quiz, isTopicMastery, devRawOrder);
+        setActiveQuestions(freshQuestions);
+        setUserResponses({});
+        setCurrentQuestionIndex(0);
+        setQuizFinished(false);
+        setResumePromptData(null);
+        setQuizSessionId(prev => prev + 1);
+        if (resetUrlParam && isDev && typeof window !== 'undefined') {
+            sessionStorage.removeItem(`dev_q_${quizStorageKey}`);
+            const url = new URL(window.location.href);
+            url.searchParams.delete('q');
+            window.history.replaceState({}, '', url.toString());
+        }
+    };
+
+    const handleResumeQuiz = () => {
+        if (!resumePromptData) return;
+        setActiveQuestions(resumePromptData.activeQuestions);
+        setUserResponses(resumePromptData.userResponses || {});
+        setCurrentQuestionIndex(
+            Math.min(
+                Math.max(0, resumePromptData.currentQuestionIndex || 0),
+                Math.max(0, resumePromptData.activeQuestions.length - 1)
+            )
+        );
+        setQuizFinished(Boolean(resumePromptData.quizFinished));
+        if (resumePromptData.quizFinished) {
+            resultsSavedRef.current = true;
+        }
+        setResumePromptData(null);
+        setQuizSessionId(prev => prev + 1);
+    };
+
+    // Reset state, check saved progress, or build questions when quiz changes
     useEffect(() => {
         if (quiz && Array.isArray(quiz.questions)) {
-            let questions = [];
-            try {
-                questions = [...quiz.questions]; // Safe copy
+            const urlParam = (isDev && typeof window !== 'undefined')
+                ? new URLSearchParams(window.location.search).get('q')
+                : null;
 
-                const skipRandomise = quiz.randomise === false || isTopicMastery || (isDev && devRawOrder);
-
-                // Check if randomization is disabled for this quiz or overridden by dev
-                if (skipRandomise) {
-                    // Use questions as-is, no shuffle, no slice
-                    questions = questions.map(q => {
-                        if (q.type === 'binary-diagram') {
-                            const newTarget = Math.floor(Math.random() * 128);
-                            const positions = [64, 32, 16, 8, 4, 2, 1];
-                            let remainder = newTarget;
-                            let powers = [];
-                            let binaryStr = "";
-                            for (let p of positions) {
-                                if (remainder >= p) {
-                                    powers.push(p);
-                                    remainder -= p;
-                                    binaryStr += "1";
-                                } else {
-                                    binaryStr += "0";
-                                }
-                            }
-
-                            let hintText = `You need to add up to ${newTarget}. Which boxes should have a 1?`;
-                            if (powers.length > 0) {
-                                hintText += ` (Hint: ${powers.join(" + ")} = ${newTarget})`;
-                            } else {
-                                hintText = `Zero means no boxes are clicked. Leave them all at 0!`;
-                            }
-
-                            let explanationText = `To make ${newTarget}, you need the boxes: ${powers.join(" + ")} = ${newTarget}. In binary, this is ${binaryStr}.`;
-                            if (newTarget === 0) {
-                                explanationText = `To make 0, you don't click any boxes! All bits are 0. In binary, this is 0000000.`;
-                            }
-
-                            return {
-                                ...q,
-                                title: `Make ${newTarget} in Binary`,
-                                content: `Click the boxes to make the number ${newTarget} in binary`,
-                                targetNumber: newTarget,
-                                hint: hintText,
-                                explanation: explanationText
-                            };
+            // Check for saved student progress in localStorage (skip prompt if dev explicitly deep-linked ?q=N)
+            if (!urlParam && typeof window !== 'undefined') {
+                try {
+                    const rawSaved = localStorage.getItem(progressStorageKey);
+                    if (rawSaved) {
+                        const saved = JSON.parse(rawSaved);
+                        const hasProgress = saved &&
+                            Array.isArray(saved.activeQuestions) &&
+                            saved.activeQuestions.length > 0 &&
+                            (
+                                saved.currentQuestionIndex > 0 ||
+                                (saved.userResponses && Object.keys(saved.userResponses).length > 0) ||
+                                saved.quizFinished
+                            );
+                        if (hasProgress) {
+                            setActiveQuestions(saved.activeQuestions);
+                            setUserResponses(saved.userResponses || {});
+                            setCurrentQuestionIndex(0);
+                            setQuizFinished(false);
+                            setResumePromptData(saved);
+                            return;
                         }
-
-                        // Unless dev explicitly requests raw order, shuffle answer options
-                        if (!(isDev && devRawOrder)) {
-                            if (!q.answers || q.answers.length < 2) return q;
-
-                            const shuffledAnswers = [...q.answers];
-                            for (let i = shuffledAnswers.length - 1; i > 0; i--) {
-                                const j = Math.floor(Math.random() * (i + 1));
-                                [shuffledAnswers[i], shuffledAnswers[j]] = [shuffledAnswers[j], shuffledAnswers[i]];
-                            }
-                            return { ...q, answers: shuffledAnswers };
-                        }
-
-                        return q;
-                    });
-                } else {
-                    // Standard Randomization Logic
-                    // If we have a pool larger than 20, shuffle and pick 20
-                    if (questions.length > 20) {
-                        for (let i = questions.length - 1; i > 0; i--) {
-                            // Fisher-Yates shuffle
-                            const j = Math.floor(Math.random() * (i + 1));
-                            [questions[i], questions[j]] = [questions[j], questions[i]];
-                        }
-                        questions = questions.slice(0, 20);
                     }
-
-                    // NOW SHUFFLE ANSWERS for each selected question
-                    // We need to map over questions and shuffle their answers array
-                    questions = questions.map(q => {
-                        if (q.type === 'binary-diagram') {
-                            const newTarget = Math.floor(Math.random() * 128); // 0 to 127
-
-                            const positions = [64, 32, 16, 8, 4, 2, 1];
-                            let remainder = newTarget;
-                            let powers = [];
-                            let binaryStr = "";
-                            for (let p of positions) {
-                                if (remainder >= p) {
-                                    powers.push(p);
-                                    remainder -= p;
-                                    binaryStr += "1";
-                                } else {
-                                    binaryStr += "0";
-                                }
-                            }
-
-                            let hintText = `You need to add up to ${newTarget}. Which boxes should have a 1?`;
-                            if (powers.length > 0) {
-                                hintText += ` (Hint: ${powers.join(" + ")} = ${newTarget})`;
-                            } else {
-                                hintText = `Zero means no boxes are clicked. Leave them all at 0!`;
-                            }
-
-                            let explanationText = `To make ${newTarget}, you need the boxes: ${powers.join(" + ")} = ${newTarget}. In binary, this is ${binaryStr}.`;
-                            if (newTarget === 0) {
-                                explanationText = `To make 0, you don't click any boxes! All bits are 0. In binary, this is 0000000.`;
-                            }
-
-                            return {
-                                ...q,
-                                title: `Make ${newTarget} in Binary`,
-                                content: `Click the boxes to make the number ${newTarget} in binary`,
-                                targetNumber: newTarget,
-                                hint: hintText,
-                                explanation: explanationText
-                            };
-                        }
-
-                        if (!q.answers || q.answers.length < 2) return q;
-
-                        // Create a copy of answers
-                        const shuffledAnswers = [...q.answers];
-
-                        // Fisher-Yates shuffle answers
-                        for (let i = shuffledAnswers.length - 1; i > 0; i--) {
-                            const j = Math.floor(Math.random() * (i + 1));
-                            [shuffledAnswers[i], shuffledAnswers[j]] = [shuffledAnswers[j], shuffledAnswers[i]];
-                        }
-
-                        // Return new question object with shuffled answers
-                        return { ...q, answers: shuffledAnswers };
-                    });
+                } catch (e) {
+                    console.warn('Unable to read saved quiz progress:', e);
                 }
-
-            } catch (error) {
-                console.error("Shuffle failed:", error);
-                questions = quiz.questions?.slice(0, 20) || [];
             }
+
+            setResumePromptData(null);
+            const questions = buildActiveQuestions(quiz, isTopicMastery, devRawOrder);
             // eslint-disable-next-line react-hooks/set-state-in-effect
             setActiveQuestions(questions);
 
             // In Dev mode: restore saved question index from URL param or sessionStorage
             let initialIdx = 0;
             if (isDev && typeof window !== 'undefined') {
-                const urlParam = new URLSearchParams(window.location.search).get('q');
                 const storedIdx = sessionStorage.getItem(`dev_q_${quizStorageKey}`);
                 if (urlParam) {
                     let parsed = parseInt(urlParam, 10) - 1;
@@ -368,10 +407,29 @@ const QuizPlayer = ({ quiz, onFinish }) => {
             console.error("Quiz questions invalid:", quiz);
             setActiveQuestions([]);
             setCurrentQuestionIndex(0);
+            setResumePromptData(null);
         }
         setUserResponses({});
         setQuizFinished(false);
     }, [quiz, devRawOrder]);
+
+    // Persist in-progress quiz state automatically to localStorage
+    useEffect(() => {
+        if (typeof window === 'undefined' || !quiz || activeQuestions.length === 0 || resumePromptData) return;
+        const hasProgress = currentQuestionIndex > 0 || Object.keys(userResponses).length > 0 || quizFinished;
+        if (!hasProgress) return;
+        try {
+            localStorage.setItem(progressStorageKey, JSON.stringify({
+                activeQuestions,
+                currentQuestionIndex,
+                userResponses,
+                quizFinished,
+                updatedAt: Date.now()
+            }));
+        } catch (e) {
+            console.warn('Unable to save quiz progress:', e);
+        }
+    }, [activeQuestions, currentQuestionIndex, userResponses, quizFinished, progressStorageKey, quiz, resumePromptData]);
 
     // Calculate score derived from all responses (needed for effect)
     const totalQuestions = activeQuestions.length;
@@ -983,6 +1041,116 @@ const QuizPlayer = ({ quiz, onFinish }) => {
         );
     };
 
+    if (resumePromptData) {
+        const savedQuestions = resumePromptData.activeQuestions || [];
+        const savedTotal = savedQuestions.length || totalQuestions;
+        const savedIdx = Math.min(Math.max(0, resumePromptData.currentQuestionIndex || 0), Math.max(0, savedTotal - 1));
+        const savedDisplayNum = isPart2 ? savedIdx + 11 : savedIdx + 1;
+        const savedDisplayTotal = isPart2 ? 20 : savedTotal;
+        const answeredCount = Object.values(resumePromptData.userResponses || {}).filter(r => r && r.submitted).length;
+        const savedScore = Object.values(resumePromptData.userResponses || {}).filter(r => r && r.submitted && r.isCorrect).length;
+        const savedPct = savedTotal > 0 ? Math.round((savedScore / savedTotal) * 100) : 0;
+        const wasFinished = Boolean(resumePromptData.quizFinished);
+
+        return (
+            <div className="quiz-container results-screen" style={{ maxWidth: '560px', margin: '40px auto' }}>
+                <div style={{
+                    background: 'rgba(56, 189, 248, 0.12)',
+                    color: '#38bdf8',
+                    border: '1px solid rgba(56, 189, 248, 0.3)',
+                    borderRadius: '999px',
+                    padding: '4px 12px',
+                    fontSize: '0.78rem',
+                    fontWeight: '700',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.6px',
+                    display: 'inline-block',
+                    marginBottom: '14px'
+                }}>
+                    {wasFinished ? 'Quiz Completed Previously' : 'Saved Progress Found'}
+                </div>
+
+                <h2 style={{ fontSize: '1.65rem', margin: '0 0 10px 0' }}>{quiz.title}</h2>
+
+                {wasFinished ? (
+                    <p style={{ color: 'var(--text-secondary)', marginBottom: '26px', fontSize: '1rem', lineHeight: 1.5 }}>
+                        You previously finished this quiz with a score of <strong>{savedScore} / {savedTotal} ({savedPct}%)</strong>.
+                        Would you like to start again from Question {isPart2 ? 11 : 1}, or review your results?
+                    </p>
+                ) : (
+                    <p style={{ color: 'var(--text-secondary)', marginBottom: '26px', fontSize: '1rem', lineHeight: 1.5 }}>
+                        You left off on <strong>Question {savedDisplayNum} of {savedDisplayTotal}</strong>
+                        {answeredCount > 0 ? ` (${answeredCount} answered so far)` : ''}.
+                        Would you like to resume where you left off or start again?
+                    </p>
+                )}
+
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', width: '100%' }}>
+                    <button
+                        type="button"
+                        className="btn-primary"
+                        onClick={wasFinished ? () => startFreshQuiz(true) : handleResumeQuiz}
+                        style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', width: '100%' }}
+                    >
+                        {wasFinished ? (
+                            <>
+                                <RotateCcw size={17} />
+                                Start Again (Question {isPart2 ? 11 : 1})
+                            </>
+                        ) : (
+                            <>Resume Quiz (Question {savedDisplayNum})</>
+                        )}
+                    </button>
+
+                    <button
+                        type="button"
+                        onClick={wasFinished ? handleResumeQuiz : () => startFreshQuiz(true)}
+                        style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            gap: '8px',
+                            width: '100%',
+                            padding: '12px 18px',
+                            borderRadius: '10px',
+                            border: '1px solid rgba(148, 163, 184, 0.35)',
+                            background: 'rgba(255, 255, 255, 0.05)',
+                            color: 'var(--text-primary)',
+                            fontWeight: '600',
+                            fontSize: '0.95rem',
+                            cursor: 'pointer'
+                        }}
+                    >
+                        {wasFinished ? (
+                            <>View Previous Results</>
+                        ) : (
+                            <>
+                                <RotateCcw size={16} />
+                                Start Again from Question {isPart2 ? 11 : 1}
+                            </>
+                        )}
+                    </button>
+
+                    <button
+                        type="button"
+                        onClick={handleExit}
+                        style={{
+                            marginTop: '4px',
+                            background: 'transparent',
+                            border: 'none',
+                            color: 'var(--text-secondary)',
+                            fontSize: '0.9rem',
+                            cursor: 'pointer',
+                            textDecoration: 'underline'
+                        }}
+                    >
+                        {quiz.campaignNodeId ? 'Return to Campaign Map' : 'Return to Dashboard'}
+                    </button>
+                </div>
+            </div>
+        );
+    }
+
     if (quizFinished) {
         return (
             <div className="quiz-container results-screen">
@@ -1027,12 +1195,34 @@ const QuizPlayer = ({ quiz, onFinish }) => {
                         </button>
                     </div>
                 )}
-                <button
-                    className="btn-primary"
-                    onClick={handleExit}
-                >
-                    {quiz.campaignNodeId ? 'Return to Campaign Map' : 'Return to Dashboard'}
-                </button>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', justifyContent: 'center' }}>
+                    <button
+                        type="button"
+                        onClick={() => startFreshQuiz(true)}
+                        style={{
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: '8px',
+                            padding: '12px 20px',
+                            borderRadius: '10px',
+                            border: '1px solid rgba(148, 163, 184, 0.35)',
+                            background: 'rgba(255, 255, 255, 0.06)',
+                            color: 'var(--text-primary)',
+                            fontWeight: '600',
+                            fontSize: '0.95rem',
+                            cursor: 'pointer'
+                        }}
+                    >
+                        <RotateCcw size={16} />
+                        Start Again
+                    </button>
+                    <button
+                        className="btn-primary"
+                        onClick={handleExit}
+                    >
+                        {quiz.campaignNodeId ? 'Return to Campaign Map' : 'Return to Dashboard'}
+                    </button>
+                </div>
             </div>
         );
     }
@@ -1042,11 +1232,43 @@ const QuizPlayer = ({ quiz, onFinish }) => {
             {/* Left: Question Card */}
             <div className="quiz-left-col">
                 {renderDevBar()}
-                <div style={{ marginBottom: '20px', fontSize: '0.9rem', color: 'var(--text-secondary)' }}>
-                    {quiz.title} • Question {isPart2 ? currentQuestionIndex + 11 : currentQuestionIndex + 1} of {isPart2 ? 20 : totalQuestions}
+                <div style={{
+                    marginBottom: '20px',
+                    fontSize: '0.9rem',
+                    color: 'var(--text-secondary)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    gap: '12px',
+                    flexWrap: 'wrap'
+                }}>
+                    <span>
+                        {quiz.title} • Question {isPart2 ? currentQuestionIndex + 11 : currentQuestionIndex + 1} of {isPart2 ? 20 : totalQuestions}
+                    </span>
+                    <button
+                        type="button"
+                        onClick={() => startFreshQuiz(true)}
+                        title="Reset your progress and start this quiz again from the beginning"
+                        style={{
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: '6px',
+                            padding: '5px 11px',
+                            borderRadius: '8px',
+                            border: '1px solid rgba(148, 163, 184, 0.28)',
+                            background: 'rgba(255, 255, 255, 0.04)',
+                            color: 'var(--text-secondary)',
+                            fontSize: '0.8rem',
+                            fontWeight: '600',
+                            cursor: 'pointer'
+                        }}
+                    >
+                        <RotateCcw size={13} />
+                        Start Again
+                    </button>
                 </div>
 
-                <div className="question-card">
+                <div className="question-card" key={`${quizStorageKey}-${quizSessionId}`}>
                     {currentQuestion._sourceTopic && (
                         <div style={{
                             marginBottom: '10px',
@@ -1117,6 +1339,8 @@ const QuizPlayer = ({ quiz, onFinish }) => {
                                 correctOrder={currentQuestion.correct_order}
                                 itemImages={currentQuestion.item_images || {}}
                                 diagramImg={currentQuestion.diagram_img || currentQuestion.img}
+                                topLabel={currentQuestion.top_label}
+                                bottomLabel={currentQuestion.bottom_label}
                                 onExpandImage={openExpandedImage}
                                 onResult={handleInteractiveResult}
                             />
@@ -1291,6 +1515,43 @@ const QuizPlayer = ({ quiz, onFinish }) => {
                                 flowSteps={currentQuestion.flowSteps || []}
                                 terms={currentQuestion.terms || []}
                                 correctAnswers={currentQuestion.correctAnswers || {}}
+                                hideArrows={Boolean(currentQuestion.hide_arrows)}
+                                onResult={handleInteractiveResult}
+                            />
+                        ) : currentQuestion.type === 'studio-calculation' ? (
+                            <StudioCalculationsQuiz
+                                key={currentQuestionIndex}
+                                question={currentQuestion}
+                                onResult={handleInteractiveResult}
+                            />
+                        ) : currentQuestion.type === 'three-to-one' ? (
+                            <ThreeToOneRuleQuiz
+                                key={currentQuestionIndex}
+                                question={currentQuestion}
+                                onResult={handleInteractiveResult}
+                            />
+                        ) : currentQuestion.type === 'stereo-miking' ? (
+                            <StereoMikingQuiz
+                                key={currentQuestionIndex}
+                                question={currentQuestion}
+                                onResult={handleInteractiveResult}
+                            />
+                        ) : currentQuestion.type === 'piano-miking' ? (
+                            <GrandPianoMikingQuiz
+                                key={currentQuestionIndex}
+                                question={currentQuestion}
+                                onResult={handleInteractiveResult}
+                            />
+                        ) : currentQuestion.type === 'acoustic-guitar-miking' ? (
+                            <AcousticGuitarMikingQuiz
+                                key={currentQuestionIndex}
+                                question={currentQuestion}
+                                onResult={handleInteractiveResult}
+                            />
+                        ) : currentQuestion.type === 'guitar-amp-3to1' ? (
+                            <GuitarAmpRoomMicQuiz
+                                key={currentQuestionIndex}
+                                question={currentQuestion}
                                 onResult={handleInteractiveResult}
                             />
                         ) : (
