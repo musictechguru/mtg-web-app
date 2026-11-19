@@ -11,18 +11,18 @@ const quizData = [
             { text: "'Pumping' Sidechain Compression", correct: true },
             { text: "Multiband Expansion", correct: false },
             { text: "Parallel Compression", correct: false },
-            { text: "Sidechain to Ghost Kick", correct: false }
+            { text: "Noise Gating", correct: false }
         ],
         explanation: "Standard 'pumping' sidechain compression uses the kick drum to trigger a compressor on the synth, ducking its volume rhythmically to make space for the kick."
     },
     {
         category: "Sidechain & Dynamics",
-        scenario: "You have a complex vocal layered over a dense bassline. You only want the sub-frequencies of the bassline to duck when the kick hits, leaving the mid-range of the bass unaffected.",
+        scenario: "You want only the sub-bass frequencies of a bassline to duck when the kick hits, leaving the mid-range untouched.",
         options: [
             { text: "Standard Sidechain Compression", correct: false },
             { text: "Multiband Sidechain", correct: true },
             { text: "Limiting", correct: false },
-            { text: "Sidechain to Ghost Kick", correct: false }
+            { text: "High-Pass Filtering", correct: false }
         ],
         explanation: "Multiband sidechain allows you to target specific frequency ranges (like the low-end) to duck, leaving other frequencies (like the mid-range texture) untouched for a cleaner mix."
     },
