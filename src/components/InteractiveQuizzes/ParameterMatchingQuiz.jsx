@@ -356,23 +356,24 @@ export default function ParameterMatchingQuiz({
                             strokeDasharray="4,4"
                         />
 
-                        {/* Live Gate Release Curve starting at Hold End (x=220, y=95) */}
+                        {/* Live Gate Release Triangle starting at Hold End (x=220, y=95) */}
                         {(() => {
                             const releaseWidth = (values[0] / max) * 320;
                             const endX = 220 + releaseWidth;
                             return (
                                 <>
-                                    <path
-                                        d={`M 60,165 L 90,35 L 220,95 L ${endX},165`}
-                                        fill="rgba(168, 85, 247, 0.18)"
-                                        stroke="#a855f7"
-                                        strokeWidth="3"
+                                    <polygon
+                                        points={`220,95 ${endX},165 220,165`}
+                                        fill="rgba(34, 197, 94, 0.16)"
+                                        stroke="#22c55e"
+                                        strokeWidth="2"
+                                        strokeDasharray="4,3"
                                     />
-                                    <line x1="220" y1="25" x2="220" y2="165" stroke="#fbbf24" strokeWidth="1.5" strokeDasharray="3,3" />
+                                    <line x1="220" y1="25" x2="220" y2="165" stroke="#fbbf24" strokeWidth="1.5" />
                                     <text x="220" y="18" fill="#fbbf24" fontSize="10" textAnchor="middle" fontWeight="bold">Release Starts</text>
-                                    <circle cx={endX} cy="165" r="4" fill="#a855f7" />
-                                    <text x={Math.min(endX, 520)} y="152" fill="#c084fc" fontSize="10" fontWeight="bold" textAnchor="middle">
-                                        Gate Closed ({values[0]} ms)
+                                    <circle cx={endX} cy="165" r="4" fill="#22c55e" />
+                                    <text x={Math.min(endX, 520)} y="152" fill="#4ade80" fontSize="10" fontWeight="bold" textAnchor="middle">
+                                        RELEASE ({values[0]} ms)
                                     </text>
                                 </>
                             );
