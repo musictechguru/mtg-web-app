@@ -26,6 +26,7 @@ import GuitarAmpRoomMicQuiz from './InteractiveQuizzes/GuitarAmpRoomMicQuiz';
 import PhasePolarityAudioQuiz from './InteractiveQuizzes/PhasePolarityAudioQuiz';
 import CombFilteringAudioQuiz from './InteractiveQuizzes/CombFilteringAudioQuiz';
 import OverheadPhaseQuiz from './InteractiveQuizzes/OverheadPhaseQuiz';
+import AudioFaultDiagnosisQuiz from './InteractiveQuizzes/AudioFaultDiagnosisQuiz';
 
 // Dev tools (skip, jump, reveal answers) only exist in local development, never on the live site
 const isDev = Boolean(import.meta.env.DEV);
@@ -48,6 +49,7 @@ const isInteractiveSelfSubmitting = (type) => [
     'signal_flow_label',
     'studio-calculation',
     'three-to-one',
+    'audio-fault-lab',
     'stereo-miking',
     'piano-miking',
     'acoustic-guitar-miking',
@@ -1693,6 +1695,12 @@ const QuizPlayer = ({ quiz, onFinish }) => {
                             />
                         ) : currentQuestion.type === 'overhead-phase-lab' ? (
                             <OverheadPhaseQuiz
+                                key={currentQuestionIndex}
+                                question={currentQuestion}
+                                onResult={handleInteractiveResult}
+                            />
+                        ) : currentQuestion.type === 'audio-fault-lab' ? (
+                            <AudioFaultDiagnosisQuiz
                                 key={currentQuestionIndex}
                                 question={currentQuestion}
                                 onResult={handleInteractiveResult}
