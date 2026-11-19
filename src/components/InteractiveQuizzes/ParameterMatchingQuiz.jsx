@@ -17,7 +17,9 @@ export default function ParameterMatchingQuiz({
     unit = 'Hz'
 }) {
     // State
-    const initialVal = (label && label.toLowerCase().includes('gate attack')) ? Math.round((min + max) / 2) : min;
+    const initialVal = (label && label.toLowerCase().includes('gate attack'))
+        ? (correctValue >= 15 ? 2 : Math.round((min + max) / 2))
+        : min;
     const [values, setValues] = useState([initialVal]);
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [isCorrect, setIsCorrect] = useState(false);
@@ -214,10 +216,14 @@ export default function ParameterMatchingQuiz({
                         <span style={{
                             fontSize: '0.75rem',
                             fontWeight: 700,
-                            color: isSubmitted ? (values[0] <= 5 ? '#4ade80' : '#f87171') : '#94a3b8'
+                            color: isSubmitted ? (values[0] === 0 ? '#f87171' : Math.abs(values[0] - correctValue) <= tolerance ? '#4ade80' : '#f87171') : '#94a3b8'
                         }}>
                             {isSubmitted
-                                ? (values[0] <= 5 ? 'Fast Attack: Snare transient preserved' : 'Too Slow: Front of snare transient is clipped')
+                                ? (values[0] === 0
+                                    ? '0 ms is too fast and causes an audible click!'
+                                    : Math.abs(values[0] - correctValue) <= tolerance
+                                        ? (correctValue >= 15 ? 'Smooth Attack: Opens gently without clicking' : 'Fast Attack: Preserves transient without clicking')
+                                        : (values[0] < correctValue - tolerance ? 'Too fast! Causes clicking or abrupt entrance' : 'Too slow! Front of transient is clipped'))
                                 : `Attack: ${values[0]} ms`}
                         </span>
                     </div>

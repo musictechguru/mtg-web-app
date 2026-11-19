@@ -4127,35 +4127,35 @@
               "explanation_image": "/images/gated_reverb_technique_diagram.svg"
             },
             {
-              "title": "Practical Task: Gate Attack Time for Acoustic Guitar",
-              "content": "Set a fast gate attack time so the crisp pick transient on an acoustic guitar is not clipped off.",
+              "title": "Practical Task: Smooth Gate Attack Time for Strings",
+              "content": "Set a slower gate attack time so a bowed string pad fades in smoothly without clicking or sounding abrupt.",
               "type": "parameter_matching",
               "label": "Gate Attack Time",
               "min": 0,
               "max": 50,
               "step": 1,
               "unit": " ms",
-              "correct_value": 2,
-              "tolerance": 3,
-              "expert_explanation": "A fast attack time (0–5 ms) opens the gate instantaneously when the pick strikes the string, preserving bright transient definition.",
-              "explanation": "<p><strong>Expert Explanation:</strong> A fast attack time (0–5 ms) opens the gate instantaneously when the pick strikes the string, preserving bright transient definition.</p>"
+              "correct_value": 25,
+              "tolerance": 10,
+              "expert_explanation": "Setting a 0 ms attack causes an audible click, while a slower attack (15–35 ms) lets the gate open smoothly for gentle instruments like bowed strings or pads.",
+              "explanation": "<p><strong>Expert Explanation:</strong> Setting a 0 ms attack causes an audible click, while a slower attack (15–35 ms) lets the gate open smoothly for gentle instruments like bowed strings or pads.</p>"
             },
             {
               "title": "Q18: Practical Task — Noise Gate Attack Time",
-              "content": "Set a fast noise gate attack time so the initial transient crack of a snare drum is preserved when the gate opens.",
+              "content": "Set a fast gate attack time (1–5 ms) to preserve the snare transient without causing a 0 ms click.",
               "type": "parameter_matching",
               "label": "Gate Attack Time",
               "min": 0,
               "max": 50,
               "step": 1,
               "unit": " ms",
-              "correct_value": 2,
-              "tolerance": 3,
+              "correct_value": 3,
+              "tolerance": 2,
               "img": "/images/svg/gate_envelope_graph.svg",
               "diagram_img": "/images/svg/gate_envelope_graph.svg",
               "explanation_image": "/images/svg/gate_envelope_graph.svg",
-              "expert_explanation": "Drum transients occur within milliseconds. A fast attack time (0–5 ms) ensures the gate opens immediately so the punchy snare crack is never clipped.",
-              "explanation": "<img src=\"/images/svg/gate_envelope_graph.svg\" alt=\"Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Drum transients occur within milliseconds. A fast attack time (0–5 ms) ensures the gate opens immediately so the punchy snare crack is never clipped.</p>"
+              "expert_explanation": "Setting 0 ms causes an instantaneous amplitude jump and an audible click, whereas 1–5 ms opens fast enough to keep the snare transient intact cleanly.",
+              "explanation": "<img src=\"/images/svg/gate_envelope_graph.svg\" alt=\"Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Setting 0 ms causes an instantaneous amplitude jump and an audible click, whereas 1–5 ms opens fast enough to keep the snare transient intact cleanly.</p>"
             },
             {
               "title": "Q19: Noise Gate Floor / Range Control",
