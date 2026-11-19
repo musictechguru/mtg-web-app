@@ -15606,352 +15606,364 @@
           "questions": [
             {
               "title": "Diagnosing UK vs US Mains Hum Frequencies",
-              "content": "An archival tape recorded in London in 1973 exhibits a persistent low-frequency buzzing hum. Spectral analysis reveals energy peaks at 50 Hz, 100 Hz, 150 Hz, and 250 Hz. What is the source of this fault?",
+              "content": "A 1973 London archival tape has a persistent 50 Hz hum with harmonics at 100 Hz, 150 Hz, and 250 Hz. What is the source of this fault?",
               "type": "multi_choice",
               "question": "An archival tape recorded in London in 1973 exhibits a persistent low-frequency buzzing hum. Spectral analysis reveals energy peaks at 50 Hz, 100 Hz, 150 Hz, and 250 Hz. What is the source of this fault?",
               "answers": [
                 {
-                  "text": "UK mains operates at 50 Hz, while US mains operates at 60 Hz",
+                  "text": "UK mains power operates at 50 Hz",
                   "is_true": "yes"
                 },
                 {
-                  "text": "UK mains operates at 60 Hz, while US mains operates at 50 Hz",
+                  "text": "US mains power operates at 50 Hz",
                   "is_true": "no"
                 },
                 {
-                  "text": "Both UK and US mains generate hum at exactly 100 Hz intervals",
+                  "text": "Tape motor speed is set to 50 ips",
                   "is_true": "no"
                 },
                 {
-                  "text": "Mains hum only occurs on wireless microphones and digital optical connections",
+                  "text": "Wireless mics hum at 50 Hz intervals",
                   "is_true": "no"
                 }
               ],
-              "explanation": "<p><strong>Mains Hum Frequency Diagnosis:</strong> Mains electricity in the UK and Europe runs at 50 Hz (cycles per second), whereas in North America it runs at 60 Hz. Transformer and coil induction creates an initial 50 Hz fundamental followed by distinct odd and even harmonics (100 Hz, 150 Hz, 200 Hz, 250 Hz...). Identifying 50 Hz vs 60 Hz immediately reveals geographic power origins.</p>",
+              "explanation": "<p><strong>Expert Explanation:</strong> UK mains electricity runs at 50 Hz (compared to 60 Hz in the US), which induces 50 Hz hum and its harmonics into unshielded audio cables.</p>",
               "expert_quote": {
                 "text": "Restoration engineers always check whether the hum is 50 Hz or 60 Hz before touching a dial. It tells you immediately if the fault was captured in Europe or the US.",
                 "author": "Mark O'Shea, Audio Restoration Specialist"
-              }
+              },
+              "expert_explanation": "UK mains electricity runs at 50 Hz (compared to 60 Hz in the US), which induces 50 Hz hum and its harmonics into unshielded audio cables."
             },
             {
               "title": "Repairing Vocal Plosive (P-Pop) Blasts",
-              "content": "A singer accidentally moved off-axis from the pop shield during a passionate take, producing an explosive low-frequency 'P' plosive blast that clipped the microphone diaphragm. How should this be repaired in the DAW?",
+              "content": "A singer moved off-axis from the pop shield, causing an explosive low-frequency 'P' plosive blast. How should this be repaired in the DAW?",
               "type": "multi_choice",
               "question": "A singer accidentally moved off-axis from the pop shield during a passionate take, producing an explosive low-frequency 'P' plosive blast that clipped the microphone diaphragm. How should this be repaired in the DAW?",
               "answers": [
                 {
-                  "text": "Boost high frequencies above 10 kHz across the entire lead vocal track",
+                  "text": "Boost treble above 10 kHz across the track",
                   "is_true": "no"
                 },
                 {
-                  "text": "Invert the phase polarity of the vocal channel across the whole mix",
+                  "text": "Invert the vocal channel polarity",
                   "is_true": "no"
                 },
                 {
-                  "text": "Automate a high-pass filter or apply targeted spectral editing across the blast",
+                  "text": "Automate a high-pass filter across the blast",
                   "is_true": "yes"
                 },
                 {
-                  "text": "Insert an aggressive brickwall limiter with a 20:1 ratio on the master",
+                  "text": "Insert a 20:1 brickwall limiter on the master",
                   "is_true": "no"
                 }
               ],
-              "explanation": "<p><strong>Plosive Blast Repair:</strong> Plosives ('P' and 'B' consonants) project a high-velocity blast of air that physically buffets the microphone diaphragm, producing huge subsonic bursts of energy below 100 Hz. Automating a high-pass filter to engage exclusively during the 30–50 ms plosive transient eliminates the subsonic thud without thinning out the body of the singer's voice on surrounding words.</p>",
+              "explanation": "<p><strong>Expert Explanation:</strong> Automating a high-pass filter (e.g. 100–150 Hz) or using spectral editing solely over the plosive removes the sub-bass thump without thinning the rest of the vocal.</p>",
               "expert_quote": {
                 "text": "Never leave a permanent 150 Hz high-pass filter on a vocal just to fix three plosives. Automate the filter or use spectral editing to surgically remove only the blast.",
                 "author": "Mike Senior"
-              }
+              },
+              "expert_explanation": "Automating a high-pass filter (e.g. 100–150 Hz) or using spectral editing solely over the plosive removes the sub-bass thump without thinning the rest of the vocal."
             },
             {
               "title": "Phase Inversion on Snare Drum Top and Bottom Microphones",
-              "content": "A recording engineer places a Shure SM57 pointing down at the top snare head, and a second mic pointing up at the snare wires on the bottom head. When both mics are brought up in the mix, the snare loses all low-end punch and sounds hollow. Why?",
+              "content": "Top and bottom snare mics are both brought up in the mix, but the snare sounds hollow and loses low-end punch. What is the fix?",
               "type": "multi_choice",
               "question": "A recording engineer places a Shure SM57 pointing down at the top snare head, and a second mic pointing up at the snare wires on the bottom head. When both mics are brought up in the mix, the snare loses all low-end punch and sounds hollow. Why?",
               "answers": [
                 {
-                  "text": "Increase phantom power (+48V) to boost the bottom microphone signal level",
+                  "text": "Switch on +48V phantom power on both channels",
                   "is_true": "no"
                 },
                 {
-                  "text": "Invert the polarity switch (Ø) on the bottom snare microphone preamp",
+                  "text": "Invert polarity (Ø) on the bottom snare mic",
                   "is_true": "yes"
                 },
                 {
-                  "text": "Turn down the top microphone gain to stop overloading the converters",
+                  "text": "Lower the top snare mic preamp gain",
                   "is_true": "no"
                 },
                 {
-                  "text": "Replace both microphones because snare drums cannot be double-miced in studios",
+                  "text": "Pan both snare mics hard left and right",
                   "is_true": "no"
                 }
               ],
-              "explanation": "<p><strong>Snare Phase Inversion:</strong> When the drumstick strikes the top snare head, the skin moves downward (away from the top mic). This compresses the air inside the shell, forcing the bottom skin to push downward (toward the bottom mic). Because the diaphragms point at each other in opposite directions, the resulting electrical voltages are 180 degrees out of phase, destructively cancelling low-end body (150--250 Hz). Flipping the bottom mic's polarity (Ø) restores full low-end punch.</p>",
+              "explanation": "<p><strong>Expert Explanation:</strong> Because top and bottom mics face opposite directions, their waveforms are 180° out of phase. Inverting polarity (Ø) on the bottom mic restores punchy low end.</p>",
               "expert_quote": {
                 "text": "Checking polarity between top and bottom snare mics is rule number one of drum recording. Hit the phase button; whichever setting has more low end is the correct one.",
                 "author": "Sylvia Massy, Producer (Tool, Prince, Johnny Cash)"
-              }
+              },
+              "expert_explanation": "Because top and bottom mics face opposite directions, their waveforms are 180° out of phase. Inverting polarity (Ø) on the bottom mic restores punchy low end."
             },
             {
               "title": "Zero-Crossing Splice Clicks",
-              "content": "While compiling ('comping') multiple acoustic guitar takes in a DAW, loud audible clicks and ticks occur at every edit boundary. What is the cause of these clicks, and what is the standard professional solution?",
+              "content": "While comping acoustic guitar takes in a DAW, audible clicks occur at every edit boundary. What is the standard solution?",
               "type": "multi_choice",
               "question": "While compiling ('comping') multiple acoustic guitar takes in a DAW, loud audible clicks and ticks occur at every edit boundary. What is the cause of these clicks, and what is the standard professional solution?",
               "answers": [
                 {
-                  "text": "Increase the audio interface buffer size setting in the DAW preferences",
+                  "text": "Increase the audio interface buffer size",
                   "is_true": "no"
                 },
                 {
-                  "text": "Change the session bit depth from 24-bit to 32-bit floating point",
+                  "text": "Convert the session to 32-bit float",
                   "is_true": "no"
                 },
                 {
-                  "text": "Re-tune the guitar strings to prevent digital clock synchronization errors",
+                  "text": "Re-tune the guitar to fix digital clocking",
                   "is_true": "no"
                 },
                 {
-                  "text": "Apply short crossfades or slice audio strictly at zero-crossing points",
+                  "text": "Apply short crossfades or cut at zero-crossings",
                   "is_true": "yes"
                 }
               ],
-              "explanation": "<p><strong>Zero-Crossing DC Discontinuity:</strong> If an audio region is cut when the waveform is at +0.5V and spliced to a region starting at -0.4V, the speaker cone is commanded to jump instantaneously across a 0.9V gap in zero time (0 ms). This infinite rate of voltage change produces an audible high-frequency transient click. Applying micro-crossfades (2--5 ms) smooths the voltage across the splice.</p>",
+              "explanation": "<p><strong>Expert Explanation:</strong> Splicing audio mid-waveform creates an instant amplitude jump that clicks. Cutting at zero-crossing points and adding short crossfades (5–10 ms) ensures smooth transitions.</p>",
               "expert_quote": {
                 "text": "Every edit without a crossfade is a click waiting to happen on high-end monitors. Make batch crossfades part of your muscle memory.",
                 "author": "Bobby Owsinski"
-              }
+              },
+              "expert_explanation": "Splicing audio mid-waveform creates an instant amplitude jump that clicks. Cutting at zero-crossing points and adding short crossfades (5–10 ms) ensures smooth transitions."
             },
             {
               "title": "Buffer Underrun / Audio Dropout Clicks vs Tape Dropouts",
-              "content": "During a heavy multitrack mixing session, periodic sputtering clicks and momentary gaps in sound occur during playback. The CPU meter is hovering near 100%. What is this defect?",
+              "content": "During a heavy multitrack mix with the CPU meter near 100%, playback suffers sputtering clicks and momentary gaps. What is this fault?",
               "type": "multi_choice",
               "question": "During a heavy multitrack mixing session, periodic sputtering clicks and momentary gaps in sound occur during playback. The CPU meter is hovering near 100%. What is this defect?",
               "answers": [
                 {
-                  "text": "Buffer clicks add warm analogue saturation; tape dropouts add digital square distortion",
+                  "text": "Analogue tape saturation",
                   "is_true": "no"
                 },
                 {
-                  "text": "Buffer clicks are sharp digital dropouts; tape dropouts are momentary mutes",
+                  "text": "CPU buffer underrun / audio dropout",
                   "is_true": "yes"
                 },
                 {
-                  "text": "Buffer clicks happen on tape reels; tape dropouts happen inside computer RAM",
+                  "text": "Tape head azimuth misalignment",
                   "is_true": "no"
                 },
                 {
-                  "text": "Both faults produce identical pink noise bursts across stereo monitor speakers",
+                  "text": "DC offset from a faulty condenser mic",
                   "is_true": "no"
                 }
               ],
-              "explanation": "<p><strong>Buffer Underruns:</strong> When running numerous CPU-heavy virtual instruments and convolution reverbs at low buffer sizes (e.g. 64 samples = 1.3 ms), the computer processor cannot deliver processed audio frames before the soundcard hardware buffer runs dry. The resulting momentary silence produces harsh digital clicks and dropouts. Increasing buffer size gives the CPU more time to render audio.</p>",
+              "explanation": "<p><strong>Expert Explanation:</strong> When the CPU cannot process audio plugins fast enough for the buffer size, a buffer underrun occurs, causing sharp digital clicks and dropouts.</p>",
               "expert_quote": {
                 "text": "Low buffer sizes are for tracking with zero latency; high buffer sizes are for mixing with unlimited plugins.",
                 "author": "Paul White, Sound On Sound"
-              }
+              },
+              "expert_explanation": "When the CPU cannot process audio plugins fast enough for the buffer size, a buffer underrun occurs, causing sharp digital clicks and dropouts."
             },
             {
               "title": "Severe Sibilance Restoration (Frequency-Conscious De-Essing)",
-              "content": "A condenser microphone with a pronounced high-frequency boost creates harsh, piercing 'S' and 'SH' sibilance on a female vocal whenever she sings words like 'sunshine' or 'sister'. Which tool and frequency target should be deployed?",
+              "content": "A bright condenser mic causes harsh, piercing 'S' and 'SH' sibilance on a lead vocal. Which tool and frequency range should be used?",
               "type": "multi_choice",
               "question": "A condenser microphone with a pronounced high-frequency boost creates harsh, piercing 'S' and 'SH' sibilance on a female vocal whenever she sings words like 'sunshine' or 'sister'. Which tool and frequency target should be deployed?",
               "answers": [
                 {
-                  "text": "Use a de-esser to compress harsh frequencies between 5 kHz and 8 kHz",
+                  "text": "A de-esser targeting 5 kHz to 8 kHz",
                   "is_true": "yes"
                 },
                 {
-                  "text": "Engage a steep high-pass filter to cut frequencies below 100 Hz completely",
+                  "text": "A steep high-pass filter at 100 Hz",
                   "is_true": "no"
                 },
                 {
-                  "text": "Apply heavy tape flanging to disguise consonant sibilance across the song",
+                  "text": "Heavy tape flanging across the chorus",
                   "is_true": "no"
                 },
                 {
-                  "text": "Invert the channel polarity to cancel out treble frequencies in the mix",
+                  "text": "Polarity inversion on the vocal bus",
                   "is_true": "no"
                 }
               ],
-              "explanation": "<p><strong>De-Essing Sibilance:</strong> Sibilance energy concentrated in human speech ('S', 'T', 'Z', 'SH') sits primarily between <strong>5 kHz and 8.5 kHz</strong>. A De-Esser uses a bandpass sidechain filter tuned to this specific frequency pocket. When sibilance occurs, the compressor ducks only that narrow band (split-band mode) or pulls down the vocal volume momentarily, preventing ear fatigue.</p>",
+              "explanation": "<p><strong>Expert Explanation:</strong> A de-esser acts as a frequency-conscious compressor, attenuating harsh sibilant consonants specifically in the 5 kHz–8 kHz range without dulling the whole vocal.</p>",
               "expert_quote": {
                 "text": "Over-de-essing turns your singer into Daffy Duck with a lisp; under-de-essing rips the listener's eardrums out at high volume. Find the exact resonance frequency first.",
                 "author": "Chris Lord-Alge"
-              }
+              },
+              "expert_explanation": "A de-esser acts as a frequency-conscious compressor, attenuating harsh sibilant consonants specifically in the 5 kHz–8 kHz range without dulling the whole vocal."
             },
             {
               "title": "Digital Clipping De-Clipping Restoration",
-              "content": "An irreplaceable live vocal take clipped the audio interface A/D converter during a climactic chorus, flat-topping the waveform peaks at 0 dBFS. What digital restoration algorithm can best reconstruct the sheared peaks?",
+              "content": "An irreplaceable live vocal take clipped the A/D converter, flat-topping waveform peaks at 0 dBFS. Which tool can best reconstruct the peaks?",
               "type": "multi_choice",
               "question": "An irreplaceable live vocal take clipped the audio interface A/D converter during a climactic chorus, flat-topping the waveform peaks at 0 dBFS. What digital restoration algorithm can best reconstruct the sheared peaks?",
               "answers": [
                 {
-                  "text": "Boost low frequencies with a graphic equalizer to hide digital distortion",
+                  "text": "A graphic equaliser boosting sub-bass",
                   "is_true": "no"
                 },
                 {
-                  "text": "Apply a noise gate to mute all quiet background vocal phrases automatically",
+                  "text": "A noise gate set to -20 dB",
                   "is_true": "no"
                 },
                 {
-                  "text": "Use a de-clipper plugin to reconstruct the clipped peaks using interpolation",
+                  "text": "A de-clipper using waveform interpolation",
                   "is_true": "yes"
                 },
                 {
-                  "text": "Duplicate the audio track and pan each copy hard left and right",
+                  "text": "Duplicating and hard-panning the track",
                   "is_true": "no"
                 }
               ],
-              "explanation": "<p><strong>De-Clipping Mathematics:</strong> When digital clipping occurs, the waveform peak is sliced flat. Dedicated restoration suites (e.g. iZotope RX De-clip) analyze the curvature (derivative and trajectory) of the waveform immediately before and after the flat-top, calculating polynomial interpolation curves to redraw the missing harmonic peak and pulling down overall level to prevent re-clipping.</p>",
+              "explanation": "<p><strong>Expert Explanation:</strong> A de-clipper analyses the slope entering and leaving a flat-topped 0 dBFS peak and interpolates a smooth, rounded waveform to reduce harsh clipping distortion.</p>",
               "expert_quote": {
                 "text": "De-clippers are modern miracles for live archival recordings, but prevention is always superior. Never track without at least 12 dB of headroom.",
                 "author": "Mark Waldrep, Audio Engineer & Author"
-              }
+              },
+              "expert_explanation": "A de-clipper analyses the slope entering and leaving a flat-topped 0 dBFS peak and interpolates a smooth, rounded waveform to reduce harsh clipping distortion."
             },
             {
               "title": "Time-Stretch Transient Smearing Artifacts",
-              "content": "When an acoustic drum loop is slowed down from 140 BPM to 110 BPM using a complex polyphonic time-stretching algorithm, the snare and kick transients sound smeared, flanged, and doubled. What algorithm setting should be chosen instead?",
+              "content": "When slowing a drum loop from 140 BPM to 110 BPM using a polyphonic time-stretch mode, transients sound smeared and flanged. What should you switch to?",
               "type": "multi_choice",
               "question": "When an acoustic drum loop is slowed down from 140 BPM to 110 BPM using a complex polyphonic time-stretching algorithm, the snare and kick transients sound smeared, flanged, and doubled. What algorithm setting should be chosen instead?",
               "answers": [
                 {
-                  "text": "Export the audio recording as a low-bitrate MP3 at 128 kbps",
+                  "text": "Export the loop as a 128 kbps MP3",
                   "is_true": "no"
                 },
                 {
-                  "text": "Lower the master fader volume until the flamming artifact disappears completely",
+                  "text": "Lower the master fader volume",
                   "is_true": "no"
                 },
                 {
-                  "text": "Turn off all equalizer and compressor plugins loaded on drum tracks",
+                  "text": "Bypass all drum equalisers and compressors",
                   "is_true": "no"
                 },
                 {
-                  "text": "Switch the time-stretch algorithm to a rhythmic or percussive slicing mode",
+                  "text": "A rhythmic or percussive slicing mode",
                   "is_true": "yes"
                 }
               ],
-              "explanation": "<p><strong>Time-Stretch Algorithm Selection:</strong> Polyphonic and complex granular algorithms use spectral phase vocoders that treat all audio as continuous sine waves, introducing phase smearing across sharp transients. In contrast, 'Percussive / Slice' modes (e.g. Ableton Live 'Beats Mode' or Logic Pro 'Flex Rhythmic') detect transients and leave their attacks completely un-stretched, stretching only the ambient room decay between hits.</p>",
+              "explanation": "<p><strong>Expert Explanation:</strong> Polyphonic modes smear percussive attacks. Switching to a rhythmic or slicing mode preserves crisp kick and snare transients at the new tempo.</p>",
               "expert_quote": {
                 "text": "Using polyphonic stretch on a drum loop is like smearing grease over a sharp photograph. Always use transient-based slice stretching for drums.",
                 "author": "Henk Baan, DSP Algorithm Designer"
-              }
+              },
+              "expert_explanation": "Polyphonic modes smear percussive attacks. Switching to a rhythmic or slicing mode preserves crisp kick and snare transients at the new tempo."
             },
             {
               "title": "Low Recording Levels & Signal-to-Noise Ratio (SNR)",
-              "content": "If an audio signal is recorded with an excessively low input level into an audio interface (e.g. peaking at -36 dBFS), what technical issue will occur when the track is gained up in the DAW mix?",
+              "content": "If an audio track is recorded too quietly (peaking at -36 dBFS), what technical issue occurs when you turn it up in the mix?",
               "type": "multi_choice",
               "question": "If an audio signal is recorded with an excessively low input level into an audio interface (e.g. peaking at -36 dBFS), what technical issue will occur when the track is gained up in the DAW mix?",
               "answers": [
                 {
-                  "text": "The digital clock synchronization will drift and pitch down the recording",
+                  "text": "The digital clock drifts and lowers pitch",
                   "is_true": "no"
                 },
                 {
-                  "text": "Raising the volume later boosts preamp hiss and background room noise",
+                  "text": "Raising the level boosts preamp hiss and noise",
                   "is_true": "yes"
                 },
                 {
-                  "text": "The DAW will automatically mute the track to protect monitor speakers",
+                  "text": "The DAW automatically mutes the channel",
                   "is_true": "no"
                 },
                 {
-                  "text": "The audio interface converters will introduce severe digital clipping distortion on peaks",
+                  "text": "The converters add severe digital clipping",
                   "is_true": "no"
                 }
               ],
-              "explanation": "<p><strong>Signal-to-Noise Ratio (SNR):</strong> Proper gain staging requires recording signals at healthy levels (typically peaking between -18 dBFS and -12 dBFS). If a track is recorded too quietly, boosting its level in the mix also amplifies the microphone preamp noise floor and background hiss, resulting in a poor Signal-to-Noise Ratio.</p>",
+              "explanation": "<p><strong>Expert Explanation:</strong> Recording too quietly gives a poor signal-to-noise ratio (SNR). Boosting the gain later raises the unwanted preamp hiss and room noise alongside the instrument.</p>",
               "expert_quote": {
                 "text": "Record hot enough to stay comfortably above the noise floor, but low enough to guarantee safe headroom away from 0 dBFS clipping.",
                 "author": "Mike Senior, Sound On Sound"
               },
-              "img": "/images/mic_vs_line_level.svg"
+              "img": "/images/mic_vs_line_level.svg",
+              "expert_explanation": "Recording too quietly gives a poor signal-to-noise ratio (SNR). Boosting the gain later raises the unwanted preamp hiss and room noise alongside the instrument."
             },
             {
               "title": "Acoustic Drum Spill / Bleed Gate Chatter",
-              "content": "A noise gate inserted on a floor tom mic rapidly flutters open and closed during cymbal crashes, producing ragged chattering noise. What parameter adjustments on the gate will cure this defect?",
+              "content": "A noise gate on a floor tom mic rapidly chatters open and closed during cymbal crashes. What adjustment will cure this?",
               "type": "multi_choice",
               "question": "A noise gate inserted on a floor tom mic rapidly flutters open and closed during cymbal crashes, producing ragged chattering noise. What parameter adjustments on the gate will cure this defect?",
               "answers": [
                 {
-                  "text": "Increase the hold and release times or adjust the gate hysteresis",
+                  "text": "Increase hold, release, or hysteresis",
                   "is_true": "yes"
                 },
                 {
-                  "text": "Set the gate attack time to 500 milliseconds on the tom",
+                  "text": "Set attack time to 500 milliseconds",
                   "is_true": "no"
                 },
                 {
-                  "text": "Reverse the stereo panning of the tom from right to left",
+                  "text": "Reverse the stereo panning of the tom",
                   "is_true": "no"
                 },
                 {
-                  "text": "Turn off phantom power on the mixing console microphone preamplifier channel",
+                  "text": "Turn off +48V phantom power on the mic",
                   "is_true": "no"
                 }
               ],
-              "explanation": "<p><strong>Noise Gate Chatter Remedy:</strong> Gate chatter occurs when ambient cymbal bleed fluctuates right around the threshold voltage, rapidly toggling the gate. Setting a Frequency-Conscious Sidechain Filter restricts the gate's detector strictly to the tom's fundamental frequency (80--150 Hz). Increasing the <strong>Hold</strong> parameter ensures the gate stays solidly open for the full decay before closing smoothly via the Release.</p>",
+              "explanation": "<p><strong>Expert Explanation:</strong> Chattering happens when audio hovers near the threshold. Increasing hold/release or setting hysteresis (separate open and close thresholds) stops rapid fluttering.</p>",
               "expert_quote": {
                 "text": "A chattering noise gate will ruin a drum take faster than bad tuning. Key the sidechain to the drum fundamental and let the hold time breathe.",
                 "author": "Andy Wallace"
-              }
+              },
+              "expert_explanation": "Chattering happens when audio hovers near the threshold. Increasing hold/release or setting hysteresis (separate open and close thresholds) stops rapid fluttering."
             },
             {
               "title": "Acoustic Guitar Finger Squeaks Restoration",
-              "content": "A nylon/steel acoustic guitar recording has beautiful tone, but loud high-frequency finger slide squeaks (between 2.5 kHz and 4.5 kHz) distract between chord transitions. What is the most transparent restoration method?",
+              "content": "An acoustic guitar track has loud finger-slide squeaks (2.5 kHz–4.5 kHz) between chords. What is the most transparent fix?",
               "type": "multi_choice",
               "question": "A nylon/steel acoustic guitar recording has beautiful tone, but loud high-frequency finger slide squeaks (between 2.5 kHz and 4.5 kHz) distract between chord transitions. What is the most transparent restoration method?",
               "answers": [
                 {
-                  "text": "Apply heavy analogue distortion to mask the sound of pick attacks",
+                  "text": "Add heavy analogue distortion to mask them",
                   "is_true": "no"
                 },
                 {
-                  "text": "Engage a 24 dB low-pass filter at fifty hertz on guitars",
+                  "text": "Engage a 24 dB low-pass filter at 50 Hz",
                   "is_true": "no"
                 },
                 {
-                  "text": "Use a de-clicker or manual volume automation to soften the clicks",
+                  "text": "Use spectral repair or volume automation",
                   "is_true": "yes"
                 },
                 {
-                  "text": "Reverse the audio region so the guitar notes play backwards smoothly",
+                  "text": "Reverse the audio region in the DAW",
                   "is_true": "no"
                 }
               ],
-              "explanation": "<p><strong>Taming String Squeaks:</strong> Squeaks are high-energy friction bursts occurring between 2.5 kHz and 5 kHz. A static EQ cut in this range permanently deadens the acoustic guitar's presence. Spectral editing allows the engineer to draw a marquee around the squeak burst and attenuate it by 6–10 dB, leaving the surrounding chord decay pristine.</p>",
+              "explanation": "<p><strong>Expert Explanation:</strong> Targeted volume automation or spectral editing attenuates only the brief squeak frequencies without dulling the natural brightness of the guitar strings.</p>",
               "expert_quote": {
                 "text": "Don't remove string squeaks completely—they convey acoustic authenticity. Just attenuate them so they don't poke the listener in the eye.",
                 "author": "Al Schmitt"
-              }
+              },
+              "expert_explanation": "Targeted volume automation or spectral editing attenuates only the brief squeak frequencies without dulling the natural brightness of the guitar strings."
             },
             {
               "title": "Stereo Cassette Tape Azimuth Misalignment",
-              "content": "A cassette tape from 1985 sounds bright and punchy in stereo, but when summed to mono, high frequencies completely vanish into muffled, hollow comb filtering. What mechanical fault on the tape machine caused this?",
+              "content": "A 1985 cassette tape sounds bright in stereo, but loses high frequencies to hollow comb filtering when summed to mono. What caused this?",
               "type": "multi_choice",
               "question": "A cassette tape from 1985 sounds bright and punchy in stereo, but when summed to mono, high frequencies completely vanish into muffled, hollow comb filtering. What mechanical fault on the tape machine caused this?",
               "answers": [
                 {
-                  "text": "Cut the safety ground pin off the studio monitor electrical plug",
+                  "text": "A faulty USB hub on the audio interface",
                   "is_true": "no"
                 },
                 {
-                  "text": "Add more USB hubs between the audio interface and the computer",
+                  "text": "Mains hum from an ungrounded monitor plug",
                   "is_true": "no"
                 },
                 {
-                  "text": "Turn up the input gain to drown out the background whistle",
+                  "text": "Digital quantisation error at 24-bit",
                   "is_true": "no"
                 },
                 {
-                  "text": "Use an isolator box or notch out the specific whistle frequency",
+                  "text": "Tape head azimuth misalignment",
                   "is_true": "yes"
                 }
               ],
-              "explanation": "<p><strong>Tape Azimuth Misalignment:</strong> Azimuth refers to the 90-degree perpendicular angle of the tape head gap relative to the tape direction. If the head is misaligned by even a fraction of a degree, one stereo channel reads the waveform micro-fractions of a millisecond earlier than the other. In stereo this sounds wide, but in mono the timing discrepancy causes devastating high-frequency phase cancellation.</p>",
+              "explanation": "<p><strong>Expert Explanation:</strong> Azimuth misalignment tilts the tape playback head relative to the tape, creating a slight time delay between left and right channels that causes high-frequency phase cancellation in mono.</p>",
               "expert_quote": {
                 "text": "Before digitizing any archival cassette or reel-to-reel tape, align the azimuth screw while monitoring in mono for maximum high-frequency clarity.",
                 "author": "Richard Hess, Tape Restoration Specialist"
-              }
+              },
+              "expert_explanation": "Azimuth misalignment tilts the tape playback head relative to the tape, creating a slight time delay between left and right channels that causes high-frequency phase cancellation in mono."
             }
           ]
         },
