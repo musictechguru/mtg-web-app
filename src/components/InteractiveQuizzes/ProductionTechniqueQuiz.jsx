@@ -94,14 +94,14 @@ const quizData = [
     },
     {
         category: "Drum Processing",
-        scenario: "Your 808 kick drum has plenty of deep sub, but it absolutely disappears on phone speakers. You need it to punch through the mix.",
+        scenario: "Your 808 kick drum has plenty of deep sub, but it disappears on phone speakers. How do you make it audible on small speakers?",
         options: [
-            { text: "Layered kick drum (sub + punch + click)", correct: true },
+            { text: "Add harmonics through saturation", correct: true },
             { text: "Percussion bus compression glue", correct: false },
             { text: "Clap stacking with reverb", correct: false },
             { text: "Multiband sidechain", correct: false }
         ],
-        explanation: "Layering involves combining a deep sub kick with a mid-range punch kick and a high-frequency 'click' top kick, ensuring the hit is heard across all speaker systems."
+        explanation: "Applying saturation generates upper harmonic frequencies above the sub-bass fundamental, allowing the 808 to be heard clearly on small phone speakers."
     },
     {
         category: "Transition Effects",
