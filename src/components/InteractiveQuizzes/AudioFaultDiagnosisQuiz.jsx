@@ -355,7 +355,7 @@ export default function AudioFaultDiagnosisQuiz({ question, onResult }) {
                         }}
                     >
                         {isPlayingClean ? <Square size={16} /> : <Volume2 size={16} />}
-                        {isPlayingClean ? 'Stop Clean Audio' : 'Play Clean Reference'}
+                        {isPlayingClean ? 'Stop Clean Audio' : 'Play Clean Audio'}
                     </button>
                 </div>
             </div>
