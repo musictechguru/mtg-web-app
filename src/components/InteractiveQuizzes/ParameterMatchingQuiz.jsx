@@ -17,7 +17,8 @@ export default function ParameterMatchingQuiz({
     unit = 'Hz'
 }) {
     // State
-    const [values, setValues] = useState([min]);
+    const initialVal = (label && label.toLowerCase().includes('gate attack')) ? Math.round((min + max) / 2) : min;
+    const [values, setValues] = useState([initialVal]);
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [isCorrect, setIsCorrect] = useState(false);
     const [isLocalModalOpen, setIsLocalModalOpen] = useState(false);
@@ -222,34 +223,46 @@ export default function ParameterMatchingQuiz({
                     </div>
                     <svg viewBox="0 0 600 200" style={{ width: '100%', height: 'auto', display: 'block' }}>
                         <line x1="40" y1="165" x2="570" y2="165" stroke="rgba(255,255,255,0.2)" strokeWidth="1" />
-                        {/* Original Snare Transient Outline */}
+                        {/* Horizontal Threshold Line */}
+                        <line x1="40" y1="115" x2="570" y2="115" stroke="#f43f5e" strokeWidth="1.5" strokeDasharray="5,4" />
+                        <text x="565" y="109" fill="#f43f5e" fontSize="10" textAnchor="end" fontWeight="bold">Threshold</text>
+
+                        {/* Original Transient Outline */}
                         <polyline
-                            points="80,165 130,30 180,95 300,145 480,165"
-                            fill="none"
-                            stroke="rgba(148, 163, 184, 0.35)"
+                            points="80,165 110,30 180,95 300,145 480,165"
+                            fill="rgba(56, 189, 248, 0.1)"
+                            stroke="rgba(56, 189, 248, 0.4)"
                             strokeWidth="2"
                             strokeDasharray="4,4"
                         />
-                        {/* Gated Snare Output based on Attack Time */}
+
+                        {/* Attack Ramp Triangle & Resulting Output */}
                         {(() => {
-                            const rampX = 130 + (values[0] / 50) * 140;
-                            const peakY = 30 + (values[0] / 50) * 85;
+                            const rampX = 110 + (values[0] / max) * 180;
+                            const peakY = 30 + (values[0] / max) * 90;
                             return (
                                 <>
+                                    {/* Angled Attack Triangle */}
+                                    <polygon
+                                        points={`80,165 ${rampX},30 ${rampX},165`}
+                                        fill="rgba(244, 63, 94, 0.16)"
+                                        stroke="#f43f5e"
+                                        strokeWidth="2"
+                                    />
+                                    {/* Resulting Gated Output */}
                                     <polyline
-                                        points={`80,165 ${rampX},${peakY} 220,${Math.max(peakY, 110)} 300,145 480,165`}
-                                        fill="rgba(56, 189, 248, 0.18)"
+                                        points={`80,165 ${rampX},${peakY} 240,${Math.max(peakY, 115)} 300,145 480,165`}
+                                        fill="rgba(56, 189, 248, 0.2)"
                                         stroke="#38bdf8"
                                         strokeWidth="3"
                                     />
-                                    <line x1="130" y1="20" x2="130" y2="165" stroke="#fbbf24" strokeWidth="1.5" strokeDasharray="3,3" />
-                                    <text x="130" y="15" fill="#fbbf24" fontSize="10" textAnchor="middle" fontWeight="bold">Snare Hit</text>
-                                    <line x1={rampX} y1="20" x2={rampX} y2="165" stroke="#f43f5e" strokeWidth="1.5" />
-                                    <text x={rampX + 5} y="30" fill="#f43f5e" fontSize="10" fontWeight="bold">Gate Open ({values[0]} ms)</text>
+                                    <line x1="110" y1="20" x2="110" y2="165" stroke="#fbbf24" strokeWidth="1.5" strokeDasharray="3,3" />
+                                    <text x="110" y="15" fill="#fbbf24" fontSize="10" textAnchor="middle" fontWeight="bold">Transient Peak</text>
+                                    <text x={rampX + 8} y="34" fill="#f43f5e" fontSize="10" fontWeight="bold">Attack ({values[0]} ms)</text>
                                 </>
                             );
                         })()}
-                        <text x="300" y="188" fill="#64748b" fontSize="10" textAnchor="middle">Time (ms) — Fast attack preserves the initial drum transient</text>
+                        <text x="300" y="188" fill="#64748b" fontSize="10" textAnchor="middle">Time (ms) — Fast attack (steep ramp) preserves the front transient</text>
                     </svg>
                 </div>
             ) : isGateHold ? (
