@@ -2558,33 +2558,37 @@
               "content": "How does a narrow pulse wave sound compared to a standard square wave?",
               "answers": [
                 {
-                  "text": "A pulse wave sounds smooth and warm, while a square wave sounds harsh and aggressive",
+                  "text": "Smooth and warm vs harsh and aggressive",
                   "is_true": "no"
                 },
                 {
-                  "text": "A pulse wave has only odd harmonics, while a square wave contains every harmonic series",
+                  "text": "Only odd harmonics vs every harmonic",
                   "is_true": "no"
                 },
                 {
-                  "text": "A pulse wave is much lower in pitch, while a square wave sounds an octave higher",
+                  "text": "One octave lower vs one octave higher",
                   "is_true": "no"
                 },
                 {
-                  "text": "A pulse wave sounds thin and nasal, while a square wave sounds hollow and woody",
+                  "text": "Thin and nasal vs hollow and woody",
                   "is_true": "yes"
                 }
               ],
-              "expert_explanation": "In synthesizer sound design, waveforms are chosen for their musical acoustic analogies: A Square Wave (symmetrical 50% duty cycle) cancels all even harmonics, leaving only odd harmonics (1st, 3rd, 5th...). Acoustically, this mimics cylindrical woodwinds like the clarinet, producing a hollow, warm, and woody tone. A Pulse Wave (narrow duty cycle, e.g. 10%–25%) introduces even harmonics alongside odd harmonics, creating a sharp, nasal, reedy bite reminiscent of an oboe, bassoon, or pinched clavinet.",
+              "expert_explanation": "A 50% square wave contains only odd harmonics, giving a hollow, woody tone. Narrowing the pulse width introduces even harmonics for a thinner, nasal, reedy sound.",
               "expert_quote": {
                 "text": "A square wave gives you the hollow woody tones of a clarinet; narrowing that pulse introduces even harmonics that buzz with the nasal bite of an oboe.",
                 "author": "Sound on Sound Synth Secrets"
               },
               "img": "/images/svg/pulse_duty_cycle_diagram.svg",
-              "explanation": "<img src=\"/images/svg/pulse_duty_cycle_diagram.svg\" alt=\"Comparison of Pulse Waves (25% and 10% Duty - Nasal/Reedy) and Square Wave (50% Duty - Hollow/Woody)\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> In synthesizer sound design, waveforms are chosen for their musical acoustic analogies: A <strong>Square Wave (symmetrical 50% duty cycle)</strong> cancels all even harmonics, leaving only odd harmonics (1st, 3rd, 5th...). Acoustically, this mimics cylindrical woodwinds like the clarinet, producing a <strong>hollow, warm, and woody</strong> tone. A <strong>Pulse Wave (narrow duty cycle, e.g. 10%–25%)</strong> introduces even harmonics alongside odd harmonics, creating a <strong>sharp, nasal, reedy</strong> bite reminiscent of an oboe, bassoon, or pinched clavinet.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"A square wave gives you the hollow woody tones of a clarinet; narrowing that pulse introduces even harmonics that buzz with the nasal bite of an oboe.\"<br/><strong>- Sound on Sound Synth Secrets</strong></blockquote>"
+              "explanation": "<img src=\"/images/svg/pulse_duty_cycle_diagram.svg\" alt=\"Q11: Pulse vs Square Wave Timbre\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> A 50% square wave contains only odd harmonics, giving a hollow, woody tone. Narrowing the pulse width introduces even harmonics for a thinner, nasal, reedy sound.</p>",
+              "explanation_image": {
+                "src": "/images/svg/pulse_duty_cycle_diagram.svg",
+                "alt": "Q11: Pulse vs Square Wave Timbre"
+              }
             },
             {
-              "title": "Practical Listening: Sawtooth Wave Timbre",
-              "content": "Listen to the audio clip. Which fundamental waveform is playing? (Tip: It has a bright, buzzy sound containing all odd and even harmonics, ideal for synth brass and leads.)",
+              "title": "Practical Listening: Bright Harmonic Waveform",
+              "content": "Listen to the synthesiser tone and pick the bright, buzzy waveform containing both odd and even harmonics.",
               "type": "waveform_id",
               "audio_src": "/Audio/Waveforms/Sawtooth Wave.mp3",
               "options": [
@@ -2594,42 +2598,51 @@
                 "Triangle Wave"
               ],
               "correct_option": "Sawtooth Wave",
-              "explanation": "<p><strong>Sawtooth Wave:</strong> The sawtooth wave contains ALL integer harmonics (both odd and even) falling off at 1/n amplitude. This creates a bright, buzzy, and aggressive timbre that gives subtractive filters maximum frequency material to sculpt.</p>",
+              "explanation": "<img src=\"/images/svg/frequency_spectrum_treble.svg\" alt=\"Practical Listening: Bright Harmonic Waveform\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> A sawtooth wave contains every integer harmonic (both odd and even), creating a bright, buzzy sound ideal for synth brass, strings, and leads.</p>",
               "expert_quote": {
-                "text": "For fat lead sounds, synth brass, and classic analog bass, the sawtooth wave remains the undisputed king of subtractive synthesis.",
+                "text": "For fat lead sounds, synth brass, and classic analogue bass, the sawtooth wave remains the undisputed king of subtractive synthesis.",
                 "author": "Dave Smith, Designer of the Prophet-5 & Co-Creator of MIDI"
               },
-              "img": "/images/svg/frequency_spectrum_treble.svg"
+              "img": "/images/svg/frequency_spectrum_treble.svg",
+              "expert_explanation": "A sawtooth wave contains every integer harmonic (both odd and even), creating a bright, buzzy sound ideal for synth brass, strings, and leads.",
+              "explanation_image": {
+                "src": "/images/svg/frequency_spectrum_treble.svg",
+                "alt": "Practical Listening: Bright Harmonic Waveform"
+              }
             },
             {
               "title": "Q13: Filter Slopes (12 dB vs 24 dB)",
               "type": "multi_choice",
-              "content": "What is the main difference between a 24 dB/octave filter and a 12 dB/octave filter?",
+              "content": "How does a 24 dB/octave filter differ from a 12 dB/octave filter?",
               "answers": [
                 {
-                  "text": "The 24 dB filter has a steeper slope, cutting unwanted high frequencies much more sharply",
+                  "text": "24 dB has a steeper, sharper frequency cut",
                   "is_true": "yes"
                 },
                 {
-                  "text": "The 24 dB filter has a gentler slope, allowing subtle upper harmonics to remain audible",
+                  "text": "24 dB has a gentler, softer frequency roll-off",
                   "is_true": "no"
                 },
                 {
-                  "text": "The 24 dB filter works on digital synthesizers, while the 12 dB works on analogue",
+                  "text": "24 dB is digital only; 12 dB is analogue only",
                   "is_true": "no"
                 },
                 {
-                  "text": "The 24 dB filter boosts low bass frequencies, while the 12 dB cuts high frequencies",
+                  "text": "24 dB boosts bass; 12 dB cuts high frequencies",
                   "is_true": "no"
                 }
               ],
-              "expert_explanation": "The filter slope (or roll-off rate) dictates how aggressively a filter attenuates frequencies beyond its cutoff point: 12 dB/Octave (2-Pole) has a gentle, gradual roll-off (used in the Oberheim SEM and Korg MS-20), letting subtle upper harmonics bleed through for an open, bright, and buzzy character. 24 dB/Octave (4-Pole) has a steep, aggressive roll-off (the legendary Moog transistor ladder filter), rapidly eliminating high frequencies above the cutoff to produce a focused, heavy, and deep low-end punch essential for classic synth bass and thick analogue leads. Each analogue filter 'pole' adds exactly -6 dB per octave of attenuation slope.",
+              "expert_explanation": "A 24 dB/octave (4-pole) filter cuts frequencies above the cutoff twice as steeply as a 12 dB/octave (2-pole) filter, giving a tighter, punchier bass response.",
               "expert_quote": {
                 "text": "The 24dB-per-octave ladder filter is the heart of the Moog sound—it clamps down hard on upper harmonics to give synth bass that unmistakable weight and authority.",
                 "author": "Bob Moog"
               },
               "img": "/images/svg/filter_slopes_diagram.svg",
-              "explanation": "<img src=\"/images/svg/filter_slopes_diagram.svg\" alt=\"Synthesizer Filter Slopes Comparison: -6 dB/oct (1-pole), -12 dB/oct (2-pole), and -24 dB/oct (4-pole Moog ladder)\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> The <strong>filter slope</strong> (or roll-off rate) dictates how aggressively a filter attenuates frequencies beyond its cutoff point: <strong>12 dB/Octave (2-Pole)</strong> has a gentle, gradual roll-off (used in the Oberheim SEM and Korg MS-20), letting subtle upper harmonics bleed through for an open, bright, and buzzy character. <strong>24 dB/Octave (4-Pole)</strong> has a steep, aggressive roll-off (the legendary <strong>Moog transistor ladder filter</strong>), rapidly eliminating high frequencies above the cutoff to produce a focused, heavy, and deep low-end punch essential for classic synth bass and thick analogue leads. Each analogue filter 'pole' adds exactly -6 dB per octave of attenuation slope.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"The 24dB-per-octave ladder filter is the heart of the Moog sound—it clamps down hard on upper harmonics to give synth bass that unmistakable weight and authority.\"<br/><strong>- Bob Moog</strong></blockquote>"
+              "explanation": "<img src=\"/images/svg/filter_slopes_diagram.svg\" alt=\"Q13: Filter Slopes (12 dB vs 24 dB)\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> A 24 dB/octave (4-pole) filter cuts frequencies above the cutoff twice as steeply as a 12 dB/octave (2-pole) filter, giving a tighter, punchier bass response.</p>",
+              "explanation_image": {
+                "src": "/images/svg/filter_slopes_diagram.svg",
+                "alt": "Q13: Filter Slopes (12 dB vs 24 dB)"
+              }
             },
             {
               "title": "Q14: Granular Synthesis Principles",
@@ -2637,75 +2650,83 @@
               "content": "How does granular synthesis manipulate recorded audio?",
               "answers": [
                 {
-                  "text": "It removes unwanted background noise by inverting the phase of harsh digital harmonics",
+                  "text": "Inverts phase to cancel background noise",
                   "is_true": "no"
                 },
                 {
-                  "text": "It splits audio into tiny micro-samples that can be stretched, frozen, or rearranged",
+                  "text": "Splits audio into tiny grains to stretch or freeze",
                   "is_true": "yes"
                 },
                 {
-                  "text": "It tracks incoming audio frequencies and converts them into MIDI notes automatically",
+                  "text": "Converts incoming audio directly into MIDI notes",
                   "is_true": "no"
                 },
                 {
-                  "text": "It restricts sample playback strictly to basic analogue waveforms like square or saw",
+                  "text": "Limits playback strictly to basic square waves",
                   "is_true": "no"
                 }
               ],
-              "expert_explanation": "In traditional tape or simple sampler playback, speed and pitch are permanently linked: slowing down a sample lowers its pitch, while speeding it up raises its pitch. Granular synthesis overcomes this limitation by fragmenting recorded audio into thousands of tiny micro-acoustic snippets called grains (typically 10 to 50 milliseconds long), each smoothed with an amplitude envelope. By manipulating grain playback position, spacing, and density, sound designers can freeze sound in time, scrub through it infinitely, or time-stretch a 1-second vocal sample into a lush 10-minute ambient pad without changing its musical pitch.",
+              "expert_explanation": "Granular synthesis slices a sample into tiny micro-grains (10–100 ms) that can be time-stretched, pitch-shifted, or frozen into evolving ambient pads.",
               "expert_quote": {
                 "text": "Granular synthesis divorces time from pitch—transforming any brief sonic moment into an infinite, evolving landscape.",
                 "author": "Curtis Roads"
               },
               "img": "/images/svg/granular_synthesis_diagram.svg",
-              "explanation": "<img src=\"/images/svg/granular_synthesis_diagram.svg\" alt=\"Granular Synthesis Architecture: Source audio sliced into micro-grains (10-50ms) and reorganized into an ambient cloud with independent time and pitch control\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> In traditional tape or simple sampler playback, speed and pitch are permanently linked: slowing down a sample lowers its pitch, while speeding it up raises its pitch. <strong>Granular synthesis</strong> overcomes this limitation by fragmenting recorded audio into thousands of tiny micro-acoustic snippets called <strong>grains</strong> (typically 10 to 50 milliseconds long), each smoothed with an amplitude envelope. By manipulating grain playback position, spacing, and density, sound designers can freeze sound in time, scrub through it infinitely, or <strong>time-stretch a 1-second vocal sample into a lush 10-minute ambient pad without changing its musical pitch</strong>.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Granular synthesis divorces time from pitch—transforming any brief sonic moment into an infinite, evolving landscape.\"<br/><strong>- Curtis Roads</strong></blockquote>"
+              "explanation": "<img src=\"/images/svg/granular_synthesis_diagram.svg\" alt=\"Q14: Granular Synthesis Principles\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Granular synthesis slices a sample into tiny micro-grains (10–100 ms) that can be time-stretched, pitch-shifted, or frozen into evolving ambient pads.</p>",
+              "explanation_image": {
+                "src": "/images/svg/granular_synthesis_diagram.svg",
+                "alt": "Q14: Granular Synthesis Principles"
+              }
             },
             {
               "title": "Q15: Oscillator Hard Sync",
               "type": "multi_choice",
-              "content": "What happens when you use oscillator sync (hard sync) on a synthesizer?",
+              "content": "What happens when you use oscillator hard sync on a synthesiser?",
               "answers": [
                 {
-                  "text": "Two oscillators are slightly detuned against each other, creating a rich natural chorusing effect",
+                  "text": "Two oscillators detune slightly for chorus",
                   "is_true": "no"
                 },
                 {
-                  "text": "The synth oscillators lock directly to the DAW tempo, keeping note triggers tightly synchronized",
+                  "text": "Oscillators lock strictly to the DAW tempo",
                   "is_true": "no"
                 },
                 {
-                  "text": "One oscillator forces a second oscillator to restart its cycle, creating sharp harmonic overtones",
+                  "text": "One oscillator resets another, adding sharp harmonics",
                   "is_true": "yes"
                 },
                 {
-                  "text": "One oscillator rapidly modulates the pitch of another, creating expressive pitch vibrato effects",
+                  "text": "One oscillator adds slow pitch vibrato",
                   "is_true": "no"
                 }
               ],
-              "expert_explanation": "In Oscillator Hard Sync, two oscillators are linked: a master oscillator and a slave oscillator. Every time the master oscillator completes one full cycle and begins anew, it forcibly triggers an electronic reset pulse that snaps the slave oscillator's waveform back to zero mid-cycle, regardless of where the slave was in its own cycle. This forced truncation creates sharp, jagged discontinuities in the slave's waveform, generating rich, cutting harmonic overtones. Because the perceived musical pitch remains strictly locked to the master's frequency, the slave oscillator's pitch can be tuned or swept to dramatically alter the sound's timbre without changing the played musical note.",
+              "expert_explanation": "In hard sync, a master oscillator forces a slave oscillator to restart its cycle every time the master repeats. Sweeping the slave pitch creates classic tearing, metallic synth leads.",
               "expert_quote": {
                 "text": "Hard sync forces one oscillator to bow to another—yielding sharp, tearing harmonic sweeps that slice through any mix.",
                 "author": "Dave Smith"
               },
               "img": "/images/svg/hard_sync_diagram.svg",
-              "explanation": "<img src=\"/images/svg/hard_sync_diagram.svg\" alt=\"Oscillator Hard Sync schematic: Master oscillator sending reset pulses to restart the Slave oscillator's cycle mid-waveform\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> In <strong>Oscillator Hard Sync</strong>, two oscillators are linked: a <strong>master oscillator</strong> and a <strong>slave oscillator</strong>. Every time the master oscillator completes one full cycle and begins anew, it forcibly triggers an electronic reset pulse that snaps the slave oscillator's waveform back to zero mid-cycle, regardless of where the slave was in its own cycle. This forced truncation creates sharp, jagged discontinuities in the slave's waveform, generating rich, cutting harmonic overtones. Because the perceived musical pitch remains strictly locked to the master's frequency, the slave oscillator's pitch can be tuned or swept to dramatically alter the sound's timbre without changing the played musical note.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Hard sync forces one oscillator to bow to another—yielding sharp, tearing harmonic sweeps that slice through any mix.\"<br/><strong>- Dave Smith</strong></blockquote>"
+              "explanation": "<img src=\"/images/svg/hard_sync_diagram.svg\" alt=\"Q15: Oscillator Hard Sync\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> In hard sync, a master oscillator forces a slave oscillator to restart its cycle every time the master repeats. Sweeping the slave pitch creates classic tearing, metallic synth leads.</p>",
+              "explanation_image": {
+                "src": "/images/svg/hard_sync_diagram.svg",
+                "alt": "Q15: Oscillator Hard Sync"
+              }
             },
             {
               "title": "Q16: Additive Synthesis Examples",
               "type": "multi_choice",
-              "content": "Which classic instrument creates its sound using additive synthesis (mixing individual sine waves together)?",
+              "content": "Which classic instrument creates its tone using additive synthesis (layering sine waves)?",
               "answers": [
                 {
-                  "text": "Minimoog model D",
+                  "text": "Minimoog Model D",
                   "is_true": "no"
                 },
                 {
-                  "text": "Roland Juno-106 synthesizer",
+                  "text": "Roland Juno-106 synthesiser",
                   "is_true": "no"
                 },
                 {
-                  "text": "Yamaha DX7 synthesizer",
+                  "text": "Yamaha DX7 synthesiser",
                   "is_true": "no"
                 },
                 {
@@ -2713,13 +2734,17 @@
                   "is_true": "yes"
                 }
               ],
-              "expert_explanation": "The most famous electro-mechanical predecessor of additive synthesis is the Hammond Tonewheel Organ (1935). Its drawbars allow the player to physically mix nine individual sine wave partials (fundamental, 2nd harmonic, 3rd harmonic, etc.) in varying amounts to create complex musical timbres. In the digital era, instruments like the New England Digital Synclavier II and the Kawai K5000 expanded this into full digital additive synthesis, allowing musicians to program up to 128 individual sine waves with dedicated amplitude envelopes per partial.",
+              "expert_explanation": "A Hammond organ uses nine drawbars to blend individual sine-wave harmonics together — a classic hardware example of additive synthesis.",
               "expert_quote": {
-                "text": "Every drawbar on a Hammond organ is an acoustic dial for a sine wave partial—the earliest hands-on additive synthesizer in music history.",
+                "text": "Every drawbar on a Hammond organ is an acoustic dial for a sine wave partial—the earliest hands-on additive synthesiser in music history.",
                 "author": "Sound on Sound Synth Secrets"
               },
               "img": "/images/svg/additive_synthesis_diagram.svg",
-              "explanation": "<img src=\"/images/svg/additive_synthesis_diagram.svg\" alt=\"Additive Synthesis: Summing individual sine wave partials into a composite waveform based on Fourier's Theorem, exemplified by the Hammond Organ and Synclavier\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> The most famous electro-mechanical predecessor of additive synthesis is the <strong>Hammond Tonewheel Organ (1935)</strong>. Its drawbars allow the player to physically mix nine individual sine wave partials (fundamental, 2nd harmonic, 3rd harmonic, etc.) in varying amounts to create complex musical timbres. In the digital era, instruments like the <strong>New England Digital Synclavier II</strong> and the <strong>Kawai K5000</strong> expanded this into full digital <strong>additive synthesis</strong>, allowing musicians to program up to 128 individual sine waves with dedicated amplitude envelopes per partial.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Every drawbar on a Hammond organ is an acoustic dial for a sine wave partial—the earliest hands-on additive synthesizer in music history.\"<br/><strong>- Sound on Sound Synth Secrets</strong></blockquote>"
+              "explanation": "<img src=\"/images/svg/additive_synthesis_diagram.svg\" alt=\"Q16: Additive Synthesis Examples\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> A Hammond organ uses nine drawbars to blend individual sine-wave harmonics together — a classic hardware example of additive synthesis.</p>",
+              "explanation_image": {
+                "src": "/images/svg/additive_synthesis_diagram.svg",
+                "alt": "Q16: Additive Synthesis Examples"
+              }
             },
             {
               "title": "Q17: VCO vs DCO Tuning Difference",
@@ -2727,29 +2752,33 @@
               "content": "What is the main difference in tuning stability between a VCO and a DCO?",
               "answers": [
                 {
-                  "text": "VCOs drift out of tune as analogue components warm up; DCOs stay stable via digital timing",
+                  "text": "VCOs drift with heat; DCOs stay digitally locked",
                   "is_true": "yes"
                 },
                 {
-                  "text": "VCOs stay perfectly locked in tune; DCOs drift unpredictably due to unstable power supplies",
+                  "text": "VCOs stay locked in tune; DCOs drift unpredictably",
                   "is_true": "no"
                 },
                 {
-                  "text": "VCOs are software emulation plugins; DCOs are physical analogue synthesizer circuit boards",
+                  "text": "VCOs are software plugins; DCOs are hardware",
                   "is_true": "no"
                 },
                 {
-                  "text": "VCOs can only play single notes; DCOs can play polyphonic chords across multiple keys",
+                  "text": "VCOs are monophonic; DCOs are always polyphonic",
                   "is_true": "no"
                 }
               ],
-              "expert_explanation": "Vintage monosynths like the Minimoog use VCOs (Voltage Controlled Oscillators), where analogue control voltage sets pitch. Because analogue components heat up and fluctuate, VCOs experience pitch drift—producing rich natural chorusing and organic warmth between oscillators. By the 1980s, keeping 6 to 8 polyphonic analogue voices in tune was a major challenge. Synths like the Roland Juno-106 and JX-3P introduced DCOs (Digitally Controlled Oscillators). A DCO still generates authentic analogue audio waveforms, but a microprocessor digital master clock resets the oscillator phase, ensuring rock-solid tuning that never drifts.",
+              "expert_explanation": "Analogue VCOs drift slightly in pitch as components warm up, giving vintage warmth, whereas DCOs use a digital clock to stay rock-solid in tune.",
               "expert_quote": {
-                "text": "A DCO gives you authentic analog warmth without having to stop the show to re-tune your synthesizer.",
+                "text": "A DCO gives you authentic analogue warmth without having to stop the show to re-tune your synthesiser.",
                 "author": "Roland Engineering Archives"
               },
               "img": "/images/svg/oscillator_types_diagram.svg",
-              "explanation": "<img src=\"/images/svg/oscillator_types_diagram.svg\" alt=\"Comparison of Synthesizer Oscillator Types: VCO (Pure Analogue Drift), DCO (Analogue Waveform with Digital Clock Stability), and Digital/DSP\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Vintage monosynths like the <strong>Minimoog</strong> use <strong>VCOs (Voltage Controlled Oscillators)</strong>, where analogue control voltage sets pitch. Because analogue components heat up and fluctuate, VCOs experience <strong>pitch drift</strong>—producing rich natural chorusing and organic warmth between oscillators. By the 1980s, keeping 6 to 8 polyphonic analogue voices in tune was a major challenge. Synths like the <strong>Roland Juno-106</strong> and <strong>JX-3P</strong> introduced <strong>DCOs (Digitally Controlled Oscillators)</strong>. A DCO still generates authentic analogue audio waveforms, but a microprocessor digital master clock resets the oscillator phase, ensuring rock-solid tuning that never drifts.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"A DCO gives you authentic analogue warmth without having to stop the show to re-tune your synthesizer.\"<br/><strong>- Roland Engineering Archives</strong></blockquote>"
+              "explanation": "<img src=\"/images/svg/oscillator_types_diagram.svg\" alt=\"Q17: VCO vs DCO Tuning Difference\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Analogue VCOs drift slightly in pitch as components warm up, giving vintage warmth, whereas DCOs use a digital clock to stay rock-solid in tune.</p>",
+              "explanation_image": {
+                "src": "/images/svg/oscillator_types_diagram.svg",
+                "alt": "Q17: VCO vs DCO Tuning Difference"
+              }
             },
             {
               "title": "Q18: Principles of FM Synthesis",
@@ -2757,29 +2786,33 @@
               "content": "How does FM (Frequency Modulation) synthesis, like on the Yamaha DX7, create sound?",
               "answers": [
                 {
-                  "text": "White noise is shaped through an aggressive resonant low-pass filter to sculpt electronic tones",
+                  "text": "Filters white noise through a resonant LPF",
                   "is_true": "no"
                 },
                 {
-                  "text": "Multiple acoustic instrument samples are layered and looped together to build realistic instrument textures",
+                  "text": "Loops multi-sampled acoustic recordings",
                   "is_true": "no"
                 },
                 {
-                  "text": "One oscillator modulates the frequency of another at audio rates to generate complex overtones",
+                  "text": "One oscillator modulates another at audio rates",
                   "is_true": "yes"
                 },
                 {
-                  "text": "Several analogue sawtooth waveforms are stacked and detuned together to create wide synth pads",
+                  "text": "Stacks detuned analogue sawtooth waves",
                   "is_true": "no"
                 }
               ],
-              "expert_explanation": "Discovered for audio by John Chowning in 1967 and popularized worldwide by the Yamaha DX7 (1983), FM synthesis routes the output of one audio-frequency oscillator (the Modulator) into the pitch/frequency input of another (the Carrier). When modulated at audio rates, the carrier's waveform is rapidly modulated, producing complex pairs of sum-and-difference frequencies known as sidebands. This allows synthesizers to produce shimmering metallic bells, glassy electric pianos (the signature DX7 Rhodes sound), punchy slap basses, and complex brass tones without using subtractive filters.",
+              "expert_explanation": "FM synthesis uses a modulator oscillator to vary a carrier oscillator's pitch at audio speeds, creating bright metallic sidebands ideal for bells and electric pianos.",
               "expert_quote": {
-                "text": "FM synthesis unlocked shimmering metallic bells and punchy digital keys that analog subtractive filters could never produce.",
+                "text": "FM synthesis unlocked shimmering metallic bells and punchy digital keys that analogue subtractive filters could never produce.",
                 "author": "Digital Sound Synthesis Pioneers"
               },
               "img": "/images/gen/t3_q5_fm_interaction_hq.jpg",
-              "explanation": "<img src=\"/images/gen/t3_q5_fm_interaction_hq.jpg\" alt=\"FM Synthesis: Modulator signal modulating Carrier signal to produce resulting FM waveform with sidebands\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Discovered for audio by <strong>John Chowning</strong> in 1967 and popularized worldwide by the <strong>Yamaha DX7 (1983)</strong>, <strong>FM synthesis</strong> routes the output of one audio-frequency oscillator (the <strong>Modulator</strong>) into the pitch/frequency input of another (the <strong>Carrier</strong>). When modulated at audio rates, the carrier's waveform is rapidly modulated, producing complex pairs of sum-and-difference frequencies known as <strong>sidebands</strong>. This allows synthesizers to produce shimmering metallic bells, glassy electric pianos (the signature DX7 Rhodes sound), punchy slap basses, and complex brass tones without using subtractive filters.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"FM synthesis unlocked shimmering metallic bells and punchy digital keys that analogue subtractive filters could never produce.\"<br/><strong>- Digital Sound Synthesis Pioneers</strong></blockquote>"
+              "explanation": "<img src=\"/images/gen/t3_q5_fm_interaction_hq.jpg\" alt=\"Q18: Principles of FM Synthesis\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> FM synthesis uses a modulator oscillator to vary a carrier oscillator's pitch at audio speeds, creating bright metallic sidebands ideal for bells and electric pianos.</p>",
+              "explanation_image": {
+                "src": "/images/gen/t3_q5_fm_interaction_hq.jpg",
+                "alt": "Q18: Principles of FM Synthesis"
+              }
             },
             {
               "title": "Q19: Wavetable Synthesis Scanning & Morphing",
@@ -2787,59 +2820,67 @@
               "content": "How does wavetable synthesis create evolving, shifting sounds?",
               "answers": [
                 {
-                  "text": "Two analogue oscillators are constantly detuned against each other to create continuous pitch drift",
+                  "text": "Detunes two analogue oscillators for pitch drift",
                   "is_true": "no"
                 },
                 {
-                  "text": "The oscillator scans or morphs smoothly through an array of different single-cycle digital waveforms",
+                  "text": "Scans smoothly through a bank of single-cycle waves",
                   "is_true": "yes"
                 },
                 {
-                  "text": "A static sawtooth waveform is shaped by continuously sweeping an analogue resonant low-pass filter",
+                  "text": "Sweeps a resonant filter over a static sawtooth",
                   "is_true": "no"
                 },
                 {
-                  "text": "A full recorded audio loop is sliced into tiny pieces and retriggered with random timing",
+                  "text": "Triggers random slices of a recorded drum loop",
                   "is_true": "no"
                 }
               ],
-              "expert_explanation": "In wavetable synthesis (pioneered by Wolfgang Palm in the PPG Wave and modernised in plugins like Serum and Massive), an oscillator stores a sequential array of distinct single-cycle digital waveforms. When a modulation source—such as an LFO, envelope, or mod wheel—scans through the wavetable position, the synth's DSP interpolates (crossfades) smoothly between adjacent waveform frames in real time. This generates complex, morphing harmonic movement and glassy digital timbres without relying on subtractive filter sweeps.",
+              "expert_explanation": "A wavetable oscillator morphs smoothly across a table of different single-cycle digital waveforms, creating rich, animated timbres when modulated by an LFO or envelope.",
               "expert_quote": {
-                "text": "Wavetable synthesis took us beyond static analog shapes—by scanning through a table of waveforms, timbre becomes a living, moving landscape.",
+                "text": "Wavetable synthesis took us beyond static analogue shapes—by scanning through a table of waveforms, timbre becomes a living, moving landscape.",
                 "author": "Wolfgang Palm (PPG Wave Creator)"
               },
               "img": "/images/svg/wavetable_synthesis_diagram.svg",
-              "explanation": "<img src=\"/images/svg/wavetable_synthesis_diagram.svg\" alt=\"Wavetable Synthesis schematic: Array of single-cycle waveforms, position scanning, and interpolated waveform output\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> In wavetable synthesis (pioneered by Wolfgang Palm in the <strong>PPG Wave</strong> and modernised in plugins like <strong>Serum</strong> and <strong>Massive</strong>), an oscillator stores a sequential array of distinct single-cycle digital waveforms. When a modulation source—such as an LFO, envelope, or mod wheel—scans through the <strong>wavetable position</strong>, the synth's DSP interpolates (crossfades) smoothly between adjacent waveform frames in real time. This generates complex, morphing harmonic movement and glassy digital timbres without relying on subtractive filter sweeps.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Wavetable synthesis took us beyond static analogue shapes—by scanning through a table of waveforms, timbre becomes a living, moving landscape.\"<br/><strong>- Wolfgang Palm (PPG Wave Creator)</strong></blockquote>"
+              "explanation": "<img src=\"/images/svg/wavetable_synthesis_diagram.svg\" alt=\"Q19: Wavetable Synthesis Scanning & Morphing\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> A wavetable oscillator morphs smoothly across a table of different single-cycle digital waveforms, creating rich, animated timbres when modulated by an LFO or envelope.</p>",
+              "explanation_image": {
+                "src": "/images/svg/wavetable_synthesis_diagram.svg",
+                "alt": "Q19: Wavetable Synthesis Scanning & Morphing"
+              }
             },
             {
               "title": "Q20: Filter Self-Oscillation at Maximum Resonance",
               "type": "multi_choice",
-              "content": "What happens when an analogue filter enters 'self-oscillation' with the resonance turned to maximum?",
+              "content": "What happens when an analogue filter enters self-oscillation at maximum resonance?",
               "answers": [
                 {
-                  "text": "The filter switches automatically into high-pass mode, cutting all low-end sub-bass frequencies completely",
+                  "text": "It switches into high-pass mode automatically",
                   "is_true": "no"
                 },
                 {
-                  "text": "The filter mutes all audio output instantly to protect internal audio circuitry from overload damage",
+                  "text": "It mutes all output to protect the circuit",
                   "is_true": "no"
                 },
                 {
-                  "text": "The synth oscillators switch from analogue voltage control to quartz-crystal digital clock timing",
+                  "text": "It locks the oscillators to a digital clock",
                   "is_true": "no"
                 },
                 {
-                  "text": "The filter generates its own pure sine-wave pitch, even with no oscillator input feeding it",
+                  "text": "It generates its own pure sine-wave pitch",
                   "is_true": "yes"
                 }
               ],
-              "expert_explanation": "In an analogue synthesizer (such as the Minimoog or Roland SH-101), pushing the filter resonance control to its maximum introduces so much internal positive feedback that the filter circuit begins to oscillate on its own—a phenomenon known as self-oscillation. At this point, even if all raw oscillators are muted in the mixer, the filter itself acts as a pure sine-wave tone generator whose pitch tracks the cutoff frequency. This technique was famously used by synth pioneers to create deep sub-bass kicks, eerie sci-fi whistles, and pure flute-like leads.",
+              "expert_explanation": "At maximum resonance, positive feedback makes the filter ring continuously as a pure sine wave tuned to the cutoff frequency — even with no oscillator feeding it.",
               "expert_quote": {
                 "text": "Crank the resonance to ten and you no longer need an oscillator—the filter becomes its own instrument, singing pure sine waves.",
                 "author": "Bob Moog"
               },
               "img": "/images/svg/filter_resonance_diagram.svg",
-              "explanation": "<img src=\"/images/svg/filter_resonance_diagram.svg\" alt=\"Filter Resonance (Q) schematic: High resonance feedback loop triggering pure sine wave self-oscillation\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> In an analogue synthesizer (such as the Minimoog or Roland SH-101), pushing the filter resonance control to its maximum introduces so much internal positive feedback that the filter circuit begins to oscillate on its own—a phenomenon known as <strong>self-oscillation</strong>. At this point, even if all raw oscillators are muted in the mixer, the filter itself acts as a pure sine-wave tone generator whose pitch tracks the cutoff frequency. This technique was famously used by synth pioneers to create deep sub-bass kicks, eerie sci-fi whistles, and pure flute-like leads.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Crank the resonance to ten and you no longer need an oscillator—the filter becomes its own instrument, singing pure sine waves.\"<br/><strong>- Bob Moog</strong></blockquote>"
+              "explanation": "<img src=\"/images/svg/filter_resonance_diagram.svg\" alt=\"Q20: Filter Self-Oscillation at Maximum Resonance\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> At maximum resonance, positive feedback makes the filter ring continuously as a pure sine wave tuned to the cutoff frequency — even with no oscillator feeding it.</p>",
+              "explanation_image": {
+                "src": "/images/svg/filter_resonance_diagram.svg",
+                "alt": "Q20: Filter Self-Oscillation at Maximum Resonance"
+              }
             }
           ],
           "randomise": false
@@ -13375,156 +13416,153 @@
           "questions": [
             {
               "title": "Q1: MIDI Velocity",
-              "content": "In the MIDI protocol, what is the range of values for velocity, and what parameters does it typically control?",
+              "content": "What is the MIDI velocity value range, and what does it usually control?",
               "type": "multi_choice",
               "answers": [
                 {
-                  "text": "1 to 100; controlling note pitch and harmonic frequency balance",
+                  "text": "1 to 100 — controls pitch and tuning",
                   "is_true": "no"
                 },
                 {
-                  "text": "0 to 255; controlling stereo panning and reverb send levels",
+                  "text": "0 to 255 — controls stereo panning",
                   "is_true": "no"
                 },
                 {
-                  "text": "0 to 127; controlling note volume and dynamic attack timbre",
+                  "text": "0 to 127 — controls loudness and brightness",
                   "is_true": "yes"
                 },
                 {
-                  "text": "0 to 12; controlling semitone transposition across octaves",
+                  "text": "0 to 12 — controls octave transposition",
                   "is_true": "no"
                 }
               ],
               "img": "/images/gen/piano_roll_velocity_editor.png",
-              "expert_explanation": "MIDI velocity is a 7-bit value, meaning it ranges from 0 to 127. While it is almost always linked to the amplitude (volume) envelope, modern programmable synthesizers frequently route velocity to the filter cutoff as well, simulating acoustic instruments where hitting a note harder creates a brighter timbre with more harmonics.",
+              "expert_explanation": "MIDI velocity uses 7-bit values from 0 to 127 (where 1–127 trigger sounding notes). Higher values make notes louder and often trigger brighter filter or sample layers.",
               "expert_quote": {
                 "text": "Velocity breathes life into a performance. Without it, your synth lines would sound like a robotic typewriter.",
                 "author": "MIDI Programming Essentials"
-              }
+              },
+              "explanation_image": {
+                "src": "/images/gen/piano_roll_velocity_editor.png",
+                "alt": "Q1: MIDI Velocity"
+              },
+              "explanation": "<img src=\"/images/gen/piano_roll_velocity_editor.png\" alt=\"Q1: MIDI Velocity\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> MIDI velocity uses 7-bit values from 0 to 127 (where 1–127 trigger sounding notes). Higher values make notes louder and often trigger brighter filter or sample layers.</p>"
             },
             {
-              "title": "Q2: High-Resolution Pitch Bend",
-              "content": "Why does MIDI Pitch Bend require a 14-bit resolution rather than the standard 7-bit resolution used for most MIDI control change messages?",
-              "type": "multi_choice",
-              "answers": [
-                {
-                  "text": "Because it transmits polyphonic pitch data for chords.",
-                  "is_true": "no"
-                },
-                {
-                  "text": "To prevent 'stair-stepping' or audible 'zipper noise' during smooth pitch slides, providing 16,384 steps.",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "To ensure pitch bend data is sent faster over the MIDI cable.",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Because it needs to control two different synths at the same time.",
-                  "is_true": "no"
-                }
-              ],
-              "expert_explanation": "If a pitch bend only had 128 steps (7-bit), you would hear distinct 'stair-step' jumps instead of a smooth sweeping glissando. By combining two 7-bit data bytes (the Least Significant Byte and the Most Significant Byte), pitch bend achieves a 14-bit resolution, yielding 16,384 distinct values for a perfectly smooth musical slide.",
-              "expert_quote": {
-                "text": "A smooth pitch bend without zipper noise requires the luxury of 14-bit mathematically combined data.",
-                "author": "Synthesis Architecture Guide"
+              "title": "Q2: Practical MIDI — Standard Pitch Bend Range",
+              "content": "Set the Pitch Bend Range to a standard 1-whole-tone bend (2 semitones) for realistic guitar-style bends.",
+              "type": "midi_practical",
+              "control_type": "pitch_bend",
+              "min": 0,
+              "max": 24,
+              "step": 1,
+              "target_value": 2,
+              "unit": "ST",
+              "img": "/images/svg/midi_pitch_bend_range_12st.svg",
+              "explanation_image": {
+                "src": "/images/svg/midi_pitch_bend_range_12st.svg",
+                "alt": "Q2: Practical MIDI — Standard Pitch Bend Range"
               },
-              "img": "/images/gen/t4_q6_midi_range_127_hq_1772105218019.png"
+              "expert_explanation": "Most synthesisers default to a ±2 semitone (1 whole tone) pitch bend range so you can smoothly bend notes up or down a whole step like a guitar string.",
+              "explanation": "<img src=\"/images/svg/midi_pitch_bend_range_12st.svg\" alt=\"Q2: Practical MIDI — Standard Pitch Bend Range\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Most synthesisers default to a ±2 semitone (1 whole tone) pitch bend range so you can smoothly bend notes up or down a whole step like a guitar string.</p>"
             },
             {
-              "title": "Q3: Modulation Wheel (CC1)",
-              "content": "MIDI Continuous Controller 1 (CC1) is universally assigned to the Modulation Wheel. What is its most common mathematical or functional routing in synthesizer sound design?",
-              "type": "multi_choice",
-              "answers": [
-                {
-                  "text": "Routing to the master tempo/clock.",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Routing to pitch drop by an octave.",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Routing to control LFO depth (often for vibrato) or filter cutoff frequency.",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "Routing to the ADSR release time only.",
-                  "is_true": "no"
-                }
-              ],
-              "expert_explanation": "By standardizing CC1 as the modulation wheel, synthesizer manufacturers created a universal performance control. Pushing the mod wheel commonly increases the depth of an LFO, producing a vibrato effect on the pitch or a 'wah' effect on the filter cutoff, adding vital acoustic-like expression to sustained notes.",
-              "expert_quote": {
-                "text": "The modulation wheel is a synth player's left hand—constantly riding the expression and bringing static tones to life.",
-                "author": "Live Keyboard Techniques"
-              },
+              "title": "Q3: Practical MIDI — Modulation Wheel (CC1)",
+              "content": "Set MIDI CC1 (Modulation Wheel) to around halfway (56–72) to dial in medium vibrato depth.",
+              "type": "midi_practical",
+              "control_type": "cc",
+              "min": 0,
+              "max": 127,
+              "step": 1,
+              "target_value": 64,
+              "target_min": 56,
+              "target_max": 72,
+              "tolerance": 8,
+              "unit": "CC1",
               "img": "/images/svg/midi_cc1_mod_wheel_routing.svg",
               "explanation_image": {
                 "src": "/images/svg/midi_cc1_mod_wheel_routing.svg",
-                "alt": "MIDI CC1 Modulation Wheel Routing"
-              }
+                "alt": "Q3: Practical MIDI — Modulation Wheel (CC1)"
+              },
+              "expert_explanation": "MIDI CC1 (Modulation Wheel) runs from 0 to 127, so ~64 is the midpoint. Pushing it halfway adds expressive vibrato or filter movement without overwhelming the pitch.",
+              "explanation": "<img src=\"/images/svg/midi_cc1_mod_wheel_routing.svg\" alt=\"Q3: Practical MIDI — Modulation Wheel (CC1)\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> MIDI CC1 (Modulation Wheel) runs from 0 to 127, so ~64 is the midpoint. Pushing it halfway adds expressive vibrato or filter movement without overwhelming the pitch.</p>"
             },
             {
-              "title": "Q4: Structure of Control Change Messages",
-              "content": "A standard MIDI Control Change (CC) message is composed of three bytes. Which of the following describes this structure?",
-              "type": "multi_choice",
-              "answers": [
+              "title": "Q4: Drag & Drop — Common MIDI CC Numbers",
+              "content": "Drag or tap each MIDI Continuous Controller (CC) number into its matching studio function.",
+              "type": "signal-flow-label",
+              "hide_arrows": true,
+              "flowSteps": [
                 {
-                  "text": "Two Status Bytes and one Data Byte (pitch and velocity)",
-                  "is_true": "no"
+                  "id": "step1",
+                  "label": "1. Modulation Wheel (vibrato or filter sweep)"
                 },
                 {
-                  "text": "One Status Byte and two Data Bytes (CC number and value)",
-                  "is_true": "yes"
+                  "id": "step2",
+                  "label": "2. Channel Volume level"
                 },
                 {
-                  "text": "One Status Byte and three Data Bytes (channel, note, gate)",
-                  "is_true": "no"
+                  "id": "step3",
+                  "label": "3. Stereo Panning (Left / Centre / Right)"
                 },
                 {
-                  "text": "Four Data Bytes carrying 24-bit high-resolution audio",
-                  "is_true": "no"
+                  "id": "step4",
+                  "label": "4. Sustain Pedal (On / Off)"
                 }
               ],
-              "expert_explanation": "A typical CC message starts with a Status Byte (e.g., 1011nnnn in binary, where nnnn is the 4-bit MIDI channel 1-16). This is followed by our first Data Byte, which specifies the Controller Number (0-127), and a second Data Byte specifying the Controller Value (0-127). For example, CC7 value 100 sets the volume to 100.",
-              "expert_quote": {
-                "text": "The elegance of MIDI's structure lies in its simplicity: Status tells it what to do, Data gives it the numbers.",
-                "author": "Digital Control Theory"
+              "terms": [
+                "CC10",
+                "CC1",
+                "CC64",
+                "CC7"
+              ],
+              "correctAnswers": {
+                "step1": "CC1",
+                "step2": "CC7",
+                "step3": "CC10",
+                "step4": "CC64"
               },
               "img": "/images/svg/midi_cc_message_3byte_structure.svg",
               "explanation_image": {
                 "src": "/images/svg/midi_cc_message_3byte_structure.svg",
-                "alt": "MIDI CC 3-Byte Message Architecture"
-              }
+                "alt": "Q4: Drag & Drop — Common MIDI CC Numbers"
+              },
+              "expert_explanation": "Memorising the core General MIDI CC numbers — CC1 (Modulation), CC7 (Volume), CC10 (Pan), and CC64 (Sustain Pedal) — is essential for Edexcel Component 4 MIDI editing.",
+              "explanation": "<img src=\"/images/svg/midi_cc_message_3byte_structure.svg\" alt=\"Q4: Drag & Drop — Common MIDI CC Numbers\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Memorising the core General MIDI CC numbers — CC1 (Modulation), CC7 (Volume), CC10 (Pan), and CC64 (Sustain Pedal) — is essential for Edexcel Component 4 MIDI editing.</p>"
             },
             {
-              "title": "Q5: MSB and LSB Interaction",
-              "content": "When configuring a parameter that requires 14-bit resolution via MIDI CC messages, how are the Most Significant Byte (MSB) and Least Significant Byte (LSB) paired?",
+              "title": "Q5: Standard MIDI Channels",
+              "content": "How many independent channels can a single standard MIDI connection carry at once?",
               "type": "multi_choice",
               "answers": [
                 {
-                  "text": "The MSB is sent on Channel 1 and the LSB is sent on Channel 2.",
+                  "text": "4 independent MIDI channels",
                   "is_true": "no"
                 },
                 {
-                  "text": "The MSB controls pitch and the LSB controls velocity simultaneously.",
+                  "text": "8 independent MIDI channels",
                   "is_true": "no"
                 },
                 {
-                  "text": "There is no pairing; MSB and LSB are combined into a single byte payload.",
+                  "text": "127 independent MIDI channels",
                   "is_true": "no"
                 },
                 {
-                  "text": "Controllers 0-31 are defined as MSB, and controllers 32-63 act as their corresponding LSB partners.",
+                  "text": "16 independent MIDI channels",
                   "is_true": "yes"
                 }
               ],
-              "expert_explanation": "MIDI provides a standardized way to achieve 14-bit parameter control. Controllers numbered 0 through 31 transmit the coarse Most Significant Byte (MSB) values, while Controllers 32 through 63 serve as their fine-tuning Least Significant Byte (LSB) counterparts. For example, CC1 (Modulation Wheel MSB) can be paired with CC33 (Modulation Wheel LSB).",
+              "expert_explanation": "A standard MIDI port carries 16 separate channels (1–16) down one cable, letting a sequencer trigger up to 16 different synthesiser parts at the same time.",
               "expert_quote": {
                 "text": "By elegantly stacking the LSB underneath the MSB, the 1980s MIDI standard future-proofed itself for modern high-definition expression.",
                 "author": "Advanced MIDI Horizons"
               },
-              "img": "/images/gen/midi_automation_curves.png"
+              "img": "/images/gen/midi_automation_curves.png",
+              "explanation_image": {
+                "src": "/images/gen/midi_automation_curves.png",
+                "alt": "Q5: Standard MIDI Channels"
+              },
+              "explanation": "<img src=\"/images/gen/midi_automation_curves.png\" alt=\"Q5: Standard MIDI Channels\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> A standard MIDI port carries 16 separate channels (1–16) down one cable, letting a sequencer trigger up to 16 different synthesiser parts at the same time.</p>"
             },
             {
               "title": "Set Pitch Bend Range",
@@ -13544,8 +13582,9 @@
               "img": "/images/svg/midi_pitch_bend_range_12st.svg",
               "explanation_image": {
                 "src": "/images/svg/midi_pitch_bend_range_12st.svg",
-                "alt": "Pitch Bend Range 12 Semitones Octave Glide"
-              }
+                "alt": "Set Pitch Bend Range"
+              },
+              "explanation": "<img src=\"/images/svg/midi_pitch_bend_range_12st.svg\" alt=\"Set Pitch Bend Range\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> A full octave consists of 12 semitones. Setting the pitch bend range to 12 allows for extreme synth lead bends or mimicking guitar slides down an octave.</p>"
             },
             {
               "title": "Adjust MIDI Velocity",
@@ -13557,7 +13596,7 @@
               "step": 1,
               "target_value": 30,
               "unit": "",
-              "expert_explanation": "MIDI Velocity ranges from 1-127. Values around 30 represent a 'pianissimo' (very soft) touch. This will typically result in a lower volume and, if mapped to velocity, a darker tone due to a lower filter cutoff.",
+              "expert_explanation": "MIDI velocity uses 7-bit values (0–127, with 1–127 for sounding notes). Values around 15–45 represent a soft pianissimo touch with lower volume and a mellower tone.",
               "expert_quote": {
                 "text": "The magic of expression is often found in the lower velocities, where the instrument breathes rather than shouts.",
                 "author": "The Art of MIDI Sequencing"
@@ -13565,101 +13604,125 @@
               "img": "/images/svg/midi_velocity_dynamic_ranges.svg",
               "explanation_image": {
                 "src": "/images/svg/midi_velocity_dynamic_ranges.svg",
-                "alt": "MIDI Velocity Dynamics and Performance Tiers"
+                "alt": "Adjust MIDI Velocity"
               },
               "tolerance": 15,
               "target_min": 15,
-              "target_max": 45
+              "target_max": 45,
+              "explanation": "<img src=\"/images/svg/midi_velocity_dynamic_ranges.svg\" alt=\"Adjust MIDI Velocity\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> MIDI velocity uses 7-bit values (0–127, with 1–127 for sounding notes). Values around 15–45 represent a soft pianissimo touch with lower volume and a mellower tone.</p>"
             },
             {
-              "title": "Q8: MIDI Quantisation & Swing",
-              "content": "A student quantizes a drum beat to a strict 1/16th note grid, but it sounds too stiff and robotic. What quantize setting should they apply to give the beat a more human, syncopated bounce?",
+              "title": "Q8: Making Quantised Beats Groove",
+              "content": "A quantised 1/16th drum beat sounds too stiff and robotic. Which MIDI setting adds a human bounce?",
               "type": "multi_choice",
               "question": "Which setting shifts alternate 16th notes to give a quantized drum groove a syncopated, human feel?",
               "answers": [
                 {
-                  "text": "Quantize, which snaps all notes strictly to the nearest grid line",
+                  "text": "Quantise — snaps every note strictly to the grid",
                   "is_true": "no"
                 },
                 {
-                  "text": "Humanize, which introduces random pitch detuning across notes",
+                  "text": "Humanise — detunes note pitches randomly",
                   "is_true": "no"
                 },
                 {
-                  "text": "Arpeggiation, which plays chords as ascending single notes",
+                  "text": "Arpeggiation — splits chords into single notes",
                   "is_true": "no"
                 },
                 {
-                  "text": "Swing, which delays alternate subdivisions to create a groove",
+                  "text": "Swing — delays off-beat notes for a groove",
                   "is_true": "yes"
                 }
               ],
-              "explanation": "<p><strong>Swing / Shuffle:</strong> Strict quantisation snaps every note to an exact mechanical grid. Applying Swing (or Shuffle) delays every second subdivision (the off-beats) by a chosen percentage, moving the rhythm closer to a triplet groove. This gives programmed drum beats and basslines a natural, head-nodding groove.</p>",
+              "explanation": "<img src=\"/images/svg/quantize_grid.svg\" alt=\"Q8: MIDI Quantisation & Swing\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Swing shifts alternate off-beat subdivisions slightly later behind the grid, turning rigid quantised MIDI beats into a bouncy, human groove.</p>",
               "expert_quote": {
                 "text": "A little swing takes a drum loop from a boring machine to a real drummer's groove.",
                 "author": "MIDI Sequencing in the DAW"
               },
-              "img": "/images/svg/quantize_grid.svg"
+              "img": "/images/svg/quantize_grid.svg",
+              "expert_explanation": "Swing shifts alternate off-beat subdivisions slightly later behind the grid, turning rigid quantised MIDI beats into a bouncy, human groove.",
+              "explanation_image": {
+                "src": "/images/svg/quantize_grid.svg",
+                "alt": "Q8: MIDI Quantisation & Swing"
+              }
             },
             {
-              "title": "Q9: MIDI Ports (In, Out, and Thru)",
-              "content": "What is the specific function of a 5-pin DIN 'MIDI THRU' port on a hardware synthesizer?",
-              "type": "multi_choice",
-              "question": "What is the function of the MIDI THRU port on a synthesizer or sound module?",
-              "answers": [
+              "title": "Q9: Drag & Drop — MIDI Ports & Connections",
+              "content": "Drag or tap each MIDI port into its matching role in a hardware/DAW studio.",
+              "type": "signal-flow-label",
+              "hide_arrows": true,
+              "flowSteps": [
                 {
-                  "text": "It outputs an exact copy of the MIDI data received at the MIDI IN port",
-                  "is_true": "yes"
+                  "id": "step1",
+                  "label": "1. Receives incoming MIDI data into a synthesiser"
                 },
                 {
-                  "text": "It sends out newly generated MIDI performance data from the hardware",
-                  "is_true": "no"
+                  "id": "step2",
+                  "label": "2. Sends newly played notes out from a keyboard"
                 },
                 {
-                  "text": "It converts incoming 5-pin MIDI signals into analogue audio outputs",
-                  "is_true": "no"
+                  "id": "step3",
+                  "label": "3. Passes an exact copy of MIDI IN data to the next synth"
                 },
                 {
-                  "text": "It merges MIDI signals from two separate keyboards into a single line",
-                  "is_true": "no"
+                  "id": "step4",
+                  "label": "4. Carries two-way MIDI directly between keyboard and DAW"
                 }
               ],
-              "explanation": "<p><strong>MIDI Ports:</strong><br/>• <strong>MIDI IN:</strong> Receives MIDI data from an external controller or sequencer.<br/>• <strong>MIDI OUT:</strong> Transmits MIDI data generated by this device (e.g. keys played).<br/>• <strong>MIDI THRU:</strong> Passes an exact copy of the data arriving at the MIDI IN port directly to the next piece of gear, enabling daisy-chaining.</p>",
-              "expert_quote": {
-                "text": "MIDI Thru is an echo of MIDI In. It lets you link multiple synths to a single sequencer output.",
-                "author": "Edexcel Specification: Digital Audio & MIDI"
+              "terms": [
+                "MIDI THRU",
+                "MIDI IN",
+                "USB-MIDI",
+                "MIDI OUT"
+              ],
+              "correctAnswers": {
+                "step1": "MIDI IN",
+                "step2": "MIDI OUT",
+                "step3": "MIDI THRU",
+                "step4": "USB-MIDI"
               },
-              "img": "/images/svg/midi_cc_message_3byte_structure.svg"
+              "img": "/images/svg/midi_cc_message_3byte_structure.svg",
+              "explanation_image": {
+                "src": "/images/svg/midi_cc_message_3byte_structure.svg",
+                "alt": "Q9: Drag & Drop — MIDI Ports & Connections"
+              },
+              "expert_explanation": "MIDI IN receives data, MIDI OUT transmits the device's own performance, MIDI THRU copies MIDI IN straight to the next daisy-chained synth, and USB-MIDI handles two-way DAW communication.",
+              "explanation": "<img src=\"/images/svg/midi_cc_message_3byte_structure.svg\" alt=\"Q9: Drag & Drop — MIDI Ports & Connections\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> MIDI IN receives data, MIDI OUT transmits the device's own performance, MIDI THRU copies MIDI IN straight to the next daisy-chained synth, and USB-MIDI handles two-way DAW communication.</p>"
             },
             {
-              "title": "Q10: Polyphonic vs Monophonic Synthesizers",
-              "content": "What is the difference between a Polyphonic synthesizer and a Monophonic synthesizer?",
+              "title": "Q10: Polyphonic vs Monophonic Synthesisers",
+              "content": "What is the difference between a Polyphonic and a Monophonic synthesiser?",
               "type": "multi_choice",
               "question": "How does a Polyphonic synthesizer differ from a Monophonic synthesizer?",
               "answers": [
                 {
-                  "text": "Monophonic synths play stereo audio; Polyphonic synths play strictly mono",
+                  "text": "Monophonic is stereo; Polyphonic is mono",
                   "is_true": "no"
                 },
                 {
-                  "text": "Polyphonic synths use analogue circuits; Monophonic synths are digital",
+                  "text": "Polyphonic is analogue; Monophonic is digital",
                   "is_true": "no"
                 },
                 {
-                  "text": "Polyphonic synths play multiple notes at once; Monophonic play one note",
+                  "text": "Polyphonic plays chords; Monophonic plays one note",
                   "is_true": "yes"
                 },
                 {
-                  "text": "Monophonic synths have built-in effects; Polyphonic synths do not",
+                  "text": "Monophonic has effects; Polyphonic has none",
                   "is_true": "no"
                 }
               ],
-              "explanation": "<p><strong>Polyphonic vs Monophonic:</strong> A monophonic synthesizer can only generate one single pitch at any given moment, making it ideal for punchy basslines and lead solos (e.g. Minimoog, Roland TB-303). A polyphonic synthesizer has multiple voices, allowing it to play chords, pads, and complex harmonies simultaneously (e.g. Roland Juno, Prophet-5).</p>",
+              "explanation": "<img src=\"/images/svg/synthesis_fm_operators.svg\" alt=\"Q10: Polyphonic vs Monophonic Synthesisers\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Monophonic synthesisers play only one note at a time (great for bass and leads), while polyphonic synthesisers have multiple voices to play chords.</p>",
               "expert_quote": {
                 "text": "Monophonic means one note at a time—perfect for bass. Polyphonic means chords and harmony.",
                 "author": "Synthesizer Programming Guide"
               },
-              "img": "/images/svg/synthesis_fm_operators.svg"
+              "img": "/images/svg/synthesis_fm_operators.svg",
+              "expert_explanation": "Monophonic synthesisers play only one note at a time (great for bass and leads), while polyphonic synthesisers have multiple voices to play chords.",
+              "explanation_image": {
+                "src": "/images/svg/synthesis_fm_operators.svg",
+                "alt": "Q10: Polyphonic vs Monophonic Synthesisers"
+              }
             }
           ],
           "isPremium": true,
@@ -17837,7 +17900,7 @@
                 }
               ],
               "img": "/images/svg/comparison_7inch_vs_12inch_vinyl.svg",
-              "expert_explanation": "Elvis's 1972 hit was an analogue tape recording pressed to 7-inch vinyl. Pet Shop Boys' 1987 cover utilized early digital synthesis, released widely on CD.",
+              "expert_explanation": "Elvis's 1972 hit was an analogue tape recording pressed to 7-inch vinyl. Pet Shop Boys' 1987 cover used early digital synthesis, released widely on CD.",
               "expert_quote": {
                 "text": "The 80s digital revolution allowed us to create a sound that was perfectly suited for the pristine clarity of the compact disc.",
                 "author": "Neil Tennant (Pet Shop Boys)"
@@ -17896,7 +17959,7 @@
               },
               "explanation_image": {
                 "src": "/images/svg/comparison_quantized_grid_vs_human_timing.svg",
-                "alt": "Expressive Ballad Rubato vs High-NRG 126 BPM Quantized Clock"
+                "alt": "Expressive Ballad Rubato vs High-NRG 126 BPM Quantised Clock"
               }
             },
             {
@@ -17979,7 +18042,7 @@
             },
             {
               "title": "Mixing & Processing",
-              "content": "Mix utilizes Analogue Tape Saturation for warmth.",
+              "content": "Mix uses Analogue Tape Saturation for warmth.",
               "type": "multi_choice",
               "explanation": "<p><strong>Version A (Elvis).</strong> The natural compression of tape gives the recording a warm, thick sound.</p>",
               "answers": [
@@ -18019,14 +18082,14 @@
                 }
               ],
               "img": "/images/stereo_soundstage_panning_hq.svg",
-              "expert_explanation": "The 1987 cover relies heavily on auto-panning (LFO-controlled panning) on synthesizers to create a swirling, dizzying stereo effect that wasn't possible in 1972.",
+              "expert_explanation": "The 1987 cover relies heavily on auto-panning (LFO-controlled panning) on synthesisers to create a swirling, dizzying stereo effect that wasn't possible in 1972.",
               "expert_quote": {
                 "text": "The arpeggiators are bouncing furiously between the left and right speakers to give it that frantic energy.",
                 "author": "Chris Lowe"
               },
               "explanation_image": {
                 "src": "/images/stereo_soundstage_panning_hq.svg",
-                "alt": "Stereo Field Separation and Panned Synthesizer Arpeggios"
+                "alt": "Stereo Field Separation and Panned Synthesiser Arpeggios"
               }
             },
             {
@@ -18175,9 +18238,9 @@
                 }
               ],
               "img": "/images/svg/synth_brass_vs_acoustic_strings.svg",
-              "expert_explanation": "Elvis utilized piano, acoustic guitars, and gospel backing vocals. PSB utilized the E-mu Emulator II, Fairlight CMI, and Roland synthesizers.",
+              "expert_explanation": "Elvis used piano, acoustic guitars, and gospel backing vocals. PSB used the E-mu Emulator II, Fairlight CMI, and Roland synthesisers.",
               "expert_quote": {
-                "text": "It was an exercise in turning a heart-wrenching country standard into an entirely plastic, synthesizer-driven pop monument.",
+                "text": "It was an exercise in turning a heart-wrenching country standard into an entirely plastic, synthesiser-driven pop monument.",
                 "author": "Neil Tennant"
               },
               "explanation_image": {
@@ -18271,12 +18334,12 @@
               },
               "explanation_image": {
                 "src": "/images/svg/digital_recording_storage_destination.svg",
-                "alt": "Analog Multi-Track Tape Studio vs Intimate Acoustic Digital Tracking"
+                "alt": "Analogue Multi-Track Tape Studio vs Intimate Acoustic Digital Tracking"
               }
             },
             {
               "title": "Rhythm & Sync",
-              "content": "Strictly quantized to a drum machine beat.",
+              "content": "Strictly quantised to a drum machine beat.",
               "type": "multi_choice",
               "explanation": "<p><strong>Version A (Tears for Fears).</strong> Rigid mechanical rhythm contrasting with mental chaos theme.</p>",
               "answers": [
@@ -18290,14 +18353,14 @@
                 }
               ],
               "img": "/images/svg/comparison_quantized_grid_vs_human_timing.svg",
-              "expert_explanation": "✅ **Tears For Fears (1982)** is correct. The original uses an early Roland CR-78 analogue drum machine, meaning the beat is absolutely rigid and quantized to the grid.\n❌ Gary Jules' version has no percussion track at all, heavily relying on the drifting, rubato timing of his piano playing.",
+              "expert_explanation": "✅ **Tears For Fears (1982)** is correct. The original uses an early Roland CR-78 analogue drum machine, meaning the beat is absolutely rigid and quantised to the grid.\n❌ Gary Jules' version has no percussion track at all, heavily relying on the drifting, rubato timing of his piano playing.",
               "expert_quote": {
                 "text": "A rigid, unrelenting electronic beat creates an underlying sense of anxiety and detachment.",
                 "author": "Production Note: Tears for Fears"
               },
               "explanation_image": {
                 "src": "/images/svg/comparison_quantized_grid_vs_human_timing.svg",
-                "alt": "Upbeat 174 BPM Quantized Dance Pulse vs Slow 80 BPM Human Rubato"
+                "alt": "Upbeat 174 BPM Quantised Dance Pulse vs Slow 80 BPM Human Rubato"
               }
             },
             {
@@ -18316,9 +18379,9 @@
                 }
               ],
               "img": "/images/gen/drum_machine_step_sequencer.png",
-              "expert_explanation": "✅ **Tears For Fears** is correct. The defining characteristic of the 1982 original is its total reliance on layered analogue synthesizers (Prophet-5) and programmed logic, completely removing acoustic guitars or traditional rock accompaniment.\n❌ Gary Jules uses just a traditional, physical acoustic piano.",
+              "expert_explanation": "✅ **Tears For Fears** is correct. The defining characteristic of the 1982 original is its total reliance on layered analogue synthesisers (Prophet-5) and programmed logic, completely removing acoustic guitars or traditional rock accompaniment.\n❌ Gary Jules uses just a traditional, physical acoustic piano.",
               "expert_quote": {
-                "text": "Synthesizers removed the human touch, creating a 'mad', artificial world within the speakers.",
+                "text": "Synthesisers removed the human touch, creating a 'mad', artificial world within the speakers.",
                 "author": "Production Note: Tears for Fears"
               },
               "explanation_image": {
@@ -18342,7 +18405,7 @@
                 }
               ],
               "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Gary_Jules.jpg/500px-Gary_Jules.jpg",
-              "expert_explanation": "✅ **Gary Jules** is correct. Jules' fragile vocal delivery features no heavy modulation, chorus, or audible pitch correction, leaving slight imperfections that heighten the sadness.\n❌ Tears For Fears heavily utilized vocal layering, double-tracking, and slaps to thicken Curt Smith's voice.",
+              "expert_explanation": "✅ **Gary Jules** is correct. Jules' fragile vocal delivery features no heavy modulation, chorus, or audible pitch correction, leaving slight imperfections that heighten the sadness.\n❌ Tears For Fears heavily used vocal layering, double-tracking, and slaps to thicken Curt Smith's voice.",
               "expert_quote": {
                 "text": "Leaving a vocal exposed and uncorrected forces the emotional weight entirely onto the singer's delivery.",
                 "author": "Production Note: Gary Jules"
@@ -18368,7 +18431,7 @@
                 }
               ],
               "img": "/images/svg/arrangement_sparse_acoustic_vs_dense_synth.svg",
-              "expert_explanation": "✅ **Gary Jules** is correct. The 2001 cover strips away the bustling electronics and drum machines, relying entirely on a sparse, slow arrangement of Voice and Upright Piano (with a short Cello section).\n❌ Tears For Fears utilizes a dense, heavily layered electronic arrangement.",
+              "expert_explanation": "✅ **Gary Jules** is correct. The 2001 cover strips away the bustling electronics and drum machines, relying entirely on a sparse, slow arrangement of Voice and Upright Piano (with a short Cello section).\n❌ Tears For Fears uses a dense, heavily layered electronic arrangement.",
               "expert_quote": {
                 "text": "Instrumental minimalism removes all distractions, funneling the listener's focus directly into the lyric.",
                 "author": "Production Note: Gary Jules"
@@ -18420,14 +18483,14 @@
                 }
               ],
               "img": "/images/stereo_soundstage_panning_hq.svg",
-              "expert_explanation": "✅ **Gary Jules** is correct. To create a feeling of isolation, the piano and vocal are mixed very narrowly in the centre of the stereo field, rather than being spread wide L/R.\n❌ Tears For Fears utilizes extreme stereo panning for their synths.",
+              "expert_explanation": "✅ **Gary Jules** is correct. To create a feeling of isolation, the piano and vocal are mixed very narrowly in the centre of the stereo field, rather than being spread wide L/R.\n❌ Tears For Fears uses extreme stereo panning for their synths.",
               "expert_quote": {
-                "text": "A narrow, centered mix suffocates the listener, perfectly reflecting the claustrophobia of the lyrics.",
+                "text": "A narrow, centred mix suffocates the listener, perfectly reflecting the claustrophobia of the lyrics.",
                 "author": "Production Note: Gary Jules"
               },
               "explanation_image": {
                 "src": "/images/stereo_soundstage_panning_hq.svg",
-                "alt": "Panned Synthesizer Layers vs Intimate Centered Acoustic Soundstage"
+                "alt": "Panned Synthesiser Layers vs Intimate Centred Acoustic Soundstage"
               }
             },
             {
@@ -18498,14 +18561,14 @@
                 }
               ],
               "img": "/images/svg/filter_resonance_diagram.svg",
-              "expert_explanation": "✅ **Gary Jules** is correct. The upright piano sounds muffled as if it's being played with the felt pedal down, which effectively acts as an aggressive acoustic Low-Pass filter, removing the bright, attacking highs.\n❌ Tears For Fears uses sharp, incredibly bright synthesizer waveforms (Sawtooths).",
+              "expert_explanation": "✅ **Gary Jules** is correct. The upright piano sounds muffled as if it's being played with the felt pedal down, which effectively acts as an aggressive acoustic Low-Pass filter, removing the bright, attacking highs.\n❌ Tears For Fears uses sharp, incredibly bright synthesiser waveforms (Sawtooths).",
               "expert_quote": {
                 "text": "Muffling the piano string dampens the attack, turning an energetic percussion instrument into a weeping sustain.",
                 "author": "Production Note: Gary Jules"
               },
               "explanation_image": {
                 "src": "/images/svg/filter_resonance_diagram.svg",
-                "alt": "Analog Low-Pass Resonant Filter Sweeps on Synths"
+                "alt": "Analogue Low-Pass Resonant Filter Sweeps on Synths"
               }
             },
             {
@@ -18524,7 +18587,7 @@
                 }
               ],
               "img": "/images/svg/comparison_60s_midrange_vs_80s_smile_eq.svg",
-              "expert_explanation": "✅ **Tears For Fears** is correct. The 1982 recording heavily emphasizes the high-end treble frequencies (synthesizer buzz, hi-hats), a mixing hallmark of 80s pop designed to sound crisp on radios.\n❌ Gary Jules rolled off the highs to create a dark, murky mix.",
+              "expert_explanation": "✅ **Tears For Fears** is correct. The 1982 recording heavily emphasizes the high-end treble frequencies (synthesiser buzz, hi-hats), a mixing hallmark of 80s pop designed to sound crisp on radios.\n❌ Gary Jules rolled off the highs to create a dark, murky mix.",
               "expert_quote": {
                 "text": "Hyped high frequencies create a 'crisp' digital energy, while muted highs create melancholic brooding.",
                 "author": "Production Note: Tears for Fears"
@@ -18564,7 +18627,7 @@
               "title": "Instrumentation",
               "content": "Features a mournful Cello solo.",
               "type": "multi_choice",
-              "explanation": "<p><strong>Version B (Gary Jules).</strong> Adds a somber, acoustic texture to the arrangement.</p>",
+              "explanation": "<p><strong>Version B (Gary Jules).</strong> Adds a sombre, acoustic texture to the arrangement.</p>",
               "answers": [
                 {
                   "text": "Version A (Tears for Fears)",
@@ -18576,7 +18639,7 @@
                 }
               ],
               "img": "/images/comparisons/mad_world_comparison.png",
-              "expert_explanation": "✅ **Gary Jules** is correct. Instead of the synthesizer solo found in the 1982 original, the 2001 cover features an acoustic Cello playing a deeply emotional, mournful instrumental bridge.\n❌ Tears For Fears rely solely on analogue keyboards for melodies.",
+              "expert_explanation": "✅ **Gary Jules** is correct. Instead of the synthesiser solo found in the 1982 original, the 2001 cover features an acoustic Cello playing a deeply emotional, mournful instrumental bridge.\n❌ Tears For Fears rely solely on analogue keyboards for melodies.",
               "expert_quote": {
                 "text": "The rich, resonant bowing of a Cello inherently mimics the mournful cry of the human voice.",
                 "author": "Production Note: Gary Jules"
@@ -18588,7 +18651,7 @@
             },
             {
               "title": "Mood",
-              "content": "Slower tempo and somber acoustic instrumentation that directly mirrors the melancholic lyrics.",
+              "content": "Slower tempo and sombre acoustic instrumentation that directly mirrors the melancholic lyrics.",
               "type": "multi_choice",
               "explanation": "<p><strong>Version B (Gary Jules).</strong> The slower tempo and acoustic instrumentation match the darkness of the text.</p>",
               "answers": [
@@ -21647,13 +21710,13 @@
           "title": "Comparison 11: Jump",
           "youtube_id": "SwYN7mTi6HM",
           "video_title_1": "Van Halen (1984)",
-          "youtube_id_2": "p-M1KphH4kI",
+          "youtube_id_2": "KF6eW1E0PIU",
           "video_title_2": "Paul Anka (2005)",
           "description": "Official 2023 Edexcel Component 3 Question 5 paper. Compare the 1984 hard rock/synth-rock anthem by Van Halen (Version A) with the 2005 acoustic big band swing jazz cover by Paul Anka (Version B). Focus on isolated analogue tracking and Oberheim OB-Xa synthesis versus live room acoustics, brass section capture, and natural jazz dynamics.",
           "questions": [
             {
               "title": "Recording Release Medium",
-              "content": "Recorded onto 24-track analogue tape at Eddie Van Halen's personal 5150 Studio, mixed to 1/2-inch stereo master tape.",
+              "content": "Recorded onto 24-track analogue tape in a private home rock studio and mixed to 1/2-inch stereo master tape.",
               "type": "multi_choice",
               "explanation": "<p><strong>Version A (Van Halen).</strong> Tracked on high-output 2-inch analogue tape with gentle tape saturation, mixed for arena-rock radio and vinyl/cassette playback.</p>",
               "answers": [
@@ -21731,9 +21794,9 @@
             },
             {
               "title": "Sequencing & Sampling",
-              "content": "Features an iconic polyphonic synthesizer hook played live on an Oberheim OB-Xa using layered sawtooth waveforms.",
+              "content": "Features an iconic polyphonic synthesiser hook played live on an Oberheim OB-Xa using layered sawtooth waveforms.",
               "type": "multi_choice",
-              "explanation": "<p><strong>Version A (Van Halen).</strong> Eddie Van Halen played the legendary brass-like hook on an Oberheim OB-Xa analogue synthesizer, thick with detuned dual oscillators.",
+              "explanation": "<p><strong>Version A (Van Halen).</strong> Eddie Van Halen played the legendary brass-like hook on an Oberheim OB-Xa analogue synthesiser, thick with detuned dual oscillators.",
               "answers": [
                 {
                   "text": "Version A (Van Halen)",
@@ -21745,7 +21808,7 @@
                 }
               ],
               "img": "/images/svg/synth_brass_vs_acoustic_strings.svg",
-              "expert_explanation": "The OB-Xa gave 'Jump' its massive synth-rock crossover identity. Paul Anka used zero synthesizers or electronic sequencing, translating the synth chords into acoustic brass section stabs.",
+              "expert_explanation": "The OB-Xa gave 'Jump' its massive synth-rock crossover identity. Paul Anka used zero synthesisers or electronic sequencing, translating the synth chords into acoustic brass section stabs.",
               "expert_quote": {
                 "text": "The band didn't want synths at first—they thought it wasn't rock and roll. But that OB-Xa patch made the track universal.",
                 "author": "Ted Templeman (Producer)"
@@ -21783,7 +21846,7 @@
             },
             {
               "title": "Arrangement Differences",
-              "content": "Features an explosive electric guitar solo demonstrating Eddie Van Halen's revolutionary two-handed tapping technique and whammy bar dives.",
+              "content": "Features an explosive electric guitar solo showcasing rapid two-handed fretboard tapping and whammy bar dives.",
               "type": "multi_choice",
               "explanation": "<p><strong>Version A (Van Halen).</strong> Eddie's solo combines two-hand fretboard tapping, wide finger vibrato, and screaming pinch harmonics through a cranked Marshall Super Lead amp.</p>",
               "answers": [
@@ -21835,7 +21898,7 @@
             },
             {
               "title": "Pan (Stereo Field)",
-              "content": "Hard panning places the Oberheim synthesizer predominantly in the left/centre while rhythm guitars sit on the right, creating a distinct hard-panned soundstage.",
+              "content": "Hard panning places the Oberheim synthesiser predominantly in the left/centre while rhythm guitars sit on the right, creating a distinct hard-panned soundstage.",
               "type": "multi_choice",
               "explanation": "<p><strong>Version A (Van Halen).</strong> Ted Templeman used 1980s asymmetrical stereo panning: synth on the left, guitar on the right, with drums and bass centred.",
               "answers": [
@@ -21849,7 +21912,7 @@
                 }
               ],
               "img": "/images/stereo_soundstage_panning_hq.svg",
-              "expert_explanation": "Asymmetrical panning kept the dense guitar and synthesizer from colliding. Paul Anka's mix reflects a traditional big band stage: brass spread wide, double bass centred, piano stage-left.",
+              "expert_explanation": "Asymmetrical panning kept the dense guitar and synthesiser from colliding. Paul Anka's mix reflects a traditional big band stage: brass spread wide, double bass centred, piano stage-left.",
               "expert_quote": {
                 "text": "Panning the synth left and the guitar right gave each instrument its own huge territory in the speakers.",
                 "author": "Donn Landee (Engineer)"
@@ -21913,7 +21976,7 @@
             },
             {
               "title": "Filtering & Effects",
-              "content": "Guitar utilizes an MXR Phase 90 and Flanger pedal before the amplifier to create gentle swirling harmonic movement.",
+              "content": "Guitar uses an MXR Phase 90 and Flanger pedal before the amplifier to create gentle swirling harmonic movement.",
               "type": "multi_choice",
               "explanation": "<p><strong>Version A (Van Halen).</strong> Eddie's signature tone prominently featured the script-logo MXR Phase 90 on a slow sweep, adding harmonic complexity to his solos.",
               "answers": [
@@ -21939,7 +22002,7 @@
             },
             {
               "title": "EQ",
-              "content": "Features bright, hyped high-frequency 'air' EQ boost on cymbals and synthesizer brass, paired with a punchy midrange boost on the guitar solo.",
+              "content": "Features bright, hyped high-frequency 'air' EQ boost on cymbals and synthesiser brass, paired with a punchy midrange boost on the guitar solo.",
               "type": "multi_choice",
               "explanation": "<p><strong>Version A (Van Halen).</strong> The mix exhibits the classic 1980s rock EQ curve: bright, sizzling top end on hi-hats/cymbals and focused 1.5–3 kHz guitar punch.",
               "answers": [
@@ -21991,7 +22054,7 @@
             },
             {
               "title": "Instrumentation",
-              "content": "The iconic synthesizer hook is re-orchestrated for an acoustic big band horn section comprising trumpets, trombones, and saxophones.",
+              "content": "The iconic synthesiser hook is re-orchestrated for an acoustic big band horn section comprising trumpets, trombones, and saxophones.",
               "type": "multi_choice",
               "explanation": "<p><strong>Version B (Paul Anka).</strong> Arranger Patrick Williams scored the Oberheim synth hook for a 16-piece acoustic big band brass section with acoustic upright bass and grand piano.",
               "answers": [
@@ -22005,7 +22068,7 @@
                 }
               ],
               "img": "/images/gen/t2_q13_brass_distance_hq_1772103543454.png",
-              "expert_explanation": "Substituting analogue synthesizers with acoustic brass transformed the track's identity. Van Halen's rock instrumentation was OB-Xa, electric guitar, electric bass, and rock drum kit.",
+              "expert_explanation": "Substituting analogue synthesisers with acoustic brass transformed the track's identity. Van Halen's rock instrumentation was OB-Xa, electric guitar, electric bass, and rock drum kit.",
               "expert_quote": {
                 "text": "Scoring Eddie's synth riff for five saxophones and four trumpets gave it that classic Sinatra swagger.",
                 "author": "Patrick Williams (Arranger)"
@@ -22019,7 +22082,7 @@
               "title": "Genre Style",
               "content": "Exemplifies the commercial peak of 1980s Arena Rock / Synth-Rock, crossing heavy guitar virtuosity with mainstream pop appeal.",
               "type": "multi_choice",
-              "explanation": "<p><strong>Version A (Van Halen).</strong> 'Jump' reached #1 on the Billboard Hot 100, proving that hard rock bands could integrate polyphonic synthesizers without alienating their audience.</p>",
+              "explanation": "<p><strong>Version A (Van Halen).</strong> 'Jump' reached #1 on the Billboard Hot 100, proving that hard rock bands could integrate polyphonic synthesisers without alienating their audience.</p>",
               "answers": [
                 {
                   "text": "Version A (Van Halen)",
@@ -22050,15 +22113,15 @@
                 "2. Paul Anka's 2005 jazz cover was tracked into high-resolution {1}.",
                 "3. The original groove is a driving, straight-ahead 4/4 {2} beat.",
                 "4. The cover reimagines the rhythm as a swung, relaxed {3} jazz shuffle.",
-                "5. Eddie Van Halen performed the famous hook on an {4} polyphonic synthesizer.",
-                "6. Paul Anka completely eliminated synthesizers, re-orchestrating the chords for an acoustic {5} section.",
+                "5. Eddie Van Halen performed the famous hook on an {4} polyphonic synthesiser.",
+                "6. Paul Anka completely eliminated synthesisers, re-orchestrating the chords for an acoustic {5} section.",
                 "7. David Lee Roth's vocals feature athletic screams, falsetto shouts, and {6} in the choruses.",
                 "8. Paul Anka performs with smooth, sophisticated {7} vibrato and natural jazz phrasing.",
                 "9. Eddie Van Halen's iconic solo showcases his revolutionary two-handed {8} technique.",
                 "10. In the jazz version, the guitar solo is replaced by dynamic brass stabs and an acoustic {9} solo.",
                 "11. Van Halen's mix treats the snare and guitar with early digital {10} reverb units.",
                 "12. The big band recording relies primarily on the natural {11} of the recording studio.",
-                "13. In the 1984 stereo field, the synthesizer is panned {12} while the rhythm guitar sits on the right.",
+                "13. In the 1984 stereo field, the synthesiser is panned {12} while the rhythm guitar sits on the right.",
                 "14. The jazz mix preserves wide natural {13}, following the big band's live crescendos without heavy compression.",
                 "15. Ultimately, the comparison contrasts 1980s Synth-Rock with classic 2000s {14}."
               ],
@@ -22148,7 +22211,7 @@
                   "chorus plugin"
                 ],
                 [
-                  "left and center",
+                  "left and centre",
                   "extreme right",
                   "in stereo mono",
                   "back of the room",
@@ -22182,11 +22245,11 @@
                 "grand piano",
                 "Lexicon 224",
                 "room acoustics",
-                "left and center",
+                "left and centre",
                 "dynamic range",
                 "Big Band Swing Jazz"
               ],
-              "expert_explanation": "The official 2023 Edexcel Component 3 Question 5 comparison contrasts Van Halen's 1984 arena synth-rock anthem with Paul Anka's 2005 acoustic big band swing jazz cover. Key syllabus technical contrasts include: 24-track analogue tape vs digital DAW, straight 4/4 rock drum backbeat vs swung jazz brushwork, Oberheim OB-Xa polyphonic synthesizer chords vs acoustic trumpet/trombone/saxophone orchestration, Eddie Van Halen's two-handed tapping guitar solo vs acoustic piano solo, hard-panned synth/guitar stereo split vs natural big band room soundstage, and processed rock dynamics vs acoustic micro-dynamics.",
+              "expert_explanation": "The official 2023 Edexcel Component 3 Question 5 comparison contrasts Van Halen's 1984 arena synth-rock anthem with Paul Anka's 2005 acoustic big band swing jazz cover. Key syllabus technical contrasts include: 24-track analogue tape vs digital DAW, straight 4/4 rock drum backbeat vs swung jazz brushwork, Oberheim OB-Xa polyphonic synthesiser chords vs acoustic trumpet/trombone/saxophone orchestration, Eddie Van Halen's two-handed tapping guitar solo vs acoustic piano solo, hard-panned synth/guitar stereo split vs natural big band room soundstage, and processed rock dynamics vs acoustic micro-dynamics.",
               "img": "/images/comparisons/jump_comparison.svg",
               "explanation_image": {
                 "src": "/images/comparisons/jump_comparison.svg",
@@ -23866,17 +23929,17 @@
         {
           "type": "lp_quiz",
           "title": "Comparison 15: Running Up That Hill",
-          "youtube_id": "wp43OdtAAhM",
+          "youtube_id": "wp43OdtAAkM",
           "video_title_1": "Kate Bush (1985)",
-          "youtube_id_2": "d-mXh_g6_uE",
+          "youtube_id_2": "oKVaN001cqA",
           "video_title_2": "Placebo (2003)",
           "description": "Predicted Edexcel Component 3 Question 5 paper. Compare the 1985 art-pop / electronic masterpiece by Kate Bush (Version A) with the 2003 alternative rock / dark wave cover by Placebo (Version B). Focus on Fairlight CMI Series II sampling, LinnDrum programming, and SSL console clarity versus down-tuned electric guitars, slowed melancholic tempo (66 BPM vs 108 BPM), and saturated room compression.",
           "questions": [
             {
               "title": "Recording Release Medium",
-              "content": "Recorded onto 24-track analogue tape at Kate Bush's 48-track private home studio (Wickham Farm) and mixed to 1/2-inch stereo master on an SSL 4000E console.",
+              "content": "Recorded onto 24-track analogue tape in a private home studio and mixed on an SSL 4000E console.",
               "type": "multi_choice",
-              "explanation": "<p><strong>Version A (Kate Bush).</strong> Engineered for <em>Hounds of Love</em> at Bush's custom home studio, taking advantage of the SSL 4000E's automated channel dynamics and EQ.</p>",
+              "explanation": "<p><strong>Version A (Kate Bush).</strong> Kate Bush built her own 48-track studio at Wickham Farm for total creative control. Placebo recorded in 2003 into a digital Pro Tools HD DAW.</p>",
               "answers": [
                 {
                   "text": "Version A (Kate Bush)",
@@ -23888,7 +23951,7 @@
                 }
               ],
               "img": "/images/svg/analog_tape_24track_ssl_console.svg",
-              "expert_explanation": "Kate Bush was a pioneer in building high-end home studios to maintain total artistic control. Placebo recorded in 2003 on digital Pro Tools HD systems at Mayfair Studios in London.",
+              "expert_explanation": "Kate Bush built her own 48-track studio at Wickham Farm for total creative control. Placebo recorded in 2003 into a digital Pro Tools HD DAW.",
               "expert_quote": {
                 "text": "Building my own 48-track studio meant I could live inside the music without commercial studio pressures.",
                 "author": "Kate Bush"
@@ -23900,9 +23963,9 @@
             },
             {
               "title": "Capture & Style",
-              "content": "Pioneered creative digital sampling using the Fairlight CMI Series II, constructing melodic motifs from sampled strings, voices, and synthesized textures.",
+              "content": "Uses an 8-bit Fairlight CMI digital sampler to build melodic hooks from sampled strings and voices.",
               "type": "multi_choice",
-              "explanation": "<p><strong>Version A (Kate Bush).</strong> Kate Bush was one of the foremost innovators of the Fairlight CMI sampler, using its light-pen screen to manipulate sampled audio waveforms.</p>",
+              "explanation": "<p><strong>Version A (Kate Bush).</strong> The Fairlight CMI's 8-bit sampling and Page R sequencer defined 1980s art-pop. Placebo replaced digital sampling with dark, distorted electric guitars.</p>",
               "answers": [
                 {
                   "text": "Version A (Kate Bush)",
@@ -23914,7 +23977,7 @@
                 }
               ],
               "img": "/images/svg/vocal_chopping_sampling_technique.svg",
-              "expert_explanation": "The Fairlight CMI's 8-bit digital sampling and Page R sequencer defined 1980s art-pop. Placebo replaced digital sampling with heavily textured, distorted electric guitars and acoustic drums.",
+              "expert_explanation": "The Fairlight CMI's 8-bit sampling and Page R sequencer defined 1980s art-pop. Placebo replaced digital sampling with dark, distorted electric guitars.",
               "expert_quote": {
                 "text": "The Fairlight wasn't just a machine; it was an artistic paintbrush that let me play real sounds across the keys.",
                 "author": "Kate Bush"
@@ -23926,9 +23989,9 @@
             },
             {
               "title": "Rhythm & Sync",
-              "content": "Rhythm track features a fast, hypnotic 108 BPM tribal pulse programmed on a LinnDrum drum machine augmented by live acoustic toms.",
+              "content": "Driven by a fast, hypnotic 108 BPM pulse programmed on a LinnDrum layered with live acoustic toms.",
               "type": "multi_choice",
-              "explanation": "<p><strong>Version A (Kate Bush).</strong> Bush and drummer Stuart Elliott programmed the hypnotic, driving tom pattern on a LinnDrum, layering live acoustic tom hits to add human kinetic power.</p>",
+              "explanation": "<p><strong>Version A (Kate Bush).</strong> Kate Bush's driving 108 BPM rhythm gives the track urgent momentum. Placebo slowed the tempo right down to a brooding 66 BPM.</p>",
               "answers": [
                 {
                   "text": "Version A (Kate Bush)",
@@ -23940,7 +24003,7 @@
                 }
               ],
               "img": "/images/svg/comparison_quantized_grid_vs_human_timing.svg",
-              "expert_explanation": "Bush's 108 BPM forward-driving rhythm conveys physical exertion and galloping momentum. Placebo drastically slowed the song down to a sluggish, funeral-paced 66 BPM.",
+              "expert_explanation": "Kate Bush's driving 108 BPM rhythm gives the track urgent momentum. Placebo slowed the tempo right down to a brooding 66 BPM.",
               "expert_quote": {
                 "text": "The drum rhythm had to feel like running up a steep hill—relentless, exhausting, and forward-moving.",
                 "author": "Kate Bush"
@@ -23952,9 +24015,9 @@
             },
             {
               "title": "Sequencing & Sampling",
-              "content": "Drastically alters the tempo and emotional mood, slowing the track from 108 BPM down to a brooding, melancholic 66 BPM.",
+              "content": "Slows the tempo dramatically to a brooding, melancholic 66 BPM to transform the mood.",
               "type": "multi_choice",
-              "explanation": "<p><strong>Version B (Placebo).</strong> By dropping the tempo down to 66 BPM, Placebo transformed Bush's exhilarating pop momentum into a dark, drugged-out goth-rock lament.</p>",
+              "explanation": "<p><strong>Version B (Placebo).</strong> Dropping the tempo from 108 BPM to 66 BPM turns Kate Bush's urgent art-pop anthem into a dark, slow-burning alternative rock ballad.</p>",
               "answers": [
                 {
                   "text": "Version A (Kate Bush)",
@@ -23966,7 +24029,7 @@
                 }
               ],
               "img": "/images/comparisons/running_up_that_hill_comparison.svg",
-              "expert_explanation": "The dramatic tempo reduction fundamentally changed the emotional tone from triumphant spiritual struggle to hopeless melancholia.",
+              "expert_explanation": "Dropping the tempo from 108 BPM to 66 BPM turns Kate Bush's urgent art-pop anthem into a dark, slow-burning alternative rock ballad.",
               "expert_quote": {
                 "text": "Slowing it down completely opened up the heartbreak inside Kate's lyrics.",
                 "author": "Brian Molko (Placebo)"
@@ -23978,9 +24041,9 @@
             },
             {
               "title": "Pitching",
-              "content": "Vocals are intimate, nasal, close-miked, and delivered in an exhausted, androgynous whisper-croon with minimal vibrato.",
+              "content": "Lead vocal is close-miked, intimate, and delivered in a weary, whispered tone with minimal vibrato.",
               "type": "multi_choice",
-              "explanation": "<p><strong>Version B (Placebo).</strong> Brian Molko's distinctive androgynous vocal delivery sits inches from the microphone capsule, conveying vulnerability and emotional fatigue.</p>",
+              "explanation": "<p><strong>Version B (Placebo).</strong> Brian Molko's fragile, close-miked delivery contrasts sharply with Kate Bush's soaring, theatrical multi-octave lead vocal.</p>",
               "answers": [
                 {
                   "text": "Version A (Kate Bush)",
@@ -23992,7 +24055,7 @@
                 }
               ],
               "img": "/images/comparisons/running_up_that_hill_comparison.svg",
-              "expert_explanation": "Molko's intimate, weary vocal contrasts sharply with Kate Bush's dynamic, multi-octave theatrical vocal performance with soaring head-voice and layered backing choirs.",
+              "expert_explanation": "Brian Molko's fragile, close-miked delivery contrasts sharply with Kate Bush's soaring, theatrical multi-octave lead vocal.",
               "expert_quote": {
                 "text": "I sang it right up against the mic grille to make it feel uncomfortably close and personal.",
                 "author": "Brian Molko"
@@ -24004,9 +24067,9 @@
             },
             {
               "title": "Arrangement Differences",
-              "content": "Features multi-layered, polyphonic backing vocal choirs sung entirely by Kate Bush, panned in stereo to create a celestial, spiritual atmosphere.",
+              "content": "Features lush, multi-layered backing vocal choirs panned wide across the stereo field.",
               "type": "multi_choice",
-              "explanation": "<p><strong>Version A (Kate Bush).</strong> Bush recorded dozens of vocal harmony tracks, stacking low, middle, and high registers into an ethereal human choir.</p>",
+              "explanation": "<p><strong>Version A (Kate Bush).</strong> Kate Bush overdubbed rich vocal harmonies across the chorus for a huge, spiritual lift. Placebo stripped away the choir to keep the vocal sparse and isolated.</p>",
               "answers": [
                 {
                   "text": "Version A (Kate Bush)",
@@ -24018,7 +24081,7 @@
                 }
               ],
               "img": "/images/svg/arrangement_sparse_acoustic_vs_dense_synth.svg",
-              "expert_explanation": "Bush's vocal counterpoint in the chorus ('Make a deal with God...') is a hallmark of her production. Placebo eliminated the choir, leaving Molko's vocal almost completely isolated.",
+              "expert_explanation": "Kate Bush overdubbed rich vocal harmonies across the chorus for a huge, spiritual lift. Placebo stripped away the choir to keep the vocal sparse and isolated.",
               "expert_quote": {
                 "text": "Layering my voice in harmonies let me create a Greek chorus that answered the lead vocal.",
                 "author": "Kate Bush"
@@ -24030,9 +24093,9 @@
             },
             {
               "title": "Mixing & Processing",
-              "content": "The arrangement is driven by dark, heavily distorted electric guitars tuned down and layered with droning analogue synth bass.",
+              "content": "Built around dark, heavily distorted down-tuned electric guitars and a droning analogue bass.",
               "type": "multi_choice",
-              "explanation": "<p><strong>Version B (Placebo).</strong> Stefan Olsdal and Brian Molko layered thick, fuzzy electric guitars with gloomy synth pads, wrapping the song in alternative rock gloom.</p>",
+              "explanation": "<p><strong>Version B (Placebo).</strong> Placebo anchored the arrangement with fuzzy guitars and a dark drone. Kate Bush relied on clean Fairlight samples, acoustic balalaika, and bright synths.</p>",
               "answers": [
                 {
                   "text": "Version A (Kate Bush)",
@@ -24044,7 +24107,7 @@
                 }
               ],
               "img": "/images/guitar_amp_3d_stage.png",
-              "expert_explanation": "Placebo's guitar fuzz and drone created dark wave atmosphere. Bush's arrangement relied on clean Fairlight samples, acoustic balalaika, and bright synthesizer textures.",
+              "expert_explanation": "Placebo anchored the arrangement with fuzzy guitars and a dark drone. Kate Bush relied on clean Fairlight samples, acoustic balalaika, and bright synths.",
               "expert_quote": {
                 "text": "We wanted the guitars to sound like a heavy, suffocating electronic blanket.",
                 "author": "Stefan Olsdal (Placebo)"
@@ -24056,9 +24119,9 @@
             },
             {
               "title": "Pan (Stereo Field)",
-              "content": "Fairlight CMI sampled orchestral stabs and balalaika strums are panned rhythmically to create a wide, open stereo panorama.",
+              "content": "Pans sampled orchestral stabs and plucked folk strings rhythmically across a wide, open stereo image.",
               "type": "multi_choice",
-              "explanation": "<p><strong>Version A (Kate Bush).</strong> The SSL console's automated stereo bus placed Fairlight stabs, backing vocals, and ethnic instruments (balalaika) across a wide 3D panorama.</p>",
+              "explanation": "<p><strong>Version A (Kate Bush).</strong> Kate Bush's mix has crisp spatial separation and width. Placebo's mix is denser and narrower, creating a claustrophobic, centred wall of guitars.</p>",
               "answers": [
                 {
                   "text": "Version A (Kate Bush)",
@@ -24070,7 +24133,7 @@
                 }
               ],
               "img": "/images/stereo_soundstage_panning_hq.svg",
-              "expert_explanation": "Bush's mix has remarkable spatial separation and clarity. Placebo's mix is denser and narrower, wrapping the listener in a claustrophobic, centred wall of distorted sound.",
+              "expert_explanation": "Kate Bush's mix has crisp spatial separation and width. Placebo's mix is denser and narrower, creating a claustrophobic, centred wall of guitars.",
               "expert_quote": {
                 "text": "We spent days placing every Fairlight texture in the stereo field so nothing masked Kate's voice.",
                 "author": "Del Palmer (Engineer/Bassist)"
@@ -24082,9 +24145,9 @@
             },
             {
               "title": "Reverb",
-              "content": "Employs an EMT 250 digital reverb and Quantec Room Simulator (QRS) for expansive, crystal-clear algorithmic ambient decay.",
+              "content": "Uses bright, spacious 1980s digital algorithmic reverb for clean, expansive ambient tails.",
               "type": "multi_choice",
-              "explanation": "<p><strong>Version A (Kate Bush).</strong> The Quantec QRS provided pristine digital spatial simulation, giving Bush's vocals and Fairlight textures an expansive, cathedral-like depth.</p>",
+              "explanation": "<p><strong>Version A (Kate Bush).</strong> Kate Bush used classic 1980s digital reverbs (EMT 250 and Quantec QRS) for clear space. Placebo favoured tighter, darker room ambience with saturated grit.</p>",
               "answers": [
                 {
                   "text": "Version A (Kate Bush)",
@@ -24096,7 +24159,7 @@
                 }
               ],
               "img": "/images/reverb_plate_mechanics_diagram.svg",
-              "expert_explanation": "The Quantec QRS was celebrated for clean, non-metallic room acoustics. Placebo favored short, tight room ambience with heavy distortion saturation on the reverb tails.",
+              "expert_explanation": "Kate Bush used classic 1980s digital reverbs (EMT 250 and Quantec QRS) for clear space. Placebo favoured tighter, darker room ambience with saturated grit.",
               "expert_quote": {
                 "text": "The Quantec Room Simulator gave the track that magical, floating sense of open mountain air.",
                 "author": "Del Palmer"
@@ -24108,9 +24171,9 @@
             },
             {
               "title": "Delay",
-              "content": "Lead vocal is treated with tempo-synced stereo digital delay throws that spin between left and right channels on verse endings.",
+              "content": "Applies tempo-synced stereo digital delay throws on vocal endings that bounce left and right.",
               "type": "multi_choice",
-              "explanation": "<p><strong>Version B (Placebo).</strong> Placebo used subtle BPM-locked digital delays on vocal tails to enhance the dreamy, disoriented mood of the breakdown.</p>",
+              "explanation": "<p><strong>Version B (Placebo).</strong> Placebo used stereo delay throws to add eerie space around the vocal. Kate Bush kept her lead vocal more direct, relying on layered harmonies instead.</p>",
               "answers": [
                 {
                   "text": "Version A (Kate Bush)",
@@ -24122,7 +24185,7 @@
                 }
               ],
               "img": "/images/svg/dotted_eighth_note_delay.svg",
-              "expert_explanation": "Placebo used digital delay to heighten the psychedelic dislocation. Bush kept her lead vocal relatively direct, relying on stacked vocal harmonies rather than long delay echoes.",
+              "expert_explanation": "Placebo used stereo delay throws to add eerie space around the vocal. Kate Bush kept her lead vocal more direct, relying on layered harmonies instead.",
               "expert_quote": {
                 "text": "The subtle delay repeats make Brian's voice sound like an echo inside an empty room.",
                 "author": "Placebo Producer"
@@ -24134,9 +24197,9 @@
             },
             {
               "title": "Filtering & Effects",
-              "content": "Features a real Russian acoustic folk instrument (Balalaika) tracked through high-pass filters to add unusual sparkling percussive textures.",
+              "content": "Blends a high-pass filtered acoustic folk instrument (balalaika) with electronic synthesisers.",
               "type": "multi_choice",
-              "explanation": "<p><strong>Version A (Kate Bush).</strong> Bush's brother Paddy Bush performed on the balalaika and maravali, blending ethnic acoustic folk strings into the electronic production.</p>",
+              "explanation": "<p><strong>Version A (Kate Bush).</strong> Kate Bush paired an acoustic Russian balalaika with high-tech 1980s sampling. Placebo stuck to a dark modern alternative rock band line-up.</p>",
               "answers": [
                 {
                   "text": "Version A (Kate Bush)",
@@ -24148,7 +24211,7 @@
                 }
               ],
               "img": "/images/svg/high_pass_filter_sweep_riser.svg",
-              "expert_explanation": "Bush seamlessly integrated traditional folk instruments into high-tech electronic pop. Placebo used standard modern rock instrumentation: guitars, bass, synths, and acoustic kit.",
+              "expert_explanation": "Kate Bush paired an acoustic Russian balalaika with high-tech 1980s sampling. Placebo stuck to a dark modern alternative rock band line-up.",
               "expert_quote": {
                 "text": "Paddy brought in the balalaika to give that sparkling, galloping rhythm an exotic, otherworldly texture.",
                 "author": "Kate Bush"
@@ -24160,21 +24223,21 @@
             },
             {
               "title": "EQ",
-              "content": "Exhibits bright, glassy 1980s high-end sheen on the Fairlight samples and vocal transients, achieved via SSL 4000E channel EQs.",
+              "content": "Has a dark, low-mid heavy (200–500 Hz) tonal balance with rolled-off treble for a gothic mood.",
               "type": "multi_choice",
-              "explanation": "<p><strong>Version A (Kate Bush).</strong> The SSL 4000E's black-knob EQs boosted presence around 8–12 kHz, giving the digital samples and vocals exquisite radio sheen.</p>",
+              "explanation": "<p><strong>Version B (Placebo).</strong> Placebo's mix is intentionally dark and thick in the low-mids. Kate Bush's 1985 SSL mix has a bright, glassy high-end sheen on vocals and Fairlight samples.</p>",
               "answers": [
                 {
                   "text": "Version A (Kate Bush)",
-                  "is_true": "yes"
+                  "is_true": "no"
                 },
                 {
                   "text": "Version B (Placebo)",
-                  "is_true": "no"
+                  "is_true": "yes"
                 }
               ],
               "img": "/images/svg/comparison_60s_midrange_vs_80s_smile_eq.svg",
-              "expert_explanation": "Bush's production sparkles with pristine top-end clarity. Placebo's mix is dark, low-mid heavy (200–500 Hz), and intentionally veiled to reflect the gothic mood.",
+              "expert_explanation": "Placebo's mix is intentionally dark and thick in the low-mids. Kate Bush's 1985 SSL mix has a bright, glassy high-end sheen on vocals and Fairlight samples.",
               "expert_quote": {
                 "text": "The SSL EQ had that aggressive top-end clarity that made the Fairlight samples cut right through.",
                 "author": "Del Palmer"
@@ -24186,9 +24249,9 @@
             },
             {
               "title": "Dynamics",
-              "content": "Drums are processed with heavy, saturated room compression (empirical labs Distressor / 1176 in 'all-buttons' mode) to create explosive room pumping.",
+              "content": "Processes live drum room mics with heavy, saturated compression for explosive pumping.",
               "type": "multi_choice",
-              "explanation": "<p><strong>Version B (Placebo).</strong> Steve Hewitt's acoustic drums were tracked in a live room and smashed with aggressive room compression, making the slow beat sound gigantic and explosive.</p>",
+              "explanation": "<p><strong>Version B (Placebo).</strong> Crushing drum room mics with aggressive FET compression is a hallmark of 2000s rock. Kate Bush's LinnDrum toms had clean, tight gated punch.</p>",
               "answers": [
                 {
                   "text": "Version A (Kate Bush)",
@@ -24200,7 +24263,7 @@
                 }
               ],
               "img": "/images/svg/limiter_brickwall.svg",
-              "expert_explanation": "Smashing drum room mics with 1176 limiters is a classic modern alternative rock technique. Bush's LinnDrum toms had clean, gated punch without saturated room pumping.",
+              "expert_explanation": "Crushing drum room mics with aggressive FET compression is a hallmark of 2000s rock. Kate Bush's LinnDrum toms had clean, tight gated punch.",
               "expert_quote": {
                 "text": "Crushing the drum room mics made every slow snare hit sound like a bomb going off in slow motion.",
                 "author": "Jim Abbiss (Producer)"
@@ -24212,9 +24275,9 @@
             },
             {
               "title": "Instrumentation",
-              "content": "Arrangement is built around the Fairlight CMI Series II, LinnDrum, Minimoog bass, acoustic balalaika, and multi-layered vocal choirs.",
+              "content": "Combines a Fairlight CMI sampler, LinnDrum, Minimoog bass, acoustic balalaika, and vocal choirs.",
               "type": "multi_choice",
-              "explanation": "<p><strong>Version A (Kate Bush).</strong> An avant-garde blend of cutting-edge 1980s sampling technology with traditional acoustic folk instrumentation and multi-octave human voice.</p>",
+              "explanation": "<p><strong>Version A (Kate Bush).</strong> Kate Bush fused cutting-edge 1980s electronic gear with acoustic textures. Placebo rebuilt the song around electric guitars, live drums, and bass.</p>",
               "answers": [
                 {
                   "text": "Version A (Kate Bush)",
@@ -24226,7 +24289,7 @@
                 }
               ],
               "img": "/images/svg/acoustic_guitar_vs_tropical_synth_pluck.svg",
-              "expert_explanation": "Bush's instrumentation was deeply electronic yet human. Placebo's instrumentation was organic alternative rock: electric guitars, live drums, bass, and minimal electronic keyboards.",
+              "expert_explanation": "Kate Bush fused cutting-edge 1980s electronic gear with acoustic textures. Placebo rebuilt the song around electric guitars, live drums, and bass.",
               "expert_quote": {
                 "text": "We mixed modern digital samplers with ancient folk instruments—that tension was where the magic happened.",
                 "author": "Kate Bush"
@@ -24238,9 +24301,9 @@
             },
             {
               "title": "Genre Style",
-              "content": "Transforms 1980s Art-Pop / Synth-Pop into 2000s Alternative Rock / Dark Wave, stripping pop exuberance into melancholic intimacy.",
+              "content": "Presents the song as slow, atmospheric 2000s alternative rock rather than upbeat 1980s art-pop.",
               "type": "multi_choice",
-              "explanation": "<p><strong>Version B (Placebo).</strong> Placebo's cover became a dark-wave alternative classic, frequently featured in dark cinema and television for its hypnotic, gothic beauty.</p>",
+              "explanation": "<p><strong>Version B (Placebo).</strong> Placebo turned Kate Bush's energetic 1985 art-pop anthem into a brooding, vulnerable 2003 alternative rock cover.</p>",
               "answers": [
                 {
                   "text": "Version A (Kate Bush)",
@@ -24252,7 +24315,7 @@
                 }
               ],
               "img": "/images/comparisons/running_up_that_hill_comparison.svg",
-              "expert_explanation": "Kate Bush created an art-pop masterpiece of empowerment and spiritual compromise. Placebo re-envisioned it as an anthem of narcotic alienation and vulnerability.",
+              "expert_explanation": "Placebo turned Kate Bush's energetic 1985 art-pop anthem into a brooding, vulnerable 2003 alternative rock cover.",
               "expert_quote": {
                 "text": "Kate's song is a masterpiece. We just stripped away the 80s production to reveal the dark, beating heart inside it.",
                 "author": "Brian Molko"
@@ -24278,7 +24341,7 @@
                 "9. Bush's brother Paddy Bush played the {8}, an authentic Russian folk instrument, for sparkle.",
                 "10. Placebo processed the live acoustic drums with heavy, saturated {9} compression for explosive power.",
                 "11. The original was mixed on a Solid State Logic {10} console with automated channel processing.",
-                "12. Bush utilized pristine digital reverberation algorithms from the {11} Room Simulator (QRS).",
+                "12. Bush used pristine digital reverberation algorithms from the {11} Room Simulator (QRS).",
                 "13. Placebo used tempo-synced digital stereo {12} throws on vocal tails during the breakdown.",
                 "14. Bush's mix sparkles with clean top-end presence, while Placebo's mix is dark and {13} heavy.",
                 "15. Ultimately, the comparison demonstrates the shift from 80s Art-Pop to 2000s {14}."
@@ -24336,7 +24399,7 @@
                 [
                   "distorted electric",
                   "acoustic nylon",
-                  "synthesizer lead",
+                  "synthesiser lead",
                   "clean funk",
                   "slide guitar"
                 ],
@@ -24407,12 +24470,13 @@
                 "low-midrange",
                 "Alternative Rock / Dark Wave"
               ],
-              "expert_explanation": "The predicted 2028 Edexcel Component 3 Question 5 paper examines electronic vs organic production through Kate Bush's 1985 art-pop masterpiece 'Running Up That Hill' and Placebo's 2003 dark-wave alternative rock cover. Key syllabus technical contrasts include: custom 48-track home tape studio & SSL 4000E console vs Mayfair Pro Tools HD DAW, Fairlight CMI Series II digital sampling & LinnDrum tribal pulse (108 BPM) vs funeral-tempo 66 BPM down-tuned electric guitars and crushed drum room mics, stacked multi-octave vocal choirs vs intimate close-miked androgynous whisper, Quantec QRS pristine digital spatial simulation vs dark saturation, and Russian balalaika folk textures vs gloomy modern alt-rock distortion.",
+              "expert_explanation": "This comparison contrasts Kate Bush's 1985 art-pop original with Placebo's 2003 alternative rock cover: 24-track analogue tape and Fairlight CMI sampling at 108 BPM vs Pro Tools HD, distorted guitars, heavy drum-room compression, and a brooding 66 BPM tempo.",
               "img": "/images/comparisons/running_up_that_hill_comparison.svg",
               "explanation_image": {
                 "src": "/images/comparisons/running_up_that_hill_comparison.svg",
                 "alt": "Comparison 15: Running Up That Hill Synthesis Diagram"
-              }
+              },
+              "explanation": "<img src=\"/images/comparisons/running_up_that_hill_comparison.svg\" alt=\"Production Synthesis: Running Up That Hill\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> This comparison contrasts Kate Bush's 1985 art-pop original with Placebo's 2003 alternative rock cover: 24-track analogue tape and Fairlight CMI sampling at 108 BPM vs Pro Tools HD, distorted guitars, heavy drum-room compression, and a brooding 66 BPM tempo.</p>"
             }
           ],
           "isPremium": true,
@@ -30275,335 +30339,219 @@
           "description": "Mastery quiz covering the rise of accessible synthesis, analogue delay, and the technological boom of disco production.",
           "questions": [
             {
-              "title": "Q1: Subtractive Synths",
-              "content": "What was the most significant innovation of the first commercially successful portable analogue synthesizers in the early 1970s?",
-              "type": "multi_choice",
-              "answers": [
+              "title": "Q1: 1970s Synthesiser Breakthroughs",
+              "content": "Drag or tap each 1970s synthesiser innovation into its matching description.",
+              "type": "signal-flow-label",
+              "hide_arrows": true,
+              "flowSteps": [
                 {
-                  "text": "They were the first fully polyphonic instruments",
-                  "is_true": "no"
+                  "id": "step1",
+                  "label": "1. Portable monophonic analogue synth built for live stages"
                 },
                 {
-                  "text": "They were self-contained, pre-patched, and portable",
-                  "is_true": "yes"
+                  "id": "step2",
+                  "label": "2. Polyphonic analogue synth that could play chords & save patches"
                 },
                 {
-                  "text": "They used digital wavetable synthesis",
-                  "is_true": "no"
+                  "id": "step3",
+                  "label": "3. Uses a human voice to shape a synthesiser carrier wave"
                 },
                 {
-                  "text": "They featured built-in drum sequencers",
-                  "is_true": "no"
+                  "id": "step4",
+                  "label": "4. Early 1970s drum machine locked to preset rhythms"
                 }
               ],
-              "explanation": "",
-              "expert_explanation": "Early portable synthesizers (like the Minimoog) brought synthesis out of the laboratory. They didn't require messy patch cables because their oscillators and filters were internally connected ('normalized').",
-              "expert_quote": {
-                "text": "It was the first synthesizer a musician could take on a club gig and actually just play without an engineering degree.",
-                "author": "Keyboard Magazine"
+              "terms": [
+                "Vocoder",
+                "Minimoog",
+                "Preset Rhythm Box",
+                "Prophet-5"
+              ],
+              "correctAnswers": {
+                "step1": "Minimoog",
+                "step2": "Prophet-5",
+                "step3": "Vocoder",
+                "step4": "Preset Rhythm Box"
               },
+              "img": "/images/Dictiionary_Quiz_image_Pool/history_synth_hq.png",
+              "explanation_image": {
+                "src": "/images/Dictiionary_Quiz_image_Pool/history_synth_hq.png",
+                "alt": "Q1: 1970s Synthesiser Breakthroughs"
+              },
+              "expert_explanation": "The 1970s took synthesis out of laboratories and onto stages: the Minimoog made synths portable, the Prophet-5 introduced programmable polyphony, vocoders blended voice with synths, and early rhythm boxes used fixed preset patterns.",
+              "explanation": "<img src=\"/images/Dictiionary_Quiz_image_Pool/history_synth_hq.png\" alt=\"Q1: 1970s Synthesiser Breakthroughs\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> The 1970s took synthesis out of laboratories and onto stages: the Minimoog made synths portable, the Prophet-5 introduced programmable polyphony, vocoders blended voice with synths, and early rhythm boxes used fixed preset patterns.</p>"
+            },
+            {
+              "title": "Q2: 1970s Funk, Disco & Studio Effects",
+              "content": "Drag or tap each 1970s studio effect into its matching description.",
+              "type": "signal-flow-label",
+              "hide_arrows": true,
+              "flowSteps": [
+                {
+                  "id": "step1",
+                  "label": "1. Physical magnetic tape loop passing over playback heads"
+                },
+                {
+                  "id": "step2",
+                  "label": "2. Sweeps filter cutoff dynamically based on how hard you play"
+                },
+                {
+                  "id": "step3",
+                  "label": "3. Sweeping notch-filter swirl heard on 1970s electric pianos"
+                },
+                {
+                  "id": "step4",
+                  "label": "4. Short modulated delay thickening guitars and synth pads"
+                }
+              ],
+              "terms": [
+                "Phaser",
+                "Tape Echo (Space Echo)",
+                "Chorus",
+                "Envelope Filter (Auto-Wah)"
+              ],
+              "correctAnswers": {
+                "step1": "Tape Echo (Space Echo)",
+                "step2": "Envelope Filter (Auto-Wah)",
+                "step3": "Phaser",
+                "step4": "Chorus"
+              },
+              "img": "/images/svg/filter_envelope_modulation.svg",
+              "explanation_image": {
+                "src": "/images/svg/filter_envelope_modulation.svg",
+                "alt": "Q2: 1970s Funk, Disco & Studio Effects"
+              },
+              "expert_explanation": "1970s funk, disco, and synth pioneers relied on tactile analogue effects: tape echoes created warm rhythmic repeats, envelope filters reacted to bass dynamics, and phasers/chorus added lush movement.",
+              "explanation": "<img src=\"/images/svg/filter_envelope_modulation.svg\" alt=\"Q2: 1970s Funk, Disco & Studio Effects\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> 1970s funk, disco, and synth pioneers relied on tactile analogue effects: tape echoes created warm rhythmic repeats, envelope filters reacted to bass dynamics, and phasers/chorus added lush movement.</p>"
+            },
+            {
+              "title": "Q3: 1970s Mixing Console Breakthroughs",
+              "content": "Drag or tap each 1970s studio mixing breakthrough into its matching area.",
+              "type": "signal-flow-label",
+              "hide_arrows": true,
+              "flowSteps": [
+                {
+                  "id": "step1",
+                  "label": "1. 2-inch analogue multitrack allowing huge layered arrangements"
+                },
+                {
+                  "id": "step2",
+                  "label": "2. Invented in 1972 for full Frequency, Gain, and Q control"
+                },
+                {
+                  "id": "step3",
+                  "label": "3. Memorised fader moves so one engineer could mix 24 tracks"
+                },
+                {
+                  "id": "step4",
+                  "label": "4. Compressor and noise gate built directly into every channel strip"
+                }
+              ],
+              "terms": [
+                "Console Automation",
+                "24-Track Tape Machine",
+                "In-Line Channel Dynamics",
+                "Parametric EQ"
+              ],
+              "correctAnswers": {
+                "step1": "24-Track Tape Machine",
+                "step2": "Parametric EQ",
+                "step3": "Console Automation",
+                "step4": "In-Line Channel Dynamics"
+              },
+              "img": "/images/svg/analog_tape_24track_ssl_console.svg",
+              "explanation_image": {
+                "src": "/images/svg/analog_tape_24track_ssl_console.svg",
+                "alt": "Q3: 1970s Mixing Console Breakthroughs"
+              },
+              "expert_explanation": "As studios expanded to 24-track 2-inch tape, large-format consoles (like SSL) introduced parametric EQ, built-in channel dynamics, and fader automation to keep complex mixes tight and punchy.",
+              "explanation": "<img src=\"/images/svg/analog_tape_24track_ssl_console.svg\" alt=\"Q3: 1970s Mixing Console Breakthroughs\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> As studios expanded to 24-track 2-inch tape, large-format consoles (like SSL) introduced parametric EQ, built-in channel dynamics, and fader automation to keep complex mixes tight and punchy.</p>"
+            },
+            {
+              "title": "Q4: 1970s Disco & Club Production",
+              "content": "Drag or tap each disco production feature into its matching area.",
+              "type": "signal-flow-label",
+              "hide_arrows": true,
+              "flowSteps": [
+                {
+                  "id": "step1",
+                  "label": "1. Wider vinyl grooves for deeper bass and louder club playback"
+                },
+                {
+                  "id": "step2",
+                  "label": "2. Steady kick drum hit on every quarter-note beat (1-2-3-4)"
+                },
+                {
+                  "id": "step3",
+                  "label": "3. Opening the hi-hat on the off-beats to drive the groove"
+                },
+                {
+                  "id": "step4",
+                  "label": "4. Stripped-back percussion section built for seamless DJ mixing"
+                }
+              ],
+              "terms": [
+                "Hi-Hat Off-Beat Lift",
+                "12-Inch Single",
+                "Extended Instrumental Break",
+                "Four-on-the-Floor Kick"
+              ],
+              "correctAnswers": {
+                "step1": "12-Inch Single",
+                "step2": "Four-on-the-Floor Kick",
+                "step3": "Hi-Hat Off-Beat Lift",
+                "step4": "Extended Instrumental Break"
+              },
+              "img": "/images/svg/adsr_envelope_phases.svg",
+              "explanation_image": {
+                "src": "/images/svg/adsr_envelope_phases.svg",
+                "alt": "Q4: 1970s Disco & Club Production"
+              },
+              "expert_explanation": "Disco records were engineered specifically for club sound systems: 12-inch vinyl delivered louder bass, while four-on-the-floor kicks, off-beat hi-hats, and extended breaks kept dancefloors moving.",
+              "explanation": "<img src=\"/images/svg/adsr_envelope_phases.svg\" alt=\"Q4: 1970s Disco & Club Production\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Disco records were engineered specifically for club sound systems: 12-inch vinyl delivered louder bass, while four-on-the-floor kicks, off-beat hi-hats, and extended breaks kept dancefloors moving.</p>"
+            },
+            {
+              "title": "Q5: 1970s Pioneers & Signature Sounds",
+              "content": "Drag or tap each 1970s artist or producer into their signature production technique.",
+              "type": "signal-flow-label",
+              "hide_arrows": true,
+              "flowSteps": [
+                {
+                  "id": "step1",
+                  "label": "1. Sequenced 16th-note Moog synth basslines (\"I Feel Love\", 1977)"
+                },
+                {
+                  "id": "step2",
+                  "label": "2. Robotic vocoders and custom electronic drums (\"Trans-Europe Express\")"
+                },
+                {
+                  "id": "step3",
+                  "label": "3. Expressive clavinet, envelope filters, and iconic analogue synth hooks"
+                },
+                {
+                  "id": "step4",
+                  "label": "4. Clean, percussive DI Stratocaster rhythm guitar (\"Le Freak\")"
+                }
+              ],
+              "terms": [
+                "Stevie Wonder",
+                "Giorgio Moroder",
+                "Nile Rodgers (Chic)",
+                "Kraftwerk"
+              ],
+              "correctAnswers": {
+                "step1": "Giorgio Moroder",
+                "step2": "Kraftwerk",
+                "step3": "Stevie Wonder",
+                "step4": "Nile Rodgers (Chic)"
+              },
+              "img": "/images/minimoog_model_d.png",
               "explanation_image": {
                 "src": "/images/minimoog_model_d.png",
-                "alt": "Q1: Subtractive Synths Diagram"
+                "alt": "Q5: 1970s Pioneers & Signature Sounds"
               },
-              "img": "/images/Dictiionary_Quiz_image_Pool/history_synth_hq.png"
-            },
-            {
-              "title": "Q2: Analogue Polyphony",
-              "content": "In the late 1970s, legendary synthesizers (like the Prophet-5) were released. What made them revolutionary for keyboard players?",
-              "type": "multi_choice",
-              "answers": [
-                {
-                  "text": "They were fully software-based",
-                  "is_true": "no"
-                },
-                {
-                  "text": "They offered reliable polyphony AND allowed users to save parameter presets",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "They invented the mod wheel",
-                  "is_true": "no"
-                },
-                {
-                  "text": "They were powered by vacuum tubes",
-                  "is_true": "no"
-                }
-              ],
-              "explanation": "",
-              "expert_explanation": "Before these advancements, if you found a great sound on an analogue synth, you had to write down the physical knob positions on paper. Being able to store presets to memory, combined with polyphony, changed live performance forever.",
-              "expert_quote": {
-                "text": "It changed the touring keyboardist's life. No more scrambling to manually tune oscillators between songs.",
-                "author": "Dave Smith"
-              },
-              "explanation_image": {
-                "src": "/images/analog_polyphony_synth.png",
-                "alt": "Q2: Analog Polyphony Diagram"
-              }
-            },
-            {
-              "title": "Q3: Analogue Delay",
-              "content": "Which 1970s effect technology utilized a continuous, physical loop of magnetic recording medium passing over playback heads to create rhythmic echoes?",
-              "type": "multi_choice",
-              "answers": [
-                {
-                  "text": "Tape Delay / Space Echo",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "Digital Reverb",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Pitch Harmonizer",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Bucket Brigade Delay (BBD)",
-                  "is_true": "no"
-                }
-              ],
-              "explanation": "",
-              "expert_explanation": "Tape delays were ubiquitous in genres like dub and reggae. The natural degradation of the moving tape loop created warm, evolving, and slightly pitch-modulated delays due to 'wow and flutter'.",
-              "expert_quote": {
-                "text": "The tape echo isn't just a delay; the grit and wow of the physical tape is an instrument in itself.",
-                "author": "Dub Pioneer Lee 'Scratch' Perry"
-              },
-              "explanation_image": {
-                "src": "/images/watkins_copicat_delay.jpg",
-                "alt": "Q3: Analog Delay Diagram"
-              }
-            },
-            {
-              "title": "Q4: Vocal Processing",
-              "content": "Which analogue device, embraced by ground-breaking electronic groups in the 1970s, used the spectral characteristics of the human voice to modulate a carrier signal (like a synth wave)?",
-              "type": "multi_choice",
-              "answers": [
-                {
-                  "text": "Talkbox",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Vocoder",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "Pitch Correction",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Ring Modulator",
-                  "is_true": "no"
-                }
-              ],
-              "explanation": "",
-              "expert_explanation": "Vocoders analyze the frequency bands of speech (modulator) and impose them onto a synthesized waveform (carrier), creating the robotic, synthesized vocals heavily featured in early electronic music and later disco.",
-              "expert_quote": {
-                "text": "The vocoder gave electronic music a voice that was both deeply human and entirely machine.",
-                "author": "Synth History"
-              },
-              "explanation_image": {
-                "src": "/images/sennheiser_vocoder.jpg",
-                "alt": "Q4: Vocal Processing Diagram"
-              }
-            },
-            {
-              "title": "Q5: Console Automation",
-              "content": "As studio track counts expanded to 24 tracks in the 1970s, making large mixes difficult for a single person, what technology was introduced?",
-              "type": "multi_choice",
-              "answers": [
-                {
-                  "text": "VCA Automation (fader recording)",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "DSP Lookahead Limiters",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Touch-screen routing matrixes",
-                  "is_true": "no"
-                },
-                {
-                  "text": "MIDI Control Surfaces",
-                  "is_true": "no"
-                }
-              ],
-              "explanation": "",
-              "expert_explanation": "Voltage Controlled Amplifier (VCA) automation recorded fader movements, allowing complex mixes to be built up in passes over time rather than requiring four engineers with eight hands on the desk simultaneously.",
-              "expert_quote": {
-                "text": "Before automation, mixing was a chaotic live performance. If you missed a fader ride at the end, you had to start the whole song over.",
-                "author": "Bob Clearmountain"
-              },
-              "explanation_image": {
-                "src": "/images/vca_console_automation.png",
-                "alt": "Q5: Console Automation Diagram"
-              }
-            },
-            {
-              "title": "Q6: Early Drum Machines",
-              "content": "What was a major limitation of early 1970s analogue drum machines (rhythm boxes) compared to modern sequencers?",
-              "type": "multi_choice",
-              "answers": [
-                {
-                  "text": "They used uncompressed digital WAV files",
-                  "is_true": "no"
-                },
-                {
-                  "text": "They only played rigid, pre-programmed lounge rhythm patterns (Waltz, Bossa Nova)",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "They required entirely MIDI control to run",
-                  "is_true": "no"
-                },
-                {
-                  "text": "They output sound exclusively in stereo",
-                  "is_true": "no"
-                }
-              ],
-              "explanation": "",
-              "expert_explanation": "Before the invention of user-programmable step sequencing, drum machines were meant to sit atop home organs playing waltz backing tracks. Creative artists manipulated these preset rhythms using external effects.",
-              "expert_quote": {
-                "text": "The rhythm box was rigid, but if you ran the Bossa Nova preset through a delay and flanger, it became magic.",
-                "author": "70s Synth Production"
-              },
-              "explanation_image": {
-                "src": "/images/roland_cr78.jpg",
-                "alt": "Q6: Early Drum Machines Diagram"
-              }
-            },
-            {
-              "title": "Q7: Club Mastering",
-              "content": "What physical vinyl format was pioneered in the 1970s specifically to cater to club DJs by allowing wider grooves, deeper bass, and louder mastering?",
-              "type": "multi_choice",
-              "answers": [
-                {
-                  "text": "The 7-inch 45rpm single",
-                  "is_true": "no"
-                },
-                {
-                  "text": "The cassette tape",
-                  "is_true": "no"
-                },
-                {
-                  "text": "The 12-inch single",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "The Flexi disc",
-                  "is_true": "no"
-                }
-              ],
-              "explanation": "",
-              "expert_explanation": "The 12-inch single allowed the physical record grooves to be spaced further apart. This meant mastering engineers could cut much louder levels and deeper sub-bass without the needle jumping out of the groove.",
-              "expert_quote": {
-                "text": "The 12-inch single was the weapon of the disco DJ. It had the dynamic range and low-end that a 7-inch simply couldn't physically handle.",
-                "author": "Tom Moulton"
-              },
-              "explanation_image": {
-                "src": "/images/turntable_dj.png",
-                "alt": "Q7: Club Mastering Diagram"
-              }
-            },
-            {
-              "title": "Q8: Dynamic Filtering",
-              "content": "What effect pedal, prominent in 70s funk and disco basslines, responds dynamically to how hard the instrument is played by shifting a filter's cutoff frequency?",
-              "type": "multi_choice",
-              "answers": [
-                {
-                  "text": "Chorus Pedal",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Phaser Pedal",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Envelope Filter / Auto-Wah",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "Fuzz Face",
-                  "is_true": "no"
-                }
-              ],
-              "explanation": "",
-              "expert_explanation": "Envelope filters use an 'envelope follower' circuit to track the input volume and translate it into a control voltage (CV) that opens and closes a filter. Pluck hard = bright 'quack', play soft = muffled tone.",
-              "expert_quote": {
-                "text": "The envelope filter made the bass guitar speak. It was organic and purely reactional to the player's touch.",
-                "author": "Bootsy Collins"
-              },
-              "explanation_image": {
-                "src": "/images/mutron_iii.jpg",
-                "alt": "Q8: Dynamic Filtering Diagram"
-              }
-            },
-            {
-              "title": "Q9: EQ Innovation",
-              "content": "In 1972, what type of EQ was invented that finally allowed engineers to continuously and precisely control Frequency, Gain, and 'Q' (Bandwidth) simultaneously?",
-              "type": "multi_choice",
-              "answers": [
-                {
-                  "text": "Graphic EQ",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Shelving EQ",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Parametric EQ",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "Dynamic EQ",
-                  "is_true": "no"
-                }
-              ],
-              "explanation": "",
-              "expert_explanation": "Invented by George Massenburg, the Parametric EQ revolutionized mixing. Unlike fixed-band graphic EQs, it allowed surgical precision to sweep for resonant frequencies and choose exactly how wide the cut or boost should be.",
-              "expert_quote": {
-                "text": "The parametric EQ was a surgeon's scalpel in a world that previously only had hammers.",
-                "author": "George Massenburg"
-              },
-              "explanation_image": {
-                "src": "/images/explanation_parametric_eq.png",
-                "alt": "Q9: EQ Innovation Diagram"
-              }
-            },
-            {
-              "title": "Q10: Console Evolution",
-              "content": "The introduction of modern large-format consoles in the late 70s defined the punchy sound of modern pop/rock mixing. What new feature was built directly into EVERY channel strip?",
-              "type": "multi_choice",
-              "answers": [
-                {
-                  "text": "A dynamics block (Compressor & Gate)",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "A digital plate reverb",
-                  "is_true": "no"
-                },
-                {
-                  "text": "An analogue tape delay",
-                  "is_true": "no"
-                },
-                {
-                  "text": "A vocal pitch corrector",
-                  "is_true": "no"
-                }
-              ],
-              "explanation": "",
-              "expert_explanation": "Before these high-end desks, compressors were expensive outboard gear placed in external racks. Having a dedicated compressor and a noise gate on every single channel allowed for the explosive, tightly controlled drum sounds that defined 80s pop and rock.",
-              "expert_quote": {
-                "text": "Having a gate and compressor on every drum mic cleaned up the noise floor and added punch instantly.",
-                "author": "Mix Engineering History"
-              },
-              "explanation_image": {
-                "src": "/images/Vintage Console EQ.png",
-                "alt": "Q10: Console Evolution Diagram"
-              }
+              "expert_explanation": "Giorgio Moroder pioneered sequenced electronic disco, Kraftwerk defined robotic synth-pop, Stevie Wonder brought analogue synths into soul/funk, and Nile Rodgers crafted razor-sharp DI disco guitar.",
+              "explanation": "<img src=\"/images/minimoog_model_d.png\" alt=\"Q5: 1970s Pioneers & Signature Sounds\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Giorgio Moroder pioneered sequenced electronic disco, Kraftwerk defined robotic synth-pop, Stevie Wonder brought analogue synths into soul/funk, and Nile Rodgers crafted razor-sharp DI disco guitar.</p>"
             }
           ]
         },
