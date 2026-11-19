@@ -28,7 +28,7 @@ const quizData = [
     },
     {
         category: "Build-Up Techniques",
-        scenario: "You want a dramatic build-up that creates tension before the drop. The synth chords start muffled and gradually become brighter and more aggressive as the drop approaches.",
+        scenario: "During a build-up, which technique makes synth chords start muffled and gradually sound brighter before the drop?",
         options: [
             { text: "Filter Automation (Low-pass opening)", correct: true },
             { text: "White noise riser sweeps", correct: false },
