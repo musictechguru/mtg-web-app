@@ -3589,171 +3589,180 @@
           "description": "Mastery quiz covering the fundamentals of Dynamic Processing.",
           "questions": [
             {
-              "title": "Q1: Dynamic Range Definition",
+              "title": "Q1: Dynamic Range",
               "type": "multi_choice",
               "content": "What does 'dynamic range' mean in audio recording?",
               "answers": [
                 {
-                  "text": "The difference between the highest and lowest audible frequencies",
+                  "text": "Highest and lowest audible frequencies",
                   "is_true": "no"
                 },
                 {
-                  "text": "The difference between the quietest and loudest parts of an audio signal",
+                  "text": "Quietest and loudest levels of an audio signal",
                   "is_true": "yes"
                 },
                 {
-                  "text": "The difference in volume between the left and right stereo speakers",
+                  "text": "Level difference between left and right channels",
                   "is_true": "no"
                 },
                 {
-                  "text": "The difference between analogue tape saturation and digital clipping distortion",
+                  "text": "Headroom gap between tape saturation and clipping",
                   "is_true": "no"
                 }
               ],
-              "expert_explanation": "Dynamic range is the decibel difference between the quietest audible sound (or the system noise floor) and the loudest unclipped peak of an audio signal.",
+              "expert_explanation": "Dynamic range is the decibel difference between the quietest audible sound (or system noise floor) and the loudest unclipped peak.",
               "expert_quote": {
                 "text": "Dynamic range is musical breathing room; squashing it entirely robs music of life.",
                 "author": "Bob Katz"
               },
               "img": "/images/dynamic_range_concept.svg",
-              "explanation": "<img src=\"/images/dynamic_range_concept.svg\" alt=\"Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Dynamic range is the decibel difference between the quietest audible sound (or the system noise floor) and the loudest unclipped peak of an audio signal.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Dynamic range is musical breathing room; squashing it entirely robs music of life.\"<br/><strong>- Bob Katz</strong></blockquote>"
+              "explanation": "<img src=\"/images/dynamic_range_concept.svg\" alt=\"Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Dynamic range is the decibel difference between the quietest audible sound (or system noise floor) and the loudest unclipped peak.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Dynamic range is musical breathing room; squashing it entirely robs music of life.\"<br/><strong>- Bob Katz</strong></blockquote>",
+              "explanation_image": "/images/dynamic_range_concept.svg"
             },
             {
-              "title": "Practical Listening: Compression A/B Comparison",
+              "title": "Practical Listening: Dynamics A/B Comparison",
               "content": "Listen to Audio A (Dry) and Audio B (Wet). What dynamic processing has been applied to Audio B?",
               "type": "audio_comparison",
               "audio_a": "/Audio/FX_Ear_Training/Guitar/Dry Compression Guitar.mp3",
               "audio_b": "/Audio/FX_Ear_Training/Guitar/Compression Guitar.mp3",
               "options": [
-                "Fast noise gating to eliminate background spill",
-                "Digital bitcrushing to add aggressive distortion",
-                "Heavy compression to increase sustain and tame peaks",
-                "Stereo chorus to widen the electric guitar"
+                "Fast noise gating to mute spill",
+                "Digital bitcrushing for grit",
+                "Heavy compression to tame peaks",
+                "Stereo chorus to widen image"
               ],
               "correct_index": 2,
-              "explanation": "<p><strong>Heavy Compression:</strong> Audio B clamps down on initial pick transients while bringing forward quiet sustaining details. This narrows dynamic range and significantly increases perceived density and sustain.</p>",
+              "explanation": "<img src=\"/images/svg/serial_compression_sandwhich.svg\" alt=\"Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Audio B clamps down pick attack transients while raising sustaining harmonics. This compresses dynamic range and significantly increases perceived guitar sustain.</p>",
               "expert_quote": {
                 "text": "Compression isn't just volume control; it's an envelope shaper. It glues the performance together and locks the instrument into the pocket.",
                 "author": "Chris Lord-Alge, Mix Engineer (Green Day, Muse)"
               },
               "img": "/images/svg/serial_compression_sandwhich.svg",
-              "correct_option": "Heavy compression to increase sustain and tame peaks"
+              "correct_option": "Heavy compression to tame peaks",
+              "explanation_image": "/images/svg/serial_compression_sandwhich.svg",
+              "expert_explanation": "Audio B clamps down pick attack transients while raising sustaining harmonics. This compresses dynamic range and significantly increases perceived guitar sustain."
             },
             {
               "title": "Practical Task: Compressor Internal Signal Routing",
-              "content": "Place the internal stages of an audio compressor into the correct processing order.",
+              "content": "Place the internal stages of an audio compressor into the correct processing order (input to output).",
               "type": "drag_drop",
               "items": [
-                "Make-Up Gain Amplifier (Restores overall RMS level)",
+                "Make-Up Gain Amplifier",
+                "Voltage Controlled Amplifier (VCA)",
                 "Input Audio Buffer",
-                "Voltage Controlled Amplifier (VCA - Attenuates signal)",
-                "Detector / Sidechain Circuit (Measures RMS/Peak level against Threshold)"
+                "Detector / Sidechain Circuit"
               ],
               "correct_order": [
                 "Input Audio Buffer",
-                "Detector / Sidechain Circuit (Measures RMS/Peak level against Threshold)",
-                "Voltage Controlled Amplifier (VCA - Attenuates signal)",
-                "Make-Up Gain Amplifier (Restores overall RMS level)"
+                "Detector / Sidechain Circuit",
+                "Voltage Controlled Amplifier (VCA)",
+                "Make-Up Gain Amplifier"
               ],
-              "explanation": "<p><strong>Compressor Internal Routing:</strong> The audio enters the buffer and splits into the detector/sidechain path (which monitors signal level against the user-defined threshold and ratio). The detector generates a control voltage fed into the VCA to attenuate peak transients. Make-up gain then restores the reduced level to maximize loudness.</p>",
+              "explanation": "<img src=\"/images/svg/sidechain_flow.svg\" alt=\"Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> The input signal enters the buffer and feeds both the detector circuit and the VCA. The detector calculates necessary attenuation against threshold, driving the VCA before make-up gain restores overall level.</p>",
               "expert_quote": {
                 "text": "Understanding the detector circuit is the key to mastering sidechain compression, vocal ducking, and de-essing.",
                 "author": "Rupert Neve, Audio Electronics Designer"
               },
-              "img": "/images/svg/sidechain_flow.svg"
+              "explanation_image": "/images/svg/sidechain_flow.svg",
+              "top_label": "INPUT (First Stage)",
+              "bottom_label": "OUTPUT (Final Stage)",
+              "expert_explanation": "The input signal enters the buffer and feeds both the detector circuit and the VCA. The detector calculates necessary attenuation against threshold, driving the VCA before make-up gain restores overall level."
             },
             {
-              "title": "Q4: Compressor Attack Time Function",
+              "title": "Q4: Compressor Attack Time",
               "type": "multi_choice",
               "content": "What does the attack time control on a compressor?",
               "answers": [
                 {
-                  "text": "How long the compressor waits before it begins release",
+                  "text": "Delay time before release begins",
                   "is_true": "no"
                 },
                 {
-                  "text": "How much output gain is added back after reduction",
+                  "text": "Output gain added after reduction",
                   "is_true": "no"
                 },
                 {
-                  "text": "How quickly the compressor starts reducing gain above the threshold",
+                  "text": "Speed of gain reduction above threshold",
                   "is_true": "yes"
                 },
                 {
-                  "text": "The decibel level required to begin reducing audio gain",
+                  "text": "Decibel level needed to trigger compression",
                   "is_true": "no"
                 }
               ],
-              "expert_explanation": "Attack time dictates how quickly the compressor responds and attenuates signal once the input exceeds the threshold. Fast attack tames initial transients; slow attack lets punchy transients pass through.",
+              "expert_explanation": "Attack time dictates how quickly the compressor attenuates the signal once it exceeds threshold. Fast attack catches transients, while slow attack lets initial punch pass through.",
               "expert_quote": {
                 "text": "Attack time shapes the punch of drums: too fast and you kill the snap, too slow and peaks escape.",
                 "author": "Al Schmitt"
               },
               "img": "/images/compressor_attack_time_diagram.svg",
-              "explanation": "<img src=\"/images/compressor_attack_time_diagram.svg\" alt=\"Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Attack time dictates how quickly the compressor responds and attenuates signal once the input exceeds the threshold. Fast attack tames initial transients; slow attack lets punchy transients pass through.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Attack time shapes the punch of drums: too fast and you kill the snap, too slow and peaks escape.\"<br/><strong>- Al Schmitt</strong></blockquote>"
+              "explanation": "<img src=\"/images/compressor_attack_time_diagram.svg\" alt=\"Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Attack time dictates how quickly the compressor attenuates the signal once it exceeds threshold. Fast attack catches transients, while slow attack lets initial punch pass through.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Attack time shapes the punch of drums: too fast and you kill the snap, too slow and peaks escape.\"<br/><strong>- Al Schmitt</strong></blockquote>",
+              "explanation_image": "/images/compressor_attack_time_diagram.svg"
             },
             {
-              "title": "Q5: Compressor Release Time Function",
+              "title": "Q5: Compressor Release Time",
               "type": "multi_choice",
               "content": "What does the release time control on a compressor?",
               "answers": [
                 {
-                  "text": "How quickly the compressor returns to uncompressed volume below threshold",
+                  "text": "Speed of returning to normal level below threshold",
                   "is_true": "yes"
                 },
                 {
-                  "text": "How much compression ratio is applied to peaks above threshold",
+                  "text": "Amount of ratio applied to peaks above threshold",
                   "is_true": "no"
                 },
                 {
-                  "text": "The exact decibel volume level where dynamic compression starts happening",
+                  "text": "Decibel level where gain reduction begins to trigger",
                   "is_true": "no"
                 },
                 {
-                  "text": "How fast the compressor responds when transient peaks cross threshold",
+                  "text": "Speed of clamping initial transients across threshold",
                   "is_true": "no"
                 }
               ],
-              "expert_explanation": "Release time determines how quickly the compressor stops attenuating and restores unity gain once the input signal drops back below the threshold level.",
+              "expert_explanation": "Release time controls how quickly the compressor stops attenuating and returns to unity gain once the signal drops back below threshold.",
               "expert_quote": {
                 "text": "Release time must groove with the tempo of the music to prevent unnatural pumping.",
                 "author": "Tony Maserati"
               },
               "img": "/images/compressor_release_time_diagram.svg",
-              "explanation": "<img src=\"/images/compressor_release_time_diagram.svg\" alt=\"Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Release time determines how quickly the compressor stops attenuating and restores unity gain once the input signal drops back below the threshold level.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Release time must groove with the tempo of the music to prevent unnatural pumping.\"<br/><strong>- Tony Maserati</strong></blockquote>"
+              "explanation": "<img src=\"/images/compressor_release_time_diagram.svg\" alt=\"Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Release time controls how quickly the compressor stops attenuating and returns to unity gain once the signal drops back below threshold.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Release time must groove with the tempo of the music to prevent unnatural pumping.\"<br/><strong>- Tony Maserati</strong></blockquote>",
+              "explanation_image": "/images/compressor_release_time_diagram.svg"
             },
             {
-              "title": "Q6: Hard Knee vs Soft Knee Compression Response",
+              "title": "Q6: Hard Knee vs Soft Knee",
               "type": "multi_choice",
               "content": "How does a soft-knee compressor differ from a hard-knee compressor?",
               "answers": [
                 {
-                  "text": "It compresses abruptly the instant signal peaks cross the threshold",
+                  "text": "It applies compression abruptly when threshold is crossed",
                   "is_true": "no"
                 },
                 {
-                  "text": "It expands quiet signals rather than reducing loud incoming transient peaks",
+                  "text": "It boosts quiet passages rather than attenuating loud peaks",
                   "is_true": "no"
                 },
                 {
-                  "text": "It cuts high frequencies to smooth out harsh distortion on vocals",
+                  "text": "It applies a steep low-pass filter to tame harsh vocal sibilance",
                   "is_true": "no"
                 },
                 {
-                  "text": "It introduces gain reduction gradually as the signal approaches the threshold",
+                  "text": "It applies gain reduction gradually as signal approaches threshold",
                   "is_true": "yes"
                 }
               ],
-              "expert_explanation": "A hard knee applies the full specified ratio abruptly as soon as the threshold is crossed. A soft knee introduces compression progressively over a transition zone around the threshold for a smoother, less audible action.",
+              "expert_explanation": "A hard knee applies the full ratio abruptly when the threshold is crossed. A soft knee introduces compression gradually over a transition curve for smoother control.",
               "expert_quote": {
                 "text": "Soft knee curves provide transparent, musical compression on vocals and acoustic instruments.",
                 "author": "Paul White"
               },
               "img": "/images/svg/compressor_knee_hard_soft.svg",
-              "explanation": "<img src=\"/images/svg/compressor_knee_hard_soft.svg\" alt=\"Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> A hard knee applies the full specified ratio abruptly as soon as the threshold is crossed. A soft knee introduces compression progressively over a transition zone around the threshold for a smoother, less audible action.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Soft knee curves provide transparent, musical compression on vocals and acoustic instruments.\"<br/><strong>- Paul White</strong></blockquote>"
+              "explanation": "<img src=\"/images/svg/compressor_knee_hard_soft.svg\" alt=\"Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> A hard knee applies the full ratio abruptly when the threshold is crossed. A soft knee introduces compression gradually over a transition curve for smoother control.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Soft knee curves provide transparent, musical compression on vocals and acoustic instruments.\"<br/><strong>- Paul White</strong></blockquote>",
+              "explanation_image": "/images/svg/compressor_knee_hard_soft.svg"
             },
             {
-              "title": "Q7: Peak Limiter Principles (Infinity:1 Ratio)",
+              "title": "Q7: Extreme Compression Ratios",
               "type": "multi_choice",
               "content": "A compressor set with an extreme ratio of infinity-to-one (∞:1) acts as what device?",
               "answers": [
@@ -3774,46 +3783,48 @@
                   "is_true": "no"
                 }
               ],
-              "expert_explanation": "An ∞:1 ratio prevents the output signal from exceeding the threshold ceiling under any circumstance, defining a brickwall peak limiter.",
+              "expert_explanation": "An ∞:1 ratio prevents the audio signal from exceeding the ceiling under any circumstance, turning the compressor into a brickwall peak limiter.",
               "expert_quote": {
                 "text": "A limiter is simply an aggressive compressor with a very high ratio and instantaneous attack.",
                 "author": "Bob Ludwig"
               },
               "img": "/images/svg/limiter_brickwall.svg",
-              "explanation": "<img src=\"/images/svg/limiter_brickwall.svg\" alt=\"Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> An ∞:1 ratio prevents the output signal from exceeding the threshold ceiling under any circumstance, defining a brickwall peak limiter.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"A limiter is simply an aggressive compressor with a very high ratio and instantaneous attack.\"<br/><strong>- Bob Ludwig</strong></blockquote>"
+              "explanation": "<img src=\"/images/svg/limiter_brickwall.svg\" alt=\"Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> An ∞:1 ratio prevents the audio signal from exceeding the ceiling under any circumstance, turning the compressor into a brickwall peak limiter.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"A limiter is simply an aggressive compressor with a very high ratio and instantaneous attack.\"<br/><strong>- Bob Ludwig</strong></blockquote>",
+              "explanation_image": "/images/svg/limiter_brickwall.svg"
             },
             {
-              "title": "Q8: Make-up Gain & Perceived Loudness",
+              "title": "Q8: Make-Up Gain",
               "type": "multi_choice",
               "content": "Why does audio sound louder after compression and make-up gain, even if peak levels are unchanged?",
               "answers": [
                 {
-                  "text": "The stereo image is widened so sounds appear twice as loud",
+                  "text": "Panning is widened to double perceived volume",
                   "is_true": "no"
                 },
                 {
-                  "text": "Phase cancellation removes quiet frequencies, focusing all energy into midrange",
+                  "text": "Phase cancellation focuses energy in the midrange",
                   "is_true": "no"
                 },
                 {
-                  "text": "Peak levels are reduced so make-up gain can boost average volume",
+                  "text": "Peaks are lowered so average RMS level can be raised",
                   "is_true": "yes"
                 },
                 {
-                  "text": "Harmonic saturation doubles the physical sound pressure generated by the speakers",
+                  "text": "Analogue harmonics double physical acoustic pressure",
                   "is_true": "no"
                 }
               ],
-              "expert_explanation": "Compression pulls down loud peaks, narrowing the dynamic range. Applying make-up gain raises the entire signal, increasing the average RMS / LUFS energy level without clipping.",
+              "expert_explanation": "Compression lowers the loudest peaks to reduce dynamic range. Make-up gain can then boost the entire signal, raising the average RMS energy without clipping.",
               "expert_quote": {
                 "text": "Compression reduces peak-to-average ratio; make-up gain is what actually makes the track sound louder.",
                 "author": "Dave Pensado"
               },
               "img": "/images/makeup_gain_loudness_concept.svg",
-              "explanation": "<img src=\"/images/makeup_gain_loudness_concept.svg\" alt=\"Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Compression pulls down loud peaks, narrowing the dynamic range. Applying make-up gain raises the entire signal, increasing the average RMS / LUFS energy level without clipping.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Compression reduces peak-to-average ratio; make-up gain is what actually makes the track sound louder.\"<br/><strong>- Dave Pensado</strong></blockquote>"
+              "explanation": "<img src=\"/images/makeup_gain_loudness_concept.svg\" alt=\"Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Compression lowers the loudest peaks to reduce dynamic range. Make-up gain can then boost the entire signal, raising the average RMS energy without clipping.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Compression reduces peak-to-average ratio; make-up gain is what actually makes the track sound louder.\"<br/><strong>- Dave Pensado</strong></blockquote>",
+              "explanation_image": "/images/makeup_gain_loudness_concept.svg"
             },
             {
-              "title": "Q9: Gain Reduction Calculation from Ratio & Threshold",
+              "title": "Q9: Gain Reduction Calculation",
               "type": "multi_choice",
               "content": "A compressor has a threshold of -6 dB and a ratio of 2:1. If an audio peak hits 0 dB, what is the gain reduction?",
               "answers": [
@@ -3834,43 +3845,45 @@
                   "is_true": "yes"
                 }
               ],
-              "expert_explanation": "The peak is 3 dB above threshold (-2 dB - (-5 dB) = 3 dB). At a 2:1 ratio, output rises by 3 / 2 = 1.5 dB above threshold. Therefore, gain reduction = 3 dB - 1.5 dB = 1.5 dB.",
+              "expert_explanation": "The peak exceeds the -6 dB threshold by 6 dB (0 dB - (-6 dB) = 6 dB). With a 2:1 ratio, the overshoot is halved to 3 dB, resulting in 3 dB of gain reduction.",
               "expert_quote": {
                 "text": "Understanding the gain reduction math proves exactly what the meters are showing you.",
                 "author": "Roey Izhaki"
               },
               "img": "/images/gain_reduction_calculation_diagram.svg",
-              "explanation": "<img src=\"/images/gain_reduction_calculation_diagram.svg\" alt=\"Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> The peak is 3 dB above threshold (-2 dB - (-5 dB) = 3 dB). At a 2:1 ratio, output rises by 3 / 2 = 1.5 dB above threshold. Therefore, gain reduction = 3 dB - 1.5 dB = 1.5 dB.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Understanding the gain reduction math proves exactly what the metres are showing you.\"<br/><strong>- Roey Izhaki</strong></blockquote>"
+              "explanation": "<img src=\"/images/gain_reduction_calculation_diagram.svg\" alt=\"Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> The peak exceeds the -6 dB threshold by 6 dB (0 dB - (-6 dB) = 6 dB). With a 2:1 ratio, the overshoot is halved to 3 dB, resulting in 3 dB of gain reduction.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Understanding the gain reduction math proves exactly what the metres are showing you.\"<br/><strong>- Roey Izhaki</strong></blockquote>",
+              "explanation_image": "/images/gain_reduction_calculation_diagram.svg"
             },
             {
-              "title": "Q10: Gain Reduction Metering & Threshold Troubleshooting",
+              "title": "Q10: Troubleshooting Gain Reduction",
               "type": "multi_choice",
               "content": "If a compressor's gain reduction meter stays stuck showing heavy reduction even when no audio plays, what is the cause?",
               "answers": [
                 {
-                  "text": "The threshold is set too low or the release time is far too slow",
+                  "text": "Threshold is too low or release is too slow",
                   "is_true": "yes"
                 },
                 {
-                  "text": "The compression ratio is set too low to create noticeable gain changes",
+                  "text": "Ratio is too low to create noticeable reduction",
                   "is_true": "no"
                 },
                 {
-                  "text": "The attack time is set too fast to catch initial drum transients",
+                  "text": "Attack time is too fast to catch drum transients",
                   "is_true": "no"
                 },
                 {
-                  "text": "The make-up gain control is set too high, clipping the stereo output",
+                  "text": "Make-up gain is set too high, clipping output",
                   "is_true": "no"
                 }
               ],
-              "expert_explanation": "If the gain reduction meter is pinned at -12 dB with no dynamic movement, either the threshold is set so low that the signal never falls below it, or the release time is so long that the compressor never recovers between beats.",
+              "expert_explanation": "If the meter stays pinned at heavy reduction, either the threshold is set below the background noise floor, or release is set too long to recover between audio passages.",
               "expert_quote": {
                 "text": "If the needle never moves, you are not compressing dynamic transients—you are just turning the fader down with extra distortion.",
                 "author": "Chris Lord-Alge"
               },
               "img": "/images/MT Pictures/SSL Bus compressor.png",
-              "explanation": "<img src=\"/images/MT Pictures/SSL Bus compressor.png\" alt=\"Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> If the gain reduction meter is pinned at -12 dB with no dynamic movement, either the threshold is set so low that the signal never falls below it, or the release time is so long that the compressor never recovers between beats.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"If the needle never moves, you are not compressing dynamic transients—you are just turning the fader down with extra distortion.\"<br/><strong>- Chris Lord-Alge</strong></blockquote>"
+              "explanation": "<img src=\"/images/MT Pictures/SSL Bus compressor.png\" alt=\"Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> If the meter stays pinned at heavy reduction, either the threshold is set below the background noise floor, or release is set too long to recover between audio passages.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"If the needle never moves, you are not compressing dynamic transients—you are just turning the fader down with extra distortion.\"<br/><strong>- Chris Lord-Alge</strong></blockquote>",
+              "explanation_image": "/images/MT Pictures/SSL Bus compressor.png"
             }
           ],
           "randomise": false
@@ -11318,7 +11331,32 @@
                 "text": "ADSR envelopes map physical time to musical expression, turning static voltage oscillations into organic, evolving acoustic profiles.",
                 "author": "Electronic Music Theory"
               },
-              "img": "/images/explanation_adsr_envelope.png"
+              "img": "/images/explanation_adsr_envelope.png",
+              "initValues": {
+                "attack": 50,
+                "decay": 20,
+                "sustain": 50,
+                "release": 20
+              },
+              "correctValues": {
+                "attack": [
+                  0,
+                  25
+                ],
+                "decay": [
+                  25,
+                  55
+                ],
+                "sustain": [
+                  65,
+                  75
+                ],
+                "release": [
+                  70,
+                  100
+                ]
+              },
+              "expert_explanation": "A fast attack rises immediately to peak, followed by a medium decay down to 70% sustain and a slow, gradual release fade-out."
             },
             {
               "title": "Q2: EQ Boost Curve",
@@ -11353,7 +11391,22 @@
                 "text": "A parametric boost at 3kHz cuts right through the densest arrangements by enhancing the ear's most sensitive frequency territory.",
                 "author": "George Massenburg, Recording Engineer"
               },
-              "img": "/images/eq_cut_and_boost_diagram.svg"
+              "img": "/images/eq_cut_and_boost_diagram.svg",
+              "initValues": {
+                "frequency": 1000,
+                "gain": 0
+              },
+              "correctValues": {
+                "frequency": [
+                  2500,
+                  3500
+                ],
+                "gain": [
+                  5,
+                  7
+                ]
+              },
+              "expert_explanation": "A peaking EQ boost of +6 dB at 3 kHz raises upper-midrange presence, adding vocal clarity and snare attack bite."
             },
             {
               "title": "Q3: Compression Curve",
@@ -11388,7 +11441,22 @@
                 "text": "A 4:1 compression ratio provides musical, transparent control over peaks without flattening the dynamic life of the performance.",
                 "author": "Bob Katz, Mastering Audio"
               },
-              "img": "/images/compression_graph.svg"
+              "img": "/images/compression_graph.svg",
+              "initValues": {
+                "threshold": 0,
+                "ratio": 1
+              },
+              "correctValues": {
+                "threshold": [
+                  -14,
+                  -10
+                ],
+                "ratio": [
+                  3.5,
+                  4.5
+                ]
+              },
+              "expert_explanation": "Above the -12 dB threshold, a 4:1 ratio flattens the transfer slope so 4 dB of extra input produces only 1 dB of output."
             },
             {
               "title": "Q4: Low-Pass Filter",
@@ -11401,8 +11469,14 @@
                 "slope": 12
               },
               "correctValues": {
-                "cutoff": 2000,
-                "slope": 12
+                "cutoff": [
+                  1600,
+                  2400
+                ],
+                "slope": [
+                  12,
+                  12
+                ]
               },
               "targetPoints": [
                 {
@@ -11431,7 +11505,8 @@
                 "text": "A 12dB per octave low-pass filter provides a smooth, musical roll-off that tames harsh top end while preserving natural warmth.",
                 "author": "Bob Moog, Filter Topology Papers"
               },
-              "img": "/images/svg/filter_types_diagram.svg"
+              "img": "/images/svg/filter_types_diagram.svg",
+              "expert_explanation": "A 12 dB/octave low-pass filter at 2 kHz passes low frequencies cleanly while gently rolling off brightness above the cutoff."
             },
             {
               "title": "Q5: Pad Sound ADSR",
@@ -11462,7 +11537,32 @@
                 "text": "Pad envelopes should swell like a string section breathing in: a slow, gradual attack lets chords bloom seamlessly behind the beat.",
                 "author": "Brian Eno, Ambient Producer"
               },
-              "img": "/images/svg/synth_adsr.svg"
+              "img": "/images/svg/synth_adsr.svg",
+              "initValues": {
+                "attack": 10,
+                "decay": 50,
+                "sustain": 50,
+                "release": 10
+              },
+              "correctValues": {
+                "attack": [
+                  70,
+                  100
+                ],
+                "decay": [
+                  0,
+                  15
+                ],
+                "sustain": [
+                  95,
+                  100
+                ],
+                "release": [
+                  35,
+                  65
+                ]
+              },
+              "expert_explanation": "Synth pads use a slow attack to swell gently, 100% sustain with no decay drop, and a medium release tail."
             },
             {
               "title": "Q6: High-Pass Filter",
@@ -11475,8 +11575,14 @@
                 "slope": 12
               },
               "correctValues": {
-                "cutoff": 100,
-                "slope": 24
+                "cutoff": [
+                  80,
+                  130
+                ],
+                "slope": [
+                  24,
+                  24
+                ]
               },
               "targetPoints": [
                 {
@@ -11505,7 +11611,8 @@
                 "text": "A steep 24dB/octave high-pass filter cleans up invisible low-end rumble that would otherwise steal headroom from your master bus.",
                 "author": "Sound on Sound Mixing Guide"
               },
-              "img": "/images/high_pass_filter.svg"
+              "img": "/images/high_pass_filter.svg",
+              "expert_explanation": "A steep 24 dB/octave high-pass filter at 100 Hz aggressively removes sub-bass rumble and handling noise without thinning vocals."
             },
             {
               "title": "Q7: EQ Cut Curve",
@@ -11518,8 +11625,14 @@
                 "gain": 0
               },
               "correctValues": {
-                "frequency": 500,
-                "gain": -12
+                "frequency": [
+                  400,
+                  600
+                ],
+                "gain": [
+                  -14,
+                  -10
+                ]
               },
               "targetPoints": [
                 {
@@ -11548,7 +11661,8 @@
                 "text": "Scooping out 500Hz removes boxiness from kick drums and guitars, instantly making the low end feel tighter and deeper.",
                 "author": "Mix Magazine Archive"
               },
-              "img": "/images/frequency_masking_carving_diagram_v2.svg"
+              "img": "/images/frequency_masking_carving_diagram_v2.svg",
+              "expert_explanation": "Cutting -12 dB at 500 Hz removes boxy, hollow low-mid resonance from kick drums, toms, and untreated room recordings."
             },
             {
               "title": "Q8: Heavy Compression (Limiter)",
@@ -11561,8 +11675,14 @@
                 "ratio": 1
               },
               "correctValues": {
-                "threshold": -20,
-                "ratio": 10
+                "threshold": [
+                  -22,
+                  -18
+                ],
+                "ratio": [
+                  9,
+                  10
+                ]
               },
               "targetPoints": [
                 {
@@ -11583,7 +11703,8 @@
                 "text": "A limiter is a compressor with an unyielding ceiling: it guarantees that stray peaks will never clip the digital master.",
                 "author": "TC Electronic Mastering Notes"
               },
-              "img": "/images/svg/limiter_ceiling_vs_threshold.svg"
+              "img": "/images/svg/limiter_ceiling_vs_threshold.svg",
+              "expert_explanation": "A 10:1 ratio above a -20 dB threshold acts like a limiter, flattening the transfer curve to clamp transient peaks."
             },
             {
               "title": "Q9: Pluck Synth ADSR Envelope",
@@ -11592,16 +11713,28 @@
               "question": "Draw a Pluck sound envelope: Fast Attack, Fast Decay, 0% Sustain, Fast Release",
               "hint": "A sharp spike that immediately drops to nothing",
               "initValues": {
-                "attack": 20,
+                "attack": 50,
                 "decay": 50,
                 "sustain": 50,
                 "release": 50
               },
               "correctValues": {
-                "attack": 0,
-                "decay": 30,
-                "sustain": 0,
-                "release": 30
+                "attack": [
+                  0,
+                  15
+                ],
+                "decay": [
+                  10,
+                  35
+                ],
+                "sustain": [
+                  0,
+                  10
+                ],
+                "release": [
+                  10,
+                  35
+                ]
               },
               "targetPoints": [
                 {
@@ -11634,7 +11767,8 @@
               "explanation_image": {
                 "src": "/images/svg/adsr_pluck_envelope.svg",
                 "alt": "Pluck Synth ADSR Envelope (Zero Sustain)"
-              }
+              },
+              "expert_explanation": "Pluck sounds feature an instant attack, fast decay down to 0% sustain, and a fast release so held keys fade immediately."
             },
             {
               "title": "Q10: High Shelf / Air EQ Boost",
@@ -11647,8 +11781,14 @@
                 "gain": 0
               },
               "correctValues": {
-                "frequency": 10000,
-                "gain": 12
+                "frequency": [
+                  8500,
+                  12000
+                ],
+                "gain": [
+                  10,
+                  14
+                ]
               },
               "targetPoints": [
                 {
@@ -11673,7 +11813,8 @@
                 "text": "Boosting the top octave adds pristine air and dimensional sheen, making the track sound wider, closer, and more luxurious.",
                 "author": "Al Schmitt, Recording Engineer"
               },
-              "img": "/images/high_shelf_filter_diagram.svg"
+              "img": "/images/high_shelf_filter_diagram.svg",
+              "expert_explanation": "Boosting +12 dB at 10 kHz adds crisp high-frequency air and shimmer to vocals and cymbals without midrange harshness."
             }
           ],
           "isPremium": true

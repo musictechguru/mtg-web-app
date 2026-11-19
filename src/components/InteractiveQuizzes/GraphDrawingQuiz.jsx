@@ -68,8 +68,25 @@ const GraphDrawingQuiz = ({ question, targetPoints, hint, initValues, correctVal
             const ctx = canvasRef.current.getContext('2d');
             setCanvasContext(ctx);
             drawGrid(ctx);
+            if (Object.keys(sliderValues).length > 0) {
+                const canvas = canvasRef.current;
+                const points = calculatePoints(sliderValues, canvas.width, canvas.height);
+                setDrawnPath(points);
+                if (points.length >= 2) {
+                    ctx.strokeStyle = '#a855f7';
+                    ctx.lineWidth = 3;
+                    ctx.lineCap = 'round';
+                    ctx.lineJoin = 'round';
+                    ctx.beginPath();
+                    ctx.moveTo(points[0].x, points[0].y);
+                    for (let i = 1; i < points.length; i++) {
+                        ctx.lineTo(points[i].x, points[i].y);
+                    }
+                    ctx.stroke();
+                }
+            }
         }
-    }, [question]); // Re-draw grid if question type changes
+    }, [question, sliderValues]); // Re-draw grid and initial curve if question or sliders change
 
     const getQuestionType = () => {
         const text = (typeof question === 'string' ? question : question?.question || '').toLowerCase();
@@ -250,7 +267,7 @@ const GraphDrawingQuiz = ({ question, targetPoints, hint, initValues, correctVal
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
         // Draw grid
-        ctx.strokeStyle = '#e5e7eb';
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.08)';
         ctx.lineWidth = 1;
 
         // Vertical lines
@@ -270,7 +287,7 @@ const GraphDrawingQuiz = ({ question, targetPoints, hint, initValues, correctVal
         }
 
         // Draw axes
-        ctx.strokeStyle = '#9ca3af';
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.25)';
         ctx.lineWidth = 2;
 
         // X-axis (bottom)
@@ -286,7 +303,7 @@ const GraphDrawingQuiz = ({ question, targetPoints, hint, initValues, correctVal
         ctx.stroke();
 
         // Add axis labels
-        ctx.fillStyle = '#6b7280';
+        ctx.fillStyle = '#94a3b8';
         ctx.font = 'bold 12px sans-serif';
         ctx.textAlign = 'center';
 
@@ -616,10 +633,10 @@ const GraphDrawingQuiz = ({ question, targetPoints, hint, initValues, correctVal
 
             {/* Drawing Canvas */}
             <div style={{
-                background: 'white',
-                border: '4px solid rgba(168, 85, 247, 0.3)',
+                background: '#0f172a',
+                border: '1px solid rgba(168, 85, 247, 0.35)',
                 borderRadius: '12px',
-                padding: '16px',
+                padding: '12px',
                 marginBottom: '16px'
             }}>
                 <canvas
@@ -633,9 +650,10 @@ const GraphDrawingQuiz = ({ question, targetPoints, hint, initValues, correctVal
                     style={{
                         width: '100%',
                         cursor: submitted ? 'not-allowed' : 'crosshair',
-                        background: '#f9fafb',
+                        background: '#090d16',
                         borderRadius: '8px',
-                        touchAction: 'none'
+                        touchAction: 'none',
+                        display: 'block'
                     }}
                 />
             </div>
@@ -644,19 +662,20 @@ const GraphDrawingQuiz = ({ question, targetPoints, hint, initValues, correctVal
             {
                 !submitted && (
                     <div style={{
-                        background: '#f3f4f6',
-                        padding: '15px',
-                        borderRadius: '8px',
-                        marginBottom: '20px',
+                        background: 'rgba(30, 41, 59, 0.7)',
+                        border: '1px solid rgba(255, 255, 255, 0.1)',
+                        padding: '16px',
+                        borderRadius: '10px',
+                        marginBottom: '16px',
                         display: 'flex',
                         flexDirection: 'column',
-                        gap: '20px'
+                        gap: '16px'
                     }}>
                         {Object.entries(sliderValues).map(([param, value]) => (
-                            <div key={param} style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
-                                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.9rem', fontWeight: '600', color: '#4b5563' }}>
+                            <div key={param} style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.9rem', fontWeight: '600', color: '#e2e8f0' }}>
                                     <span style={{ textTransform: 'capitalize' }}>{param}</span>
-                                    <span style={{ color: 'var(--accent-purple)' }}>
+                                    <span style={{ color: '#c084fc', fontFamily: 'monospace' }}>
                                         {param === 'frequency' || param === 'cutoff' ? `${Math.round(value)} Hz` :
                                             param === 'gain' || param === 'threshold' ? `${Math.round(value)} dB` :
                                                 param === 'ratio' ? (value >= 10 ? 'Inf:1' : `${value.toFixed(1)}:1`) :
@@ -704,7 +723,7 @@ const GraphDrawingQuiz = ({ question, targetPoints, hint, initValues, correctVal
             }
 
             {/* Drawing Controls */}
-            <div style={{ display: 'flex', gap: '12px', marginBottom: '20px' }}>
+            <div style={{ display: 'flex', gap: '12px', marginBottom: '20px', flexWrap: 'wrap' }}>
                 <button
                     onClick={clearCanvas}
                     disabled={submitted}
@@ -713,9 +732,9 @@ const GraphDrawingQuiz = ({ question, targetPoints, hint, initValues, correctVal
                         alignItems: 'center',
                         gap: '8px',
                         padding: '10px 16px',
-                        background: 'rgba(156, 163, 175, 0.2)',
-                        color: '#4b5563',
-                        border: '2px solid rgba(156, 163, 175, 0.3)',
+                        background: 'rgba(255, 255, 255, 0.05)',
+                        color: '#e2e8f0',
+                        border: '1px solid rgba(255, 255, 255, 0.15)',
                         borderRadius: '8px',
                         cursor: submitted ? 'not-allowed' : 'pointer',
                         opacity: submitted ? 0.5 : 1,
@@ -727,13 +746,54 @@ const GraphDrawingQuiz = ({ question, targetPoints, hint, initValues, correctVal
                     Clear
                 </button>
 
+                {!submitted && !examMode && (
+                    <button
+                        onClick={() => {
+                            const canvas = canvasRef.current;
+                            if (!canvas) return;
+                            if (correctValues) {
+                                const displayValues = {};
+                                for (const [key, val] of Object.entries(correctValues)) {
+                                    displayValues[key] = Array.isArray(val) ? (val[0] + val[1]) / 2 : val;
+                                }
+                                setSliderValues(displayValues);
+                                updateGraphFromSliders(displayValues);
+                                const idealPoints = calculatePoints(displayValues, canvas.width, canvas.height);
+                                const referencePath = idealPoints.map(p => ({
+                                    x: (p.x / canvas.width) * 100,
+                                    y: (p.y / canvas.height) * 100
+                                }));
+                                drawTargetPath(referencePath);
+                            } else if (targetPoints) {
+                                drawTargetPath(targetPoints);
+                            }
+                            setSubmitted(true);
+                            setIsCorrect(false);
+                            onResult(false);
+                        }}
+                        style={{
+                            padding: '10px 16px',
+                            background: 'rgba(139, 92, 246, 0.12)',
+                            color: '#c4b5fd',
+                            border: '1px dashed rgba(139, 92, 246, 0.5)',
+                            borderRadius: '8px',
+                            cursor: 'pointer',
+                            fontSize: '0.9rem',
+                            fontWeight: '600'
+                        }}
+                    >
+                        I'm Not Sure
+                    </button>
+                )}
+
                 {!submitted && !examMode && (drawnPath.length > 2 || Object.keys(sliderValues).length > 0) && (
                     <button
                         onClick={checkAnswer}
                         style={{
                             flex: 1,
+                            minWidth: '140px',
                             padding: '10px 16px',
-                            background: 'var(--accent-purple)',
+                            background: 'var(--accent-purple, #8b5cf6)',
                             color: 'white',
                             border: 'none',
                             borderRadius: '8px',
