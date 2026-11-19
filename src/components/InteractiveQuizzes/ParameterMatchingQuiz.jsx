@@ -84,14 +84,169 @@ export default function ParameterMatchingQuiz({
         }
     };
 
+    const isGateThreshold = label && label.toLowerCase().includes('gate threshold');
+    const isGateAttack = label && label.toLowerCase().includes('gate attack');
+
+    const dbToY = (db) => 20 + ((0 - db) / 60) * 165;
+    const threshY = dbToY(values[0]);
+
     return (
         <div className="parameter-matching-quiz" style={{ background: 'rgba(0,0,0,0.2)', padding: '20px', borderRadius: '12px' }}>
             <p style={{ marginTop: 0, marginBottom: '20px', color: '#94a3b8' }}>
                 Adjust the fader to match the target parameter.
             </p>
 
-            {/* Visual Context */}
-            {imageSrc && (
+            {/* Interactive Noise Gate Threshold SVG */}
+            {isGateThreshold ? (
+                <div style={{
+                    marginBottom: '20px',
+                    borderRadius: '10px',
+                    border: '1px solid rgba(56, 189, 248, 0.35)',
+                    background: '#090d16',
+                    padding: '12px'
+                }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px', paddingBottom: '6px', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
+                        <span style={{ fontSize: '0.74rem', fontWeight: 800, color: '#38bdf8', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
+                            Live Noise Gate Threshold Visualizer
+                        </span>
+                        <span style={{
+                            fontSize: '0.75rem',
+                            fontWeight: 700,
+                            color: values[0] > -6 ? '#f87171' : values[0] < -32 ? '#fbbf24' : '#4ade80'
+                        }}>
+                            {values[0] > -6 ? 'Threshold too high! Cutting off snare' : values[0] < -32 ? 'Threshold too low! Hi-hat bleed passes' : 'Clean: Bleed muted, snare passes'}
+                        </span>
+                    </div>
+                    <svg viewBox="0 0 600 210" style={{ width: '100%', height: 'auto', display: 'block' }}>
+                        {/* Grid Lines */}
+                        {[0, -10, -20, -30, -40, -50, -60].map((db) => {
+                            const y = dbToY(db);
+                            return (
+                                <g key={db}>
+                                    <line x1="48" y1={y} x2="585" y2={y} stroke="rgba(255,255,255,0.08)" strokeWidth="1" />
+                                    <text x="42" y={y + 4} fill="#94a3b8" fontSize="10" textAnchor="end" fontFamily="monospace">{db}dB</text>
+                                </g>
+                            );
+                        })}
+
+                        {/* Audio Waveform Bars (Snare hits at -6 dB, Hi-hat bleed at -32 dB) */}
+                        {[
+                            { x: 65, db: -34, type: 'bleed' }, { x: 85, db: -32, type: 'bleed' },
+                            { x: 105, db: -35, type: 'bleed' }, { x: 125, db: -6, type: 'snare' },
+                            { x: 145, db: -14, type: 'snare' }, { x: 165, db: -24, type: 'snare' },
+                            { x: 185, db: -33, type: 'bleed' }, { x: 205, db: -32, type: 'bleed' },
+                            { x: 225, db: -36, type: 'bleed' }, { x: 245, db: -32, type: 'bleed' },
+                            { x: 265, db: -34, type: 'bleed' }, { x: 285, db: -33, type: 'bleed' },
+                            { x: 305, db: -32, type: 'bleed' }, { x: 325, db: -6, type: 'snare' },
+                            { x: 345, db: -12, type: 'snare' }, { x: 365, db: -22, type: 'snare' },
+                            { x: 385, db: -32, type: 'bleed' }, { x: 405, db: -35, type: 'bleed' },
+                            { x: 425, db: -32, type: 'bleed' }, { x: 445, db: -34, type: 'bleed' },
+                            { x: 465, db: -33, type: 'bleed' }, { x: 485, db: -6, type: 'snare' },
+                            { x: 505, db: -15, type: 'snare' }, { x: 525, db: -26, type: 'snare' },
+                            { x: 545, db: -32, type: 'bleed' }, { x: 565, db: -34, type: 'bleed' }
+                        ].map((bar, idx) => {
+                            const barY = dbToY(bar.db);
+                            const barHeight = 185 - barY;
+                            const isMuted = bar.db < values[0];
+                            const color = isMuted ? '#334155' : (bar.type === 'snare' ? '#38bdf8' : '#fbbf24');
+                            return (
+                                <rect
+                                    key={idx}
+                                    x={bar.x}
+                                    y={barY}
+                                    width="12"
+                                    height={barHeight}
+                                    rx="2"
+                                    fill={color}
+                                    opacity={isMuted ? 0.45 : 0.95}
+                                />
+                            );
+                        })}
+
+                        {/* Labels for Snare Peak & Hi-Hat Bleed */}
+                        <text x="131" y={dbToY(-6) - 6} fill="#38bdf8" fontSize="10" fontWeight="bold" textAnchor="middle">Snare (-6 dB)</text>
+                        <text x="245" y={dbToY(-32) - 6} fill="#fbbf24" fontSize="10" fontWeight="bold" textAnchor="middle">Hi-Hat Bleed (-32 dB)</text>
+
+                        {/* Shaded Gated-Out Region below Threshold */}
+                        <rect
+                            x="48"
+                            y={threshY}
+                            width="537"
+                            height={Math.max(0, 185 - threshY)}
+                            fill="rgba(239, 68, 68, 0.14)"
+                        />
+
+                        {/* Live Moving Threshold Line */}
+                        <line
+                            x1="48"
+                            y1={threshY}
+                            x2="585"
+                            y2={threshY}
+                            stroke="#f43f5e"
+                            strokeWidth="2.5"
+                            strokeDasharray="6,4"
+                        />
+                        <rect x="470" y={Math.max(4, threshY - 18)} width="110" height="16" rx="4" fill="#f43f5e" />
+                        <text x="525" y={Math.max(15, threshY - 7)} fill="#ffffff" fontSize="10" fontWeight="bold" textAnchor="middle" fontFamily="monospace">
+                            THRESH: {values[0]} dB
+                        </text>
+
+                        <text x="315" y="203" fill="#64748b" fontSize="10" textAnchor="middle">Time (Audio Track Playback)</text>
+                    </svg>
+                </div>
+            ) : isGateAttack ? (
+                <div style={{
+                    marginBottom: '20px',
+                    borderRadius: '10px',
+                    border: '1px solid rgba(56, 189, 248, 0.35)',
+                    background: '#090d16',
+                    padding: '12px'
+                }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px', paddingBottom: '6px', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
+                        <span style={{ fontSize: '0.74rem', fontWeight: 800, color: '#38bdf8', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
+                            Live Noise Gate Attack Visualizer
+                        </span>
+                        <span style={{
+                            fontSize: '0.75rem',
+                            fontWeight: 700,
+                            color: values[0] <= 5 ? '#4ade80' : '#f87171'
+                        }}>
+                            {values[0] <= 5 ? 'Fast Attack: Snare transient preserved' : 'Too Slow: Front of snare transient is clipped'}
+                        </span>
+                    </div>
+                    <svg viewBox="0 0 600 200" style={{ width: '100%', height: 'auto', display: 'block' }}>
+                        <line x1="40" y1="165" x2="570" y2="165" stroke="rgba(255,255,255,0.2)" strokeWidth="1" />
+                        {/* Original Snare Transient Outline */}
+                        <polyline
+                            points="80,165 130,30 180,95 300,145 480,165"
+                            fill="none"
+                            stroke="rgba(148, 163, 184, 0.35)"
+                            strokeWidth="2"
+                            strokeDasharray="4,4"
+                        />
+                        {/* Gated Snare Output based on Attack Time */}
+                        {(() => {
+                            const rampX = 130 + (values[0] / 50) * 140;
+                            const peakY = 30 + (values[0] / 50) * 85;
+                            return (
+                                <>
+                                    <polyline
+                                        points={`80,165 ${rampX},${peakY} 220,${Math.max(peakY, 110)} 300,145 480,165`}
+                                        fill="rgba(56, 189, 248, 0.18)"
+                                        stroke="#38bdf8"
+                                        strokeWidth="3"
+                                    />
+                                    <line x1="130" y1="20" x2="130" y2="165" stroke="#fbbf24" strokeWidth="1.5" strokeDasharray="3,3" />
+                                    <text x="130" y="15" fill="#fbbf24" fontSize="10" textAnchor="middle" fontWeight="bold">Snare Hit</text>
+                                    <line x1={rampX} y1="20" x2={rampX} y2="165" stroke="#f43f5e" strokeWidth="1.5" />
+                                    <text x={rampX + 5} y="30" fill="#f43f5e" fontSize="10" fontWeight="bold">Gate Open ({values[0]} ms)</text>
+                                </>
+                            );
+                        })()}
+                        <text x="300" y="188" fill="#64748b" fontSize="10" textAnchor="middle">Time (ms) — Fast attack preserves the initial drum transient</text>
+                    </svg>
+                </div>
+            ) : imageSrc && (
                 <div
                     onClick={handleExpandImage}
                     onMouseEnter={() => setIsHovered(true)}
