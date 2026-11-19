@@ -298,7 +298,7 @@ export default function SynthesizerQuiz({ quiz, onExit }) {
         sustain: 0.5,
         release: 0.2 // Very abrupt
       },
-      explanation: 'Old game consoles generated pure square waves with no filtering. A fast envelope with an abrupt release gives it that rigid, quantized feel.'
+      explanation: 'Old game consoles generated pure square waves with no filtering. A fast envelope with an abrupt release gives it that rigid, quantised feel.'
     },
     {
       type: 'match-sound',
@@ -321,7 +321,7 @@ export default function SynthesizerQuiz({ quiz, onExit }) {
         sustain: 0.5,
         release: 1.5 // Look for very slow release
       },
-      explanation: 'High resonance makes a filter "howl" by emphasizing a specific frequency. Combining this with long, drawn-out envelopes creates eerie atmospheres.'
+      explanation: 'High resonance makes a filter "howl" by emphasising a specific frequency. Combining this with long, drawn-out envelopes creates eerie atmospheres.'
     },
     {
       type: 'match-sound',

@@ -1399,79 +1399,192 @@ const QuizPlayer = ({ quiz, onFinish }) => {
                                 questionText={currentQuestion.question_text} // passed from content usually, but optional prop
                                 onResult={handleInteractiveResult}
                             />
-                        ) : currentQuestion.type === 'cloze' ? (
-                            <div key={currentQuestionIndex + "-cloze"} className="cloze-quiz-container" style={{ lineHeight: '2.5', fontSize: '1.1rem', background: 'var(--bg-secondary)', padding: '20px', borderRadius: '8px' }}>
-                                {Array.isArray(currentQuestion.text) ? (
-                                    <ul style={{ paddingLeft: '20px', margin: 0 }}>
-                                        {currentQuestion.text.map((line, lineIdx) => (
-                                            <li key={lineIdx} style={{ marginBottom: '15px' }}>
-                                                {line.split(/\{(\d+)\}/g).map((fragment, idx) => {
-                                                    if (idx % 2 === 0) return <span key={idx}>{fragment}</span>;
-                                                    const blankId = parseInt(fragment);
-                                                    const currentBlanks = selectedAnswer || {};
+                        ) : currentQuestion.type === 'cloze' ? (() => {
+                            const currentBlanks = (selectedAnswer && typeof selectedAnswer === 'object') ? selectedAnswer : {};
+                            const totalBlanks = Array.isArray(currentQuestion.answer) ? currentQuestion.answer.length : 0;
+                            const filledCount = Object.values(currentBlanks).filter(v => v && v !== '').length;
+                            const correctCount = isSubmitted
+                                ? (currentQuestion.answer || []).filter((ans, idx) => currentBlanks[idx] === ans).length
+                                : 0;
 
-                                                    let selectStyle = { margin: '0 5px', padding: '5px', background: 'var(--bg-primary)', color: 'var(--text-primary)', border: '1px solid var(--border-color)', borderRadius: '4px', appearance: 'auto', minWidth: '150px' };
-                                                    if (isSubmitted) {
-                                                        if (currentBlanks[blankId] === currentQuestion.answer[blankId]) {
-                                                            selectStyle.border = '2px solid var(--accent-success)';
-                                                            selectStyle.background = 'rgba(34, 197, 94, 0.1)';
-                                                        } else {
-                                                            selectStyle.border = '2px solid var(--accent-error)';
-                                                            selectStyle.background = 'rgba(239, 68, 68, 0.1)';
-                                                        }
-                                                    }
+                            const renderClozeLine = (textLine) => textLine.split(/\{(\d+)\}/g).map((fragment, idx) => {
+                                if (idx % 2 === 0) return <span key={idx}>{fragment}</span>;
+                                const blankId = parseInt(fragment, 10);
+                                const val = currentBlanks[blankId] || '';
+                                const expected = currentQuestion.answer?.[blankId];
+                                const isBlankCorrect = isSubmitted && val === expected;
+                                const isBlankWrong = isSubmitted && val !== expected;
 
-                                                    return (
-                                                        <select
-                                                            key={idx}
-                                                            style={selectStyle}
-                                                            value={currentBlanks[blankId] || ''}
-                                                            onChange={(e) => handleClozeChange(blankId, e.target.value)}
-                                                            disabled={isSubmitted}
-                                                        >
-                                                            <option value="">...</option>
-                                                            {currentQuestion.options[blankId] && currentQuestion.options[blankId].map((opt, oIdx) => <option key={oIdx} value={opt}>{opt}</option>)}
-                                                        </select>
-                                                    );
-                                                })}
-                                            </li>
-                                        ))}
-                                    </ul>
-                                ) : (
-                                    <div style={{ marginBottom: '15px' }}>
-                                        {currentQuestion.text.split(/\{(\d+)\}/g).map((fragment, idx) => {
-                                            if (idx % 2 === 0) return <span key={idx}>{fragment}</span>;
-                                            const blankId = parseInt(fragment);
-                                            const currentBlanks = selectedAnswer || {};
+                                const selectStyle = {
+                                    margin: '2px 5px',
+                                    padding: '4px 10px',
+                                    minWidth: '156px',
+                                    maxWidth: '100%',
+                                    borderRadius: '8px',
+                                    fontSize: '0.9rem',
+                                    fontWeight: '600',
+                                    verticalAlign: 'middle',
+                                    colorScheme: 'dark',
+                                    cursor: isSubmitted ? 'default' : 'pointer',
+                                    outline: 'none',
+                                    transition: 'border-color 0.15s ease, background-color 0.15s ease',
+                                    backgroundColor: isBlankCorrect
+                                        ? 'rgba(34, 197, 94, 0.16)'
+                                        : isBlankWrong
+                                            ? 'rgba(239, 68, 68, 0.16)'
+                                            : val
+                                                ? 'rgba(56, 189, 248, 0.15)'
+                                                : '#0f172a',
+                                    color: isBlankCorrect
+                                        ? '#86efac'
+                                        : isBlankWrong
+                                            ? '#fca5a5'
+                                            : val
+                                                ? '#e0f2fe'
+                                                : '#94a3b8',
+                                    border: isBlankCorrect
+                                        ? '1.5px solid #22c55e'
+                                        : isBlankWrong
+                                            ? '1.5px solid #ef4444'
+                                            : val
+                                                ? '1.5px solid #38bdf8'
+                                                : '1.5px solid rgba(56, 189, 248, 0.45)'
+                                };
 
-                                            let selectStyle = { margin: '0 5px', padding: '5px', background: 'var(--bg-primary)', color: 'var(--text-primary)', border: '1px solid var(--border-color)', borderRadius: '4px', appearance: 'auto', minWidth: '150px' };
-                                            if (isSubmitted) {
-                                                if (currentBlanks[blankId] === currentQuestion.answer[blankId]) {
-                                                    selectStyle.border = '2px solid var(--accent-success)';
-                                                    selectStyle.background = 'rgba(34, 197, 94, 0.1)';
-                                                } else {
-                                                    selectStyle.border = '2px solid var(--accent-error)';
-                                                    selectStyle.background = 'rgba(239, 68, 68, 0.1)';
-                                                }
-                                            }
+                                return (
+                                    <span key={idx} style={{ display: 'inline-flex', alignItems: 'center', flexWrap: 'wrap', gap: '4px', verticalAlign: 'baseline' }}>
+                                        <select
+                                            style={selectStyle}
+                                            value={val}
+                                            onChange={(e) => handleClozeChange(blankId, e.target.value)}
+                                            disabled={isSubmitted}
+                                        >
+                                            <option value="">Select term…</option>
+                                            {currentQuestion.options?.[blankId] && currentQuestion.options[blankId].map((opt, oIdx) => (
+                                                <option key={oIdx} value={opt} style={{ background: '#0f172a', color: '#f8fafc' }}>{opt}</option>
+                                            ))}
+                                        </select>
+                                        {isBlankWrong && expected && (
+                                            <span style={{
+                                                fontSize: '0.8rem',
+                                                fontWeight: '700',
+                                                color: '#86efac',
+                                                background: 'rgba(34, 197, 94, 0.14)',
+                                                border: '1px solid rgba(34, 197, 94, 0.35)',
+                                                borderRadius: '6px',
+                                                padding: '2px 7px'
+                                            }}>
+                                                ✓ {expected}
+                                            </span>
+                                        )}
+                                    </span>
+                                );
+                            });
 
-                                            return (
-                                                <select
-                                                    key={idx}
-                                                    style={selectStyle}
-                                                    value={currentBlanks[blankId] || ''}
-                                                    onChange={(e) => handleClozeChange(blankId, e.target.value)}
-                                                    disabled={isSubmitted}
-                                                >
-                                                    <option value="">...</option>
-                                                    {currentQuestion.options[blankId] && currentQuestion.options[blankId].map((opt, oIdx) => <option key={oIdx} value={opt}>{opt}</option>)}
-                                                </select>
-                                            );
-                                        })}
+                            return (
+                                <div
+                                    key={currentQuestionIndex + "-cloze"}
+                                    className="cloze-quiz-container"
+                                    style={{
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                        gap: '10px',
+                                        marginBottom: '12px'
+                                    }}
+                                >
+                                    {/* Progress Header */}
+                                    <div style={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'space-between',
+                                        gap: '10px',
+                                        padding: '8px 12px',
+                                        borderRadius: '9px',
+                                        background: 'rgba(15, 23, 42, 0.6)',
+                                        border: '1px solid rgba(148, 163, 184, 0.18)',
+                                        fontSize: '0.82rem',
+                                        color: '#94a3b8'
+                                    }}>
+                                        <span style={{ fontWeight: '600', color: '#cbd5e1' }}>
+                                            {isSubmitted ? 'Results Summary' : 'Complete every blank below'}
+                                        </span>
+                                        <span style={{
+                                            fontWeight: '700',
+                                            padding: '2px 9px',
+                                            borderRadius: '999px',
+                                            background: isSubmitted
+                                                ? (correctCount === totalBlanks ? 'rgba(34, 197, 94, 0.18)' : 'rgba(245, 158, 11, 0.18)')
+                                                : (filledCount === totalBlanks && totalBlanks > 0 ? 'rgba(34, 197, 94, 0.18)' : 'rgba(56, 189, 248, 0.15)'),
+                                            color: isSubmitted
+                                                ? (correctCount === totalBlanks ? '#4ade80' : '#fbbf24')
+                                                : (filledCount === totalBlanks && totalBlanks > 0 ? '#4ade80' : '#38bdf8')
+                                        }}>
+                                            {isSubmitted
+                                                ? `${correctCount} / ${totalBlanks} correct`
+                                                : `${filledCount} / ${totalBlanks} filled`}
+                                        </span>
                                     </div>
-                                )}
-                            </div>
-                        ) : currentQuestion.type === 'binary-diagram' ? (
+
+                                    {Array.isArray(currentQuestion.text) ? (
+                                        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                                            {currentQuestion.text.map((line, lineIdx) => {
+                                                const cleanLine = typeof line === 'string' ? line.replace(/^\s*\d+\.\s*/, '') : '';
+                                                return (
+                                                    <div
+                                                        key={lineIdx}
+                                                        style={{
+                                                            display: 'flex',
+                                                            alignItems: 'flex-start',
+                                                            gap: '12px',
+                                                            padding: '11px 14px',
+                                                            borderRadius: '10px',
+                                                            background: 'rgba(15, 23, 42, 0.55)',
+                                                            border: '1px solid rgba(148, 163, 184, 0.15)',
+                                                            lineHeight: '1.75',
+                                                            fontSize: '0.98rem',
+                                                            color: '#e2e8f0'
+                                                        }}
+                                                    >
+                                                        <span style={{
+                                                            flexShrink: 0,
+                                                            width: '24px',
+                                                            height: '24px',
+                                                            borderRadius: '7px',
+                                                            background: 'rgba(56, 189, 248, 0.14)',
+                                                            border: '1px solid rgba(56, 189, 248, 0.3)',
+                                                            color: '#38bdf8',
+                                                            fontSize: '0.78rem',
+                                                            fontWeight: '700',
+                                                            display: 'inline-flex',
+                                                            alignItems: 'center',
+                                                            justifyContent: 'center',
+                                                            marginTop: '3px'
+                                                        }}>
+                                                            {lineIdx + 1}
+                                                        </span>
+                                                        <div style={{ flex: 1 }}>
+                                                            {renderClozeLine(cleanLine)}
+                                                        </div>
+                                                    </div>
+                                                );
+                                            })}
+                                        </div>
+                                    ) : (
+                                        <div style={{
+                                            padding: '14px 16px',
+                                            borderRadius: '10px',
+                                            background: 'rgba(15, 23, 42, 0.55)',
+                                            border: '1px solid rgba(148, 163, 184, 0.15)',
+                                            lineHeight: '1.85',
+                                            fontSize: '1rem',
+                                            color: '#e2e8f0'
+                                        }}>
+                                            {renderClozeLine(currentQuestion.text || '')}
+                                        </div>
+                                    )}
+                                </div>
+                            );
+                        })() : currentQuestion.type === 'binary-diagram' ? (
                             <BinaryDiagramQuiz
                                 key={currentQuestionIndex}
                                 targetNumber={currentQuestion.targetNumber}

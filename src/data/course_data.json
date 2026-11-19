@@ -2217,8 +2217,8 @@
           "description": "Mastery quiz covering the fundamentals of Synthesis.",
           "questions": [
             {
-              "title": "Practical Task: Subtractive Synthesis Architecture",
-              "content": "Place the core modules of a subtractive synthesizer into the correct audio signal path from sound generation to output.",
+              "title": "Practical Task: Subtractive Synthesis Signal Flow",
+              "content": "Order the modules of a subtractive synthesiser from START (top) to OUTPUT (bottom).",
               "type": "drag_drop",
               "items": [
                 "Voltage Controlled Amplifier (VCA - Amplitude Shaping)",
@@ -2232,16 +2232,23 @@
                 "Voltage Controlled Amplifier (VCA - Amplitude Shaping)",
                 "ADSR Envelope Generator (Modulates Filter Cutoff & Volume)"
               ],
-              "explanation": "<p><strong>Subtractive Synthesis Architecture:</strong> 1) The VCO generates harmonically rich raw waves (sawtooth, square, pulse). 2) The VCF subtracts or filters out unwanted harmonics via cutoff frequency and resonance. 3) The VCA controls output amplitude over time. 4) ADSR envelope generators send control voltages to modulate both the VCF and VCA.</p>",
+              "explanation": "<img src=\"/images/svg/synth_signal_flow.svg\" alt=\"Practical Task: Subtractive Synthesis Signal Flow\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> In subtractive synthesis, the oscillator (VCO) creates a harmonically rich raw wave, the filter (VCF) removes unwanted frequencies, and the amplifier (VCA) shapes the final volume.</p>",
               "expert_quote": {
                 "text": "Subtractive synthesis is like sculpting marble. The oscillator provides the solid block of stone, and the filter carves away everything that isn't the sculpture.",
                 "author": "Bob Moog, Synthesizer Pioneer"
               },
-              "img": "/images/svg/synth_signal_flow.svg"
+              "img": "/images/svg/synth_signal_flow.svg",
+              "top_label": "START (Sound Source)",
+              "bottom_label": "OUTPUT (Final Sound)",
+              "expert_explanation": "In subtractive synthesis, the oscillator (VCO) creates a harmonically rich raw wave, the filter (VCF) removes unwanted frequencies, and the amplifier (VCA) shapes the final volume.",
+              "explanation_image": {
+                "src": "/images/svg/synth_signal_flow.svg",
+                "alt": "Practical Task: Subtractive Synthesis Signal Flow"
+              }
             },
             {
-              "title": "Practical Listening: Waveform Harmonic Identification",
-              "content": "Listen to the synthesizer tone. Identify the fundamental waveform that contains NO harmonic overtones.",
+              "title": "Practical Listening: Pure Fundamental Waveform",
+              "content": "Listen to the synthesiser tone and pick the pure waveform with NO harmonic overtones.",
               "type": "waveform_id",
               "audio_src": "/Audio/Waveforms/sine wave.mp3",
               "options": [
@@ -2251,167 +2258,192 @@
                 "Triangle Wave"
               ],
               "correct_option": "Sine Wave",
-              "explanation": "<p><strong>Sine Wave:</strong> The sine wave contains only the fundamental frequency with zero harmonic overtones. It produces a pure, warm, and smooth tone, universally utilized for sub-bass synthesizers and test tone calibration.</p>",
+              "explanation": "<img src=\"/images/svg/human_hearing_range.svg\" alt=\"Practical Listening: Pure Fundamental Waveform\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> A sine wave contains only the fundamental frequency with zero harmonic overtones, making it ideal for clean sub-bass layers.</p>",
               "expert_quote": {
                 "text": "A pure sine wave is the atom of all musical sound. Combine enough of them at differing amplitudes and phases, and you can reconstruct any acoustic instrument.",
                 "author": "Jean-Baptiste Fourier"
               },
-              "img": "/images/svg/human_hearing_range.svg"
+              "img": "/images/svg/human_hearing_range.svg",
+              "expert_explanation": "A sine wave contains only the fundamental frequency with zero harmonic overtones, making it ideal for clean sub-bass layers.",
+              "explanation_image": {
+                "src": "/images/svg/human_hearing_range.svg",
+                "alt": "Practical Listening: Pure Fundamental Waveform"
+              }
             },
             {
-              "title": "Q3: Purpose of a Synthesizer Filter",
+              "title": "Q3: Purpose of a Synthesiser Filter",
               "type": "multi_choice",
-              "content": "What is the main purpose of a filter (VCF) in a subtractive synthesizer?",
+              "content": "What is the main job of a filter (VCF) in a subtractive synthesiser?",
               "answers": [
                 {
-                  "text": "To generate the initial raw audio waveform from an electrical circuit",
+                  "text": "Generate the raw starting waveform",
                   "is_true": "no"
                 },
                 {
-                  "text": "To shape the tone by cutting or boosting specific frequencies",
+                  "text": "Shape tone by cutting frequencies",
                   "is_true": "yes"
                 },
                 {
-                  "text": "To control the overall output volume and amplifier envelope over time",
+                  "text": "Control overall volume over time",
                   "is_true": "no"
                 },
                 {
-                  "text": "To create time-based acoustic effects like stereo delay and lush reverb",
+                  "text": "Add stereo delay and room reverb",
                   "is_true": "no"
                 }
               ],
-              "expert_explanation": "The Voltage Controlled Filter (VCF) acts as the sculptor in subtractive synthesis. It shapes the overall tone and timbre by cutting away or boosting specific frequency bands from the oscillator's raw waveform.",
+              "expert_explanation": "A Voltage Controlled Filter (VCF) sculpts a synth's tone by cutting away frequencies from a bright raw waveform. Sweeping its cutoff turns a harsh sawtooth into a warm pad or bass.",
               "expert_quote": {
                 "text": "The filter defines the sonic identity of a synthesizer.",
                 "author": "Sound Synthesis Principles"
               },
               "img": "/images/gen/t3_q3_vcf_filter_hq_1772104212668.png",
-              "explanation": "<img src=\"/images/gen/t3_q3_vcf_filter_hq_1772104212668.png\" alt=\"Hand adjusting Cutoff knob on an analogue modular synthesizer filter\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> The <strong>Voltage Controlled Filter (VCF)</strong> acts as the sculptor in subtractive synthesis. It shapes the overall tone and timbre by cutting away or boosting specific frequency bands from the oscillator's raw waveform.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"The filter defines the sonic identity of a synthesizer.\"<br/><strong>- Sound Synthesis Principles</strong></blockquote>"
+              "explanation": "<img src=\"/images/gen/t3_q3_vcf_filter_hq_1772104212668.png\" alt=\"Q3: Purpose of a Synthesiser Filter\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> A Voltage Controlled Filter (VCF) sculpts a synth's tone by cutting away frequencies from a bright raw waveform. Sweeping its cutoff turns a harsh sawtooth into a warm pad or bass.</p>",
+              "explanation_image": {
+                "src": "/images/gen/t3_q3_vcf_filter_hq_1772104212668.png",
+                "alt": "Q3: Purpose of a Synthesiser Filter"
+              }
             },
             {
-              "title": "Q4: The Four Phases of an ADSR Envelope",
+              "title": "Q4: ADSR Envelope Stages",
               "type": "multi_choice",
-              "content": "What are the four stages of an ADSR envelope, and what do they control?",
+              "content": "In an ADSR envelope, which stages control time and which controls level?",
               "answers": [
                 {
-                  "text": "Attack and Sustain control resonance, while Decay and Release control cutoff",
+                  "text": "Attack and Sustain are resonance; Decay is pitch",
                   "is_true": "no"
                 },
                 {
-                  "text": "Attack and Decay control stereo panning, while Sustain and Release control pitch",
+                  "text": "Attack and Decay are panning; Release is tone",
                   "is_true": "no"
                 },
                 {
-                  "text": "Attack, Decay, Sustain, and Release all control the oscillator playback speed",
+                  "text": "All four stages control oscillator playback speed",
                   "is_true": "no"
                 },
                 {
-                  "text": "Attack, Decay, and Release control time, while Sustain controls level",
+                  "text": "Attack, Decay, Release are time; Sustain is level",
                   "is_true": "yes"
                 }
               ],
-              "expert_explanation": "An ADSR envelope generator shapes how a synthesizer parameter (such as volume via a VCA, or brightness via a VCF) changes over time. A crucial distinction frequently tested in Music Technology is that Attack, Decay, and Release are time-based parameters (measured in milliseconds or seconds), whereas Sustain is a level/amplitude parameter (measured in dB or percentage). The sound rises to peak over the Attack time, drops to the Sustain level over the Decay time, remains at the Sustain level as long as the key is held, and fades to silence over the Release time once the key is released.",
+              "expert_explanation": "Attack, Decay, and Release are measured in time (milliseconds or seconds), while Sustain is a held volume or cutoff level. Knowing this distinction is a classic Edexcel exam mark.",
               "expert_quote": {
                 "text": "Remember: you set how long the attack, decay, and release take, but sustain is the volume the note rests at while your finger stays on the key.",
                 "author": "Sound on Sound Synth Secrets"
               },
               "img": "/images/svg/adsr_envelope_phases.svg",
-              "explanation": "<img src=\"/images/svg/adsr_envelope_phases.svg\" alt=\"The Four Phases of an ADSR Envelope schematic: Attack, Decay, Sustain, and Release showing time vs level and gate triggers\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> An <strong>ADSR envelope generator</strong> shapes how a synthesizer parameter (such as volume via a VCA, or brightness via a VCF) changes over time. A crucial distinction frequently tested in Music Technology is that <strong>Attack</strong>, <strong>Decay</strong>, and <strong>Release</strong> are time-based parameters (measured in milliseconds or seconds), whereas <strong>Sustain</strong> is a level/amplitude parameter (measured in dB or percentage). The sound rises to peak over the Attack time, drops to the Sustain level over the Decay time, remains at the Sustain level as long as the key is held, and fades to silence over the Release time once the key is released.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Remember: you set how long the attack, decay, and release take, but sustain is the volume the note rests at while your finger stays on the key.\"<br/><strong>- Sound on Sound Synth Secrets</strong></blockquote>"
+              "explanation": "<img src=\"/images/svg/adsr_envelope_phases.svg\" alt=\"Q4: ADSR Envelope Stages\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Attack, Decay, and Release are measured in time (milliseconds or seconds), while Sustain is a held volume or cutoff level. Knowing this distinction is a classic Edexcel exam mark.</p>",
+              "explanation_image": {
+                "src": "/images/svg/adsr_envelope_phases.svg",
+                "alt": "Q4: ADSR Envelope Stages"
+              }
             },
             {
               "title": "Q5: Low-Pass Filter (LPF)",
               "type": "multi_choice",
-              "content": "What does a Low-Pass Filter (LPF) do in a subtractive synthesizer?",
+              "content": "What does a Low-Pass Filter (LPF) do to a synthesiser sound?",
               "answers": [
                 {
-                  "text": "It allows low frequencies to pass through while cutting higher frequencies",
+                  "text": "Lets lows pass and cuts highs",
                   "is_true": "yes"
                 },
                 {
-                  "text": "It allows high frequencies to pass through while cutting lower frequencies",
+                  "text": "Lets highs pass and cuts lows",
                   "is_true": "no"
                 },
                 {
-                  "text": "It allows midrange frequencies to pass through while cutting lows and highs",
+                  "text": "Lets mids pass and cuts lows and highs",
                   "is_true": "no"
                 },
                 {
-                  "text": "It cuts a narrow band of middle frequencies while leaving everything else",
+                  "text": "Cuts one narrow middle frequency band",
                   "is_true": "no"
                 }
               ],
-              "expert_explanation": "The Low-Pass Filter (LPF) is the primary sound-sculpting tool in subtractive synthesis. Frequencies below the user-set cutoff point pass through unaffected, while frequencies above the cutoff are progressively attenuated according to the filter slope (typically -12 dB or -24 dB per octave). Lowering the cutoff frequency strips away upper harmonics from bright raw waveforms, creating warmer, darker, and rounder synth tones.",
+              "expert_explanation": "A Low-Pass Filter lets frequencies below the cutoff point pass through while attenuating higher harmonics. Lowering the cutoff makes a bright synth sound warmer and darker.",
               "expert_quote": {
                 "text": "Subtractive synthesis is the art of acoustic sculpture—the oscillator provides the raw block of marble, and the low-pass filter chisels away the excess brightness.",
                 "author": "Bob Moog"
               },
               "img": "/images/svg/filter_types_diagram.svg",
-              "explanation": "<img src=\"/images/svg/filter_types_diagram.svg\" alt=\"Synthesizer Filter Types: Low-Pass (LPF), High-Pass (HPF), Band-Pass (BPF), and Band-Reject/Notch response curves\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> The <strong>Low-Pass Filter (LPF)</strong> is the primary sound-sculpting tool in subtractive synthesis. Frequencies below the user-set cutoff point pass through unaffected, while frequencies above the cutoff are progressively attenuated according to the filter slope (typically -12 dB or -24 dB per octave). Lowering the cutoff frequency strips away upper harmonics from bright raw waveforms, creating warmer, darker, and rounder synth tones.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Subtractive synthesis is the art of acoustic sculpture—the oscillator provides the raw block of marble, and the low-pass filter chisels away the excess brightness.\"<br/><strong>- Bob Moog</strong></blockquote>"
+              "explanation": "<img src=\"/images/svg/filter_types_diagram.svg\" alt=\"Q5: Low-Pass Filter (LPF)\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> A Low-Pass Filter lets frequencies below the cutoff point pass through while attenuating higher harmonics. Lowering the cutoff makes a bright synth sound warmer and darker.</p>",
+              "explanation_image": {
+                "src": "/images/svg/filter_types_diagram.svg",
+                "alt": "Q5: Low-Pass Filter (LPF)"
+              }
             },
             {
-              "title": "Q6: High-Pass (HPF) vs Band-Pass (BPF) Filters",
+              "title": "Q6: High-Pass vs Band-Pass Filters",
               "type": "multi_choice",
               "content": "How does a High-Pass Filter (HPF) differ from a Band-Pass Filter (BPF)?",
               "answers": [
                 {
-                  "text": "An HPF cuts frequencies above cutoff; a BPF cuts frequencies within a narrow middle notch band",
+                  "text": "HPF cuts highs; BPF boosts sub-bass only",
                   "is_true": "no"
                 },
                 {
-                  "text": "An HPF works only on digital synths; a BPF works only on modular analogue hardware synths",
+                  "text": "HPF is digital only; BPF is analogue only",
                   "is_true": "no"
                 },
                 {
-                  "text": "An HPF cuts frequencies below cutoff; a BPF cuts frequencies below and above a centre band",
+                  "text": "HPF cuts lows; BPF cuts both lows and highs",
                   "is_true": "yes"
                 },
                 {
-                  "text": "An HPF shifts the oscillator pitch up; a BPF shifts the oscillator pitch down an octave",
+                  "text": "HPF raises pitch; BPF lowers pitch an octave",
                   "is_true": "no"
                 }
               ],
-              "expert_explanation": "While the Low-Pass Filter (LPF) is the primary sculpting tool in subtractive synthesis, High-Pass (HPF) and Band-Pass (BPF) filters provide essential tonal control: A High-Pass Filter (HPF) allows frequencies above its cutoff point to pass through while attenuating everything below it, removing low-end rumble and mud to produce thin, bright leads or airy pads that sit cleanly in a mix. A Band-Pass Filter (BPF) attenuates frequencies both above and below its centre frequency, passing only a focused band of mid frequencies to produce thin, nasal, telephone-like, or vocal-formant resonances.",
+              "expert_explanation": "An HPF removes low rumble below the cutoff, while a BPF cuts both lows and highs to leave only a middle band. BPFs are great for thin, radio-style synth leads.",
               "expert_quote": {
                 "text": "Use a high-pass filter to clean the mud out of your synths, and a band-pass filter when you want your lead to cut through the mix like a nasal telephone.",
                 "author": "Sound on Sound Synth Secrets"
               },
               "img": "/images/svg/filter_types_diagram.svg",
-              "explanation": "<img src=\"/images/svg/filter_types_diagram.svg\" alt=\"Synthesizer Filter Topologies: Low-Pass, High-Pass, Band-Pass, and Notch frequency curves\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> While the Low-Pass Filter (LPF) is the primary sculpting tool in subtractive synthesis, <strong>High-Pass (HPF)</strong> and <strong>Band-Pass (BPF)</strong> filters provide essential tonal control: A <strong>High-Pass Filter (HPF)</strong> allows frequencies <em>above</em> its cutoff point to pass through while attenuating everything <em>below</em> it, removing low-end rumble and mud to produce thin, bright leads or airy pads that sit cleanly in a mix. A <strong>Band-Pass Filter (BPF)</strong> attenuates frequencies <em>both above and below</em> its centre frequency, passing only a focused band of mid frequencies to produce thin, nasal, telephone-like, or vocal-formant resonances.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Use a high-pass filter to clean the mud out of your synths, and a band-pass filter when you want your lead to cut through the mix like a nasal telephone.\"<br/><strong>- Sound on Sound Synth Secrets</strong></blockquote>"
+              "explanation": "<img src=\"/images/svg/filter_types_diagram.svg\" alt=\"Q6: High-Pass vs Band-Pass Filters\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> An HPF removes low rumble below the cutoff, while a BPF cuts both lows and highs to leave only a middle band. BPFs are great for thin, radio-style synth leads.</p>",
+              "explanation_image": {
+                "src": "/images/svg/filter_types_diagram.svg",
+                "alt": "Q6: High-Pass vs Band-Pass Filters"
+              }
             },
             {
-              "title": "Q7: Filter Resonance (Q) and Cutoff Sweeps",
+              "title": "Q7: Filter Resonance (Q)",
               "type": "multi_choice",
-              "content": "What is filter resonance (Q), and how does it affect the sound?",
+              "content": "What does turning up Filter Resonance (Q) do to the sound?",
               "answers": [
                 {
-                  "text": "It cuts frequencies across the high-end spectrum to create a dark muffled tone",
+                  "text": "Cuts all high frequencies for a dark tone",
                   "is_true": "no"
                 },
                 {
-                  "text": "It boosts frequencies around the cutoff point to create a sharp ringing tone",
+                  "text": "Boosts frequencies right at the cutoff point",
                   "is_true": "yes"
                 },
                 {
-                  "text": "It detunes two oscillators against each other to create a wide chorusing effect",
+                  "text": "Detunes two oscillators for a chorus effect",
                   "is_true": "no"
                 },
                 {
-                  "text": "It shifts the fundamental pitch of the note up by one full musical octave",
+                  "text": "Shifts the note pitch up by one full octave",
                   "is_true": "no"
                 }
               ],
-              "expert_explanation": "Filter resonance (often labelled Resonance, Emphasis, or Q on analogue synths) is created by feeding a portion of the filter's output signal back into its input in positive feedback. This creates a sharp amplitude boost at the exact cutoff frequency (fc). When the cutoff is swept using a knob, LFO, or envelope, this boosted resonant peak travels through the harmonic spectrum, dramatically emphasizing each individual overtone in turn. This produces the iconic biting 'squelch', nasal 'wah', and whistling character famous in the Roland TB-303 and acid basslines. At maximum resonance, the circuit enters self-oscillation, producing a pure sine wave even without an oscillator input.",
+              "expert_explanation": "Resonance (Q) feeds part of the filter output back in to boost a sharp peak right at the cutoff frequency. Sweeping a resonant filter creates classic squelchy acid and synth leads.",
               "expert_quote": {
                 "text": "Resonance is what turns a polite low-pass filter into a biting, screaming animal—feed the cutoff back on itself and the synth begins to sing.",
                 "author": "Dave Smith"
               },
               "img": "/images/svg/filter_resonance_diagram.svg",
-              "explanation": "<img src=\"/images/svg/filter_resonance_diagram.svg\" alt=\"Filter Resonance (Q) and Cutoff Sweep schematic: Boosted resonant peak passing through harmonics and self-oscillation\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Filter resonance (often labelled <strong>Resonance</strong>, <strong>Emphasis</strong>, or <strong>Q</strong> on analogue synths) is created by feeding a portion of the filter's output signal back into its input in positive feedback. This creates a sharp amplitude boost at the exact cutoff frequency (f_c). When the cutoff is swept using a knob, LFO, or envelope, this boosted resonant peak travels through the harmonic spectrum, dramatically emphasizing each individual overtone in turn. This produces the iconic biting 'squelch', nasal 'wah', and whistling character famous in the <strong>Roland TB-303</strong> and acid basslines. At maximum resonance, the circuit enters <strong>self-oscillation</strong>, producing a pure sine wave even without an oscillator input.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Resonance is what turns a polite low-pass filter into a biting, screaming animal—feed the cutoff back on itself and the synth begins to sing.\"<br/><strong>- Dave Smith</strong></blockquote>"
+              "explanation": "<img src=\"/images/svg/filter_resonance_diagram.svg\" alt=\"Q7: Filter Resonance (Q)\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Resonance (Q) feeds part of the filter output back in to boost a sharp peak right at the cutoff frequency. Sweeping a resonant filter creates classic squelchy acid and synth leads.</p>",
+              "explanation_image": {
+                "src": "/images/svg/filter_resonance_diagram.svg",
+                "alt": "Q7: Filter Resonance (Q)"
+              }
             },
             {
-              "title": "Q8: Voltage Controlled Oscillator (VCO)",
+              "title": "Q8: Analogue Synth Oscillators (VCO)",
               "type": "multi_choice",
-              "content": "What does the acronym VCO stand for in analogue synthesizers?",
+              "content": "What does the acronym VCO stand for on an analogue synthesiser?",
               "answers": [
                 {
                   "text": "Variable Calibration Oscillator",
@@ -2430,73 +2462,85 @@
                   "is_true": "yes"
                 }
               ],
-              "expert_explanation": "A VCO (Voltage Controlled Oscillator) is the primary sound-generating core of an analogue subtractive synthesizer. It produces harmonically rich periodic waveforms (sawtooth, pulse/square, triangle, sine). Its oscillating pitch/frequency is determined by an incoming Control Voltage (CV), standardized historically at 1 Volt per Octave (1V/Oct). Because early VCO circuits were sensitive to internal temperature variations, component drift caused subtle pitch fluctuations that gave vintage analogue synths their characteristic warmth and thickness.",
+              "expert_explanation": "A Voltage Controlled Oscillator (VCO) generates the synth's raw starting waveform, with its pitch controlled by electrical voltage. Pressing higher keys sends a higher voltage to raise the pitch.",
               "expert_quote": {
                 "text": "The VCO is where synthetic sound is born—a continuous stream of raw electrical oscillation shaped entirely by voltage.",
                 "author": "Bob Moog"
               },
               "img": "/images/gen/t3_q6_vco_diagram_hq.jpg",
-              "explanation": "<img src=\"/images/gen/t3_q6_vco_diagram_hq.jpg\" alt=\"Voltage Controlled Oscillator (VCO) schematic showing Control Voltage (CV) input and raw waveforms (Sine, Sawtooth, Square, Triangle)\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> A <strong>VCO (Voltage Controlled Oscillator)</strong> is the primary sound-generating core of an analogue subtractive synthesizer. It produces harmonically rich periodic waveforms (sawtooth, pulse/square, triangle, sine). Its oscillating pitch/frequency is determined by an incoming <strong>Control Voltage (CV)</strong>, standardized historically at <strong>1 Volt per Octave (1V/Oct)</strong>. Because early VCO circuits were sensitive to internal temperature variations, component drift caused subtle pitch fluctuations that gave vintage analogue synths their characteristic warmth and thickness.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"The VCO is where synthetic sound is born—a continuous stream of raw electrical oscillation shaped entirely by voltage.\"<br/><strong>- Bob Moog</strong></blockquote>"
+              "explanation": "<img src=\"/images/gen/t3_q6_vco_diagram_hq.jpg\" alt=\"Q8: Analogue Synth Oscillators (VCO)\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> A Voltage Controlled Oscillator (VCO) generates the synth's raw starting waveform, with its pitch controlled by electrical voltage. Pressing higher keys sends a higher voltage to raise the pitch.</p>",
+              "explanation_image": {
+                "src": "/images/gen/t3_q6_vco_diagram_hq.jpg",
+                "alt": "Q8: Analogue Synth Oscillators (VCO)"
+              }
             },
             {
-              "title": "Q9: Low Frequency Oscillator (LFO Vibrato)",
+              "title": "Q9: LFO Pitch Modulation",
               "type": "multi_choice",
-              "content": "In synthesis, routing an LFO to modulate oscillator pitch produces which musical effect?",
+              "content": "Routing a Low Frequency Oscillator (LFO) to oscillator pitch creates which effect?",
               "answers": [
                 {
-                  "text": "Vibrato (periodic pitch fluctuation)",
+                  "text": "Vibrato (wobbling pitch)",
                   "is_true": "yes"
                 },
                 {
-                  "text": "Tremolo (periodic volume fluctuation)",
+                  "text": "Tremolo (wobbling volume)",
                   "is_true": "no"
                 },
                 {
-                  "text": "Portamento (smooth gliding between notes)",
+                  "text": "Portamento (gliding notes)",
                   "is_true": "no"
                 },
                 {
-                  "text": "Flanging (delayed comb filtering sweep)",
+                  "text": "Flanging (sweeping delay)",
                   "is_true": "no"
                 }
               ],
-              "expert_explanation": "A Low Frequency Oscillator (LFO) operates below the human hearing threshold (typically 0.1 Hz to 20 Hz) and serves as a cyclical modulation source. When routed to Oscillator Pitch (VCO), it creates vibrato (typically 4–7 Hz). When routed to Amplitude (VCA), it produces tremolo. When routed to Filter Cutoff (VCF), it produces rhythmic wah-wah or wobble effects. The speed is set by Rate, while the depth controls the modulation intensity.",
+              "expert_explanation": "An LFO cycles slowly below human hearing (0.1–20 Hz) to modulate other controls automatically. Routing an LFO to pitch produces vibrato, whereas routing it to volume (VCA) produces tremolo.",
               "expert_quote": {
                 "text": "An LFO breathes life and motion into static synth patches—turning flat tones into expressive vibrato, pulsing tremolo, or evolving textures.",
                 "author": "Sound on Sound Synth Secrets"
               },
               "img": "/images/svg/lfo_destinations_diagram.svg",
-              "explanation": "<img src=\"/images/svg/lfo_destinations_diagram.svg\" alt=\"Low Frequency Oscillator (LFO) parameters and modulation destinations: Pitch to Vibrato, Filter to Wah, Amplitude to Tremolo\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> A <strong>Low Frequency Oscillator (LFO)</strong> operates below the human hearing threshold (typically <strong>0.1 Hz to 20 Hz</strong>) and serves as a cyclical modulation source. When routed to <strong>Oscillator Pitch (VCO)</strong>, it creates <strong>vibrato</strong> (typically 4–7 Hz). When routed to <strong>Amplitude (VCA)</strong>, it produces <strong>tremolo</strong>. When routed to <strong>Filter Cutoff (VCF)</strong>, it produces rhythmic wah-wah or wobble effects. The speed is set by <strong>Rate</strong>, while the <strong>Depth</strong> controls the modulation intensity.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"An LFO breathes life and motion into static synth patches—turning flat tones into expressive vibrato, pulsing tremolo, or evolving textures.\"<br/><strong>- Sound on Sound Synth Secrets</strong></blockquote>"
+              "explanation": "<img src=\"/images/svg/lfo_destinations_diagram.svg\" alt=\"Q9: LFO Pitch Modulation\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> An LFO cycles slowly below human hearing (0.1–20 Hz) to modulate other controls automatically. Routing an LFO to pitch produces vibrato, whereas routing it to volume (VCA) produces tremolo.</p>",
+              "explanation_image": {
+                "src": "/images/svg/lfo_destinations_diagram.svg",
+                "alt": "Q9: LFO Pitch Modulation"
+              }
             },
             {
-              "title": "Q10: Filter Envelope Modulation (EG to VCF)",
+              "title": "Q10: Filter Envelope (EG to VCF)",
               "type": "multi_choice",
-              "content": "In subtractive synthesis, what is the musical effect of routing an Envelope Generator to the filter cutoff?",
+              "content": "What happens when you route an Envelope Generator to the filter cutoff?",
               "answers": [
                 {
-                  "text": "It modulates the master stereo output volume, creating fading swells or gentle mutes",
+                  "text": "It fades the master stereo volume up and down",
                   "is_true": "no"
                 },
                 {
-                  "text": "It shifts the pitch of the oscillators, creating dramatic divebombs or rising sweeps",
+                  "text": "It bends oscillator pitch into a divebomb",
                   "is_true": "no"
                 },
                 {
-                  "text": "It dynamically moves the filter over time, creating brass swells or synth plucks",
+                  "text": "It opens and closes brightness over time",
                   "is_true": "yes"
                 },
                 {
-                  "text": "It alters the waveform shape continuously, crossfading between sine and square waves",
+                  "text": "It morphs a sine wave into a square wave",
                   "is_true": "no"
                 }
               ],
-              "expert_explanation": "Routing an Envelope Generator (EG) to the Voltage-Controlled Filter (VCF) cutoff frequency is fundamental to subtractive sound design. Rather than keeping a static filter cutoff, the envelope dynamically opens and closes the filter across the attack, decay, sustain, and release stages. A fast attack and short decay creates a percussive synth bass snap or funk pluck, while a slower attack creates the gradual harmonic bloom of acoustic brass or orchestral horn swells.",
+              "expert_explanation": "Routing an envelope to the filter cutoff makes brightness change automatically as each note plays. Fast decay creates punchy synth plucks, while slow attack creates swelling brass pads.",
               "expert_quote": {
                 "text": "Modulating the filter cutoff with an envelope is how we breathe acoustic life into static analog oscillators—turning a plain buzz into a biting bass or an expressive brass swell.",
                 "author": "Bob Moog"
               },
               "img": "/images/svg/filter_envelope_modulation.svg",
-              "explanation": "<img src=\"/images/svg/filter_envelope_modulation.svg\" alt=\"Filter Envelope Modulation schematic: Envelope Generator modulating VCF cutoff frequency over time across ADSR stages\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Routing an Envelope Generator (EG) to the <strong>Voltage-Controlled Filter (VCF)</strong> cutoff frequency is fundamental to subtractive sound design. Rather than keeping a static filter cutoff, the envelope dynamically opens and closes the filter across the attack, decay, sustain, and release stages. A fast attack and short decay creates a percussive synth bass snap or funk pluck, while a slower attack creates the gradual harmonic bloom of acoustic brass or orchestral horn swells.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Modulating the filter cutoff with an envelope is how we breathe acoustic life into static analogue oscillators—turning a plain buzz into a biting bass or an expressive brass swell.\"<br/><strong>- Bob Moog</strong></blockquote>"
+              "explanation": "<img src=\"/images/svg/filter_envelope_modulation.svg\" alt=\"Q10: Filter Envelope (EG to VCF)\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Routing an envelope to the filter cutoff makes brightness change automatically as each note plays. Fast decay creates punchy synth plucks, while slow attack creates swelling brass pads.</p>",
+              "explanation_image": {
+                "src": "/images/svg/filter_envelope_modulation.svg",
+                "alt": "Q10: Filter Envelope (EG to VCF)"
+              }
             }
           ],
           "randomise": false
@@ -7781,8 +7825,8 @@
           "description": "Interactive Drag & Drop: Order the components of a Subtractive Synth.",
           "questions": [
             {
-              "title": "Synth Architecture",
-              "content": "Arrange the modules in the standard order of signal flow.",
+              "title": "Q1: Core Subtractive Synth Architecture",
+              "content": "Order the main modules of a subtractive synthesiser from START (top) to OUTPUT (bottom).",
               "type": "drag_drop",
               "items": [
                 "VCF (Filter)",
@@ -7796,247 +7840,289 @@
                 "VCA (Amplifier)",
                 "Master Output"
               ],
-              "explanation": "<p><strong>Classic Subtractive Architecture:</strong> <strong>VCO (Voltage Controlled Oscillator)</strong> &rarr; <strong>VCF (Voltage Controlled Filter)</strong> &rarr; <strong>VCA (Voltage Controlled Amplifier)</strong> &rarr; <strong>Master Output</strong>. The VCO generates a raw waveform rich in harmonics (such as a sawtooth or square wave). This signal passes into the VCF, which carves away unwanted frequencies to shape timbre. Finally, the shaped tone passes to the VCA, where an amplitude envelope (ADSR) governs its dynamic volume contours over time before exiting through the master output.</p>",
+              "explanation": "<img src=\"/images/svg/synth_signal_flow.svg\" alt=\"Q1: Core Subtractive Synth Architecture\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> The oscillator (VCO) generates a bright raw wave, the filter (VCF) removes unwanted harmonics, and the amplifier (VCA) shapes the volume before the master output.</p>",
               "expert_quote": {
                 "text": "In subtractive synthesis, the oscillator provides the raw tonal block of marble, the filter sculpts the shape, and the amplifier breathes life into its dynamics.",
-                "author": "Bob Moog, Electronic Synthesizer Pioneer"
+                "author": "Bob Moog, Electronic Synthesiser Pioneer"
               },
-              "img": "/images/svg/synth_signal_flow.svg"
+              "img": "/images/svg/synth_signal_flow.svg",
+              "top_label": "START (First)",
+              "bottom_label": "OUTPUT (Final)",
+              "expert_explanation": "The oscillator (VCO) generates a bright raw wave, the filter (VCF) removes unwanted harmonics, and the amplifier (VCA) shapes the volume before the master output.",
+              "explanation_image": {
+                "src": "/images/svg/synth_signal_flow.svg",
+                "alt": "Q1: Core Subtractive Synth Architecture"
+              }
             },
             {
-              "title": "Filter Envelope Routing",
-              "content": "Arrange the signal and modulation flow for shaping the brightness of a synth lead over time.",
+              "title": "Q2: Filter Envelope (ADSR) Routing",
+              "content": "Order how a Filter Envelope shapes a synth's brightness from START (top) to OUTPUT (bottom).",
               "type": "drag_drop",
               "items": [
-                "MIDI Note On / Gate Trigger",
-                "Filter Envelope Generator (ADSR)",
-                "Envelope Depth / Amount Knob",
-                "VCF Cutoff Frequency Mod Input",
-                "Audio Filter Resonant Slope",
-                "Shaped Harmonic Timbre Output"
+                "VCF Cutoff Frequency",
+                "MIDI Key Press (Gate)",
+                "Shaped Synth Tone",
+                "Filter ADSR Envelope"
               ],
               "correct_order": [
-                "MIDI Note On / Gate Trigger",
-                "Filter Envelope Generator (ADSR)",
-                "Envelope Depth / Amount Knob",
-                "VCF Cutoff Frequency Mod Input",
-                "Audio Filter Resonant Slope",
-                "Shaped Harmonic Timbre Output"
+                "MIDI Key Press (Gate)",
+                "Filter ADSR Envelope",
+                "VCF Cutoff Frequency",
+                "Shaped Synth Tone"
               ],
-              "explanation": "<p><strong>Filter Modulation Flow:</strong> Pressing a key generates a Gate voltage triggering the Filter Envelope. The Attack, Decay, Sustain, and Release stages produce a control voltage scaled by the Envelope Amount parameter. This modulation voltage sweeps the VCF cutoff frequency upwards and downwards across the audio signal's spectrum, creating dynamic filter sweeps (e.g. brass stabs or pluck sounds).</p>",
+              "explanation": "<img src=\"/images/svg/adsr_envelope_phases.svg\" alt=\"Q2: Filter Envelope (ADSR) Routing\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Pressing a key triggers the Filter ADSR envelope, which moves the VCF cutoff up and down over time to create plucks or brass swells.</p>",
               "expert_quote": {
                 "text": "The filter envelope is what turns a static buzzing oscillator into a living, expressive acoustic or electronic instrument.",
                 "author": "Dave Smith, Designer of the Prophet-5 & Co-Creator of MIDI"
               },
-              "img": "/images/svg/adsr_envelope_phases.svg"
+              "img": "/images/svg/adsr_envelope_phases.svg",
+              "top_label": "START (First)",
+              "bottom_label": "OUTPUT (Final)",
+              "expert_explanation": "Pressing a key triggers the Filter ADSR envelope, which moves the VCF cutoff up and down over time to create plucks or brass swells.",
+              "explanation_image": {
+                "src": "/images/svg/adsr_envelope_phases.svg",
+                "alt": "Q2: Filter Envelope (ADSR) Routing"
+              }
             },
             {
-              "title": "LFO Vibrato Modulation Path",
-              "content": "Route a Low-Frequency Oscillator (LFO) through the modulation wheel to apply pitch vibrato.",
+              "title": "Q3: LFO Vibrato Modulation Path",
+              "content": "Order the LFO path that adds pitch vibrato via the mod wheel from START (top) to OUTPUT (bottom).",
               "type": "drag_drop",
               "items": [
-                "LFO Sine Wave Generator (5 Hz)",
-                "Modulation Wheel (Depth Attenuator)",
-                "VCO Pitch / Frequency Control Input",
-                "VCO Raw Audio Generation",
-                "Periodic Pitch Variation (Vibrato)"
+                "Modulation Wheel (Depth)",
+                "Wobbling Vibrato Sound",
+                "LFO (Slow Sine Wave)",
+                "VCO Pitch Input"
               ],
               "correct_order": [
-                "LFO Sine Wave Generator (5 Hz)",
-                "Modulation Wheel (Depth Attenuator)",
-                "VCO Pitch / Frequency Control Input",
-                "VCO Raw Audio Generation",
-                "Periodic Pitch Variation (Vibrato)"
+                "LFO (Slow Sine Wave)",
+                "Modulation Wheel (Depth)",
+                "VCO Pitch Input",
+                "Wobbling Vibrato Sound"
               ],
-              "explanation": "<p><strong>LFO Pitch Modulation:</strong> The Low Frequency Oscillator outputs an inaudible sub-audio cyclic voltage (e.g. 5 Hz). The Mod Wheel acts as a variable attenuator, controlling how much of this voltage reaches the VCO's pitch CV input. As the LFO voltage oscillates positive and negative, the oscillator pitch wavers up and down to produce musical vibrato.</p>",
+              "explanation": "<img src=\"/images/svg/modulation_lfo_depth_rate.svg\" alt=\"Q3: LFO Vibrato Modulation Path\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> The LFO generates a slow wave, the modulation wheel sets how deep the effect is, and routing it to VCO pitch produces musical vibrato.</p>",
               "expert_quote": {
                 "text": "Vibrato rate should generally hover between 4.5 Hz and 6.5 Hz to emulate the natural physiological vibrato of violinists and vocalists.",
-                "author": "Tom Oberheim, Synthesizer Pioneer & SEM Designer"
+                "author": "Tom Oberheim, Synthesiser Pioneer & SEM Designer"
               },
-              "img": "/images/svg/modulation_lfo_depth_rate.svg"
+              "img": "/images/svg/modulation_lfo_depth_rate.svg",
+              "top_label": "START (First)",
+              "bottom_label": "OUTPUT (Final)",
+              "expert_explanation": "The LFO generates a slow wave, the modulation wheel sets how deep the effect is, and routing it to VCO pitch produces musical vibrato.",
+              "explanation_image": {
+                "src": "/images/svg/modulation_lfo_depth_rate.svg",
+                "alt": "Q3: LFO Vibrato Modulation Path"
+              }
             },
             {
-              "title": "Pulse Width Modulation (PWM) Signal Flow",
-              "content": "Trace the modulation path that turns a static square wave into a lush chorused string pad.",
+              "title": "Q4: Pulse Width Modulation (PWM)",
+              "content": "Order the Pulse Width Modulation path that thickens a square wave from START (top) to OUTPUT (bottom).",
               "type": "drag_drop",
               "items": [
-                "LFO Triangle Wave (0.5 Hz)",
-                "PWM Depth Parameter",
-                "Pulse Waveform Duty Cycle Circuit",
-                "VCO Harmonic Spectrum Shift",
-                "Thick Chorused Audio Output"
+                "Pulse Wave Width (VCO)",
+                "Slow LFO Wave",
+                "Thick Chorused Pad",
+                "PWM Depth Control"
               ],
               "correct_order": [
-                "LFO Triangle Wave (0.5 Hz)",
-                "PWM Depth Parameter",
-                "Pulse Waveform Duty Cycle Circuit",
-                "VCO Harmonic Spectrum Shift",
-                "Thick Chorused Audio Output"
+                "Slow LFO Wave",
+                "PWM Depth Control",
+                "Pulse Wave Width (VCO)",
+                "Thick Chorused Pad"
               ],
-              "explanation": "<p><strong>Pulse Width Modulation (PWM):</strong> A slow LFO voltage continuously varies the duty cycle (ratio of positive to negative half-cycles) of a square wave away from 50/50. Modulating the pulse width alters the balance of odd and even harmonics in the waveform, generating a rich, animated chorus-like doubling effect without needing multiple oscillators.</p>",
+              "explanation": "<img src=\"/images/svg/synth_waveforms_comparison.svg\" alt=\"Q4: Pulse Width Modulation (PWM)\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Modulating a pulse wave's width with a slow LFO constantly shifts its harmonic balance, creating a lush, chorused string-pad texture.</p>",
               "expert_quote": {
                 "text": "The signature lush string sound of the Roland Juno-60 comes from a single oscillator with slow LFO Pulse Width Modulation running through its analogue BBD chorus.",
-                "author": "Nick Batt, Sonicstate Synthesizer Specialist"
+                "author": "Nick Batt, Sonicstate Synthesiser Specialist"
               },
-              "img": "/images/svg/synth_waveforms_comparison.svg"
+              "img": "/images/svg/synth_waveforms_comparison.svg",
+              "top_label": "START (First)",
+              "bottom_label": "OUTPUT (Final)",
+              "expert_explanation": "Modulating a pulse wave's width with a slow LFO constantly shifts its harmonic balance, creating a lush, chorused string-pad texture.",
+              "explanation_image": {
+                "src": "/images/svg/synth_waveforms_comparison.svg",
+                "alt": "Q4: Pulse Width Modulation (PWM)"
+              }
             },
             {
-              "title": "Sub-Oscillator Low-End Reinforcement",
-              "content": "Route a sub-oscillator alongside a main saw oscillator to create a heavy synth bass.",
+              "title": "Q5: Sub-Oscillator Bass Layering",
+              "content": "Order how a sub-oscillator reinforces a sawtooth lead bass from START (top) to OUTPUT (bottom).",
               "type": "drag_drop",
               "items": [
-                "Master Pitch CV (Key Pitch)",
-                "Main VCO (Sawtooth Wave)",
-                "Frequency Divider Flip-Flop (-1 or -2 Octaves)",
-                "Sub-Oscillator (Square/Sine Wave)",
-                "Audio Mixer Section",
-                "VCF (Low-Pass Filter)"
+                "Low-Pass Filter (VCF)",
+                "Main VCO + Sub-Oscillator (-1 Oct)",
+                "Heavy Bass Output",
+                "Synth Oscillator Mixer"
               ],
               "correct_order": [
-                "Master Pitch CV (Key Pitch)",
-                "Main VCO (Sawtooth Wave)",
-                "Frequency Divider Flip-Flop (-1 or -2 Octaves)",
-                "Sub-Oscillator (Square/Sine Wave)",
-                "Audio Mixer Section",
-                "VCF (Low-Pass Filter)"
+                "Main VCO + Sub-Oscillator (-1 Oct)",
+                "Synth Oscillator Mixer",
+                "Low-Pass Filter (VCF)",
+                "Heavy Bass Output"
               ],
-              "explanation": "<p><strong>Sub-Oscillator Architecture:</strong> The primary pitch control voltage drives the main VCO. A digital flip-flop circuit divides the main oscillator frequency by 2 (or 4), producing a clean square or sine wave exactly one or two octaves lower. Both signals are blended in the Mixer before passing to the VCF, providing solid low-end foundation that stays in perfect phase alignment with the lead oscillator.</p>",
+              "explanation": "<img src=\"/images/svg/frequency_spectrum_treble.svg\" alt=\"Q5: Sub-Oscillator Bass Layering\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Blending a square or sine sub-oscillator one octave below the main sawtooth in the mixer adds solid low-end weight before filtering.</p>",
               "expert_quote": {
                 "text": "A sub-oscillator guarantees that your bassline maintains solid fundamental power below 80 Hz even when heavy filter resonance sweeps the upper harmonics.",
                 "author": "Vince Clarke, Synth-Pop Pioneer (Depeche Mode, Yazoo, Erasure)"
               },
-              "img": "/images/svg/frequency_spectrum_treble.svg"
+              "img": "/images/svg/frequency_spectrum_treble.svg",
+              "top_label": "START (First)",
+              "bottom_label": "OUTPUT (Final)",
+              "expert_explanation": "Blending a square or sine sub-oscillator one octave below the main sawtooth in the mixer adds solid low-end weight before filtering.",
+              "explanation_image": {
+                "src": "/images/svg/frequency_spectrum_treble.svg",
+                "alt": "Q5: Sub-Oscillator Bass Layering"
+              }
             },
             {
-              "title": "Ring Modulation Signal Flow",
-              "content": "Trace the math and routing that generates metallic bell and robot tones via Ring Modulation.",
+              "title": "Q6: Detuned Dual-Oscillator Lead",
+              "content": "Order how two slightly detuned oscillators create a wide synth lead from START (top) to OUTPUT (bottom).",
               "type": "drag_drop",
               "items": [
-                "Carrier Audio Signal (Oscillator 1)",
-                "Modulator Audio Signal (Oscillator 2)",
-                "Four-Quadrant Analogue Multiplier Circuit",
-                "Sum & Difference Sideband Frequencies (f1 + f2 & f1 - f2)",
-                "Suppression of Original Carrier & Modulator",
-                "Inharmonic Metallic Audio Output"
+                "Filter & Amplifier (VCF/VCA)",
+                "Thick Unison Synth Lead",
+                "VCO 1 & Detuned VCO 2",
+                "Oscillator Mixer"
               ],
               "correct_order": [
-                "Carrier Audio Signal (Oscillator 1)",
-                "Modulator Audio Signal (Oscillator 2)",
-                "Four-Quadrant Analogue Multiplier Circuit",
-                "Sum & Difference Sideband Frequencies (f1 + f2 & f1 - f2)",
-                "Suppression of Original Carrier & Modulator",
-                "Inharmonic Metallic Audio Output"
+                "VCO 1 & Detuned VCO 2",
+                "Oscillator Mixer",
+                "Filter & Amplifier (VCF/VCA)",
+                "Thick Unison Synth Lead"
               ],
-              "explanation": "<p><strong>Ring Modulation Mathematics:</strong> Two audio-rate signals (Carrier f₁ and Modulator f_2) enter a diode ring or four-quadrant multiplier. The circuit multiplies their instantaneous amplitudes together, completely cancelling the original input frequencies and outputting solely their sum (f₁ + f_2) and difference (f₁ - f_2) sidebands. These non-integer harmonic relationships produce characteristic metallic, bell-like, and Dalek robotic textures.</p>",
+              "explanation": "<img src=\"/images/svg/synth_waveforms_comparison.svg\" alt=\"Q6: Detuned Dual-Oscillator Lead\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Slightly detuning a second oscillator by a few cents creates natural phasing and chorus movement when blended in the mixer.</p>",
               "expert_quote": {
-                "text": "Ring modulation was the sonic identity of the BBC Radiophonic Workshop and early avant-garde electronic music. It takes harmonious tones and turns them into alien steel.",
-                "author": "Delia Derbyshire, Electronic Music Pioneer (Doctor Who Theme)"
+                "text": "Detuning a second oscillator by just 5 to 15 cents instantly turns a thin single wave into a huge, animated synth lead.",
+                "author": "Classic Synth Sound Design"
               },
-              "img": "/images/svg/high_pass_filter_sweep_riser.svg"
+              "img": "/images/svg/synth_waveforms_comparison.svg",
+              "top_label": "START (First)",
+              "bottom_label": "OUTPUT (Final)",
+              "expert_explanation": "Slightly detuning a second oscillator by a few cents creates natural phasing and chorus movement when blended in the mixer.",
+              "explanation_image": {
+                "src": "/images/svg/synth_waveforms_comparison.svg",
+                "alt": "Q6: Detuned Dual-Oscillator Lead"
+              }
             },
             {
-              "title": "Velocity-to-VCA Dynamic Sensitivity",
-              "content": "Route keyboard touch dynamics into the amplifier for expressive playing.",
+              "title": "Q7: Keyboard Velocity to Volume (VCA)",
+              "content": "Order how playing keys harder makes a synthesiser louder from START (top) to OUTPUT (bottom).",
               "type": "drag_drop",
               "items": [
-                "Keyboard Key Strike (Physical Force)",
-                "MIDI Velocity Sensor (Time Between Contact Switches)",
-                "Velocity Scaling / Curve Processor",
-                "VCA Level Modulation Input",
-                "VCA Dynamic Volume Output"
+                "MIDI Velocity Value",
+                "Louder Note Output",
+                "Harder Key Strike",
+                "VCA Level Control"
               ],
               "correct_order": [
-                "Keyboard Key Strike (Physical Force)",
-                "MIDI Velocity Sensor (Time Between Contact Switches)",
-                "Velocity Scaling / Curve Processor",
-                "VCA Level Modulation Input",
-                "VCA Dynamic Volume Output"
+                "Harder Key Strike",
+                "MIDI Velocity Value",
+                "VCA Level Control",
+                "Louder Note Output"
               ],
-              "explanation": "<p><strong>Velocity to Amplitude Path:</strong> Striking a key rapidly measures the millisecond transit time between two rubber membrane switches under the key. This value (0–127) is converted into a modulation voltage that scales the maximum gain of the VCA. Harder keystrokes produce higher VCA gain, restoring dynamic acoustic expression to electronic synthesis.</p>",
+              "explanation": "<img src=\"/images/svg/serial_compression_sandwhich.svg\" alt=\"Q7: Keyboard Velocity to Volume (VCA)\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Keyboard velocity measures how fast a key is pressed and scales the VCA volume, giving synth parts natural dynamic expression.</p>",
               "expert_quote": {
                 "text": "Routing velocity simultaneously to both VCA level (volume) and VCF cutoff (brightness) mirrors acoustic instruments, where louder notes are naturally brighter.",
                 "author": "Paul Wiffen, Sound Designer & Synthesist (Stevie Wonder, Jean-Michel Jarre)"
               },
-              "img": "/images/svg/serial_compression_sandwhich.svg"
+              "img": "/images/svg/serial_compression_sandwhich.svg",
+              "top_label": "START (First)",
+              "bottom_label": "OUTPUT (Final)",
+              "expert_explanation": "Keyboard velocity measures how fast a key is pressed and scales the VCA volume, giving synth parts natural dynamic expression.",
+              "explanation_image": {
+                "src": "/images/svg/serial_compression_sandwhich.svg",
+                "alt": "Q7: Keyboard Velocity to Volume (VCA)"
+              }
             },
             {
-              "title": "Key Tracking (Keyboard Follow) on VCF",
-              "content": "Route keyboard pitch CV to the filter cutoff to maintain consistent brightness across all octaves.",
+              "title": "Q8: Filter Key Tracking (Keyboard Follow)",
+              "content": "Order how Key Tracking keeps higher notes bright from START (top) to OUTPUT (bottom).",
               "type": "drag_drop",
               "items": [
-                "Keyboard Key Pitch (Note Number)",
-                "1 Volt Per Octave Pitch CV Bus",
-                "Key Tracking Amount Knob (0% - 100%)",
-                "VCF Cutoff Frequency Offset",
-                "Even Timbral Balance Across Octaves"
+                "Higher VCF Cutoff Point",
+                "Higher Note Played",
+                "Balanced Brightness Across Octaves",
+                "Key Tracking Amount"
               ],
               "correct_order": [
-                "Keyboard Key Pitch (Note Number)",
-                "1 Volt Per Octave Pitch CV Bus",
-                "Key Tracking Amount Knob (0% - 100%)",
-                "VCF Cutoff Frequency Offset",
-                "Even Timbral Balance Across Octaves"
+                "Higher Note Played",
+                "Key Tracking Amount",
+                "Higher VCF Cutoff Point",
+                "Balanced Brightness Across Octaves"
               ],
-              "explanation": "<p><strong>VCF Keyboard Tracking:</strong> Without keyboard tracking, high notes on a keyboard would sound muffled because their fundamental frequencies collide with a static low-pass cutoff filter. Key tracking routes keyboard pitch CV to the filter cutoff, causing the filter to open progressively wider as you play higher up the keyboard, maintaining consistent harmonic clarity across all registers.</p>",
+              "explanation": "<img src=\"/images/svg/synthesis_fm_operators.svg\" alt=\"Q8: Filter Key Tracking (Keyboard Follow)\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Key Tracking raises the filter cutoff as you play higher up the keyboard so high notes stay bright instead of sounding dull and muffled.</p>",
               "expert_quote": {
                 "text": "Set key tracking to 100% on a self-oscillating filter, and the filter resonance itself becomes a perfectly pitched sine-wave oscillator that tracks the keyboard in equal temperament.",
                 "author": "Don Buchla, Electronic Instrument Pioneer"
               },
-              "img": "/images/svg/synthesis_fm_operators.svg"
+              "img": "/images/svg/synthesis_fm_operators.svg",
+              "top_label": "START (First)",
+              "bottom_label": "OUTPUT (Final)",
+              "expert_explanation": "Key Tracking raises the filter cutoff as you play higher up the keyboard so high notes stay bright instead of sounding dull and muffled.",
+              "explanation_image": {
+                "src": "/images/svg/synthesis_fm_operators.svg",
+                "alt": "Q8: Filter Key Tracking (Keyboard Follow)"
+              }
             },
             {
-              "title": "Sample & Hold Random Voltage Flow",
-              "content": "Trace how analogue white noise is converted into stepping sci-fi computer bleeps.",
+              "title": "Q9: Sample & Hold Random Synth FX",
+              "content": "Order how Sample & Hold turns white noise into stepped sci-fi pitch bleeps from START (top) to OUTPUT (bottom).",
               "type": "drag_drop",
               "items": [
-                "White Noise Generator (Broadband Voltage Source)",
-                "Clock Pulse / LFO Square Wave (Sampling Trigger)",
-                "Sample & Hold Capacitor Circuit",
-                "Quantized / Stepped Control Voltage Output",
-                "VCO Pitch or VCF Cutoff Input",
-                "Rhythmic Stepped Arpeggiated FX"
+                "VCO Pitch Input",
+                "White Noise Source",
+                "Stepped Random Pitch FX",
+                "Sample & Hold (Clocked Steps)"
               ],
               "correct_order": [
-                "White Noise Generator (Broadband Voltage Source)",
-                "Clock Pulse / LFO Square Wave (Sampling Trigger)",
-                "Sample & Hold Capacitor Circuit",
-                "Quantized / Stepped Control Voltage Output",
-                "VCO Pitch or VCF Cutoff Input",
-                "Rhythmic Stepped Arpeggiated FX"
+                "White Noise Source",
+                "Sample & Hold (Clocked Steps)",
+                "VCO Pitch Input",
+                "Stepped Random Pitch FX"
               ],
-              "explanation": "<p><strong>Sample & Hold Circuit:</strong> White noise provides random voltages. Each time a clock pulse triggers the circuit, a capacitor samples the instantaneous voltage of the noise and holds it constant until the next clock strike. This output creates a staircase pattern of random, rhythmic voltages, famous for powering the sci-fi computer sounds of R2-D2 and classic synth intros.</p>",
+              "explanation": "<img src=\"/images/svg/arpeggiator_pattern.svg\" alt=\"Q9: Sample & Hold Random Synth FX\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Sample & Hold grabs a random voltage from white noise on each clock pulse and holds it, sending stepped random pitches to the oscillator.</p>",
               "expert_quote": {
                 "text": "The intro to 'Karn Evil 9' by ELP and the bubbling sounds in classic Doctor Who are the definitive sound of Sample & Hold modulating an ARP 2600 filter.",
                 "author": "Keith Emerson, Keyboard Legend"
               },
-              "img": "/images/svg/arpeggiator_pattern.svg"
+              "img": "/images/svg/arpeggiator_pattern.svg",
+              "top_label": "START (First)",
+              "bottom_label": "OUTPUT (Final)",
+              "expert_explanation": "Sample & Hold grabs a random voltage from white noise on each clock pulse and holds it, sending stepped random pitches to the oscillator.",
+              "explanation_image": {
+                "src": "/images/svg/arpeggiator_pattern.svg",
+                "alt": "Q9: Sample & Hold Random Synth FX"
+              }
             },
             {
-              "title": "Filter Resonance Self-Oscillation Feedback Loop",
-              "content": "Trace the internal feedback loop that occurs when filter resonance (Q) is driven to its maximum.",
+              "title": "Q10: Filter Resonance (Q) Boost",
+              "content": "Order how turning up Resonance (Q) creates a sharp ringing peak from START (top) to OUTPUT (bottom).",
               "type": "drag_drop",
               "items": [
-                "VCF Audio Input",
-                "Filter Frequency Resonant Peak",
-                "Resonance Feedback Path (Output Fed Back to Input)",
-                "Phase-Inverted High-Gain Reinforcement",
-                "Self-Oscillation (Pure Sine Wave Generation)",
-                "VCF Output without Oscillator Input"
+                "Sharp Peak at Cutoff Frequency",
+                "Audio Enters Filter (VCF)",
+                "Squelchy Ringing Synth Tone",
+                "Resonance (Q) Feedback Turned Up"
               ],
               "correct_order": [
-                "VCF Audio Input",
-                "Filter Frequency Resonant Peak",
-                "Resonance Feedback Path (Output Fed Back to Input)",
-                "Phase-Inverted High-Gain Reinforcement",
-                "Self-Oscillation (Pure Sine Wave Generation)",
-                "VCF Output without Oscillator Input"
+                "Audio Enters Filter (VCF)",
+                "Resonance (Q) Feedback Turned Up",
+                "Sharp Peak at Cutoff Frequency",
+                "Squelchy Ringing Synth Tone"
               ],
-              "explanation": "<p><strong>Self-Oscillation Feedback:</strong> Resonance boosts frequencies around the cutoff point by feeding a portion of the filter's output back into its input. When resonance is turned to 100%, the positive feedback loop reaches unity gain and breaks into self-oscillation, generating a pure sine wave at the cutoff frequency even when no audio oscillator is connected to the filter input.</p>",
+              "explanation": "<img src=\"/images/svg/eq_bell_curve_q_comparison.svg\" alt=\"Q10: Filter Resonance (Q) Boost\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Resonance feeds part of the filter output back into its input to boost the cutoff frequency, creating classic squelchy synth sweeps.</p>",
               "expert_quote": {
                 "text": "A 4-pole 24 dB/octave ladder filter has four RC stages that each introduce a 45-degree phase shift at cutoff. At resonance, that total 180-degree shift inverts phase, turning negative feedback into pure oscillatory energy.",
                 "author": "Robert Moog, US Patent 3,475,623 (Moog Ladder Filter)"
               },
-              "img": "/images/svg/eq_bell_curve_q_comparison.svg"
+              "img": "/images/svg/eq_bell_curve_q_comparison.svg",
+              "top_label": "START (First)",
+              "bottom_label": "OUTPUT (Final)",
+              "expert_explanation": "Resonance feeds part of the filter output back into its input to boost the cutoff frequency, creating classic squelchy synth sweeps.",
+              "explanation_image": {
+                "src": "/images/svg/eq_bell_curve_q_comparison.svg",
+                "alt": "Q10: Filter Resonance (Q) Boost"
+              }
             }
           ]
         },
@@ -8586,7 +8672,7 @@
           "description": "Identify the waveform from its visual shape and sound.",
           "questions": [
             {
-              "title": "Waveform ID",
+              "title": "Q1: Waveform ID — Pure Tone",
               "content": "Identify the waveform shown below. It is known for its pure tone with no harmonics.",
               "type": "waveform_id",
               "audio_src": "/Audio/Waveforms/sine wave.mp3",
@@ -8597,15 +8683,20 @@
                 "Triangle Wave"
               ],
               "correct_option": "Sine Wave",
-              "explanation": "<p><strong>Sine Wave:</strong> The sine wave is the purest and most fundamental mathematical waveform in acoustics, consisting solely of the fundamental frequency with absolutely no harmonic overtones. In synthesis, sine waves form the core of sub-bass tones and are the building blocks of additive and FM synthesis.</p>",
+              "explanation": "<img src=\"/images/gen/t3_q2_sine_wave_hq_1772104192200.png\" alt=\"Q1: Waveform ID — Pure Tone\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> A sine wave contains only the fundamental frequency with zero harmonic overtones, making it ideal for clean sub-bass.</p>",
               "expert_quote": {
                 "text": "The sine wave represents simple harmonic motion in its purest physical form—a single vibration devoid of overtones.",
                 "author": "Jean-Baptiste Fourier, Mathematician & Physicist"
               },
-              "img": "/images/gen/t3_q2_sine_wave_hq_1772104192200.png"
+              "img": "/images/gen/t3_q2_sine_wave_hq_1772104192200.png",
+              "explanation_image": {
+                "src": "/images/gen/t3_q2_sine_wave_hq_1772104192200.png",
+                "alt": "Q1: Waveform ID — Pure Tone"
+              },
+              "expert_explanation": "A sine wave contains only the fundamental frequency with zero harmonic overtones, making it ideal for clean sub-bass."
             },
             {
-              "title": "Waveform ID",
+              "title": "Q2: Waveform ID — Hollow & Reedy",
               "content": "Identify this waveform. It contains odd harmonics and has a hollow, reedy sound.",
               "type": "waveform_id",
               "audio_src": "/Audio/Waveforms/Square wave.mp3",
@@ -8616,15 +8707,20 @@
                 "Triangle Wave"
               ],
               "correct_option": "Square Wave",
-              "explanation": "<p><strong>Square Wave:</strong> A square wave alternates symmetrically between positive and negative peaks at a 50% duty cycle. Mathematically, it contains only odd integer harmonics (1st, 3rd, 5th, 7th...) with amplitudes inversely proportional to their harmonic number (1/n). This produces its hollow, clarinet-like, woody timbre.</p>",
+              "explanation": "<img src=\"/images/gen/t3_q8_square_wave_hq_1772104408699.png\" alt=\"Q2: Waveform ID — Hollow & Reedy\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> A symmetrical square wave contains only odd harmonics, giving it a hollow, clarinet-like timbre popular in retro synth basses.</p>",
               "expert_quote": {
                 "text": "Square waves deliver a distinctive hollow bite because only the odd harmonics are present, giving classic synth leads their character.",
                 "author": "Dave Smith, Father of MIDI & Prophet-5 Designer"
               },
-              "img": "/images/gen/t3_q8_square_wave_hq_1772104408699.png"
+              "img": "/images/gen/t3_q8_square_wave_hq_1772104408699.png",
+              "explanation_image": {
+                "src": "/images/gen/t3_q8_square_wave_hq_1772104408699.png",
+                "alt": "Q2: Waveform ID — Hollow & Reedy"
+              },
+              "expert_explanation": "A symmetrical square wave contains only odd harmonics, giving it a hollow, clarinet-like timbre popular in retro synth basses."
             },
             {
-              "title": "Waveform ID",
+              "title": "Q3: Waveform ID — Bright & Buzzy",
               "content": "Identify this waveform. It contains both even and odd harmonics and has a bright, buzzy timbre.",
               "type": "waveform_id",
               "audio_src": "/Audio/Waveforms/Sawtooth Wave.mp3",
@@ -8635,15 +8731,20 @@
                 "Triangle Wave"
               ],
               "correct_option": "Sawtooth Wave",
-              "explanation": "<p><strong>Sawtooth Wave:</strong> The sawtooth wave ramps linearly upward and drops instantly, generating all integer harmonics—both even and odd (1st, 2nd, 3rd, 4th, 5th...). Because it possesses the most complete harmonic spectrum in subtractive synthesis, it is the primary choice for bright brass, aggressive leads, and rich string ensembles.</p>",
+              "explanation": "<img src=\"/images/svg/sawtooth_vs_square_diagram.svg\" alt=\"Q3: Waveform ID — Bright & Buzzy\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> A sawtooth wave contains both even and odd harmonics, creating a bright, buzzy tone that responds richly to low-pass filtering.</p>",
               "expert_quote": {
                 "text": "The sawtooth wave is the workhorse of subtractive synthesis; its full spectrum of even and odd harmonics gives filters rich material to carve.",
                 "author": "Wendy Carlos, Electronic Music Pioneer"
               },
-              "img": "/images/svg/sawtooth_vs_square_diagram.svg"
+              "img": "/images/svg/sawtooth_vs_square_diagram.svg",
+              "explanation_image": {
+                "src": "/images/svg/sawtooth_vs_square_diagram.svg",
+                "alt": "Q3: Waveform ID — Bright & Buzzy"
+              },
+              "expert_explanation": "A sawtooth wave contains both even and odd harmonics, creating a bright, buzzy tone that responds richly to low-pass filtering."
             },
             {
-              "title": "Waveform ID",
+              "title": "Q4: Waveform ID — Soft & Muted",
               "content": "Identify this waveform. It sounds like a muted square wave but with a smoother shape.",
               "type": "waveform_id",
               "audio_src": "/Audio/Waveforms/Triangle Wave.mp3",
@@ -8654,186 +8755,227 @@
                 "Triangle Wave"
               ],
               "correct_option": "Triangle Wave",
-              "explanation": "<p><strong>Triangle Wave:</strong> Like the square wave, the triangle wave contains only odd harmonics. However, its harmonic amplitudes fall off extremely rapidly as the square of the harmonic number (1/n²), making upper overtones very quiet and giving the waveform a warm, mellow, flute-like timbre.</p>",
+              "explanation": "<img src=\"/images/svg/synth_waveforms_comparison.svg\" alt=\"Q4: Waveform ID — Soft & Muted\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> A triangle wave has only odd harmonics that roll off very quickly, producing a softer, flute-like tone between a sine and a square wave.</p>",
               "expert_quote": {
                 "text": "Triangle waves offer a delicate middle ground: soft, flute-like warmth with just enough harmonic texture to respond musically to filter sweeps.",
                 "author": "Don Buchla, Synthesizer Pioneer"
               },
-              "img": "/images/svg/synth_waveforms_comparison.svg"
+              "img": "/images/svg/synth_waveforms_comparison.svg",
+              "explanation_image": {
+                "src": "/images/svg/synth_waveforms_comparison.svg",
+                "alt": "Q4: Waveform ID — Soft & Muted"
+              },
+              "expert_explanation": "A triangle wave has only odd harmonics that roll off very quickly, producing a softer, flute-like tone between a sine and a square wave."
             },
             {
-              "title": "Pulse Wave Duty Cycle & Harmonics",
-              "content": "A symmetrical 50% square wave contains ONLY odd harmonics (1st, 3rd, 5th...). What happens to the harmonic spectrum when the duty cycle is narrowed to a 25% pulse wave?",
+              "title": "Q5: Narrow Pulse Wave Harmonics",
+              "content": "What happens to the harmonics when a 50% square wave is narrowed to a 25% pulse wave?",
               "type": "multi_choice",
               "question": "A symmetrical 50% square wave contains ONLY odd harmonics (1st, 3rd, 5th...). What happens to the harmonic spectrum when the duty cycle is narrowed to a 25% pulse wave?",
               "answers": [
                 {
-                  "text": "It contains only odd harmonics, creating a hollow, warm clarinet-like sound",
+                  "text": "Only odd harmonics remain (hollow tone)",
                   "is_true": "no"
                 },
                 {
-                  "text": "It contains zero harmonic overtones, producing a pure, smooth sinusoidal tone",
+                  "text": "All harmonics vanish (pure sine tone)",
                   "is_true": "no"
                 },
                 {
-                  "text": "It contains even harmonics alongside odd harmonics, creating a reedy nasal sound",
+                  "text": "Even harmonics appear (reedy nasal tone)",
                   "is_true": "yes"
                 },
                 {
-                  "text": "It contains white noise across all frequencies, creating a noisy percussion hit",
+                  "text": "White noise replaces the pitched note",
                   "is_true": "no"
                 }
               ],
-              "explanation": "<p><strong>Pulse Wave Harmonic Series:</strong> A 50% duty cycle square wave is perfectly symmetrical, causing all even harmonics to cancel out (f, 3f, 5f, 7f...). When the pulse width deviates from 50% (e.g. 25% or 10%), even harmonics enter the sound. The narrower the pulse, the brighter and more nasal the sound becomes (emulating reed instruments or clavinet).</p>",
+              "explanation": "<img src=\"/images/svg/synth_waveforms_comparison.svg\" alt=\"Q5: Narrow Pulse Wave Harmonics\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Narrowing the pulse width breaks symmetry and introduces even harmonics alongside odd ones, shifting the tone from hollow to thin and nasal.</p>",
               "expert_quote": {
                 "text": "Modulating the duty cycle with an LFO creates Pulse Width Modulation (PWM), the quintessential lush string sound of 80s polysynths.",
                 "author": "Dave Smith, Designer of Prophet-5"
-              }
+              },
+              "img": "/images/svg/synth_waveforms_comparison.svg",
+              "explanation_image": {
+                "src": "/images/svg/synth_waveforms_comparison.svg",
+                "alt": "Q5: Narrow Pulse Wave Harmonics"
+              },
+              "expert_explanation": "Narrowing the pulse width breaks symmetry and introduces even harmonics alongside odd ones, shifting the tone from hollow to thin and nasal."
             },
             {
-              "title": "Digital Hard Clipping Waveform Distortion",
-              "content": "When an analogue sine wave signal exceeds 0 dBFS at an analogue-to-digital converter, what happens to the waveform peaks?",
+              "title": "Q6: Digital Hard Clipping",
+              "content": "What happens to a sine wave's peaks when it exceeds 0 dBFS in a digital converter?",
               "type": "multi_choice",
               "question": "When an analogue sine wave signal exceeds 0 dBFS at an analogue-to-digital converter, what happens to the waveform peaks?",
               "answers": [
                 {
-                  "text": "Waveform peaks round off smoothly, adding warm analogue tape compression",
+                  "text": "Peaks round off smoothly like tape",
                   "is_true": "no"
                 },
                 {
-                  "text": "Waveform peaks are squared off, adding harsh odd harmonic distortion",
+                  "text": "Peaks flatten off, adding harsh harmonics",
                   "is_true": "yes"
                 },
                 {
-                  "text": "Waveform pitch drops down by one full octave due to frequency folding",
+                  "text": "Pitch drops down by one full octave",
                   "is_true": "no"
                 },
                 {
-                  "text": "Waveform polarity inverts 180 degrees, cancelling the audio in mono",
+                  "text": "Polarity flips 180° and cancels in mono",
                   "is_true": "no"
                 }
               ],
-              "explanation": "<p><strong>Digital Hard Clipping:</strong> In fixed-point digital audio (16-bit or 24-bit), numbers cannot exceed the maximum binary value (0 dBFS, where all bits are 1). Any voltage peak exceeding this limit is abruptly sheared off into a flat horizontal line. This instantaneous truncation generates intense high-frequency odd harmonics and inharmonic aliasing foldback.</p>",
+              "explanation": "<img src=\"/images/svg/distortion_types_clipping.svg\" alt=\"Q6: Digital Hard Clipping\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Exceeding 0 dBFS slices the tops off the waveform into flat square-like edges, generating harsh digital clipping distortion.</p>",
               "expert_quote": {
                 "text": "Analogue tape saturates with graceful compression and warmth; digital converters slam into a brick wall of pure digital hash.",
                 "author": "Rupert Neve, Audio Pioneer"
-              }
+              },
+              "img": "/images/svg/distortion_types_clipping.svg",
+              "explanation_image": {
+                "src": "/images/svg/distortion_types_clipping.svg",
+                "alt": "Q6: Digital Hard Clipping"
+              },
+              "expert_explanation": "Exceeding 0 dBFS slices the tops off the waveform into flat square-like edges, generating harsh digital clipping distortion."
             },
             {
-              "title": "DC Offset in Audio Waveforms",
-              "content": "A recorded bass track sits noticeably above the centre 0V axis line when viewed in a DAW audio editor. What is this condition called, and how should it be resolved?",
+              "title": "Q7: Off-Centre Waveform Shift",
+              "content": "A recorded bass waveform sits visibly above the centre 0V line in your DAW. What is this, and how do you fix it?",
               "type": "multi_choice",
               "question": "A recorded bass track sits noticeably above the centre 0V axis line when viewed in a DAW audio editor. What is this condition called, and how should it be resolved?",
               "answers": [
                 {
-                  "text": "Phase cancellation; resolved by inverting the polarity of the channel strip",
+                  "text": "Phase cancellation — flip polarity (Ø)",
                   "is_true": "no"
                 },
                 {
-                  "text": "Digital jitter; resolved by lowering the computer audio buffer size setting",
+                  "text": "Digital jitter — lower the buffer size",
                   "is_true": "no"
                 },
                 {
-                  "text": "Quantisation distortion; resolved by adding high-pass dither before export",
+                  "text": "Quantisation error — apply export dither",
                   "is_true": "no"
                 },
                 {
-                  "text": "DC Offset; resolved by applying a gentle high-pass filter at 10 Hz to 20 Hz",
+                  "text": "DC Offset — apply a gentle 10–20 Hz HPF",
                   "is_true": "yes"
                 }
               ],
-              "explanation": "<p><strong>DC Offset Diagnosis:</strong> DC (Direct Current) offset occurs when faulty hardware or low-quality audio interfaces leak continuous DC voltage into the audio path, displacing the waveform above or below the centre zero line. This robs digital headroom and causes loud clicks during audio splices. Engaging a high-pass filter at 10–20 Hz blocks the 0 Hz DC voltage and realigns the waveform onto the zero axis.</p>",
+              "explanation": "<img src=\"/images/svg/synth_waveforms_comparison.svg\" alt=\"Q7: Off-Centre Waveform Shift\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> DC Offset shifts a waveform off the 0V centre line, wasting headroom and causing edit clicks. A gentle 10–20 Hz high-pass filter re-centres it cleanly.</p>",
               "expert_quote": {
                 "text": "DC offset is invisible to the ears until you cut an edit or hit a limiter, where it eats up 2 to 3 dB of headroom for zero audible gain.",
                 "author": "Bob Katz, Mastering Engineer"
-              }
+              },
+              "img": "/images/svg/synth_waveforms_comparison.svg",
+              "explanation_image": {
+                "src": "/images/svg/synth_waveforms_comparison.svg",
+                "alt": "Q7: Off-Centre Waveform Shift"
+              },
+              "expert_explanation": "DC Offset shifts a waveform off the 0V centre line, wasting headroom and causing edit clicks. A gentle 10–20 Hz high-pass filter re-centres it cleanly."
             },
             {
-              "title": "Phase Inversion & Total Destructive Cancellation",
-              "content": "Two identical recordings of an acoustic snare drum are played back simultaneously at unity gain. If the phase/polarity of track 2 is flipped by 180 degrees, what will the listener hear?",
+              "title": "Q8: Identical Tracks Inverted 180°",
+              "content": "Two identical snare tracks play together at the same level, and track 2 is polarity-inverted (Ø). What do you hear?",
               "type": "multi_choice",
               "question": "Two identical recordings of an acoustic snare drum are played back simultaneously at unity gain. If the phase/polarity of track 2 is flipped by 180 degrees, what will the listener hear?",
               "answers": [
                 {
-                  "text": "Total silence due to complete destructive phase cancellation between waves",
+                  "text": "Complete silence (total phase cancellation)",
                   "is_true": "yes"
                 },
                 {
-                  "text": "A 6 dB boost in volume as the two identical waveforms reinforce each other",
+                  "text": "A 6 dB volume boost from waveform summing",
                   "is_true": "no"
                 },
                 {
-                  "text": "A rich chorusing effect caused by acoustic phase beating across the soundstage",
+                  "text": "A wide stereo chorus effect across L and R",
                   "is_true": "no"
                 },
                 {
-                  "text": "Harsh digital clipping distortion as the combined signals exceed zero decibels",
+                  "text": "Harsh digital clipping distortion past 0 dBFS",
                   "is_true": "no"
                 }
               ],
-              "explanation": "<p><strong>Phase Cancellation:</strong> Phase/polarity inversion multiplies every instantaneous amplitude value by -1. When two identical waveforms with opposite polarity are summed together (A + (-A) = 0), the positive pressure waves and negative pressure waves cancel out completely across the entire frequency spectrum, producing total silence.</p>",
+              "explanation": "<img src=\"/images/svg/rule_3_to_1_microphone_placement.svg\" alt=\"Q8: Identical Tracks Inverted 180°\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> When two identical signals are 180° out of phase at the same level, every positive peak meets an equal negative trough and cancels to total silence.</p>",
               "expert_quote": {
                 "text": "The null test is the ultimate scientific test in audio. If two files cancel to digital silence when one is inverted, they are bit-for-bit identical.",
                 "author": "Ethan Winer, Acoustic Engineer & Author"
-              }
+              },
+              "img": "/images/svg/rule_3_to_1_microphone_placement.svg",
+              "explanation_image": {
+                "src": "/images/svg/rule_3_to_1_microphone_placement.svg",
+                "alt": "Q8: Identical Tracks Inverted 180°"
+              },
+              "expert_explanation": "When two identical signals are 180° out of phase at the same level, every positive peak meets an equal negative trough and cancels to total silence."
             },
             {
-              "title": "Acoustic Envelope: Percussive vs Sustained Pads",
-              "content": "Contrast the ADSR amplitude envelope contours of an acoustic snare drum versus a string orchestra pad.",
+              "title": "Q9: Snare Drum ADSR Envelope",
+              "content": "Which ADSR envelope best matches a short, punchy acoustic snare hit?",
               "type": "multi_choice",
               "question": "Which ADSR envelope setting accurately represents a synthesized percussive rimshot or snare hit?",
               "answers": [
                 {
-                  "text": "Slow attack (500 ms), zero decay, full sustain, long release (2000 ms)",
+                  "text": "Slow attack, full sustain, long release",
                   "is_true": "no"
                 },
                 {
-                  "text": "Fast attack (1 ms), zero decay, zero sustain, long release (1000 ms)",
+                  "text": "Fast attack, full sustain, long release",
                   "is_true": "no"
                 },
                 {
-                  "text": "Fast attack (0-1 ms), short decay (80-150 ms), zero sustain, fast release",
+                  "text": "Instant attack, short decay, zero sustain",
                   "is_true": "yes"
                 },
                 {
-                  "text": "Slow attack (100 ms), medium decay (500 ms), half sustain, no release",
+                  "text": "Slow attack, medium decay, half sustain",
                   "is_true": "no"
                 }
               ],
-              "explanation": "<p><strong>Percussive ADSR Envelopes:</strong> Drums are explosive transient events: their attack is instantaneous (<1 ms). Unlike bowed strings, acoustic drums do not sustain when hit; they immediately decay to silence. Therefore, percussive envelopes have <strong>0% Sustain</strong> and rely purely on the Decay parameter to dictate how long the shell resonates.</p>",
+              "explanation": "<img src=\"/images/svg/adsr_envelope_phases.svg\" alt=\"Q9: Snare Drum ADSR Envelope\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Percussive hits like snares peak instantaneously (0–1 ms attack) and drop straight to silence (short decay, zero sustain), unlike slow-swelling string pads.</p>",
               "expert_quote": {
                 "text": "Sustain is a level, not a time. Decay and Release are times. Once students understand this distinction, envelope programming clicks into place.",
                 "author": "Gordon Reid, Synth Secrets / Sound On Sound"
-              }
+              },
+              "img": "/images/svg/adsr_envelope_phases.svg",
+              "explanation_image": {
+                "src": "/images/svg/adsr_envelope_phases.svg",
+                "alt": "Q9: Snare Drum ADSR Envelope"
+              },
+              "expert_explanation": "Percussive hits like snares peak instantaneously (0–1 ms attack) and drop straight to silence (short decay, zero sustain), unlike slow-swelling string pads."
             },
             {
-              "title": "Triangle Wave vs Sine Wave Harmonics",
-              "content": "Identify the acoustic and mathematical difference between a triangle wave and a pure sine wave.",
+              "title": "Q10: Triangle vs Square Wave Harmonics",
+              "content": "Both triangle and square waves contain only odd harmonics — why does a triangle wave sound much softer?",
               "type": "multi_choice",
               "question": "How does the harmonic spectrum of an analogue triangle wave differ from that of a pure sine wave?",
               "answers": [
                 {
-                  "text": "A square wave contains even harmonics; a triangle wave contains only odd",
+                  "text": "A triangle wave has no fundamental pitch",
                   "is_true": "no"
                 },
                 {
-                  "text": "A triangle wave drops off much faster at 1/n²; a square drops off at 1/n",
+                  "text": "Its upper harmonics are much quieter",
                   "is_true": "yes"
                 },
                 {
-                  "text": "A triangle wave has no fundamental; a square wave has only fundamental",
+                  "text": "It contains only low-frequency white noise",
                   "is_true": "no"
                 },
                 {
-                  "text": "A square wave has a curved shape; a triangle wave has flat square peaks",
+                  "text": "It adds loud even harmonics above 10 kHz",
                   "is_true": "no"
                 }
               ],
-              "explanation": "<p><strong>Triangle Wave Spectrum:</strong> A pure sine wave contains solely the fundamental frequency (f). A triangle wave contains only odd harmonics (3f, 5f, 7f...), but their amplitudes fall off very rapidly by the inverse square of the harmonic number (1/n^2: 3rd harmonic is at 1/9 volume; 5th is at 1/25). This subtle harmonic content gives triangle waves a soft, flute-like warmth without the harshness of a square or sawtooth wave.</p>",
+              "explanation": "<img src=\"/images/svg/sawtooth_vs_square_diagram.svg\" alt=\"Q10: Triangle vs Square Wave Harmonics\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Although both waveforms contain only odd harmonics, a triangle wave's upper harmonics fall off much faster in volume, giving it a smooth, mellow tone.</p>",
               "expert_quote": {
                 "text": "A triangle wave is a fantastic modulation source and sub-bass wave because its upper harmonics are soft enough to sit under a kick without buzzing.",
                 "author": "Bob Moog"
-              }
+              },
+              "img": "/images/svg/sawtooth_vs_square_diagram.svg",
+              "explanation_image": {
+                "src": "/images/svg/sawtooth_vs_square_diagram.svg",
+                "alt": "Q10: Triangle vs Square Wave Harmonics"
+              },
+              "expert_explanation": "Although both waveforms contain only odd harmonics, a triangle wave's upper harmonics fall off much faster in volume, giving it a smooth, mellow tone."
             }
           ]
         },
