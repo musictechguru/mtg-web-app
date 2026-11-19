@@ -87,6 +87,7 @@ export default function ParameterMatchingQuiz({
     const isGateThreshold = label && label.toLowerCase().includes('gate threshold');
     const isGateAttack = label && label.toLowerCase().includes('gate attack');
     const isGateHold = label && label.toLowerCase().includes('gate hold');
+    const isGateRelease = label && label.toLowerCase().includes('gate release');
 
     const dbToY = (db) => 20 + ((0 - db) / 60) * 165;
     const threshY = dbToY(values[0]);
@@ -316,6 +317,67 @@ export default function ParameterMatchingQuiz({
                             );
                         })()}
                         <text x="300" y="188" fill="#64748b" fontSize="10" textAnchor="middle">Time (ms) — Hold keeps the gate open before release begins</text>
+                    </svg>
+                </div>
+            ) : isGateRelease ? (
+                <div style={{
+                    marginBottom: '20px',
+                    borderRadius: '10px',
+                    border: '1px solid rgba(56, 189, 248, 0.35)',
+                    background: '#090d16',
+                    padding: '12px'
+                }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px', paddingBottom: '6px', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
+                        <span style={{ fontSize: '0.74rem', fontWeight: 800, color: '#38bdf8', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
+                            Live Noise Gate Release Visualizer
+                        </span>
+                        <span style={{
+                            fontSize: '0.75rem',
+                            fontWeight: 700,
+                            color: isSubmitted ? (Math.abs(values[0] - correctValue) <= tolerance ? '#4ade80' : '#f87171') : '#94a3b8'
+                        }}>
+                            {isSubmitted
+                                ? (Math.abs(values[0] - correctValue) <= tolerance ? 'Smooth Release: Chord fades out naturally' : 'Adjust release so the gate fades cleanly with the chord tail')
+                                : `Release: ${values[0]} ms`}
+                        </span>
+                    </div>
+                    <svg viewBox="0 0 600 200" style={{ width: '100%', height: 'auto', display: 'block' }}>
+                        <line x1="40" y1="165" x2="570" y2="165" stroke="rgba(255,255,255,0.2)" strokeWidth="1" />
+                        {/* Threshold Line */}
+                        <line x1="40" y1="95" x2="570" y2="95" stroke="#f43f5e" strokeWidth="1.5" strokeDasharray="5,4" />
+                        <text x="565" y="89" fill="#f43f5e" fontSize="10" textAnchor="end" fontWeight="bold">Threshold</text>
+
+                        {/* Natural Guitar Chord Decay Reference */}
+                        <path
+                            d="M 60,165 L 90,35 Q 200,80 460,165"
+                            fill="none"
+                            stroke="rgba(148, 163, 184, 0.35)"
+                            strokeWidth="2"
+                            strokeDasharray="4,4"
+                        />
+
+                        {/* Live Gate Release Curve starting at Hold End (x=220, y=95) */}
+                        {(() => {
+                            const releaseWidth = (values[0] / max) * 320;
+                            const endX = 220 + releaseWidth;
+                            return (
+                                <>
+                                    <path
+                                        d={`M 60,165 L 90,35 L 220,95 L ${endX},165`}
+                                        fill="rgba(168, 85, 247, 0.18)"
+                                        stroke="#a855f7"
+                                        strokeWidth="3"
+                                    />
+                                    <line x1="220" y1="25" x2="220" y2="165" stroke="#fbbf24" strokeWidth="1.5" strokeDasharray="3,3" />
+                                    <text x="220" y="18" fill="#fbbf24" fontSize="10" textAnchor="middle" fontWeight="bold">Release Starts</text>
+                                    <circle cx={endX} cy="165" r="4" fill="#a855f7" />
+                                    <text x={Math.min(endX, 520)} y="152" fill="#c084fc" fontSize="10" fontWeight="bold" textAnchor="middle">
+                                        Gate Closed ({values[0]} ms)
+                                    </text>
+                                </>
+                            );
+                        })()}
+                        <text x="300" y="188" fill="#64748b" fontSize="10" textAnchor="middle">Time (ms) — Release controls how smoothly the gate fades out to silence</text>
                     </svg>
                 </div>
             ) : imageSrc && (

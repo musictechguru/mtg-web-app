@@ -4051,18 +4051,18 @@
               "explanation_image": "/images/sidechain_compression_diagram.png"
             },
             {
-              "title": "Practical Task: Preventing Gate Chatter with Hold",
-              "content": "Set a hold time around 120 ms to stop the gate rapidly chattering on a decaying guitar chord.",
+              "title": "Practical Task: Gate Release Time for Guitar Decay",
+              "content": "Move the gate release fader so the decaying guitar chord fades out naturally without chopping off early.",
               "type": "parameter_matching",
-              "label": "Gate Hold Time",
-              "min": 0,
-              "max": 500,
+              "label": "Gate Release Time",
+              "min": 10,
+              "max": 1000,
               "step": 10,
               "unit": " ms",
-              "correct_value": 120,
-              "tolerance": 60,
-              "expert_explanation": "A short hold time (around 100–150 ms) locks the gate open briefly after the signal drops below threshold, stopping rapid open-close fluttering.",
-              "explanation": "<p><strong>Expert Explanation:</strong> A short hold time (around 100–150 ms) locks the gate open briefly after the signal drops below threshold, stopping rapid open-close fluttering.</p>"
+              "correct_value": 750,
+              "tolerance": 180,
+              "expert_explanation": "A slower release time (around 600–900 ms) lets the gate close gradually along the natural decay of the guitar chord instead of chopping off the tail abruptly.",
+              "explanation": "<p><strong>Expert Explanation:</strong> A slower release time (around 600–900 ms) lets the gate close gradually along the natural decay of the guitar chord instead of chopping off the tail abruptly.</p>"
             },
             {
               "title": "Q16: Gate Hysteresis & Dual Threshold Mechanics",
