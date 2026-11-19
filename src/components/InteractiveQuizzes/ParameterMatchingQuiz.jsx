@@ -112,9 +112,11 @@ export default function ParameterMatchingQuiz({
                         <span style={{
                             fontSize: '0.75rem',
                             fontWeight: 700,
-                            color: values[0] > -6 ? '#f87171' : values[0] < -32 ? '#fbbf24' : '#4ade80'
+                            color: isSubmitted ? (values[0] > -6 ? '#f87171' : values[0] < -32 ? '#fbbf24' : '#4ade80') : '#94a3b8'
                         }}>
-                            {values[0] > -6 ? 'Threshold too high! Cutting off snare' : values[0] < -32 ? 'Threshold too low! Hi-hat bleed passes' : 'Clean: Bleed muted, snare passes'}
+                            {isSubmitted
+                                ? (values[0] > -6 ? 'Threshold too high! Cutting off snare' : values[0] < -32 ? 'Threshold too low! Hi-hat bleed passes' : 'Clean: Bleed muted, snare passes')
+                                : `Threshold: ${values[0]} dB`}
                         </span>
                     </div>
                     <svg viewBox="0 0 600 210" style={{ width: '100%', height: 'auto', display: 'block' }}>
@@ -209,9 +211,11 @@ export default function ParameterMatchingQuiz({
                         <span style={{
                             fontSize: '0.75rem',
                             fontWeight: 700,
-                            color: values[0] <= 5 ? '#4ade80' : '#f87171'
+                            color: isSubmitted ? (values[0] <= 5 ? '#4ade80' : '#f87171') : '#94a3b8'
                         }}>
-                            {values[0] <= 5 ? 'Fast Attack: Snare transient preserved' : 'Too Slow: Front of snare transient is clipped'}
+                            {isSubmitted
+                                ? (values[0] <= 5 ? 'Fast Attack: Snare transient preserved' : 'Too Slow: Front of snare transient is clipped')
+                                : `Attack: ${values[0]} ms`}
                         </span>
                     </div>
                     <svg viewBox="0 0 600 200" style={{ width: '100%', height: 'auto', display: 'block' }}>
