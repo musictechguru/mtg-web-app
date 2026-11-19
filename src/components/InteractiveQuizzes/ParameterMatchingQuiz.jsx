@@ -86,6 +86,7 @@ export default function ParameterMatchingQuiz({
 
     const isGateThreshold = label && label.toLowerCase().includes('gate threshold');
     const isGateAttack = label && label.toLowerCase().includes('gate attack');
+    const isGateHold = label && label.toLowerCase().includes('gate hold');
 
     const dbToY = (db) => 20 + ((0 - db) / 60) * 165;
     const threshY = dbToY(values[0]);
@@ -248,6 +249,73 @@ export default function ParameterMatchingQuiz({
                             );
                         })()}
                         <text x="300" y="188" fill="#64748b" fontSize="10" textAnchor="middle">Time (ms) — Fast attack preserves the initial drum transient</text>
+                    </svg>
+                </div>
+            ) : isGateHold ? (
+                <div style={{
+                    marginBottom: '20px',
+                    borderRadius: '10px',
+                    border: '1px solid rgba(56, 189, 248, 0.35)',
+                    background: '#090d16',
+                    padding: '12px'
+                }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px', paddingBottom: '6px', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
+                        <span style={{ fontSize: '0.74rem', fontWeight: 800, color: '#38bdf8', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
+                            Live Noise Gate Hold Visualizer
+                        </span>
+                        <span style={{
+                            fontSize: '0.75rem',
+                            fontWeight: 700,
+                            color: isSubmitted ? (Math.abs(values[0] - correctValue) <= tolerance ? '#4ade80' : '#f87171') : '#94a3b8'
+                        }}>
+                            {isSubmitted
+                                ? (Math.abs(values[0] - correctValue) <= tolerance ? 'Ideal Hold: Note sustains cleanly before closing' : 'Try a hold time that keeps the gate open through the tail')
+                                : `Hold: ${values[0]} ms`}
+                        </span>
+                    </div>
+                    <svg viewBox="0 0 600 200" style={{ width: '100%', height: 'auto', display: 'block' }}>
+                        <line x1="40" y1="165" x2="570" y2="165" stroke="rgba(255,255,255,0.2)" strokeWidth="1" />
+                        {/* Threshold Line */}
+                        <line x1="40" y1="95" x2="570" y2="95" stroke="#f43f5e" strokeWidth="1.5" strokeDasharray="5,4" />
+                        <text x="565" y="89" fill="#f43f5e" fontSize="10" textAnchor="end" fontWeight="bold">Threshold</text>
+
+                        {/* Decaying Note Envelope */}
+                        <path
+                            d="M 60,165 L 90,35 Q 170,70 250,95 T 470,155 L 550,165"
+                            fill="rgba(56, 189, 248, 0.14)"
+                            stroke="#38bdf8"
+                            strokeWidth="2.5"
+                        />
+
+                        {/* Hold Window (starts at x=250 where signal crosses threshold) */}
+                        {(() => {
+                            const holdWidth = (values[0] / max) * 240;
+                            const holdEndX = 250 + holdWidth;
+                            return (
+                                <>
+                                    <rect
+                                        x="250"
+                                        y="30"
+                                        width={holdWidth}
+                                        height="135"
+                                        fill="rgba(34, 197, 94, 0.16)"
+                                        stroke="#22c55e"
+                                        strokeWidth="1.5"
+                                        strokeDasharray="4,3"
+                                    />
+                                    <line x1="250" y1="25" x2="250" y2="165" stroke="#fbbf24" strokeWidth="1.5" />
+                                    <text x="250" y="18" fill="#fbbf24" fontSize="10" textAnchor="middle" fontWeight="bold">Drops Below Threshold</text>
+                                    {holdWidth > 20 && (
+                                        <text x={250 + holdWidth / 2} y="60" fill="#4ade80" fontSize="11" textAnchor="middle" fontWeight="bold">
+                                            HOLD ({values[0]} ms)
+                                        </text>
+                                    )}
+                                    <line x1={holdEndX} y1="30" x2={holdEndX} y2="165" stroke="#22c55e" strokeWidth="2" />
+                                    <text x={holdEndX + 6} y="145" fill="#4ade80" fontSize="10" fontWeight="bold">Release Starts</text>
+                                </>
+                            );
+                        })()}
+                        <text x="300" y="188" fill="#64748b" fontSize="10" textAnchor="middle">Time (ms) — Hold keeps the gate 100% open after signal drops below threshold</text>
                     </svg>
                 </div>
             ) : imageSrc && (

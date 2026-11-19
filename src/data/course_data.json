@@ -3975,6 +3975,20 @@
               "explanation_image": "/images/noise_gate_hold_envelope_diagram.svg"
             },
             {
+              "title": "Practical Task: Gate Hold Time for Tom Sustain",
+              "content": "Move the gate hold fader so the floor tom body sustains cleanly before the gate begins closing.",
+              "type": "parameter_matching",
+              "label": "Gate Hold Time",
+              "min": 0,
+              "max": 500,
+              "step": 10,
+              "unit": " ms",
+              "correct_value": 200,
+              "tolerance": 80,
+              "expert_explanation": "Setting hold around 150–250 ms keeps the gate 100% open while the low-frequency tom shell rings out, preventing an unnatural early cut-off.",
+              "explanation": "<p><strong>Expert Explanation:</strong> Setting hold around 150–250 ms keeps the gate 100% open while the low-frequency tom shell rings out, preventing an unnatural early cut-off.</p>"
+            },
+            {
               "title": "Q14: Gating Drum Spill on Snare and Kick Mics",
               "type": "multi_choice",
               "content": "Why do audio engineers use noise gates on close-miked snare and tom tracks?",
@@ -4037,6 +4051,20 @@
               "explanation_image": "/images/sidechain_compression_diagram.png"
             },
             {
+              "title": "Practical Task: Preventing Gate Chatter with Hold",
+              "content": "Set a hold time around 120 ms to stop the gate rapidly chattering on a decaying guitar chord.",
+              "type": "parameter_matching",
+              "label": "Gate Hold Time",
+              "min": 0,
+              "max": 500,
+              "step": 10,
+              "unit": " ms",
+              "correct_value": 120,
+              "tolerance": 60,
+              "expert_explanation": "A short hold time (around 100–150 ms) locks the gate open briefly after the signal drops below threshold, stopping rapid open-close fluttering.",
+              "explanation": "<p><strong>Expert Explanation:</strong> A short hold time (around 100–150 ms) locks the gate open briefly after the signal drops below threshold, stopping rapid open-close fluttering.</p>"
+            },
+            {
               "title": "Q16: Gate Hysteresis & Dual Threshold Mechanics",
               "type": "multi_choice",
               "content": "What does the 'hysteresis' setting do on an advanced noise gate?",
@@ -4097,6 +4125,20 @@
               "img": "/images/gated_reverb_technique_diagram.svg",
               "explanation": "<img src=\"/images/gated_reverb_technique_diagram.svg\" alt=\"1980s Gated Reverb Technique Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Pioneered by Hugh Padgham and Phil Collins, gated reverb uses a noise gate to abruptly chop off a massive snare reverb tail.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"The SSL listen mic compressor slammed the room reverb, and the gate slammed it shut—defining the drum sound of the 1980s.\"<br/><strong>- Hugh Padgham</strong></blockquote>",
               "explanation_image": "/images/gated_reverb_technique_diagram.svg"
+            },
+            {
+              "title": "Practical Task: Gate Attack Time for Acoustic Guitar",
+              "content": "Set a fast gate attack time so the crisp pick transient on an acoustic guitar is not clipped off.",
+              "type": "parameter_matching",
+              "label": "Gate Attack Time",
+              "min": 0,
+              "max": 50,
+              "step": 1,
+              "unit": " ms",
+              "correct_value": 2,
+              "tolerance": 3,
+              "expert_explanation": "A fast attack time (0–5 ms) opens the gate instantaneously when the pick strikes the string, preserving bright transient definition.",
+              "explanation": "<p><strong>Expert Explanation:</strong> A fast attack time (0–5 ms) opens the gate instantaneously when the pick strikes the string, preserving bright transient definition.</p>"
             },
             {
               "title": "Q18: Practical Task — Noise Gate Attack Time",
