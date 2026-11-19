@@ -1319,13 +1319,19 @@ const QuizPlayer = ({ quiz, onFinish }) => {
                                 ></iframe>
                             </div>
                         </div>
-                    ) : quiz.youtube_id && (
-                        <div style={{ marginBottom: '20px', borderRadius: '8px', overflow: 'hidden', boxShadow: '0 2px 4px rgba(0,0,0,0.2)' }}>
+                    ) : (currentQuestion.youtube_id || quiz.youtube_id) && (
+                        <div style={{ marginBottom: '20px', borderRadius: '8px', overflow: 'hidden', boxShadow: '0 2px 4px rgba(0,0,0,0.2)', border: '1px solid rgba(148, 163, 184, 0.2)' }}>
+                            {currentQuestion.youtube_title && (
+                                <div style={{ background: '#1e293b', color: '#e2e8f0', padding: '6px 12px', fontSize: '0.82rem', fontWeight: '600' }}>
+                                    🎧 Listening Extract: {currentQuestion.youtube_title}
+                                </div>
+                            )}
                             <iframe
+                                key={currentQuestion.youtube_id || quiz.youtube_id}
                                 width="100%"
                                 height="200"
-                                src={`https://www.youtube.com/embed/${quiz.youtube_id}`}
-                                title={quiz.title}
+                                src={`https://www.youtube.com/embed/${currentQuestion.youtube_id || quiz.youtube_id}${currentQuestion.youtube_start ? `?start=${currentQuestion.youtube_start}` : ''}`}
+                                title={currentQuestion.youtube_title || quiz.title}
                                 frameBorder="0"
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                 allowFullScreen

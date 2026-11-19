@@ -5,117 +5,117 @@ import { useUser } from '../../contexts/UserContext';
 const DEFAULT_QUESTIONS = [
   {
     type: 'slice-count',
-    question: 'Slice this drum loop into 4 equal beats (Quarter-Note Slices)',
-    hint: 'Place slice markers at 25%, 50%, and 75% to divide the 4/4 bar into 4 beats. Use the Beat Markers on the ruler as guides!',
+    question: 'Chop this 4/4 drum loop into 4 equal beats (Quarter-Note Slices)',
+    hint: 'Click the 3 beat lines (Beat 2, Beat 3, Beat 4) to divide the bar into 4 slices. Click any scissors icon again to remove a cut.',
     waveform: 'kick-snare-loop',
     targetSlices: 4,
-    explanation: 'Slicing into 4 quarter-notes isolates each downbeat and backbeat (Kick 1, Snare 2, Kick 3, Snare 4). This is the classic foundation for MPC hip-hop beat rearrangement.',
-    producerTip: 'In Component 4, ensure your DAW grid is set to 1/4 note to snap slices cleanly to the tempo.'
+    explanation: 'Slicing into 4 quarter-notes isolates each main beat (Kick 1, Snare 2, Kick 3, Snare 4) so you can trigger or rearrange them on sampler pads.',
+    producerTip: 'Set your DAW grid to 1/4 note before slicing so every chop lands tight on the beat.'
   },
   {
     type: 'rearrange',
-    question: 'Reverse this 4-beat melodic riff (Play backwards: 4 - 3 - 2 - 1)',
-    hint: 'Click or drag the slice blocks to flip the order: 4 then 3 then 2 then 1.',
+    question: 'Reverse this 4-beat riff into the order: 4 - 3 - 2 - 1',
+    hint: 'Use the ◀ / ▶ arrows (or drag) to put the slices in backwards order: 4 - 3 - 2 - 1.',
     waveform: 'melody-loop',
     preSliced: [0, 0.25, 0.5, 0.75, 1.0],
     targetOrder: [3, 2, 1, 0],
-    explanation: 'Reversing phrase chunks creates an inverted melodic hook while preserving the forward envelope of each individual slice.',
-    producerTip: 'Pioneered by 1960s psychedelic rock tape splices and 1990s trip-hop producers (e.g. Portishead, DJ Shadow).'
+    explanation: 'Rearranging slices backwards flips the melodic phrase while keeping each individual slice playing forward cleanly.',
+    producerTip: 'Try auditioning with "Play Chopped / Arranged" before you check your answer.'
   },
   {
     type: 'multiple-choice',
-    question: 'Why must audio slices be cut strictly at "Zero-Crossing" points?',
-    hint: 'Consider what happens to speaker cone voltage when audio is sliced at non-zero amplitudes.',
+    question: 'Why should audio slices be cut at Zero-Crossing points?',
+    hint: 'Think about what happens if a cut jumps suddenly from a loud peak straight to silence.',
     options: [
-      'To automatically quantize the audio to the project tempo',
-      'To prevent audible DC clicks, pops, and voltage discontinuities at the splice boundary',
-      'To increase the sample rate and frequency resolution of the audio file',
-      'To convert mono audio files into true stereo files'
+      'To quantise the loop to the DAW tempo',
+      'To prevent audible clicks and pops at the cut',
+      'To double the file sample rate automatically',
+      'To convert a mono sample into wide stereo'
     ],
     correct: 1,
-    explanation: 'A zero-crossing is a point where the waveform amplitude voltage is exactly 0V. Cutting audio at any amplitude above or below zero forces the speaker cone to instantly jump from a voltage value to zero, generating a high-frequency transient click or pop.',
-    producerTip: 'Always enable "Snap to Zero Crossing" in Logic Pro, Pro Tools, or Ableton Live prior to chopping.'
+    explanation: 'A zero-crossing is where the waveform sits at 0V. Cutting there stops the speaker cone from jumping suddenly, preventing sharp clicks and pops.',
+    producerTip: 'Turn on "Snap to Zero Crossing" in Logic Pro or Ableton Live before chopping samples.'
   },
   {
     type: 'slice-count',
-    question: 'Subdivide this breakbeat into 8 slices (Eighth-Note Slices)',
-    hint: 'Place 7 slice markers dividing the bar into 8 equal slices (every 12.5%: Beat 1, 1&, 2, 2&, 3, 3&, 4, 4&).',
+    question: 'Chop this breakbeat into 8 equal eighth-note slices',
+    hint: 'Click each of the 7 eighth-note grid lines (1&, 2, 2&, 3, 3&, 4, 4&) to make 8 slices. Click a cut again to undo it.',
     waveform: 'breakbeat',
     targetSlices: 8,
-    explanation: '8-slice subdivision isolates individual 8th-note ghost notes, kick hits, and snare rolls. This is the cornerstone technique of Jungle, Drum & Bass, and UK Garage break chopping.',
-    producerTip: 'Classic jungle producers chopped the 1969 "Amen Break" (The Winstons) into 8th and 16th slices on Akai S950 samplers.'
+    explanation: 'Eighth-note slicing separates kicks, snares, and ghost hi-hats — the core breakbeat chopping technique in Hip Hop, Jungle, and Drum & Bass.',
+    producerTip: 'Classic UK Jungle producers sliced the "Amen Break" into 8th and 16th hits on Akai hardware samplers.'
   },
   {
     type: 'rearrange',
-    question: 'Create a "Stutter" intro by repeating the initial kick slice twice (Pattern: 1 - 1 - 2 - 3)',
-    hint: 'Arrange the slices into: 1 - 1 - 2 - 3 (repeating slice 1).',
+    question: 'Create a stutter intro by repeating Slice 1 twice: 1 - 1 - 2 - 3',
+    hint: 'Click "+ Dup" on Slice 1 to duplicate it so your sequence reads 1 - 1 - 2 - 3.',
     waveform: 'vocal-chop',
     preSliced: [0, 0.33, 0.66, 1.0],
     targetOrder: [0, 0, 1, 2],
-    explanation: 'Slice duplication creates machine-gun or stuttered syncopation, a hallmark of French House, Electro, and modern EDM vocal manipulation.',
-    producerTip: 'Combine slice repetition with an automated high-pass filter sweep for high-impact build-ups.'
+    explanation: 'Duplicating the first slice creates a punchy rhythmic stutter edit — a staple transition technique in Hip Hop, House, and EDM.',
+    producerTip: 'Pair a 1/8th or 1/16th stutter with a rising filter sweep before a chorus drop.'
   },
   {
     type: 'multiple-choice',
-    question: 'In a vintage sampler without time-stretching, pitching a sample DOWN by 12 semitones (one octave) causes:',
-    hint: 'Recall the physics of tape speed and sample playback clock rates.',
+    question: 'On a vintage sampler without time-stretching, pitching a sample DOWN one octave makes it:',
+    hint: 'Think about slowing down a vinyl record or tape machine.',
     options: [
-      'The pitch drops by one octave and the playback duration doubles (plays twice as slow)',
-      'The pitch drops by one octave while duration stays identical',
-      'The pitch drops by one octave and duration halves (plays twice as fast)',
-      'The pitch is preserved but aliasing noise increases by 12 dB'
+      'Stay the exact same length and tempo',
+      'Play twice as fast and finish in half the time',
+      'Play twice as slow and double in length',
+      'Remove all bass frequencies below 100 Hz'
     ],
-    correct: 0,
-    explanation: 'Classic hardware samplers (e.g. Fairlight CMI, E-mu SP-1200, Akai S900) modulated pitch simply by varying the sample playback clock frequency. Dropping pitch by 12 semitones cuts the clock rate in half, which doubles the playback length.',
-    producerTip: 'Early 1990s golden-age hip-hop producers sampled 33⅓ RPM vinyl records at 45 RPM to save sampler memory, then pitched them down in the sampler!'
+    correct: 2,
+    explanation: 'Classic samplers changed pitch by changing playback speed. Dropping pitch by one octave halves the playback speed, doubling the sample length.',
+    producerTip: 'Early hip-hop producers sampled vinyl at 45 RPM to save RAM, then pitched it down in the sampler for gritty warmth.'
   },
   {
     type: 'rearrange',
-    question: 'Shuffle the groove: Move slice 2 to the front (Pattern: 2 - 1 - 3 - 4)',
-    hint: 'Place slice 2 first, followed by 1, 3, and 4.',
+    question: 'Flip the groove by moving Slice 2 to the start: 2 - 1 - 3 - 4',
+    hint: 'Use ◀ on Slice 2 (or drag it left) so the sequence becomes 2 - 1 - 3 - 4.',
     waveform: 'kick-snare-loop',
     preSliced: [0, 0.25, 0.5, 0.75, 1.0],
     targetOrder: [1, 0, 2, 3],
-    explanation: 'Placing the snare or backbeat on beat 1 completely shifts the rhythmic pocket and syncopation, transforming a standard 4/4 groove into an off-kilter break.',
-    producerTip: 'J Dilla famously swapped kicks and snares manually without quantize to achieve his legendary drunken swing.'
+    explanation: 'Moving the snare or off-beat slice onto beat 1 instantly creates a fresh, syncopated groove from an old drum loop.',
+    producerTip: 'Swapping kick and snare slices is the fastest way to flip a familiar breakbeat into an original beat.'
   },
   {
     type: 'multiple-choice',
-    question: 'What is the primary function of "Crossfade Looping" on sustained instrument samples?',
-    hint: 'Think about sustaining a string section or brass pad past its original recording length.',
+    question: 'Why is Crossfade Looping used on sustained string or pad samples?',
+    hint: 'Think about holding a keyboard note longer than the original sample recording.',
     options: [
-      'To invert the stereo phase between left and right channels',
-      'To smoothly blend the end of a loop back into its start point, eliminating abrupt clicks and timbral jumps',
-      'To increase the dynamic range by 6 dB per crossfade curve',
-      'To remove low-frequency rumble below 20 Hz'
+      'To invert stereo phase between Left and Right',
+      'To boost dynamic range by 6 dB per loop',
+      'To filter out low rumble below 40 Hz',
+      'To blend loop ends smoothly with no clicks'
     ],
-    correct: 1,
-    explanation: 'When looping sustained sounds like strings or pads, natural vibrato and timbre fluctuations make finding an exact duplicate waveform impossible. An equal-power crossfade fades the tail into the head across 10–50ms to create an imperceptible seamless infinite sustain.',
-    producerTip: 'In Component 4 sampling tasks, always apply a subtle 5–15ms crossfade at loop boundaries to guarantee smooth playback.'
+    correct: 3,
+    explanation: 'Crossfade looping gently fades the end of a loop into its start (10–50 ms) so held notes sustain smoothly without audible clicks or sudden jumps.',
+    producerTip: 'In Component 4 sampling tasks, a 10 ms crossfade keeps looped pads seamless.'
   },
   {
     type: 'rearrange',
-    question: 'Truncate the sample: Remove slice 4 to shorten the loop to 3 beats (Keep: 1 - 2 - 3)',
-    hint: 'Drag slice 4 into the red trash zone or click "Remove Slice 4" so only slices 1, 2, and 3 remain.',
+    question: 'Truncate the loop to 3 beats by removing Slice 4: keep 1 - 2 - 3',
+    hint: 'Click × on Slice 4 (or click "Truncate Slice 4") so only 1 - 2 - 3 remain.',
     waveform: 'breakbeat',
     preSliced: [0, 0.25, 0.5, 0.75, 1.0],
     targetOrder: [0, 1, 2],
-    explanation: 'Truncation deletes unneeded audio data (such as room decay, background noise, or trailing beats), freeing up memory and creating odd-meter rhythmic loops (e.g. 3/4 bar turnaround).',
-    producerTip: 'Truncating silence before transient attacks reduces trigger latency when playing drum pads via MIDI.'
+    explanation: 'Truncation trims away unwanted silence or trailing audio, tightening trigger response and saving sampler memory.',
+    producerTip: 'Always truncate dead air before the first transient so drum pads fire with zero delay.'
   },
   {
     type: 'multiple-choice',
-    question: 'Which DAW / sampler function automatically detects drum hits for slicing based on rapid volume spikes?',
-    hint: 'Think about the sudden initial burst of sound energy.',
+    question: 'Which DAW feature automatically places slice markers on sudden drum hits?',
+    hint: 'Think of the sharp initial volume spike at the start of every kick or snare.',
     options: [
-      'Transient Detection / Beat Detective threshold',
-      'Sidechain Compression release gate',
-      'Convolution Reverb impulse capture',
-      'Comb Filter resonance peak'
+      'Transient Detection',
+      'Sidechain Compression',
+      'Convolution Reverb',
+      'Stereo Panning Automation'
     ],
     correct: 0,
-    explanation: 'Transient detection algorithms analyze sudden changes in amplitude (transients) and place markers at the attack onset of kicks, snares, and hi-hats. Producers can adjust sensitivity thresholds to isolate major beats or subtle ghost notes.',
-    producerTip: 'Use "Slice to MIDI Track" in Ableton Live or "Convert to Sampler Track" in Logic Pro with transient markers.'
+    explanation: 'Transient detection spots sharp volume spikes (kicks, snares, hi-hats) and automatically places slice markers so you can chop a beat to MIDI in seconds.',
+    producerTip: 'Use "Convert to Sampler Track" in Logic Pro or "Slice to MIDI" in Ableton Live.'
   }
 ];
 
@@ -416,23 +416,38 @@ export default function SampleChoppingQuiz({ quiz, onExit }) {
     setTimeout(() => setActivePad(null), 350);
   };
 
-  const addSlice = (xRatio) => {
-    if (showFeedback) return;
-    // Snap within 3% of quarter or eighth beat markers
-    let snapped = xRatio;
-    const snapGrid = [0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875];
-    for (const snap of snapGrid) {
-      if (Math.abs(xRatio - snap) < 0.035) {
-        snapped = snap;
-        break;
+  const SNAP_GRID_8 = [0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875];
+  const SNAP_GRID_4 = [0.25, 0.5, 0.75];
+
+  const getNearestGridPos = (xRatio) => {
+    const q = questions[currentQuestion];
+    const grid = q?.targetSlices === 4 ? SNAP_GRID_4 : SNAP_GRID_8;
+    let best = grid[0];
+    let minDist = Math.abs(xRatio - best);
+    for (const pt of grid) {
+      const dist = Math.abs(xRatio - pt);
+      if (dist < minDist) {
+        minDist = dist;
+        best = pt;
       }
     }
+    return best;
+  };
 
-    const normalized = Math.max(0.05, Math.min(0.95, snapped));
-    const tooClose = slicePositions.some(p => Math.abs(p - normalized) < 0.04);
-    if (tooClose) return;
+  const addSlice = (xRatio) => {
+    if (showFeedback) return;
+    const snapped = getNearestGridPos(xRatio);
 
-    const updated = [...slicePositions, normalized].sort((a, b) => a - b);
+    // Clicking an existing slice marker toggles (removes) that individual cut
+    const existingIdx = slicePositions.findIndex(p => Math.abs(p - snapped) < 0.01);
+    if (existingIdx !== -1) {
+      const updated = slicePositions.filter((_, idx) => idx !== existingIdx);
+      setSlicePositions(updated);
+      setSliceOrder(Array.from({ length: updated.length - 1 }, (_, i) => i));
+      return;
+    }
+
+    const updated = [...slicePositions, snapped].sort((a, b) => a - b);
     setSlicePositions(updated);
     setSliceOrder(Array.from({ length: updated.length - 1 }, (_, i) => i));
   };
@@ -484,6 +499,28 @@ export default function SampleChoppingQuiz({ quiz, onExit }) {
     if (showFeedback) return;
     const updated = sliceOrder.filter(idx => idx !== sliceIndex);
     setSliceOrder(updated);
+  };
+
+  const duplicateSlice = (orderIdx) => {
+    if (showFeedback || sliceOrder.length >= 8) return;
+    const updated = [...sliceOrder];
+    updated.splice(orderIdx + 1, 0, updated[orderIdx]);
+    setSliceOrder(updated);
+  };
+
+  const removeSliceAt = (orderIdx) => {
+    if (showFeedback || sliceOrder.length <= 1) return;
+    const updated = [...sliceOrder];
+    updated.splice(orderIdx, 1);
+    setSliceOrder(updated);
+  };
+
+  const resetSequence = () => {
+    if (showFeedback) return;
+    const q = questions[currentQuestion];
+    if (q.preSliced) {
+      setSliceOrder(Array.from({ length: q.preSliced.length - 1 }, (_, i) => i));
+    }
   };
 
   const checkAnswer = () => {
@@ -730,11 +767,11 @@ export default function SampleChoppingQuiz({ quiz, onExit }) {
         </div>
 
         {/* Main Quiz Card */}
-        <div style={{ background: 'var(--bg-panel)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '20px', padding: '30px', boxShadow: '0 20px 40px rgba(0,0,0,0.3)' }}>
+        <div style={{ background: 'var(--bg-panel)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '18px', padding: '22px 24px', boxShadow: '0 20px 40px rgba(0,0,0,0.3)' }}>
 
           {/* Question Sub-Header */}
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
-            <span style={{ fontSize: '0.85rem', fontWeight: 'bold', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
+            <span style={{ fontSize: '0.82rem', fontWeight: 'bold', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
               Question {currentQuestion + 1} of {questions.length}
             </span>
             <span style={{ fontSize: '0.75rem', fontWeight: 'bold', background: 'rgba(59, 130, 246, 0.15)', color: '#60a5fa', border: '1px solid rgba(59, 130, 246, 0.3)', padding: '3px 10px', borderRadius: '12px', textTransform: 'uppercase' }}>
@@ -743,14 +780,14 @@ export default function SampleChoppingQuiz({ quiz, onExit }) {
           </div>
 
           {/* Question Title */}
-          <h2 style={{ fontSize: '1.45rem', fontWeight: '800', lineHeight: '1.35', margin: '0 0 16px 0', color: '#f8fafc' }}>
+          <h2 style={{ fontSize: '1.35rem', fontWeight: '800', lineHeight: '1.3', margin: '0 0 12px 0', color: '#f8fafc' }}>
             {q.question}
           </h2>
 
           {/* Hint Card */}
           {q.hint && (
-            <div style={{ background: 'rgba(234, 179, 8, 0.1)', border: '1px solid rgba(234, 179, 8, 0.3)', borderRadius: '12px', padding: '14px 18px', marginBottom: '24px', display: 'flex', alignItems: 'flex-start', gap: '12px', color: '#fef08a', fontSize: '0.9rem', lineHeight: '1.5' }}>
-              <Lightbulb size={20} style={{ flexShrink: 0, color: '#facc15', marginTop: '2px' }} />
+            <div style={{ background: 'rgba(234, 179, 8, 0.1)', border: '1px solid rgba(234, 179, 8, 0.3)', borderRadius: '10px', padding: '10px 14px', marginBottom: '16px', display: 'flex', alignItems: 'flex-start', gap: '10px', color: '#fef08a', fontSize: '0.86rem', lineHeight: '1.45' }}>
+              <Lightbulb size={18} style={{ flexShrink: 0, color: '#facc15', marginTop: '2px' }} />
               <div>
                 <strong style={{ color: '#facc15' }}>Audio Editing Tip: </strong>
                 {q.hint}
@@ -778,13 +815,21 @@ export default function SampleChoppingQuiz({ quiz, onExit }) {
               <div style={{ background: '#090d16', border: '1px solid #1e293b', borderRadius: '14px', padding: '15px', position: 'relative', overflowX: 'auto' }}>
 
                 {/* Beat Ruler along top */}
-                <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '6px', marginBottom: '6px', fontSize: '0.72rem', color: '#64748b', fontWeight: '600' }}>
-                  <span>1.1 (0.0s / Beat 1)</span>
-                  <span>1.2 (0.5s / Beat 2)</span>
-                  <span>1.3 (1.0s / Beat 3)</span>
-                  <span>1.4 (1.5s / Beat 4)</span>
-                  <span>2.1 (2.0s / End)</span>
-                </div>
+                {q.targetSlices === 8 ? (
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(8, 1fr)', borderBottom: '1px solid rgba(255,255,255,0.12)', paddingBottom: '6px', marginBottom: '6px', fontSize: '0.72rem', color: '#94a3b8', fontWeight: '700' }}>
+                    {['1', '1&', '2', '2&', '3', '3&', '4', '4&'].map(lbl => (
+                      <span key={lbl} style={{ textAlign: 'left', paddingLeft: '4px', borderLeft: '1px solid rgba(148,163,184,0.2)' }}>{lbl}</span>
+                    ))}
+                  </div>
+                ) : (
+                  <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid rgba(255,255,255,0.12)', paddingBottom: '6px', marginBottom: '6px', fontSize: '0.72rem', color: '#94a3b8', fontWeight: '700' }}>
+                    <span>Beat 1 (0.0s)</span>
+                    <span>Beat 2 (0.5s)</span>
+                    <span>Beat 3 (1.0s)</span>
+                    <span>Beat 4 (1.5s)</span>
+                    <span>End (2.0s)</span>
+                  </div>
+                )}
 
                 <svg
                   width="100%"
@@ -848,7 +893,8 @@ export default function SampleChoppingQuiz({ quiz, onExit }) {
                     stroke="rgba(255, 255, 255, 0.25)"
                     strokeWidth="1"
                   />
-                  <text x={10} y={centerY - 5} fill="#64748b" fontSize="9" fontWeight="bold">0.00V (Zero-Crossing)</text>
+                  <rect x={6} y={centerY - 15} width={118} height={14} rx={4} fill="rgba(9, 13, 22, 0.85)" stroke="rgba(148, 163, 184, 0.3)" strokeWidth="0.75" />
+                  <text x={11} y={centerY - 5} fill="#cbd5e1" fontSize="8.5" fontWeight="bold">0.00V (Zero-Crossing)</text>
 
                   {/* Sliced Regions Highlighting */}
                   {slicePositions.slice(0, -1).map((startPos, i) => {
@@ -913,76 +959,77 @@ export default function SampleChoppingQuiz({ quiz, onExit }) {
                         {/* Scissors Badge at Slice Head */}
                         <circle cx={xCoord} cy={14} r="10" fill="#ec4899" />
                         <text x={xCoord} y={18} fill="#fff" fontSize="10" fontWeight="bold" textAnchor="middle">✂</text>
-                        {/* Percentage Tag */}
-                        <rect x={xCoord - 18} y={svgHeight - 28} width="36" height="14" rx="3" fill="#1e1b4b" stroke="#818cf8" strokeWidth="1" />
-                        <text x={xCoord} y={svgHeight - 18} fill="#c7d2fe" fontSize="8.5" fontWeight="bold" textAnchor="middle">
-                          {Math.round(pos * 100)}%
-                        </text>
+                        {/* Only show % badge when <= 5 slices so it never overlaps Slice labels */}
+                        {numSlices <= 5 && (
+                          <>
+                            <rect x={xCoord - 18} y={svgHeight - 38} width="36" height="14" rx="3" fill="#1e1b4b" stroke="#818cf8" strokeWidth="1" />
+                            <text x={xCoord} y={svgHeight - 28} fill="#c7d2fe" fontSize="8.5" fontWeight="bold" textAnchor="middle">
+                              {Math.round(pos * 100)}%
+                            </text>
+                          </>
+                        )}
                       </g>
                     );
                   })}
 
-                  {/* Hover Scissors Indicator when placing slices */}
-                  {q.type === 'slice-count' && !showFeedback && hoverX !== null && (
-                    <g>
-                      <line
-                        x1={hoverX * svgWidth}
-                        y1={0}
-                        x2={hoverX * svgWidth}
-                        y2={svgHeight}
-                        stroke="#38bdf8"
-                        strokeWidth="1.5"
-                        strokeDasharray="2 2"
-                      />
-                      <circle cx={hoverX * svgWidth} cy={12} r="8" fill="#38bdf8" />
-                      <text x={hoverX * svgWidth} y={15} fill="#000" fontSize="8" fontWeight="bold" textAnchor="middle">✂</text>
-                    </g>
-                  )}
+                  {/* Hover Scissors Indicator — snaps magnetically to the nearest beat line */}
+                  {q.type === 'slice-count' && !showFeedback && hoverX !== null && (() => {
+                    const snappedPos = getNearestGridPos(hoverX);
+                    const isExisting = slicePositions.some(p => Math.abs(p - snappedPos) < 0.01);
+                    const hx = snappedPos * svgWidth;
+                    return (
+                      <g>
+                        <line
+                          x1={hx}
+                          y1={0}
+                          x2={hx}
+                          y2={svgHeight}
+                          stroke={isExisting ? '#f87171' : '#38bdf8'}
+                          strokeWidth="2"
+                          strokeDasharray="3 3"
+                        />
+                        <circle cx={hx} cy={14} r="9" fill={isExisting ? '#ef4444' : '#38bdf8'} />
+                        <text x={hx} y={18} fill="#fff" fontSize="9.5" fontWeight="bold" textAnchor="middle">
+                          {isExisting ? '×' : '✂'}
+                        </text>
+                      </g>
+                    );
+                  })()}
                 </svg>
 
-                {/* Slicing Quick Helpers (for slice-count questions) */}
+                {/* Slicing Controls (Grid Snap Active + Clear) */}
                 {q.type === 'slice-count' && !showFeedback && (
-                  <div style={{ display: 'flex', gap: '10px', marginTop: '14px', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between' }}>
-                    <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
-                      <button
-                        onClick={() => snapToGrid(4)}
-                        style={{ padding: '6px 14px', background: 'rgba(168, 85, 247, 0.2)', border: '1px solid rgba(168, 85, 247, 0.4)', color: '#c084fc', borderRadius: '8px', fontSize: '0.8rem', fontWeight: 'bold', cursor: 'pointer' }}
-                      >
-                        ⚡ Snap to 1/4 Beats (4 Slices)
-                      </button>
-                      <button
-                        onClick={() => snapToGrid(8)}
-                        style={{ padding: '6px 14px', background: 'rgba(56, 189, 248, 0.2)', border: '1px solid rgba(56, 189, 248, 0.4)', color: '#38bdf8', borderRadius: '8px', fontSize: '0.8rem', fontWeight: 'bold', cursor: 'pointer' }}
-                      >
-                        ⚡ Snap to 1/8 Beats (8 Slices)
-                      </button>
-                    </div>
-
+                  <div style={{ display: 'flex', gap: '10px', marginTop: '10px', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between' }}>
+                    <span style={{ fontSize: '0.8rem', color: '#94a3b8' }}>
+                      <strong style={{ color: '#38bdf8' }}>Grid Snap ON:</strong> Click any beat line to place a cut (click a pink ✂ again to remove it).
+                    </span>
                     {slicePositions.length > 2 && (
                       <button
+                        type="button"
                         onClick={() => {
                           setSlicePositions([0, 1]);
                           setSliceOrder([0]);
                         }}
-                        style={{ padding: '6px 14px', background: 'rgba(239, 68, 68, 0.15)', border: '1px solid rgba(239, 68, 68, 0.3)', color: '#f87171', borderRadius: '8px', fontSize: '0.8rem', fontWeight: 'bold', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px' }}
+                        style={{ padding: '5px 12px', background: 'rgba(239, 68, 68, 0.15)', border: '1px solid rgba(239, 68, 68, 0.3)', color: '#f87171', borderRadius: '8px', fontSize: '0.78rem', fontWeight: 'bold', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px' }}
                       >
-                        <Trash2 size={14} /> Clear Slices
+                        <Trash2 size={13} /> Clear Cuts
                       </button>
                     )}
                   </div>
                 )}
               </div>
 
-              {/* MPC Hardware Trigger Pads (Click to Audition Each Sliced Chunk) */}
-              <div style={{ marginTop: '20px', background: 'rgba(0,0,0,0.25)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: '14px', padding: '16px' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
-                  <span style={{ fontSize: '0.85rem', fontWeight: 'bold', color: '#cbd5e1', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                    <span>🎛️</span> MPC Trigger Pads (Click to audition each sliced chunk):
-                  </span>
-                  <span style={{ fontSize: '0.75rem', color: '#94a3b8' }}>Web Audio Synthesizer</span>
-                </div>
+              {/* MPC Hardware Trigger Pads — shown on slice-count tasks in clean 4-column MPC grid */}
+              {q.type === 'slice-count' && (
+                <div style={{ marginTop: '14px', background: 'rgba(0,0,0,0.25)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: '12px', padding: '12px 14px' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
+                    <span style={{ fontSize: '0.82rem', fontWeight: 'bold', color: '#cbd5e1', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                      <span>🎛️</span> MPC Trigger Pads (Click to audition each slice):
+                    </span>
+                    <span style={{ fontSize: '0.74rem', color: '#94a3b8' }}>Web Audio Synthesiser</span>
+                  </div>
 
-                <div style={{ display: 'grid', gridTemplateColumns: `repeat(auto-fit, minmax(130px, 1fr))`, gap: '12px' }}>
+                  <div style={{ display: 'grid', gridTemplateColumns: numSlices > 4 ? 'repeat(4, 1fr)' : `repeat(${Math.max(1, numSlices)}, 1fr)`, gap: '8px' }}>
                   {Array.from({ length: numSlices }).map((_, idx) => {
                     const colorTheme = SLICE_COLORS[idx % SLICE_COLORS.length];
                     const isTriggered = activePad === idx;
@@ -995,147 +1042,215 @@ export default function SampleChoppingQuiz({ quiz, onExit }) {
                           background: isTriggered ? colorTheme.border : 'rgba(30, 41, 59, 0.8)',
                           border: `2px solid ${isTriggered ? '#fff' : colorTheme.border}`,
                           color: isTriggered ? '#000' : '#fff',
-                          borderRadius: '12px',
-                          padding: '14px 10px',
+                          borderRadius: '10px',
+                          padding: '9px 8px',
                           cursor: 'pointer',
                           display: 'flex',
                           flexDirection: 'column',
                           alignItems: 'center',
-                          gap: '6px',
-                          boxShadow: isTriggered ? `0 0 20px ${colorTheme.border}` : '0 4px 10px rgba(0,0,0,0.3)',
+                          gap: '3px',
+                          boxShadow: isTriggered ? `0 0 18px ${colorTheme.border}` : '0 3px 8px rgba(0,0,0,0.3)',
                           transform: isTriggered ? 'scale(0.96)' : 'scale(1)',
                           transition: 'all 0.15s ease'
                         }}
                       >
-                        <span style={{ fontSize: '0.75rem', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '1px', opacity: 0.85 }}>
+                        <span style={{ fontSize: '0.68rem', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '0.8px', opacity: 0.85 }}>
                           Pad {idx + 1}
                         </span>
-                        <span style={{ fontSize: '1.2rem', fontWeight: '800' }}>
+                        <span style={{ fontSize: '1.05rem', fontWeight: '800' }}>
                           Slice {idx + 1}
                         </span>
-                        <span style={{ fontSize: '0.7rem', opacity: 0.8 }}>
-                          ▶ Click to Play
+                        <span style={{ fontSize: '0.66rem', opacity: 0.8 }}>
+                          ▶ Audition
                         </span>
                       </button>
                     );
                   })}
-                </div>
-              </div>
-
-              {/* Rearrange / Sequencer / Truncation Section */}
-              {q.type === 'rearrange' && (
-                <div style={{ marginTop: '20px', background: 'rgba(0,0,0,0.3)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '16px', padding: '20px' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px', flexWrap: 'wrap', gap: '10px' }}>
-                    <span style={{ fontSize: '0.95rem', fontWeight: 'bold', color: '#f8fafc', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                      <Shuffle size={18} color="#c084fc" />
-                      Slice Arrangement Sequence
-                    </span>
-                    <span style={{ fontSize: '0.85rem', color: '#94a3b8' }}>
-                      Target Sequence: <strong style={{ color: '#34d399' }}>{q.targetOrder.map(i => i + 1).join(' - ')}</strong>
-                    </span>
                   </div>
-
-                  {/* Rearrange Blocks */}
-                  <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', marginBottom: '16px', minHeight: '80px', padding: '10px', background: 'rgba(15, 23, 42, 0.6)', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.06)', alignItems: 'center' }}>
-                    {sliceOrder.map((sliceIdx, orderIdx) => {
-                      const colorTheme = SLICE_COLORS[sliceIdx % SLICE_COLORS.length];
-
-                      return (
-                        <div
-                          key={orderIdx}
-                          draggable={!showFeedback}
-                          onDragStart={() => handleDragStart(orderIdx)}
-                          onDragOver={(e) => e.preventDefault()}
-                          onDrop={() => handleDrop(orderIdx)}
-                          style={{
-                            background: `linear-gradient(135deg, ${colorTheme.border}, #4f46e5)`,
-                            borderRadius: '10px',
-                            padding: '10px 16px',
-                            minWidth: '85px',
-                            textAlign: 'center',
-                            cursor: showFeedback ? 'default' : 'grab',
-                            boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
-                            userSelect: 'none',
-                            position: 'relative'
-                          }}
-                        >
-                          <div style={{ fontSize: '0.65rem', fontWeight: 'bold', textTransform: 'uppercase', opacity: 0.85 }}>Slice</div>
-                          <div style={{ fontSize: '1.4rem', fontWeight: '800' }}>{sliceIdx + 1}</div>
-
-                          {/* Quick Move Arrows for accessibility/touch */}
-                          {!showFeedback && (
-                            <div style={{ display: 'flex', justifyContent: 'center', gap: '4px', marginTop: '4px' }}>
-                              {orderIdx > 0 && (
-                                <button
-                                  onClick={(e) => { e.stopPropagation(); moveSlice(orderIdx, orderIdx - 1); }}
-                                  style={{ background: 'rgba(0,0,0,0.3)', border: 'none', color: '#fff', borderRadius: '4px', padding: '2px 6px', fontSize: '0.7rem', cursor: 'pointer' }}
-                                >
-                                  ◀
-                                </button>
-                              )}
-                              {orderIdx < sliceOrder.length - 1 && (
-                                <button
-                                  onClick={(e) => { e.stopPropagation(); moveSlice(orderIdx, orderIdx + 1); }}
-                                  style={{ background: 'rgba(0,0,0,0.3)', border: 'none', color: '#fff', borderRadius: '4px', padding: '2px 6px', fontSize: '0.7rem', cursor: 'pointer' }}
-                                >
-                                  ▶
-                                </button>
-                              )}
-                            </div>
-                          )}
-                        </div>
-                      );
-                    })}
-                  </div>
-
-                  {/* Truncation Drop Zone & Button */}
-                  {!showFeedback && (
-                    <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
-                      <div
-                        onDragOver={(e) => e.preventDefault()}
-                        onDrop={handleDropTrash}
-                        style={{
-                          flex: 1,
-                          border: '2px dashed rgba(239, 68, 68, 0.4)',
-                          borderRadius: '10px',
-                          padding: '12px',
-                          background: 'rgba(239, 68, 68, 0.08)',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          gap: '8px',
-                          color: '#f87171',
-                          fontSize: '0.85rem',
-                          fontWeight: '600'
-                        }}
-                      >
-                        <Trash2 size={16} /> Drag slice here to truncate / remove
-                      </div>
-
-                      {sliceOrder.length === 4 && (
-                        <button
-                          onClick={() => removeSlice(3)}
-                          style={{
-                            padding: '10px 16px',
-                            background: 'rgba(239, 68, 68, 0.2)',
-                            border: '1px solid rgba(239, 68, 68, 0.4)',
-                            color: '#fca5a5',
-                            borderRadius: '10px',
-                            cursor: 'pointer',
-                            fontSize: '0.85rem',
-                            fontWeight: 'bold',
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: '6px'
-                          }}
-                        >
-                          <Trash2 size={15} /> Truncate Slice 4 (Delete End)
-                        </button>
-                      )}
-                    </div>
-                  )}
                 </div>
               )}
+
+              {/* Rearrange / Sequencer / Truncation Section */}
+              {q.type === 'rearrange' && (() => {
+                const baseSliceCount = q.preSliced ? q.preSliced.length - 1 : 4;
+                const needsTruncation = q.targetOrder.length < baseSliceCount;
+                const needsDuplication = q.targetOrder.length > baseSliceCount;
+
+                return (
+                  <div style={{ marginTop: '14px', background: 'rgba(0,0,0,0.3)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '14px', padding: '16px' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px', flexWrap: 'wrap', gap: '8px' }}>
+                      <span style={{ fontSize: '0.9rem', fontWeight: 'bold', color: '#f8fafc', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <Shuffle size={16} color="#c084fc" />
+                        Slice Arrangement Sequence
+                      </span>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                        <span style={{ fontSize: '0.82rem', color: '#94a3b8' }}>
+                          Target: <strong style={{ color: '#34d399' }}>{q.targetOrder.map(i => i + 1).join(' - ')}</strong>
+                        </span>
+                        {!showFeedback && (
+                          <button
+                            type="button"
+                            onClick={resetSequence}
+                            style={{
+                              padding: '4px 10px',
+                              background: 'rgba(255,255,255,0.06)',
+                              border: '1px solid rgba(255,255,255,0.15)',
+                              color: '#cbd5e1',
+                              borderRadius: '6px',
+                              fontSize: '0.75rem',
+                              fontWeight: '600',
+                              cursor: 'pointer',
+                              display: 'inline-flex',
+                              alignItems: 'center',
+                              gap: '4px'
+                            }}
+                          >
+                            <RotateCcw size={12} /> Reset
+                          </button>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Full-Width Sequencer Lane Grid */}
+                    <div style={{
+                      display: 'grid',
+                      gridTemplateColumns: `repeat(${Math.max(1, sliceOrder.length)}, minmax(90px, 1fr))`,
+                      gap: '10px',
+                      marginBottom: needsTruncation ? '12px' : '0',
+                      padding: '10px',
+                      background: 'rgba(15, 23, 42, 0.65)',
+                      borderRadius: '12px',
+                      border: '1px solid rgba(255,255,255,0.06)'
+                    }}>
+                      {sliceOrder.map((sliceIdx, orderIdx) => {
+                        const colorTheme = SLICE_COLORS[sliceIdx % SLICE_COLORS.length];
+
+                        return (
+                          <div
+                            key={orderIdx}
+                            draggable={!showFeedback}
+                            onClick={() => playSingleSlice(sliceIdx)}
+                            onDragStart={() => handleDragStart(orderIdx)}
+                            onDragOver={(e) => e.preventDefault()}
+                            onDrop={() => handleDrop(orderIdx)}
+                            style={{
+                              background: `linear-gradient(135deg, ${colorTheme.border}, #4f46e5)`,
+                              borderRadius: '10px',
+                              padding: '10px 10px',
+                              textAlign: 'center',
+                              cursor: showFeedback ? 'default' : 'grab',
+                              boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
+                              userSelect: 'none',
+                              position: 'relative'
+                            }}
+                          >
+                            <div style={{ fontSize: '0.65rem', fontWeight: 'bold', textTransform: 'uppercase', opacity: 0.85 }}>
+                              Step {orderIdx + 1}
+                            </div>
+                            <div style={{ fontSize: '1.25rem', fontWeight: '800', margin: '2px 0' }}>
+                              Slice {sliceIdx + 1}
+                            </div>
+
+                            {/* Quick Controls: Move Left/Right + Contextual Dup/Remove */}
+                            {!showFeedback && (
+                              <div style={{ display: 'flex', justifyContent: 'center', gap: '4px', marginTop: '6px', flexWrap: 'wrap' }}>
+                                {orderIdx > 0 && (
+                                  <button
+                                    type="button"
+                                    title="Move Left"
+                                    onClick={(e) => { e.stopPropagation(); moveSlice(orderIdx, orderIdx - 1); }}
+                                    style={{ background: 'rgba(0,0,0,0.35)', border: 'none', color: '#fff', borderRadius: '4px', padding: '2px 6px', fontSize: '0.7rem', cursor: 'pointer' }}
+                                  >
+                                    ◀
+                                  </button>
+                                )}
+                                {orderIdx < sliceOrder.length - 1 && (
+                                  <button
+                                    type="button"
+                                    title="Move Right"
+                                    onClick={(e) => { e.stopPropagation(); moveSlice(orderIdx, orderIdx + 1); }}
+                                    style={{ background: 'rgba(0,0,0,0.35)', border: 'none', color: '#fff', borderRadius: '4px', padding: '2px 6px', fontSize: '0.7rem', cursor: 'pointer' }}
+                                  >
+                                    ▶
+                                  </button>
+                                )}
+                                {needsDuplication && (
+                                  <button
+                                    type="button"
+                                    title="Duplicate this slice"
+                                    onClick={(e) => { e.stopPropagation(); duplicateSlice(orderIdx); }}
+                                    style={{ background: 'rgba(16, 185, 129, 0.85)', border: 'none', color: '#052e16', borderRadius: '4px', padding: '2px 6px', fontSize: '0.7rem', fontWeight: '800', cursor: 'pointer' }}
+                                  >
+                                    + Dup
+                                  </button>
+                                )}
+                                {(needsTruncation || (needsDuplication && sliceOrder.length > 1)) && (
+                                  <button
+                                    type="button"
+                                    title="Remove this slice"
+                                    onClick={(e) => { e.stopPropagation(); removeSliceAt(orderIdx); }}
+                                    style={{ background: 'rgba(239, 68, 68, 0.85)', border: 'none', color: '#fff', borderRadius: '4px', padding: '2px 6px', fontSize: '0.7rem', fontWeight: '800', cursor: 'pointer' }}
+                                  >
+                                    ×
+                                  </button>
+                                )}
+                              </div>
+                            )}
+                          </div>
+                        );
+                      })}
+                    </div>
+
+                    {/* Truncation Drop Zone & Button — shown ONLY on truncation questions */}
+                    {!showFeedback && needsTruncation && (
+                      <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+                        <div
+                          onDragOver={(e) => e.preventDefault()}
+                          onDrop={handleDropTrash}
+                          style={{
+                            flex: 1,
+                            border: '2px dashed rgba(239, 68, 68, 0.4)',
+                            borderRadius: '10px',
+                            padding: '10px',
+                            background: 'rgba(239, 68, 68, 0.08)',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            gap: '8px',
+                            color: '#f87171',
+                            fontSize: '0.84rem',
+                            fontWeight: '600'
+                          }}
+                        >
+                          <Trash2 size={15} /> Drag slice here to truncate / remove
+                        </div>
+
+                        {sliceOrder.length === 4 && (
+                          <button
+                            type="button"
+                            onClick={() => removeSlice(3)}
+                            style={{
+                              padding: '8px 14px',
+                              background: 'rgba(239, 68, 68, 0.2)',
+                              border: '1px solid rgba(239, 68, 68, 0.4)',
+                              color: '#fca5a5',
+                              borderRadius: '10px',
+                              cursor: 'pointer',
+                              fontSize: '0.84rem',
+                              fontWeight: 'bold',
+                              display: 'flex',
+                              alignItems: 'center',
+                              gap: '6px'
+                            }}
+                          >
+                            <Trash2 size={15} /> Truncate Slice 4 (Delete End)
+                          </button>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                );
+              })()}
 
               {/* Audio Playback Controls */}
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px', marginTop: '20px' }}>
