@@ -3927,35 +3927,21 @@
               "explanation_image": "/images/svg/gate_envelope_graph.svg"
             },
             {
-              "title": "Q12: Downward Expander vs Noise Gate Mechanics",
-              "type": "multi_choice",
-              "content": "How does a downward expander differ from a standard noise gate?",
-              "answers": [
-                {
-                  "text": "An expander attenuates gradually; a gate cuts abruptly",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "A gate attenuates gradually; an expander cuts abruptly",
-                  "is_true": "no"
-                },
-                {
-                  "text": "An expander boosts quiet audio; a gate limits loud peaks",
-                  "is_true": "no"
-                },
-                {
-                  "text": "A gate cuts treble hiss; an expander cuts bass rumble",
-                  "is_true": "no"
-                }
-              ],
-              "expert_explanation": "A noise gate uses an extreme ratio to cut audio abruptly below threshold, whereas a downward expander attenuates it smoothly according to a ratio.",
-              "expert_quote": {
-                "text": "An expander is like a civilized noise gate—instead of slamming the door shut, it turns the fader down smoothly.",
-                "author": "Paul White"
-              },
-              "img": "/images/gen/expander_vs_gate_diagram.png",
-              "explanation": "<img src=\"/images/gen/expander_vs_gate_diagram.png\" alt=\"Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> A noise gate uses an extreme ratio to cut audio abruptly below threshold, whereas a downward expander attenuates it smoothly according to a ratio.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"An expander is like a civilized noise gate—instead of slamming the door shut, it turns the fader down smoothly.\"<br/><strong>- Paul White</strong></blockquote>",
-              "explanation_image": "/images/gen/expander_vs_gate_diagram.png"
+              "title": "Q12: Practical Task — Setting a Noise Gate Threshold",
+              "content": "A snare mic picks up -32 dB of hi-hat bleed, while snare hits peak at -6 dB. Set the gate threshold to block the bleed without cutting off the snare.",
+              "type": "parameter_matching",
+              "label": "Gate Threshold",
+              "min": -60,
+              "max": 0,
+              "step": 1,
+              "unit": " dB",
+              "correct_value": -18,
+              "tolerance": 8,
+              "img": "/images/diagram_gate_threshold_v2.png",
+              "diagram_img": "/images/diagram_gate_threshold_v2.png",
+              "explanation_image": "/images/diagram_gate_threshold_v2.png",
+              "expert_explanation": "Setting the threshold around -18 dB sits safely above the -32 dB hi-hat bleed while allowing every -6 dB snare hit to open the gate cleanly.",
+              "explanation": "<img src=\"/images/diagram_gate_threshold_v2.png\" alt=\"Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Setting the threshold around -18 dB sits safely above the -32 dB hi-hat bleed while allowing every -6 dB snare hit to open the gate cleanly.</p>"
             },
             {
               "title": "Q13: Noise Gate Envelope (Attack, Hold, and Release)",
@@ -4113,35 +4099,21 @@
               "explanation_image": "/images/gated_reverb_technique_diagram.svg"
             },
             {
-              "title": "Q18: Upward Expansion vs Downward Expansion",
-              "type": "multi_choice",
-              "content": "What is the difference between upward expansion and downward expansion?",
-              "answers": [
-                {
-                  "text": "Downward adds gain; upward removes slap",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Downward boosts peaks; upward lowers noise",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Upward boosts peaks; downward lowers noise",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "Upward cuts hiss; downward cuts sub-bass",
-                  "is_true": "no"
-                }
-              ],
-              "expert_explanation": "Downward expansion attenuates quiet signals below threshold, whereas upward expansion boosts loud peaks above threshold to increase dynamic range.",
-              "expert_quote": {
-                "text": "Downward expansion cleans up background noise; upward expansion injects transient life into over-compressed recordings.",
-                "author": "Bob Katz"
-              },
-              "img": "/images/upward_vs_downward_expansion_diagram.svg",
-              "explanation": "<img src=\"/images/upward_vs_downward_expansion_diagram.svg\" alt=\"Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Downward expansion attenuates quiet signals below threshold, whereas upward expansion boosts loud peaks above threshold to increase dynamic range.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Downward expansion cleans up background noise; upward expansion injects transient life into over-compressed recordings.\"<br/><strong>- Bob Katz</strong></blockquote>",
-              "explanation_image": "/images/upward_vs_downward_expansion_diagram.svg"
+              "title": "Q18: Practical Task — Noise Gate Attack Time",
+              "content": "Set a fast noise gate attack time so the initial transient crack of a snare drum is preserved when the gate opens.",
+              "type": "parameter_matching",
+              "label": "Gate Attack Time",
+              "min": 0,
+              "max": 50,
+              "step": 1,
+              "unit": " ms",
+              "correct_value": 2,
+              "tolerance": 3,
+              "img": "/images/svg/gate_envelope_graph.svg",
+              "diagram_img": "/images/svg/gate_envelope_graph.svg",
+              "explanation_image": "/images/svg/gate_envelope_graph.svg",
+              "expert_explanation": "Drum transients occur within milliseconds. A fast attack time (0–5 ms) ensures the gate opens immediately so the punchy snare crack is never clipped.",
+              "explanation": "<img src=\"/images/svg/gate_envelope_graph.svg\" alt=\"Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Drum transients occur within milliseconds. A fast attack time (0–5 ms) ensures the gate opens immediately so the punchy snare crack is never clipped.</p>"
             },
             {
               "title": "Q19: Noise Gate Floor / Range Control",
