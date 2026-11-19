@@ -3901,29 +3901,30 @@
               "content": "What is the primary purpose of a noise gate in audio production?",
               "answers": [
                 {
-                  "text": "To boost quiet passages up to match the volume of louder peaks",
+                  "text": "Boost quiet passages to match loud peaks",
                   "is_true": "no"
                 },
                 {
-                  "text": "To compress loud peaks and prevent digital clipping on audio tracks",
+                  "text": "Compress loud peaks to prevent clipping",
                   "is_true": "no"
                 },
                 {
-                  "text": "To mute or attenuate audio that falls below a chosen threshold level",
+                  "text": "Mute audio falling below a threshold level",
                   "is_true": "yes"
                 },
                 {
-                  "text": "To filter out harsh treble hiss from microphone signals during recording",
+                  "text": "Filter out treble hiss from microphones",
                   "is_true": "no"
                 }
               ],
-              "expert_explanation": "A noise gate silences or attenuates any audio that drops below a user-defined threshold level, removing unwanted spill, bleed, or background hum during quiet pauses.",
+              "expert_explanation": "A noise gate mutes or attenuates any audio dropping below a set threshold, removing unwanted mic bleed and background hum.",
               "expert_quote": {
                 "text": "Gates clean up tom bleed and amp hiss, but set the threshold carefully to avoid chattering.",
                 "author": "Hugh Robjohns"
               },
               "img": "/images/svg/gate_envelope_graph.svg",
-              "explanation": "<img src=\"/images/svg/gate_envelope_graph.svg\" alt=\"Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> A noise gate silences or attenuates any audio that drops below a user-defined threshold level, removing unwanted spill, bleed, or background hum during quiet pauses.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Gates clean up tom bleed and amp hiss, but set the threshold carefully to avoid chattering.\"<br/><strong>- Hugh Robjohns</strong></blockquote>"
+              "explanation": "<img src=\"/images/svg/gate_envelope_graph.svg\" alt=\"Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> A noise gate mutes or attenuates any audio dropping below a set threshold, removing unwanted mic bleed and background hum.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Gates clean up tom bleed and amp hiss, but set the threshold carefully to avoid chattering.\"<br/><strong>- Hugh Robjohns</strong></blockquote>",
+              "explanation_image": "/images/svg/gate_envelope_graph.svg"
             },
             {
               "title": "Q12: Downward Expander vs Noise Gate Mechanics",
@@ -3931,29 +3932,30 @@
               "content": "How does a downward expander differ from a standard noise gate?",
               "answers": [
                 {
-                  "text": "An expander reduces quiet audio gradually using a ratio, while a gate cuts audio abruptly",
+                  "text": "An expander attenuates gradually; a gate cuts abruptly",
                   "is_true": "yes"
                 },
                 {
-                  "text": "A gate reduces quiet audio gradually using a ratio, while an expander cuts audio abruptly",
+                  "text": "A gate attenuates gradually; an expander cuts abruptly",
                   "is_true": "no"
                 },
                 {
-                  "text": "An expander boosts quiet audio, while a gate compresses loud audio peaks above threshold",
+                  "text": "An expander boosts quiet audio; a gate limits loud peaks",
                   "is_true": "no"
                 },
                 {
-                  "text": "A gate operates only on high frequencies, while an expander operates only on bass",
+                  "text": "A gate cuts treble hiss; an expander cuts bass rumble",
                   "is_true": "no"
                 }
               ],
-              "expert_explanation": "A noise gate uses an extreme cutoff ratio (effectively infinity-to-one) to abruptly mute audio falling below the threshold. A downward expander applies a milder ratio (e.g. 1:2 or 1:4), progressively fading down low-level bleed for a far more natural and transparent decay.",
+              "expert_explanation": "A noise gate uses an extreme ratio to cut audio abruptly below threshold, whereas a downward expander attenuates it smoothly according to a ratio.",
               "expert_quote": {
                 "text": "An expander is like a civilized noise gate—instead of slamming the door shut, it turns the fader down smoothly.",
                 "author": "Paul White"
               },
               "img": "/images/gen/expander_vs_gate_diagram.png",
-              "explanation": "<img src=\"/images/gen/expander_vs_gate_diagram.png\" alt=\"Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> A noise gate uses an extreme cutoff ratio (effectively infinity-to-one) to abruptly mute audio falling below the threshold. A downward expander applies a milder ratio (e.g. 1:2 or 1:4), progressively fading down low-level bleed for a far more natural and transparent decay.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"An expander is like a civilized noise gate—instead of slamming the door shut, it turns the fader down smoothly.\"<br/><strong>- Paul White</strong></blockquote>"
+              "explanation": "<img src=\"/images/gen/expander_vs_gate_diagram.png\" alt=\"Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> A noise gate uses an extreme ratio to cut audio abruptly below threshold, whereas a downward expander attenuates it smoothly according to a ratio.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"An expander is like a civilized noise gate—instead of slamming the door shut, it turns the fader down smoothly.\"<br/><strong>- Paul White</strong></blockquote>",
+              "explanation_image": "/images/gen/expander_vs_gate_diagram.png"
             },
             {
               "title": "Q13: Noise Gate Envelope (Attack, Hold, and Release)",
@@ -3961,59 +3963,61 @@
               "content": "What does the 'hold' control do on a noise gate?",
               "answers": [
                 {
-                  "text": "It delays opening the gate when transient audio peaks cross the threshold",
+                  "text": "Delays opening the gate when peaks cross threshold",
                   "is_true": "no"
                 },
                 {
-                  "text": "It keeps the gate open for a set time before release begins",
+                  "text": "Keeps the gate open before release begins",
                   "is_true": "yes"
                 },
                 {
-                  "text": "It permanently locks the threshold level to prevent volume changes during playback",
+                  "text": "Locks the threshold level during playback",
                   "is_true": "no"
                 },
                 {
-                  "text": "It controls how much attenuation is applied once the gate is shut",
+                  "text": "Sets maximum attenuation when the gate shuts",
                   "is_true": "no"
                 }
               ],
-              "expert_explanation": "Hold specifies how long the gate remains 100% open after the signal drops back below the threshold before the release phase begins. This stops the gate from prematurely cutting off natural drum resonance or instrument sustain.",
+              "expert_explanation": "Hold sets how long the gate stays 100% open after the signal drops below threshold before the release phase begins.",
               "expert_quote": {
                 "text": "Hold time is essential on toms: it lets the drum ring breathe naturally before the gate snaps closed.",
                 "author": "Mike Senior"
               },
               "img": "/images/noise_gate_hold_envelope_diagram.svg",
-              "explanation": "<img src=\"/images/noise_gate_hold_envelope_diagram.svg\" alt=\"Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Hold specifies how long the gate remains 100% open after the signal drops back below the threshold before the release phase begins. This stops the gate from prematurely cutting off natural drum resonance or instrument sustain.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Hold time is essential on toms: it lets the drum ring breathe naturally before the gate snaps closed.\"<br/><strong>- Mike Senior</strong></blockquote>"
+              "explanation": "<img src=\"/images/noise_gate_hold_envelope_diagram.svg\" alt=\"Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Hold sets how long the gate stays 100% open after the signal drops below threshold before the release phase begins.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Hold time is essential on toms: it lets the drum ring breathe naturally before the gate snaps closed.\"<br/><strong>- Mike Senior</strong></blockquote>",
+              "explanation_image": "/images/noise_gate_hold_envelope_diagram.svg"
             },
             {
               "title": "Q14: Gating Drum Spill on Snare and Kick Mics",
               "type": "multi_choice",
-              "content": "Why do audio engineers use noise gates on close-miced snare and tom tracks?",
+              "content": "Why do audio engineers use noise gates on close-miked snare and tom tracks?",
               "answers": [
                 {
-                  "text": "To compress drum transients and boost the ring of the drum shell",
+                  "text": "To compress drum transients and boost shell ring",
                   "is_true": "no"
                 },
                 {
-                  "text": "To add stereo reverb width across the acoustic drum kit automatically",
+                  "text": "To add stereo reverb width across the kit",
                   "is_true": "no"
                 },
                 {
-                  "text": "To align the phase relationship between the top and bottom snare microphones",
+                  "text": "To align phase between top and bottom mics",
                   "is_true": "no"
                 },
                 {
-                  "text": "To silence spill and bleed from cymbals and other drums between hits",
+                  "text": "To silence cymbal bleed and spill between hits",
                   "is_true": "yes"
                 }
               ],
-              "expert_explanation": "Close mics on snares and toms pick up significant acoustic bleed from loud cymbals and the kick drum. Gating isolates each drum so that only direct strikes pass through, cleaning up the overall drum mix and improving clarity.",
+              "expert_explanation": "Close drum mics pick up loud cymbal spill and bleed from other drums. Gating silences the mic between hits to keep the kit punchy and clean.",
               "expert_quote": {
                 "text": "Gating drum bleed gives you discrete punch and stops hi-hat spill from washing out your snare processing.",
                 "author": "Chris Lord-Alge"
               },
               "img": "/images/drum_mic_spill_gating_diagram.svg",
-              "explanation": "<img src=\"/images/drum_mic_spill_gating_diagram.svg\" alt=\"Gating Drum Spill on Snare and Kick Mics Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Close mics on snares and toms pick up significant acoustic bleed from loud cymbals and the kick drum. Gating isolates each drum so that only direct strikes pass through, cleaning up the overall drum mix and improving clarity.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Gating drum bleed gives you discrete punch and stops hi-hat spill from washing out your snare processing.\"<br/><strong>- Chris Lord-Alge</strong></blockquote>"
+              "explanation": "<img src=\"/images/drum_mic_spill_gating_diagram.svg\" alt=\"Gating Drum Spill on Snare and Kick Mics Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Close drum mics pick up loud cymbal spill and bleed from other drums. Gating silences the mic between hits to keep the kit punchy and clean.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Gating drum bleed gives you discrete punch and stops hi-hat spill from washing out your snare processing.\"<br/><strong>- Chris Lord-Alge</strong></blockquote>",
+              "explanation_image": "/images/drum_mic_spill_gating_diagram.svg"
             },
             {
               "title": "Q15: Gate Sidechain / Key Input Triggering",
@@ -4021,29 +4025,30 @@
               "content": "How does an external sidechain (key input) control a noise gate?",
               "answers": [
                 {
-                  "text": "It links the gate threshold directly to the tempo of the project",
+                  "text": "Links gate threshold to project tempo",
                   "is_true": "no"
                 },
                 {
-                  "text": "It uses a separate audio signal to trigger the gate to open",
+                  "text": "Uses an external signal to trigger the gate",
                   "is_true": "yes"
                 },
                 {
-                  "text": "It duplicates the gate output across a secondary stereo delay channel",
+                  "text": "Duplicates gate output to a stereo delay",
                   "is_true": "no"
                 },
                 {
-                  "text": "It detects and corrects phase cancellation between stereo audio channels automatically",
+                  "text": "Fixes phase cancellation between stereo tracks",
                   "is_true": "no"
                 }
               ],
-              "expert_explanation": "Keying (sidechaining) allows a separate control signal to trigger the gate. For example, a sharp kick drum transient can key open a gate placed on a sustained 50 Hz sub-bass synth oscillator, creating an enormous sub-kick impact.",
+              "expert_explanation": "Sidechain keying allows a separate audio track (like a kick drum) to trigger the gate open on another track (like a sub-bass).",
               "expert_quote": {
                 "text": "Keying a noise gate from a kick drum to trigger a sub-bass sine tone is the classic trick for earth-shaking low end.",
                 "author": "Dave Pensado"
               },
               "img": "/images/sidechain_compression_diagram.png",
-              "explanation": "<img src=\"/images/sidechain_compression_diagram.png\" alt=\"Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Keying (sidechaining) allows a separate control signal to trigger the gate. For example, a sharp kick drum transient can key open a gate placed on a sustained 50 Hz sub-bass synth oscillator, creating an enormous sub-kick impact.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Keying a noise gate from a kick drum to trigger a sub-bass sine tone is the classic trick for earth-shaking low end.\"<br/><strong>- Dave Pensado</strong></blockquote>"
+              "explanation": "<img src=\"/images/sidechain_compression_diagram.png\" alt=\"Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Sidechain keying allows a separate audio track (like a kick drum) to trigger the gate open on another track (like a sub-bass).</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Keying a noise gate from a kick drum to trigger a sub-bass sine tone is the classic trick for earth-shaking low end.\"<br/><strong>- Dave Pensado</strong></blockquote>",
+              "explanation_image": "/images/sidechain_compression_diagram.png"
             },
             {
               "title": "Q16: Gate Hysteresis & Dual Threshold Mechanics",
@@ -4051,29 +4056,30 @@
               "content": "What does the 'hysteresis' setting do on an advanced noise gate?",
               "answers": [
                 {
-                  "text": "It links the left and right detectors together to preserve stereo width",
+                  "text": "Links left and right detectors for stereo width",
                   "is_true": "no"
                 },
                 {
-                  "text": "It speeds up attack times whenever fast transient peaks hit the gate",
+                  "text": "Speeds up attack times on fast transients",
                   "is_true": "no"
                 },
                 {
-                  "text": "It sets separate threshold levels for opening and closing the gate smoothly",
+                  "text": "Sets separate thresholds to open and close",
                   "is_true": "yes"
                 },
                 {
-                  "text": "It adds vintage tape saturation across audio signals passing through the gate",
+                  "text": "Adds vintage tape saturation to gated audio",
                   "is_true": "no"
                 }
               ],
-              "expert_explanation": "Hysteresis creates two distinct threshold levels: a higher threshold to open the gate and a lower threshold to close it (e.g. opens at -18 dB, closes at -24 dB). This stops the gate from rapidly fluttering on and off when audio hovers near the threshold.",
+              "expert_explanation": "Hysteresis uses a higher threshold to open the gate and a lower threshold to close it, preventing chattering on decaying notes.",
               "expert_quote": {
                 "text": "Hysteresis prevents gate chattering by making sure the signal has to drop significantly lower before the gate shuts.",
                 "author": "Paul White"
               },
               "img": "/images/diagram_gate_threshold_v2.png",
-              "explanation": "<img src=\"/images/diagram_gate_threshold_v2.png\" alt=\"Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Hysteresis creates two distinct threshold levels: a higher threshold to open the gate and a lower threshold to close it (e.g. opens at -18 dB, closes at -24 dB). This stops the gate from rapidly fluttering on and off when audio hovers near the threshold.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Hysteresis prevents gate chattering by making sure the signal has to drop significantly lower before the gate shuts.\"<br/><strong>- Paul White</strong></blockquote>"
+              "explanation": "<img src=\"/images/diagram_gate_threshold_v2.png\" alt=\"Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Hysteresis uses a higher threshold to open the gate and a lower threshold to close it, preventing chattering on decaying notes.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Hysteresis prevents gate chattering by making sure the signal has to drop significantly lower before the gate shuts.\"<br/><strong>- Paul White</strong></blockquote>",
+              "explanation_image": "/images/diagram_gate_threshold_v2.png"
             },
             {
               "title": "Q17: The 1980s Gated Snare Reverb Technique",
@@ -4081,29 +4087,30 @@
               "content": "How was the famous 1980s gated snare drum sound created?",
               "answers": [
                 {
-                  "text": "Reverse tape echo was combined with a sweeping resonant band-pass filter",
+                  "text": "Reverse tape echo with a sweeping filter",
                   "is_true": "no"
                 },
                 {
-                  "text": "A loud snare reverb tail was abruptly cut off using a gate",
+                  "text": "A loud snare reverb tail cut off by a gate",
                   "is_true": "yes"
                 },
                 {
-                  "text": "A flanger was blended in parallel with clean drum overhead microphones",
+                  "text": "A flanger blended with drum overheads",
                   "is_true": "no"
                 },
                 {
-                  "text": "Heavy tube compressor distortion was pushed into extreme analogue console saturation",
+                  "text": "Heavy tube distortion on console channels",
                   "is_true": "no"
                 }
               ],
-              "expert_explanation": "Discovered accidentally by Hugh Padgham and Phil Collins at the Townhouse Studios, heavily compressed room and plate reverb on a snare was fed into a noise gate with a fast release, creating an enormous burst of ambiance that abruptly cut into dead silence.",
+              "expert_explanation": "Pioneered by Hugh Padgham and Phil Collins, gated reverb uses a noise gate to abruptly chop off a massive snare reverb tail.",
               "expert_quote": {
                 "text": "The SSL listen mic compressor slammed the room reverb, and the gate slammed it shut—defining the drum sound of the 1980s.",
                 "author": "Hugh Padgham"
               },
               "img": "/images/gated_reverb_technique_diagram.svg",
-              "explanation": "<img src=\"/images/gated_reverb_technique_diagram.svg\" alt=\"1980s Gated Reverb Technique Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Discovered accidentally by Hugh Padgham and Phil Collins at the Townhouse Studios, heavily compressed room and plate reverb on a snare was fed into a noise gate with a fast release, creating an enormous burst of ambiance that abruptly cut into dead silence.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"The SSL listen mic compressor slammed the room reverb, and the gate slammed it shut—defining the drum sound of the 1980s.\"<br/><strong>- Hugh Padgham</strong></blockquote>"
+              "explanation": "<img src=\"/images/gated_reverb_technique_diagram.svg\" alt=\"1980s Gated Reverb Technique Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Pioneered by Hugh Padgham and Phil Collins, gated reverb uses a noise gate to abruptly chop off a massive snare reverb tail.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"The SSL listen mic compressor slammed the room reverb, and the gate slammed it shut—defining the drum sound of the 1980s.\"<br/><strong>- Hugh Padgham</strong></blockquote>",
+              "explanation_image": "/images/gated_reverb_technique_diagram.svg"
             },
             {
               "title": "Q18: Upward Expansion vs Downward Expansion",
@@ -4111,29 +4118,30 @@
               "content": "What is the difference between upward expansion and downward expansion?",
               "answers": [
                 {
-                  "text": "Downward expansion adds make-up gain; upward expansion removes sudden drum transient slap",
+                  "text": "Downward adds gain; upward removes slap",
                   "is_true": "no"
                 },
                 {
-                  "text": "Downward expansion boosts loud peaks; upward expansion lowers quiet background noise signals",
+                  "text": "Downward boosts peaks; upward lowers noise",
                   "is_true": "no"
                 },
                 {
-                  "text": "Upward expansion boosts loud peaks; downward expansion lowers quiet background noise signals",
+                  "text": "Upward boosts peaks; downward lowers noise",
                   "is_true": "yes"
                 },
                 {
-                  "text": "Upward expansion cuts treble hiss; downward expansion cuts low-end sub-bass rumble completely",
+                  "text": "Upward cuts hiss; downward cuts sub-bass",
                   "is_true": "no"
                 }
               ],
-              "expert_explanation": "Downward expansion attenuates signals that fall below the threshold (lowering noise floors). Upward expansion amplifies signals that rise above the threshold, widening dynamic contrast and exaggerating transient punch.",
+              "expert_explanation": "Downward expansion attenuates quiet signals below threshold, whereas upward expansion boosts loud peaks above threshold to increase dynamic range.",
               "expert_quote": {
                 "text": "Downward expansion cleans up background noise; upward expansion injects transient life into over-compressed recordings.",
                 "author": "Bob Katz"
               },
               "img": "/images/upward_vs_downward_expansion_diagram.svg",
-              "explanation": "<img src=\"/images/upward_vs_downward_expansion_diagram.svg\" alt=\"Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Downward expansion attenuates signals that fall below the threshold (lowering noise floors). Upward expansion amplifies signals that rise above the threshold, widening dynamic contrast and exaggerating transient punch.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Downward expansion cleans up background noise; upward expansion injects transient life into over-compressed recordings.\"<br/><strong>- Bob Katz</strong></blockquote>"
+              "explanation": "<img src=\"/images/upward_vs_downward_expansion_diagram.svg\" alt=\"Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Downward expansion attenuates quiet signals below threshold, whereas upward expansion boosts loud peaks above threshold to increase dynamic range.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Downward expansion cleans up background noise; upward expansion injects transient life into over-compressed recordings.\"<br/><strong>- Bob Katz</strong></blockquote>",
+              "explanation_image": "/images/upward_vs_downward_expansion_diagram.svg"
             },
             {
               "title": "Q19: Noise Gate Floor / Range Control",
@@ -4141,29 +4149,30 @@
               "content": "What does the 'range' or 'floor' control do on a noise gate?",
               "answers": [
                 {
-                  "text": "It controls how much make-up gain is added to the output",
+                  "text": "Controls make-up gain added to the output",
                   "is_true": "no"
                 },
                 {
-                  "text": "It sets the frequency band analyzed by the internal gate detector",
+                  "text": "Sets frequency band analysed by detector",
                   "is_true": "no"
                 },
                 {
-                  "text": "It determines how fast gain reduction resets back to zero decibels",
+                  "text": "Controls how fast gain reduction resets",
                   "is_true": "no"
                 },
                 {
-                  "text": "It sets the maximum attenuation applied when the gate is closed",
+                  "text": "Sets maximum attenuation when gate closes",
                   "is_true": "yes"
                 }
               ],
-              "expert_explanation": "The range (or floor) control limits how many decibels the gate can attenuate when closed. Setting range to -12 dB or -18 dB rather than complete silence (-inf dB) reduces background bleed without making the track sound unnaturally sterile or abruptly chopped.",
+              "expert_explanation": "Range (or floor) limits how many decibels the gate attenuates when closed, allowing natural room bleed (-15 dB) instead of total silence.",
               "expert_quote": {
                 "text": "Never mute bleed completely if you don't have to; setting a 12 dB floor keeps the kit sounding cohesive and natural.",
                 "author": "Roey Izhaki"
               },
               "img": "/images/Noise gate graph.png",
-              "explanation": "<img src=\"/images/Noise gate graph.png\" alt=\"Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> The range (or floor) control limits how many decibels the gate can attenuate when closed. Setting range to -12 dB or -18 dB rather than complete silence (-inf dB) reduces background bleed without making the track sound unnaturally sterile or abruptly chopped.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Never mute bleed completely if you don't have to; setting a 12 dB floor keeps the kit sounding cohesive and natural.\"<br/><strong>- Roey Izhaki</strong></blockquote>"
+              "explanation": "<img src=\"/images/Noise gate graph.png\" alt=\"Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Range (or floor) limits how many decibels the gate attenuates when closed, allowing natural room bleed (-15 dB) instead of total silence.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Never mute bleed completely if you don't have to; setting a 12 dB floor keeps the kit sounding cohesive and natural.\"<br/><strong>- Roey Izhaki</strong></blockquote>",
+              "explanation_image": "/images/Noise gate graph.png"
             },
             {
               "title": "Q20: Troubleshooting Gate Chattering & False Retriggering",
@@ -4171,29 +4180,30 @@
               "content": "Why does a noise gate sometimes rapidly 'chatter' (open and close repeatedly) on a decaying drum hit?",
               "answers": [
                 {
-                  "text": "The audio level is fluctuating right on the gate threshold boundary",
+                  "text": "Audio level fluctuates right on the threshold",
                   "is_true": "yes"
                 },
                 {
-                  "text": "The microphone phase polarity is inverted against the overheads in mono",
+                  "text": "Microphone polarity is inverted in mono",
                   "is_true": "no"
                 },
                 {
-                  "text": "The gate range control is set to complete silence at minus infinity",
+                  "text": "Gate range is set to complete silence",
                   "is_true": "no"
                 },
                 {
-                  "text": "The gate attack time is set far too slow for drum transients",
+                  "text": "Gate attack time is set too slow",
                   "is_true": "no"
                 }
               ],
-              "expert_explanation": "Chattering occurs when the audio waveform's decay hovers right at the threshold value, causing the gate detector to rapidly switch between open and closed states. It can be fixed by increasing hysteresis, extending hold/release times, or lowering the threshold.",
+              "expert_explanation": "Chattering happens when a decaying signal hovers right around the threshold, rapidly triggering the gate open and shut.",
               "expert_quote": {
                 "text": "If a gate chatters, either lengthen your hold time so the decay rings out, or widen the hysteresis window.",
                 "author": "Mike Senior"
               },
               "img": "/images/noise_gate_chattering_troubleshooting_diagram.svg",
-              "explanation": "<img src=\"/images/noise_gate_chattering_troubleshooting_diagram.svg\" alt=\"Noise Gate Chattering Troubleshooting Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Chattering occurs when the audio waveform's decay hovers right at the threshold value, causing the gate detector to rapidly switch between open and closed states. It can be fixed by increasing hysteresis (creating a dual open/close window), extending hold/release times, or lowering the threshold.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"If a gate chatters, either lengthen your hold time so the decay rings out, or widen the hysteresis window.\"<br/><strong>- Mike Senior</strong></blockquote>"
+              "explanation": "<img src=\"/images/noise_gate_chattering_troubleshooting_diagram.svg\" alt=\"Noise Gate Chattering Troubleshooting Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Chattering happens when a decaying signal hovers right around the threshold, rapidly triggering the gate open and shut.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"If a gate chatters, either lengthen your hold time so the decay rings out, or widen the hysteresis window.\"<br/><strong>- Mike Senior</strong></blockquote>",
+              "explanation_image": "/images/noise_gate_chattering_troubleshooting_diagram.svg"
             }
           ],
           "randomise": false
