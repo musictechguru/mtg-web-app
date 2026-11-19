@@ -287,14 +287,14 @@ export default function ParameterMatchingQuiz({
                             strokeWidth="2.5"
                         />
 
-                        {/* Hold Window (starts at x=250 where signal crosses threshold) */}
+                        {/* Hold Window (starts at x=90 at the peak) */}
                         {(() => {
-                            const holdWidth = (values[0] / max) * 240;
-                            const holdEndX = 250 + holdWidth;
+                            const holdWidth = (values[0] / max) * 340;
+                            const holdEndX = 90 + holdWidth;
                             return (
                                 <>
                                     <rect
-                                        x="250"
+                                        x="90"
                                         y="30"
                                         width={holdWidth}
                                         height="135"
@@ -303,10 +303,10 @@ export default function ParameterMatchingQuiz({
                                         strokeWidth="1.5"
                                         strokeDasharray="4,3"
                                     />
-                                    <line x1="250" y1="25" x2="250" y2="165" stroke="#fbbf24" strokeWidth="1.5" />
-                                    <text x="250" y="18" fill="#fbbf24" fontSize="10" textAnchor="middle" fontWeight="bold">Drops Below Threshold</text>
-                                    {holdWidth > 20 && (
-                                        <text x={250 + holdWidth / 2} y="60" fill="#4ade80" fontSize="11" textAnchor="middle" fontWeight="bold">
+                                    <line x1="90" y1="25" x2="90" y2="165" stroke="#fbbf24" strokeWidth="1.5" />
+                                    <text x="90" y="18" fill="#fbbf24" fontSize="10" textAnchor="middle" fontWeight="bold">Peak</text>
+                                    {holdWidth > 45 && (
+                                        <text x={90 + holdWidth / 2} y="60" fill="#4ade80" fontSize="11" textAnchor="middle" fontWeight="bold">
                                             HOLD ({values[0]} ms)
                                         </text>
                                     )}
@@ -315,7 +315,7 @@ export default function ParameterMatchingQuiz({
                                 </>
                             );
                         })()}
-                        <text x="300" y="188" fill="#64748b" fontSize="10" textAnchor="middle">Time (ms) — Hold keeps the gate 100% open after signal drops below threshold</text>
+                        <text x="300" y="188" fill="#64748b" fontSize="10" textAnchor="middle">Time (ms) — Hold keeps the gate open before release begins</text>
                     </svg>
                 </div>
             ) : imageSrc && (
