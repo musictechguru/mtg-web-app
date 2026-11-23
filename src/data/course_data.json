@@ -31204,334 +31204,163 @@
           "description": "Mastery quiz covering the shift to fully software DAWs, soft-synths, the loudness war, and digital DJing.",
           "questions": [
             {
-              "title": "Q1: In-The-Box",
-              "content": "What does the audio engineering phrase mixing 'In-The-Box' (ITB), which became dominant in the 2000s, refer to?",
-              "type": "multi_choice",
-              "answers": [
+              "title": "Q1: 2000s In-The-Box Studio Concepts",
+              "content": "Match each 2000s studio term to its correct production description.",
+              "type": "signal-flow-label",
+              "hide_arrows": true,
+              "flowSteps": [
                 {
-                  "text": "Mixing entirely on an analogue physical console",
-                  "is_true": "no"
+                  "id": "d1",
+                  "label": "Mixing entirely inside a computer DAW",
+                  "placeholder": "Drop Term..."
                 },
                 {
-                  "text": "Mixing entirely within the computer's DAW software using plugins",
-                  "is_true": "yes"
+                  "id": "d2",
+                  "label": "Steinberg standard for software plugins",
+                  "placeholder": "Drop Term..."
                 },
                 {
-                  "text": "Mixing through external outboard hardware gear exclusively",
-                  "is_true": "no"
+                  "id": "d3",
+                  "label": "Brickwall limiting crushing dynamic range",
+                  "placeholder": "Drop Term..."
                 },
                 {
-                  "text": "Using a literal wooden box to re-amp guitar cabinets",
-                  "is_true": "no"
+                  "id": "d4",
+                  "label": "Shrinks files by removing masked audio",
+                  "placeholder": "Drop Term..."
                 }
               ],
-              "explanation": "",
-              "expert_explanation": "As computer CPUs became powerful enough to handle dozens of audio tracks and plugins without crashing, producers realized they no longer needed expensive analogue consoles. Audio stayed fully digital from recording to final export.",
-              "expert_quote": {
-                "text": "When computers finally matched outboard gear, 'in-the-box' revolutionized accessibility, giving bedroom producers the routing power of Abbey Road.",
-                "author": "Sound on Sound"
+              "terms": [
+                "In-The-Box (ITB)",
+                "VST Plugin Format",
+                "The Loudness War",
+                "MP3 Lossy Compression"
+              ],
+              "correctAnswers": {
+                "d1": "In-The-Box (ITB)",
+                "d2": "VST Plugin Format",
+                "d3": "The Loudness War",
+                "d4": "MP3 Lossy Compression"
               },
-              "explanation_image": {
-                "src": "/images/Logic Mixer.png",
-                "alt": "Q1: In-The-Box Diagram"
-              }
+              "expert_explanation": "In the 2000s, VST plugins allowed producers to mix entirely In-The-Box, while software brickwall limiters fuelled the Loudness War and MP3 compression transformed digital distribution.",
+              "explanation": "<p><strong>Expert Explanation:</strong> In the 2000s, VST plugins allowed producers to mix entirely In-The-Box, while software brickwall limiters fuelled the Loudness War and MP3 compression transformed digital distribution.</p>"
             },
             {
-              "title": "Q2: Plugin Standards",
-              "content": "Introduced by Steinberg, what ubiquitous software format allowed third-party developers to create digital synthesizers and effects that could run directly inside a DAW?",
+              "title": "Q2: Listening — Early UK Dubstep (2006)",
+              "content": "Listen to this 2006 UK Dubstep classic. How were its deep sub-bass lines and half-time drums typically built in the 2000s?",
               "type": "multi_choice",
+              "youtube_id": "D6pTSGvp7T8",
+              "youtube_title": "Skream - Midnight Request Line (2006)",
               "answers": [
                 {
-                  "text": "Virtual Studio Technology (VST)",
+                  "text": "Live acoustic double bass and 4-track tape",
+                  "is_true": "no"
+                },
+                {
+                  "text": "Half-time 140 BPM drums with sub-bass synth",
                   "is_true": "yes"
                 },
                 {
-                  "text": "Variable Sync Track (VST)",
+                  "text": "8-track tape loops with spring reverb",
                   "is_true": "no"
                 },
                 {
-                  "text": "Vocal Synthesizer Tuning (VST)",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Visual Sound Transmitter (VST)",
+                  "text": "Fast 170 BPM Amen Break with guitar distortion",
                   "is_true": "no"
                 }
               ],
-              "explanation": "",
-              "expert_explanation": "The VST format fundamentally shifted the industry away from hardware. Anyone could code a compressor or synthesizer plugin, and producers could load dozens of instances of them within a single software project.",
-              "expert_quote": {
-                "text": "VST democratized effects and instruments. You didn't buy bulky rack units anymore; you simply bought a license file.",
-                "author": "Music Tech History"
-              },
-              "explanation_image": {
-                "src": "/images/vst_plugin_architecture_diagram.png",
-                "alt": "Q2: Plugin Standards Diagram"
-              }
+              "expert_explanation": "Early UK Dubstep ran around 140 BPM with a spacious half-time snare on beat 3, leaving huge low-end room for heavy sub-bass synthesisers.",
+              "explanation": "<p><strong>Expert Explanation:</strong> Early UK Dubstep ran around 140 BPM with a spacious half-time snare on beat 3, leaving huge low-end room for heavy sub-bass synthesisers.</p>"
             },
             {
-              "title": "Q3: Loudness War",
-              "content": "Which controversial mastering trend dominated the 2000s, fueled by the heavy use of software brickwall limiters?",
-              "type": "multi_choice",
-              "answers": [
+              "title": "Q3: 2000s EDM & DJ Innovations",
+              "content": "Match each 2000s electronic music innovation to its studio or live function.",
+              "type": "signal-flow-label",
+              "hide_arrows": true,
+              "flowSteps": [
                 {
-                  "text": "The 'Dynamic Range Renaissance'",
-                  "is_true": "no"
+                  "id": "e1",
+                  "label": "Scanning digital tables for aggressive bass",
+                  "placeholder": "Drop Innovation..."
                 },
                 {
-                  "text": "The 'Loudness War'",
-                  "is_true": "yes"
+                  "id": "e2",
+                  "label": "Non-linear clip launching for live sets",
+                  "placeholder": "Drop Innovation..."
                 },
                 {
-                  "text": "The 'Mono Revival'",
-                  "is_true": "no"
+                  "id": "e3",
+                  "label": "Timecode vinyl controlling computer MP3s",
+                  "placeholder": "Drop Innovation..."
                 },
                 {
-                  "text": "The 'Analogue Pitch Drift'",
-                  "is_true": "no"
+                  "id": "e4",
+                  "label": "Kick triggering synth compressor to pump",
+                  "placeholder": "Drop Innovation..."
                 }
               ],
-              "explanation": "",
-              "expert_explanation": "The 'Loudness War' was an arms race where mastering engineers continually squashed dynamic range to make their albums sound comparatively louder on CD changers and radio, often at the cost of transient punch and clarity.",
-              "expert_quote": {
-                "text": "We traded dynamic impact and punch for sheer volume. Everything sounded loud, but nothing sounded big anymore.",
-                "author": "Bob Ludwig"
+              "terms": [
+                "Wavetable Synthesis",
+                "Ableton Session View",
+                "Digital Vinyl System (DVS)",
+                "Sidechain Ducking"
+              ],
+              "correctAnswers": {
+                "e1": "Wavetable Synthesis",
+                "e2": "Ableton Session View",
+                "e3": "Digital Vinyl System (DVS)",
+                "e4": "Sidechain Ducking"
               },
-              "explanation_image": {
-                "src": "/images/Dictiionary_Quiz_image_Pool/dynamic_range_hq.png",
-                "alt": "Q3: Loudness War Diagram"
-              }
+              "expert_explanation": "2000s electronic music combined wavetable synths and sidechain compression in the studio with non-linear DAWs like Ableton Live and DVS turntables on stage.",
+              "explanation": "<p><strong>Expert Explanation:</strong> 2000s electronic music combined wavetable synths and sidechain compression in the studio with non-linear DAWs like Ableton Live and DVS turntables on stage.</p>"
             },
             {
-              "title": "Q4: Software Wavetables",
-              "content": "Which software synthesis technique, allowing easy modulation of complex digital waveforms, defined the aggressive 'wobble bass' sound of 2000s Dubstep?",
+              "title": "Q4: Listening — French House Sidechain Pumping (2000)",
+              "content": "Listen to the rhythmic breathing feel on the synths and samples. Which dynamic technique creates this signature pumping?",
               "type": "multi_choice",
+              "youtube_id": "FGBhQbmPwH8",
+              "youtube_title": "Daft Punk - One More Time (2000)",
               "answers": [
                 {
-                  "text": "Analogue Subtractive Synthesis",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Wavetable Synthesis",
+                  "text": "Heavy sidechain compression keyed to the kick",
                   "is_true": "yes"
                 },
                 {
-                  "text": "Physical Modeling",
+                  "text": "Noise gate chattering on the vocal track",
                   "is_true": "no"
                 },
                 {
-                  "text": "Acoustic Sampling",
+                  "text": "Reverse tape echo on the snare drum",
+                  "is_true": "no"
+                },
+                {
+                  "text": "High-pass filtering at 500 Hz on the master",
                   "is_true": "no"
                 }
               ],
-              "explanation": "",
-              "expert_explanation": "Soft-synths (like NI Massive) featured visual modulation systems. Producers could easily drag an LFO directly to modulate the position of a digital wavetable or filter cutoff, creating the aggressive 'wobble' synths synonymous with Brostep.",
-              "expert_quote": {
-                "text": "Digital wavetables were the cornerstone of aggressive bass music. They tore club soundsystems in half.",
-                "author": "Electronic Music Production History"
-              },
-              "explanation_image": {
-                "src": "/images/massive_synth.png",
-                "alt": "Q4: Software Wavetables Diagram"
-              }
+              "expert_explanation": "Routing the four-on-the-floor kick drum into the sidechain input of a bus compressor ducks the synths on every beat, creating rhythmic pumping.",
+              "explanation": "<p><strong>Expert Explanation:</strong> Routing the four-on-the-floor kick drum into the sidechain input of a bus compressor ducks the synths on every beat, creating rhythmic pumping.</p>"
             },
             {
-              "title": "Q5: Pumping Synths",
-              "content": "How did 2000s EDM producers achieve the heavy, rhythmic 'breathing' or 'pumping' effect on sustained synthesizer chords?",
-              "type": "multi_choice",
-              "answers": [
-                {
-                  "text": "Manually drawing volume automation on every quarter note",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Heavy Sidechain Compression keyed to the Kick Drum",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "Sending the synths through a rotary speaker cabinet",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Using a noise gate with a very slow attack time",
-                  "is_true": "no"
-                }
+              "title": "Q5: Building a 2000s Wobble Bass Signal Flow",
+              "content": "Arrange the synthesis signal chain for creating a 2000s Dubstep wobble bass from SOURCE to OUTPUT.",
+              "type": "drag_drop",
+              "top_label": "SOURCE (First Stage)",
+              "bottom_label": "OUTPUT (Final Stage)",
+              "items": [
+                "LFO modulates filter cutoff",
+                "Wavetable oscillator generates harmonics",
+                "Sub-bass sine layered underneath",
+                "Low-pass filter shapes brightness"
               ],
-              "explanation": "",
-              "expert_explanation": "By routing the Kick drum to the sidechain input of a compressor parked on the synths, the synths' volume ducks heavily every time the kick hits. This creates massive space for the low-end and drives a trance-like off-beat rhythm.",
-              "expert_quote": {
-                "text": "Sidechaining the kick to everything isn't just mixing; it's the rhythm mechanism of modern dance music.",
-                "author": "Electronic Musician"
-              },
-              "explanation_image": {
-                "src": "/images/sidechain_compression_diagram.png",
-                "alt": "Q5: Pumping Synths Diagram"
-              }
-            },
-            {
-              "title": "Q6: Non-Linear DAWs",
-              "content": "What unique 'Non-Linear' workflow feature did software like Ableton Live introduce, revolutionizing live electronic performances?",
-              "type": "multi_choice",
-              "answers": [
-                {
-                  "text": "Traditional left-to-right timeline tracking",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Automatic sheet music to MIDI conversion",
-                  "is_true": "no"
-                },
-                {
-                  "text": "A Session View for triggering independent, synced audio loops and clips",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "Analogue tape emulation algorithms",
-                  "is_true": "no"
-                }
+              "correct_order": [
+                "Wavetable oscillator generates harmonics",
+                "Low-pass filter shapes brightness",
+                "LFO modulates filter cutoff",
+                "Sub-bass sine layered underneath"
               ],
-              "explanation": "",
-              "expert_explanation": "Rather than committing to a fixed left-to-right timeline arrangement, it allowed DJs and producers to trigger discrete audio loops globally synced to a master tempo, turning the DAW itself into a playable live instrument.",
-              "expert_quote": {
-                "text": "This decoupled music from the timeline. You could jam with clips instead of staring at a playback head.",
-                "author": "Computer Music"
-              },
-              "explanation_image": {
-                "src": "/images/ableton_session_view.png",
-                "alt": "Q6: Non-Linear DAWs Diagram"
-              }
-            },
-            {
-              "title": "Q7: Audio Compression Algorithms",
-              "content": "What perceptual audio coding format drastically reduced file sizes—facilitating the early 2000s file-sharing/piracy boom—by removing frequencies deemed mathematically inaudible?",
-              "type": "multi_choice",
-              "answers": [
-                {
-                  "text": "Uncompressed WAV",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Lossless FLAC",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Lossy MP3",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "High-Res AIFF",
-                  "is_true": "no"
-                }
-              ],
-              "explanation": "",
-              "expert_explanation": "The MP3 algorithm uses 'psychoacoustics' to discard audio data overshadowed by louder sounds (Frequency Masking). A 40MB CD track could be shrunk to a 4MB MP3, triggering the Napster piracy era.",
-              "expert_quote": {
-                "text": "The MP3 algorithm figured out what the human ear actually paid attention to, and simply discarded the rest.",
-                "author": "Audio Engineering Society"
-              },
-              "explanation_image": {
-                "src": "/images/diagram_file_formats_v2.png",
-                "alt": "Q7: Audio Compression Algorithms Diagram"
-              }
-            },
-            {
-              "title": "Q8: Hard-Tuned Vocals",
-              "content": "How did vocalists in the mid-2000s force pitch-correction software to 'glitch' rather than smoothly and transparently correct pitch?",
-              "type": "multi_choice",
-              "answers": [
-                {
-                  "text": "Setting a long Retune Speed to gently guide the pitch",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Setting the Retune Speed to zero milliseconds",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "Singing perfectly in tune to bypass the plugin algorithms entirely",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Adding heavy distortion before the plugin",
-                  "is_true": "no"
-                }
-              ],
-              "explanation": "",
-              "expert_explanation": "Hip-hop and R&B artists adopted the 'Zero Retune Speed' technique. The software aggressively snaps the vocal rigidly to the nearest scale note without any human legato transition, creating a synth-like vocal texture.",
-              "expert_quote": {
-                "text": "The zero retune speed turned the human vocal cord into a keyboard synthesizer.",
-                "author": "Music Tech Review"
-              },
-              "explanation_image": {
-                "src": "/images/pitch_correction_cher_effect.png",
-                "alt": "Q8: Hard-Tuned Vocals Diagram"
-              }
-            },
-            {
-              "title": "Q9: Digital DJing",
-              "content": "In the 2000s, Digital Vinyl Systems (DVS) allowed DJs to manipulate digital files (MP3s) using analogue turntables. How did this technology work?",
-              "type": "multi_choice",
-              "answers": [
-                {
-                  "text": "By playing a physical vinyl record pressed with a high-pitched control tone",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "By using lasers to scan the MP3s directly from a CD",
-                  "is_true": "no"
-                },
-                {
-                  "text": "By replacing the turntable motor with a computer hard drive",
-                  "is_true": "no"
-                },
-                {
-                  "text": "By running MIDI cables directly from the turntable needle",
-                  "is_true": "no"
-                }
-              ],
-              "explanation": "",
-              "expert_explanation": "The DJ plays a special 'Timecode Vinyl'. The turntable stylus picks up a constant, whining high-frequency tone. A computer interface analyzes the speed and direction of that analogue tone and applies it in real-time to the digital MP3.",
-              "expert_quote": {
-                "text": "Digital Vinyl gave DJs the tactile, hands-on control of analog wax, integrated with the infinite library of an MP3 hard drive.",
-                "author": "DJ Mag"
-              },
-              "explanation_image": {
-                "src": "/images/dvs_digital_vinyl_system.png",
-                "alt": "Q9: Digital DJing Diagram"
-              }
-            },
-            {
-              "title": "Q10: Early Plugin Constraints",
-              "content": "What was the biggest disadvantage of running early 2000s soft-synths and VST plugins compared to using their 1980s hardware counterparts?",
-              "type": "multi_choice",
-              "answers": [
-                {
-                  "text": "Computer CPU overloads caused audio glitches and high latency (delay)",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "Software plugins were much more expensive to purchase than hardware",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Plugins could only generate monophonic square waves",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Software broke down due to heat and required physical tuning",
-                  "is_true": "no"
-                }
-              ],
-              "explanation": "",
-              "expert_explanation": "Before multi-core processors, running multiple synthesis engines and reverbs would quickly exhaust the CPU, causing buffer underruns, popping, and noticeable delay (latency) between pressing a MIDI key and hearing the sound.",
-              "expert_quote": {
-                "text": "In the early box era, the tradeoff for convenience was constant, terrifying computer crashes mid-session.",
-                "author": "Producer History"
-              },
-              "explanation_image": {
-                "src": "/images/plugin_latency_diagram.png",
-                "alt": "Q10: Early Plugin Constraints Diagram"
-              }
+              "expert_explanation": "A harmonically rich wavetable oscillator feeds a low-pass filter whose cutoff is swept rhythmically by a tempo-synced LFO, anchored by a clean sub-bass sine wave.",
+              "explanation": "<p><strong>Expert Explanation:</strong> A harmonically rich wavetable oscillator feeds a low-pass filter whose cutoff is swept rhythmically by a tempo-synced LFO, anchored by a clean sub-bass sine wave.</p>"
             }
           ]
         },
