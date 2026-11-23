@@ -4667,35 +4667,46 @@
               "explanation": "<img src=\"/images/lcr_panning_soundstage_diagram_v2.svg\" alt=\"Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Recording two distinct performances and panning them hard left and right creates natural stereo width without phase cancellation when summed to mono.</p>"
             },
             {
-              "title": "Q15: Stereo Pan Law Constant Volume Compensation",
-              "type": "multi_choice",
-              "content": "Why do mixing consoles and DAWs use a 'Pan Law' (such as -3 dB or -4.5 dB)?",
-              "answers": [
+              "title": "Q15: Stereo Soundstage & Panning Placement",
+              "content": "Match each mix element to its standard stereo panning position in a modern mix.",
+              "type": "signal-flow-label",
+              "hide_arrows": true,
+              "flowSteps": [
                 {
-                  "text": "Add analogue saturation on centre tracks",
-                  "is_true": "no"
+                  "id": "pan1",
+                  "label": "Lead vocal, kick drum, and bass",
+                  "placeholder": "Drop Panning..."
                 },
                 {
-                  "text": "Compress loud peaks on wide-panned tracks",
-                  "is_true": "no"
+                  "id": "pan2",
+                  "label": "Double-tracked rhythm guitars",
+                  "placeholder": "Drop Panning..."
                 },
                 {
-                  "text": "Keep perceived volume constant across panning",
-                  "is_true": "yes"
+                  "id": "pan3",
+                  "label": "Rack toms, floor tom, and shakers",
+                  "placeholder": "Drop Panning..."
                 },
                 {
-                  "text": "Prevent phase cancellation when checking mono",
-                  "is_true": "no"
+                  "id": "pan4",
+                  "label": "Stereo synth pads and reverb returns",
+                  "placeholder": "Drop Panning..."
                 }
               ],
-              "expert_explanation": "A Pan Law (typically -3 dB) attenuates signals panned to the centre so they do not sound louder when summed across both stereo speakers.",
-              "expert_quote": {
-                "text": "Without pan law, every instrument you pan toward the center will jump out in volume and clutter your mix balance.",
-                "author": "Mixing Desk Principles"
+              "terms": [
+                "Dead Centre (0%)",
+                "Hard Left & Hard Right",
+                "Spread Mid-Left / Mid-Right",
+                "Full Stereo Width"
+              ],
+              "correctAnswers": {
+                "pan1": "Dead Centre (0%)",
+                "pan2": "Hard Left & Hard Right",
+                "pan3": "Spread Mid-Left / Mid-Right",
+                "pan4": "Full Stereo Width"
               },
-              "img": "/images/pan_law_stereo_diagram_v2.svg",
-              "explanation": "<img src=\"/images/pan_law_stereo_diagram_v2.svg\" alt=\"Stereo Pan Law Constant Volume Compensation Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> A Pan Law (typically -3 dB) attenuates signals panned to the centre so they do not sound louder when summed across both stereo speakers.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Without pan law, every instrument you pan toward the centre will jump out in volume and clutter your mix balance.\"<br/><strong>- Mixing Desk Principles</strong></blockquote>",
-              "explanation_image": "/images/pan_law_stereo_diagram_v2.svg"
+              "expert_explanation": "Panning kick, bass, and lead vocals dead centre anchors low-end power and clarity, while hard-panning double-tracked guitars, spreading toms, and keeping reverb wide creates a balanced stereo image.",
+              "explanation": "<p><strong>Expert Explanation:</strong> Panning kick, bass, and lead vocals dead centre anchors low-end power and clarity, while hard-panning double-tracked guitars, spreading toms, and keeping reverb wide creates a balanced stereo image.</p>"
             },
             {
               "title": "Q16: Dynamic EQ vs Static Parametric EQ Processing",
