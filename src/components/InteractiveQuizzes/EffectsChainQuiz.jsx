@@ -823,24 +823,29 @@ export default function EffectsChainQuiz({ quiz, onExit }) {
             return (
                 <div
                     key={`${effectItem.id}-${index}`}
-                    className={`bg-slate-800/80 border border-slate-700/50 rounded-xl mb-2 relative transition-all duration-200 ${isDragSource ? 'opacity-50 scale-[0.98]' : 'hover:border-slate-500/50'} ${showFeedback ? 'pointer-events-none' : ''}`}
-                    style={{ borderColor: showFeedback && !selectedAnswer ? 'rgba(239, 68, 68, 0.5)' : '' }}
+                    className="fx-rack-module"
+                    style={{
+                        opacity: isDragSource ? 0.5 : 1,
+                        borderColor: showFeedback && !selectedAnswer ? 'rgba(239, 68, 68, 0.6)' : isCorrectOrder ? '#22c55e' : undefined,
+                        pointerEvents: showFeedback ? 'none' : undefined,
+                    }}
                     draggable={!showFeedback}
                     onDragStart={() => handleDragStart(effectItem, index)}
                     onDragOver={handleDragOver}
                     onDrop={() => handleDrop(index)}
                 >
                     {/* Header with name and controls */}
-                    <div className="flex justify-between items-center px-4 py-2 border-b border-black/20 bg-black/10 rounded-t-xl">
-                        <div className="flex items-center gap-3">
-                            <div className="cursor-grab hover:text-amber-500 transition-colors opacity-60 hover:opacity-100 flex items-center justify-center py-1">
-                                <GripVertical size={16} />
-                            </div>
-                            <span className="font-bold text-md text-white/90">{cfg.name}</span>
+                    <div className="fx-rack-module-header">
+                        <div className="fx-rack-module-title">
+                            <span style={{ color: '#94a3b8', cursor: 'grab', display: 'inline-flex' }}>
+                                <GripVertical size={15} />
+                            </span>
+                            <span>{cfg.name}</span>
                         </div>
                         <button
+                            type="button"
                             onClick={(e) => { e.stopPropagation(); removeEffectFromRack(index); }}
-                            className="text-red-400/70 hover:text-red-400 hover:bg-red-400/10 p-1 rounded-md transition-colors"
+                            className="fx-remove-btn"
                             title="Remove Plugin"
                         >
                             <X size={16} />
@@ -848,7 +853,7 @@ export default function EffectsChainQuiz({ quiz, onExit }) {
                     </div>
 
                     {/* Knobs */}
-                    <div className="fx-knob-grid px-3 py-3">
+                    <div className="fx-knob-grid" style={{ padding: '12px' }}>
                         {cfg.parameters.map(param => {
                             const val = parameters[param.id] !== undefined ? parameters[param.id] : param.init;
                             let isCorrectParam = null;
@@ -891,71 +896,70 @@ export default function EffectsChainQuiz({ quiz, onExit }) {
             const maxPlugins = q.correctOrder ? q.correctOrder.length : 3;
 
             return (
-                <div className="space-y-6 w-full">
+                <div className="fx-build-stack">
                     {/* Available Plugins Pool */}
-                    <div className="bg-slate-800/50 border border-white/10 rounded-xl p-4">
-                        <p className="text-sm text-slate-400 uppercase font-bold mb-3 flex items-center gap-2">
-                            <PlusCircle size={14} /> Available Plugins
-                        </p>
-                        <div className="flex flex-wrap gap-2">
+                    <div className="fx-pool-card">
+                        <div className="fx-section-title">
+                            <span className="fx-section-title-left"><PlusCircle size={14} /> Available Plugins</span>
+                        </div>
+                        <div className="fx-pool-grid">
                             {q.availableEffects.map(effectId => {
                                 const cfg = effectConfigs[effectId];
                                 const isAdded = effectsOrder.some(e => e.id === effectId);
                                 return (
                                     <button
                                         key={`pool-${effectId}`}
+                                        type="button"
                                         onClick={() => addEffectToRack(effectId)}
                                         disabled={showFeedback || effectsOrder.length >= maxPlugins || isAdded}
-                                        className={`px-4 py-2.5 rounded-lg border text-sm font-semibold tracking-wide shadow-sm transition-all duration-200
-                                            ${isAdded
-                                                ? 'bg-slate-900 border-indigo-500/20 text-indigo-400/50 shadow-inner'
-                                                : 'bg-gradient-to-b from-slate-700 to-slate-800 border-slate-600 text-slate-200 hover:from-slate-600 hover:to-slate-700 hover:border-slate-500 hover:shadow-md hover:-translate-y-0.5'}
-                                            disabled:opacity-40
-                                        `}
+                                        className={`fx-plugin-btn ${isAdded ? 'added' : ''}`}
                                     >
                                         {cfg.name}
                                     </button>
                                 );
                             })}
                         </div>
-                        <p className="text-xs text-amber-500/70 mt-3 flex items-center gap-1">
-                            <Info size={12} /> Add up to {maxPlugins} plugin{maxPlugins !== 1 ? 's' : ''} to the rack below.
+                        <p className="fx-pool-sub">
+                            <Info size={13} /> Add up to {maxPlugins} plugin{maxPlugins !== 1 ? 's' : ''} to the rack below.
                         </p>
                     </div>
 
                     {/* Active Rack */}
-                    <div className="bg-slate-900 border border-slate-700 rounded-xl p-4 min-h-[300px]">
-                        <p className="text-sm text-slate-400 uppercase font-bold mb-4 flex justify-between items-center">
-                            <span><Settings size={14} className="inline mr-2" /> Active Signal Chain (Max {maxPlugins})</span>
-                            <span className="text-amber-500 bg-amber-500/10 px-2 py-1 rounded">{effectsOrder.length} / {maxPlugins}</span>
-                        </p>
+                    <div className="fx-rack-card">
+                        <div className="fx-section-title">
+                            <span className="fx-section-title-left"><Settings size={14} /> Active Signal Chain (Max {maxPlugins})</span>
+                            <span className="fx-rack-badge">{effectsOrder.length} / {maxPlugins}</span>
+                        </div>
 
                         {effectsOrder.length === 0 ? (
-                            <div className="flex flex-col items-center justify-center h-40 text-slate-500 border-2 border-dashed border-slate-700 rounded-lg">
-                                <PlusCircle size={32} className="mb-2 opacity-50" />
-                                <p>Click plugins above to add them to your chain</p>
+                            <div className="fx-rack-empty">
+                                <PlusCircle size={26} style={{ opacity: 0.6 }} />
+                                <span>Click plugins above to add them to your chain</span>
                             </div>
                         ) : (
-                            <div className="flex flex-col gap-2">
+                            <div className="fx-rack-list">
                                 {effectsOrder.map((effect, index) => renderRackEffect(effect, index))}
                             </div>
                         )}
                     </div>
 
                     {!showFeedback && (
-                        <div className="flex gap-2 mt-6">
+                        <div className="fx-actions-row">
                             <button
+                                type="button"
                                 onClick={playWithEffects}
                                 disabled={isPlaying}
-                                className="px-4 py-3 bg-slate-800 text-white rounded-lg hover:bg-slate-700 border border-slate-600 disabled:opacity-50 flex items-center gap-2 text-sm"
+                                className="fx-test-audio-btn"
                             >
                                 {isPlaying ? <Pause size={16} /> : <Volume2 size={16} />}
-                                {isPlaying ? 'Playing...' : 'Test AUDIO'}
+                                {isPlaying ? 'Playing...' : 'Test Audio'}
                             </button>
                             <button
+                                type="button"
                                 onClick={checkAnswer}
                                 disabled={effectsOrder.length !== maxPlugins}
-                                className="btn-primary flex-1 py-3 flex items-center justify-center gap-2 text-lg shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                                className="btn-primary"
+                                style={{ flex: 1, padding: '11px 18px', opacity: effectsOrder.length !== maxPlugins ? 0.5 : 1 }}
                             >
                                 Submit Answer
                             </button>
@@ -1038,7 +1042,7 @@ export default function EffectsChainQuiz({ quiz, onExit }) {
         <div className="quiz-player-layout">
             <div className="quiz-left-col">
                 <div style={{ marginBottom: '20px', fontSize: '0.9rem', color: 'var(--text-secondary)' }}>
-                    Topic 35: Audio Effects Processing • Question {currentQuestion + 1} of {questions.length}
+                    Practical Quiz 16: Audio Effects Processing • Question {currentQuestion + 1} of {questions.length}
                 </div>
 
                 <div className="question-card">
@@ -1049,14 +1053,15 @@ export default function EffectsChainQuiz({ quiz, onExit }) {
                     <div className="question-text">
 
                         {questions[currentQuestion].hint && (
-                            <div className="bg-amber-500/10 border-l-4 border-amber-500 p-3 mb-6 flex flex-col gap-2">
-                                <div className="flex gap-3 items-center">
-                                    <Lightbulb className="text-amber-500 flex-shrink-0" size={20} />
-                                    <div className="flex-grow">
-                                        <p className="text-xs font-bold text-amber-500 uppercase">Hint</p>
+                            <div className="fx-hint-box">
+                                <div className="fx-hint-row">
+                                    <div className="fx-hint-left">
+                                        <Lightbulb size={16} />
+                                        <span>Hint</span>
                                     </div>
                                     {!showHint && (
                                         <button
+                                            type="button"
                                             onClick={() => setShowHint(true)}
                                             className="fx-hint-toggle-btn"
                                         >
@@ -1065,7 +1070,7 @@ export default function EffectsChainQuiz({ quiz, onExit }) {
                                     )}
                                 </div>
                                 {showHint && (
-                                    <p className="text-sm text-amber-200 mt-2 ml-[32px]">{questions[currentQuestion].hint}</p>
+                                    <p className="fx-hint-body">{questions[currentQuestion].hint}</p>
                                 )}
                             </div>
                         )}
