@@ -4798,35 +4798,41 @@
               "explanation": "<img src=\"/images/kick_drum_eq_carving_diagram.svg\" alt=\"Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Complementary EQ gives each instrument its own pocket—for example, boosting kick thump at 60 Hz while dipping 60 Hz slightly on the bass guitar.</p>"
             },
             {
-              "title": "Q19: Mono Compatibility & Stereo Widening Phase Cancellation",
-              "type": "multi_choice",
-              "content": "You apply a stereo widening plugin to a guitar track. Why does the guitar disappear when checked in mono?",
-              "answers": [
-                {
-                  "text": "Heavy compression clamping peaks below threshold",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Destructive phase cancellation between L and R",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "Steep high-pass filtering removing resonance",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Digital clipping overloading the converters",
-                  "is_true": "no"
-                }
+              "title": "Q19: Mono Compatibility & Phase Cancellation",
+              "content": "Complete the 3 dropdowns to explain why stereo widening plugins can make tracks disappear in mono.",
+              "type": "cloze",
+              "text": [
+                "1. Many stereo widening plugins create width by inverting the {0} between the Left and Right channels.",
+                "2. When a stereo mix is summed to {1} on a phone or club speaker, the Left and Right signals are combined.",
+                "3. Opposite Left and Right waveforms cancel each other out, causing {2} and making the guitar vanish."
               ],
-              "expert_explanation": "Artificial stereo wideners often invert phase or delay one side. When summed to mono, out-of-phase frequencies cancel out and the guitar vanishes.",
-              "expert_quote": {
-                "text": "Always check your mix in mono. A mix that sounds huge in stereo but collapses into hollow comb filtering in mono is a failed mix.",
-                "author": "Michael Brauer"
-              },
-              "img": "/images/mono_compatibility_phase_diagram.svg",
-              "explanation": "<img src=\"/images/mono_compatibility_phase_diagram.svg\" alt=\"Mono Compatibility and Phase Cancellation Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Artificial stereo wideners often invert phase or delay one side. When summed to mono, out-of-phase frequencies cancel out and the guitar vanishes.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Always check your mix in mono. A mix that sounds huge in stereo but collapses into hollow comb filtering in mono is a failed mix.\"<br/><strong>- Michael Brauer</strong></blockquote>",
-              "explanation_image": "/images/mono_compatibility_phase_diagram.svg"
+              "options": [
+                [
+                  "tempo",
+                  "polarity",
+                  "threshold",
+                  "bit depth"
+                ],
+                [
+                  "MIDI",
+                  "vinyl",
+                  "mono",
+                  "surround"
+                ],
+                [
+                  "digital clipping",
+                  "analogue warmth",
+                  "dynamic ducking",
+                  "phase cancellation"
+                ]
+              ],
+              "answer": [
+                "polarity",
+                "mono",
+                "phase cancellation"
+              ],
+              "expert_explanation": "Stereo widening plugins often invert polarity or delay one channel. When summed to mono, opposite waveforms cancel each other out (destructive phase cancellation), thinning or erasing the sound.",
+              "explanation": "<p><strong>Expert Explanation:</strong> Stereo widening plugins often invert polarity or delay one channel. When summed to mono, opposite waveforms cancel each other out (destructive phase cancellation), thinning or erasing the sound.</p>"
             },
             {
               "title": "Q20: Harmonic Pitch Calculation Across Octaves",
