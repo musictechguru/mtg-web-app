@@ -91,6 +91,7 @@ export default function ParameterMatchingQuiz({
     const isGateAttack = label && label.toLowerCase().includes('gate attack');
     const isGateHold = label && label.toLowerCase().includes('gate hold');
     const isGateRelease = label && label.toLowerCase().includes('gate release');
+    const isCompressorThreshold = label && label.toLowerCase().includes('compressor threshold');
 
     const dbToY = (db) => 20 + ((0 - db) / 60) * 165;
     const threshY = dbToY(values[0]);
@@ -398,6 +399,98 @@ export default function ParameterMatchingQuiz({
                             );
                         })()}
                         <text x="300" y="188" fill="#64748b" fontSize="10" textAnchor="middle">Time (ms) — Release controls how smoothly the gate fades out to silence</text>
+                    </svg>
+                </div>
+            ) : isCompressorThreshold ? (
+                <div style={{
+                    marginBottom: '20px',
+                    borderRadius: '10px',
+                    border: '1px solid rgba(56, 189, 248, 0.35)',
+                    background: '#090d16',
+                    padding: '12px'
+                }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px', paddingBottom: '6px', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
+                        <span style={{ fontSize: '0.74rem', fontWeight: 800, color: '#38bdf8', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
+                            Live Compressor Threshold Visualizer
+                        </span>
+                        <span style={{
+                            fontSize: '0.75rem',
+                            fontWeight: 700,
+                            color: isSubmitted ? (Math.abs(values[0] - correctValue) <= tolerance ? '#4ade80' : '#f87171') : '#94a3b8'
+                        }}>
+                            {isSubmitted
+                                ? (values[0] > -6 ? 'Too high! Missing chorus peaks' : values[0] < -24 ? 'Too low! Compressing quiet verses too' : 'Clean: Only loud chorus peaks compressed')
+                                : `Threshold: ${values[0]} dB`}
+                        </span>
+                    </div>
+                    <svg viewBox="0 0 600 210" style={{ width: '100%', height: 'auto', display: 'block' }}>
+                        {[0, -10, -20, -30, -40].map((db) => {
+                            const y = 20 + ((0 - db) / 40) * 165;
+                            return (
+                                <g key={db}>
+                                    <line x1="48" y1={y} x2="585" y2={y} stroke="rgba(255,255,255,0.08)" strokeWidth="1" />
+                                    <text x="42" y={y + 4} fill="#94a3b8" fontSize="10" textAnchor="end" fontFamily="monospace">{db}dB</text>
+                                </g>
+                            );
+                        })}
+
+                        {/* Verse bars (-24 dB) on left, Chorus peaks (-6 dB) on right */}
+                        {[
+                            { x: 65, db: -26 }, { x: 85, db: -24 }, { x: 105, db: -25 }, { x: 125, db: -24 },
+                            { x: 145, db: -27 }, { x: 165, db: -24 }, { x: 185, db: -25 }, { x: 205, db: -26 },
+                            { x: 225, db: -24 }, { x: 245, db: -25 },
+                            { x: 325, db: -10 }, { x: 345, db: -6 }, { x: 365, db: -8 }, { x: 385, db: -12 },
+                            { x: 405, db: -6 }, { x: 425, db: -7 }, { x: 445, db: -11 }, { x: 465, db: -6 },
+                            { x: 485, db: -9 }, { x: 505, db: -6 }, { x: 525, db: -12 }
+                        ].map((bar, idx) => {
+                            const barY = 20 + ((0 - bar.db) / 40) * 165;
+                            const barHeight = 185 - barY;
+                            const isCompressed = bar.db > values[0];
+                            return (
+                                <rect
+                                    key={idx}
+                                    x={bar.x}
+                                    y={barY}
+                                    width="12"
+                                    height={barHeight}
+                                    rx="2"
+                                    fill={isCompressed ? '#a855f7' : '#38bdf8'}
+                                    opacity={isCompressed ? 0.95 : 0.7}
+                                />
+                            );
+                        })}
+
+                        <text x="155" y={20 + ((0 - (-24)) / 40) * 165 - 8} fill="#38bdf8" fontSize="10" fontWeight="bold" textAnchor="middle">Quiet Verse (-24 dB)</text>
+                        <text x="425" y={20 + ((0 - (-6)) / 40) * 165 - 6} fill="#c084fc" fontSize="10" fontWeight="bold" textAnchor="middle">Loud Chorus (-6 dB)</text>
+
+                        {(() => {
+                            const cThreshY = 20 + ((0 - values[0]) / 40) * 165;
+                            return (
+                                <>
+                                    <rect
+                                        x="48"
+                                        y="20"
+                                        width="537"
+                                        height={Math.max(0, cThreshY - 20)}
+                                        fill="rgba(168, 85, 247, 0.14)"
+                                    />
+                                    <line
+                                        x1="48"
+                                        y1={cThreshY}
+                                        x2="585"
+                                        y2={cThreshY}
+                                        stroke="#f43f5e"
+                                        strokeWidth="2.5"
+                                        strokeDasharray="6,4"
+                                    />
+                                    <rect x="470" y={Math.max(4, cThreshY - 18)} width="110" height="16" rx="4" fill="#f43f5e" />
+                                    <text x="525" y={Math.max(15, cThreshY - 7)} fill="#ffffff" fontSize="10" fontWeight="bold" textAnchor="middle" fontFamily="monospace">
+                                        THRESH: {values[0]} dB
+                                    </text>
+                                </>
+                            );
+                        })()}
+                        <text x="315" y="203" fill="#64748b" fontSize="10" textAnchor="middle">Peaks rising above the red line get compressed</text>
                     </svg>
                 </div>
             ) : imageSrc && (
