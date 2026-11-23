@@ -212,11 +212,6 @@ export default function SignalFlowLabelQuiz({
                 }
             });
 
-            // If box already has a term, return it to available
-            if (newDroppedTerms[targetBox]) {
-                setAvailableTerms([...availableTerms, newDroppedTerms[targetBox]]);
-            }
-
             // Place new term
             newDroppedTerms[targetBox] = draggedTerm;
             setDroppedTerms(newDroppedTerms);
@@ -226,8 +221,9 @@ export default function SignalFlowLabelQuiz({
                 onAnswerChange(newDroppedTerms);
             }
 
-            // Remove from available
-            setAvailableTerms(availableTerms.filter((t) => t !== draggedTerm));
+            // Recompute available terms directly so displaced terms never vanish
+            const placed = Object.values(newDroppedTerms);
+            setAvailableTerms(terms.filter((t) => !placed.includes(t)));
         }
     };
 
