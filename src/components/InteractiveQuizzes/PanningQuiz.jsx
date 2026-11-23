@@ -1,95 +1,187 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Check, X } from 'lucide-react';
 import { DndContext, useDraggable, useDroppable } from '@dnd-kit/core';
 
-// Internal Draggable Component
-function DraggableElement({ id, content, cx, cy }) {
-    const { attributes, listeners, setNodeRef, transform } = useDraggable({ id });
+const formatZoneLabel = (label = '') => label.replace(/\bCenter\b/gi, 'Centre');
+
+function PoolElement({ id, content, isSelected, onClick }) {
+    const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({ id });
     const style = {
-        position: 'absolute',
-        left: `calc(50% + ${cx}px)`,
-        top: `calc(100% - ${cy}px)`,
-        transform: transform ? `translate3d(calc(-50% + ${transform.x}px), calc(-50% + ${transform.y}px), 0)` : 'translate(-50%, -50%)',
+        transform: transform ? `translate3d(${transform.x}px, ${transform.y}px, 0)` : undefined,
         padding: '8px 12px',
-        backgroundColor: '#3b82f6',
-        color: 'white',
-        borderRadius: '6px',
+        backgroundColor: isSelected ? '#2563eb' : '#1e293b',
+        color: '#f8fafc',
+        border: isSelected ? '2px solid #38bdf8' : '1px solid #475569',
+        borderRadius: '8px',
         cursor: 'grab',
-        zIndex: transform ? 100 : 10,
-        fontWeight: 'bold',
+        zIndex: isDragging ? 100 : 10,
+        fontWeight: '600',
         fontSize: '0.85rem',
-        boxShadow: '0 4px 6px rgba(0,0,0,0.3)',
-        whiteSpace: 'nowrap'
+        boxShadow: isSelected ? '0 0 0 3px rgba(56, 189, 248, 0.25)' : '0 2px 6px rgba(0,0,0,0.3)',
+        userSelect: 'none',
+        touchAction: 'none',
+        transition: 'border-color 0.15s ease, background-color 0.15s ease',
     };
 
     return (
-        <div ref={setNodeRef} style={style} {...listeners} {...attributes}>
+        <div
+            ref={setNodeRef}
+            style={style}
+            onClick={onClick}
+            {...listeners}
+            {...attributes}
+        >
             {content}
         </div>
     );
 }
 
-// Internal Droppable Zone (Hotspot)
-function DroppableZone({ id, cx, cy, radius, showHint }) {
+function PlacedElement({ id, content, leftPct, topPct, stackOffsetPx, isCorrect, onRemove, disabled }) {
+    const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({ id, disabled });
+    const bg = isCorrect === true
+        ? '#166534'
+        : isCorrect === false
+            ? '#991b1b'
+            : '#2563eb';
+    const border = isCorrect === true
+        ? '1.5px solid #22c55e'
+        : isCorrect === false
+            ? '1.5px solid #ef4444'
+            : '1.5px solid #60a5fa';
+
+    const style = {
+        position: 'absolute',
+        left: `${leftPct}%`,
+        top: `calc(${topPct}% - ${stackOffsetPx}px)`,
+        transform: transform
+            ? `translate3d(calc(-50% + ${transform.x}px), calc(-50% + ${transform.y}px), 0)`
+            : 'translate(-50%, -50%)',
+        padding: '6px 10px',
+        backgroundColor: bg,
+        border,
+        color: '#ffffff',
+        borderRadius: '8px',
+        cursor: disabled ? 'default' : 'pointer',
+        zIndex: isDragging ? 100 : 20,
+        fontWeight: '700',
+        fontSize: '0.8rem',
+        boxShadow: '0 4px 10px rgba(0,0,0,0.45)',
+        whiteSpace: 'nowrap',
+        display: 'inline-flex',
+        alignItems: 'center',
+        gap: '6px',
+        userSelect: 'none',
+        touchAction: 'none',
+    };
+
+    return (
+        <div
+            ref={setNodeRef}
+            style={style}
+            title={disabled ? content : 'Click to return to list or drag to another zone'}
+            onClick={(e) => {
+                e.stopPropagation();
+                if (!disabled && onRemove) onRemove(id);
+            }}
+            {...listeners}
+            {...attributes}
+        >
+            <span>{content}</span>
+            {isCorrect === true && <Check size={14} color="#86efac" strokeWidth={3} />}
+            {isCorrect === false && <X size={14} color="#fca5a5" strokeWidth={3} />}
+        </div>
+    );
+}
+
+function DroppableZone({ id, label, leftPct, topPct, showHint, hasSelected, onZoneClick }) {
     const { setNodeRef, isOver } = useDroppable({ id });
     const style = {
         position: 'absolute',
-        left: `calc(50% + ${cx}px)`,
-        top: `calc(100% - ${cy}px)`,
-        width: `${radius * 2}px`,
-        height: `${radius * 2}px`,
+        left: `${leftPct}%`,
+        top: `${topPct}%`,
         transform: 'translate(-50%, -50%)',
-        borderRadius: '50%',
-        backgroundColor: isOver ? 'rgba(34, 197, 94, 0.4)' : showHint ? 'rgba(255, 255, 255, 0.1)' : 'transparent',
-        border: isOver ? '2px solid #22c55e' : showHint ? '1px dashed #666' : 'none',
-        zIndex: 1,
-        transition: 'all 0.2s ease'
+        minWidth: '78px',
+        height: '44px',
+        padding: '0 10px',
+        borderRadius: '999px',
+        backgroundColor: isOver
+            ? 'rgba(34, 197, 94, 0.28)'
+            : hasSelected
+                ? 'rgba(56, 189, 248, 0.16)'
+                : showHint
+                    ? 'rgba(255, 255, 255, 0.06)'
+                    : 'transparent',
+        border: isOver
+            ? '2px solid #22c55e'
+            : hasSelected
+                ? '1.5px dashed #38bdf8'
+                : showHint
+                    ? '1.5px dashed #475569'
+                    : 'none',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        color: hasSelected ? '#bae6fd' : '#94a3b8',
+        fontSize: '0.72rem',
+        fontWeight: '600',
+        letterSpacing: '0.02em',
+        cursor: hasSelected ? 'pointer' : 'default',
+        zIndex: 5,
+        transition: 'all 0.15s ease',
+        whiteSpace: 'nowrap',
     };
 
-    return <div ref={setNodeRef} style={style} />;
+    return (
+        <div ref={setNodeRef} style={style} onClick={() => onZoneClick(id)}>
+            {label}
+        </div>
+    );
 }
 
 export default function PanningQuiz({ question, initialAnswers, onAnswersChange, examMode, showAnswers, onResult }) {
-    // Determine dimensions
-    const containerWidth = 600;
-    const radius = 250;
-
-    // elements array: [{ id, content, targetZone }]
-    // zones array: [{ id, angle (0 = hard left, 90 = center, 180 = hard right), distance (0-1) }]
-
-    // State: mapped elements -> elementId: currentZoneId | null
     const [elementPositions, setElementPositions] = useState({});
+    const [selectedId, setSelectedId] = useState(null);
     const [submitted, setSubmitted] = useState(false);
     const [feedback, setFeedback] = useState({ isCorrect: false, details: {} });
 
     useEffect(() => {
-        if (initialAnswers) {
-            setElementPositions(initialAnswers);
-        } else {
-            setElementPositions({});
-        }
+        setElementPositions(initialAnswers || {});
+        setSelectedId(null);
         setSubmitted(false);
         setFeedback({ isCorrect: false, details: {} });
     }, [initialAnswers, question]);
+
+    const updatePositions = (next) => {
+        setElementPositions(next);
+        if (onAnswersChange) onAnswersChange(next);
+    };
 
     const handleDragEnd = (event) => {
         const { active, over } = event;
         if (examMode && submitted) return;
 
         if (over) {
-            const newPositions = {
-                ...elementPositions,
-                [active.id]: over.id
-            };
-            setElementPositions(newPositions);
-            if (onAnswersChange) onAnswersChange(newPositions);
+            updatePositions({ ...elementPositions, [active.id]: over.id });
         } else {
-            // Drop outside -> reset to pool
-            const newPositions = { ...elementPositions };
-            delete newPositions[active.id];
-            setElementPositions(newPositions);
-            if (onAnswersChange) onAnswersChange(newPositions);
+            const next = { ...elementPositions };
+            delete next[active.id];
+            updatePositions(next);
         }
+        setSelectedId(null);
+    };
+
+    const handleZoneClick = (zoneId) => {
+        if ((examMode && submitted) || !selectedId) return;
+        updatePositions({ ...elementPositions, [selectedId]: zoneId });
+        setSelectedId(null);
+    };
+
+    const handleRemovePlaced = (elId) => {
+        if (examMode && submitted) return;
+        const next = { ...elementPositions };
+        delete next[elId];
+        updatePositions(next);
+        if (submitted) setSubmitted(false);
     };
 
     const checkAnswer = () => {
@@ -97,139 +189,168 @@ export default function PanningQuiz({ question, initialAnswers, onAnswersChange,
         const details = {};
 
         question.elements.forEach(el => {
-            const userZone = elementPositions[el.id];
-            const isCorrect = userZone === el.targetZone;
+            const isCorrect = elementPositions[el.id] === el.targetZone;
             if (!isCorrect) allCorrect = false;
             details[el.id] = isCorrect;
         });
 
         setFeedback({ isCorrect: allCorrect, details });
         setSubmitted(true);
-        if (onResult) {
-            onResult(allCorrect);
-        }
+        setSelectedId(null);
+        if (onResult) onResult(allCorrect);
     };
 
-    const getCoordinates = (angle, distanceRatio) => {
-        // angle: 0 = hard left, 90 = center (front), 180 = hard right
-        // distanceRatio: 0 = center point (listener), 1 = edge of semi-circle
-        const r = radius * distanceRatio;
-        // Convert to standard math angle where 0 is right (x positive) and 90 is up (y positive)
-        // So angle 0 (hard left) -> math angle 180
-        // angle 90 (center) -> math angle 90
-        // angle 180 (hard right) -> math angle 0
+    // Convert angle (0=Left, 90=Centre, 180=Right) & distanceRatio (0..1) into stage percentages
+    // Baseline at 76% leaves room below for axis labels and keeps Hard Left/Right pills unclipped.
+    const getZonePercent = (angle, distanceRatio) => {
         const mathAngle = (180 - angle) * (Math.PI / 180);
-
+        const r = distanceRatio;
         return {
-            cx: r * Math.cos(mathAngle),
-            cy: r * Math.sin(mathAngle)
+            leftPct: 50 + Math.cos(mathAngle) * r * 41,
+            topPct: 76 - Math.sin(mathAngle) * r * 62,
         };
     };
 
+    const unplacedElements = question.elements.filter(el => !elementPositions[el.id]);
+
+    // Group placed elements by zone so multiple items in the same zone stack cleanly without overlapping
+    const zoneBuckets = {};
+    question.elements.forEach(el => {
+        const zId = elementPositions[el.id];
+        if (!zId) return;
+        if (!zoneBuckets[zId]) zoneBuckets[zId] = [];
+        zoneBuckets[zId].push(el);
+    });
+
     return (
-        <div style={{ backgroundColor: '#1f2937', color: 'white', padding: '20px', borderRadius: '12px', maxWidth: '800px', margin: '0 auto' }}>
-            <div style={{ marginBottom: '20px' }}>
-                <h3 style={{ fontSize: '1.25rem', fontWeight: 'bold', marginBottom: '8px' }}>{question.question}</h3>
-                {question.hint && <p style={{ color: '#9ca3af', fontSize: '0.9rem' }}>{question.hint}</p>}
+        <div style={{ backgroundColor: '#1e293b', color: '#f8fafc', padding: '18px', borderRadius: '12px', border: '1px solid #334155' }}>
+            <div style={{ marginBottom: '14px' }}>
+                <h3 style={{ fontSize: '1.1rem', fontWeight: '700', marginBottom: '6px' }}>{question.question}</h3>
+                <p style={{ color: '#94a3b8', fontSize: '0.85rem', margin: 0 }}>
+                    {question.hint ? `${formatZoneLabel(question.hint)} ` : ''}
+                    Click an element then click a pan position (or drag and drop).
+                </p>
             </div>
 
             <DndContext onDragEnd={handleDragEnd}>
-                <div style={{ display: 'flex', gap: '30px', alignItems: 'flex-end' }}>
-                    {/* Unplaced Elements Pool */}
-                    <div style={{ width: '200px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                        <h4 style={{ color: '#9ca3af', fontSize: '0.9rem', marginBottom: '10px' }}>Elements to Place:</h4>
-                        <div style={{ minHeight: '300px', backgroundColor: '#111827', padding: '15px', borderRadius: '8px', position: 'relative' }}>
-                            {question.elements.map((el, i) => {
-                                if (elementPositions[el.id]) return null;
-                                return (
-                                    <div key={el.id} style={{ position: 'relative', height: '40px', marginBottom: '10px' }}>
-                                        <DraggableElement id={el.id} content={el.content} cx={0} cy={20} />
-                                    </div>
-                                );
-                            })}
-                            {question.elements.every(el => elementPositions[el.id]) && (
-                                <div style={{ color: '#4b5563', fontStyle: 'italic', textAlign: 'center', marginTop: '20px' }}>All elements placed!</div>
-                            )}
-                        </div>
+                {/* Elements Pool */}
+                <div style={{ marginBottom: '14px', padding: '12px', backgroundColor: '#0f172a', borderRadius: '10px', border: '1px solid #334155' }}>
+                    <div style={{ color: '#94a3b8', fontSize: '0.78rem', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '8px' }}>
+                        Elements to Place ({unplacedElements.length} remaining):
                     </div>
-
-                    {/* Semi-Circle Stage */}
-                    <div style={{
-                        position: 'relative',
-                        width: `${containerWidth}px`,
-                        height: `${radius + 40}px`,
-                        backgroundColor: '#111827',
-                        borderRadius: `${radius}px ${radius}px 0 0`,
-                        border: '1px solid #374151',
-                        borderBottom: '4px solid #4b5563',
-                        overflow: 'hidden'
-                    }}>
-                        {/* Background Grids / Labels */}
-                        <div style={{ position: 'absolute', bottom: '0', left: '50%', transform: 'translateX(-50%)', color: '#9ca3af', fontWeight: 'bold', fontSize: '1.2rem', zIndex: 5 }}>MIX CENTER</div>
-                        <div style={{ position: 'absolute', bottom: '10px', left: '20px', color: '#6b7280', fontSize: '0.9rem' }}>HARD LEFT</div>
-                        <div style={{ position: 'absolute', bottom: '10px', right: '20px', color: '#6b7280', fontSize: '0.9rem' }}>HARD RIGHT</div>
-
-                        {/* Semi-circle lines */}
-                        <div style={{ position: 'absolute', left: '50%', bottom: '0', width: `${radius}px`, height: `${radius}px`, borderTopLeftRadius: '100%', border: '1px dashed #374151', borderRight: 'none', borderBottom: 'none', transformOrigin: 'bottom right', transform: 'translateX(-100%)' }} />
-                        <div style={{ position: 'absolute', left: '50%', bottom: '0', width: `${radius}px`, height: `${radius}px`, borderTopRightRadius: '100%', border: '1px dashed #374151', borderLeft: 'none', borderBottom: 'none', transformOrigin: 'bottom left' }} />
-
-                        {/* Drop Zones */}
-                        {question.zones.map(zone => {
-                            const { cx, cy } = getCoordinates(zone.angle, zone.distance);
-                            return (
-                                <DroppableZone
-                                    key={zone.id}
-                                    id={zone.id}
-                                    cx={cx}
-                                    cy={cy}
-                                    radius={40}
-                                    showHint={!examMode && !submitted}
+                    {unplacedElements.length > 0 ? (
+                        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+                            {unplacedElements.map(el => (
+                                <PoolElement
+                                    key={el.id}
+                                    id={el.id}
+                                    content={el.content}
+                                    isSelected={selectedId === el.id}
+                                    onClick={() => setSelectedId(prev => prev === el.id ? null : el.id)}
                                 />
-                            );
-                        })}
+                            ))}
+                        </div>
+                    ) : (
+                        <div style={{ color: '#64748b', fontStyle: 'italic', fontSize: '0.85rem' }}>
+                            All elements placed — click any placed pill to move it back.
+                        </div>
+                    )}
+                </div>
 
-                        {/* Placed Elements */}
-                        {question.elements.map(el => {
-                            const placedZoneId = elementPositions[el.id];
-                            if (!placedZoneId) return null;
-                            const zone = question.zones.find(z => z.id === placedZoneId);
-                            if (!zone) return null;
+                {/* Responsive Semi-Circle Soundstage */}
+                <div style={{
+                    position: 'relative',
+                    width: '100%',
+                    height: '290px',
+                    backgroundColor: '#0f172a',
+                    borderRadius: '240px 240px 10px 10px',
+                    border: '1px solid #334155',
+                    borderBottom: '3px solid #475569',
+                    overflow: 'visible',
+                }}>
+                    {/* Semicircle guide arc */}
+                    <div style={{
+                        position: 'absolute',
+                        left: '10%',
+                        right: '10%',
+                        top: '14%',
+                        bottom: '24%',
+                        borderTopLeftRadius: '999px',
+                        borderTopRightRadius: '999px',
+                        border: '1px dashed #334155',
+                        borderBottom: 'none',
+                        pointerEvents: 'none',
+                    }} />
 
-                            const { cx, cy } = getCoordinates(zone.angle, zone.distance);
+                    {/* Axis Labels */}
+                    <div style={{ position: 'absolute', bottom: '10px', left: '16px', color: '#64748b', fontSize: '0.75rem', fontWeight: '700' }}>HARD LEFT</div>
+                    <div style={{ position: 'absolute', bottom: '8px', left: '50%', transform: 'translateX(-50%)', color: '#94a3b8', fontWeight: '700', fontSize: '0.9rem' }}>MIX CENTRE</div>
+                    <div style={{ position: 'absolute', bottom: '10px', right: '16px', color: '#64748b', fontSize: '0.75rem', fontWeight: '700' }}>HARD RIGHT</div>
 
-                            // Calculate local isCorrect if showAnswers is passed (for Exam Player wrapper) or fallback to internal submission
+                    {/* Drop Zones */}
+                    {question.zones.map(zone => {
+                        const { leftPct, topPct } = getZonePercent(zone.angle, zone.distance);
+                        return (
+                            <DroppableZone
+                                key={zone.id}
+                                id={zone.id}
+                                label={formatZoneLabel(zone.label || zone.id)}
+                                leftPct={leftPct}
+                                topPct={topPct}
+                                showHint={!examMode && !submitted}
+                                hasSelected={Boolean(selectedId)}
+                                onZoneClick={handleZoneClick}
+                            />
+                        );
+                    })}
+
+                    {/* Placed Elements (stacked cleanly per zone so none overlap) */}
+                    {Object.entries(zoneBuckets).map(([zoneId, items]) => {
+                        const zone = question.zones.find(z => z.id === zoneId);
+                        if (!zone) return null;
+                        const { leftPct, topPct } = getZonePercent(zone.angle, zone.distance);
+
+                        return items.map((el, idx) => {
                             let isCorrect = null;
                             if (showAnswers) {
-                                isCorrect = placedZoneId === el.targetZone;
+                                isCorrect = zoneId === el.targetZone;
                             } else if (submitted && !examMode) {
                                 isCorrect = feedback.details[el.id];
                             }
 
                             return (
-                                <div key={`placed-${el.id}`}>
-                                    <DraggableElement id={el.id} content={el.content} cx={cx} cy={cy} />
-                                    {isCorrect !== null && (
-                                        <div style={{ position: 'absolute', left: `calc(50% + ${cx}px + 40px)`, top: `calc(100% - ${cy}px - 20px)`, zIndex: 10 }}>
-                                            {isCorrect ? <Check color="#22c55e" size={20} /> : <X color="#ef4444" size={20} />}
-                                        </div>
-                                    )}
-                                </div>
+                                <PlacedElement
+                                    key={`placed-${el.id}`}
+                                    id={el.id}
+                                    content={el.content}
+                                    leftPct={leftPct}
+                                    topPct={topPct}
+                                    stackOffsetPx={idx * 34}
+                                    isCorrect={isCorrect}
+                                    disabled={examMode && submitted}
+                                    onRemove={handleRemovePlaced}
+                                />
                             );
-                        })}
-                    </div>
+                        });
+                    })}
                 </div>
             </DndContext>
 
             {/* Controls */}
             {!examMode && !submitted && (
-                <div style={{ marginTop: '20px', textAlign: 'center' }}>
+                <div style={{ marginTop: '16px', textAlign: 'center' }}>
                     <button
                         onClick={checkAnswer}
                         disabled={Object.keys(elementPositions).length < question.elements.length}
                         style={{
-                            padding: '10px 20px', backgroundColor: '#9333ea', color: 'white', borderRadius: '6px',
-                            border: 'none', fontWeight: 'bold', cursor: Object.keys(elementPositions).length < question.elements.length ? 'not-allowed' : 'pointer',
-                            opacity: Object.keys(elementPositions).length < question.elements.length ? 0.5 : 1
+                            padding: '10px 22px',
+                            backgroundColor: '#2563eb',
+                            color: 'white',
+                            borderRadius: '8px',
+                            border: 'none',
+                            fontWeight: '700',
+                            cursor: Object.keys(elementPositions).length < question.elements.length ? 'not-allowed' : 'pointer',
+                            opacity: Object.keys(elementPositions).length < question.elements.length ? 0.5 : 1,
                         }}
                     >
                         Check Positions
@@ -240,19 +361,39 @@ export default function PanningQuiz({ question, initialAnswers, onAnswersChange,
             {/* Feedback */}
             {!examMode && submitted && (
                 <div style={{
-                    marginTop: '20px', padding: '15px', borderRadius: '8px',
-                    backgroundColor: feedback.isCorrect ? 'rgba(34, 197, 94, 0.1)' : 'rgba(239, 68, 68, 0.1)',
+                    marginTop: '16px',
+                    padding: '12px 15px',
+                    borderRadius: '8px',
+                    backgroundColor: feedback.isCorrect ? 'rgba(34, 197, 94, 0.12)' : 'rgba(239, 68, 68, 0.12)',
                     border: `1px solid ${feedback.isCorrect ? '#22c55e' : '#ef4444'}`,
-                    display: 'flex', alignItems: 'center', gap: '10px', color: feedback.isCorrect ? '#4ade80' : '#f87171'
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '10px',
+                    color: feedback.isCorrect ? '#4ade80' : '#f87171',
                 }}>
-                    {feedback.isCorrect ? <Check size={24} /> : <X size={24} />}
-                    <span style={{ fontWeight: 'bold' }}>
-                        {feedback.isCorrect ? "Perfect! All elements are panned correctly." : "Some elements are in the wrong position. Check the markers and try again."}
+                    {feedback.isCorrect ? <Check size={20} /> : <X size={20} />}
+                    <span style={{ fontWeight: '700', fontSize: '0.9rem' }}>
+                        {feedback.isCorrect
+                            ? 'Perfect! All elements are panned correctly.'
+                            : 'Some elements are in the wrong position. Click a red pill to move it, or retry.'}
                     </span>
                     {!feedback.isCorrect && (
                         <button
-                            onClick={() => { setSubmitted(false); setFeedback({ isCorrect: false, details: {} }); if (onResult) onResult(false); }}
-                            style={{ marginLeft: 'auto', padding: '5px 10px', backgroundColor: 'transparent', border: '1px solid currentColor', color: 'inherit', borderRadius: '4px', cursor: 'pointer' }}
+                            onClick={() => {
+                                setSubmitted(false);
+                                setFeedback({ isCorrect: false, details: {} });
+                                if (onResult) onResult(false);
+                            }}
+                            style={{
+                                marginLeft: 'auto',
+                                padding: '5px 12px',
+                                backgroundColor: 'transparent',
+                                border: '1px solid currentColor',
+                                color: 'inherit',
+                                borderRadius: '6px',
+                                cursor: 'pointer',
+                                fontWeight: '600',
+                            }}
                         >
                             Retry
                         </button>
