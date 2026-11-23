@@ -19665,552 +19665,197 @@
           "type": "lp_quiz",
           "title": "Comparison 8: Smooth Criminal",
           "youtube_id": "h_D3VFfhvs4",
-          "video_title_1": "Michael Jackson (1987)",
+          "video_title_1": "Version A (1987)",
           "youtube_id_2": "CDl9ZMfj6aE",
-          "video_title_2": "Alien Ant Farm (2001)",
-          "description": "Compare Michael Jackson's 1987 Pop original with Alien Ant Farm's 2001 Alternative Rock cover. Focus on the rhythmic structure and instrumentation.",
+          "video_title_2": "Version B (2001)",
+          "description": "Practical FX & Dynamics Comparison: listen to Version A (1987) and Version B (2001), then dial in compression ratios, guitar distortion, gate attack, EQ curves, and signal chains for each mix.",
           "questions": [
             {
-              "title": "Recording Release Medium",
-              "content": "Recorded onto 24-track analogue tape slaved to 32-track digital tape (Mitsubishi X-850), mixed through a custom Harrison 3232 console.",
-              "type": "multi_choice",
-              "explanation": "<p><strong>Version A (Michael Jackson).</strong> Engineered by Bruce Swedien for the <em>Bad</em> album (1987), using cutting-edge hybrid analogue-to-digital tape synchronization.</p>",
-              "answers": [
-                {
-                  "text": "Version A (Michael Jackson)",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "Version B (Alien Ant Farm)",
-                  "is_true": "no"
-                }
-              ],
-              "img": "/images/svg/analog_tape_24track_ssl_console.svg",
-              "expert_explanation": "Bruce Swedien tracked on multiple synchronized tape machines to avoid wearing down the tape emulsion on critical vocal tracks. Alien Ant Farm recorded directly into 24-bit/96kHz Pro Tools HD.",
-              "expert_quote": {
-                "text": "I kept the original vocal tapes safely packed away and made digital clones to work with so the transients never dulled.",
-                "author": "Bruce Swedien (Recording Engineer)"
-              },
-              "explanation_image": {
-                "src": "/images/svg/analog_tape_24track_ssl_console.svg",
-                "alt": "Large Format Multitrack Tape & Harrison Mixing Console"
-              }
+              "title": "Q1: Practical Compression — Version B (2001) Heavy Rock Ratio",
+              "content": "Listen to the dense, squashed rock wall of sound in Version B (2001). Set the Compressor Ratio slider for aggressive rock drum and guitar bus limiting (around 8:1).",
+              "type": "parameter_matching",
+              "label": "Compressor Ratio",
+              "min": 1,
+              "max": 20,
+              "step": 0.5,
+              "correct_value": 8,
+              "tolerance": 2,
+              "unit": ":1",
+              "expert_explanation": "Version B uses high-ratio compression (around 6:1 to 10:1) on its drums and rock guitars to flatten dynamics and maintain aggressive forward loudness.",
+              "explanation": "<p><strong>Expert Explanation:</strong> Version B uses high-ratio compression (around 6:1 to 10:1) on its drums and rock guitars to flatten dynamics and maintain aggressive forward loudness.</p>"
             },
             {
-              "title": "Capture & Style",
-              "content": "Features Bruce Swedien’s stereo microphone techniques to preserve natural acoustic phase.",
-              "type": "multi_choice",
-              "explanation": "<p><strong>Version A (Michael Jackson).</strong> Bruce Swedien's Acusonic process used Blumlein stereo pairs and avoided mono-panpot summing, creating a breathtaking 3D stereo illusion.</p>",
-              "answers": [
-                {
-                  "text": "Version A (Michael Jackson)",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "Version B (Alien Ant Farm)",
-                  "is_true": "no"
-                }
-              ],
-              "img": "/images/stereo_soundstage_panning_hq.svg",
-              "expert_explanation": "Swedien rarely compressed rhythm instruments, relying instead on clean transient capture and natural stereo acoustic spacing. Alien Ant Farm relied on close-miking and heavy multi-channel compression.",
-              "expert_quote": {
-                "text": "True stereo capture gives you depth that pan pots can never fake. You feel the physical room around Michael.",
-                "author": "Bruce Swedien"
-              },
-              "explanation_image": {
-                "src": "/images/stereo_soundstage_panning_hq.svg",
-                "alt": "Acusonic Blumlein Stereo Acoustic Capture"
-              }
+              "title": "Q2: Practical Distortion — Version B (2001) Guitar Amp Drive",
+              "content": "Compare the clean synth stabs in Version A against the roaring electric guitars in Version B. Dial in heavy overdrive saturation (around 75% Drive) for Version B's guitar riff.",
+              "type": "parameter_matching",
+              "label": "Guitar Distortion Drive",
+              "min": 0,
+              "max": 100,
+              "step": 5,
+              "correct_value": 75,
+              "tolerance": 15,
+              "unit": "%",
+              "expert_explanation": "Setting amp drive around 60–90% creates rich odd/even harmonic distortion and sustain, turning the syncopated riff into a heavy rock guitar wall.",
+              "explanation": "<p><strong>Expert Explanation:</strong> Setting amp drive around 60–90% creates rich odd/even harmonic distortion and sustain, turning the syncopated riff into a heavy rock guitar wall.</p>"
             },
             {
-              "title": "Rhythm & Sync",
-              "content": "Rhythm section is powered by a high-energy live acoustic drum kit playing energetic pop-punk syncopation with open hi-hat slashes.",
-              "type": "multi_choice",
-              "explanation": "<p><strong>Version B (Alien Ant Farm).</strong> Mike Cosgrove's aggressive live drumming provides real human momentum and driving rock accents rather than machine-programmed rigidity.</p>",
-              "answers": [
-                {
-                  "text": "Version A (Michael Jackson)",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Version B (Alien Ant Farm)",
-                  "is_true": "yes"
-                }
-              ],
-              "img": "/images/svg/comparison_quantized_grid_vs_human_timing.svg",
-              "expert_explanation": "Alien Ant Farm's drums were tracked live in a large wooden drum room with multiple ambient mic pairs. Michael Jackson's groove was driven by quantised Synclavier II sequencing and LinnDrum patterns.",
-              "expert_quote": {
-                "text": "We wanted the drums to feel like a high-speed runaway train hitting every accent with maximum punch.",
-                "author": "Mike Cosgrove (Alien Ant Farm)"
-              },
-              "explanation_image": {
-                "src": "/images/svg/comparison_quantized_grid_vs_human_timing.svg",
-                "alt": "Live Acoustic Drumming Dynamics vs Quantized Grid"
-              }
+              "title": "Q3: Practical Gate — Version A (1987) Snare Gate Attack",
+              "content": "Listen to the crisp, punchy gated snare in Version A (1987). Set the Noise Gate Attack Time (1–5 ms) so the snare crack punches through cleanly without clicking.",
+              "type": "parameter_matching",
+              "label": "Gate Attack Time",
+              "min": 0,
+              "max": 50,
+              "step": 1,
+              "correct_value": 2,
+              "tolerance": 2,
+              "unit": " ms",
+              "expert_explanation": "A fast 1–4 ms gate attack lets the sharp 1987 snare transient open cleanly while clamping down immediately on the gated reverb tail.",
+              "explanation": "<p><strong>Expert Explanation:</strong> A fast 1–4 ms gate attack lets the sharp 1987 snare transient open cleanly while clamping down immediately on the gated reverb tail.</p>"
             },
             {
-              "title": "Sequencing & Sampling",
-              "content": "Pioneered the use of the NED Synclavier II digital synthesiser and sampler for advanced sequencing, including Michael's own recorded heartbeat.",
-              "type": "multi_choice",
-              "explanation": "<p><strong>Version A (Michael Jackson).</strong> Christopher Currell programmed the Synclavier II for the track, sampling Jackson's actual heartbeat using an acoustic sensor and processing it into the rhythm track.</p>",
-              "answers": [
-                {
-                  "text": "Version A (Michael Jackson)",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "Version B (Alien Ant Farm)",
-                  "is_true": "no"
-                }
-              ],
-              "img": "/images/svg/vocal_chopping_sampling_technique.svg",
-              "expert_explanation": "The Synclavier cost over $100,000 in 1987 and was the gold standard for digital sound design. Alien Ant Farm used purely live guitars, bass, and drums without digital sampling or sequencing.",
-              "expert_quote": {
-                "text": "Michael's real heartbeat was processed through the Synclavier and became the intro pulse that sets up the groove.",
-                "author": "Christopher Currell (Synclavier Programmer)"
-              },
-              "explanation_image": {
-                "src": "/images/svg/vocal_chopping_sampling_technique.svg",
-                "alt": "NED Synclavier II Digital Audio System & Sound Design"
-              }
+              "title": "Q4: Practical EQ — Version A (1987) Vocal High-Pass Filter",
+              "content": "Listen to how dry and tight the lead vocal sits in Version A (1987). Dial in the High-Pass Filter cutoff (Hz) to remove mic rumble without thinning the voice.",
+              "type": "parameter_matching",
+              "label": "Vocal HPF Cutoff Frequency",
+              "min": 20,
+              "max": 250,
+              "step": 5,
+              "correct_value": 85,
+              "tolerance": 15,
+              "unit": " Hz",
+              "expert_explanation": "High-passing around 80–100 Hz clears low-end rumble so the vocal locks cleanly above Version A's punchy synth bassline.",
+              "explanation": "<p><strong>Expert Explanation:</strong> High-passing around 80–100 Hz clears low-end rumble so the vocal locks cleanly above Version A's punchy synth bassline.</p>"
             },
             {
-              "title": "Pitching",
-              "content": "Vocal features rhythmic exclamations, signature hiccups, breathless gasps, and pristine falsetto belts tracked with a Shure SM7 dynamic mic.",
-              "type": "multi_choice",
-              "explanation": "<p><strong>Version A (Michael Jackson).</strong> Michael Jackson recorded lead vocals on a Shure SM7 dynamic mic without a pop shield, delivering theatrical, percussive vocal phrasing.</p>",
-              "answers": [
-                {
-                  "text": "Version A (Michael Jackson)",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "Version B (Alien Ant Farm)",
-                  "is_true": "no"
-                }
-              ],
-              "img": "/images/comparisons/smooth_criminal_comparison.png",
-              "expert_explanation": "Swedien favored the SM7 for Jackson because its flat frequency response handled violent dynamic bursts without overloading. Dryden Mitchell (Alien Ant Farm) sang with strained, punk-tinged rock belt.",
-              "expert_quote": {
-                "text": "Michael treated his voice like a rhythm instrument—every gasp, hiccup, and percussive sigh was placed with exact rhythmic intent.",
-                "author": "Bruce Swedien"
+              "title": "Q5: Practical EQ Curve — Version B (2001) Guitar Presence Bite",
+              "content": "Draw a parametric EQ boost at 3 kHz (+6 dB) to help Version B's distorted electric guitars cut through the dense rock mix.",
+              "type": "graph-drawing",
+              "question": "Draw a parametric EQ curve boosting 3 kHz by +6 dB",
+              "hint": "Drag Frequency to ~3000 Hz and raise Gain to +6 dB.",
+              "initValues": {
+                "frequency": 1000,
+                "gain": 0
               },
-              "explanation_image": {
-                "src": "/images/comparisons/smooth_criminal_comparison.png",
-                "alt": "Shure SM7 Dynamic Microphone Vocal Capture"
-              }
+              "correctValues": {
+                "frequency": [
+                  2500,
+                  3500
+                ],
+                "gain": [
+                  4,
+                  7
+                ]
+              },
+              "expert_explanation": "A +4 dB to +7 dB bell boost around 3 kHz emphasises pick attack and guitar presence so distorted riffs cut past heavy cymbals.",
+              "explanation": "<p><strong>Expert Explanation:</strong> A +4 dB to +7 dB bell boost around 3 kHz emphasises pick attack and guitar presence so distorted riffs cut past heavy cymbals.</p>"
             },
             {
-              "title": "Arrangement Differences",
-              "content": "Begins with a dramatic cinematic narrative sequence featuring footsteps, heavy breathing, and a synthesized heartbeat before the music enters.",
-              "type": "multi_choice",
-              "explanation": "<p><strong>Version A (Michael Jackson).</strong> Quincy Jones and Jackson structured the original with an atmospheric 40-second radio-drama sound effect sequence creating theatrical suspense.</p>",
-              "answers": [
+              "title": "Q6: Comparing FX Tools (1987 vs 2001)",
+              "content": "Match each signature studio effect to how it is used in Version A (1987) or Version B (2001).",
+              "type": "signal-flow-label",
+              "hide_arrows": true,
+              "flowSteps": [
                 {
-                  "text": "Version A (Michael Jackson)",
-                  "is_true": "yes"
+                  "id": "sc1",
+                  "label": "Clamps 1987 snare reverb tail abruptly (Version A)",
+                  "placeholder": "Drop Effect..."
                 },
                 {
-                  "text": "Version B (Alien Ant Farm)",
-                  "is_true": "no"
-                }
-              ],
-              "img": "/images/svg/arrangement_sparse_acoustic_vs_dense_synth.svg",
-              "expert_explanation": "The cinematic intro established Jackson's storytelling ambition for the <em>Moonwalker</em> film. Alien Ant Farm eliminated the story soundscape, exploding immediately into a high-energy guitar riff.",
-              "expert_quote": {
-                "text": "Michael wanted the record to feel like a film noir scene before a single musical note dropped.",
-                "author": "Quincy Jones (Producer)"
-              },
-              "explanation_image": {
-                "src": "/images/svg/arrangement_sparse_acoustic_vs_dense_synth.svg",
-                "alt": "Cinematic Foley Intro vs Immediate High-Energy Drop"
-              }
-            },
-            {
-              "title": "Mixing & Processing",
-              "content": "The iconic staccato bassline is performed on heavily distorted, palm-muted electric guitars tuned in drop-tuning.",
-              "type": "multi_choice",
-              "explanation": "<p><strong>Version B (Alien Ant Farm).</strong> Guitarist Terry Corso translated the synth bassline into crunching palm-muted electric guitar riffs played through high-gain Marshall and Mesa Boogie tube amplifiers.</p>",
-              "answers": [
-                {
-                  "text": "Version A (Michael Jackson)",
-                  "is_true": "no"
+                  "id": "sc2",
+                  "label": "Saturates guitar riffs with heavy harmonics (Version B)",
+                  "placeholder": "Drop Effect..."
                 },
                 {
-                  "text": "Version B (Alien Ant Farm)",
-                  "is_true": "yes"
-                }
-              ],
-              "img": "/images/guitar_amp_3d_stage.png",
-              "expert_explanation": "Corso's percussive palm-muting replicated the tight staccato envelope of the original synthesiser while adding the raw, gritty aggression of post-grunge alt-rock.",
-              "expert_quote": {
-                "text": "The main riff was so rhythmic that it just begged to be played on a heavy electric guitar with tight palm-muting.",
-                "author": "Terry Corso (Alien Ant Farm)"
-              },
-              "explanation_image": {
-                "src": "/images/guitar_amp_3d_stage.png",
-                "alt": "High-Gain Palm-Muted Electric Guitar Riffing"
-              }
-            },
-            {
-              "title": "Pan (Stereo Field)",
-              "content": "Uses heavy double-tracked rhythm guitars panned hard Left and hard Right.",
-              "type": "multi_choice",
-              "explanation": "<p><strong>Expert Explanation:</strong> Swedien’s 1987 mix spread synths and brass smoothly across the stereo field, whereas Alien Ant Farm panned doubled distorted guitars hard left and right.</p>",
-              "answers": [
-                {
-                  "text": "Version A (Michael Jackson)",
-                  "is_true": "no"
+                  "id": "sc3",
+                  "label": "Adds short rhythmic depth to 1987 vocals (Version A)",
+                  "placeholder": "Drop Effect..."
                 },
                 {
-                  "text": "Version B (Alien Ant Farm)",
-                  "is_true": "yes"
+                  "id": "sc4",
+                  "label": "Maximises 2001 master loudness to 0 dBFS (Version B)",
+                  "placeholder": "Drop Effect..."
                 }
               ],
-              "img": "/images/stereo_soundstage_panning_hq.svg",
-              "expert_explanation": "Swedien’s 1987 mix spread synths and brass smoothly across the stereo field, whereas Alien Ant Farm panned doubled distorted guitars hard left and right.",
-              "expert_quote": {
-                "text": "Doubling guitars and panning them wide gives you that massive stadium rock feel.",
-                "author": "Jay Baumgardner (Mixer)"
-              },
-              "explanation_image": {
-                "src": "/images/stereo_soundstage_panning_hq.svg",
-                "alt": "Stereo Panning Soundstage in Rock Mix"
-              }
-            },
-            {
-              "title": "Reverb",
-              "content": "Features lush, warm plate reverberation on the lead vocal and synthetic brass using EMT 140 plates and Lexicon 480L hardware.",
-              "type": "multi_choice",
-              "explanation": "<p><strong>Version A (Michael Jackson).</strong> Bruce Swedien used physical EMT 140 reverberation plates alongside Lexicon 480L digital processors for velvety spatial decay.",
-              "answers": [
-                {
-                  "text": "Version A (Michael Jackson)",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "Version B (Alien Ant Farm)",
-                  "is_true": "no"
-                }
+              "terms": [
+                "High-Gain Amp Distortion",
+                "Brickwall Master Limiter",
+                "Tape Slapback Delay",
+                "Gated Plate Reverb"
               ],
-              "img": "/images/reverb_plate_mechanics_diagram.svg",
-              "expert_explanation": "EMT plate reverbs provide bright, dense reflections without muddiness. Alien Ant Farm's mix used short digital room simulations and tight vocal slapback delays for a drier, aggressive sound.",
-              "expert_quote": {
-                "text": "The EMT 140 plate reverb gave Michael's voice that magical, shimmering studio halo.",
-                "author": "Bruce Swedien"
+              "correctAnswers": {
+                "sc1": "Gated Plate Reverb",
+                "sc2": "High-Gain Amp Distortion",
+                "sc3": "Tape Slapback Delay",
+                "sc4": "Brickwall Master Limiter"
               },
-              "explanation_image": {
-                "src": "/images/reverb_plate_mechanics_diagram.svg",
-                "alt": "EMT 140 Reverberation Plate Mechanics"
-              }
+              "expert_explanation": "Version A showcases 1980s gated reverb and short vocal slapback delay, whereas Version B relies on high-gain guitar distortion and 2000s brickwall limiting.",
+              "explanation": "<p><strong>Expert Explanation:</strong> Version A showcases 1980s gated reverb and short vocal slapback delay, whereas Version B relies on high-gain guitar distortion and 2000s brickwall limiting.</p>"
             },
             {
-              "title": "Delay",
-              "content": "Includes rhythmic dub-style tape delay throws on specific vocal exclamations ('Annie, are you OK?') during the bridge breakdown.",
-              "type": "multi_choice",
-              "explanation": "<p><strong>Version B (Alien Ant Farm).</strong> The 2001 cover adds psychedelic reggae/dub delay feedback throws on vocal words during the middle-eight breakdown before the explosive final chorus.</p>",
-              "answers": [
-                {
-                  "text": "Version A (Michael Jackson)",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Version B (Alien Ant Farm)",
-                  "is_true": "yes"
-                }
+              "title": "Q7: Building Version B's Rock Guitar FX Chain",
+              "content": "Arrange the 4-stage guitar signal chain for Version B (2001) from GUITAR INPUT to MIX OUTPUT.",
+              "type": "drag_drop",
+              "top_label": "INPUT (Electric Guitar)",
+              "bottom_label": "OUTPUT (Stereo Mix)",
+              "items": [
+                "Close-miked amplifier cabinet",
+                "High-pass filter (100 Hz) to clear mud",
+                "Short room reverb send for depth",
+                "High-gain overdrive distortion pedal"
               ],
-              "img": "/images/svg/vocal_slapback_delay_technique.svg",
-              "expert_explanation": "Alien Ant Farm paid homage to the original while incorporating alternative rock dynamic contrasts (quiet breakdown with spinning delays into explosive loud climax).",
-              "expert_quote": {
-                "text": "We threw in that dub delay on 'OK?' to completely pull the rug out from under the listener before the final drop.",
-                "author": "Dryden Mitchell (Alien Ant Farm)"
-              },
-              "explanation_image": {
-                "src": "/images/svg/vocal_slapback_delay_technique.svg",
-                "alt": "Dub-Style Rhythmic Delay Throws on Vocals"
-              }
-            },
-            {
-              "title": "Filtering & Effects",
-              "content": "A band-pass 'telephone filter' EQ is applied to spoken dialogue lines in the bridge, removing high and low frequencies.",
-              "type": "multi_choice",
-              "explanation": "<p><strong>Version A (Michael Jackson).</strong> The dramatic monologue in the middle section ('He came into her apartment...') was band-passed to emulate a distant police radio / telephone transmission.</p>",
-              "answers": [
-                {
-                  "text": "Version A (Michael Jackson)",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "Version B (Alien Ant Farm)",
-                  "is_true": "no"
-                }
+              "correct_order": [
+                "High-gain overdrive distortion pedal",
+                "Close-miked amplifier cabinet",
+                "High-pass filter (100 Hz) to clear mud",
+                "Short room reverb send for depth"
               ],
-              "img": "/images/svg/high_pass_filter_sweep_riser.svg",
-              "expert_explanation": "Band-pass filtering between 300 Hz and 3 kHz creates the classic telephone voice effect, dramatizing the crime scene narrative. Alien Ant Farm opted for direct screaming vocals without telephonic filtering.",
-              "expert_quote": {
-                "text": "Filtering out the lows and highs made the spoken passage sound like an urgent police dispatch.",
-                "author": "Quincy Jones"
-              },
-              "explanation_image": {
-                "src": "/images/svg/high_pass_filter_sweep_riser.svg",
-                "alt": "Band-Pass Telephone EQ Filtering"
-              }
+              "expert_explanation": "Overdrive shapes the core distorted tone before the amp speaker, followed by subtractive high-pass EQ and subtle room ambience.",
+              "explanation": "<p><strong>Expert Explanation:</strong> Overdrive shapes the core distorted tone before the amp speaker, followed by subtractive high-pass EQ and subtle room ambience.</p>"
             },
             {
-              "title": "EQ",
-              "content": "High-frequency presence boost around 10–12 kHz ('air band') adds breathtaking sheen to vocals and brass without harshness.",
-              "type": "multi_choice",
-              "explanation": "<p><strong>Version A (Michael Jackson).</strong> Swedien applied custom Pultec and Harrison high-frequency EQ boosts to give the vocals and brass stabs an ultra-luxurious top-end polish.</p>",
-              "answers": [
-                {
-                  "text": "Version A (Michael Jackson)",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "Version B (Alien Ant Farm)",
-                  "is_true": "no"
-                }
-              ],
-              "img": "/images/svg/comparison_60s_midrange_vs_80s_smile_eq.svg",
-              "expert_explanation": "The Harrison 3232 console EQ provided ultra-smooth high shelving. Alien Ant Farm's EQ curves emphasized aggressive 2–4 kHz midrange bite to help guitars cut through.",
-              "expert_quote": {
-                "text": "We worked on that air band until the brass sparkled like fine crystal.",
-                "author": "Bruce Swedien"
-              },
-              "explanation_image": {
-                "src": "/images/svg/comparison_60s_midrange_vs_80s_smile_eq.svg",
-                "alt": "Pultec High-Frequency Air Band EQ Curve"
-              }
-            },
-            {
-              "title": "Dynamics",
-              "content": "Mix bus was left uncompressed during tracking and mixing to maintain natural transient impact and explosive micro-dynamics.",
-              "type": "multi_choice",
-              "explanation": "<p><strong>Version A (Michael Jackson).</strong> Bruce Swedien famously refused to compress the master mix bus or rhythm tracks, believing compression strangled the lifelike impact of drum transients.</p>",
-              "answers": [
-                {
-                  "text": "Version A (Michael Jackson)",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "Version B (Alien Ant Farm)",
-                  "is_true": "no"
-                }
-              ],
-              "img": "/images/svg/comparison_human_microdynamics_vs_machine_velocity.svg",
-              "expert_explanation": "Swedien's philosophy resulted in unmatched punch that sounds enormous when turned up. Alien Ant Farm utilized modern SSL bus compressors and digital peak limiters for consistent commercial loudness.",
-              "expert_quote": {
-                "text": "I don't compress rhythm instruments. I want the drumstick hitting the drumhead to hit your ear with full, unchoked acoustic force.",
-                "author": "Bruce Swedien"
-              },
-              "explanation_image": {
-                "src": "/images/svg/comparison_human_microdynamics_vs_machine_velocity.svg",
-                "alt": "Uncompressed Transients vs Heavy Bus Compression"
-              }
-            },
-            {
-              "title": "Instrumentation",
-              "content": "Arrangement showcases real brass section arrangements (Jerry Hey horns) doubling tight analogue synthesisers (Roland D-50, Yamaha DX7).",
-              "type": "multi_choice",
-              "explanation": "<p><strong>Version A (Michael Jackson).</strong> Arranger Jerry Hey wrote lightning-fast horn lines that doubled digital FM synthesisers, creating a hybrid acoustic-electronic powerhouse.</p>",
-              "answers": [
-                {
-                  "text": "Version A (Michael Jackson)",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "Version B (Alien Ant Farm)",
-                  "is_true": "no"
-                }
-              ],
-              "img": "/images/gen/t2_q13_brass_distance_hq_1772103543454.png",
-              "expert_explanation": "The Jerry Hey Horn section (trumpets, trombones, saxophones) gave the track its razor-sharp punch. Alien Ant Farm stripped the horns completely, relying strictly on a traditional four-piece rock band lineup.",
-              "expert_quote": {
-                "text": "Jerry Hey's horn voicings were so tight they sounded like a laser beam hitting you in the chest.",
-                "author": "Quincy Jones"
-              },
-              "explanation_image": {
-                "src": "/images/gen/t2_q13_brass_distance_hq_1772103543454.png",
-                "alt": "Jerry Hey Horn Section & Multitrack Brass Capture"
-              }
-            },
-            {
-              "title": "Genre Style",
-              "content": "Transforms 1980s Pop/R&B into early-2000s Post-Grunge / Alternative Rock, popularizing rock covers of classic pop tracks on MTV.",
-              "type": "multi_choice",
-              "explanation": "<p><strong>Version B (Alien Ant Farm).</strong> Alien Ant Farm's 2001 cover introduced Jackson's composition to a new generation of rock fans, reaching #1 on modern rock charts.</p>",
-              "answers": [
-                {
-                  "text": "Version A (Michael Jackson)",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Version B (Alien Ant Farm)",
-                  "is_true": "yes"
-                }
-              ],
-              "img": "/images/comparisons/smooth_criminal_comparison.png",
-              "expert_explanation": "The cover proved that the melodic strength of Jackson's writing could seamlessly transcend genres into loud, distorted guitar-driven alternative rock.",
-              "expert_quote": {
-                "text": "We were just having fun playing a song we loved, and it ended up taking us around the world.",
-                "author": "Dryden Mitchell"
-              },
-              "explanation_image": {
-                "src": "/images/comparisons/smooth_criminal_comparison.png",
-                "alt": "High-Tech 80s Pop/R&B vs 2000s Alternative Rock"
-              }
-            },
-            {
-              "title": "Production Differences: Smooth Criminal",
-              "content": "Complete the 15-point comparison between the two tracks.",
+              "title": "Q8: Practical FX Summary (4 Marks)",
+              "content": "Complete the 4 dropdowns summarising how effects and dynamics separate Version A (1987) and Version B (2001).",
               "type": "cloze",
               "text": [
-                "1. The 1987 original features an incredibly {0} and quantised rhythmic pop groove.",
-                "2. Michael Jackson's production used state-of-the-art {1} to painstakingly program the rhythm section.",
-                "3. Alien Ant Farm's 2001 cover transforms the pop arrangement into a frantic {2} anthem.",
-                "4. The iconic, staccato baseline was originally played on a {3}.",
-                "5. The rock cover translates this exact staccato riff to {4} played with palm-muting technique.",
-                "6. Michael Jackson's trademark vocal style includes tight rhythmic {5} acting almost as percussion.",
-                "7. The 2001 lead vocalist adopts a rougher, more {6} rock delivery, though mimicking the original rhythms.",
-                "8. The 1987 track heavily relies on {7} to create its punchy, larger-than-life drum sound.",
-                "9. The 2001 version uses an aggressive, close-miked {8} to drive the energy.",
-                "10. Both versions maintain a strong emphasis on {9} to give the main riff its bouncy, pushing feel.",
-                "11. The original pop mix is very {10}, with every synthetic element occupying a specific frequency space.",
-                "12. The rock cover mix is much more {11}, characterized by a 'wall of sound' guitar approach.",
-                "13. MJ's version features brief, highly produced {12} to transition between sections.",
-                "14. AAF replaces these cinematic transitions with heavy {13} hits and guitar squeals.",
-                "15. While the 1987 song is a highly polished {14} production, the cover brings raw, punk-inspired energy."
+                "1. Version A achieves its tight 1980s drum snap using a {0} on the snare reverb.",
+                "2. Version A's driving bass hook is played on an {1} rather than a bass guitar.",
+                "3. Version B replaces clean synth stabs with heavily {2} electric guitars.",
+                "4. Version B reduces dynamic range to stay loud throughout using a {3}."
               ],
               "options": [
                 [
-                  "loose and swung",
-                  "grand piano",
-                  "rubato and free",
-                  "tight and rigid",
-                  "noise gate"
+                  "vocoder",
+                  "noise gate",
+                  "ring modulator",
+                  "pitch shifter"
                 ],
                 [
-                  "digital samplers and sequencers",
-                  "live big bands",
-                  "pitch correction",
-                  "analog tape loops",
-                  "bass guitar"
+                  "acoustic cello",
+                  "analogue synthesiser",
+                  "accordion",
+                  "brass tuba"
                 ],
                 [
-                  "jazz fusion",
-                  "upright bass",
-                  "reggae",
-                  "alternative rock",
-                  "Wurlitzer"
-                ],
-                [
-                  "double bass",
-                  "autotune",
-                  "chorus pedal",
-                  "tuba",
-                  "digital synthesiser"
-                ],
-                [
-                  "acoustic guitars",
-                  "brass section",
-                  "electric guitar",
-                  "distorted electric guitars",
-                  "clean electric guitars"
-                ],
-                [
-                  "talkbox",
-                  "deep throat growls",
-                  "long operatic vibratos",
-                  "vocal hiccups and exclamations",
-                  "noise gate"
-                ],
-                [
-                  "synth bass",
-                  "pitch-corrected",
-                  "full-throated",
+                  "distorted",
+                  "auto-tuned",
                   "whispered",
-                  "Wurlitzer"
+                  "chorused"
                 ],
                 [
-                  "compressor pedal",
-                  "tape delay feedback",
-                  "overdrive channel",
-                  "natural acoustic room ambiance",
-                  "gated reverb on the snare"
-                ],
-                [
-                  "programmable drum machine",
-                  "orchestral percussion section",
-                  "graphic EQ",
-                  "live drum kit",
-                  "parametric EQ"
-                ],
-                [
-                  "polyrhythm",
-                  "syncopation",
-                  "graphic EQ",
-                  "legato phrasing",
-                  "digital delay"
-                ],
-                [
-                  "graphic EQ",
-                  "Wurlitzer",
-                  "muddy and blended",
-                  "clean and separated",
-                  "distorted and noisy"
-                ],
-                [
-                  "parametric EQ",
-                  "mid-heavy and dense",
-                  "scooped and hollow",
-                  "digital delay",
-                  "thin and bright"
-                ],
-                [
-                  "synthesiser lead",
-                  "improvised guitar solos",
-                  "synth bass",
-                  "extended drum solos",
-                  "cinematic sound design effects"
-                ],
-                [
-                  "synthesiser sweep",
-                  "compressor pedal",
-                  "Hammond organ",
-                  "brass stab",
-                  "cymbal crash"
-                ],
-                [
-                  "parametric EQ",
-                  "Lo-Fi Indie",
-                  "Live Rock",
-                  "Studio Pop",
-                  "vocoder"
+                  "brickwall limiter",
+                  "ribbon microphone",
+                  "4-track tape",
+                  "phantom power"
                 ]
               ],
               "answer": [
-                "tight and rigid",
-                "digital samplers and sequencers",
-                "alternative rock",
-                "digital synthesiser",
-                "distorted electric guitars",
-                "vocal hiccups and exclamations",
-                "full-throated",
-                "gated reverb on the snare",
-                "live drum kit",
-                "syncopation",
-                "clean and separated",
-                "mid-heavy and dense",
-                "cinematic sound design effects",
-                "cymbal crash",
-                "Studio Pop"
+                "noise gate",
+                "analogue synthesiser",
+                "distorted",
+                "brickwall limiter"
               ],
-              "expert_explanation": "The original 'Smooth Criminal' relies on cutting-edge 1980s technology (including digital samplers and drum machines) for a rigid, punchy pop/R&B groove. Alien Ant Farm reimagined this in 2001. They mapped the tight synthesized bass riff over to heavily distorted, palm-muted electric guitars, and replaced programmed percussion with highly energetic live drum patterns. The syncopation (emphasis on the off-beats) is perfectly preserved, proving that strong rhythmic motifs can transcend instrumentation.",
-              "img": "/images/comparisons/smooth_criminal_comparison.png",
-              "explanation_image": {
-                "src": "/images/comparisons/smooth_criminal_comparison.png",
-                "alt": "Smooth Criminal Comparison: Michael Jackson 1987 Pop vs Alien Ant Farm 2001 Alt-Rock"
-              }
+              "expert_explanation": "Version A pairs a noise-gated snare and analogue synth bass with clean vocals, while Version B uses heavy guitar distortion and brickwall limiting.",
+              "explanation": "<p><strong>Expert Explanation:</strong> Version A pairs a noise-gated snare and analogue synth bass with clean vocals, while Version B uses heavy guitar distortion and brickwall limiting.</p>"
             }
           ],
           "isPremium": true,
