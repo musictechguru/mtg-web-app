@@ -16762,269 +16762,141 @@
           "campaignNodeId": null,
           "questions": [
             {
-              "title": "Touch Automation Mode",
-              "content": "When writing volume automation in your DAW using 'Touch' mode, what happens to the fader value when you release your mouse or hardware controller?",
-              "type": "multi_choice",
-              "question": "What does a parameter do when you release the fader in Touch automation mode?",
-              "answers": [
+              "title": "Q1: DAW Automation Modes",
+              "content": "Match each DAW automation mode to how the fader behaves during playback.",
+              "type": "signal-flow-label",
+              "hide_arrows": true,
+              "flowSteps": [
                 {
-                  "text": "Stays at last level until playback stops",
-                  "is_true": "no"
+                  "id": "au1",
+                  "label": "Plays existing curves without recording edits",
+                  "placeholder": "Drop Mode..."
                 },
                 {
-                  "text": "Snaps back to previous curve when released",
-                  "is_true": "yes"
+                  "id": "au2",
+                  "label": "Snaps back to previous curve when released",
+                  "placeholder": "Drop Mode..."
                 },
                 {
-                  "text": "Deletes the audio waveform from timeline",
-                  "is_true": "no"
+                  "id": "au3",
+                  "label": "Holds last value until playback is stopped",
+                  "placeholder": "Drop Mode..."
                 },
                 {
-                  "text": "Mutes the channel strip permanently",
-                  "is_true": "no"
+                  "id": "au4",
+                  "label": "Erases existing data as soon as play starts",
+                  "placeholder": "Drop Mode..."
                 }
               ],
-              "explanation": "<p><strong>Expert Explanation:</strong> In Touch mode, automation writes only while you hold the fader; as soon as you let go, it snaps back to the existing automation curve.</p>",
-              "expert_quote": {
-                "text": "Touch mode is the safest way to ride vocals: touch it to write, let go to return.",
-                "author": "Edexcel Component 4 DAW Automation Guide"
+              "terms": [
+                "Latch Mode",
+                "Write Mode",
+                "Touch Mode",
+                "Read Mode"
+              ],
+              "correctAnswers": {
+                "au1": "Read Mode",
+                "au2": "Touch Mode",
+                "au3": "Latch Mode",
+                "au4": "Write Mode"
               },
-              "img": "/images/svg/transport_bar.svg",
-              "expert_explanation": "In Touch mode, automation writes only while you hold the fader; as soon as you let go, it snaps back to the existing automation curve."
+              "expert_explanation": "Read plays curves safely, Touch returns to the old curve on release, Latch holds your new level until stop, and Write overwrites everything on playback.",
+              "explanation": "<p><strong>Expert Explanation:</strong> Read plays curves safely, Touch returns to the old curve on release, Latch holds your new level until stop, and Write overwrites everything on playback.</p>"
             },
             {
-              "title": "Latch Automation Mode",
-              "content": "How does 'Latch' automation mode differ from 'Touch' mode in a digital audio workstation?",
-              "type": "multi_choice",
-              "question": "What happens when you release the fader in Latch automation mode?",
-              "answers": [
+              "title": "Q2: Standard MIDI Control Change (CC) Numbers",
+              "content": "Match each standard MIDI CC number to the parameter it controls.",
+              "type": "signal-flow-label",
+              "hide_arrows": true,
+              "flowSteps": [
                 {
-                  "text": "Snaps back to 0 dB when released",
-                  "is_true": "no"
+                  "id": "cc1",
+                  "label": "Controls vibrato or synth filter via Mod Wheel",
+                  "placeholder": "Drop CC..."
                 },
                 {
-                  "text": "Converts audio into MIDI note events",
-                  "is_true": "no"
+                  "id": "cc2",
+                  "label": "Controls overall MIDI channel volume level",
+                  "placeholder": "Drop CC..."
                 },
                 {
-                  "text": "Holds released level until playback stops",
-                  "is_true": "yes"
+                  "id": "cc3",
+                  "label": "Controls Left-to-Right stereo pan position",
+                  "placeholder": "Drop CC..."
                 },
                 {
-                  "text": "Disables automation on other tracks",
-                  "is_true": "no"
+                  "id": "cc4",
+                  "label": "Controls piano sustain pedal (On/Off)",
+                  "placeholder": "Drop CC..."
                 }
               ],
-              "explanation": "<p><strong>Expert Explanation:</strong> In Latch mode, once you move a control during playback, it keeps writing that new value even after you release the fader until you stop playback.</p>",
-              "expert_quote": {
-                "text": "Latch stays where you leave it. Remember to hit stop so you don't overwrite the next section of your song.",
-                "author": "Logic Pro & Pro Tools Mixing Guide"
-              },
-              "img": "/images/svg/transport_bar.svg",
-              "expert_explanation": "In Latch mode, once you move a control during playback, it keeps writing that new value even after you release the fader until you stop playback."
-            },
-            {
-              "title": "Write Automation Mode Warning",
-              "content": "Why do audio engineers avoid leaving a track in 'Write' automation mode during a mix session?",
-              "type": "multi_choice",
-              "question": "Why is Write automation mode dangerous to leave active in a DAW?",
-              "answers": [
-                {
-                  "text": "Overwrites existing data on playback",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "Deletes audio files from hard drive",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Forces DAW to bounce in mono format",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Disconnects hardware MIDI controllers",
-                  "is_true": "no"
-                }
+              "terms": [
+                "CC10 (Pan)",
+                "CC64 (Sustain)",
+                "CC7 (Volume)",
+                "CC1 (Modulation)"
               ],
-              "explanation": "<p><strong>Expert Explanation:</strong> Write mode continuously overwrites every existing automation move on the track as soon as playback passes over it, risking accidental erasure.</p>",
-              "expert_quote": {
-                "text": "Write mode is like a steamroller. Use it only for your very first pass, then switch straight to Touch or Read.",
-                "author": "DAW Mixing Essentials"
+              "correctAnswers": {
+                "cc1": "CC1 (Modulation)",
+                "cc2": "CC7 (Volume)",
+                "cc3": "CC10 (Pan)",
+                "cc4": "CC64 (Sustain)"
               },
-              "img": "/images/svg/transport_bar.svg",
-              "expert_explanation": "Write mode continuously overwrites every existing automation move on the track as soon as playback passes over it, risking accidental erasure."
+              "expert_explanation": "Standard MIDI assigns CC1 to Modulation, CC7 to Volume, CC10 to Pan, and CC64 to Sustain Pedal.",
+              "explanation": "<p><strong>Expert Explanation:</strong> Standard MIDI assigns CC1 to Modulation, CC7 to Volume, CC10 to Pan, and CC64 to Sustain Pedal.</p>"
             },
             {
-              "title": "Read Automation Mode",
-              "content": "What is the function of the standard 'Read' automation mode on a DAW track?",
-              "type": "multi_choice",
-              "question": "What does Read automation mode do?",
-              "answers": [
-                {
-                  "text": "Scans audio lyrics into sheet music",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Converts audio into MIDI event tracks",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Plays audio only when holding spacebar",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Plays automation without writing changes",
-                  "is_true": "yes"
-                }
+              "title": "Q3: MIDI Resolution, Velocity & Fade Curves (3 Marks)",
+              "content": "Complete the 3 dropdowns on MIDI data values and DAW volume automation.",
+              "type": "cloze",
+              "text": [
+                "1. Standard MIDI parameters run from 0 to 127 because MIDI uses {0} resolution.",
+                "2. When recording a MIDI keyboard part, {1} measures how hard a key was struck.",
+                "3. Engineers prefer curved {2} fade-outs because human ears judge loudness on a curve."
               ],
-              "explanation": "<p><strong>Expert Explanation:</strong> Read mode plays back all recorded automation curves cleanly without allowing accidental changes if you bump a fader.</p>",
-              "expert_quote": {
-                "text": "When you finish automating a track, leave it in Read mode so your mix is protected.",
-                "author": "Edexcel Component 4 Workflow Guide"
-              },
-              "img": "/images/svg/transport_bar.svg",
-              "expert_explanation": "Read mode plays back all recorded automation curves cleanly without allowing accidental changes if you bump a fader."
-            },
-            {
-              "title": "MIDI CC1 (Modulation Wheel)",
-              "content": "What standard synthesiser parameter is universally controlled by MIDI Continuous Controller 1 (CC1)?",
-              "type": "multi_choice",
-              "question": "Which controller on a MIDI keyboard transmits MIDI CC1 by default?",
-              "answers": [
-                {
-                  "text": "Sustain Pedal switch",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Modulation Wheel control",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "Channel Volume fader",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Stereo Panning control",
-                  "is_true": "no"
-                }
+              "options": [
+                [
+                  "24-bit",
+                  "7-bit",
+                  "16-bit",
+                  "32-bit"
+                ],
+                [
+                  "Quantisation",
+                  "Aftertouch",
+                  "Note Velocity",
+                  "Pitch Bend"
+                ],
+                [
+                  "square-wave",
+                  "linear",
+                  "logarithmic",
+                  "stepped"
+                ]
               ],
-              "explanation": "<p><strong>Expert Explanation:</strong> MIDI CC1 (Modulation Wheel) typically controls vibrato depth (LFO pitch modulation) or filter cutoff sweeps on a synthesiser.</p>",
-              "expert_quote": {
-                "text": "CC1 is your modulation wheel. Move it to add vibrato to a synth lead or bring a string section to life.",
-                "author": "MIDI Standards & Sequencing"
-              },
-              "img": "/images/svg/midi_cc_message_3byte_structure.svg",
-              "expert_explanation": "MIDI CC1 (Modulation Wheel) typically controls vibrato depth (LFO pitch modulation) or filter cutoff sweeps on a synthesiser."
-            },
-            {
-              "title": "MIDI CC7 (Volume) and CC10 (Pan)",
-              "content": "Which MIDI Continuous Controller numbers are standardised for Channel Volume and Stereo Pan position?",
-              "type": "multi_choice",
-              "question": "What are the standard MIDI CC numbers for Volume and Pan?",
-              "answers": [
-                {
-                  "text": "CC 1 for Volume and CC 64 for Pan",
-                  "is_true": "no"
-                },
-                {
-                  "text": "CC 11 for Volume and CC 1 for Pan",
-                  "is_true": "no"
-                },
-                {
-                  "text": "CC 7 for Volume and CC 10 for Pan",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "CC 64 for Volume and CC 127 for Pan",
-                  "is_true": "no"
-                }
+              "answer": [
+                "7-bit",
+                "Note Velocity",
+                "logarithmic"
               ],
-              "explanation": "<p><strong>Expert Explanation:</strong> MIDI CC7 controls Channel Volume and MIDI CC10 controls Stereo Panning across standard MIDI instruments and DAWs.</p>",
-              "expert_quote": {
-                "text": "Remember: CC7 is Volume, and CC10 is Pan. Standard MIDI protocol on every sequencer.",
-                "author": "Edexcel Music Technology Specification"
-              },
-              "img": "/images/svg/midi_cc_message_3byte_structure.svg",
-              "expert_explanation": "MIDI CC7 controls Channel Volume and MIDI CC10 controls Stereo Panning across standard MIDI instruments and DAWs."
+              "expert_explanation": "7-bit MIDI bytes give 128 values (0–127), Note Velocity captures key strike strength, and logarithmic fades match human hearing.",
+              "explanation": "<p><strong>Expert Explanation:</strong> 7-bit MIDI bytes give 128 values (0–127), Note Velocity captures key strike strength, and logarithmic fades match human hearing.</p>"
             },
             {
-              "title": "MIDI CC64 (Sustain Pedal)",
-              "content": "What MIDI controller number is transmitted when a keyboard player presses down on a standard Sustain (Damper) Pedal?",
+              "title": "Q4: Pitch Bend vs Modulation Wheel",
+              "content": "How does a MIDI Pitch Bend wheel differ from a Modulation wheel?",
               "type": "multi_choice",
-              "question": "Which MIDI CC number is assigned to the Sustain / Damper Pedal?",
               "answers": [
-                {
-                  "text": "MIDI CC 64",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "MIDI CC 1",
-                  "is_true": "no"
-                },
-                {
-                  "text": "MIDI CC 7",
-                  "is_true": "no"
-                },
-                {
-                  "text": "MIDI CC 10",
-                  "is_true": "no"
-                }
-              ],
-              "explanation": "<p><strong>Expert Explanation:</strong> Pressing a keyboard sustain pedal transmits MIDI CC64 (Damper/Sustain Pedal), holding notes until the pedal is released.</p>",
-              "expert_quote": {
-                "text": "CC64 is the sustain pedal. Values 64–127 hold the notes; values 0–63 let them damp.",
-                "author": "MIDI Protocol Basics"
-              },
-              "img": "/images/svg/midi_cc_message_3byte_structure.svg",
-              "expert_explanation": "Pressing a keyboard sustain pedal transmits MIDI CC64 (Damper/Sustain Pedal), holding notes until the pedal is released."
-            },
-            {
-              "title": "MIDI Data Value Range (0–127)",
-              "content": "Why do standard MIDI parameters (like Note Velocity, Volume CC7, and Pan CC10) have a numerical range from 0 to 127?",
-              "type": "multi_choice",
-              "question": "Why do standard MIDI control change values range from 0 to 127?",
-              "answers": [
-                {
-                  "text": "Human ears only hear 100 volume steps",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Analogue synths only make 128 pitches",
-                  "is_true": "no"
-                },
-                {
-                  "text": "1983 CPUs could not count past 128",
-                  "is_true": "no"
-                },
-                {
-                  "text": "MIDI uses 7-bit data (128 values)",
-                  "is_true": "yes"
-                }
-              ],
-              "explanation": "<p><strong>Expert Explanation:</strong> Standard MIDI uses 7-bit binary data (2^7 = 128 values), giving a range from 0 (minimum) to 127 (maximum).</p>",
-              "expert_quote": {
-                "text": "In standard MIDI, everything runs from 0 to 127 because it's built on 7-bit data bytes.",
-                "author": "Digital Music Technology Specification"
-              },
-              "img": "/images/svg/midi_cc_message_3byte_structure.svg",
-              "expert_explanation": "Standard MIDI uses 7-bit binary data (2^7 = 128 values), giving a range from 0 (minimum) to 127 (maximum)."
-            },
-            {
-              "title": "Pitch Bend Wheel Behaviour",
-              "content": "How does the Pitch Bend wheel differ mechanically and functionally from the Modulation wheel on a MIDI keyboard?",
-              "type": "multi_choice",
-              "question": "How does the Pitch Bend wheel differ from the Modulation wheel?",
-              "answers": [
-                {
-                  "text": "Pitch Bend stays put; Mod Wheel snaps back",
-                  "is_true": "no"
-                },
                 {
                   "text": "Pitch Bend snaps centre; Mod Wheel stays put",
                   "is_true": "yes"
                 },
                 {
-                  "text": "Pitch Bend sends audio; Mod Wheel sends sysex",
+                  "text": "Pitch Bend stays put; Mod Wheel snaps back",
+                  "is_true": "no"
+                },
+                {
+                  "text": "Pitch Bend sends audio; Mod Wheel sends MIDI",
                   "is_true": "no"
                 },
                 {
@@ -17032,81 +16904,13 @@
                   "is_true": "no"
                 }
               ],
-              "explanation": "<p><strong>Expert Explanation:</strong> Unlike the Mod Wheel, the Pitch Bend wheel is spring-loaded to snap back to centre (0 pitch change) when released and uses higher-resolution 14-bit data.</p>",
-              "expert_quote": {
-                "text": "Pitch bend snaps back to center when you let go. Modulation wheel stays where you leave it.",
-                "author": "Edexcel Component 3 & 4 MIDI Guide"
-              },
-              "img": "/images/svg/midi_cc_message_3byte_structure.svg",
-              "expert_explanation": "Unlike the Mod Wheel, the Pitch Bend wheel is spring-loaded to snap back to centre (0 pitch change) when released and uses higher-resolution 14-bit data."
+              "expert_explanation": "Pitch Bend wheels are spring-loaded to snap back to zero pitch shift when released, whereas Modulation wheels stay at your chosen value.",
+              "explanation": "<p><strong>Expert Explanation:</strong> Pitch Bend wheels are spring-loaded to snap back to zero pitch shift when released, whereas Modulation wheels stay at your chosen value.</p>"
             },
             {
-              "title": "Volume Fade Automation Curves",
-              "content": "When drawing a volume fade-out at the end of a song in your DAW, why is a curved (logarithmic/exponential) fade line preferred over a straight linear line?",
+              "title": "Q5: Automating DAW Parameters",
+              "content": "Which DAW controls can be automated over time using automation lanes?",
               "type": "multi_choice",
-              "question": "Why do curved volume fades sound smoother to human ears than straight linear fades?",
-              "answers": [
-                {
-                  "text": "Linear fades clip above 0 dBFS",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Logarithmic fades create surround sound",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Human hearing perceives volume logarithmically",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "DAWs forbid linear volume fades",
-                  "is_true": "no"
-                }
-              ],
-              "explanation": "<p><strong>Expert Explanation:</strong> Human hearing perceives volume logarithmically, so an exponential or S-curve fade-out sounds much smoother than a straight linear fade.</p>",
-              "expert_quote": {
-                "text": "Our ears hear logarithmically. Curve your fade-outs so the volume melts away smoothly.",
-                "author": "DAW Mixing & Editing Tips"
-              },
-              "img": "/images/svg/transport_bar.svg",
-              "expert_explanation": "Human hearing perceives volume logarithmically, so an exponential or S-curve fade-out sounds much smoother than a straight linear fade."
-            },
-            {
-              "title": "MIDI Velocity Control",
-              "content": "When recording a MIDI piano or synth track, what does 'Note Velocity' measure?",
-              "type": "multi_choice",
-              "question": "What does MIDI note velocity measure and control?",
-              "answers": [
-                {
-                  "text": "How hard a key was hit (volume)",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "How long the note was held down",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Playback tempo in beats per minute",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Stereo pan position across monitors",
-                  "is_true": "no"
-                }
-              ],
-              "explanation": "<p><strong>Expert Explanation:</strong> Note Velocity (0–127) measures how hard or fast a MIDI key is struck, usually controlling note loudness and filter brightness.</p>",
-              "expert_quote": {
-                "text": "Velocity is touch sensitivity. Hitting a key harder produces a louder, brighter sound.",
-                "author": "MIDI Essentials for A-Level"
-              },
-              "img": "/images/svg/midi_cc_message_3byte_structure.svg",
-              "expert_explanation": "Note Velocity (0–127) measures how hard or fast a MIDI key is struck, usually controlling note loudness and filter brightness."
-            },
-            {
-              "title": "Plugin Automation in DAWs",
-              "content": "In modern DAWs like Logic Pro, Pro Tools, and Cubase, which parameters can be automated over time using automation lanes?",
-              "type": "multi_choice",
-              "question": "Which elements of a mix can be automated using DAW track automation lanes?",
               "answers": [
                 {
                   "text": "Only volume faders, never plugins",
@@ -17117,21 +16921,37 @@
                   "is_true": "no"
                 },
                 {
-                  "text": "Only tempo and time signatures",
-                  "is_true": "no"
-                },
-                {
                   "text": "Volume, pan, and plugin controls",
                   "is_true": "yes"
+                },
+                {
+                  "text": "Only tempo and time signatures",
+                  "is_true": "no"
                 }
               ],
-              "explanation": "<p><strong>Expert Explanation:</strong> Modern DAWs let you automate almost any channel fader, pan pot, send level, or plugin knob (such as EQ frequency or reverb decay).</p>",
-              "expert_quote": {
-                "text": "Automation brings static mixes to life. Automate volume, pans, and plugin sweeps to guide the listener's ear.",
-                "author": "Edexcel Component 4 Mix Techniques"
-              },
-              "img": "/images/svg/transport_bar.svg",
-              "expert_explanation": "Modern DAWs let you automate almost any channel fader, pan pot, send level, or plugin knob (such as EQ frequency or reverb decay)."
+              "expert_explanation": "Modern DAWs let you automate almost any parameter—including volume, pan, mute, aux sends, and EQ/FX plugin controls.",
+              "explanation": "<p><strong>Expert Explanation:</strong> Modern DAWs let you automate almost any parameter—including volume, pan, mute, aux sends, and EQ/FX plugin controls.</p>"
+            },
+            {
+              "title": "Q6: Recording a Safe Vocal Fader Ride",
+              "content": "Arrange the 4-step workflow for recording a chorus vocal volume lift without erasing earlier automation.",
+              "type": "drag_drop",
+              "top_label": "STEP 1 (Prepare)",
+              "bottom_label": "STEP 4 (Lock)",
+              "items": [
+                "Switch track back to Read Mode after the chorus",
+                "Set track to Touch Mode before playing the chorus",
+                "Push the vocal fader up slightly during the chorus",
+                "Release the fader so it snaps back smoothly"
+              ],
+              "correct_order": [
+                "Set track to Touch Mode before playing the chorus",
+                "Push the vocal fader up slightly during the chorus",
+                "Release the fader so it snaps back smoothly",
+                "Switch track back to Read Mode after the chorus"
+              ],
+              "expert_explanation": "Using Touch Mode lets you punch in a fader ride and release smoothly back to the previous level, before switching back to Read Mode to protect your mix.",
+              "explanation": "<p><strong>Expert Explanation:</strong> Using Touch Mode lets you punch in a fader ride and release smoothly back to the previous level, before switching back to Read Mode to protect your mix.</p>"
             }
           ]
         }
@@ -27653,507 +27473,219 @@
           "youtube_id": "oxAl3Jijs20",
           "video_title_1": "Augustus Pablo & King Tubby - King Tubby Meets Rockers Uptown (Official Audio)",
           "video_title_2": "King Tubby: The Father of Dub & Studio Electronics - Documentary",
-          "description": "Technical study of King Tubby's revolutionary 1974 dub masterpiece: custom 4-track MCI console modifications, high-pass filter sweeps, Roland Space Echo feedback loops, and spring reverb crash techniques.",
+          "description": "20-mark interactive production breakdown of King Tubby Meets Rockers Uptown (1974). Complete all four 5-blank studio dropdown stages covering the mixing desk as instrument, tape delay, spring reverb, and 1970s analogue workflow.",
           "questions": [
             {
-              "title": "Statement 1: Mixing Desk as Musical Instrument",
-              "content": "In dub production, the mixing console is treated as an expressive musical instrument performed live in real time.",
-              "type": "multi_choice",
-              "answers": [
-                {
-                  "text": "True",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "False",
-                  "is_true": "no"
-                }
+              "title": "Part 1 (5 Marks): Mixing Desk as an Instrument",
+              "content": "Select the correct 1970s dub mixing technique for each of the 5 statements.",
+              "type": "cloze",
+              "text": [
+                "1. In 1974 Jamaican dub, King Tubby performed the {0} live as a musical instrument.",
+                "2. Channels were actively {1} in and out of the mix to drop instruments abruptly.",
+                "3. Sweeping a custom stepped {2} stripped bass away from guitars and horns.",
+                "4. Instead of keeping all parts playing, dub relies on stark {3} and sudden drop-outs.",
+                "5. The melodica lead sits forward with bright midrange EQ and {4} phrasing."
               ],
-              "explanation": "<p><strong>Expert Explanation:</strong> King Tubby performed the mixing desk live, riding faders, toggling channel mutes, and sweeping filters like a real-time musical instrument.</p>",
-              "expert_quote": {
-                "text": "Tubby didn't just balance sound; he played the mixing console like a jazz solo.",
-                "author": "Bunny Lee (Dub Producer)"
-              },
-              "explanation_image": {
-                "src": "/images/Vintage Console EQ.png",
-                "alt": "Custom Mixing Console Fader Strips"
-              },
-              "expert_explanation": "King Tubby performed the mixing desk live, riding faders, toggling channel mutes, and sweeping filters like a real-time musical instrument."
+              "options": [
+                [
+                  "software DAW",
+                  "mixing console",
+                  "MIDI keyboard",
+                  "808 drum machine"
+                ],
+                [
+                  "muted",
+                  "auto-tuned",
+                  "time-stretched",
+                  "quantised"
+                ],
+                [
+                  "high-pass filter",
+                  "brickwall limiter",
+                  "chorus pedal",
+                  "noise gate"
+                ],
+                [
+                  "empty space",
+                  "wall-of-sound density",
+                  "continuous double-tracking",
+                  "heavy sidechaining"
+                ],
+                [
+                  "echo-soaked",
+                  "bit-crushed",
+                  "vocoder-tuned",
+                  "hard-clipped"
+                ]
+              ],
+              "answer": [
+                "mixing console",
+                "muted",
+                "high-pass filter",
+                "empty space",
+                "echo-soaked"
+              ],
+              "expert_explanation": "1. King Tubby played the mixing console live. 2. Channels were muted in and out rhythmically. 3. His stepped high-pass filter swept bass out dramatically. 4. Dub creates tension through empty space. 5. The melodica floats in echo-soaked space.",
+              "explanation": "<p><strong>Expert Explanation:</strong> 1. King Tubby played the mixing console live. 2. Channels were muted in and out rhythmically. 3. His stepped high-pass filter swept bass out dramatically. 4. Dub creates tension through empty space. 5. The melodica floats in echo-soaked space.</p>"
             },
             {
-              "title": "Statement 2: The 'Big Knob' High-Pass Filter",
-              "content": "King Tubby modified his custom 4-track MCI console with an Altec broadcast high-pass filter known as the 'Big Knob' to sweep frequency cutoffs live.",
-              "type": "multi_choice",
-              "answers": [
-                {
-                  "text": "True",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "False",
-                  "is_true": "no"
-                }
+              "title": "Part 2 (5 Marks): Spring Reverb & Tape Delay",
+              "content": "Complete the 5 blanks on the signature time-based effects used in 1974.",
+              "type": "cloze",
+              "text": [
+                "6. Snare hits and percussion were fed into a mechanical {0} tank for metallic splash.",
+                "7. Pushing {1} on the tape echo sent repeats cycling toward dramatic self-oscillation.",
+                "8. Engineers threw single snare hits into echo by flicking the {2} briefly upward.",
+                "9. Unlike clean digital delays, {3} lost treble clarity and gained warmth on each repeat.",
+                "10. Because digital plugins did not exist in 1974, all echoes were built with {4} hardware."
               ],
-              "explanation": "<p><strong>True.</strong> Tubby installed an Altec 9069A stepped passive high-pass filter on his master bus, allowing him to suddenly strip away all low and low-mid frequencies before snapping the heavy bassline back in.",
-              "expert_quote": {
-                "text": "When Tubby turned that big knob, the bass vanished and your ears felt empty—then boom, the bass dropped back in!",
-                "author": "Scientist (Dub Engineer)"
-              },
-              "explanation_image": {
-                "src": "/images/svg/high_pass_filter_sweep_riser.svg",
-                "alt": "High-Pass Filter Frequency Cutoff Sweep"
-              },
-              "expert_explanation": "Tubby added a custom rotary Altec stepped high-pass filter (the Big Knob) to his MCI console to sweep bass and midrange frequencies dramatically."
+              "options": [
+                [
+                  "convolution hall",
+                  "digital shimmer",
+                  "spring reverb",
+                  "pitch-shift"
+                ],
+                [
+                  "feedback",
+                  "pre-delay",
+                  "panning",
+                  "threshold"
+                ],
+                [
+                  "master limiter",
+                  "auxiliary send",
+                  "phantom power",
+                  "sample rate"
+                ],
+                [
+                  "analogue tape delay",
+                  "digital ping-pong",
+                  "MIDI clock sync",
+                  "VST delay"
+                ],
+                [
+                  "analogue",
+                  "software",
+                  "virtual",
+                  "optical disc"
+                ]
+              ],
+              "answer": [
+                "spring reverb",
+                "feedback",
+                "auxiliary send",
+                "analogue tape delay",
+                "analogue"
+              ],
+              "expert_explanation": "6. Spring reverb gave metallic splashy tails. 7. Raising feedback pushed tape echo toward self-oscillation. 8. Auxiliary sends threw individual hits into echo. 9. Analogue tape delay rolled off highs naturally. 10. All 1974 studio FX were hardware analogue.",
+              "explanation": "<p><strong>Expert Explanation:</strong> 6. Spring reverb gave metallic splashy tails. 7. Raising feedback pushed tape echo toward self-oscillation. 8. Auxiliary sends threw individual hits into echo. 9. Analogue tape delay rolled off highs naturally. 10. All 1974 studio FX were hardware analogue.</p>"
             },
             {
-              "title": "Statement 3: German Accordion Lead",
-              "content": "Augustus Pablo's haunting lead melodies were performed on an expensive custom German concert accordion miked with stereo ribbons.",
-              "type": "multi_choice",
-              "answers": [
-                {
-                  "text": "True",
-                  "is_true": "no"
-                },
-                {
-                  "text": "False",
-                  "is_true": "yes"
-                }
+              "title": "Part 3 (5 Marks): Rhythm Section & Tone Shaping",
+              "content": "Select the correct production choices for the bass, drums, and rhythm guitar.",
+              "type": "cloze",
+              "text": [
+                "11. The heavy electric bass guitar stays mostly {0} so low-end weight anchors the track.",
+                "12. Rhythmic electric guitar skanks sit crisp and thin after cutting {1} frequencies.",
+                "13. Driving hot levels through valve gear and magnetic tape added warm {2}.",
+                "14. The dry, tight drum kit often drops out to leave just rimshots and {3} trails.",
+                "15. Every remix decision was performed live in {4} without computer undo or automation."
               ],
-              "explanation": "<p><strong>Expert Explanation:</strong> Augustus Pablo played the haunting lead melody on a Hohner melodica (a wind-powered free-reed keyboard), not an accordion.</p>",
-              "expert_quote": {
-                "text": "Pablo took a toy plastic melodica and turned it into the sound of deep roots reggae.",
-                "author": "David Rodigan"
-              },
-              "explanation_image": {
-                "src": "/images/Ribbon Microphone.png",
-                "alt": "Ribbon Microphone Capturing Wind Instruments"
-              },
-              "expert_explanation": "Augustus Pablo played the haunting lead melody on a Hohner melodica (a wind-powered free-reed keyboard), not an accordion."
+              "options": [
+                [
+                  "hard-panned",
+                  "dry",
+                  "bit-crushed",
+                  "chorused"
+                ],
+                [
+                  "treble",
+                  "high-mid",
+                  "low-end",
+                  "air"
+                ],
+                [
+                  "harmonic saturation",
+                  "digital aliasing",
+                  "quantisation error",
+                  "comb filtering"
+                ],
+                [
+                  "reverb",
+                  "sidechain",
+                  "auto-tune",
+                  "arpeggio"
+                ],
+                [
+                  "MIDI grid",
+                  "real time",
+                  "48-bit float",
+                  "offline bounce"
+                ]
+              ],
+              "answer": [
+                "dry",
+                "low-end",
+                "harmonic saturation",
+                "reverb",
+                "real time"
+              ],
+              "expert_explanation": "11. Keeping bass dry preserves sub weight. 12. Cutting low-end frequencies keeps guitar skanks crisp. 13. Valve and tape circuitry added warm harmonic saturation. 14. Drums drop out into lingering reverb trails. 15. Dub mixes were performed live in real time.",
+              "explanation": "<p><strong>Expert Explanation:</strong> 11. Keeping bass dry preserves sub weight. 12. Cutting low-end frequencies keeps guitar skanks crisp. 13. Valve and tape circuitry added warm harmonic saturation. 14. Drums drop out into lingering reverb trails. 15. Dub mixes were performed live in real time.</p>"
             },
             {
-              "title": "Statement 4: Digital Lexicon Reverb Processing",
-              "content": "The cavernous reverberation on the snare drum was produced by a Lexicon 480L digital reverberation processor.",
-              "type": "multi_choice",
-              "answers": [
-                {
-                  "text": "True",
-                  "is_true": "no"
-                },
-                {
-                  "text": "False",
-                  "is_true": "yes"
-                }
+              "title": "Part 4 (5 Marks): Format, Legacy & Remix Culture",
+              "content": "Complete the final 5 statements on the 1974 format and lasting studio influence.",
+              "type": "cloze",
+              "text": [
+                "16. The original backing track was captured onto {0} magnetic tape before Tubby remixed it.",
+                "17. Early Jamaican sound-system mixes were often cut in {1} for maximum speaker punch.",
+                "18. Stripping vocals out to highlight bass and FX pioneered modern {2} culture.",
+                "19. Later genres like Jungle, Drum & Bass, and {3} directly inherited dub's sub-bass and echo throws.",
+                "20. Treating the studio and FX sends as creative tools turned the {4} into a co-writer."
               ],
-              "explanation": "<p><strong>Expert Explanation:</strong> The Lexicon 480L digital reverb was not released until 1986; 1974 dub mixes relied on analogue spring reverb tanks and tape echo.</p>",
-              "expert_quote": {
-                "text": "Everything was mechanical. Spring tanks, tape loops, and hand-built electronics.",
-                "author": "King Jammy"
-              },
-              "explanation_image": {
-                "src": "/images/reverb_spring_transducer_diagram.svg",
-                "alt": "Mechanical Spring Reverb Transducer System"
-              },
-              "expert_explanation": "The Lexicon 480L digital reverb was not released until 1986; 1974 dub mixes relied on analogue spring reverb tanks and tape echo."
-            },
-            {
-              "title": "Statement 5: Spring Reverb Mechanical Crash",
-              "content": "The explosive metallic 'thunder' splash heard on snare dropouts was produced by physically kicking or tapping the spring reverb tank.",
-              "type": "multi_choice",
-              "answers": [
-                {
-                  "text": "True",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "False",
-                  "is_true": "no"
-                }
+              "options": [
+                [
+                  "24-bit WAV",
+                  "4-track analogue",
+                  "optical film",
+                  "MIDI file"
+                ],
+                [
+                  "Dolby Atmos",
+                  "7.1 surround",
+                  "mono",
+                  "binaural"
+                ],
+                [
+                  "remix",
+                  "orchestral",
+                  "unplugged",
+                  "acapella"
+                ],
+                [
+                  "Classical",
+                  "Dubstep",
+                  "Barbershop",
+                  "Bluegrass"
+                ],
+                [
+                  "sound engineer",
+                  "sheet music",
+                  "vinyl sleeve",
+                  "metronome"
+                ]
               ],
-              "explanation": "<p><strong>True.</strong> Tubby and his protégés physically jarred the console or the spring tank on specific snare hits, causing the suspended metal coils to collide violently and emit a loud, metallic thunderclap.",
-              "expert_quote": {
-                "text": "A quick slap on the side of the mixer gave you that crack of thunder.",
-                "author": "King Tubby"
-              },
-              "explanation_image": {
-                "src": "/images/svg/reverb_plate_spring_diagram.svg",
-                "alt": "Spring Reverb Impact and Resonance"
-              },
-              "expert_explanation": "Physically bumping or kicking the metal spring reverb tank caused the internal springs to crash together, creating explosive metallic thunder."
-            },
-            {
-              "title": "Statement 6: Tape Delay Feedback & Self-Oscillation",
-              "content": "Tubby generated escalating, self-feeding echo trails by routing tape delay outputs back into their own mixer channels with high feedback.",
-              "type": "multi_choice",
-              "answers": [
-                {
-                  "text": "True",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "False",
-                  "is_true": "no"
-                }
+              "answer": [
+                "4-track analogue",
+                "mono",
+                "remix",
+                "Dubstep",
+                "sound engineer"
               ],
-              "explanation": "<p><strong>Expert Explanation:</strong> Routing a tape delay output back into its own mixer channel let Tubby push feedback into hypnotic, self-oscillating echo spirals.</p>",
-              "expert_quote": {
-                "text": "You had to ride the aux knob with your fingers; let it roar, then pull it back before it blew the monitors.",
-                "author": "Scientist"
-              },
-              "explanation_image": {
-                "src": "/images/delay_self_oscillation_diagram.svg",
-                "alt": "Tape Delay Runaway Feedback Circuit"
-              },
-              "expert_explanation": "Routing a tape delay output back into its own mixer channel let Tubby push feedback into hypnotic, self-oscillating echo spirals."
-            },
-            {
-              "title": "Statement 7: Continuous Dense Arrangement",
-              "content": "King Tubby's dub style required all musical instruments—horns, guitars, organs, and vocals—to play continuously without ever being muted.",
-              "type": "multi_choice",
-              "answers": [
-                {
-                  "text": "True",
-                  "is_true": "no"
-                },
-                {
-                  "text": "False",
-                  "is_true": "yes"
-                }
-              ],
-              "explanation": "<p><strong>Expert Explanation:</strong> Dub production is defined by stripping arrangements down—muting drums, vocals, or guitars suddenly to expose deep bass and echo spaces.</p>",
-              "expert_quote": {
-                "text": "Dub is the art of subtraction. You create drama by carving vast holes in the mix.",
-                "author": "Lee 'Scratch' Perry"
-              },
-              "explanation_image": {
-                "src": "/images/svg/arrangement_sparse_acoustic_vs_dense_synth.svg",
-                "alt": "Subtractive Arrangement: Deconstructing Stems"
-              },
-              "expert_explanation": "Dub production is defined by stripping arrangements down—muting drums, vocals, or guitars suddenly to expose deep bass and echo spaces."
-            },
-            {
-              "title": "Statement 8: Bass Ambient Reverb Miking",
-              "content": "Aston 'Family Man' Barrett's bass was recorded by placing a ribbon microphone 20 feet away at the far end of an open tiled hallway.",
-              "type": "multi_choice",
-              "answers": [
-                {
-                  "text": "True",
-                  "is_true": "no"
-                },
-                {
-                  "text": "False",
-                  "is_true": "yes"
-                }
-              ],
-              "explanation": "<p><strong>Expert Explanation:</strong> Reggae bass was recorded close-miked or via DI to keep the sub-bass tight, round, and heavy without muddy room reverb.</p>",
-              "expert_quote": {
-                "text": "Tubby used transformer direct injection so the bass was razor sharp and deep.",
-                "author": "Bunny Lee"
-              },
-              "explanation_image": {
-                "src": "/images/mic_vs_line_level.svg",
-                "alt": "Direct Injection Transformer Matching Circuit"
-              },
-              "expert_explanation": "Reggae bass was recorded close-miked or via DI to keep the sub-bass tight, round, and heavy without muddy room reverb."
-            },
-            {
-              "title": "Statement 9: Dotted-Eighth Tape Echo Timing",
-              "content": "The tape delay repeat rate was synchronised precisely to the song tempo using SMPTE timecode.",
-              "type": "multi_choice",
-              "answers": [
-                {
-                  "text": "True",
-                  "is_true": "no"
-                },
-                {
-                  "text": "False",
-                  "is_true": "yes"
-                }
-              ],
-              "explanation": "<p><strong>Expert Explanation:</strong> SMPTE timecode sync did not exist in 1974 Jamaican studios; Tubby tuned tape delay speeds manually by ear using the tape motor speed.</p>",
-              "expert_quote": {
-                "text": "There was no clock. Tubby turned the tape pitch wheel until the echo bounced in time with the rimshot.",
-                "author": "David Rodigan"
-              },
-              "explanation_image": {
-                "src": "/images/svg/dotted_eighth_note_delay.svg",
-                "alt": "Dotted-Eighth Rhythmic Delay Repeats"
-              },
-              "expert_explanation": "SMPTE timecode sync did not exist in 1974 Jamaican studios; Tubby tuned tape delay speeds manually by ear using the tape motor speed."
-            },
-            {
-              "title": "Statement 10: Dampened Disco Snare",
-              "content": "Carlton Barrett covered his snare with thick tea towels and tuned it to a loose, low pitch to mimic American disco drum dampening.",
-              "type": "multi_choice",
-              "answers": [
-                {
-                  "text": "True",
-                  "is_true": "no"
-                },
-                {
-                  "text": "False",
-                  "is_true": "yes"
-                }
-              ],
-              "explanation": "<p><strong>Expert Explanation:</strong> Reggae snares were often tuned tight and high with minimal dampening to cut cleanly above the heavy sub-bass groove.</p>",
-              "expert_quote": {
-                "text": "Carly's snare crack was high and snappy; when it hit the tape delay, it ricocheted like a gunshot.",
-                "author": "Sly Dunbar"
-              },
-              "explanation_image": {
-                "src": "/images/drum_snare_micing_1770032674117.png",
-                "alt": "Tuned Snare Drum and Rimshot Strike Point"
-              },
-              "expert_explanation": "Reggae snares were often tuned tight and high with minimal dampening to cut cleanly above the heavy sub-bass groove."
-            },
-            {
-              "title": "Statement 11: Tape Generation Loss and Saturation",
-              "content": "Repeated tape bouncing and dub mixing across multi-generation tape reels introduced pleasant tape compression and high-frequency softening.",
-              "type": "multi_choice",
-              "answers": [
-                {
-                  "text": "True",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "False",
-                  "is_true": "no"
-                }
-              ],
-              "explanation": "<p><strong>Expert Explanation:</strong> Bouncing and mixing across analogue tape reels added warm tape saturation and gentle high-frequency roll-off.</p>",
-              "expert_quote": {
-                "text": "The tape sat in the heat, bounced three times—it gave the mix that warm, dusty Jamaican grain.",
-                "author": "Sound on Sound"
-              },
-              "explanation_image": {
-                "src": "/images/Studer tape machine.png",
-                "alt": "Analog Magnetic Tape Generation Saturation"
-              },
-              "expert_explanation": "Bouncing and mixing across analogue tape reels added warm tape saturation and gentle high-frequency roll-off."
-            },
-            {
-              "title": "Statement 12: Fragmented Vocal Phrases",
-              "content": "Vocal snippets from Jacob Miller's original performance are strategically dropped into the dub mix for one or two syllables, bathed in echo trails.",
-              "type": "multi_choice",
-              "answers": [
-                {
-                  "text": "True",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "False",
-                  "is_true": "no"
-                }
-              ],
-              "explanation": "<p><strong>Expert Explanation:</strong> Snippets of Jacob Miller’s original vocal track were briefly unmuted and sent straight to tape echo, floating over the instrumental riddim.</p>",
-              "expert_quote": {
-                "text": "Tubby used the voice like a ghostly echo, teasing the listener with memories of the original song.",
-                "author": "The Wire Magazine"
-              },
-              "explanation_image": {
-                "src": "/images/delay_feedback_repeats_diagram.svg",
-                "alt": "Vocal Throw Delay Echo Decay Pattern"
-              },
-              "expert_explanation": "Snippets of Jacob Miller’s original vocal track were briefly unmuted and sent straight to tape echo, floating over the instrumental riddim."
-            },
-            {
-              "title": "Statement 13: Low-Power Walkman Mastering",
-              "content": "King Tubby mixed and EQ'd his dub tracks primarily for low-power personal cassette walkmans, rolling off all frequencies below 80 Hz.",
-              "type": "multi_choice",
-              "answers": [
-                {
-                  "text": "True",
-                  "is_true": "no"
-                },
-                {
-                  "text": "False",
-                  "is_true": "yes"
-                }
-              ],
-              "explanation": "<p><strong>Expert Explanation:</strong> King Tubby mixed specifically for massive outdoor Jamaican sound systems with towering bass speaker stacks capable of shaking sub-40 Hz frequencies.</p>",
-              "expert_quote": {
-                "text": "Tubby tuned his mixes for the dancehall, where physical sub-bass rattled the ground.",
-                "author": "Bunny Lee"
-              },
-              "explanation_image": {
-                "src": "/images/svg/bass_woofer.svg",
-                "alt": "Horn-Loaded Sound System Subwoofer Enclosure"
-              },
-              "expert_explanation": "King Tubby mixed specifically for massive outdoor Jamaican sound systems with towering bass speaker stacks capable of shaking sub-40 Hz frequencies."
-            },
-            {
-              "title": "Statement 14: Automated DAW Mute Automation",
-              "content": "The rapid muting and fader cuts were programmed using motorized fader automation on an SSL 4000 console.",
-              "type": "multi_choice",
-              "answers": [
-                {
-                  "text": "True",
-                  "is_true": "no"
-                },
-                {
-                  "text": "False",
-                  "is_true": "yes"
-                }
-              ],
-              "explanation": "<p><strong>Expert Explanation:</strong> Motorised console fader automation did not exist in 1974; every mute and fade was performed live by hand in a single pass.</p>",
-              "expert_quote": {
-                "text": "If you made a bad fader move two minutes in, you rewound the tape and performed the whole mix again.",
-                "author": "Scientist"
-              },
-              "explanation_image": {
-                "src": "/images/Vintage Console EQ.png",
-                "alt": "Manual Console Fader Moves"
-              },
-              "expert_explanation": "Motorised console fader automation did not exist in 1974; every mute and fade was performed live by hand in a single pass."
-            },
-            {
-              "title": "Statement 15: Guitar Skank High-Pass Filtering",
-              "content": "The offbeat rhythm guitar 'skank' was filtered to remove low and mid frequencies, leaving only a percussive high-mid 'chick' sound.",
-              "type": "multi_choice",
-              "answers": [
-                {
-                  "text": "True",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "False",
-                  "is_true": "no"
-                }
-              ],
-              "explanation": "<p><strong>Expert Explanation:</strong> High-pass filtering removed low end from the offbeat guitar skank, leaving a crisp rhythmic chop that stayed out of the bass’s way.</p>",
-              "expert_quote": {
-                "text": "The guitar in reggae isn't for chords; it's a metronome that works with the hi-hat.",
-                "author": "Aston 'Family Man' Barrett"
-              },
-              "explanation_image": {
-                "src": "/images/svg/high_pass_filter.svg",
-                "alt": "High-Pass Filter Frequency Curve on Guitar"
-              },
-              "expert_explanation": "High-pass filtering removed low end from the offbeat guitar skank, leaving a crisp rhythmic chop that stayed out of the bass’s way."
-            },
-            {
-              "title": "Statement 16: One-Off Acetate Dubplate Cutting",
-              "content": "Exclusive mixes like 'King Tubby Meets Rockers Uptown' were cut directly onto soft acetate discs to be played exclusively at dancehalls before commercial release.",
-              "type": "multi_choice",
-              "answers": [
-                {
-                  "text": "True",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "False",
-                  "is_true": "no"
-                }
-              ],
-              "explanation": "<p><strong>Expert Explanation:</strong> Exclusive dub mixes were cut straight onto one-off 10-inch acetate dubplates for sound system clashes before commercial vinyl pressings.</p>",
-              "expert_quote": {
-                "text": "An exclusive Tubby dubplate could crown a sound system champion of Kingston.",
-                "author": "David Rodigan"
-              },
-              "explanation_image": {
-                "src": "/images/turntable_dj.png",
-                "alt": "Acetate Dubplate Disc Cutting Lathe"
-              },
-              "expert_explanation": "Exclusive dub mixes were cut straight onto one-off 10-inch acetate dubplates for sound system clashes before commercial vinyl pressings."
-            },
-            {
-              "title": "Statement 17: Tube Harmonic Distortion",
-              "content": "Overdriving mixer preamps and spring reverb return channels was avoided to comply with broadcast distortion standards.",
-              "type": "multi_choice",
-              "answers": [
-                {
-                  "text": "True",
-                  "is_true": "no"
-                },
-                {
-                  "text": "False",
-                  "is_true": "yes"
-                }
-              ],
-              "explanation": "<p><strong>Expert Explanation:</strong> Dub engineers deliberately pushed preamps and spring tanks into warm valve and tape saturation for character and punch.</p>",
-              "expert_quote": {
-                "text": "Tubby understood distortion as color. He pushed valves and tape right to the breaking point.",
-                "author": "Lee 'Scratch' Perry"
-              },
-              "explanation_image": {
-                "src": "/images/Studio FET Compressor (UREI 1176 Blackface).png",
-                "alt": "Console Preamp Overdrive Saturation"
-              },
-              "expert_explanation": "Dub engineers deliberately pushed preamps and spring tanks into warm valve and tape saturation for character and punch."
-            },
-            {
-              "title": "Statement 18: Pure Mono Limitation",
-              "content": "Because the 4-track tape stems were tracked in mono, King Tubby was legally prohibited from introducing stereo spatial panning onto master tapes.",
-              "type": "multi_choice",
-              "answers": [
-                {
-                  "text": "True",
-                  "is_true": "no"
-                },
-                {
-                  "text": "False",
-                  "is_true": "yes"
-                }
-              ],
-              "explanation": "<p><strong>False.</strong> Tubby generated wide stereo landscapes by routing mono dry tracks into delay units and spring reverbs panned across the stereo field, creating profound 3D depth.",
-              "expert_quote": {
-                "text": "Dub proved you can build a massive stereo universe from simple mono stems.",
-                "author": "Sound on Sound"
-              },
-              "explanation_image": {
-                "src": "/images/mid_side_eq_diagram.svg",
-                "alt": "Mono Stem with Stereo Delay and Reverb Returns"
-              },
-              "expert_explanation": "Even from 4-track mono stems, Tubby used console pan pots and stereo delay returns to throw sounds dramatically across the stereo field."
-            },
-            {
-              "title": "Statement 19: The Foundation of Remix Culture",
-              "content": "King Tubby's deconstruction of 'Baby I Love You So' into 'King Tubby Meets Rockers Uptown' is recognised as one of the very first modern 'remixes' in music history.",
-              "type": "multi_choice",
-              "answers": [
-                {
-                  "text": "True",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "False",
-                  "is_true": "no"
-                }
-              ],
-              "explanation": "<p><strong>Expert Explanation:</strong> Deconstructing an existing multitrack recording into a radical new version laid the blueprint for modern remix and producer culture.</p>",
-              "expert_quote": {
-                "text": "Tubby invented the remix. Every DJ and electronic producer today is walking through the door he opened.",
-                "author": "Brian Eno"
-              },
-              "explanation_image": {
-                "src": "/images/Akai_MPC.png",
-                "alt": "Evolution of Remix Tools and Samplers"
-              },
-              "expert_explanation": "Deconstructing an existing multitrack recording into a radical new version laid the blueprint for modern remix and producer culture."
-            },
-            {
-              "title": "Statement 20: Influence on Modern Bass Music",
-              "content": "The sub-bass emphasis, high-pass filter sweeps, and delay throws of 1970s dub directly laid the structural foundation for UK Jungle, Drum & Bass, and Dubstep.",
-              "type": "multi_choice",
-              "answers": [
-                {
-                  "text": "True",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "False",
-                  "is_true": "no"
-                }
-              ],
-              "explanation": "<p><strong>Expert Explanation:</strong> Heavy sub-bass, filter sweeps, and dub delay throws directly inspired 1990s UK Jungle, Drum & Bass, and 2000s Dubstep.</p>",
-              "expert_quote": {
-                "text": "Dubstep is King Tubby updated for modern sound systems with digital sub-bass.",
-                "author": "Kodiak / UK Bass Producer"
-              },
-              "explanation_image": {
-                "src": "/images/frequency_spectrum_bass.svg",
-                "alt": "Sub-Bass Lineage in Modern Dance Music"
-              },
-              "expert_explanation": "Heavy sub-bass, filter sweeps, and dub delay throws directly inspired 1990s UK Jungle, Drum & Bass, and 2000s Dubstep."
+              "expert_explanation": "16. Backing bands tracked onto 4-track analogue tape. 17. Sound-system dubs were mixed in mono for punch. 18. Reworking multitracks into instrumental FX mixes birthed remix culture. 19. Dubstep and bass music descend directly from dub. 20. Dub elevated the sound engineer into a creative performer.",
+              "explanation": "<p><strong>Expert Explanation:</strong> 16. Backing bands tracked onto 4-track analogue tape. 17. Sound-system dubs were mixed in mono for punch. 18. Reworking multitracks into instrumental FX mixes birthed remix culture. 19. Dubstep and bass music descend directly from dub. 20. Dub elevated the sound engineer into a creative performer.</p>"
             }
           ],
           "isPremium": true
