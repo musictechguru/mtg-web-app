@@ -5129,35 +5129,16 @@
               "explanation_image": "/images/chorus_rate_depth_modulation_diagram.svg"
             },
             {
-              "title": "Q10: Flanger vs Chorus (Comb Filtering & Delay Time)",
-              "type": "multi_choice",
-              "content": "What is the main technical difference between a flanger and a chorus?",
-              "answers": [
-                {
-                  "text": "Flanger uses longer delays with zero feedback",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Flanger uses shorter delays with feedback",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "Flanger uses pitch shifting with no delay line",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Flanger only processes deep sub-bass audio",
-                  "is_true": "no"
-                }
-              ],
-              "expert_explanation": "While both are time-based modulation effects, flanging uses a much shorter delay time (0.1 to 10 ms, compared to 15 to 30 ms for chorus) combined with regenerative feedback. Mixing this ultra-short delay with the original signal creates a severe harmonic comb filter with resonant notches that sweep up and down, producing the signature jet plane whoosh.",
-              "expert_quote": {
-                "text": "Flanging was born by physically pressing a finger against the flange of a tape reel to slow down one tape machine against another.",
-                "author": "Audio Recording History"
-              },
-              "img": "/images/flanger_comb_filter_sweep_diagram.svg",
-              "explanation": "<img src=\"/images/flanger_comb_filter_sweep_diagram.svg\" alt=\"Flanger Comb Filtering Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> While both are time-based modulation effects, flanging uses a much shorter delay time (0.1 to 10 ms, compared to 15 to 30 ms for chorus) combined with regenerative feedback. Mixing this ultra-short delay with the original signal creates a severe harmonic comb filter with resonant notches that sweep up and down, producing the signature jet plane whoosh.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Flanging was born by physically pressing a finger against the flange of a tape reel to slow down one tape machine against another.\"<br/><strong>- Audio Recording History</strong></blockquote>",
-              "explanation_image": "/images/flanger_comb_filter_sweep_diagram.svg"
+              "title": "Q10: Live Delay-Time Lab — Phaser, Flanger & Chorus",
+              "content": "Press Play and sweep the Delay Time slider (0–80 ms) to hear how delay time changes Phaser, Flanger, Chorus, and Slapback Delay. Dial in a Flanger setting (1–10 ms) to create metallic jet-plane comb filtering.",
+              "type": "modulation-delay-lab",
+              "min": 0,
+              "max": 80,
+              "initMs": 60,
+              "targetMin": 1,
+              "targetMax": 10,
+              "expert_explanation": "Delay time defines how modulation effects work: 0 ms (no delay line) uses all-pass phase shifting for a Phaser, 1–10 ms + feedback creates a metallic Flanger, 15–35 ms creates lush Chorus doubling, and 50+ ms separates into a distinct Slapback Delay.",
+              "explanation": "<p><strong>Expert Explanation:</strong> Delay time defines how modulation effects work: 0 ms (no delay line) uses all-pass phase shifting for a Phaser, 1–10 ms + feedback creates a metallic Flanger, 15–35 ms creates lush Chorus doubling, and 50+ ms separates into a distinct Slapback Delay.</p>"
             }
           ],
           "randomise": false

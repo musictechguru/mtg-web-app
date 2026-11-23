@@ -27,6 +27,7 @@ import PhasePolarityAudioQuiz from './InteractiveQuizzes/PhasePolarityAudioQuiz'
 import CombFilteringAudioQuiz from './InteractiveQuizzes/CombFilteringAudioQuiz';
 import OverheadPhaseQuiz from './InteractiveQuizzes/OverheadPhaseQuiz';
 import AudioFaultDiagnosisQuiz from './InteractiveQuizzes/AudioFaultDiagnosisQuiz';
+import ModulationDelayLabQuiz from './InteractiveQuizzes/ModulationDelayLabQuiz';
 
 // Dev tools (skip, jump, reveal answers) only exist in local development, never on the live site
 const isDev = Boolean(import.meta.env.DEV);
@@ -56,7 +57,8 @@ const isInteractiveSelfSubmitting = (type) => [
     'guitar-amp-3to1',
     'phase-polarity-lab',
     'comb-filtering-lab',
-    'overhead-phase-lab'
+    'overhead-phase-lab',
+    'modulation-delay-lab'
 ].includes(type);
 
 // Helper to build/shuffle questions for a fresh quiz attempt
@@ -1701,6 +1703,12 @@ const QuizPlayer = ({ quiz, onFinish }) => {
                             />
                         ) : currentQuestion.type === 'audio-fault-lab' ? (
                             <AudioFaultDiagnosisQuiz
+                                key={currentQuestionIndex}
+                                question={currentQuestion}
+                                onResult={handleInteractiveResult}
+                            />
+                        ) : currentQuestion.type === 'modulation-delay-lab' ? (
+                            <ModulationDelayLabQuiz
                                 key={currentQuestionIndex}
                                 question={currentQuestion}
                                 onResult={handleInteractiveResult}
