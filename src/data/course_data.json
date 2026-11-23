@@ -16224,376 +16224,233 @@
           "campaignNodeId": null,
           "questions": [
             {
-              "title": "High-Pass Filtering (Low-Cut)",
-              "content": "Why is it common practice to engage a High-Pass Filter (around 80–100 Hz) on lead vocals and acoustic guitars?",
-              "type": "multi_choice",
-              "question": "What is the primary benefit of applying a High-Pass Filter to non-bass tracks in a mix?",
-              "answers": [
+              "title": "Q1: Frequency Spectrum Zones",
+              "content": "Match each frequency zone to its main role when pocketing instruments in a mix.",
+              "type": "signal-flow-label",
+              "hide_arrows": true,
+              "flowSteps": [
                 {
-                  "text": "Adds artificial low-end warmth to vocals",
-                  "is_true": "no"
+                  "id": "fq1",
+                  "label": "Kick drum fundamental punch and sub weight",
+                  "placeholder": "Drop Band..."
                 },
                 {
-                  "text": "Eliminates harsh sibilance on 'S' sounds",
-                  "is_true": "no"
+                  "id": "fq2",
+                  "label": "Low-mid congestion and boxy buildup",
+                  "placeholder": "Drop Band..."
                 },
                 {
-                  "text": "Removes sub-bass rumble and handling noise",
-                  "is_true": "yes"
+                  "id": "fq3",
+                  "label": "Vocal clarity and consonant articulation",
+                  "placeholder": "Drop Band..."
                 },
                 {
-                  "text": "Tunes out-of-pitch notes to the song key",
-                  "is_true": "no"
+                  "id": "fq4",
+                  "label": "Bright treble sheen and acoustic openness",
+                  "placeholder": "Drop Band..."
                 }
               ],
-              "explanation": "<p><strong>Expert Explanation:</strong> Applying an 80–100 Hz high-pass filter removes low-frequency mic stand rumble and plosives, leaving clean headroom for the kick and bass.</p>",
-              "expert_quote": {
-                "text": "If an instrument doesn't play bass notes, roll off the low end. It gives your kick and bass room to breathe.",
-                "author": "Edexcel Component 4 Mixing Protocol"
+              "terms": [
+                "Vocal Presence (3–5 kHz)",
+                "Vocal Air (10–14 kHz)",
+                "Mix Mud (250–400 Hz)",
+                "Sub-Bass Weight (40–80 Hz)"
+              ],
+              "correctAnswers": {
+                "fq1": "Sub-Bass Weight (40–80 Hz)",
+                "fq2": "Mix Mud (250–400 Hz)",
+                "fq3": "Vocal Presence (3–5 kHz)",
+                "fq4": "Vocal Air (10–14 kHz)"
               },
-              "img": "/images/svg/high_pass_filter_sweep_riser.svg",
-              "expert_explanation": "Applying an 80–100 Hz high-pass filter removes low-frequency mic stand rumble and plosives, leaving clean headroom for the kick and bass."
+              "expert_explanation": "Knowing key frequency pockets lets engineers shape punch (40–80 Hz), clear mud (250–400 Hz), lift vocal presence (3–5 kHz), and add top-end air (10–14 kHz).",
+              "explanation": "<p><strong>Expert Explanation:</strong> Knowing key frequency pockets lets engineers shape punch (40–80 Hz), clear mud (250–400 Hz), lift vocal presence (3–5 kHz), and add top-end air (10–14 kHz).</p>"
             },
             {
-              "title": "Kick Drum and Bass Guitar Clashing",
-              "content": "The kick drum and bass guitar are fighting for the same low-end space, making the bottom end of the mix sound muddy and boomy. What EQ technique creates separation between them?",
-              "type": "multi_choice",
-              "question": "How do you use EQ to prevent the kick drum and bass guitar from masking each other?",
-              "answers": [
-                {
-                  "text": "Boost 80 Hz heavily on both instruments",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Carve opposite frequencies for each track",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "Apply steep low-pass filters at 100 Hz",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Pan kick hard left and bass hard right",
-                  "is_true": "no"
-                }
-              ],
-              "explanation": "<p><strong>Expert Explanation:</strong> Complementary EQ gives each instrument its own pocket—boosting kick punch at 60 Hz while dipping 60 Hz on the bass, or vice versa.</p>",
-              "expert_quote": {
-                "text": "Two instruments cannot occupy the same frequency at the same time. Carve a small notch in one to make room for the other.",
-                "author": "Mixing Secrets for the Small Studio"
-              },
-              "img": "/images/svg/eq_bell_curve_q_comparison.svg",
-              "expert_explanation": "Complementary EQ gives each instrument its own pocket—boosting kick punch at 60 Hz while dipping 60 Hz on the bass, or vice versa."
+              "title": "Q2: Practical Slider — Acoustic Guitar High-Pass Filter",
+              "content": "Dial in a High-Pass Filter cutoff frequency (Hz) to clear stage rumble from an acoustic guitar without thinning its body.",
+              "type": "parameter_matching",
+              "label": "HPF Cutoff Frequency",
+              "min": 20,
+              "max": 300,
+              "step": 5,
+              "correct_value": 100,
+              "tolerance": 20,
+              "unit": " Hz",
+              "expert_explanation": "Setting a High-Pass Filter around 80–120 Hz clears low-frequency mic rumble and leaves room for bass and kick without thinning the acoustic guitar.",
+              "explanation": "<p><strong>Expert Explanation:</strong> Setting a High-Pass Filter around 80–120 Hz clears low-frequency mic rumble and leaves room for bass and kick without thinning the acoustic guitar.</p>"
             },
             {
-              "title": "Low-Mid 'Mud' (250–400 Hz)",
-              "content": "A mix sounds congested, boxy, and lacks clarity. Across multiple instruments (acoustic guitars, snare body, vocal buildup), what frequency zone is commonly cut to clear out this 'mud'?",
-              "type": "multi_choice",
-              "question": "Which frequency range is universally known for creating 'mud' and boxy buildup when overcrowded?",
-              "answers": [
-                {
-                  "text": "250 Hz to 400 Hz (lower midrange)",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "20 Hz to 40 Hz (sub-bass)",
-                  "is_true": "no"
-                },
-                {
-                  "text": "3 kHz to 5 kHz (presence)",
-                  "is_true": "no"
-                },
-                {
-                  "text": "12 kHz to 16 kHz (air)",
-                  "is_true": "no"
-                }
+              "title": "Q3: Kick & Bass Complementary EQ",
+              "content": "Complete the 3 dropdowns to separate a clashing kick drum and bass guitar using EQ pocketing.",
+              "type": "cloze",
+              "text": [
+                "1. To let the kick punch through cleanly, boost or keep its main sub thump around {0}.",
+                "2. Give the bass guitar its own pocket by letting its main note warmth sit higher around {1}.",
+                "3. Cutting competing frequencies on each track is known as {2}."
               ],
-              "explanation": "<p><strong>Expert Explanation:</strong> Excessive build-up between 250 Hz and 400 Hz creates boxy, muddy mixes. Cutting gently here clears room for vocals and guitars.</p>",
-              "expert_quote": {
-                "text": "If your mix sounds cloudy, gently cut around 300 Hz on your guitars and keyboards. It's like opening a window.",
-                "author": "Mix Engineering Masterclass"
-              },
-              "img": "/images/svg/eq_bell_curve_q_comparison.svg",
-              "expert_explanation": "Excessive build-up between 250 Hz and 400 Hz creates boxy, muddy mixes. Cutting gently here clears room for vocals and guitars."
+              "options": [
+                [
+                  "2 kHz–4 kHz",
+                  "50 Hz–60 Hz",
+                  "10 kHz–12 kHz",
+                  "400 Hz–600 Hz"
+                ],
+                [
+                  "10 Hz–20 Hz",
+                  "8 kHz–10 kHz",
+                  "100 Hz–120 Hz",
+                  "5 kHz–6 kHz"
+                ],
+                [
+                  "brickwall limiting",
+                  "stereo widening",
+                  "subtractive equalisation",
+                  "parallel compression"
+                ]
+              ],
+              "answer": [
+                "50 Hz–60 Hz",
+                "100 Hz–120 Hz",
+                "subtractive equalisation"
+              ],
+              "expert_explanation": "Complementary subtractive equalisation pockets the kick around 50–60 Hz and the bass guitar around 100–120 Hz so neither masks the other.",
+              "explanation": "<p><strong>Expert Explanation:</strong> Complementary subtractive equalisation pockets the kick around 50–60 Hz and the bass guitar around 100–120 Hz so neither masks the other.</p>"
             },
             {
-              "title": "Parametric EQ Controls",
-              "content": "What are the three essential controls found on every parametric equaliser band?",
-              "type": "multi_choice",
-              "question": "What are the three controls of a parametric EQ band?",
-              "answers": [
-                {
-                  "text": "Low Q value (e.g. Q = 0.5 to 1.0)",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Broad shelf filter with zero resonance",
-                  "is_true": "no"
-                },
-                {
-                  "text": "High-pass filter set at 1 kHz",
-                  "is_true": "no"
-                },
-                {
-                  "text": "High Q value (e.g. Q = 8 to 10)",
-                  "is_true": "yes"
-                }
-              ],
-              "explanation": "<p><strong>Expert Explanation:</strong> A high Q value (Q = 8 to 10) creates a very narrow, surgical bell curve to remove ringing resonances without affecting surrounding tones.</p>",
-              "expert_quote": {
-                "text": "Frequency picks the spot, Gain decides how much, and Q decides how wide. That is parametric EQ.",
-                "author": "Edexcel Component 4 Specification"
+              "title": "Q4: EQ Curve Lab — Cutting Low-Mid Mud",
+              "content": "Draw a parametric EQ curve that cuts muddy low-mids at 300 Hz by -6 dB.",
+              "type": "graph-drawing",
+              "question": "Draw a parametric EQ curve that cuts 300 Hz by -6 dB",
+              "hint": "Drag the frequency slider down to ~300 Hz and pull Gain down to -6 dB.",
+              "initValues": {
+                "frequency": 1000,
+                "gain": 0
               },
-              "img": "/images/svg/eq_bell_curve_q_comparison.svg",
-              "expert_explanation": "A high Q value (Q = 8 to 10) creates a very narrow, surgical bell curve to remove ringing resonances without affecting surrounding tones."
+              "correctValues": {
+                "frequency": [
+                  250,
+                  400
+                ],
+                "gain": [
+                  -8,
+                  -4
+                ]
+              },
+              "expert_explanation": "A gentle -6 dB dip around 300 Hz clears boxy low-mid buildup across guitars, vocals, and snare drums, restoring mix clarity.",
+              "explanation": "<p><strong>Expert Explanation:</strong> A gentle -6 dB dip around 300 Hz clears boxy low-mid buildup across guitars, vocals, and snare drums, restoring mix clarity.</p>"
             },
             {
-              "title": "Understanding Q (Bandwidth)",
-              "content": "What happens when an engineer increases the 'Q' setting on a parametric EQ band?",
-              "type": "multi_choice",
-              "question": "What effect does increasing the Q control have on an EQ filter?",
-              "answers": [
-                {
-                  "text": "Boost 3 kHz heavily on rhythm guitars",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Dip 2–4 kHz slightly on guitars for vocals",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "Pan both rhythm guitars dead centre",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Apply brickwall limiting on guitar buses",
-                  "is_true": "no"
-                }
+              "title": "Q5: Removing a Snare Drum Metallic Ring",
+              "content": "Arrange the 4 steps for finding and removing an annoying ringing overtone on a snare drum.",
+              "type": "drag_drop",
+              "top_label": "STEP 1 (Locate)",
+              "bottom_label": "STEP 4 (Verify)",
+              "items": [
+                "Flip the boost into a narrow surgical cut",
+                "Set a narrow Q with a +6 dB to +8 dB boost",
+                "Check the snare sound in full mix context",
+                "Sweep slowly until the metallic ring jumps out"
               ],
-              "explanation": "<p><strong>Expert Explanation:</strong> Dipping 2–4 kHz slightly on guitars creates an EQ pocket for lead vocal presence and intelligibility without masking.</p>",
-              "expert_quote": {
-                "text": "High Q is like a laser beam for surgical cuts; low Q is like a floodlight for musical tone shaping.",
-                "author": "EQ Mastery for A-Level"
-              },
-              "img": "/images/svg/eq_bell_curve_q_comparison.svg",
-              "expert_explanation": "Dipping 2–4 kHz slightly on guitars creates an EQ pocket for lead vocal presence and intelligibility without masking."
+              "correct_order": [
+                "Set a narrow Q with a +6 dB to +8 dB boost",
+                "Sweep slowly until the metallic ring jumps out",
+                "Flip the boost into a narrow surgical cut",
+                "Check the snare sound in full mix context"
+              ],
+              "expert_explanation": "The sweep-and-cut technique uses a narrow boost to pinpoint the exact ringing frequency before flipping it to a surgical cut.",
+              "explanation": "<p><strong>Expert Explanation:</strong> The sweep-and-cut technique uses a narrow boost to pinpoint the exact ringing frequency before flipping it to a surgical cut.</p>"
             },
             {
-              "title": "High-Shelf EQ Boost",
-              "content": "What does a High-Shelf EQ filter do when boosted by +4 dB at 10 kHz?",
-              "type": "multi_choice",
-              "question": "How does a High-Shelf filter operate?",
-              "answers": [
+              "title": "Q6: Parametric EQ Controls",
+              "content": "Match each equaliser parameter to the job it performs.",
+              "type": "signal-flow-label",
+              "hide_arrows": true,
+              "flowSteps": [
                 {
-                  "text": "Boosts only a narrow notch at 10 kHz",
-                  "is_true": "no"
+                  "id": "eqp1",
+                  "label": "Chooses which exact frequency is adjusted",
+                  "placeholder": "Drop Control..."
                 },
                 {
-                  "text": "Cuts all sub-bass frequencies below 100 Hz",
-                  "is_true": "no"
+                  "id": "eqp2",
+                  "label": "Sets how many decibels to boost or cut",
+                  "placeholder": "Drop Control..."
                 },
                 {
-                  "text": "Boosts all frequencies evenly above 10 kHz",
-                  "is_true": "yes"
+                  "id": "eqp3",
+                  "label": "Controls how wide or narrow the band is",
+                  "placeholder": "Drop Control..."
                 },
                 {
-                  "text": "Compresses harsh vocal sibilance at 7 kHz",
-                  "is_true": "no"
+                  "id": "eqp4",
+                  "label": "Rolls off all bass below a cutoff point",
+                  "placeholder": "Drop Control..."
                 }
               ],
-              "explanation": "<p><strong>Expert Explanation:</strong> A high-shelf filter applies a uniform +4 dB boost to every frequency above the 10 kHz corner frequency, adding air and brightness.</p>",
-              "expert_quote": {
-                "text": "A high shelf lifts the whole top end evenly. It gives you open air without peaky harshness.",
-                "author": "Mixing & Production Guide"
+              "terms": [
+                "Q Factor (Bandwidth)",
+                "High-Pass Filter",
+                "Gain (dB)",
+                "Centre Frequency (Hz)"
+              ],
+              "correctAnswers": {
+                "eqp1": "Centre Frequency (Hz)",
+                "eqp2": "Gain (dB)",
+                "eqp3": "Q Factor (Bandwidth)",
+                "eqp4": "High-Pass Filter"
               },
-              "img": "/images/svg/frequency_spectrum_treble.svg",
-              "expert_explanation": "A high-shelf filter applies a uniform +4 dB boost to every frequency above the 10 kHz corner frequency, adding air and brightness."
+              "expert_explanation": "Every parametric EQ band uses Centre Frequency (where), Gain (how much), and Q Factor (how wide), paired with a High-Pass Filter to clear sub-bass.",
+              "explanation": "<p><strong>Expert Explanation:</strong> Every parametric EQ band uses Centre Frequency (where), Gain (how much), and Q Factor (how wide), paired with a High-Pass Filter to clear sub-bass.</p>"
             },
             {
-              "title": "Vocal Presence Band (3–5 kHz)",
-              "content": "A lead vocal is buried behind loud electric guitars. Which frequency range should be boosted slightly to bring it forward?",
+              "title": "Q7: Acoustic Guitar Soundhole Boom",
+              "content": "An acoustic guitar miked near the soundhole sounds boomy at 120 Hz. What is the cleanest fix?",
               "type": "multi_choice",
-              "question": "Which frequency range adds presence, clarity, and articulation to help a lead vocal cut through a dense mix?",
               "answers": [
                 {
-                  "text": "3 kHz to 5 kHz (upper midrange)",
+                  "text": "Add heavy reverb to mask the boom",
+                  "is_true": "no"
+                },
+                {
+                  "text": "Dip 120 Hz gently with a bell EQ",
                   "is_true": "yes"
                 },
                 {
-                  "text": "40 Hz to 60 Hz (sub-bass)",
+                  "text": "Boost 10 kHz by +12 dB instead",
                   "is_true": "no"
                 },
                 {
-                  "text": "250 Hz to 350 Hz (low-mid mud)",
-                  "is_true": "no"
-                },
-                {
-                  "text": "16 kHz to 20 kHz (extreme air)",
+                  "text": "Cut everything above 1 kHz steeply",
                   "is_true": "no"
                 }
               ],
-              "explanation": "<p><strong>Expert Explanation:</strong> Human hearing is most sensitive around 3–5 kHz; boosting slightly here brings vocal consonant clarity forward in a rock mix.</p>",
-              "expert_quote": {
-                "text": "3 kHz is the presence sweet spot. Boost it gently to make the vocal step to the front of the stage.",
-                "author": "Vocal Production Guide"
-              },
-              "img": "/images/svg/frequency_spectrum_treble.svg",
-              "expert_explanation": "Human hearing is most sensitive around 3–5 kHz; boosting slightly here brings vocal consonant clarity forward in a rock mix."
+              "expert_explanation": "Cutting the resonant soundhole peak gently around 120 Hz with a parametric bell removes boominess while keeping the guitar natural.",
+              "explanation": "<p><strong>Expert Explanation:</strong> Cutting the resonant soundhole peak gently around 120 Hz with a parametric bell removes boominess while keeping the guitar natural.</p>"
             },
             {
-              "title": "Vocal Sibilance Band (6–8 kHz)",
-              "content": "Where in the frequency spectrum do piercing vocal 'S' and 'SH' sibilance sounds typically occur?",
+              "title": "Q8: Subtractive vs Additive EQ",
+              "content": "Why do engineers prefer Subtractive EQ (cutting) before Additive EQ (boosting)?",
               "type": "multi_choice",
-              "question": "Which frequency range contains harsh vocal sibilance?",
               "answers": [
                 {
-                  "text": "60 Hz to 100 Hz",
-                  "is_true": "no"
-                },
-                {
-                  "text": "250 Hz to 400 Hz",
-                  "is_true": "no"
-                },
-                {
-                  "text": "1 kHz to 2 kHz",
-                  "is_true": "no"
-                },
-                {
-                  "text": "6 kHz to 8 kHz",
-                  "is_true": "yes"
-                }
-              ],
-              "explanation": "<p><strong>Expert Explanation:</strong> Vocal sibilance sits sharply between 6 kHz and 8 kHz and is controlled cleanly using a de-esser or narrow dynamic EQ cut.</p>",
-              "expert_quote": {
-                "text": "Sibilance lives between 6 and 8 kHz. Be careful boosting top end here, or your singer will sound like a snake.",
-                "author": "Acoustics & Vocals"
-              },
-              "img": "/images/svg/de_esser_frequency_chart.svg",
-              "expert_explanation": "Vocal sibilance sits sharply between 6 kHz and 8 kHz and is controlled cleanly using a de-esser or narrow dynamic EQ cut."
-            },
-            {
-              "title": "Acoustic Guitar Soundhole Boom",
-              "content": "An acoustic guitar miked directly at the soundhole sounds boomy around 100–150 Hz. How should this be fixed?",
-              "type": "multi_choice",
-              "question": "Why does pointing a microphone into an acoustic guitar soundhole sound boomy, and how is it corrected?",
-              "answers": [
-                {
-                  "text": "Boost 120 Hz by +6 dB for extra warmth",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Aim mic at 12th fret and cut 100–150 Hz",
+                  "text": "Cutting preserves headroom and clarity",
                   "is_true": "yes"
                 },
                 {
-                  "text": "Low-pass the guitar track at 500 Hz",
+                  "text": "Cutting increases analog tape hiss",
                   "is_true": "no"
                 },
                 {
-                  "text": "Invert the guitar channel polarity (Ø)",
+                  "text": "Boosting automatically pans tracks wide",
+                  "is_true": "no"
+                },
+                {
+                  "text": "Boosting removes phase cancellation",
                   "is_true": "no"
                 }
               ],
-              "explanation": "<p><strong>Expert Explanation:</strong> Aiming a mic straight at the soundhole captures resonant air boom. Aiming at the 12th fret and cutting gently around 100–150 Hz restores balanced clarity.</p>",
-              "expert_quote": {
-                "text": "Never point an acoustic mic straight into the soundhole. Aim at the 12th fret for clarity and balanced tone.",
-                "author": "A-Level Recording Techniques"
-              },
-              "img": "/images/svg/mic_placement_acoustic_guitar.svg",
-              "expert_explanation": "Aiming a mic straight at the soundhole captures resonant air boom. Aiming at the 12th fret and cutting gently around 100–150 Hz restores balanced clarity."
-            },
-            {
-              "title": "Snare Drum Resonant Ring Removal",
-              "content": "An acoustic snare drum has an irritating metallic 'ping' ringing after every hit. What EQ technique removes it?",
-              "type": "multi_choice",
-              "question": "What is the standard 'boost and sweep' technique for eliminating an annoying snare drum ring?",
-              "answers": [
-                {
-                  "text": "Sweep a narrow boost to find it, then cut",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "Engage a steep low-pass filter at 200 Hz",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Boost 10 kHz with a wide high-shelf EQ",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Pan the snare drum hard left in the mix",
-                  "is_true": "no"
-                }
-              ],
-              "explanation": "<p><strong>Expert Explanation:</strong> Using a high-Q narrow bell boost to sweep and locate the ringing frequency, then turning it into a sharp cut, removes the metallic ring cleanly.</p>",
-              "expert_quote": {
-                "text": "Boost narrow, sweep to find the ugly frequency, then pull it down into a notch. Works every time.",
-                "author": "Component 4 Practical Exam Tips"
-              },
-              "img": "/images/svg/eq_bell_curve_q_comparison.svg",
-              "expert_explanation": "Using a high-Q narrow bell boost to sweep and locate the ringing frequency, then turning it into a sharp cut, removes the metallic ring cleanly."
-            },
-            {
-              "title": "High-Pass vs Low-Pass Filter",
-              "content": "What is the fundamental difference between a High-Pass Filter and a Low-Pass Filter?",
-              "type": "multi_choice",
-              "question": "How do High-Pass and Low-Pass filters differ?",
-              "answers": [
-                {
-                  "text": "High-pass boosts bass; low-pass boosts treble",
-                  "is_true": "no"
-                },
-                {
-                  "text": "High-pass cuts lows; low-pass cuts highs",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "High-pass widens stereo; low-pass narrows it",
-                  "is_true": "no"
-                },
-                {
-                  "text": "High-pass is analogue only; low-pass is digital",
-                  "is_true": "no"
-                }
-              ],
-              "explanation": "<p><strong>Expert Explanation:</strong> A High-Pass Filter lets highs pass and attenuates lows below cutoff, while a Low-Pass Filter lets lows pass and attenuates highs above cutoff.</p>",
-              "expert_quote": {
-                "text": "Remember: the name tells you what gets through. High-pass lets highs through; low-pass lets lows through.",
-                "author": "Edexcel Music Tech Terminology"
-              },
-              "img": "/images/svg/high_pass_filter_sweep_riser.svg",
-              "expert_explanation": "A High-Pass Filter lets highs pass and attenuates lows below cutoff, while a Low-Pass Filter lets lows pass and attenuates highs above cutoff."
-            },
-            {
-              "title": "Subtractive EQ vs Additive EQ",
-              "content": "Why do sound engineers generally recommend using Subtractive EQ (cutting unwanted frequencies) rather than Additive EQ (boosting frequencies) when balancing a mix?",
-              "type": "multi_choice",
-              "question": "Why is cutting with EQ (subtractive) generally preferred over boosting (additive)?",
-              "answers": [
-                {
-                  "text": "Heavy cuts increase digital bit depth",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Excessive cuts transpose the song key",
-                  "is_true": "no"
-                },
-                {
-                  "text": "EQ filters reduce computer CPU latency",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Steep EQ filters cause phase smearing",
-                  "is_true": "yes"
-                }
-              ],
-              "explanation": "<p><strong>Expert Explanation:</strong> Overusing extreme, steep EQ filters introduces phase shifts around the cutoff frequency, smearing punchy drum transients.</p>",
-              "expert_quote": {
-                "text": "Think of EQ like sculpting stone: you carve away what doesn't belong rather than sticking more clay on top.",
-                "author": "Sound Recording & Reproduction Guide"
-              },
-              "img": "/images/svg/eq_bell_curve_q_comparison.svg",
-              "expert_explanation": "Overusing extreme, steep EQ filters introduces phase shifts around the cutoff frequency, smearing punchy drum transients."
+              "expert_explanation": "Cutting problem frequencies clears masking and preserves mix headroom, avoiding harshness or early limiter clipping.",
+              "explanation": "<p><strong>Expert Explanation:</strong> Cutting problem frequencies clears masking and preserves mix headroom, avoiding harshness or early limiter clipping.</p>"
             }
           ]
         },
