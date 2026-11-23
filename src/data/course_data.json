@@ -16846,269 +16846,129 @@
           "campaignNodeId": null,
           "questions": [
             {
-              "title": "Touch Automation Mode",
-              "content": "When writing volume automation in your DAW using 'Touch' mode, what happens to the fader value when you release your mouse or hardware controller?",
+              "title": "Q1: DAW Automation Modes",
+              "content": "Match each DAW automation mode to how the fader behaves during playback.",
+              "type": "signal-flow-label",
+              "hide_arrows": true,
+              "flowSteps": [
+                {
+                  "id": "au1",
+                  "label": "Plays existing automation without recording edits",
+                  "placeholder": "Drop Mode..."
+                },
+                {
+                  "id": "au2",
+                  "label": "Returns to previous curve when you let go",
+                  "placeholder": "Drop Mode..."
+                },
+                {
+                  "id": "au3",
+                  "label": "Holds your new level until playback stops",
+                  "placeholder": "Drop Mode..."
+                },
+                {
+                  "id": "au4",
+                  "label": "Overwrites old automation as soon as play starts",
+                  "placeholder": "Drop Mode..."
+                }
+              ],
+              "terms": [
+                "Latch Mode",
+                "Write Mode",
+                "Touch Mode",
+                "Read Mode"
+              ],
+              "correctAnswers": {
+                "au1": "Read Mode",
+                "au2": "Touch Mode",
+                "au3": "Latch Mode",
+                "au4": "Write Mode"
+              },
+              "expert_explanation": "Read plays existing moves safely, Touch snaps back on release, Latch holds the new position until stop, and Write overwrites everything on playback.",
+              "explanation": "<p><strong>Expert Explanation:</strong> Read plays existing moves safely, Touch snaps back on release, Latch holds the new position until stop, and Write overwrites everything on playback.</p>"
+            },
+            {
+              "title": "Q2: Standard MIDI Control Change (CC) Numbers",
+              "content": "Match each common MIDI CC number to the control it adjusts.",
+              "type": "signal-flow-label",
+              "hide_arrows": true,
+              "flowSteps": [
+                {
+                  "id": "cc1",
+                  "label": "Modulation Wheel (vibrato or synth filter)",
+                  "placeholder": "Drop CC..."
+                },
+                {
+                  "id": "cc2",
+                  "label": "Main MIDI channel volume level",
+                  "placeholder": "Drop CC..."
+                },
+                {
+                  "id": "cc3",
+                  "label": "Left-to-Right stereo pan position",
+                  "placeholder": "Drop CC..."
+                },
+                {
+                  "id": "cc4",
+                  "label": "Piano sustain pedal (On / Off)",
+                  "placeholder": "Drop CC..."
+                }
+              ],
+              "terms": [
+                "CC10 (Pan)",
+                "CC64 (Sustain)",
+                "CC7 (Volume)",
+                "CC1 (Modulation)"
+              ],
+              "correctAnswers": {
+                "cc1": "CC1 (Modulation)",
+                "cc2": "CC7 (Volume)",
+                "cc3": "CC10 (Pan)",
+                "cc4": "CC64 (Sustain)"
+              },
+              "expert_explanation": "Standard MIDI maps CC1 to Modulation, CC7 to Volume, CC10 to Pan, and CC64 to Sustain Pedal.",
+              "explanation": "<p><strong>Expert Explanation:</strong> Standard MIDI maps CC1 to Modulation, CC7 to Volume, CC10 to Pan, and CC64 to Sustain Pedal.</p>"
+            },
+            {
+              "title": "Q3: MIDI Note Velocity",
+              "content": "When recording a MIDI keyboard part, what does 'Note Velocity' measure?",
               "type": "multi_choice",
-              "question": "What does a parameter do when you release the fader in Touch automation mode?",
               "answers": [
                 {
-                  "text": "Stays at last level until playback stops",
+                  "text": "How long a note is held down",
                   "is_true": "no"
                 },
                 {
-                  "text": "Snaps back to previous curve when released",
+                  "text": "How hard a key is hit (volume)",
                   "is_true": "yes"
                 },
                 {
-                  "text": "Deletes the audio waveform from timeline",
+                  "text": "Song tempo in beats per minute",
                   "is_true": "no"
                 },
                 {
-                  "text": "Mutes the channel strip permanently",
+                  "text": "Stereo pan position in the mix",
                   "is_true": "no"
                 }
               ],
-              "explanation": "<p><strong>Expert Explanation:</strong> In Touch mode, automation writes only while you hold the fader; as soon as you let go, it snaps back to the existing automation curve.</p>",
-              "expert_quote": {
-                "text": "Touch mode is the safest way to ride vocals: touch it to write, let go to return.",
-                "author": "Edexcel Component 4 DAW Automation Guide"
-              },
-              "img": "/images/svg/transport_bar.svg",
-              "expert_explanation": "In Touch mode, automation writes only while you hold the fader; as soon as you let go, it snaps back to the existing automation curve."
+              "expert_explanation": "MIDI Note Velocity records how fast and hard a key is pressed, usually controlling note loudness and brightness.",
+              "explanation": "<p><strong>Expert Explanation:</strong> MIDI Note Velocity records how fast and hard a key is pressed, usually controlling note loudness and brightness.</p>"
             },
             {
-              "title": "Latch Automation Mode",
-              "content": "How does 'Latch' automation mode differ from 'Touch' mode in a digital audio workstation?",
+              "title": "Q4: Pitch Bend vs Modulation Wheel",
+              "content": "How does a Pitch Bend wheel differ from a Modulation wheel on a MIDI keyboard?",
               "type": "multi_choice",
-              "question": "What happens when you release the fader in Latch automation mode?",
               "answers": [
-                {
-                  "text": "Snaps back to 0 dB when released",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Converts audio into MIDI note events",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Holds released level until playback stops",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "Disables automation on other tracks",
-                  "is_true": "no"
-                }
-              ],
-              "explanation": "<p><strong>Expert Explanation:</strong> In Latch mode, once you move a control during playback, it keeps writing that new value even after you release the fader until you stop playback.</p>",
-              "expert_quote": {
-                "text": "Latch stays where you leave it. Remember to hit stop so you don't overwrite the next section of your song.",
-                "author": "Logic Pro & Pro Tools Mixing Guide"
-              },
-              "img": "/images/svg/transport_bar.svg",
-              "expert_explanation": "In Latch mode, once you move a control during playback, it keeps writing that new value even after you release the fader until you stop playback."
-            },
-            {
-              "title": "Write Automation Mode Warning",
-              "content": "Why do audio engineers avoid leaving a track in 'Write' automation mode during a mix session?",
-              "type": "multi_choice",
-              "question": "Why is Write automation mode dangerous to leave active in a DAW?",
-              "answers": [
-                {
-                  "text": "Overwrites existing data on playback",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "Deletes audio files from hard drive",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Forces DAW to bounce in mono format",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Disconnects hardware MIDI controllers",
-                  "is_true": "no"
-                }
-              ],
-              "explanation": "<p><strong>Expert Explanation:</strong> Write mode continuously overwrites every existing automation move on the track as soon as playback passes over it, risking accidental erasure.</p>",
-              "expert_quote": {
-                "text": "Write mode is like a steamroller. Use it only for your very first pass, then switch straight to Touch or Read.",
-                "author": "DAW Mixing Essentials"
-              },
-              "img": "/images/svg/transport_bar.svg",
-              "expert_explanation": "Write mode continuously overwrites every existing automation move on the track as soon as playback passes over it, risking accidental erasure."
-            },
-            {
-              "title": "Read Automation Mode",
-              "content": "What is the function of the standard 'Read' automation mode on a DAW track?",
-              "type": "multi_choice",
-              "question": "What does Read automation mode do?",
-              "answers": [
-                {
-                  "text": "Scans audio lyrics into sheet music",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Converts audio into MIDI event tracks",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Plays audio only when holding spacebar",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Plays automation without writing changes",
-                  "is_true": "yes"
-                }
-              ],
-              "explanation": "<p><strong>Expert Explanation:</strong> Read mode plays back all recorded automation curves cleanly without allowing accidental changes if you bump a fader.</p>",
-              "expert_quote": {
-                "text": "When you finish automating a track, leave it in Read mode so your mix is protected.",
-                "author": "Edexcel Component 4 Workflow Guide"
-              },
-              "img": "/images/svg/transport_bar.svg",
-              "expert_explanation": "Read mode plays back all recorded automation curves cleanly without allowing accidental changes if you bump a fader."
-            },
-            {
-              "title": "MIDI CC1 (Modulation Wheel)",
-              "content": "What standard synthesiser parameter is universally controlled by MIDI Continuous Controller 1 (CC1)?",
-              "type": "multi_choice",
-              "question": "Which controller on a MIDI keyboard transmits MIDI CC1 by default?",
-              "answers": [
-                {
-                  "text": "Sustain Pedal switch",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Modulation Wheel control",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "Channel Volume fader",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Stereo Panning control",
-                  "is_true": "no"
-                }
-              ],
-              "explanation": "<p><strong>Expert Explanation:</strong> MIDI CC1 (Modulation Wheel) typically controls vibrato depth (LFO pitch modulation) or filter cutoff sweeps on a synthesiser.</p>",
-              "expert_quote": {
-                "text": "CC1 is your modulation wheel. Move it to add vibrato to a synth lead or bring a string section to life.",
-                "author": "MIDI Standards & Sequencing"
-              },
-              "img": "/images/svg/midi_cc_message_3byte_structure.svg",
-              "expert_explanation": "MIDI CC1 (Modulation Wheel) typically controls vibrato depth (LFO pitch modulation) or filter cutoff sweeps on a synthesiser."
-            },
-            {
-              "title": "MIDI CC7 (Volume) and CC10 (Pan)",
-              "content": "Which MIDI Continuous Controller numbers are standardised for Channel Volume and Stereo Pan position?",
-              "type": "multi_choice",
-              "question": "What are the standard MIDI CC numbers for Volume and Pan?",
-              "answers": [
-                {
-                  "text": "CC 1 for Volume and CC 64 for Pan",
-                  "is_true": "no"
-                },
-                {
-                  "text": "CC 11 for Volume and CC 1 for Pan",
-                  "is_true": "no"
-                },
-                {
-                  "text": "CC 7 for Volume and CC 10 for Pan",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "CC 64 for Volume and CC 127 for Pan",
-                  "is_true": "no"
-                }
-              ],
-              "explanation": "<p><strong>Expert Explanation:</strong> MIDI CC7 controls Channel Volume and MIDI CC10 controls Stereo Panning across standard MIDI instruments and DAWs.</p>",
-              "expert_quote": {
-                "text": "Remember: CC7 is Volume, and CC10 is Pan. Standard MIDI protocol on every sequencer.",
-                "author": "Edexcel Music Technology Specification"
-              },
-              "img": "/images/svg/midi_cc_message_3byte_structure.svg",
-              "expert_explanation": "MIDI CC7 controls Channel Volume and MIDI CC10 controls Stereo Panning across standard MIDI instruments and DAWs."
-            },
-            {
-              "title": "MIDI CC64 (Sustain Pedal)",
-              "content": "What MIDI controller number is transmitted when a keyboard player presses down on a standard Sustain (Damper) Pedal?",
-              "type": "multi_choice",
-              "question": "Which MIDI CC number is assigned to the Sustain / Damper Pedal?",
-              "answers": [
-                {
-                  "text": "MIDI CC 64",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "MIDI CC 1",
-                  "is_true": "no"
-                },
-                {
-                  "text": "MIDI CC 7",
-                  "is_true": "no"
-                },
-                {
-                  "text": "MIDI CC 10",
-                  "is_true": "no"
-                }
-              ],
-              "explanation": "<p><strong>Expert Explanation:</strong> Pressing a keyboard sustain pedal transmits MIDI CC64 (Damper/Sustain Pedal), holding notes until the pedal is released.</p>",
-              "expert_quote": {
-                "text": "CC64 is the sustain pedal. Values 64–127 hold the notes; values 0–63 let them damp.",
-                "author": "MIDI Protocol Basics"
-              },
-              "img": "/images/svg/midi_cc_message_3byte_structure.svg",
-              "expert_explanation": "Pressing a keyboard sustain pedal transmits MIDI CC64 (Damper/Sustain Pedal), holding notes until the pedal is released."
-            },
-            {
-              "title": "MIDI Data Value Range (0–127)",
-              "content": "Why do standard MIDI parameters (like Note Velocity, Volume CC7, and Pan CC10) have a numerical range from 0 to 127?",
-              "type": "multi_choice",
-              "question": "Why do standard MIDI control change values range from 0 to 127?",
-              "answers": [
-                {
-                  "text": "Human ears only hear 100 volume steps",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Analogue synths only make 128 pitches",
-                  "is_true": "no"
-                },
-                {
-                  "text": "1983 CPUs could not count past 128",
-                  "is_true": "no"
-                },
-                {
-                  "text": "MIDI uses 7-bit data (128 values)",
-                  "is_true": "yes"
-                }
-              ],
-              "explanation": "<p><strong>Expert Explanation:</strong> Standard MIDI uses 7-bit binary data (2^7 = 128 values), giving a range from 0 (minimum) to 127 (maximum).</p>",
-              "expert_quote": {
-                "text": "In standard MIDI, everything runs from 0 to 127 because it's built on 7-bit data bytes.",
-                "author": "Digital Music Technology Specification"
-              },
-              "img": "/images/svg/midi_cc_message_3byte_structure.svg",
-              "expert_explanation": "Standard MIDI uses 7-bit binary data (2^7 = 128 values), giving a range from 0 (minimum) to 127 (maximum)."
-            },
-            {
-              "title": "Pitch Bend Wheel Behaviour",
-              "content": "How does the Pitch Bend wheel differ mechanically and functionally from the Modulation wheel on a MIDI keyboard?",
-              "type": "multi_choice",
-              "question": "How does the Pitch Bend wheel differ from the Modulation wheel?",
-              "answers": [
-                {
-                  "text": "Pitch Bend stays put; Mod Wheel snaps back",
-                  "is_true": "no"
-                },
                 {
                   "text": "Pitch Bend snaps centre; Mod Wheel stays put",
                   "is_true": "yes"
                 },
                 {
-                  "text": "Pitch Bend sends audio; Mod Wheel sends sysex",
+                  "text": "Pitch Bend stays put; Mod Wheel snaps back",
+                  "is_true": "no"
+                },
+                {
+                  "text": "Pitch Bend sends audio; Mod Wheel sends MIDI",
                   "is_true": "no"
                 },
                 {
@@ -17116,106 +16976,54 @@
                   "is_true": "no"
                 }
               ],
-              "explanation": "<p><strong>Expert Explanation:</strong> Unlike the Mod Wheel, the Pitch Bend wheel is spring-loaded to snap back to centre (0 pitch change) when released and uses higher-resolution 14-bit data.</p>",
-              "expert_quote": {
-                "text": "Pitch bend snaps back to center when you let go. Modulation wheel stays where you leave it.",
-                "author": "Edexcel Component 3 & 4 MIDI Guide"
-              },
-              "img": "/images/svg/midi_cc_message_3byte_structure.svg",
-              "expert_explanation": "Unlike the Mod Wheel, the Pitch Bend wheel is spring-loaded to snap back to centre (0 pitch change) when released and uses higher-resolution 14-bit data."
+              "expert_explanation": "Pitch Bend is spring-loaded to return to centre pitch when released, whereas a Modulation wheel stays wherever you leave it.",
+              "explanation": "<p><strong>Expert Explanation:</strong> Pitch Bend is spring-loaded to return to centre pitch when released, whereas a Modulation wheel stays wherever you leave it.</p>"
             },
             {
-              "title": "Volume Fade Automation Curves",
-              "content": "When drawing a volume fade-out at the end of a song in your DAW, why is a curved (logarithmic/exponential) fade line preferred over a straight linear line?",
+              "title": "Q5: Standard MIDI Value Range",
+              "content": "What numerical range do standard MIDI parameters (like Velocity, Volume, and Pan) use?",
               "type": "multi_choice",
-              "question": "Why do curved volume fades sound smoother to human ears than straight linear fades?",
               "answers": [
                 {
-                  "text": "Linear fades clip above 0 dBFS",
+                  "text": "0 to 10",
                   "is_true": "no"
                 },
                 {
-                  "text": "Logarithmic fades create surround sound",
+                  "text": "-60 to 0",
                   "is_true": "no"
                 },
                 {
-                  "text": "Human hearing perceives volume logarithmically",
+                  "text": "0 to 127",
                   "is_true": "yes"
                 },
                 {
-                  "text": "DAWs forbid linear volume fades",
+                  "text": "0 to 1,000",
                   "is_true": "no"
                 }
               ],
-              "explanation": "<p><strong>Expert Explanation:</strong> Human hearing perceives volume logarithmically, so an exponential or S-curve fade-out sounds much smoother than a straight linear fade.</p>",
-              "expert_quote": {
-                "text": "Our ears hear logarithmically. Curve your fade-outs so the volume melts away smoothly.",
-                "author": "DAW Mixing & Editing Tips"
-              },
-              "img": "/images/svg/transport_bar.svg",
-              "expert_explanation": "Human hearing perceives volume logarithmically, so an exponential or S-curve fade-out sounds much smoother than a straight linear fade."
+              "expert_explanation": "Standard MIDI controllers and Note Velocity use values from 0 to 127 (with 64 sitting in the centre for controls like Pan).",
+              "explanation": "<p><strong>Expert Explanation:</strong> Standard MIDI controllers and Note Velocity use values from 0 to 127 (with 64 sitting in the centre for controls like Pan).</p>"
             },
             {
-              "title": "MIDI Velocity Control",
-              "content": "When recording a MIDI piano or synth track, what does 'Note Velocity' measure?",
-              "type": "multi_choice",
-              "question": "What does MIDI note velocity measure and control?",
-              "answers": [
-                {
-                  "text": "How hard a key was hit (volume)",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "How long the note was held down",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Playback tempo in beats per minute",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Stereo pan position across monitors",
-                  "is_true": "no"
-                }
+              "title": "Q6: Writing a Safe Vocal Fader Ride",
+              "content": "Arrange the 4-step workflow for recording a chorus vocal volume lift without erasing earlier automation.",
+              "type": "drag_drop",
+              "top_label": "STEP 1 (Prepare)",
+              "bottom_label": "STEP 4 (Lock)",
+              "items": [
+                "Switch track back to Read Mode after the chorus",
+                "Set track to Touch Mode before playing the chorus",
+                "Push the vocal fader up slightly during the chorus",
+                "Release the fader so it snaps back smoothly"
               ],
-              "explanation": "<p><strong>Expert Explanation:</strong> Note Velocity (0–127) measures how hard or fast a MIDI key is struck, usually controlling note loudness and filter brightness.</p>",
-              "expert_quote": {
-                "text": "Velocity is touch sensitivity. Hitting a key harder produces a louder, brighter sound.",
-                "author": "MIDI Essentials for A-Level"
-              },
-              "img": "/images/svg/midi_cc_message_3byte_structure.svg",
-              "expert_explanation": "Note Velocity (0–127) measures how hard or fast a MIDI key is struck, usually controlling note loudness and filter brightness."
-            },
-            {
-              "title": "Plugin Automation in DAWs",
-              "content": "In modern DAWs like Logic Pro, Pro Tools, and Cubase, which parameters can be automated over time using automation lanes?",
-              "type": "multi_choice",
-              "question": "Which elements of a mix can be automated using DAW track automation lanes?",
-              "answers": [
-                {
-                  "text": "Only volume faders, never plugins",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Only pan pots, never volume faders",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Only tempo and time signatures",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Volume, pan, and plugin controls",
-                  "is_true": "yes"
-                }
+              "correct_order": [
+                "Set track to Touch Mode before playing the chorus",
+                "Push the vocal fader up slightly during the chorus",
+                "Release the fader so it snaps back smoothly",
+                "Switch track back to Read Mode after the chorus"
               ],
-              "explanation": "<p><strong>Expert Explanation:</strong> Modern DAWs let you automate almost any channel fader, pan pot, send level, or plugin knob (such as EQ frequency or reverb decay).</p>",
-              "expert_quote": {
-                "text": "Automation brings static mixes to life. Automate volume, pans, and plugin sweeps to guide the listener's ear.",
-                "author": "Edexcel Component 4 Mix Techniques"
-              },
-              "img": "/images/svg/transport_bar.svg",
-              "expert_explanation": "Modern DAWs let you automate almost any channel fader, pan pot, send level, or plugin knob (such as EQ frequency or reverb decay)."
+              "expert_explanation": "Touch Mode lets you ride a vocal fader up for the chorus and snap smoothly back on release, before returning to Read Mode to protect your mix.",
+              "explanation": "<p><strong>Expert Explanation:</strong> Touch Mode lets you ride a vocal fader up for the chorus and snap smoothly back on release, before returning to Read Mode to protect your mix.</p>"
             }
           ]
         }
