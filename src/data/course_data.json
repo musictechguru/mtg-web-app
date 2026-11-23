@@ -1073,7 +1073,8 @@
               },
               "img": "/images/svg/signal_levels_chart.svg",
               "top_label": "▲ QUIETEST (Lowest Voltage — Top)",
-              "bottom_label": "▼ LOUDEST (Highest Voltage — Bottom)"
+              "bottom_label": "▼ LOUDEST (Highest Voltage — Bottom)",
+              "expert_explanation": "Signal Voltage Hierarchy: Microphone level is tiny (millivolts, around -60 dBu) requiring a dedicated preamp. Hi-Z instrument level (-20 dBu) from guitar pickups sits higher. Consumer line level (-10 dBV = 0.316V RMS) is used in RCA home audio, while Professional line level (+4 dBu = 1.23V RMS) is standard in studio mixing consoles and audio interfaces. Speaker level delivers high current/voltage to drive monitor voice coils."
             },
             {
               "content": "What is the primary function of a microphone preamplifier?",
@@ -9996,7 +9997,8 @@
                 "text": "Phantom power provides the electrostatic charge necessary for sensitive condenser diaphragms to register the subtlest acoustic nuances.",
                 "author": "Georg Neumann GmbH"
               },
-              "img": "/images/phantom_power_flow.svg"
+              "img": "/images/phantom_power_flow.svg",
+              "expert_explanation": "Condenser Microphones & Active DIs: +48V Phantom Power is sent up Pins 2 and 3 of the balanced XLR cable to polarize the electrostatic capsule plates in condenser microphones and to power internal active impedance-converting circuitry (FETs or vacuum tube equivalents) and active direct boxes."
             },
             {
               "difficulty": "intermediate",
@@ -15498,7 +15500,8 @@
                   "is_true": "no"
                 }
               ],
-              "explanation": "<p><strong>CD Digital Standard:</strong> Standard Audio CDs use a sample rate of <strong>44.1 kHz</strong> and a bit depth of <strong>16-bit</strong>. Studio recording sessions usually use 48 kHz / 24-bit for extra headroom before bouncing down to 16-bit.</p>"
+              "explanation": "<p><strong>CD Digital Standard:</strong> Standard Audio CDs use a sample rate of <strong>44.1 kHz</strong> and a bit depth of <strong>16-bit</strong>. Studio recording sessions usually use 48 kHz / 24-bit for extra headroom before bouncing down to 16-bit.</p>",
+              "expert_explanation": "CD Digital Standard: Standard Audio CDs use a sample rate of 44.1 kHz and a bit depth of 16-bit . Studio recording sessions usually use 48 kHz / 24-bit for extra headroom before bouncing down to 16-bit."
             },
             {
               "title": "Simple Studio Delay Timing (120 BPM)",
@@ -15506,7 +15509,8 @@
               "type": "studio-calculation",
               "calcMode": "delay_bpm",
               "bpm": 120,
-              "explanation": "<p><strong>120 BPM Delay Timing:</strong><br/>1. 120 beats in 60 seconds = <strong>2 beats per second</strong>.<br/>2. One quarter-note beat (1/4) is half a second = <strong>500 ms</strong>.<br/>3. One eighth-note delay (1/8) is half of that = <strong>250 ms</strong>.</p>"
+              "explanation": "<p><strong>120 BPM Delay Timing:</strong><br/>1. 120 beats in 60 seconds = <strong>2 beats per second</strong>.<br/>2. One quarter-note beat (1/4) is half a second = <strong>500 ms</strong>.<br/>3. One eighth-note delay (1/8) is half of that = <strong>250 ms</strong>.</p>",
+              "expert_explanation": "120 BPM Delay Timing: 1. 120 beats in 60 seconds = 2 beats per second . 2. One quarter-note beat (1/4) is half a second = 500 ms . 3. One eighth-note delay (1/8) is half of that = 250 ms ."
             },
             {
               "title": "Octaves & Frequency Rule (440 Hz)",
@@ -15514,7 +15518,8 @@
               "type": "studio-calculation",
               "calcMode": "wavelength",
               "frequency": 440,
-              "explanation": "<p><strong>The Octave Rule:</strong><br/>• Going <strong>up 1 octave doubles</strong> the frequency (440 Hz × 2 = <strong>880 Hz</strong>).<br/>• Going <strong>down 1 octave halves</strong> the frequency (440 Hz ÷ 2 = <strong>220 Hz</strong>).<br/>• Low bass frequencies have long sound waves that need thick corner bass traps.</p>"
+              "explanation": "<p><strong>The Octave Rule:</strong><br/>• Going <strong>up 1 octave doubles</strong> the frequency (440 Hz × 2 = <strong>880 Hz</strong>).<br/>• Going <strong>down 1 octave halves</strong> the frequency (440 Hz ÷ 2 = <strong>220 Hz</strong>).<br/>• Low bass frequencies have long sound waves that need thick corner bass traps.</p>",
+              "expert_explanation": "The Octave Rule: • Going up 1 octave doubles the frequency (440 Hz × 2 = 880 Hz ). • Going down 1 octave halves the frequency (440 Hz ÷ 2 = 220 Hz ). • Low bass frequencies have long sound waves that need thick corner bass traps."
             },
             {
               "title": "The Harmonic Series (100 Hz Fundamental)",
@@ -15538,7 +15543,8 @@
                   "is_true": "no"
                 }
               ],
-              "explanation": "<p><strong>Harmonic Series Rule:</strong> Harmonics are whole-number multiples of the fundamental frequency:<br/>• 1st Harmonic (Fundamental) = 100 Hz (×1)<br/>• 2nd Harmonic = <strong>200 Hz</strong> (×2)<br/>• 3rd Harmonic = <strong>300 Hz</strong> (×3)</p>"
+              "explanation": "<p><strong>Harmonic Series Rule:</strong> Harmonics are whole-number multiples of the fundamental frequency:<br/>• 1st Harmonic (Fundamental) = 100 Hz (×1)<br/>• 2nd Harmonic = <strong>200 Hz</strong> (×2)<br/>• 3rd Harmonic = <strong>300 Hz</strong> (×3)</p>",
+              "expert_explanation": "Harmonic Series Rule: Harmonics are whole-number multiples of the fundamental frequency: • 1st Harmonic (Fundamental) = 100 Hz (×1) • 2nd Harmonic = 200 Hz (×2) • 3rd Harmonic = 300 Hz (×3)"
             },
             {
               "title": "The Nyquist Rule (Sample Rate vs Highest Frequency)",
@@ -15562,7 +15568,8 @@
                   "is_true": "no"
                 }
               ],
-              "explanation": "<p><strong>Nyquist Theorem:</strong> The sample rate must be at least <strong>twice (×2)</strong> the highest frequency you want to record. Since humans hear up to 20 kHz, 44.1 kHz is slightly above double (2 × 20 kHz = 40 kHz), preventing aliasing distortion.</p>"
+              "explanation": "<p><strong>Nyquist Theorem:</strong> The sample rate must be at least <strong>twice (×2)</strong> the highest frequency you want to record. Since humans hear up to 20 kHz, 44.1 kHz is slightly above double (2 × 20 kHz = 40 kHz), preventing aliasing distortion.</p>",
+              "expert_explanation": "Nyquist Theorem: The sample rate must be at least twice (×2) the highest frequency you want to record. Since humans hear up to 20 kHz, 44.1 kHz is slightly above double (2 × 20 kHz = 40 kHz), preventing aliasing distortion."
             },
             {
               "title": "Bit Depth & Dynamic Range (The 6 dB Rule)",
@@ -15586,7 +15593,8 @@
                   "is_true": "no"
                 }
               ],
-              "explanation": "<p><strong>The 6 dB Per Bit Rule:</strong> Multiply the bit depth by 6 dB:<br/>• 16-bit × 6 dB = <strong>96 dB</strong> dynamic range.<br/>• 24-bit × 6 dB = <strong>144 dB</strong> dynamic range (giving a much quieter noise floor for recording).</p>"
+              "explanation": "<p><strong>The 6 dB Per Bit Rule:</strong> Multiply the bit depth by 6 dB:<br/>• 16-bit × 6 dB = <strong>96 dB</strong> dynamic range.<br/>• 24-bit × 6 dB = <strong>144 dB</strong> dynamic range (giving a much quieter noise floor for recording).</p>",
+              "expert_explanation": "The 6 dB Per Bit Rule: Multiply the bit depth by 6 dB: • 16-bit × 6 dB = 96 dB dynamic range. • 24-bit × 6 dB = 144 dB dynamic range (giving a much quieter noise floor for recording)."
             },
             {
               "title": "Simple Compressor Ratio (4:1)",
@@ -15610,7 +15618,8 @@
                   "is_true": "no"
                 }
               ],
-              "explanation": "<p><strong>4:1 Ratio Made Simple:</strong> With a 4:1 ratio, for every 4 dB the signal goes over the threshold, only 1 dB comes out. Since 8 dB ÷ 4 = <strong>2 dB</strong>, the output is only 2 dB over the threshold (meaning the compressor turned the peak down by 6 dB).</p>"
+              "explanation": "<p><strong>4:1 Ratio Made Simple:</strong> With a 4:1 ratio, for every 4 dB the signal goes over the threshold, only 1 dB comes out. Since 8 dB ÷ 4 = <strong>2 dB</strong>, the output is only 2 dB over the threshold (meaning the compressor turned the peak down by 6 dB).</p>",
+              "expert_explanation": "4:1 Ratio Made Simple: With a 4:1 ratio, for every 4 dB the signal goes over the threshold, only 1 dB comes out. Since 8 dB ÷ 4 = 2 dB , the output is only 2 dB over the threshold (meaning the compressor turned the peak down by 6 dB)."
             },
             {
               "title": "Traditional Sampler Pitch vs Speed",
@@ -15634,7 +15643,8 @@
                   "is_true": "no"
                 }
               ],
-              "explanation": "<p><strong>Sampler Pitch & Speed:</strong> Without time-stretching, pitching a sample down 1 octave plays it back at <strong>half speed</strong>, so a 2-second sample lasts <strong>4 seconds</strong>. Pitching it up 1 octave plays at double speed (1 second).</p>"
+              "explanation": "<p><strong>Sampler Pitch & Speed:</strong> Without time-stretching, pitching a sample down 1 octave plays it back at <strong>half speed</strong>, so a 2-second sample lasts <strong>4 seconds</strong>. Pitching it up 1 octave plays at double speed (1 second).</p>",
+              "expert_explanation": "Sampler Pitch & Speed: Without time-stretching, pitching a sample down 1 octave plays it back at half speed , so a 2-second sample lasts 4 seconds . Pitching it up 1 octave plays at double speed (1 second)."
             },
             {
               "title": "The 3:1 Rule for Multi-Mic Phase",
@@ -15658,7 +15668,8 @@
                   "is_true": "no"
                 }
               ],
-              "explanation": "<p><strong>The 3:1 Distance Rule:</strong> If Mic 1 is 10 cm from a guitar amp, any second ambient or adjacent mic should be at least <strong>30 cm (3 × 10 cm)</strong> away to minimise comb filtering and phase cancellation.</p>"
+              "explanation": "<p><strong>The 3:1 Distance Rule:</strong> If Mic 1 is 10 cm from a guitar amp, any second ambient or adjacent mic should be at least <strong>30 cm (3 × 10 cm)</strong> away to minimise comb filtering and phase cancellation.</p>",
+              "expert_explanation": "The 3:1 Distance Rule: If Mic 1 is 10 cm from a guitar amp, any second ambient or adjacent mic should be at least 30 cm (3 × 10 cm) away to minimise comb filtering and phase cancellation."
             },
             {
               "title": "Digital Audio Ceiling (0 dBFS)",
@@ -15682,7 +15693,8 @@
                   "is_true": "no"
                 }
               ],
-              "explanation": "<p><strong>0 dBFS Digital Ceiling:</strong> In digital audio, 0 dBFS is the absolute top limit. Any signal pushed above 0 dBFS has its waveform peaks squared off, causing harsh digital clipping distortion.</p>"
+              "explanation": "<p><strong>0 dBFS Digital Ceiling:</strong> In digital audio, 0 dBFS is the absolute top limit. Any signal pushed above 0 dBFS has its waveform peaks squared off, causing harsh digital clipping distortion.</p>",
+              "expert_explanation": "0 dBFS Digital Ceiling: In digital audio, 0 dBFS is the absolute top limit. Any signal pushed above 0 dBFS has its waveform peaks squared off, causing harsh digital clipping distortion."
             },
             {
               "title": "Phantom Power Voltage (+48V)",
@@ -15706,7 +15718,8 @@
                   "is_true": "no"
                 }
               ],
-              "explanation": "<p><strong>+48V Phantom Power:</strong> Condenser microphones require <strong>+48V</strong> phantom power (sent via balanced XLR cable) to charge the capacitor backplate and power their internal preamp.</p>"
+              "explanation": "<p><strong>+48V Phantom Power:</strong> Condenser microphones require <strong>+48V</strong> phantom power (sent via balanced XLR cable) to charge the capacitor backplate and power their internal preamp.</p>",
+              "expert_explanation": "+48V Phantom Power: Condenser microphones require +48V phantom power (sent via balanced XLR cable) to charge the capacitor backplate and power their internal preamp."
             },
             {
               "title": "Reverberation Time (RT60)",
@@ -15730,7 +15743,8 @@
                   "is_true": "no"
                 }
               ],
-              "explanation": "<p><strong>RT60 Decay Time:</strong> RT60 is simply how long (in seconds) it takes for reverberation to fade away by <strong>60 dB</strong> after the original sound stops. A dry vocal booth has a short RT60 (~0.2 s), while a cathedral has a long RT60 (3+ seconds).</p>"
+              "explanation": "<p><strong>RT60 Decay Time:</strong> RT60 is simply how long (in seconds) it takes for reverberation to fade away by <strong>60 dB</strong> after the original sound stops. A dry vocal booth has a short RT60 (~0.2 s), while a cathedral has a long RT60 (3+ seconds).</p>",
+              "expert_explanation": "RT60 Decay Time: RT60 is simply how long (in seconds) it takes for reverberation to fade away by 60 dB after the original sound stops. A dry vocal booth has a short RT60 (~0.2 s), while a cathedral has a long RT60 (3+ seconds)."
             }
           ]
         },
