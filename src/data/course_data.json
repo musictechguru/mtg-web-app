@@ -15894,24 +15894,70 @@
               "explanation": "<p><strong>Expert Explanation:</strong> Compression reduces the loudest vocal peaks and brings up quieter syllables, keeping the vocal sitting evenly and upfront in a mix.</p>"
             },
             {
-              "title": "Q2: Listening — Guitar Sustain & Compression A/B",
-              "content": "Listen to Audio A (Dry) and Audio B (Wet). What dynamic effect does compression create on Audio B?",
-              "type": "audio_comparison",
-              "audio_a": "/Audio/FX_Ear_Training/Guitar/Dry Compression Guitar.mp3",
-              "audio_b": "/Audio/FX_Ear_Training/Guitar/Compression Guitar.mp3",
-              "options": [
-                "Mutes the guitar using a noise gate",
-                "Increases sustain and evens out peaks",
-                "Adds wide stereo chorus modulation",
-                "Drops the pitch down by one octave"
+              "title": "Q2: Drag & Drop — Parallel Drum Compression",
+              "content": "Arrange the parallel (New York) compression routing stages for a punchy drum bus from SOURCE to MASTER OUTPUT.",
+              "type": "drag_drop",
+              "top_label": "SOURCE (Drum Bus)",
+              "bottom_label": "MASTER OUTPUT",
+              "items": [
+                "Blend compressed signal back with dry drums",
+                "Send drum bus to an auxiliary bus",
+                "Insert heavy 10:1 compressor on aux bus",
+                "Sum dry + wet signals to stereo master"
               ],
-              "correct_index": 1,
-              "correct_option": "Increases sustain and evens out peaks",
-              "expert_explanation": "Heavy compression tames the initial pick transient while boosting the decaying tail, giving electric guitar notes longer sustain.",
-              "explanation": "<p><strong>Expert Explanation:</strong> Heavy compression tames the initial pick transient while boosting the decaying tail, giving electric guitar notes longer sustain.</p>"
+              "correct_order": [
+                "Send drum bus to an auxiliary bus",
+                "Insert heavy 10:1 compressor on aux bus",
+                "Blend compressed signal back with dry drums",
+                "Sum dry + wet signals to stereo master"
+              ],
+              "expert_explanation": "Parallel compression sends a copy of the drums to a heavily compressed aux channel and blends it underneath the dry kit, adding thick sustain without killing transients.",
+              "explanation": "<p><strong>Expert Explanation:</strong> Parallel compression sends a copy of the drums to a heavily compressed aux channel and blends it underneath the dry kit, adding thick sustain without killing transients.</p>"
             },
             {
-              "title": "Q3: Compression Curve Matching (4:1 Ratio)",
+              "title": "Q3: Match Compressor Types to Studio Tasks",
+              "content": "Drop each compressor style onto the studio task it is best suited for.",
+              "type": "signal-flow-label",
+              "hide_arrows": true,
+              "flowSteps": [
+                {
+                  "id": "c1",
+                  "label": "Smooth, natural vocal levelling",
+                  "placeholder": "Drop Compressor..."
+                },
+                {
+                  "id": "c2",
+                  "label": "Ultra-fast punch on drums and bass",
+                  "placeholder": "Drop Compressor..."
+                },
+                {
+                  "id": "c3",
+                  "label": "Clean stereo mix bus glue",
+                  "placeholder": "Drop Compressor..."
+                },
+                {
+                  "id": "c4",
+                  "label": "Preventing 0 dBFS master clipping",
+                  "placeholder": "Drop Compressor..."
+                }
+              ],
+              "terms": [
+                "Optical (LA-2A)",
+                "FET (1176)",
+                "VCA (SSL Bus)",
+                "Brickwall Limiter"
+              ],
+              "correctAnswers": {
+                "c1": "Optical (LA-2A)",
+                "c2": "FET (1176)",
+                "c3": "VCA (SSL Bus)",
+                "c4": "Brickwall Limiter"
+              },
+              "expert_explanation": "Optical compressors react smoothly on vocals, FET compressors grab fast drum transients, VCA compressors glue stereo mixes, and brickwall limiters cap master peaks.",
+              "explanation": "<p><strong>Expert Explanation:</strong> Optical compressors react smoothly on vocals, FET compressors grab fast drum transients, VCA compressors glue stereo mixes, and brickwall limiters cap master peaks.</p>"
+            },
+            {
+              "title": "Q4: Compression Curve Matching (4:1 Ratio)",
               "content": "Adjust the sliders to match a 4:1 compression curve with threshold at -12 dB.",
               "type": "graph-drawing",
               "question": "Draw a 4:1 compression ratio with threshold at -12dB",
@@ -15948,44 +15994,59 @@
               "explanation": "<p><strong>Expert Explanation:</strong> Below -12 dB the signal passes at 1:1. Above -12 dB, a 4:1 ratio flattens the slope so 4 dB of extra input produces only 1 dB of output.</p>"
             },
             {
-              "title": "Q4: Brickwall Limiter Curve Matching (10:1)",
-              "content": "Adjust the sliders to match a Limiter curve with a 10:1 ratio and threshold at -20 dB.",
-              "type": "graph-drawing",
-              "question": "Draw a Limiter curve with a 10:1 ratio and threshold at -20dB",
-              "hint": "Set Threshold to -20 dB and push Ratio to 10:1 (or Inf:1) to flatten the ceiling.",
-              "initValues": {
-                "threshold": 0,
-                "ratio": 1
-              },
-              "correctValues": {
-                "threshold": [
-                  -22,
-                  -18
-                ],
-                "ratio": [
-                  9,
-                  10
-                ]
-              },
-              "targetPoints": [
-                {
-                  "x": 0,
-                  "y": 100
-                },
-                {
-                  "x": 50,
-                  "y": 50
-                },
-                {
-                  "x": 100,
-                  "y": 50
-                }
-              ],
-              "expert_explanation": "With a 10:1 or higher ratio, the transfer curve flattens horizontally above the -20 dB threshold, stopping peaks from clipping.",
-              "explanation": "<p><strong>Expert Explanation:</strong> With a 10:1 or higher ratio, the transfer curve flattens horizontally above the -20 dB threshold, stopping peaks from clipping.</p>"
+              "title": "Q5: Practical — Vocal Compressor Threshold",
+              "content": "A vocal has quiet verses at -24 dB and loud chorus peaks at -6 dB. Set the compressor threshold to catch only the loud chorus peaks.",
+              "type": "parameter_matching",
+              "label": "Compressor Threshold",
+              "min": -40,
+              "max": 0,
+              "step": 1,
+              "unit": " dB",
+              "correct_value": -15,
+              "tolerance": 7,
+              "expert_explanation": "Setting threshold around -15 dB leaves -24 dB verse vocals uncompressed while cleanly taming the -6 dB chorus peaks.",
+              "explanation": "<p><strong>Expert Explanation:</strong> Setting threshold around -15 dB leaves -24 dB verse vocals uncompressed while cleanly taming the -6 dB chorus peaks.</p>"
             },
             {
-              "title": "Q5: ADSR Envelope Matching (Fast Attack)",
+              "title": "Q6: Listening — Guitar Sustain & Compression A/B",
+              "content": "Listen to Audio A (Dry) and Audio B (Wet). What dynamic effect does compression create on Audio B?",
+              "type": "audio_comparison",
+              "audio_a": "/Audio/FX_Ear_Training/Guitar/Dry Compression Guitar.mp3",
+              "audio_b": "/Audio/FX_Ear_Training/Guitar/Compression Guitar.mp3",
+              "options": [
+                "Mutes the guitar using a noise gate",
+                "Increases sustain and evens out peaks",
+                "Adds wide stereo chorus modulation",
+                "Drops the pitch down by one octave"
+              ],
+              "correct_index": 1,
+              "correct_option": "Increases sustain and evens out peaks",
+              "expert_explanation": "Heavy compression tames the initial pick transient while boosting the decaying tail, giving electric guitar notes longer sustain.",
+              "explanation": "<p><strong>Expert Explanation:</strong> Heavy compression tames the initial pick transient while boosting the decaying tail, giving electric guitar notes longer sustain.</p>"
+            },
+            {
+              "title": "Q7: Drag & Drop — Vocal Dynamics Chain Order",
+              "content": "Arrange this vocal mixing chain in standard studio order from FIRST plugin to FINAL stage.",
+              "type": "drag_drop",
+              "top_label": "FIRST (Input)",
+              "bottom_label": "FINAL (Output)",
+              "items": [
+                "Reverb / Delay Send",
+                "Compressor (Even out dynamics)",
+                "High-Pass Filter (Remove rumble)",
+                "De-Esser (Tame sharp S sounds)"
+              ],
+              "correct_order": [
+                "High-Pass Filter (Remove rumble)",
+                "De-Esser (Tame sharp S sounds)",
+                "Compressor (Even out dynamics)",
+                "Reverb / Delay Send"
+              ],
+              "expert_explanation": "Remove rumble and harsh sibilance before compressing so unwanted frequencies do not trigger gain reduction, then add reverb/delay last.",
+              "explanation": "<p><strong>Expert Explanation:</strong> Remove rumble and harsh sibilance before compressing so unwanted frequencies do not trigger gain reduction, then add reverb/delay last.</p>"
+            },
+            {
+              "title": "Q8: ADSR Envelope Matching (Fast Attack)",
               "content": "Match an ADSR envelope with: Fast Attack, Medium Decay, 70% Sustain, and Slow Release.",
               "type": "graph-drawing",
               "question": "Draw an ADSR envelope with: Fast Attack, Medium Decay, 70% Sustain, Slow Release",
@@ -16040,79 +16101,18 @@
               "explanation": "<p><strong>Expert Explanation:</strong> A fast attack rises immediately to peak, followed by a medium decay down to 70% sustain and a slow, gradual release fade-out.</p>"
             },
             {
-              "title": "Q6: Ratio Calculation (4:1)",
-              "content": "A vocal peak exceeds the compressor threshold by 8 dB. With a 4:1 ratio, how far above threshold is the output?",
-              "type": "multi_choice",
-              "answers": [
-                {
-                  "text": "4 dB above threshold",
-                  "is_true": "no"
-                },
-                {
-                  "text": "8 dB above threshold",
-                  "is_true": "no"
-                },
-                {
-                  "text": "2 dB above threshold",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "0 dB above threshold",
-                  "is_true": "no"
-                }
-              ],
-              "expert_explanation": "At a 4:1 ratio, every 4 dB above threshold becomes 1 dB at the output. Dividing 8 dB by 4 leaves 2 dB above threshold.",
-              "explanation": "<p><strong>Expert Explanation:</strong> At a 4:1 ratio, every 4 dB above threshold becomes 1 dB at the output. Dividing 8 dB by 4 leaves 2 dB above threshold.</p>"
-            },
-            {
-              "title": "Q7: Attack Time on Snare Drum Punch",
-              "content": "How should you set a compressor's attack time to keep the initial 'crack' of a snare drum?",
-              "type": "multi_choice",
-              "answers": [
-                {
-                  "text": "Slower attack (20–30 ms) for transient punch",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "Fastest attack (0.1 ms) to clamp stick hit",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Zero attack with brickwall limiting",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Attack has no effect on drum punch",
-                  "is_true": "no"
-                }
-              ],
-              "expert_explanation": "A slower attack (20–30 ms) lets the initial snare stick transient pass through before compression clamps down on the body.",
-              "explanation": "<p><strong>Expert Explanation:</strong> A slower attack (20–30 ms) lets the initial snare stick transient pass through before compression clamps down on the body.</p>"
-            },
-            {
-              "title": "Q8: Sidechain Ducking (Kick & Bass)",
-              "content": "How is sidechain compression used to make space for the kick drum in the low end?",
-              "type": "multi_choice",
-              "answers": [
-                {
-                  "text": "Bass is permanently muted during the track",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Kick and bass are panned hard left and right",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Bass is transposed an octave higher",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Kick triggers bass compressor to duck volume",
-                  "is_true": "yes"
-                }
-              ],
-              "expert_explanation": "Routing the kick to the bass compressor’s sidechain ducks the bass briefly on every kick hit, keeping the low end punchy and clear.",
-              "explanation": "<p><strong>Expert Explanation:</strong> Routing the kick to the bass compressor’s sidechain ducks the bass briefly on every kick hit, keeping the low end punchy and clear.</p>"
+              "title": "Q9: Practical — Drum Bus Attack Time for Punch",
+              "content": "Set a compressor attack time on a drum bus that lets the initial kick and snare transient punch pass through.",
+              "type": "parameter_matching",
+              "label": "Compressor Attack Time",
+              "min": 1,
+              "max": 50,
+              "step": 1,
+              "unit": " ms",
+              "correct_value": 25,
+              "tolerance": 10,
+              "expert_explanation": "A slower attack (15–35 ms) lets the initial drum stick snap pass uncompressed before clamping down on the drum body.",
+              "explanation": "<p><strong>Expert Explanation:</strong> A slower attack (15–35 ms) lets the initial drum stick snap pass uncompressed before clamping down on the drum body.</p>"
             }
           ]
         },
