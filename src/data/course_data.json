@@ -4835,35 +4835,25 @@
               "explanation": "<p><strong>Expert Explanation:</strong> Stereo widening plugins often invert polarity or delay one channel. When summed to mono, opposite waveforms cancel each other out (destructive phase cancellation), thinning or erasing the sound.</p>"
             },
             {
-              "title": "Q20: Harmonic Pitch Calculation Across Octaves",
-              "type": "multi_choice",
-              "content": "If concert pitch A4 vibrates at 440 Hz, what frequency is note A5 (one octave higher)?",
-              "answers": [
-                {
-                  "text": "660 Hz",
-                  "is_true": "no"
-                },
-                {
-                  "text": "880 Hz",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "550 Hz",
-                  "is_true": "no"
-                },
-                {
-                  "text": "980 Hz",
-                  "is_true": "no"
-                }
+              "title": "Q20: Subtractive EQ Workflow",
+              "content": "Arrange the 4 steps for cleaning up a muddy electric guitar track with EQ from START to FINISH.",
+              "type": "drag_drop",
+              "top_label": "STEP 1 (Start)",
+              "bottom_label": "STEP 4 (Finish)",
+              "items": [
+                "Cut the boxy resonance around 250 Hz–400 Hz",
+                "Apply a High-Pass Filter around 90 Hz",
+                "Listen and check the guitar in full mix context",
+                "Sweep a narrow boost to spot the muddy frequency"
               ],
-              "expert_explanation": "Musical pitch follows a logarithmic frequency relationship where every octave step higher exactly doubles the fundamental frequency (fn = f0 * 2^n). Therefore, one octave above A4 (440 Hz) is A5 at 440 Hz * 2 = 880 Hz, while one octave below is A3 at 440 Hz / 2 = 220 Hz. Understanding octave math enables audio engineers to calculate musical harmonic intervals, set proportional filter bands, and surgically target resonant overtones.",
-              "expert_quote": {
-                "text": "The audio spectrum is fundamentally mathematical. If you know the root note of a song, you can calculate every resonant octave and harmonic overtone with precision.",
-                "author": "Acoustic Theory Principles"
-              },
-              "img": "/images/octave_frequency_doubling_diagram.svg",
-              "explanation": "<img src=\"/images/octave_frequency_doubling_diagram.svg\" alt=\"Musical Octaves and Frequency Doubling Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Musical pitch follows a logarithmic frequency relationship where every octave step higher exactly doubles the fundamental frequency (fn = f0 * 2^n). Therefore, one octave above A4 (440 Hz) is A5 at 440 Hz * 2 = 880 Hz, while one octave below is A3 at 440 Hz / 2 = 220 Hz. Understanding octave math enables audio engineers to calculate musical harmonic intervals, set proportional filter bands, and surgically target resonant overtones.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"The audio spectrum is fundamentally mathematical. If you know the root note of a song, you can calculate every resonant octave and harmonic overtone with precision.\"<br/><strong>- Acoustic Theory Principles</strong></blockquote>",
-              "explanation_image": "/images/octave_frequency_doubling_diagram.svg"
+              "correct_order": [
+                "Apply a High-Pass Filter around 90 Hz",
+                "Sweep a narrow boost to spot the muddy frequency",
+                "Cut the boxy resonance around 250 Hz–400 Hz",
+                "Listen and check the guitar in full mix context"
+              ],
+              "expert_explanation": "Cleaning up an instrument starts by filtering sub-bass rumble, sweeping to spot problem resonances, cutting those frequencies subtractively, and checking the result in full mix context.",
+              "explanation": "<p><strong>Expert Explanation:</strong> Cleaning up an instrument starts by filtering sub-bass rumble, sweeping to spot problem resonances, cutting those frequencies subtractively, and checking the result in full mix context.</p>"
             }
           ],
           "randomise": false
