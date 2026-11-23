@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Check, X } from 'lucide-react';
-import { DndContext, useDraggable, useDroppable } from '@dnd-kit/core';
+import { DndContext, PointerSensor, useDraggable, useDroppable, useSensor, useSensors } from '@dnd-kit/core';
 
 const formatZoneLabel = (label = '') => label.replace(/\bCenter\b/gi, 'Centre');
 
@@ -139,6 +139,11 @@ function DroppableZone({ id, label, leftPct, topPct, showHint, hasSelected, onZo
 }
 
 export default function PanningQuiz({ question, initialAnswers, onAnswersChange, examMode, showAnswers, onResult }) {
+    const sensors = useSensors(
+        useSensor(PointerSensor, {
+            activationConstraint: { distance: 6 },
+        })
+    );
     const [elementPositions, setElementPositions] = useState({});
     const [selectedId, setSelectedId] = useState(null);
     const [submitted, setSubmitted] = useState(false);
@@ -232,7 +237,7 @@ export default function PanningQuiz({ question, initialAnswers, onAnswersChange,
                 </p>
             </div>
 
-            <DndContext onDragEnd={handleDragEnd}>
+            <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
                 {/* Elements Pool */}
                 <div style={{ marginBottom: '14px', padding: '12px', backgroundColor: '#0f172a', borderRadius: '10px', border: '1px solid #334155' }}>
                     <div style={{ color: '#94a3b8', fontSize: '0.78rem', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '8px' }}>
