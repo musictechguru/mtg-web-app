@@ -15877,41 +15877,172 @@
           "campaignNodeId": null,
           "questions": [
             {
-              "title": "Threshold Control",
-              "content": "What is the function of the 'Threshold' control on a compressor?",
-              "type": "multi_choice",
-              "question": "What does the Threshold control determine on an audio compressor?",
-              "answers": [
-                {
-                  "text": "Speed the compressor turns off below level",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Decibel level where compression begins",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "Amount of treble boost added to output",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Stereo pan position of the track",
-                  "is_true": "no"
-                }
+              "title": "Q1: Listening — Vocal Compression A/B",
+              "content": "Listen to Audio A (Dry) and Audio B (Wet). How has compression changed the vocal in Audio B?",
+              "type": "audio_comparison",
+              "audio_a": "/Audio/suzanne_vega_vocal_not_compressed.mp3",
+              "audio_b": "/Audio/suzanne_vega_vocal_compressed.mp3",
+              "options": [
+                "Evened out quiet and loud vocal levels",
+                "Added long stereo hall reverberation",
+                "Removed sub-bass rumble with a filter",
+                "Panned the lead vocal hard left"
               ],
-              "explanation": "<p><strong>Expert Explanation:</strong> Threshold sets the decibel level that an audio signal must exceed before the compressor begins reducing gain.</p>",
-              "expert_quote": {
-                "text": "The threshold tells the compressor when to start working. Lower it to catch more of the signal.",
-                "author": "Edexcel Component 4 Mixing Guide"
-              },
-              "img": "/images/gen/compressor_graph.png",
-              "expert_explanation": "Threshold sets the decibel level that an audio signal must exceed before the compressor begins reducing gain."
+              "correct_index": 0,
+              "correct_option": "Evened out quiet and loud vocal levels",
+              "expert_explanation": "Compression reduces the loudest vocal peaks and brings up quieter syllables, keeping the vocal sitting evenly and upfront in a mix.",
+              "explanation": "<p><strong>Expert Explanation:</strong> Compression reduces the loudest vocal peaks and brings up quieter syllables, keeping the vocal sitting evenly and upfront in a mix.</p>"
             },
             {
-              "title": "Ratio Calculation (4:1)",
-              "content": "A vocalist sings loudly, exceeding the compressor threshold by 8 dB. If the ratio is set to 4:1, by how much will the output level exceed the threshold?",
+              "title": "Q2: Listening — Guitar Sustain & Compression A/B",
+              "content": "Listen to Audio A (Dry) and Audio B (Wet). What dynamic effect does compression create on Audio B?",
+              "type": "audio_comparison",
+              "audio_a": "/Audio/FX_Ear_Training/Guitar/Dry Compression Guitar.mp3",
+              "audio_b": "/Audio/FX_Ear_Training/Guitar/Compression Guitar.mp3",
+              "options": [
+                "Mutes the guitar using a noise gate",
+                "Increases sustain and evens out peaks",
+                "Adds wide stereo chorus modulation",
+                "Drops the pitch down by one octave"
+              ],
+              "correct_index": 1,
+              "correct_option": "Increases sustain and evens out peaks",
+              "expert_explanation": "Heavy compression tames the initial pick transient while boosting the decaying tail, giving electric guitar notes longer sustain.",
+              "explanation": "<p><strong>Expert Explanation:</strong> Heavy compression tames the initial pick transient while boosting the decaying tail, giving electric guitar notes longer sustain.</p>"
+            },
+            {
+              "title": "Q3: Compression Curve Matching (4:1 Ratio)",
+              "content": "Adjust the sliders to match a 4:1 compression curve with threshold at -12 dB.",
+              "type": "graph-drawing",
+              "question": "Draw a 4:1 compression ratio with threshold at -12dB",
+              "hint": "Set the Threshold to -12 dB and Ratio to 4:1 so the curve bends cleanly above threshold.",
+              "initValues": {
+                "threshold": 0,
+                "ratio": 1
+              },
+              "correctValues": {
+                "threshold": [
+                  -14,
+                  -10
+                ],
+                "ratio": [
+                  3.5,
+                  4.5
+                ]
+              },
+              "targetPoints": [
+                {
+                  "x": 0,
+                  "y": 100
+                },
+                {
+                  "x": 70,
+                  "y": 30
+                },
+                {
+                  "x": 100,
+                  "y": 22.5
+                }
+              ],
+              "expert_explanation": "Below -12 dB the signal passes at 1:1. Above -12 dB, a 4:1 ratio flattens the slope so 4 dB of extra input produces only 1 dB of output.",
+              "explanation": "<p><strong>Expert Explanation:</strong> Below -12 dB the signal passes at 1:1. Above -12 dB, a 4:1 ratio flattens the slope so 4 dB of extra input produces only 1 dB of output.</p>"
+            },
+            {
+              "title": "Q4: Brickwall Limiter Curve Matching (10:1)",
+              "content": "Adjust the sliders to match a Limiter curve with a 10:1 ratio and threshold at -20 dB.",
+              "type": "graph-drawing",
+              "question": "Draw a Limiter curve with a 10:1 ratio and threshold at -20dB",
+              "hint": "Set Threshold to -20 dB and push Ratio to 10:1 (or Inf:1) to flatten the ceiling.",
+              "initValues": {
+                "threshold": 0,
+                "ratio": 1
+              },
+              "correctValues": {
+                "threshold": [
+                  -22,
+                  -18
+                ],
+                "ratio": [
+                  9,
+                  10
+                ]
+              },
+              "targetPoints": [
+                {
+                  "x": 0,
+                  "y": 100
+                },
+                {
+                  "x": 50,
+                  "y": 50
+                },
+                {
+                  "x": 100,
+                  "y": 50
+                }
+              ],
+              "expert_explanation": "With a 10:1 or higher ratio, the transfer curve flattens horizontally above the -20 dB threshold, stopping peaks from clipping.",
+              "explanation": "<p><strong>Expert Explanation:</strong> With a 10:1 or higher ratio, the transfer curve flattens horizontally above the -20 dB threshold, stopping peaks from clipping.</p>"
+            },
+            {
+              "title": "Q5: ADSR Envelope Matching (Fast Attack)",
+              "content": "Match an ADSR envelope with: Fast Attack, Medium Decay, 70% Sustain, and Slow Release.",
+              "type": "graph-drawing",
+              "question": "Draw an ADSR envelope with: Fast Attack, Medium Decay, 70% Sustain, Slow Release",
+              "hint": "Keep Attack low, Decay in the middle, Sustain at 70%, and push Release high.",
+              "initValues": {
+                "attack": 50,
+                "decay": 20,
+                "sustain": 50,
+                "release": 20
+              },
+              "correctValues": {
+                "attack": [
+                  0,
+                  25
+                ],
+                "decay": [
+                  25,
+                  55
+                ],
+                "sustain": [
+                  65,
+                  75
+                ],
+                "release": [
+                  70,
+                  100
+                ]
+              },
+              "targetPoints": [
+                {
+                  "x": 0,
+                  "y": 100
+                },
+                {
+                  "x": 15,
+                  "y": 0
+                },
+                {
+                  "x": 35,
+                  "y": 30
+                },
+                {
+                  "x": 70,
+                  "y": 30
+                },
+                {
+                  "x": 100,
+                  "y": 100
+                }
+              ],
+              "expert_explanation": "A fast attack rises immediately to peak, followed by a medium decay down to 70% sustain and a slow, gradual release fade-out.",
+              "explanation": "<p><strong>Expert Explanation:</strong> A fast attack rises immediately to peak, followed by a medium decay down to 70% sustain and a slow, gradual release fade-out.</p>"
+            },
+            {
+              "title": "Q6: Ratio Calculation (4:1)",
+              "content": "A vocal peak exceeds the compressor threshold by 8 dB. With a 4:1 ratio, how far above threshold is the output?",
               "type": "multi_choice",
-              "question": "If a signal goes 8 dB over the threshold with a 4:1 ratio, how many dB does it exceed the threshold at the output?",
               "answers": [
                 {
                   "text": "4 dB above threshold",
@@ -15930,19 +16061,13 @@
                   "is_true": "no"
                 }
               ],
-              "explanation": "<p><strong>Expert Explanation:</strong> At a 4:1 ratio, every 4 dB above threshold becomes 1 dB at the output. An 8 dB overshoot is divided by 4, leaving 2 dB above threshold.</p>",
-              "expert_quote": {
-                "text": "Ratio is a divider. For every 4 dB that enters above the threshold, only 1 dB is allowed to leave.",
-                "author": "Audio Dynamics Explained"
-              },
-              "img": "/images/gen/compressor_graph.png",
-              "expert_explanation": "At a 4:1 ratio, every 4 dB above threshold becomes 1 dB at the output. An 8 dB overshoot is divided by 4, leaving 2 dB above threshold."
+              "expert_explanation": "At a 4:1 ratio, every 4 dB above threshold becomes 1 dB at the output. Dividing 8 dB by 4 leaves 2 dB above threshold.",
+              "explanation": "<p><strong>Expert Explanation:</strong> At a 4:1 ratio, every 4 dB above threshold becomes 1 dB at the output. Dividing 8 dB by 4 leaves 2 dB above threshold.</p>"
             },
             {
-              "title": "Attack Time on Snare Drum Punch",
-              "content": "An engineer wants to keep the initial 'crack' and punch of a snare drum while controlling the volume of the rest of the hit. How should the compressor attack time be set?",
+              "title": "Q7: Attack Time on Snare Drum Punch",
+              "content": "How should you set a compressor's attack time to keep the initial 'crack' of a snare drum?",
               "type": "multi_choice",
-              "question": "How should the compressor attack time be set to preserve the initial crack of a snare drum?",
               "answers": [
                 {
                   "text": "Slower attack (20–30 ms) for transient punch",
@@ -15961,112 +16086,13 @@
                   "is_true": "no"
                 }
               ],
-              "explanation": "<p><strong>Expert Explanation:</strong> A slower attack (20–30 ms) lets the initial snare crack pass through before compression clamps down on the body.</p>",
-              "expert_quote": {
-                "text": "Slow attack lets the transient through for punch. Fast attack squashes the transient for control.",
-                "author": "Mix Engineer's Handbook"
-              },
-              "img": "/images/gen/compressor_graph.png",
-              "expert_explanation": "A slower attack (20–30 ms) lets the initial snare crack pass through before compression clamps down on the body."
+              "expert_explanation": "A slower attack (20–30 ms) lets the initial snare stick transient pass through before compression clamps down on the body.",
+              "explanation": "<p><strong>Expert Explanation:</strong> A slower attack (20–30 ms) lets the initial snare stick transient pass through before compression clamps down on the body.</p>"
             },
             {
-              "title": "Release Time and 'Pumping'",
-              "content": "When compressing a drum kit, setting the release time too fast often causes an unwanted artifact known as 'pumping' or 'breathing'. What is happening?",
+              "title": "Q8: Sidechain Ducking (Kick & Bass)",
+              "content": "How is sidechain compression used to make space for the kick drum in the low end?",
               "type": "multi_choice",
-              "question": "What causes 'pumping' or 'breathing' when compressing drum tracks?",
-              "answers": [
-                {
-                  "text": "Threshold is too high to catch hits",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Mic cable is loose and crackling",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Ratio is too low to reduce peaks",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Fast release lets room noise surge back up",
-                  "is_true": "yes"
-                }
-              ],
-              "explanation": "<p><strong>Expert Explanation:</strong> When release is too fast, the compressor recovers almost instantly after each drum hit, causing room noise and ambience to surge up audibly between beats.</p>",
-              "expert_quote": {
-                "text": "Pumping happens when the compressor releases too quickly, causing background noise to surge between beats.",
-                "author": "Component 3 & 4 Mixing Concepts"
-              },
-              "img": "/images/gen/compressor_graph.png",
-              "expert_explanation": "When release is too fast, the compressor recovers almost instantly after each drum hit, causing room noise and ambience to surge up audibly between beats."
-            },
-            {
-              "title": "Knee Control (Hard Knee vs Soft Knee)",
-              "content": "What is the difference between a 'Hard Knee' and a 'Soft Knee' on a compressor?",
-              "type": "multi_choice",
-              "question": "How does a Soft Knee modify compressor behavior around the threshold?",
-              "answers": [
-                {
-                  "text": "Hard knee delays compression by 500 ms",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Soft knee mutes audio during silence",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Soft knee compresses gradually; hard abruptly",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "Hard knee only works on electric guitars",
-                  "is_true": "no"
-                }
-              ],
-              "explanation": "<p><strong>Expert Explanation:</strong> A hard knee engages full compression abruptly at threshold, while a soft knee applies compression smoothly over a transition zone.</p>",
-              "expert_quote": {
-                "text": "Use soft knee for transparent vocals; use hard knee when you need strict, aggressive control on transients.",
-                "author": "Studio Dynamics Handbook"
-              },
-              "img": "/images/gen/compressor_graph.png",
-              "expert_explanation": "A hard knee engages full compression abruptly at threshold, while a soft knee applies compression smoothly over a transition zone."
-            },
-            {
-              "title": "Makeup Gain",
-              "content": "After compressing a lead vocal and reducing its peaks by 6 dB, the vocal sounds quieter in the overall mix. What control should the engineer use to restore the level?",
-              "type": "multi_choice",
-              "question": "What control is used to restore volume lost through compression gain reduction?",
-              "answers": [
-                {
-                  "text": "Threshold Control",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Make-Up Gain Control",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "Ratio Multiplier",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Stereo Pan Control",
-                  "is_true": "no"
-                }
-              ],
-              "explanation": "<p><strong>Expert Explanation:</strong> Make-up gain boosts the compressed signal back up to match or exceed its original perceived loudness without clipping peaks.</p>",
-              "expert_quote": {
-                "text": "Compressors reduce volume. Makeup gain brings the track back up so quiet words are clearly audible.",
-                "author": "Edexcel Component 4 Guide"
-              },
-              "img": "/images/gen/compressor_graph.png",
-              "expert_explanation": "Make-up gain boosts the compressed signal back up to match or exceed its original perceived loudness without clipping peaks."
-            },
-            {
-              "title": "Sidechain Ducking (Kick & Bass)",
-              "content": "In modern pop and electronic music, how is sidechain compression used to make room for the kick drum in the low end?",
-              "type": "multi_choice",
-              "question": "How does sidechain compression allow the kick drum and bass to work together cleanly?",
               "answers": [
                 {
                   "text": "Bass is permanently muted during the track",
@@ -16085,168 +16111,8 @@
                   "is_true": "yes"
                 }
               ],
-              "explanation": "<p><strong>Expert Explanation:</strong> Routing the kick to the bass compressor’s sidechain ducks the bass briefly on every kick hit, keeping the sub-bass tight and clear.</p>",
-              "expert_quote": {
-                "text": "Sidechain ducking stops your kick and bass from fighting for the same low-end space.",
-                "author": "Modern Production Masterclass"
-              },
-              "img": "/images/svg/dynamic_eq_threshold_action.svg",
-              "expert_explanation": "Routing the kick to the bass compressor’s sidechain ducks the bass briefly on every kick hit, keeping the sub-bass tight and clear."
-            },
-            {
-              "title": "Limiter vs Compressor",
-              "content": "What is the primary difference between an audio compressor and an audio limiter?",
-              "type": "multi_choice",
-              "question": "How does a limiter differ from a standard compressor?",
-              "answers": [
-                {
-                  "text": "Limiter uses high ratios to block peaks",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "Limiter boosts quiet audio without cutting",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Compressor is mono; limiter is surround",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Limiter is only used during tracking",
-                  "is_true": "no"
-                }
-              ],
-              "explanation": "<p><strong>Expert Explanation:</strong> A limiter uses an extreme ratio (10:1 to ∞:1) and fast attack to prevent any peak from exceeding a set ceiling.</p>",
-              "expert_quote": {
-                "text": "A compressor sculpts dynamics; a limiter stops peaks from hitting the ceiling.",
-                "author": "Mastering Audio Essentials"
-              },
-              "img": "/images/gen/compressor_graph.png",
-              "expert_explanation": "A limiter uses an extreme ratio (10:1 to ∞:1) and fast attack to prevent any peak from exceeding a set ceiling."
-            },
-            {
-              "title": "De-Esser Purpose",
-              "content": "What is the main function of a De-Esser plugin on a lead vocal track?",
-              "type": "multi_choice",
-              "question": "What does a De-Esser do on a vocal track?",
-              "answers": [
-                {
-                  "text": "Corrects out-of-tune vocal pitch",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Filters sub-bass rumble below 50 Hz",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Compresses harsh 'S' and 'T' sibilance",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "Creates octave-below vocal harmonies",
-                  "is_true": "no"
-                }
-              ],
-              "explanation": "<p><strong>Expert Explanation:</strong> A de-esser targets high frequencies (5–8 kHz) with frequency-specific compression to tame harsh 'S' and 'SH' sounds.</p>",
-              "expert_quote": {
-                "text": "A de-esser tames harsh sibilance so you can brighten your vocal without hurting the listener's ears.",
-                "author": "Vocal Mixing Guide"
-              },
-              "img": "/images/svg/de_esser_frequency_chart.svg",
-              "expert_explanation": "A de-esser targets high frequencies (5–8 kHz) with frequency-specific compression to tame harsh 'S' and 'SH' sounds."
-            },
-            {
-              "title": "Reading the Gain Reduction Meter",
-              "content": "When setting up a compressor on a vocal in your DAW, what does the Gain Reduction (GR) meter show you?",
-              "type": "multi_choice",
-              "question": "What does the Gain Reduction (GR) meter indicate on a compressor?",
-              "answers": [
-                {
-                  "text": "Raw preamp input level",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Decibels of gain actively reduced",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "Amount of tube harmonic saturation",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Master stereo output level",
-                  "is_true": "no"
-                }
-              ],
-              "explanation": "<p><strong>Expert Explanation:</strong> The Gain Reduction (GR) meter displays in real time how many decibels the compressor is attenuating peaks above threshold.</p>",
-              "expert_quote": {
-                "text": "Watch the gain reduction meter. For a natural vocal, 2 to 4 dB of reduction on peaks is usually a great starting point.",
-                "author": "DAW Mixing Fundamentals"
-              },
-              "img": "/images/gen/compressor_graph.png",
-              "expert_explanation": "The Gain Reduction (GR) meter displays in real time how many decibels the compressor is attenuating peaks above threshold."
-            },
-            {
-              "title": "Noise Gate Function",
-              "content": "What is the function of a Noise Gate inserted on an acoustic snare drum or distorted electric guitar track?",
-              "type": "multi_choice",
-              "question": "What is the primary function of a Noise Gate in music production?",
-              "answers": [
-                {
-                  "text": "Limits loud peaks above 0 dBFS",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Widens mono tracks into stereo",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Tunes guitar strings between takes",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Silences audio falling below threshold",
-                  "is_true": "yes"
-                }
-              ],
-              "explanation": "<p><strong>Expert Explanation:</strong> A noise gate mutes background hiss, amp buzz, or drum bleed whenever the signal drops below the threshold.</p>",
-              "expert_quote": {
-                "text": "A noise gate silences the silence. It cleans up spill between hits so your mix stays punchy.",
-                "author": "Edexcel Component 4 Practical Guide"
-              },
-              "img": "/images/svg/dynamic_eq_threshold_action.svg",
-              "expert_explanation": "A noise gate mutes background hiss, amp buzz, or drum bleed whenever the signal drops below the threshold."
-            },
-            {
-              "title": "Optical vs FET vs VCA Compressor Styles",
-              "content": "Why are optical compressors (like the LA-2A style) often chosen for lead vocals while FET compressors (like the 1176 style) are chosen for aggressive drums?",
-              "type": "multi_choice",
-              "question": "Why do engineers choose optical compressors for vocals and FET compressors for drums?",
-              "answers": [
-                {
-                  "text": "Optical is smooth on vocals; FET is fast on drums",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "Optical is digital only; FET is tape only",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Optical ignores bass; FET ignores treble",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Optical is mono only; FET is stereo only",
-                  "is_true": "no"
-                }
-              ],
-              "explanation": "<p><strong>Expert Explanation:</strong> Optical compressors (LA-2A) use light-dependent cells for smooth, natural vocal levelling, while FET compressors (1176) grab fast drum transients.</p>",
-              "expert_quote": {
-                "text": "Optical is warm and forgiving for vocals. FET is fast and bitey for drums. VCA is clean glue for the mix bus.",
-                "author": "Studio Hardware Classics"
-              },
-              "img": "/images/gen/compressor_graph.png",
-              "expert_explanation": "Optical compressors (LA-2A) use light-dependent cells for smooth, natural vocal levelling, while FET compressors (1176) grab fast drum transients."
+              "expert_explanation": "Routing the kick to the bass compressor’s sidechain ducks the bass briefly on every kick hit, keeping the low end punchy and clear.",
+              "explanation": "<p><strong>Expert Explanation:</strong> Routing the kick to the bass compressor’s sidechain ducks the bass briefly on every kick hit, keeping the low end punchy and clear.</p>"
             }
           ]
         },
