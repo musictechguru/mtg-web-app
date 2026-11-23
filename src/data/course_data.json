@@ -4974,70 +4974,100 @@
               "explanation_image": "/images/reverb_predelay_separation_diagram.svg"
             },
             {
-              "title": "Q5: Matching Reverb Types to Studio Hardware",
-              "content": "Match each classic reverb type to how it creates reflections.",
-              "type": "signal-flow-label",
-              "hide_arrows": true,
-              "flowSteps": [
+              "title": "Q5: Reverb Types — Spring Reverb",
+              "type": "multi_choice",
+              "content": "How does a traditional electromechanical spring reverb generate its sound?",
+              "answers": [
                 {
-                  "id": "rv1",
-                  "label": "Coiled metal springs inside a guitar amp",
-                  "placeholder": "Drop Reverb..."
+                  "text": "Vibrating a suspended steel plate inside a frame",
+                  "is_true": "no"
                 },
                 {
-                  "id": "rv2",
-                  "label": "Suspended steel sheet vibrated by transducer",
-                  "placeholder": "Drop Reverb..."
+                  "text": "Passing audio through coiled metal springs",
+                  "is_true": "yes"
                 },
                 {
-                  "id": "rv3",
-                  "label": "Reflective tiled room with speaker and mics",
-                  "placeholder": "Drop Reverb..."
+                  "text": "Playing sound into a tiled echo chamber room",
+                  "is_true": "no"
                 },
                 {
-                  "id": "rv4",
-                  "label": "Software emulation of a large concert space",
-                  "placeholder": "Drop Reverb..."
+                  "text": "Looping magnetic tape across playback heads",
+                  "is_true": "no"
                 }
               ],
-              "terms": [
-                "Plate Reverb",
-                "Digital Hall Reverb",
-                "Spring Reverb",
-                "Echo Chamber"
-              ],
-              "correctAnswers": {
-                "rv1": "Spring Reverb",
-                "rv2": "Plate Reverb",
-                "rv3": "Echo Chamber",
-                "rv4": "Digital Hall Reverb"
+              "expert_explanation": "Spring reverbs use an input transducer coil to send audio vibrations down one or more coiled steel springs suspended in a metal tank. A pickup coil at the other end converts the mechanical vibrations back into electrical signal, producing a distinctive bright, bouncy, metallic timbre.",
+              "expert_quote": {
+                "text": "Spring reverb defined the sound of surf rock, blues, and vintage guitar amplifiers like the Fender Twin Reverb.",
+                "author": "Guitar Tech Reference"
               },
-              "expert_explanation": "Spring reverbs use coiled springs, plate reverbs vibrate a suspended steel sheet, echo chambers use a physical reflective room, and digital hall plugins model large spaces.",
-              "explanation": "<p><strong>Expert Explanation:</strong> Spring reverbs use coiled springs, plate reverbs vibrate a suspended steel sheet, echo chambers use a physical reflective room, and digital hall plugins model large spaces.</p>"
+              "img": "/images/reverb_spring_transducer_diagram.svg",
+              "explanation": "<img src=\"/images/reverb_spring_transducer_diagram.svg\" alt=\"Spring Reverb Transducer Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Spring reverbs use an input transducer coil to send audio vibrations down one or more coiled steel springs suspended in a metal tank. A pickup coil at the other end converts the mechanical vibrations back into electrical signal, producing a distinctive bright, bouncy, metallic timbre.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Spring reverb defined the sound of surf rock, blues, and vintage guitar amplifiers like the Fender Twin Reverb.\"<br/><strong>- Guitar Tech Reference</strong></blockquote>",
+              "explanation_image": "/images/reverb_spring_transducer_diagram.svg"
             },
             {
-              "title": "Q6: Auxiliary Send/Return Reverb Routing",
-              "content": "Arrange the studio signal flow for sharing one reverb plugin across multiple vocal tracks from SOURCE to MIX.",
-              "type": "drag_drop",
-              "top_label": "SOURCE (Vocal Channel)",
-              "bottom_label": "OUTPUT (Master Mix)",
-              "items": [
-                "Reverb plugin set to 100% wet",
-                "Vocal track sends copy via Aux Send",
-                "Wet reverb return blends with dry vocal",
-                "Aux Bus feeds into the reverb input"
+              "title": "Q6: Reverb Types — Plate Reverb",
+              "type": "multi_choice",
+              "content": "What physical mechanism creates reverberation in a classic plate reverb (like an EMT 140)?",
+              "answers": [
+                {
+                  "text": "A tiled room with speaker and boundary mics",
+                  "is_true": "no"
+                },
+                {
+                  "text": "Coiled metal springs inside a guitar combo",
+                  "is_true": "no"
+                },
+                {
+                  "text": "A suspended steel sheet vibrated by transducer",
+                  "is_true": "yes"
+                },
+                {
+                  "text": "An analogue bucket brigade delay chip",
+                  "is_true": "no"
+                }
               ],
-              "correct_order": [
-                "Vocal track sends copy via Aux Send",
-                "Aux Bus feeds into the reverb input",
-                "Reverb plugin set to 100% wet",
-                "Wet reverb return blends with dry vocal"
-              ],
-              "expert_explanation": "Using an Aux Send to a 100% wet reverb return lets multiple channels share one shared room space while keeping dry vocal clarity intact.",
-              "explanation": "<p><strong>Expert Explanation:</strong> Using an Aux Send to a 100% wet reverb return lets multiple channels share one shared room space while keeping dry vocal clarity intact.</p>"
+              "expert_explanation": "A plate reverb suspends a large, thin sheet of steel (approximately 1x2 metres) under high tension within a heavy outer frame. A driver transducer vibrates the centre of the sheet, and contact pickups capture the resulting dense, high-frequency reflections, making it the classic studio choice for vocals and snare drums.",
+              "expert_quote": {
+                "text": "Plate reverb lacks discrete early reflections, giving you immediate, shimmering diffusion that blends seamlessly behind vocals.",
+                "author": "Vintage Studio Processing"
+              },
+              "img": "/images/reverb_plate_mechanics_diagram.svg",
+              "explanation": "<img src=\"/images/reverb_plate_mechanics_diagram.svg\" alt=\"Plate Reverb Mechanics Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> A plate reverb suspends a large, thin sheet of steel (approximately 1x2 metres) under high tension within a heavy outer frame. A driver transducer vibrates the centre of the sheet, and contact pickups capture the resulting dense, high-frequency reflections, making it the classic studio choice for vocals and snare drums.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Plate reverb lacks discrete early reflections, giving you immediate, shimmering diffusion that blends seamlessly behind vocals.\"<br/><strong>- Vintage Studio Processing</strong></blockquote>",
+              "explanation_image": "/images/reverb_plate_mechanics_diagram.svg"
             },
             {
-              "title": "Q7: Chorus Effect Fundamentals",
+              "title": "Q7: Reverb Types — Acoustic Chamber Reverb",
+              "type": "multi_choice",
+              "content": "What is a traditional studio acoustic echo chamber?",
+              "answers": [
+                {
+                  "text": "A digital algorithm calculating reflections",
+                  "is_true": "no"
+                },
+                {
+                  "text": "A dedicated reflective room with speaker & mics",
+                  "is_true": "yes"
+                },
+                {
+                  "text": "A magnetic tape machine running on a loop",
+                  "is_true": "no"
+                },
+                {
+                  "text": "A tensioned metal sheet inside a wooden box",
+                  "is_true": "no"
+                }
+              ],
+              "expert_explanation": "Before artificial reverb units existed, studios built specialized subterranean rooms lined with hard, non-parallel reflective surfaces (ceramic tiles, painted concrete). Audio from the control room is piped into a loudspeaker, and microphones in the chamber capture the natural room reverberation.",
+              "expert_quote": {
+                "text": "The underground chambers at Abbey Road and Capitol Studios remain legendary because real air and physical boundaries create organic depth.",
+                "author": "Classic Studio Architecture"
+              },
+              "img": "/images/reverb_chamber_room_diagram.svg",
+              "explanation": "<img src=\"/images/reverb_chamber_room_diagram.svg\" alt=\"Acoustic Chamber Room Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Before artificial reverb units existed, studios built specialized subterranean rooms lined with hard, non-parallel reflective surfaces (ceramic tiles, painted concrete). Audio from the control room is piped into a loudspeaker, and microphones in the chamber capture the natural room reverberation.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"The underground chambers at Abbey Road and Capitol Studios remain legendary because real air and physical boundaries create organic depth.\"<br/><strong>- Classic Studio Architecture</strong></blockquote>",
+              "explanation_image": "/images/reverb_chamber_room_diagram.svg"
+            },
+            {
+              "title": "Q8: Chorus Effect Fundamentals (Pitch & Micro-Delay)",
               "type": "multi_choice",
               "content": "How does a chorus effect create its rich, thickened doubling sound?",
               "answers": [
@@ -5068,24 +5098,24 @@
               "explanation_image": "/images/chorus_pitch_delay_lfo_diagram.svg"
             },
             {
-              "title": "Q8: Chorus Rate & Depth",
+              "title": "Q9: Chorus Modulation Controls (Rate & Depth)",
               "type": "multi_choice",
               "content": "On a chorus effect, what does the 'Depth' control regulate?",
               "answers": [
                 {
-                  "text": "Speed of the internal LFO sweep",
+                  "text": "The speed or frequency of the internal LFO modulation cycle",
                   "is_true": "no"
                 },
                 {
-                  "text": "Balance between dry and wet signal",
+                  "text": "The overall balance between dry audio and wet processed effect",
                   "is_true": "no"
                 },
                 {
-                  "text": "High-frequency cut on the wet signal",
+                  "text": "The high-frequency cut applied to the wet chorus signal path",
                   "is_true": "no"
                 },
                 {
-                  "text": "Amount of pitch detuning by the LFO",
+                  "text": "The amount of pitch deviation caused by the LFO modulation",
                   "is_true": "yes"
                 }
               ],
@@ -5099,7 +5129,7 @@
               "explanation_image": "/images/chorus_rate_depth_modulation_diagram.svg"
             },
             {
-              "title": "Q9: Flanger vs Chorus",
+              "title": "Q10: Flanger vs Chorus (Comb Filtering & Delay Time)",
               "type": "multi_choice",
               "content": "What is the main technical difference between a flanger and a chorus?",
               "answers": [
@@ -5171,7 +5201,7 @@
               "explanation_image": "/images/delay_self_oscillation_diagram.svg"
             },
             {
-              "title": "Q12: Tape Delay Character",
+              "title": "Q12: Delay Types — Tape vs BBD vs Digital",
               "type": "multi_choice",
               "content": "Which sonic characteristics are typical of vintage magnetic tape delay?",
               "answers": [
@@ -5238,19 +5268,19 @@
               "content": "How does a stereo ping-pong delay behave?",
               "answers": [
                 {
-                  "text": "Repeats stay centred in mono",
+                  "text": "All delayed repeats stay centred in the middle of the mix",
                   "is_true": "no"
                 },
                 {
-                  "text": "Dry track spins around the listener",
+                  "text": "The dry signal pans continuously in circles around the listener",
                   "is_true": "no"
                 },
                 {
-                  "text": "Repeats bounce between Left and Right",
+                  "text": "The delayed repeats alternate back and forth between Left and Right",
                   "is_true": "yes"
                 },
                 {
-                  "text": "Highs pan Left while lows pan Right",
+                  "text": "High frequencies pan left while low frequencies pan to the right",
                   "is_true": "no"
                 }
               ],
@@ -5264,46 +5294,35 @@
               "explanation_image": "/images/delay_ping_pong_stereo_diagram.svg"
             },
             {
-              "title": "Q15: Modulation & Time-Based FX",
-              "content": "Match each studio effect to its signature sound or mechanism.",
-              "type": "signal-flow-label",
-              "hide_arrows": true,
-              "flowSteps": [
+              "title": "Q15: Modulation FX — Phaser Architecture",
+              "type": "multi_choice",
+              "content": "How does a phaser create its sweeping whoosh effect without using a delay line?",
+              "answers": [
                 {
-                  "id": "fx1",
-                  "label": "Distinct rhythmic echo repeats after dry hit",
-                  "placeholder": "Drop Effect..."
+                  "text": "It uses fast brickwall limiters to squash loud transient peaks",
+                  "is_true": "no"
                 },
                 {
-                  "id": "fx2",
-                  "label": "Thick doubling using modulated short delay",
-                  "placeholder": "Drop Effect..."
+                  "text": "It uses all-pass filters to shift phase and create notches",
+                  "is_true": "yes"
                 },
                 {
-                  "id": "fx3",
-                  "label": "Jet-plane whoosh from very short delay + feedback",
-                  "placeholder": "Drop Effect..."
+                  "text": "It uses short delay buffers to generate resonant comb filters",
+                  "is_true": "no"
                 },
                 {
-                  "id": "fx4",
-                  "label": "Sweeping phase notches without a delay line",
-                  "placeholder": "Drop Effect..."
+                  "text": "It uses digital pitch-shifting algorithms to detune the audio signal",
+                  "is_true": "no"
                 }
               ],
-              "terms": [
-                "Flanger",
-                "Phaser",
-                "Delay",
-                "Chorus"
-              ],
-              "correctAnswers": {
-                "fx1": "Delay",
-                "fx2": "Chorus",
-                "fx3": "Flanger",
-                "fx4": "Phaser"
+              "expert_explanation": "Unlike chorus and flangers which use variable time-delay lines, a phaser splits the signal and routes one branch through a series of all-pass filters. These filters shift the phase angle of specific frequencies. When recombined with dry audio, out-of-phase frequencies cancel out into sweeping notches modulated by an LFO.",
+              "expert_quote": {
+                "text": "Phasing creates non-harmonically spaced notches through pure phase manipulation, giving it a swooshing, liquid quality distinct from harmonic comb filtering.",
+                "author": "DSP Audio Engineering"
               },
-              "expert_explanation": "Delay creates distinct echoes, chorus thickens via modulated short delays, flanger adds feedback for jet-plane sweeps, and phaser sweeps phase notches without delay.",
-              "explanation": "<p><strong>Expert Explanation:</strong> Delay creates distinct echoes, chorus thickens via modulated short delays, flanger adds feedback for jet-plane sweeps, and phaser sweeps phase notches without delay.</p>"
+              "img": "/images/phaser_allpass_notches_diagram.svg",
+              "explanation": "<img src=\"/images/phaser_allpass_notches_diagram.svg\" alt=\"Phaser Architecture Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Unlike chorus and flangers which use variable time-delay lines, a phaser splits the signal and routes one branch through a series of all-pass filters. These filters shift the phase angle of specific frequencies. When recombined with dry audio, out-of-phase frequencies cancel out into sweeping notches modulated by an LFO.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Phasing creates non-harmonically spaced notches through pure phase manipulation, giving it a swooshing, liquid quality distinct from harmonic comb filtering.\"<br/><strong>- DSP Audio Engineering</strong></blockquote>",
+              "explanation_image": "/images/phaser_allpass_notches_diagram.svg"
             },
             {
               "title": "Q16: Reverb Acoustics — Early Reflections",
@@ -5311,19 +5330,19 @@
               "content": "What do the 'early reflections' in a reverb tell the listener?",
               "answers": [
                 {
-                  "text": "Total length of the reverb tail",
+                  "text": "The overall decay duration of the longest reverberant sound tail",
                   "is_true": "no"
                 },
                 {
-                  "text": "Stereo chorus modulation width",
+                  "text": "The amount of stereo chorus modulation applied to the sound",
                   "is_true": "no"
                 },
                 {
-                  "text": "Perceived size of the room",
+                  "text": "The perceived size and physical boundary dimensions of the room",
                   "is_true": "yes"
                 },
                 {
-                  "text": "Treble absorption of wall carpets",
+                  "text": "The high-frequency absorption rate of carpets and wall furnishings",
                   "is_true": "no"
                 }
               ],
@@ -5342,19 +5361,19 @@
               "content": "How does a convolution reverb recreate the sound of a real space?",
               "answers": [
                 {
-                  "text": "Artificial digital delay math",
+                  "text": "By calculating artificial delay lines using algorithmic digital math",
                   "is_true": "no"
                 },
                 {
-                  "text": "Mechanical steel springs in an amp",
+                  "text": "By routing audio through mechanical steel springs in an amplifier",
                   "is_true": "no"
                 },
                 {
-                  "text": "Physical echo room with mics",
+                  "text": "By sending sound into a physical echo chamber with microphones",
                   "is_true": "no"
                 },
                 {
-                  "text": "Recorded Impulse Response of a space",
+                  "text": "By combining audio with a recorded Impulse Response of that space",
                   "is_true": "yes"
                 }
               ],
@@ -5368,44 +5387,100 @@
               "explanation_image": "/images/reverb_convolution_impulse_diagram.svg"
             },
             {
-              "title": "Q18: Classic Studio Reverb Tricks (3 Marks)",
-              "content": "Complete the 3 dropdowns on famous studio reverb shaping techniques.",
-              "type": "cloze",
-              "text": [
-                "1. The Abbey Road Reverb Trick filters out mud and harshness by high-passing around 600 Hz and {0} around 10 kHz.",
-                "2. Applying {1} lowers reverb volume whenever a singer is singing, keeping lyrics clear.",
-                "3. The iconic 1980s explosive snare sound cuts off a dense reverb tail abruptly using a {2}."
+              "title": "Q18: Reverb Processing — The Abbey Road Reverb EQ Trick",
+              "type": "multi_choice",
+              "content": "What equalisation technique defines the famous 'Abbey Road Reverb Trick'?",
+              "answers": [
+                {
+                  "text": "Boosting frequencies at 100 Hz to thicken the reverb bass",
+                  "is_true": "no"
+                },
+                {
+                  "text": "High-passing around 600 Hz and low-passing around 10 kHz",
+                  "is_true": "yes"
+                },
+                {
+                  "text": "Cutting a surgical notch at 1 kHz to widen stereo spread",
+                  "is_true": "no"
+                },
+                {
+                  "text": "Applying heavy compression to make the reverb tail pump rhythmically",
+                  "is_true": "no"
+                }
               ],
-              "options": [
-                [
-                  "boosting sub-bass",
-                  "low-passing",
-                  "adding chorus",
-                  "bit-crushing"
-                ],
-                [
-                  "pitch shifting",
-                  "tape saturation",
-                  "sidechain ducking",
-                  "ring modulation"
-                ],
-                [
-                  "noise gate",
-                  "flanger",
-                  "harmonic exciter",
-                  "patchbay"
-                ]
-              ],
-              "answer": [
-                "low-passing",
-                "sidechain ducking",
-                "noise gate"
-              ],
-              "expert_explanation": "Band-limiting reverb (600 Hz HPF / 10 kHz LPF) keeps mixes clean, sidechain ducking clears space for vocals, and a noise gate creates 1980s gated snare reverb.",
-              "explanation": "<p><strong>Expert Explanation:</strong> Band-limiting reverb (600 Hz HPF / 10 kHz LPF) keeps mixes clean, sidechain ducking clears space for vocals, and a noise gate creates 1980s gated snare reverb.</p>"
+              "expert_explanation": "The Abbey Road Reverb Trick applies an EQ on the reverb aux send/return: high-passing around 500-600 Hz (stripping low-end mud and kick/bass rumble) and low-passing around 10 kHz (taming harsh vocal sibilance and splashy high-end wash). The filtered reverb sits cleanly behind the mix.",
+              "expert_quote": {
+                "text": "Filtering out extreme lows and highs before the reverb chamber prevented Abbey Road mixes from turning into a muddy, sibilant acoustic sludge.",
+                "author": "Abbey Road Sound Recordist Notes"
+              },
+              "img": "/images/reverb_abbey_road_eq_diagram.svg",
+              "explanation": "<img src=\"/images/reverb_abbey_road_eq_diagram.svg\" alt=\"Abbey Road Reverb EQ Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> The Abbey Road Reverb Trick applies an EQ on the reverb aux send/return: high-passing around 500-600 Hz (stripping low-end mud and kick/bass rumble) and low-passing around 10 kHz (taming harsh vocal sibilance and splashy high-end wash). The filtered reverb sits cleanly behind the mix.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Filtering out extreme lows and highs before the reverb chamber prevented Abbey Road mixes from turning into a muddy, sibilant acoustic sludge.\"<br/><strong>- Abbey Road Sound Recordist Notes</strong></blockquote>",
+              "explanation_image": "/images/reverb_abbey_road_eq_diagram.svg"
             },
             {
-              "title": "Q19: Interactive Task — 120 BPM Delay Timing",
+              "title": "Q19: Advanced Reverb — Sidechain Ducking",
+              "type": "multi_choice",
+              "content": "Why is sidechain ducking applied to a lead vocal reverb?",
+              "answers": [
+                {
+                  "text": "Lowers reverb during singing for vocal clarity",
+                  "is_true": "yes"
+                },
+                {
+                  "text": "Shortens pre-delay whenever the singer pauses",
+                  "is_true": "no"
+                },
+                {
+                  "text": "Widens stereo panning when vocals hit high notes",
+                  "is_true": "no"
+                },
+                {
+                  "text": "Boosts treble presence during loud vocal lines",
+                  "is_true": "no"
+                }
+              ],
+              "expert_explanation": "Ducking inserts a compressor on the reverb return keyed to the dry lead vocal via sidechain. When the vocal sings, the reverb attenuates (ducks by 4-8 dB), preserving intelligibility. When the vocalist pauses, the compressor releases, allowing the lush reverb tail to bloom forward and fill the gap.",
+              "expert_quote": {
+                "text": "Sidechained ducked reverb gives you the best of both worlds: upfront vocal clarity during lyrics and an expansive, cinematic reverb bloom during phrase pauses.",
+                "author": "Modern Vocal Production"
+              },
+              "img": "/images/reverb_sidechain_ducking_diagram.svg",
+              "explanation": "<img src=\"/images/reverb_sidechain_ducking_diagram.svg\" alt=\"Reverb Sidechain Ducking Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Ducking inserts a compressor on the reverb return keyed to the dry lead vocal via sidechain. When the vocal sings, the reverb attenuates (ducks by 4-8 dB), preserving intelligibility. When the vocalist pauses, the compressor releases, allowing the lush reverb tail to bloom forward and fill the gap.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Sidechained ducked reverb gives you the best of both worlds: upfront vocal clarity during lyrics and an expansive, cinematic reverb bloom during phrase pauses.\"<br/><strong>- Modern Vocal Production</strong></blockquote>",
+              "explanation_image": "/images/reverb_sidechain_ducking_diagram.svg"
+            },
+            {
+              "title": "Q20: Iconic FX — 1980s Gated Snare Reverb",
+              "type": "multi_choice",
+              "content": "How was the iconic 1980s gated snare drum sound achieved?",
+              "answers": [
+                {
+                  "text": "By driving a tape delay into full saturation and oscillation",
+                  "is_true": "no"
+                },
+                {
+                  "text": "By feeding a spring reverb into a resonant low-pass filter",
+                  "is_true": "no"
+                },
+                {
+                  "text": "By blending a flanger in parallel with clean drum overheads",
+                  "is_true": "no"
+                },
+                {
+                  "text": "By cutting off a loud, dense reverb tail with a gate",
+                  "is_true": "yes"
+                }
+              ],
+              "expert_explanation": "Gated snare reverb sends a dry snare transient into a massive, dense room or plate reverb, which is immediately clamped by an aggressive noise gate. After a fixed hold time (around 150-250 ms), the gate slams shut, slicing off the decay tail instantly and producing an explosive, punchy drum sound.",
+              "expert_quote": {
+                "text": "Pioneered by Phil Collins and Hugh Padgham on Peter Gabriel's 1980 album, the gated snare defined the punchy drum aesthetic of the entire 1980s decade.",
+                "author": "Sound On Sound Classics"
+              },
+              "img": "/images/reverb_gated_snare_diagram.svg",
+              "explanation": "<img src=\"/images/reverb_gated_snare_diagram.svg\" alt=\"Gated Snare Reverb Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Gated snare reverb sends a dry snare transient into a massive, dense room or plate reverb, which is immediately clamped by an aggressive noise gate. After a fixed hold time (around 150-250 ms), the gate slams shut, slicing off the decay tail instantly and producing an explosive, punchy drum sound.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Pioneered by Phil Collins and Hugh Padgham on Peter Gabriel's 1980 album, the gated snare defined the punchy drum aesthetic of the entire 1980s decade.\"<br/><strong>- Sound On Sound Classics</strong></blockquote>",
+              "explanation_image": "/images/reverb_gated_snare_diagram.svg"
+            },
+            {
+              "title": "Interactive Task: Simple 120 BPM Delay Timing",
               "content": "Use the 3-step builder to work out Quarter-Note (1/4) and Eighth-Note (1/8) delay times at 120 BPM.",
               "type": "studio-calculation",
               "calcMode": "delay_bpm",
@@ -16762,141 +16837,269 @@
           "campaignNodeId": null,
           "questions": [
             {
-              "title": "Q1: DAW Automation Modes",
-              "content": "Match each DAW automation mode to how the fader behaves during playback.",
-              "type": "signal-flow-label",
-              "hide_arrows": true,
-              "flowSteps": [
-                {
-                  "id": "au1",
-                  "label": "Plays existing curves without recording edits",
-                  "placeholder": "Drop Mode..."
-                },
-                {
-                  "id": "au2",
-                  "label": "Snaps back to previous curve when released",
-                  "placeholder": "Drop Mode..."
-                },
-                {
-                  "id": "au3",
-                  "label": "Holds last value until playback is stopped",
-                  "placeholder": "Drop Mode..."
-                },
-                {
-                  "id": "au4",
-                  "label": "Erases existing data as soon as play starts",
-                  "placeholder": "Drop Mode..."
-                }
-              ],
-              "terms": [
-                "Latch Mode",
-                "Write Mode",
-                "Touch Mode",
-                "Read Mode"
-              ],
-              "correctAnswers": {
-                "au1": "Read Mode",
-                "au2": "Touch Mode",
-                "au3": "Latch Mode",
-                "au4": "Write Mode"
-              },
-              "expert_explanation": "Read plays curves safely, Touch returns to the old curve on release, Latch holds your new level until stop, and Write overwrites everything on playback.",
-              "explanation": "<p><strong>Expert Explanation:</strong> Read plays curves safely, Touch returns to the old curve on release, Latch holds your new level until stop, and Write overwrites everything on playback.</p>"
-            },
-            {
-              "title": "Q2: Standard MIDI Control Change (CC) Numbers",
-              "content": "Match each standard MIDI CC number to the parameter it controls.",
-              "type": "signal-flow-label",
-              "hide_arrows": true,
-              "flowSteps": [
-                {
-                  "id": "cc1",
-                  "label": "Controls vibrato or synth filter via Mod Wheel",
-                  "placeholder": "Drop CC..."
-                },
-                {
-                  "id": "cc2",
-                  "label": "Controls overall MIDI channel volume level",
-                  "placeholder": "Drop CC..."
-                },
-                {
-                  "id": "cc3",
-                  "label": "Controls Left-to-Right stereo pan position",
-                  "placeholder": "Drop CC..."
-                },
-                {
-                  "id": "cc4",
-                  "label": "Controls piano sustain pedal (On/Off)",
-                  "placeholder": "Drop CC..."
-                }
-              ],
-              "terms": [
-                "CC10 (Pan)",
-                "CC64 (Sustain)",
-                "CC7 (Volume)",
-                "CC1 (Modulation)"
-              ],
-              "correctAnswers": {
-                "cc1": "CC1 (Modulation)",
-                "cc2": "CC7 (Volume)",
-                "cc3": "CC10 (Pan)",
-                "cc4": "CC64 (Sustain)"
-              },
-              "expert_explanation": "Standard MIDI assigns CC1 to Modulation, CC7 to Volume, CC10 to Pan, and CC64 to Sustain Pedal.",
-              "explanation": "<p><strong>Expert Explanation:</strong> Standard MIDI assigns CC1 to Modulation, CC7 to Volume, CC10 to Pan, and CC64 to Sustain Pedal.</p>"
-            },
-            {
-              "title": "Q3: MIDI Resolution, Velocity & Fade Curves (3 Marks)",
-              "content": "Complete the 3 dropdowns on MIDI data values and DAW volume automation.",
-              "type": "cloze",
-              "text": [
-                "1. Standard MIDI parameters run from 0 to 127 because MIDI uses {0} resolution.",
-                "2. When recording a MIDI keyboard part, {1} measures how hard a key was struck.",
-                "3. Engineers prefer curved {2} fade-outs because human ears judge loudness on a curve."
-              ],
-              "options": [
-                [
-                  "24-bit",
-                  "7-bit",
-                  "16-bit",
-                  "32-bit"
-                ],
-                [
-                  "Quantisation",
-                  "Aftertouch",
-                  "Note Velocity",
-                  "Pitch Bend"
-                ],
-                [
-                  "square-wave",
-                  "linear",
-                  "logarithmic",
-                  "stepped"
-                ]
-              ],
-              "answer": [
-                "7-bit",
-                "Note Velocity",
-                "logarithmic"
-              ],
-              "expert_explanation": "7-bit MIDI bytes give 128 values (0–127), Note Velocity captures key strike strength, and logarithmic fades match human hearing.",
-              "explanation": "<p><strong>Expert Explanation:</strong> 7-bit MIDI bytes give 128 values (0–127), Note Velocity captures key strike strength, and logarithmic fades match human hearing.</p>"
-            },
-            {
-              "title": "Q4: Pitch Bend vs Modulation Wheel",
-              "content": "How does a MIDI Pitch Bend wheel differ from a Modulation wheel?",
+              "title": "Touch Automation Mode",
+              "content": "When writing volume automation in your DAW using 'Touch' mode, what happens to the fader value when you release your mouse or hardware controller?",
               "type": "multi_choice",
+              "question": "What does a parameter do when you release the fader in Touch automation mode?",
               "answers": [
                 {
-                  "text": "Pitch Bend snaps centre; Mod Wheel stays put",
+                  "text": "Stays at last level until playback stops",
+                  "is_true": "no"
+                },
+                {
+                  "text": "Snaps back to previous curve when released",
                   "is_true": "yes"
                 },
+                {
+                  "text": "Deletes the audio waveform from timeline",
+                  "is_true": "no"
+                },
+                {
+                  "text": "Mutes the channel strip permanently",
+                  "is_true": "no"
+                }
+              ],
+              "explanation": "<p><strong>Expert Explanation:</strong> In Touch mode, automation writes only while you hold the fader; as soon as you let go, it snaps back to the existing automation curve.</p>",
+              "expert_quote": {
+                "text": "Touch mode is the safest way to ride vocals: touch it to write, let go to return.",
+                "author": "Edexcel Component 4 DAW Automation Guide"
+              },
+              "img": "/images/svg/transport_bar.svg",
+              "expert_explanation": "In Touch mode, automation writes only while you hold the fader; as soon as you let go, it snaps back to the existing automation curve."
+            },
+            {
+              "title": "Latch Automation Mode",
+              "content": "How does 'Latch' automation mode differ from 'Touch' mode in a digital audio workstation?",
+              "type": "multi_choice",
+              "question": "What happens when you release the fader in Latch automation mode?",
+              "answers": [
+                {
+                  "text": "Snaps back to 0 dB when released",
+                  "is_true": "no"
+                },
+                {
+                  "text": "Converts audio into MIDI note events",
+                  "is_true": "no"
+                },
+                {
+                  "text": "Holds released level until playback stops",
+                  "is_true": "yes"
+                },
+                {
+                  "text": "Disables automation on other tracks",
+                  "is_true": "no"
+                }
+              ],
+              "explanation": "<p><strong>Expert Explanation:</strong> In Latch mode, once you move a control during playback, it keeps writing that new value even after you release the fader until you stop playback.</p>",
+              "expert_quote": {
+                "text": "Latch stays where you leave it. Remember to hit stop so you don't overwrite the next section of your song.",
+                "author": "Logic Pro & Pro Tools Mixing Guide"
+              },
+              "img": "/images/svg/transport_bar.svg",
+              "expert_explanation": "In Latch mode, once you move a control during playback, it keeps writing that new value even after you release the fader until you stop playback."
+            },
+            {
+              "title": "Write Automation Mode Warning",
+              "content": "Why do audio engineers avoid leaving a track in 'Write' automation mode during a mix session?",
+              "type": "multi_choice",
+              "question": "Why is Write automation mode dangerous to leave active in a DAW?",
+              "answers": [
+                {
+                  "text": "Overwrites existing data on playback",
+                  "is_true": "yes"
+                },
+                {
+                  "text": "Deletes audio files from hard drive",
+                  "is_true": "no"
+                },
+                {
+                  "text": "Forces DAW to bounce in mono format",
+                  "is_true": "no"
+                },
+                {
+                  "text": "Disconnects hardware MIDI controllers",
+                  "is_true": "no"
+                }
+              ],
+              "explanation": "<p><strong>Expert Explanation:</strong> Write mode continuously overwrites every existing automation move on the track as soon as playback passes over it, risking accidental erasure.</p>",
+              "expert_quote": {
+                "text": "Write mode is like a steamroller. Use it only for your very first pass, then switch straight to Touch or Read.",
+                "author": "DAW Mixing Essentials"
+              },
+              "img": "/images/svg/transport_bar.svg",
+              "expert_explanation": "Write mode continuously overwrites every existing automation move on the track as soon as playback passes over it, risking accidental erasure."
+            },
+            {
+              "title": "Read Automation Mode",
+              "content": "What is the function of the standard 'Read' automation mode on a DAW track?",
+              "type": "multi_choice",
+              "question": "What does Read automation mode do?",
+              "answers": [
+                {
+                  "text": "Scans audio lyrics into sheet music",
+                  "is_true": "no"
+                },
+                {
+                  "text": "Converts audio into MIDI event tracks",
+                  "is_true": "no"
+                },
+                {
+                  "text": "Plays audio only when holding spacebar",
+                  "is_true": "no"
+                },
+                {
+                  "text": "Plays automation without writing changes",
+                  "is_true": "yes"
+                }
+              ],
+              "explanation": "<p><strong>Expert Explanation:</strong> Read mode plays back all recorded automation curves cleanly without allowing accidental changes if you bump a fader.</p>",
+              "expert_quote": {
+                "text": "When you finish automating a track, leave it in Read mode so your mix is protected.",
+                "author": "Edexcel Component 4 Workflow Guide"
+              },
+              "img": "/images/svg/transport_bar.svg",
+              "expert_explanation": "Read mode plays back all recorded automation curves cleanly without allowing accidental changes if you bump a fader."
+            },
+            {
+              "title": "MIDI CC1 (Modulation Wheel)",
+              "content": "What standard synthesiser parameter is universally controlled by MIDI Continuous Controller 1 (CC1)?",
+              "type": "multi_choice",
+              "question": "Which controller on a MIDI keyboard transmits MIDI CC1 by default?",
+              "answers": [
+                {
+                  "text": "Sustain Pedal switch",
+                  "is_true": "no"
+                },
+                {
+                  "text": "Modulation Wheel control",
+                  "is_true": "yes"
+                },
+                {
+                  "text": "Channel Volume fader",
+                  "is_true": "no"
+                },
+                {
+                  "text": "Stereo Panning control",
+                  "is_true": "no"
+                }
+              ],
+              "explanation": "<p><strong>Expert Explanation:</strong> MIDI CC1 (Modulation Wheel) typically controls vibrato depth (LFO pitch modulation) or filter cutoff sweeps on a synthesiser.</p>",
+              "expert_quote": {
+                "text": "CC1 is your modulation wheel. Move it to add vibrato to a synth lead or bring a string section to life.",
+                "author": "MIDI Standards & Sequencing"
+              },
+              "img": "/images/svg/midi_cc_message_3byte_structure.svg",
+              "expert_explanation": "MIDI CC1 (Modulation Wheel) typically controls vibrato depth (LFO pitch modulation) or filter cutoff sweeps on a synthesiser."
+            },
+            {
+              "title": "MIDI CC7 (Volume) and CC10 (Pan)",
+              "content": "Which MIDI Continuous Controller numbers are standardised for Channel Volume and Stereo Pan position?",
+              "type": "multi_choice",
+              "question": "What are the standard MIDI CC numbers for Volume and Pan?",
+              "answers": [
+                {
+                  "text": "CC 1 for Volume and CC 64 for Pan",
+                  "is_true": "no"
+                },
+                {
+                  "text": "CC 11 for Volume and CC 1 for Pan",
+                  "is_true": "no"
+                },
+                {
+                  "text": "CC 7 for Volume and CC 10 for Pan",
+                  "is_true": "yes"
+                },
+                {
+                  "text": "CC 64 for Volume and CC 127 for Pan",
+                  "is_true": "no"
+                }
+              ],
+              "explanation": "<p><strong>Expert Explanation:</strong> MIDI CC7 controls Channel Volume and MIDI CC10 controls Stereo Panning across standard MIDI instruments and DAWs.</p>",
+              "expert_quote": {
+                "text": "Remember: CC7 is Volume, and CC10 is Pan. Standard MIDI protocol on every sequencer.",
+                "author": "Edexcel Music Technology Specification"
+              },
+              "img": "/images/svg/midi_cc_message_3byte_structure.svg",
+              "expert_explanation": "MIDI CC7 controls Channel Volume and MIDI CC10 controls Stereo Panning across standard MIDI instruments and DAWs."
+            },
+            {
+              "title": "MIDI CC64 (Sustain Pedal)",
+              "content": "What MIDI controller number is transmitted when a keyboard player presses down on a standard Sustain (Damper) Pedal?",
+              "type": "multi_choice",
+              "question": "Which MIDI CC number is assigned to the Sustain / Damper Pedal?",
+              "answers": [
+                {
+                  "text": "MIDI CC 64",
+                  "is_true": "yes"
+                },
+                {
+                  "text": "MIDI CC 1",
+                  "is_true": "no"
+                },
+                {
+                  "text": "MIDI CC 7",
+                  "is_true": "no"
+                },
+                {
+                  "text": "MIDI CC 10",
+                  "is_true": "no"
+                }
+              ],
+              "explanation": "<p><strong>Expert Explanation:</strong> Pressing a keyboard sustain pedal transmits MIDI CC64 (Damper/Sustain Pedal), holding notes until the pedal is released.</p>",
+              "expert_quote": {
+                "text": "CC64 is the sustain pedal. Values 64–127 hold the notes; values 0–63 let them damp.",
+                "author": "MIDI Protocol Basics"
+              },
+              "img": "/images/svg/midi_cc_message_3byte_structure.svg",
+              "expert_explanation": "Pressing a keyboard sustain pedal transmits MIDI CC64 (Damper/Sustain Pedal), holding notes until the pedal is released."
+            },
+            {
+              "title": "MIDI Data Value Range (0–127)",
+              "content": "Why do standard MIDI parameters (like Note Velocity, Volume CC7, and Pan CC10) have a numerical range from 0 to 127?",
+              "type": "multi_choice",
+              "question": "Why do standard MIDI control change values range from 0 to 127?",
+              "answers": [
+                {
+                  "text": "Human ears only hear 100 volume steps",
+                  "is_true": "no"
+                },
+                {
+                  "text": "Analogue synths only make 128 pitches",
+                  "is_true": "no"
+                },
+                {
+                  "text": "1983 CPUs could not count past 128",
+                  "is_true": "no"
+                },
+                {
+                  "text": "MIDI uses 7-bit data (128 values)",
+                  "is_true": "yes"
+                }
+              ],
+              "explanation": "<p><strong>Expert Explanation:</strong> Standard MIDI uses 7-bit binary data (2^7 = 128 values), giving a range from 0 (minimum) to 127 (maximum).</p>",
+              "expert_quote": {
+                "text": "In standard MIDI, everything runs from 0 to 127 because it's built on 7-bit data bytes.",
+                "author": "Digital Music Technology Specification"
+              },
+              "img": "/images/svg/midi_cc_message_3byte_structure.svg",
+              "expert_explanation": "Standard MIDI uses 7-bit binary data (2^7 = 128 values), giving a range from 0 (minimum) to 127 (maximum)."
+            },
+            {
+              "title": "Pitch Bend Wheel Behaviour",
+              "content": "How does the Pitch Bend wheel differ mechanically and functionally from the Modulation wheel on a MIDI keyboard?",
+              "type": "multi_choice",
+              "question": "How does the Pitch Bend wheel differ from the Modulation wheel?",
+              "answers": [
                 {
                   "text": "Pitch Bend stays put; Mod Wheel snaps back",
                   "is_true": "no"
                 },
                 {
-                  "text": "Pitch Bend sends audio; Mod Wheel sends MIDI",
+                  "text": "Pitch Bend snaps centre; Mod Wheel stays put",
+                  "is_true": "yes"
+                },
+                {
+                  "text": "Pitch Bend sends audio; Mod Wheel sends sysex",
                   "is_true": "no"
                 },
                 {
@@ -16904,13 +17107,81 @@
                   "is_true": "no"
                 }
               ],
-              "expert_explanation": "Pitch Bend wheels are spring-loaded to snap back to zero pitch shift when released, whereas Modulation wheels stay at your chosen value.",
-              "explanation": "<p><strong>Expert Explanation:</strong> Pitch Bend wheels are spring-loaded to snap back to zero pitch shift when released, whereas Modulation wheels stay at your chosen value.</p>"
+              "explanation": "<p><strong>Expert Explanation:</strong> Unlike the Mod Wheel, the Pitch Bend wheel is spring-loaded to snap back to centre (0 pitch change) when released and uses higher-resolution 14-bit data.</p>",
+              "expert_quote": {
+                "text": "Pitch bend snaps back to center when you let go. Modulation wheel stays where you leave it.",
+                "author": "Edexcel Component 3 & 4 MIDI Guide"
+              },
+              "img": "/images/svg/midi_cc_message_3byte_structure.svg",
+              "expert_explanation": "Unlike the Mod Wheel, the Pitch Bend wheel is spring-loaded to snap back to centre (0 pitch change) when released and uses higher-resolution 14-bit data."
             },
             {
-              "title": "Q5: Automating DAW Parameters",
-              "content": "Which DAW controls can be automated over time using automation lanes?",
+              "title": "Volume Fade Automation Curves",
+              "content": "When drawing a volume fade-out at the end of a song in your DAW, why is a curved (logarithmic/exponential) fade line preferred over a straight linear line?",
               "type": "multi_choice",
+              "question": "Why do curved volume fades sound smoother to human ears than straight linear fades?",
+              "answers": [
+                {
+                  "text": "Linear fades clip above 0 dBFS",
+                  "is_true": "no"
+                },
+                {
+                  "text": "Logarithmic fades create surround sound",
+                  "is_true": "no"
+                },
+                {
+                  "text": "Human hearing perceives volume logarithmically",
+                  "is_true": "yes"
+                },
+                {
+                  "text": "DAWs forbid linear volume fades",
+                  "is_true": "no"
+                }
+              ],
+              "explanation": "<p><strong>Expert Explanation:</strong> Human hearing perceives volume logarithmically, so an exponential or S-curve fade-out sounds much smoother than a straight linear fade.</p>",
+              "expert_quote": {
+                "text": "Our ears hear logarithmically. Curve your fade-outs so the volume melts away smoothly.",
+                "author": "DAW Mixing & Editing Tips"
+              },
+              "img": "/images/svg/transport_bar.svg",
+              "expert_explanation": "Human hearing perceives volume logarithmically, so an exponential or S-curve fade-out sounds much smoother than a straight linear fade."
+            },
+            {
+              "title": "MIDI Velocity Control",
+              "content": "When recording a MIDI piano or synth track, what does 'Note Velocity' measure?",
+              "type": "multi_choice",
+              "question": "What does MIDI note velocity measure and control?",
+              "answers": [
+                {
+                  "text": "How hard a key was hit (volume)",
+                  "is_true": "yes"
+                },
+                {
+                  "text": "How long the note was held down",
+                  "is_true": "no"
+                },
+                {
+                  "text": "Playback tempo in beats per minute",
+                  "is_true": "no"
+                },
+                {
+                  "text": "Stereo pan position across monitors",
+                  "is_true": "no"
+                }
+              ],
+              "explanation": "<p><strong>Expert Explanation:</strong> Note Velocity (0–127) measures how hard or fast a MIDI key is struck, usually controlling note loudness and filter brightness.</p>",
+              "expert_quote": {
+                "text": "Velocity is touch sensitivity. Hitting a key harder produces a louder, brighter sound.",
+                "author": "MIDI Essentials for A-Level"
+              },
+              "img": "/images/svg/midi_cc_message_3byte_structure.svg",
+              "expert_explanation": "Note Velocity (0–127) measures how hard or fast a MIDI key is struck, usually controlling note loudness and filter brightness."
+            },
+            {
+              "title": "Plugin Automation in DAWs",
+              "content": "In modern DAWs like Logic Pro, Pro Tools, and Cubase, which parameters can be automated over time using automation lanes?",
+              "type": "multi_choice",
+              "question": "Which elements of a mix can be automated using DAW track automation lanes?",
               "answers": [
                 {
                   "text": "Only volume faders, never plugins",
@@ -16921,37 +17192,21 @@
                   "is_true": "no"
                 },
                 {
-                  "text": "Volume, pan, and plugin controls",
-                  "is_true": "yes"
-                },
-                {
                   "text": "Only tempo and time signatures",
                   "is_true": "no"
+                },
+                {
+                  "text": "Volume, pan, and plugin controls",
+                  "is_true": "yes"
                 }
               ],
-              "expert_explanation": "Modern DAWs let you automate almost any parameter—including volume, pan, mute, aux sends, and EQ/FX plugin controls.",
-              "explanation": "<p><strong>Expert Explanation:</strong> Modern DAWs let you automate almost any parameter—including volume, pan, mute, aux sends, and EQ/FX plugin controls.</p>"
-            },
-            {
-              "title": "Q6: Recording a Safe Vocal Fader Ride",
-              "content": "Arrange the 4-step workflow for recording a chorus vocal volume lift without erasing earlier automation.",
-              "type": "drag_drop",
-              "top_label": "STEP 1 (Prepare)",
-              "bottom_label": "STEP 4 (Lock)",
-              "items": [
-                "Switch track back to Read Mode after the chorus",
-                "Set track to Touch Mode before playing the chorus",
-                "Push the vocal fader up slightly during the chorus",
-                "Release the fader so it snaps back smoothly"
-              ],
-              "correct_order": [
-                "Set track to Touch Mode before playing the chorus",
-                "Push the vocal fader up slightly during the chorus",
-                "Release the fader so it snaps back smoothly",
-                "Switch track back to Read Mode after the chorus"
-              ],
-              "expert_explanation": "Using Touch Mode lets you punch in a fader ride and release smoothly back to the previous level, before switching back to Read Mode to protect your mix.",
-              "explanation": "<p><strong>Expert Explanation:</strong> Using Touch Mode lets you punch in a fader ride and release smoothly back to the previous level, before switching back to Read Mode to protect your mix.</p>"
+              "explanation": "<p><strong>Expert Explanation:</strong> Modern DAWs let you automate almost any channel fader, pan pot, send level, or plugin knob (such as EQ frequency or reverb decay).</p>",
+              "expert_quote": {
+                "text": "Automation brings static mixes to life. Automate volume, pans, and plugin sweeps to guide the listener's ear.",
+                "author": "Edexcel Component 4 Mix Techniques"
+              },
+              "img": "/images/svg/transport_bar.svg",
+              "expert_explanation": "Modern DAWs let you automate almost any channel fader, pan pot, send level, or plugin knob (such as EQ frequency or reverb decay)."
             }
           ]
         }
@@ -19236,23 +19491,23 @@
           "type": "lp_quiz",
           "title": "Comparison 7: Blue Monday",
           "youtube_id": "c1GxjzHm5us",
-          "video_title_1": "Version A (1983)",
+          "video_title_1": "New Order (1983)",
           "youtube_id_2": "-8gVmD39AmI",
-          "video_title_2": "Version B (1998)",
+          "video_title_2": "Orgy (1998)",
           "description": "Compare the 1983 Synth-Pop original by New Order with the 1998 Industrial/Nu-Metal cover by Orgy. Focus on instrumentation and genre shifts.",
           "questions": [
             {
               "title": "Recording Release Medium",
               "content": "Released on a groundbreaking 12-inch Vinyl single in die-cut floppy-disk packaging (FAC 73), prioritizing wide groove spacing for high dance club bass levels.",
               "type": "multi_choice",
-              "explanation": "<p><strong>Expert Explanation:</strong> New Order's 1983 release became the highest-selling 12-inch vinyl single of all time. Orgy's 1998 cover was released on Compact Disc and digital formats, heavily compressed during the late-90s Loudness War.</p>",
+              "explanation": "<p><strong>Version A (New Order).</strong> Factory Records released 'Blue Monday' exclusively on 12-inch vinyl, designed by Peter Saville. The wide grooves allowed high-amplitude bass cutting without needle skipping.</p>",
               "answers": [
                 {
-                  "text": "Version A",
+                  "text": "Version A (New Order)",
                   "is_true": "yes"
                 },
                 {
-                  "text": "Version B",
+                  "text": "Version B (Orgy)",
                   "is_true": "no"
                 }
               ],
@@ -19271,14 +19526,14 @@
               "title": "Capture & Style",
               "content": "Instruments were synchronized via early pre-MIDI proprietary trigger pulses and a custom-built homebrew sequencer (Powertran VPS3).",
               "type": "multi_choice",
-              "explanation": "<p><strong>Expert Explanation:</strong> Bernard Sumner hand-soldered the Powertran sequencer. Orgy recorded into Digidesign Pro Tools using standard MIDI synchronization, modern software plugins, and digital hardware interfaces.</p>",
+              "explanation": "<p><strong>Version A (New Order).</strong> In 1983 before MIDI was widespread, New Order programmed the song using a homebrew Powertran sequencer communicating via control voltage (CV) and gate triggers.</p>",
               "answers": [
                 {
-                  "text": "Version A",
+                  "text": "Version A (New Order)",
                   "is_true": "yes"
                 },
                 {
-                  "text": "Version B",
+                  "text": "Version B (Orgy)",
                   "is_true": "no"
                 }
               ],
@@ -19297,14 +19552,14 @@
               "title": "Rhythm & Sync",
               "content": "Features an iconic mechanical 16th-note stuttering kick drum intro programmed into an Oberheim DMX drum machine.",
               "type": "multi_choice",
-              "explanation": "<p><strong>Expert Explanation:</strong> The stuttering kick drum was famously programmed step-by-step into the DMX. Orgy's 1998 version pairs digital industrial loops with a live acoustic kit recorded with heavy room miking and triggered samples.</p>",
+              "explanation": "<p><strong>Version A (New Order).</strong> The repeating 16th-note kick pattern at 130 BPM was programmed directly into an Oberheim DMX, creating an instantly recognizable synthetic heartbeat.</p>",
               "answers": [
                 {
-                  "text": "Version A",
+                  "text": "Version A (New Order)",
                   "is_true": "yes"
                 },
                 {
-                  "text": "Version B",
+                  "text": "Version B (Orgy)",
                   "is_true": "no"
                 }
               ],
@@ -19323,19 +19578,19 @@
               "title": "Sequencing & Sampling",
               "content": "Utilizes an early 8-bit digital sampler (E-mu Emulator I) playing low-resolution choir and brass stabs sampled from Kraftwerk.",
               "type": "multi_choice",
-              "explanation": "<p><strong>Expert Explanation:</strong> The 8-bit resolution of the Emulator I introduced prominent quantisation noise and harmonic grit that defined early sampling aesthetics. Orgy utilised 24-bit high-resolution digital samplers and VST sound libraries.</p>",
+              "explanation": "<p><strong>Version A (New Order).</strong> New Order used the pioneering E-mu Emulator I (released 1981) to load 8-bit samples of orchestral voices and brass, adding a dark, grain-filled digital texture.</p>",
               "answers": [
                 {
-                  "text": "Version A",
+                  "text": "Version A (New Order)",
                   "is_true": "yes"
                 },
                 {
-                  "text": "Version B",
+                  "text": "Version B (Orgy)",
                   "is_true": "no"
                 }
               ],
               "img": "/images/svg/vocal_chopping_sampling_technique.svg",
-              "expert_explanation": "The 8-bit resolution of the Emulator I introduced prominent quantisation noise and harmonic grit that defined early sampling aesthetics. Orgy utilised 24-bit high-resolution digital samplers and VST sound libraries.",
+              "expert_explanation": "The 8-bit resolution of the Emulator I introduced prominent quantisation noise and harmonic grit that defined early sampling aesthetics. Orgy utilized 24-bit high-resolution digital samplers and VST sound libraries.",
               "expert_quote": {
                 "text": "The Emulator cost about as much as a house back then. You got maybe two seconds of crunchy 8-bit audio on a floppy disk.",
                 "author": "Peter Hook (New Order)"
@@ -19349,14 +19604,14 @@
               "title": "Pitching",
               "content": "Vocal delivery is deadpan, emotionally detached, dry, and delivered without any form of automatic pitch correction.",
               "type": "multi_choice",
-              "explanation": "<p><strong>Expert Explanation:</strong> Sumner's vocal has natural pitch drift and imperfection that reinforces the alienated mood. In Orgy's 1998 cover, Jay Gordon's vocals are pitch-corrected, heavily doubled, and treated with aggressive distortion plugins.</p>",
+              "explanation": "<p><strong>Version A (New Order).</strong> Bernard Sumner's flat, melancholic post-punk vocal style was recorded completely natural without pitch correction tools, which didn't exist in 1983.</p>",
               "answers": [
                 {
-                  "text": "Version A",
+                  "text": "Version A (New Order)",
                   "is_true": "yes"
                 },
                 {
-                  "text": "Version B",
+                  "text": "Version B (Orgy)",
                   "is_true": "no"
                 }
               ],
@@ -19375,14 +19630,14 @@
               "title": "Arrangement Differences",
               "content": "Arrangement spans over 7 minutes with a long, hypnotic 16-bar intro where instruments enter incrementally one at a time.",
               "type": "multi_choice",
-              "explanation": "<p><strong>Expert Explanation:</strong> New Order paced the arrangement for extended dance club experiences. Orgy condensed the track into a punchy 4:26 verse-chorus radio format suited for MTV and alternative rock radio.</p>",
+              "explanation": "<p><strong>Version A (New Order).</strong> The 7:29 extended arrangement was crafted for club DJs, building anticipation over several minutes before the first vocal verse enters at 1:40.</p>",
               "answers": [
                 {
-                  "text": "Version A",
+                  "text": "Version A (New Order)",
                   "is_true": "yes"
                 },
                 {
-                  "text": "Version B",
+                  "text": "Version B (Orgy)",
                   "is_true": "no"
                 }
               ],
@@ -19401,14 +19656,14 @@
               "title": "Mixing & Processing",
               "content": "The mix is dominated by heavily distorted, quad-tracked electric guitars creating an impenetrable industrial rock 'wall of sound'.",
               "type": "multi_choice",
-              "explanation": "<p><strong>Expert Explanation:</strong> Orgy's signature 'death-pop' sound combined industrial synthesisers with crushing, thick guitar walls. New Order featured Peter Hook's high-register melodic bass and sparse, rhythmic guitar strums.</p>",
+              "explanation": "<p><strong>Version B (Orgy).</strong> Orgy layered multiple takes of downtuned 7-string guitars through Mesa Boogie Dual Rectifiers, saturating the midrange with high-gain distortion.</p>",
               "answers": [
                 {
-                  "text": "Version A",
+                  "text": "Version A (New Order)",
                   "is_true": "no"
                 },
                 {
-                  "text": "Version B",
+                  "text": "Version B (Orgy)",
                   "is_true": "yes"
                 }
               ],
@@ -19427,14 +19682,14 @@
               "title": "Pan (Stereo Field)",
               "content": "Rhythm guitars are hard-panned 100% Left and 100% Right (LCR routing), leaving the centre channel open for lead vocal, kick, and snare.",
               "type": "multi_choice",
-              "explanation": "<p><strong>Expert Explanation:</strong> New Order's 1983 stereo field was more subtle, keeping the Oberheim DMX centred while panning emulator choir sounds and Peter Hook's chorus-pedaled bass across the field.</p>",
+              "explanation": "<p><strong>Version B (Orgy).</strong> Modern alternative metal production relies on hard-panning doubled and quad-tracked guitars extreme left and right to achieve maximum stereo width.",
               "answers": [
                 {
-                  "text": "Version A",
+                  "text": "Version A (New Order)",
                   "is_true": "no"
                 },
                 {
-                  "text": "Version B",
+                  "text": "Version B (Orgy)",
                   "is_true": "yes"
                 }
               ],
@@ -19453,14 +19708,14 @@
               "title": "Reverb",
               "content": "Employs an AMS RMX16 digital reverb with non-linear gated decay on the snare drum, characteristic of 1980s studio innovation.",
               "type": "multi_choice",
-              "explanation": "<p><strong>Expert Explanation:</strong> The AMS RMX16 was one of the first microprocessor-controlled digital reverbs. Orgy favored tight room ambience with short decay plates and aggressive tape delays to keep the metal mix tight.</p>",
+              "explanation": "<p><strong>Version A (New Order).</strong> The AMS RMX16 non-linear setting cut the reverb tail abruptly, giving the drum machine snare massive explosive power without cluttering the bass space.</p>",
               "answers": [
                 {
-                  "text": "Version A",
+                  "text": "Version A (New Order)",
                   "is_true": "yes"
                 },
                 {
-                  "text": "Version B",
+                  "text": "Version B (Orgy)",
                   "is_true": "no"
                 }
               ],
@@ -19479,14 +19734,14 @@
               "title": "Delay",
               "content": "Vocals are treated with a short stereo slapback and ping-pong delay to create width and temporal depth in the chorus.",
               "type": "multi_choice",
-              "explanation": "<p><strong>Expert Explanation:</strong> Digital delay in 1998 DAWs was perfectly locked to BPM via software. New Order's 1983 vocal was kept dry and direct, sitting nakedly in the mix.</p>",
+              "explanation": "<p><strong>Version B (Orgy).</strong> Orgy's production utilized tempo-synced digital stereo ping-pong delays on vocal tails and synth sweeps to bounce between speakers.</p>",
               "answers": [
                 {
-                  "text": "Version A",
+                  "text": "Version A (New Order)",
                   "is_true": "no"
                 },
                 {
-                  "text": "Version B",
+                  "text": "Version B (Orgy)",
                   "is_true": "yes"
                 }
               ],
@@ -19505,14 +19760,14 @@
               "title": "Filtering & Effects",
               "content": "The bassline features a Moog Source analogue synthesiser with a resonant 24 dB/octave ladder filter sweeping during transitions.",
               "type": "multi_choice",
-              "explanation": "<p><strong>Expert Explanation:</strong> Moog ladder filters are prized for their warm, self-oscillating resonance. Orgy duplicated the bass riff using a blend of downtuned 5-string electric bass and digital subtractive software plugins.</p>",
+              "explanation": "<p><strong>Version A (New Order).</strong> The iconic 16th-note pulsating synth bass was generated by an analogue Moog Source, with its distinctive 4-pole resonant filter cutting through the mix.</p>",
               "answers": [
                 {
-                  "text": "Version A",
+                  "text": "Version A (New Order)",
                   "is_true": "yes"
                 },
                 {
-                  "text": "Version B",
+                  "text": "Version B (Orgy)",
                   "is_true": "no"
                 }
               ],
@@ -19531,14 +19786,14 @@
               "title": "EQ",
               "content": "Heavy midrange scooping around 400–600 Hz on distorted rhythm guitars creates space for the aggressive snare crack and sub-bass.",
               "type": "multi_choice",
-              "explanation": "<p><strong>Expert Explanation:</strong> Scooping the mid frequencies creates clarity in dense mixes with heavy distortion. New Order's mix was punchy in the 1–3 kHz region where Peter Hook's bass and the Oberheim snare sat.</p>",
+              "explanation": "<p><strong>Version B (Orgy).</strong> The 'V-shaped' or scooped EQ curve is a hallmark of late-90s metal, removing muddy low-mids while boosting sub-bass and high-treble bite.",
               "answers": [
                 {
-                  "text": "Version A",
+                  "text": "Version A (New Order)",
                   "is_true": "no"
                 },
                 {
-                  "text": "Version B",
+                  "text": "Version B (Orgy)",
                   "is_true": "yes"
                 }
               ],
@@ -19557,14 +19812,14 @@
               "title": "Dynamics",
               "content": "Exhibits severe digital brickwall peak limiting and clipping typical of the late-1990s Loudness War, resulting in minimal dynamic range (<7 dB).",
               "type": "multi_choice",
-              "explanation": "<p><strong>Expert Explanation:</strong> New Order's 1983 vinyl mix retained healthy transient punch (12–14 dB dynamic range) to prevent vinyl needle displacement. Orgy's master pushed digital limiters to competitive commercial thresholds.</p>",
+              "explanation": "<p><strong>Version B (Orgy).</strong> Mastered hot for CD playback in 1998, Orgy's track features heavily reduced crest factor and flattened waveform peaks for maximum perceived loudness.</p>",
               "answers": [
                 {
-                  "text": "Version A",
+                  "text": "Version A (New Order)",
                   "is_true": "no"
                 },
                 {
-                  "text": "Version B",
+                  "text": "Version B (Orgy)",
                   "is_true": "yes"
                 }
               ],
@@ -19583,14 +19838,14 @@
               "title": "Instrumentation",
               "content": "Prominently features a live 4-string bass guitar played high on the neck through an Electro-Harmonix Clone Theory chorus pedal as a lead voice.",
               "type": "multi_choice",
-              "explanation": "<p><strong>Expert Explanation:</strong> Hook played a Yamaha BB1200 high on the neck because rehearsal amps were so muddy he couldn't hear himself in the low register. Orgy relegated the bass to low-end reinforcement.</p>",
+              "explanation": "<p><strong>Version A (New Order).</strong> Peter Hook's signature bass style involved playing high melodic counter-melodies on the top frets through an analogue chorus pedal, acting as a second lead instrument.</p>",
               "answers": [
                 {
-                  "text": "Version A",
+                  "text": "Version A (New Order)",
                   "is_true": "yes"
                 },
                 {
-                  "text": "Version B",
+                  "text": "Version B (Orgy)",
                   "is_true": "no"
                 }
               ],
@@ -19609,14 +19864,14 @@
               "title": "Genre Style",
               "content": "Defines the Cyberpunk / Industrial 'Death-Pop' movement of the late 1990s, merging electronic sequencing with high-gain alternative metal.",
               "type": "multi_choice",
-              "explanation": "<p><strong>Expert Explanation:</strong> New Order defined British Synth-Pop / Post-Punk. Orgy adapted their electronic architecture for the American alternative metal market popularized by Korn and Nine Inch Nails.</p>",
+              "explanation": "<p><strong>Version B (Orgy).</strong> Orgy's cover bridged 1980s synth-pop nostalgia with aggressive turn-of-the-millennium alternative metal and industrial rock.</p>",
               "answers": [
                 {
-                  "text": "Version A",
+                  "text": "Version A (New Order)",
                   "is_true": "no"
                 },
                 {
-                  "text": "Version B",
+                  "text": "Version B (Orgy)",
                   "is_true": "yes"
                 }
               ],
@@ -19644,12 +19899,12 @@
                 "6. In contrast, the 1998 vocal performance is much more {5}, building to aggressive screams.",
                 "7. The original track was designed for the {6}, featuring an extended, repetitive arrangement.",
                 "8. The cover version is structured more like a traditional {7}, with distinct verse-chorus dynamics.",
-                "9. New Order utilised early {8} technology to trigger the synthesisers in time with the drums.",
+                "9. New Order utilized early {8} technology to trigger the synthesisers in time with the drums.",
                 "10. Orgy's production relies on modern {9} techniques to ensure the live instruments lock tightly to the grid.",
-                "11. The 1983 mix is characterised by its wide, synthetic {10}, using early digital delays and reverbs.",
+                "11. The 1983 mix is characterized by its wide, synthetic {10}, using early digital delays and reverbs.",
                 "12. A distinctive choir sound in the original was produced using an early hardware {11}.",
                 "13. The 1998 mix feels incredibly {12}, with layers of close-miked guitars dominating the mid-range.",
-                "14. The cover drops the synthetic choir in favour of additional layers of {13} guitar feedback and noise.",
+                "14. The cover drops the synthetic choir in favor of additional layers of {13} guitar feedback and noise.",
                 "15. Ultimately, the 1983 track defined {14}, while the 1998 version sits firmly in the Industrial Nu-Metal genre."
               ],
               "options": [
@@ -19669,7 +19924,7 @@
                 ],
                 [
                   "talkbox",
-                  "analogue synthesiser",
+                  "analog synthesiser",
                   "acoustic upright bass",
                   "electric fretless bass",
                   "bass guitar"
@@ -19717,15 +19972,15 @@
                   "upright bass"
                 ],
                 [
-                  "analogue tape bouncing",
-                  "analogue tape echo",
+                  "analog tape bouncing",
+                  "analog tape echo",
                   "acoustic treatment",
                   "digital audio workstation editing",
                   "live drum kit"
                 ],
                 [
                   "brass section",
-                  "stereo spatialisation",
+                  "stereo spatialization",
                   "mono compatibility",
                   "grand piano",
                   "natural room sound"
@@ -19762,7 +20017,7 @@
               "answer": [
                 "drum machine",
                 "live acoustic drums",
-                "analogue synthesiser",
+                "analog synthesiser",
                 "electric guitars",
                 "detached and emotionless",
                 "emotive and dynamic",
@@ -19770,13 +20025,13 @@
                 "alternative rock song",
                 "digital sequencing",
                 "digital audio workstation editing",
-                "stereo spatialisation",
+                "stereo spatialization",
                 "digital sampler",
                 "dense and compressed",
                 "high-gain",
                 "Synth-Pop"
               ],
-              "expert_explanation": "Here is a detailed breakdown of each blank in the sequence: Blank 1: The 1983 original relies heavily on a programmed **drum machine** (an Oberheim DMX) for its relentlessly rigid, grid-locked 'four-on-the-floor' stuttering beat. \"Drum machines replaced the swinging groove of a human drummer with mechanical perfection.\" Blank 2: The 1998 Nu-Metal cover replaces the electronic rhythm with heavily processed **live acoustic drums**, tracked aggressively to emulate the power of digital machinery. \"Nu-Metal brought physical acoustic drum sets back onto the dance rock stage, albeit heavily gated and compressed.\" Blank 3: New Order's distinctive pulsing bassline was originally generated using a sequenced **analogue synthesiser** (a Moog Source), defining the electro-dance genre. \"Analogue synthesisers provided a low-end density and harmonic richness that bass guitars couldn't replicate in the club.\" Blank 4: Orgy recreates this exact sequencer pattern using heavily distorted, down-tuned **electric guitars**, swapping synth-pop mechanics for alternative metal aesthetics. \"High-gain electric guitars can mimic massive synth waveforms if the distortion saturation is extreme enough.\" Blank 5: The vocal delivery in the 1983 version is notoriously **detached and emotionless**, a hallmark of post-punk stoicism where the singer purposely sounds bored or numb. \"A detached vocal performance acts as a blank canvas, allowing the emotional synthesisers to carry the narrative.\" Blank 6: In contrast, the 1998 vocal performance is much more **emotive and dynamic**, aggressively building from quiet whispering into full-throated screams in the chorus. \"Late-90s metal aesthetics demanded extreme vocal dynamic range: from unsettling whispers to devastating screams.\" Blank 7: The original track was specifically arranged for the 12-inch **dance club environment**, featuring an extended 7-minute runtime packed with instrumental breakdowns. \"The 12-inch dance mix was an endurance test for sequencers, stretching pop hooks across massive instrumental builds.\" Blank 8: The cover version is structured entirely like a traditional **alternative rock song**, drastically condensing the runtime and relying on big verse-chorus dynamic shifts. \"Condensing a 7-minute dance odyssey into a 3-minute rock arrangement requires turning subtle builds into explosive drops.\" Blank 9: New Order utilised early CV/Gate **digital sequencing** technology to physically trigger the analogue synthesisers perfectly in time with the drum machine. \"Early sequencing meant literally programming code to tell a synthesiser when to turn note voltages on and off.\" Blank 10: Orgy's late 90s production relies heavily on modern **digital audio workstation (DAW) editing** techniques (like Pro Tools) to chop and ensure the live instruments lock tightly to the grid. \"DAW editing allowed producers to take loose, live drum tracks and slice them to grid perfection.\" Blank 11: The 1983 mix is characterised by its wide, synthetic **stereo spatialisation**, using early expensive digital delays to bounce synth lines wildly across the left/right spectrum. \"Wide stereo panning turned static synthesiser sequences into dizzying, immersive auditory movement.\" Blank 12: A distinctive choir pad sound in the original was produced using a wildly expensive early hardware **digital sampler** (the Emulator I), which replayed a short recording of a real choir. \"Early hardware samplers possessed meager memory, often forcing legendary producers to loop half-second clips of real instruments.\" Blank 13: The 1998 mix feels incredibly **dense and compressed**, utilizing brickwall limiters to create a 'wall of sound' where massive guitars entirely dominate the mid-range frequencies. \"Modern heavy rock mixing leaves zero open space; compression ensures every frequency is continuously blasting.\" Blank 14: The 1998 cover drops the 80s synthetic choir samples in favour of additional layers of squealing, **high-gain** guitar feedback and amplifier noise. \"Amplifier feedback isn't just a byproduct; it is a vital, screaming instrument in heavy rock production.\" Blank 15: Ultimately, the 1983 track defined the 80s **Synth-Pop** movement, seamlessly fusing melancholy post-punk song structure with cold, unyielding dance floor technology. \"By abandoning traditional guitars entirely, Blue Monday proved electronic dance music could be both emotionally devastating and commercially dominant.\"",
+              "expert_explanation": "<p>Here is a detailed breakdown of each blank in the sequence:</p><ul style='margin-left: 20px; text-align: left;'><li style='margin-bottom:15px'><strong>Blank 1:</strong> The 1983 original relies heavily on a programmed **drum machine** (an Oberheim DMX) for its relentlessly rigid, grid-locked 'four-on-the-floor' stuttering beat. <br/><i style='color:#a3e635'>\"Drum machines replaced the swinging groove of a human drummer with mechanical perfection.\"</i></li><li style='margin-bottom:15px'><strong>Blank 2:</strong> The 1998 Nu-Metal cover replaces the electronic rhythm with heavily processed **live acoustic drums**, tracked aggressively to emulate the power of digital machinery.<img src='https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Orgy_American_band.jpg/500px-Orgy_American_band.jpg' style='height:40px; border-radius:4px; vertical-align:middle; margin-left:10px;'/> <br/><i style='color:#a3e635'>\"Nu-Metal brought physical acoustic drum sets back onto the dance rock stage, albeit heavily gated and compressed.\"</i></li><li style='margin-bottom:15px'><strong>Blank 3:</strong> New Order's distinctive pulsing bassline was originally generated using a sequenced **analogue synthesiser** (a Moog Source), defining the electro-dance genre. <br/><i style='color:#a3e635'>\"Analogue synthesisers provided a low-end density and harmonic richness that bass guitars couldn't replicate in the club.\"</i></li><li style='margin-bottom:15px'><strong>Blank 4:</strong> Orgy recreates this exact sequencer pattern using heavily distorted, down-tuned **electric guitars**, swapping synth-pop mechanics for alternative metal aesthetics.<img src='https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Orgy_American_band.jpg/500px-Orgy_American_band.jpg' style='height:40px; border-radius:4px; vertical-align:middle; margin-left:10px;'/> <br/><i style='color:#a3e635'>\"High-gain electric guitars can mimic massive synth waveforms if the distortion saturation is extreme enough.\"</i></li><li style='margin-bottom:15px'><strong>Blank 5:</strong> The vocal delivery in the 1983 version is notoriously **detached and emotionless**, a hallmark of post-punk stoicism where the singer purposely sounds bored or numb. <br/><i style='color:#a3e635'>\"A detached vocal performance acts as a blank canvas, allowing the emotional synthesisers to carry the narrative.\"</i></li><li style='margin-bottom:15px'><strong>Blank 6:</strong> In contrast, the 1998 vocal performance is much more **emotive and dynamic**, aggressively building from quiet whispering into full-throated screams in the chorus.<img src='https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Orgy_American_band.jpg/500px-Orgy_American_band.jpg' style='height:40px; border-radius:4px; vertical-align:middle; margin-left:10px;'/> <br/><i style='color:#a3e635'>\"Late-90s metal aesthetics demanded extreme vocal dynamic range: from unsettling whispers to devastating screams.\"</i></li><li style='margin-bottom:15px'><strong>Blank 7:</strong> The original track was specifically arranged for the 12-inch **dance club environment**, featuring an extended 7-minute runtime packed with instrumental breakdowns. <br/><i style='color:#a3e635'>\"The 12-inch dance mix was an endurance test for sequencers, stretching pop hooks across massive instrumental builds.\"</i></li><li style='margin-bottom:15px'><strong>Blank 8:</strong> The cover version is structured entirely like a traditional **alternative rock song**, drastically condensing the runtime and relying on big verse-chorus dynamic shifts.<img src='https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Orgy_American_band.jpg/500px-Orgy_American_band.jpg' style='height:40px; border-radius:4px; vertical-align:middle; margin-left:10px;'/> <br/><i style='color:#a3e635'>\"Condensing a 7-minute dance odyssey into a 3-minute rock arrangement requires turning subtle builds into explosive drops.\"</i></li><li style='margin-bottom:15px'><strong>Blank 9:</strong> New Order utilized early CV/Gate **digital sequencing** technology to physically trigger the analogue synthesisers perfectly in time with the drum machine. <br/><i style='color:#a3e635'>\"Early sequencing meant literally programming code to tell a synthesiser when to turn note voltages on and off.\"</i></li><li style='margin-bottom:15px'><strong>Blank 10:</strong> Orgy's late 90s production relies heavily on modern **digital audio workstation (DAW) editing** techniques (like Pro Tools) to chop and ensure the live instruments lock tightly to the grid.<img src='https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Orgy_American_band.jpg/500px-Orgy_American_band.jpg' style='height:40px; border-radius:4px; vertical-align:middle; margin-left:10px;'/> <br/><i style='color:#a3e635'>\"DAW editing allowed producers to take loose, live drum tracks and slice them to grid perfection.\"</i></li><li style='margin-bottom:15px'><strong>Blank 11:</strong> The 1983 mix is characterized by its wide, synthetic **stereo spatialization**, using early expensive digital delays to bounce synth lines wildly across the left/right spectrum. <br/><i style='color:#a3e635'>\"Wide stereo panning turned static synthesiser sequences into dizzying, immersive auditory movement.\"</i></li><li style='margin-bottom:15px'><strong>Blank 12:</strong> A distinctive choir pad sound in the original was produced using a wildly expensive early hardware **digital sampler** (the Emulator I), which replayed a short recording of a real choir. <br/><i style='color:#a3e635'>\"Early hardware samplers possessed meager memory, often forcing legendary producers to loop half-second clips of real instruments.\"</i></li><li style='margin-bottom:15px'><strong>Blank 13:</strong> The 1998 mix feels incredibly **dense and compressed**, utilizing brickwall limiters to create a 'wall of sound' where massive guitars entirely dominate the mid-range frequencies.<img src='https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Orgy_American_band.jpg/500px-Orgy_American_band.jpg' style='height:40px; border-radius:4px; vertical-align:middle; margin-left:10px;'/> <br/><i style='color:#a3e635'>\"Modern heavy rock mixing leaves zero open space; compression ensures every frequency is continuously blasting.\"</i></li><li style='margin-bottom:15px'><strong>Blank 14:</strong> The 1998 cover drops the 80s synthetic choir samples in favor of additional layers of squealing, **high-gain** guitar feedback and amplifier noise.<img src='https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Orgy_American_band.jpg/500px-Orgy_American_band.jpg' style='height:40px; border-radius:4px; vertical-align:middle; margin-left:10px;'/> <br/><i style='color:#a3e635'>\"Amplifier feedback isn't just a byproduct; it is a vital, screaming instrument in heavy rock production.\"</i></li><li style='margin-bottom:15px'><strong>Blank 15:</strong> Ultimately, the 1983 track defined the 80s **Synth-Pop** movement, seamlessly fusing melancholy post-punk song structure with cold, unyielding dance floor technology. <br/><i style='color:#a3e635'>\"By abandoning traditional guitars entirely, Blue Monday proved electronic dance music could be both emotionally devastating and commercially dominant.\"</i></li></ul>",
               "img": "/images/comparisons/blue_monday_comparison.png",
               "expert_quote": {
                 "text": "The magic of comparison lies not just in noticing the difference, but understanding the technology that drove the change.",
@@ -19785,8 +20040,7 @@
               "explanation_image": {
                 "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/New_Order%2C_1985.jpg/500px-New_Order%2C_1985.jpg",
                 "alt": "New Order (1985) - Synthesizer and Drum Machine Pioneers"
-              },
-              "explanation": "<p><strong>Expert Explanation:</strong> Here is a detailed breakdown of each blank in the sequence: Blank 1: The 1983 original relies heavily on a programmed **drum machine** (an Oberheim DMX) for its relentlessly rigid, grid-locked 'four-on-the-floor' stuttering beat. \"Drum machines replaced the swinging groove of a human drummer with mechanical perfection.\" Blank 2: The 1998 Nu-Metal cover replaces the electronic rhythm with heavily processed **live acoustic drums**, tracked aggressively to emulate the power of digital machinery. \"Nu-Metal brought physical acoustic drum sets back onto the dance rock stage, albeit heavily gated and compressed.\" Blank 3: New Order's distinctive pulsing bassline was originally generated using a sequenced **analogue synthesiser** (a Moog Source), defining the electro-dance genre. \"Analogue synthesisers provided a low-end density and harmonic richness that bass guitars couldn't replicate in the club.\" Blank 4: Orgy recreates this exact sequencer pattern using heavily distorted, down-tuned **electric guitars**, swapping synth-pop mechanics for alternative metal aesthetics. \"High-gain electric guitars can mimic massive synth waveforms if the distortion saturation is extreme enough.\" Blank 5: The vocal delivery in the 1983 version is notoriously **detached and emotionless**, a hallmark of post-punk stoicism where the singer purposely sounds bored or numb. \"A detached vocal performance acts as a blank canvas, allowing the emotional synthesisers to carry the narrative.\" Blank 6: In contrast, the 1998 vocal performance is much more **emotive and dynamic**, aggressively building from quiet whispering into full-throated screams in the chorus. \"Late-90s metal aesthetics demanded extreme vocal dynamic range: from unsettling whispers to devastating screams.\" Blank 7: The original track was specifically arranged for the 12-inch **dance club environment**, featuring an extended 7-minute runtime packed with instrumental breakdowns. \"The 12-inch dance mix was an endurance test for sequencers, stretching pop hooks across massive instrumental builds.\" Blank 8: The cover version is structured entirely like a traditional **alternative rock song**, drastically condensing the runtime and relying on big verse-chorus dynamic shifts. \"Condensing a 7-minute dance odyssey into a 3-minute rock arrangement requires turning subtle builds into explosive drops.\" Blank 9: New Order utilised early CV/Gate **digital sequencing** technology to physically trigger the analogue synthesisers perfectly in time with the drum machine. \"Early sequencing meant literally programming code to tell a synthesiser when to turn note voltages on and off.\" Blank 10: Orgy's late 90s production relies heavily on modern **digital audio workstation (DAW) editing** techniques (like Pro Tools) to chop and ensure the live instruments lock tightly to the grid. \"DAW editing allowed producers to take loose, live drum tracks and slice them to grid perfection.\" Blank 11: The 1983 mix is characterised by its wide, synthetic **stereo spatialisation**, using early expensive digital delays to bounce synth lines wildly across the left/right spectrum. \"Wide stereo panning turned static synthesiser sequences into dizzying, immersive auditory movement.\" Blank 12: A distinctive choir pad sound in the original was produced using a wildly expensive early hardware **digital sampler** (the Emulator I), which replayed a short recording of a real choir. \"Early hardware samplers possessed meager memory, often forcing legendary producers to loop half-second clips of real instruments.\" Blank 13: The 1998 mix feels incredibly **dense and compressed**, utilizing brickwall limiters to create a 'wall of sound' where massive guitars entirely dominate the mid-range frequencies. \"Modern heavy rock mixing leaves zero open space; compression ensures every frequency is continuously blasting.\" Blank 14: The 1998 cover drops the 80s synthetic choir samples in favour of additional layers of squealing, **high-gain** guitar feedback and amplifier noise. \"Amplifier feedback isn't just a byproduct; it is a vital, screaming instrument in heavy rock production.\" Blank 15: Ultimately, the 1983 track defined the 80s **Synth-Pop** movement, seamlessly fusing melancholy post-punk song structure with cold, unyielding dance floor technology. \"By abandoning traditional guitars entirely, Blue Monday proved electronic dance music could be both emotionally devastating and commercially dominant.\"</p>"
+              }
             }
           ],
           "isPremium": true,
@@ -19796,23 +20050,23 @@
           "type": "lp_quiz",
           "title": "Comparison 8: Smooth Criminal",
           "youtube_id": "h_D3VFfhvs4",
-          "video_title_1": "Version A (1987)",
+          "video_title_1": "Michael Jackson (1987)",
           "youtube_id_2": "CDl9ZMfj6aE",
-          "video_title_2": "Version B (2001)",
+          "video_title_2": "Alien Ant Farm (2001)",
           "description": "Compare Michael Jackson's 1987 Pop original with Alien Ant Farm's 2001 Alternative Rock cover. Focus on the rhythmic structure and instrumentation.",
           "questions": [
             {
               "title": "Recording Release Medium",
               "content": "Recorded onto 24-track analogue tape slaved to 32-track digital tape (Mitsubishi X-850), mixed through a custom Harrison 3232 console.",
               "type": "multi_choice",
-              "explanation": "<p><strong>Expert Explanation:</strong> Bruce Swedien tracked on multiple synchronized tape machines to avoid wearing down the tape emulsion on critical vocal tracks. Alien Ant Farm recorded directly into 24-bit/96kHz Pro Tools HD.</p>",
+              "explanation": "<p><strong>Version A (Michael Jackson).</strong> Engineered by Bruce Swedien for the <em>Bad</em> album (1987), using cutting-edge hybrid analogue-to-digital tape synchronization.</p>",
               "answers": [
                 {
-                  "text": "Version A",
+                  "text": "Version A (Michael Jackson)",
                   "is_true": "yes"
                 },
                 {
-                  "text": "Version B",
+                  "text": "Version B (Alien Ant Farm)",
                   "is_true": "no"
                 }
               ],
@@ -19831,14 +20085,14 @@
               "title": "Capture & Style",
               "content": "Features Bruce Swedien’s stereo microphone techniques to preserve natural acoustic phase.",
               "type": "multi_choice",
-              "explanation": "<p><strong>Expert Explanation:</strong> Swedien rarely compressed rhythm instruments, relying instead on clean transient capture and natural stereo acoustic spacing. Alien Ant Farm relied on close-miking and heavy multi-channel compression.</p>",
+              "explanation": "<p><strong>Version A (Michael Jackson).</strong> Bruce Swedien's Acusonic process used Blumlein stereo pairs and avoided mono-panpot summing, creating a breathtaking 3D stereo illusion.</p>",
               "answers": [
                 {
-                  "text": "Version A",
+                  "text": "Version A (Michael Jackson)",
                   "is_true": "yes"
                 },
                 {
-                  "text": "Version B",
+                  "text": "Version B (Alien Ant Farm)",
                   "is_true": "no"
                 }
               ],
@@ -19857,14 +20111,14 @@
               "title": "Rhythm & Sync",
               "content": "Rhythm section is powered by a high-energy live acoustic drum kit playing energetic pop-punk syncopation with open hi-hat slashes.",
               "type": "multi_choice",
-              "explanation": "<p><strong>Expert Explanation:</strong> Alien Ant Farm's drums were tracked live in a large wooden drum room with multiple ambient mic pairs. Michael Jackson's groove was driven by quantised Synclavier II sequencing and LinnDrum patterns.</p>",
+              "explanation": "<p><strong>Version B (Alien Ant Farm).</strong> Mike Cosgrove's aggressive live drumming provides real human momentum and driving rock accents rather than machine-programmed rigidity.</p>",
               "answers": [
                 {
-                  "text": "Version A",
+                  "text": "Version A (Michael Jackson)",
                   "is_true": "no"
                 },
                 {
-                  "text": "Version B",
+                  "text": "Version B (Alien Ant Farm)",
                   "is_true": "yes"
                 }
               ],
@@ -19883,14 +20137,14 @@
               "title": "Sequencing & Sampling",
               "content": "Pioneered the use of the NED Synclavier II digital synthesiser and sampler for advanced sequencing, including Michael's own recorded heartbeat.",
               "type": "multi_choice",
-              "explanation": "<p><strong>Expert Explanation:</strong> The Synclavier cost over $100,000 in 1987 and was the gold standard for digital sound design. Alien Ant Farm used purely live guitars, bass, and drums without digital sampling or sequencing.</p>",
+              "explanation": "<p><strong>Version A (Michael Jackson).</strong> Christopher Currell programmed the Synclavier II for the track, sampling Jackson's actual heartbeat using an acoustic sensor and processing it into the rhythm track.</p>",
               "answers": [
                 {
-                  "text": "Version A",
+                  "text": "Version A (Michael Jackson)",
                   "is_true": "yes"
                 },
                 {
-                  "text": "Version B",
+                  "text": "Version B (Alien Ant Farm)",
                   "is_true": "no"
                 }
               ],
@@ -19909,14 +20163,14 @@
               "title": "Pitching",
               "content": "Vocal features rhythmic exclamations, signature hiccups, breathless gasps, and pristine falsetto belts tracked with a Shure SM7 dynamic mic.",
               "type": "multi_choice",
-              "explanation": "<p><strong>Expert Explanation:</strong> Swedien favored the SM7 for Jackson because its flat frequency response handled violent dynamic bursts without overloading. Dryden Mitchell (Alien Ant Farm) sang with strained, punk-tinged rock belt.</p>",
+              "explanation": "<p><strong>Version A (Michael Jackson).</strong> Michael Jackson recorded lead vocals on a Shure SM7 dynamic mic without a pop shield, delivering theatrical, percussive vocal phrasing.</p>",
               "answers": [
                 {
-                  "text": "Version A",
+                  "text": "Version A (Michael Jackson)",
                   "is_true": "yes"
                 },
                 {
-                  "text": "Version B",
+                  "text": "Version B (Alien Ant Farm)",
                   "is_true": "no"
                 }
               ],
@@ -19933,16 +20187,16 @@
             },
             {
               "title": "Arrangement Differences",
-              "content": "Begins with a dramatic cinematic narrative sequence featuring footsteps, heavy breathing, and a synthesised heartbeat before the music enters.",
+              "content": "Begins with a dramatic cinematic narrative sequence featuring footsteps, heavy breathing, and a synthesized heartbeat before the music enters.",
               "type": "multi_choice",
-              "explanation": "<p><strong>Expert Explanation:</strong> The cinematic intro established Jackson's storytelling ambition for the <em>Moonwalker</em> film. Alien Ant Farm eliminated the story soundscape, exploding immediately into a high-energy guitar riff.</p>",
+              "explanation": "<p><strong>Version A (Michael Jackson).</strong> Quincy Jones and Jackson structured the original with an atmospheric 40-second radio-drama sound effect sequence creating theatrical suspense.</p>",
               "answers": [
                 {
-                  "text": "Version A",
+                  "text": "Version A (Michael Jackson)",
                   "is_true": "yes"
                 },
                 {
-                  "text": "Version B",
+                  "text": "Version B (Alien Ant Farm)",
                   "is_true": "no"
                 }
               ],
@@ -19961,14 +20215,14 @@
               "title": "Mixing & Processing",
               "content": "The iconic staccato bassline is performed on heavily distorted, palm-muted electric guitars tuned in drop-tuning.",
               "type": "multi_choice",
-              "explanation": "<p><strong>Expert Explanation:</strong> Corso's percussive palm-muting replicated the tight staccato envelope of the original synthesiser while adding the raw, gritty aggression of post-grunge alt-rock.</p>",
+              "explanation": "<p><strong>Version B (Alien Ant Farm).</strong> Guitarist Terry Corso translated the synth bassline into crunching palm-muted electric guitar riffs played through high-gain Marshall and Mesa Boogie tube amplifiers.</p>",
               "answers": [
                 {
-                  "text": "Version A",
+                  "text": "Version A (Michael Jackson)",
                   "is_true": "no"
                 },
                 {
-                  "text": "Version B",
+                  "text": "Version B (Alien Ant Farm)",
                   "is_true": "yes"
                 }
               ],
@@ -19990,11 +20244,11 @@
               "explanation": "<p><strong>Expert Explanation:</strong> Swedien’s 1987 mix spread synths and brass smoothly across the stereo field, whereas Alien Ant Farm panned doubled distorted guitars hard left and right.</p>",
               "answers": [
                 {
-                  "text": "Version A",
+                  "text": "Version A (Michael Jackson)",
                   "is_true": "no"
                 },
                 {
-                  "text": "Version B",
+                  "text": "Version B (Alien Ant Farm)",
                   "is_true": "yes"
                 }
               ],
@@ -20013,14 +20267,14 @@
               "title": "Reverb",
               "content": "Features lush, warm plate reverberation on the lead vocal and synthetic brass using EMT 140 plates and Lexicon 480L hardware.",
               "type": "multi_choice",
-              "explanation": "<p><strong>Expert Explanation:</strong> EMT plate reverbs provide bright, dense reflections without muddiness. Alien Ant Farm's mix used short digital room simulations and tight vocal slapback delays for a drier, aggressive sound.</p>",
+              "explanation": "<p><strong>Version A (Michael Jackson).</strong> Bruce Swedien used physical EMT 140 reverberation plates alongside Lexicon 480L digital processors for velvety spatial decay.",
               "answers": [
                 {
-                  "text": "Version A",
+                  "text": "Version A (Michael Jackson)",
                   "is_true": "yes"
                 },
                 {
-                  "text": "Version B",
+                  "text": "Version B (Alien Ant Farm)",
                   "is_true": "no"
                 }
               ],
@@ -20039,14 +20293,14 @@
               "title": "Delay",
               "content": "Includes rhythmic dub-style tape delay throws on specific vocal exclamations ('Annie, are you OK?') during the bridge breakdown.",
               "type": "multi_choice",
-              "explanation": "<p><strong>Expert Explanation:</strong> Alien Ant Farm paid homage to the original while incorporating alternative rock dynamic contrasts (quiet breakdown with spinning delays into explosive loud climax).</p>",
+              "explanation": "<p><strong>Version B (Alien Ant Farm).</strong> The 2001 cover adds psychedelic reggae/dub delay feedback throws on vocal words during the middle-eight breakdown before the explosive final chorus.</p>",
               "answers": [
                 {
-                  "text": "Version A",
+                  "text": "Version A (Michael Jackson)",
                   "is_true": "no"
                 },
                 {
-                  "text": "Version B",
+                  "text": "Version B (Alien Ant Farm)",
                   "is_true": "yes"
                 }
               ],
@@ -20065,14 +20319,14 @@
               "title": "Filtering & Effects",
               "content": "A band-pass 'telephone filter' EQ is applied to spoken dialogue lines in the bridge, removing high and low frequencies.",
               "type": "multi_choice",
-              "explanation": "<p><strong>Expert Explanation:</strong> Band-pass filtering between 300 Hz and 3 kHz creates the classic telephone voice effect, dramatizing the crime scene narrative. Alien Ant Farm opted for direct screaming vocals without telephonic filtering.</p>",
+              "explanation": "<p><strong>Version A (Michael Jackson).</strong> The dramatic monologue in the middle section ('He came into her apartment...') was band-passed to emulate a distant police radio / telephone transmission.</p>",
               "answers": [
                 {
-                  "text": "Version A",
+                  "text": "Version A (Michael Jackson)",
                   "is_true": "yes"
                 },
                 {
-                  "text": "Version B",
+                  "text": "Version B (Alien Ant Farm)",
                   "is_true": "no"
                 }
               ],
@@ -20091,14 +20345,14 @@
               "title": "EQ",
               "content": "High-frequency presence boost around 10–12 kHz ('air band') adds breathtaking sheen to vocals and brass without harshness.",
               "type": "multi_choice",
-              "explanation": "<p><strong>Expert Explanation:</strong> The Harrison 3232 console EQ provided ultra-smooth high shelving. Alien Ant Farm's EQ curves emphasized aggressive 2–4 kHz midrange bite to help guitars cut through.</p>",
+              "explanation": "<p><strong>Version A (Michael Jackson).</strong> Swedien applied custom Pultec and Harrison high-frequency EQ boosts to give the vocals and brass stabs an ultra-luxurious top-end polish.</p>",
               "answers": [
                 {
-                  "text": "Version A",
+                  "text": "Version A (Michael Jackson)",
                   "is_true": "yes"
                 },
                 {
-                  "text": "Version B",
+                  "text": "Version B (Alien Ant Farm)",
                   "is_true": "no"
                 }
               ],
@@ -20117,19 +20371,19 @@
               "title": "Dynamics",
               "content": "Mix bus was left uncompressed during tracking and mixing to maintain natural transient impact and explosive micro-dynamics.",
               "type": "multi_choice",
-              "explanation": "<p><strong>Expert Explanation:</strong> Swedien's philosophy resulted in unmatched punch that sounds enormous when turned up. Alien Ant Farm utilised modern SSL bus compressors and digital peak limiters for consistent commercial loudness.</p>",
+              "explanation": "<p><strong>Version A (Michael Jackson).</strong> Bruce Swedien famously refused to compress the master mix bus or rhythm tracks, believing compression strangled the lifelike impact of drum transients.</p>",
               "answers": [
                 {
-                  "text": "Version A",
+                  "text": "Version A (Michael Jackson)",
                   "is_true": "yes"
                 },
                 {
-                  "text": "Version B",
+                  "text": "Version B (Alien Ant Farm)",
                   "is_true": "no"
                 }
               ],
               "img": "/images/svg/comparison_human_microdynamics_vs_machine_velocity.svg",
-              "expert_explanation": "Swedien's philosophy resulted in unmatched punch that sounds enormous when turned up. Alien Ant Farm utilised modern SSL bus compressors and digital peak limiters for consistent commercial loudness.",
+              "expert_explanation": "Swedien's philosophy resulted in unmatched punch that sounds enormous when turned up. Alien Ant Farm utilized modern SSL bus compressors and digital peak limiters for consistent commercial loudness.",
               "expert_quote": {
                 "text": "I don't compress rhythm instruments. I want the drumstick hitting the drumhead to hit your ear with full, unchoked acoustic force.",
                 "author": "Bruce Swedien"
@@ -20143,14 +20397,14 @@
               "title": "Instrumentation",
               "content": "Arrangement showcases real brass section arrangements (Jerry Hey horns) doubling tight analogue synthesisers (Roland D-50, Yamaha DX7).",
               "type": "multi_choice",
-              "explanation": "<p><strong>Expert Explanation:</strong> The Jerry Hey Horn section (trumpets, trombones, saxophones) gave the track its razor-sharp punch. Alien Ant Farm stripped the horns completely, relying strictly on a traditional four-piece rock band lineup.</p>",
+              "explanation": "<p><strong>Version A (Michael Jackson).</strong> Arranger Jerry Hey wrote lightning-fast horn lines that doubled digital FM synthesisers, creating a hybrid acoustic-electronic powerhouse.</p>",
               "answers": [
                 {
-                  "text": "Version A",
+                  "text": "Version A (Michael Jackson)",
                   "is_true": "yes"
                 },
                 {
-                  "text": "Version B",
+                  "text": "Version B (Alien Ant Farm)",
                   "is_true": "no"
                 }
               ],
@@ -20169,14 +20423,14 @@
               "title": "Genre Style",
               "content": "Transforms 1980s Pop/R&B into early-2000s Post-Grunge / Alternative Rock, popularizing rock covers of classic pop tracks on MTV.",
               "type": "multi_choice",
-              "explanation": "<p><strong>Expert Explanation:</strong> The cover proved that the melodic strength of Jackson's writing could seamlessly transcend genres into loud, distorted guitar-driven alternative rock.</p>",
+              "explanation": "<p><strong>Version B (Alien Ant Farm).</strong> Alien Ant Farm's 2001 cover introduced Jackson's composition to a new generation of rock fans, reaching #1 on modern rock charts.</p>",
               "answers": [
                 {
-                  "text": "Version A",
+                  "text": "Version A (Michael Jackson)",
                   "is_true": "no"
                 },
                 {
-                  "text": "Version B",
+                  "text": "Version B (Alien Ant Farm)",
                   "is_true": "yes"
                 }
               ],
@@ -20207,7 +20461,7 @@
                 "9. The 2001 version uses an aggressive, close-miked {8} to drive the energy.",
                 "10. Both versions maintain a strong emphasis on {9} to give the main riff its bouncy, pushing feel.",
                 "11. The original pop mix is very {10}, with every synthetic element occupying a specific frequency space.",
-                "12. The rock cover mix is much more {11}, characterised by a 'wall of sound' guitar approach.",
+                "12. The rock cover mix is much more {11}, characterized by a 'wall of sound' guitar approach.",
                 "13. MJ's version features brief, highly produced {12} to transition between sections.",
                 "14. AAF replaces these cinematic transitions with heavy {13} hits and guitar squeals.",
                 "15. While the 1987 song is a highly polished {14} production, the cover brings raw, punk-inspired energy."
@@ -20224,7 +20478,7 @@
                   "digital samplers and sequencers",
                   "live big bands",
                   "pitch correction",
-                  "analogue tape loops",
+                  "analog tape loops",
                   "bass guitar"
                 ],
                 [
@@ -20336,13 +20590,12 @@
                 "cymbal crash",
                 "Studio Pop"
               ],
-              "expert_explanation": "The original 'Smooth Criminal' relies on cutting-edge 1980s technology (including digital samplers and drum machines) for a rigid, punchy pop/R&B groove. Alien Ant Farm reimagined this in 2001. They mapped the tight synthesised bass riff over to heavily distorted, palm-muted electric guitars, and replaced programmed percussion with highly energetic live drum patterns. The syncopation (emphasis on the off-beats) is perfectly preserved, proving that strong rhythmic motifs can transcend instrumentation.",
+              "expert_explanation": "The original 'Smooth Criminal' relies on cutting-edge 1980s technology (including digital samplers and drum machines) for a rigid, punchy pop/R&B groove. Alien Ant Farm reimagined this in 2001. They mapped the tight synthesized bass riff over to heavily distorted, palm-muted electric guitars, and replaced programmed percussion with highly energetic live drum patterns. The syncopation (emphasis on the off-beats) is perfectly preserved, proving that strong rhythmic motifs can transcend instrumentation.",
               "img": "/images/comparisons/smooth_criminal_comparison.png",
               "explanation_image": {
                 "src": "/images/comparisons/smooth_criminal_comparison.png",
                 "alt": "Smooth Criminal Comparison: Michael Jackson 1987 Pop vs Alien Ant Farm 2001 Alt-Rock"
-              },
-              "explanation": "<p><strong>Expert Explanation:</strong> The original 'Smooth Criminal' relies on cutting-edge 1980s technology (including digital samplers and drum machines) for a rigid, punchy pop/R&B groove. Alien Ant Farm reimagined this in 2001. They mapped the tight synthesised bass riff over to heavily distorted, palm-muted electric guitars, and replaced programmed percussion with highly energetic live drum patterns. The syncopation (emphasis on the off-beats) is perfectly preserved, proving that strong rhythmic motifs can transcend instrumentation.</p>"
+              }
             }
           ],
           "isPremium": true,
@@ -20352,23 +20605,23 @@
           "type": "lp_quiz",
           "title": "Comparison 9: Word Up!",
           "youtube_id": "MZjAantupsA",
-          "video_title_1": "Version A (1986)",
+          "video_title_1": "Cameo (1986)",
           "youtube_id_2": "-M7vOnlcLbo",
-          "video_title_2": "Version B (2004)",
+          "video_title_2": "Korn (2004)",
           "description": "Compare the 1986 Funk original by Cameo with the 2004 Nu-Metal cover by Korn. Focus on how rhythm and texture are reinterpreted.",
           "questions": [
             {
               "title": "Recording Release Medium",
               "content": "Recorded onto 24-track analogue tape at Quad Sound Studios NYC and mixed through an SSL 4000E console for 12-inch vinyl dance clubs.",
               "type": "multi_choice",
-              "explanation": "<p><strong>Expert Explanation:</strong> The SSL 4000E console revolutionized 1980s dance production by placing gates and compressors on every single channel strip. Korn tracked into Pro Tools HD at 24-bit/96kHz.</p>",
+              "explanation": "<p><strong>Version A (Cameo).</strong> Larry Blackmon produced 'Word Up!' on 24-track 2-inch tape, taking full advantage of the Solid State Logic 4000E's built-in channel compressors and gates.</p>",
               "answers": [
                 {
-                  "text": "Version A",
+                  "text": "Version A (Cameo)",
                   "is_true": "yes"
                 },
                 {
-                  "text": "Version B",
+                  "text": "Version B (Korn)",
                   "is_true": "no"
                 }
               ],
@@ -20387,14 +20640,14 @@
               "title": "Capture & Style",
               "content": "The rhythm section pairs an Oberheim DMX drum machine with an organic, percussive slap bass guitar played live.",
               "type": "multi_choice",
-              "explanation": "<p><strong>Expert Explanation:</strong> Larry Blackmon balanced machine quantisation with soulful live bass slap pops. Korn replaced the funk slap with a down-tuned, percussive 5-string metal slap technique.</p>",
+              "explanation": "<p><strong>Version A (Cameo).</strong> Cameo merged futuristic programmed drums with the authentic human groove of live slap electric bass, defining the 1980s Synth-Funk sound.</p>",
               "answers": [
                 {
-                  "text": "Version A",
+                  "text": "Version A (Cameo)",
                   "is_true": "yes"
                 },
                 {
-                  "text": "Version B",
+                  "text": "Version B (Korn)",
                   "is_true": "no"
                 }
               ],
@@ -20413,14 +20666,14 @@
               "title": "Rhythm & Sync",
               "content": "Features a live acoustic drum kit augmented by digital triggers (Drumagog) and parallel compressed room microphones.",
               "type": "multi_choice",
-              "explanation": "<p><strong>Expert Explanation:</strong> Modern metal drums blend live acoustic capture with triggered sample reinforcement to ensure every kick and snare hit has identical velocity and tone. Cameo programmed a hardware drum machine.</p>",
+              "explanation": "<p><strong>Version B (Korn).</strong> David Silveria's live drum kit was recorded with close dynamic microphones and blended with triggered samples for modern metal punch.</p>",
               "answers": [
                 {
-                  "text": "Version A",
+                  "text": "Version A (Cameo)",
                   "is_true": "no"
                 },
                 {
-                  "text": "Version B",
+                  "text": "Version B (Korn)",
                   "is_true": "yes"
                 }
               ],
@@ -20439,14 +20692,14 @@
               "title": "Sequencing & Sampling",
               "content": "Uses Pro Tools Beat Detective and digital editing to tightly align down-tuned guitar transients to the rhythmic grid.",
               "type": "multi_choice",
-              "explanation": "<p><strong>Expert Explanation:</strong> Pro Tools Beat Detective revolutionized early 2000s rock production by quantizing live audio performances. Cameo relied on early hardware MIDI clock synchronization.</p>",
+              "explanation": "<p><strong>Version B (Korn).</strong> In 2004, digital editing allowed engineers to slice and quantize multi-miked heavy guitars to the millisecond, producing an ultra-tight groove.</p>",
               "answers": [
                 {
-                  "text": "Version A",
+                  "text": "Version A (Cameo)",
                   "is_true": "no"
                 },
                 {
-                  "text": "Version B",
+                  "text": "Version B (Korn)",
                   "is_true": "yes"
                 }
               ],
@@ -20465,14 +20718,14 @@
               "title": "Pitching",
               "content": "Lead vocal features theatrical nasal funk phrasing, pitched exclamations ('OW!'), and distinctive rolling Rs.",
               "type": "multi_choice",
-              "explanation": "<p><strong>Expert Explanation:</strong> Blackmon's vocal delivery is playful, theatrical, and rhythmic. Jonathan Davis (Korn) delivers a dark, menacing vocal style combining whispered verses with guttural screamed choruses.</p>",
+              "explanation": "<p><strong>Version A (Cameo).</strong> Larry Blackmon's flamboyant, high-pitched funk delivery is instantly recognizable, performing without pitch correction.</p>",
               "answers": [
                 {
-                  "text": "Version A",
+                  "text": "Version A (Cameo)",
                   "is_true": "yes"
                 },
                 {
-                  "text": "Version B",
+                  "text": "Version B (Korn)",
                   "is_true": "no"
                 }
               ],
@@ -20491,14 +20744,14 @@
               "title": "Arrangement Differences",
               "content": "Clean, percussive funk guitar scratch chords (16th-note muting) provide the primary rhythmic drive behind the verses.",
               "type": "multi_choice",
-              "explanation": "<p><strong>Expert Explanation:</strong> Funk rhythm guitar relies on rhythmic muting and high-frequency percussive strumming. Korn replaced these clean scratches with walls of distorted down-tuned 7-string chords.</p>",
+              "explanation": "<p><strong>Version A (Cameo).</strong> Cameo used a clean Fender Stratocaster playing rhythmic 'chank' scratch chords to propel the rhythm track without muddying the bass.</p>",
               "answers": [
                 {
-                  "text": "Version A",
+                  "text": "Version A (Cameo)",
                   "is_true": "yes"
                 },
                 {
-                  "text": "Version B",
+                  "text": "Version B (Korn)",
                   "is_true": "no"
                 }
               ],
@@ -20517,14 +20770,14 @@
               "title": "Mixing & Processing",
               "content": "Arrangement is saturated by massive, down-tuned 7-string electric guitars tuned to A-standard (A-D-G-C-F-A-D) played through high-gain amplifiers.",
               "type": "multi_choice",
-              "explanation": "<p><strong>Expert Explanation:</strong> Down-tuning to low A placed the guitar fundamentals in the 55 Hz region, traditionally reserved for bass guitars. Cameo's guitars sat cleanly above 300 Hz.</p>",
+              "explanation": "<p><strong>Version B (Korn).</strong> Munky and Head created Korn's colossal signature sound using Ibanez 7-string guitars tuned down a full fourth to low A through Mesa Boogie Triple Rectifiers.</p>",
               "answers": [
                 {
-                  "text": "Version A",
+                  "text": "Version A (Cameo)",
                   "is_true": "no"
                 },
                 {
-                  "text": "Version B",
+                  "text": "Version B (Korn)",
                   "is_true": "yes"
                 }
               ],
@@ -20543,14 +20796,14 @@
               "title": "Pan (Stereo Field)",
               "content": "Quad-tracked rhythm guitars are hard-panned (two takes 100% Left, two takes 100% Right) to engulf the listener.",
               "type": "multi_choice",
-              "explanation": "<p><strong>Expert Explanation:</strong> Cameo kept the mix relatively narrow with centred drums, centred slap bass, and centred vocals, using stereo panning primarily for synthesiser stereo chorus spreads.</p>",
+              "explanation": "<p><strong>Version B (Korn).</strong> Quad-tracking rhythm guitars is the industry standard for modern heavy rock, creating massive stereo spread while keeping the centre channel open for lead elements.</p>",
               "answers": [
                 {
-                  "text": "Version A",
+                  "text": "Version A (Cameo)",
                   "is_true": "no"
                 },
                 {
-                  "text": "Version B",
+                  "text": "Version B (Korn)",
                   "is_true": "yes"
                 }
               ],
@@ -20569,14 +20822,14 @@
               "title": "Reverb",
               "content": "Features an exaggerated 1980s gated reverb on the snare drum, where a long reverb tail is violently chopped off by a noise gate.",
               "type": "multi_choice",
-              "explanation": "<p><strong>Expert Explanation:</strong> Gated reverb provided explosive sonic impact without muddying the fast tempo of the funk groove. Korn opted for a drier, up-front snare drum with natural room microphones.</p>",
+              "explanation": "<p><strong>Version A (Cameo).</strong> Cameo sent the snare into an AMS RMX16 digital reverb and clamped an SSL noise gate onto the return, producing the quintessential 80s explosive snare decay.",
               "answers": [
                 {
-                  "text": "Version A",
+                  "text": "Version A (Cameo)",
                   "is_true": "yes"
                 },
                 {
-                  "text": "Version B",
+                  "text": "Version B (Korn)",
                   "is_true": "no"
                 }
               ],
@@ -20595,14 +20848,14 @@
               "title": "Delay",
               "content": "Subtle stereo slapback delay (~80 ms) is applied to backing vocal chants to enhance crowd presence and stereo width.",
               "type": "multi_choice",
-              "explanation": "<p><strong>Expert Explanation:</strong> Slapback delays between 60 and 120 ms thicken vocals without creating audible repeating echoes. Korn used dark, modulated delays on atmospheric guitar textures.</p>",
+              "explanation": "<p><strong>Version A (Cameo).</strong> Short slapback delays doubled the backing vocal chants ('Wave your hands in the air...'), making a small vocal group sound like a packed dance club.",
               "answers": [
                 {
-                  "text": "Version A",
+                  "text": "Version A (Cameo)",
                   "is_true": "yes"
                 },
                 {
-                  "text": "Version B",
+                  "text": "Version B (Korn)",
                   "is_true": "no"
                 }
               ],
@@ -20621,14 +20874,14 @@
               "title": "Filtering & Effects",
               "content": "Utilizes extreme bass guitar EQ scooping with high-end boost around 4 kHz to capture the distinctive 'metallic clack' of the slap technique.",
               "type": "multi_choice",
-              "explanation": "<p><strong>Expert Explanation:</strong> Fieldy's signature bass tone relies on zero midrange, massive sub-bass (40 Hz), and extreme fret-click treble (4 kHz). Cameo's bass tone was warm, round, and rich in 800 Hz funk midrange.</p>",
+              "explanation": "<p><strong>Version B (Korn).</strong> Bassist Fieldy famously scooped all midrange out of his 5-string Ibanez bass, turning it into a clicky, sub-bass percussion instrument.",
               "answers": [
                 {
-                  "text": "Version A",
+                  "text": "Version A (Cameo)",
                   "is_true": "no"
                 },
                 {
-                  "text": "Version B",
+                  "text": "Version B (Korn)",
                   "is_true": "yes"
                 }
               ],
@@ -20647,14 +20900,14 @@
               "title": "EQ",
               "content": "Low-end frequencies below 45 Hz are cleanly rolled off with a high-pass filter to keep the vinyl cutting lathe stable and prevent turntable rumble.",
               "type": "multi_choice",
-              "explanation": "<p><strong>Expert Explanation:</strong> Vinyl records physically cannot reproduce excessive out-of-phase sub-bass below 40 Hz. In contrast, Korn's 2004 digital master exploited massive sub-bass frequencies down to 30 Hz for car subwoofers.</p>",
+              "explanation": "<p><strong>Version A (Cameo).</strong> High-pass filtering the sub-bass was essential when mastering for 1980s vinyl to avoid out-of-phase bass energy that would cause the cutting stylus to jump.",
               "answers": [
                 {
-                  "text": "Version A",
+                  "text": "Version A (Cameo)",
                   "is_true": "yes"
                 },
                 {
-                  "text": "Version B",
+                  "text": "Version B (Korn)",
                   "is_true": "no"
                 }
               ],
@@ -20673,14 +20926,14 @@
               "title": "Dynamics",
               "content": "Mastered with severe digital multi-band compression and peak limiting, pushing average loudness levels to -8 LUFS.",
               "type": "multi_choice",
-              "explanation": "<p><strong>Expert Explanation:</strong> Korn's master squeezed every ounce of volume out of the 16-bit/44.1kHz CD format. Cameo's 1986 vinyl release had over 13 dB of dynamic range between verse and chorus peaks.</p>",
+              "explanation": "<p><strong>Version B (Korn).</strong> Released on CD in 2004 during the height of the Loudness War, Korn's cover exhibits heavy RMS compression and negligible dynamic variation between sections.",
               "answers": [
                 {
-                  "text": "Version A",
+                  "text": "Version A (Cameo)",
                   "is_true": "no"
                 },
                 {
-                  "text": "Version B",
+                  "text": "Version B (Korn)",
                   "is_true": "yes"
                 }
               ],
@@ -20699,14 +20952,14 @@
               "title": "Instrumentation",
               "content": "Synthesiser brass stabs and polyphonic analogue pads (Roland Jupiter-8 / Oberheim OB-8) deliver the main harmonic support.",
               "type": "multi_choice",
-              "explanation": "<p><strong>Expert Explanation:</strong> Analogue polyphonic synthesisers provided the bright harmonic hits that defined mid-80s R&B. Korn eliminated synths, relying exclusively on electric guitars and bass to provide all harmonic weight.</p>",
+              "explanation": "<p><strong>Version A (Cameo).</strong> Cameo's signature 1980s texture relied heavily on detuned sawtooth synthesiser brass stabs punching through the mix alongside the slap bass.",
               "answers": [
                 {
-                  "text": "Version A",
+                  "text": "Version A (Cameo)",
                   "is_true": "yes"
                 },
                 {
-                  "text": "Version B",
+                  "text": "Version B (Korn)",
                   "is_true": "no"
                 }
               ],
@@ -20725,14 +20978,14 @@
               "title": "Genre Style",
               "content": "Represents the peak of 1980s Synth-Funk / Electro-R&B, merging classic urban groove with high-tech electronic studio gear.",
               "type": "multi_choice",
-              "explanation": "<p><strong>Expert Explanation:</strong> Cameo took funk out of the 1970s acoustic ballroom and rebuilt it for the 1980s MTV dance era. Korn translated that dance groove into 2000s Nu-Metal alternative rock.</p>",
+              "explanation": "<p><strong>Version A (Cameo).</strong> 'Word Up!' became a multi-platinum crossover anthem that defined the mid-80s synthesis of funk, drum machines, and pop production.",
               "answers": [
                 {
-                  "text": "Version A",
+                  "text": "Version A (Cameo)",
                   "is_true": "yes"
                 },
                 {
-                  "text": "Version B",
+                  "text": "Version B (Korn)",
                   "is_true": "no"
                 }
               ],
@@ -20762,7 +21015,7 @@
                 "8. The 2004 version substitutes these clean rhythms with a massive wall of down-tuned {7}.",
                 "9. The original vocal performance is smooth, melodic, and highly {8}.",
                 "10. Korn's vocalist employs aggressive {9}, typical of heavy metal, drastically altering the mood.",
-                "11. Cameo utilised early digital {10} to give the snare drum its unnatural, chopped-off decay.",
+                "11. Cameo utilized early digital {10} to give the snare drum its unnatural, chopped-off decay.",
                 "12. The metal mix uses a drier, more {11} drum sound to emphasize aggression and transient impact.",
                 "13. The 1986 production has a very {12} low-end, sitting clearly above the sub-frequencies.",
                 "14. The 2004 cover features immense {13} energy from the down-tuned guitars and heavy bass.",
@@ -20892,13 +21145,12 @@
                 "sub-bass",
                 "extreme distortion"
               ],
-              "expert_explanation": "Cameo's 'Word Up!' embodies the 1980s transition from organic funk to synthesised R&B (Synth-Funk), notably featuring heavy use of drum machines (often with gates on the snare) while retaining the organic feel of a percussive slap bass guitar. Korn's cover translates this exact groove into Nu-Metal terminology. The 7-string guitars provide a massive wall of distortion, while bassist Fieldy replaces the original funk bass with his distinctive percussive, low-end metallic slap technique on a 5-string bass. The aggressive, growling vocal delivery finishes the genre transformation.",
+              "expert_explanation": "Cameo's 'Word Up!' embodies the 1980s transition from organic funk to synthesized R&B (Synth-Funk), notably featuring heavy use of drum machines (often with gates on the snare) while retaining the organic feel of a percussive slap bass guitar. Korn's cover translates this exact groove into Nu-Metal terminology. The 7-string guitars provide a massive wall of distortion, while bassist Fieldy replaces the original funk bass with his distinctive percussive, low-end metallic slap technique on a 5-string bass. The aggressive, growling vocal delivery finishes the genre transformation.",
               "img": "/images/comparisons/word_up_comparison.png",
               "explanation_image": {
                 "src": "/images/comparisons/word_up_comparison.png",
                 "alt": "Word Up! Comparison: Cameo 1986 Synth-Funk vs Korn 2004 Nu-Metal"
-              },
-              "explanation": "<p><strong>Expert Explanation:</strong> Cameo's 'Word Up!' embodies the 1980s transition from organic funk to synthesised R&B (Synth-Funk), notably featuring heavy use of drum machines (often with gates on the snare) while retaining the organic feel of a percussive slap bass guitar. Korn's cover translates this exact groove into Nu-Metal terminology. The 7-string guitars provide a massive wall of distortion, while bassist Fieldy replaces the original funk bass with his distinctive percussive, low-end metallic slap technique on a 5-string bass. The aggressive, growling vocal delivery finishes the genre transformation.</p>"
+              }
             }
           ],
           "isPremium": true,
@@ -27473,219 +27725,507 @@
           "youtube_id": "oxAl3Jijs20",
           "video_title_1": "Augustus Pablo & King Tubby - King Tubby Meets Rockers Uptown (Official Audio)",
           "video_title_2": "King Tubby: The Father of Dub & Studio Electronics - Documentary",
-          "description": "20-mark interactive production breakdown of King Tubby Meets Rockers Uptown (1974). Complete all four 5-blank studio dropdown stages covering the mixing desk as instrument, tape delay, spring reverb, and 1970s analogue workflow.",
+          "description": "Technical study of King Tubby's revolutionary 1974 dub masterpiece: custom 4-track MCI console modifications, high-pass filter sweeps, Roland Space Echo feedback loops, and spring reverb crash techniques.",
           "questions": [
             {
-              "title": "Part 1 (5 Marks): Mixing Desk as an Instrument",
-              "content": "Select the correct 1970s dub mixing technique for each of the 5 statements.",
-              "type": "cloze",
-              "text": [
-                "1. In 1974 Jamaican dub, King Tubby performed the {0} live as a musical instrument.",
-                "2. Channels were actively {1} in and out of the mix to drop instruments abruptly.",
-                "3. Sweeping a custom stepped {2} stripped bass away from guitars and horns.",
-                "4. Instead of keeping all parts playing, dub relies on stark {3} and sudden drop-outs.",
-                "5. The melodica lead sits forward with bright midrange EQ and {4} phrasing."
+              "title": "Statement 1: Mixing Desk as Musical Instrument",
+              "content": "In dub production, the mixing console is treated as an expressive musical instrument performed live in real time.",
+              "type": "multi_choice",
+              "answers": [
+                {
+                  "text": "True",
+                  "is_true": "yes"
+                },
+                {
+                  "text": "False",
+                  "is_true": "no"
+                }
               ],
-              "options": [
-                [
-                  "software DAW",
-                  "mixing console",
-                  "MIDI keyboard",
-                  "808 drum machine"
-                ],
-                [
-                  "muted",
-                  "auto-tuned",
-                  "time-stretched",
-                  "quantised"
-                ],
-                [
-                  "high-pass filter",
-                  "brickwall limiter",
-                  "chorus pedal",
-                  "noise gate"
-                ],
-                [
-                  "empty space",
-                  "wall-of-sound density",
-                  "continuous double-tracking",
-                  "heavy sidechaining"
-                ],
-                [
-                  "echo-soaked",
-                  "bit-crushed",
-                  "vocoder-tuned",
-                  "hard-clipped"
-                ]
-              ],
-              "answer": [
-                "mixing console",
-                "muted",
-                "high-pass filter",
-                "empty space",
-                "echo-soaked"
-              ],
-              "expert_explanation": "1. King Tubby played the mixing console live. 2. Channels were muted in and out rhythmically. 3. His stepped high-pass filter swept bass out dramatically. 4. Dub creates tension through empty space. 5. The melodica floats in echo-soaked space.",
-              "explanation": "<p><strong>Expert Explanation:</strong> 1. King Tubby played the mixing console live. 2. Channels were muted in and out rhythmically. 3. His stepped high-pass filter swept bass out dramatically. 4. Dub creates tension through empty space. 5. The melodica floats in echo-soaked space.</p>"
+              "explanation": "<p><strong>Expert Explanation:</strong> King Tubby performed the mixing desk live, riding faders, toggling channel mutes, and sweeping filters like a real-time musical instrument.</p>",
+              "expert_quote": {
+                "text": "Tubby didn't just balance sound; he played the mixing console like a jazz solo.",
+                "author": "Bunny Lee (Dub Producer)"
+              },
+              "explanation_image": {
+                "src": "/images/Vintage Console EQ.png",
+                "alt": "Custom Mixing Console Fader Strips"
+              },
+              "expert_explanation": "King Tubby performed the mixing desk live, riding faders, toggling channel mutes, and sweeping filters like a real-time musical instrument."
             },
             {
-              "title": "Part 2 (5 Marks): Spring Reverb & Tape Delay",
-              "content": "Complete the 5 blanks on the signature time-based effects used in 1974.",
-              "type": "cloze",
-              "text": [
-                "6. Snare hits and percussion were fed into a mechanical {0} tank for metallic splash.",
-                "7. Pushing {1} on the tape echo sent repeats cycling toward dramatic self-oscillation.",
-                "8. Engineers threw single snare hits into echo by flicking the {2} briefly upward.",
-                "9. Unlike clean digital delays, {3} lost treble clarity and gained warmth on each repeat.",
-                "10. Because digital plugins did not exist in 1974, all echoes were built with {4} hardware."
+              "title": "Statement 2: The 'Big Knob' High-Pass Filter",
+              "content": "King Tubby modified his custom 4-track MCI console with an Altec broadcast high-pass filter known as the 'Big Knob' to sweep frequency cutoffs live.",
+              "type": "multi_choice",
+              "answers": [
+                {
+                  "text": "True",
+                  "is_true": "yes"
+                },
+                {
+                  "text": "False",
+                  "is_true": "no"
+                }
               ],
-              "options": [
-                [
-                  "convolution hall",
-                  "digital shimmer",
-                  "spring reverb",
-                  "pitch-shift"
-                ],
-                [
-                  "feedback",
-                  "pre-delay",
-                  "panning",
-                  "threshold"
-                ],
-                [
-                  "master limiter",
-                  "auxiliary send",
-                  "phantom power",
-                  "sample rate"
-                ],
-                [
-                  "analogue tape delay",
-                  "digital ping-pong",
-                  "MIDI clock sync",
-                  "VST delay"
-                ],
-                [
-                  "analogue",
-                  "software",
-                  "virtual",
-                  "optical disc"
-                ]
-              ],
-              "answer": [
-                "spring reverb",
-                "feedback",
-                "auxiliary send",
-                "analogue tape delay",
-                "analogue"
-              ],
-              "expert_explanation": "6. Spring reverb gave metallic splashy tails. 7. Raising feedback pushed tape echo toward self-oscillation. 8. Auxiliary sends threw individual hits into echo. 9. Analogue tape delay rolled off highs naturally. 10. All 1974 studio FX were hardware analogue.",
-              "explanation": "<p><strong>Expert Explanation:</strong> 6. Spring reverb gave metallic splashy tails. 7. Raising feedback pushed tape echo toward self-oscillation. 8. Auxiliary sends threw individual hits into echo. 9. Analogue tape delay rolled off highs naturally. 10. All 1974 studio FX were hardware analogue.</p>"
+              "explanation": "<p><strong>True.</strong> Tubby installed an Altec 9069A stepped passive high-pass filter on his master bus, allowing him to suddenly strip away all low and low-mid frequencies before snapping the heavy bassline back in.",
+              "expert_quote": {
+                "text": "When Tubby turned that big knob, the bass vanished and your ears felt empty—then boom, the bass dropped back in!",
+                "author": "Scientist (Dub Engineer)"
+              },
+              "explanation_image": {
+                "src": "/images/svg/high_pass_filter_sweep_riser.svg",
+                "alt": "High-Pass Filter Frequency Cutoff Sweep"
+              },
+              "expert_explanation": "Tubby added a custom rotary Altec stepped high-pass filter (the Big Knob) to his MCI console to sweep bass and midrange frequencies dramatically."
             },
             {
-              "title": "Part 3 (5 Marks): Rhythm Section & Tone Shaping",
-              "content": "Select the correct production choices for the bass, drums, and rhythm guitar.",
-              "type": "cloze",
-              "text": [
-                "11. The heavy electric bass guitar stays mostly {0} so low-end weight anchors the track.",
-                "12. Rhythmic electric guitar skanks sit crisp and thin after cutting {1} frequencies.",
-                "13. Driving hot levels through valve gear and magnetic tape added warm {2}.",
-                "14. The dry, tight drum kit often drops out to leave just rimshots and {3} trails.",
-                "15. Every remix decision was performed live in {4} without computer undo or automation."
+              "title": "Statement 3: German Accordion Lead",
+              "content": "Augustus Pablo's haunting lead melodies were performed on an expensive custom German concert accordion miked with stereo ribbons.",
+              "type": "multi_choice",
+              "answers": [
+                {
+                  "text": "True",
+                  "is_true": "no"
+                },
+                {
+                  "text": "False",
+                  "is_true": "yes"
+                }
               ],
-              "options": [
-                [
-                  "hard-panned",
-                  "dry",
-                  "bit-crushed",
-                  "chorused"
-                ],
-                [
-                  "treble",
-                  "high-mid",
-                  "low-end",
-                  "air"
-                ],
-                [
-                  "harmonic saturation",
-                  "digital aliasing",
-                  "quantisation error",
-                  "comb filtering"
-                ],
-                [
-                  "reverb",
-                  "sidechain",
-                  "auto-tune",
-                  "arpeggio"
-                ],
-                [
-                  "MIDI grid",
-                  "real time",
-                  "48-bit float",
-                  "offline bounce"
-                ]
-              ],
-              "answer": [
-                "dry",
-                "low-end",
-                "harmonic saturation",
-                "reverb",
-                "real time"
-              ],
-              "expert_explanation": "11. Keeping bass dry preserves sub weight. 12. Cutting low-end frequencies keeps guitar skanks crisp. 13. Valve and tape circuitry added warm harmonic saturation. 14. Drums drop out into lingering reverb trails. 15. Dub mixes were performed live in real time.",
-              "explanation": "<p><strong>Expert Explanation:</strong> 11. Keeping bass dry preserves sub weight. 12. Cutting low-end frequencies keeps guitar skanks crisp. 13. Valve and tape circuitry added warm harmonic saturation. 14. Drums drop out into lingering reverb trails. 15. Dub mixes were performed live in real time.</p>"
+              "explanation": "<p><strong>Expert Explanation:</strong> Augustus Pablo played the haunting lead melody on a Hohner melodica (a wind-powered free-reed keyboard), not an accordion.</p>",
+              "expert_quote": {
+                "text": "Pablo took a toy plastic melodica and turned it into the sound of deep roots reggae.",
+                "author": "David Rodigan"
+              },
+              "explanation_image": {
+                "src": "/images/Ribbon Microphone.png",
+                "alt": "Ribbon Microphone Capturing Wind Instruments"
+              },
+              "expert_explanation": "Augustus Pablo played the haunting lead melody on a Hohner melodica (a wind-powered free-reed keyboard), not an accordion."
             },
             {
-              "title": "Part 4 (5 Marks): Format, Legacy & Remix Culture",
-              "content": "Complete the final 5 statements on the 1974 format and lasting studio influence.",
-              "type": "cloze",
-              "text": [
-                "16. The original backing track was captured onto {0} magnetic tape before Tubby remixed it.",
-                "17. Early Jamaican sound-system mixes were often cut in {1} for maximum speaker punch.",
-                "18. Stripping vocals out to highlight bass and FX pioneered modern {2} culture.",
-                "19. Later genres like Jungle, Drum & Bass, and {3} directly inherited dub's sub-bass and echo throws.",
-                "20. Treating the studio and FX sends as creative tools turned the {4} into a co-writer."
+              "title": "Statement 4: Digital Lexicon Reverb Processing",
+              "content": "The cavernous reverberation on the snare drum was produced by a Lexicon 480L digital reverberation processor.",
+              "type": "multi_choice",
+              "answers": [
+                {
+                  "text": "True",
+                  "is_true": "no"
+                },
+                {
+                  "text": "False",
+                  "is_true": "yes"
+                }
               ],
-              "options": [
-                [
-                  "24-bit WAV",
-                  "4-track analogue",
-                  "optical film",
-                  "MIDI file"
-                ],
-                [
-                  "Dolby Atmos",
-                  "7.1 surround",
-                  "mono",
-                  "binaural"
-                ],
-                [
-                  "remix",
-                  "orchestral",
-                  "unplugged",
-                  "acapella"
-                ],
-                [
-                  "Classical",
-                  "Dubstep",
-                  "Barbershop",
-                  "Bluegrass"
-                ],
-                [
-                  "sound engineer",
-                  "sheet music",
-                  "vinyl sleeve",
-                  "metronome"
-                ]
+              "explanation": "<p><strong>Expert Explanation:</strong> The Lexicon 480L digital reverb was not released until 1986; 1974 dub mixes relied on analogue spring reverb tanks and tape echo.</p>",
+              "expert_quote": {
+                "text": "Everything was mechanical. Spring tanks, tape loops, and hand-built electronics.",
+                "author": "King Jammy"
+              },
+              "explanation_image": {
+                "src": "/images/reverb_spring_transducer_diagram.svg",
+                "alt": "Mechanical Spring Reverb Transducer System"
+              },
+              "expert_explanation": "The Lexicon 480L digital reverb was not released until 1986; 1974 dub mixes relied on analogue spring reverb tanks and tape echo."
+            },
+            {
+              "title": "Statement 5: Spring Reverb Mechanical Crash",
+              "content": "The explosive metallic 'thunder' splash heard on snare dropouts was produced by physically kicking or tapping the spring reverb tank.",
+              "type": "multi_choice",
+              "answers": [
+                {
+                  "text": "True",
+                  "is_true": "yes"
+                },
+                {
+                  "text": "False",
+                  "is_true": "no"
+                }
               ],
-              "answer": [
-                "4-track analogue",
-                "mono",
-                "remix",
-                "Dubstep",
-                "sound engineer"
+              "explanation": "<p><strong>True.</strong> Tubby and his protégés physically jarred the console or the spring tank on specific snare hits, causing the suspended metal coils to collide violently and emit a loud, metallic thunderclap.",
+              "expert_quote": {
+                "text": "A quick slap on the side of the mixer gave you that crack of thunder.",
+                "author": "King Tubby"
+              },
+              "explanation_image": {
+                "src": "/images/svg/reverb_plate_spring_diagram.svg",
+                "alt": "Spring Reverb Impact and Resonance"
+              },
+              "expert_explanation": "Physically bumping or kicking the metal spring reverb tank caused the internal springs to crash together, creating explosive metallic thunder."
+            },
+            {
+              "title": "Statement 6: Tape Delay Feedback & Self-Oscillation",
+              "content": "Tubby generated escalating, self-feeding echo trails by routing tape delay outputs back into their own mixer channels with high feedback.",
+              "type": "multi_choice",
+              "answers": [
+                {
+                  "text": "True",
+                  "is_true": "yes"
+                },
+                {
+                  "text": "False",
+                  "is_true": "no"
+                }
               ],
-              "expert_explanation": "16. Backing bands tracked onto 4-track analogue tape. 17. Sound-system dubs were mixed in mono for punch. 18. Reworking multitracks into instrumental FX mixes birthed remix culture. 19. Dubstep and bass music descend directly from dub. 20. Dub elevated the sound engineer into a creative performer.",
-              "explanation": "<p><strong>Expert Explanation:</strong> 16. Backing bands tracked onto 4-track analogue tape. 17. Sound-system dubs were mixed in mono for punch. 18. Reworking multitracks into instrumental FX mixes birthed remix culture. 19. Dubstep and bass music descend directly from dub. 20. Dub elevated the sound engineer into a creative performer.</p>"
+              "explanation": "<p><strong>Expert Explanation:</strong> Routing a tape delay output back into its own mixer channel let Tubby push feedback into hypnotic, self-oscillating echo spirals.</p>",
+              "expert_quote": {
+                "text": "You had to ride the aux knob with your fingers; let it roar, then pull it back before it blew the monitors.",
+                "author": "Scientist"
+              },
+              "explanation_image": {
+                "src": "/images/delay_self_oscillation_diagram.svg",
+                "alt": "Tape Delay Runaway Feedback Circuit"
+              },
+              "expert_explanation": "Routing a tape delay output back into its own mixer channel let Tubby push feedback into hypnotic, self-oscillating echo spirals."
+            },
+            {
+              "title": "Statement 7: Continuous Dense Arrangement",
+              "content": "King Tubby's dub style required all musical instruments—horns, guitars, organs, and vocals—to play continuously without ever being muted.",
+              "type": "multi_choice",
+              "answers": [
+                {
+                  "text": "True",
+                  "is_true": "no"
+                },
+                {
+                  "text": "False",
+                  "is_true": "yes"
+                }
+              ],
+              "explanation": "<p><strong>Expert Explanation:</strong> Dub production is defined by stripping arrangements down—muting drums, vocals, or guitars suddenly to expose deep bass and echo spaces.</p>",
+              "expert_quote": {
+                "text": "Dub is the art of subtraction. You create drama by carving vast holes in the mix.",
+                "author": "Lee 'Scratch' Perry"
+              },
+              "explanation_image": {
+                "src": "/images/svg/arrangement_sparse_acoustic_vs_dense_synth.svg",
+                "alt": "Subtractive Arrangement: Deconstructing Stems"
+              },
+              "expert_explanation": "Dub production is defined by stripping arrangements down—muting drums, vocals, or guitars suddenly to expose deep bass and echo spaces."
+            },
+            {
+              "title": "Statement 8: Bass Ambient Reverb Miking",
+              "content": "Aston 'Family Man' Barrett's bass was recorded by placing a ribbon microphone 20 feet away at the far end of an open tiled hallway.",
+              "type": "multi_choice",
+              "answers": [
+                {
+                  "text": "True",
+                  "is_true": "no"
+                },
+                {
+                  "text": "False",
+                  "is_true": "yes"
+                }
+              ],
+              "explanation": "<p><strong>Expert Explanation:</strong> Reggae bass was recorded close-miked or via DI to keep the sub-bass tight, round, and heavy without muddy room reverb.</p>",
+              "expert_quote": {
+                "text": "Tubby used transformer direct injection so the bass was razor sharp and deep.",
+                "author": "Bunny Lee"
+              },
+              "explanation_image": {
+                "src": "/images/mic_vs_line_level.svg",
+                "alt": "Direct Injection Transformer Matching Circuit"
+              },
+              "expert_explanation": "Reggae bass was recorded close-miked or via DI to keep the sub-bass tight, round, and heavy without muddy room reverb."
+            },
+            {
+              "title": "Statement 9: Dotted-Eighth Tape Echo Timing",
+              "content": "The tape delay repeat rate was synchronised precisely to the song tempo using SMPTE timecode.",
+              "type": "multi_choice",
+              "answers": [
+                {
+                  "text": "True",
+                  "is_true": "no"
+                },
+                {
+                  "text": "False",
+                  "is_true": "yes"
+                }
+              ],
+              "explanation": "<p><strong>Expert Explanation:</strong> SMPTE timecode sync did not exist in 1974 Jamaican studios; Tubby tuned tape delay speeds manually by ear using the tape motor speed.</p>",
+              "expert_quote": {
+                "text": "There was no clock. Tubby turned the tape pitch wheel until the echo bounced in time with the rimshot.",
+                "author": "David Rodigan"
+              },
+              "explanation_image": {
+                "src": "/images/svg/dotted_eighth_note_delay.svg",
+                "alt": "Dotted-Eighth Rhythmic Delay Repeats"
+              },
+              "expert_explanation": "SMPTE timecode sync did not exist in 1974 Jamaican studios; Tubby tuned tape delay speeds manually by ear using the tape motor speed."
+            },
+            {
+              "title": "Statement 10: Dampened Disco Snare",
+              "content": "Carlton Barrett covered his snare with thick tea towels and tuned it to a loose, low pitch to mimic American disco drum dampening.",
+              "type": "multi_choice",
+              "answers": [
+                {
+                  "text": "True",
+                  "is_true": "no"
+                },
+                {
+                  "text": "False",
+                  "is_true": "yes"
+                }
+              ],
+              "explanation": "<p><strong>Expert Explanation:</strong> Reggae snares were often tuned tight and high with minimal dampening to cut cleanly above the heavy sub-bass groove.</p>",
+              "expert_quote": {
+                "text": "Carly's snare crack was high and snappy; when it hit the tape delay, it ricocheted like a gunshot.",
+                "author": "Sly Dunbar"
+              },
+              "explanation_image": {
+                "src": "/images/drum_snare_micing_1770032674117.png",
+                "alt": "Tuned Snare Drum and Rimshot Strike Point"
+              },
+              "expert_explanation": "Reggae snares were often tuned tight and high with minimal dampening to cut cleanly above the heavy sub-bass groove."
+            },
+            {
+              "title": "Statement 11: Tape Generation Loss and Saturation",
+              "content": "Repeated tape bouncing and dub mixing across multi-generation tape reels introduced pleasant tape compression and high-frequency softening.",
+              "type": "multi_choice",
+              "answers": [
+                {
+                  "text": "True",
+                  "is_true": "yes"
+                },
+                {
+                  "text": "False",
+                  "is_true": "no"
+                }
+              ],
+              "explanation": "<p><strong>Expert Explanation:</strong> Bouncing and mixing across analogue tape reels added warm tape saturation and gentle high-frequency roll-off.</p>",
+              "expert_quote": {
+                "text": "The tape sat in the heat, bounced three times—it gave the mix that warm, dusty Jamaican grain.",
+                "author": "Sound on Sound"
+              },
+              "explanation_image": {
+                "src": "/images/Studer tape machine.png",
+                "alt": "Analog Magnetic Tape Generation Saturation"
+              },
+              "expert_explanation": "Bouncing and mixing across analogue tape reels added warm tape saturation and gentle high-frequency roll-off."
+            },
+            {
+              "title": "Statement 12: Fragmented Vocal Phrases",
+              "content": "Vocal snippets from Jacob Miller's original performance are strategically dropped into the dub mix for one or two syllables, bathed in echo trails.",
+              "type": "multi_choice",
+              "answers": [
+                {
+                  "text": "True",
+                  "is_true": "yes"
+                },
+                {
+                  "text": "False",
+                  "is_true": "no"
+                }
+              ],
+              "explanation": "<p><strong>Expert Explanation:</strong> Snippets of Jacob Miller’s original vocal track were briefly unmuted and sent straight to tape echo, floating over the instrumental riddim.</p>",
+              "expert_quote": {
+                "text": "Tubby used the voice like a ghostly echo, teasing the listener with memories of the original song.",
+                "author": "The Wire Magazine"
+              },
+              "explanation_image": {
+                "src": "/images/delay_feedback_repeats_diagram.svg",
+                "alt": "Vocal Throw Delay Echo Decay Pattern"
+              },
+              "expert_explanation": "Snippets of Jacob Miller’s original vocal track were briefly unmuted and sent straight to tape echo, floating over the instrumental riddim."
+            },
+            {
+              "title": "Statement 13: Low-Power Walkman Mastering",
+              "content": "King Tubby mixed and EQ'd his dub tracks primarily for low-power personal cassette walkmans, rolling off all frequencies below 80 Hz.",
+              "type": "multi_choice",
+              "answers": [
+                {
+                  "text": "True",
+                  "is_true": "no"
+                },
+                {
+                  "text": "False",
+                  "is_true": "yes"
+                }
+              ],
+              "explanation": "<p><strong>Expert Explanation:</strong> King Tubby mixed specifically for massive outdoor Jamaican sound systems with towering bass speaker stacks capable of shaking sub-40 Hz frequencies.</p>",
+              "expert_quote": {
+                "text": "Tubby tuned his mixes for the dancehall, where physical sub-bass rattled the ground.",
+                "author": "Bunny Lee"
+              },
+              "explanation_image": {
+                "src": "/images/svg/bass_woofer.svg",
+                "alt": "Horn-Loaded Sound System Subwoofer Enclosure"
+              },
+              "expert_explanation": "King Tubby mixed specifically for massive outdoor Jamaican sound systems with towering bass speaker stacks capable of shaking sub-40 Hz frequencies."
+            },
+            {
+              "title": "Statement 14: Automated DAW Mute Automation",
+              "content": "The rapid muting and fader cuts were programmed using motorized fader automation on an SSL 4000 console.",
+              "type": "multi_choice",
+              "answers": [
+                {
+                  "text": "True",
+                  "is_true": "no"
+                },
+                {
+                  "text": "False",
+                  "is_true": "yes"
+                }
+              ],
+              "explanation": "<p><strong>Expert Explanation:</strong> Motorised console fader automation did not exist in 1974; every mute and fade was performed live by hand in a single pass.</p>",
+              "expert_quote": {
+                "text": "If you made a bad fader move two minutes in, you rewound the tape and performed the whole mix again.",
+                "author": "Scientist"
+              },
+              "explanation_image": {
+                "src": "/images/Vintage Console EQ.png",
+                "alt": "Manual Console Fader Moves"
+              },
+              "expert_explanation": "Motorised console fader automation did not exist in 1974; every mute and fade was performed live by hand in a single pass."
+            },
+            {
+              "title": "Statement 15: Guitar Skank High-Pass Filtering",
+              "content": "The offbeat rhythm guitar 'skank' was filtered to remove low and mid frequencies, leaving only a percussive high-mid 'chick' sound.",
+              "type": "multi_choice",
+              "answers": [
+                {
+                  "text": "True",
+                  "is_true": "yes"
+                },
+                {
+                  "text": "False",
+                  "is_true": "no"
+                }
+              ],
+              "explanation": "<p><strong>Expert Explanation:</strong> High-pass filtering removed low end from the offbeat guitar skank, leaving a crisp rhythmic chop that stayed out of the bass’s way.</p>",
+              "expert_quote": {
+                "text": "The guitar in reggae isn't for chords; it's a metronome that works with the hi-hat.",
+                "author": "Aston 'Family Man' Barrett"
+              },
+              "explanation_image": {
+                "src": "/images/svg/high_pass_filter.svg",
+                "alt": "High-Pass Filter Frequency Curve on Guitar"
+              },
+              "expert_explanation": "High-pass filtering removed low end from the offbeat guitar skank, leaving a crisp rhythmic chop that stayed out of the bass’s way."
+            },
+            {
+              "title": "Statement 16: One-Off Acetate Dubplate Cutting",
+              "content": "Exclusive mixes like 'King Tubby Meets Rockers Uptown' were cut directly onto soft acetate discs to be played exclusively at dancehalls before commercial release.",
+              "type": "multi_choice",
+              "answers": [
+                {
+                  "text": "True",
+                  "is_true": "yes"
+                },
+                {
+                  "text": "False",
+                  "is_true": "no"
+                }
+              ],
+              "explanation": "<p><strong>Expert Explanation:</strong> Exclusive dub mixes were cut straight onto one-off 10-inch acetate dubplates for sound system clashes before commercial vinyl pressings.</p>",
+              "expert_quote": {
+                "text": "An exclusive Tubby dubplate could crown a sound system champion of Kingston.",
+                "author": "David Rodigan"
+              },
+              "explanation_image": {
+                "src": "/images/turntable_dj.png",
+                "alt": "Acetate Dubplate Disc Cutting Lathe"
+              },
+              "expert_explanation": "Exclusive dub mixes were cut straight onto one-off 10-inch acetate dubplates for sound system clashes before commercial vinyl pressings."
+            },
+            {
+              "title": "Statement 17: Tube Harmonic Distortion",
+              "content": "Overdriving mixer preamps and spring reverb return channels was avoided to comply with broadcast distortion standards.",
+              "type": "multi_choice",
+              "answers": [
+                {
+                  "text": "True",
+                  "is_true": "no"
+                },
+                {
+                  "text": "False",
+                  "is_true": "yes"
+                }
+              ],
+              "explanation": "<p><strong>Expert Explanation:</strong> Dub engineers deliberately pushed preamps and spring tanks into warm valve and tape saturation for character and punch.</p>",
+              "expert_quote": {
+                "text": "Tubby understood distortion as color. He pushed valves and tape right to the breaking point.",
+                "author": "Lee 'Scratch' Perry"
+              },
+              "explanation_image": {
+                "src": "/images/Studio FET Compressor (UREI 1176 Blackface).png",
+                "alt": "Console Preamp Overdrive Saturation"
+              },
+              "expert_explanation": "Dub engineers deliberately pushed preamps and spring tanks into warm valve and tape saturation for character and punch."
+            },
+            {
+              "title": "Statement 18: Pure Mono Limitation",
+              "content": "Because the 4-track tape stems were tracked in mono, King Tubby was legally prohibited from introducing stereo spatial panning onto master tapes.",
+              "type": "multi_choice",
+              "answers": [
+                {
+                  "text": "True",
+                  "is_true": "no"
+                },
+                {
+                  "text": "False",
+                  "is_true": "yes"
+                }
+              ],
+              "explanation": "<p><strong>False.</strong> Tubby generated wide stereo landscapes by routing mono dry tracks into delay units and spring reverbs panned across the stereo field, creating profound 3D depth.",
+              "expert_quote": {
+                "text": "Dub proved you can build a massive stereo universe from simple mono stems.",
+                "author": "Sound on Sound"
+              },
+              "explanation_image": {
+                "src": "/images/mid_side_eq_diagram.svg",
+                "alt": "Mono Stem with Stereo Delay and Reverb Returns"
+              },
+              "expert_explanation": "Even from 4-track mono stems, Tubby used console pan pots and stereo delay returns to throw sounds dramatically across the stereo field."
+            },
+            {
+              "title": "Statement 19: The Foundation of Remix Culture",
+              "content": "King Tubby's deconstruction of 'Baby I Love You So' into 'King Tubby Meets Rockers Uptown' is recognised as one of the very first modern 'remixes' in music history.",
+              "type": "multi_choice",
+              "answers": [
+                {
+                  "text": "True",
+                  "is_true": "yes"
+                },
+                {
+                  "text": "False",
+                  "is_true": "no"
+                }
+              ],
+              "explanation": "<p><strong>Expert Explanation:</strong> Deconstructing an existing multitrack recording into a radical new version laid the blueprint for modern remix and producer culture.</p>",
+              "expert_quote": {
+                "text": "Tubby invented the remix. Every DJ and electronic producer today is walking through the door he opened.",
+                "author": "Brian Eno"
+              },
+              "explanation_image": {
+                "src": "/images/Akai_MPC.png",
+                "alt": "Evolution of Remix Tools and Samplers"
+              },
+              "expert_explanation": "Deconstructing an existing multitrack recording into a radical new version laid the blueprint for modern remix and producer culture."
+            },
+            {
+              "title": "Statement 20: Influence on Modern Bass Music",
+              "content": "The sub-bass emphasis, high-pass filter sweeps, and delay throws of 1970s dub directly laid the structural foundation for UK Jungle, Drum & Bass, and Dubstep.",
+              "type": "multi_choice",
+              "answers": [
+                {
+                  "text": "True",
+                  "is_true": "yes"
+                },
+                {
+                  "text": "False",
+                  "is_true": "no"
+                }
+              ],
+              "explanation": "<p><strong>Expert Explanation:</strong> Heavy sub-bass, filter sweeps, and dub delay throws directly inspired 1990s UK Jungle, Drum & Bass, and 2000s Dubstep.</p>",
+              "expert_quote": {
+                "text": "Dubstep is King Tubby updated for modern sound systems with digital sub-bass.",
+                "author": "Kodiak / UK Bass Producer"
+              },
+              "explanation_image": {
+                "src": "/images/frequency_spectrum_bass.svg",
+                "alt": "Sub-Bass Lineage in Modern Dance Music"
+              },
+              "expert_explanation": "Heavy sub-bass, filter sweeps, and dub delay throws directly inspired 1990s UK Jungle, Drum & Bass, and 2000s Dubstep."
             }
           ],
           "isPremium": true
