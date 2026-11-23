@@ -4974,100 +4974,70 @@
               "explanation_image": "/images/reverb_predelay_separation_diagram.svg"
             },
             {
-              "title": "Q5: Reverb Types — Spring Reverb",
-              "type": "multi_choice",
-              "content": "How does a traditional electromechanical spring reverb generate its sound?",
-              "answers": [
+              "title": "Q5: Matching Reverb Types to Studio Hardware",
+              "content": "Match each classic reverb type to how it creates reflections.",
+              "type": "signal-flow-label",
+              "hide_arrows": true,
+              "flowSteps": [
                 {
-                  "text": "Vibrating a suspended steel plate inside a frame",
-                  "is_true": "no"
+                  "id": "rv1",
+                  "label": "Coiled metal springs inside a guitar amp",
+                  "placeholder": "Drop Reverb..."
                 },
                 {
-                  "text": "Passing audio through coiled metal springs",
-                  "is_true": "yes"
+                  "id": "rv2",
+                  "label": "Suspended steel sheet vibrated by transducer",
+                  "placeholder": "Drop Reverb..."
                 },
                 {
-                  "text": "Playing sound into a tiled echo chamber room",
-                  "is_true": "no"
+                  "id": "rv3",
+                  "label": "Reflective tiled room with speaker and mics",
+                  "placeholder": "Drop Reverb..."
                 },
                 {
-                  "text": "Looping magnetic tape across playback heads",
-                  "is_true": "no"
+                  "id": "rv4",
+                  "label": "Software emulation of a large concert space",
+                  "placeholder": "Drop Reverb..."
                 }
               ],
-              "expert_explanation": "Spring reverbs use an input transducer coil to send audio vibrations down one or more coiled steel springs suspended in a metal tank. A pickup coil at the other end converts the mechanical vibrations back into electrical signal, producing a distinctive bright, bouncy, metallic timbre.",
-              "expert_quote": {
-                "text": "Spring reverb defined the sound of surf rock, blues, and vintage guitar amplifiers like the Fender Twin Reverb.",
-                "author": "Guitar Tech Reference"
-              },
-              "img": "/images/reverb_spring_transducer_diagram.svg",
-              "explanation": "<img src=\"/images/reverb_spring_transducer_diagram.svg\" alt=\"Spring Reverb Transducer Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Spring reverbs use an input transducer coil to send audio vibrations down one or more coiled steel springs suspended in a metal tank. A pickup coil at the other end converts the mechanical vibrations back into electrical signal, producing a distinctive bright, bouncy, metallic timbre.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Spring reverb defined the sound of surf rock, blues, and vintage guitar amplifiers like the Fender Twin Reverb.\"<br/><strong>- Guitar Tech Reference</strong></blockquote>",
-              "explanation_image": "/images/reverb_spring_transducer_diagram.svg"
-            },
-            {
-              "title": "Q6: Reverb Types — Plate Reverb",
-              "type": "multi_choice",
-              "content": "What physical mechanism creates reverberation in a classic plate reverb (like an EMT 140)?",
-              "answers": [
-                {
-                  "text": "A tiled room with speaker and boundary mics",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Coiled metal springs inside a guitar combo",
-                  "is_true": "no"
-                },
-                {
-                  "text": "A suspended steel sheet vibrated by transducer",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "An analogue bucket brigade delay chip",
-                  "is_true": "no"
-                }
+              "terms": [
+                "Plate Reverb",
+                "Digital Hall Reverb",
+                "Spring Reverb",
+                "Echo Chamber"
               ],
-              "expert_explanation": "A plate reverb suspends a large, thin sheet of steel (approximately 1x2 metres) under high tension within a heavy outer frame. A driver transducer vibrates the centre of the sheet, and contact pickups capture the resulting dense, high-frequency reflections, making it the classic studio choice for vocals and snare drums.",
-              "expert_quote": {
-                "text": "Plate reverb lacks discrete early reflections, giving you immediate, shimmering diffusion that blends seamlessly behind vocals.",
-                "author": "Vintage Studio Processing"
+              "correctAnswers": {
+                "rv1": "Spring Reverb",
+                "rv2": "Plate Reverb",
+                "rv3": "Echo Chamber",
+                "rv4": "Digital Hall Reverb"
               },
-              "img": "/images/reverb_plate_mechanics_diagram.svg",
-              "explanation": "<img src=\"/images/reverb_plate_mechanics_diagram.svg\" alt=\"Plate Reverb Mechanics Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> A plate reverb suspends a large, thin sheet of steel (approximately 1x2 metres) under high tension within a heavy outer frame. A driver transducer vibrates the centre of the sheet, and contact pickups capture the resulting dense, high-frequency reflections, making it the classic studio choice for vocals and snare drums.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Plate reverb lacks discrete early reflections, giving you immediate, shimmering diffusion that blends seamlessly behind vocals.\"<br/><strong>- Vintage Studio Processing</strong></blockquote>",
-              "explanation_image": "/images/reverb_plate_mechanics_diagram.svg"
+              "expert_explanation": "Spring reverbs use coiled springs, plate reverbs vibrate a suspended steel sheet, echo chambers use a physical reflective room, and digital hall plugins model large spaces.",
+              "explanation": "<p><strong>Expert Explanation:</strong> Spring reverbs use coiled springs, plate reverbs vibrate a suspended steel sheet, echo chambers use a physical reflective room, and digital hall plugins model large spaces.</p>"
             },
             {
-              "title": "Q7: Reverb Types — Acoustic Chamber Reverb",
-              "type": "multi_choice",
-              "content": "What is a traditional studio acoustic echo chamber?",
-              "answers": [
-                {
-                  "text": "A digital algorithm calculating reflections",
-                  "is_true": "no"
-                },
-                {
-                  "text": "A dedicated reflective room with speaker & mics",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "A magnetic tape machine running on a loop",
-                  "is_true": "no"
-                },
-                {
-                  "text": "A tensioned metal sheet inside a wooden box",
-                  "is_true": "no"
-                }
+              "title": "Q6: Auxiliary Send/Return Reverb Routing",
+              "content": "Arrange the studio signal flow for sharing one reverb plugin across multiple vocal tracks from SOURCE to MIX.",
+              "type": "drag_drop",
+              "top_label": "SOURCE (Vocal Channel)",
+              "bottom_label": "OUTPUT (Master Mix)",
+              "items": [
+                "Reverb plugin set to 100% wet",
+                "Vocal track sends copy via Aux Send",
+                "Wet reverb return blends with dry vocal",
+                "Aux Bus feeds into the reverb input"
               ],
-              "expert_explanation": "Before artificial reverb units existed, studios built specialized subterranean rooms lined with hard, non-parallel reflective surfaces (ceramic tiles, painted concrete). Audio from the control room is piped into a loudspeaker, and microphones in the chamber capture the natural room reverberation.",
-              "expert_quote": {
-                "text": "The underground chambers at Abbey Road and Capitol Studios remain legendary because real air and physical boundaries create organic depth.",
-                "author": "Classic Studio Architecture"
-              },
-              "img": "/images/reverb_chamber_room_diagram.svg",
-              "explanation": "<img src=\"/images/reverb_chamber_room_diagram.svg\" alt=\"Acoustic Chamber Room Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Before artificial reverb units existed, studios built specialized subterranean rooms lined with hard, non-parallel reflective surfaces (ceramic tiles, painted concrete). Audio from the control room is piped into a loudspeaker, and microphones in the chamber capture the natural room reverberation.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"The underground chambers at Abbey Road and Capitol Studios remain legendary because real air and physical boundaries create organic depth.\"<br/><strong>- Classic Studio Architecture</strong></blockquote>",
-              "explanation_image": "/images/reverb_chamber_room_diagram.svg"
+              "correct_order": [
+                "Vocal track sends copy via Aux Send",
+                "Aux Bus feeds into the reverb input",
+                "Reverb plugin set to 100% wet",
+                "Wet reverb return blends with dry vocal"
+              ],
+              "expert_explanation": "Using an Aux Send to a 100% wet reverb return lets multiple channels share one shared room space while keeping dry vocal clarity intact.",
+              "explanation": "<p><strong>Expert Explanation:</strong> Using an Aux Send to a 100% wet reverb return lets multiple channels share one shared room space while keeping dry vocal clarity intact.</p>"
             },
             {
-              "title": "Q8: Chorus Effect Fundamentals (Pitch & Micro-Delay)",
+              "title": "Q7: Chorus Effect Fundamentals",
               "type": "multi_choice",
               "content": "How does a chorus effect create its rich, thickened doubling sound?",
               "answers": [
@@ -5098,24 +5068,24 @@
               "explanation_image": "/images/chorus_pitch_delay_lfo_diagram.svg"
             },
             {
-              "title": "Q9: Chorus Modulation Controls (Rate & Depth)",
+              "title": "Q8: Chorus Rate & Depth",
               "type": "multi_choice",
               "content": "On a chorus effect, what does the 'Depth' control regulate?",
               "answers": [
                 {
-                  "text": "The speed or frequency of the internal LFO modulation cycle",
+                  "text": "Speed of the internal LFO sweep",
                   "is_true": "no"
                 },
                 {
-                  "text": "The overall balance between dry audio and wet processed effect",
+                  "text": "Balance between dry and wet signal",
                   "is_true": "no"
                 },
                 {
-                  "text": "The high-frequency cut applied to the wet chorus signal path",
+                  "text": "High-frequency cut on the wet signal",
                   "is_true": "no"
                 },
                 {
-                  "text": "The amount of pitch deviation caused by the LFO modulation",
+                  "text": "Amount of pitch detuning by the LFO",
                   "is_true": "yes"
                 }
               ],
@@ -5129,7 +5099,7 @@
               "explanation_image": "/images/chorus_rate_depth_modulation_diagram.svg"
             },
             {
-              "title": "Q10: Flanger vs Chorus (Comb Filtering & Delay Time)",
+              "title": "Q9: Flanger vs Chorus",
               "type": "multi_choice",
               "content": "What is the main technical difference between a flanger and a chorus?",
               "answers": [
@@ -5201,7 +5171,7 @@
               "explanation_image": "/images/delay_self_oscillation_diagram.svg"
             },
             {
-              "title": "Q12: Delay Types — Tape vs BBD vs Digital",
+              "title": "Q12: Tape Delay Character",
               "type": "multi_choice",
               "content": "Which sonic characteristics are typical of vintage magnetic tape delay?",
               "answers": [
@@ -5268,19 +5238,19 @@
               "content": "How does a stereo ping-pong delay behave?",
               "answers": [
                 {
-                  "text": "All delayed repeats stay centred in the middle of the mix",
+                  "text": "Repeats stay centred in mono",
                   "is_true": "no"
                 },
                 {
-                  "text": "The dry signal pans continuously in circles around the listener",
+                  "text": "Dry track spins around the listener",
                   "is_true": "no"
                 },
                 {
-                  "text": "The delayed repeats alternate back and forth between Left and Right",
+                  "text": "Repeats bounce between Left and Right",
                   "is_true": "yes"
                 },
                 {
-                  "text": "High frequencies pan left while low frequencies pan to the right",
+                  "text": "Highs pan Left while lows pan Right",
                   "is_true": "no"
                 }
               ],
@@ -5294,35 +5264,46 @@
               "explanation_image": "/images/delay_ping_pong_stereo_diagram.svg"
             },
             {
-              "title": "Q15: Modulation FX — Phaser Architecture",
-              "type": "multi_choice",
-              "content": "How does a phaser create its sweeping whoosh effect without using a delay line?",
-              "answers": [
+              "title": "Q15: Modulation & Time-Based FX",
+              "content": "Match each studio effect to its signature sound or mechanism.",
+              "type": "signal-flow-label",
+              "hide_arrows": true,
+              "flowSteps": [
                 {
-                  "text": "It uses fast brickwall limiters to squash loud transient peaks",
-                  "is_true": "no"
+                  "id": "fx1",
+                  "label": "Distinct rhythmic echo repeats after dry hit",
+                  "placeholder": "Drop Effect..."
                 },
                 {
-                  "text": "It uses all-pass filters to shift phase and create notches",
-                  "is_true": "yes"
+                  "id": "fx2",
+                  "label": "Thick doubling using modulated short delay",
+                  "placeholder": "Drop Effect..."
                 },
                 {
-                  "text": "It uses short delay buffers to generate resonant comb filters",
-                  "is_true": "no"
+                  "id": "fx3",
+                  "label": "Jet-plane whoosh from very short delay + feedback",
+                  "placeholder": "Drop Effect..."
                 },
                 {
-                  "text": "It uses digital pitch-shifting algorithms to detune the audio signal",
-                  "is_true": "no"
+                  "id": "fx4",
+                  "label": "Sweeping phase notches without a delay line",
+                  "placeholder": "Drop Effect..."
                 }
               ],
-              "expert_explanation": "Unlike chorus and flangers which use variable time-delay lines, a phaser splits the signal and routes one branch through a series of all-pass filters. These filters shift the phase angle of specific frequencies. When recombined with dry audio, out-of-phase frequencies cancel out into sweeping notches modulated by an LFO.",
-              "expert_quote": {
-                "text": "Phasing creates non-harmonically spaced notches through pure phase manipulation, giving it a swooshing, liquid quality distinct from harmonic comb filtering.",
-                "author": "DSP Audio Engineering"
+              "terms": [
+                "Flanger",
+                "Phaser",
+                "Delay",
+                "Chorus"
+              ],
+              "correctAnswers": {
+                "fx1": "Delay",
+                "fx2": "Chorus",
+                "fx3": "Flanger",
+                "fx4": "Phaser"
               },
-              "img": "/images/phaser_allpass_notches_diagram.svg",
-              "explanation": "<img src=\"/images/phaser_allpass_notches_diagram.svg\" alt=\"Phaser Architecture Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Unlike chorus and flangers which use variable time-delay lines, a phaser splits the signal and routes one branch through a series of all-pass filters. These filters shift the phase angle of specific frequencies. When recombined with dry audio, out-of-phase frequencies cancel out into sweeping notches modulated by an LFO.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Phasing creates non-harmonically spaced notches through pure phase manipulation, giving it a swooshing, liquid quality distinct from harmonic comb filtering.\"<br/><strong>- DSP Audio Engineering</strong></blockquote>",
-              "explanation_image": "/images/phaser_allpass_notches_diagram.svg"
+              "expert_explanation": "Delay creates distinct echoes, chorus thickens via modulated short delays, flanger adds feedback for jet-plane sweeps, and phaser sweeps phase notches without delay.",
+              "explanation": "<p><strong>Expert Explanation:</strong> Delay creates distinct echoes, chorus thickens via modulated short delays, flanger adds feedback for jet-plane sweeps, and phaser sweeps phase notches without delay.</p>"
             },
             {
               "title": "Q16: Reverb Acoustics — Early Reflections",
@@ -5330,19 +5311,19 @@
               "content": "What do the 'early reflections' in a reverb tell the listener?",
               "answers": [
                 {
-                  "text": "The overall decay duration of the longest reverberant sound tail",
+                  "text": "Total length of the reverb tail",
                   "is_true": "no"
                 },
                 {
-                  "text": "The amount of stereo chorus modulation applied to the sound",
+                  "text": "Stereo chorus modulation width",
                   "is_true": "no"
                 },
                 {
-                  "text": "The perceived size and physical boundary dimensions of the room",
+                  "text": "Perceived size of the room",
                   "is_true": "yes"
                 },
                 {
-                  "text": "The high-frequency absorption rate of carpets and wall furnishings",
+                  "text": "Treble absorption of wall carpets",
                   "is_true": "no"
                 }
               ],
@@ -5361,19 +5342,19 @@
               "content": "How does a convolution reverb recreate the sound of a real space?",
               "answers": [
                 {
-                  "text": "By calculating artificial delay lines using algorithmic digital math",
+                  "text": "Artificial digital delay math",
                   "is_true": "no"
                 },
                 {
-                  "text": "By routing audio through mechanical steel springs in an amplifier",
+                  "text": "Mechanical steel springs in an amp",
                   "is_true": "no"
                 },
                 {
-                  "text": "By sending sound into a physical echo chamber with microphones",
+                  "text": "Physical echo room with mics",
                   "is_true": "no"
                 },
                 {
-                  "text": "By combining audio with a recorded Impulse Response of that space",
+                  "text": "Recorded Impulse Response of a space",
                   "is_true": "yes"
                 }
               ],
@@ -5387,100 +5368,44 @@
               "explanation_image": "/images/reverb_convolution_impulse_diagram.svg"
             },
             {
-              "title": "Q18: Reverb Processing — The Abbey Road Reverb EQ Trick",
-              "type": "multi_choice",
-              "content": "What equalisation technique defines the famous 'Abbey Road Reverb Trick'?",
-              "answers": [
-                {
-                  "text": "Boosting frequencies at 100 Hz to thicken the reverb bass",
-                  "is_true": "no"
-                },
-                {
-                  "text": "High-passing around 600 Hz and low-passing around 10 kHz",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "Cutting a surgical notch at 1 kHz to widen stereo spread",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Applying heavy compression to make the reverb tail pump rhythmically",
-                  "is_true": "no"
-                }
+              "title": "Q18: Classic Studio Reverb Tricks (3 Marks)",
+              "content": "Complete the 3 dropdowns on famous studio reverb shaping techniques.",
+              "type": "cloze",
+              "text": [
+                "1. The Abbey Road Reverb Trick filters out mud and harshness by high-passing around 600 Hz and {0} around 10 kHz.",
+                "2. Applying {1} lowers reverb volume whenever a singer is singing, keeping lyrics clear.",
+                "3. The iconic 1980s explosive snare sound cuts off a dense reverb tail abruptly using a {2}."
               ],
-              "expert_explanation": "The Abbey Road Reverb Trick applies an EQ on the reverb aux send/return: high-passing around 500-600 Hz (stripping low-end mud and kick/bass rumble) and low-passing around 10 kHz (taming harsh vocal sibilance and splashy high-end wash). The filtered reverb sits cleanly behind the mix.",
-              "expert_quote": {
-                "text": "Filtering out extreme lows and highs before the reverb chamber prevented Abbey Road mixes from turning into a muddy, sibilant acoustic sludge.",
-                "author": "Abbey Road Sound Recordist Notes"
-              },
-              "img": "/images/reverb_abbey_road_eq_diagram.svg",
-              "explanation": "<img src=\"/images/reverb_abbey_road_eq_diagram.svg\" alt=\"Abbey Road Reverb EQ Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> The Abbey Road Reverb Trick applies an EQ on the reverb aux send/return: high-passing around 500-600 Hz (stripping low-end mud and kick/bass rumble) and low-passing around 10 kHz (taming harsh vocal sibilance and splashy high-end wash). The filtered reverb sits cleanly behind the mix.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Filtering out extreme lows and highs before the reverb chamber prevented Abbey Road mixes from turning into a muddy, sibilant acoustic sludge.\"<br/><strong>- Abbey Road Sound Recordist Notes</strong></blockquote>",
-              "explanation_image": "/images/reverb_abbey_road_eq_diagram.svg"
+              "options": [
+                [
+                  "boosting sub-bass",
+                  "low-passing",
+                  "adding chorus",
+                  "bit-crushing"
+                ],
+                [
+                  "pitch shifting",
+                  "tape saturation",
+                  "sidechain ducking",
+                  "ring modulation"
+                ],
+                [
+                  "noise gate",
+                  "flanger",
+                  "harmonic exciter",
+                  "patchbay"
+                ]
+              ],
+              "answer": [
+                "low-passing",
+                "sidechain ducking",
+                "noise gate"
+              ],
+              "expert_explanation": "Band-limiting reverb (600 Hz HPF / 10 kHz LPF) keeps mixes clean, sidechain ducking clears space for vocals, and a noise gate creates 1980s gated snare reverb.",
+              "explanation": "<p><strong>Expert Explanation:</strong> Band-limiting reverb (600 Hz HPF / 10 kHz LPF) keeps mixes clean, sidechain ducking clears space for vocals, and a noise gate creates 1980s gated snare reverb.</p>"
             },
             {
-              "title": "Q19: Advanced Reverb — Sidechain Ducking",
-              "type": "multi_choice",
-              "content": "Why is sidechain ducking applied to a lead vocal reverb?",
-              "answers": [
-                {
-                  "text": "Lowers reverb during singing for vocal clarity",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "Shortens pre-delay whenever the singer pauses",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Widens stereo panning when vocals hit high notes",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Boosts treble presence during loud vocal lines",
-                  "is_true": "no"
-                }
-              ],
-              "expert_explanation": "Ducking inserts a compressor on the reverb return keyed to the dry lead vocal via sidechain. When the vocal sings, the reverb attenuates (ducks by 4-8 dB), preserving intelligibility. When the vocalist pauses, the compressor releases, allowing the lush reverb tail to bloom forward and fill the gap.",
-              "expert_quote": {
-                "text": "Sidechained ducked reverb gives you the best of both worlds: upfront vocal clarity during lyrics and an expansive, cinematic reverb bloom during phrase pauses.",
-                "author": "Modern Vocal Production"
-              },
-              "img": "/images/reverb_sidechain_ducking_diagram.svg",
-              "explanation": "<img src=\"/images/reverb_sidechain_ducking_diagram.svg\" alt=\"Reverb Sidechain Ducking Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Ducking inserts a compressor on the reverb return keyed to the dry lead vocal via sidechain. When the vocal sings, the reverb attenuates (ducks by 4-8 dB), preserving intelligibility. When the vocalist pauses, the compressor releases, allowing the lush reverb tail to bloom forward and fill the gap.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Sidechained ducked reverb gives you the best of both worlds: upfront vocal clarity during lyrics and an expansive, cinematic reverb bloom during phrase pauses.\"<br/><strong>- Modern Vocal Production</strong></blockquote>",
-              "explanation_image": "/images/reverb_sidechain_ducking_diagram.svg"
-            },
-            {
-              "title": "Q20: Iconic FX — 1980s Gated Snare Reverb",
-              "type": "multi_choice",
-              "content": "How was the iconic 1980s gated snare drum sound achieved?",
-              "answers": [
-                {
-                  "text": "By driving a tape delay into full saturation and oscillation",
-                  "is_true": "no"
-                },
-                {
-                  "text": "By feeding a spring reverb into a resonant low-pass filter",
-                  "is_true": "no"
-                },
-                {
-                  "text": "By blending a flanger in parallel with clean drum overheads",
-                  "is_true": "no"
-                },
-                {
-                  "text": "By cutting off a loud, dense reverb tail with a gate",
-                  "is_true": "yes"
-                }
-              ],
-              "expert_explanation": "Gated snare reverb sends a dry snare transient into a massive, dense room or plate reverb, which is immediately clamped by an aggressive noise gate. After a fixed hold time (around 150-250 ms), the gate slams shut, slicing off the decay tail instantly and producing an explosive, punchy drum sound.",
-              "expert_quote": {
-                "text": "Pioneered by Phil Collins and Hugh Padgham on Peter Gabriel's 1980 album, the gated snare defined the punchy drum aesthetic of the entire 1980s decade.",
-                "author": "Sound On Sound Classics"
-              },
-              "img": "/images/reverb_gated_snare_diagram.svg",
-              "explanation": "<img src=\"/images/reverb_gated_snare_diagram.svg\" alt=\"Gated Snare Reverb Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Gated snare reverb sends a dry snare transient into a massive, dense room or plate reverb, which is immediately clamped by an aggressive noise gate. After a fixed hold time (around 150-250 ms), the gate slams shut, slicing off the decay tail instantly and producing an explosive, punchy drum sound.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Pioneered by Phil Collins and Hugh Padgham on Peter Gabriel's 1980 album, the gated snare defined the punchy drum aesthetic of the entire 1980s decade.\"<br/><strong>- Sound On Sound Classics</strong></blockquote>",
-              "explanation_image": "/images/reverb_gated_snare_diagram.svg"
-            },
-            {
-              "title": "Interactive Task: Simple 120 BPM Delay Timing",
+              "title": "Q19: Interactive Task — 120 BPM Delay Timing",
               "content": "Use the 3-step builder to work out Quarter-Note (1/4) and Eighth-Note (1/8) delay times at 120 BPM.",
               "type": "studio-calculation",
               "calcMode": "delay_bpm",
