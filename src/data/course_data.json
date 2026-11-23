@@ -4433,27 +4433,46 @@
               "explanation_image": "/images/kick_drum_eq_carving_diagram.svg"
             },
             {
-              "title": "Practical Listening: Mix Mud & Clarity A/B Comparison",
-              "content": "Listen to Audio A and Audio B. Audio B has been cleaned with EQ. Which problematic area was attenuated to remove the 'mud'?",
-              "type": "audio_comparison",
-              "audio_a": "/Audio/FX_Ear_Training/EQ Mastery/Muddy Mix.mp3",
-              "audio_b": "/Audio/FX_Ear_Training/EQ Mastery/Clean Mix.mp3",
-              "options": [
-                "Cut around 10 kHz treble frequencies",
-                "Cut around 60 Hz sub-bass frequencies",
-                "Cut between 250 Hz and 400 Hz low-mids",
-                "Cut between 2 kHz and 4 kHz upper-mids"
+              "title": "Q8: Matching EQ Filter Shapes to Studio Tasks",
+              "content": "Match each equaliser filter type to the mixing task it performs best.",
+              "type": "signal-flow-label",
+              "hide_arrows": true,
+              "flowSteps": [
+                {
+                  "id": "eq1",
+                  "label": "Removes sub-bass rumble and mic stand thumps",
+                  "placeholder": "Drop Filter..."
+                },
+                {
+                  "id": "eq2",
+                  "label": "Adjusts all treble frequencies above a corner",
+                  "placeholder": "Drop Filter..."
+                },
+                {
+                  "id": "eq3",
+                  "label": "Boosts or cuts a band with adjustable Q width",
+                  "placeholder": "Drop Filter..."
+                },
+                {
+                  "id": "eq4",
+                  "label": "Cuts a very narrow resonant ring or 50 Hz hum",
+                  "placeholder": "Drop Filter..."
+                }
               ],
-              "correct_index": 2,
-              "explanation": "<img src=\"/images/svg/west_coast_vs_east_coast_eq_profile.svg\" alt=\"Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Excessive energy between 250 Hz and 400 Hz creates boxiness and low-mid mud. Attenuating this region makes the mix sound cleaner and clearer.</p>",
-              "expert_quote": {
-                "text": "Before you boost treble to add clarity, always clean out 300 Hz. Great mixing is subtractive first.",
-                "author": "Bob Clearmountain, Mix Engineer"
+              "terms": [
+                "High-Pass Filter",
+                "High-Shelf Filter",
+                "Bell (Peaking) Filter",
+                "Notch Filter"
+              ],
+              "correctAnswers": {
+                "eq1": "High-Pass Filter",
+                "eq2": "High-Shelf Filter",
+                "eq3": "Bell (Peaking) Filter",
+                "eq4": "Notch Filter"
               },
-              "img": "/images/svg/west_coast_vs_east_coast_eq_profile.svg",
-              "correct_option": "Cut between 250 Hz and 400 Hz low-mids",
-              "expert_explanation": "Excessive energy between 250 Hz and 400 Hz creates boxiness and low-mid mud. Attenuating this region makes the mix sound cleaner and clearer.",
-              "explanation_image": "/images/svg/west_coast_vs_east_coast_eq_profile.svg"
+              "expert_explanation": "High-pass filters clear low-end rumble, high-shelf filters shape overall brightness, bell filters target specific bands using Q, and notch filters surgically remove narrow hum or ring.",
+              "explanation": "<p><strong>Expert Explanation:</strong> High-pass filters clear low-end rumble, high-shelf filters shape overall brightness, bell filters target specific bands using Q, and notch filters surgically remove narrow hum or ring.</p>"
             },
             {
               "title": "Q9: Stereo Panning Controls & Soundstage Placement",
