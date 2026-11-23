@@ -5461,13 +5461,41 @@
               "explanation_image": "/images/reverb_gated_snare_diagram.svg"
             },
             {
-              "title": "Interactive Task: Simple 120 BPM Delay Timing",
-              "content": "Use the 3-step builder to work out Quarter-Note (1/4) and Eighth-Note (1/8) delay times at 120 BPM.",
-              "type": "studio-calculation",
-              "calcMode": "delay_bpm",
-              "bpm": 120,
-              "explanation": "<p><strong>Expert Explanation:</strong> Divide 60 seconds by 120 BPM to get 500 ms per quarter-note beat, then halve it to get 250 ms for an eighth-note repeat.</p>",
-              "expert_explanation": "Divide 60 seconds by 120 BPM to get 500 ms per quarter-note beat, then halve it to get 250 ms for an eighth-note repeat."
+              "title": "Q20: 120 BPM Delay Timing (3 Marks)",
+              "content": "Complete the 3 dropdowns to calculate quarter-note (1/4) and eighth-note (1/8) delay times at 120 BPM.",
+              "type": "cloze",
+              "text": [
+                "1. At 120 BPM (120 ÷ 60 seconds), there are {0} beats every second.",
+                "2. Therefore, one quarter-note (1/4) delay repeat lasts {1}.",
+                "3. Half of a quarter-note gives an eighth-note (1/8) delay of {2}."
+              ],
+              "options": [
+                [
+                  "1",
+                  "2",
+                  "3",
+                  "4"
+                ],
+                [
+                  "100 ms",
+                  "250 ms",
+                  "500 ms",
+                  "1,000 ms"
+                ],
+                [
+                  "125 ms",
+                  "250 ms",
+                  "500 ms",
+                  "750 ms"
+                ]
+              ],
+              "answer": [
+                "2",
+                "500 ms",
+                "250 ms"
+              ],
+              "expert_explanation": "At 120 BPM (120 ÷ 60 = 2 beats per second), each quarter-note beat lasts 500 ms (0.5 s), and each eighth-note delay is half of that at 250 ms.",
+              "explanation": "<p><strong>Expert Explanation:</strong> At 120 BPM (120 ÷ 60 = 2 beats per second), each quarter-note beat lasts 500 ms (0.5 s), and each eighth-note delay is half of that at 250 ms.</p>"
             }
           ],
           "randomise": false
