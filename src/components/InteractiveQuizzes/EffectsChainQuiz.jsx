@@ -947,12 +947,12 @@ export default function EffectsChainQuiz({ quiz, onExit }) {
                         <div className="fx-actions-row">
                             <button
                                 type="button"
-                                onClick={playWithEffects}
-                                disabled={isPlaying}
+                                onClick={isPlaying ? stopAudio : playWithEffects}
                                 className="fx-test-audio-btn"
+                                style={isPlaying ? { background: '#991b1b', borderColor: '#ef4444', color: '#ffffff' } : undefined}
                             >
                                 {isPlaying ? <Pause size={16} /> : <Volume2 size={16} />}
-                                {isPlaying ? 'Playing...' : 'Test Audio'}
+                                {isPlaying ? 'Stop Audio' : 'Test Audio'}
                             </button>
                             <button
                                 type="button"
@@ -1041,8 +1041,30 @@ export default function EffectsChainQuiz({ quiz, onExit }) {
     return (
         <div className="quiz-player-layout">
             <div className="quiz-left-col">
-                <div style={{ marginBottom: '20px', fontSize: '0.9rem', color: 'var(--text-secondary)' }}>
-                    Practical Quiz 16: Audio Effects Processing • Question {currentQuestion + 1} of {questions.length}
+                <div style={{ marginBottom: '20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '12px', fontSize: '0.9rem', color: 'var(--text-secondary)' }}>
+                    <span>Practical Quiz 16: Audio Effects Processing • Question {currentQuestion + 1} of {questions.length}</span>
+                    {onExit && (
+                        <button
+                            type="button"
+                            onClick={() => { stopAudio(); onExit(); }}
+                            style={{
+                                display: 'inline-flex',
+                                alignItems: 'center',
+                                gap: '6px',
+                                padding: '5px 12px',
+                                borderRadius: '8px',
+                                border: '1px solid #475569',
+                                background: '#1e293b',
+                                color: '#e2e8f0',
+                                fontSize: '0.8rem',
+                                fontWeight: '600',
+                                cursor: 'pointer',
+                                whiteSpace: 'nowrap',
+                            }}
+                        >
+                            <X size={14} /> Exit Quiz
+                        </button>
+                    )}
                 </div>
 
                 <div className="question-card">
