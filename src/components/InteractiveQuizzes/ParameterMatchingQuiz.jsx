@@ -287,6 +287,7 @@ export default function ParameterMatchingQuiz({
                         <span style={{
                             fontSize: '0.75rem',
                             fontWeight: 700,
+                            whiteSpace: 'nowrap',
                             color: isSubmitted ? (Math.abs(values[0] - correctValue) <= tolerance ? '#4ade80' : '#f87171') : '#94a3b8'
                         }}>
                             {isSubmitted
@@ -354,6 +355,7 @@ export default function ParameterMatchingQuiz({
                         <span style={{
                             fontSize: '0.75rem',
                             fontWeight: 700,
+                            whiteSpace: 'nowrap',
                             color: isSubmitted ? (Math.abs(values[0] - correctValue) <= tolerance ? '#4ade80' : '#f87171') : '#94a3b8'
                         }}>
                             {isSubmitted
@@ -416,6 +418,7 @@ export default function ParameterMatchingQuiz({
                         <span style={{
                             fontSize: '0.75rem',
                             fontWeight: 700,
+                            whiteSpace: 'nowrap',
                             color: isSubmitted ? (Math.abs(values[0] - correctValue) <= tolerance ? '#4ade80' : '#f87171') : '#94a3b8'
                         }}>
                             {isSubmitted
