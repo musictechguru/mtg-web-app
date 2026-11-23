@@ -725,35 +725,29 @@
               "quote_author": "Michael Brauer (Mix Engineer)"
             },
             {
-              "title": "Q24: M/S",
-              "content": "What does mid-side (M/S) processing allow an engineer to do?",
+              "title": "Q24: High-Pass Filter",
+              "content": "What is the main purpose of engaging an 80 Hz high-pass filter on a vocal track?",
               "type": "multi_choice",
               "answers": [
                 {
-                  "text": "Process the centre signal independently from the stereo sides",
+                  "text": "To remove low-end rumble and mic handling noise",
                   "is_true": "yes"
                 },
                 {
-                  "text": "Treat the left and right channels as identical mono signals",
+                  "text": "To boost harsh vocal sibilance around 7 kHz",
                   "is_true": "no"
                 },
                 {
-                  "text": "Apply equalisation exclusively to the lowest sub-bass octave",
+                  "text": "To widen the stereo image of the lead vocal",
                   "is_true": "no"
                 },
                 {
-                  "text": "Split audio into three separate high, mid, and low bands",
+                  "text": "To compress dynamic peaks above -12 dB",
                   "is_true": "no"
                 }
               ],
-              "img": "/images/Dictiionary_Quiz_image_Pool/diagram_mid_side_v2.png",
-              "expert_explanation": "M/S decoding separates stereo audio into the Mid (Centre/Mono) and Side (Stereo difference) components. This allows mastering engineers to EQ the vocals (Mid) without brightening the cymbals (Side), or widen the mix by boosting the Sides.",
-              "expert_quote": {
-                "text": "Mid/Side processing lets you shape the stereo image with surgical precision.",
-                "author": "Studio Secrets"
-              },
-              "quote": "Mid-Side processing allows you to EQ the phantom center channel independently from the wide stereo information. It's a mastering engineer's secret weapon.",
-              "quote_author": "iZotope Mastering"
+              "expert_explanation": "An 80 Hz high-pass filter attenuates unwanted sub-bass rumble, foot taps, and plosives below the vocal fundamental without thinning the voice.",
+              "explanation": "<p><strong>Expert Explanation:</strong> An 80 Hz high-pass filter attenuates unwanted sub-bass rumble, foot taps, and plosives below the vocal fundamental without thinning the voice.</p>"
             },
             {
               "title": "Q25: Nyquist",
@@ -7077,14 +7071,14 @@
             {
               "title": "Q11: Coincident X-Y Stereo Microphone Array Configuration",
               "type": "multi_choice",
-              "content": "Which stereo micing technique uses two directional cardioid microphones angled at 90 degrees with capsules aligned?",
+              "content": "Which stereo miking technique uses two cardioid microphones angled at 90° with capsules together?",
               "answers": [
                 {
                   "text": "The spaced pair (A/B) technique",
                   "is_true": "no"
                 },
                 {
-                  "text": "The Mid-Side (M/S) array technique",
+                  "text": "Close mono spot miking",
                   "is_true": "no"
                 },
                 {
@@ -7092,7 +7086,7 @@
                   "is_true": "yes"
                 },
                 {
-                  "text": "The Blumlein ribbon pair technique",
+                  "text": "Distant ambient room miking",
                   "is_true": "no"
                 }
               ],
@@ -10636,11 +10630,11 @@
                   "is_true": "no"
                 },
                 {
-                  "text": "Mid-Side (M-S) Array",
+                  "text": "Close Mono Spot Mic",
                   "is_true": "no"
                 },
                 {
-                  "text": "Decca Tree Array",
+                  "text": "Boundary Wall Mic",
                   "is_true": "no"
                 },
                 {
@@ -20223,7 +20217,7 @@
             },
             {
               "title": "Capture & Style",
-              "content": "Features the legendary 'Acusonic Recording Process' utilizing stereo pairs of microphones to preserve true acoustic phase coherence.",
+              "content": "Features Bruce Swedien’s stereo microphone techniques to preserve natural acoustic phase.",
               "type": "multi_choice",
               "explanation": "<p><strong>Version A (Michael Jackson).</strong> Bruce Swedien's Acusonic process used Blumlein stereo pairs and avoided mono-panpot summing, creating a breathtaking 3D stereo illusion.</p>",
               "answers": [
@@ -20379,9 +20373,9 @@
             },
             {
               "title": "Pan (Stereo Field)",
-              "content": "Utilizes extreme wide LCR stereo staging with heavy rhythm guitars doubled and hard-panned to 100% Left and 100% Right.",
+              "content": "Uses heavy double-tracked rhythm guitars panned hard Left and hard Right.",
               "type": "multi_choice",
-              "explanation": "<p><strong>Version B (Alien Ant Farm).</strong> The 2001 rock mix places thick wall-of-sound rhythm guitars in wide stereo isolation, with the bass guitar, lead vocal, and kick anchor in the exact centre.</p>",
+              "explanation": "<p><strong>Expert Explanation:</strong> Swedien’s 1987 mix spread synths and brass smoothly across the stereo field, whereas Alien Ant Farm panned doubled distorted guitars hard left and right.</p>",
               "answers": [
                 {
                   "text": "Version A (Michael Jackson)",
@@ -20393,7 +20387,7 @@
                 }
               ],
               "img": "/images/stereo_soundstage_panning_hq.svg",
-              "expert_explanation": "Swedien's 1987 mix avoided panning everything hard left or right, using subtle stereo Blumlein arrays to distribute brass, backing vocals, and synthesiser layers across an organic arc.",
+              "expert_explanation": "Swedien’s 1987 mix spread synths and brass smoothly across the stereo field, whereas Alien Ant Farm panned doubled distorted guitars hard left and right.",
               "expert_quote": {
                 "text": "Doubling guitars and panning them wide gives you that massive stadium rock feel.",
                 "author": "Jay Baumgardner (Mixer)"
@@ -21890,7 +21884,7 @@
               "title": "Capture & Style",
               "content": "All instruments (brass sections, upright bass, grand piano, drums) were recorded simultaneously live in one large acoustic room with natural spill.",
               "type": "multi_choice",
-              "explanation": "<p><strong>Version B (Paul Anka).</strong> Arranged in authentic 1950s big band style, the musicians played together in a large studio, relying on natural acoustic room bleed to blend the instruments.</p>",
+              "explanation": "<p><strong>Expert Explanation:</strong> Paul Anka used spot mics combined with ambient room stereo pairs (X-Y / Spaced A-B) for acoustic realism. Van Halen tracked in isolation booths with minimal acoustic spill for independent processing.</p>",
               "answers": [
                 {
                   "text": "Version A (Van Halen)",
@@ -21902,7 +21896,7 @@
                 }
               ],
               "img": "/images/drum_recording_60s.png",
-              "expert_explanation": "Paul Anka used spot mics combined with ambient room stereo pairs (XY/Blumlein) for acoustic realism. Van Halen tracked in isolation booths with minimal acoustic spill for independent processing.",
+              "expert_explanation": "Paul Anka used spot mics combined with ambient room stereo pairs (X-Y / Spaced A-B) for acoustic realism. Van Halen tracked in isolation booths with minimal acoustic spill for independent processing.",
               "expert_quote": {
                 "text": "With big band, you don't track instruments one by one. You capture the breath and energy of 20 musicians hitting that downbeat together.",
                 "author": "Paul Anka"
