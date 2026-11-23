@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { Check, X } from 'lucide-react';
 
-const formatZoneLabel = (label = '') =>
-    label
-        .replace(/\bCenter\b/gi, 'Centre')
-        .replace(/Hard Left/i, 'Hard L')
-        .replace(/Mid Left/i, 'Mid L')
-        .replace(/Hard Right/i, 'Hard R')
-        .replace(/Mid Right/i, 'Mid R');
+const formatZoneLabel = (zone) => {
+    if (typeof zone === 'string') return zone.replace(/\bCenter\b/gi, 'Centre');
+    const a = zone?.angle;
+    if (a === 0) return 'Hard L';
+    if (a > 0 && a < 90) return 'Mid L';
+    if (a === 90) return 'Centre';
+    if (a > 90 && a < 180) return 'Mid R';
+    if (a === 180) return 'Hard R';
+    return (zone?.label || zone?.id || '').replace(/\bCenter\b/gi, 'Centre');
+};
 
 const NODE_COLORS = ['#38bdf8', '#a78bfa', '#f472b6', '#fbbf24', '#34d399'];
 
@@ -225,7 +228,7 @@ export default function PanningQuiz({ question, initialAnswers, onAnswersChange,
                                                 transition: 'all 0.12s ease',
                                             }}
                                         >
-                                            {formatZoneLabel(zone.label || zone.id)}
+                                            {formatZoneLabel(zone)}
                                         </button>
                                     );
                                 })}
