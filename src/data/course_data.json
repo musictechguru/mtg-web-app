@@ -4538,29 +4538,30 @@
               "content": "In audio mixing, what is psychoacoustic 'frequency masking'?",
               "answers": [
                 {
-                  "text": "When out-of-phase audio cancels bass frequencies in mono playback",
+                  "text": "Out-of-phase audio cancels bass in mono",
                   "is_true": "no"
                 },
                 {
-                  "text": "When heavy compression squashes transients on loud drum instruments",
+                  "text": "Heavy compression squashes drum transients",
                   "is_true": "no"
                 },
                 {
-                  "text": "When louder instruments obscure quieter instruments sharing similar frequencies",
+                  "text": "Louder sounds obscure quieter similar frequencies",
                   "is_true": "yes"
                 },
                 {
-                  "text": "When stereo widening plugins eliminate centre vocals from mixes",
+                  "text": "Stereo wideners remove centre vocals",
                   "is_true": "no"
                 }
               ],
-              "expert_explanation": "Frequency masking is a psychoacoustic phenomenon where a loud sound renders a quieter sound sharing the same frequency spectrum inaudible to human ears (e.g., loud distorted electric guitars masking vocal presence between 1 kHz and 3 kHz). Rather than turning the vocal up (which eats headroom), mixers use subtractive EQ to carve out a pocket in the guitars, allowing the vocal to be heard clearly.",
+              "expert_explanation": "Frequency masking happens when two instruments share the same frequency range and the louder sound masks the quieter one. Subtractive EQ carves space for each part.",
               "expert_quote": {
                 "text": "Don't EQ an instrument in solo. EQ the track so it steps out of the way of other elements and clears room for the mix.",
                 "author": "Al Schmitt"
               },
               "img": "/images/frequency_masking_carving_diagram_v2.svg",
-              "explanation": "<img src=\"/images/frequency_masking_carving_diagram_v2.svg\" alt=\"Acoustic Frequency Masking and Complementary EQ Carving Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Frequency masking is a psychoacoustic phenomenon where a loud sound renders a quieter sound sharing the same frequency spectrum inaudible to human ears (e.g., loud distorted electric guitars masking vocal presence between 1 kHz and 3 kHz). Rather than turning the vocal up (which eats headroom), mixers use subtractive EQ to carve out a pocket in the guitars, allowing the vocal to be heard clearly.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Don't EQ an instrument in solo. EQ the track so it steps out of the way of other elements and clears room for the mix.\"<br/><strong>- Al Schmitt</strong></blockquote>"
+              "explanation": "<img src=\"/images/frequency_masking_carving_diagram_v2.svg\" alt=\"Acoustic Frequency Masking and Complementary EQ Carving Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Frequency masking happens when two instruments share the same frequency range and the louder sound masks the quieter one. Subtractive EQ carves space for each part.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Don't EQ an instrument in solo. EQ the track so it steps out of the way of other elements and clears room for the mix.\"<br/><strong>- Al Schmitt</strong></blockquote>",
+              "explanation_image": "/images/frequency_masking_carving_diagram_v2.svg"
             },
             {
               "title": "Q12: Surgical Q Notch Filtering for Problem Frequencies",
@@ -4590,7 +4591,8 @@
                 "author": "Classic Mixing Rule"
               },
               "img": "/images/eq_q_factor_bandwidth_diagram_v2.svg",
-              "explanation": "<img src=\"/images/eq_q_factor_bandwidth_diagram_v2.svg\" alt=\"Surgical High Q Notch vs Musical Low Q EQ Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> The Q (Quality) factor defines the bandwidth of an EQ filter (Bandwidth = Centre Frequency / Q). A high Q value (such as Q = 8 to 12) produces an extremely narrow 'surgical' notch that can attenuate or eliminate an unwanted resonant frequency (e.g. 347 Hz acoustic body resonance or 50/60 Hz electrical mains hum) without affecting adjacent musical frequencies. Conversely, low Q values (Q = 0.5 to 1.0) create broad, musical tone-shaping curves.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Use broad EQ curves when boosting to add musical tone, and narrow high-Q notches when cutting to fix problems.\"<br/><strong>- Classic Mixing Rule</strong></blockquote>"
+              "explanation": "<img src=\"/images/eq_q_factor_bandwidth_diagram_v2.svg\" alt=\"Surgical High Q Notch vs Musical Low Q EQ Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> The Q (Quality) factor defines the bandwidth of an EQ filter (Bandwidth = Centre Frequency / Q). A high Q value (such as Q = 8 to 12) produces an extremely narrow 'surgical' notch that can attenuate or eliminate an unwanted resonant frequency (e.g. 347 Hz acoustic body resonance or 50/60 Hz electrical mains hum) without affecting adjacent musical frequencies. Conversely, low Q values (Q = 0.5 to 1.0) create broad, musical tone-shaping curves.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Use broad EQ curves when boosting to add musical tone, and narrow high-Q notches when cutting to fix problems.\"<br/><strong>- Classic Mixing Rule</strong></blockquote>",
+              "explanation_image": "/images/eq_q_factor_bandwidth_diagram_v2.svg"
             },
             {
               "title": "Q13: Phantom Centre Acoustic Illusion in Stereo Monitoring",
@@ -4598,59 +4600,57 @@
               "content": "What is the 'phantom centre' in stereo monitoring?",
               "answers": [
                 {
-                  "text": "An acoustic null created in an acoustically untreated control room",
+                  "text": "An acoustic null in an untreated room",
                   "is_true": "no"
                 },
                 {
-                  "text": "The illusion of a sound source coming directly between both speakers",
+                  "text": "A sound appearing directly between two speakers",
                   "is_true": "yes"
                 },
                 {
-                  "text": "A physical third speaker placed midway between the stereo monitors",
+                  "text": "A physical third speaker placed in the middle",
                   "is_true": "no"
                 },
                 {
-                  "text": "An artificial stereo reverb tail spread evenly across audio tracks",
+                  "text": "Stereo reverb spread evenly across tracks",
                   "is_true": "no"
                 }
               ],
-              "expert_explanation": "When identical audio signals are reproduced by both left and right speakers at identical levels and arrival times, the human brain localizes the sound as originating directly in front of the listener. This psychoacoustic phenomenon is known as the \"Phantom Center\", enabling clear centre staging without a physical centre speaker.",
+              "expert_explanation": "When both left and right speakers play an identical signal at equal volume, the listener perceives a phantom centre coming directly from between the speakers.",
               "expert_quote": {
                 "text": "Contrast creates width. If everything is wide, nothing is wide. The phantom center anchors your mix.",
                 "author": "Dave Pensado"
               },
               "img": "/images/phantom_center_stereo_diagram_v2.svg",
-              "explanation": "<img src=\"/images/phantom_center_stereo_diagram_v2.svg\" alt=\"Phantom Centre Acoustic Illusion in Stereo Monitoring Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> When identical audio signals are reproduced by both left and right speakers at identical levels and arrival times, the human brain localizes the sound as originating directly in front of the listener. This psychoacoustic phenomenon is known as the \"Phantom Center\", enabling clear centre staging without a physical centre speaker.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Contrast creates width. If everything is wide, nothing is wide. The phantom centre anchors your mix.\"<br/><strong>- Dave Pensado</strong></blockquote>"
+              "explanation": "<img src=\"/images/phantom_center_stereo_diagram_v2.svg\" alt=\"Phantom Centre Acoustic Illusion in Stereo Monitoring Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> When both left and right speakers play an identical signal at equal volume, the listener perceives a phantom centre coming directly from between the speakers.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Contrast creates width. If everything is wide, nothing is wide. The phantom centre anchors your mix.\"<br/><strong>- Dave Pensado</strong></blockquote>",
+              "explanation_image": "/images/phantom_center_stereo_diagram_v2.svg"
             },
             {
-              "title": "Q14: LCR Panning (Left-Center-Right)",
+              "title": "Q14: Stereo Panning Double-Tracked Guitars",
+              "content": "How are two separate takes of a rhythm guitar part typically panned to create a wide stereo rock mix?",
               "type": "multi_choice",
-              "content": "What is 'LCR panning' in audio mixing?",
+              "img": "/images/lcr_panning_soundstage_diagram_v2.svg",
+              "explanation_image": "/images/lcr_panning_soundstage_diagram_v2.svg",
               "answers": [
                 {
-                  "text": "Panning low bass left, mids in centre, and treble right",
+                  "text": "Both takes panned dead centre in mono",
                   "is_true": "no"
                 },
                 {
-                  "text": "Positioning three microphones across a stage in a triangle layout",
+                  "text": "Low frequencies left and treble right",
                   "is_true": "no"
                 },
                 {
-                  "text": "Routing audio channels into three distinct stereo submix stems",
+                  "text": "Routed into three separate delay buses",
                   "is_true": "no"
                 },
                 {
-                  "text": "Panning every track strictly hard Left, hard Right, or dead Centre",
+                  "text": "One take panned hard left, one hard right",
                   "is_true": "yes"
                 }
               ],
-              "expert_explanation": "LCR (Left-Center-Right) panning restricts every track in a mix strictly to one of three positions: 100% hard Left, 100% hard Right, or 0% dead Centre. By avoiding muddy intermediate positions (like 25% or 50%), LCR delivers extreme stereo width, crystal-clear spatial separation, and preserves uncluttered headroom in the centre channel for the 'mix spine' (lead vocals, snare, kick drum, and bass).",
-              "expert_quote": {
-                "text": "LCR forces you to arrange with tone and contrast rather than lazy panning. It gives mixes incredible punch and panoramic size.",
-                "author": "Chris Lord-Alge"
-              },
-              "img": "/images/lcr_panning_soundstage_diagram_v2.svg",
-              "explanation": "<img src=\"/images/lcr_panning_soundstage_diagram_v2.svg\" alt=\"LCR Panning Discipline Left Centre Right Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> LCR (Left-Center-Right) panning restricts every track in a mix strictly to one of three positions: 100% hard Left, 100% hard Right, or 0% dead Centre. By avoiding muddy intermediate positions (like 25% or 50%), LCR delivers extreme stereo width, crystal-clear spatial separation, and preserves uncluttered headroom in the centre channel for the 'mix spine' (lead vocals, snare, kick drum, and bass).</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"LCR forces you to arrange with tone and contrast rather than lazy panning. It gives mixes incredible punch and panoramic size.\"<br/><strong>- Chris Lord-Alge</strong></blockquote>"
+              "expert_explanation": "Recording two distinct performances and panning them hard left and right creates natural stereo width without phase cancellation when summed to mono.",
+              "explanation": "<img src=\"/images/lcr_panning_soundstage_diagram_v2.svg\" alt=\"Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Recording two distinct performances and panning them hard left and right creates natural stereo width without phase cancellation when summed to mono.</p>"
             },
             {
               "title": "Q15: Stereo Pan Law Constant Volume Compensation",
@@ -4658,29 +4658,30 @@
               "content": "Why do mixing consoles and DAWs use a 'Pan Law' (such as -3 dB or -4.5 dB)?",
               "answers": [
                 {
-                  "text": "To add warm analogue saturation when audio tracks are panned central",
+                  "text": "Add analogue saturation on centre tracks",
                   "is_true": "no"
                 },
                 {
-                  "text": "To compress loud transient peaks on tracks that are panned wide",
+                  "text": "Compress loud peaks on wide-panned tracks",
                   "is_true": "no"
                 },
                 {
-                  "text": "To keep the perceived volume level constant as sounds are panned across",
+                  "text": "Keep perceived volume constant across panning",
                   "is_true": "yes"
                 },
                 {
-                  "text": "To prevent unwanted phase cancellation when folding a stereo mix to mono",
+                  "text": "Prevent phase cancellation when checking mono",
                   "is_true": "no"
                 }
               ],
-              "expert_explanation": "When a sound is panned to the centre, it is reproduced by both left and right speakers simultaneously. In acoustic space, this dual-speaker radiation sums together, causing an unnatural +3 dB (electrical) to +6 dB (acoustic) volume increase in the centre. A Pan Law compensates by automatically attenuating center-panned signals by a chosen amount (typically -3 dB or -4.5 dB), ensuring the sound maintains constant perceived loudness as it pans smoothly from left to right.",
+              "expert_explanation": "A Pan Law (typically -3 dB) attenuates signals panned to the centre so they do not sound louder when summed across both stereo speakers.",
               "expert_quote": {
                 "text": "Without pan law, every instrument you pan toward the center will jump out in volume and clutter your mix balance.",
                 "author": "Mixing Desk Principles"
               },
               "img": "/images/pan_law_stereo_diagram_v2.svg",
-              "explanation": "<img src=\"/images/pan_law_stereo_diagram_v2.svg\" alt=\"Stereo Pan Law Constant Volume Compensation Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> When a sound is panned to the centre, it is reproduced by both left and right speakers simultaneously. In acoustic space, this dual-speaker radiation sums together, causing an unnatural +3 dB (electrical) to +6 dB (acoustic) volume increase in the centre. A Pan Law compensates by automatically attenuating center-panned signals by a chosen amount (typically -3 dB or -4.5 dB), ensuring the sound maintains constant perceived loudness as it pans smoothly from left to right.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Without pan law, every instrument you pan toward the centre will jump out in volume and clutter your mix balance.\"<br/><strong>- Mixing Desk Principles</strong></blockquote>"
+              "explanation": "<img src=\"/images/pan_law_stereo_diagram_v2.svg\" alt=\"Stereo Pan Law Constant Volume Compensation Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> A Pan Law (typically -3 dB) attenuates signals panned to the centre so they do not sound louder when summed across both stereo speakers.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Without pan law, every instrument you pan toward the centre will jump out in volume and clutter your mix balance.\"<br/><strong>- Mixing Desk Principles</strong></blockquote>",
+              "explanation_image": "/images/pan_law_stereo_diagram_v2.svg"
             },
             {
               "title": "Q16: Dynamic EQ vs Static Parametric EQ Processing",
@@ -4688,29 +4689,30 @@
               "content": "How does a dynamic EQ differ from a standard static EQ?",
               "answers": [
                 {
-                  "text": "A static EQ only cuts frequencies, while dynamic EQ only boosts",
+                  "text": "Static EQ only cuts; dynamic EQ only boosts",
                   "is_true": "no"
                 },
                 {
-                  "text": "A dynamic EQ adjusts its cut or boost depending on signal volume",
+                  "text": "Dynamic EQ reacts to signal level above threshold",
                   "is_true": "yes"
                 },
                 {
-                  "text": "A dynamic EQ converts mono audio channels into wide stereo soundstages",
+                  "text": "Dynamic EQ widens mono into stereo",
                   "is_true": "no"
                 },
                 {
-                  "text": "A static EQ changes the fundamental pitch of incoming audio tracks",
+                  "text": "Static EQ shifts the pitch of instruments",
                   "is_true": "no"
                 }
               ],
-              "expert_explanation": "A static parametric EQ applies a fixed, permanent boost or cut across the chosen frequency band regardless of track volume. In contrast, a dynamic EQ combines equalisation with compression/expansion: its gain only changes when the signal in that frequency band crosses a user-defined threshold. This allows mixers to tame intermittent issues (such as harsh vocal sibilance at 4 kHz or acoustic guitar resonant booms) without thinning out the track when the singer sings quietly.",
+              "expert_explanation": "Unlike a static EQ’s fixed cut or boost, a dynamic EQ only attenuates or boosts a frequency band when the signal level crosses a set threshold.",
               "expert_quote": {
                 "text": "Dynamic EQ is the ultimate scalpel because it only intervenes when a frequency misbehaves, leaving the natural tone untouched otherwise.",
                 "author": "Tchad Blake"
               },
               "img": "/images/dynamic_eq_threshold_diagram.svg",
-              "explanation": "<img src=\"/images/dynamic_eq_threshold_diagram.svg\" alt=\"Dynamic EQ vs Static Parametric EQ Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> A static parametric EQ applies a fixed, permanent boost or cut across the chosen frequency band regardless of track volume. In contrast, a dynamic EQ combines equalisation with compression/expansion: its gain only changes when the signal in that frequency band crosses a user-defined threshold. This allows mixers to tame intermittent issues (such as harsh vocal sibilance at 4 kHz or acoustic guitar resonant booms) without thinning out the track when the singer sings quietly.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Dynamic EQ is the ultimate scalpel because it only intervenes when a frequency misbehaves, leaving the natural tone untouched otherwise.\"<br/><strong>- Tchad Blake</strong></blockquote>"
+              "explanation": "<img src=\"/images/dynamic_eq_threshold_diagram.svg\" alt=\"Dynamic EQ vs Static Parametric EQ Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Unlike a static EQ’s fixed cut or boost, a dynamic EQ only attenuates or boosts a frequency band when the signal level crosses a set threshold.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Dynamic EQ is the ultimate scalpel because it only intervenes when a frequency misbehaves, leaving the natural tone untouched otherwise.\"<br/><strong>- Tchad Blake</strong></blockquote>",
+              "explanation_image": "/images/dynamic_eq_threshold_diagram.svg"
             },
             {
               "title": "Q17: Parametric EQ: Q and Bandwidth Control",
@@ -4718,59 +4720,57 @@
               "content": "When cutting an annoying ringing frequency from a snare drum, how should the bandwidth (Q) be set?",
               "answers": [
                 {
-                  "text": "A wide bandwidth to boost the overall brightness and punch",
+                  "text": "Wide bandwidth to boost overall brightness",
                   "is_true": "no"
                 },
                 {
-                  "text": "A wide high-pass slope to eliminate all low-end frequencies",
+                  "text": "Steep high-pass filter to cut low end",
                   "is_true": "no"
                 },
                 {
-                  "text": "A narrow bandwidth to cut the offending ring without changing tone",
+                  "text": "Narrow bandwidth (high Q) to isolate the ring",
                   "is_true": "yes"
                 },
                 {
-                  "text": "A zero gain setting to preserve the original snare dynamics",
+                  "text": "Zero gain setting to keep snare dynamics",
                   "is_true": "no"
                 }
               ],
-              "expert_explanation": "In parametric equalisation, the Q factor controls the filter's bandwidth. A high Q value creates a narrow bell curve, ideal for surgical subtractive EQ—isolating and notching out harsh or ringing resonance peaks without removing desirable musical body.",
+              "expert_explanation": "A narrow bandwidth (high Q) lets you notch out an unwanted snare ring surgically without thinning out the rest of the drum’s tone.",
               "expert_quote": {
                 "text": "Cut narrow to remove problems; boost broad to add musical character.",
                 "author": "Bob Clearmountain, Mixing Engineer"
               },
               "img": "/images/eq_q_factor_bandwidth_diagram.svg",
-              "explanation": "<img src=\"/images/eq_q_factor_bandwidth_diagram.svg\" alt=\"Parametric EQ Q Factor and Bandwidth Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> In parametric equalisation, the Q factor controls the filter's bandwidth. A high Q value creates a narrow bell curve, ideal for surgical subtractive EQ—isolating and notching out harsh or ringing resonance peaks without removing desirable musical body.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Cut narrow to remove problems; boost broad to add musical character.\"<br/><strong>- Bob Clearmountain, Mixing Engineer</strong></blockquote>"
+              "explanation": "<img src=\"/images/eq_q_factor_bandwidth_diagram.svg\" alt=\"Parametric EQ Q Factor and Bandwidth Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> A narrow bandwidth (high Q) lets you notch out an unwanted snare ring surgically without thinning out the rest of the drum’s tone.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Cut narrow to remove problems; boost broad to add musical character.\"<br/><strong>- Bob Clearmountain, Mixing Engineer</strong></blockquote>",
+              "explanation_image": "/images/eq_q_factor_bandwidth_diagram.svg"
             },
             {
-              "title": "Q18: Mid/Side (M/S) Equalisation Mixing Techniques",
+              "title": "Q18: Complementary EQ (Kick Drum & Bass Guitar)",
+              "content": "When a kick drum and bass guitar clash in the low end, what is the standard EQ solution?",
               "type": "multi_choice",
-              "content": "In Mid/Side (M/S) processing, what is a standard mastering practice for low frequencies?",
+              "img": "/images/kick_drum_eq_carving_diagram.svg",
+              "explanation_image": "/images/kick_drum_eq_carving_diagram.svg",
               "answers": [
                 {
-                  "text": "Boosting the Side channel bass to make the kick drum wider",
+                  "text": "Boost 60 Hz by +6 dB on both instruments",
                   "is_true": "no"
                 },
                 {
-                  "text": "Inverting the Mid channel phase to widen lead vocal tracks",
+                  "text": "Pan kick hard left and bass hard right",
                   "is_true": "no"
                 },
                 {
-                  "text": "Low-passing the Mid channel to eliminate sub-bass frequency clarity",
+                  "text": "High-pass both tracks above 200 Hz",
                   "is_true": "no"
                 },
                 {
-                  "text": "High-passing the Side channel to keep deep bass strictly in mono",
+                  "text": "Carve opposite frequencies so each has space",
                   "is_true": "yes"
                 }
               ],
-              "expert_explanation": "Mid/Side (M/S) processing splits a stereo signal into the Mid channel (L + R sum, containing center-staged elements like kick, snare, bass, and lead vocal) and the Side channel (L - R difference, containing spatial ambience, reverbs, and wide pans). A fundamental mastering practice is applying a High-Pass Filter to the Side channel below 100–120 Hz ('Mono Bass'). This eliminates out-of-phase low rumble from the stereo sides, focusing all sub-bass power directly into the centre for maximum punch on club subwoofers and vinyl.",
-              "expert_quote": {
-                "text": "Keep your low end strictly mono with M/S filtering. Width belongs in the mids and highs; bass needs center power.",
-                "author": "Mastering Standards"
-              },
-              "img": "/images/mid_side_eq_diagram.svg",
-              "explanation": "<img src=\"/images/mid_side_eq_diagram.svg\" alt=\"Mid Side MS Equalisation Workflow Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Mid/Side (M/S) processing splits a stereo signal into the Mid channel (L + R sum, containing center-staged elements like kick, snare, bass, and lead vocal) and the Side channel (L - R difference, containing spatial ambience, reverbs, and wide pans). A fundamental mastering practice is applying a High-Pass Filter to the Side channel below 100–120 Hz ('Mono Bass'). This eliminates out-of-phase low rumble from the stereo sides, focusing all sub-bass power directly into the centre for maximum punch on club subwoofers and vinyl.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Keep your low end strictly mono with M/S filtering. Width belongs in the mids and highs; bass needs centre power.\"<br/><strong>- Mastering Standards</strong></blockquote>"
+              "expert_explanation": "Complementary EQ gives each instrument its own pocket—for example, boosting kick thump at 60 Hz while dipping 60 Hz slightly on the bass guitar.",
+              "explanation": "<img src=\"/images/kick_drum_eq_carving_diagram.svg\" alt=\"Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Complementary EQ gives each instrument its own pocket—for example, boosting kick thump at 60 Hz while dipping 60 Hz slightly on the bass guitar.</p>"
             },
             {
               "title": "Q19: Mono Compatibility & Stereo Widening Phase Cancellation",
@@ -4778,29 +4778,30 @@
               "content": "You apply a stereo widening plugin to a guitar track. Why does the guitar disappear when checked in mono?",
               "answers": [
                 {
-                  "text": "Heavy dynamic compression is clamping the audio below the threshold",
+                  "text": "Heavy compression clamping peaks below threshold",
                   "is_true": "no"
                 },
                 {
-                  "text": "Destructive phase cancellation between the left and right audio channels",
+                  "text": "Destructive phase cancellation between L and R",
                   "is_true": "yes"
                 },
                 {
-                  "text": "Extreme high-pass filtering is removing all fundamental acoustic resonances",
+                  "text": "Steep high-pass filtering removing resonance",
                   "is_true": "no"
                 },
                 {
-                  "text": "Digital clipping distortion is overloading the master output converter stages",
+                  "text": "Digital clipping overloading the converters",
                   "is_true": "no"
                 }
               ],
-              "expert_explanation": "Many artificial stereo widening plugins achieve an exaggerated sense of width by inverting the polarity of one channel (-180° phase shift) or applying micro-delays (the Haas effect). While this creates an expansive stereo illusion on headphones, when the two channels are summed together into mono (as on smartphones, smart speakers, mono radio, or club PAs), the identical out-of-phase waveforms destructively cancel each other out (1 + (-1) = 0), causing the instrument to vanish.",
+              "expert_explanation": "Artificial stereo wideners often invert phase or delay one side. When summed to mono, out-of-phase frequencies cancel out and the guitar vanishes.",
               "expert_quote": {
                 "text": "Always check your mix in mono. A mix that sounds huge in stereo but collapses into hollow comb filtering in mono is a failed mix.",
                 "author": "Michael Brauer"
               },
               "img": "/images/mono_compatibility_phase_diagram.svg",
-              "explanation": "<img src=\"/images/mono_compatibility_phase_diagram.svg\" alt=\"Mono Compatibility and Phase Cancellation Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Many artificial stereo widening plugins achieve an exaggerated sense of width by inverting the polarity of one channel (-180° phase shift) or applying micro-delays (the Haas effect). While this creates an expansive stereo illusion on headphones, when the two channels are summed together into mono (as on smartphones, smart speakers, mono radio, or club PAs), the identical out-of-phase waveforms destructively cancel each other out (1 + (-1) = 0), causing the instrument to vanish.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Always check your mix in mono. A mix that sounds huge in stereo but collapses into hollow comb filtering in mono is a failed mix.\"<br/><strong>- Michael Brauer</strong></blockquote>"
+              "explanation": "<img src=\"/images/mono_compatibility_phase_diagram.svg\" alt=\"Mono Compatibility and Phase Cancellation Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Artificial stereo wideners often invert phase or delay one side. When summed to mono, out-of-phase frequencies cancel out and the guitar vanishes.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Always check your mix in mono. A mix that sounds huge in stereo but collapses into hollow comb filtering in mono is a failed mix.\"<br/><strong>- Michael Brauer</strong></blockquote>",
+              "explanation_image": "/images/mono_compatibility_phase_diagram.svg"
             },
             {
               "title": "Q20: Harmonic Pitch Calculation Across Octaves",
@@ -4830,7 +4831,8 @@
                 "author": "Acoustic Theory Principles"
               },
               "img": "/images/octave_frequency_doubling_diagram.svg",
-              "explanation": "<img src=\"/images/octave_frequency_doubling_diagram.svg\" alt=\"Musical Octaves and Frequency Doubling Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Musical pitch follows a logarithmic frequency relationship where every octave step higher exactly doubles the fundamental frequency (fn = f0 * 2^n). Therefore, one octave above A4 (440 Hz) is A5 at 440 Hz * 2 = 880 Hz, while one octave below is A3 at 440 Hz / 2 = 220 Hz. Understanding octave math enables audio engineers to calculate musical harmonic intervals, set proportional filter bands, and surgically target resonant overtones.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"The audio spectrum is fundamentally mathematical. If you know the root note of a song, you can calculate every resonant octave and harmonic overtone with precision.\"<br/><strong>- Acoustic Theory Principles</strong></blockquote>"
+              "explanation": "<img src=\"/images/octave_frequency_doubling_diagram.svg\" alt=\"Musical Octaves and Frequency Doubling Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Musical pitch follows a logarithmic frequency relationship where every octave step higher exactly doubles the fundamental frequency (fn = f0 * 2^n). Therefore, one octave above A4 (440 Hz) is A5 at 440 Hz * 2 = 880 Hz, while one octave below is A3 at 440 Hz / 2 = 220 Hz. Understanding octave math enables audio engineers to calculate musical harmonic intervals, set proportional filter bands, and surgically target resonant overtones.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"The audio spectrum is fundamentally mathematical. If you know the root note of a song, you can calculate every resonant octave and harmonic overtone with precision.\"<br/><strong>- Acoustic Theory Principles</strong></blockquote>",
+              "explanation_image": "/images/octave_frequency_doubling_diagram.svg"
             }
           ],
           "randomise": false
