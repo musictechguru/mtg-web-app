@@ -14266,32 +14266,27 @@
               "title": "1960s Early Stereo (Hard-Panned Stems)",
               "content": "Position the instruments according to 1960s 4-track console limitations (e.g. The Beatles - Taxman / Eleanor Rigby).",
               "question": "Place the instruments in their authentic 1960s 3-position (Left-Center-Right) stereo soundstage.",
-              "hint": "Early British mixing consoles only had 3-way toggle switches: Left, Center, Right - no pan pots!",
+              "hint": "1966 consoles used 3-way switches (Left, Centre, Right). Listen to where the lead vocal and string sections sit.",
               "elements": [
                 {
-                  "id": "el_drums",
-                  "content": "Ringo Drum Kit",
-                  "targetZone": "zone_hard_left"
-                },
-                {
-                  "id": "el_bass",
-                  "content": "Paul Bass Guitar",
-                  "targetZone": "zone_hard_left"
-                },
-                {
-                  "id": "el_strings",
-                  "content": "String Octet",
+                  "id": "el_q1_1",
+                  "content": "Paul Lead Vocal",
                   "targetZone": "zone_center"
                 },
                 {
-                  "id": "el_lead_vox",
-                  "content": "Lead Vocal",
+                  "id": "el_q1_2",
+                  "content": "Violins (High Strings)",
+                  "targetZone": "zone_hard_left"
+                },
+                {
+                  "id": "el_q1_3",
+                  "content": "Cellos & Low Strings",
                   "targetZone": "zone_hard_right"
                 },
                 {
-                  "id": "el_backing_vox",
-                  "content": "Backing Vocals",
-                  "targetZone": "zone_hard_right"
+                  "id": "el_q1_4",
+                  "content": "Chorus Backing Vocals",
+                  "targetZone": "zone_center"
                 }
               ],
               "zones": [
@@ -14302,22 +14297,10 @@
                   "label": "Hard Left"
                 },
                 {
-                  "id": "zone_mid_left",
-                  "angle": 45,
-                  "distance": 0.7,
-                  "label": "Mid Left"
-                },
-                {
                   "id": "zone_center",
                   "angle": 90,
                   "distance": 0.75,
-                  "label": "Center"
-                },
-                {
-                  "id": "zone_mid_right",
-                  "angle": 135,
-                  "distance": 0.7,
-                  "label": "Mid Right"
+                  "label": "Centre"
                 },
                 {
                   "id": "zone_hard_right",
@@ -14341,407 +14324,32 @@
               "title": "Modern Rock Band (Drummer Perspective)",
               "content": "Arrange a modern rock band across the stereo panorama from the drummer's listening perspective.",
               "question": "Place the drum kit and rhythm section in an authentic modern rock soundstage.",
-              "hint": "Kick and snare stay locked in the center for power, double-tracked guitars pan wide, and hi-hat sits on the drummer's left.",
+              "hint": "Keep kick, snare, and bass in the Centre; pan double-tracked rhythm guitars wide; place hi-hat left and floor tom right (drummer perspective).",
               "elements": [
                 {
-                  "id": "el_kick_snare",
+                  "id": "el_q2_1",
                   "content": "Kick & Snare Drums",
                   "targetZone": "zone_center"
                 },
                 {
-                  "id": "el_hihat",
-                  "content": "Hi-Hat (Drummer Left)",
+                  "id": "el_q2_2",
+                  "content": "Hi-Hat",
                   "targetZone": "zone_mid_left"
                 },
                 {
-                  "id": "el_floor_tom",
-                  "content": "Floor Tom (Drummer Right)",
+                  "id": "el_q2_3",
+                  "content": "Floor Tom",
                   "targetZone": "zone_mid_right"
                 },
                 {
-                  "id": "el_gtr_left",
+                  "id": "el_q2_4",
                   "content": "Rhythm Guitar (Take 1)",
                   "targetZone": "zone_hard_left"
                 },
                 {
-                  "id": "el_gtr_right",
+                  "id": "el_q2_5",
                   "content": "Rhythm Guitar (Take 2)",
                   "targetZone": "zone_hard_right"
-                }
-              ],
-              "zones": [
-                {
-                  "id": "zone_hard_left",
-                  "angle": 0,
-                  "distance": 0.9,
-                  "label": "100% Left"
-                },
-                {
-                  "id": "zone_mid_left",
-                  "angle": 45,
-                  "distance": 0.65,
-                  "label": "Mid Left (Drummer Perspective)"
-                },
-                {
-                  "id": "zone_center",
-                  "angle": 90,
-                  "distance": 0.75,
-                  "label": "Center"
-                },
-                {
-                  "id": "zone_mid_right",
-                  "angle": 135,
-                  "distance": 0.65,
-                  "label": "Mid Right"
-                },
-                {
-                  "id": "zone_hard_right",
-                  "angle": 180,
-                  "distance": 0.9,
-                  "label": "100% Right"
-                }
-              ],
-              "explanation": "<p><strong>Modern Rock Panoramic Spread:</strong> Keeping low-frequency energy (kick drum, bass guitar, and snare core) anchored in the centre balances acoustic power across both monitors. Panning double-tracked rhythm guitars hard left and hard right (100% L/R) creates immense soundstage width while leaving the entire centre channel open for the lead vocal.</p>",
-              "expert_quote": {
-                "text": "Pan your double-tracked heavy guitars 100% left and 100% right. Anything less sounds like a weak guitar in the middle rather than a giant stereo wall.",
-                "author": "Andy Wallace, Mix Engineer (Nirvana - Nevermind, Rage Against the Machine)"
-              },
-              "expert_explanation": "Modern Rock Panoramic Spread: Keeping low-frequency energy (kick drum, bass guitar, and snare core) anchored in the centre balances acoustic power across both monitors. Panning double-tracked rhythm guitars hard left and hard right (100% L/R) creates immense soundstage width while leaving the entire centre channel open for the lead vocal.",
-              "youtube_id": "eBG7P-K-r1Y",
-              "youtube_title": "Foo Fighters - Everlong (1997)"
-            },
-            {
-              "id": "panning_q3",
-              "type": "panning",
-              "title": "Modern EDM & Club Mix",
-              "content": "Position dance elements to ensure maximum mono compatibility and club subwoofer safety.",
-              "question": "Place the electronic music stems to balance wide stereo excitement with mono club sound systems.",
-              "hint": "Sub-bass below 100 Hz MUST be in the center to avoid phase cancellation on mono club PAs!",
-              "elements": [
-                {
-                  "id": "el_sub_bass",
-                  "content": "Sub-Bass (30-80 Hz)",
-                  "targetZone": "zone_center"
-                },
-                {
-                  "id": "el_edm_clap",
-                  "content": "Main Snare / Clap",
-                  "targetZone": "zone_center"
-                },
-                {
-                  "id": "el_supersaw_l",
-                  "content": "Stereo Supersaw Lead (L)",
-                  "targetZone": "zone_hard_left"
-                },
-                {
-                  "id": "el_supersaw_r",
-                  "content": "Stereo Supersaw Lead (R)",
-                  "targetZone": "zone_hard_right"
-                },
-                {
-                  "id": "el_fx_riser",
-                  "content": "White Noise Sweep (Riser)",
-                  "targetZone": "zone_mid_right"
-                }
-              ],
-              "zones": [
-                {
-                  "id": "zone_hard_left",
-                  "angle": 0,
-                  "distance": 0.85,
-                  "label": "Wide Left"
-                },
-                {
-                  "id": "zone_mid_left",
-                  "angle": 45,
-                  "distance": 0.7,
-                  "label": "Mid Left"
-                },
-                {
-                  "id": "zone_center",
-                  "angle": 90,
-                  "distance": 0.8,
-                  "label": "Mono Center"
-                },
-                {
-                  "id": "zone_mid_right",
-                  "angle": 135,
-                  "distance": 0.7,
-                  "label": "Mid Right"
-                },
-                {
-                  "id": "zone_hard_right",
-                  "angle": 180,
-                  "distance": 0.85,
-                  "label": "Wide Right"
-                }
-              ],
-              "explanation": "<p><strong>EDM Stereo Imaging:</strong> Club sound systems sum low frequencies to mono to drive subwoofer arrays uniformly. If sub-bass has stereo phase differences, summing to mono causes destructive phase cancellation, obliterating the bass drop. High-frequency supersaws and noise sweeps are spread wide using unison detuning and Haas panning to deliver immersive headphone impact.</p>",
-              "expert_quote": {
-                "text": "Mono your bass up to 120 Hz with an elliptical filter. If your low end isn't bulletproof in mono, your record will fall flat in any festival arena.",
-                "author": "Skrillex, Producer & Electronic Artist"
-              },
-              "expert_explanation": "EDM Stereo Imaging: Club sound systems sum low frequencies to mono to drive subwoofer arrays uniformly. If sub-bass has stereo phase differences, summing to mono causes destructive phase cancellation, obliterating the bass drop. High-frequency supersaws and noise sweeps are spread wide using unison detuning and Haas panning to deliver immersive headphone impact.",
-              "youtube_id": "tKi9Z-f6qX4",
-              "youtube_title": "deadmau5 - Strobe (2009)"
-            },
-            {
-              "id": "panning_q4",
-              "type": "panning",
-              "title": "Traditional Acoustic Jazz Quartet",
-              "content": "Position an authentic 1950s Blue Note jazz quartet as if seated in front of a live nightclub stage.",
-              "question": "Place the instruments in their natural acoustic jazz stage positions.",
-              "hint": "Grand piano sits on stage right (listener's left), upright bass centers the rhythm, saxophone leads front and center-left, and ride cymbal occupies stage left.",
-              "elements": [
-                {
-                  "id": "el_piano",
-                  "content": "Steinway Grand Piano",
-                  "targetZone": "zone_mid_left"
-                },
-                {
-                  "id": "el_sax",
-                  "content": "Tenor Saxophone (Lead)",
-                  "targetZone": "zone_mid_left"
-                },
-                {
-                  "id": "el_upright_bass",
-                  "content": "Upright Acoustic Bass",
-                  "targetZone": "zone_center"
-                },
-                {
-                  "id": "el_jazz_ride",
-                  "content": "Ride Cymbal & Brushes",
-                  "targetZone": "zone_mid_right"
-                },
-                {
-                  "id": "el_room_mic",
-                  "content": "Live Room Ambience",
-                  "targetZone": "zone_hard_right"
-                }
-              ],
-              "zones": [
-                {
-                  "id": "zone_hard_left",
-                  "angle": 0,
-                  "distance": 0.8,
-                  "label": "Far Left"
-                },
-                {
-                  "id": "zone_mid_left",
-                  "angle": 45,
-                  "distance": 0.6,
-                  "label": "Medium Left"
-                },
-                {
-                  "id": "zone_center",
-                  "angle": 90,
-                  "distance": 0.7,
-                  "label": "Center Stage"
-                },
-                {
-                  "id": "zone_mid_right",
-                  "angle": 135,
-                  "distance": 0.6,
-                  "label": "Medium Right"
-                },
-                {
-                  "id": "zone_hard_right",
-                  "angle": 180,
-                  "distance": 0.8,
-                  "label": "Far Right"
-                }
-              ],
-              "explanation": "<p><strong>Acoustic Jazz Staging:</strong> Pioneered by Rudy Van Gelder at Blue Note, jazz panning recreates the physical perspective of sitting in the front row of a club. The piano is placed medium-left, the upright bass anchors the centre, the tenor saxophone sits slightly left of centre, and the drummer's feathered ride cymbal and snare taps sit medium-right.</p>",
-              "expert_quote": {
-                "text": "In jazz, you are capturing a conversation between masters in an acoustic room. You don't manufacture space with plugins; you document reality.",
-                "author": "Rudy Van Gelder, Legendary Recording Engineer (Miles Davis, John Coltrane)"
-              },
-              "expert_explanation": "Acoustic Jazz Staging: Pioneered by Rudy Van Gelder at Blue Note, jazz panning recreates the physical perspective of sitting in the front row of a club. The piano is placed medium-left, the upright bass anchors the centre, the tenor saxophone sits slightly left of centre, and the drummer's feathered ride cymbal and snare taps sit medium-right.",
-              "youtube_id": "zqNTltOGh5c",
-              "youtube_title": "Miles Davis - So What (1959)"
-            },
-            {
-              "id": "panning_q5",
-              "type": "panning",
-              "title": "Contemporary Pop Lead & Backing Vocal Stacks",
-              "content": "Arrange modern commercial pop vocals to achieve vocal prominence and wide stereo backing stacks.",
-              "question": "Place the lead and backing vocal stems across the stereo soundstage.",
-              "hint": "The lead vocal must be intimacy-centered and dry, while 4-part harmony stacks fan out hard left and hard right.",
-              "elements": [
-                {
-                  "id": "el_lead_vocal",
-                  "content": "Main Lead Vocal (Dry/In-Your-Face)",
-                  "targetZone": "zone_center"
-                },
-                {
-                  "id": "el_bv_hi_l",
-                  "content": "High Harmony Stack (Take A)",
-                  "targetZone": "zone_hard_left"
-                },
-                {
-                  "id": "el_bv_hi_r",
-                  "content": "High Harmony Stack (Take B)",
-                  "targetZone": "zone_hard_right"
-                },
-                {
-                  "id": "el_bv_mid_l",
-                  "content": "Mid Harmony Stack (Take A)",
-                  "targetZone": "zone_mid_left"
-                },
-                {
-                  "id": "el_bv_mid_r",
-                  "content": "Mid Harmony Stack (Take B)",
-                  "targetZone": "zone_mid_right"
-                }
-              ],
-              "zones": [
-                {
-                  "id": "zone_hard_left",
-                  "angle": 0,
-                  "distance": 0.85,
-                  "label": "Hard Left (100%)"
-                },
-                {
-                  "id": "zone_mid_left",
-                  "angle": 45,
-                  "distance": 0.7,
-                  "label": "Mid Left (50%)"
-                },
-                {
-                  "id": "zone_center",
-                  "angle": 90,
-                  "distance": 0.6,
-                  "label": "Dead Center Front"
-                },
-                {
-                  "id": "zone_mid_right",
-                  "angle": 135,
-                  "distance": 0.7,
-                  "label": "Mid Right (50%)"
-                },
-                {
-                  "id": "zone_hard_right",
-                  "angle": 180,
-                  "distance": 0.85,
-                  "label": "Hard Right (100%)"
-                }
-              ],
-              "explanation": "<p><strong>Pop Vocal Production:</strong> The lead vocal is positioned dead centre with high direct-to-reverberant ratio to establish intimacy and clarity. Supporting harmonies are double or quad-tracked and panned in symmetrical pairs: mid harmonies at 50% Left/Right and top octave whispers at 100% Left/Right, wrapping around the listener without obscuring the lead.</p>",
-              "expert_quote": {
-                "text": "A huge pop chorus isn't one vocal with reverb; it's 16 tightly sung layers panned across the panorama like an orchestra.",
-                "author": "Serban Ghenea, Grammy-Winning Pop Mix Engineer (Taylor Swift, The Weeknd)"
-              },
-              "expert_explanation": "Pop Vocal Production: The lead vocal is positioned dead centre with high direct-to-reverberant ratio to establish intimacy and clarity. Supporting harmonies are double or quad-tracked and panned in symmetrical pairs: mid harmonies at 50% Left/Right and top octave whispers at 100% Left/Right, wrapping around the listener without obscuring the lead.",
-              "youtube_id": "DyDfgMOUjCI",
-              "youtube_title": "Billie Eilish - bad guy (2019)"
-            },
-            {
-              "id": "panning_q6",
-              "type": "panning",
-              "title": "Orchestral Film Score Strings Layout",
-              "content": "Position standard orchestral string sections across a film scoring soundstage.",
-              "question": "Place the string sections in the classic European seating layout from left to right.",
-              "hint": "Violins 1 sit far left, Violas sit left-center, Cellos sit right-center, and Double Basses sit far right.",
-              "elements": [
-                {
-                  "id": "el_vln1",
-                  "content": "Violins 1 (First Violins)",
-                  "targetZone": "zone_hard_left"
-                },
-                {
-                  "id": "el_vla",
-                  "content": "Violas Section",
-                  "targetZone": "zone_mid_left"
-                },
-                {
-                  "id": "el_solo_flute",
-                  "content": "Solo Woodwind (Flute)",
-                  "targetZone": "zone_center"
-                },
-                {
-                  "id": "el_vlc",
-                  "content": "Cellos Section",
-                  "targetZone": "zone_mid_right"
-                },
-                {
-                  "id": "el_db",
-                  "content": "Double Basses Section",
-                  "targetZone": "zone_hard_right"
-                }
-              ],
-              "zones": [
-                {
-                  "id": "zone_hard_left",
-                  "angle": 0,
-                  "distance": 0.85,
-                  "label": "Stage Left (High Strings)"
-                },
-                {
-                  "id": "zone_mid_left",
-                  "angle": 45,
-                  "distance": 0.75,
-                  "label": "Mid Left"
-                },
-                {
-                  "id": "zone_center",
-                  "angle": 90,
-                  "distance": 0.8,
-                  "label": "Center Stage"
-                },
-                {
-                  "id": "zone_mid_right",
-                  "angle": 135,
-                  "distance": 0.75,
-                  "label": "Mid Right"
-                },
-                {
-                  "id": "zone_hard_right",
-                  "angle": 180,
-                  "distance": 0.85,
-                  "label": "Stage Right (Low Basses)"
-                }
-              ],
-              "explanation": "<p><strong>Orchestral Seating Architecture:</strong> The standard European concert/scoring seating places highest frequency strings (1st Violins) on the conductor's far left, progressing down in pitch through Violas (mid-left), Cellos (mid-right), to low Double Basses on the far right. Solo woodwinds sit in the acoustic centre, flanked by brass in the rear.</p>",
-              "expert_quote": {
-                "text": "When mixing film scores recorded at Abbey Road Studio One, you respect the natural acoustic pan positions of the Decca Tree microphone array.",
-                "author": "Shawn Murphy, Academy Award-Winning Scoring Mixer (Star Wars, Jurassic Park)"
-              },
-              "expert_explanation": "Orchestral Seating Architecture: The standard European concert/scoring seating places highest frequency strings (1st Violins) on the conductor's far left, progressing down in pitch through Violas (mid-left), Cellos (mid-right), to low Double Basses on the far right. Solo woodwinds sit in the acoustic centre, flanked by brass in the rear.",
-              "youtube_id": "RxabLA7UQ9k",
-              "youtube_title": "Hans Zimmer - Time (2010)"
-            },
-            {
-              "id": "panning_q7",
-              "type": "panning",
-              "title": "1970s Hard Rock (Led Zeppelin Style)",
-              "content": "Recreate Jimmy Page's stereo production approach on 'Whole Lotta Love' / 'Black Dog'.",
-              "question": "Place the instruments according to 1970s analogue tape multi-tracking conventions.",
-              "hint": "Acoustic guitar fills the left, heavy electric guitar punches the right, Bonham's drums are centered with natural room bloom.",
-              "elements": [
-                {
-                  "id": "el_ac_gtr",
-                  "content": "Acoustic 12-String Guitar",
-                  "targetZone": "zone_hard_left"
-                },
-                {
-                  "id": "el_el_gtr",
-                  "content": "Marshall Stack Electric Riff",
-                  "targetZone": "zone_hard_right"
-                },
-                {
-                  "id": "el_bonham_drums",
-                  "content": "Bonham Drums (Ambient Kit)",
-                  "targetZone": "zone_center"
-                },
-                {
-                  "id": "el_plant_vox",
-                  "content": "Robert Plant Lead Vocal",
-                  "targetZone": "zone_center"
-                },
-                {
-                  "id": "el_slap_echo",
-                  "content": "Tape Slapback Echo Return",
-                  "targetZone": "zone_mid_left"
                 }
               ],
               "zones": [
@@ -14760,8 +14368,368 @@
                 {
                   "id": "zone_center",
                   "angle": 90,
-                  "distance": 0.8,
-                  "label": "Center"
+                  "distance": 0.75,
+                  "label": "Centre"
+                },
+                {
+                  "id": "zone_mid_right",
+                  "angle": 135,
+                  "distance": 0.7,
+                  "label": "Mid Right"
+                },
+                {
+                  "id": "zone_hard_right",
+                  "angle": 180,
+                  "distance": 0.85,
+                  "label": "Hard Right"
+                }
+              ],
+              "explanation": "<p><strong>Modern Rock Panoramic Spread:</strong> Keeping low-frequency energy (kick drum, bass guitar, and snare core) anchored in the centre balances acoustic power across both monitors. Panning double-tracked rhythm guitars hard left and hard right (100% L/R) creates immense soundstage width while leaving the entire centre channel open for the lead vocal.</p>",
+              "expert_quote": {
+                "text": "Pan your double-tracked heavy guitars 100% left and 100% right. Anything less sounds like a weak guitar in the middle rather than a giant stereo wall.",
+                "author": "Andy Wallace, Mix Engineer (Nirvana - Nevermind, Rage Against the Machine)"
+              },
+              "expert_explanation": "Modern Rock Panoramic Spread: Keeping low-frequency energy (kick drum, bass guitar, and snare core) anchored in the centre balances acoustic power across both monitors. Panning double-tracked rhythm guitars hard left and hard right (100% L/R) creates immense soundstage width while leaving the entire centre channel open for the lead vocal.",
+              "youtube_id": "eBG7P-K-r1Y",
+              "youtube_title": "Foo Fighters - Everlong (1997)"
+            },
+            {
+              "id": "panning_q3",
+              "type": "panning",
+              "title": "Modern EDM & Club Mix",
+              "content": "Position dance elements to ensure maximum mono compatibility and club subwoofer safety.",
+              "question": "Place the electronic music stems to balance wide stereo excitement with mono club sound systems.",
+              "hint": "Keep sub-bass, kick, and snare mono in the Centre for club PA power; pan stereo synth layers wide.",
+              "elements": [
+                {
+                  "id": "el_q3_1",
+                  "content": "Sub-Bass (30–80 Hz)",
+                  "targetZone": "zone_center"
+                },
+                {
+                  "id": "el_q3_2",
+                  "content": "Kick Drum",
+                  "targetZone": "zone_center"
+                },
+                {
+                  "id": "el_q3_3",
+                  "content": "Main Snare / Clap",
+                  "targetZone": "zone_center"
+                },
+                {
+                  "id": "el_q3_4",
+                  "content": "Stereo Synth Pad (Left)",
+                  "targetZone": "zone_hard_left"
+                },
+                {
+                  "id": "el_q3_5",
+                  "content": "Stereo Synth Pad (Right)",
+                  "targetZone": "zone_hard_right"
+                }
+              ],
+              "zones": [
+                {
+                  "id": "zone_hard_left",
+                  "angle": 0,
+                  "distance": 0.85,
+                  "label": "Hard Left"
+                },
+                {
+                  "id": "zone_mid_left",
+                  "angle": 45,
+                  "distance": 0.7,
+                  "label": "Mid Left"
+                },
+                {
+                  "id": "zone_center",
+                  "angle": 90,
+                  "distance": 0.75,
+                  "label": "Centre"
+                },
+                {
+                  "id": "zone_mid_right",
+                  "angle": 135,
+                  "distance": 0.7,
+                  "label": "Mid Right"
+                },
+                {
+                  "id": "zone_hard_right",
+                  "angle": 180,
+                  "distance": 0.85,
+                  "label": "Hard Right"
+                }
+              ],
+              "explanation": "<p><strong>EDM Stereo Imaging:</strong> Club sound systems sum low frequencies to mono to drive subwoofer arrays uniformly. If sub-bass has stereo phase differences, summing to mono causes destructive phase cancellation, obliterating the bass drop. High-frequency supersaws and noise sweeps are spread wide using unison detuning and Haas panning to deliver immersive headphone impact.</p>",
+              "expert_quote": {
+                "text": "Mono your bass up to 120 Hz with an elliptical filter. If your low end isn't bulletproof in mono, your record will fall flat in any festival arena.",
+                "author": "Skrillex, Producer & Electronic Artist"
+              },
+              "expert_explanation": "EDM Stereo Imaging: Club sound systems sum low frequencies to mono to drive subwoofer arrays uniformly. If sub-bass has stereo phase differences, summing to mono causes destructive phase cancellation, obliterating the bass drop. High-frequency supersaws and noise sweeps are spread wide using unison detuning and Haas panning to deliver immersive headphone impact.",
+              "youtube_id": "tKi9Z-f6qX4",
+              "youtube_title": "deadmau5 - Strobe (2009)"
+            },
+            {
+              "id": "panning_q4",
+              "type": "panning",
+              "title": "Traditional Acoustic Jazz Quartet",
+              "content": "Position an authentic 1950s Blue Note jazz quartet as if seated in front of a live nightclub stage.",
+              "question": "Place the instruments in their natural acoustic jazz stage positions.",
+              "hint": "Upright bass and lead saxophone sit in the Centre, with grand piano Mid Left and ride cymbal/drums Mid Right.",
+              "elements": [
+                {
+                  "id": "el_q4_1",
+                  "content": "Grand Piano",
+                  "targetZone": "zone_mid_left"
+                },
+                {
+                  "id": "el_q4_2",
+                  "content": "Tenor Saxophone (Lead)",
+                  "targetZone": "zone_center"
+                },
+                {
+                  "id": "el_q4_3",
+                  "content": "Upright Acoustic Bass",
+                  "targetZone": "zone_center"
+                },
+                {
+                  "id": "el_q4_4",
+                  "content": "Ride Cymbal & Brushes",
+                  "targetZone": "zone_mid_right"
+                }
+              ],
+              "zones": [
+                {
+                  "id": "zone_hard_left",
+                  "angle": 0,
+                  "distance": 0.85,
+                  "label": "Hard Left"
+                },
+                {
+                  "id": "zone_mid_left",
+                  "angle": 45,
+                  "distance": 0.7,
+                  "label": "Mid Left"
+                },
+                {
+                  "id": "zone_center",
+                  "angle": 90,
+                  "distance": 0.75,
+                  "label": "Centre"
+                },
+                {
+                  "id": "zone_mid_right",
+                  "angle": 135,
+                  "distance": 0.7,
+                  "label": "Mid Right"
+                },
+                {
+                  "id": "zone_hard_right",
+                  "angle": 180,
+                  "distance": 0.85,
+                  "label": "Hard Right"
+                }
+              ],
+              "explanation": "<p><strong>Acoustic Jazz Staging:</strong> Pioneered by Rudy Van Gelder at Blue Note, jazz panning recreates the physical perspective of sitting in the front row of a club. The piano is placed medium-left, the upright bass anchors the centre, the tenor saxophone sits slightly left of centre, and the drummer's feathered ride cymbal and snare taps sit medium-right.</p>",
+              "expert_quote": {
+                "text": "In jazz, you are capturing a conversation between masters in an acoustic room. You don't manufacture space with plugins; you document reality.",
+                "author": "Rudy Van Gelder, Legendary Recording Engineer (Miles Davis, John Coltrane)"
+              },
+              "expert_explanation": "Acoustic Jazz Staging: Pioneered by Rudy Van Gelder at Blue Note, jazz panning recreates the physical perspective of sitting in the front row of a club. The piano is placed medium-left, the upright bass anchors the centre, the tenor saxophone sits slightly left of centre, and the drummer's feathered ride cymbal and snare taps sit medium-right.",
+              "youtube_id": "zqNTltOGh5c",
+              "youtube_title": "Miles Davis - So What (1959)"
+            },
+            {
+              "id": "panning_q5",
+              "type": "panning",
+              "title": "Contemporary Pop Lead & Backing Vocal Stacks",
+              "content": "Arrange modern commercial pop vocals to achieve vocal prominence and wide stereo backing stacks.",
+              "question": "Place the lead and backing vocal stems across the stereo soundstage.",
+              "hint": "Keep the lead vocal, kick, and sub-bass locked in the Centre; pan double-tracked backing harmonies hard Left and Right.",
+              "elements": [
+                {
+                  "id": "el_q5_1",
+                  "content": "Main Lead Vocal",
+                  "targetZone": "zone_center"
+                },
+                {
+                  "id": "el_q5_2",
+                  "content": "Kick & Sub-Bass",
+                  "targetZone": "zone_center"
+                },
+                {
+                  "id": "el_q5_3",
+                  "content": "Backing Harmony (Take 1)",
+                  "targetZone": "zone_hard_left"
+                },
+                {
+                  "id": "el_q5_4",
+                  "content": "Backing Harmony (Take 2)",
+                  "targetZone": "zone_hard_right"
+                }
+              ],
+              "zones": [
+                {
+                  "id": "zone_hard_left",
+                  "angle": 0,
+                  "distance": 0.85,
+                  "label": "Hard Left"
+                },
+                {
+                  "id": "zone_mid_left",
+                  "angle": 45,
+                  "distance": 0.7,
+                  "label": "Mid Left"
+                },
+                {
+                  "id": "zone_center",
+                  "angle": 90,
+                  "distance": 0.75,
+                  "label": "Centre"
+                },
+                {
+                  "id": "zone_mid_right",
+                  "angle": 135,
+                  "distance": 0.7,
+                  "label": "Mid Right"
+                },
+                {
+                  "id": "zone_hard_right",
+                  "angle": 180,
+                  "distance": 0.85,
+                  "label": "Hard Right"
+                }
+              ],
+              "explanation": "<p><strong>Pop Vocal Production:</strong> The lead vocal is positioned dead centre with high direct-to-reverberant ratio to establish intimacy and clarity. Supporting harmonies are double or quad-tracked and panned in symmetrical pairs: mid harmonies at 50% Left/Right and top octave whispers at 100% Left/Right, wrapping around the listener without obscuring the lead.</p>",
+              "expert_quote": {
+                "text": "A huge pop chorus isn't one vocal with reverb; it's 16 tightly sung layers panned across the panorama like an orchestra.",
+                "author": "Serban Ghenea, Grammy-Winning Pop Mix Engineer (Taylor Swift, The Weeknd)"
+              },
+              "expert_explanation": "Pop Vocal Production: The lead vocal is positioned dead centre with high direct-to-reverberant ratio to establish intimacy and clarity. Supporting harmonies are double or quad-tracked and panned in symmetrical pairs: mid harmonies at 50% Left/Right and top octave whispers at 100% Left/Right, wrapping around the listener without obscuring the lead.",
+              "youtube_id": "DyDfgMOUjCI",
+              "youtube_title": "Billie Eilish - bad guy (2019)"
+            },
+            {
+              "id": "panning_q6",
+              "type": "panning",
+              "title": "Orchestral Film Score Strings Layout",
+              "content": "Position standard orchestral string sections across a film scoring soundstage.",
+              "question": "Place the string sections in the classic European seating layout from left to right.",
+              "hint": "Arrange strings left-to-right from highest pitch (Violins 1) to lowest pitch (Double Basses), with solo flute centred.",
+              "elements": [
+                {
+                  "id": "el_q6_1",
+                  "content": "Violins 1 (Highest)",
+                  "targetZone": "zone_hard_left"
+                },
+                {
+                  "id": "el_q6_2",
+                  "content": "Violas",
+                  "targetZone": "zone_mid_left"
+                },
+                {
+                  "id": "el_q6_3",
+                  "content": "Solo Flute",
+                  "targetZone": "zone_center"
+                },
+                {
+                  "id": "el_q6_4",
+                  "content": "Cellos",
+                  "targetZone": "zone_mid_right"
+                },
+                {
+                  "id": "el_q6_5",
+                  "content": "Double Basses (Lowest)",
+                  "targetZone": "zone_hard_right"
+                }
+              ],
+              "zones": [
+                {
+                  "id": "zone_hard_left",
+                  "angle": 0,
+                  "distance": 0.85,
+                  "label": "Hard Left"
+                },
+                {
+                  "id": "zone_mid_left",
+                  "angle": 45,
+                  "distance": 0.7,
+                  "label": "Mid Left"
+                },
+                {
+                  "id": "zone_center",
+                  "angle": 90,
+                  "distance": 0.75,
+                  "label": "Centre"
+                },
+                {
+                  "id": "zone_mid_right",
+                  "angle": 135,
+                  "distance": 0.7,
+                  "label": "Mid Right"
+                },
+                {
+                  "id": "zone_hard_right",
+                  "angle": 180,
+                  "distance": 0.85,
+                  "label": "Hard Right"
+                }
+              ],
+              "explanation": "<p><strong>Orchestral Seating Architecture:</strong> The standard European concert/scoring seating places highest frequency strings (1st Violins) on the conductor's far left, progressing down in pitch through Violas (mid-left), Cellos (mid-right), to low Double Basses on the far right. Solo woodwinds sit in the acoustic centre, flanked by brass in the rear.</p>",
+              "expert_quote": {
+                "text": "When mixing film scores recorded at Abbey Road Studio One, you respect the natural acoustic pan positions of the Decca Tree microphone array.",
+                "author": "Shawn Murphy, Academy Award-Winning Scoring Mixer (Star Wars, Jurassic Park)"
+              },
+              "expert_explanation": "Orchestral Seating Architecture: The standard European concert/scoring seating places highest frequency strings (1st Violins) on the conductor's far left, progressing down in pitch through Violas (mid-left), Cellos (mid-right), to low Double Basses on the far right. Solo woodwinds sit in the acoustic centre, flanked by brass in the rear.",
+              "youtube_id": "RxabLA7UQ9k",
+              "youtube_title": "Hans Zimmer - Time (2010)"
+            },
+            {
+              "id": "panning_q7",
+              "type": "panning",
+              "title": "1970s Hard Rock (Led Zeppelin Style)",
+              "content": "Recreate Jimmy Page's stereo production approach on 'Whole Lotta Love' / 'Black Dog'.",
+              "question": "Place the instruments according to 1970s analogue tape multi-tracking conventions.",
+              "hint": "Keep drums, bass, and lead vocal centred; pan the acoustic guitar Hard Left and heavy electric guitar Hard Right.",
+              "elements": [
+                {
+                  "id": "el_q7_1",
+                  "content": "Acoustic 12-String Guitar",
+                  "targetZone": "zone_hard_left"
+                },
+                {
+                  "id": "el_q7_2",
+                  "content": "Electric Riff Guitar",
+                  "targetZone": "zone_hard_right"
+                },
+                {
+                  "id": "el_q7_3",
+                  "content": "Drum Kit & Bass",
+                  "targetZone": "zone_center"
+                },
+                {
+                  "id": "el_q7_4",
+                  "content": "Lead Vocal",
+                  "targetZone": "zone_center"
+                }
+              ],
+              "zones": [
+                {
+                  "id": "zone_hard_left",
+                  "angle": 0,
+                  "distance": 0.85,
+                  "label": "Hard Left"
+                },
+                {
+                  "id": "zone_mid_left",
+                  "angle": 45,
+                  "distance": 0.7,
+                  "label": "Mid Left"
+                },
+                {
+                  "id": "zone_center",
+                  "angle": 90,
+                  "distance": 0.75,
+                  "label": "Centre"
                 },
                 {
                   "id": "zone_mid_right",
@@ -14791,32 +14759,27 @@
               "title": "Acoustic Singer-Songwriter Ensemble",
               "content": "Arrange an intimate acoustic folk/Americana ensemble for clarity and separation.",
               "question": "Place the acoustic ensemble instruments to avoid frequency clashing and muddiness.",
-              "hint": "Lead vocal and acoustic guitar take the center, with solo cello and mandolin flanking on opposite sides for tonal balance.",
+              "hint": "Lead vocal and upright bass stay in the Centre, flanked by acoustic guitar Mid Left and mandolin Mid Right.",
               "elements": [
                 {
-                  "id": "el_cello",
-                  "content": "Acoustic Cello (Warm Lows)",
+                  "id": "el_q8_1",
+                  "content": "Acoustic Guitar",
                   "targetZone": "zone_mid_left"
                 },
                 {
-                  "id": "el_lead_vocal_folk",
-                  "content": "Lead Vocal & Acoustic Guitar",
+                  "id": "el_q8_2",
+                  "content": "Lead Vocal",
                   "targetZone": "zone_center"
                 },
                 {
-                  "id": "el_upright_folk",
+                  "id": "el_q8_3",
                   "content": "Upright Bass",
                   "targetZone": "zone_center"
                 },
                 {
-                  "id": "el_mandolin",
-                  "content": "Mandolin (Crisp Highs)",
+                  "id": "el_q8_4",
+                  "content": "Mandolin",
                   "targetZone": "zone_mid_right"
-                },
-                {
-                  "id": "el_harmonica",
-                  "content": "Harmonica / Fiddle Solo",
-                  "targetZone": "zone_hard_left"
                 }
               ],
               "zones": [
@@ -14824,31 +14787,31 @@
                   "id": "zone_hard_left",
                   "angle": 0,
                   "distance": 0.85,
-                  "label": "Far Left"
+                  "label": "Hard Left"
                 },
                 {
                   "id": "zone_mid_left",
                   "angle": 45,
-                  "distance": 0.65,
+                  "distance": 0.7,
                   "label": "Mid Left"
                 },
                 {
                   "id": "zone_center",
                   "angle": 90,
                   "distance": 0.75,
-                  "label": "Center Front"
+                  "label": "Centre"
                 },
                 {
                   "id": "zone_mid_right",
                   "angle": 135,
-                  "distance": 0.65,
+                  "distance": 0.7,
                   "label": "Mid Right"
                 },
                 {
                   "id": "zone_hard_right",
                   "angle": 180,
                   "distance": 0.85,
-                  "label": "Far Right"
+                  "label": "Hard Right"
                 }
               ],
               "explanation": "<p><strong>Acoustic Separation:</strong> In sparse acoustic arrangements, placing competing mid-frequency stringed instruments on opposite sides prevents frequency masking. The warm, resonant body of the cello on the medium-left is counterbalanced by the bright percussive chop of the mandolin on the medium-right, leaving the central axis free for the singer's voice.</p>",
@@ -14866,40 +14829,40 @@
               "title": "1980s Synth-Pop (The Human League / New Order)",
               "content": "Position early digital and analogue synthesisers and drum machines in a 1980s synth-pop soundstage.",
               "question": "Place the 1980s electronic instruments across the stereo panorama.",
-              "hint": "Roland TR-808/LinnDrum kicks and snares are centered, chorus synth pads go wide stereo, and Simmons electronic toms pan dynamically.",
+              "hint": "Drum machine, mono bass synth, and lead vocal sit in the Centre; wide stereo synth pads pan Hard Left and Right.",
               "elements": [
                 {
-                  "id": "el_linn_drums",
-                  "content": "LinnDrum Kick & Snare",
+                  "id": "el_q9_1",
+                  "content": "Drum Machine Kick & Snare",
                   "targetZone": "zone_center"
                 },
                 {
-                  "id": "el_mono_bass",
-                  "content": "Roland SH-101 Bass Synth",
+                  "id": "el_q9_2",
+                  "content": "Mono Bass Synth",
                   "targetZone": "zone_center"
                 },
                 {
-                  "id": "el_juno_pad_l",
-                  "content": "Juno-60 Stereo Chorus (L)",
+                  "id": "el_q9_3",
+                  "content": "Lead Vocal",
+                  "targetZone": "zone_center"
+                },
+                {
+                  "id": "el_q9_4",
+                  "content": "Stereo Synth Pad (Left)",
                   "targetZone": "zone_hard_left"
                 },
                 {
-                  "id": "el_juno_pad_r",
-                  "content": "Juno-60 Stereo Chorus (R)",
+                  "id": "el_q9_5",
+                  "content": "Stereo Synth Pad (Right)",
                   "targetZone": "zone_hard_right"
-                },
-                {
-                  "id": "el_synth_lead",
-                  "content": "Sequential Prophet-5 Lead Riff",
-                  "targetZone": "zone_mid_right"
                 }
               ],
               "zones": [
                 {
                   "id": "zone_hard_left",
                   "angle": 0,
-                  "distance": 0.9,
-                  "label": "Hard Left (Chorus L)"
+                  "distance": 0.85,
+                  "label": "Hard Left"
                 },
                 {
                   "id": "zone_mid_left",
@@ -14911,7 +14874,7 @@
                   "id": "zone_center",
                   "angle": 90,
                   "distance": 0.75,
-                  "label": "Center"
+                  "label": "Centre"
                 },
                 {
                   "id": "zone_mid_right",
@@ -14922,8 +14885,8 @@
                 {
                   "id": "zone_hard_right",
                   "angle": 180,
-                  "distance": 0.9,
-                  "label": "Hard Right (Chorus R)"
+                  "distance": 0.85,
+                  "label": "Hard Right"
                 }
               ],
               "explanation": "<p><strong>1980s Synth-Pop Soundstage:</strong> 1980s electronic music anchored the low-end using punchy sample-based drum machine kicks (LinnDrum / DMX) and monophonic analogue synth basslines in the centre. Analogue bucket-brigade (BBD) stereo chorus circuits (found on the Roland Juno-60) produced wide spatial pads spanning from 100% Left to 100% Right.</p>",
@@ -14941,31 +14904,31 @@
               "title": "Heavy Metal Dual Harmony Solos",
               "content": "Position rhythm and lead guitars during an iconic Iron Maiden / Metallica dual harmony guitar solo.",
               "question": "Place the dual lead guitars and backing rhythm tracks across the soundstage.",
-              "hint": "Backing rhythm guitars stay pinned at 100% L & 100% R, while harmony lead guitar 1 sits mid-left and lead guitar 2 sits mid-right.",
+              "hint": "Drums and bass stay centred; rhythm guitars pan 100% Hard Left & Right; dual harmony solos sit Mid Left & Mid Right.",
               "elements": [
                 {
-                  "id": "el_metal_rhythm_l",
-                  "content": "Rhythm Guitar Wall (100% L)",
+                  "id": "el_q10_1",
+                  "content": "Rhythm Guitar (Take 1)",
                   "targetZone": "zone_hard_left"
                 },
                 {
-                  "id": "el_solo_gtr1",
-                  "content": "Lead Guitar 1 (Lower Harmony)",
+                  "id": "el_q10_2",
+                  "content": "Harmony Lead Guitar 1",
                   "targetZone": "zone_mid_left"
                 },
                 {
-                  "id": "el_metal_bass",
+                  "id": "el_q10_3",
                   "content": "Bass Guitar & Drum Kit",
                   "targetZone": "zone_center"
                 },
                 {
-                  "id": "el_solo_gtr2",
-                  "content": "Lead Guitar 2 (Upper Harmony)",
+                  "id": "el_q10_4",
+                  "content": "Harmony Lead Guitar 2",
                   "targetZone": "zone_mid_right"
                 },
                 {
-                  "id": "el_metal_rhythm_r",
-                  "content": "Rhythm Guitar Wall (100% R)",
+                  "id": "el_q10_5",
+                  "content": "Rhythm Guitar (Take 2)",
                   "targetZone": "zone_hard_right"
                 }
               ],
@@ -14973,32 +14936,32 @@
                 {
                   "id": "zone_hard_left",
                   "angle": 0,
-                  "distance": 0.95,
-                  "label": "100% Hard Left"
+                  "distance": 0.85,
+                  "label": "Hard Left"
                 },
                 {
                   "id": "zone_mid_left",
                   "angle": 45,
-                  "distance": 0.65,
-                  "label": "Mid Left (35%)"
+                  "distance": 0.7,
+                  "label": "Mid Left"
                 },
                 {
                   "id": "zone_center",
                   "angle": 90,
-                  "distance": 0.8,
-                  "label": "Center"
+                  "distance": 0.75,
+                  "label": "Centre"
                 },
                 {
                   "id": "zone_mid_right",
                   "angle": 135,
-                  "distance": 0.65,
-                  "label": "Mid Right (35%)"
+                  "distance": 0.7,
+                  "label": "Mid Right"
                 },
                 {
                   "id": "zone_hard_right",
                   "angle": 180,
-                  "distance": 0.95,
-                  "label": "100% Hard Right"
+                  "distance": 0.85,
+                  "label": "Hard Right"
                 }
               ],
               "explanation": "<p><strong>Dual Harmony Lead Staging:</strong> In classic heavy metal productions (e.g. Iron Maiden, Judas Priest, Avenged Sevenfold), the heavily distorted rhythm guitars remain anchored at 100% hard left and hard right to maintain full stereo width. The twin lead guitars playing in 3rds or 5ths are panned symmetrically at roughly 30%–45% Left and Right, creating a wide dual-guitar attack that doesn't mask the bass and drums in the centre.</p>",
