@@ -15973,21 +15973,18 @@
           "campaignNodeId": null,
           "questions": [
             {
-              "title": "Q1: Listening — Vocal Compression A/B",
-              "content": "Listen to Audio A (Dry) and Audio B (Wet). How has compression changed the vocal in Audio B?",
-              "type": "audio_comparison",
-              "audio_a": "/Audio/suzanne_vega_vocal_not_compressed.mp3",
-              "audio_b": "/Audio/suzanne_vega_vocal_compressed.mp3",
-              "options": [
-                "Evened out quiet and loud vocal levels",
-                "Added long stereo hall reverberation",
-                "Removed sub-bass rumble with a filter",
-                "Panned the lead vocal hard left"
-              ],
-              "correct_index": 0,
-              "correct_option": "Evened out quiet and loud vocal levels",
-              "expert_explanation": "Compression reduces the loudest vocal peaks and brings up quieter syllables, keeping the vocal sitting evenly and upfront in a mix.",
-              "explanation": "<p><strong>Expert Explanation:</strong> Compression reduces the loudest vocal peaks and brings up quieter syllables, keeping the vocal sitting evenly and upfront in a mix.</p>"
+              "title": "Q1: Practical — Moderate Compressor Ratio",
+              "content": "Move the ratio fader to set a moderate compression ratio that gently evens out an acoustic guitar without squashing it.",
+              "type": "parameter_matching",
+              "label": "Compressor Ratio",
+              "min": 1,
+              "max": 20,
+              "step": 1,
+              "unit": ":1",
+              "correct_value": 4,
+              "tolerance": 2,
+              "expert_explanation": "A moderate 3:1 to 6:1 ratio gently evens out strumming peaks while preserving natural acoustic guitar dynamics.",
+              "explanation": "<p><strong>Expert Explanation:</strong> A moderate 3:1 to 6:1 ratio gently evens out strumming peaks while preserving natural acoustic guitar dynamics.</p>"
             },
             {
               "title": "Q2: Drag & Drop — Setting Up a Compressor",
@@ -16104,21 +16101,25 @@
               "explanation": "<p><strong>Expert Explanation:</strong> Setting threshold around -15 dB leaves -24 dB verse vocals uncompressed while cleanly taming the -6 dB chorus peaks.</p>"
             },
             {
-              "title": "Q6: Listening — Guitar Sustain & Compression A/B",
-              "content": "Listen to Audio A (Dry) and Audio B (Wet). What dynamic effect does compression create on Audio B?",
-              "type": "audio_comparison",
-              "audio_a": "/Audio/FX_Ear_Training/Guitar/Dry Compression Guitar.mp3",
-              "audio_b": "/Audio/FX_Ear_Training/Guitar/Compression Guitar.mp3",
-              "options": [
-                "Mutes the guitar using a noise gate",
-                "Increases sustain and evens out peaks",
-                "Adds wide stereo chorus modulation",
-                "Drops the pitch down by one octave"
+              "title": "Q6: Drag & Drop — Sidechain Kick & Bass Ducking",
+              "content": "Arrange the steps to set up sidechain compression so the kick drum ducks the bass guitar.",
+              "type": "drag_drop",
+              "top_label": "FIRST STEP",
+              "bottom_label": "FINAL STEP",
+              "items": [
+                "Adjust release time so bass recovers smoothly",
+                "Insert a compressor onto the bass track",
+                "Route the kick track to the compressor sidechain",
+                "Lower threshold so kick hits duck the bass"
               ],
-              "correct_index": 1,
-              "correct_option": "Increases sustain and evens out peaks",
-              "expert_explanation": "Heavy compression tames the initial pick transient while boosting the decaying tail, giving electric guitar notes longer sustain.",
-              "explanation": "<p><strong>Expert Explanation:</strong> Heavy compression tames the initial pick transient while boosting the decaying tail, giving electric guitar notes longer sustain.</p>"
+              "correct_order": [
+                "Insert a compressor onto the bass track",
+                "Route the kick track to the compressor sidechain",
+                "Lower threshold so kick hits duck the bass",
+                "Adjust release time so bass recovers smoothly"
+              ],
+              "expert_explanation": "Insert the compressor on the track you want to duck (the bass), trigger it from the kick’s sidechain input, lower the threshold, and time the release to groove with the tempo.",
+              "explanation": "<p><strong>Expert Explanation:</strong> Insert the compressor on the track you want to duck (the bass), trigger it from the kick’s sidechain input, lower the threshold, and time the release to groove with the tempo.</p>"
             },
             {
               "title": "Q7: Drag & Drop — Vocal Dynamics Chain Order",

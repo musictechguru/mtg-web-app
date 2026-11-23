@@ -92,6 +92,7 @@ export default function ParameterMatchingQuiz({
     const isGateHold = label && label.toLowerCase().includes('gate hold');
     const isGateRelease = label && label.toLowerCase().includes('gate release');
     const isCompressorThreshold = label && label.toLowerCase().includes('compressor threshold');
+    const isCompressorRatio = label && label.toLowerCase().includes('compressor ratio');
 
     const dbToY = (db) => 20 + ((0 - db) / 60) * 165;
     const threshY = dbToY(values[0]);
@@ -494,6 +495,64 @@ export default function ParameterMatchingQuiz({
                             );
                         })()}
                         <text x="315" y="203" fill="#64748b" fontSize="10" textAnchor="middle">Peaks rising above the red line get compressed</text>
+                    </svg>
+                </div>
+            ) : isCompressorRatio ? (
+                <div style={{
+                    marginBottom: '20px',
+                    borderRadius: '10px',
+                    border: '1px solid rgba(56, 189, 248, 0.35)',
+                    background: '#090d16',
+                    padding: '12px'
+                }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px', paddingBottom: '6px', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
+                        <span style={{ fontSize: '0.74rem', fontWeight: 800, color: '#38bdf8', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
+                            Live Compressor Ratio Visualizer
+                        </span>
+                        <span style={{
+                            fontSize: '0.75rem',
+                            fontWeight: 700,
+                            whiteSpace: 'nowrap',
+                            color: isSubmitted ? (Math.abs(values[0] - correctValue) <= tolerance ? '#4ade80' : '#f87171') : '#94a3b8'
+                        }}>
+                            {isSubmitted
+                                ? (Math.abs(values[0] - correctValue) <= tolerance ? 'Ideal Ratio: Musical dynamic control' : values[0] > 8 ? 'Too heavy! Squashing into limiting' : 'Too gentle! Almost no gain reduction')
+                                : `Ratio: ${values[0]}:1`}
+                        </span>
+                    </div>
+                    <svg viewBox="0 0 600 210" style={{ width: '100%', height: 'auto', display: 'block' }}>
+                        {/* Grid & 1:1 Reference Line */}
+                        <line x1="60" y1="180" x2="540" y2="180" stroke="rgba(255,255,255,0.2)" strokeWidth="1" />
+                        <line x1="60" y1="20" x2="60" y2="180" stroke="rgba(255,255,255,0.2)" strokeWidth="1" />
+                        <line x1="60" y1="180" x2="540" y2="20" stroke="rgba(148, 163, 184, 0.28)" strokeWidth="1.5" strokeDasharray="4,4" />
+                        <text x="530" y="32" fill="#64748b" fontSize="10" textAnchor="end">1:1 Uncompressed</text>
+
+                        {/* Threshold knee at midpoint (x=300, y=100) */}
+                        <circle cx="300" cy="100" r="5" fill="#f43f5e" />
+                        <line x1="300" y1="20" x2="300" y2="180" stroke="#f43f5e" strokeWidth="1" strokeDasharray="4,4" />
+                        <text x="300" y="195" fill="#f43f5e" fontSize="10" textAnchor="middle" fontWeight="bold">Threshold (-18 dB)</text>
+
+                        {/* Live Transfer Curve */}
+                        {(() => {
+                            const endY = 100 - (80 / values[0]);
+                            return (
+                                <>
+                                    <polyline
+                                        points={`60,180 300,100 540,${endY}`}
+                                        fill="none"
+                                        stroke="#a855f7"
+                                        strokeWidth="3.5"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                    />
+                                    <text x="530" y={endY - 8} fill="#c084fc" fontSize="11" fontWeight="bold" textAnchor="end">
+                                        {values[0]}:1 Slope
+                                    </text>
+                                </>
+                            );
+                        })()}
+                        <text x="32" y="100" fill="#94a3b8" fontSize="10" textAnchor="middle" transform="rotate(-90 32 100)">Output (dB)</text>
+                        <text x="160" y="195" fill="#94a3b8" fontSize="10" textAnchor="middle">Input Level (dB)</text>
                     </svg>
                 </div>
             ) : imageSrc && (
