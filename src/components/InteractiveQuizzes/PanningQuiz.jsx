@@ -333,7 +333,7 @@ export default function PanningQuiz({ question, initialAnswers, onAnswersChange,
                                     stackOffsetPx={idx * 34}
                                     isCorrect={isCorrect}
                                     disabled={examMode && submitted}
-                                    onRemove={handleRemovePlaced}
+                                    onRemove={() => selectedId ? handleZoneClick(zoneId) : handleRemovePlaced(el.id)}
                                 />
                             );
                         });
