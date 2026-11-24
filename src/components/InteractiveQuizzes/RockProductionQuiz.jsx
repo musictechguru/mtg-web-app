@@ -698,7 +698,7 @@ const RockProductionQuiz = ({ quiz, onExit }) => {
                 dry.connect(masterGain);
                 playBuf(snareBuf, t, dry);
             });
-        } else {
+        } else if (currentQuestionIndex === 0) {
             // Parallel Distortion: dry snare + heavy grit saturation with zero reverb
             const dist = ctx.createWaveShaper();
             const curve = new Float32Array(512);
@@ -718,6 +718,359 @@ const RockProductionQuiz = ({ quiz, onExit }) => {
                 playBuf(snareBuf, t, dry);
                 playBuf(snareBuf, t, dist);
             });
+        } else if (currentQuestionIndex === 1) {
+            // Q2: Parallel Compression vs Limiter vs Subtractive EQ vs Transient Shaping
+            playDuration = 4.0;
+            const drums = audioBuffers.current.drums;
+            if (optionText.includes('Parallel')) {
+                const dry = ctx.createGain();
+                dry.gain.value = 0.7;
+                dry.connect(masterGain);
+                playBuf(drums, now, dry);
+                const comp = ctx.createDynamicsCompressor();
+                comp.threshold.value = -32;
+                comp.ratio.value = 12;
+                comp.attack.value = 0.002;
+                comp.release.value = 0.12;
+                const wet = ctx.createGain();
+                wet.gain.value = 0.75;
+                comp.connect(wet).connect(masterGain);
+                playBuf(drums, now, comp);
+            } else if (optionText.includes('Limiting')) {
+                const lim = ctx.createDynamicsCompressor();
+                lim.threshold.value = -28;
+                lim.ratio.value = 20;
+                lim.attack.value = 0.001;
+                lim.release.value = 0.25;
+                lim.connect(masterGain);
+                playBuf(drums, now, lim);
+            } else if (optionText.includes('Subtractive')) {
+                const eq = ctx.createBiquadFilter();
+                eq.type = 'peaking';
+                eq.frequency.value = 400;
+                eq.gain.value = -9;
+                eq.connect(masterGain);
+                playBuf(drums, now, eq);
+            } else {
+                const hp = ctx.createBiquadFilter();
+                hp.type = 'highpass';
+                hp.frequency.value = 900;
+                hp.connect(masterGain);
+                playBuf(drums, now, hp);
+            }
+        } else if (currentQuestionIndex === 2) {
+            // Q3: Double-Tracking L/R vs Chorus vs Auto-Pan vs Mid/Side Cut
+            playDuration = 4.0;
+            const gtr = audioBuffers.current.guitar_riff;
+            const makeDist = (dest) => {
+                const d = ctx.createWaveShaper();
+                const c = new Float32Array(256);
+                for (let i = 0; i < 256; i++) c[i] = Math.tanh(((i * 2) / 256 - 1) * 14);
+                d.curve = c;
+                const lp = ctx.createBiquadFilter();
+                lp.type = 'lowpass';
+                lp.frequency.value = 3800;
+                d.connect(lp).connect(dest);
+                return d;
+            };
+            if (optionText.includes('second take')) {
+                const pL = ctx.createStereoPanner();
+                pL.pan.value = -0.95;
+                pL.connect(masterGain);
+                const pR = ctx.createStereoPanner();
+                pR.pan.value = 0.95;
+                pR.connect(masterGain);
+                playBuf(gtr, now, makeDist(pL));
+                const s2 = ctx.createBufferSource();
+                s2.buffer = gtr;
+                s2.playbackRate.value = 1.003;
+                s2.connect(makeDist(pR));
+                s2.start(now + 0.02);
+                addSource(s2);
+            } else if (optionText.includes('chorus')) {
+                const del = ctx.createDelay();
+                del.delayTime.value = 0.015;
+                const lfo = ctx.createOscillator();
+                lfo.frequency.value = 4.5;
+                const lg = ctx.createGain();
+                lg.gain.value = 0.006;
+                lfo.connect(lg).connect(del.delayTime);
+                lfo.start(now);
+                addSource(lfo);
+                const amp = makeDist(masterGain);
+                del.connect(amp);
+                playBuf(gtr, now, amp);
+                playBuf(gtr, now, del);
+            } else if (optionText.includes('auto-pan')) {
+                const pan = ctx.createStereoPanner();
+                const lfo = ctx.createOscillator();
+                lfo.frequency.value = 2.0;
+                lfo.connect(pan.pan);
+                lfo.start(now);
+                addSource(lfo);
+                pan.connect(masterGain);
+                playBuf(gtr, now, makeDist(pan));
+            } else {
+                const hp = ctx.createBiquadFilter();
+                hp.type = 'highpass';
+                hp.frequency.value = 750;
+                hp.connect(masterGain);
+                playBuf(gtr, now, makeDist(hp));
+            }
+        } else if (currentQuestionIndex === 3) {
+            // Q4: Reamping / Amp Sim vs 10 kHz Shelf vs De-esser vs Slapback
+            playDuration = 4.0;
+            const gtr = audioBuffers.current.guitar_riff;
+            if (optionText.includes('Amp Simulator')) {
+                const dist = ctx.createWaveShaper();
+                const c = new Float32Array(256);
+                for (let i = 0; i < 256; i++) c[i] = Math.tanh(((i * 2) / 256 - 1) * 24);
+                dist.curve = c;
+                const lp = ctx.createBiquadFilter();
+                lp.type = 'lowpass';
+                lp.frequency.value = 3800;
+                dist.connect(lp).connect(masterGain);
+                playBuf(gtr, now, dist);
+            } else if (optionText.includes('10 kHz')) {
+                const hs = ctx.createBiquadFilter();
+                hs.type = 'highshelf';
+                hs.frequency.value = 5000;
+                hs.gain.value = 12;
+                hs.connect(masterGain);
+                playBuf(gtr, now, hs);
+            } else if (optionText.includes('de-esser')) {
+                const dip = ctx.createBiquadFilter();
+                dip.type = 'peaking';
+                dip.frequency.value = 5500;
+                dip.gain.value = -12;
+                dip.connect(masterGain);
+                playBuf(gtr, now, dip);
+            } else {
+                const del = ctx.createDelay();
+                del.delayTime.value = 0.1;
+                const g = ctx.createGain();
+                g.gain.value = 0.6;
+                del.connect(g).connect(masterGain);
+                playBuf(gtr, now, masterGain);
+                playBuf(gtr, now, del);
+            }
+        } else if (currentQuestionIndex === 4) {
+            // Q5: Frequency Masking (Bass + Guitar)
+            playDuration = 4.0;
+            const bass = audioBuffers.current.bass;
+            const gtr = audioBuffers.current.guitar_riff;
+            if (optionText.includes('complementary')) {
+                const cut = ctx.createBiquadFilter();
+                cut.type = 'highpass';
+                cut.frequency.value = 220;
+                cut.connect(masterGain);
+                playBuf(bass, now, masterGain);
+                playBuf(gtr, now, cut);
+            } else if (optionText.includes('Boost 150 Hz')) {
+                const boost = ctx.createBiquadFilter();
+                boost.type = 'peaking';
+                boost.frequency.value = 150;
+                boost.gain.value = 11;
+                boost.connect(masterGain);
+                playBuf(bass, now, boost);
+                playBuf(gtr, now, boost);
+            } else if (optionText.includes('Hard-limit')) {
+                const comp = ctx.createDynamicsCompressor();
+                comp.threshold.value = -30;
+                comp.ratio.value = 20;
+                comp.connect(masterGain);
+                playBuf(bass, now, comp);
+                playBuf(gtr, now, comp);
+            } else {
+                const pR = ctx.createStereoPanner();
+                pR.pan.value = 0.95;
+                pR.connect(masterGain);
+                playBuf(bass, now, pR);
+                playBuf(gtr, now, masterGain);
+            }
+        } else if (currentQuestionIndex === 5) {
+            // Q6: Vocal Slapback vs Long Hall vs Limiting vs Flanger
+            playDuration = 4.0;
+            const vox = audioBuffers.current.vocal;
+            if (optionText.includes('Slapback')) {
+                const del = ctx.createDelay();
+                del.delayTime.value = 0.11;
+                const wet = ctx.createGain();
+                wet.gain.value = 0.65;
+                del.connect(wet).connect(masterGain);
+                playBuf(vox, now, masterGain);
+                playBuf(vox, now, del);
+            } else if (optionText.includes('Long hall')) {
+                const len = Math.floor(ctx.sampleRate * 2.2);
+                const imp = ctx.createBuffer(2, len, ctx.sampleRate);
+                for (let ch = 0; ch < 2; ch++) {
+                    const d = imp.getChannelData(ch);
+                    for (let i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 1.8);
+                }
+                const conv = ctx.createConvolver();
+                conv.buffer = imp;
+                conv.connect(masterGain);
+                playBuf(vox, now, masterGain);
+                playBuf(vox, now, conv);
+            } else if (optionText.includes('Brickwall')) {
+                const lim = ctx.createDynamicsCompressor();
+                lim.threshold.value = -28;
+                lim.ratio.value = 20;
+                lim.connect(masterGain);
+                playBuf(vox, now, lim);
+            } else {
+                const del = ctx.createDelay();
+                del.delayTime.value = 0.004;
+                const lfo = ctx.createOscillator();
+                lfo.frequency.value = 0.9;
+                const lg = ctx.createGain();
+                lg.gain.value = 0.003;
+                lfo.connect(lg).connect(del.delayTime);
+                lfo.start(now);
+                addSource(lfo);
+                del.connect(masterGain);
+                playBuf(vox, now, masterGain);
+                playBuf(vox, now, del);
+            }
+        } else if (currentQuestionIndex === 6) {
+            // Q7: Vocal Riding + Comp vs Limiter vs De-ess vs Distortion
+            playDuration = 4.0;
+            const vox = audioBuffers.current.vocal;
+            if (optionText.includes('automation')) {
+                const comp = ctx.createDynamicsCompressor();
+                comp.threshold.value = -16;
+                comp.ratio.value = 3;
+                comp.connect(masterGain);
+                playBuf(vox, now, comp);
+            } else if (optionText.includes('20:1')) {
+                const lim = ctx.createDynamicsCompressor();
+                lim.threshold.value = -32;
+                lim.ratio.value = 20;
+                lim.connect(masterGain);
+                playBuf(vox, now, lim);
+            } else if (optionText.includes('De-essing')) {
+                const hs = ctx.createBiquadFilter();
+                hs.type = 'highshelf';
+                hs.frequency.value = 5000;
+                hs.gain.value = -12;
+                hs.connect(masterGain);
+                playBuf(vox, now, hs);
+            } else {
+                const dist = ctx.createWaveShaper();
+                const c = new Float32Array(256);
+                for (let i = 0; i < 256; i++) c[i] = Math.tanh(((i * 2) / 256 - 1) * 18);
+                dist.curve = c;
+                dist.connect(masterGain);
+                playBuf(vox, now, dist);
+            }
+        } else if (currentQuestionIndex === 7) {
+            // Q8: Phase Cancellation vs Sub-Bass vs Comp vs Detuned Snare
+            playDuration = 2.4;
+            if (optionText.includes('Phase cancellation')) {
+                const del = ctx.createDelay();
+                del.delayTime.value = 0.0014;
+                const inv = ctx.createGain();
+                inv.gain.value = -0.95;
+                del.connect(inv).connect(masterGain);
+                playBuf(snareBuf, now, masterGain);
+                playBuf(snareBuf, now, del);
+                playBuf(snareBuf, now + 0.9, masterGain);
+                playBuf(snareBuf, now + 0.9, del);
+            } else if (optionText.includes('sub-bass')) {
+                const ls = ctx.createBiquadFilter();
+                ls.type = 'lowshelf';
+                ls.frequency.value = 120;
+                ls.gain.value = 10;
+                ls.connect(masterGain);
+                playBuf(snareBuf, now, ls);
+            } else if (optionText.includes('compression')) {
+                const comp = ctx.createDynamicsCompressor();
+                comp.threshold.value = -24;
+                comp.ratio.value = 10;
+                comp.connect(masterGain);
+                playBuf(snareBuf, now, comp);
+            } else {
+                const s = ctx.createBufferSource();
+                s.buffer = snareBuf;
+                s.playbackRate.value = 0.72;
+                s.connect(masterGain);
+                s.start(now);
+                addSource(s);
+            }
+        } else if (currentQuestionIndex === 8) {
+            // Q9: Sample Blending vs Gate vs Synth MIDI vs 300 Hz Boost
+            playDuration = 2.4;
+            if (optionText.includes('sample blending')) {
+                playBuf(snareBuf, now, masterGain);
+                playBuf(snareBuf, now + 0.85, masterGain);
+            } else if (optionText.includes('gating')) {
+                const g = ctx.createGain();
+                g.gain.setValueAtTime(1, now);
+                g.gain.setValueAtTime(0, now + 0.09);
+                g.connect(masterGain);
+                playBuf(snareBuf, now, g);
+            } else if (optionText.includes('MIDI')) {
+                const osc = ctx.createOscillator();
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(190, now);
+                osc.frequency.exponentialRampToValueAtTime(95, now + 0.12);
+                const g = ctx.createGain();
+                g.gain.setValueAtTime(0.7, now);
+                g.gain.exponentialRampToValueAtTime(0.01, now + 0.18);
+                osc.connect(g).connect(masterGain);
+                osc.start(now);
+                osc.stop(now + 0.2);
+                addSource(osc);
+            } else {
+                const pk = ctx.createBiquadFilter();
+                pk.type = 'peaking';
+                pk.frequency.value = 300;
+                pk.gain.value = 12;
+                pk.connect(masterGain);
+                playBuf(snareBuf, now, pk);
+            }
+        } else {
+            // Q10: Mix Bus Cohesion (Drums + Bass + Guitar)
+            playDuration = 4.0;
+            const drums = audioBuffers.current.drums;
+            const bass = audioBuffers.current.bass;
+            const gtr = audioBuffers.current.guitar_riff;
+            if (optionText.includes('Mix Bus Compression')) {
+                const bus = ctx.createDynamicsCompressor();
+                bus.threshold.value = -14;
+                bus.ratio.value = 3;
+                bus.attack.value = 0.015;
+                bus.release.value = 0.18;
+                bus.connect(masterGain);
+                playBuf(drums, now, bus);
+                playBuf(bass, now, bus);
+                playBuf(gtr, now, bus);
+            } else if (optionText.includes('Stereo widening')) {
+                const pL = ctx.createStereoPanner();
+                pL.pan.value = -0.9;
+                pL.connect(masterGain);
+                const pR = ctx.createStereoPanner();
+                pR.pan.value = 0.9;
+                pR.connect(masterGain);
+                playBuf(drums, now, pL);
+                playBuf(gtr, now, pR);
+            } else if (optionText.includes('Brickwall')) {
+                const dist = ctx.createWaveShaper();
+                const c = new Float32Array(256);
+                for (let i = 0; i < 256; i++) c[i] = Math.tanh(((i * 2) / 256 - 1) * 16);
+                dist.curve = c;
+                dist.connect(masterGain);
+                playBuf(drums, now, dist);
+                playBuf(bass, now, dist);
+            } else {
+                const g = ctx.createGain();
+                g.gain.setValueAtTime(1, now);
+                g.gain.setValueAtTime(0.05, now + 0.25);
+                g.gain.setValueAtTime(1, now + 0.5);
+                g.gain.setValueAtTime(0.05, now + 0.75);
+                g.connect(masterGain);
+                playBuf(drums, now, g);
+            }
         }
 
         stopTimerRef.current = setTimeout(() => {
@@ -841,38 +1194,6 @@ const RockProductionQuiz = ({ quiz, onExit }) => {
                         "{currentQ.scenario}"
                     </div>
 
-                    <div className="rock-audio-widget">
-                        <button
-                            className={`rock-play-btn ${playingMode === 'dry' ? 'playing' : ''} ${isLoadingAudio ? 'loading' : ''}`}
-                            onClick={() => playAudioExample(false)}
-                            disabled={isLoadingAudio}
-                        >
-                            {isLoadingAudio ? (
-                                <>
-                                    <Square size={20} className="fill-current" style={{ opacity: 0.5 }} />
-                                    <span>Loading Audio...</span>
-                                </>
-                            ) : playingMode === 'dry' ? (
-                                <>
-                                    <Square size={20} className="fill-current" />
-                                    <span>Stop Studio Feed</span>
-                                </>
-                            ) : (
-                                <>
-                                    <Play size={20} className="fill-current" />
-                                    <span>Play Studio Feed (Dry)</span>
-                                </>
-                            )}
-                        </button>
-                        {playingMode === 'dry' && <div className="rock-audio-waves">
-                            <span className="rock-wave-bar"></span>
-                            <span className="rock-wave-bar"></span>
-                            <span className="rock-wave-bar"></span>
-                            <span className="rock-wave-bar"></span>
-                            <span className="rock-wave-bar"></span>
-                        </div>}
-                    </div>
-
                     <div className="rock-options-grid">
                         {currentOptions.map((opt, index) => {
                             let btnClass = "rock-option-btn";
@@ -894,19 +1215,17 @@ const RockProductionQuiz = ({ quiz, onExit }) => {
                                     >
                                         {opt.text}
                                     </button>
-                                    {currentQuestionIndex === 0 && (
-                                        <button
-                                            type="button"
-                                            className={`rock-play-btn ${playingMode === `opt_${index}` ? 'playing' : ''}`}
-                                            style={{ padding: '0 12px', minWidth: '88px', fontSize: '0.8rem', justifyContent: 'center' }}
-                                            onClick={() => previewOptionAudio(opt.text, index)}
-                                            disabled={isLoadingAudio}
-                                            title={`Preview ${opt.text}`}
-                                        >
-                                            {playingMode === `opt_${index}` ? <Square size={14} className="fill-current" /> : <Play size={14} className="fill-current" />}
-                                            <span>{playingMode === `opt_${index}` ? 'Stop' : 'Hear'}</span>
-                                        </button>
-                                    )}
+                                    <button
+                                        type="button"
+                                        className={`rock-play-btn ${playingMode === `opt_${index}` ? 'playing' : ''}`}
+                                        style={{ padding: '0 12px', minWidth: '88px', fontSize: '0.8rem', justifyContent: 'center' }}
+                                        onClick={() => previewOptionAudio(opt.text, index)}
+                                        disabled={isLoadingAudio}
+                                        title={`Preview ${opt.text}`}
+                                    >
+                                        {playingMode === `opt_${index}` ? <Square size={14} className="fill-current" /> : <Play size={14} className="fill-current" />}
+                                        <span>{isLoadingAudio ? '...' : playingMode === `opt_${index}` ? 'Stop' : 'Hear'}</span>
+                                    </button>
                                 </div>
                             );
                         })}
@@ -921,38 +1240,7 @@ const RockProductionQuiz = ({ quiz, onExit }) => {
                                 {currentQ.explanation}
                             </div>
 
-                            <div className="rock-audio-widget" style={{ marginBottom: '1rem', marginTop: '1rem', padding: '1rem', background: 'rgba(0,0,0,0.2)', borderRadius: '8px' }}>
-                                <div style={{ fontSize: '0.9rem', marginBottom: '0.5rem', opacity: 0.8 }}>Hear the processed technique in action:</div>
-                                <button
-                                    className={`rock-play-btn ${playingMode === 'processed' ? 'playing' : ''} ${isLoadingAudio ? 'loading' : ''}`}
-                                    onClick={() => playAudioExample(true)}
-                                    disabled={isLoadingAudio}
-                                >
-                                    {isLoadingAudio ? (
-                                        <>
-                                            <Square size={20} className="fill-current" style={{ opacity: 0.5 }} />
-                                            <span>Loading Audio...</span>
-                                        </>
-                                    ) : playingMode === 'processed' ? (
-                                        <>
-                                            <Square size={20} className="fill-current" />
-                                            <span>Stop Processed Example</span>
-                                        </>
-                                    ) : (
-                                        <>
-                                            <Play size={20} className="fill-current" />
-                                            <span>Play Processed Example</span>
-                                        </>
-                                    )}
-                                </button>
-                                {playingMode === 'processed' && <div className="rock-audio-waves" style={{ marginTop: '0.5rem' }}>
-                                    <span className="rock-wave-bar"></span>
-                                    <span className="rock-wave-bar"></span>
-                                    <span className="rock-wave-bar"></span>
-                                </div>}
-                            </div>
-
-                            <div style={{ display: 'flex', justifyContent: 'space-between', gap: '12px', flexWrap: 'wrap' }}>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', gap: '12px', flexWrap: 'wrap', marginTop: '1rem' }}>
                                 <button
                                     type="button"
                                     className="rock-exit-btn"
