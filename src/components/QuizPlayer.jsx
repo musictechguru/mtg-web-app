@@ -28,6 +28,7 @@ import CombFilteringAudioQuiz from './InteractiveQuizzes/CombFilteringAudioQuiz'
 import OverheadPhaseQuiz from './InteractiveQuizzes/OverheadPhaseQuiz';
 import AudioFaultDiagnosisQuiz from './InteractiveQuizzes/AudioFaultDiagnosisQuiz';
 import ModulationDelayLabQuiz from './InteractiveQuizzes/ModulationDelayLabQuiz';
+import MeteringComparisonLabQuiz from './InteractiveQuizzes/MeteringComparisonLabQuiz';
 
 // Dev tools (skip, jump, reveal answers) only exist in local development, never on the live site
 const isDev = Boolean(import.meta.env.DEV);
@@ -58,7 +59,8 @@ const isInteractiveSelfSubmitting = (type) => [
     'phase-polarity-lab',
     'comb-filtering-lab',
     'overhead-phase-lab',
-    'modulation-delay-lab'
+    'modulation-delay-lab',
+    'metering-lab'
 ].includes(type);
 
 // Helper to build/shuffle questions for a fresh quiz attempt
@@ -1709,6 +1711,12 @@ const QuizPlayer = ({ quiz, onFinish }) => {
                             />
                         ) : currentQuestion.type === 'modulation-delay-lab' ? (
                             <ModulationDelayLabQuiz
+                                key={currentQuestionIndex}
+                                question={currentQuestion}
+                                onResult={handleInteractiveResult}
+                            />
+                        ) : currentQuestion.type === 'metering-lab' ? (
+                            <MeteringComparisonLabQuiz
                                 key={currentQuestionIndex}
                                 question={currentQuestion}
                                 onResult={handleInteractiveResult}

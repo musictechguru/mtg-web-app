@@ -5563,34 +5563,19 @@
               "explanation": "<img src=\"/images/mastering_headroom_crest_factor_diagram.svg\" alt=\"Q2: What is Headroom & Why is it Important?\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Headroom is the safety margin between the highest audio peak and the digital clipping ceiling (0 dBFS). Leaving -3 to -6 dBFS prevents inter-sample clipping and provides essential dynamic operating range for mastering EQ, compression, and analogue outboard gear.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Headroom is your insurance policy against distortion: it is the vital breathing space between your highest musical peak and the hard ceiling of digital clipping.\"<br/><strong>- Sound On Sound Audio Engineering Essentials</strong></blockquote>"
             },
             {
-              "title": "Q3: Audio Metering: Peak Meters vs VU Meters",
-              "type": "multi_choice",
-              "content": "What is the main difference between a Peak meter and a VU meter?",
-              "answers": [
-                {
-                  "text": "VU tracks peaks; Peak tracks average loudness",
-                  "is_true": "no"
-                },
-                {
-                  "text": "VU shows saturation; Peak shows room acoustics",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Peak tracks peaks; VU tracks average loudness",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "Peak checks phase; VU monitors bass rumble",
-                  "is_true": "no"
-                }
+              "title": "Q3: Practical Metering Lab — Peak Meter vs VU Meter",
+              "content": "Click Snare Transient Hit and Sustained Organ Pad (or Play Loop) to watch both meters react. Which meter catches the instant -1 dBFS snare spike before digital clipping?",
+              "type": "metering-lab",
+              "choices": [
+                "Peak Meter (dBFS) — catches instant transients",
+                "VU Meter — moves slowly at 300 ms average",
+                "Both meters spike identically on every hit",
+                "Neither meter detects digital clipping risk"
               ],
-              "expert_explanation": "Peak metres react instantly (under 10 ms) to capture transient spikes and stop digital clipping. VU metres have a deliberate 300 ms ballistic response, reflecting perceived loudness and RMS energy similarly to human hearing.",
-              "expert_quote": {
-                "text": "A peak meter warns you when your converters are about to clip, whereas a VU meter tells you how loud the music actually feels to the human ear.",
-                "author": "Modern Recording Techniques"
-              },
+              "correctIndex": 0,
               "img": "/images/mastering_metering_types_vu_peak_diagram.svg",
-              "explanation": "<img src=\"/images/mastering_metering_types_vu_peak_diagram.svg\" alt=\"Q3: Audio Metering: Peak Meters vs VU Meters\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Peak metres react instantly (under 10 ms) to capture transient spikes and stop digital clipping. VU metres have a deliberate 300 ms ballistic response, reflecting perceived loudness and RMS energy similarly to human hearing.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"A peak meter warns you when your converters are about to clip, whereas a VU meter tells you how loud the music actually feels to the human ear.\"<br/><strong>- Modern Recording Techniques</strong></blockquote>"
+              "expert_explanation": "Digital Peak meters (dBFS) react instantaneously to catch sharp drum transients like a -1 dBFS snare spike before digital clipping occurs. Analogue VU meters average loudness over ~300 ms, so short peaks barely move the needle.",
+              "explanation": "<p><strong>Expert Explanation:</strong> Digital Peak meters (dBFS) react instantaneously to catch sharp drum transients like a -1 dBFS snare spike before digital clipping occurs. Analogue VU meters average loudness over ~300 ms, so short peaks barely move the needle.</p>"
             },
             {
               "title": "Q4: Digital Audio Formats: Lossless WAV vs Lossy MP3",
