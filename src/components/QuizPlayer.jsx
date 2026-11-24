@@ -30,6 +30,7 @@ import AudioFaultDiagnosisQuiz from './InteractiveQuizzes/AudioFaultDiagnosisQui
 import ModulationDelayLabQuiz from './InteractiveQuizzes/ModulationDelayLabQuiz';
 import MeteringComparisonLabQuiz from './InteractiveQuizzes/MeteringComparisonLabQuiz';
 import LoudnessWarLabQuiz from './InteractiveQuizzes/LoudnessWarLabQuiz';
+import MasteringLabQuiz from './InteractiveQuizzes/MasteringLabQuiz';
 
 // Dev tools (skip, jump, reveal answers) only exist in local development, never on the live site
 const isDev = Boolean(import.meta.env.DEV);
@@ -62,7 +63,8 @@ const isInteractiveSelfSubmitting = (type) => [
     'overhead-phase-lab',
     'modulation-delay-lab',
     'metering-lab',
-    'loudness-war-lab'
+    'loudness-war-lab',
+    'mastering-lab'
 ].includes(type);
 
 // Helper to build/shuffle questions for a fresh quiz attempt
@@ -1725,6 +1727,12 @@ const QuizPlayer = ({ quiz, onFinish }) => {
                             />
                         ) : currentQuestion.type === 'loudness-war-lab' ? (
                             <LoudnessWarLabQuiz
+                                key={currentQuestionIndex}
+                                question={currentQuestion}
+                                onResult={handleInteractiveResult}
+                            />
+                        ) : currentQuestion.type === 'mastering-lab' ? (
+                            <MasteringLabQuiz
                                 key={currentQuestionIndex}
                                 question={currentQuestion}
                                 onResult={handleInteractiveResult}

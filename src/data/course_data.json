@@ -5810,354 +5810,204 @@
           "description": "Advanced audio mastering techniques: Mid/Side processing, multiband dynamics, Dynamic EQ vs crossover splitting, soft clipping before limiting, limiter lookahead & 4x oversampling, Fletcher-Munson equal-loudness, sub-bass limiter choking, Baxandall musical shelves, phase correlation metering, and Red Book CD delivery standards.",
           "questions": [
             {
-              "title": "Q11: Low-End Mastering: Why Bass Should Be in Mono",
-              "type": "multi_choice",
-              "content": "Why do mastering engineers traditionally make low bass frequencies mono?",
-              "answers": [
-                {
-                  "text": "To remove lossy MP3 encoding artifacts",
-                  "is_true": "no"
-                },
-                {
-                  "text": "To boost treble and widen high frequencies",
-                  "is_true": "no"
-                },
-                {
-                  "text": "For focus, phase safety, and vinyl tracking",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "To speed up mastering limiter release times",
-                  "is_true": "no"
-                }
+              "title": "Q1 (Interactive Lab): Mono Bass & Phase Check",
+              "content": "Play the loop, switch between Wide Out-of-Phase Bass and Mono Bass, and press MONO SUM CHECK. Why do mastering engineers keep low bass in mono and check phase?",
+              "type": "mastering-lab",
+              "mode": "mono-phase",
+              "options": [
+                "To boost treble sparkle above 12 kHz",
+                "To stop out-of-phase bass cancelling out in mono and keep low end focused",
+                "To lower the sample rate from 96 kHz to 44.1 kHz",
+                "To add extra hall reverberation to the kick drum"
               ],
-              "expert_explanation": "Centering low frequencies (below 80–100 Hz) in mono prevents phase cancellation when summed through single-subwoofer club systems. It also prevents excessive vertical stylus excursion on vinyl cutting lathes that would cause turntable needles to skip.",
-              "expert_quote": {
-                "text": "Keep your sub-bass dead center in mono. Out-of-phase bass weakens club sound systems and will physically throw a vinyl turntable needle out of the groove.",
-                "author": "Complete Audio Mastering Handbook"
-              },
-              "img": "/images/mastering_mono_bass_management_diagram.svg",
-              "explanation": "<img src=\"/images/mastering_mono_bass_management_diagram.svg\" alt=\"Q11: Low-End Mastering: Why Bass Should Be in Mono\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Centering low frequencies (below 80–100 Hz) in mono prevents phase cancellation when summed through single-subwoofer club systems. It also prevents excessive vertical stylus excursion on vinyl cutting lathes that would cause turntable needles to skip.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Keep your sub-bass dead centre in mono. Out-of-phase bass weakens club sound systems and will physically throw a vinyl turntable needle out of the groove.\"<br/><strong>- Complete Audio Mastering Handbook</strong></blockquote>"
+              "correctIndex": 1,
+              "expert_explanation": "As you heard when pressing MONO SUM CHECK, out-of-phase stereo bass cancels out when summed to mono. Keeping sub-bass in mono preserves focus, phase safety, and vinyl tracking.",
+              "explanation": "<p><strong>Expert Explanation:</strong> As you heard when pressing <strong>MONO SUM CHECK</strong>, out-of-phase stereo bass cancels out when summed to mono. Keeping sub-bass in mono preserves focus, phase safety, and vinyl tracking.</p>"
             },
             {
-              "title": "Q12: Dynamic Processing: What is Multiband Compression?",
+              "title": "Q2: Multiband Compression",
+              "content": "What does a multiband compressor do during mastering?",
               "type": "multi_choice",
-              "content": "What is multiband compression?",
               "answers": [
                 {
-                  "text": "Links stereo left and right channels together",
+                  "text": "Links left and right channels together",
                   "is_true": "no"
                 },
                 {
-                  "text": "Applies tape saturation across console buses",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Modulates delay intervals for stereo chorus",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Splits audio into bands to compress separately",
+                  "text": "Splits audio into frequency bands to compress separately",
                   "is_true": "yes"
+                },
+                {
+                  "text": "Adds stereo chorus across the whole mix",
+                  "is_true": "no"
+                },
+                {
+                  "text": "Converts 24-bit files down to 16-bit",
+                  "is_true": "no"
                 }
               ],
-              "expert_explanation": "Multiband compression splits audio into distinct frequency bands using crossover filters, applying independent dynamic control to each. This allows engineers to tame unruly low-end or harsh upper-mids without pumping or affecting the rest of the mix.",
-              "expert_quote": {
-                "text": "Multiband compression allows you to sculpt the dynamic energy of specific frequency regions without dragging the rest of the mix down with it.",
-                "author": "Modern Mastering Dynamics"
-              },
-              "img": "/images/mastering_multiband_compression_diagram.svg",
-              "explanation": "<img src=\"/images/mastering_multiband_compression_diagram.svg\" alt=\"Q12: Dynamic Processing: What is Multiband Compression?\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Multiband compression splits audio into distinct frequency bands using crossover filters, applying independent dynamic control to each. This allows engineers to tame unruly low-end or harsh upper-mids without pumping or affecting the rest of the mix.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Multiband compression allows you to sculpt the dynamic energy of specific frequency regions without dragging the rest of the mix down with it.\"<br/><strong>- Modern Mastering Dynamics</strong></blockquote>"
+              "expert_explanation": "Multiband compression splits the stereo mix into separate frequency bands (such as lows, mids, and highs) so each band can be compressed independently.",
+              "explanation": "<p><strong>Expert Explanation:</strong> Multiband compression splits the stereo mix into separate frequency bands (such as lows, mids, and highs) so each band can be compressed independently.</p>"
             },
             {
-              "title": "Q13: Tonal Sculpting: Why Use Mastering EQ?",
-              "type": "multi_choice",
-              "content": "Why is EQ applied during the mastering stage?",
-              "answers": [
-                {
-                  "text": "Gentle broad tonal shaping across the mix",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "Gating microphone hiss during quiet pauses",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Clamping drum peaks with brickwall limiting",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Notching resonances on individual drum mics",
-                  "is_true": "no"
-                }
+              "title": "Q3 (Interactive EQ Lab): Clearing Low-Mid Mud",
+              "content": "Play the muddy mix and test EQ options A, B, and C. Which broad mastering EQ move cleans up low-mid \"mud\" cleanly?",
+              "type": "mastering-lab",
+              "mode": "eq-mud",
+              "options": [
+                "A: Gently cut around 200 to 400 Hz (250 Hz)",
+                "B: Boost heavily around 250 Hz",
+                "C: Cut high frequencies at 8 kHz",
+                "Apply a 12 kHz brickwall limiter instead of EQ"
               ],
-              "expert_explanation": "Mastering EQ applies ultra-subtle, broad curves (typically ±0.5 to 1.5 dB) across the entire stereo mix. It polishes overall tonal balance, cleans infrasonic rumble to reclaim limiter headroom, and ensures seamless frequency continuity across album tracks.",
-              "expert_quote": {
-                "text": "Mastering EQ is about broad, musical strokes: tiny fractions of a decibel reshape the entire tonal atmosphere of a mix.",
-                "author": "Mastering Equalization Guide"
-              },
-              "img": "/images/mastering_eq_tonal_sculpting_diagram.svg",
-              "explanation": "<img src=\"/images/mastering_eq_tonal_sculpting_diagram.svg\" alt=\"Q13: Tonal Sculpting: Why Use Mastering EQ?\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Mastering EQ applies ultra-subtle, broad curves (typically ±0.5 to 1.5 dB) across the entire stereo mix. It polishes overall tonal balance, cleans infrasonic rumble to reclaim limiter headroom, and ensures seamless frequency continuity across album tracks.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Mastering EQ is about broad, musical strokes: tiny fractions of a decibel reshape the entire tonal atmosphere of a mix.\"<br/><strong>- Mastering Equalisation Guide</strong></blockquote>"
+              "correctIndex": 0,
+              "expert_explanation": "A gentle broad cut around 200–400 Hz (like the -5 dB cut at 250 Hz) clears boxy low-mid mud without dulling the top end.",
+              "explanation": "<p><strong>Expert Explanation:</strong> A gentle broad cut around 200–400 Hz (like the -5 dB cut at 250 Hz) clears boxy low-mid mud without dulling the top end.</p>"
             },
             {
-              "title": "Q14: Spatial Processing: Why Add Reverb to a Master?",
-              "type": "multi_choice",
-              "content": "Why might a mastering engineer add a tiny amount of subtle reverb?",
-              "answers": [
-                {
-                  "text": "To notch out harsh vocal sibilance",
-                  "is_true": "no"
-                },
-                {
-                  "text": "To glue elements in a shared space",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "To centre sub-bass and fix phase",
-                  "is_true": "no"
-                },
-                {
-                  "text": "To stop inter-sample output clipping",
-                  "is_true": "no"
-                }
+              "title": "Q4 (4 Marks): Digital Delivery, Red Book CD & Dither",
+              "content": "Complete the 4 dropdowns on digital mastering standards and dithering.",
+              "type": "cloze",
+              "text": [
+                "1. Standard Red Book Audio CD requires {0} resolution at 44.1 kHz.",
+                "2. When reducing 24-bit audio to 16-bit, {1} randomises quantisation error into quiet noise.",
+                "3. Dither must always sit in the {2} slot after all gain and limiting.",
+                "4. Using higher sample rates during mastering helps reduce {3} from non-linear plugins."
               ],
-              "expert_explanation": "Mastering reverb is applied ultra-subtly (2–5% wet, high-passed >250 Hz) as acoustic glue. It binds disparate dry instruments into a shared acoustic environment, adds dimensional depth to sterile mixes, and smooths abrupt decay tails.",
-              "expert_quote": {
-                "text": "Mastering reverb isn't an effect you're supposed to consciously hear—it is the subtle acoustic glue that makes a collection of separate tracks feel like a live performance in a real room.",
-                "author": "The Art of Audio Mastering"
-              },
-              "img": "/images/mastering_reverb_spatial_acoustic_diagram.svg",
-              "explanation": "<img src=\"/images/mastering_reverb_spatial_acoustic_diagram.svg\" alt=\"Q14: Spatial Processing: Why Add Reverb to a Master?\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Mastering reverb is applied ultra-subtly (2–5% wet, high-passed >250 Hz) as acoustic glue. It binds disparate dry instruments into a shared acoustic environment, adds dimensional depth to sterile mixes, and smooths abrupt decay tails.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Mastering reverb isn't an effect you're supposed to consciously hear—it is the subtle acoustic glue that makes a collection of separate tracks feel like a live performance in a real room.\"<br/><strong>- The Art of Audio Mastering</strong></blockquote>"
+              "options": [
+                [
+                  "8-bit",
+                  "16-bit",
+                  "32-bit float",
+                  "64-bit"
+                ],
+                [
+                  "dither",
+                  "flanging",
+                  "panning",
+                  "gating"
+                ],
+                [
+                  "first",
+                  "middle",
+                  "very final",
+                  "pre-EQ"
+                ],
+                [
+                  "reverberation",
+                  "stereo width",
+                  "noise gating",
+                  "aliasing"
+                ]
+              ],
+              "answer": [
+                "16-bit",
+                "dither",
+                "very final",
+                "aliasing"
+              ],
+              "expert_explanation": "Red Book CD is 16-bit / 44.1 kHz. Dither goes in the very final slot to randomise quantisation error, while higher sample rates reduce aliasing from non-linear plugins.",
+              "explanation": "<p><strong>Expert Explanation:</strong> Red Book CD is 16-bit / 44.1 kHz. Dither goes in the very final slot to randomise quantisation error, while higher sample rates reduce aliasing from non-linear plugins.</p>"
             },
             {
-              "title": "Q15: Digital Audio: Benefits of High Sample Rates in Mastering",
-              "type": "multi_choice",
-              "content": "What is a key benefit of using high sample rates when mastering?",
-              "answers": [
-                {
-                  "text": "Centres frequencies below 80 Hz automatically",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Removes streaming platform codec distortion",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Reduces aliasing from non-linear plugins",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "Expands digital dynamic range by 24 dB",
-                  "is_true": "no"
-                }
+              "title": "Q5 (Interactive Limiter Lab): Sub-Bass Headroom",
+              "content": "Play the loop and toggle the 42 Hz High-Pass Filter while watching the Gain Reduction meter. Why is excessive sub-bass problematic in mastering?",
+              "type": "mastering-lab",
+              "mode": "sub-headroom",
+              "options": [
+                "It turns stereo tracks into 5.1 surround automatically",
+                "It boosts vocal sibilance above 8 kHz",
+                "It eats up headroom and triggers the limiter early",
+                "It prevents dither from working at 44.1 kHz"
               ],
-              "expert_explanation": "Working at high sample rates (88.2 or 96 kHz) pushes the Nyquist frequency to 44.1 or 48 kHz. This prevents non-linear processors (limiters, clippers, saturators) from folding harmonics back into the audible band as harsh aliasing distortion.",
-              "expert_quote": {
-                "text": "Oversampling and high sample rates give non-linear digital algorithms room to breathe, pushing foldback aliasing distortion far outside the range of human hearing.",
-                "author": "Digital Audio Theory and Mastering"
-              },
-              "img": "/images/mastering_high_sample_rates_aliasing_diagram.svg",
-              "explanation": "<img src=\"/images/mastering_high_sample_rates_aliasing_diagram.svg\" alt=\"Q15: Digital Audio: Benefits of High Sample Rates in Mastering\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Working at high sample rates (88.2 or 96 kHz) pushes the Nyquist frequency to 44.1 or 48 kHz. This prevents non-linear processors (limiters, clippers, saturators) from folding harmonics back into the audible band as harsh aliasing distortion.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Oversampling and high sample rates give non-linear digital algorithms room to breathe, pushing foldback aliasing distortion far outside the range of human hearing.\"<br/><strong>- Digital Audio Theory and Mastering</strong></blockquote>"
+              "correctIndex": 2,
+              "expert_explanation": "Excessive sub-bass carries huge energy that eats up headroom and triggers the master limiter early, causing audible pumping across the whole track.",
+              "explanation": "<p><strong>Expert Explanation:</strong> Excessive sub-bass carries huge energy that eats up headroom and triggers the master limiter early, causing audible pumping across the whole track.</p>"
             },
             {
-              "title": "Q16: Surround Sound: Standard 5.1 Speaker Configuration",
-              "type": "multi_choice",
-              "content": "How many speakers make up a standard 5.1 surround sound system?",
-              "answers": [
-                {
-                  "text": "Four full-range satellite speakers and one low-frequency subwoofer",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Five full-range satellite speakers and one dedicated subwoofer",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "Six full-range satellite speakers with no dedicated subwoofer",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Seven satellite speakers and two low-frequency subwoofers",
-                  "is_true": "no"
-                }
+              "title": "Q6 (Practical Order): Mastering Signal Chain",
+              "content": "Drag the 5 mastering processors into the correct signal flow order from TOP (first) to BOTTOM (last).",
+              "type": "drag_drop",
+              "items": [
+                "Dithering (Final bit-depth reduction to 16-bit)",
+                "Brickwall Limiter (Sets -1.0 dBTP ceiling)",
+                "Corrective EQ (High-pass rumble & 250 Hz mud cut)",
+                "Broad Tonal EQ (Gentle musical warmth & air)",
+                "Multiband / Bus Compression (Gentle dynamic glue)"
               ],
-              "expert_explanation": "A standard 5.1 surround setup utilizes 6 physical speakers: 5 full-range satellites (Left, Centre, Right, Left Surround, Right Surround) for 360° directional localization, plus 1 dedicated subwoofer carrying the band-limited Low-Frequency Effects (LFE) channel.",
-              "expert_quote": {
-                "text": "The .1 in 5.1 refers to the fractional bandwidth of the LFE subwoofer channel, meaning a 5.1 setup requires six physical speakers to reproduce the complete soundfield.",
-                "author": "Surround Sound and Spatial Audio Engineering"
-              },
-              "img": "/images/mastering_surround_sound_5_1_speaker_setup_diagram.svg",
-              "explanation": "<img src=\"/images/mastering_surround_sound_5_1_speaker_setup_diagram.svg\" alt=\"Q16: Surround Sound: Standard 5.1 Speaker Configuration\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> A standard 5.1 surround setup utilizes 6 physical speakers: 5 full-range satellites (Left, Centre, Right, Left Surround, Right Surround) for 360° directional localization, plus 1 dedicated subwoofer carrying the band-limited Low-Frequency Effects (LFE) channel.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"The .1 in 5.1 refers to the fractional bandwidth of the LFE subwoofer channel, meaning a 5.1 setup requires six physical speakers to reproduce the complete soundfield.\"<br/><strong>- Surround Sound and Spatial Audio Engineering</strong></blockquote>"
+              "correct_order": [
+                "Corrective EQ (High-pass rumble & 250 Hz mud cut)",
+                "Multiband / Bus Compression (Gentle dynamic glue)",
+                "Broad Tonal EQ (Gentle musical warmth & air)",
+                "Brickwall Limiter (Sets -1.0 dBTP ceiling)",
+                "Dithering (Final bit-depth reduction to 16-bit)"
+              ],
+              "top_label": "▲ FIRST IN CHAIN (Unmastered Stereo Mix)",
+              "bottom_label": "▼ LAST IN CHAIN (Final 16-bit Delivery Master)",
+              "expert_explanation": "Clean up sub-rumble and mud with Corrective EQ first, glue dynamics with Compression, shape tone with Broad EQ, set final loudness with the Brickwall Limiter, and apply Dithering last.",
+              "explanation": "<p><strong>Expert Explanation:</strong> Clean up sub-rumble and mud with Corrective EQ first, glue dynamics with Compression, shape tone with Broad EQ, set final loudness with the Brickwall Limiter, and apply Dithering last.</p>"
             },
             {
-              "title": "Q17: Low-End Management: Why Sub-Bass is Difficult in Mastering",
-              "type": "multi_choice",
-              "content": "Why is excessive sub-bass problematic when mastering a track?",
-              "answers": [
-                {
-                  "text": "Causes dither to add audible clicking",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Shifts treble frequencies out of phase",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Boosts harsh sibilance on loud vocals",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Eats headroom and triggers limiters early",
-                  "is_true": "yes"
-                }
+              "title": "Q7: Spatial Glue & Surround Formats",
+              "content": "Complete the 2 dropdowns on spatial mastering and surround sound.",
+              "type": "cloze",
+              "text": [
+                "1. A tiny touch of subtle master {0} can glue dry elements into a shared acoustic space.",
+                "2. A standard 5.1 surround system uses {1} full-range speakers and one dedicated subwoofer."
               ],
-              "expert_explanation": "Sub-bass (<40 Hz) contains enormous waveform energy that consumes dynamic headroom and triggers premature limiter choking, causing audible pumping. Because consumer devices cannot reproduce these frequencies, high-passing inaudible rumble cleans the mix and restores punch.",
-              "expert_quote": {
-                "text": "Sub-bass is the silent headroom vampire of mastering: if you don't filter out inaudible infrasonic rumble, it will force your limiter into premature choking and destroy mix clarity.",
-                "author": "Low End Mastering Dynamics"
-              },
-              "img": "/images/mastering_sub_bass_limiter_choking_diagram.svg",
-              "explanation": "<img src=\"/images/mastering_sub_bass_limiter_choking_diagram.svg\" alt=\"Q17: Low-End Management: Why Sub-Bass is Difficult in Mastering\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Sub-bass (<40 Hz) contains enormous waveform energy that consumes dynamic headroom and triggers premature limiter choking, causing audible pumping. Because consumer devices cannot reproduce these frequencies, high-passing inaudible rumble cleans the mix and restores punch.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Sub-bass is the silent headroom vampire of mastering: if you don't filter out inaudible infrasonic rumble, it will force your limiter into premature choking and destroy mix clarity.\"<br/><strong>- Low End Mastering Dynamics</strong></blockquote>"
+              "options": [
+                [
+                  "bit-crushing",
+                  "reverberation",
+                  "ring modulation",
+                  "distortion"
+                ],
+                [
+                  "four",
+                  "six",
+                  "five",
+                  "seven"
+                ]
+              ],
+              "answer": [
+                "reverberation",
+                "five"
+              ],
+              "expert_explanation": "Subtle mastering reverberation can glue mix elements in a shared space, and 5.1 surround consists of 5 full-range satellite speakers plus 1 LFE subwoofer.",
+              "explanation": "<p><strong>Expert Explanation:</strong> Subtle mastering reverberation can glue mix elements in a shared space, and 5.1 surround consists of 5 full-range satellite speakers plus 1 LFE subwoofer.</p>"
             },
             {
-              "title": "Q18: Frequency Management: Clearing Low-Mid \"Mud\" in a Mix",
-              "type": "multi_choice",
-              "content": "Which frequency area is commonly cleaned up with EQ to eliminate 'mud' from a mix?",
-              "answers": [
-                {
-                  "text": "Boosting above 10 kHz for extra sparkle",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Cutting gently around 200 to 400 Hz",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "Widening panning on sub-bass synths",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Applying heavy limiting on master bus",
-                  "is_true": "no"
-                }
-              ],
-              "expert_explanation": "\"Mud\" accumulates in the 200–400 Hz range where bass harmonics, kick body, rhythm guitars, vocals, and reverb tails collide. Applying gentle parametric EQ dips and high-passing non-bass tracks unmasks vocal clarity and clears low-mid cloudiness.",
-              "expert_quote": {
-                "text": "Mud is born in the 250 to 350 Hz range where instruments pile up. A surgical dip here instantly unmasks vocal clarity and lets your kick and bass breathe.",
-                "author": "The Mixing Engineer's Handbook"
-              },
-              "img": "/images/mastering_clearing_low_mid_mud_diagram.svg",
-              "explanation": "<img src=\"/images/mastering_clearing_low_mid_mud_diagram.svg\" alt=\"Q18: Frequency Management: Clearing Low-Mid \"Mud\" in a Mix\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> \"Mud\" accumulates in the 200–400 Hz range where bass harmonics, kick body, rhythm guitars, vocals, and reverb tails collide. Applying gentle parametric EQ dips and high-passing non-bass tracks unmasks vocal clarity and clears low-mid cloudiness.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Mud is born in the 250 to 350 Hz range where instruments pile up. A surgical dip here instantly unmasks vocal clarity and lets your kick and bass breathe.\"<br/><strong>- The Mixing Engineer's Handbook</strong></blockquote>"
+              "title": "Q8 (Practical Ear Test): Spot the Over-Compressed Master",
+              "content": "Listen to Mix A and Mix B. One keeps open dynamic punch, while the other is crushed by aggressive brickwall limiting. Pick the over-compressed master.",
+              "type": "loudness-war-lab",
+              "overCompressed": "B",
+              "expert_explanation": "Mix B is over-compressed and brickwall-limited: drum transients are flattened and the bass audibly pumps, whereas Mix A preserves punch and headroom.",
+              "explanation": "<p><strong>Expert Explanation:</strong> Mix B is over-compressed and brickwall-limited: drum transients are flattened and the bass audibly pumps, whereas Mix A preserves punch and headroom.</p>"
             },
             {
-              "title": "Q19: Phase Integrity: Why Phase Cancellation is Critical in Mastering",
-              "type": "multi_choice",
-              "content": "Why is phase alignment a critical check during mastering?",
-              "answers": [
-                {
-                  "text": "Out-of-phase audio violates Nyquist limits",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Out-of-phase elements cancel out in mono",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "Phase issues drop bit depth down to 16-bit",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Phase shifts overheat studio monitor cones",
-                  "is_true": "no"
-                }
-              ],
-              "expert_explanation": "Out-of-phase stereo audio (negative correlation) causes destructive interference, making lead vocals and bass disappear when summed to mono on smartphones and club systems. Mastering engineers maintain +0.3 to +0.8 correlation for wide stereo with mono safety.",
-              "expert_quote": {
-                "text": "Always audition your master in mono: if your correlation meter drops below zero, lead instruments will vanish on smartphone speakers and club sound systems.",
-                "author": "Mastering Phase Integrity Guide"
-              },
-              "img": "/images/mastering_phase_correlation_meter_diagram.svg",
-              "explanation": "<img src=\"/images/mastering_phase_correlation_meter_diagram.svg\" alt=\"Q19: Phase Integrity: Why Phase Cancellation is Critical in Mastering\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Out-of-phase stereo audio (negative correlation) causes destructive interference, making lead vocals and bass disappear when summed to mono on smartphones and club systems. Mastering engineers maintain +0.3 to +0.8 correlation for wide stereo with mono safety.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Always audition your master in mono: if your correlation meter drops below zero, lead instruments will vanish on smartphone speakers and club sound systems.\"<br/><strong>- Mastering Phase Integrity Guide</strong></blockquote>"
-            },
-            {
-              "title": "Q20: Release Formats: What is the Red Book Audio Standard?",
-              "type": "multi_choice",
-              "content": "What are the standard audio specifications for a Red Book Audio CD?",
-              "answers": [
-                {
-                  "text": "24-bit resolution at a 96 kHz sample rate",
-                  "is_true": "no"
-                },
-                {
-                  "text": "24-bit resolution at a 48 kHz sample rate",
-                  "is_true": "no"
-                },
-                {
-                  "text": "16-bit resolution at a 44.1 kHz sample rate",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "32-bit floating point at 192 kHz sample rate",
-                  "is_true": "no"
-                }
-              ],
-              "expert_explanation": "The Red Book standard (established by Sony and Philips in 1980) defines physical Compact Disc specifications: 16-bit / 44.1 kHz linear PCM stereo audio, up to 99 tracks, embedded ISRC royalty codes, and DDP file sets for factory pressing.",
-              "expert_quote": {
-                "text": "The Red Book standard established the benchmark of digital audio distribution, codifying 16-bit / 44.1 kHz PCM audio and DDP replication sets across the globe.",
-                "author": "Digital Audio Standards Handbook"
-              },
-              "img": "/images/mastering_red_book_cd_metadata_diagram.svg",
-              "explanation": "<img src=\"/images/mastering_red_book_cd_metadata_diagram.svg\" alt=\"Q20: Release Formats: What is the Red Book Audio Standard?\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> The Red Book standard (established by Sony and Philips in 1980) defines physical Compact Disc specifications: 16-bit / 44.1 kHz linear PCM stereo audio, up to 99 tracks, embedded ISRC royalty codes, and DDP file sets for factory pressing.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"The Red Book standard established the benchmark of digital audio distribution, codifying 16-bit / 44.1 kHz PCM audio and DDP replication sets across the globe.\"<br/><strong>- Digital Audio Standards Handbook</strong></blockquote>"
-            },
-            {
-              "title": "Dither & Quantisation Error",
-              "content": "Why is dither applied when bouncing a 24-bit mixdown to a 16-bit master file?",
+              "title": "Q9: Mastering EQ vs Mixing EQ",
+              "content": "How is equalisation typically applied during the mastering stage compared to mixing?",
               "type": "multi_choice",
               "answers": [
                 {
-                  "text": "To randomise quantisation error into low-level white noise",
+                  "text": "Extreme narrow notches on individual drum mics",
+                  "is_true": "no"
+                },
+                {
+                  "text": "Gentle broad tonal shaping across the stereo mix",
                   "is_true": "yes"
                 },
                 {
-                  "text": "To increase the Nyquist frequency limit of the master file",
+                  "text": "Gating background room noise between vocal lines",
                   "is_true": "no"
                 },
                 {
-                  "text": "To boost the perceived loudness without clipping the peaks",
-                  "is_true": "no"
-                },
-                {
-                  "text": "To remove high-frequency aliasing above the audible range",
+                  "text": "Hard-clipping transients at 0 dBFS",
                   "is_true": "no"
                 }
               ],
-              "explanation": "<p><strong>Expert Explanation:</strong> Reducing bit depth truncates the least significant bits (LSBs), creating correlated quantisation distortion on quiet signals and reverb tails. Adding low-level dither noise randomises this rounding error, replacing harsh harmonic distortion with a smooth, steady noise floor.</p>",
-              "expert_explanation": "Expert Explanation: Reducing bit depth truncates the least significant bits (LSBs), creating correlated quantisation distortion on quiet signals and reverb tails. Adding low-level dither noise randomises this rounding error, replacing harsh harmonic distortion with a smooth, steady noise floor."
-            },
-            {
-              "title": "Dither Signal Chain Placement",
-              "content": "When exporting a final 16-bit master for CD replication, where in the signal chain must dither be placed?",
-              "type": "multi_choice",
-              "answers": [
-                {
-                  "text": "In the very final slot after all gain and limiting stages",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "Immediately before the master bus compressor and limiter",
-                  "is_true": "no"
-                },
-                {
-                  "text": "On every individual audio track prior to stereo summing",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Between the parametric equaliser and the stereo widener",
-                  "is_true": "no"
-                }
-              ],
-              "explanation": "<p><strong>Expert Explanation:</strong> Any gain change, equalisation, or dynamic processing applied after dither alters the word length back to the DAW internal 32-bit/64-bit floating-point resolution, undoing the 16-bit quantisation.</p>",
-              "expert_explanation": "Expert Explanation: Any gain change, equalisation, or dynamic processing applied after dither alters the word length back to the DAW internal 32-bit/64-bit floating-point resolution, undoing the 16-bit quantisation."
+              "expert_explanation": "Mastering engineers use gentle, broad EQ curves across the full stereo mix rather than surgical individual-track fixes.",
+              "explanation": "<p><strong>Expert Explanation:</strong> Mastering engineers use gentle, broad EQ curves across the full stereo mix rather than surgical individual-track fixes.</p>"
             }
           ],
           "randomise": false
