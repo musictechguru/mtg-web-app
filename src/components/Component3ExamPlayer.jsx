@@ -294,10 +294,7 @@ const Component3ExamPlayer = ({ examData: rawExamData, onExit }) => {
         });
     }, [examData]);
 
-    // Safety check
-    if (!examData) return <div>Loading Exam...</div>;
-
-    const sections = examData.sections;
+    const sections = examData?.sections || [];
 
     // --- Premium Lock Logic ---
     let globalQuestionIndex = 0;
@@ -306,10 +303,6 @@ const Component3ExamPlayer = ({ examData: rawExamData, onExit }) => {
             globalQuestionIndex += sections[i]?.questions?.length || 0;
         }
         globalQuestionIndex += currentQuestionIndex;
-    }
-
-    if (!currentUser?.is_premium && globalQuestionIndex >= 3 && !examFinished) {
-        // Premium lock check moved below all hooks to satisfy React Rules of Hooks
     }
 
     const currentSection = currentSectionIndex >= 0 && currentSectionIndex < sections.length ? sections[currentSectionIndex] : null;
@@ -513,6 +506,14 @@ const Component3ExamPlayer = ({ examData: rawExamData, onExit }) => {
         examSavedRef.current = false;
     }, [examData]);
 
+    // --- DND Sensors (declared before any conditional returns) ---
+    const sensors = useSensors(
+        useSensor(PointerSensor, { activationConstraint: { distance: 5 } }),
+        useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates })
+    );
+
+    if (!examData) return <div>Loading Exam...</div>;
+
     if (!currentUser?.is_premium && globalQuestionIndex >= 3 && !examFinished) {
         return (
             <div style={{ position: 'relative', width: '100vw', minHeight: '100vh', background: 'var(--bg-main)' }}>
@@ -584,12 +585,6 @@ const Component3ExamPlayer = ({ examData: rawExamData, onExit }) => {
     };
 
 
-
-    // --- DND Sensors ---
-    const sensors = useSensors(
-        useSensor(PointerSensor, { activationConstraint: { distance: 5 } }),
-        useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates })
-    );
 
     const handleDragEnd = (event, qId, partId, currentOrder) => {
         const { active, over } = event;
