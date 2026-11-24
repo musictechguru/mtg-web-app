@@ -82,8 +82,8 @@ export default function MasteringLabQuiz({ question, onResult }) {
         }
 
         if (mode === 'sub-headroom' && n.subGain && n.hpf) {
-            n.hpf.frequency.setTargetAtTime(hpfOn ? 95 : 12, now, 0.03);
-            n.subGain.gain.setTargetAtTime(hpfOn ? 0.08 : 0.85, now, 0.03);
+            n.hpf.frequency.setTargetAtTime(hpfOn ? 90 : 18, now, 0.03);
+            n.subGain.gain.setTargetAtTime(hpfOn ? 0.06 : 0.55, now, 0.03);
         }
 
         if (mode === 'multiband' && n.bypassBus && n.singleBus && n.mbBus) {
@@ -104,7 +104,7 @@ export default function MasteringLabQuiz({ question, onResult }) {
         if (ctx.state === 'suspended') await ctx.resume();
 
         const masterGain = ctx.createGain();
-        masterGain.gain.value = 0.75;
+        masterGain.gain.value = 0.55;
         masterGain.connect(ctx.destination);
 
         if (mode === 'mono-phase') {
@@ -223,10 +223,10 @@ export default function MasteringLabQuiz({ question, onResult }) {
             hpf.Q.value = 0.7;
 
             const limiter = ctx.createDynamicsCompressor();
-            limiter.threshold.value = -24;
-            limiter.knee.value = 2;
-            limiter.ratio.value = 16;
-            limiter.attack.value = 0.002;
+            limiter.threshold.value = -15;
+            limiter.knee.value = 6;
+            limiter.ratio.value = 8;
+            limiter.attack.value = 0.005;
             limiter.release.value = 0.22;
 
             mixBus.connect(hpf);
@@ -344,25 +344,25 @@ export default function MasteringLabQuiz({ question, onResult }) {
                     osc.stop(t + 0.25);
                 });
             } else if (mode === 'sub-headroom') {
-                // Audible low-end rumble (42 Hz + 84 Hz harmonic so laptop speakers hear it clearly)
+                // Clean, non-clipping sub-bass energy (48 Hz + 96 Hz) so GR bounces cleanly around -6 dB
                 if (s === 0 || s === 4) {
-                    [42, 84].forEach((freq, idx) => {
+                    [48, 96].forEach((freq, idx) => {
                         const sub = ctxRef.current.createOscillator();
                         sub.type = 'sine';
                         sub.frequency.setValueAtTime(freq, t);
                         const sg = ctxRef.current.createGain();
-                        sg.gain.setValueAtTime(idx === 0 ? 1.15 : 0.45, t);
-                        sg.gain.exponentialRampToValueAtTime(0.15, t + 0.95);
+                        sg.gain.setValueAtTime(idx === 0 ? 0.62 : 0.24, t);
+                        sg.gain.exponentialRampToValueAtTime(0.08, t + 0.75);
                         sub.connect(sg).connect(n.subGain);
                         sub.start(t);
-                        sub.stop(t + 0.98);
+                        sub.stop(t + 0.78);
                     });
                 }
                 const pad = ctxRef.current.createOscillator();
                 pad.type = 'triangle';
                 pad.frequency.setValueAtTime(s % 4 === 0 ? 220 : 261.6, t);
                 const pg = ctxRef.current.createGain();
-                pg.gain.setValueAtTime(0.22, t);
+                pg.gain.setValueAtTime(0.18, t);
                 pg.gain.exponentialRampToValueAtTime(0.03, t + 0.22);
                 pad.connect(pg).connect(n.mixBus);
                 pad.start(t);
@@ -593,7 +593,7 @@ export default function MasteringLabQuiz({ question, onResult }) {
                             </div>
                             <div style={{ height: '12px', background: 'rgba(255,255,255,0.08)', borderRadius: '999px', overflow: 'hidden' }}>
                                 <div style={{
-                                    width: `${Math.min(100, grDb * 8.5)}%`,
+                                    width: `${Math.min(100, (grDb / 12) * 100)}%`,
                                     height: '100%',
                                     background: grDb > 4 ? '#ef4444' : '#10b981',
                                     transition: 'width 80ms linear'
