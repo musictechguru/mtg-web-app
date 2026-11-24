@@ -254,7 +254,7 @@ export default function EquipmentLabQuiz({ question, onResult }) {
                                     gap: '8px'
                                 }}
                             >
-                                <svg viewBox="0 0 120 120" style={{ width: '110px', height: '110px' }}>
+                                <svg viewBox="-10 -4 140 128" style={{ width: '112px', height: '112px' }}>
                                     <circle cx="60" cy="60" r="44" fill="none" stroke="rgba(148,163,184,0.22)" strokeWidth="1" />
                                     <circle cx="60" cy="60" r="24" fill="none" stroke="rgba(148,163,184,0.16)" strokeWidth="1" />
                                     <line x1="60" y1="10" x2="60" y2="110" stroke="rgba(148,163,184,0.22)" strokeWidth="1" />
