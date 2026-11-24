@@ -2,10 +2,11 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Play, Square, Volume2, Radio, Sliders, Activity, CheckCircle2, AlertCircle } from 'lucide-react';
 
 /**
- * Interactive Web Audio Mastering Lab supporting 3 9MT0 A-Level experiments:
+ * Interactive Web Audio Mastering Lab supporting 4 9MT0 A-Level experiments:
  *  - "mono-phase": Mono Bass & Phase Cancellation Check
  *  - "eq-mud": Broad Mastering EQ (clearing 200-400 Hz low-mid mud)
  *  - "sub-headroom": Sub-Bass Headroom & Limiter Pumping
+ *  - "multiband": Single-Band Pumping vs 3-Band Multiband Compression
  */
 export default function MasteringLabQuiz({ question, onResult }) {
     const mode = question?.mode || 'mono-phase';
@@ -17,7 +18,9 @@ export default function MasteringLabQuiz({ question, onResult }) {
     const [bassMode, setBassMode] = useState('wide'); // 'wide' | 'mono'
     const [eqPreset, setEqPreset] = useState('bypass'); // 'bypass' | 'cut250' | 'boost250' | 'cut8k'
     const [hpfOn, setHpfOn] = useState(false);
+    const [mbMode, setMbMode] = useState('bypass'); // 'bypass' | 'single' | 'multiband'
     const [grDb, setGrDb] = useState(0);
+    const [bandGr, setBandGr] = useState({ low: 0, mid: 0, high: 0 });
 
     const [selectedIdx, setSelectedIdx] = useState(null);
     const [submitted, setSubmitted] = useState(false);
@@ -27,12 +30,12 @@ export default function MasteringLabQuiz({ question, onResult }) {
     const timerRef = useRef(null);
     const stepRef = useRef(0);
     const nodesRef = useRef({});
-    const modeStateRef = useRef({ monoSum: false, bassMode: 'wide', eqPreset: 'bypass', hpfOn: false });
+    const modeStateRef = useRef({ monoSum: false, bassMode: 'wide', eqPreset: 'bypass', hpfOn: false, mbMode: 'bypass' });
 
     useEffect(() => {
-        modeStateRef.current = { monoSum, bassMode, eqPreset, hpfOn };
+        modeStateRef.current = { monoSum, bassMode, eqPreset, hpfOn, mbMode };
         applyLiveParams();
-    }, [monoSum, bassMode, eqPreset, hpfOn]);
+    }, [monoSum, bassMode, eqPreset, hpfOn, mbMode]);
 
     const stopAudio = () => {
         if (timerRef.current) {
@@ -81,6 +84,12 @@ export default function MasteringLabQuiz({ question, onResult }) {
         if (mode === 'sub-headroom' && n.subGain && n.hpf) {
             n.hpf.frequency.setTargetAtTime(hpfOn ? 42 : 12, now, 0.03);
             n.subGain.gain.setTargetAtTime(hpfOn ? 0.12 : 0.72, now, 0.03);
+        }
+
+        if (mode === 'multiband' && n.bypassBus && n.singleBus && n.mbBus) {
+            n.bypassBus.gain.setTargetAtTime(mbMode === 'bypass' ? 1 : 0, now, 0.02);
+            n.singleBus.gain.setTargetAtTime(mbMode === 'single' ? 1 : 0, now, 0.02);
+            n.mbBus.gain.setTargetAtTime(mbMode === 'multiband' ? 1 : 0, now, 0.02);
         }
     };
 
@@ -158,6 +167,52 @@ export default function MasteringLabQuiz({ question, onResult }) {
             eqHigh.connect(masterGain);
 
             nodesRef.current = { mixBus, eqLowMid, eqHigh };
+        } else if (mode === 'multiband') {
+            const mixBus = ctx.createGain();
+
+            // Path 1: Bypass
+            const bypassBus = ctx.createGain();
+            mixBus.connect(bypassBus);
+            bypassBus.connect(masterGain);
+
+            // Path 2: Single-Band Bus Compressor (heavy bass spikes pump the whole mix)
+            const singleComp = ctx.createDynamicsCompressor();
+            singleComp.threshold.value = -26;
+            singleComp.knee.value = 3;
+            singleComp.ratio.value = 10;
+            singleComp.attack.value = 0.004;
+            singleComp.release.value = 0.25;
+            const singleBus = ctx.createGain();
+            mixBus.connect(singleComp);
+            singleComp.connect(singleBus);
+            singleBus.connect(masterGain);
+
+            // Path 3: 3-Band Multiband Compressor (only Low <180 Hz is compressed!)
+            const lowLP = ctx.createBiquadFilter();
+            lowLP.type = 'lowpass';
+            lowLP.frequency.value = 180;
+            const lowComp = ctx.createDynamicsCompressor();
+            lowComp.threshold.value = -24;
+            lowComp.ratio.value = 8;
+            lowComp.attack.value = 0.005;
+            lowComp.release.value = 0.16;
+
+            const midBP = ctx.createBiquadFilter();
+            midBP.type = 'bandpass';
+            midBP.frequency.value = 850;
+            midBP.Q.value = 0.6;
+
+            const highHP = ctx.createBiquadFilter();
+            highHP.type = 'highpass';
+            highHP.frequency.value = 2800;
+
+            const mbBus = ctx.createGain();
+            mixBus.connect(lowLP).connect(lowComp).connect(mbBus);
+            mixBus.connect(midBP).connect(mbBus);
+            mixBus.connect(highHP).connect(mbBus);
+            mbBus.connect(masterGain);
+
+            nodesRef.current = { mixBus, bypassBus, singleBus, singleComp, mbBus, lowComp };
         } else {
             // sub-headroom mode: excessive 32 Hz sub-bass hitting a master compressor/limiter
             const mixBus = ctx.createGain();
@@ -192,9 +247,21 @@ export default function MasteringLabQuiz({ question, onResult }) {
             const s = stepRef.current % 8;
             const n = nodesRef.current;
 
-            // Update live GR meter for sub-headroom mode
+            // Update live GR meter for sub-headroom or multiband mode
             if (mode === 'sub-headroom' && n.limiter) {
                 setGrDb(Math.abs(Math.round(n.limiter.reduction * 10) / 10));
+            }
+            if (mode === 'multiband') {
+                const st = modeStateRef.current.mbMode;
+                if (st === 'bypass') {
+                    setBandGr({ low: 0, mid: 0, high: 0 });
+                } else if (st === 'single' && n.singleComp) {
+                    const gr = Math.abs(Math.round(n.singleComp.reduction * 10) / 10);
+                    setBandGr({ low: gr, mid: gr, high: gr });
+                } else if (st === 'multiband' && n.lowComp) {
+                    const lgr = Math.abs(Math.round(n.lowComp.reduction * 10) / 10);
+                    setBandGr({ low: lgr, mid: 0, high: 0 });
+                }
             }
 
             const drumTarget = mode === 'mono-phase' ? n.drumBus : n.mixBus;
@@ -298,6 +365,30 @@ export default function MasteringLabQuiz({ question, onResult }) {
                 pad.connect(pg).connect(n.mixBus);
                 pad.start(t);
                 pad.stop(t + 0.24);
+            } else if (mode === 'multiband') {
+                // Big booming bass spike on beats 0 & 4 + crisp mid chord & high-end shimmer
+                if (s === 0 || s === 4) {
+                    const sub = ctxRef.current.createOscillator();
+                    sub.type = 'sine';
+                    sub.frequency.setValueAtTime(55, t);
+                    const sg = ctxRef.current.createGain();
+                    sg.gain.setValueAtTime(1.05, t);
+                    sg.gain.exponentialRampToValueAtTime(0.12, t + 0.45);
+                    sub.connect(sg).connect(n.mixBus);
+                    sub.start(t);
+                    sub.stop(t + 0.48);
+                }
+                [261.63, 329.63, 392.0].forEach((freq) => {
+                    const pad = ctxRef.current.createOscillator();
+                    pad.type = 'triangle';
+                    pad.frequency.setValueAtTime(freq, t);
+                    const pg = ctxRef.current.createGain();
+                    pg.gain.setValueAtTime(0.14, t);
+                    pg.gain.exponentialRampToValueAtTime(0.03, t + 0.23);
+                    pad.connect(pg).connect(n.mixBus);
+                    pad.start(t);
+                    pad.stop(t + 0.25);
+                });
             }
 
             stepRef.current += 1;
@@ -336,11 +427,12 @@ export default function MasteringLabQuiz({ question, onResult }) {
                     <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#38bdf8', fontWeight: 700, fontSize: '0.9rem' }}>
                         {mode === 'mono-phase' && <Radio size={17} />}
                         {mode === 'eq-mud' && <Sliders size={17} />}
-                        {mode === 'sub-headroom' && <Activity size={17} />}
+                        {(mode === 'sub-headroom' || mode === 'multiband') && <Activity size={17} />}
                         <span>
                             {mode === 'mono-phase' && 'MASTERING CONSOLE: MONO BASS & PHASE CHECK'}
                             {mode === 'eq-mud' && 'MASTERING EQ: LOW-MID CLARITY TEST'}
                             {mode === 'sub-headroom' && 'MASTER LIMITER: SUB-BASS HEADROOM TEST'}
+                            {mode === 'multiband' && 'MULTIBAND COMPRESSOR: 3-BAND CONTROL'}
                         </span>
                     </div>
 
@@ -506,12 +598,61 @@ export default function MasteringLabQuiz({ question, onResult }) {
                     </div>
                 )}
 
+                {mode === 'multiband' && (
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '8px' }}>
+                            {[
+                                { id: 'bypass', label: 'Bypass (Boomy Bass)' },
+                                { id: 'single', label: 'Single-Band Comp (Pumps!)' },
+                                { id: 'multiband', label: 'Multiband (Low Band Only)' }
+                            ].map((btn) => (
+                                <button
+                                    key={btn.id}
+                                    type="button"
+                                    onClick={() => setMbMode(btn.id)}
+                                    style={{
+                                        padding: '10px',
+                                        borderRadius: '10px',
+                                        border: `2px solid ${mbMode === btn.id ? '#38bdf8' : 'rgba(255,255,255,0.12)'}`,
+                                        background: mbMode === btn.id ? 'rgba(56,189,248,0.16)' : 'rgba(255,255,255,0.03)',
+                                        color: '#f8fafc',
+                                        fontWeight: 600,
+                                        fontSize: '0.85rem',
+                                        cursor: 'pointer'
+                                    }}
+                                >
+                                    {btn.label}
+                                </button>
+                            ))}
+                        </div>
+
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '8px', background: 'rgba(0,0,0,0.28)', padding: '10px 12px', borderRadius: '10px' }}>
+                            {[
+                                { label: 'Low (<180 Hz)', val: bandGr.low, color: '#38bdf8' },
+                                { label: 'Mid (180–3k Hz)', val: bandGr.mid, color: bandGr.mid > 0 ? '#ef4444' : '#10b981' },
+                                { label: 'High (>3 kHz)', val: bandGr.high, color: bandGr.high > 0 ? '#ef4444' : '#10b981' }
+                            ].map((b) => (
+                                <div key={b.label}>
+                                    <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', color: '#cbd5e1', marginBottom: '4px' }}>
+                                        <span>{b.label}</span>
+                                        <span style={{ color: b.color, fontWeight: 700 }}>-{b.val} dB</span>
+                                    </div>
+                                    <div style={{ height: '8px', background: 'rgba(255,255,255,0.08)', borderRadius: '999px', overflow: 'hidden' }}>
+                                        <div style={{ width: `${Math.min(100, b.val * 9)}%`, height: '100%', background: b.color, transition: 'width 80ms linear' }} />
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                )}
+
                 <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.8rem', color: '#94a3b8' }}>
                     <Volume2 size={14} />
                     <span>
                         {mode === 'mono-phase' && 'Press Play, switch between Wide vs Mono Bass, and click MONO SUM CHECK to hear out-of-phase bass cancel.'}
                         {mode === 'eq-mud' && 'Press Play and compare the EQ buttons to hear which frequency cut clears the boxy mud.'}
                         {mode === 'sub-headroom' && 'Press Play and toggle the High-Pass Filter to watch the limiter Gain Reduction meter.'}
+                        {mode === 'multiband' && 'Press Play and switch between Single-Band Comp vs Multiband (Low Band Only) while watching the 3 band meters.'}
                     </span>
                 </div>
             </div>

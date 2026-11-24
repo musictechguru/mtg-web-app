@@ -5825,29 +5825,29 @@
               "explanation": "<p><strong>Expert Explanation:</strong> As you heard when pressing <strong>MONO SUM CHECK</strong>, out-of-phase stereo bass cancels out when summed to mono. Keeping sub-bass in mono preserves focus, phase safety, and vinyl tracking.</p>"
             },
             {
-              "title": "Q2: Multiband Compression",
-              "content": "What does a multiband compressor do during mastering?",
+              "title": "Q2: True Peak Limiter Ceiling",
+              "content": "Why do mastering engineers set a brickwall limiter ceiling at -1.0 dBTP instead of 0.0 dBFS?",
               "type": "multi_choice",
               "answers": [
                 {
-                  "text": "Links left and right channels together",
+                  "text": "To make the master 6 dB quieter than vinyl",
                   "is_true": "no"
                 },
                 {
-                  "text": "Splits audio into frequency bands to compress separately",
+                  "text": "To prevent inter-sample clipping when converted to MP3/AAC",
                   "is_true": "yes"
                 },
                 {
-                  "text": "Adds stereo chorus across the whole mix",
+                  "text": "To boost sub-bass frequencies below 40 Hz",
                   "is_true": "no"
                 },
                 {
-                  "text": "Converts 24-bit files down to 16-bit",
+                  "text": "To convert 16-bit audio into 24-bit audio",
                   "is_true": "no"
                 }
               ],
-              "expert_explanation": "Multiband compression splits the stereo mix into separate frequency bands (such as lows, mids, and highs) so each band can be compressed independently.",
-              "explanation": "<p><strong>Expert Explanation:</strong> Multiband compression splits the stereo mix into separate frequency bands (such as lows, mids, and highs) so each band can be compressed independently.</p>"
+              "expert_explanation": "Setting a -1.0 dBTP True Peak ceiling leaves headroom so D/A converters and lossy streaming codecs (MP3/AAC) do not cause inter-sample clipping.",
+              "explanation": "<p><strong>Expert Explanation:</strong> Setting a -1.0 dBTP True Peak ceiling leaves headroom so D/A converters and lossy streaming codecs (MP3/AAC) do not cause inter-sample clipping.</p>"
             },
             {
               "title": "Q3 (Interactive EQ Lab): Clearing Low-Mid Mud",
@@ -5925,27 +5925,19 @@
               "explanation": "<p><strong>Expert Explanation:</strong> Excessive sub-bass carries huge energy that eats up headroom and triggers the master limiter early, causing audible pumping across the whole track.</p>"
             },
             {
-              "title": "Q6 (Practical Order): Mastering Signal Chain",
-              "content": "Drag the 5 mastering processors into the correct signal flow order from TOP (first) to BOTTOM (last).",
-              "type": "drag_drop",
-              "items": [
-                "Dithering (Final bit-depth reduction to 16-bit)",
-                "Brickwall Limiter (Sets -1.0 dBTP ceiling)",
-                "Corrective EQ (High-pass rumble & 250 Hz mud cut)",
-                "Broad Tonal EQ (Gentle musical warmth & air)",
-                "Multiband / Bus Compression (Gentle dynamic glue)"
+              "title": "Q6 (Practical Lab): Multiband Compression",
+              "content": "Play the loop and switch between Single-Band Comp vs Multiband (Low Band Only) while watching the 3 band meters. Why use multiband compression here?",
+              "type": "mastering-lab",
+              "mode": "multiband",
+              "options": [
+                "To control booming bass peaks without making the mids and highs pump",
+                "To pan sub-bass frequencies hard left and right",
+                "To add hall reverberation across the whole stereo mix",
+                "To lower the sample rate from 48 kHz to 44.1 kHz"
               ],
-              "correct_order": [
-                "Corrective EQ (High-pass rumble & 250 Hz mud cut)",
-                "Multiband / Bus Compression (Gentle dynamic glue)",
-                "Broad Tonal EQ (Gentle musical warmth & air)",
-                "Brickwall Limiter (Sets -1.0 dBTP ceiling)",
-                "Dithering (Final bit-depth reduction to 16-bit)"
-              ],
-              "top_label": "▲ FIRST IN CHAIN (Unmastered Stereo Mix)",
-              "bottom_label": "▼ LAST IN CHAIN (Final 16-bit Delivery Master)",
-              "expert_explanation": "Clean up sub-rumble and mud with Corrective EQ first, glue dynamics with Compression, shape tone with Broad EQ, set final loudness with the Brickwall Limiter, and apply Dithering last.",
-              "explanation": "<p><strong>Expert Explanation:</strong> Clean up sub-rumble and mud with Corrective EQ first, glue dynamics with Compression, shape tone with Broad EQ, set final loudness with the Brickwall Limiter, and apply Dithering last.</p>"
+              "correctIndex": 0,
+              "expert_explanation": "As you heard and saw on the 3 band meters, a single-band compressor pumps the mids and highs whenever the bass spikes, whereas a multiband compressor tames only the Low band (<180 Hz) cleanly.",
+              "explanation": "<p><strong>Expert Explanation:</strong> As you heard and saw on the 3 band meters, a single-band compressor pumps the mids and highs whenever the bass spikes, whereas a multiband compressor tames only the Low band (&lt;180 Hz) cleanly.</p>"
             },
             {
               "title": "Q7: Spatial Glue & Surround Formats",
