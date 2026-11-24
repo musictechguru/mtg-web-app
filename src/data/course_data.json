@@ -6325,34 +6325,88 @@
           "description": "Mastery quiz covering the fundamentals of Equipment.",
           "questions": [
             {
-              "title": "Q1: Audio Interface Functions (ADC & DAC)",
+              "title": "Q1 (4 Marks): Microphones & Phantom Power",
+              "content": "Complete the 4 dropdowns on studio microphone types and accessories.",
+              "type": "cloze",
+              "text": [
+                "1. Electrostatic {0} microphones require +48V {1} power to operate.",
+                "2. A {2} microphone uses a thin corrugated metal foil instead of a heavy moving coil.",
+                "3. A {3} placed in front of a vocal mic disperses plosive air bursts (p and b)."
+              ],
+              "options": [
+                [
+                  "dynamic",
+                  "condenser",
+                  "ribbon",
+                  "piezo"
+                ],
+                [
+                  "phantom",
+                  "battery",
+                  "USB",
+                  "wireless"
+                ],
+                [
+                  "moving-coil",
+                  "carbon",
+                  "ribbon",
+                  "boundary"
+                ],
+                [
+                  "noise gate",
+                  "compressor",
+                  "shockmount",
+                  "pop shield"
+                ]
+              ],
+              "answer": [
+                "condenser",
+                "phantom",
+                "ribbon",
+                "pop shield"
+              ],
+              "expert_explanation": "Condenser mics need +48V phantom power, ribbon mics use a thin metal foil, and a pop shield disperses plosive air bursts.",
+              "explanation": "<p><strong>Expert Explanation:</strong> Condenser mics need +48V phantom power, ribbon mics use a thin metal foil, and a pop shield disperses plosive air bursts.</p>"
+            },
+            {
+              "title": "Q2 (Interactive Lab): Balanced XLR Cables & Noise Rejection",
+              "content": "Press Play and switch between Unbalanced Cable and Balanced XLR. How do balanced 3-pin XLR cables eliminate mains hum and interference?",
+              "type": "equipment-lab",
+              "mode": "balanced-cable",
+              "options": [
+                "They boost quiet microphone signals by +30 dB automatically",
+                "They cancel cable noise using an inverted-phase cold wire (common-mode rejection)",
+                "They convert analogue microphone audio into optical light pulses",
+                "They apply a steep 200 Hz low-pass filter inside the connector"
+              ],
+              "correctIndex": 1,
+              "expert_explanation": "Balanced XLR cables carry hot (+) and inverted-phase cold (-) signals; when flipped back at the preamp, any noise picked up along the cable cancels out.",
+              "explanation": "<p><strong>Expert Explanation:</strong> Balanced XLR cables carry hot (+) and inverted-phase cold (-) signals; when flipped back at the preamp, any noise picked up along the cable cancels out.</p>"
+            },
+            {
+              "title": "Q3: Audio Interface Functions (ADC & DAC)",
+              "content": "What is the primary role of an audio interface in a DAW studio?",
               "type": "multi_choice",
-              "content": "What is the primary role of an audio interface in a digital studio?",
               "answers": [
                 {
-                  "text": "To amplify passive dynamic microphones without requiring power",
-                  "is_true": "no"
-                },
-                {
-                  "text": "To generate synthetic acoustic room reverberation and stereo delay",
-                  "is_true": "no"
-                },
-                {
-                  "text": "To convert analogue audio signals to digital and vice versa",
+                  "text": "To convert analogue signals to digital (ADC) and back (DAC)",
                   "is_true": "yes"
                 },
                 {
-                  "text": "To encode multi-track recordings into lossy compressed stereo MP3s",
+                  "text": "To add spring reverberation to every recorded track",
+                  "is_true": "no"
+                },
+                {
+                  "text": "To compress MP3 files onto a CD-R disc",
+                  "is_true": "no"
+                },
+                {
+                  "text": "To power passive studio monitor speakers directly",
                   "is_true": "no"
                 }
               ],
-              "expert_explanation": "An audio interface acts as the bridge between analogue gear (microphones/guitars) and the computer. It performs A/D conversion for recording and D/A conversion for playback to monitors.",
-              "expert_quote": {
-                "text": "Converters are the windows to your digital audio workstation. Keep them clean.",
-                "author": "Bob Katz"
-              },
-              "img": "/images/gen/audio_interface_modern.png",
-              "explanation": "<img src=\"/images/gen/audio_interface_modern.png\" alt=\"Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> An audio interface acts as the bridge between analogue gear (microphones/guitars) and the computer. It performs A/D conversion for recording and D/A conversion for playback to monitors.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Converters are the windows to your digital audio workstation. Keep them clean.\"<br/><strong>- Bob Katz</strong></blockquote>"
+              "expert_explanation": "An audio interface provides preamps plus Analogue-to-Digital (ADC) and Digital-to-Analogue (DAC) conversion between studio gear and your DAW.",
+              "explanation": "<p><strong>Expert Explanation:</strong> An audio interface provides preamps plus Analogue-to-Digital (ADC) and Digital-to-Analogue (DAC) conversion between studio gear and your DAW.</p>"
             },
             {
               "title": "Practical Task: Studio Patchbay Insert Routing",
@@ -6383,69 +6437,9 @@
               "expert_explanation": "Patchbay Insert Routing: On standard studio patchbays, top jacks are outputs (Insert Send) and bottom jacks are inputs (Insert Return). The preamp signal leaves the console via the Insert Send, enters the outboard compressor, processes the dynamic envelope, returns into the console Insert Return immediately before the channel EQ and fader."
             },
             {
-              "title": "Q3: Phantom Power (+48V) for Condenser Microphones",
+              "title": "Q5: Figure-8 Polar Pattern",
+              "content": "Which polar pattern picks up sound equally from the front and back while rejecting the sides (90° nulls)?",
               "type": "multi_choice",
-              "content": "Which type of studio microphone typically requires +48V phantom power to operate?",
-              "answers": [
-                {
-                  "text": "Passive moving-coil dynamic microphones",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Electrostatic condenser microphones",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "Traditional passive ribbon microphones",
-                  "is_true": "no"
-                },
-                {
-                  "text": "High-impedance magnetic guitar pickups",
-                  "is_true": "no"
-                }
-              ],
-              "expert_explanation": "An audio interface acts as the bridge between analogue gear (microphones/guitars) and the computer. It performs A/D conversion for recording and D/A conversion for playback to monitors.",
-              "expert_quote": {
-                "text": "Latency is the enemy of performance.",
-                "author": "Studio Basics"
-              },
-              "img": "/images/gen/t10_q1_condenser_phantom_hq_123.png",
-              "explanation": "<img src=\"/images/gen/t10_q1_condenser_phantom_hq_123.png\" alt=\"Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> An audio interface acts as the bridge between analogue gear (microphones/guitars) and the computer. It performs A/D conversion for recording and D/A conversion for playback to monitors.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Latency is the enemy of performance.\"<br/><strong>- Studio Basics</strong></blockquote>"
-            },
-            {
-              "title": "Q4: Moving-Coil Dynamic vs Ribbon Microphone Mechanics",
-              "type": "multi_choice",
-              "content": "How does the generating element of a ribbon microphone differ from a moving-coil dynamic?",
-              "answers": [
-                {
-                  "text": "Moving-coil uses tubes; ribbon uses chips",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Moving-coil is omni; ribbon is cardioid",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Moving-coil uses coil; ribbon uses thin foil",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "Moving-coil needs +48V; ribbon uses battery",
-                  "is_true": "no"
-                }
-              ],
-              "expert_explanation": "Both microphones operate via electromagnetic induction, but their physical diaphragms differ fundamentally: moving-coil mics attach a mylar diaphragm to a relatively heavy copper coil suspended in a magnetic gap (durable, high SPL tolerance). Ribbon mics suspend an extremely lightweight, fragile strip of corrugated aluminum foil directly between two magnetic poles, providing lightning-fast transient response and smooth high frequencies.",
-              "expert_quote": {
-                "text": "Ribbon microphones deliver a velvety, organic warmth because their ultra-light ribbon diaphragm reacts instantaneously to subtle air displacements.",
-                "author": "Microphone Engineering Principles"
-              },
-              "img": "/images/gen/t10_q2_dynamic_vs_ribbon_hq_123.png",
-              "explanation": "<img src=\"/images/gen/t10_q2_dynamic_vs_ribbon_hq_123.png\" alt=\"Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Both microphones operate via electromagnetic induction, but their physical diaphragms differ fundamentally: moving-coil mics attach a mylar diaphragm to a relatively heavy copper coil suspended in a magnetic gap (durable, high SPL tolerance). Ribbon mics suspend an extremely lightweight, fragile strip of corrugated aluminum foil directly between two magnetic poles, providing lightning-fast transient response and smooth high frequencies.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Ribbon microphones deliver a velvety, organic warmth because their ultra-light ribbon diaphragm reacts instantaneously to subtle air displacements.\"<br/><strong>- Microphone Engineering Principles</strong></blockquote>"
-            },
-            {
-              "title": "Q5: Figure-8 Polar Pattern Side Nulls & Isolation",
-              "type": "multi_choice",
-              "content": "Which polar pattern picks up sound equally from the front and back while rejecting the sides?",
               "answers": [
                 {
                   "text": "Cardioid polar pattern",
@@ -6464,21 +6458,52 @@
                   "is_true": "yes"
                 }
               ],
-              "expert_explanation": "Figure-8 (Bidirectional) is the natural polar pattern of all ribbon microphones. It hears equally well from the front and rear, but has, deep 'nulls' (zones of zero pickup) at its 90-degree and 270-degree sides.",
-              "expert_quote": {
-                "text": "The deep side nulls of a Figure-8 mic are a secret weapon in the studio. You can use them to block a loud drum kit while recording an acoustic guitar in the exact same room.",
-                "author": "Recording Engineer"
-              },
-              "img": "/images/gen/t10_q3_figure8_pattern_hq_123.png",
-              "explanation": "<img src=\"/images/gen/t10_q3_figure8_pattern_hq_123.png\" alt=\"Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Figure-8 (Bidirectional) is the natural polar pattern of all ribbon microphones. It hears equally well from the front and rear, but has, deep 'nulls' (zones of zero pickup) at its 90-degree and 270-degree sides.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"The deep side nulls of a Figure-8 mic are a secret weapon in the studio. You can use them to block a loud drum kit while recording an acoustic guitar in the exact same room.\"<br/><strong>- Recording Engineer</strong></blockquote>"
+              "expert_explanation": "A figure-8 (bidirectional) pattern is equally sensitive at 0° and 180°, with deep rejection nulls at 90° and 270°.",
+              "explanation": "<p><strong>Expert Explanation:</strong> A figure-8 (bidirectional) pattern is equally sensitive at 0° and 180°, with deep rejection nulls at 90° and 270°.</p>"
             },
             {
-              "title": "Q6: Industry Standard Guitar Amp Microphone (Shure SM57)",
+              "title": "Q6 (3 Marks): Noise Gates & Auxiliary Sends",
+              "content": "Complete the 3 dropdowns on studio dynamics and auxiliary routing.",
+              "type": "cloze",
+              "text": [
+                "1. A {0} silences unwanted background bleed when the signal drops below a set threshold.",
+                "2. When using a 100% wet {1} reverb bus, the channel {2} fader controls how much signal feeds the effect."
+              ],
+              "options": [
+                [
+                  "limiter",
+                  "noise gate",
+                  "saturator",
+                  "chorus"
+                ],
+                [
+                  "auxiliary",
+                  "master",
+                  "headphone",
+                  "MIDI"
+                ],
+                [
+                  "gain",
+                  "pan",
+                  "send",
+                  "solo"
+                ]
+              ],
+              "answer": [
+                "noise gate",
+                "auxiliary",
+                "send"
+              ],
+              "expert_explanation": "A noise gate mutes audio below the threshold, and an auxiliary send fader controls how much signal is routed into a shared 100% wet reverb bus.",
+              "explanation": "<p><strong>Expert Explanation:</strong> A noise gate mutes audio below the threshold, and an auxiliary send fader controls how much signal is routed into a shared 100% wet reverb bus.</p>"
+            },
+            {
+              "title": "Q7: Guitar Amplifier Cabinet Miking",
+              "content": "Which dynamic microphone is a studio standard for close-miking loud guitar amplifier cabinets?",
               "type": "multi_choice",
-              "content": "Which dynamic microphone is universally considered the industry standard for micing guitar amplifier speaker cabinets?",
               "answers": [
                 {
-                  "text": "AKG C414 condenser microphone",
+                  "text": "Coles 4038 ribbon microphone",
                   "is_true": "no"
                 },
                 {
@@ -6490,137 +6515,12 @@
                   "is_true": "no"
                 },
                 {
-                  "text": "Coles 4038 ribbon microphone",
+                  "text": "AKG C414 condenser microphone",
                   "is_true": "no"
                 }
               ],
-              "expert_explanation": "Rock production focuses on capturing energy. Drums often use 'Room Mics' heavily compressed to create a massive, explosive sound (e.g., Led Zeppelin sounds).",
-              "expert_quote": {
-                "text": "Microphone bleed is part of the drum sound.",
-                "author": "Steve Albini"
-              },
-              "img": "/images/guitar_amp_3d_stage.png",
-              "explanation": "<img src=\"/images/svg/mic_placement_acoustic_guitar.svg\" alt=\"Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Rock production focuses on capturing energy. Drums often use 'Room Mics' heavily compressed to create a massive, explosive sound (e.g., Led Zeppelin sounds).</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Microphone bleed is part of the drum sound.\"<br/><strong>- Steve Albini</strong></blockquote>"
-            },
-            {
-              "title": "Q7: Vocal Pop Shield Function & Plosive Dispersion",
-              "type": "multi_choice",
-              "content": "What is the physical purpose of a pop shield placed in front of a vocal microphone?",
-              "answers": [
-                {
-                  "text": "Block room echoes entering the rear",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Disperse plosive air bursts (p and b)",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "Supply +48V phantom power safely",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Boost treble sparkle above 10 kHz",
-                  "is_true": "no"
-                }
-              ],
-              "expert_explanation": "Plosive consonants ('p', 'b', 't') produce a directional gust of turbulent air. A mesh pop shield disperses this air blast laterally without blocking acoustic sound waves, preventing low-frequency 'thumps' on the capsule.",
-              "expert_quote": {
-                "text": "A pop shield stops the wind without stopping the sound.",
-                "author": "Vocal Recording Best Practices"
-              },
-              "img": "/images/gen/t10_q18_pop_shield_hq_123.png",
-              "explanation": "<img src=\"/images/gen/t10_q18_pop_shield_hq_123.png\" alt=\"Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Plosive consonants ('p', 'b', 't') produce a directional gust of turbulent air. A mesh pop shield disperses this air blast laterally without blocking acoustic sound waves, preventing low-frequency 'thumps' on the capsule.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"A pop shield stops the wind without stopping the sound.\"<br/><strong>- Vocal Recording Best Practices</strong></blockquote>"
-            },
-            {
-              "title": "Q8: Balanced 3-Pin XLR Cables & Common-Mode Rejection",
-              "type": "multi_choice",
-              "content": "Why are balanced 3-pin XLR cables used for microphones instead of unbalanced cables?",
-              "answers": [
-                {
-                  "text": "They boost quiet mic signals by 30 dB",
-                  "is_true": "no"
-                },
-                {
-                  "text": "They stop vocalists clipping converters",
-                  "is_true": "no"
-                },
-                {
-                  "text": "They cancel cable noise via inverted phase",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "They convert mic audio into optical light",
-                  "is_true": "no"
-                }
-              ],
-              "expert_explanation": "Balanced cables use two signal conductors carrying identical audio in opposite polarity (hot and cold). Any induced noise enters both conductors equally; when recombined at the differential input, the noise cancels out.",
-              "expert_quote": {
-                "text": "Balanced cables use phase cancellation to destroy noise before it ever reaches your speakers.",
-                "author": "Audio Electronics"
-              },
-              "img": "/images/gen/t10_q17_xlr_cable_hq_123.png",
-              "explanation": "<img src=\"/images/gen/t10_q17_xlr_cable_hq_123.png\" alt=\"Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Balanced cables use two signal conductors carrying identical audio in opposite polarity (hot and cold). Any induced noise enters both conductors equally; when recombined at the differential input, the noise cancels out.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Balanced cables use phase cancellation to destroy noise before it ever reaches your speakers.\"<br/><strong>- Audio Electronics</strong></blockquote>"
-            },
-            {
-              "title": "Q9: Hardware Noise Gate Principles & Threshold",
-              "type": "multi_choice",
-              "content": "What is the primary function of a noise gate in an audio signal chain?",
-              "answers": [
-                {
-                  "text": "Silences quiet audio below a threshold",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "Boosts loud transients above threshold",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Converts guitar into mic-level signal",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Splits audio to studio headphone mixes",
-                  "is_true": "no"
-                }
-              ],
-              "expert_explanation": "A noise gate acts as an automated audio switch: when the desired signal (e.g. a snare hit) exceeds the threshold, the gate opens instantly; when the signal falls below the threshold, the gate closes and attenuates the output, silencing room rumble, headphone bleed, and preamp hiss during quiet passages.",
-              "expert_quote": {
-                "text": "Noise gates clean up multitrack drums by banishing acoustic spill from adjacent instruments when they are not actively playing.",
-                "author": "Studio Hardware Techniques"
-              },
-              "img": "/images/gen/t10_q8_noise_gate_hq_123.png",
-              "explanation": "<img src=\"/images/gen/t10_q8_noise_gate_hq_123.png\" alt=\"Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> A noise gate acts as an automated audio switch: when the desired signal (e.g. a snare hit) exceeds the threshold, the gate opens instantly; when the signal falls below the threshold, the gate closes and attenuates the output, silencing room rumble, headphone bleed, and preamp hiss during quiet passages.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Noise gates clean up multitrack drums by banishing acoustic spill from adjacent instruments when they are not actively playing.\"<br/><strong>- Studio Hardware Techniques</strong></blockquote>"
-            },
-            {
-              "title": "Q10: Send & Return Auxiliary Reverb Bus Balance",
-              "type": "multi_choice",
-              "content": "When using an auxiliary send/return reverb set to 100% wet, what does the send fader control?",
-              "answers": [
-                {
-                  "text": "Dry signal level sent to master bus",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Stereo pan position of dry guitar",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Signal level feeding into the reverb",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "Total decay time and room size",
-                  "is_true": "no"
-                }
-              ],
-              "expert_explanation": "Cable capacitance creates a low-pass filter effect over long distances, rolling off high frequencies. This is why high-impedance instrument cables (guitar) should be kept short (<20ft).",
-              "expert_quote": {
-                "text": "Gold connectors don't sound better, they just don't corrode.",
-                "author": "Mythbusting"
-              },
-              "img": "/images/gen/t10_q4_proximity_effect_hq_123.png",
-              "explanation": "<img src=\"/images/gen/t10_q4_proximity_effect_hq_123.png\" alt=\"Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Cable capacitance creates a low-pass filter effect over long distances, rolling off high frequencies. This is why high-impedance instrument cables (guitar) should be kept short (<20ft).</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Gold connectors don't sound better, they just don't corrode.\"<br/><strong>- Mythbusting</strong></blockquote>"
+              "expert_explanation": "The Shure SM57 handles very high Sound Pressure Levels (SPL) and has an upper-mid presence peak that suits electric guitar cabinets.",
+              "explanation": "<p><strong>Expert Explanation:</strong> The Shure SM57 handles very high Sound Pressure Levels (SPL) and has an upper-mid presence peak that suits electric guitar cabinets.</p>"
             }
           ],
           "randomise": false
@@ -6633,282 +6533,180 @@
           "description": "Mastery quiz covering the fundamentals of Equipment.",
           "questions": [
             {
-              "title": "Q11: Coincident X-Y Stereo Microphone Array Configuration",
+              "title": "Q1 (Interactive Lab): 24 dB/Octave Low-Pass Filter",
+              "content": "Play the sawtooth bass and toggle the Low-Pass Filter to 100 Hz. What does a 24 dB/octave low-pass filter set at 100 Hz do?",
+              "type": "equipment-lab",
+              "mode": "lpf-synth",
+              "options": [
+                "Cuts frequencies below 100 Hz to remove sub-bass rumble",
+                "Boosts frequencies around 100 Hz for extra chest punch",
+                "Attenuates frequencies above 100 Hz, leaving only deep sub-bass",
+                "Cancels bass energy when summed to mono"
+              ],
+              "correctIndex": 2,
+              "expert_explanation": "A low-pass filter lets low frequencies pass through and attenuates upper harmonics above the 100 Hz cutoff — the core principle of subtractive synthesis.",
+              "explanation": "<p><strong>Expert Explanation:</strong> A low-pass filter lets low frequencies pass through and attenuates upper harmonics above the 100 Hz cutoff — the core principle of subtractive synthesis.</p>"
+            },
+            {
+              "title": "Q2 (3 Marks): Patchbay Routing & MIDI Standard",
+              "content": "Complete the 3 dropdowns on studio patchbays and MIDI.",
+              "type": "cloze",
+              "text": [
+                "1. A studio {0} acts as a central hub for routing hardware without reaching behind racks.",
+                "2. On a {1} patchbay, the top jack connects internally to the bottom jack until a cable breaks the path.",
+                "3. Introduced in 1983, {2} lets synthesisers, drum machines, and computers share note and clock data."
+              ],
+              "options": [
+                [
+                  "DI box",
+                  "patchbay",
+                  "pop shield",
+                  "bass trap"
+                ],
+                [
+                  "unbalanced",
+                  "normalled",
+                  "parallel",
+                  "stereo"
+                ],
+                [
+                  "S/PDIF",
+                  "ADAT",
+                  "MIDI",
+                  "XLR"
+                ]
+              ],
+              "answer": [
+                "patchbay",
+                "normalled",
+                "MIDI"
+              ],
+              "expert_explanation": "A patchbay centralises studio routing, normalled connections flow top-to-bottom internally, and MIDI (1983) connects electronic instruments.",
+              "explanation": "<p><strong>Expert Explanation:</strong> A patchbay centralises studio routing, normalled connections flow top-to-bottom internally, and MIDI (1983) connects electronic instruments.</p>"
+            },
+            {
+              "title": "Q3: Coincident X-Y Stereo Miking",
+              "content": "How are microphones positioned in a coincident X-Y stereo pair?",
               "type": "multi_choice",
-              "content": "Which stereo miking technique uses two cardioid microphones angled at 90° with capsules together?",
               "answers": [
                 {
-                  "text": "The spaced pair (A/B) technique",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Close mono spot miking",
-                  "is_true": "no"
-                },
-                {
-                  "text": "The X-Y coincident pair technique",
+                  "text": "Two cardioid mics angled at 90° with capsules together",
                   "is_true": "yes"
                 },
                 {
-                  "text": "Distant ambient room miking",
+                  "text": "Two omni mics spaced 2 metres apart",
+                  "is_true": "no"
+                },
+                {
+                  "text": "One close mic on the cone and one in the corridor",
+                  "is_true": "no"
+                },
+                {
+                  "text": "A single mono mic panned hard left",
                   "is_true": "no"
                 }
               ],
-              "expert_explanation": "The X-Y stereo technique places the capsules of two identical cardioid microphones as close together as possible, angled at 90 degrees. It eliminates phase cancellation issues while providing a great stereo image.",
-              "expert_quote": {
-                "text": "X-Y is the safest and most reliable stereo miking technique. It is mono-compatible, meaning it never disappears when played on a mono speaker.",
-                "author": "Acoustics Expert"
-              },
-              "img": "/images/gen/t10_q7_xy_stereo_hq_123.png",
-              "explanation": "<img src=\"/images/gen/t10_q7_xy_stereo_hq_123.png\" alt=\"Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> The X-Y stereo technique places the capsules of two identical cardioid microphones as close together as possible, angled at 90 degrees. It eliminates phase cancellation issues while providing a great stereo image.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"X-Y is the safest and most reliable stereo miking technique. It is mono-compatible, meaning it never disappears when played on a mono speaker.\"<br/><strong>- Acoustics Expert</strong></blockquote>"
+              "expert_explanation": "An X-Y coincident pair places two cardioid capsules right next to each other at 90°, giving a clean stereo image with excellent mono compatibility.",
+              "explanation": "<p><strong>Expert Explanation:</strong> An X-Y coincident pair places two cardioid capsules right next to each other at 90°, giving a clean stereo image with excellent mono compatibility.</p>"
             },
             {
-              "title": "Q12: Studio Patchbay Routing Hub Architecture",
+              "title": "Q4: Guitar Cabinet Off-Axis / Cone Edge Miking",
+              "content": "How does moving a dynamic mic from the centre dust cap toward the outer edge of a guitar speaker cone change the sound?",
               "type": "multi_choice",
-              "content": "In a professional recording studio, what is the primary role of a patchbay?",
               "answers": [
                 {
-                  "text": "Convert analogue audio into MP3 files",
+                  "text": "Boosts harsh treble above 10 kHz",
                   "is_true": "no"
                 },
                 {
-                  "text": "Supply high voltage to valve mics",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Central hub for routing studio gear",
+                  "text": "Reduces harsh upper-mid bite for a warmer tone",
                   "is_true": "yes"
                 },
                 {
-                  "text": "Hardwire mics directly to channels",
+                  "text": "Flips acoustic polarity by 180 degrees",
+                  "is_true": "no"
+                },
+                {
+                  "text": "Eliminates the proximity effect completely",
                   "is_true": "no"
                 }
               ],
-              "expert_explanation": "A patchbay brings the inputs and outputs of every piece of equipment (microphones, preamps, compressors, EQs, audio interfaces) to a centralized front panel, eliminating the need to reach behind equipment racks.",
-              "expert_quote": {
-                "text": "A patchbay is the central nervous system of an analog studio routing chain.",
-                "author": "Studio Engineering Manual"
-              },
-              "img": "/images/gen/t10_q11_patchbay_hq_123.png",
-              "explanation": "<img src=\"/images/gen/t10_q11_patchbay_hq_123.png\" alt=\"Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> A patchbay brings the inputs and outputs of every piece of equipment (microphones, preamps, compressors, EQs, audio interfaces) to a centralized front panel, eliminating the need to reach behind equipment racks.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"A patchbay is the central nervous system of an analogue studio routing chain.\"<br/><strong>- Studio Engineering Manual</strong></blockquote>"
+              "expert_explanation": "The centre dust cap projects bright, aggressive upper-mids; moving toward the cone edge softens that bite and produces a warmer tone.",
+              "explanation": "<p><strong>Expert Explanation:</strong> The centre dust cap projects bright, aggressive upper-mids; moving toward the cone edge softens that bite and produces a warmer tone.</p>"
             },
             {
-              "title": "Q13: Patchbay Normalled & Half-Normalled Internal Connections",
+              "title": "Q5: Humbucker vs Single-Coil Hum Rejection",
+              "content": "How does a dual-coil humbucker guitar pickup reject 50 Hz mains hum compared with a single-coil pickup?",
               "type": "multi_choice",
-              "content": "What does 'normalled' mean on an analogue studio patchbay?",
               "answers": [
                 {
-                  "text": "Top jack connects to bottom jack internally",
+                  "text": "It uses a built-in battery-powered noise gate",
+                  "is_true": "no"
+                },
+                {
+                  "text": "Its two coils are wired out of phase with opposite magnets",
                   "is_true": "yes"
                 },
                 {
-                  "text": "Connection stays broken without external power",
+                  "text": "It applies a steep 120 Hz high-pass filter internally",
                   "is_true": "no"
                 },
                 {
-                  "text": "All audio signals sum straight into mono",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Jacks accept only digital MIDI clock sync",
+                  "text": "It converts strings into optical digital pulses",
                   "is_true": "no"
                 }
               ],
-              "expert_explanation": "In a normalled patchbay, default signal flow (like preamp out -> interface in) flows automatically through internal spring contacts. Inserting a patch cable into the jack breaks the internal link to reroute the signal elsewhere.",
-              "expert_quote": {
-                "text": "Normalling keeps your standard signal chain running smoothly without plugging in a single patch cord.",
-                "author": "Patchbay Configurations"
-              },
-              "img": "/images/gen/t10_q12_patchbay_normalled_hq_123.png",
-              "explanation": "<img src=\"/images/gen/t10_q12_patchbay_normalled_hq_123.png\" alt=\"Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> In a normalled patchbay, default signal flow (like preamp out -> interface in) flows automatically through internal spring contacts. Inserting a patch cable into the jack breaks the internal link to reroute the signal elsewhere.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Normalling keeps your standard signal chain running smoothly without plugging in a single patch cord.\"<br/><strong>- Patchbay Configurations</strong></blockquote>"
+              "expert_explanation": "A humbucker wires two coils in opposite magnetic/electrical polarity so 50 Hz electromagnetic hum cancels out while the string signal adds together.",
+              "explanation": "<p><strong>Expert Explanation:</strong> A humbucker wires two coils in opposite magnetic/electrical polarity so 50 Hz electromagnetic hum cancels out while the string signal adds together.</p>"
             },
             {
-              "title": "Q14: MIDI Universal Communication Protocol Standard (1983)",
-              "type": "multi_choice",
-              "content": "What universal standard was introduced in 1983 to let synthesisers, drum machines, and computers communicate?",
-              "answers": [
-                {
-                  "text": "ADAT Optical Lightpipe Protocol",
-                  "is_true": "no"
-                },
-                {
-                  "text": "S/PDIF Digital Audio Standard",
-                  "is_true": "no"
-                },
-                {
-                  "text": "MIDI (Musical Instrument Digital Interface)",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "AES/EBU Professional Digital Format",
-                  "is_true": "no"
-                }
+              "title": "Q6 (3 Marks): Historical Gear & DAW Automation",
+              "content": "Complete the 3 dropdowns on classic studio equipment and DAW control.",
+              "type": "cloze",
+              "text": [
+                "1. The vintage {0} triggered pre-recorded magnetic tape strips under each key.",
+                "2. The 1988 Akai {1} combined 12-bit sampling, velocity pads, and a MIDI sequencer.",
+                "3. Modern DAW {2} records volume fader, pan, and filter moves over time."
               ],
-              "expert_explanation": "Standardized in 1983 by Dave Smith and Roland's Ikutaro Kakehashi, MIDI enabled electronic instruments from different manufacturers to transmit note numbers, velocity, pitch bend, and clock sync over 5-pin DIN cables.",
-              "expert_quote": {
-                "text": "MIDI was the greatest collaborative standard in music history. It democratized bedroom music production.",
-                "author": "Dave Smith"
-              },
-              "img": "/images/gen/t10_q13_midi_history_hq_123.png",
-              "explanation": "<img src=\"/images/gen/t10_q13_midi_history_hq_123.png\" alt=\"Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Standardized in 1983 by Dave Smith and Roland's Ikutaro Kakehashi, MIDI enabled electronic instruments from different manufacturers to transmit note numbers, velocity, pitch bend, and clock sync over 5-pin DIN cables.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"MIDI was the greatest collaborative standard in music history. It democratized bedroom music production.\"<br/><strong>- Dave Smith</strong></blockquote>"
-            },
-            {
-              "title": "Q15: Subtractive Synthesis Waveform Sculpting & Filtering",
-              "type": "multi_choice",
-              "content": "What is the core working principle of subtractive synthesis?",
-              "answers": [
-                {
-                  "text": "Stacking pure sine waves at harmonics",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Filtering frequencies from rich waveforms",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "Modulating oscillator pitch at audio rate",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Playing acoustic loops on magnetic tape",
-                  "is_true": "no"
-                }
+              "options": [
+                [
+                  "Mellotron",
+                  "TR-808",
+                  "DX7",
+                  "Minimoog"
+                ],
+                [
+                  "SH-101",
+                  "MPC60",
+                  "Juno-60",
+                  "Prophet-5"
+                ],
+                [
+                  "dithering",
+                  "quantisation",
+                  "automation",
+                  "normalisation"
+                ]
               ],
-              "expert_explanation": "Subtractive synthesis (Minimoog, Prophet-5) uses oscillators to generate harmonically dense waves, then shapes the tonal character by 'subtracting' frequencies with a voltage-controlled low-pass filter (VCF).",
-              "expert_quote": {
-                "text": "Subtractive synthesis is like sculpting: you start with a solid block of sound and carve away what you don't need.",
-                "author": "Synthesiser Programming"
-              },
-              "img": "/images/gen/t10_q14_subtractive_synth_hq_123.png",
-              "explanation": "<img src=\"/images/gen/t10_q14_subtractive_synth_hq_123.png\" alt=\"Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Subtractive synthesis (Minimoog, Prophet-5) uses oscillators to generate harmonically dense waves, then shapes the tonal character by 'subtracting' frequencies with a voltage-controlled low-pass filter (VCF).</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Subtractive synthesis is like sculpting: you start with a solid block of sound and carve away what you don't need.\"<br/><strong>- Synthesiser Programming</strong></blockquote>"
-            },
-            {
-              "title": "Q16: Steep 24 dB/Octave Low-Pass Filtering for Sub-Bass",
-              "type": "multi_choice",
-              "content": "When a steep 24 dB/octave low-pass filter is set at 100 Hz on a bass synth, what happens?",
-              "answers": [
-                {
-                  "text": "Cuts below 100 Hz to remove bass rumble",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Boosts around 100 Hz for chest thump",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Attenuates above 100 Hz, leaving sub-bass",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "Cancels bass energy when summed to mono",
-                  "is_true": "no"
-                }
+              "answer": [
+                "Mellotron",
+                "MPC60",
+                "automation"
               ],
-              "expert_explanation": "The '808' sub-bass is often tuned to the key of the song. Saturation/Distortion is applied to the 808 to generate upper harmonics so the bass is audible on small phone speakers.",
-              "expert_quote": {
-                "text": "The groove is in the swing, not the grid.",
-                "author": "J Dilla Legacy"
-              },
-              "img": "/images/svg/eq_filter_slopes_db_octave.svg",
-              "explanation": "<img src=\"/images/svg/eq_filter_slopes_db_octave.svg\" alt=\"Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> The '808' sub-bass is often tuned to the key of the song. Saturation/Distortion is applied to the 808 to generate upper harmonics so the bass is audible on small phone speakers.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"The groove is in the swing, not the grid.\"<br/><strong>- J Dilla Legacy</strong></blockquote>"
+              "expert_explanation": "The Mellotron played magnetic tape strips, the Akai MPC60 united sampling pads with a MIDI sequencer, and DAW automation records parameter moves over time.",
+              "explanation": "<p><strong>Expert Explanation:</strong> The Mellotron played magnetic tape strips, the Akai MPC60 united sampling pads with a MIDI sequencer, and DAW automation records parameter moves over time.</p>"
             },
             {
-              "title": "Q17: Vintage Tape-Replay Mechanics of the Mellotron",
+              "title": "Q7: Streaming Loudness Normalisation",
+              "content": "What integrated loudness target do major streaming platforms (such as Spotify) commonly normalise playback to?",
               "type": "multi_choice",
-              "content": "How did the vintage Mellotron keyboard produce its unique orchestral sounds?",
-              "answers": [
-                {
-                  "text": "Playing 12-bit samples from memory chips",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Reading optical waves on rotating discs",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Filtering valve oscillators via resonators",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Pressing keys onto magnetic tape strips",
-                  "is_true": "yes"
-                }
-              ],
-              "expert_explanation": "The Mellotron (1963) contained an individual 8-second strip of magnetic tape for every single key. Pressing a key engaged a tape head to play real recordings of strings, flutes, or choirs (as in 'Strawberry Fields Forever').",
-              "expert_quote": {
-                "text": "The Mellotron was the world's first physical sampler, powered entirely by motorized tape reels.",
-                "author": "Vintage Instruments"
-              },
-              "img": "/images/gen/t10_q15_mellotron_tape_hq_123.png",
-              "explanation": "<img src=\"/images/gen/t10_q15_mellotron_tape_hq_123.png\" alt=\"Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> The Mellotron (1963) contained an individual 8-second strip of magnetic tape for every single key. Pressing a key engaged a tape head to play real recordings of strings, flutes, or choirs (as in 'Strawberry Fields Forever').</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"The Mellotron was the world's first physical sampler, powered entirely by motorized tape reels.\"<br/><strong>- Vintage Instruments</strong></blockquote>"
-            },
-            {
-              "title": "Q18: Akai MPC60 Standalone Sampling Workstation Impact",
-              "type": "multi_choice",
-              "content": "Why was the Akai MPC60 (1988) so influential in hip-hop and electronic music production?",
-              "answers": [
-                {
-                  "text": "Recorded 24-bit audio over USB lines",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Combined sampler, pads, and MIDI sequencer",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "First synth with full-colour touchscreen",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Introduced FM synthesis for piano presets",
-                  "is_true": "no"
-                }
-              ],
-              "expert_explanation": "Designed by Roger Linn, the Akai MPC60 allowed beatmakers to chop vinyl samples onto 16 velocity-sensitive rubber pads and sequence them with intuitive, humanized swing, defining the sound of 90s hip-hop.",
-              "expert_quote": {
-                "text": "The MPC wasn't just an instrument; it was the foundation of boom-bap and modern beatmaking culture.",
-                "author": "Hip-Hop Production History"
-              },
-              "img": "/images/gen/t10_q16_mpc_sampler_hq_123.png",
-              "explanation": "<img src=\"/images/gen/t10_q16_mpc_sampler_hq_123.png\" alt=\"Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Designed by Roger Linn, the Akai MPC60 allowed beatmakers to chop vinyl samples onto 16 velocity-sensitive rubber pads and sequence them with intuitive, humanized swing, defining the sound of 90s hip-hop.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"The MPC wasn't just an instrument; it was the foundation of boom-bap and modern beatmaking culture.\"<br/><strong>- Hip-Hop Production History</strong></blockquote>"
-            },
-            {
-              "title": "Q19: Modern DAW Dynamic Automation Programming",
-              "type": "multi_choice",
-              "content": "In a DAW, what is track 'automation' used for?",
-              "answers": [
-                {
-                  "text": "Auto-removes room noise during pauses",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Auto-tunes vocal pitch in real time",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Records volume and pan moves over time",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "Converts stereo stems to Dolby Atmos",
-                  "is_true": "no"
-                }
-              ],
-              "expert_explanation": "DAW automation lets producers draw or record movements of faders, pans, filter cutoffs, and effect sends so the mix evolves dynamically throughout the arrangement rather than remaining static.",
-              "expert_quote": {
-                "text": "Automation turns a static balance into an emotional, breathing musical journey.",
-                "author": "Mixing with Automation"
-              },
-              "img": "/images/gen/t10_q19_daw_automation_hq_123.png",
-              "explanation": "<img src=\"/images/gen/t10_q19_daw_automation_hq_123.png\" alt=\"Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> DAW automation lets producers draw or record movements of faders, pans, filter cutoffs, and effect sends so the mix evolves dynamically throughout the arrangement rather than remaining static.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Automation turns a static balance into an emotional, breathing musical journey.\"<br/><strong>- Mixing with Automation</strong></blockquote>"
-            },
-            {
-              "title": "Q20: Streaming Loudness Normalization Standards (-14 LUFS)",
-              "type": "multi_choice",
-              "content": "What integrated loudness target is commonly used by streaming services (like Spotify) for playback normalisation?",
               "answers": [
                 {
                   "text": "-24 LUFS integrated",
+                  "is_true": "no"
+                },
+                {
+                  "text": "-6 LUFS integrated",
                   "is_true": "no"
                 },
                 {
@@ -6916,71 +6714,12 @@
                   "is_true": "yes"
                 },
                 {
-                  "text": "-6 LUFS integrated",
-                  "is_true": "no"
-                },
-                {
                   "text": "0 dBFS true peak",
                   "is_true": "no"
                 }
               ],
-              "expert_explanation": "Spotify and YouTube normalize music to approximately -14 LUFS integrated (Apple Music targets -16 LUFS, European broadcast targets -23 LUFS). Pushing a master much louder often triggers automatic downward normalization.",
-              "expert_quote": {
-                "text": "Streaming loudness normalization ended the Loudness War by turning down over-compressed tracks.",
-                "author": "Streaming Audio Standards"
-              },
-              "img": "/images/gen/t8_q5_streaming_target_hq_123.png",
-              "explanation": "<img src=\"/images/gen/t8_q5_streaming_target_hq_123.png\" alt=\"Diagram\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> Spotify and YouTube normalize music to approximately -14 LUFS integrated (Apple Music targets -16 LUFS, European broadcast targets -23 LUFS). Pushing a master much louder often triggers automatic downward normalization.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Streaming loudness normalization ended the Loudness War by turning down over-compressed tracks.\"<br/><strong>- Streaming Audio Standards</strong></blockquote>"
-            },
-            {
-              "title": "Guitar Cabinet Off-Axis / Cone Edge Miking",
-              "content": "How does moving a dynamic microphone from the centre dust cap towards the outer edge of a guitar speaker cone alter the captured tone?",
-              "type": "multi_choice",
-              "answers": [
-                {
-                  "text": "It reduces harsh upper-mid bite and yields a warmer tone",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "It boosts high-frequency air and reduces low-end warmth",
-                  "is_true": "no"
-                },
-                {
-                  "text": "It eliminates the proximity effect and flattens the bass",
-                  "is_true": "no"
-                },
-                {
-                  "text": "It flips the acoustic polarity by 180 degrees at the amp",
-                  "is_true": "no"
-                }
-              ],
-              "explanation": "<p><strong>Expert Explanation:</strong> The centre dust cap of a guitar speaker radiates the brightest, most aggressive high-mid frequencies (2–5 kHz). Moving the microphone off-centre towards the paper cone edge progressively rolls off high-frequency fizz for a darker, smoother sound.</p>",
-              "expert_explanation": "Expert Explanation: The centre dust cap of a guitar speaker radiates the brightest, most aggressive high-mid frequencies (2–5 kHz). Moving the microphone off-centre towards the paper cone edge progressively rolls off high-frequency fizz for a darker, smoother sound."
-            },
-            {
-              "title": "Humbucker vs Single-Coil Hum Rejection",
-              "content": "How does a dual-coil humbucker pickup reject 50 Hz mains hum compared with a vintage single-coil guitar pickup?",
-              "type": "multi_choice",
-              "answers": [
-                {
-                  "text": "Its two coils are wired out of phase with opposite magnets",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "It uses an internal active noise gate powered by a battery",
-                  "is_true": "no"
-                },
-                {
-                  "text": "It applies a steep high-pass filter above 120 Hz internally",
-                  "is_true": "no"
-                },
-                {
-                  "text": "It converts the guitar signal into optical digital pulses",
-                  "is_true": "no"
-                }
-              ],
-              "explanation": "<p><strong>Expert Explanation:</strong> A humbucker pairs two coils wound in opposite directions (RWRP) with opposite magnetic polarities. External electromagnetic hum induces identical voltages in both coils that cancel out via phase cancellation, while string vibration is reinforced in phase.</p>",
-              "expert_explanation": "Expert Explanation: A humbucker pairs two coils wound in opposite directions (RWRP) with opposite magnetic polarities. External electromagnetic hum induces identical voltages in both coils that cancel out via phase cancellation, while string vibration is reinforced in phase."
+              "expert_explanation": "Most streaming platforms normalise tracks to around -14 LUFS integrated so listeners do not get sudden volume jumps between songs.",
+              "explanation": "<p><strong>Expert Explanation:</strong> Most streaming platforms normalise tracks to around -14 LUFS integrated so listeners do not get sudden volume jumps between songs.</p>"
             }
           ],
           "randomise": false
