@@ -293,42 +293,48 @@ const RockProductionQuiz = ({ quiz, onExit }) => {
         switch (currentQuestionIndex) {
             case 0: // Gated Reverb
                 {
-                    playDuration = 2.5;
-                    const snareGain = ctx.createGain();
-                    snareGain.connect(masterGain);
+                    playDuration = 2.4;
+                    const hitTimes = [now, now + 0.8];
 
-                    playBuffer('snare', now, snareGain);
+                    const createReverbImpulse = (context, duration = 1.8, decay = 0.8) => {
+                        const sampleRate = context.sampleRate;
+                        const length = Math.floor(sampleRate * duration);
+                        const impulse = context.createBuffer(2, length, sampleRate);
+                        const left = impulse.getChannelData(0);
+                        const right = impulse.getChannelData(1);
 
-                    if (isProcessed) {
-                        // Reverb emulation using a real ConvolverNode and generated impulse response
-                        const createReverbImpulse = (context, duration = 3.0, decay = 2.0) => {
-                            const sampleRate = context.sampleRate;
-                            const length = sampleRate * duration;
-                            const impulse = context.createBuffer(2, length, sampleRate);
-                            const left = impulse.getChannelData(0);
-                            const right = impulse.getChannelData(1);
+                        for (let i = 0; i < length; i++) {
+                            const env = Math.pow(1 - i / length, decay);
+                            left[i] = (Math.random() * 2 - 1) * env;
+                            right[i] = (Math.random() * 2 - 1) * env;
+                        }
+                        return impulse;
+                    };
 
-                            for (let i = 0; i < length; i++) {
-                                left[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / length, decay);
-                                right[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / length, decay);
-                            }
-                            return impulse;
-                        };
+                    const impulse = isProcessed ? createReverbImpulse(ctx, 1.8, 0.8) : null;
 
-                        const convolver = ctx.createConvolver();
-                        convolver.buffer = createReverbImpulse(ctx, 2.0, 2.0);
+                    hitTimes.forEach((hitT) => {
+                        const snareGain = ctx.createGain();
+                        snareGain.gain.value = 0.9;
+                        snareGain.connect(masterGain);
+                        playBuffer('snare', hitT, snareGain);
 
-                        const revEnv = ctx.createGain();
-                        revEnv.gain.setValueAtTime(0, now);
-                        revEnv.gain.linearRampToValueAtTime(0.8, now + 0.01);
-                        // The "Gate" snapping shut abruptly
-                        revEnv.gain.setValueAtTime(0.8, now + 0.35);
-                        if (isProcessed) {
+                        if (isProcessed && impulse) {
+                            const convolver = ctx.createConvolver();
+                            convolver.buffer = impulse;
+
+                            const revEnv = ctx.createGain();
+                            revEnv.gain.setValueAtTime(0, hitT);
+                            revEnv.gain.linearRampToValueAtTime(1.15, hitT + 0.015);
+                            revEnv.gain.setValueAtTime(1.15, hitT + 0.28);
+                            // Noise gate slams shut abruptly after 280 ms
+                            revEnv.gain.linearRampToValueAtTime(0.0, hitT + 0.31);
+
                             convolver.connect(revEnv);
                             revEnv.connect(masterGain);
-                            playBuffer('snare', now, convolver);
+                            playBuffer('snare', hitT, convolver);
                         }
-                    }
+                    });
                 }
                 break;
 
