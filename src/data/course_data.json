@@ -6436,29 +6436,35 @@
               "bottom_label": "▼ END (Mix Output)"
             },
             {
-              "title": "Q5: Figure-8 Polar Pattern",
-              "content": "Which polar pattern picks up sound equally from the front and back while rejecting the sides (90° nulls)?",
-              "type": "multi_choice",
-              "answers": [
+              "title": "Q5 (Visual Lab): Identify the Figure-8 Polar Pattern",
+              "content": "Select the polar pattern diagram that picks up sound equally from the front (0°) and back (180°) while rejecting the sides (90° and 270° nulls).",
+              "type": "equipment-lab",
+              "mode": "polar-pattern",
+              "diagrams": [
                 {
-                  "text": "Cardioid polar pattern",
-                  "is_true": "no"
+                  "id": "cardioid",
+                  "label": "Diagram A",
+                  "name": "Cardioid"
                 },
                 {
-                  "text": "Omnidirectional polar pattern",
-                  "is_true": "no"
+                  "id": "omni",
+                  "label": "Diagram B",
+                  "name": "Omnidirectional"
                 },
                 {
-                  "text": "Hypercardioid polar pattern",
-                  "is_true": "no"
+                  "id": "figure8",
+                  "label": "Diagram C",
+                  "name": "Figure-8 (Bidirectional)"
                 },
                 {
-                  "text": "Figure-8 (bidirectional) pattern",
-                  "is_true": "yes"
+                  "id": "hypercardioid",
+                  "label": "Diagram D",
+                  "name": "Hypercardioid"
                 }
               ],
-              "expert_explanation": "A figure-8 (bidirectional) pattern is equally sensitive at 0° and 180°, with deep rejection nulls at 90° and 270°.",
-              "explanation": "<p><strong>Expert Explanation:</strong> A figure-8 (bidirectional) pattern is equally sensitive at 0° and 180°, with deep rejection nulls at 90° and 270°.</p>"
+              "correctIndex": 2,
+              "expert_explanation": "Diagram C is Figure-8 (bidirectional): it captures front (0°) and rear (180°) equally while rejecting 90° and 270° side spill.",
+              "explanation": "<p><strong>Expert Explanation:</strong> Diagram C is Figure-8 (bidirectional): it captures front (0°) and rear (180°) equally while rejecting 90° and 270° side spill.</p>"
             },
             {
               "title": "Q6 (3 Marks): Noise Gates & Auxiliary Sends",

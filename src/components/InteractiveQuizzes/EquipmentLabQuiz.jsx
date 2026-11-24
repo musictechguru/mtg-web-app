@@ -2,11 +2,19 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Volume2, Cable, Sliders, CheckCircle2, AlertCircle, Play, Square } from 'lucide-react';
 
 /**
- * Simple, engaging Web Audio Equipment Lab for Edexcel 9MT0 A-Level:
+ * Simple, engaging Web Audio & Visual Equipment Lab for Edexcel 9MT0 A-Level:
  *  - "balanced-cable": Unbalanced TS (50 Hz hum) vs Balanced XLR (phase-cancelled noise)
  *  - "lpf-synth": Sawtooth waveform through a 24 dB/oct Low-Pass Filter (Full vs 100 Hz Sub-Bass)
  *  - "humbucker-hum": Single-Coil vs Dual-Coil Humbucker with UK (50 Hz) & US (60 Hz) mains hum
+ *  - "polar-pattern": 2x2 SVG Polar Pattern Diagram selector (Cardioid, Omni, Hypercardioid, Figure-8)
  */
+const POLAR_SHAPES = {
+    cardioid: 'M 60 22 C 88 22 98 52 84 74 C 74 88 64 76 60 66 C 56 76 46 88 36 74 C 22 52 32 22 60 22 Z',
+    omni: 'M 60 22 A 38 38 0 1 1 59.9 22 Z',
+    hypercardioid: 'M 60 20 C 82 20 88 46 74 62 C 66 70 68 88 60 88 C 52 88 54 70 46 62 C 32 46 38 20 60 20 Z',
+    figure8: 'M 60 18 C 78 18 82 42 60 60 C 82 78 78 102 60 102 C 42 102 38 78 60 60 C 38 42 42 18 60 18 Z'
+};
+
 export default function EquipmentLabQuiz({ question, onResult }) {
     const mode = question?.mode || 'balanced-cable';
     const options = question?.options || [];
@@ -198,6 +206,117 @@ export default function EquipmentLabQuiz({ question, onResult }) {
         setSubmitted(true);
         if (onResult) onResult(ok, { selectedIdx, mode });
     };
+
+    if (mode === 'polar-pattern') {
+        const diagrams = question?.diagrams || [
+            { id: 'cardioid', label: 'Diagram A', name: 'Cardioid' },
+            { id: 'omni', label: 'Diagram B', name: 'Omnidirectional' },
+            { id: 'hypercardioid', label: 'Diagram C', name: 'Hypercardioid' },
+            { id: 'figure8', label: 'Diagram D', name: 'Figure-8 (Bidirectional)' }
+        ];
+        return (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginTop: '10px' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', gap: '12px' }}>
+                    {diagrams.map((d, idx) => {
+                        const isSel = selectedIdx === idx;
+                        const isAns = idx === correctIndex;
+                        let border = 'rgba(255,255,255,0.14)';
+                        let bg = 'rgba(15, 23, 42, 0.75)';
+                        if (submitted) {
+                            if (isAns) {
+                                border = '#10b981';
+                                bg = 'rgba(16,185,129,0.14)';
+                            } else if (isSel) {
+                                border = '#ef4444';
+                                bg = 'rgba(239,68,68,0.14)';
+                            }
+                        } else if (isSel) {
+                            border = '#38bdf8';
+                            bg = 'rgba(56,189,248,0.14)';
+                        }
+
+                        return (
+                            <button
+                                key={d.id}
+                                type="button"
+                                disabled={submitted}
+                                onClick={() => setSelectedIdx(idx)}
+                                style={{
+                                    padding: '12px',
+                                    borderRadius: '12px',
+                                    border: `2px solid ${border}`,
+                                    background: bg,
+                                    color: '#f8fafc',
+                                    cursor: submitted ? 'default' : 'pointer',
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    alignItems: 'center',
+                                    gap: '8px'
+                                }}
+                            >
+                                <svg viewBox="0 0 120 120" style={{ width: '110px', height: '110px' }}>
+                                    <circle cx="60" cy="60" r="44" fill="none" stroke="rgba(148,163,184,0.22)" strokeWidth="1" />
+                                    <circle cx="60" cy="60" r="24" fill="none" stroke="rgba(148,163,184,0.16)" strokeWidth="1" />
+                                    <line x1="60" y1="10" x2="60" y2="110" stroke="rgba(148,163,184,0.22)" strokeWidth="1" />
+                                    <line x1="10" y1="60" x2="110" y2="60" stroke="rgba(148,163,184,0.22)" strokeWidth="1" />
+                                    <text x="60" y="9" textAnchor="middle" fill="#94a3b8" fontSize="8">0°</text>
+                                    <text x="112" y="63" textAnchor="start" fill="#94a3b8" fontSize="8">90°</text>
+                                    <text x="60" y="118" textAnchor="middle" fill="#94a3b8" fontSize="8">180°</text>
+                                    <text x="8" y="63" textAnchor="end" fill="#94a3b8" fontSize="8">270°</text>
+                                    <path
+                                        d={POLAR_SHAPES[d.id] || POLAR_SHAPES.cardioid}
+                                        fill="rgba(56, 189, 248, 0.22)"
+                                        stroke="#38bdf8"
+                                        strokeWidth="2.5"
+                                    />
+                                    <circle cx="60" cy="60" r="3" fill="#f8fafc" />
+                                </svg>
+                                <div style={{ fontSize: '0.85rem', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '6px' }}>
+                                    <span>{submitted ? d.name : d.label}</span>
+                                    {submitted && isAns && <CheckCircle2 size={16} color="#10b981" />}
+                                    {submitted && !isAns && isSel && <AlertCircle size={16} color="#ef4444" />}
+                                </div>
+                            </button>
+                        );
+                    })}
+                </div>
+
+                {!submitted && (
+                    <button
+                        type="button"
+                        disabled={selectedIdx === null}
+                        onClick={handleSubmit}
+                        style={{
+                            padding: '12px 20px',
+                            borderRadius: '10px',
+                            border: 'none',
+                            background: '#3b82f6',
+                            color: '#fff',
+                            fontWeight: 700,
+                            cursor: selectedIdx === null ? 'not-allowed' : 'pointer',
+                            opacity: selectedIdx === null ? 0.5 : 1
+                        }}
+                    >
+                        Submit Answer
+                    </button>
+                )}
+
+                {submitted && (
+                    <div style={{
+                        padding: '12px 14px',
+                        borderRadius: '10px',
+                        background: isCorrect ? 'rgba(16,185,129,0.12)' : 'rgba(239,68,68,0.12)',
+                        border: `1px solid ${isCorrect ? 'rgba(16,185,129,0.35)' : 'rgba(239,68,68,0.35)'}`,
+                        color: '#e2e8f0',
+                        fontSize: '0.9rem'
+                    }}>
+                        {isCorrect ? 'Correct! ' : 'Not quite. '}
+                        {question?.expert_explanation}
+                    </div>
+                )}
+            </div>
+        );
+    }
 
     return (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginTop: '10px' }}>
