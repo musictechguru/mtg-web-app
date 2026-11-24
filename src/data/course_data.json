@@ -5509,28 +5509,28 @@
           "questions": [
             {
               "title": "Q1: Mastering Signal Chain Order",
-              "content": "Arrange the mastering processors in order from unmastered mix to final export.",
+              "content": "Put the 4 mastering stages in order: shape tone first, smooth dynamics, set final loudness, then prepare for 16-bit export.",
               "type": "drag_drop",
               "items": [
-                "Dither (Final step for 16-bit CD)",
-                "Limiter (Boost level & stop clipping)",
-                "Corrective EQ (Cut mud & rumble)",
-                "Tonal EQ (Add warmth & air)",
-                "Bus Compression (Glue dynamics)"
+                "Peak Limiter (Boost loudness safely)",
+                "Mastering EQ (Fix tone & cut mud)",
+                "Dither (Final step for 16-bit export)",
+                "Bus Compressor (Smooth dynamics)"
               ],
               "correct_order": [
-                "Corrective EQ (Cut mud & rumble)",
-                "Bus Compression (Glue dynamics)",
-                "Tonal EQ (Add warmth & air)",
-                "Limiter (Boost level & stop clipping)",
-                "Dither (Final step for 16-bit CD)"
+                "Mastering EQ (Fix tone & cut mud)",
+                "Bus Compressor (Smooth dynamics)",
+                "Peak Limiter (Boost loudness safely)",
+                "Dither (Final step for 16-bit export)"
               ],
-              "explanation": "<p><strong>Expert Explanation:</strong> Mastering chain order: 1) Corrective EQ removes rumble and mud first. 2) Compression smooths overall dynamics. 3) Tonal EQ adds subtle warmth or brightness. 4) A Limiter raises loudness and prevents clipping above 0 dBFS. 5) Dither goes last when exporting down to 16-bit.</p>",
+              "explanation": "<p><strong>Expert Explanation:</strong> In A-Level mastering: 1) EQ cleans mud and shapes tone first. 2) Bus Compression smooths overall dynamics. 3) A Limiter boosts final loudness and stops clipping above 0 dBFS. 4) Dither always goes last when exporting to 16-bit.</p>",
               "expert_quote": {
                 "text": "In mastering, dither is always last. If you put any processor after dither, you defeat its mathematical purpose.",
                 "author": "Bob Katz, Mastering Engineer"
               },
-              "expert_explanation": "Mastering chain order: 1) Corrective EQ removes rumble and mud first. 2) Compression smooths overall dynamics. 3) Tonal EQ adds subtle warmth or brightness. 4) A Limiter raises loudness and prevents clipping above 0 dBFS. 5) Dither goes last when exporting down to 16-bit."
+              "expert_explanation": "In A-Level mastering: 1) EQ cleans mud and shapes tone first. 2) Bus Compression smooths overall dynamics. 3) A Limiter boosts final loudness and stops clipping above 0 dBFS. 4) Dither always goes last when exporting to 16-bit.",
+              "top_label": "START (Unmastered Stereo Mix)",
+              "bottom_label": "FINISH (16-bit Master Export)"
             },
             {
               "title": "Q2: What is Headroom & Why is it Important?",
