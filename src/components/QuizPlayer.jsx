@@ -31,6 +31,7 @@ import ModulationDelayLabQuiz from './InteractiveQuizzes/ModulationDelayLabQuiz'
 import MeteringComparisonLabQuiz from './InteractiveQuizzes/MeteringComparisonLabQuiz';
 import LoudnessWarLabQuiz from './InteractiveQuizzes/LoudnessWarLabQuiz';
 import MasteringLabQuiz from './InteractiveQuizzes/MasteringLabQuiz';
+import AcousticsLabQuiz from './InteractiveQuizzes/AcousticsLabQuiz';
 
 // Dev tools (skip, jump, reveal answers) only exist in local development, never on the live site
 const isDev = Boolean(import.meta.env.DEV);
@@ -64,7 +65,8 @@ const isInteractiveSelfSubmitting = (type) => [
     'modulation-delay-lab',
     'metering-lab',
     'loudness-war-lab',
-    'mastering-lab'
+    'mastering-lab',
+    'acoustics-lab'
 ].includes(type);
 
 // Helper to build/shuffle questions for a fresh quiz attempt
@@ -1733,6 +1735,12 @@ const QuizPlayer = ({ quiz, onFinish }) => {
                             />
                         ) : currentQuestion.type === 'mastering-lab' ? (
                             <MasteringLabQuiz
+                                key={currentQuestionIndex}
+                                question={currentQuestion}
+                                onResult={handleInteractiveResult}
+                            />
+                        ) : currentQuestion.type === 'acoustics-lab' ? (
+                            <AcousticsLabQuiz
                                 key={currentQuestionIndex}
                                 question={currentQuestion}
                                 onResult={handleInteractiveResult}
