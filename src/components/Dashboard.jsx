@@ -11,7 +11,7 @@ const WelcomeVideoModal = lazy(() => import('./WelcomeVideoModal'));
 const StudentMarkSchemeModal = lazy(() => import('./StudentMarkSchemeModal'));
 const PracticalQuizLabModal = lazy(() => import('./PracticalQuizLabModal'));
 
-const Dashboard = ({ onNavigate, onOpenProfile }) => {
+const Dashboard = ({ onNavigate, onOpenProfile, scrollToLegendSignal = 0 }) => {
     const { currentUser, userProgress, clearProgress, logout } = useUser();
     const [showWelcomeModal, setShowWelcomeModal] = React.useState(false);
     const [showProgress, setShowProgress] = React.useState(false);
@@ -289,7 +289,7 @@ const Dashboard = ({ onNavigate, onOpenProfile }) => {
 
             {/* CENTRAL FOCUS: THE PATH TO LEGEND (Campaign Map) */}
             <div id="campaign-map-section" style={{ marginBottom: '40px' }}>
-                <CampaignMap onNavigate={onNavigate} />
+                <CampaignMap onNavigate={onNavigate} scrollToLegendSignal={scrollToLegendSignal} />
             </div>
 
             {/* Coursework & Specialised Tools (Compact, Non-Distracting Grid) */}

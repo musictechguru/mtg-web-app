@@ -3,9 +3,27 @@ import { useUser } from '../contexts/UserContext';
 import campaignData from '../data/campaign_route.json';
 import courseData from '../data/course_data.json';
 
-const CampaignMap = ({ onNavigate }) => {
-    const { userProgress, setCampaignCompletedNodes } = useUser();
+const CampaignMap = ({ onNavigate, scrollToLegendSignal = 0 }) => {
+    const { userProgress, setCampaignCompletedNodes, currentUser } = useUser();
     const scrollRef = useRef(null);
+    const [lastInteractedNodeId, setLastInteractedNodeId] = useState(() => {
+        try {
+            return localStorage.getItem('mtg_last_campaign_node') || null;
+        } catch (e) {
+            return null;
+        }
+    });
+
+    const saveLastInteractedNode = (nodeId) => {
+        setLastInteractedNodeId(nodeId);
+        try {
+            if (nodeId) {
+                localStorage.setItem('mtg_last_campaign_node', nodeId);
+            } else {
+                localStorage.removeItem('mtg_last_campaign_node');
+            }
+        } catch (e) {}
+    };
 
     const isDev = Boolean(import.meta.env.DEV);
     const [devMode, setDevMode] = useState(() => {
@@ -83,40 +101,71 @@ const CampaignMap = ({ onNavigate }) => {
         return false;
     };
 
-    // Find the first active node to scroll to (the first uncompleted node of the lowest round)
+    // Flatten all nodes in campaign order to determine progression indices
+    const orderedNodes = [];
+    campaignData.rounds.forEach((round, rIdx) => {
+        round.nodes.forEach((node, nIdx) => {
+            orderedNodes.push({ node, rIdx, nIdx });
+        });
+    });
+
+    // Find the first active node (first uncompleted unlocked node from the start)
     let firstActiveNodeId = null;
-    let foundFirstActive = false;
-    for (let rIdx = 0; rIdx < campaignData.rounds.length; rIdx++) {
-        const round = campaignData.rounds[rIdx];
-        for (let nIdx = 0; nIdx < round.nodes.length; nIdx++) {
-            const node = round.nodes[nIdx];
-            if (!completedNodes.includes(node.id) && isNodeUnlocked(rIdx, nIdx)) {
-                if (!foundFirstActive) {
-                    firstActiveNodeId = node.id;
-                    foundFirstActive = true;
-                }
-            }
+    for (const { node, rIdx, nIdx } of orderedNodes) {
+        if (!completedNodes.includes(node.id) && isNodeUnlocked(rIdx, nIdx)) {
+            firstActiveNodeId = node.id;
+            break;
         }
     }
 
-    // Scroll to the first active node
-    useEffect(() => {
-        if (firstActiveNodeId) {
-            const el = document.getElementById(`campaign-node-${firstActiveNodeId}`);
-            if (el && scrollRef.current) {
-                // Wait for layout to settle
-                setTimeout(() => {
-                    scrollRef.current.scrollTo({
-                        left: el.offsetLeft - scrollRef.current.offsetWidth / 2 + el.offsetWidth / 2,
-                        behavior: 'smooth'
-                    });
-                }, 100);
+    // Find the furthest completed node and the next uncompleted unlocked node after it
+    let lastCompletedIdx = -1;
+    orderedNodes.forEach(({ node }, idx) => {
+        if (completedNodes.includes(node.id)) {
+            lastCompletedIdx = idx;
+        }
+    });
+
+    let progressNodeId = firstActiveNodeId;
+    if (lastCompletedIdx >= 0) {
+        let nextAfterFurthest = null;
+        for (let i = lastCompletedIdx + 1; i < orderedNodes.length; i++) {
+            const { node, rIdx, nIdx } = orderedNodes[i];
+            if (!completedNodes.includes(node.id) && isNodeUnlocked(rIdx, nIdx)) {
+                nextAfterFurthest = node.id;
+                break;
             }
         }
-    }, [firstActiveNodeId]);
+        progressNodeId = nextAfterFurthest || orderedNodes[lastCompletedIdx].node.id;
+    }
+
+    // Always scroll to the last node the user interacted with / exited,
+    // falling back to their furthest progress node if none is recorded.
+    const hasValidLastInteracted = Boolean(
+        lastInteractedNodeId && orderedNodes.some(({ node }) => node.id === lastInteractedNodeId)
+    );
+    const targetScrollNodeId = hasValidLastInteracted ? lastInteractedNodeId : progressNodeId;
+
+    // Scroll to the user's current position on the Path to Legend map
+    useEffect(() => {
+        const targetEl = targetScrollNodeId
+            ? document.getElementById(`campaign-node-${targetScrollNodeId}`)
+            : (scrollToLegendSignal > 0 ? document.getElementById('campaign-map-section') : null);
+        if (!targetEl) return;
+
+        // Wait for layout to settle
+        const timer = setTimeout(() => {
+            targetEl.scrollIntoView({
+                behavior: 'smooth',
+                block: targetScrollNodeId ? 'center' : 'start'
+            });
+        }, 100);
+        return () => clearTimeout(timer);
+    }, [targetScrollNodeId, scrollToLegendSignal]);
 
     const handleNodeClick = async (node, isActive, isCompleted) => {
         if (!devMode && !isCompleted && !isActive) return;
+        saveLastInteractedNode(node.id);
 
         let targetItem = null;
         if (node.type === 'course') {
@@ -163,6 +212,9 @@ const CampaignMap = ({ onNavigate }) => {
             } else if (node.quizId === 'exam_5') {
                 examId = 'c3_synthpop';
                 examType = 'component3_exam';
+            } else if (node.quizId === 'exam_6') {
+                examId = 'c4_template';
+                examType = 'component4_exam';
             }
 
             targetItem = { type: examType, id: examId, title: node.title, campaignNodeId: node.id };
@@ -214,6 +266,7 @@ const CampaignMap = ({ onNavigate }) => {
     const handleJumpToRound = (rIdx) => {
         const round = campaignData.rounds[rIdx];
         if (round && round.nodes[0]) {
+            saveLastInteractedNode(round.nodes[0].id);
             const el = document.getElementById(`campaign-node-${round.nodes[0].id}`);
             if (el) {
                 el.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -236,6 +289,7 @@ const CampaignMap = ({ onNavigate }) => {
     };
 
     const resetMapProgress = () => {
+        saveLastInteractedNode(null);
         if (setCampaignCompletedNodes) {
             setCampaignCompletedNodes([]);
         }
@@ -437,6 +491,20 @@ const CampaignMap = ({ onNavigate }) => {
                                         border: '1px solid rgba(255,255,255,0.1)'
                                     }}>
                                         {round.title}
+                                        {round.round === 'Exam_Drills' && !currentUser?.is_premium && (
+                                            <span style={{
+                                                marginLeft: '10px',
+                                                fontSize: '0.75rem',
+                                                padding: '2px 8px',
+                                                borderRadius: '999px',
+                                                background: 'rgba(234, 179, 8, 0.18)',
+                                                color: '#facc15',
+                                                border: '1px solid rgba(234, 179, 8, 0.45)',
+                                                verticalAlign: 'middle'
+                                            }}>
+                                                🔒 PRO
+                                            </span>
+                                        )}
                                     </div>
 
                                     {/* Circle Layout for Nodes within a Round */}

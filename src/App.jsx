@@ -470,18 +470,41 @@ const MainApp = () => {
         } else {
           setActiveItem(nextItem);
         }
+        window.scrollTo(0, 0);
       } else {
         setActiveItem(null);
+        pendingScrollRestoreRef.current = dashboardScrollRef.current;
       }
-      window.scrollTo(0, 0);
     };
 
     window.addEventListener('popstate', handlePopState);
     return () => window.removeEventListener('popstate', handlePopState);
   }, [currentUser?.is_premium]);
 
+  const dashboardScrollRef = useRef(0);
+  const pendingScrollRestoreRef = useRef(null);
+  const [scrollToLegendSignal, setScrollToLegendSignal] = useState(0);
+
+  useEffect(() => {
+    if (appView === 'student' && !activeItem && !showProfileSettings && pendingScrollRestoreRef.current !== null) {
+      const targetY = pendingScrollRestoreRef.current;
+      pendingScrollRestoreRef.current = null;
+      requestAnimationFrame(() => {
+        window.scrollTo(0, targetY);
+      });
+    }
+  }, [appView, activeItem, showProfileSettings]);
+
   // Normal App Logic Handlers
   const handleItemSelect = (item) => {
+    if (appView === 'student' && !activeItem && !showProfileSettings && typeof window !== 'undefined') {
+      dashboardScrollRef.current = window.scrollY;
+    }
+    if (item?.campaignNodeId) {
+      try {
+        localStorage.setItem('mtg_last_campaign_node', item.campaignNodeId);
+      } catch (e) {}
+    }
     setAppView('student');
     setShowProfileSettings(false);
     setAuthIntent(null);
@@ -540,11 +563,19 @@ const MainApp = () => {
     }
   };
 
-  const goToDashboard = () => {
+  const goToDashboard = ({ scrollToLegend = false } = {}) => {
+    const returningFromView = Boolean(activeItem) || appView !== 'student' || showProfileSettings;
     setActiveItem(null);
     setAppView('student');
     setShowProfileSettings(false);
-    window.scrollTo(0, 0);
+    if (scrollToLegend) {
+      pendingScrollRestoreRef.current = null;
+      setScrollToLegendSignal((prev) => prev + 1);
+    } else if (returningFromView) {
+      pendingScrollRestoreRef.current = dashboardScrollRef.current;
+    } else {
+      window.scrollTo(0, 0);
+    }
     if (typeof window !== 'undefined') {
       const url = new URL(window.location.href);
       if (url.pathname.startsWith('/topic/') || url.pathname.startsWith('/revision/')) {
@@ -610,6 +641,11 @@ const MainApp = () => {
 
   const goToDashboardWrapper = () => {
     goToDashboard();
+    setMobileMenuOpen(false);
+  };
+
+  const goToPathToLegendWrapper = () => {
+    goToDashboard({ scrollToLegend: true });
     setMobileMenuOpen(false);
   };
 
@@ -724,7 +760,7 @@ const MainApp = () => {
           {/* Primary Focus */}
           <button
             className={`nav-item-clean primary-hero ${!activeItem && appView === 'student' ? 'active' : ''}`}
-            onClick={goToDashboardWrapper}
+            onClick={goToPathToLegendWrapper}
           >
             <span className="nav-item-label">
               <span>🧭</span> Path to Legend
@@ -1342,7 +1378,11 @@ const MainApp = () => {
               )
             )
           ) : (
-            <Dashboard onNavigate={handleItemSelectWrapper} onOpenProfile={() => setShowProfileSettings(true)} />
+            <Dashboard
+              onNavigate={handleItemSelectWrapper}
+              onOpenProfile={() => setShowProfileSettings(true)}
+              scrollToLegendSignal={scrollToLegendSignal}
+            />
           )}
         </Suspense>
       </main>
