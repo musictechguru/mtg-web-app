@@ -309,21 +309,7 @@ const Component3ExamPlayer = ({ examData: rawExamData, onExit }) => {
     }
 
     if (!currentUser?.is_premium && globalQuestionIndex >= 3 && !examFinished) {
-        return (
-            <div style={{ position: 'relative', width: '100vw', minHeight: '100vh', background: 'var(--bg-main)' }}>
-                 <button 
-                     onClick={onExit} 
-                     style={{ 
-                         position: 'absolute', top: 20, left: 20, zIndex: 10, 
-                         background: 'rgba(0,0,0,0.5)', border: '1px solid #555', color: '#fff', 
-                         padding: '8px 16px', borderRadius: '5px', cursor: 'pointer', fontWeight: 'bold' 
-                     }}
-                 >
-                     &larr; Exit Exam
-                 </button>
-                 <PremiumLocked itemTitle={examData?.title} />
-            </div>
-        );
+        // Premium lock check moved below all hooks to satisfy React Rules of Hooks
     }
 
     const currentSection = currentSectionIndex >= 0 && currentSectionIndex < sections.length ? sections[currentSectionIndex] : null;
@@ -526,6 +512,24 @@ const Component3ExamPlayer = ({ examData: rawExamData, onExit }) => {
     useEffect(() => {
         examSavedRef.current = false;
     }, [examData]);
+
+    if (!currentUser?.is_premium && globalQuestionIndex >= 3 && !examFinished) {
+        return (
+            <div style={{ position: 'relative', width: '100vw', minHeight: '100vh', background: 'var(--bg-main)' }}>
+                 <button 
+                     onClick={onExit} 
+                     style={{ 
+                         position: 'absolute', top: 20, left: 20, zIndex: 10, 
+                         background: 'rgba(0,0,0,0.5)', border: '1px solid #555', color: '#fff', 
+                         padding: '8px 16px', borderRadius: '5px', cursor: 'pointer', fontWeight: 'bold' 
+                     }}
+                 >
+                     &larr; Exit Exam
+                 </button>
+                 <PremiumLocked itemTitle={examData?.title} />
+            </div>
+        );
+    }
 
 
     // --- Handlers ---
