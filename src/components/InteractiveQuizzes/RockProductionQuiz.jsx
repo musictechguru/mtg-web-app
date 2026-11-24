@@ -583,6 +583,150 @@ const RockProductionQuiz = ({ quiz, onExit }) => {
         }, playDuration * 1000);
     };
 
+    const previewOptionAudio = (optionText, idx) => {
+        const targetMode = `opt_${idx}`;
+        if (isLoadingAudio) return;
+        if (playingMode === targetMode) {
+            stopAudio();
+            return;
+        }
+        stopAudio();
+
+        const ctx = audioContextRef.current;
+        if (!ctx) return;
+        if (ctx.state === 'suspended') ctx.resume();
+
+        setPlayingMode(targetMode);
+        const now = ctx.currentTime;
+        let playDuration = 2.4;
+
+        const masterGain = ctx.createGain();
+        masterGain.gain.value = 0.5;
+        masterGain.connect(ctx.destination);
+
+        const addSource = (src) => activeSources.current.push(src);
+        const playBuf = (buf, time, dest) => {
+            if (!buf) return;
+            const src = ctx.createBufferSource();
+            src.buffer = buf;
+            src.connect(dest);
+            src.start(time);
+            addSource(src);
+        };
+
+        const snareBuf = audioBuffers.current.snare;
+        const hitTimes = [now, now + 0.95];
+
+        if (optionText === 'Spring Reverb') {
+            // Boingy, metallic bandpass-filtered spring tail decaying smoothly over 1.3s
+            const len = Math.floor(ctx.sampleRate * 1.3);
+            const imp = ctx.createBuffer(2, len, ctx.sampleRate);
+            for (let ch = 0; ch < 2; ch++) {
+                const d = imp.getChannelData(ch);
+                for (let i = 0; i < len; i++) {
+                    const mod = 0.65 + 0.35 * Math.sin(i / 280);
+                    d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 2.2) * mod;
+                }
+            }
+            hitTimes.forEach((t) => {
+                const dry = ctx.createGain();
+                dry.gain.value = 0.85;
+                dry.connect(masterGain);
+                playBuf(snareBuf, t, dry);
+
+                const conv = ctx.createConvolver();
+                conv.buffer = imp;
+                const bp = ctx.createBiquadFilter();
+                bp.type = 'bandpass';
+                bp.frequency.value = 1400;
+                bp.Q.value = 3.2;
+                const wet = ctx.createGain();
+                wet.gain.value = 1.4;
+                conv.connect(bp).connect(wet).connect(masterGain);
+                playBuf(snareBuf, t, conv);
+            });
+        } else if (optionText === 'Gated Reverb') {
+            // Huge dense reverb that slams shut abruptly at 280 ms
+            const len = Math.floor(ctx.sampleRate * 1.8);
+            const imp = ctx.createBuffer(2, len, ctx.sampleRate);
+            for (let ch = 0; ch < 2; ch++) {
+                const d = imp.getChannelData(ch);
+                for (let i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 0.8);
+            }
+            hitTimes.forEach((t) => {
+                const dry = ctx.createGain();
+                dry.gain.value = 0.9;
+                dry.connect(masterGain);
+                playBuf(snareBuf, t, dry);
+
+                const conv = ctx.createConvolver();
+                conv.buffer = imp;
+                const revEnv = ctx.createGain();
+                revEnv.gain.setValueAtTime(0, t);
+                revEnv.gain.linearRampToValueAtTime(1.15, t + 0.015);
+                revEnv.gain.setValueAtTime(1.15, t + 0.28);
+                revEnv.gain.linearRampToValueAtTime(0.0, t + 0.31);
+                conv.connect(revEnv).connect(masterGain);
+                playBuf(snareBuf, t, conv);
+            });
+        } else if (optionText === 'Reverse Delay') {
+            // True reversed swelling delay ("shhhhh-POW!") leading into the dry snare
+            playDuration = 2.6;
+            let revBuf = null;
+            if (snareBuf) {
+                revBuf = ctx.createBuffer(snareBuf.numberOfChannels, snareBuf.length, snareBuf.sampleRate);
+                for (let ch = 0; ch < snareBuf.numberOfChannels; ch++) {
+                    const srcData = snareBuf.getChannelData(ch);
+                    const dstData = revBuf.getChannelData(ch);
+                    for (let i = 0; i < snareBuf.length; i++) {
+                        dstData[i] = srcData[snareBuf.length - 1 - i];
+                    }
+                }
+            }
+            [now + 0.45, now + 1.45].forEach((t) => {
+                // Swell UP before the snare hit
+                const swellStart = t - 0.38;
+                const swellGain = ctx.createGain();
+                swellGain.gain.setValueAtTime(0.01, swellStart);
+                swellGain.gain.exponentialRampToValueAtTime(0.85, t);
+                swellGain.gain.linearRampToValueAtTime(0.0, t + 0.02);
+                swellGain.connect(masterGain);
+                if (revBuf) playBuf(revBuf, swellStart, swellGain);
+
+                const dry = ctx.createGain();
+                dry.gain.value = 0.85;
+                dry.connect(masterGain);
+                playBuf(snareBuf, t, dry);
+            });
+        } else {
+            // Parallel Distortion: dry snare + heavy grit saturation with zero reverb
+            const dist = ctx.createWaveShaper();
+            const curve = new Float32Array(512);
+            for (let i = 0; i < 512; i++) {
+                const x = (i * 2) / 512 - 1;
+                curve[i] = Math.tanh(x * 30);
+            }
+            dist.curve = curve;
+            const distGain = ctx.createGain();
+            distGain.gain.value = 0.55;
+            dist.connect(distGain).connect(masterGain);
+
+            hitTimes.forEach((t) => {
+                const dry = ctx.createGain();
+                dry.gain.value = 0.75;
+                dry.connect(masterGain);
+                playBuf(snareBuf, t, dry);
+                playBuf(snareBuf, t, dist);
+            });
+        }
+
+        stopTimerRef.current = setTimeout(() => {
+            setPlayingMode(null);
+            activeSources.current = [];
+            stopTimerRef.current = null;
+        }, playDuration * 1000);
+    };
+
 
     // Shuffle options when a new question loads
     const [currentOptions, setCurrentOptions] = useState([]);
@@ -741,14 +885,29 @@ const RockProductionQuiz = ({ quiz, onExit }) => {
                             }
 
                             return (
-                                <button
-                                    key={index}
-                                    className={btnClass}
-                                    onClick={() => handleOptionClick(index)}
-                                    disabled={isAnswered}
-                                >
-                                    {opt.text}
-                                </button>
+                                <div key={index} style={{ display: 'flex', gap: '8px', alignItems: 'stretch' }}>
+                                    <button
+                                        className={btnClass}
+                                        style={{ flex: 1 }}
+                                        onClick={() => handleOptionClick(index)}
+                                        disabled={isAnswered}
+                                    >
+                                        {opt.text}
+                                    </button>
+                                    {currentQuestionIndex === 0 && (
+                                        <button
+                                            type="button"
+                                            className={`rock-play-btn ${playingMode === `opt_${index}` ? 'playing' : ''}`}
+                                            style={{ padding: '0 12px', minWidth: '88px', fontSize: '0.8rem', justifyContent: 'center' }}
+                                            onClick={() => previewOptionAudio(opt.text, index)}
+                                            disabled={isLoadingAudio}
+                                            title={`Preview ${opt.text}`}
+                                        >
+                                            {playingMode === `opt_${index}` ? <Square size={14} className="fill-current" /> : <Play size={14} className="fill-current" />}
+                                            <span>{playingMode === `opt_${index}` ? 'Stop' : 'Hear'}</span>
+                                        </button>
+                                    )}
+                                </div>
                             );
                         })}
                     </div>
