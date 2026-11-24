@@ -670,28 +670,28 @@ const RockProductionQuiz = ({ quiz, onExit }) => {
                 playBuf(snareBuf, t, conv);
             });
         } else if (optionText === 'Reverse Delay') {
-            // True reversed swelling delay ("shhhhh-POW!") leading into the dry snare
+            // Unmistakable reversed snare swell ("shhhhh-POW!") + echoing reverse delay tap
             playDuration = 2.6;
-            let revBuf = null;
-            if (snareBuf) {
-                revBuf = ctx.createBuffer(snareBuf.numberOfChannels, snareBuf.length, snareBuf.sampleRate);
-                for (let ch = 0; ch < snareBuf.numberOfChannels; ch++) {
-                    const srcData = snareBuf.getChannelData(ch);
-                    const dstData = revBuf.getChannelData(ch);
-                    for (let i = 0; i < snareBuf.length; i++) {
-                        dstData[i] = srcData[snareBuf.length - 1 - i];
-                    }
-                }
+            const swellDur = 0.38;
+            const swellLen = Math.floor(ctx.sampleRate * swellDur);
+            const revBuf = ctx.createBuffer(1, swellLen, ctx.sampleRate);
+            const revData = revBuf.getChannelData(0);
+            for (let i = 0; i < swellLen; i++) {
+                // Exponential rise from silence to full burst right at the end of the 380 ms buffer
+                const env = Math.pow(i / swellLen, 2.6);
+                revData[i] = (Math.random() * 2 - 1) * env;
             }
-            [now + 0.45, now + 1.45].forEach((t) => {
-                // Swell UP before the snare hit
-                const swellStart = t - 0.38;
+
+            [now + 0.42, now + 1.42].forEach((t) => {
+                const swellStart = t - swellDur;
+                const bp = ctx.createBiquadFilter();
+                bp.type = 'bandpass';
+                bp.frequency.value = 1800;
+                bp.Q.value = 0.9;
                 const swellGain = ctx.createGain();
-                swellGain.gain.setValueAtTime(0.01, swellStart);
-                swellGain.gain.exponentialRampToValueAtTime(0.85, t);
-                swellGain.gain.linearRampToValueAtTime(0.0, t + 0.02);
-                swellGain.connect(masterGain);
-                if (revBuf) playBuf(revBuf, swellStart, swellGain);
+                swellGain.gain.value = 0.9;
+                bp.connect(swellGain).connect(masterGain);
+                playBuf(revBuf, swellStart, bp);
 
                 const dry = ctx.createGain();
                 dry.gain.value = 0.85;
