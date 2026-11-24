@@ -631,10 +631,39 @@ const QuizPlayer = ({ quiz, onFinish }) => {
         });
     };
 
+    const handleShortAnswerChange = (value) => {
+        if (isSubmitted) return;
+        setUserResponses(prev => ({
+            ...prev,
+            [currentQuestionIndex]: { selected: value, submitted: false, isCorrect: false }
+        }));
+    };
+
+    const evaluateShortAnswer = (userText, question) => {
+        const raw = (userText || '').toString().toLowerCase().trim();
+        const compact = raw.replace(/\s+/g, '');
+        const groups = Array.isArray(question.accepted_groups) ? question.accepted_groups : [];
+        const groupResults = groups.map((grp) => {
+            const label = Array.isArray(grp) ? grp[0] : (grp.label || '');
+            const terms = Array.isArray(grp) ? grp : (grp.terms || []);
+            const matched = terms.some((t) => {
+                const termLower = t.toLowerCase().trim();
+                const termCompact = termLower.replace(/\s+/g, '');
+                return raw.includes(termLower) || compact.includes(termCompact);
+            });
+            return { label, matched };
+        });
+        const matchedCount = groupResults.filter((g) => g.matched).length;
+        const required = question.min_groups || groupResults.length;
+        const isCorrect = groupResults.length > 0 && matchedCount >= required;
+        return { isCorrect, matchedCount, totalGroups: groupResults.length, groupResults };
+    };
+
     const handleSubmit = () => {
         if (!currentQuestion) return;
 
         let isCorrect = false;
+        let shortAnswerFeedback = null;
         if (currentQuestion.type === 'cloze') {
             if (currentQuestion.answer && typeof selectedAnswer === 'object' && selectedAnswer !== null) {
                 isCorrect = true;
@@ -648,6 +677,9 @@ const QuizPlayer = ({ quiz, onFinish }) => {
                     isCorrect = false;
                 }
             }
+        } else if (currentQuestion.type === 'short_answer') {
+            shortAnswerFeedback = evaluateShortAnswer(selectedAnswer, currentQuestion);
+            isCorrect = shortAnswerFeedback.isCorrect;
         } else {
             if (!currentQuestion.answers) return;
             isCorrect = currentQuestion.answers[selectedAnswer]?.is_true === 'yes' || currentQuestion.answers[selectedAnswer]?.is_true === true;
@@ -655,7 +687,12 @@ const QuizPlayer = ({ quiz, onFinish }) => {
 
         setUserResponses(prev => ({
             ...prev,
-            [currentQuestionIndex]: { selected: selectedAnswer, submitted: true, isCorrect }
+            [currentQuestionIndex]: {
+                selected: selectedAnswer,
+                submitted: true,
+                isCorrect,
+                ...(shortAnswerFeedback ? { shortAnswerFeedback } : {})
+            }
         }));
 
         // Mobile: Scroll to explanation
@@ -1753,7 +1790,122 @@ const QuizPlayer = ({ quiz, onFinish }) => {
                                 question={currentQuestion}
                                 onResult={handleInteractiveResult}
                             />
-                        ) : (
+                        ) : currentQuestion.type === 'short_answer' ? (() => {
+                            const totalMarks = currentQuestion.marks || currentQuestion.min_groups || currentQuestion.accepted_groups?.length || 2;
+                            const requiredPts = currentQuestion.min_groups || currentQuestion.accepted_groups?.length || totalMarks;
+                            return (
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '8px' }}>
+                                    <label
+                                        htmlFor={`short-answer-${currentQuestionIndex}`}
+                                        style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', fontWeight: 600 }}
+                                    >
+                                        Write your answer below (use Edexcel 9MT0 technical terminology):
+                                    </label>
+                                    <span style={{
+                                        fontSize: '0.8rem',
+                                        fontWeight: 700,
+                                        padding: '4px 10px',
+                                        borderRadius: '999px',
+                                        background: 'rgba(56, 189, 248, 0.16)',
+                                        border: '1px solid rgba(56, 189, 248, 0.35)',
+                                        color: '#38bdf8'
+                                    }}>
+                                        [{totalMarks} Marks — {requiredPts} key points]
+                                    </span>
+                                </div>
+                                <textarea
+                                    id={`short-answer-${currentQuestionIndex}`}
+                                    rows={3}
+                                    value={typeof selectedAnswer === 'string' ? selectedAnswer : ''}
+                                    onChange={(e) => handleShortAnswerChange(e.target.value)}
+                                    disabled={isSubmitted}
+                                    placeholder="Type your answer here..."
+                                    style={{
+                                        width: '100%',
+                                        padding: '12px 14px',
+                                        borderRadius: '10px',
+                                        border: isSubmitted
+                                            ? currentResponse?.isCorrect
+                                                ? '2px solid #10b981'
+                                                : '2px solid #ef4444'
+                                            : '1px solid rgba(255,255,255,0.18)',
+                                        background: 'rgba(15, 23, 42, 0.85)',
+                                        color: '#f8fafc',
+                                        fontSize: '1rem',
+                                        lineHeight: 1.5,
+                                        resize: 'vertical',
+                                        boxSizing: 'border-box',
+                                        outline: 'none'
+                                    }}
+                                />
+
+                                {isSubmitted && (
+                                    <div
+                                        style={{
+                                            padding: '14px 16px',
+                                            borderRadius: '10px',
+                                            background: currentResponse?.isCorrect
+                                                ? 'rgba(16, 185, 129, 0.12)'
+                                                : 'rgba(239, 68, 68, 0.12)',
+                                            border: currentResponse?.isCorrect
+                                                ? '1px solid rgba(16, 185, 129, 0.45)'
+                                                : '1px solid rgba(239, 68, 68, 0.45)',
+                                            display: 'flex',
+                                            flexDirection: 'column',
+                                            gap: '10px'
+                                        }}
+                                    >
+                                        <div style={{
+                                            fontWeight: 700,
+                                            fontSize: '0.95rem',
+                                            color: currentResponse?.isCorrect ? '#34d399' : '#f87171'
+                                        }}>
+                                            {currentResponse?.isCorrect
+                                                ? '✓ Mark Scheme Match!'
+                                                : currentResponse?.isUnsure
+                                                    ? 'Model Answer Revealed'
+                                                    : `✗ Needs Refinement (${currentResponse?.shortAnswerFeedback?.matchedCount || 0}/${currentResponse?.shortAnswerFeedback?.totalGroups || 0} key points matched)`}
+                                        </div>
+
+                                        {currentResponse?.shortAnswerFeedback?.groupResults?.length > 0 && (
+                                            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+                                                {currentResponse.shortAnswerFeedback.groupResults.map((gr, gIdx) => (
+                                                    <span
+                                                        key={gIdx}
+                                                        style={{
+                                                            fontSize: '0.82rem',
+                                                            padding: '4px 10px',
+                                                            borderRadius: '999px',
+                                                            background: gr.matched ? 'rgba(16, 185, 129, 0.2)' : 'rgba(239, 68, 68, 0.2)',
+                                                            color: gr.matched ? '#6ee7b7' : '#fca5a5',
+                                                            border: gr.matched ? '1px solid rgba(16, 185, 129, 0.4)' : '1px solid rgba(239, 68, 68, 0.4)'
+                                                        }}
+                                                    >
+                                                        {gr.matched ? '✓' : '✗'} {gr.label}
+                                                    </span>
+                                                ))}
+                                            </div>
+                                        )}
+
+                                        {currentQuestion.model_answer && (
+                                            <div style={{
+                                                padding: '10px 12px',
+                                                borderRadius: '8px',
+                                                background: 'rgba(15, 23, 42, 0.7)',
+                                                borderLeft: '3px solid #38bdf8',
+                                                fontSize: '0.92rem',
+                                                color: '#e2e8f0'
+                                            }}>
+                                                <strong style={{ color: '#38bdf8' }}>Model Answer: </strong>
+                                                {currentQuestion.model_answer}
+                                            </div>
+                                        )}
+                                    </div>
+                                )}
+                            </div>
+                            );
+                        })() : (
                             currentQuestion.answers && currentQuestion.answers.map((ans, idx) => {
                                 let className = "option-btn";
                                 if (selectedAnswer === idx) className += " selected";
@@ -1834,10 +1986,25 @@ const QuizPlayer = ({ quiz, onFinish }) => {
                                     <button
                                         className="btn-primary"
                                         onClick={handleSubmit}
-                                        disabled={currentQuestion.type === 'cloze' ? (!selectedAnswer || Object.keys(selectedAnswer).length < (currentQuestion.answer?.length || 0)) : selectedAnswer === null}
-                                        style={{ flex: 1, opacity: (currentQuestion.type === 'cloze' ? (!selectedAnswer || Object.keys(selectedAnswer).length < (currentQuestion.answer?.length || 0)) : selectedAnswer === null) ? 0.5 : 1 }}
+                                        disabled={
+                                            currentQuestion.type === 'cloze'
+                                                ? (!selectedAnswer || Object.keys(selectedAnswer).length < (currentQuestion.answer?.length || 0))
+                                                : currentQuestion.type === 'short_answer'
+                                                    ? (!selectedAnswer || typeof selectedAnswer !== 'string' || selectedAnswer.trim().length === 0)
+                                                    : selectedAnswer === null
+                                        }
+                                        style={{
+                                            flex: 1,
+                                            opacity: (
+                                                currentQuestion.type === 'cloze'
+                                                    ? (!selectedAnswer || Object.keys(selectedAnswer).length < (currentQuestion.answer?.length || 0))
+                                                    : currentQuestion.type === 'short_answer'
+                                                        ? (!selectedAnswer || typeof selectedAnswer !== 'string' || selectedAnswer.trim().length === 0)
+                                                        : selectedAnswer === null
+                                            ) ? 0.5 : 1
+                                        }}
                                     >
-                                        Submit Answer
+                                        {currentQuestion.type === 'short_answer' ? 'Check Answer' : 'Submit Answer'}
                                     </button>
                                 </>
                             )
