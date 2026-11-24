@@ -17,30 +17,30 @@ export default function StudioCalculationsQuiz({ question, onResult }) {
         ? {
             badge: 'FREQUENCY & OCTAVES SKILL BUILDER',
             accent: '#38bdf8',
-            cheatTitle: 'The Octave Rule: Double Going Up (×2), Halve Going Down (÷2)',
-            cheatSubtitle: 'In A-Level Music Tech, going up 1 octave doubles the frequency in Hz. Going down 1 octave halves the frequency.',
+            cheatTitle: 'The Octave Rule (Concert A = 440 Hz)',
+            cheatSubtitle: 'Use the relationship between frequency (Hz) and octaves to find one octave above and one octave below 440 Hz.',
             steps: [
                 {
-                    label: 'Step 1: One Octave Higher (× 2)',
-                    prompt: 'The note A4 is 440 Hz. To go UP 1 octave (to A5), we double the frequency (440 × 2). What is the frequency?',
+                    label: 'Step 1: One Octave Higher (A5)',
+                    prompt: 'The note A4 is 440 Hz. What is the frequency of A5 (1 octave higher)?',
                     options: [
                         { id: '220', text: '220 Hz', correct: false },
                         { id: '452', text: '452 Hz', correct: false },
-                        { id: '880', text: '880 Hz  (440 × 2)', correct: true },
+                        { id: '880', text: '880 Hz', correct: true },
                         { id: '1000', text: '1,000 Hz', correct: false }
                     ],
-                    hint: 'Doubling 440 Hz gives 880 Hz.'
+                    hint: 'Going up 1 octave doubles the frequency: 440 × 2 = 880 Hz.'
                 },
                 {
-                    label: 'Step 2: One Octave Lower (÷ 2)',
-                    prompt: 'Starting from 440 Hz again, to go DOWN 1 octave (to A3), we halve the frequency (440 ÷ 2). What is the frequency?',
+                    label: 'Step 2: One Octave Lower (A3)',
+                    prompt: 'Starting from A4 (440 Hz), what is the frequency of A3 (1 octave lower)?',
                     options: [
                         { id: '110', text: '110 Hz', correct: false },
-                        { id: '220', text: '220 Hz  (440 ÷ 2)', correct: true },
+                        { id: '220', text: '220 Hz', correct: true },
                         { id: '340', text: '340 Hz', correct: false },
                         { id: '400', text: '400 Hz', correct: false }
                     ],
-                    hint: 'Half of 440 Hz is 220 Hz.'
+                    hint: 'Going down 1 octave halves the frequency: 440 ÷ 2 = 220 Hz.'
                 },
                 {
                     label: 'Step 3: Low Bass vs High Treble Sound Waves',
@@ -178,9 +178,9 @@ export default function StudioCalculationsQuiz({ question, onResult }) {
                         <div style={{ fontSize: '0.75rem', color: '#38bdf8', fontWeight: 700, marginBottom: '4px' }}>
                             OCTAVE LADDER (CONCERT A)
                         </div>
-                        <div>▲ 1 Octave Up (×2): <strong style={{ color: step1Correct ? '#34d399' : '#94a3b8' }}>{step1Correct ? '880 Hz' : '?'}</strong></div>
-                        <div>● Middle Reference: <strong style={{ color: '#facc15' }}>440 Hz</strong></div>
-                        <div>▼ 1 Octave Down (÷2): <strong style={{ color: step2Correct ? '#34d399' : '#94a3b8' }}>{step2Correct ? '220 Hz' : '?'}</strong></div>
+                        <div>▲ 1 Octave Up (A5): <strong style={{ color: step1Correct ? '#34d399' : '#94a3b8' }}>{step1Correct ? '880 Hz' : '?'}</strong></div>
+                        <div>● Middle Reference (A4): <strong style={{ color: '#facc15' }}>440 Hz</strong></div>
+                        <div>▼ 1 Octave Down (A3): <strong style={{ color: step2Correct ? '#34d399' : '#94a3b8' }}>{step2Correct ? '220 Hz' : '?'}</strong></div>
                     </div>
                 ) : (
                     <div style={{
