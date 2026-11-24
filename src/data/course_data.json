@@ -6635,29 +6635,19 @@
               "explanation": "<p><strong>Expert Explanation:</strong> The centre dust cap projects bright, aggressive upper-mids; moving toward the cone edge softens that bite and produces a warmer tone.</p>"
             },
             {
-              "title": "Q5: Humbucker vs Single-Coil Hum Rejection",
-              "content": "How does a dual-coil humbucker guitar pickup reject 50 Hz mains hum compared with a single-coil pickup?",
-              "type": "multi_choice",
-              "answers": [
-                {
-                  "text": "It uses a built-in battery-powered noise gate",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Its two coils are wired out of phase with opposite magnets",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "It applies a steep 120 Hz high-pass filter internally",
-                  "is_true": "no"
-                },
-                {
-                  "text": "It converts strings into optical digital pulses",
-                  "is_true": "no"
-                }
+              "title": "Q5 (Interactive Lab): Humbucker vs Single-Coil Hum Rejection",
+              "content": "Play the guitar, switch between UK (50 Hz) and US (60 Hz) mains hum, and toggle Single-Coil vs Humbucker. How does a humbucker reject mains hum?",
+              "type": "equipment-lab",
+              "mode": "humbucker-hum",
+              "options": [
+                "It uses an internal battery-powered noise gate",
+                "Its two coils are wired out of phase with opposite magnets",
+                "It applies a steep 120 Hz high-pass filter internally",
+                "It converts string vibrations into optical digital pulses"
               ],
-              "expert_explanation": "A humbucker wires two coils in opposite magnetic/electrical polarity so 50 Hz electromagnetic hum cancels out while the string signal adds together.",
-              "explanation": "<p><strong>Expert Explanation:</strong> A humbucker wires two coils in opposite magnetic/electrical polarity so 50 Hz electromagnetic hum cancels out while the string signal adds together.</p>"
+              "correctIndex": 1,
+              "expert_explanation": "A humbucker wires two coils in opposite electrical polarity with opposite magnetic poles so 50 Hz (UK) or 60 Hz (US) mains hum cancels out while the guitar signal sums together.",
+              "explanation": "<p><strong>Expert Explanation:</strong> A humbucker wires two coils in opposite electrical polarity with opposite magnetic poles so 50 Hz (UK) or 60 Hz (US) mains hum cancels out while the guitar signal sums together.</p>"
             },
             {
               "title": "Q6 (3 Marks): Historical Gear & DAW Automation",

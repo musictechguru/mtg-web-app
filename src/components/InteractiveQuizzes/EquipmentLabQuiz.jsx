@@ -5,6 +5,7 @@ import { Volume2, Cable, Sliders, CheckCircle2, AlertCircle, Play, Square } from
  * Simple, engaging Web Audio Equipment Lab for Edexcel 9MT0 A-Level:
  *  - "balanced-cable": Unbalanced TS (50 Hz hum) vs Balanced XLR (phase-cancelled noise)
  *  - "lpf-synth": Sawtooth waveform through a 24 dB/oct Low-Pass Filter (Full vs 100 Hz Sub-Bass)
+ *  - "humbucker-hum": Single-Coil vs Dual-Coil Humbucker with UK (50 Hz) & US (60 Hz) mains hum
  */
 export default function EquipmentLabQuiz({ question, onResult }) {
     const mode = question?.mode || 'balanced-cable';
@@ -14,6 +15,8 @@ export default function EquipmentLabQuiz({ question, onResult }) {
     const [isPlaying, setIsPlaying] = useState(false);
     const [cableType, setCableType] = useState('unbalanced'); // 'unbalanced' | 'balanced'
     const [cutoff, setCutoff] = useState(2400); // 2400 Hz | 100 Hz
+    const [pickupType, setPickupType] = useState('single'); // 'single' | 'humbucker'
+    const [mainsHz, setMainsHz] = useState(50); // 50 (UK) | 60 (US)
 
     const [selectedIdx, setSelectedIdx] = useState(null);
     const [submitted, setSubmitted] = useState(false);
@@ -53,7 +56,13 @@ export default function EquipmentLabQuiz({ question, onResult }) {
             n.lpf1.frequency.setTargetAtTime(cutoff, now, 0.04);
             n.lpf2.frequency.setTargetAtTime(cutoff, now, 0.04);
         }
-    }, [cableType, cutoff, mode]);
+        if (mode === 'humbucker-hum' && n.humGain && n.humOscs) {
+            n.humGain.gain.setTargetAtTime(pickupType === 'humbucker' ? 0.0 : 0.28, now, 0.03);
+            n.humOscs.forEach((osc, i) => {
+                osc.frequency.setTargetAtTime(mainsHz * (i + 1), now, 0.02);
+            });
+        }
+    }, [cableType, cutoff, pickupType, mainsHz, mode]);
 
     const togglePlay = async () => {
         if (isPlaying) {
@@ -105,6 +114,44 @@ export default function EquipmentLabQuiz({ question, onResult }) {
             };
             playNote();
             timerRef.current = setInterval(playNote, 600);
+        } else if (mode === 'humbucker-hum') {
+            const sigGain = ctx.createGain();
+            sigGain.connect(masterGain);
+
+            const humGain = ctx.createGain();
+            humGain.gain.value = pickupType === 'humbucker' ? 0.0 : 0.28;
+            humGain.connect(masterGain);
+
+            const humOscs = [1, 2, 3].map((mult, i) => {
+                const hum = ctx.createOscillator();
+                hum.type = 'sawtooth';
+                hum.frequency.value = mainsHz * mult;
+                const g = ctx.createGain();
+                g.gain.value = i === 0 ? 0.5 : i === 1 ? 0.35 : 0.2;
+                hum.connect(g).connect(humGain);
+                hum.start();
+                return hum;
+            });
+
+            nodesRef.current = { sigGain, humGain, humOscs };
+
+            const playGuitar = () => {
+                if (!ctxRef.current || ctxRef.current.state === 'closed') return;
+                const t = ctxRef.current.currentTime + 0.02;
+                [196.0, 246.94, 293.66].forEach((freq) => {
+                    const osc = ctxRef.current.createOscillator();
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(freq, t);
+                    const g = ctxRef.current.createGain();
+                    g.gain.setValueAtTime(0.18, t);
+                    g.gain.exponentialRampToValueAtTime(0.005, t + 0.48);
+                    osc.connect(g).connect(sigGain);
+                    osc.start(t);
+                    osc.stop(t + 0.5);
+                });
+            };
+            playGuitar();
+            timerRef.current = setInterval(playGuitar, 700);
         } else {
             // Two cascaded 12 dB/oct filters = 24 dB/oct Low-Pass Filter
             const lpf1 = ctx.createBiquadFilter();
@@ -169,6 +216,7 @@ export default function EquipmentLabQuiz({ question, onResult }) {
                         <span>
                             {mode === 'balanced-cable' && 'EQUIPMENT LAB: UNBALANCED VS BALANCED XLR'}
                             {mode === 'lpf-synth' && 'SYNTH LAB: 24 dB/OCT LOW-PASS FILTER'}
+                            {mode === 'humbucker-hum' && 'GUITAR LAB: 50 Hz (UK) / 60 Hz (US) HUM REJECTION'}
                         </span>
                     </div>
 
@@ -194,7 +242,79 @@ export default function EquipmentLabQuiz({ question, onResult }) {
                     </button>
                 </div>
 
-                {mode === 'balanced-cable' ? (
+                {mode === 'humbucker-hum' && (
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
+                            <button
+                                type="button"
+                                onClick={() => setPickupType('single')}
+                                style={{
+                                    padding: '10px 12px',
+                                    borderRadius: '10px',
+                                    border: `2px solid ${pickupType === 'single' ? '#f59e0b' : 'rgba(255,255,255,0.12)'}`,
+                                    background: pickupType === 'single' ? 'rgba(245,158,11,0.15)' : 'rgba(255,255,255,0.03)',
+                                    color: '#f8fafc',
+                                    fontWeight: 600,
+                                    cursor: 'pointer'
+                                }}
+                            >
+                                1. Single-Coil (Hum Audible)
+                            </button>
+                            <button
+                                type="button"
+                                onClick={() => setPickupType('humbucker')}
+                                style={{
+                                    padding: '10px 12px',
+                                    borderRadius: '10px',
+                                    border: `2px solid ${pickupType === 'humbucker' ? '#10b981' : 'rgba(255,255,255,0.12)'}`,
+                                    background: pickupType === 'humbucker' ? 'rgba(16,185,129,0.15)' : 'rgba(255,255,255,0.03)',
+                                    color: '#f8fafc',
+                                    fontWeight: 600,
+                                    cursor: 'pointer'
+                                }}
+                            >
+                                2. Humbucker (Hum Cancelled)
+                            </button>
+                        </div>
+
+                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
+                            <button
+                                type="button"
+                                onClick={() => setMainsHz(50)}
+                                style={{
+                                    padding: '8px 12px',
+                                    borderRadius: '8px',
+                                    border: `1.5px solid ${mainsHz === 50 ? '#38bdf8' : 'rgba(255,255,255,0.12)'}`,
+                                    background: mainsHz === 50 ? 'rgba(56,189,248,0.16)' : 'rgba(255,255,255,0.03)',
+                                    color: '#e2e8f0',
+                                    fontWeight: 600,
+                                    fontSize: '0.85rem',
+                                    cursor: 'pointer'
+                                }}
+                            >
+                                UK Mains Hum (50 Hz)
+                            </button>
+                            <button
+                                type="button"
+                                onClick={() => setMainsHz(60)}
+                                style={{
+                                    padding: '8px 12px',
+                                    borderRadius: '8px',
+                                    border: `1.5px solid ${mainsHz === 60 ? '#38bdf8' : 'rgba(255,255,255,0.12)'}`,
+                                    background: mainsHz === 60 ? 'rgba(56,189,248,0.16)' : 'rgba(255,255,255,0.03)',
+                                    color: '#e2e8f0',
+                                    fontWeight: 600,
+                                    fontSize: '0.85rem',
+                                    cursor: 'pointer'
+                                }}
+                            >
+                                US Mains Hum (60 Hz)
+                            </button>
+                        </div>
+                    </div>
+                )}
+
+                {mode === 'balanced-cable' && (
                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
                         <button
                             type="button"
@@ -227,7 +347,9 @@ export default function EquipmentLabQuiz({ question, onResult }) {
                             2. Balanced XLR (Phase Cancelled)
                         </button>
                     </div>
-                ) : (
+                )}
+
+                {mode === 'lpf-synth' && (
                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
                         <button
                             type="button"
@@ -267,6 +389,7 @@ export default function EquipmentLabQuiz({ question, onResult }) {
                     <span>
                         {mode === 'balanced-cable' && 'Press Play and switch between Unbalanced and Balanced XLR to hear the mains hum vanish.'}
                         {mode === 'lpf-synth' && 'Press Play and toggle the Low-Pass Filter to 100 Hz to hear upper harmonics disappear.'}
+                        {mode === 'humbucker-hum' && 'Press Play, switch between UK (50 Hz) and US (60 Hz) hum, and toggle Single-Coil vs Humbucker.'}
                     </span>
                 </div>
             </div>
