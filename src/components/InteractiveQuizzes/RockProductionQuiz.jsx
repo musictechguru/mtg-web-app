@@ -6,113 +6,113 @@ import './RockProductionQuiz.css';
 const quizData = [
     {
         category: "Drums: Gated Reverb",
-        scenario: "You have a dry snare drum that needs to sound absolutely massive like a 1980s Phil Collins track. You want a huge reverb tail that cuts off abruptly before the next drum hit.",
+        scenario: "You want a huge 1980s snare sound where a dense reverb tail cuts off abruptly before the next hit.",
         options: [
             { text: "Spring Reverb", correct: false },
             { text: "Gated Reverb", correct: true },
             { text: "Reverse Delay", correct: false },
             { text: "Parallel Distortion", correct: false }
         ],
-        explanation: "Gated reverb involves sending the snare to a heavy, dense reverb, and then placing a noise gate on the reverb return, set to close quickly. This creates a massive boom that abruptly stops."
+        explanation: "Gated reverb sends the snare to a dense reverb, then places a noise gate on the reverb return set to close quickly for an explosive, abrupt tail."
     },
     {
         category: "Drums: Parallel Compression",
-        scenario: "Your rock drum mix sounds thin. You want to add explosive energy and thickness to the room mics and shells without losing the initial 'crack' and transient punch of the close mics.",
+        scenario: "Your rock drums sound thin. You want thicker room sustain without squashing the transient punch of the close mics.",
         options: [
-            { text: "New York Compression (Parallel)", correct: true },
-            { text: "Limiting on the Master Bus", correct: false },
-            { text: "Subtractive EQing", correct: false },
+            { text: "Parallel (New York) Compression", correct: true },
+            { text: "Brickwall Limiting on Master Bus", correct: false },
+            { text: "Subtractive Equalisation", correct: false },
             { text: "Transient Shaping", correct: false }
         ],
-        explanation: "Parallel compression involves duplicating the drums (or sending them to an aux), heavily compressing the copy to squash transients and bring up room sound, and blending it underneath the punchy dry track."
+        explanation: "Parallel compression blends a heavily compressed auxiliary copy underneath the uncompressed dry drums, preserving transient punch while adding sustain."
     },
     {
         category: "Guitars: Double-Tracking",
-        scenario: "You have recorded a heavy rhythm guitar part, but it sounds small and sits dead-center in the mix, clashing with the lead vocal and snare drum.",
+        scenario: "A single rhythm guitar panned to the centre sounds small and clashes with the lead vocal and snare.",
         options: [
             { text: "Add a stereo chorus plugin", correct: false },
-            { text: "Pan it wildly with auto-pan", correct: false },
-            { text: "Record a second, distinct take and hard pan L/R", correct: true },
-            { text: "Use mid/side EQ to cut the center", correct: false }
+            { text: "Use auto-pan modulation", correct: false },
+            { text: "Record a second take and pan L/R", correct: true },
+            { text: "Cut the centre with Mid/Side EQ", correct: false }
         ],
-        explanation: "Double-tracking means actually playing the part twice. Panning one take hard left and the other hard right creates a massive wall of sound and leaves the center wide open for the vocal and snare."
+        explanation: "Double-tracking records two separate performances and pans them hard Left and Right, creating natural stereo width and leaving the centre clear."
     },
     {
-        category: "Guitars: Amp Simulation & Reamping",
-        scenario: "You recorded a clean DI (Direct Injection) guitar signal to ensure perfect editing, but now you need it to sound like a cranked Marshall stack.",
+        category: "Guitars: Reamping & Amp Sim",
+        scenario: "You recorded a clean DI guitar signal for tight editing, and now want real valve amplifier distortion and cabinet tone.",
         options: [
-            { text: "Use an Amp Simulator plugin or Reamp box", correct: true },
-            { text: "Boost the high frequencies with EQ", correct: false },
-            { text: "Run it through a vocal exciter", correct: false },
-            { text: "Add a short slapback echo", correct: false }
+            { text: "Reamp box or Amp Simulator plugin", correct: true },
+            { text: "Boost 10 kHz with a shelf EQ", correct: false },
+            { text: "Run it through a vocal de-esser", correct: false },
+            { text: "Add a 100 ms slapback delay", correct: false }
         ],
-        explanation: "Reamping is the process of taking a clean recorded signal and sending it back out of the interface into a real amplifier (or processing it with an Amp Sim plugin) to capture the tone of the amp."
+        explanation: "Reamping sends the clean DI recording out through a reamp box into a guitar amp (or uses an amp simulator plugin) to capture amp saturation and cabinet tone."
     },
     {
         category: "Bass & Guitar: Frequency Masking",
-        scenario: "Your bass guitar and the low-end of your rhythm guitars are both occupying the 100Hz-200Hz range, causing a muddy, rumbling mess where neither instrument is defined.",
+        scenario: "Bass guitar and rhythm guitars both build up around 100–200 Hz, creating a muddy low end.",
         options: [
-            { text: "Add more bass to both instruments", correct: false },
-            { text: "Use EQ masking principles (carve space for one in the other)", correct: true },
-            { text: "Compress them both together heavily", correct: false },
-            { text: "Add distortion to the bass", correct: false }
+            { text: "Boost 150 Hz on both tracks", correct: false },
+            { text: "Carve complementary EQ cuts (unmasking)", correct: true },
+            { text: "Hard-limit both tracks together", correct: false },
+            { text: "Pan the sub-bass hard right", correct: false }
         ],
-        explanation: "Frequency masking occurs when two instruments compete for the same frequencies. A common solution is to cut the clashing frequency in the instrument where it's less important, allowing the other to shine."
+        explanation: "Complementary equalisation cuts clashing 100–200 Hz frequencies in the rhythm guitar so the bass guitar sits clearly without mud."
     },
     {
         category: "Vocals: Slapback Delay",
-        scenario: "You are aiming for a vintage, 1950s rockabilly or John Lennon style vocal sound. It needs a thick, almost doubled feel, but actual double-tracking sounds too modern and tight.",
+        scenario: "You want a classic 1950s rock-and-roll vocal thickness using a single short echo rather than a long reverb.",
         options: [
-            { text: "Long hall reverb", correct: false },
-            { text: "High-ratio limiting", correct: false },
-            { text: "Slapback Delay (75-150ms, 0 feedback)", correct: true },
-            { text: "Flanger effect", correct: false }
+            { text: "Long hall reverberation", correct: false },
+            { text: "Brickwall limiting", correct: false },
+            { text: "Slapback Delay (75–150 ms, 0% feedback)", correct: true },
+            { text: "Heavy flanging", correct: false }
         ],
-        explanation: "A slapback delay is a single, quick echo (usually around 100ms) with zero feedback. It creates a classic thicker vocal sound reminiscent of tape-delay systems used in early rock and roll studios."
+        explanation: "A slapback delay uses one short echo (75–150 ms) with zero feedback, thickening the vocal just like vintage tape slap."
     },
     {
-        category: "Vocals: Dynamic Consistency",
-        scenario: "Your lead rock vocalist ranges from a whisper in the verses to full-blown screaming in the choruses. You need it to sit locked in place on top of the guitars at all times.",
+        category: "Vocals: Dynamic Control",
+        scenario: "Your rock vocalist is quiet in verses and very loud in choruses. How do you keep the vocal level steady without over-squashing it?",
         options: [
-            { text: "Vocal riding (automation) feeding a compressor", correct: true },
-            { text: "A single fast Limiter", correct: false },
-            { text: "De-essing only the loud parts", correct: false },
-            { text: "Adding massive amounts of distortion", correct: false }
+            { text: "Volume automation (riding) into a compressor", correct: true },
+            { text: "A single brickwall limiter at 20:1", correct: false },
+            { text: "De-essing only the quiet verse", correct: false },
+            { text: "Adding heavy tape distortion", correct: false }
         ],
-        explanation: "Instead of relying on a single compressor to work incredibly hard, riding the vocal fader (automating the volume manually) BEFORE it hits a compressor ensures a consistent level enters the compressor, yielding a much more natural, locked-in sound."
+        explanation: "Automating (riding) the fader before the compressor evens out big section jumps so the compressor reacts smoothly and naturally."
     },
     {
         category: "Drums: Phase Alignment",
-        scenario: "When you listen to the snare drum close mic by itself, it sounds thick. But the moment you unmute the stereo overhead mics, the snare drum suddenly sounds thin, hollow, and weak.",
+        scenario: "The snare close mic sounds full on its own, but turns thin and hollow as soon as the stereo overheads are unmuted.",
         options: [
-            { text: "The overheads need more low-end EQ", correct: false },
-            { text: "The snare mic needs more compression", correct: false },
-            { text: "There is a Phase cancellation issue between the mics", correct: true },
-            { text: "The drummer hit the snare softer", correct: false }
+            { text: "Overheads need more sub-bass EQ", correct: false },
+            { text: "Snare mic needs more compression", correct: false },
+            { text: "Phase cancellation between the mics", correct: true },
+            { text: "The snare drum is out of tune", correct: false }
         ],
-        explanation: "Because sound takes time to travel through the air, it reaches the close mic before the overheads. This delay causes phase cancellation, dropping out frequencies. Flipping the polarity (phase) or manually nudging the audio regions usually fixes this."
+        explanation: "Time-of-arrival differences between the close mic and overheads cause phase cancellation. Flipping polarity or aligning the tracks restores fullness."
     },
     {
-        category: "Drums: Sample Augmentation",
-        scenario: " The session drummer played great, but the recorded snare drum sounds like a cardboard box. No amount of EQ or compression is fixing the fundamental tone, but you don't want to lose the drummer's exact groove.",
+        category: "Drums: Sample Blending",
+        scenario: "The drummer's groove is great, but the recorded snare sounds boxy. How can you improve the tone while keeping the exact performance?",
         options: [
-            { text: "Drum Sample Triggering / Blending", correct: true },
-            { text: "Reverb sidechaining", correct: false },
-            { text: "Delete the track and program MIDI", correct: false },
-            { text: "Add more analog distortion", correct: false }
+            { text: "Transient-triggered drum sample blending", correct: true },
+            { text: "Sidechain gating on the master bus", correct: false },
+            { text: "Delete the audio and program MIDI", correct: false },
+            { text: "Boost 300 Hz by +10 dB", correct: false }
         ],
-        explanation: "Drum replacement tools (like Slate Trigger) detect the transients of the original bad recording and trigger a high-quality pre-recorded drum sample perfectly in time, allowing you to blend a great tone with a real human performance."
+        explanation: "Sample triggering detects the live snare transients and layers a punchy sample underneath, keeping the drummer's natural timing and dynamics."
     },
     {
-        category: "Mix Bus: The Glue",
-        scenario: "Your entire rock mix sounds good, but all the instruments feel a bit disconnected from each other. The chorus gets loud, but it doesn't feel like a cohesive 'record' yet.",
+        category: "Mix Bus: Cohesion",
+        scenario: "All instruments sound clear individually, but the full rock mix lacks cohesion and punch.",
         options: [
-            { text: "Stereo Widening on every track", correct: false },
-            { text: "Adding a brickwall limiter to +6dB", correct: false },
-            { text: "SSL-style Mix Bus Compression (The Glue)", correct: true },
-            { text: "Multiband Expansion", correct: false }
+            { text: "Stereo widening on every channel", correct: false },
+            { text: "Brickwall limiting with +6 dB gain", correct: false },
+            { text: "Gentle Mix Bus Compression (1–3 dB GR)", correct: true },
+            { text: "Noise gating the stereo master", correct: false }
         ],
-        explanation: "Mix bus compression (often using an SSL bus comp style VCA compressor) applying gentle gain reduction (1-3dB) across the entire mix 'glues' the elements together, making the snare and vocals react as a single unified piece of music."
+        explanation: "Gentle mix bus compression (1–3 dB gain reduction) glues the drums, bass, and guitars together into a cohesive record."
     }
 ];
 
@@ -122,7 +122,9 @@ const RockProductionQuiz = ({ quiz, onExit }) => {
     const [isAnswered, setIsAnswered] = useState(false);
     const [score, setScore] = useState(0);
     const [quizFinished, setQuizFinished] = useState(false);
-    const [isPlaying, setIsPlaying] = useState(false);
+    const [playingMode, setPlayingMode] = useState(null); // null | 'dry' | 'processed'
+    const scoredQuestionsRef = useRef(new Set());
+    const stopTimerRef = useRef(null);
 
     const userContext = useUser();
     const saveQuizResult = userContext ? userContext.saveQuizResult : null;
@@ -196,18 +198,26 @@ const RockProductionQuiz = ({ quiz, onExit }) => {
     }, []);
 
     const stopAudio = () => {
+        if (stopTimerRef.current) {
+            clearTimeout(stopTimerRef.current);
+            stopTimerRef.current = null;
+        }
         activeSources.current.forEach(source => {
             try { source.stop(); } catch (e) { }
         });
         activeSources.current = [];
-        setIsPlaying(false);
+        setPlayingMode(null);
     };
 
     const playAudioExample = (isProcessed = true) => {
-        if (isPlaying || isLoadingAudio) {
+        const targetMode = isProcessed ? 'processed' : 'dry';
+        if (isLoadingAudio) return;
+        if (playingMode === targetMode) {
             stopAudio();
             return;
         }
+        // Stop any currently playing mode before starting the new one
+        stopAudio();
 
         const ctx = audioContextRef.current;
         if (!ctx) return;
@@ -216,7 +226,7 @@ const RockProductionQuiz = ({ quiz, onExit }) => {
             ctx.resume();
         }
 
-        setIsPlaying(true);
+        setPlayingMode(targetMode);
         const now = ctx.currentTime;
         let playDuration = 6.0; // Default duration slightly longer for real audio
 
@@ -560,9 +570,10 @@ const RockProductionQuiz = ({ quiz, onExit }) => {
                 break;
         }
 
-        setTimeout(() => {
-            setIsPlaying(false);
+        stopTimerRef.current = setTimeout(() => {
+            setPlayingMode(null);
             activeSources.current = [];
+            stopTimerRef.current = null;
         }, playDuration * 1000);
     };
 
@@ -589,9 +600,16 @@ const RockProductionQuiz = ({ quiz, onExit }) => {
         setSelectedOptionIndex(index);
         setIsAnswered(true);
 
-        if (currentOptions[index].correct) {
-            setScore(score + 1);
+        if (currentOptions[index].correct && !scoredQuestionsRef.current.has(currentQuestionIndex)) {
+            scoredQuestionsRef.current.add(currentQuestionIndex);
+            setScore(prev => prev + 1);
         }
+    };
+
+    const handleRetryQuestion = () => {
+        stopAudio();
+        setSelectedOptionIndex(null);
+        setIsAnswered(false);
     };
 
     const handleNextQuestion = () => {
@@ -604,6 +622,7 @@ const RockProductionQuiz = ({ quiz, onExit }) => {
 
     const handleRestart = () => {
         stopAudio();
+        scoredQuestionsRef.current = new Set();
         setCurrentQuestionIndex(0);
         setScore(0);
         setQuizFinished(false);
@@ -674,8 +693,8 @@ const RockProductionQuiz = ({ quiz, onExit }) => {
 
                     <div className="rock-audio-widget">
                         <button
-                            className={`rock-play-btn ${isPlaying ? 'playing' : ''} ${isLoadingAudio ? 'loading' : ''}`}
-                            onClick={() => playAudioExample(false)}  // The main button now plays the DRY stem initially
+                            className={`rock-play-btn ${playingMode === 'dry' ? 'playing' : ''} ${isLoadingAudio ? 'loading' : ''}`}
+                            onClick={() => playAudioExample(false)}
                             disabled={isLoadingAudio}
                         >
                             {isLoadingAudio ? (
@@ -683,7 +702,7 @@ const RockProductionQuiz = ({ quiz, onExit }) => {
                                     <Square size={20} className="fill-current" style={{ opacity: 0.5 }} />
                                     <span>Loading Audio...</span>
                                 </>
-                            ) : isPlaying ? (
+                            ) : playingMode === 'dry' ? (
                                 <>
                                     <Square size={20} className="fill-current" />
                                     <span>Stop Studio Feed</span>
@@ -695,7 +714,7 @@ const RockProductionQuiz = ({ quiz, onExit }) => {
                                 </>
                             )}
                         </button>
-                        {isPlaying && <div className="rock-audio-waves">
+                        {playingMode === 'dry' && <div className="rock-audio-waves">
                             <span className="rock-wave-bar"></span>
                             <span className="rock-wave-bar"></span>
                             <span className="rock-wave-bar"></span>
@@ -740,8 +759,8 @@ const RockProductionQuiz = ({ quiz, onExit }) => {
                             <div className="rock-audio-widget" style={{ marginBottom: '1rem', marginTop: '1rem', padding: '1rem', background: 'rgba(0,0,0,0.2)', borderRadius: '8px' }}>
                                 <div style={{ fontSize: '0.9rem', marginBottom: '0.5rem', opacity: 0.8 }}>Hear the processed technique in action:</div>
                                 <button
-                                    className={`rock-play-btn ${isPlaying ? 'playing' : ''} ${isLoadingAudio ? 'loading' : ''}`}
-                                    onClick={playAudioExample}
+                                    className={`rock-play-btn ${playingMode === 'processed' ? 'playing' : ''} ${isLoadingAudio ? 'loading' : ''}`}
+                                    onClick={() => playAudioExample(true)}
                                     disabled={isLoadingAudio}
                                 >
                                     {isLoadingAudio ? (
@@ -749,7 +768,7 @@ const RockProductionQuiz = ({ quiz, onExit }) => {
                                             <Square size={20} className="fill-current" style={{ opacity: 0.5 }} />
                                             <span>Loading Audio...</span>
                                         </>
-                                    ) : isPlaying ? (
+                                    ) : playingMode === 'processed' ? (
                                         <>
                                             <Square size={20} className="fill-current" />
                                             <span>Stop Processed Example</span>
@@ -761,14 +780,21 @@ const RockProductionQuiz = ({ quiz, onExit }) => {
                                         </>
                                     )}
                                 </button>
-                                {isPlaying && <div className="rock-audio-waves" style={{ marginTop: '0.5rem' }}>
+                                {playingMode === 'processed' && <div className="rock-audio-waves" style={{ marginTop: '0.5rem' }}>
                                     <span className="rock-wave-bar"></span>
                                     <span className="rock-wave-bar"></span>
                                     <span className="rock-wave-bar"></span>
                                 </div>}
                             </div>
 
-                            <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', gap: '12px', flexWrap: 'wrap' }}>
+                                <button
+                                    type="button"
+                                    className="rock-exit-btn"
+                                    onClick={handleRetryQuestion}
+                                >
+                                    Try Again
+                                </button>
                                 <button className="rock-next-btn" onClick={handleNextQuestion}>
                                     {currentQuestionIndex < quizData.length - 1 ? 'Next Scenario \u2192' : 'View Results'}
                                 </button>
