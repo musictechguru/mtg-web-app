@@ -82,8 +82,8 @@ export default function MasteringLabQuiz({ question, onResult }) {
         }
 
         if (mode === 'sub-headroom' && n.subGain && n.hpf) {
-            n.hpf.frequency.setTargetAtTime(hpfOn ? 42 : 12, now, 0.03);
-            n.subGain.gain.setTargetAtTime(hpfOn ? 0.12 : 0.72, now, 0.03);
+            n.hpf.frequency.setTargetAtTime(hpfOn ? 95 : 12, now, 0.03);
+            n.subGain.gain.setTargetAtTime(hpfOn ? 0.08 : 0.85, now, 0.03);
         }
 
         if (mode === 'multiband' && n.bypassBus && n.singleBus && n.mbBus) {
@@ -344,24 +344,26 @@ export default function MasteringLabQuiz({ question, onResult }) {
                     osc.stop(t + 0.25);
                 });
             } else if (mode === 'sub-headroom') {
-                // Continuous 32 Hz sub rumble on beat 0 & 4 + crisp top synth
+                // Audible low-end rumble (42 Hz + 84 Hz harmonic so laptop speakers hear it clearly)
                 if (s === 0 || s === 4) {
-                    const sub = ctxRef.current.createOscillator();
-                    sub.type = 'sine';
-                    sub.frequency.setValueAtTime(32, t);
-                    const sg = ctxRef.current.createGain();
-                    sg.gain.setValueAtTime(0.95, t);
-                    sg.gain.exponentialRampToValueAtTime(0.15, t + 0.95);
-                    sub.connect(sg).connect(n.subGain);
-                    sub.start(t);
-                    sub.stop(t + 0.98);
+                    [42, 84].forEach((freq, idx) => {
+                        const sub = ctxRef.current.createOscillator();
+                        sub.type = 'sine';
+                        sub.frequency.setValueAtTime(freq, t);
+                        const sg = ctxRef.current.createGain();
+                        sg.gain.setValueAtTime(idx === 0 ? 1.15 : 0.45, t);
+                        sg.gain.exponentialRampToValueAtTime(0.15, t + 0.95);
+                        sub.connect(sg).connect(n.subGain);
+                        sub.start(t);
+                        sub.stop(t + 0.98);
+                    });
                 }
                 const pad = ctxRef.current.createOscillator();
                 pad.type = 'triangle';
                 pad.frequency.setValueAtTime(s % 4 === 0 ? 220 : 261.6, t);
                 const pg = ctxRef.current.createGain();
-                pg.gain.setValueAtTime(0.18, t);
-                pg.gain.exponentialRampToValueAtTime(0.02, t + 0.22);
+                pg.gain.setValueAtTime(0.22, t);
+                pg.gain.exponentialRampToValueAtTime(0.03, t + 0.22);
                 pad.connect(pg).connect(n.mixBus);
                 pad.start(t);
                 pad.stop(t + 0.24);
@@ -556,14 +558,14 @@ export default function MasteringLabQuiz({ question, onResult }) {
                                 style={{
                                     padding: '10px 12px',
                                     borderRadius: '10px',
-                                    border: `2px solid ${!hpfOn ? '#f59e0b' : 'rgba(255,255,255,0.12)'}`,
-                                    background: !hpfOn ? 'rgba(245,158,11,0.15)' : 'rgba(255,255,255,0.03)',
+                                    border: `2px solid ${!hpfOn ? '#ef4444' : 'rgba(255,255,255,0.12)'}`,
+                                    background: !hpfOn ? 'rgba(239,68,68,0.15)' : 'rgba(255,255,255,0.03)',
                                     color: '#f8fafc',
                                     fontWeight: 600,
                                     cursor: 'pointer'
                                 }}
                             >
-                                Raw 32 Hz Sub Rumble (No Filter)
+                                1. Sub Rumble ON (No Filter)
                             </button>
                             <button
                                 type="button"
@@ -578,21 +580,29 @@ export default function MasteringLabQuiz({ question, onResult }) {
                                     cursor: 'pointer'
                                 }}
                             >
-                                Clean High-Pass Filter (42 Hz)
+                                2. High-Pass Filter ON (Clean)
                             </button>
                         </div>
 
-                        <div style={{ background: 'rgba(0,0,0,0.28)', padding: '10px 14px', borderRadius: '10px' }}>
-                            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.82rem', color: '#cbd5e1', marginBottom: '6px' }}>
-                                <span>Limiter Gain Reduction (GR)</span>
-                                <span style={{ color: grDb > 5 ? '#f87171' : '#34d399', fontWeight: 700 }}>-{grDb} dB</span>
+                        <div style={{ background: 'rgba(0,0,0,0.28)', padding: '12px 14px', borderRadius: '10px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.84rem', color: '#cbd5e1' }}>
+                                <span>Limiter Gain Reduction (Squash)</span>
+                                <span style={{ color: grDb > 4 ? '#f87171' : '#34d399', fontWeight: 700 }}>
+                                    -{grDb} dB {isPlaying ? (grDb > 4 ? '— Limiter Overloaded!' : '— Clean Headroom') : ''}
+                                </span>
                             </div>
-                            <div style={{ height: '10px', background: 'rgba(255,255,255,0.08)', borderRadius: '999px', overflow: 'hidden', display: 'flex', justifyContent: 'flex-end' }}>
+                            <div style={{ height: '12px', background: 'rgba(255,255,255,0.08)', borderRadius: '999px', overflow: 'hidden' }}>
                                 <div style={{
-                                    width: `${Math.min(100, grDb * 8)}%`,
-                                    background: grDb > 5 ? '#ef4444' : '#10b981',
+                                    width: `${Math.min(100, grDb * 8.5)}%`,
+                                    height: '100%',
+                                    background: grDb > 4 ? '#ef4444' : '#10b981',
                                     transition: 'width 80ms linear'
                                 }} />
+                            </div>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.72rem', color: '#64748b' }}>
+                                <span>0 dB (Open)</span>
+                                <span>-6 dB</span>
+                                <span>-12 dB (Squashed)</span>
                             </div>
                         </div>
                     </div>
