@@ -5608,34 +5608,19 @@
               "explanation": "<img src=\"/images/mastering_audio_formats_wav_vs_mp3_diagram.svg\" alt=\"Q4: Digital Audio Formats: Lossless WAV vs Lossy MP3\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> WAV is an uncompressed lossless format preserving 100% of recorded audio data. MP3 is a lossy format using perceptual coding to discard inaudible frequencies, reducing file size by ~90% at the cost of transient smear and high-frequency loss.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Uncompressed WAV preserves every single bit of recorded audio resolution, whereas MP3 intelligently sacrifices inaudible data to achieve compact portability.\"<br/><strong>- Digital Audio Technology Guide</strong></blockquote>"
             },
             {
-              "title": "Q5: Loudness Standards: What is LUFS?",
-              "type": "multi_choice",
-              "content": "What is LUFS in modern audio mastering?",
-              "answers": [
-                {
-                  "text": "Standard measuring perceived audio loudness",
-                  "is_true": "yes"
-                },
-                {
-                  "text": "Stereo phase correlation between L and R",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Room reverberation decay time over 60 dB",
-                  "is_true": "no"
-                },
-                {
-                  "text": "Analogue tape saturation on console buses",
-                  "is_true": "no"
-                }
-              ],
-              "expert_explanation": "LUFS (Loudness Units Full Scale) measures perceived loudness over time. It incorporates K-weighting to match human hearing sensitivity, allowing streaming services (like Spotify at -14 LUFS) to normalize tracks and eliminate jarring volume differences.",
-              "expert_quote": {
-                "text": "LUFS does not measure electrical voltage; it measures how loud music actually sounds to human ears over time.",
-                "author": "ITU-R BS.1770 Loudness Recommendation"
-              },
+              "title": "Q5: Practical Mastering Levels — Streaming Loudness (LUFS)",
+              "content": "Dial in the standard integrated loudness target (LUFS) used by streaming platforms like Spotify and YouTube.",
+              "type": "parameter_matching",
+              "label": "Streaming Loudness Target",
+              "min": -24,
+              "max": -4,
+              "step": 1,
+              "correct_value": -14,
+              "tolerance": 2,
+              "unit": " LUFS",
               "img": "/images/mastering_lufs_k_weighting_diagram.svg",
-              "explanation": "<img src=\"/images/mastering_lufs_k_weighting_diagram.svg\" alt=\"Q5: Loudness Standards: What is LUFS?\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> LUFS (Loudness Units Full Scale) measures perceived loudness over time. It incorporates K-weighting to match human hearing sensitivity, allowing streaming services (like Spotify at -14 LUFS) to normalize tracks and eliminate jarring volume differences.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"LUFS does not measure electrical voltage; it measures how loud music actually sounds to human ears over time.\"<br/><strong>- ITU-R BS.1770 Loudness Recommendation</strong></blockquote>"
+              "expert_explanation": "Streaming platforms like Spotify and YouTube normalise tracks to around -14 LUFS (Loudness Units Full Scale) so listeners hear consistent perceived loudness without over-squashing dynamics.",
+              "explanation": "<p><strong>Expert Explanation:</strong> Streaming platforms like Spotify and YouTube normalise tracks to around -14 LUFS (Loudness Units Full Scale) so listeners hear consistent perceived loudness without over-squashing dynamics.</p>"
             },
             {
               "title": "Q6: Mastering History: The Loudness Wars",
