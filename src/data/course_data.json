@@ -5608,19 +5608,46 @@
               "explanation": "<img src=\"/images/mastering_audio_formats_wav_vs_mp3_diagram.svg\" alt=\"Q4: Digital Audio Formats: Lossless WAV vs Lossy MP3\" style=\"width:100%; border-radius:8px; margin-bottom:10px;\" /><p><strong>Expert Explanation:</strong> WAV is an uncompressed lossless format preserving 100% of recorded audio data. MP3 is a lossy format using perceptual coding to discard inaudible frequencies, reducing file size by ~90% at the cost of transient smear and high-frequency loss.</p><blockquote style=\"border-left: 4px solid #3b82f6; padding-left: 10px; margin-top: 10px; font-style: italic;\">\"Uncompressed WAV preserves every single bit of recorded audio resolution, whereas MP3 intelligently sacrifices inaudible data to achieve compact portability.\"<br/><strong>- Digital Audio Technology Guide</strong></blockquote>"
             },
             {
-              "title": "Q5: Practical Mastering Levels — Streaming Loudness (LUFS)",
-              "content": "Dial in the standard integrated loudness target (LUFS) used by streaming platforms like Spotify and YouTube.",
-              "type": "parameter_matching",
-              "label": "Streaming Loudness Target",
-              "min": -24,
-              "max": -4,
-              "step": 1,
-              "correct_value": -14,
-              "tolerance": 2,
-              "unit": " LUFS",
-              "img": "/images/mastering_lufs_k_weighting_diagram.svg",
-              "expert_explanation": "Streaming platforms like Spotify and YouTube normalise tracks to around -14 LUFS (Loudness Units Full Scale) so listeners hear consistent perceived loudness without over-squashing dynamics.",
-              "explanation": "<p><strong>Expert Explanation:</strong> Streaming platforms like Spotify and YouTube normalise tracks to around -14 LUFS (Loudness Units Full Scale) so listeners hear consistent perceived loudness without over-squashing dynamics.</p>"
+              "title": "Q5: Mastering Level Targets",
+              "content": "Match each mastering level or loudness target to its studio role.",
+              "type": "signal-flow-label",
+              "hide_arrows": true,
+              "flowSteps": [
+                {
+                  "id": "lv1",
+                  "label": "Standard loudness target for Spotify & YouTube",
+                  "placeholder": "Drop Level..."
+                },
+                {
+                  "id": "lv2",
+                  "label": "Maximum digital ceiling before harsh clipping",
+                  "placeholder": "Drop Level..."
+                },
+                {
+                  "id": "lv3",
+                  "label": "Safe limiter output ceiling for streaming export",
+                  "placeholder": "Drop Level..."
+                },
+                {
+                  "id": "lv4",
+                  "label": "Recommended unmastered mix headroom",
+                  "placeholder": "Drop Level..."
+                }
+              ],
+              "terms": [
+                "-1 dBFS",
+                "-6 dBFS to -3 dBFS",
+                "0 dBFS",
+                "-14 LUFS"
+              ],
+              "correctAnswers": {
+                "lv1": "-14 LUFS",
+                "lv2": "0 dBFS",
+                "lv3": "-1 dBFS",
+                "lv4": "-6 dBFS to -3 dBFS"
+              },
+              "expert_explanation": "Before mastering, engineers leave -6 dBFS to -3 dBFS of headroom. During mastering, a limiter ceiling around -1 dBFS prevents clipping at 0 dBFS, while streaming platforms normalise tracks to -14 LUFS.",
+              "explanation": "<p><strong>Expert Explanation:</strong> Before mastering, engineers leave -6 dBFS to -3 dBFS of headroom. During mastering, a limiter ceiling around -1 dBFS prevents clipping at 0 dBFS, while streaming platforms normalise tracks to -14 LUFS.</p>"
             },
             {
               "title": "Q6: Mastering History: The Loudness Wars",
