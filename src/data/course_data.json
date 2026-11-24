@@ -6409,32 +6409,31 @@
               "explanation": "<p><strong>Expert Explanation:</strong> An audio interface provides preamps plus Analogue-to-Digital (ADC) and Digital-to-Analogue (DAC) conversion between studio gear and your DAW.</p>"
             },
             {
-              "title": "Practical Task: Studio Patchbay Insert Routing",
-              "content": "Trace an audio signal routed from a mixing console channel strip through an outboard hardware compressor via an analogue patchbay.",
+              "title": "Q4 (Practical Order): Channel Strip & Insert Signal Flow",
+              "content": "Drag the 5 stages into the correct series signal flow order from Microphone Preamp (Top) to Stereo Mix Bus (Bottom).",
               "type": "drag_drop",
               "items": [
-                "Console Channel Strip Preamp Stage",
-                "Console Insert Send Jack (Top Patchbay Row)",
-                "Patch Cable to Outboard Compressor Audio Input",
-                "Hardware Compressor Processing (Threshold / Ratio Gain Reduction)",
-                "Compressor Audio Output to Console Insert Return Jack (Bottom Patchbay Row)",
-                "Console Channel Fader & Pan Pot to Mix Bus"
+                "Insert Return → Channel Fader",
+                "Channel EQ (Tone shaping)",
+                "Stereo Master Bus (Mix output)",
+                "Mic Preamp (Mic level to Line level)",
+                "Insert Send → Outboard Compressor"
               ],
               "correct_order": [
-                "Console Channel Strip Preamp Stage",
-                "Console Insert Send Jack (Top Patchbay Row)",
-                "Patch Cable to Outboard Compressor Audio Input",
-                "Hardware Compressor Processing (Threshold / Ratio Gain Reduction)",
-                "Compressor Audio Output to Console Insert Return Jack (Bottom Patchbay Row)",
-                "Console Channel Fader & Pan Pot to Mix Bus"
+                "Mic Preamp (Mic level to Line level)",
+                "Channel EQ (Tone shaping)",
+                "Insert Send → Outboard Compressor",
+                "Insert Return → Channel Fader",
+                "Stereo Master Bus (Mix output)"
               ],
-              "explanation": "<p><strong>Patchbay Insert Routing:</strong> On standard studio patchbays, top jacks are outputs (Insert Send) and bottom jacks are inputs (Insert Return). The preamp signal leaves the console via the Insert Send, enters the outboard compressor, processes the dynamic envelope, returns into the console Insert Return immediately before the channel EQ and fader.</p>",
+              "explanation": "<p><strong>Expert Explanation:</strong> In a mixing console channel strip, the Mic Preamp boosts signal to line level, followed by Channel EQ, Insert Send to an outboard compressor, Insert Return back to the Channel Fader, and finally the Stereo Master Bus.</p>",
               "expert_quote": {
                 "text": "Patchbays are the nervous system of the recording studio. Standardizing on top-output / bottom-input prevents catastrophic feedback loops.",
                 "author": "Dave Pensado, Grammy-Winning Mix Engineer (Pensado's Place)"
               },
-              "img": "/images/svg/insert_flow.svg",
-              "expert_explanation": "Patchbay Insert Routing: On standard studio patchbays, top jacks are outputs (Insert Send) and bottom jacks are inputs (Insert Return). The preamp signal leaves the console via the Insert Send, enters the outboard compressor, processes the dynamic envelope, returns into the console Insert Return immediately before the channel EQ and fader."
+              "expert_explanation": "In a mixing console channel strip, the Mic Preamp boosts signal to line level, followed by Channel EQ, Insert Send to an outboard compressor, Insert Return back to the Channel Fader, and finally the Stereo Master Bus.",
+              "top_label": "▲ START (Channel Input)",
+              "bottom_label": "▼ END (Mix Output)"
             },
             {
               "title": "Q5: Figure-8 Polar Pattern",
