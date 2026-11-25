@@ -32,6 +32,22 @@ const Component2Guide = lazy(() => import('./components/Component2Guide/Componen
 const EdexcelExaminerPanel = lazy(() => import('./components/EdexcelExaminerPanel'));
 const WelcomeVideoModal = lazy(() => import('./components/WelcomeVideoModal'));
 const UpdatePasswordModal = lazy(() => import('./components/UpdatePasswordModal'));
+const StudioTrainerFrame = lazy(() => import('./components/StudioTrainerFrame'));
+
+// Studio Trainers: each one opens a tool from public/student-toolkit.html (#hash = tool id)
+const STUDIO_TRAINERS = [
+  { tool: 'ear', icon: '🎧', title: 'EQ Ear Trainer' },
+  { tool: 'comp', icon: '🗜️', title: 'Compressor Trainer' },
+  { tool: 'gate', icon: '🚪', title: 'Noise Gate Trainer' },
+  { tool: 'synth', icon: '🎹', title: 'Synth Trainer' },
+  { tool: 'samp', icon: '🎛️', title: 'Sampler Trainer' },
+  { tool: 'fx', icon: '✨', title: 'Effects Trainer' },
+  { tool: 'mix', icon: '🎚️', title: 'Mixing Trainer' },
+  { tool: 'delay', icon: '⏱️', title: 'Delay Trainer' },
+  { tool: 'freq', icon: '📊', title: 'Frequency Trainer' },
+  { tool: 'terms', icon: '📖', title: 'Terminology Checker' },
+  { tool: 'keys', icon: '⌨️', title: 'Logic Pro Shortcuts' },
+];
 import GuruBuddy from './components/GuruBuddy/GuruBuddy';
 
 const LoadingFallback = () => (
@@ -71,6 +87,9 @@ const isPremiumItem = (item) => {
   if (!item) return false;
   if (item.isPremium) return true;
   const key = item.type || item.id;
+  if (key === 'studio_trainer') {
+    return item.tool !== 'ear' && item.tool !== 'freq';
+  }
   return (
     key === 'tracksheet_creator' ||
     key === 'component1_guide' ||
@@ -164,6 +183,10 @@ const resolveItemFromLocation = (useDevSession = false) => {
   }
   if (params.get('upgrade') === 'true' || quizParam === 'upgrade' || quizParam === 'pricing' || quizParam === 'pro') {
     return { type: 'premium_locked', title: 'MTG Pro Membership & Classroom Packs' };
+  }
+  if (quizParam && quizParam.startsWith('trainer_')) {
+    const trainer = STUDIO_TRAINERS.find(t => `trainer_${t.tool}` === quizParam);
+    if (trainer) return { id: quizParam, type: 'studio_trainer', tool: trainer.tool, title: trainer.title };
   }
   if (quizParam) {
     if (quizParam === 'dictionary_selector') {
@@ -757,6 +780,20 @@ const MainApp = () => {
         </div>
 
         <nav className="sidebar-nav">
+          {/* Teacher Dashboard Quick Access */}
+          <button
+            className={`nav-item-clean ${appView === 'teacher' ? 'active' : ''}`}
+            onClick={openTeacherDashboard}
+            style={{
+              border: '1px solid rgba(56, 189, 248, 0.35)',
+              background: appView === 'teacher' ? 'rgba(56, 189, 248, 0.2)' : 'rgba(56, 189, 248, 0.08)'
+            }}
+          >
+            <span className="nav-item-label">
+              <span>👩‍🏫</span> Teacher Dashboard
+            </span>
+          </button>
+
           {/* Primary Focus */}
           <button
             className={`nav-item-clean primary-hero ${!activeItem && appView === 'student' ? 'active' : ''}`}
@@ -861,6 +898,33 @@ const MainApp = () => {
               <span>🗺️</span> 24-Week Revision Planner
             </span>
           </button>
+
+          {/* Studio Trainers (public/student-toolkit.html) */}
+          <div className="sidebar-section-label">Studio Trainers</div>
+          {STUDIO_TRAINERS.map(t => {
+            const isFreeTrainer = t.tool === 'ear' || t.tool === 'freq';
+            const isTrainerLocked = !isFreeTrainer && !currentUser?.is_premium;
+            return (
+              <button
+                key={t.tool}
+                className={`nav-item-clean ${activeItem?.type === 'studio_trainer' && activeItem?.tool === t.tool ? 'active' : ''}`}
+                onClick={() => {
+                  handleItemSelectWrapper({
+                    id: `trainer_${t.tool}`,
+                    type: 'studio_trainer',
+                    tool: t.tool,
+                    title: t.title,
+                    ...(!isFreeTrainer ? { isPremium: true } : {})
+                  });
+                }}
+              >
+                <span className="nav-item-label">
+                  <span>{t.icon}</span> {t.title}
+                </span>
+                {isTrainerLocked && <span style={{ fontSize: '0.75rem', opacity: 0.7 }}>🔒</span>}
+              </button>
+            );
+          })}
 
           {/* Curriculum Stages Header */}
           <div className="stages-overview-header">
@@ -1090,15 +1154,6 @@ const MainApp = () => {
               </span>
               <span className="nav-item-badge">↗</span>
             </a>
-
-            <button
-              className={`nav-item-clean ${appView === 'teacher' ? 'active' : ''}`}
-              onClick={openTeacherDashboard}
-            >
-              <span className="nav-item-label">
-                <span>👩‍🏫</span> Teacher Dashboard
-              </span>
-            </button>
           </div>
         </nav>
       </aside>
@@ -1179,6 +1234,8 @@ const MainApp = () => {
                 campaignNodeId={activeItem.campaignNodeId}
                 onBack={goToDashboardWrapper} 
               />
+            ) : activeItem.type === 'studio_trainer' ? (
+              <StudioTrainerFrame tool={activeItem.tool} title={activeItem.title} onBack={goToDashboardWrapper} />
             ) : activeItem.type === 'timetable_builder' ? (
               <TimetableBuilder onNavigate={handleItemSelectWrapper} onBack={goToDashboardWrapper} />
             ) : activeItem.type === 'tracksheet_creator' ? (

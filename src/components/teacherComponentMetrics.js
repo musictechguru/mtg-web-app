@@ -915,6 +915,7 @@ export const DEFAULT_SAMPLE_STUDENTS = [
             mastery: { '1': 85, '2': 80, '4': 75, '5': 90 },
             quizzesCompleted: 6,
             totalScore: 142,
+            campaignCompleted: ['node_1', 'node_2', 'node_3', 'node_4', 'node_5', 'node_6', 'node_7', 'node_r1_new_1', 'node_r1_new_2', 'node_8', 'node_9'],
             component1Guide: {
                 sessionInfo: { prescribedTrack: 'Superstition', artist: 'Stevie Wonder', daw: 'Logic Pro X' },
                 markSchemeTicks: {}
@@ -937,6 +938,7 @@ export const DEFAULT_SAMPLE_STUDENTS = [
             mastery: { '1': 92, '2': 88, '4': 85, '5': 80 },
             quizzesCompleted: 8,
             totalScore: 195,
+            campaignCompleted: ['node_1', 'node_2', 'node_3', 'node_4', 'node_5', 'node_6', 'node_7', 'node_r1_new_1', 'node_r1_new_2', 'node_8', 'node_9', 'node_15', 'node_16'],
             component1Guide: {
                 sessionInfo: { prescribedTrack: 'Black Dog', artist: 'Led Zeppelin', daw: 'Logic Pro X' },
                 markSchemeTicks: {}

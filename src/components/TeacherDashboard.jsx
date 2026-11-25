@@ -4,6 +4,7 @@ import { supabase } from '../config/supabase';
 import StudentProgressModal from './StudentProgressModal';
 import AssignmentModal from './AssignmentModal';
 import EdexcelExaminerPanel from './EdexcelExaminerPanel';
+import TeacherProgressReport from './TeacherProgressReport.jsx';
 import {
     SIMPLE_C1_CHECKLIST,
     SIMPLE_C2_CHECKLIST,
@@ -23,12 +24,13 @@ const TeacherDashboard = ({ onBack }) => {
     const [buying, setBuying] = useState(false);
     const [copied, setCopied] = useState(false);
 
-    // Active view: 'matrix' (All students table) or 'student_ticks' (Fill-in mode for a student) or 'assignments' (Homework links)
-    const [viewMode, setViewMode] = useState('matrix');
+    // Active view: 'progress_report' (main App & Path to Legend view) | 'matrix' | 'student_ticks' | 'assignments' | 'examiner_grader'
+    const [viewMode, setViewMode] = useState('progress_report');
+    const [reportComponentFilter, setReportComponentFilter] = useState('all'); // 'all' | 'c1' | 'c2' | 'c3' | 'c4'
     const [selectedStudentId, setSelectedStudentId] = useState('teacher_live');
     const [selectedStudentForModal, setSelectedStudentForModal] = useState(null);
     const [activeComponentTab, setActiveComponentTab] = useState('all'); // 'all' | 'c1' | 'c2' | 'c3' | 'c4'
-    const [searchQuery, setSearchQuery] = useState('');
+    const [searchQuery] = useState('');
     const [showAssignmentModal, setShowAssignmentModal] = useState(false);
     const [assigningBlockId, setAssigningBlockId] = useState('block-1');
     const [copiedAssignmentId, setCopiedAssignmentId] = useState(null);
@@ -194,42 +196,6 @@ const TeacherDashboard = ({ onBack }) => {
         }));
     };
 
-    // Reset both C1 and C2 ticks for ALL students (Teacher & Student)
-    const resetAllStudentsC1C2 = () => {
-        if (!window.confirm("Are you sure you want to reset all Component 1 and Component 2 ticks for all students?")) {
-            return;
-        }
-        setTeacherTicks(prev => {
-            const updated = {};
-            Object.keys(prev).forEach(sid => {
-                updated[sid] = {
-                    ...prev[sid],
-                    c1: {},
-                    c2: {}
-                };
-            });
-            return updated;
-        });
-        setStudents(prev => prev.map(s => ({
-            ...s,
-            progress: {
-                ...(s.progress || {}),
-                component1Guide: {
-                    ...(s.progress?.component1Guide || {}),
-                    markSchemeTicks: {},
-                    checkedItems: {},
-                    completedTechniques: {}
-                },
-                component2Guide: {
-                    ...(s.progress?.component2Guide || {}),
-                    markSchemeTicks: {},
-                    checkedItems: {},
-                    completedTechniques: {}
-                }
-            }
-        })));
-    };
-
     // Load real student roster from Supabase or default authentic cohort
     const loadStudents = useCallback(async () => {
         setLoadingStats(true);
@@ -336,23 +302,6 @@ const TeacherDashboard = ({ onBack }) => {
         });
     }, [allProfiles, teacherTicks]);
 
-    // Class average statistics
-    const classSummary = useMemo(() => {
-        const count = evaluatedProfiles.length;
-        if (count === 0) return { c1Avg: 0, c2Avg: 0, c3Avg: 0, c4Avg: 0, overallAvg: 0 };
-        const c1Sum = evaluatedProfiles.reduce((acc, p) => acc + p.metrics.c1Pct, 0);
-        const c2Sum = evaluatedProfiles.reduce((acc, p) => acc + p.metrics.c2Pct, 0);
-        const c3Sum = evaluatedProfiles.reduce((acc, p) => acc + p.metrics.c3Pct, 0);
-        const c4Sum = evaluatedProfiles.reduce((acc, p) => acc + p.metrics.c4Pct, 0);
-        return {
-            c1Avg: Math.round(c1Sum / count),
-            c2Avg: Math.round(c2Sum / count),
-            c3Avg: Math.round(c3Sum / count),
-            c4Avg: Math.round(c4Sum / count),
-            overallAvg: Math.round((c1Sum + c2Sum + c3Sum + c4Sum) / (count * 4))
-        };
-    }, [evaluatedProfiles]);
-
     // Filtered student list
     const filteredProfiles = useMemo(() => {
         return evaluatedProfiles.filter(p => {
@@ -406,7 +355,7 @@ const TeacherDashboard = ({ onBack }) => {
                         </span>
                     </div>
                     <p style={{ margin: 0, color: 'var(--text-secondary)', fontSize: '0.88rem' }}>
-                        Simple 4-Component progress overview and interactive tick list. Click any checkbox to update student progress in real-time.
+                        Track candidate progress across the app and Path to Legend (C1–C4), and spot where students may need support.
                     </p>
                 </div>
 
@@ -464,211 +413,6 @@ const TeacherDashboard = ({ onBack }) => {
                     </button>
                 </div>
             </header>
-
-            {/* 4 Clean Component Summary Cards */}
-            <div style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
-                gap: '14px',
-                marginBottom: '24px'
-            }}>
-                {/* C1 Card */}
-                <div style={{ background: 'rgba(56, 189, 248, 0.05)', border: '1px solid rgba(56, 189, 248, 0.25)', borderRadius: '14px', padding: '16px' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
-                        <span style={{ fontSize: '0.8rem', fontWeight: 800, color: '#38bdf8' }}>🎙️ Component 1: Recording</span>
-                        <span style={{ fontSize: '1.25rem', fontWeight: 800, color: '#fff' }}>{classSummary.c1Avg}%</span>
-                    </div>
-                    <div style={{ height: '6px', background: 'rgba(255,255,255,0.08)', borderRadius: '999px', overflow: 'hidden' }}>
-                        <div style={{ width: `${classSummary.c1Avg}%`, height: '100%', background: '#38bdf8' }} />
-                    </div>
-                    <div style={{ fontSize: '0.74rem', color: '#94a3b8', marginTop: '6px' }}>
-                        Coursework (20%) • 8 Key Milestones
-                    </div>
-                </div>
-
-                {/* C2 Card */}
-                <div style={{ background: 'rgba(244, 114, 182, 0.05)', border: '1px solid rgba(244, 114, 182, 0.25)', borderRadius: '14px', padding: '16px' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
-                        <span style={{ fontSize: '0.8rem', fontWeight: 800, color: '#f472b6' }}>🎹 Component 2: Composition</span>
-                        <span style={{ fontSize: '1.25rem', fontWeight: 800, color: '#fff' }}>{classSummary.c2Avg}%</span>
-                    </div>
-                    <div style={{ height: '6px', background: 'rgba(255,255,255,0.08)', borderRadius: '999px', overflow: 'hidden' }}>
-                        <div style={{ width: `${classSummary.c2Avg}%`, height: '100%', background: '#f472b6' }} />
-                    </div>
-                    <div style={{ fontSize: '0.74rem', color: '#94a3b8', marginTop: '6px' }}>
-                        Coursework (20%) • 8 Key Milestones
-                    </div>
-                </div>
-
-                {/* C3 Card */}
-                <div style={{ background: 'rgba(168, 85, 247, 0.05)', border: '1px solid rgba(168, 85, 247, 0.25)', borderRadius: '14px', padding: '16px' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
-                        <span style={{ fontSize: '0.8rem', fontWeight: 800, color: '#c084fc' }}>🎧 Component 3: Listening</span>
-                        <span style={{ fontSize: '1.25rem', fontWeight: 800, color: '#fff' }}>{classSummary.c3Avg}%</span>
-                    </div>
-                    <div style={{ height: '6px', background: 'rgba(255,255,255,0.08)', borderRadius: '999px', overflow: 'hidden' }}>
-                        <div style={{ width: `${classSummary.c3Avg}%`, height: '100%', background: '#c084fc' }} />
-                    </div>
-                    <div style={{ fontSize: '0.74rem', color: '#94a3b8', marginTop: '6px' }}>
-                        Exam Paper (25%) • 8 Key Milestones
-                    </div>
-                </div>
-
-                {/* C4 Card */}
-                <div style={{ background: 'rgba(16, 185, 129, 0.05)', border: '1px solid rgba(16, 185, 129, 0.25)', borderRadius: '14px', padding: '16px' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
-                        <span style={{ fontSize: '0.8rem', fontWeight: 800, color: '#34d399' }}>🎛️ Component 4: Producing</span>
-                        <span style={{ fontSize: '1.25rem', fontWeight: 800, color: '#fff' }}>{classSummary.c4Avg}%</span>
-                    </div>
-                    <div style={{ height: '6px', background: 'rgba(255,255,255,0.08)', borderRadius: '999px', overflow: 'hidden' }}>
-                        <div style={{ width: `${classSummary.c4Avg}%`, height: '100%', background: '#34d399' }} />
-                    </div>
-                    <div style={{ fontSize: '0.74rem', color: '#94a3b8', marginTop: '6px' }}>
-                        DAW Practical Exam (35%) • 8 Key Milestones
-                    </div>
-                </div>
-            </div>
-
-            {/* View Mode Toggle Bar */}
-            <div style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                flexWrap: 'wrap',
-                gap: '12px',
-                marginBottom: '18px'
-            }}>
-                <div style={{ display: 'flex', background: 'rgba(15, 23, 42, 0.75)', padding: '4px', borderRadius: '12px', border: '1px solid rgba(255, 255, 255, 0.1)' }}>
-                    <button
-                        onClick={() => setViewMode('matrix')}
-                        style={{
-                            padding: '9px 18px',
-                            borderRadius: '8px',
-                            border: 'none',
-                            background: viewMode === 'matrix' ? '#38bdf8' : 'transparent',
-                            color: viewMode === 'matrix' ? '#0f172a' : '#cbd5e1',
-                            fontWeight: 800,
-                            fontSize: '0.86rem',
-                            cursor: 'pointer'
-                        }}
-                    >
-                        📋 Class Overview & Matrix
-                    </button>
-                    <button
-                        onClick={() => setViewMode('student_ticks')}
-                        style={{
-                            padding: '9px 18px',
-                            borderRadius: '8px',
-                            border: 'none',
-                            background: viewMode === 'student_ticks' ? '#38bdf8' : 'transparent',
-                            color: viewMode === 'student_ticks' ? '#0f172a' : '#cbd5e1',
-                            fontWeight: 800,
-                            fontSize: '0.86rem',
-                            cursor: 'pointer'
-                        }}
-                    >
-                        ✅ Fill In Student Tick List ({activeStudent.full_name.split(' ')[0]})
-                    </button>
-                    <button
-                        onClick={() => {
-                            reloadSavedAssignments();
-                            setViewMode('assignments');
-                        }}
-                        style={{
-                            padding: '9px 18px',
-                            borderRadius: '8px',
-                            border: 'none',
-                            background: viewMode === 'assignments' ? '#38bdf8' : 'transparent',
-                            color: viewMode === 'assignments' ? '#0f172a' : '#cbd5e1',
-                            fontWeight: 800,
-                            fontSize: '0.86rem',
-                            cursor: 'pointer'
-                        }}
-                    >
-                        📅 Homework Links & Assignments
-                    </button>
-                    <button
-                        onClick={() => setViewMode('examiner_grader')}
-                        style={{
-                            padding: '9px 18px',
-                            borderRadius: '8px',
-                            border: 'none',
-                            background: viewMode === 'examiner_grader' ? '#10b981' : 'transparent',
-                            color: viewMode === 'examiner_grader' ? '#0f172a' : '#34d399',
-                            fontWeight: 800,
-                            fontSize: '0.86rem',
-                            cursor: 'pointer'
-                        }}
-                    >
-                        🎓 15 & 20-Mark Examiner & School License
-                    </button>
-                </div>
-
-                <div style={{ display: 'flex', gap: '10px', alignItems: 'center', flexWrap: 'wrap' }}>
-                    <button
-                        onClick={() => {
-                            setAssigningBlockId('block-1');
-                            setShowAssignmentModal(true);
-                        }}
-                        style={{
-                            padding: '8px 16px',
-                            borderRadius: '8px',
-                            border: '1px solid rgba(56, 189, 248, 0.5)',
-                            background: 'linear-gradient(135deg, rgba(56, 189, 248, 0.2), rgba(99, 102, 241, 0.2))',
-                            color: '#38bdf8',
-                            fontWeight: 700,
-                            fontSize: '0.84rem',
-                            cursor: 'pointer',
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: '6px'
-                        }}
-                    >
-                        <span>📋</span> + Create Homework Link
-                    </button>
-
-                    {viewMode === 'matrix' && (
-                        <>
-                            <input
-                                type="text"
-                                placeholder="🔍 Filter student..."
-                                value={searchQuery}
-                                onChange={(e) => setSearchQuery(e.target.value)}
-                                style={{
-                                    background: 'rgba(15, 23, 42, 0.8)',
-                                    border: '1px solid rgba(255, 255, 255, 0.12)',
-                                    color: '#fff',
-                                    padding: '7px 14px',
-                                    borderRadius: '8px',
-                                    fontSize: '0.84rem',
-                                    outline: 'none',
-                                    width: '200px'
-                                }}
-                            />
-                            <button
-                                onClick={resetAllStudentsC1C2}
-                                style={{
-                                    background: 'rgba(239, 68, 68, 0.12)',
-                                    border: '1px solid rgba(239, 68, 68, 0.35)',
-                                    color: '#fca5a5',
-                                    padding: '7px 14px',
-                                    borderRadius: '8px',
-                                    fontSize: '0.82rem',
-                                    fontWeight: 700,
-                                    cursor: 'pointer',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    gap: '6px',
-                                    whiteSpace: 'nowrap'
-                                }}
-                                title="Reset all Component 1 and Component 2 ticks for all students"
-                            >
-                                ↺ Reset All C1 & C2 Ticks
-                            </button>
-                        </>
-                    )}
-                </div>
-            </div>
 
             {/* =========================================================
                 VIEW 1: CLASS OVERVIEW & PROGRESS MATRIX
@@ -865,6 +609,21 @@ const TeacherDashboard = ({ onBack }) => {
                         </div>
                     )}
                 </div>
+            )}
+
+            {/* =========================================================
+                VIEW 1B: C1–C4 APP & PATH TO LEGEND PROGRESS REPORT
+                ========================================================= */}
+            {viewMode === 'progress_report' && (
+                <TeacherProgressReport
+                    students={allProfiles}
+                    teacherTicks={teacherTicks}
+                    selectedStudentId={selectedStudentId}
+                    onSelectStudent={(id) => setSelectedStudentId(id)}
+                    activeComponent={reportComponentFilter}
+                    onSelectComponent={(comp) => setReportComponentFilter(comp)}
+                    onOpenStudentModal={(student) => setSelectedStudentForModal(student)}
+                />
             )}
 
             {/* =========================================================
