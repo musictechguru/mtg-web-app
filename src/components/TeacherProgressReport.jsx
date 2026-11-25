@@ -4,30 +4,6 @@ import {
     buildStudentProgressReport
 } from './teacherProgressReport.js';
 
-const SEVERITY_STYLE = {
-    critical: {
-        bg: 'rgba(239, 68, 68, 0.12)',
-        border: 'rgba(239, 68, 68, 0.4)',
-        text: '#fca5a5',
-        badgeBg: 'rgba(239, 68, 68, 0.25)',
-        label: 'Action Needed'
-    },
-    warning: {
-        bg: 'rgba(245, 158, 11, 0.1)',
-        border: 'rgba(245, 158, 11, 0.35)',
-        text: '#fcd34d',
-        badgeBg: 'rgba(245, 158, 11, 0.22)',
-        label: 'Watch'
-    },
-    info: {
-        bg: 'rgba(56, 189, 248, 0.08)',
-        border: 'rgba(56, 189, 248, 0.3)',
-        text: '#7dd3fc',
-        badgeBg: 'rgba(56, 189, 248, 0.2)',
-        label: 'Note'
-    }
-};
-
 const TeacherProgressReport = ({
     students = [],
     teacherTicks = {},
@@ -276,67 +252,6 @@ const TeacherProgressReport = ({
                         </div>
                     </div>
 
-                    {/* App & Path to Legend Problems */}
-                    <div style={{
-                        background: 'var(--bg-panel)',
-                        border: '1px solid rgba(255, 255, 255, 0.08)',
-                        borderRadius: '16px',
-                        padding: '20px'
-                    }}>
-                        <h3 style={{ margin: '0 0 12px 0', fontSize: '1.05rem', fontWeight: 800, color: '#fcd34d' }}>
-                            ⚠️ Where There May Be Problems (App &amp; Path to Legend)
-                        </h3>
-                        {individualReport.problems.length === 0 ? (
-                            <div style={{
-                                padding: '12px 14px',
-                                borderRadius: '10px',
-                                background: 'rgba(16, 185, 129, 0.1)',
-                                border: '1px solid rgba(16, 185, 129, 0.3)',
-                                color: '#6ee7b7',
-                                fontSize: '0.84rem',
-                                fontWeight: 700
-                            }}>
-                                ✓ No problems flagged across the app or Path to Legend.
-                            </div>
-                        ) : (
-                            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '10px' }}>
-                                {individualReport.problems.map((prob) => {
-                                    const st = SEVERITY_STYLE[prob.severity] || SEVERITY_STYLE.info;
-                                    return (
-                                        <div
-                                            key={prob.id}
-                                            style={{
-                                                background: st.bg,
-                                                border: `1px solid ${st.border}`,
-                                                borderRadius: '10px',
-                                                padding: '12px 14px'
-                                            }}
-                                        >
-                                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '8px' }}>
-                                                <span style={{ fontSize: '0.84rem', fontWeight: 700, color: '#fff' }}>
-                                                    {prob.title}
-                                                </span>
-                                                <span style={{
-                                                    fontSize: '0.68rem',
-                                                    fontWeight: 800,
-                                                    background: st.badgeBg,
-                                                    color: st.text,
-                                                    padding: '2px 7px',
-                                                    borderRadius: '5px',
-                                                    whiteSpace: 'nowrap'
-                                                }}>
-                                                    {st.label}
-                                                </span>
-                                            </div>
-                                            <div style={{ fontSize: '0.76rem', color: '#cbd5e1', marginTop: '4px', lineHeight: 1.35 }}>
-                                                {prob.detail}
-                                            </div>
-                                        </div>
-                                    );
-                                })}
-                            </div>
-                        )}
-                    </div>
                 </div>
             )}
         </div>
