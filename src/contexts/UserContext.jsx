@@ -413,28 +413,40 @@ export const UserProvider = ({ children }) => {
 
     const fetchClassProgress = async () => {
         try {
-            // First attempt the RPC function if authenticated as teacher
-            if (currentUser?.role === 'teacher') {
+            // First attempt the RPC function if authenticated as teacher or admin
+            if (currentUser?.role === 'teacher' || currentUser?.role === 'admin') {
                 const { data, error } = await supabase.rpc('get_teacher_class_progress');
-                if (!error && Array.isArray(data)) {
+                if (!error && Array.isArray(data) && data.length > 0) {
                     return data;
                 }
             }
 
-            // Fallback: Query profiles directly for students taught by Thor House or Mr Hansom (developer accounts only)
-            const isDevAccount = currentUser?.id === '7ba50a09-985b-4edd-a679-799f79d02353' || currentUser?.id === '249e4f7e-c4d3-4eeb-846a-fdcdcb82d937';
+            // Fallback: Query profiles & user_progress directly for students taught by Thor House, Mr Hansom, or Max Stoner-Taubman
+            const isDevAccount = currentUser?.id === '7ba50a09-985b-4edd-a679-799f79d02353' || 
+                                 currentUser?.id === '249e4f7e-c4d3-4eeb-846a-fdcdcb82d937' || 
+                                 currentUser?.id === '19e29262-3c7d-4510-bdd3-04f06e54fea5';
             if (isDevAccount) {
                 const { data: profiles, error: profErr } = await supabase
                     .from('profiles')
                     .select('id, full_name, role, teacher_id')
-                    .or('teacher_id.eq.7ba50a09-985b-4edd-a679-799f79d02353,teacher_id.eq.249e4f7e-c4d3-4eeb-846a-fdcdcb82d937')
+                    .or('teacher_id.eq.7ba50a09-985b-4edd-a679-799f79d02353,teacher_id.eq.249e4f7e-c4d3-4eeb-846a-fdcdcb82d937,teacher_id.eq.19e29262-3c7d-4510-bdd3-04f06e54fea5')
                     .eq('role', 'student');
 
                 if (!profErr && Array.isArray(profiles) && profiles.length > 0) {
+                    const studentIds = profiles.map(p => p.id);
+                    const { data: progressRows } = await supabase
+                        .from('user_progress')
+                        .select('id, progress')
+                        .in('id', studentIds);
+
+                    const progressById = new Map(
+                        (progressRows || []).map(row => [row.id, row.progress || {}])
+                    );
+
                     return profiles.map(p => ({
                         student_id: p.id,
                         full_name: p.full_name,
-                        progress: {}
+                        progress: progressById.get(p.id) || {}
                     }));
                 }
             }
